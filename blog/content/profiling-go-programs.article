@@ -1,0 +1,451 @@
+Profiling Go Programs
+24 Jun 2011
+Tags: benchmark, optimization, pprof, profiling
+
+Russ Cox
+
+* Introduction
+
+At Scala Days 2011 a few weeks ago, Robert Hundt presented a paper titled [[http://research.google.com/pubs/pub37122.html][Loop Recognition in C++/Java/Go/Scala.]] The paper implemented a specific loop finding algorithm, such as you might use in a flow analysis pass of a compiler, in C++, Go, Java, Scala, and then used those programs to draw conclusions about typical performance concerns in these languages. The Go program presented in that paper runs quite slowly,  making it an excellent opportunity to demonstrate how to use Go's profiling tools to take a slow program and make it faster.
+
+_By_using_Go's_profiling_tools_to_identify_and_correct_specific_bottlenecks,_we_can_make_the_Go_loop_finding_program_run_an_order_of_magnitude_faster_and_use_6x_less_memory._
+
+Hundt's paper does not specify which versions of the C++, Go, Java, and Scala tools he used. In this blog post, we will be using the most recent weekly snapshot of the `6g` Go compiler and the version of `g++` that ships with the Ubuntu Natty distribution. (We will not be using Java or Scala, because we are not skilled at writing efficient programs in either of those languages, so the comparison would be unfair. Since C++ was the fastest language in the paper, the comparisons here with C++ should suffice.)
+
+	$ 6g -V
+	6g version weekly.2011-06-16 8787
+	$ g++ --version
+	g++ (Ubuntu/Linaro 4.5.2-8ubuntu4) 4.5.2
+	...
+	$
+
+The programs are run on a Lenovo X201s with a 2.13 GHz Core i7-based CPU and 4 GB of RAM running Ubuntu Natty's Linux 2.6.38-8-generic kernel. The machine is running with CPU frequency scaling disabled via
+
+	$ sudo bash
+	# for i in /sys/devices/system/cpu/cpu[0-9]
+	do
+	    echo performance > $i/cpufreq/scaling_governor
+	done
+	#
+
+We've taken [[http://code.google.com/p/multi-language-bench/][Hundt's benchmark programs]] in C++ and Go, combined each into a single source file, and removed all but one  line of output. We'll time the program using Linux's `time` utility with a format that shows user time, system time, real time, and maximum memory usage:
+
+	$ cat xtime
+	#!/bin/sh
+	/usr/bin/time -f '%Uu %Ss %er %MkB %C' "$@"
+	$
+
+	$ make havlak1cc
+	g++ -O3 -o havlak1cc havlak1.cc
+	$ xtime havlak1cc
+	# of loops: 76002 (total 3800100)
+	loop-0, nest: 0, depth: 0
+	27.37u 0.08s *27.47r*716864kB*havlak1cc*
+	$
+
+	$ make havlak1
+	6g havlak1.go
+	6l -o havlak1 havlak1.6
+	$ xtime havlak1
+	# of loops: 76000 (including 1 artificial root node)
+	56.63u 0.26s *56.92r*1642640kB*havlak1*
+	$
+
+The C++ program runs in 27.47 seconds and uses 700 MB of memory. The Go program runs in 56.92 seconds and uses 1604 MB of memory. (These measurements are difficult to reconcile with the ones in the paper, but the point of this post is to explore how to use `gopprof`, not to reproduce the results from the paper.)
+
+To start tuning the Go program, we have to enable profiling. If the code used the [[http://golang.org/pkg/testing/][Go testing package]]'s benchmarking support, we could use gotest's standard `-cpuprofile` and `-memprofile` flags. In a standalone program like this one, we have to import `runtime/pprof` and add a few lines of code:
+
+	var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+
+	func main() {
+	    flag.Parse()
+	    if *cpuprofile != "" {
+	        f, err := os.Create(*cpuprofile)
+	        if err != nil {
+	            log.Fatal(err)
+	        }
+	        pprof.StartCPUProfile(f)
+	        defer pprof.StopCPUProfile()
+	    }
+	    ...
+
+The new code defines a flag named `cpuprofile`, calls the [[http://golang.org/pkg/flag/][Go flag library]] to parse the command line flags, and then, if the `cpuprofile` flag has been set on the command line,  [[http://golang.org/pkg/runtime/pprof/#StartCPUProfile][starts CPU profiling]] redirected to that file.  The profiler requires a final call to [[http://golang.org/pkg/runtime/pprof/#StopCPUProfile][`StopCPUProfile`]] to flush any pending writes to the file before the program exits; we use `defer` to make sure this happens as `main` returns.
+
+After adding that code, we can run the program with the new `-cpuprofile` flag and then run `gopprof` to interpret the profile.
+
+	$ make havlak1.prof
+	havlak1 -cpuprofile=havlak1.prof
+	# of loops: 76000 (including 1 artificial root node)
+	$ gopprof havlak1 havlak1.prof
+	Welcome to pprof!  For help, type 'help'.
+	(pprof)
+
+The `gopprof` program is a slight variant of [[http://code.google.com/p/google-perftools/wiki/GooglePerformanceTools][Google's `pprof` C++ profiler]]. The most important command is `topN`, which shows the top `N` samples in the profile:
+
+	(pprof) top10
+	Total: 5758 samples
+	    1028  17.9%  17.9%     1161  20.2% hash_lookup
+	     696  12.1%  29.9%      697  12.1% scanblock
+	     565   9.8%  39.8%     1042  18.1% hash_insert_internal
+	     420   7.3%  47.0%     4278  74.3% main.FindLoops
+	     225   3.9%  51.0%     1149  20.0% main.DFS
+	     225   3.9%  54.9%      226   3.9% memhash
+	     198   3.4%  58.3%      437   7.6% sweep
+	     172   3.0%  61.3%     1902  33.0% runtime.mallocgc
+	     102   1.8%  63.1%      500   8.7% runtime.MCache_Alloc
+	     102   1.8%  64.8%      102   1.8% runtime.memmove
+	(pprof)
+
+When CPU profiling is enabled, the Go program stops about 100 times per second and records a sample consisting of the program counters on the currently executing goroutine's stack. The profile has 5758 samples, so it was running for a bit over 57 seconds. In the `gopprof` output, there is a row for each function that appeared in a sample. The first two columns show the number of samples in which the function was running (as opposed to waiting for a called function to return), as a raw count and as a percentage of total samples. The `hash_lookup` function was running during 1028 samples, or 17.9%. The `top10` output is sorted by this sample count. The third column shows the running total during the listing: the first three rows account for 39.8% of the samples. The fourth and fifth columns show the number of samples in which the function appeared (either running or waiting for a called function to return). The `main.FindLoops` function was running in 7.3% of the samples, but it was on the call stack (it or functions it called were running) in 74.3% of the samples.
+
+To sort by the fourth and fifth columns, use the `-cum` (for cumulative) flag:
+
+	(pprof) top5 -cum
+	Total: 5758 samples
+	       0   0.0%   0.0%     4301  74.7% main.main
+	       0   0.0%   0.0%     4301  74.7% runtime.initdone
+	       0   0.0%   0.0%     4301  74.7% runtime.mainstart
+	       0   0.0%   0.0%     4278  74.3% main.FindHavlakLoops
+	     420   7.3%   7.3%     4278  74.3% main.FindLoops
+	(pprof) 
+
+In fact the total for `main.FindLoops` and `main.main` should have been 100%, but each stack sample only includes the bottom 100 stack frames; during about a quarter of the samples, the recursive `main.DFS` function was more than 100 frames deeper than `main.main` so the complete trace was truncated.
+
+The stack trace samples contain more interesting data about function call relationships than the text listings can show. The `web` command writes a graph of the profile data in SVG format and opens it in a web browser. (There is also a `gv` command that writes PostScript and opens it in Ghostview.  For either command, you need [[http://www.graphviz.org/][graphviz]] installed.)
+
+	(pprof) web
+
+A small fragment of [[http://benchgraffiti.googlecode.com/hg/havlak/havlak1.svg][the full graph]] looks like:
+
+.image profiling-go-programs_havlak1a-75.png
+
+Each box in the graph corresponds to a single function, and the boxes are sized according to the number of samples in which the function was running. An edge from box X to box Y indicates that X calls Y; the number along the edge is the number of times that call appears in a sample. If a call appears multiple times in a single sample, such as during recursive function calls, each appearance counts toward the edge weight. That explains the 69206 on the self-edge from `main.DFS` to itself.
+
+Just at a glance, we can see that the program spends much of its time in hash operations, which correspond to use of Go's `map` values. We can tell `web` to use only samples that include a specific function, such as `hash_lookup`, which clears some of the noise from the graph:
+
+	(pprof) web hash lookup
+
+.image profiling-go-programs_havlak1-hash_lookup-75.png
+
+If we squint, we can see that the calls to `runtime.mapaccess1` are being made by `main.FindLoops` and `main.DFS`.
+
+Now that we have a rough idea of the big picture, it's time to zoom in on a particular function.  Let's look at `main.DFS` first, just because it is a shorter function:
+
+	(pprof) list DFS
+	Total: 5758 samples
+	ROUTINE ====================== main.DFS in /home/rsc/g/benchgraffiti/havlak/havlak1.go
+	samples    225 Total 2296 (flat / cumulative)
+	     3      3  240: func DFS(currentNode *BasicBlock, nodes []*UnionFindNode, number map[*BasicBlock]int, last []int, current int) int {
+	    18     19  241:     nodes[current].Init(currentNode, current)
+	     .    166  242:     number[currentNode] = current
+	     .      .  243: 
+	     2      2  244:     lastid := current
+	   167    167  245:     for _, target := range currentNode.OutEdges {
+	    17    508  246:         if number[target] == unvisited {
+	    10   1157  247:             lastid = DFS(target, nodes, number, last, lastid+1)
+	     .      .  248:         }
+	     .      .  249:     }
+	     7    273  250:     last[number[currentNode]] = lastid
+	     1      1  251:     return lastid
+	     .      .  252: }
+	(pprof)
+
+The listing shows the source code for the `DFS` function (really, for every function matching the regular expression `DFS`). The first three columns are the number of samples taken while running that line, the number of samples taken while running that line or in code called from that line, and the line number in the file. The related command `disasm` shows a disassembly of the function instead of a source listing; when there are enough samples this can help you see which instructions are expensive. The `weblist` command mixes the two modes: it shows [[http://benchgraffiti.googlecode.com/hg/havlak/havlak1.html][a source listing in which clicking a line shows the disassembly]].
+
+Since we already know that the time is going into map lookups implemented by the hash runtime functions, we care most about the second column. A large fraction of time is spent in recursive calls to `DFS` (line 247), as would be expected from a recursive traversal.  Excluding the recursion, it looks like the time is going into the accesses to the `number` map on lines 242, 246, and 250. For that particular lookup, a map is not the most efficient choice. Just as they would be in a compiler, the basic block structures have unique sequence numbers assigned to them. Instead of using a `map[*BasicBlock]int` we can use a `[]int`, a slice indexed by the block number. There's no reason to use a map when an array or slice will do.
+
+Changing `number` from a map to a slice requires editing seven lines in the program and cut its run time by nearly a factor of two:
+
+	$ make havlak2
+	6g havlak2.go
+	6l -o havlak2 havlak2.6
+	rm havlak2.6
+	$ xtime havlak2
+	# of loops: 76000 (including 1 artificial root node)
+	30.88u 0.24s *31.14r*1564608kB*havlak2*
+	$ 
+
+(See the [[http://code.google.com/p/benchgraffiti/source/diff?name=34f7624bb2e2&r=240c155236f9&format=unidiff&path=/havlak/havlak.go][diff between `havlak1` and `havlak2`]])
+
+We can run the profiler again to confirm that `main.DFS` is no longer a significant part of the run time:
+
+	$ _make_havlak2.prof_
+	havlak2 -cpuprofile=havlak2.prof
+	# of loops: 76000 (including 1 artificial root node)
+	$ _gopprof_havlak2_havlak2.prof_
+	Welcome to pprof!  For help, type 'help'.
+	(pprof) _top5_
+	Total: 3099 samples
+	     626  20.2%  20.2%      626  20.2% scanblock
+	     309  10.0%  30.2%     2839  91.6% main.FindLoops
+	     176   5.7%  35.9%     1732  55.9% runtime.mallocgc
+	     173   5.6%  41.4%      397  12.8% sweep
+	     101   3.3%  44.7%      111   3.6% main.DFS
+	(pprof)
+
+`main.DFS` still appears in the profile, but its total time has dropped from 20.0% to 3.6%. The rest of the program runtime has dropped too. Now the program is spending most of its time allocating memory and garbage collecting (`runtime.mallocgc`, which both allocates and runs periodic garbage collections, accounts for 55.9% of the time).  To find out why the garbage collector is running so much, we have to find out what is allocating memory. One way is to add memory profiling to the program. We'll arrange that if the `-memprofile` flag is supplied, the program stops after one iteration of the loop finding, writes a memory profile, and exits:
+
+	*var*memprofile*=*flag.String("memprofile",*"",*"write*memory*profile*to*this*file")*
+	...
+
+	    FindHavlakLoops(cfgraph, lsgraph)
+	*****if**memprofile*!=*""*{
+	********f,*err*:=*os.Create(*memprofile)
+	********if*err*!=*nil*{
+	************log.Fatal(err)
+	********}
+	********pprof.WriteHeapProfile(f)
+	********f.Close()
+	********return
+	****}*
+
+We invoke the program with `-memprofile` flag to write a profile:
+
+	$ _make_havlak3.mprof_    # [[http://code.google.com/p/benchgraffiti/source/diff?name=240c155236f9&r=796913012f93&format=unidiff&path=/havlak/havlak.go][diff from havlak2]]
+	havlak3 -memprofile=havlak3.mprof
+	$ 
+
+We use `gopprof` exactly the same way. Now the samples we are examining are memory allocations, not clock ticks.
+
+	$ _gopprof_havlak3_havlak3.mprof_
+	Adjusting heap profiles for 1-in-524288 sampling rate
+	Welcome to pprof!  For help, type 'help'.
+	(pprof) _top5_
+	Total: 118.3 MB
+	    66.1  55.8%  55.8%    103.7  87.7% main.FindLoops
+	    30.5  25.8%  81.6%     30.5  25.8% main.*LSG·NewLoop
+	    10.0   8.5%  90.1%     10.0   8.5% main.NewBasicBlock
+	     6.5   5.5%  95.6%      6.5   5.5% main.*SimpleLoop·AddNode
+	     2.1   1.7%  97.3%     12.1  10.2% main.*CFG·CreateNode
+	(pprof)
+
+`Gopprof` reports that `FindLoops` has allocated approximately 66.1 of the 118.3 MB in use; `NewLoop` accounts for another 30.5 MB. To reduce overhead, the memory profiler only records information for approximately one block per half megabyte allocated (the “1-in-524288 sampling rate”), so these are approximations to the actual counts.
+
+To find the memory allocations, we can list those functions.
+
+	(pprof) _list_FindLoops_
+	Total: 118.3 MB
+	ROUTINE ====================== main.FindLoops in /home/rsc/g/benchgraffiti/havlak/havlak3.go
+	    MB   66.1 Total 103.7 (flat / cumulative)
+	...
+	     .      .  267: 
+	   1.9    1.9  268:     nonBackPreds := make([]map[int]bool, size)
+	   3.8    3.8  269:     backPreds := make([][]int, size)
+	     .      .  270: 
+	   1.0    1.0  271:     number := make([]int, size)
+	   1.0    1.0  272:     header := make([]int, size, size)
+	   1.0    1.0  273:     types := make([]int, size, size)
+	   1.0    1.0  274:     last := make([]int, size, size)
+	   1.9    1.9  275:     nodes := make([]*UnionFindNode, size, size)
+	     .      .  276: 
+	     .      .  277:     for i := 0; i < size; i++ {
+	   5.5    5.5  278:         nodes[i] = new(UnionFindNode)
+	     .      .  279:     }
+	...
+	     .      .  286:     for i, bb := range cfgraph.Blocks {
+	     .      .  287:         number[bb.Name] = unvisited
+	  48.0   48.0  288:         nonBackPreds[i] = make(map[int]bool)
+	     .      .  289:     }
+	...
+	(pprof) _list_NewLoop_
+	Total: 118.3 MB
+	ROUTINE ====================== main.*LSG·NewLoop in /home/rsc/g/benchgraffiti/havlak/havlak3.go
+	     .      .  578: func (lsg *LSG) NewLoop() *SimpleLoop {
+	   2.5    2.5  579:     loop := new(SimpleLoop)
+	   7.5    7.5  580:     loop.basicBlocks = make(map[*BasicBlock]bool)
+	  20.5   20.5  581:     loop.Children = make(map[*SimpleLoop]bool)
+	...
+	     .      .  588: }
+	(pprof)
+
+It looks like the current bottleneck is the same as the last one: using maps where simpler data structures suffice. `FindLoops` is allocating about 48 MB of maps, and `NewLoop` is allocating another 20 MB.
+
+As an aside, if we run `gopprof` with the `--inuse_objects` flag, it will report allocation counts instead of sizes:
+
+	$ _gopprof_--inuse_objects_havlak3_havlak3.mprof_
+	Adjusting heap profiles for 1-in-524288 sampling rate
+	Welcome to pprof!  For help, type 'help'.
+	(pprof) _list_NewLoop_
+	Total: 1604080 objects
+	ROUTINE ====================== main.*LSG·NewLoop in /home/rsc/g/benchgraffiti/havlak/havlak3.go
+	     .      .  578: func (lsg *LSG) NewLoop() *SimpleLoop {
+	 54613  54613  579:     loop := new(SimpleLoop)
+	 75678  75678  580:     loop.basicBlocks = make(map[*BasicBlock]bool)
+	207530 207530  581:     loop.Children = make(map[*SimpleLoop]bool)
+	...
+	     .      .  588: }
+	(pprof) 
+
+Since the 200,000 maps account for 20 MB, it looks like the initial map allocation takes about 100 bytes. That's reasonable when a map is being used to hold key-value pairs, but not when a map is being used as a stand-in for a simple set, as it is here.
+
+Instead of using a map, we can use a simple slice to list the elements. In all but one of the cases where maps are being used, it is impossible for the algorithm to insert a duplicate element.  In the one remaining case, we can write a simple variant of the `append` built-in function:
+
+	func appendUnique(a []int, x int) []int {
+	    for _, y := range a {
+	        if x == y {
+	            return a
+	        }
+	    }
+	    return append(a, x)
+	}
+
+In addition to writing that function, changing the Go program to use slices instead of maps requires changing just a few lines of code.
+
+	$ _xtime_havlak4_    # [[http://code.google.com/p/benchgraffiti/source/diff?name=796913012f93&r=d856c2f698c1&format=unidiff&path=/havlak/havlak.go][diff from havlak3]]
+	# of loops: 76000 (including 1 artificial root node)
+	18.35u 0.11s *18.48r*575792kB*havlak4*
+	$ 
+
+We're now at 3x faster than when we started. Let's look at a CPU profile again.
+
+	$ _gopprof_havlak4_havlak4.prof_
+	Welcome to pprof!  For help, type 'help'.
+	(pprof) _top10_
+	Total: 1851 samples
+	     283  15.3%  15.3%      283  15.3% scanblock
+	     233  12.6%  27.9%     1622  87.6% main.FindLoops
+	     142   7.7%  35.5%     1054  56.9% runtime.mallocgc
+	     112   6.1%  41.6%      276  14.9% sweep
+	     111   6.0%  47.6%      115   6.2% main.DFS
+	      85   4.6%  52.2%      661  35.7% runtime.growslice
+	      84   4.5%  56.7%       84   4.5% runtime.memmove
+	      69   3.7%  60.5%      281  15.2% runtime.MCache_Alloc
+	      67   3.6%  64.1%       84   4.5% MCentral_Alloc
+	      67   3.6%  67.7%       93   5.0% MCentral_Free
+	(pprof) 
+
+Now memory allocation and the consequent garbage collection (`runtime.mallocgc`) accounts for 56.9% of our run time. Another way to look at why the system is garbage collecting is to look at the allocations that are causing the collections, the ones that spend most of the time in `mallocgc`:
+
+	(pprof) _web_mallocgc_
+
+.image profiling-go-programs_havlak4a-mallocgc.png
+
+It's hard to tell what's going on in that graph, because there are many nodes with small sample numbers obscuring the big ones.  We can tell `gopprof` to ignore nodes that don't account for at least 10% of the samples:
+
+	$ _gopprof_--nodefraction=0.1_6.out_prof_
+	Welcome to pprof!  For help, type 'help'.
+	(pprof) _web_mallocgc_
+
+.image profiling-go-programs_havlak4a-mallocgc-trim.png
+
+We can follow the thick arrows easily now, to see that `FindLoops` is triggering most of the garbage collection.  If we list `FindLoops` we can see that much of it is right at the beginning:
+
+	(pprof) _list_FindLoops_
+	     .      .  270: func FindLoops(cfgraph *CFG, lsgraph *LSG) {
+	     .      .  271:     if cfgraph.Start == nil {
+	     .      .  272:         return
+	     .      .  273:     }
+	     .      .  274: 
+	     .      .  275:     size := cfgraph.NumNodes()
+	     .      .  276: 
+	     .     17  277:     nonBackPreds := make([][]int, size)
+	     .     82  278:     backPreds := make([][]int, size)
+	     .      .  279: 
+	     .      2  280:     number := make([]int, size)
+	     .      1  281:     header := make([]int, size, size)
+	     .     61  282:     types := make([]int, size, size)
+	     .      .  283:     last := make([]int, size, size)
+	     .     58  284:     nodes := make([]*UnionFindNode, size, size)
+	     .      .  285: 
+	     2      2  286:     for i := 0; i < size; i++ {
+	     .    261  287:         nodes[i] = new(UnionFindNode)
+	     .      .  288:     }
+	...
+	(pprof)
+
+Every time `FindLoops` is called, it allocates some sizable bookkeeping structures.  Since the benchmark calls `FindLoops` 50 times, these add up to a significant amount of garbage, so a significant amount of work for the garbage collector.
+
+Having a garbage-collected language doesn't mean you can ignore memory allocation issues.  In this case, a simple solution is to introduce a cache so that each call to `FindLoops` reuses the previous call's storage when possible. (In fact, in Hundt's paper, he explains that the Java program needed just this change to get anything like reasonable performance, but he did not make the same change in the other garbage-collected implementations.)
+
+We'll add a global `cache` structure:
+
+	var cache struct {
+	    size int
+	    nonBackPreds [][]int
+	    backPreds [][]int
+	    number []int
+	    header []int
+	    types []int
+	    last []int
+	    nodes []*UnionFindNode
+	}
+
+and then have `FindLoops` consult it as a replacement for allocation:
+
+	    if cache.size < size {
+	        cache.size = size
+	        cache.nonBackPreds = make([][]int, size)
+	        cache.backPreds = make([][]int, size)
+	        cache.number = make([]int, size)
+	        cache.header = make([]int, size)
+	        cache.types = make([]int, size)
+	        cache.last = make([]int, size)
+	        cache.nodes = make([]*UnionFindNode, size)
+	        for i := range cache.nodes {
+	            cache.nodes[i] = new(UnionFindNode)
+	        }
+	    }
+
+	    nonBackPreds := cache.nonBackPreds[:size]
+	    for i := range nonBackPreds {
+	        nonBackPreds[i] = nonBackPreds[i][:0]
+	    }
+	    backPreds := cache.backPreds[:size]
+	    for i := range nonBackPreds {
+	        backPreds[i] = backPreds[i][:0]
+	    }
+	    number := cache.number[:size]
+	    header := cache.header[:size]
+	    types := cache.types[:size]
+	    last := cache.last[:size]
+	    nodes := cache.nodes[:size]
+
+Such a global variable is bad engineering practice, of course: it means that concurrent calls to `FindLoops` are now unsafe.  For now, we are making the minimal possible changes in order to understand what is important for the performance of our program; this change is simple and mirrors the code in the Java implementation. The final version of the Go program will use a separate `LoopFinder` instance to track this memory, restoring the possibility of concurrent use.
+
+	$ _xtime_havlak5_    # [[http://code.google.com/p/benchgraffiti/source/diff?name=d856c2f698c1&r=5ce46b0ee1db&format=unidiff&path=/havlak/havlak.go][diff from havlak4]]
+	# of loops: 76000 (including 1 artificial root node)
+	12.59u 0.07s *12.67r*584496kB*havlak5*
+	$
+
+There's more we can do to clean up the program and make it faster, but none of it requires profiling techniques that we haven't already shown. The work list used in the inner loop can be reused across iterations and across calls to `FindLoops`, and it can be combined with the separate “node pool” generated during that pass. Similarly, the loop graph storage can be reused on each iteration instead of reallocated. In addition to these performance changes, the [[http://code.google.com/p/benchgraffiti/source/browse/havlak/havlak6.go][final version]] is written using idiomatic Go style, using data structures and methods.  The stylistic changes have only a minor effect on the run time: the algorithm and constraints are unchanged.
+
+The final version runs in 3.84 seconds and uses 257 MB of memory:
+
+	$ _xtime_havlak6_
+	# of loops: 76000 (including 1 artificial root node)
+	3.79u 0.04s *3.84r*263472kB*havlak6*
+	$ 
+
+That's nearly 15 times faster than the program we started with. Even if we disable reuse of the generated loop graph, so that the only cached memory is the loop finding bookeeping, the program still runs 10x faster than the original and uses 2.5x less memory.
+
+	$ _xtime_havlak6_-reuseloopgraph=false_
+	# of loops: 76000 (including 1 artificial root node)
+	5.74u 0.10s *5.84r*617040kB*havlak6*-reuseloopgraph=false*
+	$
+
+Of course, it's no longer fair to compare this Go program to the original C++ program, which used inefficient data structures like `set`s where `vector`s would be more appropriate. As a sanity check, we translated the final Go program into [[http://code.google.com/p/benchgraffiti/source/browse/havlak/havlak6.cc][equivalent C++ code]].  Its execution time is similar to the Go program's:
+
+	$ xtime havlak6cc
+	# of loops: 76000 (including 1 artificial root node)
+	4.04u 0.38s *4.42r*387744kB*havlak6cc*
+	$ 
+
+The Go program runs slightly faster because the C++ program is using automatic deletes and allocation instead of an explicit cache.  That makes the C++ program a bit shorter and easier to write, but not dramatically so:
+
+	$ _wc_havlak6.cc;_wc_havlak6.go_
+	  401  1220  9040 [[http://code.google.com/p/benchgraffiti/source/browse/havlak/havlak6.cc][havlak6.cc]]
+	  461  1441  9467 [[http://code.google.com/p/benchgraffiti/source/browse/havlak/havlak6.go][havlak6.go]]
+	$ 
+
+Benchmarks are only as good as the programs they measure. We used `gopprof` to study an inefficient Go program and then to improve its performance by an order of magnitude and to reduce its memory usage by a factor of six. A subsequent comparison with an equivalently optimized C++ program shows that Go can be competitive with C++ when programmers are careful about how much garbage is generated by inner loops.
+
+The program sources, Linux x86-64 binaries, and profiles used to write this post are available in the  [[http://code.google.com/p/benchgraffiti/][benchgraffiti project on Google Code]].
+
+As mentioned above, [[http://golang.org/cmd/gotest][gotest]] includes these profiling flags already: define a [[http://golang.org/pkg/testing/#Benchmark][benchmark function]] and you're all set. There is also a standard HTTP interface to profiling data. In an HTTP server, adding
+
+	import _ "http/pprof"
+
+will install handlers for a few URLs under `/debug/pprof/`. Then you can run `gopprof` with a single argument—the URL to your server's profiling data—and it will download and examine a live profile.
+
+	gopprof http://localhost:6060/debug/pprof/profile   # 30-second CPU profile
+	gopprof http://localhost:6060/debug/pprof/heap      # heap profile

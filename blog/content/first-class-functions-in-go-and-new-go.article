@@ -1,0 +1,15 @@
+"First Class Functions in Go" and new Go course notes
+30 Jun 2011
+Tags: codewalk, function
+
+Andrew Gerrand
+
+* Introduction
+
+We would like to announce some new and revised Go learning materials.
+
+Programmers new to Go are often surprised by its support for function types, functions as values, and closures. The [[http://golang.org/doc/codewalk/functions/][First Class Functions in Go]] code walk demonstrates these features with a simulation of the dice game [[http://en.wikipedia.org/wiki/Pig_(dice)][Pig]]. It is a pretty program that uses the language to great effect, and a fun read for Go beginners and veterans alike.
+
+The [[http://golang.org/doc/docs.html#course_notes][Go course]] is a [[http://golang.org/doc/GoCourseDay1.pdf][three]] [[http://golang.org/doc/GoCourseDay2.pdf][part]] [[http://golang.org/doc/GoCourseDay3.pdf][series]] that describes the language in detail, including the basic syntax, type system, and concurrency primitives. These notes were available at launch in 2009, but since then the language has changed a bit and the course notes had become an outdated and unreliable resource. We recently revised all three slide decks in their entirety, updating them to match contemporary Go syntax and semantics. The course is ideal for those who want to get the full picture and a great resource for teaching the language to others.
+
+These resources and many more are available at [[http://golang.org/doc/docs.html][golang.org]].
