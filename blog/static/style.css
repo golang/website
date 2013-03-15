@@ -10,6 +10,12 @@ h1, h2, h3, h4, h5 {
 p, li {
 	font-size: 10pt;
 }
+p {
+	line-height: 1.6em;
+}
+li, pre {
+	line-height: 1.3em;
+}
 pre, code {
 	font-size: 10pt;
 	font-family: Consolas, monospace;
@@ -80,13 +86,11 @@ body {
 	color: inherit;
 	text-decoration: none;
 }
-#content h1 {
-	font-size: 120%;
+#content h1.title a:hover {
+	color: #5588aa;
+	text-decoration: underline;
 }
-#content h2 {
-	font-size: 110%;
-}
-#content h3, #content h4, #content h4 {
+#content h1, #content h2, #content h3, #content h4, #content h4 {
 	font-size: 100%;
 }
 #content .date {
@@ -99,7 +103,7 @@ body {
 	font-style: italic;
 }
 #content .article {
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 #content img {
 	max-width: 550px;
