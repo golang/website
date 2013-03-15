@@ -85,48 +85,21 @@ It can be convenient that a map retrieval yields a zero value when the key is no
 
 For instance, a map of boolean values can be used as a set-like data structure (recall that the zero value for the boolean type is false). This example traverses a linked list of `Nodes` and prints their values. It uses a map of `Node` pointers to detect cycles in the list.
 
-	type Node struct {
-	    Next  *Node
-	    Value interface{}
-	}
-	var first *Node
-
-	*visited*:=*make(map[*Node]bool)*
-	for n := first; n != nil; n = n.Next {
-	    if *visited[n]* {
-	        fmt.Println("cycle detected")
-	        break
-	    }
-	    *visited[n]*=*true*
-	    fmt.Println(n.Value)
-	}
+.code go-maps-in-action/list.go /START/,/END/
 
 The expression `visited[n]` is `true` if `n` has been visited, or `false` if `n` is not present. There's no need to use the two-value form to test for the presence of `n` in the map; the zero value default does it for us.
 
 Another instance of helpful zero values is a map of slices. Appending to a nil slice just allocates a new slice, so it's a one-liner to append a value to a map of slices; there's no need to check if the key exists. In the following example, the slice people is populated with `Person` values. Each `Person` has a `Name` and a slice of Likes. The example creates a map to associate each like with a slice of people that like it.
 
-	type Person struct {
-	    Name string
-	    Likes []string
-	}
-	var people []*Person
-
-	*likes*:=*make(map[string][]*Person)*
-	for _, p := range people {
-	    for _, l := range p.Likes {
-	        *likes[l]*=*append(likes[l],*p)*
-	    }
-	}
+.code go-maps-in-action/people.go /START1/,/END1/
 
 To print a list of people who like cheese:
 
-	for _, p := range likes["cheese"] {
-	    fmt.Println(p.Name, "likes cheese.")
-	}
+.code go-maps-in-action/people.go /START2/,/END2/
 
 To print the number of people who like bacon:
 
-	fmt.Println("People that like bacon:", len(likes["bacon"]))
+.code go-maps-in-action/people.go /bacon/
 
 Note that since both range and len treat a nil slice as a zero-length slice, these last two examples will work even if nobody likes cheese or bacon (however unlikely that may be).
 
