@@ -8,6 +8,7 @@ package main
 
 import (
 	"bytes"
+	"encoding/xml"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,14 +17,18 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
+	"time"
 
+	"code.google.com/p/go.blog/pkg/atom"
 	_ "code.google.com/p/go.talks/pkg/playground"
 	"code.google.com/p/go.talks/pkg/present"
 )
 
 const (
-	baseURL      = "http://blog.golang.org"
-	homeArticles = 5 // number of articles to display on the home page
+	hostname     = "blog.golang.org"
+	baseURL      = "http://" + hostname
+	homeArticles = 5  // number of articles to display on the home page
+	feedArticles = 10 // number of articles to include in Atom feed
 )
 
 // Doc represents an article, adorned with presentation data:
@@ -47,7 +52,8 @@ type Server struct {
 	template   struct {
 		home, index, article, doc *template.Template
 	}
-	content http.Handler
+	atomFeed []byte // pre-rendered Atom feed
+	content  http.Handler
 }
 
 // NewServer constructs a new Server, serving articles from the specified
@@ -86,6 +92,11 @@ func NewServer(pathPrefix, contentPath, templatePath string) (*Server, error) {
 
 	// Load content.
 	err = s.loadDocs(filepath.Clean(contentPath))
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.renderAtomFeed()
 	if err != nil {
 		return nil, err
 	}
@@ -226,6 +237,78 @@ func (s *Server) loadDocs(root string) error {
 	return nil
 }
 
+// renderAtomFeed generates an XML Atom feed and stores it in the Server's
+// atomFeed field.
+func (s *Server) renderAtomFeed() error {
+	var updated time.Time
+	if len(s.docs) > 1 {
+		updated = s.docs[0].Time
+	}
+	feed := atom.Feed{
+		Title:   "The Go Programming Language Blog",
+		ID:      "tag:" + hostname + ",2013:" + hostname,
+		Updated: atom.Time(updated),
+		Link: []atom.Link{{
+			Rel:  "self",
+			Href: baseURL + path.Join(s.pathPrefix, "/feed.atom"),
+		}},
+	}
+	for i, doc := range s.docs {
+		if i >= feedArticles {
+			break
+		}
+		e := &atom.Entry{
+			Title: doc.Title,
+			ID:    feed.ID + doc.Path,
+			Link: []atom.Link{{
+				Rel:  "alternate",
+				Href: baseURL + doc.Path,
+			}},
+			Published: atom.Time(doc.Time),
+			Updated:   atom.Time(doc.Time),
+			Summary: &atom.Text{
+				Type: "html",
+				Body: summary(doc),
+			},
+			Content: &atom.Text{
+				Type: "html",
+				Body: string(doc.HTML),
+			},
+			Author: &atom.Person{
+				Name: authors(doc.Authors),
+			},
+		}
+		feed.Entry = append(feed.Entry, e)
+	}
+	data, err := xml.Marshal(&feed)
+	if err != nil {
+		return err
+	}
+	s.atomFeed = data
+	return nil
+}
+
+// summary returns the first paragraph of text from the provided Doc.
+func summary(d *Doc) string {
+	if len(d.Sections) == 0 {
+		return ""
+	}
+	for _, elem := range d.Sections[0].Elem {
+		text, ok := elem.(present.Text)
+		if !ok || text.Pre {
+			// skip everything but non-text elements
+			continue
+		}
+		var buf bytes.Buffer
+		for _, s := range text.Lines {
+			buf.WriteString(string(present.Style(s)))
+			buf.WriteByte('\n')
+		}
+		return buf.String()
+	}
+	return ""
+}
+
 // rootData encapsulates data destined for the root template.
 type rootData struct {
 	Doc  *Doc
@@ -253,6 +336,10 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "index":
 		d.Data = s.docs
 		t = s.template.index
+	case "feed.atom":
+		w.Header().Set("Content-type", "application/atom+xml")
+		w.Write(s.atomFeed)
+		return
 	default:
 		doc, ok := s.docPaths[p]
 		if !ok {
