@@ -336,7 +336,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	case "index":
 		d.Data = s.docs
 		t = s.template.index
-	case "feed.atom":
+	case "feed.atom", "feeds/posts/default":
 		w.Header().Set("Content-type", "application/atom+xml")
 		w.Write(s.atomFeed)
 		return
