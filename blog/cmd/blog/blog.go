@@ -13,10 +13,8 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path"
 	"path/filepath"
 	"sort"
-	"strings"
 	"time"
 
 	"code.google.com/p/go.blog/pkg/atom"
@@ -44,12 +42,11 @@ type Doc struct {
 
 // Server implements an http.Handler that serves blog articles.
 type Server struct {
-	pathPrefix string
-	docs       []*Doc
-	tags       []string
-	docPaths   map[string]*Doc
-	docTags    map[string][]*Doc
-	template   struct {
+	docs     []*Doc
+	tags     []string
+	docPaths map[string]*Doc
+	docTags  map[string][]*Doc
+	template struct {
 		home, index, article, doc *template.Template
 	}
 	atomFeed []byte // pre-rendered Atom feed
@@ -57,9 +54,8 @@ type Server struct {
 }
 
 // NewServer constructs a new Server, serving articles from the specified
-// contentPath generated from templates from templatePath, under the prefix
-// specified by pathPrefix.
-func NewServer(pathPrefix, contentPath, templatePath string) (*Server, error) {
+// contentPath generated from templates from templatePath.
+func NewServer(contentPath, templatePath string) (*Server, error) {
 	present.PlayEnabled = true
 
 	root := filepath.Join(templatePath, "root.tmpl")
@@ -68,7 +64,7 @@ func NewServer(pathPrefix, contentPath, templatePath string) (*Server, error) {
 		return t.ParseFiles(root, filepath.Join(templatePath, name))
 	}
 
-	s := &Server{pathPrefix: pathPrefix}
+	s := &Server{}
 
 	// Parse templates.
 	var err error
@@ -102,7 +98,7 @@ func NewServer(pathPrefix, contentPath, templatePath string) (*Server, error) {
 	}
 
 	// Set up content file server.
-	s.content = http.StripPrefix(pathPrefix, http.FileServer(http.Dir(contentPath)))
+	s.content = http.FileServer(http.Dir(contentPath))
 
 	return s, nil
 }
@@ -175,9 +171,10 @@ func (s *Server) loadDocs(root string) error {
 		}
 		p = p[len(root) : len(p)-len(ext)] // trim root and extension
 		s.docs = append(s.docs, &Doc{
-			Doc:  d,
-			Path: path.Join(s.pathPrefix, p),
-			HTML: template.HTML(html.String()),
+			Doc:       d,
+			Path:      p,
+			Permalink: baseURL + p,
+			HTML:      template.HTML(html.String()),
 		})
 		return nil
 	}
@@ -250,7 +247,7 @@ func (s *Server) renderAtomFeed() error {
 		Updated: atom.Time(updated),
 		Link: []atom.Link{{
 			Rel:  "self",
-			Href: baseURL + path.Join(s.pathPrefix, "/feed.atom"),
+			Href: baseURL + "/feed.atom",
 		}},
 	}
 	for i, doc := range s.docs {
@@ -317,26 +314,21 @@ type rootData struct {
 
 // ServeHTTP servers either an article list or a single article.
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	p := r.URL.Path
-	if !strings.HasPrefix(p, s.pathPrefix) {
-		http.Error(w, "not found", http.StatusNotFound)
-		return
-	}
 	var (
 		d rootData
 		t *template.Template
 	)
-	switch p[len(s.pathPrefix):] {
-	case "":
+	switch p := r.URL.Path; p {
+	case "/":
 		d.Data = s.docs
 		if len(s.docs) > homeArticles {
 			d.Data = s.docs[:homeArticles]
 		}
 		t = s.template.home
-	case "index":
+	case "/index":
 		d.Data = s.docs
 		t = s.template.index
-	case "feed.atom", "feeds/posts/default":
+	case "/feed.atom", "/feeds/posts/default":
 		w.Header().Set("Content-type", "application/atom+xml")
 		w.Write(s.atomFeed)
 		return

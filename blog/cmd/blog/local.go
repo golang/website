@@ -23,7 +23,7 @@ var (
 
 func main() {
 	flag.Parse()
-	s, err := NewServer("/", *contentPath, *templatePath)
+	s, err := NewServer(*contentPath, *templatePath)
 	if err != nil {
 		log.Fatal(err)
 	}

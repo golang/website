@@ -11,7 +11,7 @@ package main
 import "net/http"
 
 func init() {
-	s, err := NewServer("/", "content/", "template/")
+	s, err := NewServer("content/", "template/")
 	if err != nil {
 		panic(err)
 	}
