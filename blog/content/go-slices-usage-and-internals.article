@@ -111,7 +111,7 @@ Slicing does not copy the slice's data. It creates a new slice value that points
 	d := []byte{'r', 'o', 'a', 'd'}
 	e := d[2:] 
 	// e == []byte{'a', 'd'}
-	e[1] == 'm'
+	e[1] = 'm'
 	// e == []byte{'a', 'm'}
 	// d == []byte{'r', 'o', 'a', 'm'}
 
@@ -193,9 +193,9 @@ Since the zero value of a slice (`nil`) acts like a zero-length slice, you can d
 	// the elements of s that satisfy f()
 	func Filter(s []int, fn func(int) bool) []int {
 	    var p []int // == nil
-	    for _, i := range s {
-	        if fn(i) {
-	            p = append(p, i)
+	    for _, v := range s {
+	        if fn(v) {
+	            p = append(p, v)
 	        }
 	    }
 	    return p
