@@ -384,7 +384,7 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprintf(w, "%v(%s)", p, s.jsonFeed)
 			return
 		}
-		w.Header().Set("Content-type", "application/json")
+		w.Header().Set("Content-type", "application/json; charset=utf-8")
 		w.Write(s.jsonFeed)
 		return
 	default:
