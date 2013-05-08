@@ -8,12 +8,15 @@ package main
 
 import (
 	"bytes"
+	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 	"os"
 	"path/filepath"
+	"regexp"
 	"sort"
 	"time"
 
@@ -25,9 +28,11 @@ import (
 const (
 	hostname     = "blog.golang.org"
 	baseURL      = "http://" + hostname
-	homeArticles = 5  // number of articles to display on the home page
-	feedArticles = 10 // number of articles to include in Atom feed
+	homeArticles = 5  // articles to display on the home page
+	feedArticles = 10 // articles to include in Atom and JSON feeds
 )
+
+var validJSONPFunc = regexp.MustCompile(`(?i)^[a-z_][a-z0-9_.]*$`)
 
 // Doc represents an article, adorned with presentation data:
 // its absolute path and related articles.
@@ -50,6 +55,7 @@ type Server struct {
 		home, index, article, doc *template.Template
 	}
 	atomFeed []byte // pre-rendered Atom feed
+	jsonFeed []byte // pre-rendered JSON feed
 	content  http.Handler
 }
 
@@ -93,6 +99,11 @@ func NewServer(contentPath, templatePath string) (*Server, error) {
 	}
 
 	err = s.renderAtomFeed()
+	if err != nil {
+		return nil, err
+	}
+
+	err = s.renderJSONFeed()
 	if err != nil {
 		return nil, err
 	}
@@ -285,6 +296,41 @@ func (s *Server) renderAtomFeed() error {
 	return nil
 }
 
+type jsonItem struct {
+	Title   string
+	Link    string
+	Time    time.Time
+	Summary string
+	Content string
+	Author  string
+}
+
+// renderJSONFeed generates a JSON feed and stores it in the Server's jsonFeed
+// field.
+func (s *Server) renderJSONFeed() error {
+	var feed []jsonItem
+	for i, doc := range s.docs {
+		if i >= feedArticles {
+			break
+		}
+		item := jsonItem{
+			Title:   doc.Title,
+			Link:    baseURL + doc.Path,
+			Time:    doc.Time,
+			Summary: summary(doc),
+			Content: string(doc.HTML),
+			Author:  authors(doc.Authors),
+		}
+		feed = append(feed, item)
+	}
+	data, err := json.Marshal(feed)
+	if err != nil {
+		return err
+	}
+	s.jsonFeed = data
+	return nil
+}
+
 // summary returns the first paragraph of text from the provided Doc.
 func summary(d *Doc) string {
 	if len(d.Sections) == 0 {
@@ -329,8 +375,17 @@ func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		d.Data = s.docs
 		t = s.template.index
 	case "/feed.atom", "/feeds/posts/default":
-		w.Header().Set("Content-type", "application/atom+xml")
+		w.Header().Set("Content-type", "application/atom+xml; charset=utf-8")
 		w.Write(s.atomFeed)
+		return
+	case "/.json":
+		if p := r.FormValue("jsonp"); validJSONPFunc.MatchString(p) {
+			w.Header().Set("Content-type", "application/javascript; charset=utf-8")
+			fmt.Fprintf(w, "%v(%s)", p, s.jsonFeed)
+			return
+		}
+		w.Header().Set("Content-type", "application/json")
+		w.Write(s.jsonFeed)
 		return
 	default:
 		doc, ok := s.docPaths[p]
