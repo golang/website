@@ -76,4 +76,6 @@ var urlMap = map[string]string{
 	"/2013/02/go-maps-in-action.html":                        "go-maps-in-action",
 	"/2013/03/two-recent-go-articles.html":                   "two-recent-go-articles",
 	"/2013/03/the-path-to-go-1.html":                         "the-path-to-go-1",
+	"/2013/05/go-11-is-released.html":                        "go-11-is-released.article",
+	"/2013/05/advanced-go-concurrency-patterns.html":         "advanced-go-concurrency-patterns.article",
 }
