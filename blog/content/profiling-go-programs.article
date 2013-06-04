@@ -1,6 +1,6 @@
 Profiling Go Programs
 24 Jun 2011
-Tags: benchmark, optimization, pprof, profiling
+Tags: benchmark, pprof, profiling, technical
 
 Russ Cox, July 2011; updated by Shenghou Ma, May 2013
 
