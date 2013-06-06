@@ -4,13 +4,6 @@
 
   {{with .Subtitle}}<h2>{{.}}</h2>{{end}}
   {{if .Doc | sectioned}}
-    {{with $toc := .Sections}}
-    <div id="toc">
-      {{template "TOC" .}}
-    </div>
-    {{end}}
-  {{end}}
-  {{if .Doc | sectioned}}
     {{range .Sections}}
       {{elem $.Template .}}
     {{end}}
