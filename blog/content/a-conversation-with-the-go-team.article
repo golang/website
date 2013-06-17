@@ -71,7 +71,7 @@ of programming language is a very small factor in the success of a company.
 But it would be another way to show that Go can be part of a successful
 software system.
 
-_Have_you_thought_any_(more)_about_the_potential_of_dynamically_loading__
+_Have_you_thought_any_(more)_about_the_potential_of_dynamically_loading_
 _Go_packages_or_objects_and_how_it_could_work_in_Go?_
 _I_think_this_could_enable_some_really_interesting_and_expressive_constructs,_
 _especially_coupled_with_interfaces._
@@ -93,7 +93,7 @@ still rather see healthy competition between different drivers. The
 lists some good ones.
 
 The `database/sql` package didn’t get much attention for a while, due to lack of
-drivers. Now that drivers exist, usage of the package is increasing and and
+drivers. Now that drivers exist, usage of the package is increasing and
 correctness and performance bugs are now being reported (and fixed). Fixes will
 continue, but no major changes to the interface of `database/sql` are planned.
  There might be small extensions here and there as needed for performance or to
