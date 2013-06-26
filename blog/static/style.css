@@ -119,8 +119,11 @@ body {
 	height: 100%;
 	overflow: auto;
 }
+.playground .number {
+	color: #999;
+}
 .code, .playground, .output {
-	margin: 20px;
+	margin: 20px 0;
 	padding: 10px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
@@ -145,7 +148,7 @@ body {
 	position: relative;
 	float: right;
 	top: -50px;
-	right: 30px;
+	right: 10px;
 }
 .output .buttons {
 	top: -60px;

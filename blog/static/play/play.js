@@ -16,7 +16,7 @@
     var s = "";
     for (var i = 0; i < node.childNodes.length; i++) {
       var n = node.childNodes[i];
-      if (n.nodeType === 1 && n.tagName === "PRE") {
+      if (n.nodeType === 1 && n.tagName === "SPAN" && n.className != "number") {
         var innerText = n.innerText === undefined ? "textContent" : "innerText";
         s += n[innerText] + "\n";
         continue;
@@ -35,18 +35,27 @@
     var outpre = document.createElement('pre');
     var stopFunc;
 
+    $(output).resizable({
+      handles: "n,w,nw",
+      minHeight:  27,
+      minWidth:  135,
+      maxHeight: 608,
+      maxWidth:  990
+    });
+
     function onKill() {
       if (stopFunc) {
         stopFunc();
       }
     }
-    
-    function onRun() {
+
+    function onRun(e) {
       onKill();
       outpre.innerHTML = "";
       output.style.display = "block";
       run.style.display = "none";
-      stopFunc = runFunc(text(code), outpre);
+      var options = {Race: e.shiftKey};
+      stopFunc = runFunc(text(code), outpre, options);
     }
 
     function onClose() {
@@ -97,7 +106,7 @@
   }
   if (play.length > 0) {
     if (window.connectPlayground) {
-      runFunc = window.connectPlayground("ws://localhost:3999/socket");
+      runFunc = window.connectPlayground("ws://" + window.location.host + "/socket");
     } else {
       // If this message is logged,
       // we have neglected to include socket.js or playground.js.
