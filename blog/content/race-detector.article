@@ -18,10 +18,10 @@ And tools can help.
 We're happy to announce that Go 1.1 includes a
 [[http://golang.org/doc/articles/race_detector.html][race detector]],
 a new tool for finding race conditions in Go code.
-It is currently available for Linux, MacOS, and Windows systems
+It is currently available for Linux, OS X, and Windows systems
 with 64-bit x86 processors.
 
-The race detector is based on the  C/C++
+The race detector is based on the C/C++
 [[https://code.google.com/p/thread-sanitizer/][ThreadSanitizer runtime library]],
 which has been used to detect many errors in Google's internal code base and in
 [[http://www.chromium.org/][Chromium]].
