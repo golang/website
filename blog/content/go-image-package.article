@@ -113,7 +113,7 @@ A common mistake is assuming that an `Image`'s bounds start at (0, 0). For examp
 
 	b := m.Bounds()
 	for y := b.Min.Y; y < b.Max.Y; y++ {
-	 for x := b.Min.X; y < b.Max.X; x++ {
+	 for x := b.Min.X; x < b.Max.X; x++ {
 	  doStuffWith(m.At(x, y))
 	 }
 	}
