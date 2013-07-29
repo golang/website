@@ -12,7 +12,7 @@ Go's slice type provides a convenient and efficient means of working with sequen
 
 The slice type is an abstraction built on top of Go's array type, and so to understand slices we must first understand arrays.
 
-An array type definition specifies a length and an element type. For example, the type `[4]int` represents an array of four integers. An array's size is fixed; its length is part of its type (`[4]int` and `[5]int` are distinct, incompatible types). Arrays can be indexed in the usual way, so the expression `s[n]` accesses the nth element:
+An array type definition specifies a length and an element type. For example, the type `[4]int` represents an array of four integers. An array's size is fixed; its length is part of its type (`[4]int` and `[5]int` are distinct, incompatible types). Arrays can be indexed in the usual way, so the expression `s[n]` accesses the nth element, starting from zero.
 
 	var a [4]int
 	a[0] = 1
