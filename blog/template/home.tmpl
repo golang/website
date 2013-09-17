@@ -5,5 +5,5 @@
 	{{range .Data}}
 		{{template "doc" .}}
 	{{end}}
-	<p>See the <a href="/index">index</a> for more articles.
+	<p>See the <a href="{{.BasePath}}/index">index</a> for more articles.
 {{end}}

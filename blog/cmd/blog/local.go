@@ -12,6 +12,8 @@ import (
 	"flag"
 	"log"
 	"net/http"
+
+	"code.google.com/p/go.blog/pkg/blog"
 )
 
 var (
@@ -23,7 +25,9 @@ var (
 
 func main() {
 	flag.Parse()
-	s, err := NewServer(*contentPath, *templatePath)
+	config.ContentPath = *contentPath
+	config.TemplatePath = *templatePath
+	s, err := blog.NewServer(config)
 	if err != nil {
 		log.Fatal(err)
 	}

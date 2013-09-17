@@ -8,10 +8,16 @@
 
 package main
 
-import "net/http"
+import (
+	"net/http"
+
+	"code.google.com/p/go.blog/pkg/blog"
+)
 
 func init() {
-	s, err := NewServer("content/", "template/")
+	config.ContentPath = "content/"
+	config.TemplatePath = "template/"
+	s, err := blog.NewServer(config)
 	if err != nil {
 		panic(err)
 	}
