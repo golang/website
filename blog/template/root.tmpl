@@ -86,7 +86,35 @@
 <script src="/static/jquery.js"></script>
 <script src="/static/play/playground.js"></script>
 <script src="/static/play/play.js"></script>
-<script src="/static/script.js"></script>
+<script>
+$(function() {
+	// Insert line numbers for all playground elements.
+	$('.playground').each(function() {
+		var $spans = $(this).find('> pre > span');
+
+		// Compute width of number column (including trailing space).
+		var max = 0;
+		$spans.each(function() {
+			var n = $(this).attr('num')*1;
+			if (n > max) max = n;
+		});
+		var width = 2;
+		while (max > 10) {
+			max = max / 10;
+			width++;
+		}
+
+		// Insert line numbers with space padding.
+		$spans.each(function() {
+			var n = $(this).attr('num')+' ';
+			while (n.length < width) n = ' '+n;
+			$('<span class="number">').text(n).insertBefore(this);
+		});
+	});
+
+	initPlayground(new HTTPTransport());
+});
+</script>
 </html>
 {{end}}
 
