@@ -6,32 +6,78 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>{{template "title" .}}</title>
-	<link type="text/css" rel="stylesheet" href="/static/style.css">
+	<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
 	<link rel="alternate" type="application/atom+xml" title="blog.golang.org - Atom Feed" href="http://blog.golang.org/feed.atom" />
+	<script type="text/javascript">window.initFuncs = [];</script>
+	<style>
+		#sidebar {
+			float: right;
+			padding-left: 20px;
+			width: 250px;
+			background: white;
+		}
+		#sidebar p, #sidebar ul {
+			margin: 20px 5px;
+		}
+		#sidebar ul {
+			padding: 0;
+		}
+		#sidebar li {
+			list-style-type: none;
+		}
+		#content .author {
+			font-style: italic;
+		}
+		#content .article {
+			margin-bottom: 50px;
+		}
+		#content .date {
+			color: #999;
+		}
+		#content .tags {
+			color: #999;
+			font-size: smaller;
+		}
+		#content .iframe, #content .image {
+			margin: 20px;
+		}
+	</style>
 </head>
 <body>
 
-<div id="container">
+<div id="topbar"><div class="container">
 
-<div id="heading">
-	<a href="http://golang.org/"><img src="/static/logo.png"></a>
-	<a href="{{.BasePath}}/">The Go Programming Language Blog</a>
-</div><!-- #heading -->
+<form method="GET" action="{{.GodocURL}}/search">
+<div id="menu">
+<a href="{{.GodocURL}}/doc/">Documents</a>
+<a href="{{.GodocURL}}/pkg/">Packages</a>
+<a href="{{.GodocURL}}/project/">The Project</a>
+<a href="{{.GodocURL}}/help/">Help</a>
+<a href="{{.GodocURL}}/blog/">Blog</a>
+<input type="text" id="search" name="q" class="inactive" value="Search" placeholder="Search">
+</div>
+<div id="heading"><a href="{{.GodocURL}}/">The Go Programming Language</a></div>
+</form>
+
+</div></div>
+
+<div id="page">
+<div class="container">
 
 <div id="sidebar">
 	{{with .Doc}}
 		{{with .Newer}}
-			<h1>Next article</h1>
+			<h4>Next article</h4>
 			<p><a href="{{.Path}}">{{.Title}}</a></p>
 		{{end}}
 		
 		{{with .Older}}
-			<h1>Previous article</h1>
+			<h4>Previous article</h4>
 			<p><a href="{{.Path}}">{{.Title}}</a></p>
 		{{end}}
 		
 		{{with .Related}}
-			<h1>Related articles</h1>
+			<h4>Related articles</h4>
 			<ul>
 			{{range .}}
 				<li><a href="{{.Path}}">{{.Title}}</a></li>
@@ -40,7 +86,7 @@
 		{{end}}
 	{{end}}
 	
-	<h1>Links</h1>
+	<h4>Links</h4>
 	<ul>
 	<li><a href='http://golang.org/'>golang.org</a></li>
 	<li><a href='http://golang.org/doc/install.html'>Install Go</a></li>
@@ -52,7 +98,7 @@
 	<li><a href='http://twitter.com/go_nuts'>Go on Twitter</a></li>
 	</ul>
 	
-	<h1>Keep up with Google Developers</h1>
+	<h4>Keep up with Google Developers</h4>
 	<ul>
 	<li><a href='https://plus.google.com/+GoogleDevelopers/posts'>Google Developers +Page</a></li>
 	<li><a href='https://developers.google.com/live/'>Google Developers Live</a></li>
@@ -60,7 +106,7 @@
 	<li><a href='http://googledevelopers.blogspot.com/'>Google Developers Blog</a></li>
 	</ul>
 	
-	<h1>Blog Archive</h1>
+	<h4>Blog Archive</h4>
 	<p><a href="{{.BasePath}}/index">Article index</a></p>
 </div><!-- #sidebar -->
 
@@ -80,12 +126,14 @@
 	</p>
 </div><!-- #footer -->
 
-</div><!-- #container -->
+</div><!-- .container -->
+</div><!-- #page -->
 
 </body>
-<script src="/static/jquery.js"></script>
-<script src="/static/play/playground.js"></script>
-<script src="/static/play/play.js"></script>
+<script src="/lib/godoc/jquery.js"></script>
+<script src="/lib/godoc/playground.js"></script>
+<script src="/lib/godoc/play.js"></script>
+<script src="/lib/godoc/godocs.js"></script>
 <script>
 $(function() {
 	// Insert line numbers for all playground elements.
@@ -120,8 +168,8 @@ $(function() {
 
 {{define "doc"}}
 	<div class="article">
-		<p class="date">{{.Time.Format "2 January 2006"}}</p>
 		<h1 class="title"><a href="{{.Path}}">{{.Title}}</a></h1>
+		<p class="date">{{.Time.Format "2 January 2006"}}</p>
 		{{.HTML}}
 		{{with .Authors}}
 			<p class="author">By {{authors .}}</p>

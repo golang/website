@@ -31,7 +31,7 @@
 {{end}}
 
 {{define "section"}}
-  <h{{len .Number}} id="TOC_{{.FormattedNumber}}">{{.Title}}</h{{len .Number}}>
+  <h4 id="TOC_{{.FormattedNumber}}">{{.Title}}</h4>
   {{range .Elem}}{{elem $.Template .}}{{end}}
 {{end}}
 
