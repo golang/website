@@ -11,7 +11,7 @@ package main
 import (
 	"net/http"
 
-	"code.google.com/p/go.blog/pkg/blog"
+	"code.google.com/p/go.tools/godoc/blog"
 )
 
 func init() {
