@@ -4,7 +4,7 @@
 {{define "content"}}
 	{{template "doc" .Doc}}
 	{{with .Doc.Related}}
-		<h1>Related articles</h1>
+		<h2>Related articles</h2>
 		<ul>
 		{{range .}}
 			<li><a href="{{.Path}}">{{.Title}}</a></li>

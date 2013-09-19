@@ -41,6 +41,9 @@
 		#content .iframe, #content .image {
 			margin: 20px;
 		}
+		#content .title {
+			margin: 20px 0;
+		}
 	</style>
 </head>
 <body>
@@ -53,7 +56,7 @@
 <a href="{{.GodocURL}}/pkg/">Packages</a>
 <a href="{{.GodocURL}}/project/">The Project</a>
 <a href="{{.GodocURL}}/help/">Help</a>
-<a href="{{.GodocURL}}/blog/">Blog</a>
+<a href="{{.BasePath}}/">Blog</a>
 <input type="text" id="search" name="q" class="inactive" value="Search" placeholder="Search">
 </div>
 <div id="heading"><a href="{{.GodocURL}}/">The Go Programming Language</a></div>
@@ -111,6 +114,7 @@
 </div><!-- #sidebar -->
 
 <div id="content">
+	<h1><a href="{{.BasePath}}/">The Go Blog</a></h1>
 	{{template "content" .}}
 </div><!-- #content -->
 
@@ -168,7 +172,7 @@ $(function() {
 
 {{define "doc"}}
 	<div class="article">
-		<h1 class="title"><a href="{{.Path}}">{{.Title}}</a></h1>
+		<h3 class="title"><a href="{{.Path}}">{{.Title}}</a></h3>
 		<p class="date">{{.Time.Format "2 January 2006"}}</p>
 		{{.HTML}}
 		{{with .Authors}}
