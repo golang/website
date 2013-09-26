@@ -141,8 +141,8 @@
 <script>
 $(function() {
 	// Insert line numbers for all playground elements.
-	$('.playground').each(function() {
-		var $spans = $(this).find('> pre > span');
+	$('.playground > pre.numbers, .code > pre.numbers').each(function() {
+		var $spans = $(this).find('> span');
 
 		// Compute width of number column (including trailing space).
 		var max = 0;

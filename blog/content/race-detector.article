@@ -81,7 +81,7 @@ It uses [[http://golang.org/pkg/time/#AfterFunc][`time.AfterFunc`]] to create a
 uses the [[http://golang.org/pkg/time/#Timer.Reset][`Reset`]] method to
 schedule the next message, re-using the `Timer` each time.
 
-.play race-detector/timer.go /func main/,$
+.play -numbers race-detector/timer.go /func main/,$
 
 This looks like reasonable code, but under certain circumstances it fails in a surprising way:
 
@@ -125,7 +125,7 @@ value to `t` and so the call to `t.Reset` is made with a nil `t`.
 To fix the race condition we change the code to read and write the variable
 `t` only from the main goroutine:
 
-.play race-detector/timer-fixed.go /func main/,/^}/
+.play -numbers race-detector/timer-fixed.go /func main/,/^}/
 
 Here the main goroutine is wholly responsible for setting and resetting the
 `Timer` `t` and a new reset channel communicates the need to reset the timer in
