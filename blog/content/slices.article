@@ -129,7 +129,7 @@ The underlying `sliceHeader` struct for the `slice2` variable looks like
 this:
 
 	slice2 := sliceHeader{
-		Length:        10,
+		Length:        5,
 		ZerothElement: &buffer[105],
 	}
 
@@ -474,7 +474,7 @@ on the community-built
 * Nil
 
 As an aside, with our newfound knowledge we can see what the representation of a `nil` slice is.
-Of course, it is the zero value of the slice header:
+Naturally, it is the zero value of the slice header:
 
 	sliceHeader{
 		Length:        0,
