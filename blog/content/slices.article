@@ -443,7 +443,7 @@ allocated memory, and then to copy the appending items to the end of the old dat
 
 Try it; the behavior is the same as before:
 
-.play -edit slices/prog130.go /START/,/END/
+.play -edit slices/prog140.go /START/,/END/
 
 * Append: The built-in function
 

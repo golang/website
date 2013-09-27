@@ -11,7 +11,8 @@ import (
 // Append appends the elements to the slice.
 // Efficient version.
 func Append(slice []int, elements ...int) []int {
-	total := len(slice) + len(items)
+	n := len(slice)
+	total := len(slice) + len(elements)
 	if total > cap(slice) {
 		// Reallocate. Grow to 1.5 times the new size, so we can still grow.
 		newSize := total*3/2 + 1
@@ -19,9 +20,8 @@ func Append(slice []int, elements ...int) []int {
 		copy(newSlice, slice)
 		slice = newSlice
 	}
-	n := len(slice)
 	slice = slice[:total]
-	copy(slice[:n], elements)
+	copy(slice[n:], elements)
 	return slice
 }
 
