@@ -12,7 +12,7 @@ var buffer [256]byte
 var slice []byte = buffer[100:150]
 
 func PtrSubtractOneFromLength(slicePtr *[]byte) {
-	slice = *slicePtr
+	slice := *slicePtr
 	*slicePtr = slice[0 : len(slice)-1]
 }
 
