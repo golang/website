@@ -12,7 +12,8 @@ var buffer [256]byte
 var slice []byte = buffer[100:150]
 
 func SubtractOneFromLength(slice []byte) []byte {
-	return slice[0 : len(slice)-1]
+	slice = slice[0 : len(slice)-1]
+	return slice
 }
 
 func main() {
