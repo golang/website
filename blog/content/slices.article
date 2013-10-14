@@ -73,7 +73,7 @@ for a slice.
 Slices are where the action is, but to use them well one must understand
 exactly what they are and what they do.
 
-A slice is a data structure that describes a contiguous section of an array, which is
+A slice is a data structure describing a contiguous section of an array
 stored separately from the slice variable itself.
 _A_slice_is_not_an_array_.
 A slice _describes_ a piece of an array.
