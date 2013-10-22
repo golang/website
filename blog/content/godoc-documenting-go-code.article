@@ -37,8 +37,6 @@ Comments that are not adjacent to a top-level declaration are omitted from godoc
 
 	// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
 
-Godoc treats executable commands somewhat differently. Instead of inspecting the command source code, it looks for a Go source file belonging to the special package "documentation”. The comment on the "package documentation” clause is used as the command's documentation. For example, see the [[http://golang.org/cmd/godoc/][godoc documentation]] and its corresponding [[http://golang.org/src/cmd/godoc/doc.go][doc.go]] file.
-
 There are a few formatting rules that Godoc uses when converting comments to HTML:
 
 - Subsequent lines of text are considered part of the same paragraph; you must leave a blank line to separate paragraphs.
