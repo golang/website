@@ -39,7 +39,7 @@ The open source community has embraced Go, with our community wiki listing [[htt
 
 - The [[https://github.com/goraft/raft][raft]] package provides an implementation of the [[https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf][Raft]] distributed consensus protocol. It is the basis of Go projects like [[https://github.com/coreos/etcd][etcd]] and [[https://github.com/skynetservices/skydns][SkyDNS]].
 
-- Other popular projects include [[https://code.google.com/p/biogo/][biogo]], the [[http://www.gorillatoolkit.org/][Gorila Web Toolkit]], [[https://github.com/golang/groupcache][groupcache]], Mozilla's [[https://github.com/mozilla-services/heka][heka]], the [[https://github.com/cznic/kv][kv]] and [[https://github.com/cznic/ql][ql]] lightweight storage systems, and the [[http://skydb.io/][Sky]] behavioral database. 
+- Other popular projects include [[https://code.google.com/p/biogo/][biogo]], the [[http://www.gorillatoolkit.org/][Gorilla Web Toolkit]], [[https://github.com/golang/groupcache][groupcache]], Mozilla's [[https://github.com/mozilla-services/heka][heka]], the [[https://github.com/cznic/kv][kv]] and [[https://github.com/cznic/ql][ql]] lightweight storage systems, and the [[http://skydb.io/][Sky]] behavioral database. 
 
 But this is just the tip of the iceberg. The number of high-quality open source Go projects is phenomenal. Prolific Go hacker [[http://xph.us/software/][Keith Rarick]] put it well: "The state of the Go ecosystem after only four years is astounding. Compare Go in 2013 to Python in 1995 or Java in 1999. Or C++ in 1987!"
 
