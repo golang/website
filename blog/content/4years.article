@@ -51,7 +51,7 @@ Businesses are enjoying Go, too. The [[http://golang.org/wiki/GoUsers][Go Users 
 
 - The [[https://ngrok.com/][ngrok]] service allows web developers to provide remote access to their development environments. Its author Alan Shreve said that "ngrok's success as a project is due in no small part to choosing Go as the implementation language," citing Go's HTTP libraries, efficiency, cross-platform compatibility, and ease of deployment as the major benefits.
 
-- [[http://poptip.com][Poptip]] provides social analytics services, and product manager Andy Bonventre said "What started as an experiment in writing a single service in Go turned into moving almost our entire infrastructure over to it. What I love about Go the most is not necessarily the features of the language, but the focus on tooling, testing, and other elements that make writing large applications much more manageable."
+- [[http://poptip.com][Poptip]] provides social analytics services, and product engineer Andy Bonventre said "What started as an experiment in writing a single service in Go turned into moving almost our entire infrastructure over to it. What I love about Go the most is not necessarily the features of the language, but the focus on tooling, testing, and other elements that make writing large applications much more manageable."
 
 - Music collaboration startup [[http://splice.com][Splice]] chose to build their service with Go. Co-founder Matt Aimonetti said "We seriously studied and considered many programming languages, but Go's simplicity, efficiency, philosophy and community won us over."
 
