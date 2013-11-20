@@ -21,18 +21,34 @@ var (
 	contentPath  = flag.String("content", "content/", "path to content files")
 	templatePath = flag.String("template", "template/", "path to template files")
 	staticPath   = flag.String("static", "static/", "path to static files")
+	reload       = flag.Bool("reload", false, "reload content on each page load")
 )
 
 func main() {
 	flag.Parse()
 	config.ContentPath = *contentPath
 	config.TemplatePath = *templatePath
-	s, err := blog.NewServer(config)
-	if err != nil {
-		log.Fatal(err)
+	if *reload {
+		http.HandleFunc("/", reloadingBlogServer)
+	} else {
+		s, err := blog.NewServer(config)
+		if err != nil {
+			log.Fatal(err)
+		}
+		http.Handle("/", s)
 	}
-	http.Handle("/", s)
 	fs := http.FileServer(http.Dir(*staticPath))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 	log.Fatal(http.ListenAndServe(*httpAddr, nil))
+}
+
+// reloadingBlogServer is an handler that restarts the blog server on each page
+// view. Inefficient; don't enable by default. Handy when editing blog content.
+func reloadingBlogServer(w http.ResponseWriter, r *http.Request) {
+	s, err := blog.NewServer(config)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		return
+	}
+	s.ServeHTTP(w, r)
 }
