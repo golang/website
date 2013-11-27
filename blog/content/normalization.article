@@ -205,7 +205,7 @@ boundaries (such as the planned go.text/search package.)
 
 Another tool provided by the norm package that may help dealing with character
 boundaries is its iterator,
-[[http://godoc.org/code.google.com/p/go.text/norm/#Iter][`norm.Iter`]].
+[[http://godoc.org/code.google.com/p/go.text/unicode/norm#Iter][`norm.Iter`]].
 It iterates over characters one at a time in the normal form of choice.
 
 * Performing magic
