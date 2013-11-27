@@ -135,11 +135,13 @@ to wrap your `io.Writer` of choice:
 	defer wc.Close()
 	// write as before...
 
-If you have a small string and want to do a quick conversion, you can use this simpler form:
+If you have a small string and want to do a quick conversion, you can use this
+simpler form:
 
 	norm.NFC.Bytes(b)
 
-Package norm provides various other methods for normalizing text. Pick the one that suits your needs best.
+Package norm provides various other methods for normalizing text.
+Pick the one that suits your needs best.
 
 * Catching look-alikes
 
@@ -212,7 +214,7 @@ As mentioned earlier, most text is in NFC form, where base characters and
 modifiers are combined into a single rune whenever possible.  For the purpose
 of analyzing characters, it is often easier to handle runes after decomposition
 into their smallest components. This is where the NFD form comes in handy. For
-example, the following piece of code creates a transform.Transformer that
+example, the following piece of code creates a `transform.Transformer` that
 decomposes text into its smallest parts, removes all accents, and then
 recomposes the text into NFC:
 
@@ -240,7 +242,7 @@ regardless of the normal form in which the original text was encoded.
 * Normalization info
 
 As mentioned earlier, some packages precompute normalizations into their tables
-to minimize the need for normalization at run time. The type norm.Properties
+to minimize the need for normalization at run time. The type `norm.Properties`
 provides access to the per-rune information needed by these packages, most
 notably the Canonical Combining Class and decomposition information. Read the
 [[http://godoc.org/code.google.com/p/go.text/unicode/norm/#Properties][documentation]]
