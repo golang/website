@@ -17,12 +17,12 @@ This new release comes nearly seven months after the release of Go 1.1 in May,
 a much shorter period than the 14 months between 1.1 and 1.0.
 We anticipate a comparable interval between future major releases.
 
-[[http://golang.org/doc/go1.2#encoding][Go 1.2]] includes a couple of minor
+[[http://golang.org/doc/go1.2][Go 1.2]] includes a couple of minor
 language changes, several improvements to the language implementation and
 tools, some performance improvements, and many additions and
 (backward-compatible) changes to the standard library.
 
-Please read the [[http://golang.org/doc/go1.2#encoding][release notes]] for all
+Please read the [[http://golang.org/doc/go1.2][release notes]] for all
 the details, as some changes may affect the behavior of existing (buggy) programs.
 What follows is the highlights of the release.
 
