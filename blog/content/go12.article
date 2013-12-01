@@ -52,7 +52,7 @@ On the other end, new restrictions on
 [[http://golang.org/doc/go1.2#thread_limit][the number of operating system threads]]
 should prevent misbehaving programs from consuming all the resources of a
 machine. (These limits may be adjusted using new functions in the
-[[http://golang.org/pkg/runtime/][`runtime` package]].)
+[[http://golang.org/pkg/runtime/debug][`runtime/debug` package]].)
 
 Finally, among the [[http://golang.org/doc/go1.2#library][many changes to the standard library]],
 significant changes include
