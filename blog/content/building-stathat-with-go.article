@@ -14,10 +14,7 @@ You send your numbers to StatHat; it generates beautiful, fully-embeddable graph
 
 Here's an example of a StatHat graph of the temperature in NYC, Chicago, and San Francisco:
 
-[[http://3.bp.blogspot.com/-tjeZA4l2b9k/Tuld_bk2MWI/AAAAAAAAAEs/gXHOPRUutuA/s1600/weather.png][.image building-stathat-with-go_weather.png
-]]
-
-(click to enlarge)
+.image building-stathat-with-go_weather.png
 
 * Architecture Overview
 
