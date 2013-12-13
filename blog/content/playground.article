@@ -105,7 +105,7 @@ sleeping goroutines.
 
 When a goroutine calls `time.Sleep` (or similar) the scheduler adds a timer to
 a heap of pending timers and puts the goroutine to sleep.  
-Meanwhile, special timer goroutine manages that heap.
+Meanwhile, a special timer goroutine manages that heap.
 When the timer goroutine starts it tells the scheduler to wake
 it when the next pending timer is ready to fire and then sleeps.
 When it wakes up it checks which timers have expired, wakes the appropriate
@@ -278,7 +278,7 @@ When the front end receives a compilation request it first checks
 [[https://developers.google.com/appengine/docs/memcache/][memcache]]
 to see if it has cached the results of a previous compilation of that source.
 If found, it returns the cached response.
-The cache prevents popular programs such as those on
+The cache prevents popular programs such as those on the
 [[http://golang.org/][Go home page]] from overloading the back ends.
 If there is no cached response, the front end makes an RPC request to the back
 end, stores the response in memcache, parses the playback events, and returns
