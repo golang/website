@@ -324,8 +324,8 @@ package does this proxying.
 Both the [[http://tour.golang.org][Go Tour]] and the
 [[http://godoc.org/code.google.com/p/go.talks/present][Present Tool]] can be
 run offline. This is great for people with limited internet connectivity
-or presenters are conferences who cannot (and _should_ not) rely on a working
-internet conection.
+or presenters at conferences who cannot (and _should_ not) rely on a working
+internet connection.
 
 To run offline, the tools run their own version of the playground back end on
 the local machine. The back end uses a regular Go tool chain with none of the
