@@ -162,7 +162,7 @@ the `Kind` of `v` is still `reflect.Int`, even though the static type of `x` is 
 
 * The second law of reflection
 
-*2. Reflection goes from reflection object to interface value.
+* 2. Reflection goes from reflection object to interface value.
 
 Like physical reflection, reflection in Go generates its own inverse.
 
