@@ -112,7 +112,7 @@ This program prints
 
 	type: float64
 
-You might be wondering where the interface is here, since the program looks like it's passing the `float64` variable `x`, not an interface value, to `reflect.TypeOf`. But it's there; as [[http://golang.org/pkg/reflect/#Type.TypeOf][godoc reports]], the signature of `reflect.TypeOf` includes an empty interface:
+You might be wondering where the interface is here, since the program looks like it's passing the `float64` variable `x`, not an interface value, to `reflect.TypeOf`. But it's there; as [[http://golang.org/pkg/reflect/#TypeOf][godoc reports]], the signature of `reflect.TypeOf` includes an empty interface:
 
 	// TypeOf returns the reflection Type of the value in the interface{}.
 	func TypeOf(i interface{}) Type
@@ -243,7 +243,7 @@ If this seems bizarre, it's not. It's actually a familiar situation in unusual g
 
 We would not expect `f` to be able to modify `x` because we passed a copy of `x`'s value, not `x` itself. If we want `f` to modify `x` directly we must pass our function the address of `x` (that is, a pointer to `x`):
 
-`f(&x)`
+	f(&x)
 
 This is straightforward and familiar, and reflection works the same way. If we want to modify `x` by reflection, we must give the reflection library a pointer to the value we want to modify.
 
