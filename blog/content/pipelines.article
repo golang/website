@@ -8,8 +8,8 @@ Sameer Ajmani
 
 Go's concurrency primitives make it easy to construct streaming data pipelines
 that make efficient use of I/O and multiple CPUs.  This article presents
-examples such pipelines, highlights subtleties that arise when operations fail,
-and introduces techniques for dealing with failures cleanly.
+examples of such pipelines, highlights subtleties that arise when operations
+fail, and introduces techniques for dealing with failures cleanly.
 
 * What is a pipeline?
 
