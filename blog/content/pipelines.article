@@ -42,7 +42,7 @@ the values have been sent:
 .code pipelines/square.go /func gen/,/^}/
 
 The second stage, `sq`, receives integers from a channel and returns a
-channel that emits the square of each recevied integer.  After the
+channel that emits the square of each received integer.  After the
 inbound channel is closed and this stage has sent all the values
 downstream, it closes the outbound channel:
 
@@ -95,7 +95,7 @@ There is a pattern to our pipeline functions:
 - stages close their outbound channels when all the send operations are done.
 - stages keep receiving values from inbound channels until those channels are closed.
 
-This pattern allows each receving stage to be written as a `range` loop and
+This pattern allows each receiving stage to be written as a `range` loop and
 ensures that all goroutines exit once all values have been successfully sent
 downstream.
 
@@ -192,7 +192,7 @@ on all return paths via a `defer` statement.
 
 .code pipelines/sqdone3.go /func sq/,/^}/
 
-Here are the guidlines for pipeline construction:
+Here are the guidelines for pipeline construction:
 
 - stages close their outbound channels when all the send operations are done.
 - stages keep receiving values from inbound channels until those channels are closed or the senders are unblocked.
