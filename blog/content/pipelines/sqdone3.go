@@ -26,7 +26,7 @@ func sq(done <-chan struct{}, in <-chan int) <-chan int {
 			select {
 			case out <- n * n:
 			case <-done:
-				return
+				return // HL
 			}
 		}
 	}()
@@ -44,15 +44,17 @@ func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
 	// copies values from c to out until c or done is closed, then calls
 	// wg.Done.
 	output := func(c <-chan int) {
-		defer wg.Done()
+		defer wg.Done() // HL
 		for n := range c {
 			select {
 			case out <- n:
 			case <-done:
-				return
+				return // HL
 			}
 		}
 	}
+	// ... the rest is unchanged ...
+
 	wg.Add(len(cs))
 	for _, c := range cs {
 		go output(c)
