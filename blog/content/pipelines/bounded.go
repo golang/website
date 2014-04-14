@@ -25,7 +25,7 @@ func walkFiles(done <-chan struct{}, root string) (<-chan string, <-chan error) 
 			if err != nil {
 				return err
 			}
-			if info.IsDir() {
+			if !info.Mode().IsRegular() {
 				return nil
 			}
 			select {

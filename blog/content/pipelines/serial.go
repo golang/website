@@ -18,7 +18,7 @@ func MD5All(root string) (map[string][md5.Size]byte, error) {
 		if err != nil {
 			return err
 		}
-		if info.IsDir() {
+		if !info.Mode().IsRegular() {
 			return nil
 		}
 		data, err := ioutil.ReadFile(path) // HL

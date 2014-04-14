@@ -33,7 +33,7 @@ func sumFiles(done <-chan struct{}, root string) (<-chan result, <-chan error) {
 			if err != nil {
 				return err
 			}
-			if info.IsDir() {
+			if !info.Mode().IsRegular() {
 				return nil
 			}
 			wg.Add(1)
