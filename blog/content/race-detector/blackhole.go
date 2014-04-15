@@ -1,3 +1,5 @@
+// +build OMIT
+
 package main
 
 var blackHole [4096]byte // shared buffer
