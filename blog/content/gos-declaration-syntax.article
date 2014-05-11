@@ -92,19 +92,19 @@ These declarations are clear, if verbose - you just read them left to right. Go 
 
 There is no direct correspondence between the look of [3]int and how to use a in an expression. (We'll come back to pointers in the next section.) You gain clarity at the cost of a separate syntax.
 
-Now consider functions. Let's transcribe the declaration for main, even though the main function in Go takes no arguments:
+Now consider functions. Let's transcribe the declaration for main as it would read in Go, although the real main function in Go takes no arguments:
 
-	func main(argc int, argv *[]byte) int
+	func main(argc int, argv []string) int
 
-Superficially that's not much different from C, but it reads well from left to right:
+Superficially that's not much different from C, other than the change from `char` arrays to strings, but it reads well from left to right:
 
-function main takes an int and a pointer to a slice of bytes and returns an int.
+function main takes an int and a slice of strings and returns an int.
 
 Drop the parameter names and it's just as clear - they're always first so there's no confusion.
 
-	func main(int, *[]byte) int
+	func main(int, []string) int
 
-One value of this left-to-right style is how well it works as the types become more complex. Here's a declaration of a function variable (analogous to a function pointer in C):
+One merit of this left-to-right style is how well it works as the types become more complex. Here's a declaration of a function variable (analogous to a function pointer in C):
 
 	f func(func(int,int) int, int) int
 
