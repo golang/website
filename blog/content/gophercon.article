@@ -8,7 +8,7 @@ adg@golang.org
 
 In April this year 700 gophers descended upon Denver to attend [[http://www.gophercon.com/][GopherCon]],
 the world's first large-scale Go conference, organized entirely by the community.
-The three day event featured 23 talks in a single track over two days,
+The three day event featured 24 talks and one panel discussion in a single track over two days,
 followed by an informal "hack day" full of code, conversation,
 and more than 4 hours (!) of lightning talks.
 
@@ -36,7 +36,7 @@ which now accompany the original blue one:
 
 .image gophercon/image01.jpg
 
-The gopher was also also seen wearing a cape on the side the incredible [[https://coreos.com/][CoreOS]] bus:
+The gopher was also also seen wearing a cape on the side of the incredible [[https://coreos.com/][CoreOS]] bus:
 
 .image gophercon/image00.jpg
 
