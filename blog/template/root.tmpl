@@ -78,15 +78,6 @@
 			<h4>Previous article</h4>
 			<p><a href="{{.Path}}">{{.Title}}</a></p>
 		{{end}}
-		
-		{{with .Related}}
-			<h4>Related articles</h4>
-			<ul>
-			{{range .}}
-				<li><a href="{{.Path}}">{{.Title}}</a></li>
-			{{end}}
-			</ul>
-		{{end}}
 	{{end}}
 	
 	<h4>Links</h4>
@@ -101,16 +92,7 @@
 	<li><a href='//twitter.com/golang'>Go on Twitter</a></li>
 	</ul>
 	
-	<h4>Keep up with Google Developers</h4>
-	<ul>
-	<li><a href='//plus.google.com/+GoogleDevelopers/posts'>Google Developers +Page</a></li>
-	<li><a href='//developers.google.com/live/'>Google Developers Live</a></li>
-	<li><a href='//developers.google.com/'>Google Developers</a></li>
-	<li><a href='//googledevelopers.blogspot.com/'>Google Developers Blog</a></li>
-	</ul>
-	
-	<h4>Blog Archive</h4>
-	<p><a href="{{.BasePath}}/index">Article index</a></p>
+	<p><a href="{{.BasePath}}/index">Blog index</a></p>
 </div><!-- #sidebar -->
 
 <div id="content">
