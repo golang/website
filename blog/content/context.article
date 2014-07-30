@@ -40,9 +40,9 @@ The `Err` method returns an error indicating why the `Context` was canceled.
 The [[/pipelines][Pipelines and Cancelation]] article discusses the `Done`
 channel idiom in more detail.
 
-A `Context` does _not_ have a `Cancel` method for same reason the `Done` channel
-is receive-only: the function receiving a cancelation signal is usually not the
-one that sends the signal.
+A `Context` does _not_ have a `Cancel` method for the same reason the `Done`
+channel is receive-only: the function receiving a cancelation signal is usually
+not the one that sends the signal.
 In particular, when a parent operation starts goroutines for sub-operations,
 those sub-operations should not be able to cancel the parent.
 Instead, the `WithCancel` function (described below) provides a way to cancel a
@@ -140,10 +140,10 @@ multiple goroutines.
 Packages like `userip` hide the details of this mapping and provide
 strongly-typed access to a specific `Context` value.
 
-To avoid key collisions, `userip` defines an unexported variable `key` and uses
-its address as the context key:
+To avoid key collisions, `userip` defines an unexported type `key` and uses
+a value of this type as the context key:
 
-.code context/userip/userip.go /var key/
+.code context/userip/userip.go /The key type/,/const userIPKey/
 
 `FromRequest` extracts a `userIP` value from an `http.Request`:
 
