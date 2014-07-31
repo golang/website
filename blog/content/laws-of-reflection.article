@@ -80,7 +80,7 @@ Continuing, we can do this:
 	    var empty interface{}
 	    empty = w
 
-and our empty interface value `e` will again contain that same pair, (`tty`, `*os.File`). That's handy: an empty interface can hold any value and contains all the information we could ever need about that value.
+and our empty interface value `empty` will again contain that same pair, (`tty`, `*os.File`). That's handy: an empty interface can hold any value and contains all the information we could ever need about that value.
 
 (We don't need a type assertion here because it's known statically that `w` satisfies the empty interface. In the example where we moved a value from a `Reader` to a `Writer`, we needed to be explicit and use a type assertion because `Writer`'s methods are not a subset of `Reader`'s.)
 
