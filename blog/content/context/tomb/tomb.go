@@ -1,3 +1,5 @@
+// +build OMIT
+
 // Package tomb provides a Context implementation that is canceled when either
 // its parent Context is canceled or a provided Tomb is killed.
 package tomb
