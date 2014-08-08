@@ -1,3 +1,5 @@
+// +build OMIT
+
 // Package gorilla provides a go.net/context.Context implementation whose Value
 // method returns the values associated with a specific HTTP request in the
 // github.com/gorilla/context package.
