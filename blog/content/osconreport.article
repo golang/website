@@ -17,7 +17,7 @@ session, and a meetup.
 [[http://twitter.com/mstine][Matt Stine]] talked about his experience switching
 from Java to Go with
 [[http://www.slideshare.net/mstine/java-devlearnstogooscon][A recovering Java developer learns Go]]
-while [[https://twitter.com/spf13][Steve Francia]] presente
+while [[https://twitter.com/spf13][Steve Francia]] presented
 [[http://spf13.com/presentation/MongoDB-and-Go][Painless Data Storage with MongoDB and Go]].
 Steve also presented
 [[http://spf13.com/presentation/go-for-object-oriented-programmers][Go for Object Oriented Programmers]],
@@ -59,7 +59,7 @@ At the meetup Francesc Campoy talked about
 [[https://twitter.com/kelseyhightower][Kelsey Hightower]] gave a great
 introduction to [[https://github.com/GoogleCloudPlatform/kubernetes][Kubernetes]],
 a container management system for clusters written in Go by Google. If you live
-in Portland, make sure you [[http://meetup.com/pdx-go][join the group] and come
+in Portland, make sure you [[http://meetup.com/pdx-go][join the group]] and come
 along to the next meeting.
 
 The "Birds of a Feather" (or, more aptly, "Gophers of a Feather") was a lot of
