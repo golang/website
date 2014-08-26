@@ -128,7 +128,7 @@ or
 
 	m = hello
 
-because, unlike the typed constants `typedHello` and `myStringHello`, the untyped constants `"Hello, 世界"` and `hello` _have_no_type_.
+because, unlike the typed constants `typedHello` and `myStringHello`, the untyped constants `"Hello,`世界"` and `hello` _have_no_type_.
 Assigning them to a variable of any type compatible with strings works without error.
 
 These untyped string constants are strings, of course, so they can only be used where a string is allowed, but they do not have _type_ `string`.
