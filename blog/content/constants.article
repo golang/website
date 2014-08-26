@@ -16,7 +16,7 @@ This post explains why that is and what it means.
 
 In the early days of thinking about Go, we talked about a number of problems caused by the way C and its descendants let you mix and match numeric types.
 Many mysterious bugs, crashes, and portability problems are caused by expressions that combine integers of different sizes and "signedness".
-Although to a seasoned C programmer, the result of a calculation like
+Although to a seasoned C programmer the result of a calculation like
 
 	unsigned int u = 1e9;
 	long signed int i = -1;
@@ -172,7 +172,7 @@ What happens when `fmt.Printf` is called with an untyped constant is that an int
 to pass as an argument, and the concrete type stored for that argument is the default type of the constant.
 This process is analogous to what we saw earlier when declaring an initialized value using an untyped string constant.
 
-You can see the result in this example, which uses the format '%v' to print the value and `%T` to print the type of the value being passed to `fmt.Printf`:
+You can see the result in this example, which uses the format `%v` to print the value and `%T` to print the type of the value being passed to `fmt.Printf`:
 
 .play -edit constants/default2.go /START/,/STOP/
 
@@ -423,7 +423,7 @@ Therefore, although they have different implicit default types, written as untyp
 
 .play -edit constants/numbers1.go /START/,/STOP/
 
-The output from this snippet is: `1 1 1 1 1 (1+0i) 1`.
+The output from this snippet is: `1`1`1`1`1`(1+0i)`1`.
 
 You can even do nutty stuff like
 
