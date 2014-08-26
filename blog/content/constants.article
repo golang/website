@@ -332,7 +332,7 @@ For instance, `int8` has range -128 through 127, so constants outside of that ra
 
 .play -edit constants/int2.go /var/
 
-Similarly, `uint8`, also known as `byte`. has range 0 through 255, so a large or negative constant cannot be assigned to a `uint8`:
+Similarly, `uint8`, also known as `byte`, has range 0 through 255, so a large or negative constant cannot be assigned to a `uint8`:
 
 .play -edit constants/int3.go /var/
 
