@@ -194,7 +194,7 @@ This is just the tip of the iceberg—there's a lot more you can do with Go, Doc
 
 To learn more about Docker, see their [[https://docs.docker.com/][extensive documentation]].
 
-To learn more about Docker and Go, see the [[https://registry.hub.docker.com/_/golang/][official golang Docker Hub repository]].
+To learn more about Docker and Go, see the [[https://registry.hub.docker.com/_/golang/][official `golang` Docker Hub repository]] and Kelsey Hightower's [[https://medium.com/@kelseyhightower/optimizing-docker-images-for-static-binaries-b5696e26eb07][Optimizing Docker Images for Static Go Binaries]].
 
 To learn more about Docker and [[http://cloud.google.com/compute][Google Compute Engine]],
 see the [[https://cloud.google.com/compute/docs/containers/container_vms][Container-optimized VMs page]]
