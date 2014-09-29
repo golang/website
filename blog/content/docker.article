@@ -156,7 +156,7 @@ Use the [[https://cloud.google.com/sdk/#Quick_Start][gcloud tool]]
 to create a VM instance running the container:
 
 	$ gcloud compute instances create outyet \
-		--image container-vm-v20140826 \
+		--image container-vm-v20140925 \
 		--image-project google-containers \
 		--metadata-from-file google-container-manifest=containers.yaml \
 		--tags http-server \
