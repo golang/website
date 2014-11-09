@@ -8,8 +8,8 @@ package gorilla
 import (
 	"net/http"
 
-	"code.google.com/p/go.net/context"
 	gcontext "github.com/gorilla/context"
+	"golang.org/x/net/context"
 )
 
 // NewContext returns a Context whose Value method returns values associated

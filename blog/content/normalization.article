@@ -222,8 +222,8 @@ recomposes the text into NFC:
 	import (
 		"unicode"
 
-		"code.google.com/p/go.text/transform"
-		"code.google.com/p/go.text/unicode/norm"
+		"golang.org/x/text/transform"
+		"golang.org/x/text/unicode/norm"
 	)
 
 	isMn := func(r rune) bool {

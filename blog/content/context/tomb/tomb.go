@@ -5,7 +5,7 @@
 package tomb
 
 import (
-	"code.google.com/p/go.net/context"
+	"golang.org/x/net/context"
 	tomb "gopkg.in/tomb.v2"
 )
 

@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/http"
 
-	"code.google.com/p/go.net/context"
+	"golang.org/x/net/context"
 )
 
 // FromRequest extracts the user IP address from req, if present.

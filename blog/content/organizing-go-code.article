@@ -22,7 +22,7 @@ A good name is the most important part of a software interface: the name is the 
 
 An import path is the string with which users import a package. It specifies the directory (relative to `$GOROOT/src/pkg` or `$GOPATH/src`) in which the package's source code resides.
 
-Import paths should be globally unique, so use the path of your source repository as its base. For instance, the `websocket` package from the `go.net` sub-repository has an import path of `"code.google.com/p/go.net/websocket"`. The Go project owns the path `"code.google.com/p/go"`, so that path cannot be used by another author for a different package. Because the repository URL and import path are one and the same, the `go`get` command can fetch and install the package automatically.
+Import paths should be globally unique, so use the path of your source repository as its base. For instance, the `websocket` package from the `go.net` sub-repository has an import path of `"golang.org/x/net/websocket"`. The Go project owns the path `"code.google.com/p/go"`, so that path cannot be used by another author for a different package. Because the repository URL and import path are one and the same, the `go`get` command can fetch and install the package automatically.
 
 If you don't use a hosted source repository, choose some unique prefix such as a domain, company, or project name. As an example, the import path of all Google's internal Go code starts with the string `"google"`.
 

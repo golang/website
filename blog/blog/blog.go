@@ -11,10 +11,10 @@ import (
 	"strings"
 	"time"
 
-	"code.google.com/p/go.tools/blog"
-	"code.google.com/p/go.tools/godoc/static"
+	"golang.org/x/tools/blog"
+	"golang.org/x/tools/godoc/static"
 
-	_ "code.google.com/p/go.tools/playground"
+	_ "golang.org/x/tools/playground"
 )
 
 const hostname = "blog.golang.org" // default hostname for blog server
