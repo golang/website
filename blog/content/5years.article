@@ -23,6 +23,8 @@ kernel of the Go community.
 
 .image 5years/gophers5th.jpg _ 850
 
+[[/gopher][_Gopher_]] _illustation_by_ [[http://reneefrench.blogspot.com.au/][_Renee_French_]]
+
 After the initial release, it took us a while to properly communicate the
 goals and design ethos behind Go. Rob Pike did so eloquently in his 2012 essay
 [[http://talks.golang.org/2012/splash.article][_Go_at_Google:_Language_Design_in_the_Service_of_Software_Engineering_]] and
