@@ -33,7 +33,7 @@ They can also be detailed like the [[http://golang.org/pkg/encoding/gob/][gob pa
 
 When writing package comments of any size, keep in mind that their first sentence will appear in godoc's [[http://golang.org/pkg/][package list]].
 
-Comments that are not adjacent to a top-level declaration are omitted from godoc's output, with one notable exception. Top-level comments that begin with the word `"BUG(who)”` are recognized as known bugs, and included in the "Bugs” section of the package documentation. The "who” part should be the user name of someone who could provide more information. For example, this is a known issue from the [[http://golang.org/pkg/bytes/#bugs][bytes package]]:
+Comments that are not adjacent to a top-level declaration are omitted from godoc's output, with one notable exception. Top-level comments that begin with the word `"BUG(who)”` are recognized as known bugs, and included in the "Bugs” section of the package documentation. The "who” part should be the user name of someone who could provide more information. For example, this is a known issue from the [[http://golang.org/pkg/bytes/#pkg-note-BUG][bytes package]]:
 
 	// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
 
