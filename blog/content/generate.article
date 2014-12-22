@@ -153,18 +153,13 @@ Let's run it:
 	
 	const _Pill_name = "PlaceboAspirinIbuprofenParacetamol"
 	
-	var _Pill_index = [...]uint8{7, 14, 23, 34}
+	var _Pill_index = [...]uint8{0, 7, 14, 23, 34}
 	
 	func (i Pill) String() string {
 		if i < 0 || i >= Pill(len(_Pill_index)) {
 			return fmt.Sprintf("Pill(%d)", i)
 		}
-		hi := _Pill_index[i]
-		lo := uint8(0)
-		if i > 0 {
-			lo = _Pill_index[i-1]
-		}
-		return _Pill_name[lo:hi]
+		return _Pill_name[_Pill_index[i]:_Pill_index[i+1]]
 	}
 	$
 
