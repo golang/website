@@ -12,7 +12,7 @@ The diverse speaker lineup included university students, industry experts, and G
 
 And good news, everybody! All the talks were recorded and are available:
 
-.image gothamgo/speakers.jpg 880 _
+.image gothamgo/gothamgo.jpg _ 600
 
 - [[http://vimeo.com/115728346][Launching into Go]] _by_Kathy_Spardlin_ - a CockroachDB contributor provides pointers for people getting started with Go.
 - [[http://vimeo.com/115782573][Error Handling]] _by_ [[https://twitter.com/goinggodotnet][_Bill_Kennedy_]] - ideas on how to use the Go error interface.
