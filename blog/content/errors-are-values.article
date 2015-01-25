@@ -207,7 +207,7 @@ that is mostly about honoring the [[http://golang.org/pkg/io/#Writer][`io.Writer
 The `Write` method of `bufio.Writer` behaves just like our `errWriter.write`
 method above, with `Flush` reporting the error, so our example could be written like this:
 
-	b := &bufio.NewWriter(fd)
+	b := bufio.NewWriter(fd)
 	b.Write(p0[a:b])
 	b.Write(p1[c:d])
 	b.Write(p2[e:f])
