@@ -87,7 +87,7 @@ When a function in package pkg returns a value of type `pkg.Pkg` (or
 	start := time.Now()                           // start is a time.Time
 	t, err := time.Parse(time.Kitchen, "6:06PM")  // t is a time.Time
 
-A function named `New` in package `pkg` returns a value of type `*pkg.Pkg`.
+A function named `New` in package `pkg` returns a value of type `pkg.Pkg`.
 This is a standard entry point for client code using that type:
 
          q := list.New()  // q is a *list.List
