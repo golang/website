@@ -8,7 +8,7 @@ Rob Pike
 
 To transmit a data structure across a network or to store it in a file, it must be encoded and then decoded again. There are many encodings available, of course: [[http://www.json.org/][JSON]], [[http://www.w3.org/XML/][XML]], Google's [[http://code.google.com/p/protobuf][protocol buffers]], and more. And now there's another, provided by Go's [[http://golang.org/pkg/encoding/gob/][gob]] package.
 
-Why define a new encoding? It's a lot of work and redundant at that. Why not just use one of the existing formats? Well, for one thing, we do! Go has [[http://golang.org/pkg/][packages]] supporting all the encodings just mentioned (the [[http://code.google.com/p/goprotobuf][protocol buffer package]] is in a separate repository but it's one of the most frequently downloaded). And for many purposes, including communicating with tools and systems written in other languages, they're the right choice.
+Why define a new encoding? It's a lot of work and redundant at that. Why not just use one of the existing formats? Well, for one thing, we do! Go has [[http://golang.org/pkg/][packages]] supporting all the encodings just mentioned (the [[http://github.com/golang/protobuf][protocol buffer package]] is in a separate repository but it's one of the most frequently downloaded). And for many purposes, including communicating with tools and systems written in other languages, they're the right choice.
 
 But for a Go-specific environment, such as communicating between two servers written in Go, there's an opportunity to build something much easier to use and possibly more efficient.
 
@@ -84,6 +84,8 @@ With the type information, a gob stream is fully self-describing except for the 
 * Compiling a machine
 
 The first time you encode a value of a given type, the gob package builds a little interpreted machine specific to that data type. It uses reflection on the type to construct that machine, but once the machine is built it does not depend on reflection. The machine uses package unsafe and some trickery to convert the data into the encoded bytes at high speed. It could use reflection and avoid unsafe, but would be significantly slower. (A similar high-speed approach is taken by the protocol buffer support for Go, whose design was influenced by the implementation of gobs.) Subsequent values of the same type use the already-compiled machine, so they can be encoded right away.
+
+[Update: As of Go 1.4, package unsafe is no longer use by the gob package, with a modest performance drop.]
 
 Decoding is similar but harder. When you decode a value, the gob package holds a byte slice representing a value of a given encoder-defined type to decode, plus a Go value into which to decode it. The gob package builds a machine for that pair: the gob type sent on the wire crossed with the Go type provided for decoding. Once that decoding machine is built, though, it's again a reflectionless engine that uses unsafe methods to get maximum speed.
 
