@@ -32,7 +32,7 @@ Use "go get" to fetch and install outyet in your
 
 * Write a Dockerfile
 
-Create a file named `Dockerfile` in the `outyet` directory with the following contents:
+Replace a file named `Dockerfile` in the `outyet` directory with the following contents:
 
 	# Start from a Debian image with the latest version of Go installed
 	# and a workspace (GOPATH) configured at /go.
@@ -71,7 +71,7 @@ With the `onbuild` variant, the `Dockerfile` is much simpler:
 
 * Build and run the image
 
-Invoke Docker from the package directory to build an image using the `Dockerfile`:
+Invoke Docker from the `outyet` package directory to build an image using the `Dockerfile`:
 
 	$ docker build -t outyet .
 
