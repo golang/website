@@ -5,6 +5,8 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="theme-color" content="#375EAB">
 	<title>{{template "title" .}}</title>
 	<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
 	<link rel="alternate" type="application/atom+xml" title="blog.golang.org - Atom Feed" href="//blog.golang.org/feed.atom" />
@@ -13,11 +15,10 @@
 		#sidebar {
 			float: right;
 			padding-left: 20px;
-			width: 250px;
-			background: white;
-		}
-		#sidebar p, #sidebar ul {
-			margin: 20px 5px;
+			width: 40%;
+			max-width: 250px;
+			background: #F3F3F3;
+			margin: 20px 0 20px 20px;
 		}
 		#sidebar ul {
 			padding: 0;
@@ -44,12 +45,18 @@
 		#content .title {
 			margin: 20px 0;
 		}
+		#content img {
+			max-width: 100%;
+		}
 	</style>
 </head>
 <body>
 
 <div id="topbar"><div class="container">
 
+<div class="top-heading" id="heading-wide"><a href="{{.GodocURL}}/">The Go Programming Language</a></div>
+<div class="top-heading" id="heading-narrow"><a href="{{.GodocURL}}/">Go</a></div>
+<a href="#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
 <form method="GET" action="{{.GodocURL}}/search">
 <div id="menu">
 <a href="{{.GodocURL}}/doc/">Documents</a>
@@ -59,7 +66,6 @@
 <a href="{{.BasePath}}/">Blog</a>
 <input type="text" id="search" name="q" class="inactive" value="Search" placeholder="Search">
 </div>
-<div id="heading"><a href="{{.GodocURL}}/">The Go Programming Language</a></div>
 </form>
 
 </div></div>
