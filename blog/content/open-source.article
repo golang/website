@@ -96,7 +96,7 @@ Other people have made similar observations.
 Here are two.
 Last year, on RedMonk.com, Donnie Berkholz
 wrote about 
-[[Go as the emerging language of cloud infrastructure][http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/],
+“[[http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/][Go as the emerging language of cloud infrastructure]],”
 observing that
 “[Go's] marquee projects ... are cloud-centric or otherwise
 made for dealing with distributed systems
@@ -104,7 +104,7 @@ or transient environments.”
 
 This year, on Texlution.com, the author
 wrote an article titled
-[[Why Golang is doomed to succeed][https://texlution.com/post/why-go-is-doomed-to-succeed/]],
+“[[https://texlution.com/post/why-go-is-doomed-to-succeed/][Why Golang is doomed to succeed]],”
 pointing out that this focus on large-scale development
 was possibly even better suited to open source than
 to Google itself: “This open source fitness is why I think
