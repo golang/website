@@ -57,7 +57,7 @@ by sending network traffic back and forth.
 Today, that kind of software has a shorter name:
 we call it cloud software.
 It's fair to say that Go was designed for the cloud
-before cloud's ran software.
+before clouds ran software.
 
 The larger goal is to make a better environment
 to meet the challenges of scalable software development,
@@ -678,7 +678,7 @@ for the most part
 they did not involve new designs.
 
 More recently,
-a group of contributors led by Aram Havarneau
+a group of contributors led by Aram Hăvărneanu
 ported Go to the ARM 64 architecture,
 This was the first architecture port
 by contributors outside Google.
