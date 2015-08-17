@@ -33,7 +33,7 @@ was the launch of the first stable version,
 [[http://blog.golang.org/2012/03/go-version-1-is-released.html][Go 1]].
 People who write Go 1 programs can now be confident that their programs will
 continue to compile and run without change, in many environments,
-on a time scale of years. 
+on a time scale of years.
 As part of the Go 1 launch we spent months cleaning up the
 [[http://golang.org/doc/go1.html][language and libraries]]
 to make it something that will age well.
@@ -69,8 +69,8 @@ Other companies and projects are using Go too, including
 [[http://backstage.soundcloud.com/2012/07/go-at-soundcloud/][SoundCloud]],
 [[http://sorcery.smugmug.com/2012/04/06/deriving-json-types-in-go/][SmugMug]],
 [[http://blog.golang.org/2011/12/building-stathat-with-go.html][StatHat]],
-[[https://tinkercad.com/about/jobs][Tinkercad]], 
-and 
-[[http://code.google.com/p/go-wiki/wiki/GoUsers][many others]].
+[[https://tinkercad.com/about/jobs][Tinkercad]],
+and
+[[https://golang.org/wiki/GoUsers][many others]].
 
 Here's to many more years of productive programming in Go.

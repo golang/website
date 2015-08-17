@@ -38,7 +38,7 @@ For emacs users, [[http://tip.golang.org/misc/emacs/go-mode.el][go-mode.el]] pro
 
 	 (add-hook 'before-save-hook #'gofmt-before-save)
 
-For Eclipse or Sublime Text users, the [[http://code.google.com/p/goclipse/][GoClipse]] and [[https://github.com/DisposaBoy/GoSublime][GoSublime]] projects add a gofmt facility to those editors.
+For Eclipse or Sublime Text users, the [[https://github.com/GoClipse/goclipse][GoClipse]] and [[https://github.com/DisposaBoy/GoSublime][GoSublime]] projects add a gofmt facility to those editors.
 
 And for Git aficionados, the [[http://tip.golang.org/misc/git/pre-commit][misc/git/pre-commit script]] is a pre-commit hook that prevents incorrectly-formatted Go code from being committed. If you use Mercurial, the [[https://bitbucket.org/fhs/hgstyle/overview][hgstyle plugin]] provides a gofmt pre-commit hook.
 

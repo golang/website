@@ -18,6 +18,8 @@ Gccgo provides the standard, complete Go library.  Many of the core features of 
 
 Gccgo distributions do not yet include a version of the go command.  However, if you install the go command from a standard Go release, it already supports gccgo via the `-compiler` option: go build `-compiler`gccgo`myprog`.  The tools used for calls between Go and C/C++, cgo and SWIG, also support gccgo.
 
-We have put the Go frontend under the same BSD license as the rest of the Go tools.  You can download the source code for the frontend at the [[http://code.google.com/p/gofrontend][gofrontend Google Code project]]. Note that when the Go frontend is linked with the GCC backend to make gccgo, GCC’s GPL license takes precedence.
+We have put the Go frontend under the same BSD license as the rest of the Go
+tools.  You can download the source code for the frontend at the
+[[https://github.com/golang/gofrontend][gofrontend project]]. Note that when the Go frontend is linked with the GCC backend to make gccgo, GCC’s GPL license takes precedence.
 
 The latest release of GCC, 4.7.1, includes gccgo with support for Go 1.  If you need better performance for CPU-bound Go programs, or you need to support processors or operating systems that the gc compiler does not support, gccgo might be the answer.

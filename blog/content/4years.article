@@ -40,7 +40,7 @@ The open source community has embraced Go, with our community wiki listing [[htt
 
 - The [[https://github.com/goraft/raft][raft]] package provides an implementation of the [[https://ramcloud.stanford.edu/wiki/download/attachments/11370504/raft.pdf][Raft]] distributed consensus protocol. It is the basis of Go projects like [[https://github.com/coreos/etcd][etcd]] and [[https://github.com/skynetservices/skydns][SkyDNS]].
 
-- Other popular projects include [[https://code.google.com/p/biogo/][biogo]], the [[http://www.gorillatoolkit.org/][Gorilla Web Toolkit]], [[https://github.com/golang/groupcache][groupcache]], Mozilla's [[https://github.com/mozilla-services/heka][heka]], the [[https://github.com/cznic/kv][kv]] and [[https://github.com/cznic/ql][ql]] lightweight storage systems, and the [[http://skydb.io/][Sky]] behavioral database. 
+- Other popular projects include [[https://github.com/biogo/biogo][biogo]], the [[http://www.gorillatoolkit.org/][Gorilla Web Toolkit]], [[https://github.com/golang/groupcache][groupcache]], Mozilla's [[https://github.com/mozilla-services/heka][heka]], the [[https://github.com/cznic/kv][kv]] and [[https://github.com/cznic/ql][ql]] lightweight storage systems, and the [[http://skydb.io/][Sky]] behavioral database. 
 
 But this is just the tip of the iceberg. The number of high-quality open source Go projects is phenomenal. Prolific Go hacker [[http://xph.us/software/][Keith Rarick]] put it well: "The state of the Go ecosystem after only four years is astounding. Compare Go in 2013 to Python in 1995 or Java in 1999. Or C++ in 1987!"
 
@@ -62,7 +62,7 @@ In September 2012, [[http://apcera.com/][Apcera]] CEO Derek Collison [[https://t
 
 So how can you get involved? Whether you're a seasoned Go programmer or just Go-curious, there are many ways to get started in the Go community:
 
-- [[http://blog.golang.org/getthee-to-go-meetup][Join your nearest Go User Group]], where your local gophers meet to share their knowledge and experience. These groups are popping up all over the world. I have personally spoken at Go groups in Amsterdam, Berlin, Gothenburg, London, Moscow, Munich, New York City, Paris, San Francisco, Seoul, Stockholm, Sydney, Tokyo, and Warsaw; but there are [[https://code.google.com/p/go-wiki/wiki/GoUserGroups][many more]]!
+- [[http://blog.golang.org/getthee-to-go-meetup][Join your nearest Go User Group]], where your local gophers meet to share their knowledge and experience. These groups are popping up all over the world. I have personally spoken at Go groups in Amsterdam, Berlin, Gothenburg, London, Moscow, Munich, New York City, Paris, San Francisco, Seoul, Stockholm, Sydney, Tokyo, and Warsaw; but there are [[https://golang.org/wiki/GoUserGroups][many more]]!
 
 - Create or contribute to an open source Go project (or [[http://golang.org/doc/contribute.html][to Go itself]]). (And if you're building something, we'd love to hear from you on the [[http://groups.google.com/group/golang-nuts][Go mailing list]].)
 

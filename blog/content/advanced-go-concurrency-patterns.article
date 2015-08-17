@@ -12,4 +12,4 @@ At Google I/O a year ago Rob Pike presented [[http://talks.golang.org/2012/concu
 
 The slides are [[http://talks.golang.org/2013/advconc.slide][available here]] (use the left and right arrows to navigate).
 
-The slides were produced with [[http://godoc.org/code.google.com/p/go.talks/present][the present tool]], and the runnable code snippets are powered by the [[http://play.golang.org/][Go Playground]]. The source code for this talk is in [[https://code.google.com/p/go/source/browse/?repo=talks#hg%2F2013%2Fadvconc][the go.talks sub-repository]].
+The slides were produced with [[http://godoc.org/golang.org/x/tools/present][the present tool]], and the runnable code snippets are powered by the [[http://play.golang.org/][Go Playground]]. The source code for this talk is in [[https://github.com/golang/talks/blob/master/2013/advconc.slide][the go.talks sub-repository]].

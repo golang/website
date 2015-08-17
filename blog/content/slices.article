@@ -469,7 +469,7 @@ how the design of slices makes it possible for this simple call to work correctl
 
 There are lots more examples of `append`, `copy`, and other ways to use slices
 on the community-built
-[[https://code.google.com/p/go-wiki/wiki/SliceTricks]["Slice Tricks" Wiki page]].
+[[https://golang.org/wiki/SliceTricks]["Slice Tricks" Wiki page]].
 
 * Nil
 
@@ -566,7 +566,7 @@ built-in functions.
 
 There's lots to find around the intertubes about slices in Go.
 As mentioned earlier,
-the [[https://code.google.com/p/go-wiki/wiki/SliceTricks]["Slice Tricks" Wiki page]]
+the [[https://golang.org/wiki/SliceTricks]["Slice Tricks" Wiki page]]
 has many examples.
 The [[http://blog.golang.org/go-slices-usage-and-internals][Go Slices]] blog post
 describes the memory layout details with clear diagrams.
