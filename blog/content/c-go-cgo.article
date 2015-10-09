@@ -106,4 +106,4 @@ The [[http://golang.org/cmd/cgo/][cgo command]] documentation has more detail ab
 
 For a simple, idiomatic example of a cgo-based package, see Russ Cox's [[http://code.google.com/p/gosqlite/source/browse/sqlite/sqlite.go][gosqlite]]. Also, the Go Project Dashboard lists [[https://godashboard.appspot.com/project?tag=cgo][several other cgo packages]].
 
-Finally, if you're curious as to how all this works internally, take a look at the introductory comment of the runtime package's [[http://golang.org/src/pkg/runtime/cgocall.c][cgocall.c]].
+Finally, if you're curious as to how all this works internally, take a look at the introductory comment of the runtime package's [[https://golang.org/src/runtime/cgocall.go][cgocall.go]].
