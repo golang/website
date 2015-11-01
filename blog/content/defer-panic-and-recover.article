@@ -67,7 +67,7 @@ In this example, the expression "i" is evaluated when the Println call is deferr
 	    return
 	}
 
-2. _Deferred_function_calls_are_executed_in_Last_In_First_Out_order_after__the_surrounding_function_returns._
+2. _Deferred_function_calls_are_executed_in_Last_In_First_Out_order_after_the_surrounding_function_returns._
  
 This function prints "3210":
 
