@@ -32,16 +32,16 @@ We also continued to boost developer productivity through better tools, with
 the introduction of the [[https://golang.org/cmd/trace/][execution tracer]] and the
 "[[https://golang.org/cmd/go/#hdr-Show_documentation_for_package_or_symbol][go doc]]"
 command, as well as more enhancements to our various
-[[https://talks.golang.org/2014/static-analysis.slide#16][static analysis tools]].
+[[https://talks.golang.org/2014/static-analysis.slide][static analysis tools]].
 We are also working on an
 [[https://groups.google.com/forum/#!topic/Golang-nuts/8oCSjAiKXUQ][official Go plugin for Sublime Text]],
 with better support for other editors in the pipeline.
 
-Early next year we will release more improvements in Go 1.6, including built in
-HTTP/2 support for Go HTTP servers and clients, an official package vendoring
-approach, support for blocks in text and HTML templates, a memory sanitizer
-that checks both Go and C/C++ code, and the usual assortment of other
-improvements and fixes.
+Early next year we will release more improvements in Go 1.6, including HTTP/2
+support for [[https://golang.org/pkg/net/http/][net/http]] servers and clients,
+an official package vendoring approach, support for blocks in text and HTML
+templates, a memory sanitizer that checks both Go and C/C++ code, and the usual
+assortment of other improvements and fixes.
 
 This is sixth time we have had the pleasure of writing a birthday blog post for
 Go, and we would not be doing it if not for the wonderful and passionate people
