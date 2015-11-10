@@ -36,13 +36,11 @@ We are also working on an
 [[https://groups.google.com/forum/#!topic/Golang-nuts/8oCSjAiKXUQ][official Go plugin for Sublime Text]],
 with better support for other editors in the pipeline.
 
-Early next year we will release more improvements in Go 1.6, including an
-[[https://en.wikipedia.org/wiki/Static_single_assignment_form][SSA]]-based
-optimizing compiler back end, HTTP/2 support for
-[[https://golang.org/pkg/net/http/][net/http]] servers and clients,
-an official package vendoring mechanism, support for blocks in text and HTML
-templates, a memory sanitizer that checks both Go and C/C++ code, and the usual
-assortment of other improvements and fixes.
+Early next year we will release more improvements in Go 1.6, including 
+HTTP/2 support for [[https://golang.org/pkg/net/http/][net/http]] servers and
+clients, an official package vendoring mechanism, support for blocks in text
+and HTML templates, a memory sanitizer that checks both Go and C/C++ code, and
+the usual assortment of other improvements and fixes.
 
 This is the sixth time we have had the pleasure of writing a birthday blog post
 for Go, and we would not be doing so if not for the wonderful and passionate
