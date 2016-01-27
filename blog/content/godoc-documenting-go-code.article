@@ -37,6 +37,14 @@ Comments that are not adjacent to a top-level declaration are omitted from godoc
 
 	// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
 
+Sometimes a struct field, function, type, or even a whole package becomes
+redundant or unnecessary, but must be kept for compatibility with existing
+programs.
+To signal that an identifier should not be used, add a paragraph to its doc
+comment that begins with "Deprecated:" followed by some information about the
+deprecation.
+There are a such few examples [[https://golang.org/search?q=deprecated][in the standard library]].
+
 There are a few formatting rules that Godoc uses when converting comments to HTML:
 
 - Subsequent lines of text are considered part of the same paragraph; you must leave a blank line to separate paragraphs.
