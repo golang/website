@@ -12,13 +12,13 @@ Until recently, the tools in the App Engine SDK were not aware of workspaces. Wi
 
 This has all changed with version 1.7.4 of the App Engine SDK. The [[https://developers.google.com/appengine/docs/go/tools/devserver][dev_appserver]] and [[https://developers.google.com/appengine/docs/go/tools/uploadinganapp][appcfg]] tools are now workspace-aware. When running locally or uploading an app, these tools now search for dependencies in the workspaces specified by the GOPATH environment variable. This means you can now use "go get" while building App Engine apps, and switch between normal Go programs and App Engine apps without changing your environment or habits.
 
-For example, let's say you want to build an app that uses OAuth 2.0 to authenticate with a remote service. A popular OAuth 2.0 library for Go is the [[http://code.google.com/p/goauth2][goauth2]] package, which you can install to your workspace with this command:
+For example, let's say you want to build an app that uses OAuth 2.0 to authenticate with a remote service. A popular OAuth 2.0 library for Go is the [[https://godoc.org/golang.org/x/oauth2][oauth2]] package, which you can install to your workspace with this command:
 
-	     go get code.google.com/p/goauth2/oauth
+	     go get golang.org/x/oauth2
 
 When writing your App Engine app, import the oauth package just as you would in a regular Go program:
 
-	     import "code.google.com/p/goauth2/oauth"
+	     import "golang.org/x/oauth2"
 
 Now, whether running your app with the dev_appserver or deploying it with appcfg, the tools will find the oauth package in your workspace. It just works.
 

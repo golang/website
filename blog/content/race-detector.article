@@ -64,7 +64,7 @@ To build your code with the race detector enabled, just add the
 
 To try out the race detector for yourself, fetch and run this example program:
 
-	$ go get -race code.google.com/p/go.blog/support/racy
+	$ go get -race golang.org/x/blog/support/racy
 	$ racy
 
 * Examples
