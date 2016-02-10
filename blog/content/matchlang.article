@@ -10,7 +10,8 @@ Consider an application, such as a web site, with support for multiple languages
 in its user interface.
 When a user arrives with a list of preferred languages, the application must
 decide which language it should use in its presentation to the user.
-This requires finding the best match between the languages the applications supports and those the user prefers.
+This requires finding the best match between the languages the applications supports 
+and those the user prefers.
 This post explains why this is a difficult decision and how how Go can help.
 
 * Language Tags
@@ -135,7 +136,7 @@ based on data published in the Unicode Common Locale Data Repository (CLDR).
 Here is a sample program, explained below, matching a user's language
 preferences against an application's supported languages:
 
-.play -edit matchlang/complete.go
+.code -edit matchlang/complete.go
 
 ** Creating Language Tags
 
@@ -271,7 +272,7 @@ It also contains a “Self” namer for displaying a tag in its own language.
 
 For example:
 
-.play -edit matchlang/display.go /START/,/END/
+.code -edit matchlang/display.go /START/,/END/
 
 prints
 
