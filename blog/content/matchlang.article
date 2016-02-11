@@ -10,9 +10,9 @@ Consider an application, such as a web site, with support for multiple languages
 in its user interface.
 When a user arrives with a list of preferred languages, the application must
 decide which language it should use in its presentation to the user.
-This requires finding the best match between the languages the applications supports 
+This requires finding the best match between the languages the applications supports
 and those the user prefers.
-This post explains why this is a difficult decision and how how Go can help.
+This post explains why this is a difficult decision and how Go can help.
 
 * Language Tags
 
