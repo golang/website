@@ -10,7 +10,7 @@ Consider an application, such as a web site, with support for multiple languages
 in its user interface.
 When a user arrives with a list of preferred languages, the application must
 decide which language it should use in its presentation to the user.
-This requires finding the best match between the languages the applications supports
+This requires finding the best match between the languages the application supports
 and those the user prefers.
 This post explains why this is a difficult decision and how Go can help.
 
@@ -18,7 +18,7 @@ This post explains why this is a difficult decision and how Go can help.
 
 Language tags, also known as locale identifiers, are machine-readable
 identifiers for the language and/or dialect being used.
-The most common reference for them is the IETF BCP 47 standard, and that is
+The most common reference for them is the IETF BCP 47 standard, and that is the
 standard the Go libraries follow.
 Here are some examples of BCP 47 language tags and the language or dialect they
 represent.
@@ -30,7 +30,7 @@ a language code (“en”, “cmn”, “zh”, “nl”, “az” above)
 followed by an optional subtag for script (“-Arab”),
 region (“-US”, “-BE”, “-419”),
 variants (“-oxendict” for Oxford English Dictionary spelling),
-and extensions (“-u-co-phonebk” for phone book sorting).
+and extensions (“-u-co-phonebk” for phone-book sorting).
 The most common form is assumed if a subtag is omitted, for instance
 “az-Latn-AZ” for “az”.
 
@@ -96,8 +96,8 @@ not the best thing to do.
 _The_choice_of_language_decides_more_than_translation_
 
 Suppose a user asks for Danish, with German as a second choice.
-If an application chooses German, it must use not only use German translations
-but also to use German (not Danish) collation.
+If an application chooses German, it must not only use German translations
+but also use German (not Danish) collation.
 Otherwise, for example, a list of animals might sort “Bär” before “Äffin”.
 
 Selecting a supported language given the user’s preferred languages is like a
@@ -114,7 +114,7 @@ The correct course of action in such cases is to match the closest parent dialec
 Languages are arranged in a hierarchy, with each specific language having a more
 general parent.
 For example, the parent of “en-GB-oxendict” is “en-GB”, whose parent is “en”,
-whose parent is the so-called root language “und”.
+whose parent is the undefined language “und”, also known as the root language.
 In the case of collation, there is no specific collation order for Portugese,
 so the collate package will select the sorting order of the root language.
 The closest parent to Angolan Portuguese supported by the display package is
@@ -161,20 +161,20 @@ It similarly ignores CLDR recommendations: “cmn” is not replaced by “zh”
 “zh-Hant-HK” is not simplified to “zh-HK”.
 Canonicalizing tags may throw away useful information about user intent.
 Canonicalization is handled in the Matcher instead.
-A full array of canonicalization options are available if the user still desires
-to do so.
+A full array of canonicalization options are available if the programmer still
+desires to do so.
 
 ** Matching User-Preferred Languages to Supported Languages
 
 A Matcher matches user-preferred languages to supported languages.
-Users are strongly advised using it if they don’t want to deal with all the
+Users are strongly advised to use it if they don’t want to deal with all the
 intricacies of matching languages.
 
 The Match method may pass through user settings (from BCP 47 extensions) from
 the preferred tags to the selected supported tag.
 It is therefore important that the tag returned by Match is used to obtain
 language-specific resources.
-For example, “de-u-co-phonebk” requests phone book ordering for German.
+For example, “de-u-co-phonebk” requests phone-book ordering for German.
 The extension is ignored for matching, but is used by the collate package to
 select the respective sorting order variant.
 
@@ -217,7 +217,7 @@ user preferences.
 For a user preference of "he" (Hebrew), the best match is "en-US" (American
 English).
 There is no good match, so the matcher uses the fallback language (the first in
-the system list).
+the supported list).
 
 For a user preference of "hr" (Croatian), the best match is "sr-Latn" (Serbian
 with Latin script), because, once they are written in the same script, Serbian
@@ -239,11 +239,11 @@ either.
 For a user preference of "pt-AO, id" (Angolan Portuguese, then Indonesian), the
 best match is "pt-PT" (European Portuguese), not "pt" (Brazilian Portuguese).
 
-For a user preference of "gsw-u-co-phonebk" (Swiss German with phone book
-collation order), the best match is "de-u-co-phonebk" (German with phone book
+For a user preference of "gsw-u-co-phonebk" (Swiss German with phone-book
+collation order), the best match is "de-u-co-phonebk" (German with phone-book
 collation order).
 German is the best match for Swiss German in the server's language list, and the
-option for phone book collation order has been carried over.
+option for phone-book collation order has been carried over.
 
 ** Confidence Scores
 
