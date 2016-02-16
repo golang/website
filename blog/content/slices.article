@@ -548,9 +548,8 @@ A historical note: The earliest implementation of strings always allocated, but 
 were added to the language, they provided a model for efficient string handling. Some of
 the benchmarks saw huge speedups as a result.
 
-There's much more to strings, of course, and the
-[[http://blog.golang.org/strings][Strings, bytes, runes and characters in Go]] blog post
-covers them in greater depth.
+There's much more to strings, of course, and a
+[[http://blog.golang.org/strings][separate blog post]] covers them in greater depth.
 
 * Conclusion
 
