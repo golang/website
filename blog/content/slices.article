@@ -99,7 +99,7 @@ Inside a function we could use the short declaration form,
 What exactly is this slice variable?
 It's not quite the full story, but for now think of a
 slice as a little data structure with two elements: a length and a pointer to an element
-of a array.
+of an array.
 You can think of it as being built like this behind the scenes:
 
 	type sliceHeader struct {
@@ -548,7 +548,9 @@ A historical note: The earliest implementation of strings always allocated, but 
 were added to the language, they provided a model for efficient string handling. Some of
 the benchmarks saw huge speedups as a result.
 
-There's much more to strings, of course, but they are a topic for another post.
+There's much more to strings, of course, and the
+[[http://blog.golang.org/strings][Strings, bytes, runes and characters in Go]] blog post
+covers them in greater depth.
 
 * Conclusion
 
