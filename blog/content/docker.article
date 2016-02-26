@@ -12,7 +12,7 @@ giving programmers a trusted and easy way to build containers for their Go progr
 In this article we'll walk through a recipe for creating a Docker container for
 a simple Go web application and deploying that container to Google Compute Engine.
 If you're not familiar with Docker, you should read
-[[http://docs.docker.com/introduction/understanding-docker/][Understanding Docker]]
+[[https://docs.docker.com/engine/understanding-docker/][Understanding Docker]]
 before reading on.
 
 * The demo app
