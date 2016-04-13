@@ -68,7 +68,7 @@ A [[http://golang.org/pkg/image/#Rectangle][`Rectangle`]] is an axis-aligned rec
 
 For convenience, `image.Rect(x0,`y0,`x1,`y1)` is equivalent to `image.Rectangle{image.Point{x0,`y0},`image.Point{x1,`y1}}`, but is much easier to type.
 
-A `Rectangle` is inclusive at the top-left and exclusive at the bottom-right. For a `Point`p` and a `Rectangle`r`, `p.In(r)` if and only if `r.Min.X`<=`p.X`&&`p.X`<`r.Max.X`, and similarly for `Y`. This is analagous to how a slice `s[i0:i1]` is inclusive at the low end and exclusive at the high end. (Unlike arrays and slices, a `Rectangle` often has a non-zero origin.)
+A `Rectangle` is inclusive at the top-left and exclusive at the bottom-right. For a `Point`p` and a `Rectangle`r`, `p.In(r)` if and only if `r.Min.X`<=`p.X`&&`p.X`<`r.Max.X`, and similarly for `Y`. This is analogous to how a slice `s[i0:i1]` is inclusive at the low end and exclusive at the high end. (Unlike arrays and slices, a `Rectangle` often has a non-zero origin.)
 
 .image go-image-package_image-package-02.png
 
@@ -143,7 +143,7 @@ These types also provide a `Set(x,`y`int,`c`color.Color)` method that allows mod
 
 If you're reading or writing a lot of pixel data, it can be more efficient, but more complicated, to access these struct type's `Pix` field directly.
 
-The slice-based `Image` implementations also provide a `SubImage` method, which returns an `Image` backed by the same array. Modifying the pixels of a sub-image will affect the pixels of the original image, analagous to how modifying the contents of a sub-slice `s[i0:i1]` will affect the contents of the original slice `s`.
+The slice-based `Image` implementations also provide a `SubImage` method, which returns an `Image` backed by the same array. Modifying the pixels of a sub-image will affect the pixels of the original image, analogous to how modifying the contents of a sub-slice `s[i0:i1]` will affect the contents of the original slice `s`.
 
 .image go-image-package_image-package-05.png
 
