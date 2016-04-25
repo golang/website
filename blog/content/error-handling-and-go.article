@@ -105,7 +105,7 @@ The `Offset` field isn't even shown in the default formatting of the error, but 
 	        return err
 	    }
 
-(This is a slightly simplified version of some [[http://camlistore.org/code/?p=camlistore.git;a=blob;f=lib/go/camli/jsonconfig/eval.go#l68][actual code]] from the [[http://camlistore.org][Camlistore]] project.)
+(This is a slightly simplified version of some [[https://github.com/camlistore/go4/blob/03efcb870d84809319ea509714dd6d19a1498483/jsonconfig/eval.go#L123-L135][actual code]] from the [[http://camlistore.org][Camlistore]] project.)
 
 The `error` interface requires only a `Error` method; specific error implementations might have additional methods. For instance, the [[http://golang.org/pkg/net/][net]] package returns errors of type `error`, following the usual convention, but some of the error implementations have additional methods defined by the `net.Error` interface:
 
