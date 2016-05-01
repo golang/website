@@ -21,5 +21,8 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	http.Handle("/", s)
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Strict-Transport-Security", "max-age=31536000; preload")
+		s.ServeHTTP(w, r)
+	})
 }
