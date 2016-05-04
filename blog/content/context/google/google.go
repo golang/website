@@ -1,5 +1,11 @@
 // Package google provides a function to do Google searches using the Google Web
 // Search API. See https://developers.google.com/web-search/docs/
+//
+// This package is an example to accompany https://blog.golang.org/context.
+// It is not intended for use by others.
+//
+// Google has since disabled its search API,
+// and so this package is no longer useful.
 package google
 
 import (
