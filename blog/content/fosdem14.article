@@ -32,7 +32,7 @@ The talk covers some history about how and why the team chose Go, and how it
 paid off.
 Sugu also talks abou tips and techniques used to scale Vitess using Go.
 
-.iframe http://www.youtube.com/embed/qATTTSg6zXk 310 550
+.iframe //www.youtube.com/embed/qATTTSg6zXk 310 550
 
 The slides for the talk are [[https://github.com/youtube/vitess/blob/master/doc/Vitess2014.pdf?raw=true][available here]].
 
@@ -44,7 +44,7 @@ source, under nearly 4 years of active development, and extremely flexible.  In
 this talk, Brad Fitzpatrick and Mathieu Lonjaret explain why they built it,
 what it does, and talk about its design.
 
-.iframe http://www.youtube.com/embed/yvjeIZgykiA 310 550
+.iframe //www.youtube.com/embed/yvjeIZgykiA 310 550
 
 * Write your own Go compiler
 
@@ -59,7 +59,7 @@ encourage you to try one of these new 'mutant' Go compilers. I hope some of you
 will be inspired to contribute to one of them or even to write a new one of
 your own."
 
-.iframe http://www.youtube.com/embed/Qe8Dq7V3hXY 310 550
+.iframe //www.youtube.com/embed/Qe8Dq7V3hXY 310 550
 
 * More
 

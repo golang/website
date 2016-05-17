@@ -8,7 +8,7 @@ Andrew Gerrand
 
 In July 2012, Rob Pike and I presented a talk at OSCON titled _The_path_to_Go_1_. In it we explain how Go 1 came to be, and outline the process by which Go was refined and stabilized to become the clean, consistent programming environment that it is today. We present the major highlights of the release and discuss the details behind some specific libraries and tools.
 
-.iframe http://www.youtube.com/embed/bj9T2c2Xk_s 309 550
+.iframe //www.youtube.com/embed/bj9T2c2Xk_s 309 550
 
 The slides for the talk are [[http://talks.golang.org/2012/go1.slide][available here]].
 

@@ -12,7 +12,7 @@ The Go team had a great time at Google I/O 2011. It was a pleasure to meet so ma
 
 In “[[http://www.youtube.com/watch?v=-i0hat7pdpk][Writing Web Apps in Go]]” we announce the [[http://blog.golang.org/2011/05/go-and-google-app-engine.html][Go runtime for Google App Engine]] and walk through the development and deployment of [[http://moustach-io.appspot.com/][Moustachio]], the first Go App Engine app.
 
-.iframe http://www.youtube.com/embed/-i0hat7pdpk 349 560
+.iframe //www.youtube.com/embed/-i0hat7pdpk 349 560
 
 (See the [[http://golang.org/doc/talks/io2011/Writing_Web_Apps_in_Go.pdf][presentation slides]].)
 
@@ -35,7 +35,7 @@ For those that didn’t get one at the conference, we hope to make him available
 
 - [[http://www.camlistore.org][Camlistore]], a content addressable storage system.
 
-.iframe http://www.youtube.com/embed/7QDVRowyUQA 349 560
+.iframe //www.youtube.com/embed/7QDVRowyUQA 349 560
 
 (See the [[http://golang.org/doc/talks/io2011/Real_World_Go.pdf ][presentation slides]].)
 
