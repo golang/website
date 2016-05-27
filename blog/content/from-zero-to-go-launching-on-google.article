@@ -32,7 +32,7 @@ The base for every doodle is the background:
 
 .image from-zero-to-go-launching-on-google_image01.jpg
 
-A valid request URL might look like this: [[http://google-turkey.appspot.com/thumb/20332620][http://google-turkey.appspot.com/thumb/20332620]]
+A valid request URL might look like this: `http://google-turkey.appspot.com/thumb/20332620][http://google-turkey.appspot.com/thumb/20332620`
 
 The alphanumeric string that follows "/thumb/" indicates (in hexadecimal) which choice to draw for each layout element, as illustrated by this image:
 
@@ -92,7 +92,7 @@ Loading the images from disk on each request would be wasteful repetition, so we
 	    defaultImage *image.RGBA
 
 	    // loadOnce is used to call the load function only on the first request.
-	    loadOnce [[http://golang.org/pkg/sync/#Once][sync.Once]]
+	    loadOnce sync.Once
 	)
 
 	// load reads the various PNG images from disk and stores them in their
@@ -185,7 +185,7 @@ For brevity, I've omitted several helper functions from these code listings. See
 
 * Performance
 
-[[http://3.bp.blogspot.com/-3dpdQWv1nzQ/TufkFj0bS-I/AAAAAAAAAEg/hONAssh_D9c/s1600/image02.png][.image from-zero-to-go-launching-on-google_image02.png ]]
+.image from-zero-to-go-launching-on-google_image02.png
 
 This chart - taken directly from the App Engine dashboard - shows average request latency during launch. As you can see, even under load it never exceeds 60 ms, with a median latency of 32 milliseconds. This is wicked fast, considering that our request handler is doing image manipulation and encoding on the fly.
 
