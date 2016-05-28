@@ -74,7 +74,7 @@ There are many kinds of numeric constants—integers, floats, runes, signed, uns
 String constants are easy to understand and provide a smaller space in which to explore the type issues of constants in Go.
 
 A string constant encloses some text between double quotes.
-(Go has also has raw string literals, enclosed by backquotes ``````, but for the purpose of this discussion they have all the same properties.)
+(Go also has raw string literals, enclosed by backquotes ``````, but for the purpose of this discussion they have all the same properties.)
 Here is a string constant:
 
 	"Hello, 世界"
