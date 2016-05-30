@@ -29,7 +29,7 @@ became
 
 We then wrote a trivial `gobServerCodec` wrapper to reproduce the original functionality. From there it is simple to build a `jsonServerCodec`.
 
-After some similar changes to the client side, this was the full extent of the work we needed to do on the RPC package. This whole exercise took about 20 minutes! After tidying up and testing the new code, the [[http://code.google.com/p/go/source/diff?spec=svn9daf796ebf1cae97b2fcf760a4ab682f1f063f29&r=9daf796ebf1cae97b2fcf760a4ab682f1f063f29&format=side&path=/src/pkg/rpc/server.go][final changeset]] was submitted.
+After some similar changes to the client side, this was the full extent of the work we needed to do on the RPC package. This whole exercise took about 20 minutes! After tidying up and testing the new code, the [[https://github.com/golang/go/commit/dcff89057bc0e0d7cb14cf414f2df6f5fb1a41ec][final changeset]] was submitted.
 
 In an inheritance-oriented language like Java or C++, the obvious path would be to generalize the RPC class, and create JsonRPC and GobRPC subclasses. However, this approach becomes tricky if you want to make a further generalization orthogonal to that hierarchy. (For example, if you were to implement an alternate RPC standard). In our Go package, we took a route that is both conceptually simpler and requires less code be written or changed.
 
