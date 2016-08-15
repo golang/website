@@ -7,6 +7,7 @@ cbro@golang.org
 * Introduction
 
 Today we are happy to announce the release of Go 1.7.
+You can get it from the [[https://golang.org/dl/][download page]].
 There are several significant changes in this release: a port for
 [[https://en.wikipedia.org/wiki/IBM_System_z][Linux on IBM z Systems]] (s390x),
 compiler improvements, the addition of the [[https://golang.org/pkg/context/][context]] package,
