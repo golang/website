@@ -13,7 +13,7 @@ There are several significant changes in this release: a port for
 compiler improvements, the addition of the [[https://golang.org/pkg/context/][context]] package,
 and support for [[https://golang.org/pkg/testing/#hdr-Subtests_and_Sub_benchmarks][hierarchical tests and benchmarks]].
 
-A new compiler back end, based on [[https://en.m.wikipedia.org/wiki/Static_single_assignment_form][static single-assignment]] form (SSA),
+A new compiler back end, based on [[https://en.wikipedia.org/wiki/Static_single_assignment_form][static single-assignment]] form (SSA),
 has been under development for the past year.
 By representing a program in SSA form, a compiler may perform advanced optimizations more easily.
 This new back end generates more compact, more efficient code that includes
