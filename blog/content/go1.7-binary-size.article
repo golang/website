@@ -15,7 +15,7 @@ fast startup time, performance.
 As Go gets used for a wider variety of programs, there are new issues that must be considered.
 One of these is binary size.
 It has been on the radar for a long time
-(issue [[https://golang.org/issue/6853][#6853]]) was filed over two
+(issue [[https://golang.org/issue/6853][#6853]] was filed over two
 years ago), but the growing interest in using Go for
 deploying binaries on smaller devices — such as the Raspberry Pi or
 mobile devices — means it received some attention for the Go 1.7
@@ -61,7 +61,7 @@ interface data layout, better static data layout, and simplified
 dependencies. For example, the HTTP client no longer links in the entire HTTP
 server.
 The full list of changes can be found in issue
-[[https://golang.org/issue/6853][#6853]]).
+[[https://golang.org/issue/6853][#6853]].
 
 * Results
 
