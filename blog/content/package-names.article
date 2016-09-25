@@ -125,9 +125,10 @@ Client code uses the package path when importing the package.
 By convention, the last element of the package path is the package name:
 
 	import (
-		"fmt"                       // package fmt
-		"os/exec"                   // package exec
-		"golang.org/x/net/context"  // package context
+		"context"                // package context
+		"fmt"                    // package fmt
+		"golang.org/x/time/rate" // package rate
+		"os/exec"                // package exec
 	)
 
 Build tools map package paths onto directories.
