@@ -74,4 +74,4 @@ in debugging HTTP request latency and writing tools for network debugging
 for outbound traffic.
 By enabling this new facility, we hope to see HTTP debugging, benchmarking
 and visualization tools from the community — such as
-[[https://github.com/davecheney/httpstat][httpstat]] from Dave Cheney.
+[[https://github.com/davecheney/httpstat][httpstat]].
