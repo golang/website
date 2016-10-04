@@ -24,5 +24,5 @@ func trace() {
 	if _, err := http.DefaultTransport.RoundTrip(req); err != nil {
 		log.Fatal(err)
 	}
-	// STOP OMIT
+	// END OMIT
 }

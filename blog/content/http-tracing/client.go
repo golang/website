@@ -9,8 +9,6 @@ import (
 	"net/http/httptrace"
 )
 
-// START OMIT
-
 // transport is an http.RoundTripper that keeps track of the in-flight
 // request and implements hooks to report HTTP tracing events.
 type transport struct {
@@ -44,5 +42,3 @@ func main() {
 		log.Fatal(err)
 	}
 }
-
-// STOP OMIT

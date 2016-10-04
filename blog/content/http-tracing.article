@@ -35,7 +35,7 @@ looking for context's `*httptrace.ClientTrace` and calling the relevant hook fun
 The tracing is scoped to the request's context and users should
 put a `*httptrace.ClientTrace` to the request context before they start a request.
 
-.code http-tracing/trace.go
+.code http-tracing/trace.go /START/,/END/
 
 During a round trip, `http.DefaultTransport` will invoke each hook
 as an event happens. The program above will print the DNS
