@@ -30,7 +30,7 @@ And we’ve developed new garbage-collection techniques that reduce typical
 “stop the world” pauses to [[https://golang.org/design/17503-eliminate-rescan][under 100 microseconds]].
 (Contrast that with Go 1.5’s big news of [[https://blog.golang.org/go15gc][10 milliseconds or less]].)
 
-This year kicked off with the a global Go hackathon,
+This year kicked off with a global Go hackathon,
 the [[https://blog.golang.org/gophergala][Gopher Gala]], in January.
 Then there were [[https://golang.org/wiki/Conferences][Go conferences]] in India and Dubai in February,
 China and Japan in April, San Francisco in May, Denver in July,
