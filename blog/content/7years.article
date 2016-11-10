@@ -16,7 +16,7 @@ Go has matured into a language used all over the world.
 
 The most significant user-facing changes to Go over the past year are the
 addition of built-in support for
-[[https://www.youtube.com/watch?v=FARQMJndUn0][HTTP/2]] in
+[[https://www.youtube.com/watch?v=FARQMJndUn0#t=0m0s][HTTP/2]] in
 [[https://golang.org/doc/go1.6][Go 1.6]] and the integration of the
 [[https://blog.golang.org/context][context package]] into the standard library in [[https://golang.org/doc/go1.7][Go 1.7]].
 But we’ve been making many less visible improvements.
@@ -37,7 +37,7 @@ China and Japan in April, San Francisco in May, Denver in July,
 London in August, Paris last month, and Brazil this past weekend.
 And GothamGo in New York is next week.
 This year also saw more than 30 new [[https://golang.org/wiki/GoUserGroups][Go user groups]],
-eight new [[https://www.womenwhogo.org/][Women Who Go]] chapters,
+eight new [[http://www.womenwhogo.org/][Women Who Go]] chapters,
 and four [[https://golangbridge.org/][GoBridge]] workshops around the world.
 
 We continue to be overwhelmed by and grateful for
