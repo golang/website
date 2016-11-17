@@ -8,6 +8,14 @@ handlers:
   static_files: static/favicon.ico
   upload: static/favicon.ico
   secure: always
+- url: /fonts.css
+  static_files: static/fonts.css
+  upload: static/fonts.css
+  secure: always
+- url: /fonts
+  static_dir: static/fonts
+  http_headers:
+    Content-Type: application/font-woff
 - url: /.*
   script: _go_app
   secure: always
