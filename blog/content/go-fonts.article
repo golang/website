@@ -22,7 +22,7 @@ The fonts have been tested for technical uses, particularly programming.
 Go source code looks particularly good when displayed in Go fonts, as its name implies, with things like
 punctuation characters easily distinguishable and operators lined up and placed consistently:
 
-.image go-fonts/go-font-code.png _ 500
+.image go-fonts/go-font-code.png _ 519
 
 Perhaps the most remarkable feature of the Go fonts is their license:
 They are licensed under the same open source license as the rest of the Go project's software,
