@@ -1,0 +1,53 @@
+Participate in the 2016 Go User Survey and Company Questionnaire
+13 Dec 2016
+Tags: survey, community
+
+Steve Francia
+spf@golang.org
+
+* The Go project wants to hear from you!
+
+The Go project wants to hear from you!  Our goal is to create the best language
+for developing simple, reliable, scalable software.  We are asking you to help
+by participating in a survey and if applicable, a company questionnaire.
+
+* The Go User Survey
+
+*Who:* If you use Go, have ever used Go, have ever stopped using Go, or have
+any interest in the language, please help by sharing your feedback to improve
+Go for you and your fellow Gophers.
+
+*Where:* Please take this 20-minute survey by December 22nd: [[https://goo.gl/NJgrHT][Go User Survey 2016]]
+
+The survey is anonymous and confidential.
+
+*Why:* The Go project leadership depends on your feedback to guide the future
+of the Go project. Your responses will help to understand how we are doing and
+help plan improvements for the Go language, libraries, and tools.
+
+After the survey closes, we will publish the anonymous aggregate results to the Go blog.
+
+* The Go Company Questionnaire
+
+*Who:* If you are in a position to share details like “company name”, “if your
+company is hiring Go developers”, and “reasons your team or company adopted Go”
+then please help us by taking this questionnaire. We only need one response per
+company (or department for larger companies).
+
+*Where:* Please take this 5-minute questionnaire by December 22nd: [[https://goo.gl/Epya2q][Go Company Questionnaire 2016]]
+
+The questionnaire is confidential, but not anonymous.
+
+*Why:* The Go project would like to better understand the companies using Go.
+
+After the questionnaire closes the Go project leadership will use this
+information to better understand how companies are utilizing Go and in what
+ways the project can improve their experience. If you participate we may reach
+out for further information.
+
+* Spread the word!
+
+Please help us spread the word by sharing this post on your social network
+feeds, at meetups, around your office and in other communities.
+
+The survey & questionnaire close by December 22nd so please share today.
