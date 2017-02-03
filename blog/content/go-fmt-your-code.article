@@ -52,7 +52,7 @@ The easiest way to mechanically manipulate Go code is with gofmt's -r flag. The 
 
 where both pattern and replacement are valid Go expressions. In the pattern, single-character lowercase identifiers serve as wildcards matching arbitrary sub-expressions, and those expressions are substituted for the same identifiers in the replacement.
 
-For example, this[[https://code.google.com/p/go/source/detail?r=ae4e014e0b77][ recent change]] to the Go core rewrote some uses of [[http://golang.org/pkg/bytes/#Compare][bytes.Compare]] to use the more efficient [[http://golang.org/pkg/bytes/#Equal][bytes.Equal]]. The contributor made the change using just two gofmt invocations:
+For example, this[[https://golang.org/cl/7038051][ recent change]] to the Go core rewrote some uses of [[http://golang.org/pkg/bytes/#Compare][bytes.Compare]] to use the more efficient [[http://golang.org/pkg/bytes/#Equal][bytes.Equal]]. The contributor made the change using just two gofmt invocations:
 
 	 gofmt -r 'bytes.Compare(a, b) == 0 -> bytes.Equal(a, b)'
 	 gofmt -r 'bytes.Compare(a, b) != 0 -> !bytes.Equal(a, b)'

@@ -104,6 +104,4 @@ To build cgo packages, just use [[http://golang.org/cmd/go/#Compile_packages_and
 
 The [[http://golang.org/cmd/cgo/][cgo command]] documentation has more detail about the C pseudo-package and the build process. The [[http://golang.org/misc/cgo/][cgo examples]] in the Go tree demonstrate more advanced concepts.
 
-For a simple, idiomatic example of a cgo-based package, see Russ Cox's [[http://code.google.com/p/gosqlite/source/browse/sqlite/sqlite.go][gosqlite]]. Also, the Go Project Dashboard lists [[https://godashboard.appspot.com/project?tag=cgo][several other cgo packages]].
-
 Finally, if you're curious as to how all this works internally, take a look at the introductory comment of the runtime package's [[https://golang.org/src/runtime/cgocall.go][cgocall.go]].

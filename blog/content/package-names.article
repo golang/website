@@ -150,7 +150,7 @@ Just as types in different packages can have the same name without ambiguity,
 packages in different directories can have the same name.
 For example,
 [[https://golang.org/pkg/runtime/pprof][runtime/pprof]] provides profiling data
-in the format expected by the [[https://code.google.com/p/gperftools][pprof]]
+in the format expected by the [[https://github.com/google/pprof][pprof]]
 profiling tool, while [[https://golang.org/pkg/net/http/pprof][net/http/pprof]]
 provides HTTP endpoints to present profiling data in this format.
 Client code uses the package path to import the package, so there is no

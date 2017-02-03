@@ -131,7 +131,7 @@ Client code can test for a `net.Error` with a type assertion and then distinguis
 
 In Go, error handling is important. The language's design and conventions encourage you to explicitly check for errors where they occur (as distinct from the convention in other languages of throwing exceptions and sometimes catching them). In some cases this makes Go code verbose, but fortunately there are some techniques you can use to minimize repetitive error handling.
 
-Consider an [[http://code.google.com/appengine/docs/go/][App Engine]] application with an HTTP handler that retrieves a record from the datastore and formats it with a template.
+Consider an [[https://cloud.google.com/appengine/docs/go/][App Engine]] application with an HTTP handler that retrieves a record from the datastore and formats it with a template.
 
 	func init() {
 	    http.HandleFunc("/view", viewRecord)

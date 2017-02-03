@@ -22,11 +22,11 @@ It is currently available for Linux, OS X, and Windows systems
 with 64-bit x86 processors.
 
 The race detector is based on the C/C++
-[[https://code.google.com/p/thread-sanitizer/][ThreadSanitizer runtime library]],
+[[https://github.com/google/sanitizers][ThreadSanitizer runtime library]],
 which has been used to detect many errors in Google's internal code base and in
 [[http://www.chromium.org/][Chromium]].
 The technology was integrated with Go in September 2012; since then it has detected
-[[https://code.google.com/p/go/issues/list?can=1&q=ThreadSanitizer][42 races]]
+[[https://github.com/golang/go/issues?utf8=%E2%9C%93&q=ThreadSanitizer][42 races]]
 in the standard library. It is now part of our continuous build process,
 where it continues to catch race conditions as they arise.
 
@@ -37,7 +37,7 @@ The race detector is integrated with the go tool chain. When the
 with code that records when and how the memory was accessed, while the runtime
 library watches for unsynchronized accesses to shared variables.
 When such "racy" behavior is detected, a warning is printed.
-(See [[https://code.google.com/p/thread-sanitizer/wiki/Algorithm][this article]]
+(See [[https://github.com/google/sanitizers/wiki/ThreadSanitizerAlgorithm][this article]]
 for the details of the algorithm.)
 
 Because of its design, the race detector can detect race conditions only when
@@ -165,22 +165,22 @@ is delegated to this potentially more efficient call:
 	writer.ReadFrom(reader)
 
 We
-[[https://code.google.com/p/go/source/detail?r=13faa632ba3a#][added a ReadFrom method]]
+[[https://golang.org/cl/4817041][added a ReadFrom method]]
 to Discard's underlying type, which has an internal buffer that is shared
 between all its users.
 We knew this was theoretically a race condition, but since all writes to the
 buffer should be thrown away we didn't think it was important.
 
 When the race detector was implemented it immediately
-[[https://code.google.com/p/go/issues/detail?id=3970][flagged this code]] as racy.
+[[https://golang.org/issue/3970][flagged this code]] as racy.
 Again, we considered that the code might be problematic, but decided that the
 race condition wasn't "real".
 To avoid the "false positive" in our build we implemented
-[[https://code.google.com/p/go/source/detail?r=1e55cf10aa4f][a non-racy version]]
+[[https://golang.org/cl/6624059][a non-racy version]]
 that is enabled only when the race detector is running.
 
-But a few months later [[http://bradfitz.com/][Brad]] encountered a
-[[https://code.google.com/p/go/issues/detail?id=4589][frustrating and strange bug]].
+But a few months later [[https://bradfitz.com/][Brad]] encountered a
+[[https://golang.org/issue/4589][frustrating and strange bug]].
 After a few days of debugging, he narrowed it down to a real race condition
 caused by `ioutil.Discard`.
 
@@ -232,7 +232,7 @@ No errors or panics occurred, but the hashes were wrong. Nasty!
 	}
 
 The bug was finally
-[[https://code.google.com/p/go/source/detail?r=4b61f121966b][fixed]]
+[[https://golang.org/cl/7011047][fixed]]
 by giving a unique buffer to each use of `ioutil.Discard`, eliminating the race
 condition on the shared buffer.
 
