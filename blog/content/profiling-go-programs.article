@@ -185,7 +185,7 @@ For either command, you need [[http://www.graphviz.org/][graphviz]] installed.)
 	(pprof) web
 
 A small fragment of
-[[http://benchgraffiti.googlecode.com/hg/havlak/havlak1.svg][the full graph]] looks like:
+[[https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.svg][the full graph]] looks like:
 
 .image profiling-go-programs_havlak1a-75.png
 
@@ -240,7 +240,7 @@ The related command `disasm` shows a disassembly of the function instead of a so
 listing; when there are enough samples this can help you see which instructions are
 expensive.
 The `weblist` command mixes the two modes: it shows
-[[http://benchgraffiti.googlecode.com/hg/havlak/havlak1.html][a source listing in which clicking a line shows the disassembly]].
+[[https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.html][a source listing in which clicking a line shows the disassembly]].
 
 Since we already know that the time is going into map lookups implemented by the
 hash runtime functions, we care most about the second column.
