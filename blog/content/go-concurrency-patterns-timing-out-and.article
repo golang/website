@@ -32,7 +32,7 @@ Let's look at another variation of this pattern. In this example we have a progr
 The function `Query` takes a slice of database connections and a `query` string. It queries each of the databases in parallel and returns the first response it receives:
 
 	func Query(conns []Conn, query string) Result {
-	    ch := make(chan Result, 1)
+	    ch := make(chan Result)
 	    for _, conn := range conns {
 	        go func(c Conn) {
 	            select {
