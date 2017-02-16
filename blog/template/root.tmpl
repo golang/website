@@ -49,11 +49,12 @@
 		#content img {
 			max-width: 100%;
 		}
-		body {
-			font-family: Go, Arial, sans-serif;
+		.article[data-slug='/go-fonts'] {
+			font-family: Go, sans-serif;
 		}
-		pre, code {
-			font-family: Go Mono, Menlo, monospace;
+		.article[data-slug='/go-fonts'] pre,
+		.article[data-slug='/go-fonts'] code {
+			font-family: Go Mono, monospace;
 		}
 	</style>
 </head>
@@ -166,7 +167,7 @@ $(function() {
 {{end}}
 
 {{define "doc"}}
-	<div class="article">
+	<div class="article" data-slug="{{.Path}}">
 		<h3 class="title"><a href="{{.Path}}">{{.Title}}</a></h3>
 		<p class="date">{{.Time.Format "2 January 2006"}}</p>
 		{{.HTML}}
