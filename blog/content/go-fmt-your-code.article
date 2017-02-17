@@ -32,9 +32,9 @@ Or you can use the "[[http://golang.org/cmd/go/#hdr-Run_gofmt_on_package_sources
 
 To help keep your code in the canonical style, the Go repository contains hooks for editors and version control systems that make it easy to run gofmt on your code.
 
-For Vim users, the [[http://tip.golang.org/misc/vim/readme.txt][Vim plugin for Go]] includes the [[http://tip.golang.org/misc/vim/ftplugin/go/fmt.vim][:Fmt command]] that runs gofmt on the current buffer.
+For Vim users, the [[https://github.com/fatih/vim-go][Vim plugin for Go]] includes the :Fmt command that runs gofmt on the current buffer.
 
-For emacs users, [[http://tip.golang.org/misc/emacs/go-mode.el][go-mode.el]] provides a gofmt-before-save hook that can be installed by adding this line to your .emacs file:
+For emacs users, [[https://github.com/dominikh/go-mode.el][go-mode.el]] provides a gofmt-before-save hook that can be installed by adding this line to your .emacs file:
 
 	 (add-hook 'before-save-hook #'gofmt-before-save)
 
@@ -59,4 +59,4 @@ For example, this[[https://golang.org/cl/7038051][ recent change]] to the Go cor
 
 Gofmt also enables [[http://golang.org/cmd/fix/][gofix]], which can make arbitrarily complex source transformations. Gofix was an invaluable tool during the early days when we regularly made breaking changes to the language and libraries. For example, before Go 1 the built-in error interface didn't exist and the convention was to use the os.Error type. When we [[http://golang.org/doc/go1.html#errors][introduced error]], we provided a gofix module that rewrote all references to os.Error and its associated helper functions to use error and the new [[http://golang.org/pkg/errors/][errors package]]. It would have been daunting to attempt by hand, but with the code in a standard format it was relatively easy to prepare, execute, and review this change which touched almost all Go code in existence.
 
-For more about gofix, see [[http://blog.golang.org/2011/04/introducing-gofix.html][this article]].
+For more about gofix, see [[https://blog.golang.org/introducing-gofix][this article]].
