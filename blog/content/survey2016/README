@@ -1,0 +1,10 @@
+To update html files with new SVGs:
+
+	go run mkhtml.go *.html
+
+To edit html files without needing to jump over all the inserted SVGs:
+
+	go run mkhtml.go -strip *.html # remove SVGs
+	edit files
+	go run mkhtml.go *.html # put SVGs back
+
