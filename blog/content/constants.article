@@ -79,7 +79,7 @@ Here is a string constant:
 
 	"Hello, 世界"
 
-(For much more detail about the representation and interpretation of strings, see [[//blog.golang.org/strings][this blog post]].)
+(For much more detail about the representation and interpretation of strings, see [[https://blog.golang.org/strings][this blog post]].)
 
 What type does this string constant have?
 The obvious answer is `string`, but that is _wrong_.
@@ -180,7 +180,7 @@ If the constant has a type, that goes into the interface, as this example shows:
 
 .play -edit constants/default3.go /START/,/STOP/
 
-(For more information about how interface values work, see the first sections of [[//blog.golang.org/laws-of-reflection][this blog post]].)
+(For more information about how interface values work, see the first sections of [[https://blog.golang.org/laws-of-reflection][this blog post]].)
 
 In summary, a typed constant obeys all the rules of typed values in Go.
 On the other hand, an untyped constant does not carry a Go type in the same way and can be mixed and matched more freely.
@@ -244,7 +244,7 @@ The statement,
 prints `10`, as one would expect.
 
 In a related way, floating-point constants may have very high precision, so that arithmetic involving them is more accurate.
-The constants defined in the [[//golang.org/pkg/math][math]] package are given with many more digits than are
+The constants defined in the [[https://golang.org/pkg/math][math]] package are given with many more digits than are
 available in a `float64`. Here is the definition of `math.Pi`:
 
 	Pi	= 3.14159265358979323846264338327950288419716939937510582097494459
