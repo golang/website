@@ -122,11 +122,14 @@ When we call `reflect.TypeOf(x)`, `x` is first stored in an empty interface, whi
 The `reflect.ValueOf` function, of course, recovers the value (from here on we'll elide the boilerplate and focus just on the executable code):
 
 	    var x float64 = 3.4
-	    fmt.Println("value:", reflect.ValueOf(x))
+	    fmt.Println("value:", reflect.ValueOf(x).String())
 
 prints
 
 	value: <float64 Value>
+
+(We call the `String` method explicitly because by default the `fmt` package digs into a `reflect.Value` to show the concrete value inside.
+The `String` method does not.)
 
 Both `reflect.Type` and `reflect.Value` have lots of methods to let us examine and manipulate them. One important example is that `Value` has a `Type` method that returns the `Type` of a `reflect.Value`. Another is that both `Type` and `Value` have a `Kind` method that returns a constant indicating what sort of item is stored: `Uint`, `Float64`, `Slice`, and so on. Also methods on `Value` with names like `Int` and `Float` let us grab values (as `int64` and `float64`) stored inside:
 
