@@ -15,7 +15,7 @@ and then compiles and runs it.
 Modern computers are so fast this expensive-sounding sequence can complete in a fraction of a second.
 
 There are lots of other examples of programs that write programs.
-[[http://golang.org/cmd/yacc/][Yacc]], for instance, reads in a description of a grammar and writes out a program to parse that grammar.
+[[https://godoc.org/golang.org/x/tools/cmd/goyacc][Yacc]], for instance, reads in a description of a grammar and writes out a program to parse that grammar.
 The protocol buffer "compiler" reads an interface description and emits structure definitions,
 methods, and other support code.
 Configuration tools of all sorts work like this too, examining metadata or the environment
@@ -40,18 +40,23 @@ It is intended to be used by the author of the Go package, not its clients.
 
 The `go` `generate` command is easy to use.
 As a warmup, here's how to use it to generate a Yacc grammar.
+
+First, install Go's Yacc tool:
+
+	go get golang.org/x/tools/cmd/goyacc
+
 Say you have a Yacc input file called `gopher.y` that defines a grammar for your new language.
 To produce the Go source file implementing the grammar,
-you would normally invoke the standard Go version of Yacc like this:
+you would normally invoke the command like this:
 
-	go tool yacc -o gopher.go -p parser gopher.y
+	goyacc -o gopher.go -p parser gopher.y
 
 The `-o` option names the output file while `-p` specifies the package name.
 
 To have `go` `generate` drive the process, in any one of the regular (non-generated) `.go` files
 in the same directory, add this comment anywhere in the file:
 
-	//go:generate go tool yacc -o gopher.go -p parser gopher.y
+	//go:generate goyacc -o gopher.go -p parser gopher.y
 
 This text is just the command above prefixed by a special comment recognized by `go` `generate`.
 The comment must start at the beginning of the line and have no spaces between the `//` and the `go:generate`.
