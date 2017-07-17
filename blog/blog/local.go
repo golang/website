@@ -11,6 +11,7 @@ package main
 import (
 	"flag"
 	"log"
+	"net"
 	"net/http"
 
 	"golang.org/x/tools/blog"
@@ -24,22 +25,36 @@ var (
 	reload       = flag.Bool("reload", false, "reload content on each page load")
 )
 
+func newServer(reload bool, staticPath string, config blog.Config) (http.Handler, error) {
+	mux := http.NewServeMux()
+	if reload {
+		mux.HandleFunc("/", reloadingBlogServer)
+	} else {
+		s, err := blog.NewServer(config)
+		if err != nil {
+			return nil, err
+		}
+		mux.Handle("/", s)
+	}
+	fs := http.FileServer(http.Dir(staticPath))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+	return mux, nil
+}
+
 func main() {
 	flag.Parse()
 	config.ContentPath = *contentPath
 	config.TemplatePath = *templatePath
-	if *reload {
-		http.HandleFunc("/", reloadingBlogServer)
-	} else {
-		s, err := blog.NewServer(config)
-		if err != nil {
-			log.Fatal(err)
-		}
-		http.Handle("/", s)
+	mux, err := newServer(*reload, *staticPath, config)
+	if err != nil {
+		log.Fatal(err)
 	}
-	fs := http.FileServer(http.Dir(*staticPath))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-	log.Fatal(http.ListenAndServe(*httpAddr, nil))
+	ln, err := net.Listen("tcp", *httpAddr)
+	if err != nil {
+		log.Fatal(err)
+	}
+	log.Println("Listening on addr", *httpAddr)
+	log.Fatal(http.Serve(ln, mux))
 }
 
 // reloadingBlogServer is an handler that restarts the blog server on each page
