@@ -46,12 +46,15 @@ thought he was an automated bot. Internally our team is now calling him
 
 *** Impact
 
-We had a total of 65 contributions submitted from the people who participated
-in the workshop (within a week of the workshop). Of these, 44 were from
-contributors who had never previously contributed to any of the repos in the Go
-project. Half (22) of these contributions were already merged. Many of the
-others are waiting on the codebase to thaw as we are in the middle of a freeze
-for the upcoming 1.9 release.
+We had a total of 65 CLs submitted from the people who participated in the
+workshop (within a week of the workshop). Of these, 44 were from contributors
+who had never previously contributed to any of the repos in the Go project.
+Half (22) of these contributions were already merged. Many of the others are
+waiting on the codebase to thaw as we are in the middle of a freeze for the
+upcoming 1.9 release. In addition to CLs, many contributed to the project in
+the form of bug reports,
+[[https://golang.org/wiki/Gardening][gardening tasks]], and other types
+of contributions.
 
 The most common type of contribution was an example function to be used in the
 documentation. The [[https://blog.golang.org/survey2016-results][Go User survey]]
