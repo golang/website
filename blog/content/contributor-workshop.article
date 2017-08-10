@@ -61,7 +61,7 @@ documentation. The [[https://blog.golang.org/survey2016-results][Go User survey]
 identified that our documentation was significantly lacking examples. In the
 presentation, we asked users to find a package they loved and to add an example. In
 the Go project, examples are written as code in Go files
-(with specific naming) and the `go doc` tool displays them along side the documentation.
+(with specific naming) and the `go`doc` tool displays them along side the documentation.
 This is a perfect first contribution as it's something that can be merged
 during a freeze, it's of critical importance to our users, and it's an addition
 that has a relatively narrow scope.
@@ -150,7 +150,7 @@ score system.
 
 .image contributor-workshop/image7.png
 
-Seeing your name pop up on the board and listening to everyone's excited was
+Seeing your name pop up on the board and listening to everyone's excitement was
 intoxicating. It also invoked a sense of teamwork that lead to a feeling of
 inclusion and feeling like you were truly a part of the Go community.
 
