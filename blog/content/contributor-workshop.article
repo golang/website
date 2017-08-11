@@ -169,14 +169,14 @@ GopherCon.
 
 ** My Contribution Experience
 
-by [[https://twitter.com/mjbrender][Matt]]
+by [[https://twitter.com/mbbroberg][Matt]]
 
 I've always found programming languages to be intimidating. It's the code that
-enables me to write code. Surely smarter people than me should be working on
-it. It feels too distant to touch and too significant for me to edit. So when
+enables the world to write code. Given the impact, surely smarter people than
+me should be working on it... but that fear was something to overcome. So when
 the opportunity to join a workshop to contribute to my new favorite programming
-language came up, I was as excited to see how I could help. A month later, I'm
-now certain that anyone and everyone can (and should) contribute back to Go.
+language came up, I was excite to see how I could and how I could help. A month
+later, I'm now certain that anyone and everyone can (and should) contribute back to Go.
 
 Here are my very verbose steps to go from 0 to 2 contributions to Go:
 
@@ -186,37 +186,36 @@ Given Go's use of Gerrit, I started by setting up my environment for it. [[https
 is a great place to start to not miss a step.
 
 The real fun starts when you clone the Go repo. Ironically, you don't hack on
-Go under `$GOPATH`, so I put it in my other workspace (which is ~/Develop).
+Go under `$GOPATH`, so I put it in my other workspace (which is `~/Develop`).
 
     cd $DEV # That's my source code folder outside of $GOPATH
     git clone --depth 1 https://go.googlesource.com/go
 
-Then install the helper tool, `go-contrib-init`:
+Then install the handy dandy helper tool, `go-contrib-init`:
 
     go get -u golang.org/x/tools/cmd/go-contrib-init
 
-Now you can run `go-contrib-init` from the folder we cloned above and see
-whether or not we're ready to contribute. If you're following along you're
-definitely not ready yet.
+Now you can run `go-contrib-init` from the `go/` folder we cloned above and see
+whether or not we're ready to contribute. But hold on if you're following along,
+you're not ready just yet.
 
-Next, install codereview so you can participate in a Gerrit code review:
+Next, install `codereview` so you can participate in a Gerrit code review:
 
     go get -u golang.org/x/review/git-codereview
 
 This package includes `git change` and `git mail` which will replace your
-normal workflow for `git commit` and `git push` respectively.
+normal workflow of `git commit` and `git push` respectively.
 
 Okay, installations are out of the way. Now setup your [[https://go-review.googlesource.com/settings/#Profile][Gerrit account here]],
 then [[https://go-review.googlesource.com/settings#Agreements][sign the CLA]] appropriate for
-you (more on choosing a CLA here. For me it was a personal one for all Google
-projects. You can see all CLAs you've signed at
-[[https://cla.developers.google.com/clas][cla.developers.google.com/clas]]).
+you (I signed a personal one for all Google projects, but choose the right option for you.
+You can see all CLAs you've signed at [[https://cla.developers.google.com/clas][cla.developers.google.com/clas]]).
 
 AND BAM. You're good (to go)! But where to contribute?
 
 *** Contributing
 
-In workshop sent us into the `scratch` repository, which is a safe place to
+In the workshop, they sent us into the `scratch` repository, which is a safe place to
 fool around in order to master the workflow:
 
     cd $(go env GOPATH)/src/golang.org/x
@@ -227,19 +226,20 @@ First stop is to `cd` in and run `go-contrib-init` to make sure you're ready to 
     go-contrib-init
     All good. Happy hacking!
 
-From there, I made a folder, did a `git add -u` then took `git change` for a
-spin. It has what the Go team call the "magic hash", which is the one line you
-shouldn't touch. Other than that, it feels just like `git commit`. Once I got
-the commit message matching the format of `package: description` (description
-begins with a lowercase), I used `git mail` to send it over to Gerrit.
+From there, I made a folder named after my GitHub account, did a `git add -u`
+then took `git change` for a spin. It has a hash that keeps track of your work,
+which is the one line you shouldn't touch. Other than that, it feels just like
+`git commit`. Once I got the commit message matching the format of
+`package: description` (description begins with a lowercase), I used
+`git mail` to send it over to Gerrit.
 
-Two good to know things: `git change` also works like `git commit --amend`, so
+Two good notes to take at this point: `git change` also works like `git commit --amend`, so
 if you need to update your patch you can `add` then `change` and it will all
 link to the same patch. Secondly, you can always review your patch from your
 [[https://go-review.googlesource.com/dashboard/][personal Gerrit dashboard]].
 
 After a few back and forths, I officially had a contribute to Go! And if Jaana
-is right, it might be the first with emojis :+1:.
+is right, it might be the first with emojis ✌️.
 
 .image contributor-workshop/image15.png
 .image contributor-workshop/image23.png
@@ -258,13 +258,13 @@ I decided to see what I can do in the `regexp` package, maybe out of love and
 fear of regex. Here's where I switched to the
 [[https://godoc.org/regexp][website's view of the package]] (it's good to know
 that each standard package can be found at https://godoc.org/$PACKAGENAME). In
-there I noticed that QuoteMeta was missing the same level of detailed examples
+there I noticed that `QuoteMeta` was missing the same level of detailed examples
 other functions have (and I could use the practice using Gerrit).
 
 .image contributor-workshop/image1.png
 
 I started looking at `go/src/regexp` to try to find where to add examples and I
-got lost pretty quickly. Lucky for me, Francesc was around that day. He walked
+got lost pretty quickly. Lucky for me, [[https://twitter.com/francesc][Francesc]] was around that day. He walked
 me through how all examples are actually in-line tests in a `example_test.go
 file. They follow the format of test cases followed by "Output" commented out
 and then the answers to the tests. For example:
@@ -295,7 +295,7 @@ Bookmark this one for later.
 
 You can see my completed [[https://go-review.googlesource.com/c/49130/][contribution here]]. What I also hope you see is
 how simple it is to get into the flow of contributing. If you're like me,
-you'll be good finding a small typo or missing example in the docs to start to
+you'll be good at finding a small typo or missing example in the docs to start to
 get used to the `git codereview` workflow. After that, you'll be ready to find
 an open issue, ideally one [[https://github.com/golang/go/milestones][tagged for an upcoming release]], and give it a go. No matter
 what you choose to do, definitely go forth and do it. The Go team proved to me
