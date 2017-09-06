@@ -151,7 +151,7 @@ senders that they will stop accepting input.
 
 When `main` decides to exit without receiving all the values from
 `out`, it must tell the goroutines in the upstream stages to abandon
-the values they're trying it send.  It does so by sending values on a
+the values they're trying to send.  It does so by sending values on a
 channel called `done`.  It sends two values since there are
 potentially two blocked senders:
 
