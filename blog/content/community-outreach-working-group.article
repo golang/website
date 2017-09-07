@@ -14,18 +14,18 @@ project. We greatly appreciate these efforts.
 
 After talking to many community organizers we have heard consistent
 feedback that they would like better collaboration between organizers and
-the Go project. We are forming the Community Outreach Working Group (COWG)
+the Go project. We are forming the Community outreach Working Group (CWG)
 to help support these community efforts.
 
-* The COWG Mission
+* The CWG Mission
 
-The mission of the COWG is to act as a conduit between the broader Go
-community, it’s organizers and the Go project. The COWG will help provide
+The mission of the CWG is to act as a conduit between the broader Go
+community, it’s organizers and the Go project. The CWG will help provide
 the structures and community management necessary to create an online and
 in person community that is enjoyable and rewarding to participate in. The
-COWG leadership represents the Go project in these efforts.
+CWG leadership represents the Go project in these efforts.
 
-*The*COWG*is*responsible*for:*
+*The*CWG*is*responsible*for:*
 
 - Defining programs to facilitate deeper collaboration across the community.
 - Facilitating the coordination of Go events
@@ -42,12 +42,12 @@ COWG leadership represents the Go project in these efforts.
 
 * Plans for Action
 
-The COWG has an [[https://github.com/golang/cowg][open GitHub repo]] we’ve created for complete transparency
-of our efforts.  We have various [[https://github.com/golang/cowg/projects][GitHub projects]] which are acting as our
-primary initiatives. Each project has a variety of [[https://github.com/golang/cowg/issues][issues]] tied to them
-with assignees from our Leadership team and [[https://github.com/golang/cowg/issues/15][our members]].
+The CWG has an [[https://github.com/golang/cwg][open GitHub repo]] we’ve created for complete transparency
+of our efforts.  We have various [[https://github.com/golang/cwg/projects][GitHub projects]] which are acting as our
+primary initiatives. Each project has a variety of [[https://github.com/golang/cwg/issues][issues]] tied to them
+with assignees from our Leadership team and [[https://github.com/golang/cwg/issues/15][our members]].
 
 .image community-outreach-working-group/project.png
 
 If you’d like to get involved, we encourage you to comment on the issue
-that interests you or [[https://github.com/golang/cowg/issues/new][submit an issue]] yourself!
+that interests you or [[https://github.com/golang/cwg/issues/new][submit an issue]] yourself!
