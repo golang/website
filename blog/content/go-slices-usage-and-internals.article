@@ -190,7 +190,7 @@ To append one slice to another, use `...` to expand the second argument to a lis
 Since the zero value of a slice (`nil`) acts like a zero-length slice, you can declare a slice variable and then append to it in a loop:
 
 	// Filter returns a new slice holding only
-	// the elements of s that satisfy f()
+	// the elements of s that satisfy fn()
 	func Filter(s []int, fn func(int) bool) []int {
 	    var p []int // == nil
 	    for _, v := range s {
