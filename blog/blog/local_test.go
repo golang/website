@@ -21,7 +21,7 @@ func TestServer(t *testing.T) {
 	w := httptest.NewRecorder()
 	mux.ServeHTTP(w, r)
 	if w.Code != 200 {
-		t.Errorf("GET /: want code 200, got %d")
+		t.Errorf("GET /: code = %d; want 200", w.Code)
 	}
 	want := "The Go Programming Language Blog"
 	if !strings.Contains(w.Body.String(), want) {
