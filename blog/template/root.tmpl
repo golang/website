@@ -72,7 +72,7 @@
 <a href="{{.GodocURL}}/project/">The Project</a>
 <a href="{{.GodocURL}}/help/">Help</a>
 <a href="{{.BasePath}}/">Blog</a>
-<input type="text" id="search" name="q" class="inactive" value="Search" placeholder="Search">
+<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
 </div>
 </form>
 
@@ -87,13 +87,13 @@
 			<h4>Next article</h4>
 			<p><a href="{{.Path}}">{{.Title}}</a></p>
 		{{end}}
-		
+
 		{{with .Older}}
 			<h4>Previous article</h4>
 			<p><a href="{{.Path}}">{{.Title}}</a></p>
 		{{end}}
 	{{end}}
-	
+
 	<h4>Links</h4>
 	<ul>
 	<li><a href='//golang.org/'>golang.org</a></li>
@@ -105,7 +105,7 @@
 	<li><a href='//plus.google.com/112164155169467723645/posts'>Go+ Community</a></li>
 	<li><a href='//twitter.com/golang'>Go on Twitter</a></li>
 	</ul>
-	
+
 	<p><a href="{{.BasePath}}/index">Blog index</a></p>
 </div><!-- #sidebar -->
 
@@ -121,7 +121,7 @@
 	the content of this page is licensed under the Creative Commons
 	Attribution 3.0 License,<br>
 	and code is licensed under a <a href="//golang.org/LICENSE">BSD license</a>.<br>
-	<a href="//golang.org/doc/tos.html">Terms of Service</a> | 
+	<a href="//golang.org/doc/tos.html">Terms of Service</a> |
 	<a href="//www.google.com/intl/en/policies/privacy/">Privacy Policy</a> |
 	<a href="https://go.googlesource.com/blog/">View the source code</a>
 	</p>
