@@ -10,7 +10,7 @@ The Go project takes documentation seriously. Documentation is a huge part of ma
 
 To that end, we have developed the [[http://golang.org/cmd/godoc/][godoc]] documentation tool. This article describes godoc's approach to documentation, and explains how you can use our conventions and tools to write good documentation for your own projects.
 
-Godoc parses Go source code - including comments - and produces documentation as HTML or plain text. The end result is documentation tightly coupled with the code it documents. For example, through godoc's web interface you can navigate from a function's [[http://golang.org/pkg/strings/#HasPrefix][documentation]] to its [[http://golang.org/src/pkg/strings/strings.go?#L312][implementation]] with one click.
+Godoc parses Go source code - including comments - and produces documentation as HTML or plain text. The end result is documentation tightly coupled with the code it documents. For example, through godoc's web interface you can navigate from a function's [[http://golang.org/pkg/strings/#HasPrefix][documentation]] to its [[http://golang.org/src/pkg/strings/strings.go#L493][implementation]] with one click.
 
 Godoc is conceptually related to Python's [[http://www.python.org/dev/peps/pep-0257/][Docstring]] and Java's [[http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html][Javadoc]], but its design is simpler. The comments read by godoc are not language constructs (as with Docstring) nor must they have their own machine-readable syntax (as with Javadoc). Godoc comments are just good comments, the sort you would want to read even if godoc didn't exist.
 

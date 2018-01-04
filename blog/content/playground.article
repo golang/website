@@ -18,7 +18,7 @@ from the Go documentation.
 
 You may also have used it by clicking one of the "Run" buttons in a slide
 deck on [[https://talks.golang.org/][talks.golang.org]] or a post on this
-very blog 
+very blog
 (such as the [[https://blog.golang.org/strings][recent article on Strings]]).
 
 In this article we will take a look at how the playground is implemented
@@ -46,7 +46,7 @@ here. The interesting part is how we safely execute arbitrary user code in a
 secure environment while still providing core functionality such as time, the
 network, and the file system.
 
-To isolate user programs from Google's infrastructure, the back end runs 
+To isolate user programs from Google's infrastructure, the back end runs
 them under [[https://developers.google.com/native-client/][Native Client]]
 (or "NaCl"), a technology developed by Google to permit the safe execution of
 x86 programs inside web browsers. The back end uses a special version of the gc
@@ -55,7 +55,7 @@ tool chain that generates NaCl executables.
 (This special tool chain was merged into Go 1.3.
 To learn more, read the [[https://golang.org/s/go13nacl][design document]].)
 
-NaCl limits the amount of CPU and RAM a program may consume, and it prevents 
+NaCl limits the amount of CPU and RAM a program may consume, and it prevents
 programs from accessing the network or file system.
 This presents a problem, however.
 Go's concurrency and networking support are among its key strengths,
@@ -101,7 +101,7 @@ To explain the trick we first need to understand how the scheduler manages
 sleeping goroutines.
 
 When a goroutine calls `time.Sleep` (or similar) the scheduler adds a timer to
-a heap of pending timers and puts the goroutine to sleep.  
+a heap of pending timers and puts the goroutine to sleep.
 Meanwhile, a special timer goroutine manages that heap.
 When the timer goroutine starts it tells the scheduler to wake
 it when the next pending timer is ready to fire and then sleeps.
@@ -182,7 +182,7 @@ To the user it appears that the program is running in real time.
 Programs built with the Go's NaCl tool chain cannot access the local machine's
 file system. Instead, the `syscall` package's file-related functions
 (`Open`, `Read`, `Write`, and so on) operate on an in-memory file system
-that is implemented by the `syscall` package itself.  
+that is implemented by the `syscall` package itself.
 Since package `syscall` is the interface between the Go code and the operating
 system kernel, user programs see the file system exactly the same way as they
 would a real one.
@@ -205,17 +205,17 @@ with a set of files that can be used in documentation examples, blog posts, and
 the Go Tour.
 
 The implementation can be found in the
-[[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fs_nacl.go][`fs_nacl.go`]] and
-[[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fd_nacl.go][`fd_nacl.go`]] files
+[[https://github.com/golang/go/blob/master/src/syscall/fs_nacl.go][`fs_nacl.go`]] and
+[[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go][`fd_nacl.go`]] files
 (which, by virtue of their `_nacl` suffix, are built into package `syscall` only
 when `GOOS` is set to `nacl`).
 
-The file system itself is represented by the 
-[[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fs_nacl.go#L25][`fsys` struct]],
+The file system itself is represented by the
+[[https://github.com/golang/go/blob/master/src/syscall/fs_nacl.go#L26][`fsys` struct]],
 of which a global instance (named `fs`) is created during init time.
 The various file-related functions then operate on `fs` instead of making the
 actual system call.
-For instance, here is the [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fs_nacl.go#L467][`syscall.Open`]] function:
+For instance, here is the [[https://github.com/golang/go/blob/master/src/syscall/fs_nacl.go#L473][`syscall.Open`]] function:
 
 	func Open(path string, openmode int, perm uint32) (fd int, err error) {
 		fs.mu.Lock()
@@ -228,17 +228,17 @@ For instance, here is the [[https://github.com/golang/go/blob/go1.3/src/pkg/sysc
 	}
 
 File descriptors are tracked by a global slice named
-[[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fd_nacl.go#L16][`files`]].
-Each file descriptor corresponds to a [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fd_nacl.go#L24][`file`]]
-and each `file` provides a value that implements the [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fd_nacl.go#L29][`fileImpl`]] interface.
+[[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L17][`files`]].
+Each file descriptor corresponds to a [[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L23][`file`]]
+and each `file` provides a value that implements the [[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L30][`fileImpl`]] interface.
 There are several implementations of the interface:
 
-- regular files and devices (such as `/dev/random`) are represented by [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fs_nacl.go#L57][`fsysFile`]],
-- standard input, output, and error are instances of [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/fd_nacl.go#L215][`naclFile`]], which uses system calls to interact with the actual files (these are a playground program's only way to interact with the outside world),
+- regular files and devices (such as `/dev/random`) are represented by [[https://github.com/golang/go/blob/master/src/syscall/fs_nacl.go#L58][`fsysFile`]],
+- standard input, output, and error are instances of [[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L216][`naclFile`]], which uses system calls to interact with the actual files (these are a playground program's only way to interact with the outside world),
 - network sockets have their own implementation, discussed in the next section.
 
 
-** Faking the network 
+** Faking the network
 
 Like the file system, the playground's network stack is an in-process fake
 implemented by the `syscall` package. It permits playground projects to use
@@ -256,8 +256,8 @@ implementation of the fake network is larger and more complex than the fake
 file system. It must simulate read and write timeouts, different address types
 and protocols, and so on.
 
-The implementation can be found in [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/net_nacl.go][`net_nacl.go`]].
-A good place to start reading is [[https://github.com/golang/go/blob/go1.3/src/pkg/syscall/net_nacl.go#L428][`netFile`]], the network socket implementation of the `fileImpl` interface.
+The implementation can be found in [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go][`net_nacl.go`]].
+A good place to start reading is [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go#L461][`netFile`]], the network socket implementation of the `fileImpl` interface.
 
 
 * The front end
@@ -289,24 +289,24 @@ code for setting up the user interface (the code and output boxes, the run
 button, and so on) and communicating with the playground front end.
 
 This implementation is in the file
-[[https://github.com/golang/tools/blob/release-branch.go1.3/godoc/static/playground.js][`playground.js`]]
+[[https://github.com/golang/tools/blob/master/godoc/static/playground.js][`playground.js`]]
 in the `go.tools` repository, which can be imported from the
 [[https://godoc.org/golang.org/x/tools/godoc/static][`golang.org/x/tools/godoc/static`]] package.
 Some of it is clean and some is a bit crufty, as it is the result of
 consolidating several divergent implementations of the client code.
 
-The [[https://github.com/golang/tools/blob/release-branch.go1.3/godoc/static/playground.js#L226][`playground`]]
+The [[https://github.com/golang/tools/blob/master/godoc/static/playground.js#L227][`playground`]]
 function takes some HTML elements and turns them into an interactive
 playground widget. You should use this function if you want to put the
 playground on your own site (see 'Other clients' below).
 
-The [[https://github.com/golang/tools/blob/release-branch.go1.3/godoc/static/playground.js#L6][`Transport`]]
+The [[https://github.com/golang/tools/blob/master/godoc/static/playground.js#L6][`Transport`]]
 interface (not formally defined, this being JavaScript)
 abstracts the user interface from the means of talking to the web front end.
-[[https://github.com/golang/tools/blob/release-branch.go1.3/godoc/static/playground.js#L43][`HTTPTransport`]]
+[[https://github.com/golang/tools/blob/master/godoc/static/playground.js#L43][`HTTPTransport`]]
 is an implementation of `Transport` that speaks the HTTP-based protocol
-described earlier. 
-[[https://github.com/golang/tools/blob/release-branch.go1.3/godoc/static/playground.js#L115][`SocketTransport`]]
+described earlier.
+[[https://github.com/golang/tools/blob/master/godoc/static/playground.js#L115][`SocketTransport`]]
 is another implementation that speaks WebSocket (see 'Playing offline' below).
 
 To comply with the [[https://en.wikipedia.org/wiki/Same-origin_policy][same-origin policy]],
