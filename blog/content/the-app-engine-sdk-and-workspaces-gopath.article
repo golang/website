@@ -97,7 +97,7 @@ main.go runs the web server. It includes the "!appengine" build constraint, as i
 	        http.ListenAndServe("localhost:8080", nil)        
 	    }
 
-To see a more complex hybrid app, take a look at the [[http://code.google.com/p/go/source/browse/?repo=talks#hg%2Fpresent][present tool]].
+To see a more complex hybrid app, take a look at the [[https://godoc.org/golang.org/x/tools/present][present tool]].
 
 * Conclusions
 
