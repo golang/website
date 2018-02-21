@@ -1,0 +1,98 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="17.60em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">Is there anything else you would like to share with us?</tspan></text>
+<rect x="7.25em" y="2.10em" width="0.21em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">130 (2.1%)</tspan></text>
+<text x="7.96em" y="2.70em"><tspan class="size">great</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.19em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">119 (1.9%)</tspan></text>
+<text x="7.94em" y="3.90em"><tspan class="size">generics</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.17em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">104 (1.7%)</tspan></text>
+<text x="7.92em" y="5.10em"><tspan class="size">love</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.17em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">104 (1.7%)</tspan></text>
+<text x="7.92em" y="6.30em"><tspan class="size">thank you</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.16em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">99 (1.6%)</tspan></text>
+<text x="7.91em" y="7.50em"><tspan class="size">thanks</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.14em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">87 (1.4%)</tspan></text>
+<text x="7.89em" y="8.70em"><tspan class="size">community</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.09em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">58 (0.9%)</tspan></text>
+<text x="7.84em" y="9.90em"><tspan class="size">programming</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.09em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">56 (0.9%)</tspan></text>
+<text x="7.84em" y="11.10em"><tspan class="size">simple</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.08em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">52 (0.8%)</tspan></text>
+<text x="7.83em" y="12.30em"><tspan class="size">awesome</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.08em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">51 (0.8%)</tspan></text>
+<text x="7.83em" y="13.50em"><tspan class="size">i love</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.08em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">48 (0.8%)</tspan></text>
+<text x="7.83em" y="14.70em"><tspan class="size">people</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.07em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">44 (0.7%)</tspan></text>
+<text x="7.82em" y="15.90em"><tspan class="size">team</tspan></text>
+<rect x="7.25em" y="16.50em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="17.10em" text-anchor="end"><tspan class="size">40 (0.6%)</tspan></text>
+<text x="7.81em" y="17.10em"><tspan class="size">golang</tspan></text>
+<rect x="22.25em" y="2.10em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="2.70em" text-anchor="end"><tspan class="size">38 (0.6%)</tspan></text>
+<text x="22.81em" y="2.70em"><tspan class="size">keep up the good work</tspan></text>
+<rect x="22.25em" y="3.30em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="3.90em" text-anchor="end"><tspan class="size">38 (0.6%)</tspan></text>
+<text x="22.81em" y="3.90em"><tspan class="size">time</tspan></text>
+<rect x="22.25em" y="4.50em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="5.10em" text-anchor="end"><tspan class="size">37 (0.6%)</tspan></text>
+<text x="22.81em" y="5.10em"><tspan class="size">hard</tspan></text>
+<rect x="22.25em" y="5.70em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="6.30em" text-anchor="end"><tspan class="size">37 (0.6%)</tspan></text>
+<text x="22.81em" y="6.30em"><tspan class="size">languages</tspan></text>
+<rect x="22.25em" y="6.90em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="7.50em" text-anchor="end"><tspan class="size">36 (0.6%)</tspan></text>
+<text x="22.81em" y="7.50em"><tspan class="size">job</tspan></text>
+<rect x="22.25em" y="8.10em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="8.70em" text-anchor="end"><tspan class="size">35 (0.6%)</tspan></text>
+<text x="22.81em" y="8.70em"><tspan class="size">features</tspan></text>
+<rect x="22.25em" y="9.30em" width="0.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="9.90em" text-anchor="end"><tspan class="size">35 (0.6%)</tspan></text>
+<text x="22.81em" y="9.90em"><tspan class="size">great work</tspan></text>
+<rect x="22.25em" y="10.50em" width="0.05em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="11.10em" text-anchor="end"><tspan class="size">30 (0.5%)</tspan></text>
+<text x="22.80em" y="11.10em"><tspan class="size">3</tspan></text>
+<rect x="22.25em" y="11.70em" width="0.05em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="12.30em" text-anchor="end"><tspan class="size">30 (0.5%)</tspan></text>
+<text x="22.80em" y="12.30em"><tspan class="size">amazing</tspan></text>
+<rect x="22.25em" y="12.90em" width="0.05em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="13.50em" text-anchor="end"><tspan class="size">30 (0.5%)</tspan></text>
+<text x="22.80em" y="13.50em"><tspan class="size">c</tspan></text>
+<rect x="22.25em" y="14.10em" width="0.05em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="21.75em" y="14.70em" text-anchor="end"><tspan class="size">30 (0.5%)</tspan></text>
+<text x="22.80em" y="14.70em"><tspan class="size">google</tspan></text>
+<rect x="22.25em" y="15.30em" width="8.30em" height="0.60em" stroke="black" fill="white"/>
+<text x="21.75em" y="15.90em" text-anchor="end"><tspan class="size">5,167 (83.0%)</tspan></text>
+<text x="31.05em" y="15.90em"><tspan class="size">No response</tspan></text>
+</svg>

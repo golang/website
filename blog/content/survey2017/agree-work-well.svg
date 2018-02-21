@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="8.00em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">To what extent do you agree or disagree with the following statements: </tspan></text>
+<text x="0.00em" y="2.40em"><tspan class="size">(<tspan fill="#CE3262">strongly disagree</tspan>, <tspan fill="#D77A95">disagree</tspan>, <tspan fill="#E6B1C1">somewhat disagree</tspan>, <tspan fill="#cccccc">neither agree nor disagree</tspan>, <tspan fill="#77CCE9">somewhat agree</tspan>, <tspan fill="#50BFE2">agree</tspan>, <tspan fill="#00ACD7">strongly agree</tspan>)</tspan></text>
+<rect x="14.00em" y="3.30em" width="0.17em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.17em" y="3.30em" width="0.08em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.25em" y="3.30em" width="0.10em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.35em" y="3.30em" width="0.17em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="14.52em" y="3.30em" width="0.53em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="15.05em" y="3.30em" width="2.10em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="17.14em" y="3.30em" width="6.39em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="3.90em" text-anchor="end"><tspan class="size">5,938 (<tspan fill="#CE3262">2</tspan>, <tspan fill="#D77A95">0.8</tspan>, <tspan fill="#E6B1C1">1</tspan>, <tspan fill="#cccccc">2</tspan>, <tspan fill="#77CCE9">5</tspan>, <tspan fill="#50BFE2">21</tspan>, <tspan fill="#00ACD7">64</tspan>%)</tspan></text>
+<text x="24.04em" y="3.90em"><tspan class="size">I would recommend using Go to others (26:1) [32:1]</tspan></text>
+<rect x="14.00em" y="4.50em" width="0.20em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.20em" y="4.50em" width="0.13em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.33em" y="4.50em" width="0.17em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.50em" y="4.50em" width="0.38em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="14.88em" y="4.50em" width="0.79em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="15.67em" y="4.50em" width="2.03em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="17.70em" y="4.50em" width="5.82em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="5.10em" text-anchor="end"><tspan class="size">5,928 (<tspan fill="#CE3262">2</tspan>, <tspan fill="#D77A95">1</tspan>, <tspan fill="#E6B1C1">2</tspan>, <tspan fill="#cccccc">4</tspan>, <tspan fill="#77CCE9">8</tspan>, <tspan fill="#50BFE2">20</tspan>, <tspan fill="#00ACD7">58</tspan>%)</tspan></text>
+<text x="24.02em" y="5.10em"><tspan class="size">I would prefer to use Go for my next new project (17:1) [23:1]</tspan></text>
+<rect x="14.00em" y="5.70em" width="0.10em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.10em" y="5.70em" width="0.08em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.18em" y="5.70em" width="0.13em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.31em" y="5.70em" width="0.72em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="15.02em" y="5.70em" width="0.88em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="15.91em" y="5.70em" width="2.27em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="18.17em" y="5.70em" width="3.13em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="6.30em" text-anchor="end"><tspan class="size">4,548 (<tspan fill="#CE3262">1</tspan>, <tspan fill="#D77A95">0.8</tspan>, <tspan fill="#E6B1C1">1</tspan>, <tspan fill="#cccccc">7</tspan>, <tspan fill="#77CCE9">9</tspan>, <tspan fill="#50BFE2">23</tspan>, <tspan fill="#00ACD7">31</tspan>%)</tspan></text>
+<text x="21.80em" y="6.30em"><tspan class="size">Go is working well for my team (21:1) [26:1]</tspan></text>
+<rect x="14.00em" y="6.90em" width="0.48em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.48em" y="6.90em" width="0.61em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="15.10em" y="6.90em" width="0.36em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="15.46em" y="6.90em" width="1.67em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="17.13em" y="6.90em" width="1.38em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="18.51em" y="6.90em" width="1.37em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="19.88em" y="6.90em" width="1.69em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="7.50em" text-anchor="end"><tspan class="size">4,716 (<tspan fill="#CE3262">5</tspan>, <tspan fill="#D77A95">6</tspan>, <tspan fill="#E6B1C1">4</tspan>, <tspan fill="#cccccc">17</tspan>, <tspan fill="#77CCE9">14</tspan>, <tspan fill="#50BFE2">14</tspan>, <tspan fill="#00ACD7">17</tspan>%)</tspan></text>
+<text x="22.07em" y="7.50em"><tspan class="size">Go is critical to my company’s success (3.1:1) [3.1:1]</tspan></text>
+</svg>

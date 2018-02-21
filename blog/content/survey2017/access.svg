@@ -1,0 +1,50 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="12.80em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">Which of the following do you access from Go:  <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="6.08em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">3,784 (61%)</tspan></text>
+<text x="13.83em" y="2.70em"><tspan class="size">Open Source Relational DB (MySQL/PostgreSQL/CockroachDB)</tspan></text>
+<rect x="7.25em" y="3.30em" width="3.85em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">2,400 (39%)</tspan></text>
+<text x="11.60em" y="3.90em"><tspan class="size">Memory Cache (Redis/memcache)</tspan></text>
+<rect x="7.25em" y="4.50em" width="3.22em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">2,005 (32%)</tspan></text>
+<text x="10.97em" y="5.10em"><tspan class="size">Cloud Storage (S3/Google Cloud Storage/Azure Storage/Minio)</tspan></text>
+<rect x="7.25em" y="5.70em" width="3.04em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">1,891 (30%)</tspan></text>
+<text x="10.79em" y="6.30em"><tspan class="size">Open Source NoSQL DB (MongoDB/Cassandra)</tspan></text>
+<rect x="7.25em" y="6.90em" width="2.58em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">1,606 (26%)</tspan></text>
+<text x="10.33em" y="7.50em"><tspan class="size">Authentication and federation (SSO/LDAP/OAuth)</tspan></text>
+<rect x="7.25em" y="8.10em" width="2.48em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">1,546 (25%)</tspan></text>
+<text x="10.23em" y="8.70em"><tspan class="size">Distributed Key-Value store (etcd/consul)</tspan></text>
+<rect x="7.25em" y="9.30em" width="1.06em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">657 (11%)</tspan></text>
+<text x="8.81em" y="9.90em"><tspan class="size">Proprietary Relational DB (Oracle/DB2/MSSQL/Sybase)</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.74em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">459  (7%)</tspan></text>
+<text x="8.49em" y="11.10em"><tspan class="size">Distributed Lock Service (zookeeper)</tspan></text>
+<rect x="7.25em" y="11.70em" width="2.20em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">1,367 (22%)</tspan></text>
+<text x="9.95em" y="12.30em"><tspan class="size">No response</tspan></text>
+</svg>

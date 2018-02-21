@@ -1,0 +1,70 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="16.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">My preferred code editor </tspan></text>
+<rect x="7.25em" y="2.10em" width="2.68em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="9.93em" y="2.10em" width="1.25em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">2,449 (<tspan fill="#00acd7">27</tspan>, <tspan fill="#75cbe0">13</tspan>%)</tspan></text>
+<text x="11.68em" y="2.70em"><tspan class="size">VSCode</tspan></text>
+<rect x="7.25em" y="3.30em" width="2.23em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="9.48em" y="3.30em" width="1.44em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">2,288 (<tspan fill="#00acd7">22</tspan>, <tspan fill="#75cbe0">14</tspan>%)</tspan></text>
+<text x="11.42em" y="3.90em"><tspan class="size">Vim</tspan></text>
+<rect x="7.25em" y="4.50em" width="1.92em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="9.17em" y="4.50em" width="0.70em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">1,628 (<tspan fill="#00acd7">19</tspan>, <tspan fill="#75cbe0">7</tspan>%)</tspan></text>
+<text x="10.36em" y="5.10em"><tspan class="size">IntelliJ/GoLand</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.67em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.92em" y="5.70em" width="0.79em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">912 (<tspan fill="#00acd7">7</tspan>, <tspan fill="#75cbe0">8</tspan>%)</tspan></text>
+<text x="9.21em" y="6.30em"><tspan class="size">Sublime Text</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.61em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.86em" y="6.90em" width="0.66em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">791 (<tspan fill="#00acd7">6</tspan>, <tspan fill="#75cbe0">7</tspan>%)</tspan></text>
+<text x="9.02em" y="7.50em"><tspan class="size">Atom</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.59em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.84em" y="8.10em" width="0.19em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">490 (<tspan fill="#00acd7">6</tspan>, <tspan fill="#75cbe0">2</tspan>%)</tspan></text>
+<text x="8.54em" y="8.70em"><tspan class="size">Emacs</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.20em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.45em" y="9.30em" width="0.24em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">274 (<tspan fill="#00acd7">2</tspan>, <tspan fill="#75cbe0">2</tspan>%)</tspan></text>
+<text x="8.19em" y="9.90em"><tspan class="size">Visual Studio</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.12em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.37em" y="10.50em" width="0.13em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">154 (<tspan fill="#00acd7">1</tspan>, <tspan fill="#75cbe0">1</tspan>%)</tspan></text>
+<text x="8.00em" y="11.10em"><tspan class="size">LiteIDE</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.05em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.30em" y="11.70em" width="0.09em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">88 (<tspan fill="#00acd7">0.5</tspan>, <tspan fill="#75cbe0">0.9</tspan>%)</tspan></text>
+<text x="7.89em" y="12.30em"><tspan class="size">Eclipse</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.06em" height="0.60em" stroke="#00acd7" fill="#00acd7"/>
+<rect x="7.31em" y="12.90em" width="0.04em" height="0.60em" stroke="#75cbe0" fill="#75cbe0"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">67 (<tspan fill="#00acd7">0.6</tspan>, <tspan fill="#75cbe0">0.4</tspan>%)</tspan></text>
+<text x="7.86em" y="13.50em"><tspan class="size">Acme</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.25em" height="0.60em" stroke="#777777" fill="#777777"/>
+<rect x="7.50em" y="14.10em" width="0.16em" height="0.60em" stroke="#b0b0b0" fill="#b0b0b0"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">256 (<tspan fill="#777777">3</tspan>, <tspan fill="#b0b0b0">2</tspan>%)</tspan></text>
+<text x="8.16em" y="14.70em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.61em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">382 (6.1%)</tspan></text>
+<text x="8.36em" y="15.90em"><tspan class="size">No response</tspan></text>
+</svg>

@@ -1,0 +1,89 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="28.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">List of Countries <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="2.51em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">1,561 (25%)</tspan></text>
+<text x="10.26em" y="2.70em"><tspan class="size">United States of America</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.70em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">436  (7%)</tspan></text>
+<text x="8.45em" y="3.90em"><tspan class="size">Germany</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.55em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">343  (6%)</tspan></text>
+<text x="8.30em" y="5.10em"><tspan class="size">United Kingdom</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.34em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">211  (3%)</tspan></text>
+<text x="8.09em" y="6.30em"><tspan class="size">Canada</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.32em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">200  (3%)</tspan></text>
+<text x="8.07em" y="7.50em"><tspan class="size">France</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.28em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">174  (3%)</tspan></text>
+<text x="8.03em" y="8.70em"><tspan class="size">Russia</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.21em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">130  (2%)</tspan></text>
+<text x="7.96em" y="9.90em"><tspan class="size">Australia</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.18em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">113  (2%)</tspan></text>
+<text x="7.93em" y="11.10em"><tspan class="size">India</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.18em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">110  (2%)</tspan></text>
+<text x="7.93em" y="12.30em"><tspan class="size">Sweden</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.17em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">103  (2%)</tspan></text>
+<text x="7.92em" y="13.50em"><tspan class="size">China</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.16em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">99  (2%)</tspan></text>
+<text x="7.91em" y="14.70em"><tspan class="size">Netherlands</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.15em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">95  (2%)</tspan></text>
+<text x="7.90em" y="15.90em"><tspan class="size">Spain</tspan></text>
+<rect x="7.25em" y="16.50em" width="0.15em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="17.10em" text-anchor="end"><tspan class="size">94  (2%)</tspan></text>
+<text x="7.90em" y="17.10em"><tspan class="size">Brazil</tspan></text>
+<rect x="7.25em" y="17.70em" width="0.14em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="18.30em" text-anchor="end"><tspan class="size">89  (1%)</tspan></text>
+<text x="7.89em" y="18.30em"><tspan class="size">Japan</tspan></text>
+<rect x="7.25em" y="18.90em" width="0.13em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="19.50em" text-anchor="end"><tspan class="size">84  (1%)</tspan></text>
+<text x="7.88em" y="19.50em"><tspan class="size">Poland</tspan></text>
+<rect x="7.25em" y="20.10em" width="0.10em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="20.70em" text-anchor="end"><tspan class="size">62  (1%)</tspan></text>
+<text x="7.85em" y="20.70em"><tspan class="size">Ukraine</tspan></text>
+<rect x="7.25em" y="21.30em" width="0.09em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="21.90em" text-anchor="end"><tspan class="size">58  (1%)</tspan></text>
+<text x="7.84em" y="21.90em"><tspan class="size">Italy</tspan></text>
+<rect x="7.25em" y="22.50em" width="0.09em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="23.10em" text-anchor="end"><tspan class="size">57  (1%)</tspan></text>
+<text x="7.84em" y="23.10em"><tspan class="size">Switzerland</tspan></text>
+<rect x="7.25em" y="23.70em" width="0.08em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="24.30em" text-anchor="end"><tspan class="size">48  (1%)</tspan></text>
+<text x="7.83em" y="24.30em"><tspan class="size">Taiwan</tspan></text>
+<rect x="7.25em" y="24.90em" width="0.07em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="25.50em" text-anchor="end"><tspan class="size">42  (1%)</tspan></text>
+<text x="7.82em" y="25.50em"><tspan class="size">Israel</tspan></text>
+<rect x="7.25em" y="26.10em" width="1.40em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="26.70em" text-anchor="end"><tspan class="size">873 (14%)</tspan></text>
+<text x="9.15em" y="26.70em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="27.30em" width="2.00em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="27.90em" text-anchor="end"><tspan class="size">1,244 (20%)</tspan></text>
+<text x="9.75em" y="27.90em"><tspan class="size">No response</tspan></text>
+</svg>

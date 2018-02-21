@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="14.00em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">Which of the following functionality have you implemented  <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="5.24em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">3,262 (52%)</tspan></text>
+<text x="12.99em" y="2.70em"><tspan class="size">Writing logs/metrics</tspan></text>
+<rect x="7.25em" y="3.30em" width="5.02em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">3,123 (50%)</tspan></text>
+<text x="12.77em" y="3.90em"><tspan class="size">Reading/updating configuration</tspan></text>
+<rect x="7.25em" y="4.50em" width="4.45em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">2,771 (45%)</tspan></text>
+<text x="12.20em" y="5.10em"><tspan class="size">User login and authentication</tspan></text>
+<rect x="7.25em" y="5.70em" width="4.41em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">2,748 (44%)</tspan></text>
+<text x="12.16em" y="6.30em"><tspan class="size">Process to process communication</tspan></text>
+<rect x="7.25em" y="6.90em" width="4.02em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">2,504 (40%)</tspan></text>
+<text x="11.77em" y="7.50em"><tspan class="size">Service authentication/authorization</tspan></text>
+<rect x="7.25em" y="8.10em" width="3.30em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">2,056 (33%)</tspan></text>
+<text x="11.05em" y="8.70em"><tspan class="size">Health checking</tspan></text>
+<rect x="7.25em" y="9.30em" width="1.83em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">1,138 (18%)</tspan></text>
+<text x="9.58em" y="9.90em"><tspan class="size">Keys &amp; secret maintenance</tspan></text>
+<rect x="7.25em" y="10.50em" width="1.33em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">831 (13%)</tspan></text>
+<text x="9.08em" y="11.10em"><tspan class="size">Distributed caching</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.85em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">532  (9%)</tspan></text>
+<text x="8.60em" y="12.30em"><tspan class="size">Distributed tracing</tspan></text>
+<rect x="7.25em" y="12.90em" width="2.04em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">1,269 (20%)</tspan></text>
+<text x="9.79em" y="13.50em"><tspan class="size">No response</tspan></text>
+</svg>
