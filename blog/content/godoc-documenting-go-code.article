@@ -43,7 +43,7 @@ programs.
 To signal that an identifier should not be used, add a paragraph to its doc
 comment that begins with "Deprecated:" followed by some information about the
 deprecation.
-There are a such few examples [[https://golang.org/search?q=deprecated][in the standard library]].
+There are a few examples [[https://golang.org/search?q=Deprecated:][in the standard library]].
 
 There are a few formatting rules that Godoc uses when converting comments to HTML:
 
