@@ -49,7 +49,7 @@ made developers feel much more comfortable relying on
 Go for production use
 and is a key reason that Go is popular today.
 Since 2013 the
-[[https://golang.org/doc/faq][Go FAQ]]
+[[https://golang.org/doc/faq#get_version][Go FAQ]]
 has encouraged package developers to provide their own
 users with similar expectations of compatibility.
 We call this the _import_compatibility_rule_:
@@ -251,7 +251,7 @@ which I filed last week.
 Even though it might look like a complete implementation,
 it’s still just a prototype,
 one that we will all need to work together to complete.
-You can download and try the `vgo` prototype from [[golang.org/x/vgo][https://golang.org/x/vgo]],
+You can download and try the `vgo` prototype from [[https://golang.org/x/vgo][golang.org/x/vgo]],
 and you can read the
 [[https://research.swtch.com/vgo-tour][Tour of Versioned Go]]
 to get a sense of what using `vgo` is like.
