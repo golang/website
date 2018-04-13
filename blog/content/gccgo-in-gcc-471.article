@@ -6,7 +6,7 @@ Ian Lance Taylor
 
 * Introduction
 
-The Go language has always been defined by a [[http://golang.org/ref/spec][spec]], not an implementation.  The Go team has written two different compilers that implement that spec: gc and gccgo.  Having two different implementations helps ensure that the spec is complete and correct: when the compilers disagree, we fix the spec, and change one or both compilers accordingly.  Gc is the original compiler, and the go tool uses it by default.  Gccgo is a different implementation with a different focus, and in this post we’ll take a closer look at it.
+The Go language has always been defined by a [[https://golang.org/ref/spec][spec]], not an implementation.  The Go team has written two different compilers that implement that spec: gc and gccgo.  Having two different implementations helps ensure that the spec is complete and correct: when the compilers disagree, we fix the spec, and change one or both compilers accordingly.  Gc is the original compiler, and the go tool uses it by default.  Gccgo is a different implementation with a different focus, and in this post we’ll take a closer look at it.
 
 Gccgo is distributed as part of GCC, the GNU Compiler Collection.  GCC supports several different frontends for different languages; gccgo is a Go frontend connected to the GCC backend.  The Go frontend is separate from the GCC project and is designed to be able to connect to other compiler backends, but currently only supports GCC.
 

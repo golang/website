@@ -8,7 +8,7 @@ Andrew Gerrand
 
 The Go project is moving fast. As we learn more about Go we are compelled to change our tools, libraries, and occasionally even the language itself. We permit backward-incompatible changes so that we can learn from, rather than immortalize, our mistakes. We believe flexibility at this stage of Go’s development is essential to the project’s development and, ultimately, its longevity.
 
-Since Go's launch we have been making releases approximately once a week. Accompanying each release are [[http://golang.org/doc/devel/release.html][notes describing what changed]], with any backwards-incompatible changes signposted. Questions I hear often are "Is Go stable? How can I be sure that I won’t have to update my Go code every week?" The answer to those questions are now "Yes," and "You won't."
+Since Go's launch we have been making releases approximately once a week. Accompanying each release are [[https://golang.org/doc/devel/release.html][notes describing what changed]], with any backwards-incompatible changes signposted. Questions I hear often are "Is Go stable? How can I be sure that I won’t have to update my Go code every week?" The answer to those questions are now "Yes," and "You won't."
 
 With this week’s release we’re introducing a new release tagging scheme. We intend to continue with our weekly releases, but have renamed the existing tags from `release` to `weekly`. The `release` tag will now be applied to one hand-picked stable release each month or two. This more relaxed release schedule should make life easier for the average Go programmer.
 

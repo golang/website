@@ -22,11 +22,11 @@ including writing a Windows port from scratch.
 We added a package management system
 [[https://groups.google.com/d/msg/golang-nuts/8JFwR3ESjjI/cy7qZzN7Lw4J][goinstall]],
 which eventually became the
-[[http://golang.org/cmd/go/][go command]].
+[[https://golang.org/cmd/go/][go command]].
 We also added
 [[http://blog.golang.org/2011/07/go-for-app-engine-is-now-generally.html][support for Go on App Engine]].
-Over the past year we've also given [[http://golang.org/doc/#talks][many talks]], created an [[http://tour.golang.org/][interactive introductory tour]]
-and recently we added support for [[http://golang.org/pkg/strings/#pkg-examples][executable examples in package documentation]].
+Over the past year we've also given [[https://golang.org/doc/#talks][many talks]], created an [[http://tour.golang.org/][interactive introductory tour]]
+and recently we added support for [[https://golang.org/pkg/strings/#pkg-examples][executable examples in package documentation]].
 
 Perhaps the most important development in the past year
 was the launch of the first stable version,
@@ -35,7 +35,7 @@ People who write Go 1 programs can now be confident that their programs will
 continue to compile and run without change, in many environments,
 on a time scale of years.
 As part of the Go 1 launch we spent months cleaning up the
-[[http://golang.org/doc/go1.html][language and libraries]]
+[[https://golang.org/doc/go1.html][language and libraries]]
 to make it something that will age well.
 
 We're working now toward the release of Go 1.1 in 2013. There will be some
@@ -52,7 +52,7 @@ A few visible ones include
 [[https://groups.google.com/d/msg/golang-nuts/BNUNbKSypE0/E4qSfpx9qI8J][serving Chrome and other downloads]],
 [[http://code.google.com/p/vitess/][scaling MySQL database at YouTube]],
 and of course running the
-[[http://golang.org/][Go home page]]
+[[https://golang.org/][Go home page]]
 on [[https://developers.google.com/appengine/docs/go/overview][App Engine]].
 Last year's
 [[http://blog.golang.org/2011/12/from-zero-to-go-launching-on-google.html][Thanksgiving Doodle]]

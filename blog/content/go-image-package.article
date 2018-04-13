@@ -6,11 +6,11 @@ Nigel Tao
 
 * Introduction
 
-The [[http://golang.org/pkg/image/][image]] and [[http://golang.org/pkg/image/color/][image/color]] packages define a number of types: `color.Color` and `color.Model` describe colors, `image.Point` and `image.Rectangle` describe basic 2-D geometry, and `image.Image` brings the two concepts together to represent a rectangular grid of colors. A [[http://golang.org/doc/articles/image_draw.html][separate article]] covers image composition with the [[http://golang.org/pkg/image/draw/][image/draw]] package.
+The [[https://golang.org/pkg/image/][image]] and [[https://golang.org/pkg/image/color/][image/color]] packages define a number of types: `color.Color` and `color.Model` describe colors, `image.Point` and `image.Rectangle` describe basic 2-D geometry, and `image.Image` brings the two concepts together to represent a rectangular grid of colors. A [[https://golang.org/doc/articles/image_draw.html][separate article]] covers image composition with the [[https://golang.org/pkg/image/draw/][image/draw]] package.
 
 * Colors and Color Models
 
-[[http://golang.org/pkg/image/color/#Color][Color]] is an interface that defines the minimal method set of any type that can be considered a color: one that can be converted to red, green, blue and alpha values. The conversion may be lossy, such as converting from CMYK or YCbCr color spaces.
+[[https://golang.org/pkg/image/color/#Color][Color]] is an interface that defines the minimal method set of any type that can be considered a color: one that can be converted to red, green, blue and alpha values. The conversion may be lossy, such as converting from CMYK or YCbCr color spaces.
 
 	type Color interface {
 	    // RGBA returns the alpha-premultiplied red, green, blue and alpha values
@@ -32,15 +32,15 @@ There are three important subtleties about the return values. First, the red, gr
 
 The last line of that code snippet would have been more complicated if we worked with non-alpha-premultiplied colors, which is why `Color` uses alpha-premultiplied values.
 
-The image/color package also defines a number of concrete types that implement the `Color` interface. For example, [[http://golang.org/pkg/image/color/#RGBA][`RGBA`]] is a struct that represents the classic "8 bits per channel" color.
+The image/color package also defines a number of concrete types that implement the `Color` interface. For example, [[https://golang.org/pkg/image/color/#RGBA][`RGBA`]] is a struct that represents the classic "8 bits per channel" color.
 
 	type RGBA struct {
 	    R, G, B, A uint8
 	}
 
-Note that the `R` field of an `RGBA` is an 8-bit alpha-premultiplied color in the range [0, 255]. `RGBA` satisfies the `Color` interface by multiplying that value by 0x101 to generate a 16-bit alpha-premultiplied color in the range [0, 65535]. Similarly, the [[http://golang.org/pkg/image/color/#NRGBA][`NRGBA`]] struct type represents an 8-bit non-alpha-premultiplied color, as used by the PNG image format. When manipulating an `NRGBA`'s fields directly, the values are non-alpha-premultiplied, but when calling the `RGBA` method, the return values are alpha-premultiplied.
+Note that the `R` field of an `RGBA` is an 8-bit alpha-premultiplied color in the range [0, 255]. `RGBA` satisfies the `Color` interface by multiplying that value by 0x101 to generate a 16-bit alpha-premultiplied color in the range [0, 65535]. Similarly, the [[https://golang.org/pkg/image/color/#NRGBA][`NRGBA`]] struct type represents an 8-bit non-alpha-premultiplied color, as used by the PNG image format. When manipulating an `NRGBA`'s fields directly, the values are non-alpha-premultiplied, but when calling the `RGBA` method, the return values are alpha-premultiplied.
 
-A [[http://golang.org/pkg/image/color/#Model][`Model`]] is simply something that can convert `Color`s to other `Color`s, possibly lossily. For example, the `GrayModel` can convert any `Color` to a desaturated [[http://golang.org/pkg/image/color/#Gray][`Gray`]]. A `Palette` can convert any `Color` to one from a limited palette.
+A [[https://golang.org/pkg/image/color/#Model][`Model`]] is simply something that can convert `Color`s to other `Color`s, possibly lossily. For example, the `GrayModel` can convert any `Color` to a desaturated [[https://golang.org/pkg/image/color/#Gray][`Gray`]]. A `Palette` can convert any `Color` to one from a limited palette.
 
 	type Model interface {
 	    Convert(c Color) Color
@@ -50,7 +50,7 @@ A [[http://golang.org/pkg/image/color/#Model][`Model`]] is simply something that
 
 * Points and Rectangles
 
-A [[http://golang.org/pkg/image/#Point][`Point`]] is an (x, y) co-ordinate on the integer grid, with axes increasing right and down. It is neither a pixel nor a grid square. A `Point` has no intrinsic width, height or color, but the visualizations below use a small colored square.
+A [[https://golang.org/pkg/image/#Point][`Point`]] is an (x, y) co-ordinate on the integer grid, with axes increasing right and down. It is neither a pixel nor a grid square. A `Point` has no intrinsic width, height or color, but the visualizations below use a small colored square.
 
 	type Point struct {
 	    X, Y int
@@ -60,7 +60,7 @@ A [[http://golang.org/pkg/image/#Point][`Point`]] is an (x, y) co-ordinate on th
 
 	    p := image.Point{2, 1}
 
-A [[http://golang.org/pkg/image/#Rectangle][`Rectangle`]] is an axis-aligned rectangle on the integer grid, defined by its top-left and bottom-right `Point`.  A `Rectangle` also has no intrinsic color, but the visualizations below outline rectangles with a thin colored line, and call out their `Min` and `Max` `Point`s.
+A [[https://golang.org/pkg/image/#Rectangle][`Rectangle`]] is an axis-aligned rectangle on the integer grid, defined by its top-left and bottom-right `Point`.  A `Rectangle` also has no intrinsic color, but the visualizations below outline rectangles with a thin colored line, and call out their `Min` and `Max` `Point`s.
 
 	type Rectangle struct {
 	    Min, Max Point
@@ -95,7 +95,7 @@ Points and Rectangles are passed and returned by value. A function that takes a 
 
 * Images
 
-An [[http://golang.org/pkg/image/#Image][Image]] maps every grid square in a `Rectangle` to a `Color` from a `Model`. "The pixel at (x, y)" refers to the color of the grid square defined by the points (x, y), (x+1, y), (x+1, y+1) and (x, y+1).
+An [[https://golang.org/pkg/image/#Image][Image]] maps every grid square in a `Rectangle` to a `Color` from a `Model`. "The pixel at (x, y)" refers to the color of the grid square defined by the points (x, y), (x+1, y), (x+1, y+1) and (x, y+1).
 
 	type Image interface {
 	    // ColorModel returns the Image's color model.
@@ -118,13 +118,13 @@ A common mistake is assuming that an `Image`'s bounds start at (0, 0). For examp
 	 }
 	}
 
-`Image` implementations do not have to be based on an in-memory slice of pixel data. For example, a [[http://golang.org/pkg/image/#Uniform][`Uniform`]] is an `Image` of enormous bounds and uniform color, whose in-memory representation is simply that color.
+`Image` implementations do not have to be based on an in-memory slice of pixel data. For example, a [[https://golang.org/pkg/image/#Uniform][`Uniform`]] is an `Image` of enormous bounds and uniform color, whose in-memory representation is simply that color.
 
 	type Uniform struct {
 	    C color.Color
 	}
 
-Typically, though, programs will want an image based on a slice. Struct types like [[http://golang.org/pkg/image/#RGBA][`RGBA`]] and [[http://golang.org/pkg/image/#Gray][`Gray`]] (which other packages refer to as `image.RGBA` and `image.Gray`) hold slices of pixel data and implement the `Image` interface.
+Typically, though, programs will want an image based on a slice. Struct types like [[https://golang.org/pkg/image/#RGBA][`RGBA`]] and [[https://golang.org/pkg/image/#Gray][`Gray`]] (which other packages refer to as `image.RGBA` and `image.Gray`) hold slices of pixel data and implement the `Image` interface.
 
 	type RGBA struct {
 	    // Pix holds the image's pixels, in R, G, B, A order. The pixel at
@@ -152,11 +152,11 @@ The slice-based `Image` implementations also provide a `SubImage` method, which 
 	    fmt.Println(m0.Bounds().Dx(), m1.Bounds().Dx()) // prints 8, 4
 	    fmt.Println(m0.Stride == m1.Stride)             // prints true
 
-For low-level code that works on an image's `Pix` field, be aware that ranging over `Pix` can affect pixels outside an image's bounds. In the example above, the pixels covered by `m1.Pix` are shaded in blue. Higher-level code, such as the `At` and `Set` methods or the [[http://golang.org/pkg/image/draw/][image/draw package]], will clip their operations to the image's bounds.
+For low-level code that works on an image's `Pix` field, be aware that ranging over `Pix` can affect pixels outside an image's bounds. In the example above, the pixels covered by `m1.Pix` are shaded in blue. Higher-level code, such as the `At` and `Set` methods or the [[https://golang.org/pkg/image/draw/][image/draw package]], will clip their operations to the image's bounds.
 
 * Image Formats
 
-The standard package library supports a number of common image formats, such as GIF, JPEG and PNG. If you know the format of a source image file, you can decode from an [[http://golang.org/pkg/io/#Reader][`io.Reader`]] directly.
+The standard package library supports a number of common image formats, such as GIF, JPEG and PNG. If you know the format of a source image file, you can decode from an [[https://golang.org/pkg/io/#Reader][`io.Reader`]] directly.
 
 	import (
 	 "image/jpeg"
@@ -173,7 +173,7 @@ The standard package library supports a number of common image formats, such as 
 	 return png.Encode(w, img)
 	}
 
-If you have image data of unknown format, the [[http://golang.org/pkg/image/#Decode][`image.Decode`]] function can detect the format. The set of recognized formats is constructed at run time and is not limited to those in the standard package library. An image format package typically registers its format in an init function, and the main package will "underscore import" such a package solely for the side effect of format registration.
+If you have image data of unknown format, the [[https://golang.org/pkg/image/#Decode][`image.Decode`]] function can detect the format. The set of recognized formats is constructed at run time and is not limited to those in the standard package library. An image format package typically registers its format in an init function, and the main package will "underscore import" such a package solely for the side effect of format registration.
 
 	import (
 	 "image"

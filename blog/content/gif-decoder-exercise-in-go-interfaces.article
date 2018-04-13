@@ -32,7 +32,7 @@ Simplifying somewhat, a GIF file contains a header defining the pixel depth and 
 
 * Deblocking the pixel data
 
-To decode GIF pixel data in Go, we can use the LZW decompressor from the `compress/lzw` package. It has a NewReader function that returns an object that, as [[http://golang.org/pkg/compress/lzw/#NewReader][the documentation]] says, "satisfies reads by decompressing the data read from r":
+To decode GIF pixel data in Go, we can use the LZW decompressor from the `compress/lzw` package. It has a NewReader function that returns an object that, as [[https://golang.org/pkg/compress/lzw/#NewReader][the documentation]] says, "satisfies reads by decompressing the data read from r":
 
 	func NewReader(r io.Reader, order Order, litWidth int) io.ReadCloser
 

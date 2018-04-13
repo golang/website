@@ -23,7 +23,7 @@ Go is statically typed. Every variable has a static type, that is, exactly one t
 
 then `i` has type `int` and `j` has type `MyInt`. The variables `i` and `j` have distinct static types and, although they have the same underlying type, they cannot be assigned to one another without a conversion.
 
-One important category of type is interface types, which represent fixed sets of methods. An interface variable can store any concrete (non-interface) value as long as that value implements the interface's methods. A well-known pair of examples is `io.Reader` and `io.Writer`, the types `Reader` and `Writer` from the [[http://golang.org/pkg/io/][io package]]:
+One important category of type is interface types, which represent fixed sets of methods. An interface variable can store any concrete (non-interface) value as long as that value implements the interface's methods. A well-known pair of examples is `io.Reader` and `io.Writer`, the types `Reader` and `Writer` from the [[https://golang.org/pkg/io/][io package]]:
 
 	// Reader is the interface that wraps the basic Read method.
 	type Reader interface {
@@ -92,7 +92,7 @@ Now we're ready to reflect.
 
 * 1. Reflection goes from interface value to reflection object.
 
-At the basic level, reflection is just a mechanism to examine the type and value pair stored inside an interface variable. To get started, there are two types we need to know about in [[http://golang.org/pkg/reflect/][package reflect]]: [[http://golang.org/pkg/reflect/#Type][Type]] and [[http://golang.org/pkg/reflect/#Value][Value]]. Those two types give access to the contents of an interface variable, and two simple functions, called `reflect.TypeOf` and `reflect.ValueOf`, retrieve `reflect.Type` and `reflect.Value` pieces out of an interface value. (Also, from the `reflect.Value` it's easy to get to the `reflect.Type`, but let's keep the `Value` and `Type` concepts separate for now.)
+At the basic level, reflection is just a mechanism to examine the type and value pair stored inside an interface variable. To get started, there are two types we need to know about in [[https://golang.org/pkg/reflect/][package reflect]]: [[https://golang.org/pkg/reflect/#Type][Type]] and [[https://golang.org/pkg/reflect/#Value][Value]]. Those two types give access to the contents of an interface variable, and two simple functions, called `reflect.TypeOf` and `reflect.ValueOf`, retrieve `reflect.Type` and `reflect.Value` pieces out of an interface value. (Also, from the `reflect.Value` it's easy to get to the `reflect.Type`, but let's keep the `Value` and `Type` concepts separate for now.)
 
 Let's start with `TypeOf`:
 
@@ -112,7 +112,7 @@ This program prints
 
 	type: float64
 
-You might be wondering where the interface is here, since the program looks like it's passing the `float64` variable `x`, not an interface value, to `reflect.TypeOf`. But it's there; as [[http://golang.org/pkg/reflect/#TypeOf][godoc reports]], the signature of `reflect.TypeOf` includes an empty interface:
+You might be wondering where the interface is here, since the program looks like it's passing the `float64` variable `x`, not an interface value, to `reflect.TypeOf`. But it's there; as [[https://golang.org/pkg/reflect/#TypeOf][godoc reports]], the signature of `reflect.TypeOf` includes an empty interface:
 
 	// TypeOf returns the reflection Type of the value in the interface{}.
 	func TypeOf(i interface{}) Type
@@ -288,7 +288,7 @@ Reflection can be hard to understand but it's doing exactly what the language do
 
 In our previous example `v` wasn't a pointer itself, it was just derived from one. A common way for this situation to arise is when using reflection to modify the fields of a structure. As long as we have the address of the structure, we can modify its fields.
 
-Here's a simple example that analyzes a struct value, `t`. We create the reflection object with the address of the struct because we'll want to modify it later. Then we set `typeOfT` to its type and iterate over the fields using straightforward method calls (see [[http://golang.org/pkg/reflect/][package reflect]] for details). Note that we extract the names of the fields from the struct type, but the fields themselves are regular `reflect.Value` objects.
+Here's a simple example that analyzes a struct value, `t`. We create the reflection object with the address of the struct because we'll want to modify it later. Then we set `typeOfT` to its type and iterate over the fields using straightforward method calls (see [[https://golang.org/pkg/reflect/][package reflect]] for details). Note that we extract the names of the fields from the struct type, but the fields themselves are regular `reflect.Value` objects.
 
 	    type T struct {
 	        A int

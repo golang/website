@@ -55,7 +55,7 @@ Here are a few tweaks we made and key take-aways:
 
 - Monitor and control goroutine numbers in the program. The lack of control can cause unbearable burden on the GC, imposed by surges in goroutines due to uninhibited acceptance of external requests, as RPC invocations sent to inner servers may block goroutines recently created.
 
-- Remember to add [[http://golang.org/pkg/net/#Conn][read and write deadlines]] to connections when under a mobile network; otherwise, it may lead to goroutine blockage. Apply it properly and with caution when under a LAN network, otherwise your RPC communication efficiency will be hurt.
+- Remember to add [[https://golang.org/pkg/net/#Conn][read and write deadlines]] to connections when under a mobile network; otherwise, it may lead to goroutine blockage. Apply it properly and with caution when under a LAN network, otherwise your RPC communication efficiency will be hurt.
 
 - Use Pipeline (under Full Duplex feature of TCP) to enhance the communication efficiency of RPC framework.
 

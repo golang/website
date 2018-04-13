@@ -14,7 +14,7 @@ In “[[http://www.youtube.com/watch?v=-i0hat7pdpk][Writing Web Apps in Go]]” 
 
 .iframe //www.youtube.com/embed/-i0hat7pdpk 349 560
 
-(See the [[http://golang.org/doc/talks/io2011/Writing_Web_Apps_in_Go.pdf][presentation slides]].)
+(See the [[https://golang.org/doc/talks/io2011/Writing_Web_Apps_in_Go.pdf][presentation slides]].)
 
 The [[https://code.google.com/p/appengine-go/source/browse/example/moustachio][source code]] for Moustachio is available as part of [[http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go][the SDK]] along with some other examples, such as this [[http://mandelbrot-tiles.appspot.com/][Mandelbrot demo]].
 
@@ -37,6 +37,6 @@ For those that didn’t get one at the conference, we hope to make him available
 
 .iframe //www.youtube.com/embed/7QDVRowyUQA 349 560
 
-(See the [[http://golang.org/doc/talks/io2011/Real_World_Go.pdf ][presentation slides]].)
+(See the [[https://golang.org/doc/talks/io2011/Real_World_Go.pdf ][presentation slides]].)
 
 Thanks to everyone who attended our talks and workshops. We look forward to seeing you again soon!

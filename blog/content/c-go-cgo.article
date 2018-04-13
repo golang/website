@@ -50,7 +50,7 @@ The `Seed` function does the reverse, in a way. It takes a regular Go `int`, con
 	    C.srandom(C.uint(i))
 	}
 
-Note that cgo knows the `unsigned`int` type as `C.uint`; see the [[http://golang.org/cmd/cgo][cgo documentation]] for a complete list of these numeric type names.
+Note that cgo knows the `unsigned`int` type as `C.uint`; see the [[https://golang.org/cmd/cgo][cgo documentation]] for a complete list of these numeric type names.
 
 The one detail of this example we haven't examined yet is the comment above the `import` statement.
 
@@ -63,7 +63,7 @@ Cgo recognizes this comment.  Any lines starting with `#cgo` followed by a space
 
 There is a limitation: if your program uses any `//export` directives, then the C code in the comment may only include declarations (`extern`int`f();`), not definitions (`int`f()`{`return`1;`}`).  You can use `//export` directives to make Go functions accessible to C code.
 
-The `#cgo` and `//export` directives are documented in the [[http://golang.org/cmd/cgo/][cgo documentation]].
+The `#cgo` and `//export` directives are documented in the [[https://golang.org/cmd/cgo/][cgo documentation]].
 
 * Strings and things
 
@@ -88,7 +88,7 @@ This next example implements a `Print` function that writes a string to standard
 
 Memory allocations made by C code are not known to Go's memory manager. When you create a C string with `C.CString` (or any C memory allocation) you must remember to free the memory when you're done with it by calling `C.free`.
 
-The call to `C.CString` returns a pointer to the start of the char array, so before the function exits we convert it to an [[http://golang.org/pkg/unsafe/#Pointer][`unsafe.Pointer`]] and release the memory allocation with `C.free`. A common idiom in cgo programs is to [[http://golang.org/doc/articles/defer_panic_recover.html][`defer`]] the free immediately after allocating (especially when the code that follows is more complex than a single function call), as in this rewrite of `Print`:
+The call to `C.CString` returns a pointer to the start of the char array, so before the function exits we convert it to an [[https://golang.org/pkg/unsafe/#Pointer][`unsafe.Pointer`]] and release the memory allocation with `C.free`. A common idiom in cgo programs is to [[https://golang.org/doc/articles/defer_panic_recover.html][`defer`]] the free immediately after allocating (especially when the code that follows is more complex than a single function call), as in this rewrite of `Print`:
 
 	func Print(s string) {
 	    cs := C.CString(s)
@@ -98,10 +98,10 @@ The call to `C.CString` returns a pointer to the start of the char array, so bef
 
 * Building cgo packages
 
-To build cgo packages, just use [[http://golang.org/cmd/go/#Compile_packages_and_dependencies][`go`build`]] or [[http://golang.org/cmd/go/#Compile_and_install_packages_and_dependencies][`go`install`]] as usual. The go tool recognizes the special `"C"` import and automatically uses cgo for those files.
+To build cgo packages, just use [[https://golang.org/cmd/go/#Compile_packages_and_dependencies][`go`build`]] or [[https://golang.org/cmd/go/#Compile_and_install_packages_and_dependencies][`go`install`]] as usual. The go tool recognizes the special `"C"` import and automatically uses cgo for those files.
 
 * More cgo resources
 
-The [[http://golang.org/cmd/cgo/][cgo command]] documentation has more detail about the C pseudo-package and the build process. The [[http://golang.org/misc/cgo/][cgo examples]] in the Go tree demonstrate more advanced concepts.
+The [[https://golang.org/cmd/cgo/][cgo command]] documentation has more detail about the C pseudo-package and the build process. The [[https://golang.org/misc/cgo/][cgo examples]] in the Go tree demonstrate more advanced concepts.
 
 Finally, if you're curious as to how all this works internally, take a look at the introductory comment of the runtime package's [[https://golang.org/src/runtime/cgocall.go][cgocall.go]].

@@ -8,11 +8,11 @@ Andrew Gerrand
 
 JSON (JavaScript Object Notation) is a simple data interchange format. Syntactically it resembles the objects and lists of JavaScript. It is most commonly used for communication between web back-ends and JavaScript programs running in the browser, but it is used in many other places, too. Its home page, [[http://json.org][json.org]], provides a wonderfully clear and concise definition of the standard.
 
-With the [[http://golang.org/pkg/encoding/json/][json package]] it's a snap to read and write JSON data from your Go programs.
+With the [[https://golang.org/pkg/encoding/json/][json package]] it's a snap to read and write JSON data from your Go programs.
 
 * Encoding
 
-To encode JSON data we use the [[http://golang.org/pkg/encoding/json/#Marshal][`Marshal`]] function.
+To encode JSON data we use the [[https://golang.org/pkg/encoding/json/#Marshal][`Marshal`]] function.
 
 	func Marshal(v interface{}) ([]byte, error)
 
@@ -50,7 +50,7 @@ The json package only accesses the exported fields of struct types (those that b
 
 * Decoding
 
-To decode JSON data we use the [[http://golang.org/pkg/encoding/json/#Unmarshal][`Unmarshal`]] function.
+To decode JSON data we use the [[https://golang.org/pkg/encoding/json/#Unmarshal][`Unmarshal`]] function.
 
 	func Unmarshal(data []byte, v interface{}) error
 
@@ -72,7 +72,7 @@ If `b` contains valid JSON that fits in `m`, after the call `err` will be `nil` 
 
 How does `Unmarshal` identify the fields in which to store the decoded data? For a given JSON key `"Foo"`, `Unmarshal` will look through the destination struct's fields to find (in order of preference):
 
-- An exported field with a tag of `"Foo"` (see the [[http://golang.org/ref/spec#Struct_types][Go spec]] for more on struct tags),
+- An exported field with a tag of `"Foo"` (see the [[https://golang.org/ref/spec#Struct_types][Go spec]] for more on struct tags),
 
 - An exported field named `"Foo"`, or
 
@@ -211,7 +211,7 @@ and the sending party can populate the `Cmd` field and/or the `Msg` field of the
 
 * Streaming Encoders and Decoders
 
-The json package provides `Decoder` and `Encoder` types to support the common operation of reading and writing streams of JSON data. The `NewDecoder` and `NewEncoder` functions wrap the [[http://golang.org/pkg/io/#Reader][`io.Reader`]] and [[http://golang.org/pkg/io/#Writer][`io.Writer`]] interface types.
+The json package provides `Decoder` and `Encoder` types to support the common operation of reading and writing streams of JSON data. The `NewDecoder` and `NewEncoder` functions wrap the [[https://golang.org/pkg/io/#Reader][`io.Reader`]] and [[https://golang.org/pkg/io/#Writer][`io.Writer`]] interface types.
 
 	func NewDecoder(r io.Reader) *Decoder
 	func NewEncoder(w io.Writer) *Encoder
@@ -250,4 +250,4 @@ Due to the ubiquity of Readers and Writers, these `Encoder` and `Decoder` types 
 
 * References
 
-For more information see the [[http://golang.org/pkg/encoding/json/][json package documentation]]. For an example usage of json see the source files of the [[http://golang.org/pkg/net/rpc/jsonrpc/][jsonrpc package]].
+For more information see the [[https://golang.org/pkg/encoding/json/][json package documentation]]. For an example usage of json see the source files of the [[https://golang.org/pkg/net/rpc/jsonrpc/][jsonrpc package]].

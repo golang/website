@@ -6,9 +6,9 @@ Rob Pike
 
 * Introduction
 
-To transmit a data structure across a network or to store it in a file, it must be encoded and then decoded again. There are many encodings available, of course: [[http://www.json.org/][JSON]], [[http://www.w3.org/XML/][XML]], Google's [[http://code.google.com/p/protobuf][protocol buffers]], and more. And now there's another, provided by Go's [[http://golang.org/pkg/encoding/gob/][gob]] package.
+To transmit a data structure across a network or to store it in a file, it must be encoded and then decoded again. There are many encodings available, of course: [[http://www.json.org/][JSON]], [[http://www.w3.org/XML/][XML]], Google's [[http://code.google.com/p/protobuf][protocol buffers]], and more. And now there's another, provided by Go's [[https://golang.org/pkg/encoding/gob/][gob]] package.
 
-Why define a new encoding? It's a lot of work and redundant at that. Why not just use one of the existing formats? Well, for one thing, we do! Go has [[http://golang.org/pkg/][packages]] supporting all the encodings just mentioned (the [[http://github.com/golang/protobuf][protocol buffer package]] is in a separate repository but it's one of the most frequently downloaded). And for many purposes, including communicating with tools and systems written in other languages, they're the right choice.
+Why define a new encoding? It's a lot of work and redundant at that. Why not just use one of the existing formats? Well, for one thing, we do! Go has [[https://golang.org/pkg/][packages]] supporting all the encodings just mentioned (the [[http://github.com/golang/protobuf][protocol buffer package]] is in a separate repository but it's one of the most frequently downloaded). And for many purposes, including communicating with tools and systems written in other languages, they're the right choice.
 
 But for a Go-specific environment, such as communicating between two servers written in Go, there's an opportunity to build something much easier to use and possibly more efficient.
 
@@ -60,7 +60,7 @@ and acquire a value of `u` with only `X` set (to the address of an `int8` variab
 
 From integers we can build all the other types: bytes, strings, arrays, slices, maps, even floats. Floating-point values are represented by their IEEE 754 floating-point bit pattern, stored as an integer, which works fine as long as you know their type, which we always do. By the way, that integer is sent in byte-reversed order because common values of floating-point numbers, such as small integers, have a lot of zeros at the low end that we can avoid transmitting.
 
-One nice feature of gobs that Go makes possible is that they allow you to define your own encoding by having your type satisfy the [[http://golang.org/pkg/encoding/gob/#GobEncoder][GobEncoder]] and [[http://golang.org/pkg/encoding/gob/#GobDecoder][GobDecoder]] interfaces, in a manner analogous to the [[http://golang.org/pkg/encoding/json/][JSON]] package's [[http://golang.org/pkg/encoding/json/#Marshaler][Marshaler]] and [[http://golang.org/pkg/encoding/json/#Unmarshaler][Unmarshaler]] and also to the [[http://golang.org/pkg/fmt/#Stringer][Stringer]] interface from [[http://golang.org/pkg/fmt/][package fmt]]. This facility makes it possible to represent special features, enforce constraints, or hide secrets when you transmit data. See the [[http://golang.org/pkg/encoding/gob/][documentation]] for details.
+One nice feature of gobs that Go makes possible is that they allow you to define your own encoding by having your type satisfy the [[https://golang.org/pkg/encoding/gob/#GobEncoder][GobEncoder]] and [[https://golang.org/pkg/encoding/gob/#GobDecoder][GobDecoder]] interfaces, in a manner analogous to the [[https://golang.org/pkg/encoding/json/][JSON]] package's [[https://golang.org/pkg/encoding/json/#Marshaler][Marshaler]] and [[https://golang.org/pkg/encoding/json/#Unmarshaler][Unmarshaler]] and also to the [[https://golang.org/pkg/fmt/#Stringer][Stringer]] interface from [[https://golang.org/pkg/fmt/][package fmt]]. This facility makes it possible to represent special features, enforce constraints, or hide secrets when you transmit data. See the [[https://golang.org/pkg/encoding/gob/][documentation]] for details.
 
 * Types on the wire
 
@@ -91,7 +91,7 @@ Decoding is similar but harder. When you decode a value, the gob package holds a
 
 * Use
 
-There's a lot going on under the hood, but the result is an efficient, easy-to-use encoding system for transmitting data. Here's a complete example showing differing encoded and decoded types. Note how easy it is to send and receive values; all you need to do is present values and variables to the [[http://golang.org/pkg/encoding/gob/][gob package]] and it does all the work.
+There's a lot going on under the hood, but the result is an efficient, easy-to-use encoding system for transmitting data. Here's a complete example showing differing encoded and decoded types. Note how easy it is to send and receive values; all you need to do is present values and variables to the [[https://golang.org/pkg/encoding/gob/][gob package]] and it does all the work.
 
 	package main
 
@@ -135,8 +135,8 @@ There's a lot going on under the hood, but the result is an efficient, easy-to-u
 
 You can compile and run this example code in the [[http://play.golang.org/p/_-OJV-rwMq][Go Playground]].
 
-The [[http://golang.org/pkg/net/rpc/][rpc package]] builds on gobs to turn this encode/decode automation into transport for method calls across the network. That's a subject for another article.
+The [[https://golang.org/pkg/net/rpc/][rpc package]] builds on gobs to turn this encode/decode automation into transport for method calls across the network. That's a subject for another article.
 
 * Details
 
-The [[http://golang.org/pkg/encoding/gob/][gob package documentation]], especially the file [[http://golang.org/src/pkg/encoding/gob/doc.go][doc.go]], expands on many of the details described here and includes a full worked example showing how the encoding represents data. If you are interested in the innards of the gob implementation, that's a good place to start.
+The [[https://golang.org/pkg/encoding/gob/][gob package documentation]], especially the file [[https://golang.org/src/pkg/encoding/gob/doc.go][doc.go]], expands on many of the details described here and includes a full worked example showing how the encoding represents data. If you are interested in the innards of the gob implementation, that's a good place to start.

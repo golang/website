@@ -16,7 +16,7 @@ they don't prevent race conditions. Care, diligence, and testing are required.
 And tools can help.
 
 We're happy to announce that Go 1.1 includes a
-[[http://golang.org/doc/articles/race_detector.html][race detector]],
+[[https://golang.org/doc/articles/race_detector.html][race detector]],
 a new tool for finding race conditions in Go code.
 It is currently available for Linux, OS X, and Windows systems
 with 64-bit x86 processors.
@@ -76,9 +76,9 @@ Here are two examples of real issues caught by the race detector.
 The first example is a simplified version of an actual bug found by the race
 detector. It uses a timer to print a message after a random duration between 0
 and 1 second. It does so repeatedly for five seconds.
-It uses [[http://golang.org/pkg/time/#AfterFunc][`time.AfterFunc`]] to create a
-[[http://golang.org/pkg/time/#Timer][`Timer`]] for the first message and then
-uses the [[http://golang.org/pkg/time/#Timer.Reset][`Reset`]] method to
+It uses [[https://golang.org/pkg/time/#AfterFunc][`time.AfterFunc`]] to create a
+[[https://golang.org/pkg/time/#Timer][`Timer`]] for the first message and then
+uses the [[https://golang.org/pkg/time/#Timer.Reset][`Reset`]] method to
 schedule the next message, re-using the `Timer` each time.
 
 .play -numbers race-detector/timer.go /func main/,$
@@ -139,12 +139,12 @@ A simpler but less efficient approach is to
 The second example is more subtle.
 
 The `ioutil` package's
-[[http://golang.org/pkg/io/ioutil/#Discard][`Discard`]] object implements 
-[[http://golang.org/pkg/io/#Writer][`io.Writer`]],
+[[https://golang.org/pkg/io/ioutil/#Discard][`Discard`]] object implements 
+[[https://golang.org/pkg/io/#Writer][`io.Writer`]],
 but discards all the data written to it.
 Think of it like `/dev/null`: a place to send data that you need to read but
 don't want to store.
-It is commonly used with [[http://golang.org/pkg/io/#Copy][`io.Copy`]]
+It is commonly used with [[https://golang.org/pkg/io/#Copy][`io.Copy`]]
 to drain a reader, like this:
 
 	io.Copy(ioutil.Discard, reader)

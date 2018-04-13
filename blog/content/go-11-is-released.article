@@ -16,16 +16,16 @@ Go 1.1 includes many improvements over 1.0.
 
 The most significant improvements are performance-related. We have made optimizations in the compiler and linker, garbage collector, goroutine scheduler, map implementation, and parts of the standard library. It is likely that your Go code will run noticeably faster when built with Go 1.1.
 
-There are some minor changes to the language itself, two of which are worth singling out here: the [[http://golang.org/doc/go1.1#return][changes to return requirements]] will lead to more succinct and correct programs, and the introduction of [[http://golang.org/doc/go1.1#method_values][method values]] provides an expressive way to bind a method to its receiver as a function value.
+There are some minor changes to the language itself, two of which are worth singling out here: the [[https://golang.org/doc/go1.1#return][changes to return requirements]] will lead to more succinct and correct programs, and the introduction of [[https://golang.org/doc/go1.1#method_values][method values]] provides an expressive way to bind a method to its receiver as a function value.
 
-Concurrent programming is safer in Go 1.1 with the addition of a race detector for finding memory synchronization errors in your programs. We will discuss the race detector more in an upcoming article, but for now [[http://golang.org/doc/articles/race_detector.html][the manual]] is a great place to get started.
+Concurrent programming is safer in Go 1.1 with the addition of a race detector for finding memory synchronization errors in your programs. We will discuss the race detector more in an upcoming article, but for now [[https://golang.org/doc/articles/race_detector.html][the manual]] is a great place to get started.
 
-The tools and standard library have been improved and expanded. You can read the full story in the [[http://golang.org/doc/go1.1][release notes]].
+The tools and standard library have been improved and expanded. You can read the full story in the [[https://golang.org/doc/go1.1][release notes]].
 
-As per our [[http://golang.org/doc/go1compat.html][compatibility guidelines]], Go 1.1 remains compatible with Go 1.0 and we recommend all Go users upgrade to the new release.
+As per our [[https://golang.org/doc/go1compat.html][compatibility guidelines]], Go 1.1 remains compatible with Go 1.0 and we recommend all Go users upgrade to the new release.
 
 All this would not have been possible without the help of our contributors from the open source community. Since Go 1.0, the core received more than 2600 commits from 161 people outside Google. Thank you everyone for your time and effort. In particular, we would like to thank Shenghou Ma, Rémy Oudompheng, Dave Cheney, Mikio Hara, Alex Brainman, Jan Ziak, and Daniel Morsing for their outstanding contributions.
 
-To grab the new release, follow the usual [[http://golang.org/doc/install][installation instructions]]. Happy hacking!
+To grab the new release, follow the usual [[https://golang.org/doc/install][installation instructions]]. Happy hacking!
 
 _Thanks_to_Renée_French_for_the_gopher!_

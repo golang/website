@@ -6,7 +6,7 @@ Patrick Crosby
 
 * Introduction
 
-My name is Patrick Crosby and I'm the founder of a company called Numerotron. We recently released [[http://www.stathat.com][StatHat]].  This post is about why we chose to develop StatHat in [[http://golang.org][Go]], including details about how we are using Go.
+My name is Patrick Crosby and I'm the founder of a company called Numerotron. We recently released [[http://www.stathat.com][StatHat]].  This post is about why we chose to develop StatHat in [[https://golang.org][Go]], including details about how we are using Go.
 
 [[http://www.stathat.com][StatHat]] is a tool to track statistics and events in your code.  Everyone from HTML designers to backend engineers can use StatHat easily, as it supports sending stats from HTML, JavaScript, Go, and twelve other languages.
 
@@ -54,11 +54,11 @@ The following sections detail how Go meets StatHat's requirements and our experi
 
 * Runtime
 
-We use the standard Go [[http://golang.org/pkg/http/][http package]] for our API and web app servers.  All requests first go through Nginx and any non-file requests are proxied to the Go-powered http servers.  The backend servers are all written in Go and use the [[http://golang.org/pkg/rpc/][rpc package]] to communicate with the frontend.
+We use the standard Go [[https://golang.org/pkg/http/][http package]] for our API and web app servers.  All requests first go through Nginx and any non-file requests are proxied to the Go-powered http servers.  The backend servers are all written in Go and use the [[https://golang.org/pkg/rpc/][rpc package]] to communicate with the frontend.
 
 * Templating
 
-We built a template system using the standard [[http://golang.org/pkg/template/][template package]].  Our system adds layouts, some common formatting functions, and the ability to recompile templates on-the-fly during development.  We are very pleased with the performance and functionality of the Go templates.
+We built a template system using the standard [[https://golang.org/pkg/template/][template package]].  Our system adds layouts, some common formatting functions, and the ability to recompile templates on-the-fly during development.  We are very pleased with the performance and functionality of the Go templates.
 
 * Tinkering
 
@@ -68,7 +68,7 @@ Since then, I've always tried to choose technologies that allowed fast, frequent
 
 * RPC
 
-Since StatHat is a multi-tiered system, we wanted an RPC layer so that all communication was standard.  With Go, we are using the [[http://golang.org/pkg/rpc/][rpc package]] and the [[http://golang.org/pkg/gob/][gob package]] for encoding Go objects.  In Go, the RPC server just takes any Go object and registers its exported methods.  There is no need for an intermediary interface description language.  We've found it very easy to use and many of our core application servers are under 300 lines of code.
+Since StatHat is a multi-tiered system, we wanted an RPC layer so that all communication was standard.  With Go, we are using the [[https://golang.org/pkg/rpc/][rpc package]] and the [[https://golang.org/pkg/gob/][gob package]] for encoding Go objects.  In Go, the RPC server just takes any Go object and registers its exported methods.  There is no need for an intermediary interface description language.  We've found it very easy to use and many of our core application servers are under 300 lines of code.
 
 * Libraries
 
@@ -106,4 +106,4 @@ To deploy, we first build the entire system into a time-stamped directory. Our p
 
 For more information on StatHat, please visit [[http://www.stathat.com][stathat.com]]. We are releasing some of the Go code we've written. Go to [[http://www.stathat.com/src][www.stathat.com/src]] for all of the open source StatHat projects.
 
-To learn more about Go, visit [[http://golang.org/][golang.org]].
+To learn more about Go, visit [[https://golang.org/][golang.org]].

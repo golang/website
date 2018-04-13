@@ -6,7 +6,7 @@ Nigel Tao
 
 * Introduction
 
-[[http://golang.org/pkg/image/draw/][Package image/draw]] defines only one operation: drawing a source image onto a destination image, through an optional mask image. This one operation is surprisingly versatile and can perform a number of common image manipulation tasks elegantly and efficiently.
+[[https://golang.org/pkg/image/draw/][Package image/draw]] defines only one operation: drawing a source image onto a destination image, through an optional mask image. This one operation is surprisingly versatile and can perform a number of common image manipulation tasks elegantly and efficiently.
 
 Composition is performed pixel by pixel in the style of the Plan 9 graphics library and the X Render extension. The model is based on the classic "Compositing Digital Images" paper by Porter and Duff, with an additional mask parameter: `dst`=`(src`IN`mask)`OP`dst`. For a fully opaque mask, this reduces to the original Porter-Duff formula: `dst`=`src`OP`dst`. In Go, a nil mask image is equivalent to an infinitely sized, fully opaque mask image.
 
@@ -18,14 +18,14 @@ Composition requires associating destination pixels with source and mask pixels.
 
 .image go-imagedraw-package_20.png
 
-The [[http://golang.org/pkg/image/draw/#DrawMask][`DrawMask`]] function takes seven arguments, but an explicit mask and mask-point are usually unnecessary, so the [[http://golang.org/pkg/image/draw/#Draw][`Draw`]] function takes five:
+The [[https://golang.org/pkg/image/draw/#DrawMask][`DrawMask`]] function takes seven arguments, but an explicit mask and mask-point are usually unnecessary, so the [[https://golang.org/pkg/image/draw/#Draw][`Draw`]] function takes five:
 
 	// Draw calls DrawMask with a nil mask.
 	func Draw(dst Image, r image.Rectangle, src image.Image, sp image.Point, op Op)
 	func DrawMask(dst Image, r image.Rectangle, src image.Image, sp image.Point,
 	 mask image.Image, mp image.Point, op Op)
 
-The destination image must be mutable, so the image/draw package defines a [[http://golang.org/pkg/image/draw/#Image][`draw.Image`]] interface which has a `Set` method.
+The destination image must be mutable, so the image/draw package defines a [[https://golang.org/pkg/image/draw/#Image][`draw.Image`]] interface which has a `Set` method.
 
 	type Image interface {
 	    image.Image

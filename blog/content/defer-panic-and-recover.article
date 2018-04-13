@@ -171,7 +171,7 @@ If we remove the deferred function from f the panic is not recovered and reaches
 
  
 
-For a real-world example of *panic* and *recover*, see the [[http://golang.org/pkg/encoding/json/][json package]] from the Go standard library. It decodes JSON-encoded data with a set of recursive functions. When malformed JSON is encountered, the parser calls panic to unwind the stack to the top-level function call, which recovers from the panic and returns an appropriate error value (see the 'error' and 'unmarshal' methods of the decodeState type in [[http://golang.org/src/pkg/encoding/json/decode.go][decode.go]]).
+For a real-world example of *panic* and *recover*, see the [[https://golang.org/pkg/encoding/json/][json package]] from the Go standard library. It decodes JSON-encoded data with a set of recursive functions. When malformed JSON is encountered, the parser calls panic to unwind the stack to the top-level function call, which recovers from the panic and returns an appropriate error value (see the 'error' and 'unmarshal' methods of the decodeState type in [[https://golang.org/src/pkg/encoding/json/decode.go][decode.go]]).
 
 The convention in the Go libraries is that even when a package uses panic internally, its external API still presents explicit error return values.
 

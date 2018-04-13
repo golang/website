@@ -16,7 +16,7 @@ While the Go authors have been working hard at improving Go's standard library, 
  
 [[https://github.com/madari/go-socket.io][Go-socket.io]] is a Go implementation of [[http://socket.io/][Socket.IO]], a client/server API that allows web servers to push messages to web browsers. Depending on the capabilities of the user's browser, Socket.IO uses the best transport for the connection, be it modern websockets, AJAX long polling, or some [[http://socket.io/#transports][other mechanism]]. Go-socket.io bridges the gap between Go servers and rich JavaScript clients for a wide range of browsers. To get a feel for go-socket.io see the [[https://github.com/madari/go-socket.io/blob/master/example/example.go][chat server example]].
  
-It's worth mentioning that these packages are [[http://golang.org/cmd/goinstall/][goinstallable]]. With an up-to-date Go [[http://golang.org/doc/install.html][installation]] you can install them all with a single command:
+It's worth mentioning that these packages are [[https://golang.org/cmd/goinstall/][goinstallable]]. With an up-to-date Go [[https://golang.org/doc/install.html][installation]] you can install them all with a single command:
 	 
 	goinstall launchpad.net/mgo \
 	    github.com/dchest/authcookie \
@@ -34,7 +34,7 @@ Once goinstalled, the packages can be imported using those same paths:
 	)
 
  
-Also, as they are now a part of the local Go system, we can inspect their documentation with [[http://golang.org/cmd/godoc/][godoc]]:
+Also, as they are now a part of the local Go system, we can inspect their documentation with [[https://golang.org/cmd/godoc/][godoc]]:
 	 
 	godoc launchpad.net/mgo Database # see docs for Database type
  

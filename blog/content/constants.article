@@ -190,7 +190,7 @@ It does, however, have a default type that is exposed when, and only when, no ot
 
 The default type of an untyped constant is determined by its syntax.
 For string constants, the only possible implicit type is `string`.
-For [[http://golang.org/ref/spec#Numeric_types][numeric constants]], the implicit type has more variety.
+For [[https://golang.org/ref/spec#Numeric_types][numeric constants]], the implicit type has more variety.
 Integer constants default to `int`, floating-point constants `float64`, rune constants to `rune` (an alias for `int32`), and imaginary constants to `complex128`.
 Here's our canonical print statement used repeatedly to show the default types in action:
 
@@ -300,7 +300,7 @@ This ability for a constant to "cross" types like this will prove useful.
 * Integers
 
 At last we come to integers.
-They have more moving parts—[[http://golang.org/ref/spec#Numeric_types][many sizes, signed or unsigned, and more]]—but they play by the same rules.
+They have more moving parts—[[https://golang.org/ref/spec#Numeric_types][many sizes, signed or unsigned, and more]]—but they play by the same rules.
 For the last time, here is our familiar example, using just `int` this time:
 
 .play -edit constants/int1.go /START/,/STOP/
@@ -368,7 +368,7 @@ A conversion won't help either, for the same reason:
 .play -edit constants/exercise2.go /const/
 
 Even though at run-time a value of -1 can be converted to an unsigned integer, the rules
-for constant [[http://golang.org/ref/spec#Conversions][conversions]] forbid this kind of coercion at compile time.
+for constant [[https://golang.org/ref/spec#Conversions][conversions]] forbid this kind of coercion at compile time.
 That is to say, this works:
 
 .play -edit constants/exercise3.go /START/,/STOP/

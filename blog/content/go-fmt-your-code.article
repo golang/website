@@ -6,7 +6,7 @@ Andrew Gerrand
 
 * Introduction
 
-[[http://golang.org/cmd/gofmt/][Gofmt]] is a tool that automatically formats Go source code.
+[[https://golang.org/cmd/gofmt/][Gofmt]] is a tool that automatically formats Go source code.
 
 Gofmt'd code is:
 
@@ -26,7 +26,7 @@ To format your code, you can use the gofmt tool directly:
 
 	 gofmt -w yourcode.go
 
-Or you can use the "[[http://golang.org/cmd/go/#hdr-Run_gofmt_on_package_sources][go fmt]]" command:
+Or you can use the "[[https://golang.org/cmd/go/#hdr-Run_gofmt_on_package_sources][go fmt]]" command:
 
 	 go fmt path/to/your/package
 
@@ -52,11 +52,11 @@ The easiest way to mechanically manipulate Go code is with gofmt's -r flag. The 
 
 where both pattern and replacement are valid Go expressions. In the pattern, single-character lowercase identifiers serve as wildcards matching arbitrary sub-expressions, and those expressions are substituted for the same identifiers in the replacement.
 
-For example, this[[https://golang.org/cl/7038051][ recent change]] to the Go core rewrote some uses of [[http://golang.org/pkg/bytes/#Compare][bytes.Compare]] to use the more efficient [[http://golang.org/pkg/bytes/#Equal][bytes.Equal]]. The contributor made the change using just two gofmt invocations:
+For example, this[[https://golang.org/cl/7038051][ recent change]] to the Go core rewrote some uses of [[https://golang.org/pkg/bytes/#Compare][bytes.Compare]] to use the more efficient [[https://golang.org/pkg/bytes/#Equal][bytes.Equal]]. The contributor made the change using just two gofmt invocations:
 
 	 gofmt -r 'bytes.Compare(a, b) == 0 -> bytes.Equal(a, b)'
 	 gofmt -r 'bytes.Compare(a, b) != 0 -> !bytes.Equal(a, b)'
 
-Gofmt also enables [[http://golang.org/cmd/fix/][gofix]], which can make arbitrarily complex source transformations. Gofix was an invaluable tool during the early days when we regularly made breaking changes to the language and libraries. For example, before Go 1 the built-in error interface didn't exist and the convention was to use the os.Error type. When we [[http://golang.org/doc/go1.html#errors][introduced error]], we provided a gofix module that rewrote all references to os.Error and its associated helper functions to use error and the new [[http://golang.org/pkg/errors/][errors package]]. It would have been daunting to attempt by hand, but with the code in a standard format it was relatively easy to prepare, execute, and review this change which touched almost all Go code in existence.
+Gofmt also enables [[https://golang.org/cmd/fix/][gofix]], which can make arbitrarily complex source transformations. Gofix was an invaluable tool during the early days when we regularly made breaking changes to the language and libraries. For example, before Go 1 the built-in error interface didn't exist and the convention was to use the os.Error type. When we [[https://golang.org/doc/go1.html#errors][introduced error]], we provided a gofix module that rewrote all references to os.Error and its associated helper functions to use error and the new [[https://golang.org/pkg/errors/][errors package]]. It would have been daunting to attempt by hand, but with the code in a standard format it was relatively easy to prepare, execute, and review this change which touched almost all Go code in existence.
 
 For more about gofix, see [[https://blog.golang.org/introducing-gofix][this article]].

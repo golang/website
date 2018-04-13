@@ -84,7 +84,7 @@ point of this post is to explore how to use `go tool pprof`, not to reproduce th
 results from the paper.)
 
 To start tuning the Go program, we have to enable profiling.
-If the code used the [[http://golang.org/pkg/testing/][Go testing package]]'s
+If the code used the [[https://golang.org/pkg/testing/][Go testing package]]'s
 benchmarking support, we could use gotest's standard `-cpuprofile` and `-memprofile`
 flags.
 In a standalone program like this one, we have to import `runtime/pprof` and add a few
@@ -105,12 +105,12 @@ lines of code:
 	    ...
 
 The new code defines a flag named `cpuprofile`, calls the
-[[http://golang.org/pkg/flag/][Go flag library]] to parse the command line flags,
+[[https://golang.org/pkg/flag/][Go flag library]] to parse the command line flags,
 and then, if the `cpuprofile` flag has been set on the command line,
-[[http://golang.org/pkg/runtime/pprof/#StartCPUProfile][starts CPU profiling]]
+[[https://golang.org/pkg/runtime/pprof/#StartCPUProfile][starts CPU profiling]]
 redirected to that file.
 The profiler requires a final call to
-[[http://golang.org/pkg/runtime/pprof/#StopCPUProfile][`StopCPUProfile`]] to
+[[https://golang.org/pkg/runtime/pprof/#StopCPUProfile][`StopCPUProfile`]] to
 flush any pending writes to the file before the program exits; we use `defer`
 to make sure this happens as `main` returns.
 
@@ -633,9 +633,9 @@ by inner loops.
 The program sources, Linux x86-64 binaries, and profiles used to write this post
 are available in the [[https://github.com/rsc/benchgraffiti/][benchgraffiti project on GitHub]].
 
-As mentioned above, [[http://golang.org/cmd/go/#Test_packages][`go test`]] includes
+As mentioned above, [[https://golang.org/cmd/go/#Test_packages][`go test`]] includes
 these profiling flags already: define a
-[[http://golang.org/pkg/testing/][benchmark function]] and you're all set.
+[[https://golang.org/pkg/testing/][benchmark function]] and you're all set.
 There is also a standard HTTP interface to profiling data. In an HTTP server, adding
 
 	import _ "net/http/pprof"

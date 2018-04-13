@@ -6,7 +6,7 @@ Andrew Gerrand
 
 * Introduction
 
-Godoc [[http://golang.org/pkg/testing/#hdr-Examples][examples]] are snippets of
+Godoc [[https://golang.org/pkg/testing/#hdr-Examples][examples]] are snippets of
 Go code that are displayed as package documentation and that are verified by
 running them as tests.
 They can also be run by a user visiting the godoc web page for the package
@@ -16,7 +16,7 @@ Having executable documentation for a package guarantees that the information
 will not go out of date as the API changes.
 
 The standard library includes many such examples
-(see the [[http://golang.org/pkg/strings/#Contains][`strings` package]],
+(see the [[https://golang.org/pkg/strings/#Contains][`strings` package]],
 for instance).
 
 This article explains how to write your own example functions.

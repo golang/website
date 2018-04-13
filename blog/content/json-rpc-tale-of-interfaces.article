@@ -6,7 +6,7 @@ Andrew Gerrand
 
 * Introduction
 
-Here we present an example where Go's [[http://golang.org/doc/effective_go.html#interfaces_and_types][interfaces]] made it easy to refactor some existing code to make it more flexible and extensible. Originally, the standard library's [[http://golang.org/pkg/net/rpc/][RPC package]] used a custom wire format called [[http://golang.org/pkg/encoding/gob/][gob]]. For a particular application, we wanted to use [[http://golang.org/pkg/encoding/json/][JSON]] as an alternate wire format.
+Here we present an example where Go's [[https://golang.org/doc/effective_go.html#interfaces_and_types][interfaces]] made it easy to refactor some existing code to make it more flexible and extensible. Originally, the standard library's [[https://golang.org/pkg/net/rpc/][RPC package]] used a custom wire format called [[https://golang.org/pkg/encoding/gob/][gob]]. For a particular application, we wanted to use [[https://golang.org/pkg/encoding/json/][JSON]] as an alternate wire format.
 
 We first defined a pair of interfaces to describe the functionality of the existing wire format, one for the client, and one for the server (depicted below).
 

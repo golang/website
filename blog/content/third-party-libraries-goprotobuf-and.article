@@ -10,7 +10,7 @@ On March 24, Rob Pike announced [[http://code.google.com/p/goprotobuf/][goprotob
 
 The goprotobuf project consists of two parts: a 'protocol compiler plugin' that generates Go source files that, once compiled, can access and manage protocol buffers; and a Go package that implements run-time support for encoding (marshaling), decoding (unmarshaling), and accessing protocol buffers.
 
-To use goprotobuf, you first need to have both Go and [[http://code.google.com/p/protobuf/][protobuf]] installed. You can then install the 'proto' package with [[http://golang.org/cmd/goinstall/][goinstall]]:
+To use goprotobuf, you first need to have both Go and [[http://code.google.com/p/protobuf/][protobuf]] installed. You can then install the 'proto' package with [[https://golang.org/cmd/goinstall/][goinstall]]:
 
 	goinstall goprotobuf.googlecode.com/hg/proto
 
