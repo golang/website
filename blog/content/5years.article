@@ -27,14 +27,14 @@ kernel of the Go community.
 
 After the initial release, it took us a while to properly communicate the
 goals and design ethos behind Go. Rob Pike did so eloquently in his 2012 essay
-[[http://talks.golang.org/2012/splash.article][_Go_at_Google:_Language_Design_in_the_Service_of_Software_Engineering_]] and
+[[https://talks.golang.org/2012/splash.article][_Go_at_Google:_Language_Design_in_the_Service_of_Software_Engineering_]] and
 more personally in his blog post
-[[http://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html][_Less_is_exponentially_more_]].
+[[https://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html][_Less_is_exponentially_more_]].
 Andrew Gerrand's
 [[http://vimeo.com/53221560][_Code_that_grows_with_grace_]]
-([[http://talks.golang.org/2012/chat.slide][slides]]) and
+([[https://talks.golang.org/2012/chat.slide][slides]]) and
 [[https://www.youtube.com/watch?v=dKGmK_Z1Zl0][_Go_for_Gophers_]]
-([[http://talks.golang.org/2014/go4gophers.slide][slides]]) give a
+([[https://talks.golang.org/2014/go4gophers.slide][slides]]) give a
 more in-depth, technical take on Go's design philosophy.
 
 Over time, the few became many. The turning point for the project was the
@@ -47,9 +47,9 @@ metrics, the Go community is growing faster than we believed possible.
 
 Where can those gophers be found? They are at the many Go events that are
 popping up around the world. This year we saw several dedicated Go conferences:
-the inaugural [[http://blog.golang.org/gophercon][GopherCon]] and
+the inaugural [[https://blog.golang.org/gophercon][GopherCon]] and
 [[http://www.dotgo.eu/][dotGo]] conferences in Denver and Paris, the
-[[http://blog.golang.org/fosdem14][Go DevRoom at FOSDEM]] and two more
+[[https://blog.golang.org/fosdem14][Go DevRoom at FOSDEM]] and two more
 instances of the biannual [[https://github.com/GoCon/GoCon][GoCon]] conference
 in Tokyo. At each event, gophers from around the globe eagerly presented their
 Go projects. For the Go team, it is very satisfying to meet so many programmers

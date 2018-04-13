@@ -18,7 +18,7 @@ before reading on.
 * The demo app
 
 For our demonstration we will use the
-[[http://godoc.org/github.com/golang/example/outyet][outyet]] program from the
+[[https://godoc.org/github.com/golang/example/outyet][outyet]] program from the
 [[https://github.com/golang/example][Go examples repository]],
 a simple web server that reports whether the next version of Go has been released
 (designed to power sites like [[http://isgo1point4.outyet.org/][isgo1point4.outyet.org]]).

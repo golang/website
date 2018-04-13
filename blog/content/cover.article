@@ -26,7 +26,7 @@ that builds on the technology laid down by godoc and friends.
 * Support for tools
 
 First, some background: What does it mean for a
-[[http://talks.golang.org/2012/splash.article#TOC_17.][language to support good tooling]]?
+[[https://talks.golang.org/2012/splash.article#TOC_17.][language to support good tooling]]?
 It means that the language makes it easy to write good tools and that its ecosystem
 supports the construction of tools of all flavors.
 
@@ -50,7 +50,7 @@ correct and easy-to-read code.
 One example is the gofix tool, which automates the
 rewriting of code to use new language features or updated libraries.
 Gofix let us make fundamental changes to the language and libraries in the
-[[http://blog.golang.org/the-path-to-go-1][run-up to Go 1.0]],
+[[https://blog.golang.org/the-path-to-go-1][run-up to Go 1.0]],
 with the confidence that users could just run the tool to update their source to the newest version.
 
 Inside Google, we have used gofix to make sweeping changes in a huge code repository that would be almost

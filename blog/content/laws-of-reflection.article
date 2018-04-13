@@ -57,7 +57,7 @@ We need to be precise about all this because reflection and interfaces are close
 
 * The representation of an interface
 
-Russ Cox has written a [[http://research.swtch.com/2009/12/go-data-structures-interfaces.html][ detailed blog post]] about the representation of interface values in Go. It's not necessary to repeat the full story here, but a simplified summary is in order.
+Russ Cox has written a [[https://research.swtch.com/2009/12/go-data-structures-interfaces.html][ detailed blog post]] about the representation of interface values in Go. It's not necessary to repeat the full story here, but a simplified summary is in order.
 
 A variable of interface type stores a pair: the concrete value assigned to the variable, and that value's type descriptor. To be more precise, the value is the underlying concrete data item that implements the interface and the type describes the full type of that item. For instance, after
 

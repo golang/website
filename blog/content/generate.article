@@ -30,7 +30,7 @@ There is simply no mechanism to run Yacc from the go tool alone.
 
 Until now, that is.
 
-The [[http://blog.golang.org/go1.4][latest Go release]], 1.4,
+The [[https://blog.golang.org/go1.4][latest Go release]], 1.4,
 includes a new command that makes it easier to run such tools.
 It's called `go` `generate`, and it works by scanning for special comments in Go source code
 that identify general commands to run.
@@ -94,7 +94,7 @@ It's not part of the released distribution, but it's easy to install:
 	$ go get golang.org/x/tools/cmd/stringer
 
 Here's an example from the documentation for
-[[http://godoc.org/golang.org/x/tools/cmd/stringer][`stringer`]].
+[[https://godoc.org/golang.org/x/tools/cmd/stringer][`stringer`]].
 Imagine we have some code that contains a set of integer constants defining different types of pills:
 
 	package painkiller

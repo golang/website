@@ -14,7 +14,7 @@ find the full list of improvements and fixes in the
 [[https://golang.org/doc/go1.3][release notes]].
 What follows are some highlights.
 
-[[http://godoc.org/code.google.com/p/go.tools/cmd/godoc][Godoc]],
+[[https://godoc.org/code.google.com/p/go.tools/cmd/godoc][Godoc]],
 the Go documentation server, now performs static analysis.
 When enabled with the -analysis flag, analysis results are presented
 in both the source and package documentation views, making it easier
@@ -24,7 +24,7 @@ See [[https://golang.org/lib/godoc/analysis/help.html][the documentation]] for 
 The gc toolchain now supports the Native Client (NaCl) execution sandbox on the
 32- and 64-bit Intel architectures.
 This permits the safe execution of untrusted code, useful in environments such as the
-[[http://blog.golang.org/playground][Playground]].
+[[https://blog.golang.org/playground][Playground]].
 To set up NaCl on your system see the [[https://golang.org/wiki/NativeClient][NativeClient wiki page]].
 
 Also included in this release is experimental support for the DragonFly BSD,

@@ -36,7 +36,7 @@ package.
 A major new feature of the tool chain is the facility to compute and display
 [[https://golang.org/doc/go1.2#cover][test coverage results]].
 See the [[https://golang.org/cmd/go/#hdr-Description_of_testing_flags][`go`test`]]
-and [[http://godoc.org/code.google.com/p/go.tools/cmd/cover/][cover tool]]
+and [[https://godoc.org/code.google.com/p/go.tools/cmd/cover/][cover tool]]
 documentation for details. Later this week we will publish an article that
 discusses this new feature in detail.
 

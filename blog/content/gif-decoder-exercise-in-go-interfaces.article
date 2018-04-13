@@ -82,7 +82,7 @@ Now we know we should read `blockLen` bytes, so we point `b.slice` to the first 
 
 Lines 18-19 copy the data from `b.slice` to the caller's buffer. We are implementing `Read`, not `ReadFull`, so we are allowed to return fewer than the requested number of bytes.  That makes it easy: we just copy the data from `b.slice` to the caller's buffer (`p`), and the return value from copy is the number of bytes transferred.  Then we reslice `b.slice` to drop the first `n` bytes, ready for the next call.
 
-It's a nice technique in Go programming to couple a slice (`b.slice`) to an array (`b.tmp`).  In this case, it means `blockReader` type's `Read` method never does any allocations. It also means we don't need to keep a count around (it's implicit in the slice length), and the built-in `copy` function guarantees we never copy more than we should. (For more about slices, see [[http://blog.golang.org/2011/01/go-slices-usage-and-internals.html][this post from the Go Blog]].)
+It's a nice technique in Go programming to couple a slice (`b.slice`) to an array (`b.tmp`).  In this case, it means `blockReader` type's `Read` method never does any allocations. It also means we don't need to keep a count around (it's implicit in the slice length), and the built-in `copy` function guarantees we never copy more than we should. (For more about slices, see [[https://blog.golang.org/2011/01/go-slices-usage-and-internals.html][this post from the Go Blog]].)
 
 Given the `blockReader` type, we can unblock the image data stream just by wrapping the input reader, say a file, like this:
 

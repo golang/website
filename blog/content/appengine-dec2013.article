@@ -8,7 +8,7 @@ Johan Euphrosine
 
 * Background
 
-When we [[http://blog.golang.org/go-and-google-app-engine][launched Go for App Engine]]
+When we [[https://blog.golang.org/go-and-google-app-engine][launched Go for App Engine]]
 in May 2011 the SDK was just a modified version of the Python SDK.
 At the time, there was no canonical way to build or organize Go programs, so it
 made sense to take the Python approach. Since then Go 1.0 was released,
@@ -16,7 +16,7 @@ including the [[https://golang.org/cmd/go/][go tool]] and a
 [[https://golang.org/doc/code.html][convention]] for organizing Go programs.
 
 In January 2013 we announced
-[[http://blog.golang.org/the-app-engine-sdk-and-workspaces-gopath][better integration]]
+[[https://blog.golang.org/the-app-engine-sdk-and-workspaces-gopath][better integration]]
 between the Go App Engine SDK and the go tool, promoting the use of
 conventional import paths in App Engine apps and making it possible to use "go
 get" to fetch app dependencies.

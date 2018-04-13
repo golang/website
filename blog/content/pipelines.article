@@ -307,6 +307,6 @@ pipeline and defined guidelines for constructing pipelines correctly.
 
 Further reading:
 
-- [[http://talks.golang.org/2012/concurrency.slide#1][Go Concurrency Patterns]] ([[https://www.youtube.com/watch?v=f6kdp27TYZs][video]]) presents the basics of Go's concurrency primitives and several ways to apply them.
-- [[http://blog.golang.org/advanced-go-concurrency-patterns][Advanced Go Concurrency Patterns]] ([[http://www.youtube.com/watch?v=QDDwwePbDtw][video]]) covers more complex uses of Go's primitives, especially `select`.
-- Douglas McIlroy's paper [[http://swtch.com/~rsc/thread/squint.pdf][Squinting at Power Series]] shows how Go-like concurrency provides elegant support for complex calculations.
+- [[https://talks.golang.org/2012/concurrency.slide#1][Go Concurrency Patterns]] ([[https://www.youtube.com/watch?v=f6kdp27TYZs][video]]) presents the basics of Go's concurrency primitives and several ways to apply them.
+- [[https://blog.golang.org/advanced-go-concurrency-patterns][Advanced Go Concurrency Patterns]] ([[http://www.youtube.com/watch?v=QDDwwePbDtw][video]]) covers more complex uses of Go's primitives, especially `select`.
+- Douglas McIlroy's paper [[https://swtch.com/~rsc/thread/squint.pdf][Squinting at Power Series]] shows how Go-like concurrency provides elegant support for complex calculations.

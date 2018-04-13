@@ -198,7 +198,7 @@ implementation whose `Value` method returns the values associated with a
 specific HTTP request in the Gorilla package.
 
 Other packages have provided cancelation support similar to `Context`.
-For example, [[http://godoc.org/gopkg.in/tomb.v2][Tomb]] provides a `Kill`
+For example, [[https://godoc.org/gopkg.in/tomb.v2][Tomb]] provides a `Kill`
 method that signals cancelation by closing a `Dying` channel.
 `Tomb` also provides methods to wait for those goroutines to exit, similar to
 `sync.WaitGroup`.

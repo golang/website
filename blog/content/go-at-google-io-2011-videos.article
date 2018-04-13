@@ -10,7 +10,7 @@ The Go team had a great time at Google I/O 2011. It was a pleasure to meet so ma
 
 * Writing Web Apps in Go
 
-In “[[http://www.youtube.com/watch?v=-i0hat7pdpk][Writing Web Apps in Go]]” we announce the [[http://blog.golang.org/2011/05/go-and-google-app-engine.html][Go runtime for Google App Engine]] and walk through the development and deployment of [[http://moustach-io.appspot.com/][Moustachio]], the first Go App Engine app.
+In “[[http://www.youtube.com/watch?v=-i0hat7pdpk][Writing Web Apps in Go]]” we announce the [[https://blog.golang.org/2011/05/go-and-google-app-engine.html][Go runtime for Google App Engine]] and walk through the development and deployment of [[http://moustach-io.appspot.com/][Moustachio]], the first Go App Engine app.
 
 .iframe //www.youtube.com/embed/-i0hat7pdpk 349 560
 

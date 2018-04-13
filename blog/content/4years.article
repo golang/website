@@ -46,7 +46,7 @@ But this is just the tip of the iceberg. The number of high-quality open source 
 
 Businesses are enjoying Go, too. The [[https://golang.org/wiki/GoUsers][Go Users wiki page]] lists dozens of success stories (and if you use Go, please add yourself to it). Some examples:
 
-- [[http://blog.cloudflare.com/go-at-cloudflare][CloudFlare]] built their distributed DNS service entirely with Go, and are in the process of migrating their gigabytes-per-minute logging infrastructure to the language. Programmer John Graham-Cumming said "We've found Go to be the perfect match for our needs: the combination of familiar syntax, a powerful type system, a strong network library and built-in concurrency means that more and more projects are being built here in Go." 
+- [[https://blog.cloudflare.com/go-at-cloudflare][CloudFlare]] built their distributed DNS service entirely with Go, and are in the process of migrating their gigabytes-per-minute logging infrastructure to the language. Programmer John Graham-Cumming said "We've found Go to be the perfect match for our needs: the combination of familiar syntax, a powerful type system, a strong network library and built-in concurrency means that more and more projects are being built here in Go." 
 
 - [[http://soundcloud.com][SoundCloud]] is an audio distribution service that has "dozens of [[http://backstage.soundcloud.com/2012/07/go-at-soundcloud/][systems in Go]], touching almost every part of the site, and in many cases powering features from top to bottom." Engineer Peter Bourgon said "Go demonstrates that the cruft that burdens other languages and ecosystems—stuff that developers have learned to deal with, often in anger—is simply not a necessary part of modern programming. With Go, I have a straightforward and non-adversarial relationship with my tools, from development to production."
 
@@ -56,13 +56,13 @@ Businesses are enjoying Go, too. The [[https://golang.org/wiki/GoUsers][Go Users
 
 - Music collaboration startup [[http://splice.com][Splice]] chose to build their service with Go. Co-founder Matt Aimonetti said "We seriously studied and considered many programming languages, but Go's simplicity, efficiency, philosophy and community won us over."
 
-- And, of course, engineering teams across Google are moving to Go. Engineer Matt Welsh recently [[http://matt-welsh.blogspot.com.au/2013/08/rewriting-large-production-system-in-go.html][shared his experience]] rewriting a large production service in Go. Other notable public examples include YouTube's [[https://github.com/youtube/vitess][vitess project]] and [[http://talks.golang.org/2013/oscon-dl.slide][dl.google.com]]. We hope to share more stories like these soon.
+- And, of course, engineering teams across Google are moving to Go. Engineer Matt Welsh recently [[http://matt-welsh.blogspot.com.au/2013/08/rewriting-large-production-system-in-go.html][shared his experience]] rewriting a large production service in Go. Other notable public examples include YouTube's [[https://github.com/youtube/vitess][vitess project]] and [[https://talks.golang.org/2013/oscon-dl.slide][dl.google.com]]. We hope to share more stories like these soon.
 
 In September 2012, [[http://apcera.com/][Apcera]] CEO Derek Collison [[https://twitter.com/derekcollison/status/245522124666716160][predicted]] that "Go will become the dominant language for systems work in [Infastructure-as-a-Service], Orchestration, and [Platform-as-a-Service] in 24 months." Looking at the list above, it's easy to believe that prediction.
 
 So how can you get involved? Whether you're a seasoned Go programmer or just Go-curious, there are many ways to get started in the Go community:
 
-- [[http://blog.golang.org/getthee-to-go-meetup][Join your nearest Go User Group]], where your local gophers meet to share their knowledge and experience. These groups are popping up all over the world. I have personally spoken at Go groups in Amsterdam, Berlin, Gothenburg, London, Moscow, Munich, New York City, Paris, San Francisco, Seoul, Stockholm, Sydney, Tokyo, and Warsaw; but there are [[https://golang.org/wiki/GoUserGroups][many more]]!
+- [[https://blog.golang.org/getthee-to-go-meetup][Join your nearest Go User Group]], where your local gophers meet to share their knowledge and experience. These groups are popping up all over the world. I have personally spoken at Go groups in Amsterdam, Berlin, Gothenburg, London, Moscow, Munich, New York City, Paris, San Francisco, Seoul, Stockholm, Sydney, Tokyo, and Warsaw; but there are [[https://golang.org/wiki/GoUserGroups][many more]]!
 
 - Create or contribute to an open source Go project (or [[https://golang.org/doc/contribute.html][to Go itself]]). (And if you're building something, we'd love to hear from you on the [[http://groups.google.com/group/golang-nuts][Go mailing list]].)
 

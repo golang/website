@@ -398,7 +398,7 @@ Here, then, is our constant:
 .play -edit constants/exercise6.go /START/,/STOP/
 
 Whatever the number of bits it takes to represent a `uint` in the current execution environment
-(on the [[http://blog.golang.org/playground][playground]], it's 32),
+(on the [[https://blog.golang.org/playground][playground]], it's 32),
 this constant correctly represents the largest value a variable of type `uint` can hold.
 
 If you understand the analysis that got us to this result, you understand all the important points about constants in Go.

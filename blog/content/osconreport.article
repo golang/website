@@ -30,7 +30,7 @@ experience writing tools to work with Go source code in
 [[https://talks.golang.org/2014/hammers.slide#1][Gophers with hammers]],
 and [[http://twitter.com/francesc][Francesc Campoy]] talked about all the things
 that could have gone wrong and what the Go team did to prevent them
-[[http://talks.golang.org/2014/playground.slide][Inside the Go playground]].
+[[https://talks.golang.org/2014/playground.slide][Inside the Go playground]].
 
 * Workshops
 
@@ -55,7 +55,7 @@ meetup and a
 .image osconreport/meetup.png _ 800
 
 At the meetup Francesc Campoy talked about
-[[http://talks.golang.org/2013/bestpractices.slide][Go Best Practices]] and
+[[https://talks.golang.org/2013/bestpractices.slide][Go Best Practices]] and
 [[https://twitter.com/kelseyhightower][Kelsey Hightower]] gave a great
 introduction to [[https://github.com/GoogleCloudPlatform/kubernetes][Kubernetes]],
 a container management system for clusters written in Go by Google. If you live

@@ -18,7 +18,7 @@ This talk gives an introduction to Go, followed by a tour of some real programs 
 
 .iframe //player.vimeo.com/video/53221558?badge=0 281 500
 
-See the [[http://talks.golang.org/2012/simple.slide][slide deck]] (use the left and right arrows to navigate).
+See the [[https://talks.golang.org/2012/simple.slide][slide deck]] (use the left and right arrows to navigate).
 
 * Go: code that grows with grace
 
@@ -26,4 +26,4 @@ One of Go's key design goals is code adaptability; that it should be easy to tak
 
 .iframe //player.vimeo.com/video/53221560?badge=0 281 500
 
-See the [[http://talks.golang.org/2012/chat.slide][slide deck]] (use the left and right arrows to navigate).
+See the [[https://talks.golang.org/2012/chat.slide][slide deck]] (use the left and right arrows to navigate).

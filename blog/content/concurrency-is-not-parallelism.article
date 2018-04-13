@@ -14,6 +14,6 @@ To clear up this conflation, Rob Pike gave a talk at [[http://heroku.com/][Herok
 
 .iframe //player.vimeo.com/video/49718712?badge=0 281 500
 
-The slides are available at [[http://talks.golang.org/2012/waza.slide][talks.golang.org]] (use the left and right arrow keys to navigate).
+The slides are available at [[https://talks.golang.org/2012/waza.slide][talks.golang.org]] (use the left and right arrow keys to navigate).
 
-To learn about Go's concurrency primitives, watch [[http://www.youtube.com/watch?v=f6kdp27TYZs][Go concurrency patterns]] ([[http://talks.golang.org/2012/concurrency.slide][slides]]).
+To learn about Go's concurrency primitives, watch [[http://www.youtube.com/watch?v=f6kdp27TYZs][Go concurrency patterns]] ([[https://talks.golang.org/2012/concurrency.slide][slides]]).

@@ -128,7 +128,7 @@ Should any error occur, we serve the defaultImage to the user and log the error 
 Here's the code for the request handler with explanatory comments:
 
 	func handler(w http.ResponseWriter, r *http.Request) {
-	    // [[http://blog.golang.org/2010/08/defer-panic-and-recover.html][Defer]] a function to recover from any panics.
+	    // [[https://blog.golang.org/2010/08/defer-panic-and-recover.html][Defer]] a function to recover from any panics.
 	    // When recovering from a panic, log the error condition to
 	    // the App Engine dashboard and send the default image to the user.
 	    defer func() {
@@ -197,7 +197,7 @@ The development server provided with the [[http://code.google.com/appengine/down
 
 Go's great documentation also helped me put this together fast. The docs are generated from the source code, so each function's documentation links directly to the associated source code. This not only allows the developer to understand very quickly what a particular function does but also encourages the developer to dig into the package implementation, making it easier to learn good style and conventions.
 
-In writing this application I used just three resources: App Engine's [[http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html][Hello World Go example]], [[https://golang.org/pkg/][the Go packages documentation]], and [[http://blog.golang.org/2011/09/go-imagedraw-package.html][a blog post showcasing the Draw package]]. Thanks to the rapid iteration made possible by the development server and the language itself, I was able to pick up the language and build a super fast, production ready, doodle generator in less than 24 hours.
+In writing this application I used just three resources: App Engine's [[http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html][Hello World Go example]], [[https://golang.org/pkg/][the Go packages documentation]], and [[https://blog.golang.org/2011/09/go-imagedraw-package.html][a blog post showcasing the Draw package]]. Thanks to the rapid iteration made possible by the development server and the language itself, I was able to pick up the language and build a super fast, production ready, doodle generator in less than 24 hours.
 
 Download the full app source code (including images) at [[http://code.google.com/p/go-thanksgiving/source/browse/][the Google Code project]].
 

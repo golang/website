@@ -19,8 +19,8 @@ A [[http://confreaks.com/events/gophercon2014][complete set of video recordings]
 
 Two keynotes framed the conference:
 
-- Rob Pike's opening talk [[https://www.youtube.com/watch?v=VoS7DsT1rdM]["Hello, Gophers!"]] ([[http://talks.golang.org/2014/hellogophers.slide][slides]]) discusses the history of Go by walking through two of the first Go programs.
-- Andrew Gerrand's closing talk [[https://www.youtube.com/watch?v=dKGmK_Z1Zl0]["Go for gophers"]] ([[http://talks.golang.org/2014/go4gophers.slide][slides]]) explains the Go design philosophy through the lens of his personal experience learning the language.
+- Rob Pike's opening talk [[https://www.youtube.com/watch?v=VoS7DsT1rdM]["Hello, Gophers!"]] ([[https://talks.golang.org/2014/hellogophers.slide][slides]]) discusses the history of Go by walking through two of the first Go programs.
+- Andrew Gerrand's closing talk [[https://www.youtube.com/watch?v=dKGmK_Z1Zl0]["Go for gophers"]] ([[https://talks.golang.org/2014/go4gophers.slide][slides]]) explains the Go design philosophy through the lens of his personal experience learning the language.
 
 One talk that resonated with members of the Go team was Peter Bourgon's
 [[https://www.youtube.com/watch?v=Y1-RLAl7iOI]["Best practices for Production Environments"]]

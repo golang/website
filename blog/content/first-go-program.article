@@ -19,7 +19,7 @@ in an old message to Robert and Ken Thompson.
 
 What follows is the first Go program. It was written by Rob in February 2008,
 when the team was just Rob, Robert, and Ken. They had a solid feature list
-(mentioned in [[http://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html][this blog post]])
+(mentioned in [[https://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html][this blog post]])
 and a rough language specfication. Ken had just finished the first working version of
 a Go compiler (it didn't produce native code, but rather transliterated Go code
 to C for fast prototyping) and it was time to try writing a program with it.

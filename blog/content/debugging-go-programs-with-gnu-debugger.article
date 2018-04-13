@@ -6,7 +6,7 @@ Andrew Gerrand
 
 * Introduction
 
-Last year we [[http://blog.golang.org/2010/11/debugging-go-code-status-report.html][reported]] that Go's [[https://golang.org/cmd/gc/][gc]]/[[https://golang.org/cmd/6l/][ld]] toolchain produces DWARFv3 debugging information that can be read by the GNU Debugger (GDB). Since then, work has continued steadily on improving support for debugging Go code with GDB.
+Last year we [[https://blog.golang.org/2010/11/debugging-go-code-status-report.html][reported]] that Go's [[https://golang.org/cmd/gc/][gc]]/[[https://golang.org/cmd/6l/][ld]] toolchain produces DWARFv3 debugging information that can be read by the GNU Debugger (GDB). Since then, work has continued steadily on improving support for debugging Go code with GDB.
 Among the improvements are the ability to inspect goroutines and to print native Go data types, including structs, slices, strings, maps, interfaces, and channels.
 
 To learn more about Go and GDB, see the [[https://golang.org/doc/debugging_with_gdb.html][Debugging with GDB]] article.
