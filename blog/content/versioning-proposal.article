@@ -18,10 +18,10 @@ would be best solved by an add-on tool,
 and we encouraged people to create one.
 The Go community created many tools with different approaches.
 Each one helped us all better understand the problem,
-but by mid-2015 it was clear that there were now too many solutions.
+but by mid-2016 it was clear that there were now too many solutions.
 We needed to adopt a single, official tool.
 
-After a community discussion started at GopherCon in July 2015 and continuing into the fall,
+After a community discussion started at GopherCon in July 2016 and continuing into the fall,
 we all believed the answer would be to follow the package versioning approach
 exemplified by Rust’s Cargo, with tagged semantic versions,
 a manifest, a lock file, and a
