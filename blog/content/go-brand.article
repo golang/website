@@ -38,7 +38,7 @@ revisions we went through…
 
 The brand guide establishes the mission, values and voice for the Go project. In
 general terms, a brand guide is a reference tool for establishing a consistent
-brand identity. It is sometimes referred to as a “brand guidelines” or a “brand
+brand identity. It is sometimes referred to as “brand guidelines” or a “brand
 book”. It is a single document that serves as a guide and reference to
 designers, writers, and developers to create consistent, on-brand content.
 
@@ -85,6 +85,6 @@ The brand guide contains the guidelines for acceptable logo use.
 
 The website will be getting a refresh based on the new design. Since we are
 making significant changes, we are also taking this opportunity to update our
-website infrastructure to support internationalization and multilingual to
-better serve our global community. The migration will happen in stages over the
+website infrastructure to better serve our global community with internationalization
+and multilingual support. The migration will happen in stages over the
 next few months starting with this blog.
