@@ -1,7 +1,6 @@
-application: golang-org
-version: blog-test
+service: blog
 runtime: go
-api_version: go1
+api_version: go1.9
 
 handlers:
 - url: /favicon.ico

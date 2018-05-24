@@ -11,13 +11,11 @@ manually git clone the repository to $GOPATH/src/golang.org/x/blog.
 
 To run the blog server locally:
 
-	go build -o blog.exe ./blog
-	./blog.exe
+```sh
+dev_appserver.py app.yaml
+```
 
 and then visit [http://localhost:8080/](http://localhost:8080) in your browser.
-
-Note that blog.exe caches all content and you must kill it (Ctrl-C on Unix
-systems) and restart it after editing any files to view changes.
 
 ## Contributing
 

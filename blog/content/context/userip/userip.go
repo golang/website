@@ -1,3 +1,5 @@
+// +build OMIT
+
 // Package userip provides functions for extracting a user IP address from a
 // request and associating it with a Context.
 //
@@ -6,11 +8,10 @@
 package userip
 
 import (
+	"context"
 	"fmt"
 	"net"
 	"net/http"
-
-	"golang.org/x/net/context"
 )
 
 // FromRequest extracts the user IP address from req, if present.

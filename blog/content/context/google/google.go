@@ -1,3 +1,5 @@
+// +build OMIT
+
 // Package google provides a function to do Google searches using the Google Web
 // Search API. See https://developers.google.com/web-search/docs/
 //
@@ -9,11 +11,11 @@
 package google
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
 	"golang.org/x/blog/content/context/userip"
-	"golang.org/x/net/context"
 )
 
 // Results is an ordered list of search results.

@@ -12,7 +12,7 @@ import (
 
 func TestServer(t *testing.T) {
 	mux, err := newServer(false, "/static", blog.Config{
-		TemplatePath: "../template",
+		TemplatePath: "./template",
 	})
 	if err != nil {
 		t.Fatal(err)

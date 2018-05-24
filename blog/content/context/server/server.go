@@ -1,3 +1,5 @@
+// +build OMIT
+
 // The server program issues Google search requests and demonstrates the use of
 // the go.net Context API. It serves on port 8080.
 //
@@ -11,6 +13,7 @@
 package main
 
 import (
+	"context"
 	"html/template"
 	"log"
 	"net/http"
@@ -18,7 +21,6 @@ import (
 
 	"golang.org/x/blog/content/context/google"
 	"golang.org/x/blog/content/context/userip"
-	"golang.org/x/net/context"
 )
 
 func main() {
