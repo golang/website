@@ -330,7 +330,7 @@ aforementioned modifications and uses a WebSocket to communicate with the
 client.
 
 The WebSocket back end implementation can be found in the
-[[https://godoc.org/golang.org/x/tools/playground/socket][`golang.org/x/too/playground/socket`]] package.
+[[https://godoc.org/golang.org/x/tools/playground/socket][`golang.org/x/tools/playground/socket`]] package.
 The [[https://talks.golang.org/2012/insidepresent.slide#1][Inside Present]] talk discusses this code in detail.
 
 
