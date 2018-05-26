@@ -68,7 +68,7 @@ func main() {
 	c1 := sq(in)
 	c2 := sq(in)
 
-	// Consume the first value from output.
+	// Consume the first value from the output.
 	out := merge(c1, c2)
 	fmt.Println(<-out) // 4 or 9
 	return
