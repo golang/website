@@ -12,7 +12,7 @@ Richard L. Hudson (Rick) is best known for his work in memory management includi
 
 Contact: rlh@golang.org
 
-Discussion on the golang dev group [[https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns][here.]]
+Comments: See [[https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns][the discussion on golang-dev]]. 
 
 ** The Transcript
 
@@ -86,7 +86,7 @@ Why is latency so important?
 
 The math is completely unforgiving on this.
 
-A 99%ile isolated GC latency SLO, such as 99% of the time a GC cycle takes < 10ms, just simply doesn't scale. What matters is latency during an entire session or through the course of using an app many times in a day. Assume a session that browses several web pages ends up making 100 server requests during a session or it makes 20 requests and you have 5 sessions packed up during the day. In that situation only 37% of users will have a consistent sub 10ms experience across the entire session.
+A 99%ile isolated GC latency service level objective (SLO), such as 99% of the time a GC cycle takes < 10ms, just simply doesn't scale. What matters is latency during an entire session or through the course of using an app many times in a day. Assume a session that browses several web pages ends up making 100 server requests during a session or it makes 20 requests and you have 5 sessions packed up during the day. In that situation only 37% of users will have a consistent sub 10ms experience across the entire session.
 
 If you want 99% of those users to have a sub 10ms experience, as we are suggesting, the math says you really need to target 4 9s or the 99.99%ile.
 
@@ -160,7 +160,7 @@ So what about write barriers? The write barrier is on only during the GC. At oth
 
 The other piece of this code is the GC Pacer. It is some of the great work that Austin did. It is basically based on a feedback loop that determines when to best start a GC cycle. If the system is in a steady state and not in a phase change, marking will end just about the time memory runs out.
 
-That might not be the case so the Pacer also has to monitor the marking progress and ensure allocation doesn't overrun the concurrent marking. 
+That might not be the case so the Pacer also has to monitor the marking progress and ensure allocation doesn't overrun the concurrent marking.
 
 If need be, the Pacer slows down allocation while speeding up marking. At a high level the Pacer stops the Goroutine, which is doing a lot of the allocation, and puts it to work doing marking. The amount of work is proportional to the Goroutine's allocation. This speeds up the garbage collector while slowing down the mutator.
 
@@ -264,7 +264,7 @@ The other issue that was going on with this system was that the write barrier wa
 
 That said, wow, we had some pretty good successes.
 
-This is an end-to-end RPC benchmark. The Y axis is billions of ns (also known as milliseconds) / op (lower is better), anyway that is just what it is. The X axis is basically the ballast or how big the in-core database is.
+This is an end-to-end RPC benchmark. The mislabeled Y axis goes from 0 to 5 milliseconds (lower is better), anyway that is just what it is. The X axis is basically the ballast or how big the in-core database is.
 
 As you can see if you have ROC on and not a lot of sharing, things actually scale quite nicely. If you don't have ROC on it wasn't nearly as good.
 
@@ -286,7 +286,7 @@ So what were we going to do next? Let's try the generational GC. It's an oldie b
 
 .image ismmkeynote/image41.png
 
-We weren't going to give up our latency, weren't not going to give up the fact that we don't move stuff. So we needed a non-copying generational GC.
+We weren't going to give up our latency, we weren't going to give up the fact that we were non-moving. So we needed a non-moving generational GC.
 
 .image ismmkeynote/image27.png
 
@@ -335,7 +335,7 @@ The write barrier was fast but it simply wasn't fast enough. Furthermore it was 
 
 We also had escape analysis and it was getting better and better. Remember the value-oriented stuff we were talking about? Instead of passing a pointer to a function we would pass the actual value. Because we were passing a value, escape analysis would only have to do intraprocedural escape analysis and not interprocedural analysis.
 
-Of course in the case where a pointer to the local object escapes, the object would be heap allocated. 
+Of course in the case where a pointer to the local object escapes, the object would be heap allocated.
 
 It isn't that the generational hypothesis isn't true for Go, it's just that the young objects live and die young on the stack. The result is that generational collection is much less effective than you might find in other managed runtime languages.
 
@@ -359,7 +359,7 @@ The real value of generational GC is that, when looking at GC times, the write b
 
 .image ismmkeynote/image23.png
 
-That's a lot of failure and with such failure comes food and lunch. I'm doing my usual whining Gee wouldn't this be great if it wasn't for the write barrier."
+That's a lot of failure and with such failure comes food and lunch. I'm doing my usual whining "Gee wouldn't this be great if it wasn't for the write barrier."
 
 Meanwhile Austin has just spent an hour talking to some of the HW GC folks at Google and he was saying we should talk to them and try and figure out how to get HW GC support that might help. Then I started telling war stories about zero-fill cache lines, restartable atomic sequences, and other things that didn't fly when I was working for a large hardware company. Sure we got some stuff into a chip called the Itanium, but we couldn't get them into the more popular chips of today. So the moral of the story is simply to use the HW we have.
 
