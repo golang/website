@@ -12,7 +12,7 @@ Richard L. Hudson (Rick) is best known for his work in memory management includi
 
 Contact: rlh@golang.org
 
-Comments: See [[https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns][the discussion on golang-dev]]. 
+Comments: See [[https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns][the discussion on golang-dev]].
 
 ** The Transcript
 
@@ -459,3 +459,7 @@ Finally, and most importantly, we hope to ride Moore's law's tendency to favor R
 So that's it. Thank you.
 
 .image ismmkeynote/image33.png
+
+P.S. The Go team is looking to hire engineers to help develop and maintain the Go runtime and compiler toolchain.
+
+Interested? Have a look at our [[https://go-jobs-at-goog.firebaseapp.com][open positions]].
