@@ -422,7 +422,7 @@ Try it:
 
 .play -edit slices/prog120.go /START/,/END/
 
-Another new technique is in this example is that we initialize the slice by writing a composite literal,
+Another new technique in this example is that we initialize the slice by writing a composite literal,
 which consists of the type of the slice followed by its elements in braces:
 
 .code slices/prog120.go /slice := /
