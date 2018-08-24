@@ -19,9 +19,9 @@ Module support is considered experimental, and there are still a few rough edges
 Go 1.11 also adds an experimental port to [[https://golang.org/doc/go1.11#wasm][WebAssembly]] (`js/wasm`).
 This allows programmers to compile Go programs to a binary format compatible with four major web browsers.
 You can read more about WebAssembly (abbreviated “Wasm”) at [[https://webassembly.org/][webassembly.org]] and see [[https://golang.org/wiki/WebAssembly][this wiki page]] on how to get started with using Wasm with Go.
-Special thanks to [[https://github.com/neelance][Richard Musiol]] who led the effort.
+Special thanks to [[https://github.com/neelance][Richard Musiol]] for contributing the WebAssembly port!
 
-We want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the betas and release candidates.
+We also want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the betas and release candidates.
 Your contributions and diligence helped to ensure that Go 1.11 is as bug-free as possible.
 That said, if you do notice any problems, please [[https://golang.org/issues/new][file an issue]].
 
