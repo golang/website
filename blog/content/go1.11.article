@@ -1,0 +1,30 @@
+Go 1.11 is released
+24 Aug 2018
+
+Andrew Bonventre
+andybons@golang.org
+
+* Introduction
+
+Who says releasing on Friday is a bad idea?
+
+Today the Go team is happy to announce the release of Go 1.11.
+You can get it from the [[https://golang.org/dl/][download page]].
+
+There are many changes and improvements to the toolchain, runtime, and libraries, but two features stand out as being especially exciting: modules and WebAssembly support.
+
+This release adds preliminary support for a [[https://golang.org/doc/go1.11#modules][new concept called “modules,”]] an alternative to GOPATH with integrated support for versioning and package distribution.
+Module support is considered experimental, and there are still a few rough edges to smooth out, so please make liberal use of the [[https://golang.org/issue/new][issue tracker]].
+
+Go 1.11 also adds an experimental port to [[https://golang.org/doc/go1.11#wasm][WebAssembly]] (`js/wasm`).
+This allows programmers to compile Go programs to a binary format compatible with four major web browsers.
+You can read more about WebAssembly (abbreviated “Wasm”) at [[https://webassembly.org/][webassembly.org]] and see [[https://golang.org/wiki/WebAssembly][this wiki page]] on how to get started with using Wasm with Go.
+Special thanks to [[https://github.com/neelance][Richard Musiol]] who led the effort.
+
+We want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the betas and release candidates.
+Your contributions and diligence helped to ensure that Go 1.11 is as bug-free as possible.
+That said, if you do notice any problems, please [[https://golang.org/issues/new][file an issue]].
+
+For more detail about the changes in Go 1.11, see the [[https://golang.org/doc/go1.11][release notes]].
+
+Have a wonderful weekend and enjoy the release!
