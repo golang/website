@@ -1,0 +1,18 @@
+Go 2 Draft Designs
+28 Aug 2018
+Tags: community, video
+
+* Introduction
+
+Yesterday, at our annual Go contributor summit,
+attendees got a sneak peek at preliminary _drafts_ of
+possible designs for changes to error handling and generics.
+[[https://blog.golang.org/toward-go2][The development of Go 2]] was announced last year and we are excited to share updates with you today.
+
+For a quick overview, watch this short message we just played at Gophercon 2018:
+
+.iframe //www.youtube.com/embed/6wIP3rO6On8 315 560
+
+We invite everyone in the Go community to
+[[https://go.googlesource.com/proposal/+/master/design/go2draft.md][learn more about the designs]]
+and help us improve them. 
