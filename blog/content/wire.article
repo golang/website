@@ -55,7 +55,7 @@ Providers that are commonly used together can be grouped into `ProviderSets`. Fo
 
     var UserStoreSet = wire.ProviderSet(NewUserStore, NewDefaultConfig)
 
-Injectors are generated functions that call providers in dependency order. You write the injector's signature, including any needed inputs as arguments, and insert a call to wire.Build with the list of providers or provider sets that are needed to construct the end result:
+_Injectors_ are generated functions that call providers in dependency order. You write the injector's signature, including any needed inputs as arguments, and insert a call to `wire.Build` with the list of providers or provider sets that are needed to construct the end result:
 
     func initUserStore() (*UserStore, error) {
     	// We're going to get an error, because NewDB requires a *ConnectionInfo
