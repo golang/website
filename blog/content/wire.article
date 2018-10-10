@@ -103,7 +103,7 @@ As you can see, the output is very close to what a developer would write themsel
 
 * How can I get involved and learn more?
 
-The [[https://github.com/google/go-cloud/blob/master/wire/README.md][Wire README]] goes into more detail about how to use Wire and its more advanced features. There's also a [[https://github.com/google/go-cloud/tree/master/samples/tutorial][tutorial]] that walks through using Wire in a simple application.
+The [[https://github.com/google/go-cloud/blob/master/wire/README.md][Wire README]] goes into more detail about how to use Wire and its more advanced features. There's also a [[https://github.com/google/go-cloud/tree/master/samples/wire][tutorial]] that walks through using Wire in a simple application.
 
 We appreciate any input you have about your experience with Wire! [[https://github.com/google/go-cloud][Go Cloud's]] development is conducted on GitHub, so you can [[https://github.com/google/go-cloud/issues/new][file an issue]] to tell us what could be better. For updates and discussion about the project, join [[https://groups.google.com/forum/#!forum/go-cloud][the project’s mailing list]].
 
