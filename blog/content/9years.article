@@ -56,7 +56,7 @@ to better support inclusivity in the Go community.
 The Go community is truly global.
 At GopherCon Europe in Iceland this past summer, gophers literally spanned the gap between the continents.
 
-.image 9years-iceland.jpg 338 800
+.image 9years-iceland.jpg _ 800
 
 _(Photo_by_Winter_Francia.)_
 
@@ -84,7 +84,7 @@ The Go project has been increasing in the number of contributions from the commu
 The project hit a major milestone in Q2 2018 when, for the first time,
 we had more contributions coming from the community than the Go team.
 
-.image 9years-graph.png 371 600
+.image 9years-graph.png _ 600
 
 * Thank You
 
