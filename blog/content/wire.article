@@ -5,7 +5,7 @@ Robert van Gent
 
 * Overview
 
-The Go team recently [[https://blog.golang.org/go-cloud][announced]] the open source project [[https://github.com/google/go-cloud][Go Cloud]], with portable Cloud APIs and tools for [[https://cloud.google.com/open-cloud/][open cloud]] development. This post goes into more detail about Wire, a dependency injection tool provided with Go Cloud.
+The Go team recently [[https://blog.golang.org/go-cloud][announced]] the open source project [[https://github.com/google/go-cloud][Go Cloud]], with portable Cloud APIs and tools for [[https://cloud.google.com/open-cloud/][open cloud]] development. This post goes into more detail about Wire, a dependency injection tool used in Go Cloud.
 
 * What problem does Wire solve?
 
@@ -103,8 +103,8 @@ As you can see, the output is very close to what a developer would write themsel
 
 * How can I get involved and learn more?
 
-The [[https://github.com/google/go-cloud/blob/master/wire/README.md][Wire README]] goes into more detail about how to use Wire and its more advanced features. There's also a [[https://github.com/google/go-cloud/tree/master/samples/wire][tutorial]] that walks through using Wire in a simple application.
+The [[https://github.com/google/wire/blob/master/README.md][Wire README]] goes into more detail about how to use Wire and its more advanced features. There's also a [[https://github.com/google/wire/tree/master/_tutorial][tutorial]] that walks through using Wire in a simple application.
 
-We appreciate any input you have about your experience with Wire! [[https://github.com/google/go-cloud][Go Cloud's]] development is conducted on GitHub, so you can [[https://github.com/google/go-cloud/issues/new][file an issue]] to tell us what could be better. For updates and discussion about the project, join [[https://groups.google.com/forum/#!forum/go-cloud][the project’s mailing list]].
+We appreciate any input you have about your experience with Wire! [[https://github.com/google/wire][Wire's]] development is conducted on GitHub, so you can [[https://github.com/google/wire/issues/new/choose][file an issue]] to tell us what could be better. For updates and discussion about the project, join [[https://groups.google.com/forum/#!forum/go-cloud][the Go Cloud mailing list]].
 
 Thank you for taking the time to learn about Go Cloud's Wire. We’re excited to work with you to make Go the language of choice for developers building portable cloud applications.
