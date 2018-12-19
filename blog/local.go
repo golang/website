@@ -13,6 +13,10 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
+	"os/exec"
+	"path/filepath"
+	"strings"
 
 	"golang.org/x/tools/blog"
 )
@@ -22,22 +26,56 @@ var (
 	contentPath  = flag.String("content", "content/", "path to content files")
 	templatePath = flag.String("template", "template/", "path to template files")
 	staticPath   = flag.String("static", "static/", "path to static files")
+	godocPath    = flag.String("godoc", defaultGodocPath(), "path to lib/godoc static files")
 	reload       = flag.Bool("reload", false, "reload content on each page load")
 )
 
+func defaultGodocPath() string {
+	out, err := exec.Command("go", "list", "-f", "{{.Dir}}", "golang.org/x/tools/godoc").CombinedOutput()
+	if err != nil {
+		log.Printf("warning: locating -godoc directory: %v", err)
+		return ""
+	}
+	dir := strings.TrimSpace(string(out))
+	return filepath.Join(dir, "static")
+}
+
+// maybeStatic serves from one of the two static directories
+// (-static and -godoc) if possible, or else defers to the fallback handler.
+func maybeStatic(fallback http.Handler) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		p := r.URL.Path
+		if strings.Contains(p, ".") && !strings.HasSuffix(p, "/") {
+			f := filepath.Join(*staticPath, p)
+			if _, err := os.Stat(f); err == nil {
+				http.ServeFile(w, r, f)
+				return
+			}
+		}
+		if strings.HasPrefix(p, "/lib/godoc/") {
+			f := filepath.Join(*godocPath, p[len("/lib/godoc/"):])
+			if _, err := os.Stat(f); err == nil {
+				http.ServeFile(w, r, f)
+				return
+			}
+		}
+		fallback.ServeHTTP(w, r)
+	}
+}
+
 func newServer(reload bool, staticPath string, config blog.Config) (http.Handler, error) {
 	mux := http.NewServeMux()
+	var h http.Handler
 	if reload {
-		mux.HandleFunc("/", reloadingBlogServer)
+		h = http.HandlerFunc(reloadingBlogServer)
 	} else {
 		s, err := blog.NewServer(config)
 		if err != nil {
 			return nil, err
 		}
-		mux.Handle("/", s)
+		h = s
 	}
-	fs := http.FileServer(http.Dir(staticPath))
-	mux.Handle("/static/", http.StripPrefix("/static/", fs))
+	mux.Handle("/", maybeStatic(h))
 	return mux, nil
 }
 
