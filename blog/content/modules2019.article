@@ -190,7 +190,7 @@ future requests.
 A well-run mirror should be fast and reliable
 even when some origin servers have gone down.
 We are planning to launch a mirror service for publicly-available modules in 2019.
-JFrog’s GoCenter and Microsoft’s Athens projects are planning mirror services too.
+Other projects, like GoCenter and Athens, are planning mirror services too.
 (We anticipate that companies will have multiple options for running
 their own internal mirrors as well, but this post is focusing on public mirrors.)
 
