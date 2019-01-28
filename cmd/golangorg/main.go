@@ -36,12 +36,12 @@ import (
 	"runtime"
 	"strings"
 
-	"golang.org/x/website/cmd/golangorg/godoc"
-	"golang.org/x/website/cmd/golangorg/godoc/analysis"
-	"golang.org/x/website/cmd/golangorg/godoc/vfs"
-	"golang.org/x/website/cmd/golangorg/godoc/vfs/gatefs"
-	"golang.org/x/website/cmd/golangorg/godoc/vfs/mapfs"
-	"golang.org/x/website/cmd/golangorg/godoc/vfs/zipfs"
+	"golang.org/x/tools/godoc"
+	"golang.org/x/tools/godoc/analysis"
+	"golang.org/x/tools/godoc/vfs"
+	"golang.org/x/tools/godoc/vfs/gatefs"
+	"golang.org/x/tools/godoc/vfs/mapfs"
+	"golang.org/x/tools/godoc/vfs/zipfs"
 	"golang.org/x/website/content/static"
 )
 

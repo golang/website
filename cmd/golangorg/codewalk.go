@@ -29,8 +29,8 @@ import (
 	"text/template"
 	"unicode/utf8"
 
-	"golang.org/x/website/cmd/golangorg/godoc"
-	"golang.org/x/website/cmd/golangorg/godoc/vfs"
+	"golang.org/x/tools/godoc"
+	"golang.org/x/tools/godoc/vfs"
 )
 
 var codewalkHTML, codewalkdirHTML *template.Template
