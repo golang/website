@@ -21,8 +21,8 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
-	"golang.org/x/tools/godoc/env"
-	"golang.org/x/tools/internal/memcache"
+	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/memcache"
 )
 
 type server struct {

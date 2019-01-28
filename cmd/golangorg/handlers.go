@@ -21,9 +21,9 @@ import (
 	"text/template"
 
 	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/env"
-	"golang.org/x/tools/godoc/redirect"
 	"golang.org/x/tools/godoc/vfs"
+	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/redirect"
 )
 
 var (

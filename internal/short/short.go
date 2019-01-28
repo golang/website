@@ -23,7 +23,7 @@ import (
 	"regexp"
 
 	"cloud.google.com/go/datastore"
-	"golang.org/x/tools/internal/memcache"
+	"golang.org/x/website/internal/memcache"
 	"google.golang.org/appengine/user"
 )
 
