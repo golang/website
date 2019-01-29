@@ -213,10 +213,6 @@ func main() {
 		fs.Bind("/src", gatefs.New(vfs.OS(p), fsGate), "/src", vfs.BindAfter)
 	}
 
-	// adding ability to specify local doc directory
-	docPath := getFullPath("/src/golang.org/x/website/content/doc")
-	fs.Bind("/doc", gatefs.New(vfs.OS(docPath), fsGate), "/", vfs.BindBefore)
-
 	webroot := getFullPath("/src/golang.org/x/website")
 	fs.Bind("/robots.txt", gatefs.New(vfs.OS(webroot), fsGate), "/robots.txt", vfs.BindBefore)
 	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)
