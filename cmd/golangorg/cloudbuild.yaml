@@ -11,10 +11,10 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   args: [
     'build',
-    '-f=cmd/godoc/Dockerfile.prod',
+    '-f=cmd/golangorg/Dockerfile.prod',
     '--build-arg=GO_REF=${_GO_REF}',
-    '--build-arg=TOOLS_HEAD=${_TOOLS_HEAD}',
-    '--build-arg=TOOLS_CLEAN=${_TOOLS_CLEAN}',
+    '--build-arg=WEBSITE_HEAD=${_WEBSITE_HEAD}',
+    '--build-arg=WEBSITE_CLEAN=${_WEBSITE_CLEAN}',
     '--build-arg=DOCKER_TAG=${_DOCKER_TAG}',
     '--build-arg=BUILD_ENV=cloudbuild',
     '--tag=${_DOCKER_TAG}',

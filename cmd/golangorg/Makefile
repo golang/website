@@ -5,15 +5,16 @@
 .PHONY: usage
 
 GO_REF ?= release-branch.go1.11
-TOOLS_HEAD := $(shell git rev-parse HEAD)
-TOOLS_CLEAN := $(shell (git status --porcelain | grep -q .) && echo dirty || echo clean)
-ifeq ($(TOOLS_CLEAN),clean)
-	DOCKER_VERSION ?= $(TOOLS_HEAD)
+WEBSITE_HEAD := $(shell git rev-parse HEAD)
+WEBSITE_CLEAN := $(shell (git status --porcelain | grep -q .) && echo dirty || echo clean)
+ifeq ($(WEBSITE_CLEAN),clean)
+	DOCKER_VERSION ?= $(WEBSITE_HEAD)
 else
-	DOCKER_VERSION ?= $(TOOLS_HEAD)-dirty
+	DOCKER_VERSION ?= $(WEBSITE_HEAD)-dirty
 endif
 GCP_PROJECT := golang-org
-DOCKER_TAG := gcr.io/$(GCP_PROJECT)/godoc:$(DOCKER_VERSION)
+GCP_SERVICE := new-website
+DOCKER_TAG := gcr.io/$(GCP_PROJECT)/golangorg:$(DOCKER_VERSION)
 
 usage:
 	@echo "See Makefile and README.golangorg-app"
@@ -23,17 +24,17 @@ cloud-build: Dockerfile.prod
 	gcloud builds submit \
 		--project=$(GCP_PROJECT) \
 		--config=cloudbuild.yaml \
-		--substitutions=_GO_REF=$(GO_REF),_TOOLS_HEAD=$(TOOLS_HEAD),_TOOLS_CLEAN=$(TOOLS_CLEAN),_DOCKER_TAG=$(DOCKER_TAG) \
+		--substitutions=_GO_REF=$(GO_REF),_WEBSITE_HEAD=$(WEBSITE_HEAD),_WEBSITE_CLEAN=$(WEBSITE_CLEAN),_DOCKER_TAG=$(DOCKER_TAG) \
 		../.. # source code
 
 docker-build: Dockerfile.prod
 	# NOTE(cbro): move up in directory to include entire tools repo.
 	# NOTE(cbro): any changes made to this command must also be made in cloudbuild.yaml.
 	cd ../..; docker build \
-		-f=cmd/godoc/Dockerfile.prod \
+		-f=cmd/golangorg/Dockerfile.prod \
 		--build-arg=GO_REF=$(GO_REF) \
-		--build-arg=TOOLS_HEAD=$(TOOLS_HEAD) \
-		--build-arg=TOOLS_CLEAN=$(TOOLS_CLEAN) \
+		--build-arg=WEBSITE_HEAD=$(WEBSITE_HEAD) \
+		--build-arg=WEBSITE_CLEAN=$(WEBSITE_CLEAN) \
 		--build-arg=DOCKER_TAG=$(DOCKER_TAG) \
 		--build-arg=BUILD_ENV=local \
 		--tag=$(DOCKER_TAG) \
@@ -50,7 +51,7 @@ deploy:
 
 get-latest-url:
 	@gcloud app versions list \
-		--service=default \
+		--service=$(GCP_SERVICE) \
 		--project=$(GCP_PROJECT) \
 		--sort-by=~version.createTime \
 		--format='value(version.versionUrl)' \
@@ -58,7 +59,7 @@ get-latest-url:
 
 get-latest-id:
 	@gcloud app versions list \
-		--service=default \
+		--service=$(GCP_SERVICE) \
 		--project=$(GCP_PROJECT) \
 		--sort-by=~version.createTime \
 		--format='value(version.id)' \
@@ -70,11 +71,11 @@ regtest:
 		-run=Live
 
 publish: regtest
-	gcloud -q app services set-traffic default \
+	gcloud -q app services set-traffic $(GCP_SERVICE) \
 		--splits=$(shell make get-latest-id)=1 \
 		--project=$(GCP_PROJECT)
 
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 	@echo Stop and/or delete old versions:
-	@echo "https://console.cloud.google.com/appengine/versions?project=$(GCP_PROJECT)&serviceId=default&versionssize=50"
+	@echo "https://console.cloud.google.com/appengine/versions?project=$(GCP_PROJECT)&serviceId=$(GCP_SERVICE)&versionssize=50"
 	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

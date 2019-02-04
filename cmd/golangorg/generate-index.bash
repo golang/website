@@ -11,8 +11,8 @@
 
 set -e -u -x
 
-ZIPFILE=godoc.zip
-INDEXFILE=godoc.index
+ZIPFILE=golangorg.zip
+INDEXFILE=golangorg.index
 SPLITFILES=index.split.
 
 error() {
@@ -25,33 +25,33 @@ install() {
 }
 
 getArgs() {
-	if [ ! -v GODOC_DOCSET ]; then
-		GODOC_DOCSET="$(go env GOROOT)"
-		echo "GODOC_DOCSET not set explicitly, using GOROOT instead"
+	if [ ! -v GOLANGORG_DOCSET ]; then
+		GOLANGORG_DOCSET="$(go env GOROOT)"
+		echo "GOLANGORG_DOCSET not set explicitly, using GOROOT instead"
 	fi
 
 	# safety checks
-	if [ ! -d "$GODOC_DOCSET" ]; then
-		error "$GODOC_DOCSET is not a directory"
+	if [ ! -d "$GOLANGORG_DOCSET" ]; then
+		error "$GOLANGORG_DOCSET is not a directory"
 	fi
 
 	# reporting
-	echo "GODOC_DOCSET = $GODOC_DOCSET"
+	echo "GOLANGORG_DOCSET = $GOLANGORG_DOCSET"
 }
 
 makeZipfile() {
 	echo "*** make $ZIPFILE"
 	rm -f $ZIPFILE goroot
-	ln -s "$GODOC_DOCSET" goroot
+	ln -s "$GOLANGORG_DOCSET" goroot
 	zip -q -r $ZIPFILE goroot/* # glob to ignore dotfiles (like .git)
 	rm goroot
 }
 
 makeIndexfile() {
 	echo "*** make $INDEXFILE"
-	godoc=$(go env GOPATH)/bin/godoc
-	# NOTE: run godoc without GOPATH set. Otherwise third-party packages will end up in the index.
-	GOPATH= $godoc -write_index -goroot goroot -index_files=$INDEXFILE -zip=$ZIPFILE
+	golangorg=$(go env GOPATH)/bin/golangorg
+	# NOTE: run golangorg without GOPATH set. Otherwise third-party packages will end up in the index.
+	GOPATH= $golangorg -write_index -goroot goroot -index_files=$INDEXFILE -zip=$ZIPFILE
 }
 
 splitIndexfile() {

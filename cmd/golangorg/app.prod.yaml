@@ -1,11 +1,12 @@
+service: new-website
 runtime: custom
 env: flex
 
 env_variables:
-  GODOC_PROD: true
-  GODOC_ENFORCE_HOSTS: true
-  GODOC_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"
-  GODOC_ANALYTICS: UA-11222381-2
+  GOLANGORG_PROD: true
+  GOLANGORG_ENFORCE_HOSTS: true
+  GOLANGORG_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"
+  GOLANGORG_ANALYTICS: UA-11222381-2
   DATASTORE_PROJECT_ID: golang-org
 
 network:

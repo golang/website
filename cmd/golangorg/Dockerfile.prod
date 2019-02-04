@@ -6,7 +6,7 @@ FROM golang:1.11 AS build
 RUN apt-get update && apt-get install -y \
       zip # required for generate-index.bash
 
-# Check out the desired version of Go, both to build the godoc binary and serve
+# Check out the desired version of Go, both to build the golangorg binary and serve
 # as the goroot for content serving.
 ARG GO_REF
 RUN test -n "$GO_REF" # GO_REF is required.
@@ -15,22 +15,16 @@ RUN cd /goroot/src && ./make.bash
 
 ENV GOROOT /goroot
 ENV PATH=/goroot/bin:$PATH
+ENV GO111MODULE=on
 
 RUN go version
 
-RUN go get -v -d \
-      golang.org/x/net/context \
-      google.golang.org/appengine \
-      cloud.google.com/go/datastore \
-      golang.org/x/build \
-      github.com/gomodule/redigo/redis
+COPY . /website
 
-COPY . /go/src/golang.org/x/tools
+WORKDIR /website/cmd/golangorg
+RUN GOLANGORG_DOCSET=/goroot ./generate-index.bash
 
-WORKDIR /go/src/golang.org/x/website/cmd/golangorg
-RUN GODOC_DOCSET=/goroot ./generate-index.bash
-
-RUN go build -o /godoc -tags=golangorg golang.org/x/website/cmd/golangorg
+RUN go build -o /golangorg -tags=golangorg golang.org/x/website/cmd/golangorg
 
 # Clean up goroot for the final image.
 RUN cd /goroot && git clean -xdf
@@ -38,10 +32,10 @@ RUN cd /goroot && git clean -xdf
 # Add build metadata.
 RUN cd /goroot && echo "go repo HEAD: $(git rev-parse HEAD)" >> /goroot/buildinfo
 RUN echo "requested go ref: ${GO_REF}" >> /goroot/buildinfo
-ARG TOOLS_HEAD
-RUN echo "x/tools HEAD: ${TOOLS_HEAD}" >> /goroot/buildinfo
-ARG TOOLS_CLEAN
-RUN echo "x/tools clean: ${TOOLS_CLEAN}" >> /goroot/buildinfo
+ARG WEBSITE_HEAD
+RUN echo "x/website HEAD: ${WEBSITE_HEAD}" >> /goroot/buildinfo
+ARG WEBSITE_CLEAN
+RUN echo "x/website clean: ${WEBSITE_CLEAN}" >> /goroot/buildinfo
 ARG DOCKER_TAG
 RUN echo "image: ${DOCKER_TAG}" >> /goroot/buildinfo
 ARG BUILD_ENV
@@ -55,13 +49,13 @@ RUN rm -rf /goroot/.git
 FROM gcr.io/distroless/base
 
 WORKDIR /app
-COPY --from=build /godoc /app/
-COPY --from=build /go/src/golang.org/x/website/cmd/golangorg/hg-git-mapping.bin /app/
+COPY --from=build /golangorg /app/
+COPY --from=build /website/cmd/golangorg/hg-git-mapping.bin /app/
 
 COPY --from=build /goroot /goroot
 ENV GOROOT /goroot
 
-COPY --from=build /go/src/golang.org/x/website/cmd/golangorg/index.split.* /app/
-ENV GODOC_INDEX_GLOB index.split.*
+COPY --from=build /website/cmd/golangorg/index.split.* /app/
+ENV GOLANGORG_INDEX_GLOB index.split.*
 
-CMD ["/app/godoc"]
+CMD ["/app/golangorg"]

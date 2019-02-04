@@ -13,8 +13,8 @@ import (
 )
 
 var (
-	isProd       = boolEnv("GODOC_PROD")
-	enforceHosts = boolEnv("GODOC_ENFORCE_HOSTS")
+	isProd       = boolEnv("GOLANGORG_PROD")
+	enforceHosts = boolEnv("GOLANGORG_ENFORCE_HOSTS")
 )
 
 // IsProd reports whether the server is running in its production configuration

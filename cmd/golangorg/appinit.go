@@ -42,14 +42,14 @@ func main() {
 
 	var (
 		// .zip filename
-		zipFilename = os.Getenv("GODOC_ZIP")
+		zipFilename = os.Getenv("GOLANGORG_ZIP")
 
 		// goroot directory in .zip file
-		zipGoroot = os.Getenv("GODOC_ZIP_PREFIX")
+		zipGoroot = os.Getenv("GOLANGORG_ZIP_PREFIX")
 
 		// glob pattern describing search index files
 		// (if empty, the index is built at run-time)
-		indexFilenames = os.Getenv("GODOC_INDEX_GLOB")
+		indexFilenames = os.Getenv("GOLANGORG_INDEX_GLOB")
 	)
 
 	playEnabled = true
@@ -101,7 +101,7 @@ func main() {
 	pres.ShowPlayground = true
 	pres.DeclLinks = true
 	pres.NotesRx = regexp.MustCompile("BUG")
-	pres.GoogleAnalytics = os.Getenv("GODOC_ANALYTICS")
+	pres.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	readTemplates(pres)
 
@@ -160,9 +160,9 @@ func getClients() (*datastore.Client, *memcache.Client) {
 		log.Fatalf("datastore.NewClient: %v.", err)
 	}
 
-	redisAddr := os.Getenv("GODOC_REDIS_ADDR")
+	redisAddr := os.Getenv("GOLANGORG_REDIS_ADDR")
 	if redisAddr == "" {
-		log.Fatalf("Missing redis server for godoc in production mode. set GODOC_REDIS_ADDR environment variable.")
+		log.Fatalf("Missing redis server for golangorg in production mode. set GOLANGORG_REDIS_ADDR environment variable.")
 	}
 	memcacheClient := memcache.New(redisAddr)
 	return datastoreClient, memcacheClient
