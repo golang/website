@@ -13,7 +13,7 @@ else
 	DOCKER_VERSION ?= $(WEBSITE_HEAD)-dirty
 endif
 GCP_PROJECT := golang-org
-GCP_SERVICE := new-website
+GCP_SERVICE := default
 DOCKER_TAG := gcr.io/$(GCP_PROJECT)/golangorg:$(DOCKER_VERSION)
 
 usage:

@@ -1,4 +1,4 @@
-service: new-website
+service: default
 runtime: custom
 env: flex
 
