@@ -1,0 +1,20 @@
+Go 1.12 is released
+25 Feb 2019
+
+Andrew Bonventre
+andybons@golang.org
+
+* Introduction
+
+Today the Go team is happy to announce the release of Go 1.12.
+You can get it from the [[https://golang.org/dl/][download page]].
+
+For details about the changes in Go 1.12, see the [[https://golang.org/doc/go1.12][*Go*1.12*release*notes*]].
+
+Some of the highlights include [[https://golang.org/doc/go1.12#tls_1_3][opt-in support for TLS 1.3]], [[https://golang.org/doc/go1.12#modules][improved modules support]] (in preparation [[/modules2019][for being the default in Go 1.13]]), support for `windows/arm`, and [[https://golang.org/doc/go1.12#darwin][improved macOS & iOS forwards compatibility.]]
+
+As always, we also want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the betas and release candidates.
+Your contributions and diligence helped to ensure that Go 1.12 is as stable as possible.
+That said, if you do notice any problems, please [[https://golang.org/issues/new][file an issue]].
+
+Enjoy the new release!
