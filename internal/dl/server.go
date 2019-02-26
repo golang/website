@@ -78,10 +78,17 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.URL.Query().Get("mode") == "json" {
+		var releases []Release
+		switch r.URL.Query().Get("include") {
+		case "all":
+			releases = append(append(d.Stable, d.Archive...), d.Unstable...)
+		default:
+			releases = d.Stable
+		}
 		w.Header().Set("Content-Type", "application/json")
 		enc := json.NewEncoder(w)
 		enc.SetIndent("", " ")
-		if err := enc.Encode(d.Stable); err != nil {
+		if err := enc.Encode(releases); err != nil {
 			log.Printf("ERROR rendering JSON for releases: %v", err)
 		}
 		return

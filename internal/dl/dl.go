@@ -7,6 +7,18 @@
 // It accepts HTTP POST requests to create a new download metadata entity, and
 // lists entities with sorting and filtering.
 // It is designed to run only on the instance of godoc that serves golang.org.
+//
+// The package also serves the list of downloads at:
+//     https://golang.org/dl/
+//
+// An optional query param, mode=json, serves the list of stable release
+// downloads in JSON format:
+//     https://golang.org/dl/?mode=json
+//
+// An additional query param, include=all, when used with the mode=json
+// query param, will serve a full list of available downloads, including
+// stable, unstable, and archived releases in JSON format:
+//     https://golang.org/dl/?mode=json&include=all
 package dl
 
 import (
