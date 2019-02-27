@@ -148,8 +148,8 @@ information about Go releases.
         <p>
         Except as
         <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-        the content of this page is licensed under the Creative Commons
-        Attribution 3.0 License,<br>
+        the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative 
+        Commons Attribution 3.0 License</a>,<br>
         and code is licensed under a <a href="http://golang.org/LICENSE">BSD license</a>.<br>
         <a href="http://golang.org/doc/tos.html">Terms of Service</a> |
         <a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
