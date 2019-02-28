@@ -1,9 +1,14 @@
+// Copyright 2018 The Go Authors.  All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 // +build !appengine
 
 package main
 
 import (
 	"net/http/httptest"
+	"runtime"
 	"strings"
 	"testing"
 
@@ -11,6 +16,9 @@ import (
 )
 
 func TestServer(t *testing.T) {
+	if runtime.GOOS == "android" {
+		t.Skip("skipping on android; can't run go tool")
+	}
 	mux, err := newServer(false, "/static", blog.Config{
 		TemplatePath: "./template",
 	})
