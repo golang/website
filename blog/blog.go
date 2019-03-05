@@ -37,8 +37,13 @@ func init() {
 	}
 	http.HandleFunc("/blog", redirect)
 	http.HandleFunc("/blog/", redirect)
-	http.Handle("/fonts/", http.FileServer(http.Dir("static")))
-	http.Handle("/fonts.css", http.FileServer(http.Dir("static")))
+
+	// Keep these static file handlers in sync with app.yaml.
+	static := http.FileServer(http.Dir("static"))
+	http.Handle("/favicon.ico", static)
+	http.Handle("/fonts.css", static)
+	http.Handle("/fonts/", static)
+
 	http.Handle("/lib/godoc/", http.StripPrefix("/lib/godoc/", http.HandlerFunc(staticHandler)))
 }
 

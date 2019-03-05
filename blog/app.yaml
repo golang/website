@@ -1,7 +1,13 @@
 service: blog
-runtime: go
-api_version: go1.9
+runtime: go111
 
+env_variables:
+  GOLANGORG_CHECK_COUNTRY: true
+
+default_expiration: "7d"
+
+# Keep these static file handlers in sync with blog.go.
+# They're here for improved latency across global regions.
 handlers:
 - url: /favicon.ico
   static_files: static/favicon.ico
@@ -15,8 +21,4 @@ handlers:
   static_dir: static/fonts
   http_headers:
     Content-Type: application/font-woff
-- url: /.*
-  script: _go_app
   secure: always
-
-nobuild_files: ^(support|content)/

@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build !appengine
-
 // This file implements a stand-alone blog server.
 
 package main
@@ -81,6 +79,13 @@ func newServer(reload bool, staticPath string, config blog.Config) (http.Handler
 
 func main() {
 	flag.Parse()
+
+	if os.Getenv("GAE_ENV") == "standard" {
+		log.Println("running in App Engine Standard mode")
+		gaeMain()
+		return
+	}
+
 	config.ContentPath = *contentPath
 	config.TemplatePath = *templatePath
 	mux, err := newServer(*reload, *staticPath, config)
@@ -100,7 +105,7 @@ func main() {
 func reloadingBlogServer(w http.ResponseWriter, r *http.Request) {
 	s, err := blog.NewServer(config)
 	if err != nil {
-		http.Error(w, err.Error(), 500)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 	s.ServeHTTP(w, r)
