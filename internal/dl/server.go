@@ -252,7 +252,7 @@ func (h server) secret(ctx context.Context) string {
 			// The code is left here for SDK use and in case a fresh
 			// deployment is ever needed.  "gophers rule" is not the
 			// real key.
-			if env.IsProd() {
+			if env.RequireDLSecretKey() {
 				panic("lost key from datastore")
 			}
 			theKey.Secret = "gophers rule"

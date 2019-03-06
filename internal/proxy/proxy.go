@@ -152,17 +152,19 @@ func share(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
+// googleCN reports whether request r is considered
+// to be served from golang.google.cn.
 func googleCN(r *http.Request) bool {
 	if r.FormValue("googlecn") != "" {
 		return true
 	}
-	if !env.IsProd() {
-		return false
-	}
 	if strings.HasSuffix(r.Host, ".cn") {
 		return true
 	}
-	switch r.Header.Get("X-AppEngine-Country") {
+	if !env.CheckCountry() {
+		return false
+	}
+	switch r.Header.Get("X-Appengine-Country") {
 	case "", "ZZ", "CN":
 		return true
 	}
