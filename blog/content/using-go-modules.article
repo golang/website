@@ -379,13 +379,6 @@ Note that our module now depends on both `rsc.io/quote` and `rsc.io/quote/v3`:
 	rsc.io/quote/v3 v3.1.0
 	$
 
-Note that our module now depends on both `rsc.io/quote` and `rsc.io/quote/v3`:
-
-	$ go list -m rsc.io/q...
-	rsc.io/quote v1.5.2
-	rsc.io/quote/v3 v3.1.0
-	$
-
 Each different major version (`v1`, `v2`, and so on) of a Go module
 uses a different module path: starting at `v2`, the path must end in the major version.
 In the example, `v3` of `rsc.io/quote` is no longer `rsc.io/quote`: instead,
@@ -440,14 +433,14 @@ Reading the docs, we can see that `Hello` has become `HelloV3`:
 [[https://golang.org/issue/30778][known bug]] in the output;
 the displayed import path has incorrectly dropped the `/v3`.)
 
-We can update our use of `quote.Hello()` in `hello.go` to use `quoteV3.Hello()`:
+We can update our use of `quote.Hello()` in `hello.go` to use `quoteV3.HelloV3()`:
 
 	package hello
 
 	import quoteV3 "rsc.io/quote/v3"
 
 	func Hello() string {
-		return quoteV3.Hello()
+		return quoteV3.HelloV3()
 	}
 
 	func Proverb() string {
@@ -462,7 +455,7 @@ so we can undo that:
 	import "rsc.io/quote/v3"
 
 	func Hello() string {
-		return quote.Hello()
+		return quote.HelloV3()
 	}
 
 	func Proverb() string {
