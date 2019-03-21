@@ -14,7 +14,7 @@ Go’s
 [[https://blog.golang.org/versioning-proposal][new dependency management system]]
 that makes dependency version information explicit
 and easier to manage.
-This blog post is a tutorial to introduction to the basic operations needed
+This blog post is an introduction to the basic operations needed
 to get started using modules.
 A followup post will cover releasing modules for others to use.
 
