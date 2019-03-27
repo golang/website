@@ -18,7 +18,7 @@ For Go 1.11 and 1.12, we focused on improving the debugging experience on optimi
 
 * Debugging optimized code with Delve
 
-[[https://github.com/go-delve/delve][Delve]] is a debugger for Go on x86 supporting both Linux and macOS. Delve is aware of goroutines and other Go features and provides one of the best Go debugging experiences. Delve is also the debugging engine behind [[https://www.jetbrains.com/go/][GoLand]] and [[https://code.visualstudio.com/][VS Code]].
+[[https://github.com/go-delve/delve][Delve]] is a debugger for Go on x86 supporting both Linux and macOS. Delve is aware of goroutines and other Go features and provides one of the best Go debugging experiences. Delve is also the debugging engine behind [[https://www.jetbrains.com/go/][GoLand]], [[https://code.visualstudio.com/][VS Code]], and [[https://github.com/fatih/vim-go][Vim]].
 
 Delve normally rebuilds the code it is debugging with `-gcflags`"all=-N`-l"`, which disables inlining and most optimizations.  To debug optimized code with delve, first build the optimized binary, then use `dlv`exec`your_program` to debug it.  Or, if you have a core file from a crash, you can examine it with `dlv`core`your_program`your_core`. With 1.12 and the latest Delve releases, you should be able to examine many variables, even in optimized binaries.
 
