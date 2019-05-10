@@ -34,6 +34,7 @@ var xMap = map[string]xRepo{
 	"image":      {"https://go.googlesource.com/image", "git"},
 	"lint":       {"https://go.googlesource.com/lint", "git"}, // Not included at https://golang.org/pkg/#subrepo.
 	"mobile":     {"https://go.googlesource.com/mobile", "git"},
+	"mod":        {"https://go.googlesource.com/mod", "git"},
 	"net":        {"https://go.googlesource.com/net", "git"},
 	"oauth2":     {"https://go.googlesource.com/oauth2", "git"}, // Not included at https://golang.org/pkg/#subrepo.
 	"perf":       {"https://go.googlesource.com/perf", "git"},
