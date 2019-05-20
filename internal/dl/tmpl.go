@@ -9,89 +9,109 @@ package dl
 const templateHTML = `
 {{define "root"}}
 <!DOCTYPE html>
-<html>
-<head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Downloads - The Go Programming Language</title>
-        <link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
-        <script type="text/javascript">window.initFuncs = [];</script>
-	<style>
-		table.codetable {
-			margin-left: 20px; margin-right: 20px;
-			border-collapse: collapse;
-		}
-		table.codetable tr {
-			background-color: #f0f0f0;
-		}
-		table.codetable tr:nth-child(2n), table.codetable tr.first {
-			background-color: white;
-		}
-		table.codetable td, table.codetable th {
-			white-space: nowrap;
-			padding: 6px 10px;
-		}
-		table.codetable tt {
-			font-size: xx-small;
-		}
-		table.codetable tr.highlight td {
-			font-weight: bold;
-		}
-		a.downloadBox {
-			display: block;
-			color: #222;
-			border: 1px solid #375EAB;
-			border-radius: 5px;
-			background: #E0EBF5;
-			width: 280px;
-			float: left;
-			margin-left: 10px;
-			margin-bottom: 10px;
-			padding: 10px;
-		}
-		a.downloadBox:hover {
-			text-decoration: none;
-		}
-		.downloadBox .platform {
-			font-size: large;
-		}
-		.downloadBox .filename {
-			color: #375EAB;
-			font-weight: bold;
-			line-height: 1.5em;
-		}
-		a.downloadBox:hover .filename {
-			text-decoration: underline;
-		}
-		.downloadBox .size {
-			font-size: small;
-			font-weight: normal;
-		}
-		.downloadBox .reqs {
-			font-size: small;
-			font-style: italic;
-		}
-		.downloadBox .checksum {
-			font-size: 5pt;
-		}
-	</style>
-</head>
-<body>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00ADD8">
+<title>Downloads - The Go Programming Language</title>
+<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
+<script>window.initFuncs = [];</script>
+<style>
+  table.codetable {
+    margin-left: 20px; margin-right: 20px;
+    border-collapse: collapse;
+  }
+  table.codetable tr {
+    background-color: #f0f0f0;
+  }
+  table.codetable tr:nth-child(2n), table.codetable tr.first {
+    background-color: white;
+  }
+  table.codetable td, table.codetable th {
+    white-space: nowrap;
+    padding: 6px 10px;
+  }
+  table.codetable tt {
+    font-size: xx-small;
+  }
+  table.codetable tr.highlight td {
+    font-weight: bold;
+  }
+  a.downloadBox {
+    display: block;
+    color: #222;
+    border: 1px solid #375EAB;
+    border-radius: 5px;
+    background: #E0EBF5;
+    width: 280px;
+    float: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+  }
+  a.downloadBox:hover {
+    text-decoration: none;
+  }
+  .downloadBox .platform {
+    font-size: large;
+  }
+  .downloadBox .filename {
+    color: #375EAB;
+    font-weight: bold;
+    line-height: 1.5em;
+  }
+  a.downloadBox:hover .filename {
+    text-decoration: underline;
+  }
+  .downloadBox .size {
+    font-size: small;
+    font-weight: normal;
+  }
+  .downloadBox .reqs {
+    font-size: small;
+    font-style: italic;
+  }
+  .downloadBox .checksum {
+    font-size: 5pt;
+  }
+</style>
 
-<div id="topbar"><div class="container">
-
-<div class="top-heading"><a href="/">The Go Programming Language</a></div>
-<form method="GET" action="/search">
-<div id="menu">
-<a href="/doc/">Documents</a>
-<a href="/pkg/">Packages</a>
-<a href="/project/">The Project</a>
-<a href="/help/">Help</a>
-<a href="/blog/">Blog</a>
-<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
-</div>
-</form>
-
-</div></div>
+<header class="Header js-header">
+  <nav class="Header-nav">
+    <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
+    <button class="Header-menuButton js-headerMenuButton" aria-label="Main menu" aria-expanded="false">
+      <div class="Header-menuButtonInner">
+    </button>
+    <ul class="Header-menu">
+      <li class="Header-menuItem"><a href="/doc/">Documents</a></li>
+      <li class="Header-menuItem"><a href="/pkg/">Packages</a></li>
+      <li class="Header-menuItem"><a href="/project/">The Project</a></li>
+      <li class="Header-menuItem"><a href="/help/">Help</a></li>
+      {{if not .GoogleCN}}
+        <li class="Header-menuItem"><a href="/blog/">Blog</a></li>
+        <li class="Header-menuItem"><a href="https://play.golang.org/">Play</a></li>
+      {{end}}
+      <li class="Header-menuItem Header-menuItem--search">
+        <form class="HeaderSearch" role="search" action="/search">
+          <input class="HeaderSearch-input"
+                type="search"
+                name="q"
+                placeholder="Search"
+                aria-label="Search"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                required>
+          <button class="HeaderSearch-submit">
+            <!-- magnifying glass: --><svg class="HeaderSearch-icon" width="24" height="24" viewBox="0 0 24 24"><title>Search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          </button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</header>
 
 <div id="page">
 <div class="container">
@@ -148,7 +168,7 @@ information about Go releases.
         <p>
         Except as
         <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-        the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative 
+        the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative
         Commons Attribution 3.0 License</a>,<br>
         and code is licensed under a <a href="http://golang.org/LICENSE">BSD license</a>.<br>
         <a href="http://golang.org/doc/tos.html">Terms of Service</a> |
@@ -203,7 +223,6 @@ $(document).ready(function() {
   });
 });
 </script>
-</html>
 {{end}}
 
 {{define "releases"}}

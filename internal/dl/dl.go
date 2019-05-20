@@ -33,7 +33,7 @@ import (
 
 const (
 	downloadBaseURL = "https://dl.google.com/go/"
-	cacheKey        = "download_list_3" // increment if listTemplateData changes
+	cacheKey        = "download_list_4" // increment if listTemplateData changes
 	cacheDuration   = time.Hour
 )
 
@@ -174,6 +174,7 @@ var featuredFiles = []Feature{
 type listTemplateData struct {
 	Featured                  []Feature
 	Stable, Unstable, Archive []Release
+	GoogleCN                  bool
 }
 
 var (

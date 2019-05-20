@@ -40,6 +40,7 @@ var files = []string{
 	"example.html",
 	"godoc.html",
 	"godocs.js",
+	"images/go-logo-blue.svg",
 	"images/minus.gif",
 	"images/plus.gif",
 	"images/treeview-black-line.gif",
