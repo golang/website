@@ -13,17 +13,12 @@
 (function() {
 'use strict';
 
-// Mobile-friendly topbar menu
-$(function() {
-  var menu = $('#menu');
-  var menuButton = $('#menu-button');
-  var menuButtonArrow = $('#menu-button-arrow');
-  menuButton.click(function(event) {
-    menu.toggleClass('menu-visible');
-    menuButtonArrow.toggleClass('vertical-flip');
-    event.preventDefault();
-    return false;
-  });
+var headerEl = document.querySelector('.js-header');
+var menuButtonEl = document.querySelector('.js-headerMenuButton');
+menuButtonEl.addEventListener('click', function(e) {
+  e.preventDefault();
+  headerEl.classList.toggle('is-active');
+  menuButtonEl.setAttribute('aria-expanded', headerEl.classList.contains('is-active'));
 });
 
 /* Generates a table of contents: looks for h2 and h3 elements and generates
@@ -125,45 +120,6 @@ function bindToggleLink(el, prefix) {
 function bindToggleLinks(selector, prefix) {
   $(selector).each(function(i, el) {
     bindToggleLink(el, prefix);
-  });
-}
-
-function setupDropdownPlayground() {
-  if (!$('#page').is('.wide')) {
-    return; // don't show on front page
-  }
-  var button = $('#playgroundButton');
-  var div = $('#playground');
-  var setup = false;
-  button.toggle(function() {
-    button.addClass('active');
-    div.show();
-    if (setup) {
-      return;
-    }
-    setup = true;
-    playground({
-      'codeEl': $('.code', div),
-      'outputEl': $('.output', div),
-      'runEl': $('.run', div),
-      'fmtEl': $('.fmt', div),
-      'shareEl': $('.share', div),
-      'shareRedirect': '//play.golang.org/p/'
-    });
-  },
-  function() {
-    button.removeClass('active');
-    div.hide();
-  });
-  $('#menu').css('min-width', '+=60');
-
-  // Hide inline playground if we click somewhere on the page.
-  // This is needed in mobile devices, where the "Play" button
-  // is not clickable once the playground opens up.
-  $("#page").click(function() {
-    if (button.hasClass('active')) {
-      button.click();
-    }
   });
 }
 
@@ -374,7 +330,6 @@ $(document).ready(function() {
   bindToggleLinks(".overviewLink", "");
   bindToggleLinks(".examplesLink", "");
   bindToggleLinks(".indexLink", "");
-  setupDropdownPlayground();
   setupInlinePlayground();
   fixFocus();
   setupTypeInfo();
