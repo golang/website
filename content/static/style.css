@@ -289,7 +289,7 @@ div#nav table td {
   display: flex;
 }
 .Header-menuItem {
-  display: inline-block;
+  display: inline-flex;
 }
 .Header-menuItem:not(:last-of-type) {
   margin-bottom: 1rem;
@@ -318,10 +318,13 @@ div#nav table td {
 .HeaderSearch-input {
   -webkit-appearance: none;
   border: none;
+  border-radius: 0;
   box-sizing: border-box;
   display: block;
   flex: 1;
   font: inherit;
+  font-size: 16px; /* Prevents automatic zoom on mobile devices */
+  margin: 0;
   padding: 0.5rem;
 }
 .HeaderSearch-input::-webkit-search-decoration {
@@ -333,8 +336,10 @@ div#nav table td {
 .HeaderSearch-submit {
   background-color: #fff;
   border: none;
+  box-sizing: border-box;
   cursor: pointer;
-  padding-top: 0.1875rem;
+  margin: 0;
+  padding: 0.125rem 0.5rem 0 0.55rem;
   transition: background-color 200ms;
 }
 .HeaderSearch:focus-within .HeaderSearch-submit {
@@ -358,14 +363,16 @@ div#nav table td {
     display: none;
   }
   .Header-menu {
-    display: block;
+    display: flex;
+    flex-direction: row;
     width: auto;
   }
   .Header-menuItem:not(:last-of-type) {
     margin-bottom: 0;
     margin-right: 3rem;
   }
-  .Header-menuItem a:hover {
+  .Header-menuItem a:hover,
+  .Header-menuItem a:focus {
     text-decoration: underline;
   }
   .Header-menuItem--search,
@@ -374,6 +381,9 @@ div#nav table td {
   }
   .HeaderSearch-input {
     min-width: 5.625rem;
+  }
+  .HeaderSearch-submit {
+    padding: 0.125rem 0.5rem 0;
   }
 }
 @media only screen and (min-width: 57.5rem) {
@@ -866,7 +876,8 @@ a.error {
     font-size: 0.866rem;
   }
 
-  div#page > .container {
+  div#page > .container,
+  .Header-nav {
     padding: 0 0.625rem;
   }
 
