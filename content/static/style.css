@@ -292,7 +292,7 @@ div#nav table td {
   display: inline-flex;
 }
 .Header-menuItem:not(:last-of-type) {
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
 }
 .Header-menuItem,
 .Header-menuItem a:link,
@@ -368,8 +368,7 @@ div#nav table td {
     width: auto;
   }
   .Header-menuItem:not(:last-of-type) {
-    margin-bottom: 0;
-    margin-right: 3rem;
+    margin: 0 3rem 0 0;
   }
   .Header-menuItem a:hover,
   .Header-menuItem a:focus {
