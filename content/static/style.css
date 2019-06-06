@@ -391,21 +391,21 @@ div#nav table td {
   }
 }
 
-div#page {
+#page {
   width: 100%;
 }
-div#page > .container,
+#page > .container,
 .Header-nav {
   text-align: left;
   margin-left: auto;
   margin-right: auto;
   padding: 0 1.25rem;
 }
-div#page > .container,
+#page > .container,
 .Header-nav {
   max-width: 59.38rem;
 }
-div#page.wide > .container,
+#page.wide > .container,
 .Header-nav--wide {
   max-width: none;
 }
@@ -875,7 +875,7 @@ a.error {
     font-size: 0.866rem;
   }
 
-  div#page > .container,
+  #page > .container,
   .Header-nav {
     padding: 0 0.625rem;
   }

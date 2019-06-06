@@ -169,9 +169,9 @@ function setupInlinePlayground() {
 	});
 }
 
-// fixFocus tries to put focus to div#page so that keyboard navigation works.
+// fixFocus tries to put focus to #page so that keyboard navigation works.
 function fixFocus() {
-  var page = $('div#page');
+  var page = $('#page');
   var topbar = $('div#topbar');
   page.css('outline', 0); // disable outline when focused
   page.attr('tabindex', -1); // and set tabindex so that it is focusable

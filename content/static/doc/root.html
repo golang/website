@@ -1,48 +1,48 @@
 <!--{
-	"Path": "/",
-	"Template": true
+  "Path": "/",
+  "Template": true
 }-->
 
 <div class="left">
 
 <div id="learn">
-{{if not $.GoogleCN}}
-<a class="popout share">Pop-out</a>
-{{end}}
-<div class="rootHeading">Try Go</div>
-<div class="input">
-<textarea spellcheck="false" class="code">// You can edit this code!
+  {{if not $.GoogleCN}}
+    <a class="popout share">Pop-out</a>
+  {{end}}
+  <div class="rootHeading">Try Go</div>
+  <div class="input">
+  <textarea spellcheck="false" class="code" aria-label="Try Go">// You can edit this code!
 // Click here and start typing.
 package main
 
 import "fmt"
 
 func main() {
-	fmt.Println("Hello, 世界")
+  fmt.Println("Hello, 世界")
 }</textarea>
 </div>
 <div class="output">
-<pre>
+  <pre>
 Hello, 世界
-</pre>
+  </pre>
 </div>
 <div class="buttons">
-<a class="run" href="#" title="Run this code [shift-enter]">Run</a>
-{{if not $.GoogleCN}}
-<a class="share" href="#" title="Share this code">Share</a>
-<a class="tour" href="//tour.golang.org/" title="Learn Go from your browser">Tour</a>
-{{end}}
+  <a class="run" href="#" title="Run this code [shift-enter]">Run</a>
+  {{if not $.GoogleCN}}
+    <a class="share" href="#" title="Share this code">Share</a>
+    <a class="tour" href="//tour.golang.org/" title="Learn Go from your browser">Tour</a>
+  {{end}}
 </div>
 <div class="toys">
-<select>
-	<option value="hello.go">Hello, World!</option>
-	<option value="life.go">Conway's Game of Life</option>
-	<option value="fib.go">Fibonacci Closure</option>
-	<option value="peano.go">Peano Integers</option>
-	<option value="pi.go">Concurrent pi</option>
-	<option value="sieve.go">Concurrent Prime Sieve</option>
-	<option value="solitaire.go">Peg Solitaire Solver</option>
-	<option value="tree.go">Tree Comparison</option>
+<select aria-label="Code examples">
+  <option value="hello.go">Hello, World!</option>
+  <option value="life.go">Conway's Game of Life</option>
+  <option value="fib.go">Fibonacci Closure</option>
+  <option value="peano.go">Peano Integers</option>
+  <option value="pi.go">Concurrent pi</option>
+  <option value="sieve.go">Concurrent Prime Sieve</option>
+  <option value="solitaire.go">Peg Solitaire Solver</option>
+  <option value="tree.go">Tree Comparison</option>
 </select>
 </div>
 </div>
@@ -74,15 +74,17 @@ Linux, macOS, Windows, and more.
 <div class="left">
   <div id="video">
     <div class="rootHeading">Featured video</div>
-	<div class="js-frontpage-video" style="--aspect-ratio-padding: 58.07%;"><iframe width="415" height="241" src="//www.youtube.com/embed/ytEkHepK08c" frameborder="0" allowfullscreen></iframe></div>
+    <div style="--aspect-ratio-padding: 58.07%;">
+      <iframe width="415" height="241" src="https://www.youtube.com/embed/cQ7STILAS0M" frameborder="0" allowfullscreen></iframe>
+    </div>
   </div>
 </div>
 
 <div class="right">
-	<div id="blog">
-		<div class="rootHeading">Featured articles</div>
-		<div class="read"><a href="//blog.golang.org/">Read more</a></div>
-	</div>
+  <div id="blog">
+    <div class="rootHeading">Featured articles</div>
+    <div class="read"><a href="//blog.golang.org/">Read more</a></div>
+  </div>
 </div>
 {{end}}
 
@@ -90,75 +92,98 @@ Linux, macOS, Windows, and more.
 
 <script>
 (function() {
-	'use strict';
+  'use strict';
 
-	window.initFuncs.push(function() {
-		// Set up playground if enabled.
-		if (window.playground) {
-			window.playground({
-				"codeEl":        "#learn .code",
-				"outputEl":      "#learn .output",
-				"runEl":         "#learn .run",
-				"shareEl":       "#learn .share",
-				"shareRedirect": "//play.golang.org/p/",
-				"toysEl":        "#learn .toys select"
-			});
-		} else {
-			$('#learn').hide()
-		}
-	});
+  window.initFuncs.push(function() {
+    // Set up playground if enabled.
+    if (window.playground) {
+      window.playground({
+        "codeEl":        "#learn .code",
+        "outputEl":      "#learn .output",
+        "runEl":         "#learn .run",
+        "shareEl":       "#learn .share",
+        "shareRedirect": "//play.golang.org/p/",
+        "toysEl":        "#learn .toys select"
+      });
+    } else {
+      $('#learn').hide()
+    }
+  });
 
-	{{if not $.GoogleCN}}
+  {{if not $.GoogleCN}}
 
-	function readableTime(t) {
-		var m = ["January", "February", "March", "April", "May", "June", "July",
-			"August", "September", "October", "November", "December"];
-		var p = t.substring(0, t.indexOf("T")).split("-");
-		var d = new Date(p[0], p[1]-1, p[2]);
-		return d.getDate() + " " + m[d.getMonth()] + " " + d.getFullYear();
-	}
+  function readableTime(t) {
+    var m = ["January", "February", "March", "April", "May", "June", "July",
+      "August", "September", "October", "November", "December"];
+    var p = t.substring(0, t.indexOf("T")).split("-");
+    var d = new Date(p[0], p[1]-1, p[2]);
+    return d.getDate() + " " + m[d.getMonth()] + " " + d.getFullYear();
+  }
 
-	window.feedLoaded = function(result) {
-		var blog = document.getElementById("blog");
-		var read = blog.getElementsByClassName("read")[0];
-		for (var i = 0; i < result.length && i < 2; i++) {
-			var entry = result[i];
-			var title = document.createElement("a");
-			title.className = "title";
-			title.href = entry.Link;
-			title.innerHTML = entry.Title;
-			blog.insertBefore(title, read);
-			var extract = document.createElement("div");
-			extract.className = "extract";
-			extract.innerHTML = entry.Summary;
-			blog.insertBefore(extract, read);
-			var when = document.createElement("div");
-			when.className = "when";
-			when.innerHTML = "Published " + readableTime(entry.Time);
-			blog.insertBefore(when, read);
-		}
-	}
+  window.feedLoaded = function(result) {
+    var blog = document.getElementById("blog");
+    var read = blog.getElementsByClassName("read")[0];
+    for (var i = 0; i < result.length && i < 2; i++) {
+      var entry = result[i];
+      var title = document.createElement("a");
+      title.className = "title";
+      title.href = entry.Link;
+      title.rel = "noopener";
+      title.textContent = entry.Title;
+      blog.insertBefore(title, read);
+      var extract = document.createElement("div");
+      extract.className = "extract";
+      extract.innerHTML = entry.Summary;
+      // Ensure any cross-origin links have rel=noopener set.
+      var links = extract.querySelectorAll("a");
+      for (var j = 0; j < links.length; j++) {
+        links[j].rel = "noopener";
+      }
+      blog.insertBefore(extract, read);
+      var when = document.createElement("div");
+      when.className = "when";
+      when.textContent = "Published " + readableTime(entry.Time);
+      blog.insertBefore(when, read);
+    }
+  }
 
-	window.initFuncs.push(function() {
-		// Load blog feed.
-		$('<script/>').attr('text', 'text/javascript')
-			.attr('src', '//blog.golang.org/.json?jsonp=feedLoaded')
-			.appendTo('body');
+  window.initFuncs.push(function() {
+    // Load blog feed.
+    $('<script/>').attr('text', 'text/javascript')
+      .attr('src', '//blog.golang.org/.json?jsonp=feedLoaded')
+      .appendTo('body');
 
-		// Set the video at random.
-		var videos = [
-			{h: 241, s: "//www.youtube.com/embed/ytEkHepK08c"}, // Tour of Go
-			{h: 241, s: "//www.youtube.com/embed/f6kdp27TYZs"}, // Concurrency Patterns
-			{h: 233, s: "//player.vimeo.com/video/69237265"}    // Simple environment
-		];
-		var v = videos[Math.floor(Math.random()*videos.length)];
-		$('#video iframe').attr('height', v.h).attr('src', v.s);
-		// Compute the aspect ratio (as a percentage) of the video
-		// using the fixed width 415 and the height of the current video, v.h.
-		var ar = 100*v.h/415;
-		$('.js-frontpage-video').attr('style', '--aspect-ratio-padding: ' + ar + '%;');
-	});
+    // Set the video at random.
+    var videos = [
+      {
+        s: "https://www.youtube.com/embed/cQ7STILAS0M",
+        title: "Why Go is Successful by Creator Rob Pike",
+      },
+      {
+        s: "https://www.youtube.com/embed/0ReKdcpNyQg",
+        title: "GopherCon 2015: Robert Griesemer - The Evolution of Go",
+      },
+      {
+        s: "https://www.youtube.com/embed/sX8r6zATHGU",
+        title: "Steve Francia - Go: building on the shoulders of giants and stepping on a few toes",
+      },
+      {
+        s: "https://www.youtube.com/embed/rWJHbh6qO_Y",
+        title: "Brad Fitzpatrick Go 1.11 and beyond",
+      },
+      {
+        s: "https://www.youtube.com/embed/bmZNaUcwBt4",
+        title: "The Why of Go",
+      },
+      {
+        s: "https://www.youtube.com/embed/0Zbh_vmAKvk",
+        title: "GopherCon 2017: Russ Cox - The Future of Go",
+      },
+    ];
+    var v = videos[Math.floor(Math.random()*videos.length)];
+    $('#video iframe').attr('src', v.s).attr('title', v.title);
+  });
 
-	{{end}}
+  {{end}}
 })();
 </script>
