@@ -202,9 +202,13 @@ func main() {
 		defer rc.Close() // be nice (e.g., -writeIndex mode)
 		fs.Bind("/", zipfs.New(rc, *zipfile), *goroot, vfs.BindReplace)
 	}
+	// Use a local copy of root.html instead of the one in the main go repository.
+	// See golang.org/issue/29206 for more info.
 	if *templateDir != "" {
+		fs.Bind("/doc/root.html", vfs.OS(*templateDir), "/doc/root.html", vfs.BindReplace)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
+		fs.Bind("/doc/root.html", mapfs.New(static.Files), "/doc/root.html", vfs.BindReplace)
 		fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
 	}
 

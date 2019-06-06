@@ -36,6 +36,7 @@ var files = []string{
 	"codewalk.html",
 	"codewalkdir.html",
 	"dirlist.html",
+	"doc/root.html",
 	"error.html",
 	"example.html",
 	"godoc.html",
