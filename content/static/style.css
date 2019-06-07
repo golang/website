@@ -64,7 +64,7 @@ pre .ln {
 a,
 .exampleHeading .text,
 .expandAll {
-  color: #375eab;
+  color: #007d9c;
   text-decoration: none;
 }
 a:hover,
@@ -106,8 +106,7 @@ pre {
 h1,
 h2,
 h3,
-h4,
-.rootHeading {
+h4 {
   margin: 1.25rem 0 1.25rem;
   padding: 0;
   color: #202224;
@@ -144,10 +143,6 @@ h4 {
 }
 h4 {
   font-size: 1rem;
-}
-.rootHeading {
-  font-size: 1.25rem;
-  margin: 0;
 }
 
 h2 > span,
@@ -201,6 +196,49 @@ div#nav table td {
   cursor: pointer;
   float: left;
   margin: 1.25rem 0;
+}
+
+#page {
+  width: 100%;
+}
+#page > .container,
+.Header-nav {
+  text-align: left;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 1.25rem;
+}
+#page > .container,
+.Header-nav {
+  max-width: 59.38rem;
+}
+#page.wide > .container,
+.Header-nav--wide {
+  max-width: none;
+}
+div#footer {
+  text-align: center;
+  color: #666;
+  font-size: 0.875rem;
+  margin: 2.5rem 0;
+}
+
+div#playground .buttons a {
+  background: #375eab;
+  border: 0.0625rem solid #757575;
+  color: white;
+}
+.download {
+  width: 9.375rem;
+}
+
+::-webkit-input-placeholder {
+  color: #7f7f7f;
+  opacity: 1;
+}
+::placeholder {
+  color: #7f7f7f;
+  opacity: 1;
 }
 
 .Header {
@@ -391,226 +429,223 @@ div#nav table td {
   }
 }
 
-#page {
-  width: 100%;
-}
-#page > .container,
-.Header-nav {
-  text-align: left;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 1.25rem;
-}
-#page > .container,
-.Header-nav {
-  max-width: 59.38rem;
-}
-#page.wide > .container,
-.Header-nav--wide {
-  max-width: none;
-}
-div#plusone {
-  float: right;
-  clear: right;
-  margin-top: 0.3125rem;
-}
-
-div#footer {
-  text-align: center;
-  color: #666;
-  font-size: 0.875rem;
-  margin: 2.5rem 0;
-}
-
-div#learn .buttons a,
-div.play .buttons a,
-div#blog .read a {
-  padding: 0.625rem;
-  text-decoration: none;
-  font-size: 1rem;
+.Button,
+.Button:link,
+.Button:visited {
+  align-items: center;
+  background-color: #f7f9fa;
+  border: none;
   border-radius: 0.1875rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #007d9c;
+  cursor: pointer;
+  display: inline-flex;
+  font: bold 0.875rem Roboto, sans-serif;
+  height: 2.375rem;
+  padding: 0 0.625rem;
+  justify-content: center;
+  min-width: 4.063rem;
+  text-decoration: none;
 }
-div#playground .buttons a {
-  background: #375eab;
-  border: 0.0625rem solid #757575;
-  color: white;
+.Button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
-a#start,
-div#learn .buttons a,
-div.play .buttons a,
-div#blog .read a {
-  color: #222;
-  border: 0.0625rem solid #375eab;
-  background: #e0ebf5;
+.Button--primary,
+.Button--primary:link,
+.Button--primary:visited {
+  border: 0.0625rem solid #00add8;
 }
-.download {
-  width: 9.375rem;
-}
-
-::-webkit-input-placeholder {
-  color: #7f7f7f;
-  opacity: 1;
-}
-::placeholder {
-  color: #7f7f7f;
-  opacity: 1;
-}
-
-div.left {
-  float: left;
-  clear: left;
-  margin-right: 2.5%;
-}
-div.right {
-  float: right;
-  clear: right;
-  margin-left: 2.5%;
-}
-div.left,
-div.right {
-  width: 45%;
+.Button--big,
+.Button--big:link,
+.Button--big:visited {
+  background-color: #7fd5ea;
+  border-radius: 0.3125rem;
+  color: #202224;
+  font-size: 1.5rem;
+  height: 4rem;
+  justify-content: center;
 }
 
-div#learn,
-div#about {
-  padding-top: 1.25rem;
+.HomeContainer {
+  align-items: top;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
-div#learn h2,
-div#about {
-  margin: 0;
+.HomeContainer * {
+  box-sizing: border-box;
 }
-div#about {
-  font-size: 1.25rem;
-  margin: 0 auto 1.875rem;
+
+.HomeSection {
+  flex: 0 0 100%;
+  margin-bottom: 2.5rem;
+  padding: 0 1rem;
 }
-div#gopher {
-  background: url(/doc/gopher/frontpage.png) no-repeat;
+.HomeSection-header {
+  background: none;
+  color: #202224;
+  margin: 0 0 0.625rem 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.Hero-header {
+  font-size: 1.5rem;
+  font-weight: normal;
+  line-height: inherit;
+  margin: 0 0 1.875rem;
+}
+.Hero-gopher {
+  background: url('/lib/godoc/images/home-gopher.png') no-repeat;
   background-position: center top;
+  display: block;
   height: 9.688rem;
   max-height: 200px; /* Setting in px to prevent the gopher from blowing up in very high default font-sizes */
 }
-a#start {
-  display: block;
-  padding: 0.625rem;
-
+.HeroDownloadButton,
+.Hero-description {
   text-align: center;
-  text-decoration: none;
-  border-radius: 0.3125rem;
 }
-a#start .big {
-  display: block;
-  font-weight: bold;
-  font-size: 1.25rem;
+.HeroDownloadButton,
+.HeroDownloadButton:link,
+.HeroDownloadButton:visited {
+  display: flex;
+  margin-bottom: 0.5rem;
 }
-a#start .desc {
-  display: block;
+.HeroDownloadButton-image {
+  height: 2rem;
+  margin-right: 2rem;
+  width: 2rem;
+}
+.Hero-description {
+  color: #616161;
   font-size: 0.875rem;
-  font-weight: normal;
-  margin-top: 0.3125rem;
+  margin: 0;
+}
+@media only screen and (min-width: 915px) {
+  .HomeSection {
+    flex: 0 0 430px;
+    padding: 0;
+  }
+  .Hero,
+  .Playground {
+    margin-top: 1rem;
+  }
 }
 
-div#learn .popout {
-  float: right;
-  display: block;
-  cursor: pointer;
-  font-size: 0.75rem;
-  background: url(/doc/share.png) no-repeat;
-  background-position: right center;
-  padding: 0.375rem 1.688rem;
+.Playground-headerContainer {
+  align-items: baseline;
+  display: flex;
+  justify-content: space-between;
 }
-div#learn pre,
-div#learn textarea {
+.Playground-popout {
+  background: url('/lib/godoc/images/play-link.svg') no-repeat;
+  background-position: right center;
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  padding: 0 1.688rem;
+}
+.Playground-input,
+.Playground-output {
   padding: 0;
   margin: 0;
   font-family: Menlo, monospace;
   font-size: 0.875rem;
 }
-div#learn .input {
-  padding: 0.625rem;
-  margin-top: 0.625rem;
-  height: 9.375rem;
-
+.Playground-inputContainer {
   border-top-left-radius: 0.3125rem;
   border-top-right-radius: 0.3125rem;
+  overflow: hidden;
+  height: 10.63rem;
 }
-div#learn .input textarea {
+.Playground-input {
   width: 100%;
   height: 100%;
   border: none;
   outline: none;
   resize: none;
-}
-div#learn .output {
-  border-top: none !important;
-
   padding: 0.625rem;
-  height: 3.688rem;
-  overflow: auto;
-
+}
+.Playground-outputContainer {
   border-bottom-right-radius: 0.3125rem;
   border-bottom-left-radius: 0.3125rem;
+  border-top: none !important;
+  padding: 0.625rem;
+  height: 5rem;
+  margin-bottom: 1rem;
+  overflow: auto;
 }
-div#learn .output pre {
+.Playground-output {
   padding: 0;
   border-radius: 0;
 }
-div#learn .input,
-div#learn .input textarea,
-div#learn .output,
-div#learn .output pre {
-  background: #ffffd8;
+.Playground-inputContainer,
+.Playground-input,
+.Playground-outputContainer,
+.Playground-output {
+  background: #f7f9fa;
 }
-div#learn .input,
-div#learn .output {
-  border: 0.0625rem solid #375eab;
+.Playground-inputContainer,
+.Playground-outputContainer {
+  border: 0.0625rem solid #c0c2c3;
 }
-div#learn .buttons {
-  float: right;
-  padding: 1.25rem 0 0.625rem 0;
-  text-align: right;
+.Playground-controls {
+  display: flex;
+  flex-wrap: wrap;
 }
-div#learn .buttons a {
-  height: 1rem;
-  margin-left: 0.3125rem;
-  padding: 0.625rem;
+.Playground-buttons {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  justify-content: space-between;
 }
-div#learn .toys {
-  margin-top: 0.5rem;
-}
-div#learn .toys select {
+.Playground-selectExample {
+  background-color: white;
+  border-radius: 3px;
+  border: 0.0625rem solid #979797;
+  font-family: inherit;
   font-size: 0.875rem;
-  border: 0.0625rem solid #375eab;
-  margin: 0;
+  height: 2.375rem;
+  margin: 0 0 0.5rem 0;
+  width: 100%;
 }
-div#learn .output .exit {
-  display: none;
+.Playground-secondaryButtons {
+  white-space: nowrap;
+}
+.Playground-secondaryButtons .Button:not(:first-child) {
+  margin-left: 0.4375rem;
+}
+@media only screen and (min-width: 445px) {
+  .Playground-outputContainer {
+    margin-bottom: 1.688rem;
+  }
+  .Playground-controls {
+    flex-wrap: nowrap;
+  }
+  .Playground-selectExample {
+    margin: 0 0.4375rem 0 0;
+    width: auto;
+  }
 }
 
-div#video {
-  max-width: 100%;
-}
-div#blog,
-div#video {
-  margin-top: 2.5rem;
-}
-div#blog > a,
-div#blog > div,
-div#blog > h2,
-div#video > a,
-div#video > div,
-div#video > h2 {
-  margin-bottom: 0.625rem;
-}
-div#blog .title,
-div#video .title {
+.Blog-title {
   display: block;
   font-size: 1.25rem;
+  font-weight: normal;
+  margin: 0;
 }
-div#blog .when {
+.Blog-title,
+.Blog-extract,
+.Blog-when {
+  margin-bottom: 0.625rem;
+}
+.Blog-when {
   color: #666;
   font-size: 0.875rem;
 }
-div#blog .read {
+.Blog-footer {
   text-align: right;
 }
 
@@ -620,7 +655,6 @@ div#blog .read {
     overflow: hidden;
     padding-top: var(--aspect-ratio-padding);
   }
-
   [style*='--aspect-ratio-padding:'] > * {
     position: absolute;
     top: 0;
@@ -720,22 +754,19 @@ div.play .input,
 div.play .input textarea,
 div.play .output,
 div.play .output pre {
-  background: #ffffd8;
+  background: #f7f9fa;
 }
 div.play .input,
 div.play .output {
-  border: 0.0625rem solid #375eab;
+  border: 0.0625rem solid #c0c2c3;
 }
 div.play .buttons {
   float: right;
-  padding: 1.25rem 0 0.625rem 0;
+  padding: 0.625rem 0;
   text-align: right;
 }
-div.play .buttons a {
-  height: 1rem;
+div.play .buttons .Button {
   margin-left: 0.3125rem;
-  padding: 0.625rem;
-  cursor: pointer;
 }
 .output .stderr {
   color: #933;
@@ -845,19 +876,6 @@ a.error {
   padding: 0.625rem;
   text-align: center;
   border-radius: 0.3125rem;
-}
-
-@media (max-width: 47.5em) {
-  .container .left,
-  .container .right {
-    width: auto;
-    float: none;
-  }
-
-  div#about {
-    max-width: 31.25rem;
-    text-align: center;
-  }
 }
 
 @media (max-width: 43.75em) {
