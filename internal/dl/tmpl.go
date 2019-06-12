@@ -133,6 +133,16 @@ See the <a href="/doc/devel/release.html">release history</a> for more
 information about Go releases.
 </p>
 
+<p>
+  As of Go 1.13, the go command by default downloads and authenticates
+  modules using the Go module mirror and Go checksum database run by Google. See
+  <a href="https://proxy.golang.org/privacy">https://proxy.golang.org/privacy</a>
+  for privacy information about these services and the
+  <a href="/cmd/go/#hdr-Module_downloading_and_verification">go command documentation</a>
+  for configuration details including how to disable the use of these servers or use
+  different ones.
+</p>
+
 {{with .Featured}}
 <h3 id="featured">Featured downloads</h3>
 {{range .}}
