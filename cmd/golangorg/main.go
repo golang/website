@@ -206,9 +206,11 @@ func main() {
 	// See golang.org/issue/29206 for more info.
 	if *templateDir != "" {
 		fs.Bind("/doc/root.html", vfs.OS(*templateDir), "/doc/root.html", vfs.BindReplace)
+		fs.Bind("/doc/copyright.html", vfs.OS(*templateDir), "/doc/copyright.html", vfs.BindReplace)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
 		fs.Bind("/doc/root.html", mapfs.New(static.Files), "/doc/root.html", vfs.BindReplace)
+		fs.Bind("/doc/copyright.html", mapfs.New(static.Files), "/doc/copyright.html", vfs.BindReplace)
 		fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
 	}
 

@@ -369,6 +369,7 @@ function makeAnchor(json) {
 
 function showLowFrame(html) {
   var lowframe = document.getElementById('lowframe');
+  lowframe.style.display = "block";
   lowframe.style.height = "200px";
   lowframe.innerHTML = "<p style='text-align: left;'>" + html + "</p>\n" +
       "<div onclick='hideLowFrame()' style='position: absolute; top: 0; right: 0; cursor: pointer;'>✘</div>"
@@ -376,6 +377,7 @@ function showLowFrame(html) {
 
 document.hideLowFrame = function() {
   var lowframe = document.getElementById('lowframe');
+  lowframe.style.display = 'none';
   lowframe.style.height = "0px";
 }
 

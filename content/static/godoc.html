@@ -46,6 +46,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 ...
 </div><!-- #lowframe -->
 
+<body class="Site">
 <header class="Header js-header">
   <nav class="Header-nav {{if .Title}}Header-nav--wide{{end}}">
     <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
@@ -84,7 +85,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
   </nav>
 </header>
 
-<main id="page"{{if .Title}} class="wide"{{end}}>
+<main id="page" class="Site-content{{if .Title}} wide{{end}}">
 <div class="container">
 
 {{if or .Title .SrcPath}}
@@ -111,18 +112,22 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 {{/* Body is HTML-escaped elsewhere */}}
 {{printf "%s" .Body}}
 
-<div id="footer">
-Build version {{html .Version}}.<br>
-Except as <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-the content of this page is licensed under the
-<a href="https://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 License</a>,
-and code is licensed under a <a href="/LICENSE">BSD license</a>.<br>
-<a href="/doc/tos.html">Terms of Service</a> |
-<a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
-</div>
-
 </div><!-- .container -->
 </main><!-- #page -->
+<footer>
+  <div class="Footer {{if .Title}}Footer--wide{{end}}">
+    <img class="Footer-gopher" src="/lib/godoc/images/footer-gopher.jpg" alt="The Go Gopher">
+    <ul class="Footer-links">
+      <li class="Footer-link"><a href="/doc/copyright.html">Copyright</a></li>
+      <li class="Footer-link"><a href="/doc/tos.html">Terms of Service</a></li>
+      <li class="Footer-link"><a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a></li>
+      <li class="Footer-link"><a href="http://golang.org/issues/new?title=x/website:" target="_blank" rel="noopener">Report a website issue</a></li>
+    </ul>
+    <a class="Footer-googleLogo" href="https://google.com">
+      <img class="Footer-googleLogoImg" src="/lib/godoc/images/google-logo.svg" alt="Google logo">
+    </a>
+  </div>
+</footer>
 {{if .GoogleAnalytics}}
 <script>
 (function() {

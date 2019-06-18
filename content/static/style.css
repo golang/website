@@ -198,6 +198,14 @@ div#nav table td {
   margin: 1.25rem 0;
 }
 
+.Site {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+.Site-content {
+  flex: 1;
+}
 #page {
   width: 100%;
 }
@@ -209,18 +217,14 @@ div#nav table td {
   padding: 0 1.25rem;
 }
 #page > .container,
-.Header-nav {
+.Header-nav,
+.Footer {
   max-width: 59.38rem;
 }
 #page.wide > .container,
-.Header-nav--wide {
+.Header-nav--wide,
+.Footer--wide {
   max-width: none;
-}
-div#footer {
-  text-align: center;
-  color: #666;
-  font-size: 0.875rem;
-  margin: 2.5rem 0;
 }
 
 div#playground .buttons a {
@@ -665,6 +669,58 @@ div#playground .buttons a {
   }
 }
 
+.Footer {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+  position: relative;
+}
+.Footer-gopher {
+  bottom: 0;
+  left: 1.25rem;
+  position: absolute;
+  width: 5rem;
+}
+.Footer-links {
+  flex: 1;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.Footer-link {
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+.Footer-link + .Footer-link {
+  margin-top: 0.5rem;
+}
+.Footer-googleLogo {
+  bottom: 0.8125rem;
+  position: absolute;
+  right: 1.25rem;
+}
+.Footer-googleLogoImg {
+  display: block;
+  height: 1.5rem;
+  width: 4.5rem;
+}
+@media only screen and (min-width: 50rem) {
+  .Footer-links {
+    padding-left: 6.25rem;
+    text-align: left;
+  }
+  .Footer-link {
+    display: inline;
+  }
+  .Footer-link + .Footer-link {
+    border-left: 0.0625rem solid #3e4042;
+    margin-left: 0.75rem;
+    padding-left: 0.75rem;
+  }
+}
+
 .toggleButton {
   cursor: pointer;
 }
@@ -877,6 +933,9 @@ a.error {
   padding: 0.625rem;
   text-align: center;
   border-radius: 0.3125rem;
+}
+#lowframe {
+  display: none;
 }
 
 @media (max-width: 43.75em) {
