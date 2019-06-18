@@ -523,7 +523,7 @@ div#playground .buttons a {
   font-size: 0.875rem;
   margin: 0;
 }
-@media only screen and (min-width: 915px) {
+@media only screen and (min-width: 57.1875rem) {
   .HomeSection {
     flex: 0 0 430px;
     padding: 0;
@@ -605,8 +605,9 @@ div#playground .buttons a {
   background-color: white;
   border-radius: 3px;
   border: 0.0625rem solid #979797;
+  color: inherit;
   font-family: inherit;
-  font-size: 0.875rem;
+  font-size: 16px; /* Prevents automatic zoom on mobile devices */
   height: 2.375rem;
   margin: 0 0 0.5rem 0;
   width: 100%;
@@ -617,7 +618,7 @@ div#playground .buttons a {
 .Playground-secondaryButtons .Button:not(:first-child) {
   margin-left: 0.4375rem;
 }
-@media only screen and (min-width: 445px) {
+@media only screen and (min-width: 27.8125rem) {
   .Playground-outputContainer {
     margin-bottom: 1.688rem;
   }
