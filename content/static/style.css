@@ -125,7 +125,6 @@ h2 {
   padding: 0.5rem;
   line-height: 1.25;
   font-weight: normal;
-  overflow: auto;
   overflow-wrap: break-word;
 }
 h2 a {
@@ -134,7 +133,6 @@ h2 a {
 h3 {
   font-size: 1.25rem;
   line-height: 1.25;
-  overflow: auto;
   overflow-wrap: break-word;
 }
 h3,
