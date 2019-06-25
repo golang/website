@@ -1,0 +1,4 @@
+baseURL = "https://go-dev-staging.app/"
+languageCode = "en"
+title = "go.dev"
+theme = "default"

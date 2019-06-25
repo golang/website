@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile.firebase', '-t', 'gcr.io/$PROJECT_ID/firebase', '.']
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile.hugo', '-t', 'gcr.io/$PROJECT_ID/hugo', '.']
+  - name: 'gcr.io/$PROJECT_ID/hugo'
+  - name: 'gcr.io/$PROJECT_ID/firebase'
+    entrypoint: 'bash'
+    args: ['-c', 'firebase deploy -P $$PROJECT_ID --token $$FIREBASE_TOKEN']
+    env:
+      - 'PROJECT_ID=$PROJECT_ID'
+    secretEnv: ['FIREBASE_TOKEN']
+images:
+  - 'gcr.io/$PROJECT_ID/firebase'
+  - 'gcr.io/$PROJECT_ID/hugo'
+secrets:
+  - kmsKeyName: projects/go-dev-staging/locations/global/keyRings/default-ring/cryptoKeys/default-key
+    secretEnv:
+      FIREBASE_TOKEN: CiQACK2Cxmn6y6EYHlC2RF3D0tNSYx21qYOhYtJlxhnXEIC3QrkSVQA78cuPO23Kod2ov2uE7ud7O3Wul64INE3X/NMZfS/xe3CvdoM/i3tDx8WB8rHVB4rJkZE4jFCF0iM10FazcR8dXXAj9Wb7bvH6e1gGUQyUb2tpZXk=

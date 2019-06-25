@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="{{$.Site.LanguageCode | default "en"}}">
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="/css/styles.css">
+<title>{{$.Site.Title}}</title>
+<body class="Site">
+<header>Header</header>
+<main class="Site-content">{{block "main" .}}{{end}}</main>
+<footer>Footer</footer>
