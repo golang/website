@@ -255,25 +255,25 @@ div#playground .buttons a {
 
 /* Style download button on doc/install page */
 a#start {
-    background: #E0EBF5;
-    border: 0.0625rem solid #375EAB;
-    border-radius: 0.3125rem;
-    color: #222;
-    display: block;
-    padding: 0.625rem;
-    text-align: center;
-    text-decoration: none;
+  background: #e0ebf5;
+  border: 0.0625rem solid #375eab;
+  border-radius: 0.3125rem;
+  color: #222;
+  display: block;
+  padding: 0.625rem;
+  text-align: center;
+  text-decoration: none;
 }
 a#start .big {
-    display: block;
-    font-size: 1.25rem;
-    font-weight: bold;
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
 }
 a#start .desc {
-    display: block;
-    font-size: 0.875rem;
-    font-weight: normal;
-    margin-top: 0.3125rem;
+  display: block;
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-top: 0.3125rem;
 }
 
 .download {
