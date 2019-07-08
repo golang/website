@@ -19,7 +19,8 @@ const templateHTML = `
 <script>window.initFuncs = [];</script>
 <style>
   table.codetable {
-    margin-left: 20px; margin-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     border-collapse: collapse;
   }
   table.codetable tr {
@@ -57,7 +58,7 @@ const templateHTML = `
     font-size: large;
   }
   .downloadBox .filename {
-    color: #375EAB;
+    color: #007d9c;
     font-weight: bold;
     line-height: 1.5em;
   }
@@ -76,7 +77,7 @@ const templateHTML = `
     font-size: 5pt;
   }
 </style>
-
+<body class="Site">
 <header class="Header js-header">
   <nav class="Header-nav">
     <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
@@ -113,7 +114,7 @@ const templateHTML = `
   </nav>
 </header>
 
-<div id="page">
+<main id="page" class="Site-content">
 <div class="container">
 
 <h1>Downloads</h1>
@@ -174,20 +175,22 @@ information about Go releases.
 </div>
 {{end}}
 
-<div id="footer">
-        <p>
-        Except as
-        <a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-        the content of this page is licensed under the <a href="https://creativecommons.org/licenses/by/3.0/">Creative
-        Commons Attribution 3.0 License</a>,<br>
-        and code is licensed under a <a href="http://golang.org/LICENSE">BSD license</a>.<br>
-        <a href="http://golang.org/doc/tos.html">Terms of Service</a> |
-        <a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a>
-        </p>
-</div><!-- #footer -->
-
 </div><!-- .container -->
-</div><!-- #page -->
+</main><!-- #page -->
+<footer>
+  <div class="Footer">
+    <img class="Footer-gopher" src="/lib/godoc/images/footer-gopher.jpg" alt="The Go Gopher">
+    <ul class="Footer-links">
+      <li class="Footer-link"><a href="/doc/copyright.html">Copyright</a></li>
+      <li class="Footer-link"><a href="/doc/tos.html">Terms of Service</a></li>
+      <li class="Footer-link"><a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a></li>
+      <li class="Footer-link"><a href="http://golang.org/issues/new?title=x/website:" target="_blank" rel="noopener">Report a website issue</a></li>
+    </ul>
+    <a class="Footer-googleLogo" href="https://google.com">
+      <img class="Footer-googleLogoImg" src="/lib/godoc/images/google-logo.svg" alt="Google logo">
+    </a>
+  </div>
+</footer>
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
