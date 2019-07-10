@@ -527,7 +527,7 @@ div#playground .buttons a {
 }
 @media only screen and (min-width: 57.1875rem) {
   .HomeSection {
-    flex: 0 0 430px;
+    flex: 0 0 26.875rem;
     padding: 0;
   }
   .Hero,
