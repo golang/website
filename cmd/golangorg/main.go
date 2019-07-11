@@ -2,18 +2,21 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// godoc: Go Documentation Server
+// golangorg: The Go Website (golang.org)
 
 // Web server tree:
 //
-//	http://godoc/		main landing page
-//	http://godoc/doc/	serve from $GOROOT/doc - spec, mem, etc.
-//	http://godoc/src/	serve files from $GOROOT/src; .go gets pretty-printed
-//	http://godoc/cmd/	serve documentation about commands
-//	http://godoc/pkg/	serve documentation about packages
+//	https://golang.org/			main landing page
+//	https://golang.org/doc/	serve from $GOROOT/doc - spec, mem, etc.
+//	https://golang.org/src/	serve files from $GOROOT/src; .go gets pretty-printed
+//	https://golang.org/cmd/	serve documentation about commands
+//	https://golang.org/pkg/	serve documentation about packages
 //				(idea is if you say import "compress/zlib", you go to
-//				http://godoc/pkg/compress/zlib)
+//				https://golang.org/pkg/compress/zlib)
 //
+
+// Some pages are being transitioned from $GOROOT to this source tree.
+// See bindings below to see which ones.
 
 // +build !golangorg
 
@@ -106,7 +109,7 @@ func (w *httpResponseRecorder) Write(b []byte) (int, error) { return len(b), nil
 func (w *httpResponseRecorder) WriteHeader(code int)        { w.code = code }
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: godoc -http="+defaultAddr+"\n")
+	fmt.Fprintf(os.Stderr, "usage: golangorg -http="+defaultAddr+"\n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
