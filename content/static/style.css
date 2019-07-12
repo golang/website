@@ -245,6 +245,7 @@ div#playground .buttons a {
 
 .Header {
   align-items: center;
+  box-sizing: border-box;
   display: flex;
   font-size: 0.875rem;
   justify-content: space-between;
@@ -328,25 +329,38 @@ div#playground .buttons a {
 .Header.is-active .Header-menu {
   display: flex;
 }
+.Header-menuItem:first-of-type {
+  /* Offset the padding of the inner link, maintaining its click target size,
+     while still placing the item as if it had no top margin or padding. */
+  margin-top: -0.5rem;
+}
 .Header-menuItem {
   display: inline-flex;
 }
-.Header-menuItem:not(:last-of-type) {
-  margin: 0 0 1rem 0;
+.Header-menuItem,
+.Header-menuItem a:link,
+.Header-menuItem a:visited,
+.Header-menuItem--search,
+.HeaderSearch {
+  width: 100%;
 }
 .Header-menuItem,
 .Header-menuItem a:link,
 .Header-menuItem a:visited {
   color: #3e4042;
+  text-align: center;
+}
+.Header-menuItem a:link,
+.Header-menuItem a:visited {
+  padding: 0.5rem 0;
+}
+.Header-menuItem--search {
+  margin-top: 0.5rem;
 }
 .HeaderSearch,
 .HeaderSearch-label {
   display: inline-block;
   position: relative;
-}
-.Header-menuItem--search,
-.HeaderSearch {
-  width: 100%;
 }
 .HeaderSearch {
   border: 0.0625rem solid #979797;
@@ -393,6 +407,9 @@ div#playground .buttons a {
   fill: #007d9c;
 }
 @media only screen and (min-width: 53.13rem) {
+  .Header {
+    height: 5.125rem;
+  }
   .Header.is-active {
     background-color: #fff;
   }
@@ -407,8 +424,17 @@ div#playground .buttons a {
     flex-direction: row;
     width: auto;
   }
-  .Header-menuItem:not(:last-of-type) {
-    margin: 0 3rem 0 0;
+  .Header-menuItem:first-of-type {
+    margin-top: 0;
+  }
+  .Header-menuItem,
+  .Header-menuItem a:link,
+  .Header-menuItem a:visited {
+    width: auto;
+  }
+  .Header-menuItem a:link,
+  .Header-menuItem a:visited {
+    padding: 2rem 1.5rem;
   }
   .Header-menuItem a:hover,
   .Header-menuItem a:focus {
@@ -417,6 +443,10 @@ div#playground .buttons a {
   .Header-menuItem--search,
   .HeaderSearch {
     width: 8.75rem;
+  }
+  .Header-menuItem--search {
+    margin-left: 1.5rem;
+    margin-top: 0;
   }
   .HeaderSearch-input {
     min-width: 5.625rem;
