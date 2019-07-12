@@ -166,10 +166,10 @@ information about Go releases.
 {{with .Archive}}
 <div class="toggle" id="archive">
   <div class="collapsed">
-    <h3 class="toggleButton" title="Click to show versions">Archived versions▹</h3>
+    <h3 class="toggleButton" title="Click to show versions">Archived versions ▹</h3>
   </div>
   <div class="expanded">
-    <h3 class="toggleButton" title="Click to hide versions">Archived versions▾</h3>
+    <h3 class="toggleButton" title="Click to hide versions">Archived versions ▾</h3>
     {{template "releases" .}}
   </div>
 </div>
