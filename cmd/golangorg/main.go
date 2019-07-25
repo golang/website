@@ -37,10 +37,8 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
-	"strings"
 
 	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/analysis"
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
 	"golang.org/x/tools/godoc/vfs/mapfs"
@@ -57,8 +55,6 @@ var (
 
 	// file-based index
 	writeIndex = flag.Bool("write_index", false, "write index to a file; the file name must be specified with -index_files")
-
-	analysisFlag = flag.String("analysis", "", `comma-separated list of analyses to perform (supported: type, pointer). See http://golang.org/lib/godoc/analysis/help.html`)
 
 	// network
 	httpAddr = flag.String("http", defaultAddr, "HTTP service address")
@@ -226,20 +222,6 @@ func main() {
 	fs.Bind("/robots.txt", gatefs.New(vfs.OS(webroot), fsGate), "/robots.txt", vfs.BindBefore)
 	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)
 
-	var typeAnalysis, pointerAnalysis bool
-	if *analysisFlag != "" {
-		for _, a := range strings.Split(*analysisFlag, ",") {
-			switch a {
-			case "type":
-				typeAnalysis = true
-			case "pointer":
-				pointerAnalysis = true
-			default:
-				log.Fatalf("unknown analysis: %s", a)
-			}
-		}
-	}
-
 	corpus := godoc.NewCorpus(fs)
 	corpus.Verbose = *verbose
 	corpus.MaxResults = *maxResults
@@ -327,11 +309,6 @@ func main() {
 	// Initialize search index.
 	if *indexEnabled {
 		go corpus.RunIndexer()
-	}
-
-	// Start type/pointer analysis.
-	if typeAnalysis || pointerAnalysis {
-		go analysis.Run(pointerAnalysis, &corpus.Analysis)
 	}
 
 	if runHTTPS != nil {

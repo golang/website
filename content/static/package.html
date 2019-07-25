@@ -10,11 +10,6 @@
 	correspond to Go identifiers).
 -->
 {{with .PDoc}}
-	<script>
-	document.ANALYSIS_DATA = {{$.AnalysisData}};
-	document.CALLGRAPH = {{$.CallGraph}};
-	</script>
-
 	{{if $.IsMain}}
 		{{/* command documentation */}}
 		{{comment_html .Doc}}
@@ -112,45 +107,6 @@
 		</div><!-- .expanded -->
 		</div><!-- #pkg-index -->
 
-		{{if ne $.CallGraph "null"}}
-		<div id="pkg-callgraph" class="toggle" style="display: none">
-		<div class="collapsed">
-			<h2 class="toggleButton" title="Click to show Internal Call Graph section">Internal call graph ▹</h2>
-		</div> <!-- .expanded -->
-		<div class="expanded">
-			<h2 class="toggleButton" title="Click to hide Internal Call Graph section">Internal call graph ▾</h2>
-			<p>
-			  In the call graph viewer below, each node
-			  is a function belonging to this package
-			  and its children are the functions it
-			  calls&mdash;perhaps dynamically.
-			</p>
-			<p>
-			  The root nodes are the entry points of the
-			  package: functions that may be called from
-			  outside the package.
-			  There may be non-exported or anonymous
-			  functions among them if they are called
-			  dynamically from another package.
-			</p>
-			<p>
-			  Click a node to visit that function's source code.
-			  From there you can visit its callers by
-			  clicking its declaring <code>func</code>
-			  token.
-			</p>
-			<p>
-			  Functions may be omitted if they were
-			  determined to be unreachable in the
-			  particular programs or tests that were
-			  analyzed.
-			</p>
-			<!-- Zero means show all package entry points. -->
-			<ul style="margin-left: 0.5in" id="callgraph-0" class="treeview"></ul>
-		</div>
-		</div> <!-- #pkg-callgraph -->
-		{{end}}
-
 		{{with .Consts}}
 			<h2 id="pkg-constants">Constants</h2>
 			{{range .}}
@@ -176,7 +132,6 @@
 			<pre>{{node_html $ .Decl true}}</pre>
 			{{comment_html .Doc}}
 			{{example_html $ .Name}}
-			{{callgraph_html $ "" .Name}}
 
 		{{end}}
 		{{range .Types}}
@@ -201,8 +156,6 @@
 			{{end}}
 
 			{{example_html $ $tname}}
-			{{implements_html $ $tname}}
-			{{methodset_html $ $tname}}
 
 			{{range .Funcs}}
 				{{$name_html := html .Name}}
@@ -214,7 +167,6 @@
 				<pre>{{node_html $ .Decl true}}</pre>
 				{{comment_html .Doc}}
 				{{example_html $ .Name}}
-				{{callgraph_html $ "" .Name}}
 			{{end}}
 
 			{{range .Methods}}
@@ -228,7 +180,6 @@
 				{{comment_html .Doc}}
 				{{$name := printf "%s_%s" $tname .Name}}
 				{{example_html $ $name}}
-				{{callgraph_html $ .Recv .Name}}
 			{{end}}
 		{{end}}
 	{{end}}

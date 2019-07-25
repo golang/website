@@ -115,13 +115,10 @@ func readTemplate(name string) *template.Template {
 func readTemplates(p *godoc.Presentation) {
 	codewalkHTML = readTemplate("codewalk.html")
 	codewalkdirHTML = readTemplate("codewalkdir.html")
-	p.CallGraphHTML = readTemplate("callgraph.html")
 	p.DirlistHTML = readTemplate("dirlist.html")
 	p.ErrorHTML = readTemplate("error.html")
 	p.ExampleHTML = readTemplate("example.html")
 	p.GodocHTML = readTemplate("godoc.html")
-	p.ImplementsHTML = readTemplate("implements.html")
-	p.MethodSetHTML = readTemplate("methodset.html")
 	p.PackageHTML = readTemplate("package.html")
 	p.PackageRootHTML = readTemplate("packageroot.html")
 	p.SearchHTML = readTemplate("search.html")
