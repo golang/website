@@ -20,12 +20,8 @@ import (
 
 var host = flag.String("regtest.host", "", "host to run regression test against")
 
-func init() {
-	flag.Parse()
-	*host = strings.TrimSuffix(*host, "/")
-}
-
 func TestLiveServer(t *testing.T) {
+	*host = strings.TrimSuffix(*host, "/")
 	if *host == "" {
 		t.Skip("regtest.host flag missing.")
 	}
