@@ -375,7 +375,8 @@ a type argument, which is like any other argument except that it's a
 type.
 
 	func ReverseAndPrint(s []int) {
-		fmt.Println(Reverse(int)(s))
+		Reverse(int)(s)
+		fmt.Println(s)
 	}
 
 That is the `(int)` seen after `Reverse` in this example.
@@ -387,7 +388,8 @@ you don't need to mention the type argument at all.
 Calling a generic function just looks like calling any other function.
 
 	func ReverseAndPrint(s []int) {
-		fmt.Println(Reverse(s))
+		Reverse(s)
+		fmt.Println(s)
 	}
 
 In other words, although the generic `Reverse` function is slightly
