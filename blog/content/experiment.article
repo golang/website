@@ -205,23 +205,6 @@ For example, Go 1.5 shipped the first concurrent garbage collector
 and then the following releases improved it,
 simplifying Go development by removing pause times as an ongoing concern.
 
-When we shipped Go 1,
-we shifted to focus explicitly on using Go,
-to understand this version of the language much better
-before trying any more simplifications involving
-language changes.
-We needed to take time to experiment,
-to really understand what works and what doesn’t.
-
-Of course, we’ve had twelve releases since Go 1,
-so we have still been experimenting and simplifying and shipping.
-But we’ve focused on ways to simplify Go development
-without significant language changes and without breaking
-existing Go programs.
-For example, Go 1.5 shipped the first concurrent garbage collector
-and then the following releases improved it,
-simplifying Go development by removing pause times as an ongoing concern.
-
 At Gophercon in 2017, we announced that after five years of
 experimentation, it was again time
 to think about
