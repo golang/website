@@ -565,7 +565,7 @@ version of an error type assertion:
 Whether to make it possible to unwrap an error is an API decision,
 the same way that whether to export a struct field is an API decision.
 Sometimes it is appropriate to expose that detail to calling code,
-and sometimes you isn’t.
+and sometimes it isn’t.
 When it is, implement Unwrap.
 When it isn’t, don’t implement Unwrap.
 
