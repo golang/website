@@ -168,10 +168,10 @@ $(function() {
 {{define "doc"}}
 	<div class="article" data-slug="{{.Path}}">
 		<h3 class="title"><a href="{{.Path}}">{{.Title}}</a></h3>
-		<p class="date">{{.Time.Format "2 January 2006"}}</p>
+		<p class="author">
+		{{with .Authors}}{{authors .}}<br>{{end}}
+		{{.Time.Format "2 January 2006"}}
+		</p>
 		{{.HTML}}
-		{{with .Authors}}
-			<p class="author">By {{authors .}}</p>
-		{{end}}
 	</div>
 {{end}}
