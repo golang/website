@@ -50,7 +50,7 @@ it was common to write code like this `addToList` function:
 
 	func addToList(list []int, x int) []int {
 		n := len(list)
-		if n+1 < cap(list) {
+		if n+1 > cap(list) {
 			big := make([]int, n, (n+5)*2)
 			copy(big, list)
 			list = big
@@ -181,7 +181,7 @@ and the process cycles on and on.
 
 We shipped Go to all of you for the first time
 on November 10, 2009.
-Then, with your help, we shipped Go 1 together in March 2011.
+Then, with your help, we shipped Go 1 together in March 2012.
 And we’ve shipped twelve Go releases since then.
 All of these were important milestones,
 to enable more experimentation,
