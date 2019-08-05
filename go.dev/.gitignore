@@ -16,7 +16,5 @@
 .firebase/*
 
 # Ignore Hugo output
-public/*
+public/
 
-# But not the admin UI
-!public/admin

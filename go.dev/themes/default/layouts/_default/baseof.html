@@ -4,9 +4,31 @@
 <meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Work+Sans:600|Source+Code+Pro">
 <link rel="stylesheet" href="/css/styles.css">
 <title>{{$.Site.Title}}</title>
 <body class="Site">
-<header>Header</header>
-<main class="Site-content">{{block "main" .}}{{end}}</main>
-<footer>Footer</footer>
+<header class="Site-header">
+  <div class="Header">
+    <nav class="Header-nav">
+      <a href="/">
+        <img class="Header-logo" src="/images/go-logo-blue.svg" alt="Go">
+      </a>
+      <ul class="Header-menu">
+        <li class="Header-menuItem"><a href="/">Solutions</a></li>
+        <li class="Header-menuItem Header-menuItem--active"><a href="/">Learn</a></li>
+        <li class="Header-menuItem"><a href="/">Community</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main class="Site-content">
+  <div class="Container">
+    {{block "main" .}}{{end}}
+  </div>
+</main>
+<footer class="Site-footer">
+  <div class="Footer">
+    Footer
+  </div>
+</footer>

@@ -1,0 +1,10 @@
+{{define "main"}}
+  <article class="Article">
+    <h1>{{.Title}}</h1>
+    {{range .Params.authors}}
+      <div class="Article-author">{{.}}</div>
+    {{end}}
+    <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
+    {{.Content}}
+  </article>
+{{end}}

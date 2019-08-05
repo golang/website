@@ -3,12 +3,134 @@
 :after {
   box-sizing: border-box;
 }
+html,
+.Site {
+  height: 100%;
+}
+a,
+a:link,
+a:visited {
+  color: #007d9c;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
 .Site {
   display: flex;
   flex-direction: column;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
-  min-height: 100vh;
 }
 .Site-content {
   flex: 1;
+}
+.Site-footer {
+  background-color: #253443;
+  color: #fff;
+  font-size: 14px;
+}
+.Header,
+.Footer,
+.Container {
+  margin: 0 auto;
+  max-width: 1113px;
+}
+.Header {
+  border-bottom: 1px solid #e0e0e0;
+}
+.Header-nav {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+.Header-logo {
+  display: block;
+  height: 32px;
+  width: 82px;
+}
+.Header-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.Header-menuItem + .Header-menuItem {
+  margin-left: 15px;
+}
+.Header-menuItem a:link,
+.Header-menuItem a:visited {
+  border-bottom: 2px solid transparent;
+  border-top: 2px solid transparent; /* To ensure the text remains centered. */
+  color: #3e4042;
+  display: inline-block;
+  padding: 20px 15px;
+  text-decoration: none;
+}
+.Header-menuItem--active a:link,
+.Header-menuItem--active a:visited {
+  border-bottom-color: #00add8;
+  font-weight: bold;
+}
+.Header-menuItem a:hover {
+  border-bottom-color: #542c7d;
+  color: #3e4042;
+}
+.Article {
+  color: #202224;
+  margin: 0 auto 30px;
+  max-width: 45em;
+}
+.Article-author,
+.Article-date {
+  font-size: 16px;
+  line-height: 1.4;
+}
+.Article-date {
+  color: #6e7072;
+}
+.Article h1,
+.Article h2,
+.Article h3,
+.Article h4,
+.Article h5,
+.Article h6 {
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+}
+.Article h1 {
+  font-size: 30px;
+}
+.Article h2 {
+  font-size: 24px;
+}
+.Article h3 {
+  font-size: 18px;
+}
+.Article h4,
+.Article h5,
+.Article h6 {
+  font-size: 16px;
+}
+.Article p,
+.Article ul,
+.Article ol {
+  color: #555759;
+  font-size: 18px;
+  line-height: 1.6;
+}
+.Article pre {
+  background-color: #f8f9f9;
+  border: 1px solid #dcdee0;
+  border-radius: 6px;
+  color: #3e4042;
+  font-size: 16px;
+  line-height: 1.45;
+  overflow-x: auto;
+  padding: 24px;
+}
+.Article pre,
+.Article code {
+  color: #3e4042;
+  font-family: 'Source Code Pro', monospace;
 }
