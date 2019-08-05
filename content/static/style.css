@@ -698,12 +698,10 @@ div#playground .buttons a {
 }
 
 .Footer {
-  align-items: center;
-  display: flex;
-  justify-content: flex-start;
   margin: 0 auto;
   padding: 1rem 1.25rem;
   position: relative;
+  text-align: right;
 }
 .Footer-gopher {
   bottom: 0;
@@ -724,17 +722,20 @@ div#playground .buttons a {
 .Footer-link + .Footer-link {
   margin-top: 0.5rem;
 }
-.Footer-googleLogo {
-  bottom: 0.8125rem;
-  position: absolute;
-  right: 1.25rem;
+.Footer-supportedBy {
+  color: #6e7072;
+  display: inline-block;
+  font: 0.875rem 'Product Sans', 'Roboto', 'sans-serif';
+  margin-top: 1rem;
 }
-.Footer-googleLogoImg {
-  display: block;
-  height: 1.5rem;
-  width: 4.5rem;
+.Footer-supportedBy:hover {
+  text-decoration: none;
 }
 @media only screen and (min-width: 50rem) {
+  .Footer {
+    align-items: center;
+    display: flex;
+  }
   .Footer-links {
     padding-left: 6.25rem;
     text-align: left;
@@ -746,6 +747,9 @@ div#playground .buttons a {
     border-left: 0.0625rem solid #3e4042;
     margin-left: 0.75rem;
     padding-left: 0.75rem;
+  }
+  .Footer-supportedBy {
+    margin-top: 0;
   }
 }
 

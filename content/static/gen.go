@@ -43,7 +43,6 @@ var files = []string{
 	"godocs.js",
 	"images/cloud-download.svg",
 	"images/go-logo-blue.svg",
-	"images/google-logo.svg",
 	"images/home-gopher.png",
 	"images/footer-gopher.jpg",
 	"images/minus.gif",
