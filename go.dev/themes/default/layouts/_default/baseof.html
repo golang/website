@@ -7,12 +7,12 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Work+Sans:600|Source+Code+Pro">
 <link rel="stylesheet" href="/css/styles.css">
 <title>{{$.Site.Title}}</title>
-<body class="Site">
+<body class="Site{{if .IsHome}} Site--blue{{end}}">
 <header class="Site-header">
-  <div class="Header">
+  <div class="Header{{if .IsHome}} Header--dark{{end}}">
     <nav class="Header-nav">
       <a href="/">
-        <img class="Header-logo" src="/images/go-logo-blue.svg" alt="Go">
+        <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
       </a>
       <ul class="Header-menu">
         <li class="Header-menuItem"><a href="/">Solutions</a></li>
@@ -23,7 +23,7 @@
   </div>
 </header>
 <main class="Site-content">
-  <div class="Container">
+  <div class="Container{{if .IsHome}} Container--fullBleed{{end}}">
     {{block "main" .}}{{end}}
   </div>
 </main>
