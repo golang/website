@@ -19,7 +19,10 @@ func TestServer(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skip("skipping on android; can't run go tool")
 	}
-	mux, err := newServer(false, "/static", blog.Config{
+	oldStatic := *staticPath
+	*staticPath = "/static"
+	defer func() { *staticPath = oldStatic }()
+	mux, err := newServer(false, blog.Config{
 		TemplatePath: "./template",
 	})
 	if err != nil {

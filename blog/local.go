@@ -24,22 +24,22 @@ var (
 	contentPath  = flag.String("content", "content/", "path to content files")
 	templatePath = flag.String("template", "template/", "path to template files")
 	staticPath   = flag.String("static", "static/", "path to static files")
-	godocPath    = flag.String("godoc", defaultGodocPath(), "path to lib/godoc static files")
+	websitePath  = flag.String("website", defaultWebsitePath(), "path to lib/godoc static files")
 	reload       = flag.Bool("reload", false, "reload content on each page load")
 )
 
-func defaultGodocPath() string {
-	out, err := exec.Command("go", "list", "-f", "{{.Dir}}", "golang.org/x/tools/godoc").CombinedOutput()
+func defaultWebsitePath() string {
+	out, err := exec.Command("go", "list", "-f", "{{.Dir}}", "golang.org/x/website/content/static").CombinedOutput()
 	if err != nil {
-		log.Printf("warning: locating -godoc directory: %v", err)
+		log.Printf("warning: locating -website directory: %v", err)
 		return ""
 	}
 	dir := strings.TrimSpace(string(out))
-	return filepath.Join(dir, "static")
+	return dir
 }
 
 // maybeStatic serves from one of the two static directories
-// (-static and -godoc) if possible, or else defers to the fallback handler.
+// (-static and -website) if possible, or else defers to the fallback handler.
 func maybeStatic(fallback http.Handler) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		p := r.URL.Path
@@ -51,7 +51,7 @@ func maybeStatic(fallback http.Handler) http.HandlerFunc {
 			}
 		}
 		if strings.HasPrefix(p, "/lib/godoc/") {
-			f := filepath.Join(*godocPath, p[len("/lib/godoc/"):])
+			f := filepath.Join(*websitePath, p[len("/lib/godoc/"):])
 			if _, err := os.Stat(f); err == nil {
 				http.ServeFile(w, r, f)
 				return
@@ -61,7 +61,7 @@ func maybeStatic(fallback http.Handler) http.HandlerFunc {
 	}
 }
 
-func newServer(reload bool, staticPath string, config blog.Config) (http.Handler, error) {
+func newServer(reload bool, config blog.Config) (http.Handler, error) {
 	mux := http.NewServeMux()
 	var h http.Handler
 	if reload {
@@ -88,7 +88,7 @@ func main() {
 
 	config.ContentPath = *contentPath
 	config.TemplatePath = *templatePath
-	mux, err := newServer(*reload, *staticPath, config)
+	mux, err := newServer(*reload, config)
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -2,176 +2,210 @@
 
 {{define "root"}}
 <!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="viewport" content="width=device-width">
-	<meta name="theme-color" content="#375EAB">
-	<title>{{template "title" .}}</title>
-	<link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
-	<link type="text/css" rel="stylesheet" href="/fonts.css">
-	<link rel="alternate" type="application/atom+xml" title="blog.golang.org - Atom Feed" href="https://blog.golang.org/feed.atom" />
-	<script type="text/javascript">window.initFuncs = [];</script>
-	<style>
-		#sidebar {
-			float: right;
-			padding-left: 20px;
-			width: 40%;
-			max-width: 250px;
-			background: #F3F3F3;
-			margin: 20px 0 20px 20px;
-		}
-		#sidebar ul {
-			padding: 0;
-		}
-		#sidebar li {
-			list-style-type: none;
-		}
-		#content .author {
-			font-style: italic;
-		}
-		#content .article {
-			margin-bottom: 50px;
-		}
-		#content .date {
-			color: #999;
-		}
-		#content .tags {
-			color: #999;
-			font-size: smaller;
-		}
-		#content .iframe, #content .image {
-			margin: 20px;
-		}
-		#content .title {
-			margin: 20px 0;
-		}
-		#content img {
-			max-width: 100%;
-		}
-		.article[data-slug='/go-fonts'] {
-			font-family: Go, sans-serif;
-		}
-		.article[data-slug='/go-fonts'] pre,
-		.article[data-slug='/go-fonts'] code {
-			font-family: Go Mono, monospace;
-		}
-	</style>
-</head>
-<body>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00ADD8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<title>{{template "title" .}}</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Work+Sans:600|Roboto:400,700|Source+Code+Pro">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans&text=Supported%20by%20Google&display=swap">
+<link rel="stylesheet" href="/lib/godoc/style.css">
+<link rel="stylesheet" href="/fonts.css">
+<link rel="alternate" type="application/atom+xml" title="blog.golang.org - Atom Feed" href="https://blog.golang.org/feed.atom" />
+<script>window.initFuncs = [];</script>
+<style>
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Work Sans', sans-serif;
+    font-weight: 600;
+  }
+  h2 { /* Reset from style.js in x/website */
+    background: none;
+    clear: none;
+    font-size: 1.5em;
+    font-weight: 600;
+    line-height: inherit;
+    overflow-wrap: normal;
+    padding: 0;
+  }
+  #sidebar {
+    float: right;
+    padding-left: 20px;
+    width: 40%;
+    max-width: 250px;
+    background: #f8f9f9;
+    margin: 20px 0 20px 20px;
+  }
+  #sidebar h2 {
+    font-size: 1rem;
+  }
+  #sidebar ul {
+    padding: 0;
+  }
+  #sidebar li {
+    list-style-type: none;
+  }
+  #content .author {
+    font-style: italic;
+  }
+  #content .article {
+    margin-bottom: 50px;
+  }
+  #content .date {
+    color: #6e7072;
+  }
+  #content .tags {
+    color: #999;
+    font-size: smaller;
+  }
+  #content .iframe, #content .image {
+    margin: 20px;
+  }
+  #content .title {
+    margin: 20px 0;
+  }
+  #content img {
+    max-width: 100%;
+  }
+  .article[data-slug='/go-fonts'] {
+    font-family: Go, sans-serif;
+  }
+  .article[data-slug='/go-fonts'] pre,
+  .article[data-slug='/go-fonts'] code {
+    font-family: 'Go Mono', monospace;
+  }
+</style>
+<header class="Header js-header">
+  <nav class="Header-nav">
+    <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
+    <button class="Header-menuButton js-headerMenuButton" aria-label="Main menu" aria-expanded="false">
+      <div class="Header-menuButtonInner">
+    </button>
+    <ul class="Header-menu">
+      <li class="Header-menuItem"><a href="{{.GodocURL}}/doc/">Documents</a></li>
+      <li class="Header-menuItem"><a href="{{.GodocURL}}/pkg/">Packages</a></li>
+      <li class="Header-menuItem"><a href="{{.GodocURL}}/project/">The Project</a></li>
+      <li class="Header-menuItem"><a href="{{.GodocURL}}/help/">Help</a></li>
+      <li class="Header-menuItem"><a href="{{.BasePath}}/">Blog</a></li>
+      <li class="Header-menuItem"><a href="https://play.golang.org/">Play</a></li>
+      <li class="Header-menuItem Header-menuItem--search">
+        <form class="HeaderSearch" role="search" action="{{.GodocURL}}/search">
+          <input class="HeaderSearch-input"
+                type="search"
+                name="q"
+                placeholder="Search"
+                aria-label="Search"
+                autocapitalize="off"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                required>
+          <button class="HeaderSearch-submit" aria-label="Search">
+            <!-- magnifying glass: --><svg class="HeaderSearch-icon" width="24" height="24" viewBox="0 0 24 24"><title>Search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+          </button>
+        </form>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-<div id="topbar"><div class="container">
+<main id="page">
+  <div class="container">
+    <aside id="sidebar">
+      {{with .Doc}}
+        {{with .Newer}}
+          <h2>Next article</h2>
+          <p><a href="{{.Path}}">{{.Title}}</a></p>
+        {{end}}
 
-<div class="top-heading" id="heading-wide"><a href="{{.GodocURL}}/">The Go Programming Language</a></div>
-<div class="top-heading" id="heading-narrow"><a href="{{.GodocURL}}/">Go</a></div>
-<a href="#" id="menu-button"><span id="menu-button-arrow">&#9661;</span></a>
-<form method="GET" action="{{.GodocURL}}/search">
-<div id="menu">
-<a href="{{.GodocURL}}/doc/">Documents</a>
-<a href="{{.GodocURL}}/pkg/">Packages</a>
-<a href="{{.GodocURL}}/project/">The Project</a>
-<a href="{{.GodocURL}}/help/">Help</a>
-<a href="{{.BasePath}}/">Blog</a>
-<span class="search-box"><input type="search" id="search" name="q" placeholder="Search" aria-label="Search" required><button type="submit"><span><!-- magnifying glass: --><svg width="24" height="24" viewBox="0 0 24 24"><title>submit search</title><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></button></span>
-</div>
-</form>
+        {{with .Older}}
+          <h2>Previous article</h2>
+          <p><a href="{{.Path}}">{{.Title}}</a></p>
+        {{end}}
+      {{end}}
 
-</div></div>
+      <h2>Links</h2>
+      <ul>
+        <li><a href='//golang.org/'>golang.org</a></li>
+        <li><a href='//golang.org/doc/install.html'>Install Go</a></li>
+        <li><a href='//tour.golang.org/'>A Tour of Go</a></li>
+        <li><a href='//golang.org/doc/'>Go Documentation</a></li>
+        <li><a href='//groups.google.com/group/golang-nuts'>Go Mailing List</a></li>
+        <li><a href='//twitter.com/golang'>Go on Twitter</a></li>
+      </ul>
 
-<div id="page">
-<div class="container">
+      <p><a href="{{.BasePath}}/index">Blog index</a></p>
+    </aside><!-- #sidebar -->
 
-<div id="sidebar">
-	{{with .Doc}}
-		{{with .Newer}}
-			<h4>Next article</h4>
-			<p><a href="{{.Path}}">{{.Title}}</a></p>
-		{{end}}
+    <div id="content">
+      <h1><a href="{{.BasePath}}/">The Go Blog</a></h1>
+      {{template "content" .}}
+    </div><!-- #content -->
 
-		{{with .Older}}
-			<h4>Previous article</h4>
-			<p><a href="{{.Path}}">{{.Title}}</a></p>
-		{{end}}
-	{{end}}
+  </div><!-- .container -->
+</main><!-- #page -->
 
-	<h4>Links</h4>
-	<ul>
-	<li><a href='//golang.org/'>golang.org</a></li>
-	<li><a href='//golang.org/doc/install.html'>Install Go</a></li>
-	<li><a href='//tour.golang.org/'>A Tour of Go</a></li>
-	<li><a href='//golang.org/doc/'>Go Documentation</a></li>
-	<li><a href='//groups.google.com/group/golang-nuts'>Go Mailing List</a></li>
-	<li><a href='//twitter.com/golang'>Go on Twitter</a></li>
-	</ul>
+<footer>
+  <div class="Footer">
+    <img class="Footer-gopher" src="/lib/godoc/images/footer-gopher.jpg" alt="The Go Gopher">
+    <ul class="Footer-links">
+      <li class="Footer-link"><a href="{{.GodocURL}}/doc/copyright.html">Copyright</a></li>
+      <li class="Footer-link"><a href="{{.GodocURL}}/doc/tos.html">Terms of Service</a></li>
+      <li class="Footer-link"><a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a></li>
+      <li class="Footer-link"><a href="http://golang.org/issues/new?title=x/blog:" target="_blank" rel="noopener">Report issue</a></li>
+    </ul>
+    <a class="Footer-supportedBy" href="https://google.com">Supported by Google</a>
+  </div>
+</footer>
 
-	<p><a href="{{.BasePath}}/index">Blog index</a></p>
-</div><!-- #sidebar -->
-
-<div id="content">
-	<h1><a href="{{.BasePath}}/">The Go Blog</a></h1>
-	{{template "content" .}}
-</div><!-- #content -->
-
-<div id="footer">
-	<p>
-	Except as
-	<a href="https://developers.google.com/site-policies#restrictions">noted</a>,
-	the content of this page is licensed under the Creative Commons
-	Attribution 3.0 License,<br>
-	and code is licensed under a <a href="https://golang.org/LICENSE">BSD license</a>.<br>
-	<a href="https://golang.org/doc/tos.html">Terms of Service</a> |
-	<a href="https://www.google.com/intl/en/policies/privacy/">Privacy Policy</a> |
-	<a href="https://go.googlesource.com/blog/">View the source code</a>
-	</p>
-</div><!-- #footer -->
-
-</div><!-- .container -->
-</div><!-- #page -->
-
-</body>
 <script src="/lib/godoc/jquery.js"></script>
 <script src="/lib/godoc/playground.js"></script>
 <script src="/lib/godoc/play.js"></script>
 <script src="/lib/godoc/godocs.js"></script>
 <script>
 $(function() {
-	// Insert line numbers for all playground elements.
-	$('.playground > pre.numbers, .code > pre.numbers').each(function() {
-		var $spans = $(this).find('> span');
+  // Insert line numbers for all playground elements.
+  $('.playground > pre.numbers, .code > pre.numbers').each(function() {
+    var $spans = $(this).find('> span');
 
-		// Compute width of number column (including trailing space).
-		var max = 0;
-		$spans.each(function() {
-			var n = $(this).attr('num')*1;
-			if (n > max) max = n;
-		});
-		var width = 2;
-		while (max > 10) {
-			max = max / 10;
-			width++;
-		}
+    // Compute width of number column (including trailing space).
+    var max = 0;
+    $spans.each(function() {
+      var n = $(this).attr('num')*1;
+      if (n > max) max = n;
+    });
+    var width = 2;
+    while (max > 10) {
+      max = max / 10;
+      width++;
+    }
 
-		// Insert line numbers with space padding.
-		$spans.each(function() {
-			var n = $(this).attr('num')+' ';
-			while (n.length < width) n = ' '+n;
-			$('<span class="number">').text(n).insertBefore(this);
-		});
-	});
+    // Insert line numbers with space padding.
+    $spans.each(function() {
+      var n = $(this).attr('num')+' ';
+      while (n.length < width) n = ' '+n;
+      $('<span class="number">').text(n).insertBefore(this);
+    });
+  });
 
-	initPlayground(new HTTPTransport());
+  initPlayground(new HTTPTransport());
 });
 </script>
 </html>
 {{end}}
 
 {{define "doc"}}
-	<div class="article" data-slug="{{.Path}}">
-		<h3 class="title"><a href="{{.Path}}">{{.Title}}</a></h3>
-		<p class="author">
-		{{with .Authors}}{{authors .}}<br>{{end}}
-		{{.Time.Format "2 January 2006"}}
-		</p>
-		{{.HTML}}
-	</div>
+  <div class="article" data-slug="{{.Path}}">
+    <h2 class="title"><a href="{{.Path}}">{{.Title}}</a></h2>
+    <p class="author">
+    {{with .Authors}}{{authors .}}<br>{{end}}
+    {{.Time.Format "2 January 2006"}}
+    </p>
+    {{.HTML}}
+  </div>
 {{end}}

@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"golang.org/x/tools/blog"
-	"golang.org/x/tools/godoc/static"
+	"golang.org/x/website/content/static"
 
 	_ "golang.org/x/tools/playground"
 )
