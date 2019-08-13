@@ -19,12 +19,14 @@ and then visit [http://localhost:8080/](http://localhost:8080) in your browser.
 
 ## Contributing
 
+Articles are written in the [x/tools/present][present] format.
 Articles on the blog should have broad interest to the Go community, and
 are mainly written by Go contributors. We encourage you to share your
 experiences using Go on your own website, and [to share them with the Go
 community][community]. [Hugo][hugo] is a static site server written in Go that
 makes it easy to write and share your stories.
 
+[present]: https://godoc.org/golang.org/x/tools/present
 [community]: https://golang.org/help/
 [hugo]: https://gohugo.io/
 
