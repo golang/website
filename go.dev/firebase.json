@@ -8,12 +8,17 @@
     ],
     "redirects": [
       {
+        "source": "/explore",
+        "destination": "https://go-discovery.appspot.com/",
+        "type": 302
+      },
+      {
         "source": "/explore/:explore*",
         "destination": "https://go-discovery.appspot.com/:explore",
         "type": 302
       },
       {
-        "source": "/pkg/",
+        "source": "/pkg",
         "destination": "https://go-discovery.appspot.com/",
         "type": 302
       },
