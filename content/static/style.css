@@ -110,7 +110,8 @@ h4 {
   margin: 1.25rem 0 1.25rem;
   padding: 0;
   color: #202224;
-  font-weight: bold;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
 }
 h1 {
   font-size: 1.75rem;
@@ -406,7 +407,7 @@ div#playground .buttons a {
 .HeaderSearch:focus-within .HeaderSearch-icon {
   fill: #007d9c;
 }
-@media only screen and (min-width: 53.13rem) {
+@media only screen and (min-width: 54.0625rem) {
   .Header {
     height: 5.125rem;
   }
@@ -523,8 +524,7 @@ div#playground .buttons a {
 }
 
 .Hero-header {
-  font-size: 1.5rem;
-  font-weight: normal;
+  font: 1.5rem Roboto, sans-serif;
   line-height: inherit;
   margin: 0 0 1.875rem;
 }
@@ -590,7 +590,7 @@ div#playground .buttons a {
   border-top-left-radius: 0.3125rem;
   border-top-right-radius: 0.3125rem;
   overflow: hidden;
-  height: 10.63rem;
+  height: 11rem;
 }
 .Playground-input {
   width: 100%;
@@ -618,6 +618,7 @@ div#playground .buttons a {
 .Playground-outputContainer,
 .Playground-output {
   background: #f7f9fa;
+  color: #202224;
 }
 .Playground-inputContainer,
 .Playground-outputContainer {
@@ -698,7 +699,7 @@ div#playground .buttons a {
 }
 
 .Footer {
-  margin: 0 auto;
+  margin: 2rem auto 0;
   padding: 1rem 1.25rem;
   position: relative;
   text-align: right;
@@ -735,6 +736,7 @@ div#playground .buttons a {
   .Footer {
     align-items: center;
     display: flex;
+    margin: 5rem auto 0;
   }
   .Footer-links {
     padding-left: 6.25rem;
@@ -844,6 +846,7 @@ div.play .input textarea,
 div.play .output,
 div.play .output pre {
   background: #f7f9fa;
+  color: #202224;
 }
 div.play .input,
 div.play .output {
