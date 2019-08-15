@@ -102,7 +102,7 @@ The current status was reported with details.
 There was discussion on what remained to be done before it could be used.
 The ABI specification needs to be written first and it was not clear when that would be done.
 I know this will benefit some target platforms more than others
-and a register calling convention is used in most compilers for other platforms like Power.
+and a register calling convention is used in most compilers for other platforms.
 
 *General*optimizations*.
 Certain optimizations that are more beneficial for some platforms other than x86 were discussed.
