@@ -7,6 +7,7 @@ Tyler Bui-Palsulich
 Eno Compton
 
 * Introduction
+This post is part one in a series. See part 2 — [[https://blog.golang.org/migrating-to-go-modules][Migrating to Go Modules]].
 
 Go 1.11 and 1.12 include preliminary
 [[https://golang.org/doc/go1.11#modules][support for modules]],
