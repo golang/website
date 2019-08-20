@@ -425,8 +425,11 @@ div#playground .buttons a {
     flex-direction: row;
     width: auto;
   }
+  .Header-menuItem {
+    margin: 0.5rem 0;
+  }
   .Header-menuItem:first-of-type {
-    margin-top: 0;
+    margin-top: 0.5rem;
   }
   .Header-menuItem,
   .Header-menuItem a:link,
