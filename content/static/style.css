@@ -450,7 +450,7 @@ div#playground .buttons a {
   }
   .Header-menuItem--search {
     margin-left: 1.5rem;
-    margin-top: 0;
+    margin-top: 0.5rem;
   }
   .HeaderSearch-input {
     min-width: 5.625rem;
