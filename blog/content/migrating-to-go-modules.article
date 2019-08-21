@@ -112,7 +112,7 @@ For a Go project without a dependency management system, start by creating a `go
     go 1.12
     $
 
-Without a configuration file from a previous dependency manager, `go`mod`init` will create a `go.mod` file with only the `module` and `go` directives. In this example, we set the module path to `golang.org/x/blog` because that is its [https://golang.org/cmd/go/#hdr-Remote_import_paths][custom import path]. Users may import packages with this path, and we must be careful not to change it.
+Without a configuration file from a previous dependency manager, `go`mod`init` will create a `go.mod` file with only the `module` and `go` directives. In this example, we set the module path to `golang.org/x/blog` because that is its [[https://golang.org/cmd/go/#hdr-Remote_import_paths][custom import path]]. Users may import packages with this path, and we must be careful not to change it.
 
 The `module` directive declares the module path, and the `go` directive declares the expected version of the Go language used to compile the code within the module.
 
