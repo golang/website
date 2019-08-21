@@ -199,7 +199,7 @@ Another scenario in which a module's canonical path may differ from its reposito
 
 * Conclusion
 
-Converting to Go modules should be a straightforward process for most users. Occasional issues may arise due to non-canonical import paths or breaking changes within dependency. Future posts will explore publishing new versions, v2 and beyond, and ways to debug strange situations.
+Converting to Go modules should be a straightforward process for most users. Occasional issues may arise due to non-canonical import paths or breaking changes within a dependency. Future posts will explore publishing new versions, v2 and beyond, and ways to debug strange situations.
 
 To provide feedback and help shape the future of dependency management in Go, please send us [[https://golang.org/issue/new][bug reports]] or [[https://golang.org/wiki/ExperienceReports][experience reports]].
 
