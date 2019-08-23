@@ -15,6 +15,8 @@ const templateHTML = `
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00ADD8">
 <title>Downloads - The Go Programming Language</title>
+<link href="https://fonts.googleapis.com/css?family=Work+Sans:600|Roboto:400,700" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Product+Sans&text=Supported%20by%20Google&display=swap" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
 <script>window.initFuncs = [];</script>
 <style>
@@ -186,9 +188,7 @@ information about Go releases.
       <li class="Footer-link"><a href="http://www.google.com/intl/en/policies/privacy/">Privacy Policy</a></li>
       <li class="Footer-link"><a href="http://golang.org/issues/new?title=x/website:" target="_blank" rel="noopener">Report a website issue</a></li>
     </ul>
-    <a class="Footer-googleLogo" href="https://google.com">
-      <img class="Footer-googleLogoImg" src="/lib/godoc/images/google-logo.svg" alt="Google logo">
-    </a>
+    <a class="Footer-supportedBy" href="https://google.com">Supported by Google</a>
   </div>
 </footer>
 <script>
