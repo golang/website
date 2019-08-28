@@ -176,6 +176,7 @@ a:hover {
   .UseCases-gridContainer,
   .LearnGo-gridContainer {
     flex-direction: row;
+    justify-content: space-between;
   }
 }
 .WhyGo,
@@ -197,6 +198,7 @@ a:hover {
 .UseCases-header h2,
 .WhyGo-header h2,
 .LearnGo-header h2 {
+  letter-spacing: 0.125rem;
   margin-top: 0;
   text-transform: uppercase;
 }
@@ -350,4 +352,30 @@ a:hover {
   .WhoUses-caseStudy {
     flex: 1;
   }
+}
+.UseCases-gridContainer {
+  flex-direction: row;
+  justify-content: space-around;
+  margin: -1em 0 0 -1em; /* Offset gutters for the leftmost and top cells in the grid. */
+}
+.UseCase {
+  flex: 1 0 15.625rem;
+  margin-top: 1rem;
+  max-width: 15.625rem;
+  padding: 1em 0 0 1em; /* Gutter between grid cells. */
+}
+.UseCase-logo {
+  background: linear-gradient(10.64deg, #007d9c 0%, #00a29c 100%);
+  border-radius: 50%;
+  height: 3.75rem;
+  margin: auto;
+  width: 3.75rem;
+}
+.UseCase-title {
+  text-align: center;
+}
+.UseCase-action {
+  font-size: 1.125rem;
+  line-height: 2.5rem;
+  text-align: center;
 }
