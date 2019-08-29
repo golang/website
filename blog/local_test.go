@@ -8,6 +8,7 @@ package main
 
 import (
 	"net/http/httptest"
+	"os"
 	"runtime"
 	"strings"
 	"testing"
@@ -19,6 +20,10 @@ func TestServer(t *testing.T) {
 	if runtime.GOOS == "android" {
 		t.Skip("skipping on android; can't run go tool")
 	}
+	if os.Getenv("GO_BUILDER_NAME") == "aix-ppc64" {
+		t.Skip("skipping on aix-ppc64 builder: https://golang.org/issue/33940")
+	}
+
 	oldStatic := *staticPath
 	*staticPath = "/static"
 	defer func() { *staticPath = oldStatic }()
