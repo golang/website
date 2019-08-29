@@ -233,24 +233,24 @@ a:hover {
 .Hero-actions a,
 .Hero-actions a:visited,
 .Hero-actions a:hover {
-  border-radius: 4px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
-  height: 4rem;
-  border: 1px solid #f6f8fa;
   color: #fff;
-  font-size: 1.5rem;
-  margin: 1.3125rem 1.25rem 0;
   max-width: 13.75rem;
   padding: 1rem 0;
   text-align: center;
-  text-decoration: none;
-  width: 100%;
+  text-decoration: underline;
+  margin: 0.5rem  0;
 }
 .Hero-actions a.Primary {
   background-color: #fddd00;
   border: 1px solid #fddd00;
+  border-radius: 4px;
+  margin: 1.3125rem 1.25rem 0;
+  height: 4rem;
+  width: 100%;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   color: #202224;
+  font-size: 1.5rem;
+  text-decoration: none;
 }
 .Hero-gopher {
   display: flex;
