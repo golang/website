@@ -379,3 +379,48 @@ a:hover {
   line-height: 2.5rem;
   text-align: center;
 }
+.WhyGo-gridContainer {
+  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.WhyGo-reasons {
+  flex: 2 2 50%;
+  list-style: none;
+  padding-left: 0;
+}
+.WhyGo-reason {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1rem;
+  max-width: 31.25rem;
+  padding-right: 1em;
+}
+.WhyGo-reasonText {
+  margin-left: 1.25rem;
+}
+.WhyGo-reasonTitle {
+  font-size: 1.5rem;
+  line-height: 1.75rem;
+  margin: 0;
+}
+.WhyGo-reasonIcon {
+  background: linear-gradient(10.64deg, #007d9c 0%, #00a29c 100%);
+  border-radius: 50%;
+  color: white;
+  font-size: 1.4rem;
+  height: 1.5rem;
+  line-height: 1.4rem;
+  margin-top: .125rem;
+  min-width: 1.5rem;
+  text-align: center;
+  width: 1.5rem;
+}
+.WhyGo-gopher {
+  flex: 1 1 50%;
+  max-width: 28.4375rem;
+  text-align: center;
+}
+.WhyGo-gopher img {
+  width: 100%;
+}
