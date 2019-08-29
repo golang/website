@@ -29,6 +29,10 @@ func buildGodoc(t *testing.T) (bin string, cleanup func()) {
 	if runtime.GOARCH == "arm" {
 		t.Skip("skipping test on arm platforms; too slow")
 	}
+	if _, err := exec.LookPath("go"); err != nil {
+		t.Skipf("skipping test because 'go' command unavailable: %v", err)
+	}
+
 	tmp, err := ioutil.TempDir("", "godoc-regtest-")
 	if err != nil {
 		t.Fatal(err)
