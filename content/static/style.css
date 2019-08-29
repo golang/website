@@ -1011,5 +1011,6 @@ a.error {
     background: #fff;
     border: 0.0625rem solid #bbb;
     white-space: pre-wrap;
+    page-break-inside: avoid;
   }
 }
