@@ -1,5 +1,7 @@
 module golang.org/x/website
 
+go 1.11
+
 require (
 	cloud.google.com/go v0.34.0
 	github.com/gomodule/redigo v2.0.0+incompatible
