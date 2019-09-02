@@ -10,13 +10,13 @@ We are excited to share that our module [[https://proxy.golang.org][mirror]],
 [[https://index.golang.org][index]], and
 [[https://sum.golang.org][checksum database]] are now production ready! The `go` command
 will use the module mirror and checksum database by default for
-[[https://tip.golang.org/doc/go1.13#introduction][Go 1.13 module users]].  See
+[[https://golang.org/doc/go1.13#introduction][Go 1.13 module users]].  See
 [[https://proxy.golang.org/privacy][proxy.golang.org/privacy]] for privacy
 information about these services and the
-[[https://tip.golang.org/cmd/go/#hdr-Module_downloading_and_verification][go command documentation]]
+[[https://golang.org/cmd/go/#hdr-Module_downloading_and_verification][go command documentation]]
 for configuration details, including how to disable the use of these servers or
 use different ones.  If you depend on non-public modules, see the
-[[https://tip.golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules][documentation for configuring your environment]].
+[[https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules][documentation for configuring your environment]].
 
 This post will describe these services and the benefits of using them, and
 summarizes some of the points from the

@@ -79,7 +79,7 @@ lifting.
 
 So, what does the future hold? We think that 2015 will be Go's biggest year yet.
 
-Go 1.4—in addition to its [[http://tip.golang.org/doc/go1.4][new features and fixes]]—lays
+Go 1.4—in addition to its [[https://golang.org/doc/go1.4][new features and fixes]]—lays
 the groundwork for a new low-latency garbage collector and support for running
 Go on mobile devices. It is due to be released on December 1st 2014.
 We expect the new GC to be available in Go 1.5, due June 1st 2015, which will
