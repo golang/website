@@ -6,8 +6,9 @@ Ian Lance Taylor
 
 * Introduction
 
-[This is a version of a talk presented at Gophercon 2019.
-Video link to follow when available.]
+This is the blog post version of my talk last week at Gophercon 2019.
+
+.iframe //www.youtube.com/embed/WzgLqE-3IhY?rel=0 309 549
 
 This article is about what it would mean to add generics to Go, and
 why I think we should do it.

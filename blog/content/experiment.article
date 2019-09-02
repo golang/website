@@ -6,8 +6,9 @@ Russ Cox
 
 * Introduction
 
-[This is the blog post version of my talk last week at Gophercon 2019.
-We will add a video link to the talk once it is available.]
+This is the blog post version of my talk last week at Gophercon 2019.
+
+.iframe //www.youtube.com/embed/kNHo788oO5Y?rel=0 309 549
 
 We are all on the path to Go 2, together,
 but none of us know exactly where that path leads
