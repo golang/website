@@ -424,3 +424,52 @@ a:hover {
 .WhyGo-gopher img {
   width: 100%;
 }
+.LearnGo-subHeader {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.LearnGo-subHeader h3 {
+  color: #6e7072;
+  font-size: 1rem;
+  font-weight: normal;
+}
+.LearnGo-viewMore a {
+  font-weight: 600;
+}
+.LearnGo-courses {
+  display: flex;
+  flex: 1 0 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0 0 0 -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  padding-left: 0;
+}
+@media only screen and (min-width: 72.75rem) {
+  .LearnGo-courses {
+    justify-content: space-between;
+  }
+}
+.LearnGo-courseItem {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem 0 0 1rem; /* Gutter between grid cells. */
+}
+.LearnGo-courseItem a {
+  color: #3e4042;
+}
+.LearnGo-courseTitle {
+  text-align: center;
+}
+.LearnGo-courseImage {
+  background-color: #fff;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  height: 11rem;
+  max-width: 16.5rem;
+  width: 16.5rem;
+}
