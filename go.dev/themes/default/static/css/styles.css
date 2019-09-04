@@ -444,7 +444,7 @@ a:hover {
   flex-wrap: wrap;
   justify-content: space-around;
   list-style: none;
-  margin: 0 0 0 -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  margin: 0 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
   padding-left: 0;
 }
 @media only screen and (min-width: 72.75rem) {
@@ -472,4 +472,96 @@ a:hover {
   height: 11rem;
   max-width: 16.5rem;
   width: 16.5rem;
+}
+.LearnGo-events {
+  background-color: #fff;
+  border: 0.0625rem solid rgba(155, 155, 155, 0.19);
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.125rem 0.8125rem 0 rgba(0, 0, 0, 0.26);
+  flex: 1 0 100%;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding-left: 0;
+  width: 100%;
+}
+.LearnGo-eventItem {
+  display: flex;
+  padding: 1rem;
+}
+.LearnGo-eventItem + .LearnGo-eventItem {
+  border-top: 1px solid #e0e0e0;
+}
+.LearnGo-eventThumbnail {
+  background-color: #d8d8d8;
+  height: 3rem;
+  min-width: 3rem;
+  width: 3rem;
+}
+.LearnGo-eventBody {
+  flex: auto;
+  padding-left: 1rem;
+}
+.LearnGo-eventDate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.LearnGo-eventDate p {
+  color: #6e7072;
+  margin: 0;
+}
+.LearnGo-eventName {
+  color: #007d9c;
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin: 0;
+}
+.LearnGo-eventDescription {
+  -webkit-box-orient: vertical; /* See webkit-line-clamp */
+  display: -webkit-box; /* See webkit-line-clamp */
+  -webkit-line-clamp: 4; /* Elide flex text. webkit-line-clamp is broadly compatible with browsers. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.LearnGo-viewMore {
+  margin: 0;
+}
+@media only screen and (min-width: 57.7rem) {
+  .LearnGo-eventThumbnail {
+    height: 5.375rem;
+    min-width: 5.375rem;
+    width: 5.375rem;
+  }
+  .LearnGo-eventDate {
+    flex: 2;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 1rem;
+    min-width: 6rem;
+  }
+  .LearnGo-eventText {
+    display: flex;
+    flex: 2 1 23.4375rem;
+    flex-direction: column;
+    justify-content: space-around;
+    max-height: 5.375rem;
+    padding-right: 5rem;
+  }
+  .LearnGo-eventDescription {
+    -webkit-line-clamp: 2; /* see non-media-query definition. */
+    margin: 0 0 0.5rem;
+  }
+  .LearnGo-viewMore {
+    align-self: center;
+    flex: 2;
+    text-align: right;
+  }
+  .LearnGo-eventBody {
+    display: flex;
+    flex-direction: row;
+  }
+  .LearnGo-eventItem {
+    max-height: 7.5rem;
+  }
 }
