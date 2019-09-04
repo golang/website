@@ -481,7 +481,7 @@ a:hover {
   flex: 1 0 100%;
   list-style: none;
   margin: 0.5rem 0 0;
-  padding-left: 0;
+  padding: 0.5rem 0;
   width: 100%;
 }
 .LearnGo-eventItem {
@@ -562,6 +562,6 @@ a:hover {
     flex-direction: row;
   }
   .LearnGo-eventItem {
-    max-height: 7.5rem;
+    padding: 1rem 3rem;
   }
 }
