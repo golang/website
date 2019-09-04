@@ -486,7 +486,8 @@ a:hover {
 }
 .LearnGo-eventItem {
   display: flex;
-  padding: 1rem;
+  padding: 1rem 0;
+  margin: 0 1rem;
 }
 .LearnGo-eventItem + .LearnGo-eventItem {
   border-top: 1px solid #e0e0e0;
@@ -562,6 +563,7 @@ a:hover {
     flex-direction: row;
   }
   .LearnGo-eventItem {
-    padding: 1rem 3rem;
+    padding: 1rem 0;
+    margin: 0 3rem;
   }
 }
