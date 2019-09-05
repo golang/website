@@ -39,6 +39,9 @@ a:hover {
   margin: 0 auto;
   max-width: 75.75rem;
 }
+.Footer {
+  padding: 2.625rem 1.5rem;
+}
 .Container--fullBleed {
   margin: 0;
   max-width: none;
@@ -566,4 +569,19 @@ a:hover {
     padding: 1rem 0;
     margin: 0 3rem;
   }
+}
+.Footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -6rem;
+}
+.Footer-linkColumn {
+  padding-left: 6rem;
+}
+a.Footer-link {
+  color: #fff;
+  display: flex;
+  flex: 1;
+  font-size: .875rem;
+  line-height: 2rem;
 }
