@@ -10,6 +10,8 @@ steps:
     env:
       - 'PROJECT_ID=$PROJECT_ID'
     secretEnv: ['FIREBASE_TOKEN']
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy"]
 images:
   - 'gcr.io/$PROJECT_ID/firebase'
   - 'gcr.io/$PROJECT_ID/hugo'
