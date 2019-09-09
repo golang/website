@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700|Work+Sans:600|Source+Code+Pro">
 {{$styles := resources.Get "css/styles.css" -}}
 {{if .Site.IsServer -}}
-  <link rel="stylesheet" href="{{$styles.Permalink}}">
+  <link rel="stylesheet" href="{{$styles.RelPermalink}}">
 {{else -}}
   {{$stylesFP := $styles | fingerprint -}}
-  <link rel="stylesheet" href="{{$stylesFP.Permalink}}" integrity="{{$stylesFP.Data.Integrity}}">
+  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
 {{end -}}
 <title>{{$.Site.Title}}</title>
 <body class="Site{{if .IsHome}} Site--blue{{end}}">
