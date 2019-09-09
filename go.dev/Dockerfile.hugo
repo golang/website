@@ -1,10 +1,11 @@
 FROM debian:stretch
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get install --quiet -y --no-install-recommends \
     wget \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
-RUN wget https://github.com/gohugoio/hugo/releases/download/v0.55.6/hugo_0.55.6_Linux-64bit.tar.gz
-RUN tar -xzvf hugo_0.55.6_Linux-64bit.tar.gz
+ENV HUGO_VERSION=0.58.1
+RUN wget -nv --show-progress --progress=bar:force:noscroll https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
+RUN tar -xzvf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 ENTRYPOINT ["/hugo"]
