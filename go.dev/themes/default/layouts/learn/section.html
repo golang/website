@@ -1,0 +1,31 @@
+{{define "main"}}
+<section class="Learn-title">
+  <div class="Container">
+    <h1>Getting Started</h1>
+  </div>
+</section>
+<section class="Learn-gettingStarted">
+  <div class="Container">
+    <ul class="Learn-quickstarts">
+      {{range $.Site.Data.learn.quickstart.links}}
+      <li class="Learn-quickstart">
+        <a href="{{.url}}">
+          <div class="Learn-quickstartThumbnail">
+            {{if .thumbnail}}
+              <img src="{{.thumbnail}}" alt="{{.title}} thumbnail.">
+            {{end}}
+          </div>
+          <p class="Learn-quickstartTitle">
+            {{.title}}
+          </p>
+        </a>
+      </li>
+      {{end}}
+    </ul>
+    <p class="Learn-actions">
+      <a class="Learn-viewMore" href="#">View More &gt;</a>
+    </p>
+  </div>
+</section>
+learn section
+{{end}}

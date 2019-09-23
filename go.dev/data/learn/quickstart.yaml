@@ -1,0 +1,10 @@
+links:
+  - title: Installing Go
+    url: https://golang.org/doc/install
+    thumbnail:
+  - title: Hello World
+    url: https://play.golang.org
+    thumbnail:
+  - title: Tour of Go
+    url: https://tour.golang.org
+    thumbnail:
