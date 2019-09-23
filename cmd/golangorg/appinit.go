@@ -101,7 +101,6 @@ func main() {
 	}
 
 	pres = godoc.NewPresentation(corpus)
-	pres.TabWidth = 8
 	pres.ShowPlayground = true
 	pres.DeclLinks = true
 	pres.NotesRx = regexp.MustCompile("BUG")
