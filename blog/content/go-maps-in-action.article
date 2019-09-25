@@ -156,7 +156,7 @@ This statement declares a `counter` variable that is an anonymous struct contain
 
 To read from the counter, take the read lock:
 
- 
+
 	counter.RLock()
 	n := counter.m["some_key"]
 	counter.RUnlock()
@@ -171,8 +171,6 @@ To write to the counter, take the write lock:
 * Iteration order
 
 When iterating over a map with a range loop, the iteration order is not specified and is not guaranteed to be the same from one iteration to the next.
-Since the release of Go 1.0, the runtime has randomized map iteration order.
-Programmers had begun to rely on the stable iteration order of early versions of Go, which varied between implementations, leading to portability bugs.
 If you require a stable iteration order you must maintain a separate data structure that specifies that order.
 This example uses a separate sorted slice of keys to print a `map[int]string` in key order:
 
