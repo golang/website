@@ -586,7 +586,10 @@ a.Footer-link {
   line-height: 2rem;
 }
 .Learn-title,
-.Learn-gettingStarted {
+.Learn-gettingStarted,
+.Learn-books,
+.Learn-guided,
+.Learn-online {
   padding: 0 1.5rem;
 }
 .Learn-title h1 {
@@ -640,10 +643,10 @@ a.Footer-link {
   padding: 1rem 0 3rem;
   text-align: center;
 }
-.Learn-viewMore,
-.Learn-viewMore:visited,
-.Learn-viewMore:hover,
-.Learn-viewMore {
+.Learn-viewMoreButton,
+.Learn-viewMoreButton:visited,
+.Learn-viewMoreButton:hover,
+.Learn-viewMoreButton {
   background-color: #f5fcfe;
   border: 1px solid #00add8;
   border-radius: 0.25rem;
@@ -654,4 +657,57 @@ a.Footer-link {
   padding: 0 2.3rem;
   text-align: center;
   text-decoration: none;
+}
+.Learn-subHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  width: 100%;
+}
+.Learn-viewMore {
+  align-self: center;
+  font-size: 1.125rem;
+}
+.Learn-tileList {
+  display: flex;
+  flex: 1 0 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  padding-left: 0;
+}
+@media only screen and (min-width: 72.75rem) {
+  .Learn-tileList {
+    justify-content: space-between;
+  }
+}
+.Learn-tile {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1rem 0 0 1rem; /* Gutter between grid cells. */
+}
+.Learn-tile a {
+  color: #3e4042;
+}
+.Learn-tileTitle {
+  font-size: 1.25rem;
+  margin: auto;
+  overflow-wrap: break-word;
+  padding-top: 1.5rem;
+  text-align: center;
+  width: 12.75rem;
+}
+.Learn-tileThumbnail {
+  background-color: #fff;
+  border-radius: 0.3125rem;
+  box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  height: 11rem;
+  margin: auto;
+  width: 16.5rem;
+}
+.Learn-tileThumbnail--book {
+  width: 9.625rem;
 }

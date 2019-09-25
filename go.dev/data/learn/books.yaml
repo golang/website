@@ -1,0 +1,16 @@
+links:
+  - title: The Go Programming Language
+    url: https://www.gopl.io/
+    thumbnail:
+  - title: An Introduction to Programming in Go
+    url: https://www.golang-book.com/books/intro
+    thumbnail:
+  - title: Go in Action
+    url: https://www.manning.com/books/go-in-action
+    thumbnail:
+  - title: Introducing Go
+    url: http://shop.oreilly.com/product/0636920046516.do
+    thumbnail:
+  - title: Learn Go
+    url: https://github.com/gyuho/learn#contents
+    thumbnail:
