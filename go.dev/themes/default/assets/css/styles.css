@@ -589,6 +589,7 @@ a.Footer-link {
 .Learn-gettingStarted,
 .Learn-books,
 .Learn-guided,
+.Learn-inPersonTraining,
 .Learn-online {
   padding: 0 1.5rem;
 }
@@ -667,6 +668,7 @@ a.Footer-link {
 .Learn-viewMore {
   align-self: center;
   font-size: 1.125rem;
+  font-weight: 600;
 }
 .Learn-tileList {
   display: flex;
@@ -710,4 +712,31 @@ a.Footer-link {
 }
 .Learn-tileThumbnail--book {
   width: 9.625rem;
+}
+.Learn-inPersonList {
+  display: flex;
+  flex: 1 0 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  list-style: none;
+  margin: 0.5rem 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  padding-left: 0;
+}
+.Learn-inPerson {
+  flex: 1 1 500px;
+  margin: 0rem 0 0 1rem; /* Gutter between grid cells. */
+  max-width: 31rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.Learn-inPerson:nth-child(1),
+.Learn-inPerson:nth-child(2) {
+  border-top: 1px solid #e0e0e0;
+}
+.Learn-inPersonTitle {
+  font-size: 1.25rem;
+}
+.Learn-inPersonBlurb {
+  margin: 0;
 }

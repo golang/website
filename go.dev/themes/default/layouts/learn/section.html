@@ -105,4 +105,28 @@
     </ul>
   </div>
 </section>
+<section class="Learn-inPersonTraining">
+  <div class="Container">
+    <div class="Learn-subHeader">
+      <h2>In Person Training</h2>
+      <p class="Learn-viewMore">
+        <a href="#">View More &gt;</a>
+      </p>
+    </div>
+    <ul class="Learn-inPersonList">
+      {{range first 4 $.Site.Data.learn.inPerson.links}}
+      <li class="Learn-inPerson">
+        <p class="Learn-inPersonTitle">
+          <a href="{{.url}}">
+            {{.title}}
+          </a>
+        </p>
+        <p class="Learn-inPersonBlurb">
+          {{.blurb}}
+        </p>
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</section>
 {{end}}
