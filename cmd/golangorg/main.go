@@ -7,7 +7,7 @@
 // Web server tree:
 //
 //	https://golang.org/			main landing page
-//	https://golang.org/doc/	serve from $GOROOT/doc - spec, mem, etc.
+//	https://golang.org/doc/	serve from content/static/doc, then $GOROOT/doc. spec, mem, etc.
 //	https://golang.org/src/	serve files from $GOROOT/src; .go gets pretty-printed
 //	https://golang.org/cmd/	serve documentation about commands
 //	https://golang.org/pkg/	serve documentation about packages
@@ -15,8 +15,8 @@
 //				https://golang.org/pkg/compress/zlib)
 //
 
-// Some pages are being transitioned from $GOROOT to this source tree.
-// See bindings below to see which ones.
+// Some pages are being transitioned from $GOROOT to content/static/doc.
+// See golang.org/issue/29206 and golang.org/issue/33637.
 
 // +build !golangorg
 
@@ -143,15 +143,15 @@ func main() {
 		defer rc.Close() // be nice (e.g., -writeIndex mode)
 		fs.Bind("/", zipfs.New(rc, *zipfile), *goroot, vfs.BindReplace)
 	}
-	// Use a local copy of root.html instead of the one in the main go repository.
-	// See golang.org/issue/29206 for more info.
+	// Try serving files in /doc from a local copy before trying the main
+	// go repository. This lets us update some documentation outside the
+	// Go release cycle. This includes root.html, which redirects to "/".
+	// See golang.org/issue/29206.
 	if *templateDir != "" {
-		fs.Bind("/doc/root.html", vfs.OS(*templateDir), "/doc/root.html", vfs.BindReplace)
-		fs.Bind("/doc/copyright.html", vfs.OS(*templateDir), "/doc/copyright.html", vfs.BindReplace)
+		fs.Bind("/doc", vfs.OS(*templateDir), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
-		fs.Bind("/doc/root.html", mapfs.New(static.Files), "/doc/root.html", vfs.BindReplace)
-		fs.Bind("/doc/copyright.html", mapfs.New(static.Files), "/doc/copyright.html", vfs.BindReplace)
+		fs.Bind("/doc", mapfs.New(static.Files), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
 	}
 

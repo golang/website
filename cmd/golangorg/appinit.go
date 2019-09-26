@@ -75,10 +75,11 @@ func main() {
 		fs.Bind("/", rootfs, "/", vfs.BindReplace)
 	}
 
-	// Use a local copy of root.html instead of the one in the main go repository.
-	// See golang.org/issue/29206 for more info.
-	fs.Bind("/doc/root.html", mapfs.New(static.Files), "/doc/root.html", vfs.BindReplace)
-	fs.Bind("/doc/copyright.html", mapfs.New(static.Files), "/doc/copyright.html", vfs.BindReplace)
+	// Try serving files in /doc from a local copy before trying the main
+	// go repository. This lets us update some documentation outside the
+	// Go release cycle. This includes root.html, which redirects to "/".
+	// See golang.org/issue/29206.
+	fs.Bind("/doc", mapfs.New(static.Files), "/doc", vfs.BindBefore)
 	fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
 
 	webroot := getFullPath("/src/golang.org/x/website")
