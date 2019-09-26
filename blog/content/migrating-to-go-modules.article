@@ -5,7 +5,12 @@ Tags: tools, versioning, modules
 Jean de Klerk
 
 * Introduction
-This post is part 2 in a series. See part 1 — [[https://blog.golang.org/using-go-modules][Using Go Modules]].
+
+This post is part 2 in a series.
+
+- Part 1 — [[/using-go-modules][Using Go Modules]]
+- *Part*2*—*Migrating*To*Go*Modules* (this post)
+- Part 3 — [[/publishing-go-modules][Publishing Go Modules]]
 
 Go projects use a wide variety of dependency management strategies. [[https://golang.org/cmd/go/#hdr-Vendor_Directories][Vendoring]] tools such as [[https://github.com/golang/dep][dep]] and [[https://github.com/Masterminds/glide][glide]] are popular, but they have wide differences in behavior and don't always work well together. Some projects store their entire GOPATH directory in a single Git repository. Others simply rely on `go`get` and expect fairly recent versions of dependencies to be installed in GOPATH.
 
@@ -187,7 +192,14 @@ Finally, you should tag and publish a release version for your new module. This 
     $ git tag v1.2.0
     $ git push origin v1.2.0
 
-Your new `go.mod` file defines a canonical import path for your module and adds new minimum version requirements. If your users are already using the correct import path, and your dependencies haven't made breaking changes, then adding the `go.mod` file is backwards-compatible — but it's a significant change, and may expose existing problems. If you have existing version tags, you should increment the [[https://semver.org/#spec-item-7][minor version]].
+Your new `go.mod` file defines a canonical import path for your module and adds
+new minimum version requirements. If your users are already using the correct
+import path, and your dependencies haven't made breaking changes, then adding
+the `go.mod` file is backwards-compatible — but it's a significant change, and
+may expose existing problems. If you have existing version tags, you should
+increment the [[https://semver.org/#spec-item-7][minor version]]. See
+[[/publishing-go-modules][Publishing Go Modules]] to learn how to increment and
+publish versions.
 
 * Imports and canonical module paths
 
@@ -199,7 +211,7 @@ Another scenario in which a module's canonical path may differ from its reposito
 
 * Conclusion
 
-Converting to Go modules should be a straightforward process for most users. Occasional issues may arise due to non-canonical import paths or breaking changes within a dependency. Future posts will explore publishing new versions, v2 and beyond, and ways to debug strange situations.
+Converting to Go modules should be a straightforward process for most users. Occasional issues may arise due to non-canonical import paths or breaking changes within a dependency. Future posts will explore [[/publishing-go-modules][publishing new versions]], v2 and beyond, and ways to debug strange situations.
 
 To provide feedback and help shape the future of dependency management in Go, please send us [[https://golang.org/issue/new][bug reports]] or [[https://golang.org/wiki/ExperienceReports][experience reports]].
 
