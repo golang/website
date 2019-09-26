@@ -35,6 +35,10 @@ func TestLiveServer(t *testing.T) {
 		StatusCode  int // if 0, expect 2xx status code.
 	}{
 		{
+			Path:      "/doc/",
+			Substring: "an introduction to using modules in a simple project",
+		},
+		{
 			Path:      "/doc/faq",
 			Substring: "What is the purpose of the project",
 		},
