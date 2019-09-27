@@ -496,10 +496,19 @@ a:hover {
   border-top: 1px solid #e0e0e0;
 }
 .LearnGo-eventThumbnail {
-  background-color: #d8d8d8;
+  align-content: center;
+  display: flex;
   height: 3rem;
   min-width: 3rem;
   width: 3rem;
+}
+.LearnGo-eventThumbnail--noimage {
+  background-color: #d8d8d8;
+}
+.LearnGo-eventThumbnail img {
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
 }
 .LearnGo-eventBody {
   flex: auto;
@@ -520,6 +529,10 @@ a:hover {
   font-size: 1.25rem;
   font-weight: normal;
   margin: 0;
+  max-width: 30rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .LearnGo-eventDescription {
   -webkit-box-orient: vertical; /* See webkit-line-clamp */
@@ -590,8 +603,16 @@ a.Footer-link {
 .Learn-books,
 .Learn-guided,
 .Learn-inPersonTraining,
+.Learn-meetups,
 .Learn-online {
   padding: 0 1.5rem;
+}
+.Learn-books,
+.Learn-guided,
+.Learn-inPersonTraining,
+.Learn-meetups,
+.Learn-online {
+  margin: 4rem 0;
 }
 .Learn-title h1 {
   font-size: 2.625rem;
@@ -662,7 +683,6 @@ a.Footer-link {
 .Learn-subHeader {
   display: flex;
   justify-content: space-between;
-  margin-top: 1.5rem;
   width: 100%;
 }
 .Learn-viewMore {
@@ -724,11 +744,11 @@ a.Footer-link {
   padding-left: 0;
 }
 .Learn-inPerson {
+  border-bottom: 1px solid #e0e0e0;
   flex: 1 1 500px;
-  margin: 0rem 0 0 1rem; /* Gutter between grid cells. */
+  margin: 0 0 0 1rem; /* Gutter between grid cells. */
   max-width: 31rem;
   padding-bottom: 1.25rem;
-  border-bottom: 1px solid #e0e0e0;
 }
 .Learn-inPerson:nth-child(1),
 .Learn-inPerson:nth-child(2) {
@@ -739,4 +759,107 @@ a.Footer-link {
 }
 .Learn-inPersonBlurb {
   margin: 0;
+}
+.Learn-events {
+  flex: 1 0 100%;
+  list-style: none;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  width: 100%;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.Learn-eventItem {
+  display: flex;
+  padding: 1rem 0;
+}
+.Learn-eventItem + .Learn-eventItem {
+  border-top: 1px solid #e0e0e0;
+}
+.Learn-eventThumbnail {
+  align-content: center;
+  display: flex;
+  height: 3rem;
+  min-width: 3rem;
+  width: 3rem;
+}
+.Learn-eventThumbnail--noimage {
+  background-color: #d8d8d8;
+}
+.Learn-eventThumbnail img {
+  margin: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+.Learn-eventBody {
+  flex: auto;
+  padding-left: 1rem;
+}
+.Learn-eventDate {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.Learn-eventDate p {
+  color: #6e7072;
+  margin: 0;
+}
+.Learn-eventName {
+  color: #007d9c;
+  font-size: 1.25rem;
+  font-weight: normal;
+  margin: 0;
+  max-width: 30rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.Learn-eventDescription {
+  -webkit-box-orient: vertical; /* See webkit-line-clamp */
+  display: -webkit-box; /* See webkit-line-clamp */
+  -webkit-line-clamp: 4; /* Elide flex text. webkit-line-clamp is broadly compatible with browsers. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.Learn-viewMore {
+  margin: 0;
+}
+@media only screen and (min-width: 57.7rem) {
+  .Learn-eventThumbnail {
+    height: 5.375rem;
+    min-width: 5.375rem;
+    width: 5.375rem;
+  }
+  .Learn-eventDate {
+    flex: 2;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 1rem;
+    min-width: 6rem;
+  }
+  .Learn-eventText {
+    display: flex;
+    flex: 2 1 23.4375rem;
+    flex-direction: column;
+    justify-content: space-around;
+    max-height: 5.375rem;
+    padding-right: 5rem;
+  }
+  .Learn-eventDescription {
+    -webkit-line-clamp: 2; /* see non-media-query definition. */
+    margin: 0 0 0.5rem;
+  }
+  .Learn-viewMore {
+    align-self: center;
+    flex: 2;
+    text-align: right;
+  }
+  .Learn-eventBody {
+    display: flex;
+    flex-direction: row;
+  }
+  .Learn-eventItem {
+    padding: 1rem 0;
+  }
 }

@@ -129,4 +129,40 @@
     </ul>
   </div>
 </section>
+<section class="Learn-meetups">
+  <div class="Container">
+    <div class="Learn-subHeader">
+      <h2>Meetups</h2>
+      <p class="Learn-viewMore">
+        <a href="#">View More &gt;</a>
+      </p>
+    </div>
+    <ul class="Learn-events">
+      {{range first 3 $.Site.Data.events.all}}
+      <li class="Learn-eventItem">
+        <div class="Learn-eventThumbnail {{if not .thumbnailurl}}Learn-eventThumbnail--noimage{{end}}">
+          {{if .thumbnailurl}}
+          <img alt="{{.name}} group photo." src="{{.thumbnailurl}}"/>
+          {{end}}
+        </div>
+        <div class="Learn-eventBody">
+          <div class="Learn-eventDate">
+            <p>{{.local_date}}</p>
+            <p>{{.city}}, {{.state}} {{.country}}</p>
+          </div>
+          <div class="Learn-eventText">
+            <h4 class="Learn-eventName">
+              <a href="{{.url}}">{{.name}}</a>
+            </h4>
+            <p class="Learn-eventDescription">
+              {{.description | safeHTML}}
+            </p>
+          </div>
+          <p class="Learn-viewMore"><a href="{{.url}}">Learn more &gt;</a></p>
+        </div>
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</section>
 {{end}}
