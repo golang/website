@@ -164,10 +164,6 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	if certInit != nil {
-		certInit()
-	}
-
 	playEnabled = *showPlayground
 
 	// Check usage: server and no args.
@@ -311,30 +307,11 @@ func main() {
 		go corpus.RunIndexer()
 	}
 
-	if runHTTPS != nil {
-		go func() {
-			if err := runHTTPS(handler); err != nil {
-				log.Fatalf("ListenAndServe TLS: %v", err)
-			}
-		}()
-	}
-
 	// Start http server.
 	if *verbose {
 		log.Println("starting HTTP server")
-	}
-	if wrapHTTPMux != nil {
-		handler = wrapHTTPMux(handler)
 	}
 	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
 	}
 }
-
-// Hooks that are set non-nil in autocert.go if the "autocert" build tag
-// is used.
-var (
-	certInit    func()
-	runHTTPS    func(http.Handler) error
-	wrapHTTPMux func(http.Handler) http.Handler
-)
