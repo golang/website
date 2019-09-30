@@ -1,7 +1,7 @@
 runtime: python27
 api_version: 1
 threadsafe: true
-service: go-dev-dev
+service: go-dev
 
 handlers:
 - url: /
