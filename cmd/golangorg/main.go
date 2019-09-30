@@ -24,7 +24,6 @@ package main
 
 import (
 	"archive/zip"
-	"bytes"
 	_ "expvar" // to serve /debug/vars
 	"flag"
 	"fmt"
@@ -32,7 +31,6 @@ import (
 	"log"
 	"net/http"
 	_ "net/http/pprof" // to serve /debug/pprof/*
-	"net/url"
 	"os"
 	"path/filepath"
 	"regexp"
@@ -58,9 +56,6 @@ var (
 
 	// network
 	httpAddr = flag.String("http", defaultAddr, "HTTP service address")
-
-	// layout control
-	urlFlag = flag.String("url", "", "print HTML for named URL")
 
 	verbose = flag.Bool("v", false, "verbose mode")
 
@@ -93,17 +88,6 @@ func getFullPath(relPath string) string {
 	return gopath + relPath
 }
 
-// An httpResponseRecorder is an http.ResponseWriter
-type httpResponseRecorder struct {
-	body   *bytes.Buffer
-	header http.Header
-	code   int
-}
-
-func (w *httpResponseRecorder) Header() http.Header         { return w.header }
-func (w *httpResponseRecorder) Write(b []byte) (int, error) { return len(b), nil }
-func (w *httpResponseRecorder) WriteHeader(code int)        { w.code = code }
-
 func usage() {
 	fmt.Fprintf(os.Stderr, "usage: golangorg -http="+defaultAddr+"\n")
 	flag.PrintDefaults()
@@ -115,42 +99,6 @@ func loggingHandler(h http.Handler) http.Handler {
 		log.Printf("%s\t%s", req.RemoteAddr, req.URL)
 		h.ServeHTTP(w, req)
 	})
-}
-
-func handleURLFlag() {
-	// Try up to 10 fetches, following redirects.
-	urlstr := *urlFlag
-	for i := 0; i < 10; i++ {
-		// Prepare request.
-		u, err := url.Parse(urlstr)
-		if err != nil {
-			log.Fatal(err)
-		}
-		req := &http.Request{
-			URL: u,
-		}
-
-		// Invoke default HTTP handler to serve request
-		// to our buffering httpWriter.
-		w := &httpResponseRecorder{code: 200, header: make(http.Header), body: new(bytes.Buffer)}
-		http.DefaultServeMux.ServeHTTP(w, req)
-
-		// Return data, error, or follow redirect.
-		switch w.code {
-		case 200: // ok
-			os.Stdout.Write(w.body.Bytes())
-			return
-		case 301, 302, 303, 307: // redirect
-			redirect := w.header.Get("Location")
-			if redirect == "" {
-				log.Fatalf("HTTP %d without Location header", w.code)
-			}
-			urlstr = redirect
-		default:
-			log.Fatalf("HTTP error %d", w.code)
-		}
-	}
-	log.Fatalf("too many redirects")
 }
 
 func initCorpus(corpus *godoc.Corpus) {
@@ -166,15 +114,13 @@ func main() {
 
 	playEnabled = *showPlayground
 
-	// Check usage: server and no args.
-	if (*httpAddr != "" || *urlFlag != "") && (flag.NArg() > 0) {
+	// Check usage.
+	if flag.NArg() > 0 {
 		fmt.Fprintln(os.Stderr, "Unexpected arguments.")
 		usage()
 	}
-
-	// Check usage: command line args or index creation mode.
-	if (*httpAddr != "" || *urlFlag != "") != (flag.NArg() == 0) && !*writeIndex {
-		fmt.Fprintln(os.Stderr, "missing args.")
+	if *httpAddr == "" && !*writeIndex {
+		fmt.Fprintln(os.Stderr, "At least one of -http or -write_index must be set to a non-zero value.")
 		usage()
 	}
 
@@ -278,15 +224,9 @@ func main() {
 		return
 	}
 
-	// Print content that would be served at the URL *urlFlag.
-	if *urlFlag != "" {
-		handleURLFlag()
-		return
-	}
-
 	var handler http.Handler = http.DefaultServeMux
 	if *verbose {
-		log.Printf("Go Documentation Server")
+		log.Printf("golang.org server")
 		log.Printf("version = %s", runtime.Version())
 		log.Printf("address = %s", *httpAddr)
 		log.Printf("goroot = %s", *goroot)

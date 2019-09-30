@@ -54,7 +54,7 @@ func main() {
 
 	playEnabled = true
 
-	log.Println("initializing godoc ...")
+	log.Println("initializing golang.org server ...")
 	log.Printf(".zip file   = %s", zipFilename)
 	log.Printf(".zip GOROOT = %s", zipGoroot)
 	log.Printf("index files = %s", indexFilenames)

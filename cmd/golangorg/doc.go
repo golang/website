@@ -56,9 +56,6 @@ The flags are:
 		directory containing alternate template files; if set,
 		the directory may provide alternative template files
 		for the files in $GOROOT/lib/godoc
-	-url=path
-		print to standard output the data that would be served by
-		an HTTP request for path
 	-zip=""
 		zip file providing the file system to serve; disabled if empty
 
