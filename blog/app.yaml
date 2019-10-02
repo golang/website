@@ -1,8 +1,17 @@
 service: blog
-runtime: go111
+runtime: go112
 
 env_variables:
   GOLANGORG_CHECK_COUNTRY: true
+  BLOG_ANALYTICS: |
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11222381-3"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "UA-11222381-3");
+    gtag("config", "UA-49880327-6");
+    </script>
 
 default_expiration: "7d"
 

@@ -38,3 +38,21 @@ this repository, see https://golang.org/doc/contribute.html.
 The main issue tracker for the blog is located at
 https://github.com/golang/go/issues. Prefix your issue with "x/blog:" in the
 subject line, so it is easy to find.
+
+## Deploying
+
+1.	To deploy blog.golang.org, run:
+
+	```
+	GO111MODULE=on gcloud --project=golang-org app deploy --no-promote app.yaml
+	```
+
+	This will create a new version, which can be viewed within the
+	[golang-org GCP project](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=blog).
+
+2.	Check that the deployed version looks OK (click the version link in GCP).
+
+3.	If all is well, click "Migrate Traffic" to move 100% of the blog.golang.org
+	traffic to the new version.
+
+4.	You're done.

@@ -7,6 +7,7 @@
 package main
 
 import (
+	"html/template"
 	"log"
 	"net/http"
 	"os"
@@ -17,6 +18,7 @@ import (
 func gaeMain() {
 	config.ContentPath = "content/"
 	config.TemplatePath = "template/"
+	config.AnalyticsHTML = template.HTML(os.Getenv("BLOG_ANALYTICS"))
 	s, err := blog.NewServer(config)
 	if err != nil {
 		log.Fatalln(err)
