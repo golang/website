@@ -8,6 +8,13 @@ handlers:
   static_files: public/index.html
   upload: public/index.html
 
-- url: /(.*)
-  static_files: public/\1
+# Special for static content so we do not try to append index.html to their paths.
+- url: /(css|images)/(.*)
+  static_files: public/\1/\2
   upload: public/(.*)
+
+# Handle arbitrary paths with an index.html
+- url: /(.*)
+  static_files: public/\1/index.html
+  upload: public/(.*)/index.html
+
