@@ -1,4 +1,9 @@
 steps:
+  - name: 'mirror.gcr.io/library/golang'
+    entrypoint: bash
+    args:
+      - -c
+      - go run ./cmd/events/ > ./data/events.yaml
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-f', 'Dockerfile.hugo', '-t', 'gcr.io/$PROJECT_ID/hugo', '.']
   - name: 'gcr.io/$PROJECT_ID/hugo'
