@@ -731,7 +731,16 @@ a.Footer-link {
   width: 16.5rem;
 }
 .Learn-tileThumbnail--book {
+  align-items: center;
+  display: flex;
+  height: 13rem;
+  justify-content: center;
+  text-align: center;
   width: 9.625rem;
+}
+.Learn-tileThumbnail--book img {
+  max-height: 100%;
+  max-width: 100%;
 }
 .Learn-inPersonList {
   display: flex;

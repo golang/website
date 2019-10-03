@@ -1,16 +1,16 @@
 links:
   - title: The Go Programming Language
     url: https://www.gopl.io/
-    thumbnail:
-  - title: An Introduction to Programming in Go
-    url: https://www.golang-book.com/books/intro
-    thumbnail:
-  - title: Go in Action
-    url: https://www.manning.com/books/go-in-action
-    thumbnail:
+    thumbnail: /images/learn/go-programming-language-book.png
+  - title: Get Programming with Go
+    url: https://www.manning.com/books/get-programming-with-go
+    thumbnail: /images/learn/get-programming-with-go.jpeg
+  - title: Go Programming Blueprints
+    url: https://github.com/matryer/goblueprints
+    thumbnail: /images/learn/go-programming-blueprints.png
   - title: Introducing Go
     url: http://shop.oreilly.com/product/0636920046516.do
-    thumbnail:
-  - title: Learn Go
-    url: https://github.com/gyuho/learn#contents
-    thumbnail:
+    thumbnail: /images/learn/introducing-go-book.png
+  - title: Concurrency in Go
+    url: https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/
+    thumbnail: /images/learn/concurrency-in-go.jpeg

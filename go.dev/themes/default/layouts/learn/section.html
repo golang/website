@@ -84,7 +84,9 @@
     <div class="Learn-subHeader">
       <h2>Featured Books</h2>
       <p class="Learn-viewMore">
-        <a href="#">View More &gt;</a>
+        {{if gt (len $.Site.Data.learn.books.links) 5}}
+          <a href="#">View More &gt;</a>
+        {{end}}
       </p>
     </div>
     <ul class="Learn-tileList">
