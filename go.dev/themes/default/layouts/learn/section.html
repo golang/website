@@ -57,9 +57,9 @@
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Online Learning</h2>
-      <p class="Learn-viewMore">
-        <a href="#">View More &gt;</a>
-      </p>
+        {{if gt (len $.Site.Data.learn.courses.links) 4}}
+          <a href="#">View More &gt;</a>
+        {{end}}
     </div>
     <ul class="Learn-tileList">
       {{range first 4 $.Site.Data.learn.courses.links}}

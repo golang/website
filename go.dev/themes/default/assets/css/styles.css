@@ -469,12 +469,21 @@ a:hover {
   text-align: center;
 }
 .LearnGo-courseImage {
+  align-items: center;
   background-color: #fff;
   border-radius: 0.3125rem;
   box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  display: flex;
   height: 11rem;
+  justify-content: center;
+  margin: auto;
   max-width: 16.5rem;
   width: 16.5rem;
+  width: 16.5rem;
+}
+.LearnGo-courseImage img {
+  max-height: 100%;
+  max-width: 100%;
 }
 .LearnGo-events {
   background-color: #fff;
@@ -723,18 +732,22 @@ a.Footer-link {
   width: 12.75rem;
 }
 .Learn-tileThumbnail {
+  align-items: center;
   background-color: #fff;
   border-radius: 0.3125rem;
   box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  display: flex;
   height: 11rem;
+  justify-content: center;
   margin: auto;
   width: 16.5rem;
 }
+.Learn-tileThumbnail img {
+  max-height: 100%;
+  max-width: 100%;
+}
 .Learn-tileThumbnail--book {
-  align-items: center;
-  display: flex;
   height: 13rem;
-  justify-content: center;
   width: fit-content;
 }
 .Learn-tileThumbnail--book img {

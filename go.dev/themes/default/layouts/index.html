@@ -162,7 +162,11 @@
     </div>
     <div class="LearnGo-subHeader">
       <h3>Courses</h3>
-      <p class="LearnGo-viewMore"><a href="#viewMore">View more courses &gt;</a></p>
+      <p class="LearnGo-viewMore">
+        {{if gt (len $.Site.Data.learn.courses.links) 4}}
+          <a href="#">View More &gt;</a>
+        {{end}}
+      </p>
     </div>
     <ul class="LearnGo-courses">
       {{range first 4 $.Site.Data.learn.courses.links}}
