@@ -21,8 +21,8 @@
         <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
       </a>
       <ul class="Header-menu">
-        <li class="Header-menuItem"><a href="/">Solutions</a></li>
-        <li class="Header-menuItem Header-menuItem--active"><a href="/learn">Learn</a></li>
+        <li class="Header-menuItem {{if eq .CurrentSection.Title "Solutions"}}Header-menuItem--active{{end}}"><a href="/solutions">Solutions</a></li>
+        <li class="Header-menuItem {{if eq .CurrentSection.Title "Learn"}}Header-menuItem--active{{end}}"><a href="/learn">Learn</a></li>
         <li class="Header-menuItem"><a href="/explore">Explore</a></li>
         <li class="Header-menuItem"><a href="/">Community</a></li>
       </ul>

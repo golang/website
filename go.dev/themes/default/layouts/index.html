@@ -71,16 +71,16 @@
         <h2>Use Cases</h2>
       </div>
       {{range $solutions.Pages}}
-          <div class="UseCase">
-            <div class="UseCase-logo"></div>
-            <h3 class="UseCase-title">{{.LinkTitle}}</h3>
-            <p class="UseCase-description">
-              {{.Description}}
-            </p>
-            <p class="UseCase-action">
-              <a href="{{.RelPermalink}}">Learn More &gt;</a>
-            </p>
-          </div>
+        <div class="UseCase">
+          <div class="UseCase-logo"></div>
+          <h3 class="UseCase-title">{{.LinkTitle}}</h3>
+          <p class="UseCase-description">
+            {{.Description}}
+          </p>
+          <p class="UseCase-action">
+            <a href="{{.RelPermalink}}">Learn More &gt;</a>
+          </p>
+        </div>
       {{end}}
     </div>
   </div>
