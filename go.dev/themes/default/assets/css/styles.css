@@ -735,8 +735,7 @@ a.Footer-link {
   display: flex;
   height: 13rem;
   justify-content: center;
-  text-align: center;
-  width: 9.625rem;
+  width: fit-content;
 }
 .Learn-tileThumbnail--book img {
   max-height: 100%;
