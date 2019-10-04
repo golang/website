@@ -65,7 +65,7 @@ var (
 
 	// layout control
 	showTimestamps = flag.Bool("timestamps", false, "show timestamps with directory listings")
-	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory")
+	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content/static)")
 	showPlayground = flag.Bool("play", false, "enable playground")
 	declLinks      = flag.Bool("links", true, "link identifiers to their declarations")
 
