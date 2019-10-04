@@ -1,7 +1,7 @@
 ---
 title: "Go for Cloud Computing"
 description: "Go Helps Enterprises Build and Scale Cloud Computing Systems"
-date: 2019-10-03T16:26:31-04:00
+date: 2019-10-04T15:26:31-04:00
 series: Use Cases
 ---
 
