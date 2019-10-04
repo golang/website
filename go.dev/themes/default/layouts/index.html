@@ -18,48 +18,22 @@
   </div>
 </section>
 <section class="WhoUses">
+  {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
       <h2>Who Uses Go</h2>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit,</p>
     </div>
     <ul class="WhoUses-caseStudyList">
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-Google">
-          <img src="/images/google-logo.png" class="WhoUses-logo" alt="Google">
-          <p>View case study</p>
-        </a>
-      </li>
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-Amex">
-          <img src="/images/amex-logo.png" class="WhoUses-logo" alt="American Express">
-          <p>View case study</p>
-        </a>
-      </li>
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-Walmart">
-          <img src="/images/walmart-logo.png" class="WhoUses-logo" alt="Walmart">
-          <p>View case study</p>
-        </a>
-      </li>
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-SAP">
-          <img src="/images/sap-logo.png" class="WhoUses-logo" alt="SAP">
-          <p>View case study</p>
-        </a>
-      </li>
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-Netflix">
-          <img src="/images/netflix-logo.png" class="WhoUses-logo" alt="Netflix">
-          <p>View case study</p>
-        </a>
-      </li>
-      <li class="WhoUses-caseStudy">
-        <a href="#caseStudy-Adobe">
-          <img src="/images/adobe-logo.png" class="WhoUses-logo" alt="Adobe">
-          <p>View case study</p>
-        </a>
-      </li>
+      {{range where $solutions.Pages "Params.series" "Case Studies"}}
+        <li class="WhoUses-caseStudy">
+          <a href="{{.RelPermalink}}">
+            {{$logo := .Resources.GetMatch "logo"}}
+            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="Google">
+            <p>View case study</p>
+          </a>
+        </li>
+      {{end}}
     </ul>
   </div>
 </section>
