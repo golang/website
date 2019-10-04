@@ -3,6 +3,7 @@ title: "Go for Development Operations & Site Reliability Engineering (SRE)"
 linkTitle: "Development Operations & Site Reliability Engineering"
 description: "Go Helps Enterprises Automate and Scale for CI/CD"
 date: 2019-10-03T17:16:43-04:00
+series: Use Cases
 ---
 
 ### _Go Helps Enterprises Automate and Scale for CI/CD_

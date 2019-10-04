@@ -1,0 +1,22 @@
+{{define "main"}}
+<article class="Article">
+  <h1>{{.Title}}</h1>
+    {{range .Params.authors}}
+      <div class="Article-author">{{.}}</div>
+    {{end}}
+  <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
+  {{.Content}}
+  <h2>Use Cases</h2>
+  {{range where .Pages "Params.series" "Use Cases"}}
+    <h3>
+      <a href="{{.RelPermalink}}">{{.Title}}</a>
+    </h3>
+  {{end}}
+  <h2>Case Studies</h2>
+  {{range where .Pages "Params.series" "Case Studies"}}
+  <h3>
+    <a href="{{.RelPermalink}}">{{.Title}}</a>
+  </h3>
+  {{end}}
+</article>
+{{end}}

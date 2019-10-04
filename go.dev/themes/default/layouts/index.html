@@ -70,7 +70,7 @@
       <div class="UseCases-header">
         <h2>Use Cases</h2>
       </div>
-      {{range $solutions.Pages}}
+      {{range where $solutions.Pages "Params.series" "Use Cases"}}
         <div class="UseCase">
           <div class="UseCase-logo"></div>
           <h3 class="UseCase-title">{{.LinkTitle}}</h3>
@@ -148,7 +148,7 @@
           <a href="{{.url}}">
             <div class="LearnGo-courseImage">
               {{if .thumbnail}}
-              <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
+                <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
               {{end}}
             </div>
             <p class="LearnGo-courseTitle">{{.title}}</p>

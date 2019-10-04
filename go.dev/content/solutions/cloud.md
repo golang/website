@@ -2,6 +2,7 @@
 title: "Go for Cloud Computing"
 description: "Go was created to address concurrency needs for scaled applications, microservices, and cloud development."
 date: 2019-10-03T16:26:31-04:00
+series: Use Cases
 ---
 
 ### _Go Helps Enterprises Build and Scale Cloud Computing Systems_
