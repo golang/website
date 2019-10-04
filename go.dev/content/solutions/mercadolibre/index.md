@@ -6,7 +6,8 @@ series: Case Studies
 resources:
 - name: logo
   src: logo.svg
-  alt: MercadoLibre
+  params:
+    alt: MercadoLibre
 ---
 ## MercadoLibre Grows with Go
 

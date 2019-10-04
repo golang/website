@@ -29,7 +29,7 @@
         <li class="WhoUses-caseStudy">
           <a href="{{.RelPermalink}}">
             {{$logo := .Resources.GetMatch "logo"}}
-            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="Google">
+            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
             <p>View case study</p>
           </a>
         </li>
