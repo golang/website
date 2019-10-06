@@ -1,226 +1,96 @@
 <!--{
-	"Title": "How to Write Go Code"
+	"Title": "How to Write Go Code",
+	"Template": true
 }-->
 
 <h2 id="Introduction">Introduction</h2>
 
 <p>
-This document demonstrates the development of a simple Go package and
-introduces the <a href="/cmd/go/">go tool</a>, the standard way to fetch,
-build, and install Go packages and commands.
+This document demonstrates the development of a simple Go package inside a
+module and introduces the <a href="/cmd/go/">go tool</a>, the standard way to
+fetch, build, and install Go modules, packages, and commands.
 </p>
 
 <p>
-The <code>go</code> tool requires you to organize your code in a specific
-way. Please read this document carefully.
-It explains the simplest way to get up and running with your Go installation.
+Note: This document assumes that you are using Go 1.13 or later and the
+<code>GO111MODULE</code> environment variable is not set. If you are looking for
+the older, pre-modules version of this document, it is archived
+<a href="gopath_code.html">here</a>.
 </p>
-
-<p>
-A similar explanation is available as a
-<a href="//www.youtube.com/watch?v=XCsL89YtqCs">screencast</a>.
-</p>
-
 
 <h2 id="Organization">Code organization</h2>
 
-<h3 id="Overview">Overview</h3>
-
-<ul>
-	<li>Go programmers typically keep all their Go code in a single <i>workspace</i>.</li>
-	<li>A workspace contains many version control <i>repositories</i>
-	    (managed by Git, for example).</li>
-	<li>Each repository contains one or more <i>packages</i>.</li>
-	<li>Each package consists of one or more Go source files in a single directory.</li>
-	<li>The path to a package's directory determines its <i>import path</i>.</li>
-</ul>
-
 <p>
-Note that this differs from other programming environments in which every
-project has a separate workspace and workspaces are closely tied to version
-control repositories.
-</p>
-
-<h3 id="Workspaces">Workspaces</h3>
-
-<p>
-A workspace is a directory hierarchy with two directories at its root:
-</p>
-
-<ul>
-<li><code>src</code> contains Go source files, and
-<li><code>bin</code> contains executable commands.
-</ul>
-
-<p>
-The <code>go</code> tool builds and installs binaries to the <code>bin</code> directory.
+Go programs are organized into packages. A <dfn>package</dfn> is a collection
+of source files in the same directory that are compiled together. Functions,
+types, variables, and constants defined in one source file are visible to all
+other source files within the same package.
 </p>
 
 <p>
-The <code>src</code> subdirectory typically contains multiple version control
-repositories (such as for Git or Mercurial) that track the development of one
-or more source packages.
-</p>
-
-<p>
-To give you an idea of how a workspace looks in practice, here's an example:
-</p>
-
-<pre>
-bin/
-    hello                          # command executable
-    outyet                         # command executable
-src/
-    <a href="https://github.com/golang/example/">github.com/golang/example/</a>
-        .git/                      # Git repository metadata
-	hello/
-	    hello.go               # command source
-	outyet/
-	    main.go                # command source
-	    main_test.go           # test source
-	stringutil/
-	    reverse.go             # package source
-	    reverse_test.go        # test source
-    <a href="https://golang.org/x/image/">golang.org/x/image/</a>
-        .git/                      # Git repository metadata
-	bmp/
-	    reader.go              # package source
-	    writer.go              # package source
-    ... (many more repositories and packages omitted) ...
-</pre>
-
-<p>
-The tree above shows a workspace containing two repositories
-(<code>example</code> and <code>image</code>).
-The <code>example</code> repository contains two commands (<code>hello</code>
-and <code>outyet</code>) and one library (<code>stringutil</code>).
-The <code>image</code> repository contains the <code>bmp</code> package
-and <a href="https://godoc.org/golang.org/x/image">several others</a>.
-</p>
-
-<p>
-A typical workspace contains many source repositories containing many
-packages and commands. Most Go programmers keep <i>all</i> their Go source code
-and dependencies in a single workspace.
-</p>
-
-<p>
-Note that symbolic links should <b>not</b> be used to link files or directories into your workspace.
-</p>
-
-<p>
-Commands and libraries are built from different kinds of source packages.
-We will discuss the distinction <a href="#PackageNames">later</a>.
-</p>
-
-
-<h3 id="GOPATH">The <code>GOPATH</code> environment variable</h3>
-
-<p>
-The <code>GOPATH</code> environment variable specifies the location of your
-workspace. It defaults to a directory named <code>go</code> inside your home directory,
-so <code>$HOME/go</code> on Unix,
-<code>$home/go</code> on Plan 9,
-and <code>%USERPROFILE%\go</code> (usually <code>C:\Users\YourName\go</code>) on Windows.
-</p>
-
-<p>
-If you would like to work in a different location, you will need to
-<a href="https://golang.org/wiki/SettingGOPATH">set <code>GOPATH</code></a>
-to the path to that directory.
-(Another common setup is to set <code>GOPATH=$HOME</code>.)
-Note that <code>GOPATH</code> must <b>not</b> be the
-same path as your Go installation.
-</p>
-
-<p>
-The command <code>go</code> <code>env</code> <code>GOPATH</code>
-prints the effective current <code>GOPATH</code>;
-it prints the default location if the environment variable is unset.
-</p>
-
-<p>
-For convenience, add the workspace's <code>bin</code> subdirectory
-to your <code>PATH</code>:
-</p>
-
-<pre>
-$ <b>export PATH=$PATH:$(go env GOPATH)/bin</b>
-</pre>
-
-<p>
-The scripts in the rest of this document use <code>$GOPATH</code>
-instead of <code>$(go env GOPATH)</code> for brevity.
-To make the scripts run as written
-if you have not set GOPATH,
-you can substitute $HOME/go in those commands
-or else run:
-</p>
-
-<pre>
-$ <b>export GOPATH=$(go env GOPATH)</b>
-</pre>
-
-<p>
-To learn more about the <code>GOPATH</code> environment variable, see
-<a href="/cmd/go/#hdr-GOPATH_environment_variable"><code>'go help gopath'</code></a>.
-</p>
-
-<h3 id="ImportPaths">Import paths</h3>
-
-<p>
-An <i>import path</i> is a string that uniquely identifies a package.
-A package's import path corresponds to its location inside a workspace
-or in a remote repository (explained below).
-</p>
-
-<p>
-The packages from the standard library are given short import paths such as
-<code>"fmt"</code> and <code>"net/http"</code>.
-For your own packages, you must choose a base path that is unlikely to
-collide with future additions to the standard library or other external
-libraries.
-</p>
-
-<p>
-If you keep your code in a source repository somewhere, then you should use the
-root of that source repository as your base path.
-For instance, if you have a <a href="https://github.com/">GitHub</a> account at
-<code>github.com/user</code>, that should be your base path.
+A repository contains one or more modules. A <dfn>module</dfn> is a collection
+of related Go packages that are released together. A Go repository typically
+contains only one module, located at the root of the repository. A file named
+<code>go.mod</code> there declares the <dfn>module path</dfn>: the import path
+prefix for all packages within the module. The module contains the packages in
+the directory containing its <code>go.mod</code> file as well as subdirectories
+of that directory, up to the next subdirectory containing another
+<code>go.mod</code> file (if any).
 </p>
 
 <p>
 Note that you don't need to publish your code to a remote repository before you
-can build it. It's just a good habit to organize your code as if you will
-publish it someday. In practice you can choose any arbitrary path name,
-as long as it is unique to the standard library and greater Go ecosystem.
+can build it. A module can be defined locally without belonging to a repository.
+However, it's a good habit to organize your code as if you will publish it
+someday.
 </p>
 
 <p>
-We'll use <code>github.com/user</code> as our base path. Create a directory
-inside your workspace in which to keep source code:
+Each module's path not only serves as an import path prefix for its packages,
+but also indicates where the <code>go</code> command should look to download it.
+For example, in order to download the module <code>golang.org/x/tools</code>,
+the <code>go</code> command would consult the repository indicated by
+<code>https://golang.org/x/tools</code> (described more <a href="https://golang.org/cmd/go/#hdr-Relative_import_paths">here</a>).
+</p>
+
+<p>
+An <dfn>import path</dfn> is a string used to import a package. A package's
+import path is its module path joined with its subdirectory within the module.
+For example, the module <code>github.com/google/go-cmp</code> contains a package
+in the directory <code>cmp/</code>. That package's import path is
+<code>github.com/google/go-cmp/cmp</code>. Packages in the standard library do
+not have a module path prefix.
+</p>
+
+<h2 id="Command">Your first program</h2>
+
+<p>
+To compile and run a simple program, first choose a module path (we'll use
+<code>github.com/user/hello</code>) and create a <code>go.mod</code> file that
+declares it:
 </p>
 
 <pre>
-$ <b>mkdir -p $GOPATH/src/github.com/user</b>
+$ mkdir hello # Alternatively, clone it if it already exists in version control.
+$ cd hello
+$ <b>go mod init github.com/user/hello</b>
+go: creating new go.mod: module github.com/user/hello
+$ cat go.mod
+module github.com/user/hello
+
+go 1.13
+$
 </pre>
 
-
-<h3 id="Command">Your first program</h3>
-
 <p>
-To compile and run a simple program, first choose a package path (we'll use
-<code>github.com/user/hello</code>) and create a corresponding package directory
-inside your workspace:
+The first statement in a Go source file must be
+<code>package <dfn>name</dfn></code>. Executable commands must always use
+<code>package main</code>.
 </p>
 
-<pre>
-$ <b>mkdir $GOPATH/src/github.com/user/hello</b>
-</pre>
-
 <p>
-Next, create a file named <code>hello.go</code> inside that directory,
-containing the following Go code.
+Next, create a file named <code>hello.go</code> inside that directory containing
+the following Go code:
 </p>
 
 <pre>
@@ -239,55 +109,60 @@ Now you can build and install that program with the <code>go</code> tool:
 
 <pre>
 $ <b>go install github.com/user/hello</b>
-</pre>
-
-<p>
-Note that you can run this command from anywhere on your system. The
-<code>go</code> tool finds the source code by looking for the
-<code>github.com/user/hello</code> package inside the workspace specified by
-<code>GOPATH</code>.
-</p>
-
-<p>
-You can also omit the package path if you run <code>go install</code> from the
-package directory:
-</p>
-
-<pre>
-$ <b>cd $GOPATH/src/github.com/user/hello</b>
-$ <b>go install</b>
+$
 </pre>
 
 <p>
 This command builds the <code>hello</code> command, producing an executable
-binary. It then installs that binary to the workspace's <code>bin</code>
-directory as <code>hello</code> (or, under Windows, <code>hello.exe</code>).
-In our example, that will be <code>$GOPATH/bin/hello</code>, which is
-<code>$HOME/go/bin/hello</code>.
-</p>
-
-<p>
-The <code>go</code> tool will only print output when an error occurs, so if
-these commands produce no output they have executed successfully.
-</p>
-
-<p>
-You can now run the program by typing its full path at the command line:
+binary. It then installs that binary as <code>$HOME/go/bin/hello</code> (or,
+under Windows, <code>%USERPROFILE%\go\bin\hello.exe</code>). You can change the
+install directory by setting the <code>GOBIN</code>
+<a href="/cmd/go/#hdr-Environment_variables">environment variable</a>.
 </p>
 
 <pre>
-$ <b>$GOPATH/bin/hello</b>
-Hello, world.
+$ go env -w GOBIN=/somewhere/else/bin
+$
 </pre>
 
 <p>
-Or, as you have added <code>$GOPATH/bin</code> to your <code>PATH</code>,
-just type the binary name:
+Commands like <code>go install</code> apply within the context of the module
+containing the current working directory. If the working directory is not within
+the <code>github.com/user/hello</code> module, <code>go install</code> may fail.
+</p>
+
+<p>
+For convenience, <code>go</code> commands accept paths relative
+to the working directory, and default to the package in the
+current working directory if no other path is given.
+So in our working directory, the following commands are all equivalent:
 </p>
 
 <pre>
+$ go install github.com/user/hello
+</pre>
+
+<pre>
+$ go install .
+</pre>
+
+<pre>
+$ go install
+</pre>
+
+<p>
+Next, let's run the program to ensure it works. For added convenience, we'll
+add the install directory to our <code>PATH</code> to make running binaries
+easy:
+</p>
+
+<pre>
+# Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
+# for setting %PATH%.
+$ <b>export PATH=$PATH:$(go env GOBIN)</b>
 $ <b>hello</b>
 Hello, world.
+$
 </pre>
 
 <p>
@@ -297,47 +172,32 @@ optional: you do not need to use source control to write Go code.
 </p>
 
 <pre>
-$ <b>cd $GOPATH/src/github.com/user/hello</b>
 $ <b>git init</b>
-Initialized empty Git repository in /home/user/go/src/github.com/user/hello/.git/
-$ <b>git add hello.go</b>
+Initialized empty Git repository in /home/user/hello/.git/
+$ <b>git add go.mod hello.go</b>
 $ <b>git commit -m "initial commit"</b>
 [master (root-commit) 0b4507d] initial commit
  1 file changed, 7 insertion(+)
- create mode 100644 hello.go
+ create mode 100644 go.mod hello.go
+$
 </pre>
 
-<p>
-Pushing the code to a remote repository is left as an exercise for the reader.
-</p>
-
-
-<h3 id="Library">Your first library</h3>
+<h3 id="ImportingLocal">Importing packages from your module</h3>
 
 <p>
-Let's write a library and use it from the <code>hello</code> program.
-</p>
-
-<p>
-Again, the first step is to choose a package path (we'll use
-<code>github.com/user/stringutil</code>) and create the package directory:
+Let's write a <code>morestrings</code> package and use it from the <code>hello</code> program.
+First, create a directory for the package named
+<code>$HOME/hello/morestrings</code>, and then a file named
+<code>reverse.go</code> in that directory with the following contents:
 </p>
 
 <pre>
-$ <b>mkdir $GOPATH/src/github.com/user/stringutil</b>
-</pre>
+// Package morestrings implements additional functions to manipulate UTF-8
+// encoded strings, beyond what is provided in the standard "strings" package.
+package morestrings
 
-<p>
-Next, create a file named <code>reverse.go</code> in that directory with the
-following contents.
-</p>
-
-<pre>
-// Package stringutil contains utility functions for working with strings.
-package stringutil
-
-// Reverse returns its argument string reversed rune-wise left to right.
-func Reverse(s string) string {
+// ReverseRunes returns its argument string reversed rune-wise left to right.
+func ReverseRunes(s string) string {
 	r := []rune(s)
 	for i, j := 0, len(r)-1; i &lt; len(r)/2; i, j = i+1, j-1 {
 		r[i], r[j] = r[j], r[i]
@@ -347,30 +207,31 @@ func Reverse(s string) string {
 </pre>
 
 <p>
-Now, test that the package compiles with <code>go build</code>:
+Because our <code>ReverseRunes</code> function begins with an upper-case
+letter, it is <a href="/ref/spec#Exported_identifiers"><dfn>exported</dfn></a>,
+and can be used in other packages that import our <code>morestrings</code>
+package.
 </p>
-
-<pre>
-$ <b>go build github.com/user/stringutil</b>
-</pre>
 
 <p>
-Or, if you are working in the package's source directory, just:
+Let's test that the package compiles with <code>go build</code>:
 </p>
 
 <pre>
+$ cd $HOME/hello/morestrings
 $ <b>go build</b>
+$
 </pre>
 
 <p>
-This won't produce an output file.
-Instead it saves the compiled package in the local build cache.
+This won't produce an output file. Instead it saves the compiled package in the
+local build cache.
 </p>
 
 <p>
-After confirming that the <code>stringutil</code> package builds,
-modify your original <code>hello.go</code> (which is in
-<code>$GOPATH/src/github.com/user/hello</code>) to use it:
+After confirming that the <code>morestrings</code> package builds, let's use it
+from the <code>hello</code> program. To do so, modify your original
+<code>$HOME/hello/hello.go</code> to use the morestrings package:
 </p>
 
 <pre>
@@ -379,11 +240,11 @@ package main
 import (
 	"fmt"
 
-	<b>"github.com/user/stringutil"</b>
+	<b>"github.com/user/hello/morestrings"</b>
 )
 
 func main() {
-	fmt.Println(stringutil.Reverse("!oG ,olleH"))
+	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
 }
 </pre>
 
@@ -404,57 +265,60 @@ $ <b>hello</b>
 Hello, Go!
 </pre>
 
+<h3 id="ImportingRemote">Importing packages from remote modules</h3>
+
 <p>
-After the steps above, your workspace should look like this:
+An import path can describe how to obtain the package source code using a
+revision control system such as Git or Mercurial. The <code>go</code> tool uses
+this property to automatically fetch packages from remote repositories.
+For instance, to use <code>github.com/google/go-cmp/cmp</code> in your program:
 </p>
 
 <pre>
-bin/
-    hello                 # command executable
-src/
-    github.com/user/
-        hello/
-            hello.go      # command source
-        stringutil/
-            reverse.go    # package source
+package main
+
+import (
+	"fmt"
+
+	"github.com/user/hello/morestrings"
+	"github.com/google/go-cmp/cmp"
+)
+
+func main() {
+	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
+	fmt.Println(cmp.Diff("Hello World", "Hello Go"))
+}
 </pre>
 
-<h3 id="PackageNames">Package names</h3>
-
 <p>
-The first statement in a Go source file must be
-</p>
+When you run commands like <code>go install</code>, <code>go build</code>, or
+<code>go run</code>, the remote module will automatically be added to your
+<code>go.mod</code> file (and downloaded):
 
 <pre>
-package <i>name</i>
+$ go install github.com/user/hello
+$ hello
+Hello, Go!
+  string(
+- 	"Hello World",
++ 	"Hello Go",
+  )
+$ cat go.mod
+module github.com/user/hello
+
+go 1.13
+
+<b>require github.com/google/go-cmp v0.3.1</b>
+$
 </pre>
 
 <p>
-where <code><i>name</i></code> is the package's default name for imports.
-(All files in a package must use the same <code><i>name</i></code>.)
+A module's path doesn't have to match the URL for its repository, but this
+convention is the easiest way to make your Go packages available for others to
+use. For more information on using remote modules with the <code>go</code> tool, see
+<code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>
+and <a href="https://blog.golang.org/using-go-modules">Using Go Modules</a>.
 </p>
-
-<p>
-Go's convention is that the package name is the last element of the
-import path: the package imported as "<code>crypto/rot13</code>"
-should be named <code>rot13</code>.
-</p>
-
-<p>
-Executable commands must always use <code>package main</code>.
-</p>
-
-<p>
-There is no requirement that package names be unique
-across all packages linked into a single binary,
-only that the import paths (their full file names) be unique.
-</p>
-
-<p>
-See <a href="/doc/effective_go.html#names">Effective Go</a> to learn more about
-Go's naming conventions.
-</p>
-
 
 <h2 id="Testing">Testing</h2>
 
@@ -473,17 +337,17 @@ if the function calls a failure function such as <code>t.Error</code> or
 </p>
 
 <p>
-Add a test to the <code>stringutil</code> package by creating the file
-<code>$GOPATH/src/github.com/user/stringutil/reverse_test.go</code> containing
+Add a test to the <code>morestrings</code> package by creating the file
+<code>$HOME/hello/morestrings/reverse_test.go</code> containing
 the following Go code.
 </p>
 
 <pre>
-package stringutil
+package morestrings
 
 import "testing"
 
-func TestReverse(t *testing.T) {
+func TestReverseRunes(t *testing.T) {
 	cases := []struct {
 		in, want string
 	}{
@@ -492,9 +356,9 @@ func TestReverse(t *testing.T) {
 		{"", ""},
 	}
 	for _, c := range cases {
-		got := Reverse(c.in)
+		got := ReverseRunes(c.in)
 		if got != c.want {
-			t.Errorf("Reverse(%q) == %q, want %q", c.in, got, c.want)
+			t.Errorf("ReverseRunes(%q) == %q, want %q", c.in, got, c.want)
 		}
 	}
 }
@@ -505,101 +369,16 @@ Then run the test with <code>go test</code>:
 </p>
 
 <pre>
-$ <b>go test github.com/user/stringutil</b>
-ok  	github.com/user/stringutil 0.165s
-</pre>
-
-<p>
-As always, if you are running the <code>go</code> tool from the package
-directory, you can omit the package path:
-</p>
-
-<pre>
 $ <b>go test</b>
-ok  	github.com/user/stringutil 0.165s
+PASS
+ok  	github.com/user/morestrings 0.165s
+$
 </pre>
 
 <p>
 Run <code><a href="/cmd/go/#hdr-Test_packages">go help test</a></code> and see the
 <a href="/pkg/testing/">testing package documentation</a> for more detail.
 </p>
-
-
-<h2 id="remote">Remote packages</h2>
-
-<p>
-An import path can describe how to obtain the package source code using a
-revision control system such as Git or Mercurial. The <code>go</code> tool uses
-this property to automatically fetch packages from remote repositories.
-For instance, the examples described in this document are also kept in a
-Git repository hosted at GitHub
-<code><a href="https://github.com/golang/example">github.com/golang/example</a></code>.
-If you include the repository URL in the package's import path,
-<code>go get</code> will fetch, build, and install it automatically:
-</p>
-
-<pre>
-$ <b>go get github.com/golang/example/hello</b>
-$ <b>$GOPATH/bin/hello</b>
-Hello, Go examples!
-</pre>
-
-<p>
-If the specified package is not present in a workspace, <code>go get</code>
-will place it inside the first workspace specified by <code>GOPATH</code>.
-(If the package does already exist, <code>go get</code> skips the remote
-fetch and behaves the same as <code>go install</code>.)
-</p>
-
-<p>
-After issuing the above <code>go get</code> command, the workspace directory
-tree should now look like this:
-</p>
-
-<pre>
-bin/
-    hello                           # command executable
-src/
-    github.com/golang/example/
-	.git/                       # Git repository metadata
-        hello/
-            hello.go                # command source
-        stringutil/
-            reverse.go              # package source
-            reverse_test.go         # test source
-    github.com/user/
-        hello/
-            hello.go                # command source
-        stringutil/
-            reverse.go              # package source
-            reverse_test.go         # test source
-</pre>
-
-<p>
-The <code>hello</code> command hosted at GitHub depends on the
-<code>stringutil</code> package within the same repository. The imports in
-<code>hello.go</code> file use the same import path convention, so the
-<code>go get</code> command is able to locate and install the dependent
-package, too.
-</p>
-
-<pre>
-import "github.com/golang/example/stringutil"
-</pre>
-
-<p>
-This convention is the easiest way to make your Go packages available for
-others to use.
-The <a href="//golang.org/wiki/Projects">Go Wiki</a>
-and <a href="//godoc.org/">godoc.org</a>
-provide lists of external Go projects.
-</p>
-
-<p>
-For more information on using remote repositories with the <code>go</code> tool, see
-<code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>.
-</p>
-
 
 <h2 id="next">What's next</h2>
 
@@ -615,7 +394,11 @@ clear, idiomatic Go code.
 </p>
 
 <p>
-Take <a href="//tour.golang.org/">A Tour of Go</a> to learn the language
+Take {{if $.GoogleCN}}
+A Tour of Go
+{{else}}
+<a href="//tour.golang.org/">A Tour of Go</a>
+{{end}} to learn the language
 proper.
 </p>
 
@@ -624,12 +407,12 @@ Visit the <a href="/doc/#articles">documentation page</a> for a set of in-depth
 articles about the Go language and its libraries and tools.
 </p>
 
-
 <h2 id="help">Getting help</h2>
 
 <p>
-For real-time help, ask the helpful gophers in <code>#go-nuts</code> on the
-<a href="https://freenode.net/">Freenode</a> IRC server.
+For real-time help, ask the helpful gophers in the community-run
+<a href="https://gophers.slack.com/messages/general/">gophers Slack server</a>
+(grab an invite <a href="https://invite.slack.golangbridge.org/">here</a>).
 </p>
 
 <p>
