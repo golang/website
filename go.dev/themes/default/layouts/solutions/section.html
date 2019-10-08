@@ -1,17 +1,47 @@
 {{define "main"}}
+<section class="Solutions-title">
+  <div class="Container">
+    <h1>Solutions</h1>
+  </div>
+</section>
+<section class="Solutions-headline">
+  <div class="Container">
+    <p>
+      Learn about how Go can help your development process
+    </p>
+  </div>
+</section>
+<section class="Solutions-useCases">
+  <div class="Container">
+    <div class="Solutions-useCasesHeader">
+      <h2>Use Cases</h2>
+    </div>
+    <ul class="Solutions-useCaseList">
+      {{range where .Pages "Params.series" "Use Cases"}}
+      <li class="Solutions-useCase">
+        <div class="Solutions-useCaseHeader">
+          <div class="Solutions-useCaseLogo">
+            {{$icon := .Resources.GetMatch "icon"}}
+            {{if $icon}}
+            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
+            {{end}}
+          </div>
+          <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
+        </div>
+        <div class="Solutions-useCaseBody">
+          <p class="Solutions-useCaseDescription">
+            {{.Description}}
+          </p>
+          <p class="Solutions-useCaseAction">
+            <a href="{{.RelPermalink}}">Learn More &gt;</a>
+          </p>
+        </div>
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</section>
 <article class="Article">
-  <h1>{{.Title}}</h1>
-    {{range .Params.authors}}
-      <div class="Article-author">{{.}}</div>
-    {{end}}
-  <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
-  {{.Content}}
-  <h2>Use Cases</h2>
-  {{range where .Pages "Params.series" "Use Cases"}}
-    <h3>
-      <a href="{{.RelPermalink}}">{{.Title}}</a>
-    </h3>
-  {{end}}
   <h2>Case Studies</h2>
   {{range where .Pages "Params.series" "Case Studies"}}
   <h3>
