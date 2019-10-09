@@ -8,6 +8,10 @@ resources:
   src: globe.png
   params:
     alt: globe
+- name: icon-white
+  src: globe-white.png
+  params:
+    alt: globe
 ---
 
 ### _Go Helps Enterprises Build and Scale Cloud Computing Systems_

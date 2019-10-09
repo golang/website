@@ -46,7 +46,12 @@
       </div>
       {{range where $solutions.Pages "Params.series" "Use Cases"}}
         <div class="UseCase">
-          <div class="UseCase-logo"></div>
+          <div class="UseCase-logo">
+            {{$icon := .Resources.GetMatch "icon-white"}}
+            {{if $icon}}
+            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
+            {{end}}
+          </div>
           <h3 class="UseCase-title">{{.LinkTitle}}</h3>
           <p class="UseCase-description">
             {{.Description}}

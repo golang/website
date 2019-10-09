@@ -368,11 +368,18 @@ a:hover {
   padding: 1em 0 0 1em; /* Gutter between grid cells. */
 }
 .UseCase-logo {
+  align-items: center;
   background: linear-gradient(10.64deg, #007d9c 0%, #00a29c 100%);
   border-radius: 50%;
+  display: flex;
   height: 3.75rem;
+  justify-content: center;
   margin: auto;
   width: 3.75rem;
+}
+.UseCase-logo img {
+  height: 2.625rem;
+  width: 2.625rem;
 }
 .UseCase-title {
   text-align: center;

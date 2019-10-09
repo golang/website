@@ -9,6 +9,10 @@ resources:
   src: cog.png
   params:
     alt: cog
+- name: icon-white
+  src: cog-white.png
+  params:
+    alt: cog
 ---
 
 ### _Go Helps Enterprises Automate and Scale for CI/CD_
