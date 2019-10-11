@@ -41,12 +41,24 @@
     </ul>
   </div>
 </section>
-<article class="Article">
-  <h2>Case Studies</h2>
-  {{range where .Pages "Params.series" "Case Studies"}}
-  <h3>
-    <a href="{{.RelPermalink}}">{{.Title}}</a>
-  </h3>
-  {{end}}
-</article>
+<section class="Solutions-caseStudies">
+  <div class="Container">
+    <div class="Solutions-caseStudiesHeader">
+      <h2>Who Uses Go</h2>
+    </div>
+    <ul class="Solutions-caseStudyList">
+      {{range where .Pages "Params.series" "Case Studies"}}
+      <li class="Solutions-caseStudy">
+        <a href="{{.RelPermalink}}">
+          <div class="Solutions-caseStudyLogo">
+            {{$logo := .Resources.GetMatch "logo"}}
+            <img alt="{{$logo.Params.alt}}" src="{{$logo.RelPermalink}}">
+          </div>
+          <p>View case study</p>
+        </a>
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</section>
 {{end}}

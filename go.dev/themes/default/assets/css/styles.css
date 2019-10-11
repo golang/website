@@ -308,9 +308,9 @@ a:hover {
 .WhoUses-caseStudy {
   display: flex;
   flex: 0 1 11.375rem;
+  height: 11.6875rem;
   justify-content: center;
   margin: 1em;
-  min-height: 11.6875rem;
 }
 .WhoUses-caseStudy p {
   margin-bottom: 0;
@@ -893,8 +893,13 @@ a.Footer-link {
 }
 .Solutions-title,
 .Solutions-headline,
-.Solutions-useCases {
+.Solutions-useCases,
+.Solutions-caseStudies {
   padding: 0 1.5rem;
+}
+.Solutions-useCases,
+.Solutions-caseStudies {
+  margin-bottom: 6.25rem;
 }
 .Solutions-title h1 {
   font-size: 2.625rem;
@@ -908,7 +913,8 @@ a.Footer-link {
   max-width: 23rem;
   padding: 2rem 0;
 }
-.Solutions-useCasesHeader h2 {
+.Solutions-useCasesHeader h2,
+.Solutions-caseStudiesHeader h2 {
   letter-spacing: 0.125rem;
   text-transform: uppercase;
 }
@@ -968,4 +974,62 @@ a.Footer-link {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0;
+}
+.Solutions-caseStudyList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  list-style: none;
+  margin: 0 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  padding: 0;
+}
+.Solutions-caseStudy {
+  margin: 1rem 0 0 1rem;
+}
+.Solutions-caseStudy p {
+  flex: 0;
+}
+.Solutions-caseStudy a:link,
+.Solutions-caseStudy a:visited {
+  border-radius: 0.625rem;
+  box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22); /* padding: 0.25rem 1.5rem; */
+  display: inline-flex;
+  flex-direction: column;
+  height: 11.375rem;
+  text-align: center;
+  width: 11.375rem;
+}
+.Solutions-caseStudyLogo {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+.Solutions-caseStudyLogo img {
+  align-self: center;
+  max-height: 7.5rem;
+  max-width: 7.5rem;
+}
+@media only screen and (min-width: 57.7rem) {
+  .Solutions-caseStudy {
+    flex: 0 1 33%;
+    margin: 0;
+  }
+  .Solutions-caseStudy a:link,
+  .Solutions-caseStudy a:visited {
+    box-shadow: 0 0.125rem 0.5rem 0 transparent;
+    color: transparent;
+  }
+  .Solutions-caseStudy a:link:hover,
+  .Solutions-caseStudy a:visited:hover {
+    box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+    color: #6e7072;
+    transition: all 0.2s ease-in-out;
+  }
+}
+@media only screen and (min-width: 66.75rem) {
+  .Solutions-caseStudy {
+    flex: 1;
+    padding: 1rem 0 0 1rem; /* Gutter between grid cells. */
+    text-align: center;
+  }
 }
