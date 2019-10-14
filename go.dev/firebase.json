@@ -1,0 +1,32 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "redirects": [
+      {
+        "source": "/explore",
+        "destination": "https://go-discovery.appspot.com/",
+        "type": 302
+      },
+      {
+        "source": "/explore/:explore*",
+        "destination": "https://go-discovery.appspot.com/:explore",
+        "type": 302
+      },
+      {
+        "source": "/pkg",
+        "destination": "https://go-discovery.appspot.com/",
+        "type": 302
+      },
+      {
+        "source": "/pkg/:pkg*",
+        "destination": "https://go-discovery.appspot.com/pkg/:pkg",
+        "type": 302
+      }
+    ]
+  }
+}
