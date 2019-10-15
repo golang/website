@@ -504,37 +504,36 @@ a:hover {
   width: 100%;
 }
 .LearnGo-eventItem {
+  align-items: flex-start;
   display: flex;
-  padding: 1rem 0;
   margin: 0 1rem;
+  padding: 1rem 0;
 }
 .LearnGo-eventItem + .LearnGo-eventItem {
   border-top: 1px solid #e0e0e0;
 }
 .LearnGo-eventThumbnail {
-  align-content: center;
   display: flex;
-  height: 3rem;
-  min-width: 3rem;
-  width: 3rem;
+  flex: 0 0 3rem;
+  margin-right: 1rem;
 }
 .LearnGo-eventThumbnail--noimage {
   background-color: #d8d8d8;
 }
 .LearnGo-eventThumbnail img {
-  margin: auto;
-  max-height: 100%;
-  max-width: 100%;
+  height: auto;
+  width: 3rem;
 }
 .LearnGo-eventBody {
-  flex: auto;
-  padding-left: 1rem;
+  display: inline-flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
 }
 .LearnGo-eventDate {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
 }
 .LearnGo-eventDate p {
   color: #6e7072;
@@ -545,7 +544,6 @@ a:hover {
   font-size: 1.25rem;
   font-weight: normal;
   margin: 0;
-  max-width: 30rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -559,19 +557,23 @@ a:hover {
 }
 .LearnGo-viewMore {
   margin: 0;
+  min-width: 6.25rem;
 }
 @media only screen and (min-width: 57.7rem) {
   .LearnGo-eventThumbnail {
-    height: 5.375rem;
+    height: auto;
     min-width: 5.375rem;
-    width: 5.375rem;
+  }
+  .LearnGo-eventThumbnail img {
+    height: auto;
+    min-width: 5.375rem;
   }
   .LearnGo-eventDate {
-    flex: 2;
+    flex: 0;
     flex-direction: column;
     justify-content: center;
     margin: 0 1rem;
-    min-width: 6rem;
+    min-width: 9rem;
   }
   .LearnGo-eventText {
     display: flex;
@@ -579,7 +581,8 @@ a:hover {
     flex-direction: column;
     justify-content: space-around;
     max-height: 5.375rem;
-    padding-right: 5rem;
+    min-width: 0;
+    padding-right: 2rem;
   }
   .LearnGo-eventDescription {
     -webkit-line-clamp: 2; /* see non-media-query definition. */
@@ -595,8 +598,9 @@ a:hover {
     flex-direction: row;
   }
   .LearnGo-eventItem {
-    padding: 1rem 0;
+    align-items: center;
     margin: 0 3rem;
+    padding: 1rem 0;
   }
 }
 .Footer-links {
