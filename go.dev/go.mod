@@ -1,4 +1,4 @@
-module github.com/godevsite/go.dev
+module golang.org/x/go.dev
 
 go 1.13
 
