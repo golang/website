@@ -1,12 +1,16 @@
-runtime: python27
-api_version: 1
-threadsafe: true
+runtime: go113
 service: go-dev
+main: ./cmd/frontend
 
 handlers:
 - url: /
   static_files: public/index.html
   upload: public/index.html
+
+- url: /explore
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
 
 # Special handler for static content in themes or page bundles.
 - url: /(.*)\.(png|svg|css|jpeg|jpg|xml|html)$
@@ -23,3 +27,7 @@ handlers:
   static_files: public/\1/index.html
   upload: public/(.*)/index.html
 
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto
