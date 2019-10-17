@@ -314,7 +314,7 @@ do not return the underlying error directly.
 
     // DoSomething returns an error wrapping ErrPermission if the user
     // does not have permission to do something.
-    func DoSomething() {
+    func DoSomething() error {
         if !userHasPermission() {
             // If we return ErrPermission directly, callers might come
             // to depend on the exact error value, writing code like this:
