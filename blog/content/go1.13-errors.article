@@ -184,7 +184,7 @@ is identical to `%v`.
 
 Wrapping an error with `%w` makes it available to `errors.Is` and `errors.As`:
 
-    err := fmt.Errorf("access denied: %w”, ErrPermission)
+    err := fmt.Errorf("access denied: %w", ErrPermission)
     ...
     if errors.Is(err, ErrPermission) ...
 
