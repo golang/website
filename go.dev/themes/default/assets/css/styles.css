@@ -415,16 +415,19 @@ a:hover {
   margin: 0;
 }
 .WhyGo-reasonIcon {
+  align-items: center;
   background: linear-gradient(10.64deg, #007d9c 0%, #00a29c 100%);
   border-radius: 50%;
   color: white;
-  font-size: 1.4rem;
+  display: flex;
   height: 1.5rem;
-  line-height: 1.4rem;
+  justify-content: center;
   margin-top: .125rem;
   min-width: 1.5rem;
   text-align: center;
-  width: 1.5rem;
+}
+.WhyGo-reasonIcon img {
+  height: 20px;
 }
 .WhyGo-gopher {
   flex: 1 1 50%;
