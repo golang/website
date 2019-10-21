@@ -564,12 +564,16 @@ a:hover {
 }
 @media only screen and (min-width: 57.7rem) {
   .LearnGo-eventThumbnail {
-    height: auto;
-    min-width: 5.375rem;
+    flex-basis: 5.375rem;
+    height: 5.375rem;
   }
   .LearnGo-eventThumbnail img {
+    display: block;
     height: auto;
-    min-width: 5.375rem;
+    margin: auto;
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
   }
   .LearnGo-eventDate {
     flex: 0;

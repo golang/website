@@ -2,45 +2,135 @@
 # To update, run:
 #    go run github.com/godevsite/go.dev/cmd/events > data/events.yaml
 all:
-- city: Jakarta
-  country: Indonesia
+- city: Bournemouth
+  country: United Kingdom
   description: |-
-    A meetup group to discuss the Go Programming Language in Jakarta. <br/>
-    (from golang.org) <br/>
-    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
-  id: "265309911"
-  local_date: Oct 15, 2019
-  local_time: "2019-10-15T19:00:00+07:00"
-  localizedcountry: Indonesia
-  localizedlocation: Jakarta, Indonesia
-  name: 'Meetup: Profiling Applications, and Face Similarity Detection with Go'
-  state: ""
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/9/a/f/b/thumb_449379675.jpeg
-  url: https://www.meetup.com/GoJakarta/events/265309911
-- city: Athens
-  country: Greece
-  description: |-
-    Welcome to Athens Gophers.<br/>
-    This is a group for all those interested in learning about and working with the Go programming language (Golang).<br/>
-     <br><br/>
-    Anyone interested in Co-organizing or Presenting in future meetups, please get in contact.<br/>
-    <br><br/>
-    <br><br/>
-    About Us: <br><br/>
-    As gophers we follow the Code of Conduct to make this a pleasant and inclusive environment for everyone:<br/>
-    <a href="https://golang.org/conduct" rel="nofollow">https://golang.org/conduct</a><br/>
-    Follow us on twitter: @AthensGolang (<a href="https://twitter.com/AthensGolang" rel="nofollow">https://twitter.com/AthensGolang</a>), <br/>
-    or come join us in #greece on Slack at https://invite.slack.golangbridge.org<br/>
-    <br>
-  id: "265470647"
-  local_date: Oct 15, 2019
-  local_time: "2019-10-15T19:00:00+03:00"
-  localizedcountry: Greece
-  localizedlocation: Athens, Greece
-  name: 6th Athens Gophers Meetup
+    Golang Dorset<br/>
+     is a user group for people interested in the <br/>
+    <a href="https://golang.org/" rel="nofollow">Go programming language</a> and assorted related technologies and methodologies (kubernetes / docker / DevOps etc) <br><br/>
+    We aim to meet every month in central Bournemouth. <br>--- <br><br/>
+    We want to give everyone a chance to learn, or improve their skills with Go by practicing it, organizing workshops and talks, and mingling along like-minded individuals.<br/>
+    Any level of proficiency (or none at all) is welcome. <br/>
+    All code and slides from examples are available in the github repo <a href="https://github.com/golangdorset" rel="nofollow">github.com/golangdorset</a>  <br><br/>
+    <a href="https://join.slack.com/t/golangdorset/shared_invite/enQtMzM0OTEwNDAyNDM2LWExNjUxZmFlMGQ5NTdiMmIwYzg5ZGQwMGJlZWJkMWEyMjMxMDE1ZDg4ODgzZWFmNDZiMmQzNTRlNWQ0ZTY3ODU" rel="nofollow">Join us on Slack!</a> <br>
+  id: mbdwhryznbcc
+  local_date: Oct 21, 2019
+  local_time: "2019-10-21T19:00:00+01:00"
+  localizedcountry: United Kingdom
+  localizedlocation: Bournemouth, United Kingdom
+  name: Golang Dorset Monthly Meetup
   state: ""
   thumbnailurl: ""
-  url: https://www.meetup.com/Athens-Gophers/events/265470647
+  url: https://www.meetup.com/Golang-Dorset/events/mbdwhryznbcc
+- city: Göteborg
+  country: Sweden
+  description: A community for anyone interested in the Go (golang) programming language
+    - and related topics - in, and around Gothenburg, Sweden.
+  id: "265583393"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T17:30:00+02:00"
+  localizedcountry: Sweden
+  localizedlocation: Göteborg, Sweden
+  name: Concurrency @ Zimpler
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/6/9/a/thumb_466021690.jpeg
+  url: https://www.meetup.com/sweden-go-west/events/265583393
+- city: Tel Aviv-Yafo
+  country: Israel
+  description: |-
+    This is the group for programmers who are interested in the High Performance, Scalable, lightweight, cross platform development tool that also promises ease of programming, agility and the fun you don&#39;t usually get using a low-level language. Welcome to the Israeli Go language Group.<br/>
+    If you&#39;d like to give a talk, please add yourself to <a href="https://trello.com/b/xbSxWRpG/go-israel-talks" rel="nofollow">the trello board</a>
+  id: "254097017"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:30:00+03:00"
+  localizedcountry: Israel
+  localizedlocation: Tel Aviv-Yafo, Israel
+  name: Go Israel October 2019 Meetup
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/a/9/6/9/thumb_477523369.jpeg
+  url: https://www.meetup.com/Go-Israel/events/254097017
+- city: Sofia
+  country: Bulgaria
+  description: An open meetup for everybody and anybody interested in Golang, CSP,
+    software development. Experienced &amp; aspiring software developers as well as
+    actual gophers are all welcome!
+  id: "265376069"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T19:00:00+03:00"
+  localizedcountry: Bulgaria
+  localizedlocation: Sofia, Bulgaria
+  name: Dos and don'ts on Golang Interfaces
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/3/d/e/6/thumb_462375846.jpeg
+  url: https://www.meetup.com/Golang-Bulgaria/events/265376069
+- city: Zagreb
+  country: Croatia
+  description: |-
+    Ovo je grupa za sve zainteresirane za Go programski jezik.<br/>
+    Prošli talkovi se mogu naći na:<br/>
+    • <a href="https://github.com/golanghr/golangzg/blob/master/talks.md" rel="nofollow">github repou</a><br/>
+    • snimke na <a href="https://www.youtube.com/channel/UCBe6NfYfKoQxRv7kswV6wpQ" rel="nofollow">YouTube kanalu</a> <br><br/>
+    Prati na nas <a href="https://twitter.com/GolangZg" rel="nofollow">twitteru</a> i na <a href="https://www.facebook.com/groups/golanghr/" rel="nofollow">facebooku</a>.<br/>
+    Družimo se i na <a href="https://invite.slack.golangbridge.org/?fbclid=IwAR35p7rEaNkowXDxX8RvmWDvyhoAslx2QskpBBnHlVdKCXvRpCoxePMmHnA" rel="nofollow">gophers.slack.com</a> - tamo smo u kanalu <a href="https://gophers.slack.com/messages/C08DCDAKC/" rel="nofollow">#croatia</a>.
+  id: "265507175"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:00:00+02:00"
+  localizedcountry: Croatia
+  localizedlocation: Zagreb, Croatia
+  name: GoTalks 22.10.2019.
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/7/2/5/2/thumb_462749266.jpeg
+  url: https://www.meetup.com/Golang-ZG/events/265507175
+- city: Bristol
+  country: United Kingdom
+  description: |-
+    <br/>
+     <br><br/>
+    Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.<br/>
+    We are a small group, ready to learn from each other, if you like to code and talk about it then join us and help us to grow and prosper...<br/>
+    King Leonidas: You have many slaves, Xerxes, but few warriors. It won&#39;t be long before they fear my spears more than your whips...
+  id: "264616451"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:00:00+01:00"
+  localizedcountry: United Kingdom
+  localizedlocation: Bristol, United Kingdom
+  name: Go(ctober) - OpenAPI and Go 1.13
+  state: ""
+  thumbnailurl: ""
+  url: https://www.meetup.com/golang-bristol/events/264616451
+- city: Cambridge
+  country: United Kingdom
+  description: |-
+    About Cambridge Gophers<br/>
+    We are in phase zero, forming. Our initial aim is to gather some gophers and work our how we want to share experiences and ideas. We hope to run workshops, talks and discussions once a month with the prime directives of learning and involvement from group members.<br/>
+    twitter: @CambGophers<br/>
+    slack: <a href="https://gophers.slack.com/messages/cambridgeuk/" rel="nofollow">https://gophers.slack.com/messages/cambridgeuk/</a><br/>
+    join slack: <a href="https://gophersinvite.herokuapp.com/" rel="nofollow">https://gophersinvite.herokuapp.com/</a><br/>
+    About Go <br><br/>
+    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
+  id: "265281185"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:30:00+01:00"
+  localizedcountry: United Kingdom
+  localizedlocation: Cambridge, United Kingdom
+  name: 'October meetup: Laszlo Papp shows us how to write a Slack bot in Go'
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/5/7/9/9/thumb_447382425.jpeg
+  url: https://www.meetup.com/Cambridge-Gophers/events/265281185
+- city: Newcastle Upon Tyne
+  country: United Kingdom
+  description: This is a group for anyone in the North East of England who&#39;s interested
+    in the Go programming language. We usually meet up in Newcastle on the fourth
+    Tuesday of every month at Campus North, Carliol Square.
+  id: qtpnmqyznbdc
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:30:00+01:00"
+  localizedcountry: United Kingdom
+  localizedlocation: Newcastle Upon Tyne, United Kingdom
+  name: better testing of Go commands with testscript
+  state: ""
+  thumbnailurl: ""
+  url: https://www.meetup.com/Golang-North-East/events/qtpnmqyznbdc
 - city: Eugene
   country: USA
   description: |-
@@ -48,199 +138,102 @@ all:
     Go is a Google-funded language for massively-scalable distributed systems that is statically typed and compiled. It has quickly stabilized and is running head-to-head with C++, Java, C#, etc. (<a href="https://benchmarksgame-team.pages.debian.net/benchmarksgame/faster/go.html" rel="nofollow">The Computer Language Benchmarks Game - Go</a>). However, a larger-than-expected portion of new Gophers is made up of dynamic/interpreted language users who tend to be seeking relief from the cruft in their current languages and/or a more clear future within the horizontally-growing landscape of modern computing.<br/>
     If you&#39;re building web apps, designing APIs, thrive on scalability, or you&#39;re simply curious about this fun new(ish) language, let&#39;s meetup.<br/>
     • Meetup resources are available at <a href="http://www.euggo.org" rel="nofollow">www.euggo.org</a> 
-  id: wttfjryznbtb
-  local_date: Oct 15, 2019
-  local_time: "2019-10-15T12:00:00-07:00"
+  id: jdbjkryznbdc
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T12:00:00-07:00"
   localizedcountry: USA
   localizedlocation: Eugene, OR
   name: Book Club
   state: OR
   thumbnailurl: https://secure.meetupstatic.com/photos/event/2/8/1/thumb_453660641.jpeg
-  url: https://www.meetup.com/EUG-Go/events/wttfjryznbtb
-- city: Ann Arbor
+  url: https://www.meetup.com/EUG-Go/events/jdbjkryznbdc
+- city: Sunnyvale
   country: USA
-  description: |-
-    A forum for people working in or around Ann Arbor with Go to discuss ideas, issues and share solutions. We will start to put together meetings as the group grows and topics are suggested. <br/>
-    We seek to enable underrepresented people in tech to use Go as a tool to learn and teach programming, and, ultimately, to empower underrepresented groups in tech to help increase diversity in the Go community.  No prior programming language is needed to attend! <br><br/>
-    Submit a talk proposal, or come join us in #a2go channel in the gophers slack  https://invite.slack.golangbridge.org/ .<br> <br>A2Go Golang adopts the Go Code of Conduct (<a href="https://golang.org/conduct#code" rel="nofollow">https://golang.org/conduct#code</a>). Harassment, bullying, and discrimination are unacceptable here and if you witness or experience those or other harmful behaviors, please let the organizers know. The Code of Conduct extends to related events like after-meeting bar trips. <br>
-  id: "264721689"
-  local_date: Oct 15, 2019
-  local_time: "2019-10-15T18:00:00-04:00"
+  description: This is a private group for all organizers of Go Developer Meetups
+    globally that are part of the <a href="https://www.meetup.com/pro/go" rel="nofollow">Go
+    Developer Network</a> (GDN). Over time, we will establish a cadence of global
+    online meetups on a monthly basis and in person regional meetups on an annual
+    basis.
+  id: "265601177"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T12:45:00-07:00"
   localizedcountry: USA
-  localizedlocation: Ann Arbor, MI
-  name: Monthly Meeting
-  state: MI
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/1/c/f/3/thumb_483787411.jpeg
-  url: https://www.meetup.com/A2Go-Golang-developer-meetup/events/264721689
-- city: Ottawa
-  country: Canada
-  description: |-
-    Calling all Ottawa Gophers!<br/>
-    We get together once a month to discuss the state of the union in Go land, bring in speakers to discuss their projects and generally share a drink and a bite with colleagues. New to Go or a hardened Gopher, all are welcome!
-  id: "264371478"
-  local_date: Oct 15, 2019
-  local_time: "2019-10-15T18:00:00-04:00"
-  localizedcountry: Canada
-  localizedlocation: Ottawa, ON
-  name: Go Ottawa! October 2019
-  state: "ON"
-  thumbnailurl: ""
-  url: https://www.meetup.com/Ottawa-Go-Meetup/events/264371478
-- city: London
-  country: United Kingdom
-  description: |-
-    London Gophers (<a href="https://gophers.london" rel="nofollow">https://gophers.london</a>), aka Go London User Group (GLUG), is a London-based community for anyone interested in the Go programming language. <br> <br>London Gophers provides opportunities to: <br> <br>- Discuss Go and related topics <br>- Socialise with friendly people who are interested in Go <br>- <a href="https://github.com/go-london-user-group/admin/blob/master/runbooks/jobs/README.md" rel="nofollow">Find or fill Go-related jobs</a> <br> <br>We want London Gophers to be a diverse and inclusive community. As such all attendees, organisers and sponsors are required to follow the Go <a href="https://golang.org/conduct" rel="nofollow">community code of conduct</a>. <br/>
-     <br>Twitter  - <a href="https://twitter.com/LondonGophers" rel="nofollow">https://twitter.com/LondonGophers</a> <br>YouTube - <a href="https://www.youtube.com/c/LondonGophers" rel="nofollow">https://www.youtube.com/c/LondonGophers</a> <br>GitHub - <a href="https://github.com/go-london-user-group" rel="nofollow">https://github.com/go-london-user-group</a>  <br>
-  id: "264779288"
-  local_date: Oct 16, 2019
-  local_time: "2019-10-16T18:30:00+01:00"
-  localizedcountry: United Kingdom
-  localizedlocation: London, United Kingdom
-  name: October Gophers
-  state: ""
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/4/3/d/thumb_465781085.jpeg
-  url: https://www.meetup.com/LondonGophers/events/264779288
-- city: Reston
-  country: USA
-  description: |-
-    (from golang.org) <br><br/>
-     <br/>
-    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
-  id: sfsjmpyznbvb
-  local_date: Oct 16, 2019
-  local_time: "2019-10-16T18:45:00-04:00"
-  localizedcountry: USA
-  localizedlocation: Reston, VA
-  name: Monthly Meetup
-  state: VA
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/7/f/7/thumb_433982039.jpeg
-  url: https://www.meetup.com/Golang-Reston/events/sfsjmpyznbvb
-- city: Austin
-  country: USA
-  description: |-
-    A user group to meet and discuss the Go programming language (golang). Meetups are typically held on third Wednesdays at 6:30. Follow us on Twitter <a href="http://twitter.com/atxgolang" rel="nofollow">@atxgolang</a> and join our chat rooms: #atx on <a href="https://invite.slack.golangbridge.org/" rel="nofollow">Gopher Slack</a> or #atxgolang on Freenode.<br/>
-    Please read the <a href="https://golang.org/conduct" rel="nofollow">Code of Conduct</a>.<br/>
-    Thank you to <a href="https://www.capitalfactory.com/" rel="nofollow">Capital Factory</a> for sponsoring event space in 2019 for Austin Go Language User Group. Capital Factory is the center of gravity for entrepreneurs in Texas. They meet the best entrepreneurs in Texas and introduce them to their first investors, employees, mentors and customers.<br/>
-    Logo credit: The cowboy gopher image is a modified adaptation of Renée French&#39;s copyrighted <a href="http://golang.org/doc/gopher/" rel="nofollow">gopher images</a> and is <a href="http://creativecommons.org/licenses/by/3.0/us/" rel="nofollow">Creative Commons Attributions 3.0</a> licensed.<br/>
-    Photo credit: Constantine @ATxTE <br><br/>
-    From golang.org:<br/>
-    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
-  id: ntwrdryznbvb
-  local_date: Oct 16, 2019
-  local_time: "2019-10-16T19:00:00-05:00"
-  localizedcountry: USA
-  localizedlocation: Austin, TX
-  name: October Lightning Talks
-  state: TX
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/4/7/1/e/thumb_462978206.jpeg
-  url: https://www.meetup.com/atxgolang/events/ntwrdryznbvb
-- city: San Francisco
-  country: USA
-  description: |-
-    A meetup group to discuss the Go Programming Language.<br/>
-    (from golang.org)<br/>
-    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
-  id: "262495822"
-  local_date: Oct 16, 2019
-  local_time: "2019-10-16T18:00:00-07:00"
-  localizedcountry: USA
-  localizedlocation: San Francisco, CA
-  name: '[GoSF] All about Microservices (Docker & Kubernetes) +Decentralized Storage
-    w/Go'
+  localizedlocation: Sunnyvale, CA
+  name: GDN Lunch at GoLab in Florence at 12:45pm local time
   state: CA
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/5/a/d/3/thumb_442823251.jpeg
-  url: https://www.meetup.com/golangsf/events/262495822
-- city: Amsterdam
-  country: Netherlands
+  thumbnailurl: ""
+  url: https://www.meetup.com/Go-Meetup-Organisers/events/265601177
+- city: Norfolk
+  country: USA
   description: |-
-    This group is for everybody who is interested in the Go programming language (https://golang.org/). We organize meetups with technical talks and social events. Contact us if you&#39;re interested in hosting a meetup or giving a talk!<br><br/>
+    This is a group for anyone interested in the Go programming language. Not just Go but anything that has to do with Go (i.e. Kubernetes, Docker, Terraform, etc). All skill levels are welcome.<br/>
     <br><br/>
-    Slides of past meetups:<br/>
-    <a href="https://github.com/goamsterdam/meetups" rel="nofollow">https://github.com/goamsterdam/meetups</a><br/>
-    <br><br/>
-    Join us on slack:<br/>
-    <a href="https://invite.slack.golangbridge.org" rel="nofollow">https://invite.slack.golangbridge.org</a><br/>
-    /join #amsterdam<br/>
-    <br>
-  id: "265308416"
-  local_date: Oct 17, 2019
-  local_time: "2019-10-17T18:00:00+02:00"
-  localizedcountry: Netherlands
-  localizedlocation: Amsterdam, Netherlands
-  name: Go meetup @ Schuberg Philis (Schiphol-Rijk)
+    This community abides by the <a href="https://golang.org/conduct" rel="nofollow">Go Community Code of Conduct</a>.  
+  id: "265405417"
+  local_date: Oct 22, 2019
+  local_time: "2019-10-22T18:00:00-04:00"
+  localizedcountry: USA
+  localizedlocation: Norfolk, VA
+  name: Building Rest APIs with Go and TDD
+  state: VA
+  thumbnailurl: ""
+  url: https://www.meetup.com/Norfolk-Go-Meetup-Group/events/265405417
+- city: Canberra
+  country: Australia
+  description: Canberra Gophers will meet every month to talk about software development
+    using the Go programming language. Please join if you have an interest in Go or
+    if you are using Go in your work.
+  id: "264916785"
+  local_date: Oct 23, 2019
+  local_time: "2019-10-23T17:45:00+11:00"
+  localizedcountry: Australia
+  localizedlocation: Canberra, Australia
+  name: Canberra Gophers October 2019
   state: ""
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/9/d/a/0/thumb_213520352.jpeg
-  url: https://www.meetup.com/golang-amsterdam/events/265308416
-- city: Orlando
-  country: USA
-  description: Orlando&#39;s first meetup group dedicated to the Go Programming Language.
-    All skill levels are welcome - whether you&#39;re a beginner or a full-fledged
-    gopher.
-  id: blgfpqyznbnb
-  local_date: Oct 17, 2019
-  local_time: "2019-10-17T19:00:00-04:00"
-  localizedcountry: USA
-  localizedlocation: Orlando, FL
-  name: Orlando Golang Monthly Meetup
-  state: FL
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/9/7/c/4/thumb_441638852.jpeg
-  url: https://www.meetup.com/OrlanGo/events/blgfpqyznbnb
-- city: New York
-  country: USA
-  description: |
-    Go Language meetups and more in the greatest city in the world! <br/>
-     <br/>
-    Our purpose is to help build the Go community within NYC. We are here to support individuals by providing a safe platform for them to speak, listen, and learn. When not hosting a meetup, we will help promote and support our partner groups and events to help build awareness for all things Go in NYC. <br/>
-    Follow us on twitter at <a href="https://twitter.com/golangnyc" rel="nofollow">@golangnyc</a>. <br/>
-  id: "264955744"
-  local_date: Oct 17, 2019
-  local_time: "2019-10-17T19:00:00-04:00"
-  localizedcountry: USA
-  localizedlocation: New York, NY
-  name: Golang NYC Meetup October
-  state: NY
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/7/d/3/1/thumb_464912049.jpeg
-  url: https://www.meetup.com/golanguagenewyork/events/264955744
-- city: Boulder
-  country: USA
-  description: Come meet and learn from other Boulder-based gophers!
-  id: rbjqgryznbwb
-  local_date: Oct 17, 2019
-  local_time: "2019-10-17T17:30:00-06:00"
-  localizedcountry: USA
-  localizedlocation: Boulder, CO
-  name: Boulder Monthly Go Meetup
-  state: CO
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/4/a/e/f/thumb_460759183.jpeg
-  url: https://www.meetup.com/Boulder-Gophers/events/rbjqgryznbwb
-- city: Englewood
-  country: USA
+  thumbnailurl: ""
+  url: https://www.meetup.com/Canberra-Gophers/events/264916785
+- city: Melbourne
+  country: Australia
   description: |-
-    If you want to learn or share your experiences or explore more about Go language, please join us over beer and pizza. Here are some resources you might want to check if you are new to Go: <br/>
-    First you should take the language tour: <a href="http://tour.golang.org/" rel="nofollow">http://tour.golang.org/</a><br>Then, you should visit:<br> - <a href="https://golang.org/doc/code.html" rel="nofollow">https://golang.org/doc/code.html</a> To learn how to organize your Go workspace<br> - <a href="https://golang.org/doc/effective_go.html" rel="nofollow">https://golang.org/doc/effective_go.html</a> which would help you be more effective at writing Go<br> - <a href="https://golang.org/ref/spec" rel="nofollow">https://golang.org/ref/spec</a> will help you learn more about the language itself<br> - <a href="https://golang.org/doc/#articles" rel="nofollow">https://golang.org/doc/#articles</a> For a lot more reading material <br/>
-    There are some awesome websites as well:<br> - <a href="https://blog.gopheracademy.com" rel="nofollow">https://blog.gopheracademy.com</a> Well great resources for Gophers in general<br> - <a href="http://gotime.fm" rel="nofollow">http://gotime.fm</a> For a weekly podcast of Go awesomeness<br> - <a href="https://gobyexample.com" rel="nofollow">https://gobyexample.com</a> If you are looking for examples of how to do things in Go<br> - <a href="http://go-database-sql.org" rel="nofollow">http://go-database-sql.org</a> If you are looking for how to use SQL databases in Go<br> - <a href="http://gophervids.appspot.com" rel="nofollow">http://gophervids.appspot.com</a> For a list of Go related videos from various authors <br/>
-    Finally, <a href="https://github.com/golang/go/wiki#learning-more-about-go" rel="nofollow">https://github.com/golang/go/wiki#learning-more-about-go</a> will give a list of more resources to learn Go
-  id: grnphryznbwb
-  local_date: Oct 17, 2019
-  local_time: "2019-10-17T18:00:00-06:00"
-  localizedcountry: USA
-  localizedlocation: Englewood, CO
-  name: DTC Go Monthly meetup
-  state: CO
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/6/0/e/d/thumb_459744813.jpeg
-  url: https://www.meetup.com/Denver-Go-Programming-Language-Meetup/events/grnphryznbwb
-- city: Darmstadt
-  country: Germany
-  description: |-
-    GoBridge is focused on Go aka golang and part of the non-profit Bridge Foundry. The idea is to build bridges between underrepresented minorities in Tech to increase the diversity in Tech and Go in special. For more details about GoBridge, check out the <a href="https://github.com/gobridge/about-us/blob/master/README.md" rel="nofollow">official webpage</a>. <br/>
-    We will use this meetup for organizing events with this aim in mind and provide events for learning and exchange. As part of GoBridge, all our events will follow the <a href="https://github.com/gobridge/about-us/blob/master/coc.md" rel="nofollow">Code of Conduct</a>. <br/>
-    If you have any question, feel free to contact us.
-  id: "265237018"
-  local_date: Oct 18, 2019
-  local_time: "2019-10-18T17:00:00+02:00"
-  localizedcountry: Germany
-  localizedlocation: Darmstadt, Germany
-  name: 'Hacktoberfest Frankfurt '
+    We run fun and interesting events.<br/>
+    If you want to organise events, let us know and we&#39;ll make you an event organizer.<br/>
+    NOTE: We were formally called &#34;Melbourne Young Professionals&#34;, but since it doesn&#39;t represent who we are, the name has changed to &#34;Let&#39;s Go&#34;<br/>
+     <br>
+  id: "265628686"
+  local_date: Oct 23, 2019
+  local_time: "2019-10-23T19:00:00+11:00"
+  localizedcountry: Australia
+  localizedlocation: Melbourne, Australia
+  name: Begin your fitness journey  - Self Defence Based Fitness -Thornbury
   state: ""
-  thumbnailurl: https://secure.meetupstatic.com/photos/event/c/5/7/f/thumb_479450559.jpeg
-  url: https://www.meetup.com/GoBridge-Frankfurt-Rhein-Main/events/265237018
+  thumbnailurl: ""
+  url: https://www.meetup.com/letsgo-melbourne/events/265628686
+- city: Jakarta
+  country: Indonesia
+  description: |-
+    A meetup group to discuss the Go Programming Language in Jakarta. <br/>
+    (from golang.org) <br/>
+    The Go programming language is an open source project to make programmers more productive. Go is expressive, concise, clean, and efficient. Its concurrency mechanisms make it easy to write programs that get the most out of multicore and networked machines, while its novel type system enables flexible and modular program construction. Go compiles quickly to machine code yet has the convenience of garbage collection and the power of run-time reflection. It&#39;s a fast, statically typed, compiled language that feels like a dynamically typed, interpreted language.
+  id: "264707301"
+  local_date: Oct 23, 2019
+  local_time: "2019-10-23T17:00:00+07:00"
+  localizedcountry: Indonesia
+  localizedlocation: Jakarta, Indonesia
+  name: 'AWS Pop-up Loft: Deploying Go Apps on the Cloud'
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/9/a/f/b/thumb_449379675.jpeg
+  url: https://www.meetup.com/GoJakarta/events/264707301
+- city: Paris
+  country: France
+  description: |-
+    This is the Paris Chapter of Women Who Go: <a href="http://www.meetup.com/Women-Who-Go/" rel="nofollow">http://www.meetup.com/Women-Who-Go/</a> This group is an inclusive space for everyone.<br/>
+    This group is for you if any of the following: <br>1. You identify as a woman, publicly or privately. 2. You have some interest in the Go programming language, or programming in general.
+  id: "265751019"
+  local_date: Oct 23, 2019
+  local_time: "2019-10-23T19:00:00+02:00"
+  localizedcountry: France
+  localizedlocation: Paris, France
+  name: Créer vos applications serverless sur AWS avec Go
+  state: ""
+  thumbnailurl: https://secure.meetupstatic.com/photos/event/2/d/3/b/thumb_480491579.jpeg
+  url: https://www.meetup.com/Women-Who-Go-Paris/events/265751019
