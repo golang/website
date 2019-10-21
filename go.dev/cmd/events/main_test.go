@@ -10,12 +10,12 @@ import (
 var (
 	noEventGroup       = &Group{Name: "no event group"}
 	upcomingEventGroup = &Group{
-		Name: "Upcoming Event Group",
+		Name:     "Upcoming Event Group",
 		Timezone: "Europe/Oslo",
 		NextEvent: &Event{
-			ID:            "12345",
-			Name:          "Upcoming Event",
-			Time:          1262976000000,
+			ID:   "12345",
+			Name: "Upcoming Event",
+			Time: 1262976000000,
 		},
 	}
 	fakeGroups = map[string]*Group{
@@ -30,7 +30,7 @@ func (f fakeClient) getGroupsSummary() (*GroupsSummary, error) {
 	return &GroupsSummary{Chapters: []*Chapter{
 		{URLName: "noEvent"},
 		{
-			URLName: "ueg",
+			URLName:     "ueg",
 			Description: "We host our own events\n",
 		},
 	}}, nil

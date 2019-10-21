@@ -9,5 +9,7 @@ steps:
   - name: 'gcr.io/$PROJECT_ID/hugo'
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "app.learn.yaml"]
 images:
   - 'gcr.io/$PROJECT_ID/hugo'

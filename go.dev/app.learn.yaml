@@ -1,11 +1,11 @@
 runtime: go113
-service: go-dev
+service: learn-go-dev
 main: ./cmd/frontend
 
 handlers:
 - url: /
-  static_files: public/index.html
-  upload: public/index.html
+  static_files: public/learn/index.html
+  upload: public/learn/index.html
 
 - url: /(explore|learn)
   secure: always
@@ -24,13 +24,13 @@ handlers:
 
 # Handle arbitrary paths with an index.html, special casing the trailing slash.
 - url: /(.*)/
-  static_files: public/\1/index.html
-  upload: public/(.*)/index.html
+  static_files: public/learn/\1/index.html
+  upload: public/learn/(.*)/index.html
 
 # Handle arbitrary paths with an index.html
 - url: /(.*)
-  static_files: public/\1/index.html
-  upload: public/(.*)/index.html
+  static_files: public/learn/\1/index.html
+  upload: public/learn/(.*)/index.html
 
 - url: /.*
   secure: always
