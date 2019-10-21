@@ -23,7 +23,7 @@ a:hover {
   margin: 0;
 }
 .Site--blue {
-  background: linear-gradient(45deg, #007d9c 35%, #00a29c) no-repeat center center fixed;
+  background: #007d9c;
 }
 .Site-content {
   flex: 1;
