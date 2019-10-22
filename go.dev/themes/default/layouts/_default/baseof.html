@@ -21,16 +21,18 @@
         <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
       </a>
       <ul class="Header-menu">
-        <li class="Header-menuItem {{if eq .CurrentSection.Title "Solutions"}}Header-menuItem--active{{end}}"><a href="/solutions">Solutions</a></li>
-        <li class="Header-menuItem {{if eq .CurrentSection.Title "Learn"}}Header-menuItem--active{{end}}"><a href="/learn">Learn</a></li>
-        <li class="Header-menuItem"><a href="/explore">Explore</a></li>
-        <li class="Header-menuItem"><a href="/">Community</a></li>
+        {{- $currentPage := .}}
+        {{- range .Site.Menus.main}}
+        <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title) }} Header-menuItem--active{{end}}">
+          <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+        </li>
+        {{- end}}
       </ul>
     </nav>
   </div>
 </header>
 <main class="Site-content">
-  {{block "main" .}}{{end}}
+  {{- block "main" . -}}{{- end -}}
 </main>
 <footer class="Site-footer">
   <div class="Footer">

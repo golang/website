@@ -2,3 +2,31 @@ baseURL = "https://go-dev-staging.app/"
 languageCode = "en"
 title = "go.dev"
 theme = "default"
+[menu]
+  [[menu.main]]
+    identifier = "solutions"
+    name = "Solutions"
+    title = "Solutions"
+    url = "/solutions"
+    weight = -110
+
+  [[menu.main]]
+    identifier = "learn"
+    name = "Learn"
+    title = "Learn"
+    url = "/learn"
+    weight = -100
+
+  [[menu.main]]
+    identifier = "explore"
+    name = "Explore"
+    title = "Explore"
+    url = "https://pkg.go.dev"
+    weight = -90
+
+  [[menu.main]]
+    identifier = "golang.org"
+    name = "golang.org"
+    title = "golang.org"
+    url = "https://pkg.go.dev"
+    weight = -80
