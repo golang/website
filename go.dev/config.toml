@@ -1,7 +1,9 @@
-baseURL = "https://go-dev-staging.app/"
+baseURL = "https://go.dev/"
 languageCode = "en"
 title = "go.dev"
 theme = "default"
+canonifyURLs = true
+
 [menu]
   [[menu.main]]
     identifier = "solutions"
@@ -28,5 +30,5 @@ theme = "default"
     identifier = "golang.org"
     name = "golang.org"
     title = "golang.org"
-    url = "https://pkg.go.dev"
+    url = "https://golang.org"
     weight = -80

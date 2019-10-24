@@ -23,8 +23,8 @@
       <ul class="Header-menu">
         {{- $currentPage := .}}
         {{- range .Site.Menus.main}}
-        <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title) }} Header-menuItem--active{{end}}">
-          <a href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+        <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
+          <a href="{{.URL}}" title="{{.Title}}">{{.Name}}</a>
         </li>
         {{- end}}
       </ul>
