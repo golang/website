@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="{{$styles.RelPermalink}}">
 {{else -}}
   {{$stylesFP := $styles | fingerprint -}}
-  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
+  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}" crossorigin="anonymous">
 {{end -}}
 <title>{{$.Site.Title}}</title>
 <body class="Site{{if .IsHome}} Site--blue{{end}}">

@@ -2,21 +2,20 @@ baseURL = "https://go.dev/"
 languageCode = "en"
 title = "go.dev"
 theme = "default"
-canonifyURLs = true
 
 [menu]
   [[menu.main]]
     identifier = "solutions"
     name = "Solutions"
     title = "Solutions"
-    url = "/solutions"
+    url = "https://go.dev/solutions"
     weight = -110
 
   [[menu.main]]
     identifier = "learn"
     name = "Learn"
     title = "Learn"
-    url = "/learn"
+    url = "https://learn.go.dev"
     weight = -100
 
   [[menu.main]]
