@@ -19,23 +19,25 @@
     <ul class="Solutions-useCaseList">
       {{range where .Pages "Params.series" "Use Cases"}}
       <li class="Solutions-useCase">
-        <div class="Solutions-useCaseHeader">
-          <div class="Solutions-useCaseLogo">
-            {{$icon := .Resources.GetMatch "icon"}}
-            {{if $icon}}
-            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
-            {{end}}
+        <a href="{{.RelPermalink}}">
+          <div class="Solutions-useCaseHeader">
+            <div class="Solutions-useCaseLogo">
+              {{$icon := .Resources.GetMatch "icon"}}
+              {{if $icon}}
+                <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
+              {{end}}
+            </div>
+            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
           </div>
-          <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
-        </div>
-        <div class="Solutions-useCaseBody">
-          <p class="Solutions-useCaseDescription">
-            {{.Description}}
-          </p>
-          <p class="Solutions-useCaseAction">
-            <a href="{{.RelPermalink}}">Learn More &gt;</a>
-          </p>
-        </div>
+          <div class="Solutions-useCaseBody">
+            <p class="Solutions-useCaseDescription">
+              {{.Description}}
+            </p>
+            <p class="Solutions-useCaseAction">
+              Learn More &gt;
+            </p>
+          </div>
+        </a>
       </li>
       {{end}}
     </ul>
