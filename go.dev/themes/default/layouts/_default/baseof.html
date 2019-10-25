@@ -17,14 +17,18 @@
 <header class="Site-header">
   <div class="Header{{if .IsHome}} Header--dark{{end}}">
     <nav class="Header-nav">
-      <a href="/">
+      <a href="{{.Site.BaseURL}}">
         <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
       </a>
       <ul class="Header-menu">
         {{- $currentPage := .}}
         {{- range .Site.Menus.main}}
+        {{- $url := .URL}}
+        {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
+          {{- $url = "https://learn.go.dev"}}
+        {{- end}}
         <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
-          <a href="{{.URL}}" title="{{.Title}}">{{.Name}}</a>
+          <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
         </li>
         {{- end}}
       </ul>

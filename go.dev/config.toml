@@ -8,14 +8,14 @@ theme = "default"
     identifier = "solutions"
     name = "Solutions"
     title = "Solutions"
-    url = "https://go.dev/solutions"
+    url = "/solutions"
     weight = -110
 
   [[menu.main]]
     identifier = "learn"
     name = "Learn"
     title = "Learn"
-    url = "https://learn.go.dev"
+    url = "/learn"
     weight = -100
 
   [[menu.main]]
