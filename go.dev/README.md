@@ -2,6 +2,10 @@
 
 ## Contributing
 
+```
+git clone sso://team/golang/go.dev && (cd go.dev && f=`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)
+```
+
 - `data/learn` contains links for the Learn pages, as all content is currently external.
 - `content/solutions` contains Use Cases and Case Studies.
   - Please include relevant resources using the same `name` attribute for images.
