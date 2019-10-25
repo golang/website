@@ -940,14 +940,12 @@ a.Footer-link {
   padding-left: 0;
 }
 .Solutions-useCase {
-  display: flex;
-  flex: 1;
-  margin: 1rem 0 0 1rem; /* Gutter between grid cells. */
-  padding: 1.4rem;
-}
-.Solutions-useCase {
   border-radius: 0.625rem;
   box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  display: flex;
+  flex: 1 0 48%;
+  margin: 1rem 0 0 1rem; /* Gutter between grid cells. */
+  padding: 1.4rem;
 }
 @media only screen and (min-width: 57.7rem) {
   .Solutions-useCase {
@@ -963,6 +961,15 @@ a.Footer-link {
 .Solutions-useCaseLogo {
   height: 3.875rem;
   width: 3.875rem;
+}
+.Solutions-useCase a:link,
+.Solutions-useCase a:visited {
+  color: #000;
+  display: flex;
+  text-decoration: none;
+}
+.Solutions-useCaseAction {
+  color: #007d9c;
 }
 .Solutions-useCaseTitle {
   margin: .75rem 0 0;
