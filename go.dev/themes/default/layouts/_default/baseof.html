@@ -27,6 +27,9 @@
         {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
           {{- $url = "https://learn.go.dev"}}
         {{- end}}
+        {{- if not $currentPage.Site.IsServer}}
+          {{- $url = $url | absURL}}
+        {{- end}}
         <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
           <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
         </li>
