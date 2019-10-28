@@ -40,7 +40,7 @@ For emacs users, [[https://github.com/dominikh/go-mode.el][go-mode.el]] provides
 
 For Eclipse or Sublime Text users, the [[https://github.com/GoClipse/goclipse][GoClipse]] and [[https://github.com/DisposaBoy/GoSublime][GoSublime]] projects add a gofmt facility to those editors.
 
-And for Git aficionados, the [[https://golang.org/misc/git/pre-commit][misc/git/pre-commit script]] is a pre-commit hook that prevents incorrectly-formatted Go code from being committed. If you use Mercurial, the [[https://bitbucket.org/fhs/hgstyle/overview][hgstyle plugin]] provides a gofmt pre-commit hook.
+And for Git aficionados, the [[https://github.com/golang/go/blob/release-branch.go1.1/misc/git/pre-commit][misc/git/pre-commit script]] is a pre-commit hook that prevents incorrectly-formatted Go code from being committed. If you use Mercurial, the [[https://bitbucket.org/fhs/hgstyle/overview][hgstyle plugin]] provides a gofmt pre-commit hook.
 
 * Mechanical source transformation
 
