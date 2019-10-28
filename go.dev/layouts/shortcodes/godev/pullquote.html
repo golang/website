@@ -1,0 +1,17 @@
+<div class="PullQuote">
+  <div class="PullQuote-quoteHeader">
+    <img class="PullQuote-image" src="/images/quote.svg" alt="Quotation mark.">
+  </div>
+  <p class="PullQuote-body">
+    {{.Inner | markdownify}}
+  </p>
+  {{$author := .Get 0 -}}
+  {{if .IsNamedParams -}}
+    {{$author = .Get "author" -}}
+  {{end -}}
+  {{if $author -}}
+  <div class="PullQuote-author">
+    &mdash; {{$author -}}
+  </div>
+  {{end -}}
+</div>

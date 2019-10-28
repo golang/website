@@ -2,6 +2,7 @@
 title: 'Lorem Postum'
 date: 2019-06-25T17:51:23-04:00
 authors: ['Andrew Bonventre', 'Steve Francia']
+draft: true
 ---
 
 ## Inminet facies saevit montis
@@ -10,6 +11,13 @@ Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
 [senex](http://sub.com/). Cecidisse inpediunt Romam, voluisse curru **saepe pro
 sola** poposcerat bracchia. Sanguine _discutiunt manu_, mihi armos? Dilata levia
 ab mira auxiliaria pennas Eumenidum lentoque inertem tantum stipite pompa.
+
+{{<godev/pullquote author="Google dev manager">}}
+Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
+[senex](http://sub.com/). Cecidisse inpediunt Romam, voluisse curru **saepe pro
+sola** poposcerat bracchia. Sanguine _discutiunt manu_, mihi armos? Dilata levia
+ab mira auxiliaria pennas Eumenidum lentoque inertem tantum stipite pompa.
+{{</godev/pullquote>}}
 
 ## Rex feritatis tamen seminaque aquas liceret nepos
 

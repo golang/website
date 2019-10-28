@@ -144,7 +144,7 @@ a:hover {
 .Article ul,
 .Article ol {
   color: #555759;
-  font-size: 18px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 .Article pre {
@@ -1050,4 +1050,20 @@ a.Footer-link {
     padding: 1rem 0 0 1rem; /* Gutter between grid cells. */
     text-align: center;
   }
+}
+.PullQuote-image {
+  height: 2.75rem;
+  width: 1.8125rem;
+}
+.PullQuote p {
+  font-size: 1.125rem;
+  line-height: 2rem;
+  margin: 0.5rem 0;
+}
+.PullQuote-author {
+  color: #6e7072;
+  font-size: 1.125rem;
+  letter-spacing: 0.011875rem;
+  line-height: 1.875rem;
+  text-align: right;
 }
