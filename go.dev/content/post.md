@@ -101,3 +101,26 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
   {{</godev/mediaListItem>}}
 {{</godev/mediaList>}}
+
+{{<godev/mediaList>}}
+  {{<godev/mediaListBox title="Lorem ipsum"
+  img-src="/images/google-logo.png"
+  img-alt="Google.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  {{</godev/mediaListBox>}}
+  {{<godev/mediaListBox title="Lorem ipsum"
+  img-src="/images/gopher-biplane.png"
+  img-alt="Gopher piloting a biplane.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  {{</godev/mediaListBox>}}
+  {{<godev/mediaListBox title="Lorem ipsum"
+  img-src="/images/learn/codecademy.png"
+  img-alt="Google.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  {{</godev/mediaListBox>}}
+  {{<godev/mediaListBox title="Lorem ipsum"
+  img-src="/images/gopher-biplane.png"
+  img-alt="Gopher piloting a biplane.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  {{</godev/mediaListBox>}}
+{{</godev/mediaList>}}
