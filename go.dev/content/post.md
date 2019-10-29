@@ -78,3 +78,26 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
   Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
   [senex](http://sub.com/).
 {{</godev/largeMedia>}}
+
+{{<godev/mediaList>}}
+  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  img-src="/images/google-logo.png"
+  img-alt="Google.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  {{</godev/mediaListItem>}}
+  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  img-src="/images/gopher-biplane.png"
+  img-alt="Gopher piloting a biplane.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  {{</godev/mediaListItem>}}
+  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  img-src="/images/google-logo.png"
+  img-alt="Google.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  {{</godev/mediaListItem>}}
+  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  img-src="/images/gopher-biplane.png"
+  img-alt="Gopher piloting a biplane.">}}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  {{</godev/mediaListItem>}}
+{{</godev/mediaList>}}

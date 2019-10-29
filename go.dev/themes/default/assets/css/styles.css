@@ -107,7 +107,8 @@ a:hover {
 .Article {
   color: #202224;
   margin: 0 auto 30px;
-  max-width: 45em;
+  max-width: 45rem;
+  padding: 0 1.5rem;
 }
 .Article-author,
 .Article-date {
@@ -1092,5 +1093,37 @@ a.Footer-link {
     margin-right: 5.5rem;
     height: 12.5rem;
     width: 12.5rem;
+  }
+}
+.MediaList {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  list-style: none;
+  padding: 0;
+}
+.MediaList-item {
+  flex: 0 1 14rem;
+  justify-content: space-around;
+  text-align: center;
+}
+.MediaList-itemImage {
+  height: 10rem;
+  object-fit: contain;
+  width: 10rem;
+}
+.MediaList-itemTitle {
+  color: #202224;
+}
+.MediaList-itemBody {
+  color: #555759;
+}
+@media only screen and (min-width: 48rem) {
+  .MediaList {
+    margin-left: -2rem; /* First item of each row should have no left gutter */
+  }
+  .MediaList-item {
+    flex: 0 0 12rem;
+    margin-left: 2rem; /* Gutter between items */
   }
 }
