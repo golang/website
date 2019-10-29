@@ -1,5 +1,5 @@
 {{define "main"}}
-  <article class="Article">
+  <article class="Article {{if .Section -}}Article--{{.Section}}{{end -}}">
     <h1>{{.Title}}</h1>
     {{range .Params.authors}}
       <div class="Article-author">{{.}}</div>

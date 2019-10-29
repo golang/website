@@ -63,3 +63,18 @@ venerit!
 
 _Avem linguam fecundus_ voce, mea haud paratior et telorum trahitur, causas iura
 dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
+
+{{<godev/largeMedia
+  title="_Avem linguam fecundus_ voce, mea haud"
+  img-src="/images/google-logo.png"
+  img-alt="Google.">}}
+  Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
+  [senex](http://sub.com/).
+{{</godev/largeMedia>}}
+{{<godev/largeMedia
+  title="_Avem linguam fecundus_ voce, mea haud"
+  img-src="/images/gopher-biplane.png"
+  img-alt="Gopher piloting a biplane.">}}
+  Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
+  [senex](http://sub.com/).
+{{</godev/largeMedia>}}

@@ -1,0 +1,11 @@
+<div class="LargeMedia">
+  <img class="LargeMedia-image" alt="{{.Get "img-alt"}}" src="{{.Get "img-src"}}">
+  <div class="LargeMedia-body">
+    <h3 class="LargeMedia-title">
+      {{- .Get "title" | markdownify -}}
+    </h3>
+    <p class="LargeMedia-text">
+      {{.Inner | markdownify -}}
+    </p>
+  </div>
+</div>
