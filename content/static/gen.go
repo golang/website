@@ -46,7 +46,7 @@ var files = []string{
 	"images/cloud-download.svg",
 	"images/go-logo-blue.svg",
 	"images/home-gopher.png",
-	"images/footer-gopher.jpg",
+	"images/footer-gopher.png",
 	"images/minus.gif",
 	"images/play-link.svg",
 	"images/plus.gif",
