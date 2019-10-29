@@ -1174,3 +1174,28 @@ a.Footer-link {
     margin: 0 1.3rem 2rem 0;
   }
 }
+.StarItem {
+  align-items: flex-start;
+  display: flex;
+}
+.StarItem-icon {
+  align-items: center;
+  background: linear-gradient(10.64deg, #007d9c 0%, #00a29c 100%);
+  border-radius: 50%;
+  display: flex;
+  height: 1.5rem;
+  justify-content: center;
+  margin: 1.1rem 1.25rem 0 0;
+  width: 1.5rem;
+}
+.StarItem-image {
+  height: 1.25rem;
+  object-fit: contain;
+  width: 1.25rem;
+}
+.StarItem-body {
+  flex: 1;
+}
+.StarItem-title {
+  margin: 1rem 0;
+}

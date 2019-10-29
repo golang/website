@@ -1,0 +1,13 @@
+<div class="StarItem">
+  <div class="StarItem-icon" role="presentation">
+    <img class="StarItem-image" src="/images/star-24px.svg" alt="Star."/>
+  </div>
+  <div class="StarItem-body">
+    <h2 class="StarItem-title">
+      {{- .Get "title" | markdownify -}}
+    </h2>
+    <p class="StarItem-text">
+      {{.Inner | markdownify -}}
+    </p>
+  </div>
+</div>

@@ -124,3 +124,16 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   {{</godev/mediaListBox>}}
 {{</godev/mediaList>}}
+
+{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam,
+{{</godev/starItem>}}
+{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam,
+{{</godev/starItem>}}
+{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam,
+{{</godev/starItem>}}
