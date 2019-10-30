@@ -1,0 +1,61 @@
+{{ $src := "/images/gopher-wrench.svg"}}
+{{ $alt := "gopher with wrench"}}
+{{ $size := "Large"}}
+{{ $align := "Left"}}
+{{ $gopher := .Get "gopher"}}
+{{ $sizeIn := .Get "size"}}
+
+{{if or (eq (.Get "align") "right") (eq (.Get "align") "Right")}}
+   {{$align = "Right"}}
+{{end}}
+
+{{if or (or (eq $sizeIn "XLarge") (eq $sizeIn "xl")) (eq $sizeIn "xlarge") }}
+    {{$size = "XLarge"}}
+{{end}}
+
+{{if eq $gopher "tux"}}
+    {{$src = "/images/gopher-tux-blue.svg"}}
+    {{$alt = "gopher in a tux"}}
+{{end}}
+{{if eq $gopher "plane"}}
+    {{$src = "/images/gopher-biplane.svg"}}
+    {{$alt = "gopher in a plane"}}
+{{end}}
+{{if eq $gopher "graduate"}}
+    {{$src = "/images/gopher-graduate.svg"}}
+    {{$alt = "gopher graduating"}}
+{{end}}
+{{if eq $gopher "graduate-blue"}}
+    {{$src = "/images/gopher-graduate-blue.svg"}}
+    {{$alt = "gopher graduating"}}
+{{end}}
+{{if eq $gopher "headlamp"}}
+    {{$src = "/images/gopher-headlamp.svg"}}
+    {{$alt = "gopher with headlamp"}}
+{{end}}
+{{if eq $gopher "headlamp-blue"}}
+    {{$src = "/images/gopher-headlamp-blue.svg"}}
+    {{$alt = "gopher with headlamp"}}
+{{end}}
+{{if eq $gopher "ladder"}}
+    {{$src = "/images/gopher-ladder.svg"}}
+    {{$alt = "gopher with ladder"}}
+{{end}}
+{{if eq $gopher "machine"}}
+    {{$src = "/images/gopher-machine.svg"}}
+    {{$alt = "gophers with a machine"}}
+{{end}}
+{{if eq $gopher "machine-c"}}
+    {{$src = "/images/gopher-machine-c.svg"}}
+    {{$alt = "gopher with a machine"}}
+{{end}}
+{{if eq $gopher "pilot"}}
+    {{$src = "/images/gopher-pilot.svg"}}
+    {{$alt = "gopher pilot"}}
+{{end}}
+{{if eq $gopher "wrench-c"}}
+    {{$src = "/images/gopher-wrench-c.svg"}}
+    {{$alt = "gopher with a wrench"}}
+{{end}}
+
+<img class="{{$size}}Media-image {{$align}}" alt="{{$alt}}" src="{{$src}}">

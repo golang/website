@@ -1088,14 +1088,40 @@ a.Footer-link {
 .LargeMedia-body {
   flex: 1;
 }
+
+.SmallMedia-image {
+  margin-right: 1rem;
+  object-fit: contain;
+  height: 3rem;
+  width: 3rem;
+}
+
+.XLargeMedia-image {
+  margin-right: 1rem;
+  object-fit: contain;
+  height: 8rem;
+  width: 8rem;
+}
+
 @media only screen and (min-width: 48rem) {
   .LargeMedia {
     align-items: center;
+  }
+  .SmallMedia-image {
+    margin-right: 5.5rem;
+    height: 9rem;
+    width: 9rem;
   }
   .LargeMedia-image {
     margin-right: 5.5rem;
     height: 12.5rem;
     width: 12.5rem;
+  }
+  .XLargeMedia-image {
+    margin-right: 1rem;
+    object-fit: contain;
+    height: 18rem;
+    width: 18rem;
   }
 }
 .MediaList {
@@ -1201,4 +1227,13 @@ a.Footer-link {
 }
 .StarItem-title {
   margin: 1rem 0;
+}
+
+.Right {
+  float: right;
+  margin-left: 1rem;
+}
+.Left {
+  float: left;
+  margin-right: 1rem;
 }
