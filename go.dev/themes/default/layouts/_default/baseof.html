@@ -13,12 +13,16 @@
   {{$stylesFP := $styles | fingerprint -}}
   <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}" crossorigin="anonymous">
 {{end -}}
+<script src="/js/site.js" defer></script>
 <title>{{$.Site.Title}}</title>
 </head>
 <body class="Site{{if .IsHome}} Site--blue{{end}}">
 <header class="Site-header">
   <div class="Header{{if .IsHome}} Header--dark{{end}}">
     <nav class="Header-nav">
+      <a href="#">
+        <img class="Header-navOpen js-headerMenuButton" src="/images/menu-24px{{if .IsHome}}-white{{end}}.svg" alt="Open navigation.">
+      </a>
       <a href="{{.Site.BaseURL}}">
         <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
       </a>
@@ -40,6 +44,34 @@
     </nav>
   </div>
 </header>
+<aside class="NavigationDrawer js-header">
+  <nav class="NavigationDrawer-nav">
+    <div class="NavigationDrawer-header">
+      <a href="{{.Site.BaseURL}}">
+        <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
+      </a>
+      <a href="#">
+        <img class="NavigationDrawer-close js-headerMenuButton" src="/images/close-24px.svg" alt="Close navigation.">
+      </a>
+    </div>
+    <ul class="NavigationDrawer-list">
+      {{- range .Site.Menus.main}}
+        {{- $url := .URL}}
+        {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
+          {{- $url = "https://learn.go.dev"}}
+        {{- end}}
+        {{- if not $currentPage.Site.IsServer}}
+          {{- $url = $url | absURL}}
+        {{- end}}
+        <li class="NavigationDrawer-listItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} NavigationDrawer-listItem--active{{end}}">
+          <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
+        </li>
+      {{- end}}
+    </ul>
+  </nav>
+</aside>
+<div class="NavigationDrawer-scrim js-scrim" role="presentation">
+</div>
 <main class="Site-content">
   {{- block "main" . -}}{{- end -}}
 </main>
