@@ -5,7 +5,7 @@
       {{- .Get "title" | markdownify -}}
     </h3>
     <p class="LargeMedia-text">
-      {{.Inner -}}
+      {{.Inner | markdownify -}}
     </p>
   </div>
 </div>
