@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{$.Site.LanguageCode | default "en"}}">
+<head>
 <meta charset="utf-8">
 <meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,6 +14,7 @@
   <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}" crossorigin="anonymous">
 {{end -}}
 <title>{{$.Site.Title}}</title>
+</head>
 <body class="Site{{if .IsHome}} Site--blue{{end}}">
 <header class="Site-header">
   <div class="Header{{if .IsHome}} Header--dark{{end}}">
@@ -65,3 +67,5 @@
     </div>
   </div>
 </footer>
+</body>
+</html>
