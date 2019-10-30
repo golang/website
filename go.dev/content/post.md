@@ -12,12 +12,12 @@ Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
 sola** poposcerat bracchia. Sanguine _discutiunt manu_, mihi armos? Dilata levia
 ab mira auxiliaria pennas Eumenidum lentoque inertem tantum stipite pompa.
 
-{{<godev/pullquote author="Google dev manager">}}
+{{%pullquote author="Google dev manager"%}}
 Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
 [senex](http://sub.com/). Cecidisse inpediunt Romam, voluisse curru **saepe pro
 sola** poposcerat bracchia. Sanguine _discutiunt manu_, mihi armos? Dilata levia
 ab mira auxiliaria pennas Eumenidum lentoque inertem tantum stipite pompa.
-{{</godev/pullquote>}}
+{{%/pullquote%}}
 
 ## Rex feritatis tamen seminaque aquas liceret nepos
 
@@ -64,76 +64,76 @@ venerit!
 _Avem linguam fecundus_ voce, mea haud paratior et telorum trahitur, causas iura
 dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
 
-{{<godev/largeMedia
+{{%largeMedia
   title="_Avem linguam fecundus_ voce, mea haud"
   img-src="/images/google-logo.png"
-  img-alt="Google.">}}
+  img-alt="Google."%}}
   Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
   [senex](http://sub.com/).
-{{</godev/largeMedia>}}
-{{<godev/largeMedia
+{{%largeMedia%}}
+{{%largeMedia
   title="_Avem linguam fecundus_ voce, mea haud"
   img-src="/images/gopher-biplane.png"
-  img-alt="Gopher piloting a biplane.">}}
+  img-alt="Gopher piloting a biplane."%}}
   Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
   [senex](http://sub.com/).
-{{</godev/largeMedia>}}
+{{%/largeMedia%}}
 
-{{<godev/mediaList>}}
-  {{<godev/mediaListItem title="Lorem ipsum dolor"
+{{%mediaList%}}
+  {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/google-logo.png"
-  img-alt="Google.">}}
+  img-alt="Google."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  {{</godev/mediaListItem>}}
-  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  {{%/mediaListItem%}}
+  {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/gopher-biplane.png"
-  img-alt="Gopher piloting a biplane.">}}
+  img-alt="Gopher piloting a biplane."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  {{</godev/mediaListItem>}}
-  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  {{%/mediaListItem%}}
+  {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/google-logo.png"
-  img-alt="Google.">}}
+  img-alt="Google."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  {{</godev/mediaListItem>}}
-  {{<godev/mediaListItem title="Lorem ipsum dolor"
+  {{%/mediaListItem%}}
+  {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/gopher-biplane.png"
-  img-alt="Gopher piloting a biplane.">}}
+  img-alt="Gopher piloting a biplane."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-  {{</godev/mediaListItem>}}
-{{</godev/mediaList>}}
+  {{%/mediaListItem%}}
+{{%/mediaList%}}
 
-{{<godev/mediaList>}}
-  {{<godev/mediaListBox title="Lorem ipsum"
+{{%mediaList%}}
+  {{%mediaListBox title="Lorem ipsum"
   img-src="/images/google-logo.png"
-  img-alt="Google.">}}
+  img-alt="Google."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  {{</godev/mediaListBox>}}
-  {{<godev/mediaListBox title="Lorem ipsum"
+  {{%/mediaListBox%}}
+  {{%mediaListBox title="Lorem ipsum"
   img-src="/images/gopher-biplane.png"
-  img-alt="Gopher piloting a biplane.">}}
+  img-alt="Gopher piloting a biplane."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  {{</godev/mediaListBox>}}
-  {{<godev/mediaListBox title="Lorem ipsum"
+  {{%/mediaListBox%}}
+  {{%mediaListBox title="Lorem ipsum"
   img-src="/images/learn/codecademy.png"
-  img-alt="Google.">}}
+  img-alt="Google."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  {{</godev/mediaListBox>}}
-  {{<godev/mediaListBox title="Lorem ipsum"
+  {{%/mediaListBox%}}
+  {{%mediaListBox title="Lorem ipsum"
   img-src="/images/gopher-biplane.png"
-  img-alt="Gopher piloting a biplane.">}}
+  img-alt="Gopher piloting a biplane."%}}
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  {{</godev/mediaListBox>}}
-{{</godev/mediaList>}}
+  {{%/mediaListBox%}}
+{{%/mediaList%}}
 
-{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+{{%starItem title="Lorem ipsum dolor sit amet, consectetur"%}}
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam,
-{{</godev/starItem>}}
-{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+{{%/starItem%}}
+{{%starItem title="Lorem ipsum dolor sit amet, consectetur"%}}
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam,
-{{</godev/starItem>}}
-{{<godev/starItem title="Lorem ipsum dolor sit amet, consectetur">}}
+{{%/starItem%}}
+{{%starItem title="Lorem ipsum dolor sit amet, consectetur"%}}
   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
   aliqua. Ut enim ad minim veniam,
-{{</godev/starItem>}}
+{{%/starItem%}}

@@ -1060,9 +1060,9 @@ a.Footer-link {
   width: 1.8125rem;
 }
 .PullQuote p {
-  font-size: 1.125rem;
-  line-height: 2rem;
-  margin: 0.5rem 0;
+  font-size: 1.725rem;
+  line-height: 2.5rem;
+  margin: 0 1rem 1rem 1rem;
 }
 .PullQuote-author {
   color: #6e7072;
