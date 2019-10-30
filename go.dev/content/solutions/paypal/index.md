@@ -9,11 +9,8 @@ resources:
   params:
     alt: PayPal
 ---
-## PayPal Taps Go to Modernize and Scale
-
 
 ### New Code Infrastructure Built on Go
-
 
 PayPal was created to democratize financial services and empower people and businesses to join and thrive in the global economy. Central to this effort is PayPal's Payments Platform, which uses a combination of proprietary and third-party technologies to efficiently and securely facilitate transactions between millions of merchants and consumers worldwide. As the Payments Platform grew larger and more complicated, PayPal sought to modernize its systems and reduce time-to-market for new applications.
 
@@ -76,7 +73,7 @@ Most importantly for PayPal, the combination of Go development and the GKE allow
 
 ## **Getting Your Enterprise Started With Go**
 
-PayPal’s story is not unique; dozens of other large enterprises are discovering how Go can help them ship reliable software faster. There are approximately two million developers using Go worldwide, spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as Amazon, Apple, Dropbox, Epic Games, Facebook, IBM, Microsoft, Square, Uber, and of course Google.
+PayPal’s story is not unique; dozens of other large enterprises are discovering how Go can help them ship reliable software faster. There are approximately two million developers using Go worldwide, spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as Dropbox, New York Times, Salesforce, Target, Capital One, Monzo, Twitch, IBM, Square, Uber, and of course Google.
  
 To learn more about how Go can help your enterprise build reliable, scalable software as it does at PayPal,visit go.dev today.
 
