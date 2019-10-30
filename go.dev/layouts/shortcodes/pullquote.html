@@ -3,7 +3,7 @@
     <img class="PullQuote-image" src="/images/quote.svg" alt="Quotation mark.">
   </div>
   <p class="PullQuote-body">
-    {{.Inner | markdownify}}
+    {{.Inner}}
   </p>
   {{$author := .Get 0 -}}
   {{if .IsNamedParams -}}
