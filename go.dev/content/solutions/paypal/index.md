@@ -17,8 +17,10 @@ resources:
 
 PayPal was created to democratize financial services and empower people and businesses to join and thrive in the global economy. Central to this effort is PayPal's Payments Platform, which uses a combination of proprietary and third-party technologies to efficiently and securely facilitate transactions between millions of merchants and consumers worldwide. As the Payments Platform grew larger and more complicated, PayPal sought to modernize its systems and reduce time-to-market for new applications.
 
+{{% pullquote %}}
 Go’s value in producing clean, efficient code that readily scales as software deployment scales made the language a strong fit to support PayPal’s goals.
- 
+{{% /pullquote %}}
+
 PayPal had a NoSQL database in C++, but the complexity of the code was substantially decreasing its developers’ productivity. Go’s goroutines (lightweight threads of execution) and channels (which serve as the pipes that connect concurrent goroutines), made Go a natural choice in the NoSQL development team’s assessment for piloting system simplification and modernization.
  
 As a proof of concept, a development team spent six months learning Go and reimplementing the NoSQL system from the ground up in Go, during which they also provided insights on how Go could be implemented more broadly at PayPal.
