@@ -25,11 +25,19 @@
     <ul class="WhoUses-caseStudyList">
       {{range where $solutions.Pages "Params.series" "Case Studies"}}
         <li class="WhoUses-caseStudy">
+        {{if isset .Params "link" }}
+          <a href="{{.Params.link}}" target="_blank">
+            {{$logo := .Resources.GetMatch "logo"}}
+            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
+            <p>View article</p>
+          </a>
+        {{else}}
           <a href="{{.RelPermalink}}">
             {{$logo := .Resources.GetMatch "logo"}}
             <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
             <p>View case study</p>
           </a>
+        {{end}}
         </li>
       {{end}}
     </ul>

@@ -51,6 +51,15 @@
     <ul class="Solutions-caseStudyList">
       {{range where .Pages "Params.series" "Case Studies"}}
       <li class="Solutions-caseStudy">
+        {{if isset .Params "link" }}
+        <a href="{{.Params.link}}" target="_blank">
+          <div class="Solutions-caseStudyLogo">
+            {{$logo := .Resources.GetMatch "logo"}}
+            <img alt="{{$logo.Params.alt}}" src="{{$logo.RelPermalink}}">
+          </div>
+          <p>View article</p>
+        </a>
+        {{else}}
         <a href="{{.RelPermalink}}">
           <div class="Solutions-caseStudyLogo">
             {{$logo := .Resources.GetMatch "logo"}}
@@ -58,6 +67,7 @@
           </div>
           <p>View case study</p>
         </a>
+        {{end}}
       </li>
       {{end}}
     </ul>
