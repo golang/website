@@ -1,7 +1,7 @@
 ---
 title: "Go for Development Operations & Site Reliability Engineering (SRE)"
 linkTitle: "DevOps & Site Reliability"
-description: "Go Helps Enterprises Automate and Scale for CI/CD"
+description: "With fast build times and lean syntax, Go is built to support both DevOps and SRE. From Go’s extensive standard library, to its automatic formatter (gofmt) and automatic document generator (godoc), Go provides a wide range of tools to support software and systems of any scope."
 date: 2019-10-03T17:16:43-04:00
 series: Use Cases
 resources:
