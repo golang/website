@@ -214,7 +214,7 @@ a:hover {
 }
 .Hero h1 {
   font-size: 2.625rem;
-  margin-top: 1rem;
+  margin: 1rem 0;
 }
 .Hero h2 {
   font-size: 1.5rem;
