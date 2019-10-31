@@ -994,6 +994,12 @@ a.Footer-link {
   }
 }
 .Solutions-title,
+.Solutions-useCases,
+.Solutions-caseStudies {
+  margin: auto;
+  max-width: 75.75rem;
+}
+.Solutions-title,
 .Solutions-headline,
 .Solutions-useCases,
 .Solutions-caseStudies {
@@ -1010,7 +1016,7 @@ a.Footer-link {
 .Solutions-headline {
   background-color: #fefadd;
 }
-.Solutions-headline p {
+.Solutions-headlineText {
   font-size: 1.5rem;
   max-width: 23rem;
   padding: 2rem 0;
@@ -1047,6 +1053,14 @@ a.Footer-link {
     border-radius: 0.625rem;
     box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
     transition: all 0.2s ease-in-out;
+  }
+}
+@media only screen and (min-width: 75.75rem) {
+  .Solutions-headline {
+    padding: 0;
+  }
+  .Solutions-headlineText {
+    padding-left: 1.5rem;
   }
 }
 .Solutions-useCaseLogo {
