@@ -70,7 +70,7 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
   img-alt="Google."%}}
   Lorem markdownum horum surgere es quaeris et iuvenci cadunt hausitque armiferae
   [senex](http://sub.com/).
-{{%largeMedia%}}
+{{%/largeMedia%}}
 {{%largeMedia
   title="_Avem linguam fecundus_ voce, mea haud"
   img-src="/images/gopher-biplane.png"
@@ -83,22 +83,22 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
   {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/google-logo.png"
   img-alt="Google."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
   {{%/mediaListItem%}}
   {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/gopher-biplane.png"
   img-alt="Gopher piloting a biplane."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
   {{%/mediaListItem%}}
   {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/google-logo.png"
   img-alt="Google."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
   {{%/mediaListItem%}}
   {{%mediaListItem title="Lorem ipsum dolor"
   img-src="/images/gopher-biplane.png"
   img-alt="Gopher piloting a biplane."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
   {{%/mediaListItem%}}
 {{%/mediaList%}}
 
@@ -106,22 +106,22 @@ dilectae **nisi feres** canes formam? Domos ac mediaque os Stygias!
   {{%mediaListBox title="Lorem ipsum"
   img-src="/images/google-logo.png"
   img-alt="Google."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   {{%/mediaListBox%}}
   {{%mediaListBox title="Lorem ipsum"
   img-src="/images/gopher-biplane.png"
   img-alt="Gopher piloting a biplane."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   {{%/mediaListBox%}}
   {{%mediaListBox title="Lorem ipsum"
   img-src="/images/learn/codecademy.png"
   img-alt="Google."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   {{%/mediaListBox%}}
   {{%mediaListBox title="Lorem ipsum"
   img-src="/images/gopher-biplane.png"
   img-alt="Gopher piloting a biplane."%}}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
   {{%/mediaListBox%}}
 {{%/mediaList%}}
 
