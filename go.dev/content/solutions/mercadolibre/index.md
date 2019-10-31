@@ -136,6 +136,7 @@ only knew about programming from recent courses at university. Similarly, Mercad
 proficient with other programming languages (such as Java or .NET or Ruby) learn Go fast enough start writing production
 services in just a few weeks.
 
+{{% gopher gopher=plane align=right %}}
 With Go, MercadoLibre’s **build times are three times (3x) faster** and their **test suite runs an amazing 24 times
 faster**. This means the company’s developers can make a change, then build and test that change much faster than they
 could before.
