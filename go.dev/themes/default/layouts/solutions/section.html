@@ -20,16 +20,14 @@
       {{range where .Pages "Params.series" "Use Cases"}}
       <li class="Solutions-useCase">
         <a href="{{.RelPermalink}}">
-          <div class="Solutions-useCaseHeader">
-            <div class="Solutions-useCaseLogo">
-              {{$icon := .Resources.GetMatch "icon"}}
-              {{if $icon}}
-                <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
-              {{end}}
-            </div>
-            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
+          <div class="Solutions-useCaseLogo">
+            {{$icon := .Resources.GetMatch "icon"}}
+            {{if $icon}}
+              <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
+            {{end}}
           </div>
           <div class="Solutions-useCaseBody">
+            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
             <p class="Solutions-useCaseDescription">
               {{.Description}}
             </p>

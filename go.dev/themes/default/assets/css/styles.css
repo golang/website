@@ -1061,28 +1061,18 @@ a.Footer-link {
 }
 .Solutions-useCaseAction {
   color: #007d9c;
-}
-.Solutions-useCaseTitle {
-  margin: 0.75rem 0 0;
-}
-.Solutions-useCaseHeader {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  max-width: 14rem;
-  text-align: center;
-}
-.Solutions-useCaseBody {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin: 0 1rem;
-}
-.Solutions-useCaseAction {
   font-size: 1.125rem;
   font-weight: bold;
   margin-bottom: 0;
+  text-align: right;
+}
+.Solutions-useCaseTitle {
+  margin: 0;
+}
+.Solutions-useCaseBody {
+  flex: 1;
+  justify-content: center;
+  margin: 0 1rem 0 1.4rem;
 }
 .Solutions-caseStudyList {
   display: flex;
