@@ -74,6 +74,25 @@ a:hover {
   margin: 0;
   padding: 0;
 }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Google Sans', sans-serif;
+}
+
+h1, h2 {
+  font-weight: 600;
+  letter-spacing: 0.03rem;
+}
+
+h3, h4 {
+  font-weight: 600;
+  letter-spacing: 0.08rem;
+}
+h5, h6 {
+  font-weight: 500;
+  letter-spacing: 0.08rem;
+}
+
 @media only screen and (min-width: 57.7rem) {
   .Header {
     padding: 0 1.5rem;
@@ -214,7 +233,7 @@ a:hover {
 .Article h4,
 .Article h5,
 .Article h6 {
-  font-family: 'Work Sans', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 600;
 }
 .Article h1 {
@@ -292,9 +311,9 @@ a:hover {
 .UseCases-header h2,
 .WhyGo-header h2,
 .LearnGo-header h2 {
+  font-size: 2rem;
   letter-spacing: 0.125rem;
   margin-top: 0;
-  text-transform: uppercase;
 }
 .Hero {
   color: #fff;
@@ -1024,7 +1043,6 @@ a.Footer-link {
 .Solutions-useCasesHeader h2,
 .Solutions-caseStudiesHeader h2 {
   letter-spacing: 0.125rem;
-  text-transform: uppercase;
 }
 .Solutions-useCaseList {
   display: flex;
