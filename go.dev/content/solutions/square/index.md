@@ -4,6 +4,7 @@ description: ""
 date: 2017-07-11
 series: Case Studies
 link: https://developer.squareup.com/blog/always-be-closing/
+draft: true
 resources:
 - name: logo
   src: logo.svg

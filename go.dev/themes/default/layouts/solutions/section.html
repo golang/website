@@ -14,7 +14,7 @@
 <section class="Solutions-useCases">
   <div class="Container">
     <div class="Solutions-useCasesHeader">
-      <h2>Use Cases</h2>
+      <h2>Designed for Today's Needs</h2>
     </div>
     <ul class="Solutions-useCaseList">
       {{range where .Pages "Params.series" "Use Cases"}}
@@ -44,7 +44,7 @@
 <section class="Solutions-caseStudies">
   <div class="Container">
     <div class="Solutions-caseStudiesHeader">
-      <h2>Companies Using Go</h2>
+      <h2>Go is Used, Loved and Depended on by</h2>
     </div>
     <ul class="Solutions-caseStudyList">
       {{range where .Pages "Params.series" "Case Studies"}}
@@ -55,7 +55,13 @@
             {{$logo := .Resources.GetMatch "logo"}}
             <img alt="{{$logo.Params.alt}}" src="{{$logo.RelPermalink}}">
           </div>
-          <p>View article <i class="material-icons" style="font-size:1rem;">open_in_new</i></p>
+          <div class="Solutions-caseStudyBody">
+            <h3 class="Solutions-caseStudyTitle">{{.LinkTitle}}</h3>
+            <p class="Solutions-caseStudyDescription">
+              {{.Description}}
+            </p>
+          <p class="Solutions-caseStudyAction">View article <i class="material-icons" style="font-size:1rem;">open_in_new</i></p>
+          </div>
         </a>
         {{else}}
         <a href="{{.RelPermalink}}">
@@ -63,7 +69,13 @@
             {{$logo := .Resources.GetMatch "logo"}}
             <img alt="{{$logo.Params.alt}}" src="{{$logo.RelPermalink}}">
           </div>
-          <p>View case study</p>
+          <div class="Solutions-caseStudyBody">
+            <h3 class="Solutions-caseStudyTitle">{{.LinkTitle}}</h3>
+            <p class="Solutions-caseStudyDescription">
+              {{with .Params.quote}}{{.}}{{end}}
+            </p>
+          <p class="Solutions-caseStudyAction">View case study</p>
+          </div>
         </a>
         {{end}}
       </li>
