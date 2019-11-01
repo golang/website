@@ -55,7 +55,7 @@
             {{$logo := .Resources.GetMatch "logo"}}
             <img alt="{{$logo.Params.alt}}" src="{{$logo.RelPermalink}}">
           </div>
-          <p>View article</p>
+          <p>View article <i class="material-icons" style="font-size:1rem;">open_in_new</i></p>
         </a>
         {{else}}
         <a href="{{.RelPermalink}}">
