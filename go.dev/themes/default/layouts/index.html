@@ -43,33 +43,6 @@
     </ul>
   </div>
 </section>
-<section class="UseCases">
-  {{$solutions := index (where .Pages "Section" "solutions") 0}}
-  <div class="Container">
-    <div class="UseCases-gridContainer">
-      <div class="UseCases-header">
-        <h2>Use Cases</h2>
-      </div>
-      {{range where $solutions.Pages "Params.series" "Use Cases"}}
-        <div class="UseCase">
-          <div class="UseCase-logo">
-            {{$icon := .Resources.GetMatch "icon-white"}}
-            {{if $icon}}
-            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
-            {{end}}
-          </div>
-          <h3 class="UseCase-title">{{.LinkTitle}}</h3>
-          <p class="UseCase-description">
-            {{.Description}}
-          </p>
-          <p class="UseCase-action">
-            <a href="{{.RelPermalink}}">Learn More &gt;</a>
-          </p>
-        </div>
-      {{end}}
-    </div>
-  </div>
-</section>
 <section class="WhyGo">
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
@@ -101,6 +74,25 @@
           <img src="/images/star-24px.svg" alt="Star."/>
         </div>
         <div class="WhyGo-reasonText">
+          <h3 class="WhyGo-reasonTitle">Efficient</h3>
+          <p>
+              <b>"A small language that compiles fast makes for a happy developer.</b> The Go language is small, compiles really fast, and as
+              a result it lets your mind focus on the actual problem and less on the tool you are using to solve it. Code, test, debug
+              cycles are so quick that you forget you are not working with an interpreted language. Looking at our code, you see <b>less
+              boilerplate and more business logic</b>."
+          </p>
+          <p style="text-align: right;">
+          - <a
+          href="https://blog.gopheracademy.com/birthday-bash-2014/openshift-3-old-dogs-new-tricks/"
+          target="_blank">Clayton Coleman, lead engineer, Open Shift at RedHat</a>
+          </p>
+        </div>
+      </li>
+      <li class="WhyGo-reason">
+        <div class="WhyGo-reasonIcon" role="presentation">
+          <img src="/images/star-24px.svg" alt="Star."/>
+        </div>
+        <div class="WhyGo-reasonText">
           <h3 class="WhyGo-reasonTitle">Ideal for Scale & Microservices</h3>
           <p>
               “<b>Go has excellent characteristics for scalability and services written using it typically have very 
@@ -116,29 +108,36 @@
           </p>
         </div>
       </li>
-      <li class="WhyGo-reason">
-        <div class="WhyGo-reasonIcon" role="presentation">
-          <img src="/images/star-24px.svg" alt="Star."/>
-        </div>
-        <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Efficient</h3>
-          <p>
-              <b>A small language that compiles fast makes for a happy developer.</b> The Go language is small, compiles really fast, and as
-              a result it lets your mind focus on the actual problem and less on the tool you are using to solve it. Code, test, debug
-              cycles are so quick that you forget you are not working with an interpreted language. Looking at our code, you see <b>less
-              boilerplate and more business logic</b>. Type marshalling, concurrency, and defer style control flow keeps the code clean
-              and compact.
-          </p>
-          <p style="text-align: right;">
-          - <a
-          href="https://blog.gopheracademy.com/birthday-bash-2014/openshift-3-old-dogs-new-tricks/"
-          target="_blank">Clayton Coleman, lead engineer, Open Shift at RedHat</a>
-          </p>
-        </div>
-      </li>
     </ul>
     <div class="WhyGo-gopher">
       <img src="images/gophers/biplane.svg" alt="Go Gopher piloting a biplane."> 
+    </div>
+  </div>
+</section>
+<section class="UseCases">
+  {{$solutions := index (where .Pages "Section" "solutions") 0}}
+  <div class="Container">
+    <div class="UseCases-gridContainer">
+      <div class="UseCases-header">
+        <h2>Use Cases</h2>
+      </div>
+      {{range where $solutions.Pages "Params.series" "Use Cases"}}
+        <div class="UseCase">
+          <div class="UseCase-logo">
+            {{$icon := .Resources.GetMatch "icon-white"}}
+            {{if $icon}}
+            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
+            {{end}}
+          </div>
+          <h3 class="UseCase-title">{{.LinkTitle}}</h3>
+          <p class="UseCase-description">
+            {{.Description}}
+          </p>
+          <p class="UseCase-action">
+            <a href="{{.RelPermalink}}">Learn More &gt;</a>
+          </p>
+        </div>
+      {{end}}
     </div>
   </div>
 </section>
