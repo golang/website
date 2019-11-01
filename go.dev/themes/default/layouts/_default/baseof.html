@@ -15,6 +15,9 @@
 {{end -}}
 <script src="/js/site.js" defer></script>
 <title>{{$.Site.Title}}</title>
+{{if (isset .Params "link") -}}
+<meta http-equiv="refresh" content="0; url={{.Params.link}}">
+{{end -}}
 </head>
 <body class="Site{{if .IsHome}} Site--blue{{end}}">
 <header class="Site-header{{if .IsHome}} Site-header--blue{{end}}">
