@@ -20,7 +20,7 @@
   {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
-      <h2>Companies Using Go</h2>
+      <h2>Used, Loved, & Depended on by</h2>
     </div>
     <ul class="WhoUses-caseStudyList">
       {{range where $solutions.Pages "Params.series" "Case Studies"}}
@@ -46,7 +46,7 @@
 <section class="WhyGo">
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
-      <h2>Why Go</h2>
+      <h2>Why choose Go</h2>
     </div>
     <ul class="WhyGo-reasons">
       <li class="WhyGo-reason">
@@ -93,7 +93,7 @@
           <img src="/images/star-24px.svg" alt="Star."/>
         </div>
         <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Ideal for Scale & Microservices</h3>
+          <h3 class="WhyGo-reasonTitle">Powerful</h3>
           <p>
               “<b>Go has excellent characteristics for scalability and services written using it typically have very 
               small memory footprints</b>. Because code is compiled into a single static binary, services can also be 
@@ -119,7 +119,7 @@
   <div class="Container">
     <div class="UseCases-gridContainer">
       <div class="UseCases-header">
-        <h2>Use Cases</h2>
+        <h2>Designed for Today's Needs</h2>
       </div>
       {{range where $solutions.Pages "Params.series" "Use Cases"}}
         <div class="UseCase">
@@ -145,10 +145,19 @@
   <div class="LearnGo-gridContainer">
     <div class="LearnGo-header">
       <h2>Learn Go</h2>
-      <p>Join the Go community and start learning</p>
+      <p>
+        “I started writing in Go when I was just out of college and couldn’t believe how quickly I picked it up, especially
+        compared to other languages. I had spent months learning about how to build APIs in other languages (and mostly
+      failing), but <b>after a week of writing Go, I had completed my first API</b>.”
+        </p>
+          <p style="text-align: right;">
+          - <a
+          href="https://medium.com/capital-one-tech/good-to-go-a-language-that-makes-it-easy-for-engineers-to-talk-to-each-other-17ad0f47f76c"
+          target="_blank">Kaylyn Gibilterra, Senior Software Engineer, Capital One</a>
+          </p>
     </div>
     <div class="LearnGo-subHeader">
-      <h3>Courses</h3>
+      <h3>Get started learning Go today</h3>
       <p class="LearnGo-viewMore">
         {{if gt (len $.Site.Data.learn.courses.links) 4}}
           <a href="#">View More &gt;</a>
@@ -156,7 +165,7 @@
       </p>
     </div>
     <ul class="LearnGo-courses">
-      {{range first 4 $.Site.Data.learn.courses.links}}
+      {{range first 4 $.Site.Data.learn.guidedLearning.links}}
       <li class="LearnGo-courseItem">
         <div class="LearnGo-course">
           <a href="{{.url}}">
