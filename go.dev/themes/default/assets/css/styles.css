@@ -324,7 +324,7 @@ h5, h6 {
 }
 .Hero h2 {
   font-size: 1.5rem;
-  font-weight: normal;
+  font-weight: 400;
   max-width: 29rem;
 }
 .Hero-gridContainer {
