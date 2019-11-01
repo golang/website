@@ -51,7 +51,7 @@ As PayPal continues to modernize their software-defined networking (SDN) infrast
 
 As a global operation, PayPal needs its development teams to be effective at managing two kinds of scale: production scale, especially concurrent systems interacting with many other servers (such as cloud services); and development scale, especially large codebases developed by many programmers in coordination (such as open-source development).
 
-{{% gopher gopher=machine size="XLarge" %}}
+{{% gopher gopher=blue size="Large" %}}
 PayPal leverages Go to address these issues of scale. The company’s developers benefit from Go’s ability to combine the ease of programming of an interpreted, dynamically typed language with the efficiency and safety of a statically typed, compiled language. As PayPal modernizes its system, support for networked and multicore computing is critical. Go not only delivers such support but delivers quickly—it takes at most a few seconds to compile a large executable on a single computer.
  
 There are currently over 100 Go developers at PayPal, and future developers who choose to adopt Go will have an easier time getting the language approved thanks to the many successful implementations already in production at the company.
@@ -62,7 +62,7 @@ Most importantly, PayPal developers have increased their productivity with Go. G
 
 The first-class languages at PayPal today are Java and Node, with Go primarily used as an infrastructure language. While Go may never replace Node.js for certain applications, Natarajan is pushing to make Go a first-class language at PayPal.
  
-{{% gopher align=right gopher=headlamp size="XLarge" %}}
+{{% gopher align=right gopher=machine size="XLarge" %}}
 Through his efforts, PayPal is also evaluating moving to the Google Kubernetes Engine (GKE) to speed their new products’ time-to-market. The GKE is a managed, production-ready environment for deploying containerized applications, and brings Google's latest innovations in developer productivity, automated operations, and open source flexibility.
 
 For PayPal, deploying to GKE would enable rapid development and iteration by making it easier for PayPal to deploy, update, and manage its applications and services. Plus PayPal will find it easier to run Machine Learning, General Purpose GPU, High-Performance Computing, and other workloads that benefit from specialized hardware accelerators supported by the GKE.

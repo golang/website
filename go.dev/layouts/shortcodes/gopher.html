@@ -1,5 +1,5 @@
 {{ $src := "/images/gophers/wrench.svg"}}
-{{ $alt := "gopher with wrench"}}
+{{ $alt := "Go gophers with wrench"}}
 {{ $size := "Large"}}
 {{ $align := "Left"}}
 {{ $gopher := .Get "gopher"}}
@@ -13,49 +13,93 @@
     {{$size = "XLarge"}}
 {{end}}
 
-{{if eq $gopher "tux"}}
-    {{$src = "/images/gophers/tux-blue.svg"}}
-    {{$alt = "gopher in a tux"}}
-{{end}}
 {{if eq $gopher "plane"}}
-    {{$src = "/images/gophers/biplane.png"}}
-    {{$alt = "gopher in a plane"}}
+    {{$src = "/images/gophers/biplane.svg"}}
+    {{$alt = "Go gopher in a plane"}}
+{{end}}
+{{if eq $gopher "blue"}}
+    {{$src = "/images/gophers/blue.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if (eq $gopher "front") (eq $gopher "sticker1")}}
+    {{$src = "/images/gophers/front.svg"}}
+    {{$alt = "Go gopher"}}
 {{end}}
 {{if eq $gopher "graduate"}}
     {{$src = "/images/gophers/graduate.svg"}}
-    {{$alt = "gopher graduating"}}
+    {{$alt = "Go gopher graduating"}}
 {{end}}
-{{if eq $gopher "graduate-blue"}}
-    {{$src = "/images/gophers/graduate-blue.svg"}}
-    {{$alt = "gopher graduating"}}
+{{if eq $gopher "graduate-colorized"}}
+    {{$src = "/images/gophers/graduate-colorized.svg"}}
+    {{$alt = "Go gopher graduating"}}
+{{end}}
+{{if eq $gopher "green"}}
+    {{$src = "/images/gophers/green.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if or (eq $gopher "grey") (eq $gopher "gray")}}
+    {{$src = "/images/gophers/grey.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if (eq $gopher "happy") (eq $gopher "sticker2")}}
+    {{$src = "/images/gophers/happy.svg"}}
+    {{$alt = "Go gopher"}}
 {{end}}
 {{if eq $gopher "headlamp"}}
     {{$src = "/images/gophers/headlamp.svg"}}
-    {{$alt = "gopher with headlamp"}}
+    {{$alt = "Go gopher with headlamp"}}
 {{end}}
-{{if eq $gopher "headlamp-blue"}}
-    {{$src = "/images/gophers/headlamp-blue.svg"}}
-    {{$alt = "gopher with headlamp"}}
+{{if eq $gopher "headlamp-colorized"}}
+    {{$src = "/images/gophers/headlamp-colorized.svg"}}
+    {{$alt = "Go gopher with headlamp"}}
 {{end}}
 {{if eq $gopher "ladder"}}
     {{$src = "/images/gophers/ladder.svg"}}
-    {{$alt = "gopher with ladder"}}
+    {{$alt = "Go gopher with ladder"}}
 {{end}}
 {{if eq $gopher "machine"}}
     {{$src = "/images/gophers/machine.svg"}}
-    {{$alt = "gophers with a machine"}}
+    {{$alt = "Go gophers with a machine"}}
 {{end}}
-{{if eq $gopher "machine-c"}}
-    {{$src = "/images/gophers/machine-c.svg"}}
-    {{$alt = "gopher with a machine"}}
+{{if eq $gopher "machine-colorized"}}
+    {{$src = "/images/gophers/machine-colorized.svg"}}
+    {{$alt = "Go gopher with a machine"}}
 {{end}}
-{{if eq $gopher "pilot"}}
-    {{$src = "/images/gophers/pilot-tan.svg"}}
-    {{$alt = "gopher pilot"}}
+{{if eq $gopher "megaphone"}}
+    {{$src = "/images/gophers/megaphone.svg"}}
+    {{$alt = "Go gopher with a megaphone"}}
 {{end}}
-{{if eq $gopher "wrench-c"}}
-    {{$src = "/images/gophers/wrench-c.svg"}}
+{{if eq $gopher "peach"}}
+    {{$src = "/images/gophers/peach.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if eq $gopher "pilot-bust"}}
+    {{$src = "/images/gophers/pilot-bust.svg"}}
+    {{$alt = "Go gopher pilot"}}
+{{end}}
+{{if eq $gopher "pink"}}
+    {{$src = "/images/gophers/pink.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if eq $gopher "running"}}
+    {{$src = "/images/gophers/running.svg"}}
+    {{$alt = "Go gopher running"}}
+{{end}}
+{{if eq $gopher "slate"}}
+    {{$src = "/images/gophers/slate.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if eq $gopher "wrench"}}
+    {{$src = "/images/gophers/wrench.svg"}}
     {{$alt = "gopher with a wrench"}}
+{{end}}
+{{if eq $gopher "yellow"}}
+    {{$src = "/images/gophers/yellow.svg"}}
+    {{$alt = "Go gopher"}}
+{{end}}
+{{if eq $gopher "violet"}}
+    {{$src = "/images/gophers/violet.svg"}}
+    {{$alt = "Go gopher"}}
 {{end}}
 
 <img class="{{$size}}Media-image {{$align}}" alt="{{$alt}}" src="{{$src}}">

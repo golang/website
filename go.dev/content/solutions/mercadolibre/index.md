@@ -78,7 +78,7 @@ Today, **roughly half of Mercadolibre's traffic is handled by Go applications.**
 
 ## MercadoLibre Uses Go for Developers
 
-{{% gopher gopher=wrench-c %}}
+{{% gopher gopher=wrench %}}
 The programming _lingua francas_ for MercadoLibre’s infrastructure are currently Go and Java. Every app, every program,
 every microservice is hosted on its own GitHub repository, plus the company uses an additional GitHub repository of
 toolkits to solve new problems and allow clients to interact with its services.
