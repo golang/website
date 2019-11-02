@@ -1,4 +1,13 @@
 links:
   - title: Codecademy
-    url: #
+    url: https://www.codecademy.com/learn/learn-go
     thumbnail: /images/learn/codecademy.png
+  - title: Exercism.io
+    url: https://exercism.io/tracks/go
+    thumbnail: /images/learn/exercism.png
+  - title: Google Codelabs
+    url: https://codelabs.developers.google.com/codelabs/cloud-functions-go-http/#0
+    thumbnail: /images/learn/codelabs.png
+  - title: Gophercises
+    url: https://gophercises.com/
+    thumbnail: /images/learn/gophercises_1.png

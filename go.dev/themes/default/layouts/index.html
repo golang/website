@@ -20,7 +20,7 @@
   {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
-      <h2>Used, Loved, & Depended on by</h2>
+      <h2>Companies use, love, and depend on Go</h2>
     </div>
     <ul class="WhoUses-caseStudyList">
       {{range where $solutions.Pages "Params.series" "Case Studies"}}
@@ -54,7 +54,7 @@
           <img src="/images/star-24px.svg" alt="Star."/>
         </div>
         <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Easy to Learn</h3>
+          <h3 class="WhyGo-reasonTitle">Easy to learn</h3>
           <p>
               “At the time, no single team member knew Go, but <b>within a month, everyone was writing in Go</b> and we were building out the
               endpoints. It was the flexibility, how easy it was to use, and the really cool concept behind Go (how Go handles native
@@ -119,7 +119,7 @@
   <div class="Container">
     <div class="UseCases-gridContainer">
       <div class="UseCases-header">
-        <h2>Designed for Today's Needs</h2>
+        <h2>Designed for today's needs</h2>
       </div>
       {{range where $solutions.Pages "Params.series" "Use Cases"}}
         <div class="UseCase">
