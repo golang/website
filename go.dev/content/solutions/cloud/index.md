@@ -71,7 +71,7 @@ MercadoLibre leverages Go’s expressive and clean syntax to make it easier for 
 
 ### **Netflix**
 
-Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that that actually store the data - and plays a critical role in member personalization for over 150 million users.
+Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that actually store the data - and plays a critical role in member personalization for over 150 million users.
 
 Their decision to write the service in Go was quite deliberate, as they "needed something that had lower latency than Java (where garbage collection pauses are an issue) and is more productive for developers than C, while also handling tens of thousands of client connections."
 
