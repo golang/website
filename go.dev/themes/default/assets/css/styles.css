@@ -547,6 +547,20 @@ h5, h6 {
 .WhyGo-gopher img {
   width: 100%;
 }
+
+.headerWithLink {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.headerLink {
+    margin: 0;
+    align-self: center;
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
 .LearnGo-subHeader {
   display: flex;
   justify-content: space-between;

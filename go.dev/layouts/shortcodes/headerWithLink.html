@@ -1,0 +1,10 @@
+<div class="headerWithLink">
+    <h{{with .Get "level"}}{{.}}{{else}}2{{end}}>{{ .Get "header"}}</h2>
+    <p class="headerLink">
+        {{- if .Get "search" -}}
+        <a href="https://pkg.go.dev/search?q={{ .Get "search" | urlize }}">{{with .Get "text"}}{{.}}{{else}}View More &gt;{{end}}</a>
+        {{- else -}}
+        <a href="{{ .Get "link"}}">{{with .Get "text"}}{{.}}{{else}}View More &gt;{{end}}</a>
+        {{- end -}}
+    </p>
+</div>
