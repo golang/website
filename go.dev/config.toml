@@ -2,6 +2,9 @@ baseURL = "https://go.dev/"
 languageCode = "en"
 title = "go.dev"
 theme = "default"
+[blackfriday]
+  plainIDAnchors = true
+  hrefTargetBlank = true
 
 [menu]
   [[menu.main]]
