@@ -1237,6 +1237,13 @@ a.Footer-link {
   margin-top: 2rem;
   padding: 1.5rem;
 }
+.MediaList-itemBoxHeader-top {
+  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+  width: 10.75rem;
+}
 .MediaList-itemBoxHeader {
   align-items: center;
   display: flex;
@@ -1261,6 +1268,12 @@ a.Footer-link {
   color: #555759;
   flex: 1;
 }
+.MediaList-itemBox .MediaList-itemBoxBody-top {
+  align-self: flex-start;
+  color: #555759;
+  flex: 1;
+  margin: auto !important;
+}
 @media only screen and (min-width: 48rem) {
   .MediaList-itemBoxHeader {
     justify-content: flex-end;
@@ -1269,7 +1282,7 @@ a.Footer-link {
   .MediaList-itemBox {
     display: flex;
     flex: 0 0 33.125rem;
-    height: 15.0625rem;
+    min-height: 15.0625rem;
     margin: 2em 0 0 2em; /* Gutter between grid cells. */
   }
   .MediaList-itemBox .MediaList-itemBoxBody {

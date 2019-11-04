@@ -23,6 +23,7 @@ Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), use tex
 
 Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. “The design of Go lends itself incredibly well to [many] styles of application,” [writes Elliot Forbes](https://tutorialedge.net/golang/building-a-cli-in-go/), software engineer at JP Morgan Chase. “And the ability to cross-compile a binary executable for all major platforms easily is a massive win.”
 
+{{% gopher gopher=happy align=right %}}
 Specifically, **programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies**. And **programs written in Go have an immediate startup time**—similar to C or C++ but unobtainable with other programming languages.
 
 These two distinguishing features ensure that installing and using a Go program is just about the easiest thing ever: Unlike Java, JavaScript, PHP, Python, Ruby, or any JVM language which all require installing the right version of interpreters/runtimes (which often conflict with the system version); and unlike C or C++ which are dynamically linked to specific versions of libraries resulting in the accurately named “dependency hell” that occurs when different programs depend on different versions of libraries.  

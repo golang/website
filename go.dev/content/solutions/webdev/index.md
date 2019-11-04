@@ -21,20 +21,23 @@ resources:
 
 Go is designed to enable developers to rapidly develop scalable web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from HTTP/2, to databases like MySQL and MongoDB and ElasticSearch, to the latest encryption standards. Go applications run well on the Google App Engine (for easy hosting) or on any environment, cloud, or operating system thanks to Go’s portable nature. 
 
-"Go Language is the easiest language that I’ve ever seen and used," [writes Tigran Bayburtsyan](https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690), co-founder and CTO at Hexact. "For me, Go is easier to learn than even JavaScript."
+{{% pullquote author="Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc." link="https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690" %}}
+Go Language is the easiest language that I’ve ever seen and used... For me, Go is easier to learn than even JavaScript.
+{{% /pullquote %}}
 
 Bayburtsyan summarizes the five key reasons his company switched to Go:
 
-1.   **Compiles into a single binary**—“Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
+1.   **Compiles into a single binary** — “Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
 
-2.   **Static type system**—“Type system is really important for large scale applications.”
+2.   **Static type system** — “Type system is really important for large scale applications.”
 
-3.   **Performance**—“Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
+3.   **Performance** — “Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
 
-4.   **No need for a web framework**—“In most of the cases you really don’t need any third-party library.”
+4.   **No need for a web framework** — “In most of the cases you really don’t need any third-party library.”
 
-5.   **Great IDE support and debugging**—“After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
+5.   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
 
+{{% gopher gopher=front align=right %}}
 For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code executes to a single, small binary—with zero dependencies—making it very fast.
 
 Sau Sheong Chang, CEO at Singapore Power, wrote Go Web Programming, in which he [champions Go](https://www.amazon.com/s?k=9781617292569&i=stripbooks&linkCode=qs) for handling the demands of scalable, high-performance web applications. “Go is statically typed and easy to learn, with strong integrated development environment (IDE) support and debugging.”
@@ -45,21 +48,23 @@ Go syntax keeps code readable and compact. “Most of the features of Go and its
 
 ## **Who uses Go for Web Development**
 
-### **eBay**
-
-eBay uses Go to build web services quickly. Programmers claim web services can be developed in as little as 20 minutes (or, with [gRPC](https://grpc.io/), 60 minutes). Web developers at eBay like that they can use command line tools to do more than other languages—for example, deploying to a Linux server very quickly. And Go is prized for database access, as anything that requires an async process or job is incredibly simple to do with Go. 
-
-### **GOV.UK**
-
+{{% mediaList %}}
+    {{% mediaListBox img-src="/images/logos/govuk.svg" img-alt="Gov.UK Logo" img-link="https://gov.uk" title="Gov.UK" align=top %}}
 GOV.UK made the decision to develop in Go back in 2013. The simplicity and safety of the Go language were a good fit for a core component of their HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. “In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,” note Nick Stenning and James Stewart in their [Technology in Government blog](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
 
-### **Let's Encrypt**
-
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/lets-encrypt-icon.svg" img-alt="Let's Encrypt Logo"  img-link="https://letsencrypt.org" title="Let's Encrypt" align=top  %}}
 Let’s Encrypt is a free, automated, and open Certificate Authority run by the non-profit Internet Security Research Group (ISRG). The CA's [website](https://letsencrypt.org/) is powered by Hugo—a static site generator written in Go. Plus, for web services written in Go (using the built-in Go web server), Let's Encrypt allows web developers to serve pages over HTTPS with quick and minimal setup.
-
-### **Uber**
-
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/uber-app-icon.svg" img-alt="Uber Logo" title="Uber" align=top %}}
 [In early 2015](https://eng.uber.com/go-geofence/), Uber leveraged Go to build a microservice for their geofence lookups. At Uber, a geofence refers to a human-defined geographic area on the Earth’s surface, and Uber uses geofences to show its users which products are available at a given location, to define areas with specific requirements such as airports, and to implement dynamic pricing in areas where many people are requesting rides at the same time. By 2016, this service was Uber’s highest queries per second (QPS) service out of the hundreds they run in production—thanks to Go helping them build and scale it so fast.
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="" img-alt="" title="hold" align="top" %}}
+
+    {{% /mediaListBox %}}
+
+{{% /mediaList %}}
+
 
 ## **How to use Go for Web Development**
 
