@@ -37,7 +37,7 @@ Today, American Express also uses Go via:
 *   [Kubernetes](https://kubernetes.io/)—an open-source container-orchestration system, written in Go, that follows a primary/replica architecture across clusters of
 *   [Prometheus](https://prometheus.io/)—an open-source software application written in Go used for real-time event monitoring and alerting
 
-This triumvirate of Go solutions has helped modernize American Express’s infrastructure and opened the door for Go as a key player in the American Express payment ecosystem.
+Go has helped modernize American Express’s infrastructure and the team is beginnign to see Go as a key player in the American Express payment ecosystem.
 
 ### **AT&T**
 
@@ -45,19 +45,49 @@ Within AT&T's DirectTV division, a microservices development team oversees VUD m
  
 The DirecTV division also hosts Kubernetes themselves and are looking at Knative (a Kubernetes-based platform to build, deploy, and manage modern serverless workloads).
 
+### **CapitalOne**
+
+Capital One uses go to [power one of it's critical service APIs](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f) - the Credit Offers API. The team initially started writing one endpoint in Go, and after seeing the huge improvements over Java (the service was originally written in Java) decided to rewrite the entire API in Go.
+
+The engineering team then decided to build their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
+
 ### **Dropbox**
 
 Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Dropbox developers wanted better concurrency support and faster execution speeds, and were willing to write around 200,000 lines of new Go code. Dropbox has since built many open-source libraries to support large-scale production systems, including libraries for caching, errors, database/sqlbuilder, and hash2. 
  
 Today, Dropbox has over 500 million users and most of the company's infrastructure is written in Go—over 1.3 million lines of Go and every Dropbox engineer hired goes through Go training during onboarding. Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
 
+### **Google**
+
+Google uses Go to power large amounts of it's services and infrastructure. Originally created at Google, Go has become a widely adopted language internally and now supports most of Google Cloud's architecture, Chrome's backend services, YouTube's data generation pipelines, and much more.
+
 ### **MercadoLibre**
 
-MercadoLibre uses Go to scale its eCommerce empire.  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
+MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
  
 Go started with the core APIs team, which builds and maintains the largest APIs at the center of MercadoLibre’s microservices solutions. With Go, MercadoLibre’s build times are three times (3x) faster and their test suite runs an amazing 24 times faster. This means the company’s developers can make a change, then build and test that change much faster than they could before. And dropping MercadoLibre’s test suite runtimes from 90-seconds to just 3-seconds with Go was a huge boon for its developers—allowing them to keep focus (and context) while the much faster tests complete.
  
 MercadoLibre leverages Go’s expressive and clean syntax to make it easier for developers to write programs that get the most out of the company’s multicore and networked machines. And while speed in development yields cost efficiency for the company, developers individually benefit from the swift learning curve Go delivers. Not only are MercadoLibre's very experienced developers able to build highly critical applications very, very quickly with Go, but even new programmers have been able to produce significant solutions. 
+
+### **Netflix**
+
+Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that that actually store the data - and plays a critical role in member personalization for over 150 million users.
+
+Their decision to write the service in Go was quite deliberate, as they "needed something that had lower latency than Java (where garbage collection pauses are an issue) and is more productive for developers than C, while also handling tens of thousands of client connections."
+
+### **PayPal**
+
+PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go. The team originally explored using Go to decrease the complexity of a NoSQL databases' code (which was written in C++). The NoSQL team rebuilt one of their databases in Go and immediately noticed the benefits of having a language built for concurrency, simplicity, and speed.
+
+Other teams noticed how well Go was suited for various systems at PayPal and decided to start adopting the language. Go usage at PayPal has now grown to over 100 engineers and the team is continuing to evaluate new ways to expand Go's usage to increase developer productivity and software efficiency.
+
+### **Twitch**
+
+Twitch [uses Go to power many of its busiest systems](https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/) that serve live video and chat to millions of users. 
+
+### **Uber** 
+
+Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their [real-time analytics engine](https://eng.uber.com/aresdb/), AresDB, to their [microservice for Geo-querying](https://eng.uber.com/go-geofence/), Geofence, and [their resource scheduler](https://eng.uber.com/open-sourcing-peloton/), Peloton, Uber uses Go to maintain high levels of reliability, developer productivity, and complex workloads at scale.
 
 ## **How to use Go for Cloud Computing**
 
