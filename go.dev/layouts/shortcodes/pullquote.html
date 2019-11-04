@@ -11,7 +11,9 @@
   {{end -}}
   {{if $author -}}
   <div class="PullQuote-author">
+    {{with .Get "link"}}<a href="{{.}}" target="_blank">{{end -}}
     &mdash; {{$author -}}
+    {{with .Get "link"}}</a>{{end -}}
   </div>
   {{end -}}
 </div>
