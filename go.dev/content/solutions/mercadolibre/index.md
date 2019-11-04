@@ -11,14 +11,14 @@ resources:
     alt: MercadoLibre
 ---
 
-## Go Helps Integrated Ecosystem Attract Developers and Scale eCommerce
+## Go helps integrated ecosystem attract developers and scale eCommerce
 
 MercadoLibre, Inc. hosts the largest online commerce ecosystem in Latin America and is present in 18 countries. Founded
 in 1999 and headquartered in Argentina, the company has turned to Go to help it scale and modernize its ecosystem. Go
 provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer
 productivity by allowing their engineers to serve their ever-increasing audience while writing less code.
 
-## MercadoLibre Taps Go for Scale
+## MercadoLibre taps Go for scale
 
 Back in 2015, there was a growing sense within MercadoLibre that their existing API framework, on Groovy and Grails, was
 reaching its limits and the company needed a different platform to continue scaling. MercadoLibre’s platform was (and
@@ -29,7 +29,7 @@ to develop and tune to achieve desired performance. Test execution times were sl
 slow. Thus, the need for code efficiency and scalability became as important as the need for speed in code development.
 
 
-## Go Improves System Efficiency
+## Go improves system efficiency
 
 As one example of Go’s contributions to network efficiency, the core API team builds and maintains the largest APIs at
 the center of the company’s microservices solutions. This team creates user APIs, which in turn are used by the
@@ -47,7 +47,7 @@ was able to accomplish this with just a few lines of Go code, and the success of
 migrate more and more microservices to Go. The end result for MercadoLibre has been improved cost-efficiencies and
 system response times.
 
-## Go for Scalability
+## Go for scalability
 
 Historically, much of the company’s stack was based on Grails and Groovy backed by relational  databases. However this
 big framework with multiple layers was soon found encountering scalability issues.
@@ -76,7 +76,7 @@ up a new project—all while effectively standardizing the build and deployment 
 Today, **roughly half of Mercadolibre's traffic is handled by Go applications.**
 
 
-## MercadoLibre Uses Go for Developers
+## MercadoLibre uses Go for developers
 
 {{% gopher gopher=wrench %}}
 The programming _lingua francas_ for MercadoLibre’s infrastructure are currently Go and Java. Every app, every program,
@@ -90,7 +90,7 @@ fosters internal working groups to provide training sessions for new MercadoLibr
 for external developers to help build a broader community of Latin American Go developers.
 
 
-## Go as a Recruiting Tool
+## Go as a recruiting tool
 
 MercadoLibre’s Go advocacy has also become a strong recruiting tool for the company. MercadoLibre was among the first
 companies using Go in Argentina, and is perhaps the largest in Latin America using the language so widely in production.
@@ -108,7 +108,7 @@ to provide an exciting workplace and strong career path. Go has proven to be a k
 company organizes Go workshops for external developers so they can come and learn Go, and when they enjoy what they are
 doing and the people they talk to, they quickly recognize MercadoLibre as an enticing place to work.
 
-## Go Enabling Developers
+## Go enabling developers
 
 MercadoLibre employs Go for its simplicity with systems at scale, but that simplicity is also why the company's
 developers love Go.
@@ -149,7 +149,7 @@ education. The company sends key engineering leaders to GopherCon and other Go e
 infrastructure and security teams encourage all the development teams to keep Go versions up to date, and the company
 has a team developing a _Go-meli-toolkit_: A complete Go library to interface all the services provided by Fury.
 
-## Getting Your Enterprise Started With Go
+## Getting your enterprise started with Go
 
 Just as MercadoLibre started with a proof-of-concept project to implement Go, dozens of other large enterprises are
 adopting Go as well. Beyond MercadoLibre, there are approximately two million developers using Go worldwide—spanning

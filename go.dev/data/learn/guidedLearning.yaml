@@ -3,10 +3,6 @@ links:
     description: Hello World tutorial for building web applications in Go.
     url: https://gowebexamples.com
     thumbnail: /images/learn/helloworld.png
-  - title: Cloud / Services / APIs
-    description:  Introduction to building applications locally and deploying them on cloud providers using the Go Cloud Development Kit. 
-    url: https://gocloud.dev/tutorials/
-    thumbnail: /images/learn/go_cdk_logo.png
   - title: CLIs
     description: A guided workshop on building command-line interfaces with Go.
     url: https://spf13.com/presentation/building-an-awesome-cli-app-in-go-oscon/
