@@ -1,0 +1,18 @@
+{{$books := .Page.Param "books"}}
+
+<ul class="Learn-tileList">
+    {{range $books}}
+    <li class="Learn-tile">
+        <a href="{{.url}}">
+            <div class="Learn-tileThumbnail Learn-tileThumbnail--book">
+                {{if .thumbnail}}
+                <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
+                {{end}}
+            </div>
+            <p class="Learn-tileTitle">
+                {{.title}}
+            </p>
+        </a>
+    </li>
+    {{end}}
+</ul>

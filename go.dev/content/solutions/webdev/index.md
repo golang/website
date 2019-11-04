@@ -4,6 +4,22 @@ linkTitle: "Web Development"
 description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
 date: 2019-10-04T15:26:31-04:00
 series: Use Cases
+books:
+  - title: Web Development with Go
+    url: https://www.amazon.com/Web-Development-Go-Building-Scalable-ebook/dp/B01JCOC6Z6
+    thumbnail: /images/books/web-development-with-go.jpg
+  - title: Web Programming by San Sheong Chang
+    url: https://www.amazon.com/Web-Programming-Sau-Sheong-Chang/dp/1617292567
+    thumbnail: /images/books/go-web-programming.jpg
+  - title: "Web Development Cookbook: Build full-stack web applications with Go"
+    url: https://www.amazon.com/Web-Development-Cookbook-full-stack-applications-ebook/dp/B077TVQ28W
+    thumbnail: /images/books/go-web-development-cookbook.jpg
+  - title: Building RESTful Web services with Go
+    url: https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1
+    thumbnail: /images/books/building-restful-web-services-with-go.jpg
+  - title: Mastering Go Web Services
+    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6
+    thumbnail: /images/books/mastering-go-web-services.jpg
 resources:
 - name: icon
   src: globe.png
@@ -79,10 +95,8 @@ Web developers prefer Hugo because it is completely cross platform, renders chan
 Other popular web development tools include:
 
 *   [Bleve](http://blevesearch.com/), full-text search and indexing for Go, providing a simple top-level API to index any object in the data model and override default mapping to customize behavior.
-
 *   [Buffalo](https://gobuffalo.io/en/), for rapid web development in Go. While Buffalo can be considered as a framework, it's mostly an ecosystem of Go and Javascript libraries curated to fit together.
 *   [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale.
-
 *   [Echo](https://echo.labstack.com), a high performance, extensible, and minimalist Go web framework providing optimized HTTP router, group APIs, data binding for JSON and XML, HTTP/2 support, and much more.
 *   [Flamingo](https://www.flamingo.me), a fast open-source framework based on Go with clean and scalable architecture designed to build custom, fast and flexible frontend interfaces. Includes Flamingo Core and Flamingo Commerce.
 *   [GopherJS](https://github.com/gopherjs/gopherjs), a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
@@ -108,13 +122,9 @@ In quick comparison, while Node.js often presents type issues and weird conversi
 
 Similarly, Python struggles with concurrency and scaling, and is not the fastest language for performance. Whereas Go provides concurrent process channeling for concurrency, is compiled to a tiny binary for scale, and "[trumps Python when it comes to performance](https://dzone.com/articles/golang-vs-python-which-one-to-choose)" in both memory usage and time spent solving complex functions.
 
-## **Books on Go for Web Development**
+## Go books on web development 
 
-*   [Web Programming by San Sheong Chang](https://www.amazon.com/Web-Programming-Sau-Sheong-Chang/dp/1617292567)
-*   [Web Development Cookbook: Build full-stack web applications with Go](https://www.amazon.com/Web-Development-Cookbook-full-stack-applications-ebook/dp/B077TVQ28W)
-*   [Building RESTful Web services with Go](https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1)
-*   [Web Development with Go](https://www.amazon.com/Web-Development-Go-Building-Scalable-ebook/dp/B01JCOC6Z6)
-*   [Mastering Go Web Services](https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6)
+{{% books %}}
 
 ## **Popular frameworks for Go**
 
