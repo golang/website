@@ -1,0 +1,126 @@
+---
+title: "Go for Web Development"
+linkTitle: "Web Development"
+description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
+date: 2019-10-04T15:26:31-04:00
+series: Use Cases
+resources:
+- name: icon
+  src: globe.png
+  params:
+    alt: globe
+- name: icon-white
+  src: globe-white.png
+  params:
+    alt: globe
+---
+
+### _Go delivers speed, concurrency, and developer-friendly tools for Web Applications_
+
+## **Why use Go for Web Development**
+
+Go is designed to enable developers to rapidly develop scalable web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from HTTP/2, to databases like MySQL and MongoDB and ElasticSearch, to the latest encryption standards. Go applications run well on the Google App Engine (for easy hosting) or on any environment, cloud, or operating system thanks to Go’s portable nature. 
+
+"Go Language is the easiest language that I’ve ever seen and used," [writes Tigran Bayburtsyan](https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690), co-founder and CTO at Hexact. "For me, Go is easier to learn than even JavaScript."
+
+Bayburtsyan summarizes the five key reasons his company switched to Go:
+
+1.   **Compiles into a single binary**—“Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
+
+2.   **Static type system**—“Type system is really important for large scale applications.”
+
+3.   **Performance**—“Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
+
+4.   **No need for a web framework**—“In most of the cases you really don’t need any third-party library.”
+
+5.   **Great IDE support and debugging**—“After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
+
+For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code executes to a single, small binary—with zero dependencies—making it very fast.
+
+Sau Sheong Chang, CEO at Singapore Power, wrote Go Web Programming, in which he [champions Go](https://www.amazon.com/s?k=9781617292569&i=stripbooks&linkCode=qs) for handling the demands of scalable, high-performance web applications. “Go is statically typed and easy to learn, with strong integrated development environment (IDE) support and debugging.”
+
+Go syntax keeps code readable and compact. “Most of the features of Go and its tools follow the UNIX pattern,” adds [eduCBA](https://www.educba.com/python-vs-go/) (Corporate Bridge Consultancy). “So instead of merging into the language structure, a developer can now focus more on the development logic.”
+
+“If you are looking for powerful tools for web programming, mobile development, microservices, and ERP systems,” [writes Andrew Smith](https://dzone.com/articles/golang-web-development-better-than-python), marketing manager at QArea. “Go web development has proved to be faster than using Python for the same kind of tasks in many use cases.”
+
+## **Who uses Go for Web Development**
+
+### **eBay**
+
+eBay uses Go to build web services quickly. Programmers claim web services can be developed in as little as 20 minutes (or, with [gRPC](https://grpc.io/), 60 minutes). Web developers at eBay like that they can use command line tools to do more than other languages—for example, deploying to a Linux server very quickly. And Go is prized for database access, as anything that requires an async process or job is incredibly simple to do with Go. 
+
+### **GOV.UK**
+
+GOV.UK made the decision to develop in Go back in 2013. The simplicity and safety of the Go language were a good fit for a core component of their HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. “In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,” note Nick Stenning and James Stewart in their [Technology in Government blog](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
+
+### **Let's Encrypt**
+
+Let’s Encrypt is a free, automated, and open Certificate Authority run by the non-profit Internet Security Research Group (ISRG). The CA's [website](https://letsencrypt.org/) is powered by Hugo—a static site generator written in Go. Plus, for web services written in Go (using the built-in Go web server), Let's Encrypt allows web developers to serve pages over HTTPS with quick and minimal setup.
+
+### **Uber**
+
+[In early 2015](https://eng.uber.com/go-geofence/), Uber leveraged Go to build a microservice for their geofence lookups. At Uber, a geofence refers to a human-defined geographic area on the Earth’s surface, and Uber uses geofences to show its users which products are available at a given location, to define areas with specific requirements such as airports, and to implement dynamic pricing in areas where many people are requesting rides at the same time. By 2016, this service was Uber’s highest queries per second (QPS) service out of the hundreds they run in production—thanks to Go helping them build and scale it so fast.
+
+## **How to use Go for Web Development**
+
+Web developers can use Go to build web applications from scratch—from basic web servers to robust web applications. Using MVC (model-view-controller) and REST for advanced design, web developers leverage Go to create HTML pages with dynamic content, custom dashboards, galleries, and images tailored to individual users. Go delivers an authentication system with hashed passwords and user session, plus processes to normalize and validate data before saving to a database.
+
+Go runs on FreeBSD, Linux, OS X, or Windows machines. An online course dedicated to web development tips can be found at https://www.usegolang.com
+
+**Hugo is the world’s fastest framework for building websites.** It is a static site generator, written in Go, that works on macOS, Windows, Linux, FreeBSD, and other operating systems. Hugo is today one of the most popular open-source site generators, providing speed and flexibility to [make building websites fun again](https://gohugo.io/).
+
+Web developers prefer Hugo because it is completely cross platform, renders changes on the fly as they are developed, can be hosted anywhere, and includes customizable themes/templates for rapid deployment.
+
+Other popular web development tools include:
+
+*   [Bleve](http://blevesearch.com/), full-text search and indexing for Go, providing a simple top-level API to index any object in the data model and override default mapping to customize behavior.
+
+*   [Buffalo](https://gobuffalo.io/en/), for rapid web development in Go. While Buffalo can be considered as a framework, it's mostly an ecosystem of Go and Javascript libraries curated to fit together.
+*   [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale.
+
+*   [Echo](https://echo.labstack.com), a high performance, extensible, and minimalist Go web framework providing optimized HTTP router, group APIs, data binding for JSON and XML, HTTP/2 support, and much more.
+*   [Flamingo](https://www.flamingo.me), a fast open-source framework based on Go with clean and scalable architecture designed to build custom, fast and flexible frontend interfaces. Includes Flamingo Core and Flamingo Commerce.
+*   [GopherJS](https://github.com/gopherjs/gopherjs), a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
+*   [Gorilla](http://www.gorillatoolkit.org/), a web toolkit for the Go programming language. Packages include a powerful URL router and dispatcher, context, RPC, schema, sessions, websocket, and more.
+
+Behind these tools, Go 1.13 was [released in September 2019](https://blog.golang.org/go1.13). Go 1.13 enables support for TLS 1.3 in the crypto/TLS package, its latest compiler has a new implementation of escape analysis that is more precise (i.e., more Go variables and expressions allocated on the stack instead of heap), and the Go runtime is now more aggressive with returning memory to the operating system to make it available to co-tenant applications.
+
+## **Go solutions to legacy challenges**
+
+A common pattern for web developers is to use Go to build clean, fast-functioning APIs and then use a front-end stack to build the user interface.
+
+Go is [ideal for tackling some consistent challenges](https://www.udemy.com/course/go-for-web-development/) faced by web developers, including:
+
+*   Getting a web server up and running quickly with Go’s standard library
+*   Designing a UI with Go’s multiple template engines for improved flexibility
+*   Calling on the services of an external API
+*   Incorporating web middleware
+*   Using AJAX requests to build web applications
+*   Integrating Gorilla/MUX for route handling
+*   Creating users securely by using bcrypt to hash user passwords
+
+In quick comparison, while Node.js often presents type issues and weird conversions, memory leaks, and logic bugs, Go is much easier for web developers to learn, brings a very low memory footprint, readily scales, provides fantastic profiling tools (to find CPU and memory leaks), and simple concurrency with channels that are much more efficient than async/await.
+
+Similarly, Python struggles with concurrency and scaling, and is not the fastest language for performance. Whereas Go provides concurrent process channeling for concurrency, is compiled to a tiny binary for scale, and "[trumps Python when it comes to performance](https://dzone.com/articles/golang-vs-python-which-one-to-choose)" in both memory usage and time spent solving complex functions.
+
+## **Books on Go for Web Development**
+
+*   [Web Programming by San Sheong Chang](https://www.amazon.com/Web-Programming-Sau-Sheong-Chang/dp/1617292567)
+*   [Web Development Cookbook: Build full-stack web applications with Go](https://www.amazon.com/Web-Development-Cookbook-full-stack-applications-ebook/dp/B077TVQ28W)
+*   [Building RESTful Web services with Go](https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1)
+*   [Web Development with Go](https://www.amazon.com/Web-Development-Go-Building-Scalable-ebook/dp/B01JCOC6Z6)
+*   [Mastering Go Web Services](https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6)
+
+## **Popular frameworks for Go**
+
+*   [Gorilla](http://www.gorillatoolkit.org/)
+*   [Gobuffalo](https://gobuffalo.io/en/)
+*   [Flamingo](https://www.flamingo.me/)
+*   [Echo](https://echo.labstack.com/)
+
+
+## **Popular Go Web Applications**
+
+*   [Hugo](https://gohugo.io/)
+*   [Mattermost](https://mattermost.com/)
+*   [Caddy](https://caddyserver.com/)

@@ -1,7 +1,7 @@
 ---
 title: "Go for Development Operations & Site Reliability Engineering (SRE)"
 linkTitle: "DevOps & Site Reliability"
-description: "With fast build times and lean syntax, Go is built to support both DevOps and SRE. From Go’s extensive standard library, to its automatic formatter (gofmt) and automatic document generator (godoc), Go provides a wide range of tools to support software and systems of any scope."
+description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
 date: 2019-10-03T17:16:43-04:00
 series: Use Cases
 resources:
@@ -15,10 +15,10 @@ resources:
     alt: cog
 ---
 
-### _Go Helps Enterprises Automate and Scale for CI/CD_
+### _Go helps enterprises automate and scale for CI/CD_
 
 
-## **Why Use Go for DevOps & SRE**
+## **Why use Go for DevOps & SRE**
 
 Development Operations (DevOps) teams help engineering organizations automate tasks and improve their continuous
 integration and continuous delivery and deployment (CI/CD) process. DevOps can topple developmental silos and implement
@@ -39,7 +39,7 @@ Go serves both siblings, DevOps and SRE, with its fast build times and lean synt
 scaling for speed and code maintainability as development infrastructure grows over time.
 
 
-## **Who Uses Go for DevOps & SRE**
+## **Who uses Go for DevOps & SRE**
 
 
 ### **Docker**
@@ -96,7 +96,7 @@ syntax. It leverages execution plans and resource graphs to automate changes to 
 interaction.
 
 
-## **How to Use Go for DevOps & SRE**
+## **How to use Go for DevOps & SRE**
 
 Go has been enthusiastically adopted by the DevOps and SRE communities. As previously noted, many underpinnings of the
 modern cloud environment are themselves written in Go—including Docker, Etcd, Istio, Kubernetes, Prometheus, Terraform,
@@ -107,43 +107,30 @@ and many others.
 [can we say that Google has switched to recommend Go for all new SRE code?]
 
 DevOps/SRE teams write software ranging from small one-time scripts, to command-line interfaces (CLI), to complex
-automation and services where Go excels for all of them:
+automation and services where Go excels for all of them.
 
+**For small scripts:** Go's fast build times and automatic formatter ([gofmt](https://golang.org/cmd/gofmt/)) enable rapid iteration. Go’s extensive standard library—including packages for common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go's static type system and explicit error handling make even small scripts more robust. 
 
+**For CLIs:** every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. 
 
-*   For small scripts, Go's fast build times and automatic formatter (gofmt) enable rapid iteration. Go’s extensive
-*   standard library—including packages for common needs like HTTP, file I/O, time, regular expressions, exec, and
-*   JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go's static type system and explicit
-*   error handling make even small scripts more robust. For CLIs, every site reliability engineer has written “one-time
-*   use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation
-*   scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when
-*   software scope inevitably creeps. For larger applications, Go's garbage collector means DevOps/SRE teams don't have
-*   to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting.
-
- 
+**For larger applications:** Go's garbage collector means DevOps/SRE teams don't have to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting.
 
 With Go, DevOps/SREs seek to “balance the risk of unavailability with the goals of rapid innovation and efficient
 service operations,"[ says Marc Alvidrez](https://landing.google.com/sre/), engineer at Google. "So that users’ overall
 happiness—with features, service, and performance—is optimized."
 
-[Robert van Gent notes that he’s not sure what to put here for "key solutions" other than linkifying some of the things
-like gofmt, godoc, standard library pkgs. The range of software here is large and overlaps with CLIs and Services.]
-
-
-## **Go Solutions to Legacy Challenges**
+## **Go solutions to legacy challenges**
 
 Traditionally, “DevOps has been more about collaboration between developer and operations. It has also focused more on
 deployments,"[ says Matt Watson](https://stackify.com/site-reliability-engineering/), founder and CEO of Stackify. "Site
 reliability engineering is more focused on operations and monitoring. Depending on how you define DevOps, it could be
 related or not."
 
- 
-
 Across deployment, operations, and monitoring, DevOps/SRE teams strive to achieve simplicity, reliability, and speed
-with their systems. But in complex development environments, such disparate goals are hard to unite. Go helps by
-allowing engineers to focus on_ building_, even as they optimize for deployment and support.
+with their systems. But in complex development environments, such disparate goals are hard to unite. 
 
- 
+**Go helps by
+allowing engineers to focus on building**, even as they optimize for deployment and support.
 
 For simplicity, Go delivers code readability, built in testing/profiling/benchmarking, a standard library, and a
 homogenous environment—statically linked—[ meaning](https://blog.gopheracademy.com/advent-2018/go-devops/) “there’s no
@@ -174,8 +161,11 @@ Many of the modern tooling apps, for DevOps/SRE and for observability, are writt
 
 
 
-*   [Grafana](https://grafana.com/) [Helm](https://helm.sh/) for Kubernetes [Istio](https://istio.io/)
-*   [Jaeger](https://www.jaegertracing.io/) [The Open Tracing Project](https://opentracing.io/)
+*   [Grafana](https://grafana.com/)
+*   [Helm](https://helm.sh/)
+*   [Istio](https://istio.io/)
+*   [Jaeger](https://www.jaegertracing.io/)
+*   [The Open Tracing Project](https://opentracing.io/)
 
  
 
@@ -184,8 +174,6 @@ release software faster and more reliably. Scaling infrastructure and developmen
 technology firms today, and Go is the right language for enterprises looking to scale successfully.
 
 
-## **Resources for Learning More**
+## **Resources for learning more**
 
-
-
-*   Go.dev (when it’s live) https://github.com/golang-migrate/migrate
+*   [Migrate](https://github.com/golang-migrate/migrate) - database migration tool written in Go

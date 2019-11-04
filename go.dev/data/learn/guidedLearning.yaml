@@ -1,16 +1,21 @@
 links:
   - title: Web Dev
+    description: Hello World tutorial for building web applications in Go.
     url: https://gowebexamples.com
-    thumbnail:
+    thumbnail: /images/learn/helloworld.png
   - title: Cloud / Services / APIs
+    description:  Introduction to building applications locally and deploying them on cloud providers using the Go Cloud Development Kit. 
     url: https://gocloud.dev/tutorials/
-    thumbnail:
+    thumbnail: /images/learn/go_cdk_logo.png
   - title: CLIs
+    description: A guided workshop on building command-line interfaces with Go.
     url: https://spf13.com/presentation/building-an-awesome-cli-app-in-go-oscon/
-    thumbnail:
+    thumbnail: 
   - title: New to Coding
+    description: A video tutorial that aims to cover the various fundamentals of Go.
     url: https://www.youtube.com/watch?v=Q0sKAMal4WQ
     thumbnail:
   - title: Go by Example
+    description: Go by Example is a hands-on introduction to Go using annotated example programs.
     url: https://gobyexample.com/
     thumbnail:

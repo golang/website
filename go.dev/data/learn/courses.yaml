@@ -5,9 +5,9 @@ links:
   - title: Exercism.io
     url: https://exercism.io/tracks/go
     thumbnail: /images/learn/exercism.png
-  - title: Google Codelabs
+  - title: Google Developers Codelabs
     url: https://codelabs.developers.google.com/codelabs/cloud-functions-go-http/#0
-    thumbnail: /images/learn/codelabs.png
+    thumbnail: /images/learn/codelabs_2.png
   - title: Gophercises
     url: https://gophercises.com/
     thumbnail: /images/learn/gophercises_1.png
