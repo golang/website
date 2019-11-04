@@ -31,3 +31,47 @@ theme = "default"
     title = "golang.org"
     url = "https://golang.org"
     weight = -80
+
+  [[menu.footer]]
+    identifier = "solutions"
+    name = "Solutions"
+    title = "Solutions"
+    url = "/solutions"
+    weight = -110
+
+  [[menu.footer]]
+    identifier = "usecases"
+    name = "Use Cases"
+    title = "Use Cases"
+    url = "/solutions#use-cases"
+    parent = "solutions"
+    weight = -112
+
+  [[menu.footer]]
+    identifier = "casestudies"
+    name = "Case Studies"
+    title = "Case Studies"
+    url = "/solutions#case-studies"
+    parent = "solutions"
+    weight = -111
+
+  [[menu.footer]]
+    identifier = "learn"
+    name = "Learn"
+    title = "Learn"
+    url = "/learn"
+    weight = -100
+
+  [[menu.footer]]
+    identifier = "explore"
+    name = "Explore"
+    title = "Explore"
+    url = "https://pkg.go.dev"
+    weight = -90
+
+  [[menu.footer]]
+    identifier = "about"
+    name = "About"
+    title = "About"
+    url = "https://www.golang.org"
+    weight = -80

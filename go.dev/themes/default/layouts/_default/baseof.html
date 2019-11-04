@@ -91,24 +91,14 @@
 <footer class="Site-footer">
   <div class="Footer">
     <div class="Footer-links">
-      <div class="Footer-linkColumn">
-        <a class="Footer-link" href="#">Product</a>
-        <a class="Footer-link" href="#">Use Cases</a>
-        <a class="Footer-link" href="#">Case Studies</a>
-      </div>
-      <div class="Footer-linkColumn">
-        <a class="Footer-link" href="#">Learn</a>
-        <a class="Footer-link" href="#">Docs</a>
-        <a class="Footer-link" href="#">Events</a>
-      </div>
-      <div class="Footer-linkColumn">
-        <a class="Footer-link" href="#">Explore</a>
-        <a class="Footer-link" href="#">Packages</a>
-      </div>
-      <div class="Footer-linkColumn">
-        <a class="Footer-link" href="#">About Go</a>
-        <a class="Footer-link" href="#">Feedback</a>
-      </div>
+      {{- range .Site.Menus.footer}}
+        <div class="Footer-linkColumn {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
+          {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
+          {{- range .Children}}
+            {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
+          {{end}}
+        </div>
+      {{- end}}
     </div>
   </div>
 </footer>

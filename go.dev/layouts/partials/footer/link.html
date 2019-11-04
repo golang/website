@@ -1,0 +1,10 @@
+{{- $url := .menuItem.URL}}
+{{- if and (not .Site.IsServer) (eq .Identifier "learn")}}
+  {{- $url = "https://learn.go.dev"}}
+{{- end}}
+{{- if not .Site.IsServer}}
+  {{- $url = $url | absURL}}
+{{- end}}
+<a href="{{$url}}" class="Footer-link" title="{{.menuItem.Title}}" data-identifier="{{ .menuItem.Identifier }}">
+  {{.menuItem.Name}}
+</a>
