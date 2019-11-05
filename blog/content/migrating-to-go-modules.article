@@ -11,6 +11,7 @@ This post is part 2 in a series.
 - Part 1 — [[/using-go-modules][Using Go Modules]]
 - *Part*2*—*Migrating*To*Go*Modules* (this post)
 - Part 3 — [[/publishing-go-modules][Publishing Go Modules]]
+- Part 4 — [[/v2-go-modules][Go Modules: v2 and Beyond]]
 
 Go projects use a wide variety of dependency management strategies. [[https://golang.org/cmd/go/#hdr-Vendor_Directories][Vendoring]] tools such as [[https://github.com/golang/dep][dep]] and [[https://github.com/Masterminds/glide][glide]] are popular, but they have wide differences in behavior and don't always work well together. Some projects store their entire GOPATH directory in a single Git repository. Others simply rely on `go`get` and expect fairly recent versions of dependencies to be installed in GOPATH.
 

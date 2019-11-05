@@ -13,6 +13,7 @@ This post is part 1 in a series.
 - *Part*1*—*Using*Go*Modules* (this post)
 - Part 2 — [[/migrating-to-go-modules][Migrating To Go Modules]]
 - Part 3 — [[/publishing-go-modules][Publishing Go Modules]]
+- Part 4 — [[/v2-go-modules][Go Modules: v2 and Beyond]]
 
 Go 1.11 and 1.12 include preliminary
 [[https://golang.org/doc/go1.11#modules][support for modules]],
@@ -22,7 +23,6 @@ that makes dependency version information explicit
 and easier to manage.
 This blog post is an introduction to the basic operations needed
 to get started using modules.
-A followup post will cover releasing modules for others to use.
 
 A module is a collection of
 [[https://golang.org/ref/spec#Packages][Go packages]]

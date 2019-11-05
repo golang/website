@@ -11,13 +11,13 @@ This post is part 3 in a series.
 - Part 1 — [[/using-go-modules][Using Go Modules]]
 - Part 2 — [[/migrating-to-go-modules][Migrating To Go Modules]]
 - *Part*3*—*Publishing*Go*Modules* (this post)
+- Part 4 — [[/v2-go-modules][Go Modules: v2 and Beyond]]
 
 This post discusses how to write and publish modules so other modules can depend
 on them.
 
-Please note: this post covers development up to and including `v1`. A future
-article will cover developing a module at `v2` and beyond, which requires
-changing the module's path.
+Please note: this post covers development up to and including `v1`. If you are
+interested in `v2`, please see [[/v2-go-modules][Go Modules: v2 and Beyond]].
 
 This post uses [[https://git-scm.com/][Git]] in examples.
 [[https://www.mercurial-scm.org/][Mercurial]],
