@@ -41,59 +41,30 @@ scaling for speed and code maintainability as development infrastructure grows o
 
 ## **Who uses Go for DevOps & SRE**
 
-
-### **Docker**
-
-Docker is a software-as-a-service (SaaS) product, written in Go, that uses operating-system level virtualization to
-develop and deliver software in containers hosted on a Docker Engine. DevOps/SRE teams leverage Docker to “[drive secure
+{{% mediaList %}}
+    {{% mediaListBox img-src="/images/logos/docker.svg" img-alt="Docker Logo" img-link="https://docker.com" title="" align=top %}}
+Docker is a software-as-a-service (SaaS) product, written in Go, that DevOps/SRE teams leverage to “[drive secure
 automation and deployment at massive scale](https://www.docker.com/solutions/cicd),” supporting their CI/CD efforts.
-
- 
-
-
-### **Google**
-
-Google leverages Go for the Google Cloud Platform (GCP), as well as at the heart of Kubernetes—an open-source
-container-orchestration system, written in Go, for automating application deployment, scaling, and management. At[
-Google](https://landing.google.com/sre/), SRE's "protect, provide for, and progress the software and systems behind all
-of Google’s public services—Google Search, Ads, Gmail, Android, YouTube, and App Engine, to name just a few—with an
-ever-watchful eye on their availability, latency, performance, and capacity… they keep important, revenue-critical
-systems up and running.”
-
-
-### **IBM**
-
-IBM’s DevOps teams are heavily invested in Docker and Kubernetes, plus other DevOps and CI/CD tools written in Go as
-found on the company’s [GitHub](https://github.com/IBM?utf8=%E2%9C%93&q=&type=&language=go). IBM engineering
-organizations leverage Red Hat's cloud platform, [OpenShift](https://www.openshift.com), written primarily in Go, and
-Red Hat's new addition, [CoreOS](https://coreos.com). CoreOS, also written in Go, delivers one of the best enterprise
-Kubernetes distributions available in Tectonic—bringing automated operations, Open Cloud Services, Prometheus
-monitoring, and more to simplify Kubernetes deployments, reduce engineering operating costs, and speed time to
-production.
-
-
-### **Microsoft**
-
-Microsoft DevOps includes the company's fully managed Azure Kubernetes Service
-([AKS](https://azure.microsoft.com/en-us/services/kubernetes-service/)). AKS was designed to make deploying and managing
-containerized applications easy by offering serverless Kubernetes, an integrated CI/CD experience, and enterprise-grade
-security and governance.
-
-Like IBM, Microsoft is also leveraging Red Hat's OpenShift, written in Go, via [Azure Red Hat
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/google.svg" img-alt="Google Logo" img-link="https://google.com" title="" align=top %}}
+[Google SREs use Go](https://landing.google.com/sre/) to protect, provide for, and progress the software and systems behind all
+of Google’s public services. Google now recommends that Go be used for all new SRE code. 
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/ibm.svg" img-alt="IBM Logo" img-link="https://ibm.com" title="" align=top %}}
+IBM’s DevOps teams use Go through Docker and Kubernetes, plus other DevOps and CI/CD tools written in Go. The company also supports connection to it's messaging middleware through a [Go-specific API](https://developer.ibm.com/messaging/2019/02/05/simplified-ibm-mq-applications-golang/).
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/microsoft.svg" img-alt="Microsoft Logo" img-link="https://microsoft.com" title="" align=top %}}
+Microsoft uses Go in [Azure Red Hat
 OpenShift](https://azure.microsoft.com/en-us/services/openshift/) services. This Microsoft solution provides DevOps
 teams with OpenShift clusters to maintain regulatory compliance and focus on application development.
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/terraform.png" img-alt="Terraform Logo" img-link="https://terraform.io" title="" align=top %}}
+Terraform is a [tool for building, changing, and versioning infrastructure](https://www.terraform.io/intro/index.html)
+safely and efficiently. It supports a number of cloud providers such as AWS, IBM Cloud, GCP, and Microsoft
+Azure - and its written in Go.
+    {{% /mediaList %}}
 
-[summary of how Microsoft uses Go for DevOps/SRE?  Does Robert van Gent have details?]
-
-
-### **Terraform**
-
-Terraform is a[ tool for building, changing, and versioning infrastructure](https://www.terraform.io/intro/index.html)
-safely and efficiently. It can manage existing and popular service providers as well as custom in-house solutions.
-Written in Go, Terraform supports a number of cloud infrastructure providers such as AWS, IBM Cloud, GCP, and Microsoft
-Azure. From a DevOps/SRE perspective, Terraform describes infrastructure as code using a high-level configuration
-syntax. It leverages execution plans and resource graphs to automate changes to infrastructure with minimal human
-interaction.
+{{% /mediaList %}}
 
 
 ## **How to use Go for DevOps & SRE**
@@ -102,12 +73,8 @@ Go has been enthusiastically adopted by the DevOps and SRE communities. As previ
 modern cloud environment are themselves written in Go—including Docker, Etcd, Istio, Kubernetes, Prometheus, Terraform,
 and many others.
 
-[do we want text for featured users/projects, or just logos? links?]
-
-[can we say that Google has switched to recommend Go for all new SRE code?]
-
 DevOps/SRE teams write software ranging from small one-time scripts, to command-line interfaces (CLI), to complex
-automation and services where Go excels for all of them.
+automation and services, and Go's feature set has benefits for every situation.
 
 **For small scripts:** Go's fast build times and automatic formatter ([gofmt](https://golang.org/cmd/gofmt/)) enable rapid iteration. Go’s extensive standard library—including packages for common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go's static type system and explicit error handling make even small scripts more robust. 
 
@@ -126,6 +93,8 @@ deployments,"[ says Matt Watson](https://stackify.com/site-reliability-engineeri
 reliability engineering is more focused on operations and monitoring. Depending on how you define DevOps, it could be
 related or not."
 
+{{% gopher gopher=machine align=right %}}
+
 Across deployment, operations, and monitoring, DevOps/SRE teams strive to achieve simplicity, reliability, and speed
 with their systems. But in complex development environments, such disparate goals are hard to unite. 
 
@@ -133,41 +102,28 @@ with their systems. But in complex development environments, such disparate goal
 allowing engineers to focus on building**, even as they optimize for deployment and support.
 
 For simplicity, Go delivers code readability, built in testing/profiling/benchmarking, a standard library, and a
-homogenous environment—statically linked—[ meaning](https://blog.gopheracademy.com/advent-2018/go-devops/) “there’s no
-need for external libraries, copy dependencies or worry for imports. All the code and its dependencies are in the
-binary, so that’s all you need to distribute.”
+homogenous environment that is statically linked.
 
- 
+{{% pullquote author="Natalie Pistunovich, Engineering Manager at Fraugster." link="https://blog.gopheracademy.com/advent-2018/go-devops/" %}}
+[With Go] there’s no need for external libraries, copy dependencies or worry for imports. All the code and its dependencies are in the
+binary, so that’s all you need to distribute.
+{{% /pullquote%}}
 
 For reliability, open source Go delivers pointers, error handling, and safe Type, meaning string operations on an int
 cannot happen, because it will be caught by the compiler.
-
- 
 
 For speed, Go delivers fast compilation and machine-code execution, small binary sizes, superior garbage collection, and
 import-defined dependences, meaning all dependencies are included in the binary. For a list of practical Go benchmarks,
 visit this[ list of performance benchmarks](https://stackimpact.com/blog/practical-golang-benchmarks/) in various
 functionalities.
 
- 
-
-"With systems becoming distributed and more complex—spread over a group of services (or microservices),"[ writes Natalie
-Pistunovich](https://blog.gopheracademy.com/advent-2018/go-devops/), engineering manager at Fraugster. "Observability is
-becoming a trade that helps keep you on track with the system’s health."
-
- 
-
 Many of the modern tooling apps, for DevOps/SRE and for observability, are written in Go. For example:
-
-
 
 *   [Grafana](https://grafana.com/)
 *   [Helm](https://helm.sh/)
 *   [Istio](https://istio.io/)
 *   [Jaeger](https://www.jaegertracing.io/)
 *   [The Open Tracing Project](https://opentracing.io/)
-
- 
 
 As DevOps/SRE teams automate the processes between software development and IT teams, Go can help them build, test, and
 release software faster and more reliably. Scaling infrastructure and development for CI/CD is critical to many large

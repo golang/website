@@ -645,7 +645,7 @@ h5, h6 {
   margin-right: 1rem;
 }
 .LearnGo-eventThumbnail--noimage {
-  background-color: #d8d8d8;
+  background-color: #ffffff;
 }
 .LearnGo-eventThumbnail img {
   height: auto;
@@ -778,6 +778,10 @@ a.Footer-link {
   border-radius: 0.3125rem;
   height: 14.6875rem;
   width: 22rem;
+}
+.Learn-quickstartThumbnail img {
+  padding: 2em;
+  width: 100%;
 }
 .Learn-quickstarts {
   display: flex;
@@ -947,7 +951,7 @@ a.Footer-link {
   width: 3rem;
 }
 .Learn-eventThumbnail--noimage {
-  background-color: #d8d8d8;
+  background-color: #ffffff;
 }
 .Learn-eventThumbnail img {
   margin: auto;

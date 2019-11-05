@@ -189,7 +189,9 @@
         <li class="LearnGo-eventItem">
           <div class="LearnGo-eventThumbnail {{if not .thumbnailurl}}LearnGo-eventThumbnail--noimage{{end}}">
             {{if .thumbnailurl}}
-              <img src="{{.thumbnailurl}}" alt="/images/meetup.svg"/>
+              <img src="{{.thumbnailurl}}" alt="{{.name}} group photo"/>
+            {{else}}
+              <img src="/images/meetup.svg" alt="meetup logo"/>          
             {{end}}
           </div>
           <div class="LearnGo-eventBody">

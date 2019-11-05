@@ -21,30 +21,31 @@ resources:
 
 Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), use text-only instructions and syntax to interact with applications and operating systems. While desktop and mobile are primarily GUI-based, cloud and infrastructure are CLI-based due to their easy automation and remote capabilities. CLIs allow users to perform specific computing tasks by typing text commands and receiving system replies via text outputs, and CLIs are easily automated and can be combined to create custom workflows.
 
+{{% gopher gopher=happy align=right %}}
+
 Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. “The design of Go lends itself incredibly well to [many] styles of application,” [writes Elliot Forbes](https://tutorialedge.net/golang/building-a-cli-in-go/), software engineer at JP Morgan Chase. “And the ability to cross-compile a binary executable for all major platforms easily is a massive win.”
 
-{{% gopher gopher=happy align=right %}}
-Specifically, **programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies**. And **programs written in Go have an immediate startup time**—similar to C or C++ but unobtainable with other programming languages.
+Specifically, **programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies**. And **programs written in Go have an immediate startup time**—similar to C or C++ but unobtainable with other programming languages. 
 
-These two distinguishing features ensure that installing and using a Go program is just about the easiest thing ever: Unlike Java, JavaScript, PHP, Python, Ruby, or any JVM language which all require installing the right version of interpreters/runtimes (which often conflict with the system version); and unlike C or C++ which are dynamically linked to specific versions of libraries resulting in the accurately named “dependency hell” that occurs when different programs depend on different versions of libraries.  
-
-“Go is steadily rising towards being the de facto language for servers and CLI tools,” [says Sam Boyer](https://www.sonatype.com/press-release-blog/sonatype-goes-long-with-godelivers-fully-automated-security-solution-for-fast-growing-programming-language), lead engineer at Sonatype. “The addition of formal package management support to the toolchain will only accelerate this process.”
-
-Carolyn Van Slyck, senior software engineer at Microsoft, has worked on CLIs such as dep, Docker Version Manager, Kubernetes Service Catalog, and Porter. She adds, “CLIs are best designed with predictable, task-oriented commands and you [want to use Go](https://www.youtube.com/watch?v=eMz0vni6PAw&list=PL2ntRZ1ySWBdDyspRTNBIKES1Y-P__59_&index=11&t=0s).”
+{{% pullquote author="Carolyn Van Slyck, Senior Software Engineer at Microsoft." link="https://www.youtube.com/watch?v=eMz0vni6PAw&list=PL2ntRZ1ySWBdDyspRTNBIKES1Y-P__59_&index=11&t=0s" %}}
+CLIs are best designed with predictable, task-oriented commands and you want to use Go.
+{{% /pullquote %}}
 
 ## **Who uses Go for CLIs**
 
-### **Comcast**
+{{% mediaList %}}
+    {{% mediaListBox img-src="/images/logos/comcast.svg" img-alt="Comcast Logo" img-link="https://xfinity.com" title="" align=top %}}
+Comcast [uses Go for a CLI client](https://github.com/Comcast/pulsar-client-go/blob/master/cli/main.go) used to publish and subscribe to it's high-traffic sites. The company also supports an [open source client library](https://github.com/Comcast/pulsar-client-go) which is written in Go - designed for working with Apache Pulsar.
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/github.svg" img-alt="GitHub Logo"  img-link="https://github.com" title="" align=top  %}}
+GitHub [uses Go for a command-line tool](https://github.com/github/hub) that makes it easier to work with GitHub, wrapping git in order to extend it with extra features and commands.
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/uber.svg" img-alt="Uber Logo"  img-link="https://uber.com" title="" align=top  %}}
+Uber uses Go for several CLI tools, including the [CLI API for Jaeger](https://www.jaegertracing.io/docs/1.14/cli/), a distributed tracing system used for monitoring micro-service distributed systems.
+    {{% /mediaListBox %}}
 
-Go has found success for teams building CLIs at Comcast. For example, Go is the Video on Demand (VOD) team’s primary language, and a good fit for CLI development because the standard library is simple to write platform-independent code that is readily cross-compiled for use in both Mac and Linux environments. The standard library makes it easy to handle command line flags, stdin, and stdout, which are all important when developing CLIs. 
+{{% /mediaListBox %}}
 
-### **The New York Times Company**
-
-The publishing company uses a lot of CLIs built in Go. “We’ve become more confident and familiar with Go,” [writes JP Robinson](https://open.blogs.nytimes.com/2014/07/10/emr-streaming-in-go/), principal software engineer at The New York Times Company. “From daemon services to simple MapReduce scripts, Go has been my team’s first choice for server-side code. It’s enabled us to build performant and reliable services that have been easy to maintain, and the Go community’s enthusiasm along with the speed of quality releases have kept us excited and eager to see what’s next for the language.”
-
-### **Uber**
-
-Uber also has several CLI tools built in Go. Go is widely used at Uber and the company's developers like to write CLIs in the same language. Again, Go's cross compilation and built-in support for working with input/output streams and CLI parameters are key benefits. One noted instance is the CLI API for [Jaeger](https://www.jaegertracing.io/docs/1.14/cli/) backend components (as a way of configuration). The Uber CLI API supports env vars, CLI flags, and config files.
 
 ## **How to use Go for CLIs**
 
@@ -80,7 +81,9 @@ Again, programs written in Go run on any system without requiring any existing l
 
 While CLIs do not have graphical user interfaces, the UNIX philosophy that drives them suggests that they be simple, clear, composable, extensible, modular, and small. Go delivers all six elements. With Go, initialization is expressive, automatic, and easy to use. Syntax is clean and light on keywords. Go combines the ease of programming in an interpreted, dynamically typed language with the efficiency and safety of a statically typed, compiled language. And goroutines have little overhead beyond the memory for the stack (which is just a few kilobytes).
 
-"There are many reasons to use Go to build your next killer CLI," [concludes Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/). "From the speed of compilation and execution, the availability of built-in or high-quality packages, to the ease of automation."
+{{% pullquote author="Alex Ellis, founder of OpenFaaS." link="https://blog.alexellis.io/5-keys-to-a-killer-go-cli/" %}}
+There are many reasons to use Go to build your next killer CLI ... From the speed of compilation and execution, the availability of built-in or high-quality packages, to the ease of automation.
+{{% /pullquote %}}
 
 ## **Resources for learning more**
 
