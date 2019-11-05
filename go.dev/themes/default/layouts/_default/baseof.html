@@ -19,19 +19,19 @@
 <meta http-equiv="refresh" content="0; url={{.Params.link}}">
 {{end -}}
 </head>
-<body class="Site{{if .IsHome}} Site--blue{{end}}">
-<header class="Site-header{{if .IsHome}} Site-header--blue{{end}}">
-  <div class="Header{{if .IsHome}} Header--dark{{end}}">
+<body class="Site">
+<header class="Site-header">
+  <div class="Header Header--dark">
     <nav class="Header-nav">
       <a href="{{.Site.BaseURL}}">
-        <img class="Header-logo" src="/images/go-logo-{{if .IsHome}}white{{else}}blue{{end}}.svg" alt="Go">
+        <img class="Header-logo" src="/images/go-logo-white.svg" alt="Go">
       </a>
-      <form class="SearchForm {{if .IsHome}}SearchForm--white{{end}}" action="https://pkg.go.dev/search" role="search">
-        <input class="SearchForm-input {{if .IsHome}}SearchForm-input--white{{end}}" aria-label="Search for a package" type="text" name="q" size="1"
+      <form class="SearchForm SearchForm--white" action="https://pkg.go.dev/search" role="search">
+        <input class="SearchForm-input SearchForm-input--white" aria-label="Search for a package" type="text" name="q" size="1"
                placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
                spellcheck="false" title="Search for a package">
         <button class="SearchForm-submit" aria-label="Search for a package">
-          <svg class="SearchForm-submitIcon {{if .IsHome}}SearchForm-submitIcon--white{{end}}" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
+          <svg class="SearchForm-submitIcon SearchForm-submitIcon--white" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
                role="presentation">
             <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
             <path fill="none" d="M0 0h24v24H0z"></path>
@@ -53,7 +53,7 @@
         </li>
         {{- end}}
       </ul>
-      <button class="Header-navOpen js-headerMenuButton {{if .IsHome}}Header-navOpen--white{{end}}" aria-label="Open navigation.">
+      <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
       </button>
     </nav>
   </div>
