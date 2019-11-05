@@ -4,7 +4,7 @@ date: 2019-06-25T17:51:23-04:00
 draft: false
 ---
 
-[Go.dev](https://go.dev) is a companion website to [golang.org](https://golang.org). [golang.org](https://golang.org) is the home of the open source project and distribtion. [Go.dev](https://go.dev) is the hub for Go users. Go.dev is a portal to the entire Go ecosystem providing centalized and curated resources. 
+[Go.dev](https://go.dev) is a companion website to [golang.org](https://golang.org). [golang.org](https://golang.org) is the home of the open source project and distribtion. [Go.dev](https://go.dev) is the hub for Go users providing centalized and curated resources from across the Go ecosystem. 
 
 {{% gopher gopher=pink align=right %}}
 Go.dev provides:

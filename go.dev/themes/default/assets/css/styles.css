@@ -109,9 +109,6 @@ a.Footer-link {
   cursor: pointer;
   text-decoration: underline;
 }
-.Footer-longFeedback {
-  display: none;
-}
 .Footer-googleLogo {
   align-self: flex-end;
   flex: 1;
