@@ -23,32 +23,104 @@ a:hover {
   margin: 0;
 }
 .bluebg {
-  background: #007d9c; 
+  background: #007d9c;
 }
 .Site-content {
   flex: 1;
-  margin-top:3.5em;
+  margin-top: 3.5em;
 }
 .Site-footer {
-  background-color: #253443;
   color: #fff;
   font-size: 14px;
 }
 .Site-header {
-  border-bottom: none;
   background: #007d9c;
+  border-bottom: none;
   position: fixed;
+  top: 0;
   width: 100%;
-  top:0;
 }
 .Header,
-.Footer,
 .Container {
   margin: 0 auto;
   max-width: 75.75rem;
 }
 .Footer {
+  background-color: #253443;
+}
+.Footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   padding: 2.625rem 1.5rem;
+}
+.Footer-linkColumn {
+  flex: 0 0 150px;
+}
+a.Footer-link {
+  color: #fff;
+  display: flex;
+  flex: 1;
+  font-size: 0.875rem;
+  line-height: 2rem;
+}
+.Footer-bottom {
+  align-items: center;
+  background-color: #fff;
+  display: flex;
+  padding: 0 1.5rem;
+}
+.Footer-gopher {
+  align-self: flex-end;
+  width: 5rem;
+}
+.Footer-listRow {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.Footer-listItem {
+  align-items: center;
+  display: flex;
+  flex: 1 100%;
+  justify-content: center;
+  margin: 0.4rem;
+  padding: 0 1rem;
+}
+@media only screen and (min-width: 48rem) {
+  .Footer-listItem {
+    flex: initial;
+  }
+  .Footer-listItem + .Footer-listItem {
+    border-left: 0.0625rem solid #3e4042;
+  }
+}
+.Footer-feedbackButton {
+  background: none;
+  border: none;
+  color: #007d9c;
+  font-size: 0.875rem;
+  padding: 0;
+}
+.Footer-feedbackButton:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.Footer-longFeedback {
+  display: none;
+}
+.Footer-googleLogo {
+  align-self: flex-end;
+  flex: 1;
+  height: 1.5rem;
+  margin-bottom: 0.7rem;
+  text-align: right;
+}
+.Footer-googleLogoImg {
+  height: 1.5rem;
 }
 .Container--fullBleed {
   margin: 0;
@@ -77,20 +149,28 @@ a:hover {
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Google Sans', sans-serif;
 }
 
-h1, h2 {
+h1,
+h2 {
   font-weight: 600;
   letter-spacing: 0.03rem;
 }
 
-h3, h4 {
+h3,
+h4 {
   font-weight: 600;
   letter-spacing: 0.08rem;
 }
-h5, h6 {
+h5,
+h6 {
   font-weight: 500;
   letter-spacing: 0.08rem;
 }
@@ -559,10 +639,10 @@ h5, h6 {
 }
 
 .headerLink {
-    margin: 0;
-    align-self: center;
-    font-size: 1.125rem;
-    font-weight: 600;
+  align-self: center;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin: 0;
 }
 
 .LearnGo-subHeader {
@@ -737,21 +817,6 @@ h5, h6 {
     margin: 0 3rem;
     padding: 1rem 0;
   }
-}
-.Footer-links {
-  display: flex;
-  flex-wrap: wrap;
-  margin-left: -6rem;
-}
-.Footer-linkColumn {
-  padding-left: 6rem;
-}
-a.Footer-link {
-  color: #fff;
-  display: flex;
-  flex: 1;
-  font-size: 0.875rem;
-  line-height: 2rem;
 }
 .Learn-title,
 .Learn-gettingStarted,
@@ -1066,7 +1131,7 @@ a.Footer-link {
 .Solutions-caseStudiesHeader h2 {
   letter-spacing: 0.125rem;
 }
-.Solutions-useCaseList, 
+.Solutions-useCaseList,
 .Solutions-caseStudyList {
   display: flex;
   flex: 1 0 100%;
