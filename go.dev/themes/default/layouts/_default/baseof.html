@@ -24,7 +24,7 @@ gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
 </script>
 {{end -}}
 <script src="/js/site.js" defer></script>
-<title>{{$.Site.Title}}</title>
+<title>{{.Title}}{{if not .IsHome}} - {{.Site.Title}}{{end}}</title>
 {{if (isset .Params "link") -}}
 <meta http-equiv="refresh" content="0; url={{.Params.link}}">
 {{end -}}
