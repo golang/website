@@ -85,9 +85,13 @@ Other teams noticed how well Go was suited for various systems at PayPal and dec
 
 Twitch [uses Go to power many of its busiest systems](https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/) that serve live video and chat to millions of users. 
 
-### **Uber** 
 
-Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their [real-time analytics engine](https://eng.uber.com/aresdb/), AresDB, to their [microservice for Geo-querying](https://eng.uber.com/go-geofence/), Geofence, and [their resource scheduler](https://eng.uber.com/open-sourcing-peloton/), Peloton, Uber uses Go to maintain high levels of reliability, developer productivity, and complex workloads at scale.
+{{% mediaList %}}
+    {{% mediaListBox img-src="/images/logos/uber-app-icon.svg" img-alt="Uber Logo" title="Uber" align=top %}}
+Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their [real-time analytics engine](https://eng.uber.com/aresdb/), AresDB, to their [microservice for Geo-querying](https://eng.uber.com/go-geofence/), Geofence, and [their resource scheduler](https://eng.uber.com/open-sourcing-peloton/).
+    {{% /mediaListBox %}}
+{{% /mediaList %}}
+
 
 ## **How to use Go for Cloud Computing**
 
