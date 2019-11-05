@@ -27,6 +27,7 @@ a:hover {
 }
 .Site-content {
   flex: 1;
+  margin-top:3.5em;
 }
 .Site-footer {
   background-color: #253443;
@@ -36,6 +37,9 @@ a:hover {
 .Site-header {
   border-bottom: none;
   background: #007d9c;
+  position: fixed;
+  width: 100%;
+  top:0;
 }
 .Header,
 .Footer,
