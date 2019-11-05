@@ -13,6 +13,16 @@
   {{$stylesFP := $styles | fingerprint -}}
   <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}" crossorigin="anonymous">
 {{end -}}
+{{if not .Site.IsServer -}}
+<script async src="https://www.googletagmanager.com/gtag/js?id={{.Site.Params.GoogleAnalyticsTrackingID}}"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
+</script>
+{{end -}}
 <script src="/js/site.js" defer></script>
 <title>{{$.Site.Title}}</title>
 {{if (isset .Params "link") -}}
@@ -113,8 +123,7 @@
           <li class="Footer-listItem"><a href="http://www.google.com/intl/en/policies/privacy/" target="_blank">Privacy Policy</a></li>
           <li class="Footer-listItem">
             <button class="js-feedbackButton Footer-feedbackButton">
-              <span class="Footer-longFeedback">Report a website issue</span>
-              <span class="Footer-shortFeedback">Report issue</span>
+              Report an issue
             </button>
           </li>
         </ul>
