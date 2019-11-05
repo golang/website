@@ -66,6 +66,24 @@ theme = "default"
     weight = -100
 
   [[menu.footer]]
+    name = "Playground"
+    url = "https://play.golang.org"
+    parent = "learn"
+    weight = -90
+
+  [[menu.footer]]
+    name = "Tour"
+    url = "https://tour.golang.org"
+    parent = "learn"
+    weight = -80
+
+  [[menu.footer]]
+    name = "Stack Overflow"
+    url = "https://stackoverflow.com/questions/tagged/go?tab=Newest"
+    parent = "learn"
+    weight = -70
+
+  [[menu.footer]]
     identifier = "explore"
     name = "Explore"
     title = "Explore"
@@ -78,3 +96,76 @@ theme = "default"
     title = "About"
     url = "https://www.golang.org"
     weight = -80
+
+  [[menu.footer]]
+    name = "Download"
+    parent = "about"
+    url = "https://golang.org/dl/"
+    weight = -70
+
+  [[menu.footer]]
+    name = "Blog"
+    parent = "about"
+    url = "https://blog.golang.org"
+    weight = -60
+
+  [[menu.footer]]
+    name = "Issue Tracker"
+    parent = "about"
+    url = "https://github.com/golang/go/issues"
+    weight = -50
+
+  [[menu.footer]]
+    name = "Release Notes"
+    parent = "about"
+    url = "https://golang.org/doc/devel/release.html"
+    weight = -50
+
+  [[menu.footer]]
+    name = "Brand Guidelines"
+    parent = "about"
+    url = "https://blog.golang.org/go-brand"
+    weight = -40
+
+  [[menu.footer]]
+    identifier = "connect"
+    name = "Connect"
+    title = "Connect"
+    url = "https://www.twitter.com/golang"
+    weight = -70
+
+  [[menu.footer]]
+    name = "r/golang"
+    parent = "connect"
+    url = "https://reddit.com/r/golang"
+    weight = -70
+
+  [[menu.footer]]
+    name = "Twitter"
+    parent = "connect"
+    url = "https://www.twitter.com/golang"
+    weight = -70
+
+  [[menu.footer]]
+    name = "Github"
+    parent = "connect"
+    url = "https://github.com/golang"
+    weight = -50
+
+  [[menu.footer]]
+    name = "Slack"
+    parent = "connect"
+    url = "https://invite.slack.golangbridge.org/"
+    weight = -40
+
+  [[menu.footer]]
+    name = "Meetup"
+    parent = "connect"
+    url = "https://www.meetup.com/pro/go"
+    weight = -30
+
+  [[menu.footer]]
+    name = "Golang Weekly"
+    parent = "connect"
+    url = "https://golangweekly.com/"
+    weight = -20
