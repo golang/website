@@ -64,8 +64,13 @@ a.Footer-link {
   font-size: 0.875rem;
   line-height: 2rem;
 }
-.Footer-link--bold {
+a.Footer-link--bold {
+  background: linear-gradient(to right, #fff 50%, transparent 50% 100%) left bottom transparent no-repeat;
+  background-size: 100% 1px;
   font-weight: bold;
+  margin-bottom: 0.5rem;
+  line-height: 1.75rem;
+  margin-top: 0.75rem;
 }
 .Footer-bottom {
   align-items: center;
