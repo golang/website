@@ -69,6 +69,7 @@ a.Footer-link {
   background-color: #fff;
   display: flex;
   padding: 0 1.5rem;
+  min-height: 4.125rem;
 }
 .Footer-gopher {
   align-self: flex-end;
@@ -113,7 +114,7 @@ a.Footer-link {
   align-self: flex-end;
   flex: 1;
   height: 1.5rem;
-  margin-bottom: 0.7rem;
+  margin-bottom: 1.3rem;
   text-align: right;
 }
 .Footer-googleLogoImg {
