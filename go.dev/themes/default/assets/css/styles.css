@@ -52,7 +52,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 2.625rem 1.5rem;
+  padding: 2rem 1.5rem 2.625rem 1.5rem;
 }
 .Footer-linkColumn {
   flex: 0 0 150px;
@@ -65,7 +65,8 @@ a.Footer-link {
   line-height: 2rem;
 }
 a.Footer-link--bold {
-  background: linear-gradient(to right, #fff 50%, transparent 50% 100%) left bottom transparent no-repeat;
+  background: linear-gradient(to right, #fff 50%, transparent 50% 100%) left
+    bottom transparent no-repeat;
   background-size: 100% 1px;
   font-weight: bold;
   margin-bottom: 0.5rem;
