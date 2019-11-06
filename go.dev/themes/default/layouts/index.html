@@ -20,7 +20,7 @@
   {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
-      <h2>Companies use, love, and depend on Go</h2>
+      <h2>Companies using Go</h2>
     </div>
     <ul class="WhoUses-caseStudyList">
       {{range where $solutions.Pages "Params.series" "Case Studies"}}

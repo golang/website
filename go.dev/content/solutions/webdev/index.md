@@ -57,7 +57,7 @@ Bayburtsyan summarizes the five key reasons his company switched to Go:
 5.   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
 
 
-## Featured Go web development users and projects 
+## Featured Go users & projects
 
 {{% mediaList %}}
     {{% mediaListBox img-src="/images/logos/hugo.svg" img-alt="Hugo Logo"  img-link="https://gohugo.io" title="Hugo" align=top  %}}

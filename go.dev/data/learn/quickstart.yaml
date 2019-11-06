@@ -4,7 +4,7 @@ links:
     thumbnail: 
   - title: Hello World
     url: https://play.golang.org
-    thumbnail:
+    thumbnail: /images/learn/earth.png
   - title: Tour of Go
     url: https://tour.golang.org
     thumbnail:

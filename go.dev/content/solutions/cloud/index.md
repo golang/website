@@ -4,6 +4,22 @@ linkTitle: "Cloud & Network Services"
 description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
 date: 2019-10-04T15:26:31-04:00
 series: Use Cases
+books:
+  - title: Building Microservices with Go 
+    url: https://www.amazon.com/Building-Microservices-Go-efficient-microservices/dp/1786468662/
+    thumbnail: /images/books/building-microservices-with-go.jpg
+  - title: Hands-On Software Architecture with Golang
+    url: https://www.amazon.com/dp/1788622596/ref=cm_sw_r_tw_dp_U_x_-aZWDbS8PD7R4
+    thumbnail: /images/books/hands-on-software-architecture-with-golang.jpg
+  - title: Building RESTful Web services with Go
+    url: https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1
+    thumbnail: /images/books/building-restful-web-services-with-go.jpg
+  - title: Mastering Go Web Services
+    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6
+    thumbnail: /images/books/mastering-go-web-services.jpg
+  - title: 
+    url: 
+    thumbnail: 
 resources:
 - name: icon
   src: globe.png
@@ -21,79 +37,40 @@ resources:
 
 As applications and processing move to the cloud, concurrency becomes a very big issue. Cloud computing systems, by their very nature, share and scale resources. Coordinating access to shared resources is an issue that impacts every application processing in the cloud, and requires programming languages “[explicitly geared to develop highly reliable concurrent applications](https://tomassetti.me/best-programming-languages/).”
  
-Go was created to address exactly these concurrency needs for scaled applications, microservices, and cloud development. In fact, over 75 percent of projects in the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/projects/)) are written in Go.
+Go was created to address exactly these concurrency needs for scaled applications, microservices, and cloud development. In fact, **over 75 percent of projects in the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/projects/)) are written in Go**.
 
 “Go makes it very easy to scale as a company,” [says developer Ruchi Malik](https://builtin.com/software-engineering-perspectives/golang-advantages) at Choozle. “This is very important because, as our engineering team grows, each service can be managed by a different unit.”
 
-## **Who uses Go for Cloud Computing**
-
-### **American Express**
-
-American Express uses Go to improve microservices and speed cloud development productivity. Go began at American Express with the efforts of the payment processing platform team, focused on microservices, transaction routing, and load balancing. By leveraging goroutines, the payment processing team has seen improved performance numbers in its real-time transaction processing, and validated Go’s garbage collection as a huge improvement over other languages.
-
-Today, American Express also uses Go via:
-
-*   [Docker](https://www.docker.com/)—a SaaS product, written in Go, that uses operating system level virtualization to develop and deliver software in containers hosted on a Docker Engine
-*   [Kubernetes](https://kubernetes.io/)—an open-source container-orchestration system, written in Go, that follows a primary/replica architecture across clusters of
-*   [Prometheus](https://prometheus.io/)—an open-source software application written in Go used for real-time event monitoring and alerting
-
-Go has helped modernize American Express’s infrastructure and the team is beginnign to see Go as a key player in the American Express payment ecosystem.
-
-### **AT&T**
-
-Within AT&T's DirectTV division, a microservices development team oversees VUD monitoring and analytics for the video ingestion pipeline as it comes in from content providers. The team builds small microservices in Go as monitoring points, checking when video content goes from one state to another throughout their system. Being able to rewrite old microservices in a cloud-friendly language like Go delivered a tremendous development cost-savings to AT&T.  The team also developed a Go SDK to support future Go development on AT&T's platform.
- 
-The DirecTV division also hosts Kubernetes themselves and are looking at Knative (a Kubernetes-based platform to build, deploy, and manage modern serverless workloads).
-
-### **CapitalOne**
-
-Capital One uses go to [power one of it's critical service APIs](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f) - the Credit Offers API. The team initially started writing one endpoint in Go, and after seeing the huge improvements over Java (the service was originally written in Java) decided to rewrite the entire API in Go.
-
-The engineering team then decided to build their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
-
-### **Dropbox**
-
-Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Dropbox developers wanted better concurrency support and faster execution speeds, and were willing to write around 200,000 lines of new Go code. Dropbox has since built many open-source libraries to support large-scale production systems, including libraries for caching, errors, database/sqlbuilder, and hash2. 
- 
-Today, Dropbox has over 500 million users and most of the company's infrastructure is written in Go—over 1.3 million lines of Go and every Dropbox engineer hired goes through Go training during onboarding. Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
-
-### **Google**
-
-Google uses Go to power large amounts of it's services and infrastructure. Originally created at Google, Go has become a widely adopted language internally and now supports most of Google Cloud's architecture, Chrome's backend services, YouTube's data generation pipelines, and much more.
-
-### **MercadoLibre**
-
-MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
- 
-Go started with the core APIs team, which builds and maintains the largest APIs at the center of MercadoLibre’s microservices solutions. With Go, MercadoLibre’s build times are three times (3x) faster and their test suite runs an amazing 24 times faster. This means the company’s developers can make a change, then build and test that change much faster than they could before. And dropping MercadoLibre’s test suite runtimes from 90-seconds to just 3-seconds with Go was a huge boon for its developers—allowing them to keep focus (and context) while the much faster tests complete.
- 
-MercadoLibre leverages Go’s expressive and clean syntax to make it easier for developers to write programs that get the most out of the company’s multicore and networked machines. And while speed in development yields cost efficiency for the company, developers individually benefit from the swift learning curve Go delivers. Not only are MercadoLibre's very experienced developers able to build highly critical applications very, very quickly with Go, but even new programmers have been able to produce significant solutions. 
-
-### **Netflix**
-
-Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that actually store the data - and plays a critical role in member personalization for over 150 million users.
-
-Their decision to write the service in Go was quite deliberate, as they "needed something that had lower latency than Java (where garbage collection pauses are an issue) and is more productive for developers than C, while also handling tens of thousands of client connections."
-
-### **PayPal**
-
-PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go. The team originally explored using Go to decrease the complexity of a NoSQL databases' code (which was written in C++). The NoSQL team rebuilt one of their databases in Go and immediately noticed the benefits of having a language built for concurrency, simplicity, and speed.
-
-Other teams noticed how well Go was suited for various systems at PayPal and decided to start adopting the language. Go usage at PayPal has now grown to over 100 engineers and the team is continuing to evaluate new ways to expand Go's usage to increase developer productivity and software efficiency.
-
-### **Twitch**
-
-Twitch [uses Go to power many of its busiest systems](https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/) that serve live video and chat to millions of users. 
-
+## Featured Go users & projects
 
 {{% mediaList %}}
-    {{% mediaListBox img-src="/images/logos/uber-app-icon.svg" img-alt="Uber Logo" title="Uber" align=top %}}
+    {{% mediaListBox img-src="/images/logos/google-cloud.svg" img-alt="Google Cloud Logo" title="" align=top %}}
+Google Cloud is built on Go. Many critical cloud projects used across the industry like [Kubernetes](https://kubernetes.io/), [Istio](https://istio.io/) and [gVisor](https://gvisor.dev/) were created in Go at Google Cloud. Go is fully supported on [Google Cloud](https://cloud.google.com) across all APIs and runtimes including serverless [App Engine](https://cloud.google.com/appengine/) and [Google Cloud Functions](https://cloud.google.com/functions/). 
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/capital-one.svg" img-alt="Capital One Logo" title="" align=top %}}
+Capital One uses Go to power the [Credit Offers API, a critical service](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f). The team initially started by rewriting one endpoint from Java to Go, and after seeing the huge improvements over Java decided to rewrite the entire API in Go. The engineering team then decided to build their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/dropbox.svg" img-alt="Dropbox Logo" title="" align=top %}}
+Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Dropbox developers wanted better concurrency support and faster execution speeds, and were willing to write around 200,000 lines of new Go code. Today, most of the company's infrastructure is written in Go.  Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/mercadoLibre.svg" img-alt="MercadoLibre Logo" title="" align=top %}}
+MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/twitch.svg" img-alt="Twitch Logo" title="" align=top %}}
+Twitch [uses Go to power many of its busiest systems](https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/) that serve live video and chat to millions of users. 
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/the-new-york-times-icon.svg" img-alt="The New York Times Logo" title="" align=top %}}
+The New York Times adopted Go ["to build better back-end services"](https://open.nytimes.com/introducing-gizmo-aa7ea463b208). As the usage of Go expanded with in the company they felt the need to create a toolkit to "to help developers quickly configure and build microservice APIs and pubsub daemons", which they have [open sourced](https://github.com/nytimes/gizmo). 
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/uber-app-icon.svg" img-alt="Uber Logo" title="" align=top %}}
 Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their [real-time analytics engine](https://eng.uber.com/aresdb/), AresDB, to their [microservice for Geo-querying](https://eng.uber.com/go-geofence/), Geofence, and [their resource scheduler](https://eng.uber.com/open-sourcing-peloton/).
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/gokit.png" img-alt="Go Kit Logo" title="" align=top %}}
+[Go kit](https://gokit.io) is an open source toolkit for creating microservices. Described as "fill[ing] in the gaps left by the otherwise excellent standard library, giving your team the confidence to adopt Go throughout your stack."
     {{% /mediaListBox %}}
 {{% /mediaList %}}
 
-
-## **How to use Go for Cloud Computing**
+## How to use Go for Cloud Computing
 
 Go's strengths shine when it comes to building services. Its speed and built-in support for concurrency results in fast and efficient services, while static typing, robust tooling, and emphasis on simplicity and readability help build reliable and maintainable code.
  
@@ -113,7 +90,15 @@ Service developers often make a tradeoff between development cycle time and serv
  
 Overall, Go's mission to make it easy to write simple, reliable, and efficient software means it is a great choice for developing services.
 
-## **Go solutions to legacy challenges**
+## Key Solutions
+
+### Go books on web development 
+
+{{% books %}}
+
+{{< headerWithLink header="Frameworks" link="https://pkg.go.dev/search?q=framework" level=3 >}} 
+
+## Go solutions to legacy challenges
 
 Historically, challenges facing cloud computing systems have included the need for highly concurrent and distributed processing, multi-nodes and multi-cores, the lack of shared memory, and the very major bottleneck of single-threaded applications.
  
@@ -129,7 +114,7 @@ For example, once one names a goroutine and constructs a model around it, it bec
  
 Go solves the problems of modern cloud development, delivering a standard idiomatic APIs designed around user needs, plus out-of-the-box support for multiple cloud environments (including on-premises), the ability to write and test locally (run in production), and open cloud development - granting development teams the power to choose and the power to move.
 
-## **Resources for Learning More**
+## Resources for Learning More
 
 *   [EdgeX](http://linuxgizmos.com/latest-edgex-iot-middleware-release-gets-smaller-faster-and-more-secure/) - IoT Middleware
 *   [Microservices in Golang](https://ewanvalentine.io/microservices-in-golang-part-1/) - walkthrough of microservices with Go-micro
