@@ -12,8 +12,8 @@ steps:
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "app.learn.yaml"]
   - name: 'mirror.gcr.io/library/golang'
-    args: ["run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=go-dev"]
+    args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=go-dev", "--dry_run=false"]
   - name: 'mirror.gcr.io/library/golang'
-    args: ["run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=learn-go-dev"]
+    args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=learn-go-dev", "--dry_run=false"]
 images:
   - 'gcr.io/$PROJECT_ID/hugo'

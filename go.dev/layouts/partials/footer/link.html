@@ -5,6 +5,6 @@
 {{- if not .Site.IsServer}}
   {{- $url = $url | absURL}}
 {{- end}}
-<a href="{{$url}}" class="Footer-link" title="{{.menuItem.Title}}" data-identifier="{{ .menuItem.Identifier }}">
+<a href="{{$url}}" class="Footer-link{{if not .menuItem.Parent}} Footer-link--bold{{end}}" title="{{.menuItem.Title}}" data-identifier="{{ .menuItem.Identifier }}">
   {{.menuItem.Name}}
 </a>
