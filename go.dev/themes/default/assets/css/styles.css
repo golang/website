@@ -52,7 +52,7 @@ a:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 2.625rem 1.5rem;
+  padding: 2rem 1.5rem 2.625rem 1.5rem;
 }
 .Footer-linkColumn {
   flex: 0 0 150px;
@@ -64,11 +64,21 @@ a.Footer-link {
   font-size: 0.875rem;
   line-height: 2rem;
 }
+a.Footer-link--bold {
+  background: linear-gradient(to right, #fff 50%, transparent 50% 100%) left
+    bottom transparent no-repeat;
+  background-size: 100% 1px;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  line-height: 1.75rem;
+  margin-top: 0.75rem;
+}
 .Footer-bottom {
   align-items: center;
   background-color: #fff;
   display: flex;
   padding: 0 1.5rem;
+  min-height: 4.125rem;
 }
 .Footer-gopher {
   align-self: flex-end;
@@ -87,7 +97,7 @@ a.Footer-link {
   display: flex;
   flex: 1 100%;
   justify-content: center;
-  margin: 0.4rem;
+  margin: 0.4rem 0;
   padding: 0 1rem;
 }
 @media only screen and (min-width: 48rem) {
@@ -113,7 +123,7 @@ a.Footer-link {
   align-self: flex-end;
   flex: 1;
   height: 1.5rem;
-  margin-bottom: 0.7rem;
+  margin-bottom: 1.3rem;
   text-align: right;
 }
 .Footer-googleLogoImg {
