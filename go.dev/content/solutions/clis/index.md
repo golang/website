@@ -4,6 +4,13 @@ linkTitle: "Command-line Interfaces"
 description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
 date: 2019-10-04T15:26:31-04:00
 series: Use Cases
+books:
+  - title: Powerful Command-Line Applications in Go
+    url: https://www.amazon.com/Powerful-Command-Line-Applications-Go-Maintainable/dp/168050696X
+    thumbnail: /images/books/powerful-command-line-applications-in-go.jpg
+  - title: 
+    url: 
+    thumbnail: 
 resources:
 - name: icon
   src: globe.png
@@ -70,6 +77,14 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
 "I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy," [explains Steve Domino](https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056), senior engineer and architect at Strala. "Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!"
 
 For debugging Go code, [Delve](https://github.com/go-delve/delve) is a simple and powerful tool built for programmers used to using a source-level debugger in a compiled language.
+
+## Key Solutions
+
+### Go books on CLIs 
+
+{{% books %}}
+
+{{< headerWithLink header="Frameworks" link="https://pkg.go.dev/search?q=framework" level=3 >}} 
 
 ## **Go solutions to legacy challenges**
 

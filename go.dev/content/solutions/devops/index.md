@@ -4,6 +4,22 @@ linkTitle: "DevOps & Site Reliability"
 description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
 date: 2019-10-03T17:16:43-04:00
 series: Use Cases
+books:
+  - title: Go Programming for Network Operations
+    url: https://www.amazon.com/Go-Programming-Network-Operations-Automation-ebook/dp/B07JKKN34L/ref=sr_1_16
+    thumbnail: /images/books/go-programming-for-network-operations.jpg
+  - title: 
+    url: 
+    thumbnail: 
+  - title: 
+    url: 
+    thumbnail: 
+  - title: 
+    url: 
+    thumbnail: 
+  - title: 
+    url: 
+    thumbnail: 
 resources:
 - name: icon
   src: cog.png
@@ -15,16 +31,11 @@ resources:
     alt: cog
 ---
 
-### _Go helps enterprises automate and scale for CI/CD_
-
-
-## **Why use Go for DevOps & SRE**
+## Go helps enterprises automate and scale
 
 Development Operations (DevOps) teams help engineering organizations automate tasks and improve their continuous
 integration and continuous delivery and deployment (CI/CD) process. DevOps can topple developmental silos and implement
 tooling and automation to enhance software development, deployment, and support.
-
- 
 
 Site Reliability Engineering (SRE) was born at Google to make the company’s “large-scale sites more reliable, efficient,
 and scalable,”[ writes Silvia Fressard](https://opensource.com/article/18/10/what-site-reliability-engineer), an
@@ -33,15 +44,18 @@ companies, such as Amazon and Netflix, also adopted them.” SRE requires a mix 
 “[empowers software developers](https://stackify.com/site-reliability-engineering/) to own the ongoing daily operation
 of their applications in production.”
 
- 
-
 Go serves both siblings, DevOps and SRE, with its fast build times and lean syntax—readily supporting automation while
 scaling for speed and code maintainability as development infrastructure grows over time.
 
-
-## **Who uses Go for DevOps & SRE**
+## Featured Go users & projects
 
 {{% mediaList %}}
+    {{% mediaListBox img-src="/images/logos/paypal.svg" img-alt="Paypal Logo" title="" align=top %}}
+PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go. The team originally explored using Go to decrease the complexity of a NoSQL databases' code (which was written in C++). The NoSQL team rebuilt one of their databases in Go and immediately noticed the benefits of having a language built for concurrency, simplicity, and speed.
+    {{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/netflix.svg" img-alt="Netflix Logo" title="" align=top %}}
+Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that actually store the data - and plays a critical role in member personalization for over 150 million users.
+    {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/docker.svg" img-alt="Docker Logo" img-link="https://docker.com" title="" align=top %}}
 Docker is a software-as-a-service (SaaS) product, written in Go, that DevOps/SRE teams leverage to “[drive secure
 automation and deployment at massive scale](https://www.docker.com/solutions/cicd),” supporting their CI/CD efforts.
@@ -85,6 +99,14 @@ automation and services, and Go's feature set has benefits for every situation.
 With Go, DevOps/SREs seek to “balance the risk of unavailability with the goals of rapid innovation and efficient
 service operations,"[ says Marc Alvidrez](https://landing.google.com/sre/), engineer at Google. "So that users’ overall
 happiness—with features, service, and performance—is optimized."
+
+## Key Solutions
+
+### Go books on DevOps & SRE
+
+{{% books %}}
+
+{{< headerWithLink header="Frameworks" link="https://pkg.go.dev/search?q=framework" level=3 >}} 
 
 ## **Go solutions to legacy challenges**
 
