@@ -91,7 +91,7 @@ a.Footer-link {
   display: flex;
   flex: 1 100%;
   justify-content: center;
-  margin: 0.4rem;
+  margin: 0.4rem 0;
   padding: 0 1rem;
 }
 @media only screen and (min-width: 48rem) {
