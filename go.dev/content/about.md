@@ -24,7 +24,7 @@ Or you can send your bugs, ideas, feature requests and questions to [go-discover
 ## Adding a package
 To add a package or module, simply fetch it from proxy.golang.org. Documentation is generated based on Go source code downloaded from the proxy.golang.org/\<module\>@\<version\>.zip. New module versions are fetched from index.golang.org and added to the go.dev site every few minutes.
 
-The [guidelines](https://blog.golang.org/godoc-documenting-go-code) for writing documentation for the [godoc](https://golang.org/cmd/godoc/) tool apply to go.dev. 
+The [guidelines](https://blog.golang.org/godoc-documenting-go-code) for writing documentation for the [godoc](https://pkg.go.dev/golang.org/x/tools/cmd/godoc) tool apply to go.dev. 
 
 It's important to write a good summary of the package in the first sentence of the package comment. The go.dev site indexes the first sentence and displays it in search results.
 
