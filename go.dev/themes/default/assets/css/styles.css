@@ -64,6 +64,9 @@ a.Footer-link {
   font-size: 0.875rem;
   line-height: 2rem;
 }
+.Footer-link--bold {
+  font-weight: bold;
+}
 .Footer-bottom {
   align-items: center;
   background-color: #fff;
