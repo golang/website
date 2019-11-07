@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="{{$styles.RelPermalink}}">
 {{else -}}
   {{$stylesFP := $styles | fingerprint -}}
-  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
 {{end -}}
 {{if not .Site.IsServer -}}
 <script async src="https://www.googletagmanager.com/gtag/js?id={{.Site.Params.GoogleAnalyticsTrackingID}}"></script>
