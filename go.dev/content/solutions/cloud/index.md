@@ -31,7 +31,7 @@ resources:
     alt: globe
 ---
 
-## Go helps enterprises build and scale Cloud Computing systems
+## Go helps enterprises build and scale cloud computing systems
 
 As applications and processing move to the cloud, concurrency becomes a very big issue. Cloud computing systems, by their very nature, share and scale resources. Coordinating access to shared resources is an issue that impacts every application processing in the cloud, and requires programming languages “[explicitly geared to develop highly reliable concurrent applications](https://tomassetti.me/best-programming-languages/).”
  
@@ -41,15 +41,15 @@ Go was created to address exactly these concurrency needs for scaled application
 Go makes it very easy to scale as a company. This is very important because, as our engineering team grows, each service can be managed by a different unit.
 {{< /pullquote >}}
 
-Service developers often make a tradeoff between development cycle time and server performance. Go's helps reduce the need to make this tradeoff, with its fast build times that enable iterative development, lower memory and CPU utilization, making servers built with Go cheaper to run in pay-as-you-go deployments.
+Service developers often make a tradeoff between development cycle time and server performance. Go helps reduce the need to make this tradeoff, with its fast build times that enable iterative development, lower memory and CPU utilization.  Servers built with Go experience instant start up times and are cheaper to run in pay-as-you-go and serverless deployments.
 
-Go addresses many challenges developers face with the modern cloud, delivering standard idiomatic APIs, out-of-the-box support for multiple cloud environments (including on-prem), and a great balance between speed and efficiency - granting engineering teams the power to choose and the power to move.
+Go addresses many challenges developers face with the modern cloud, delivering standard idiomatic APIs, and built in concurrency to take advantage of multicore processors.  Go's low-latency and "no knob" tuning make Go a great balance between performance and productivity - granting engineering teams the power to choose and the power to move.
 
 ## Featured Go users & projects
 
 {{% mediaList %}}
     {{% mediaListBox img-src="/images/logos/google-cloud.svg" img-alt="Google Cloud Logo" title="" align=top %}}
-Google Cloud is built on Go. Many critical cloud projects used across the industry like [Kubernetes](https://kubernetes.io/), [Istio](https://istio.io/) and [gVisor](https://gvisor.dev/) were created in Go at Google Cloud. Go is fully supported on [Google Cloud](https://cloud.google.com) across all APIs and runtimes including serverless [App Engine](https://cloud.google.com/appengine/) and [Google Cloud Functions](https://cloud.google.com/functions/). 
+Google Cloud is built on Go. Many critical cloud projects used across the industry like [Kubernetes](https://kubernetes.io/), [Istio](https://istio.io/) and [gVisor](https://gvisor.dev/) were created in Go at Google Cloud. Go is fully supported on [Google Cloud](https://cloud.google.com) across all APIs and runtimes including serverless [App Engine](https://cloud.google.com/appengine/), [Knative](https://cloud.google.com/knative/), [Cloud Run](https://cloud.google.com/run/), and [Google Cloud Functions](https://cloud.google.com/functions/). 
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/capital-one.svg" img-alt="Capital One Logo" title="" align=top %}}
 Capital One uses Go to power the [Credit Offers API, a critical service](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f). The engineering team is also building their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
@@ -58,7 +58,7 @@ Capital One uses Go to power the [Credit Offers API, a critical service](https:/
 Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Today, most of the company's infrastructure is written in Go.  Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/mercadoLibre.svg" img-alt="MercadoLibre Logo" title="" align=top %}}
-MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
+MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows. Go improves their productivity while streamlining and expanding MercadoLibre services.
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/twitch.svg" img-alt="Twitch Logo" title="" align=top %}}
 Twitch [uses Go to power many of its busiest systems](https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/) that serve live video and chat to millions of users. 
@@ -69,9 +69,6 @@ The New York Times adopted Go ["to build better back-end services"](https://open
     {{% mediaListBox img-src="/images/logos/uber-app-icon.svg" img-alt="Uber Logo" title="" align=top %}}
 Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their [real-time analytics engine](https://eng.uber.com/aresdb/), AresDB, to their [microservice for Geo-querying](https://eng.uber.com/go-geofence/), Geofence, and [their resource scheduler](https://eng.uber.com/open-sourcing-peloton/).
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/gokit.png" img-alt="Go Kit Logo" title="" align=top %}}
-[Go kit](https://gokit.io) is an open source toolkit for creating microservices. Described as "fill[ing] in the gaps left by the otherwise excellent standard library, giving your team the confidence to adopt Go throughout your stack."
-    {{% /mediaListBox %}}
 {{% /mediaList %}}
 
 ## How to use Go for Cloud Computing
@@ -79,6 +76,8 @@ Uber uses Go to power several of its critical services that impact the experienc
 Go's strengths shine when it comes to building services. Its speed and built-in support for concurrency results in fast and efficient services, while static typing, robust tooling, and emphasis on simplicity and readability help build reliable and maintainable code.
  
 Go has a strong ecosystem supporting service development. The [standard library](https://golang.org/pkg/) includes packages for common needs like HTTP servers and clients, JSON/XML parsing, SQL databases, and a range of security/encryption functionality, while the Go runtime includes tools for [race detection](https://golang.org/doc/articles/race_detector.html), [benchmarking](https://golang.org/pkg/testing/#hdr-Benchmarks)/profiling, code generation, and static code analysis.
+
+The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https://aws.amazon.com/sdk-for-go/), [Azure](https://docs.microsoft.com/en-us/azure/go/)) have Go APIs for their services, and popular open source libraries provide support for API tooling ([Swagger](https://github.com/go-swagger/go-swagger)), transport ([protocol buffers](https://github.com/golang/protobuf), [gRPC](https://grpc.io/docs/quickstart/go/)), monitoring ([OpenCensus](https://godoc.org/go.opencensus.io)), Object-Relational Mapping ([gORM](https://gorm.io/)), and authentication ([JWT](https://github.com/dgrijalva/jwt-go)). The open source community has also provided several service frameworks, including [Go Kit](https://gokit.io/[), [Go Micro](https://micro.mu/docs/go-micro.html), and [Gizmo](https://github.com/nytimes/gizmo), which can be a great way to get started quickly.
 
 Two popular Go tools for cloud computing include [Docker](https://docker.com) and [Kubernetes](https://kubernetes.io):
 
@@ -88,11 +87,10 @@ Cloud developers use Docker to manage their Go code and support multiple platfor
 
 **Kubernetes is an open-source container-orchestration system, written in Go, for automating web app deployment.** Web apps are often built using containers (as noted above) packaged with their dependencies and configurations. Kubernetes helps deploying and managing those containers at scale. Cloud programmers use Kubernetes to build, deliver, and scale containerized apps quickly—managing the growing complexity via APIs that controls how the containers will run.
 
-The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https://aws.amazon.com/sdk-for-go/), [Azure](https://docs.microsoft.com/en-us/azure/go/)) have Go APIs for their services, and popular open source libraries provide support for API tooling ([Swagger](https://github.com/go-swagger/go-swagger)), transport ([protocol buffers](https://github.com/golang/protobuf), [gRPC](https://grpc.io/docs/quickstart/go/)), monitoring ([OpenCensus](https://godoc.org/go.opencensus.io)), Object-Relational Mapping ([gORM](https://gorm.io/)), and authentication ([JWT](https://github.com/dgrijalva/jwt-go)). The open source community has also provided several service frameworks, including [Go Kit](https://gokit.io/[), [Go Micro](https://micro.mu/docs/go-micro.html), and [Gizmo](https://github.com/nytimes/gizmo), which can be a great way to get started quickly.
 
 ## Key solutions
 
-### Go books on web development 
+### Go books for cloud computing
 
 {{% books %}}
 
