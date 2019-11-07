@@ -30,11 +30,11 @@ resources:
 
 ## CLI developers prefer Go for portability, performance, and ease of creation
 
-Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), use text-only instructions and syntax to interact with applications and operating systems. While desktop and mobile are primarily GUI-based, cloud and infrastructure are CLI-based due to their easy automation and remote capabilities. CLIs allow users to perform specific computing tasks by typing text commands and receiving system replies via text outputs, and CLIs are easily automated and can be combined to create custom workflows.
+Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), are text-only. Cloud and infrastructure applications are primarily CLI-based due to their easy automation and remote capabilities. 
 
 {{% gopher gopher=happy align=right %}}
 
-Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. 
+Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community.  From a single Windows or Mac laptop, developers can build a Go program for every one of the dozens of architectures and operating systems Go supports in a matter of seconds, no complicated build farms are needed. No other compiled language can be built as portably or quickly. Go applications are built into a single self contained binary making installing Go applications trivial.
 
 {{% pullquote author="Elliot Forbes, Software Engineer at JP Morgan" link="https://tutorialedge.net/golang/building-a-cli-in-go/" %}}
 The design of Go lends itself incredibly well to [many] styles of application, and the ability to cross-compile a binary executable for all major platforms easily is a massive win.”
@@ -61,11 +61,14 @@ Uber uses Go for several CLI tools, including the [CLI API for Jaeger](https://w
     {{% mediaListBox img-src="/images/logos/stripe.svg" img-alt="Stripe Logo"  img-link="https://stripe.com" title="" align=top  %}}
 Stripe [uses Go for the Stripe CLI](https://github.com/stripe/stripe-cli) aimed to help build, test, and manage a Stripe integration right from the terminal.
 {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/kubernetes.svg" img-alt="Kubernetes Logo"  img-link="https://kubernetes.com" title="" align=top  %}}
-Kubernetes is one of the most popular Go CLI applications. [Kubernetes Creator, Joe Beda, said that for writing Kubernetes](https://blog.gopheracademy.com/birthday-bash-2014/kubernetes-go-crazy-delicious/), "Go was the only logical choice". Calling Go "the sweet spot" between low level languages like C++ and high level languages like Python. 
-{{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/netflix.svg" img-alt="Netflix Logo" title="" align=top %}}
+Netflix uses Go to build the CLI application [ChaosMonkey](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), an application responsible for randomly terminating instances in production to ensure that engineers implement their services to be resilient to instance failures. 
+    {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/mongodb.svg" img-alt="MongoDB Logo"  img-link="https://mongodb.com" title="" align=top  %}}
 MongoDB choose to [implement their Backup CLI Tool in Go](https://www.mongodb.com/blog/post/go-agent-go) citing Go's "C-like syntax, strong standard library, the resolution of concurrency problems via goroutines, and painless multi-platform distribution" as reasons. 
+{{% /mediaListBox %}}
+    {{% mediaListBox img-src="/images/logos/kubernetes.svg" img-alt="Kubernetes Logo"  img-link="https://kubernetes.com" title="" align=top  %}}
+Kubernetes is one of the most popular Go CLI applications. [Kubernetes Creator, Joe Beda, said that for writing Kubernetes](https://blog.gopheracademy.com/birthday-bash-2014/kubernetes-go-crazy-delicious/), "Go was the only logical choice". Calling Go "the sweet spot" between low level languages like C++ and high level languages like Python. 
 {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/hugo.svg" img-alt="Hugo Logo"  img-link="https://gohugo.io" title="" align=top  %}}
 Hugo is one of the most popular Go CLI applications powering thousands of sites including this one. One reason for it's popularity is it's ease of install thanks to Go. Hugo author [Bjørn Erik Pedersen writes](https://gohugo.io/news/lets-celebrate-hugos-5th-birthday/) "The single binary takes most of the pain out of installation and upgrades."
@@ -75,11 +78,9 @@ Hugo is one of the most popular Go CLI applications powering thousands of sites 
 
 ## How to use Go for CLIs
 
-From a Windows or Mac machine, developers can build a Go program for every one of the dozens of architectures and operating systems Go supports—with no complicated build farms. No other compiled language is so readily deployed.
-
 When developing CLIs in Go, programmers find several tools hugely helpful: Cobra, Viper, and debugger Delve.
 
- {{< pkg "github.com/spf13/cobra" Cobra >}}, for example, is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and many other popular apps where handlers/commands can live in separate files or modules. “It also makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
+ {{< pkg "github.com/spf13/cobra" Cobra >}} is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and many other popular apps where handlers/commands can live in separate files or modules. “It also makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
 
 {{% pullquote author="Francesc Campoy, VP of product at DGraph Labs and producer of Just For Func videos" link="https://www.youtube.com/watch?v=WvWPGVKLvR4" %}}
 Cobra is a great product to write small tools or even large ones. It's more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between."
@@ -87,15 +88,16 @@ Cobra is a great product to write small tools or even large ones. It's more of a
 
 Cobra allows developers to build command-line utilities with commands, subcommands, aliases, configuration files, etc. All Cobra projects follow the [same development cycle](https://www.linode.com/docs/development/go/using-cobra/):  “You first use the Cobra tool to initialize a project, then you create commands and subcommands, and finally you make the desired changes to the generated Go source files in order to support the desired functionality.”
 
-"The framework Cobra provides a generator that adds some boilerplate code for you," [says Nick Geudens](https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html), Java consultant at Ordina Belgium. "This is handy because now you can focus more on the logic of your CLI instead of figuring out how to parse flags."
-
+{{< gopher gopher=peach  >}}
  {{< pkg "github.com/spf13/viper" Viper >}} is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper work together.
 
 "If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables. To do this, you can use Viper," [suggests Geudens](https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html). "Cobra already uses Viper in the generated code."
 
 Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-configuration-with-viper/) in the configuration, allowing CLI developers to manage the configuration for multiple parts of a large application.
 
-"I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy," [explains Steve Domino](https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056), senior engineer and architect at Strala. "Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!"
+{{< pullquote author="Steve Domino, senior engineer and architect at Strala" link="https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056" >}}
+I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!
+{{< /pullquote >}}
 
 For debugging Go code, {{< pkg "github.com/go-delve/delve" delve >}} is a simple and powerful tool built for programmers used to using a source-level debugger in a compiled language.
 
