@@ -31,15 +31,15 @@ resources:
     alt: globe
 ---
 
-### _Go helps enterprises build and scale Cloud Computing systems_
-
-## **Why use Go for Cloud Computing**
+## Go helps enterprises build and scale Cloud Computing systems
 
 As applications and processing move to the cloud, concurrency becomes a very big issue. Cloud computing systems, by their very nature, share and scale resources. Coordinating access to shared resources is an issue that impacts every application processing in the cloud, and requires programming languages “[explicitly geared to develop highly reliable concurrent applications](https://tomassetti.me/best-programming-languages/).”
  
 Go was created to address exactly these concurrency needs for scaled applications, microservices, and cloud development. In fact, **over 75 percent of projects in the Cloud Native Computing Foundation ([CNCF](https://www.cncf.io/projects/)) are written in Go**.
 
-“Go makes it very easy to scale as a company,” [says developer Ruchi Malik](https://builtin.com/software-engineering-perspectives/golang-advantages) at Choozle. “This is very important because, as our engineering team grows, each service can be managed by a different unit.”
+{{< pullquote author="Ruchi Malik, developer at Choozle" link="https://builtin.com/software-engineering-perspectives/golang-advantages" >}}
+Go makes it very easy to scale as a company. This is very important because, as our engineering team grows, each service can be managed by a different unit.
+{{< /pullquote >}}
 
 Service developers often make a tradeoff between development cycle time and server performance. Go's helps reduce the need to make this tradeoff, with its fast build times that enable iterative development, lower memory and CPU utilization, making servers built with Go cheaper to run in pay-as-you-go deployments.
 
@@ -96,22 +96,35 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
 
 {{% books %}}
 
-{{< headerWithLink header="Libraries" link="https://pkg.go.dev/search?q=cloudframework" level=3 >}} 
+{{< headerWithLink header="Service frameworks" search="service framework" level=3 >}} 
 
-*   {{< pkg "https://github.com/go-swagger/go-swagger" >}}, a simple and powerful representation of RESTful APIs
+*   {{< pkg "https://github.com/go-kit/kit" go-kit >}}, a programming toolkit for building microservices (or elegant monoliths) in Go
+*   {{< pkg "https://github.com/micro/go-micro" go-micro >}}, a framework for microservice development
+*   {{< pkg "https://github.com/nytimes/gizmo" >}}, a microservice framework from The New York Times
+*   {{< pkg "go.uber.org/yarpc" >}}, a microservice framework from Uber 
+
+{{< headerWithLink header="Cloud client Libraries" search="cloud client OR cloud SDK" level=3 >}} 
+
+*   {{< pkg "cloud.google.com/go" "cloud.google.com/go">}}, Google Cloud Client Libraries for Go 
+*   {{< pkg "github.com/aws/aws-sdk-go/aws/client" "aws/client">}}, AWS SDK for Go 
+*   {{< pkg "github.com/aliyun/alibaba-cloud-sdk-go/sdk" >}}, Alibaba Cloud SDK for Go 
+*   {{< pkg "github.com/Azure/azure-sdk-for-go" >}}, Azure SDK for Go
+*   {{< pkg "github.com/IBM-Cloud/bluemix-go" >}}, IBM Cloud SDK for Go
+*   {{< pkg "github.com/heroku/heroku-go/v5" >}}, Heroku client library 
+
+
+{{< headerWithLink header="Libraries" search="REST OR API OR web OR cloud" level=3 >}} 
+
+*   {{< pkg "https://github.com/go-swagger/go-swagger" go-swagger >}}, a simple and powerful representation of RESTful APIs
+*   {{< pkg "github.com/emicklei/go-restful" >}}, create REST-style services without magic 
 *   {{< pkg "https://github.com/golang/protobuf" >}}, Go support for Google's protocol buffer
-*   {{< pkg "https://github.com/grpc/grpc-go" >}}, a high performance, open source, general RPC framework 
+*   {{< pkg "https://github.com/grpc/grpc-go" grpc-go >}}, a high performance, open source, general RPC framework 
 *   {{< pkg "https://github.com/census-instrumentation/opencensus-go/blob/master/opencensus.go" >}}, a set of libraries for collecting application metrics and distributed traces
 *   {{< pkg "https://github.com/jinzhu/gorm" >}}, an ORM library for Go
 *   {{< pkg "https://github.com/dgrijalva/jwt-go" >}}, a Go implementation of json web tokens 
+*   {{< pkg "github.com/lileio/lile" >}}, quickly create RPC base services
 
-{{< headerWithLink header="Service frameworks" link="https://pkg.go.dev/search?q=cloudframework" level=3 >}} 
-
-*   {{< pkg "https://github.com/go-kit/kit" >}}, a programming toolkit for building microservices (or elegant monoliths) in Go
-*   {{< pkg "https://github.com/micro/go-micro" >}}, a framework for microservice development
-*   {{< pkg "https://github.com/nytimes/gizmo" >}}, a microservice framework from The New York Times
-
-### Other
+### Other resources
 
 *   [Microservices in Golang](https://ewanvalentine.io/microservices-in-golang-part-1/), a walkthrough of microservices with Go-micro
 *   [Awesome Go](https://awesome-go.com/), a curated list of Go frameworks, libraries, and software
