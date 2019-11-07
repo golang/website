@@ -60,26 +60,25 @@ Bayburtsyan summarizes the five key reasons his company switched to Go:
 ## Featured Go users & projects
 
 {{% mediaList %}}
-    {{% mediaListBox img-src="/images/logos/hugo.svg" img-alt="Hugo Logo"  img-link="https://gohugo.io" title="Hugo" align=top  %}}
-[Hugo](https://gohugo.io) is a fast and modern static site generator written in Go, and designed to make website creation fun again. Hugo is one of the most popular website engines available today. Websites built with Hugo are extremely fast and secure and can be hosted anywhere without any dependencies. 
+    {{% mediaListBox img-src="/images/logos/hugo.svg" img-alt="Hugo Logo"  img-link="https://gohugo.io" align=top  %}}
+[Hugo](https://gohugo.io) is a fast and modern website engine written in Go, and designed to make website creation fun again. Websites built with Hugo are extremely fast and secure and can be hosted anywhere without any dependencies. 
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/caddy.svg" img-alt="Caddy Logo"  img-link="https://caddyserver.com" title="Caddy" align=top  %}}
-[Caddy 2](https://caddyserver.com) is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go. Written in Go, Caddy offers greater memory safety than servers written in C. A hardened TLS stack powered by the Go standard library serves a significant portion of all Internet traffic. 
+    {{% mediaListBox img-src="/images/logos/caddy.svg" img-alt="Caddy Logo"  img-link="https://caddyserver.com" align=top  %}}
+[Caddy 2](https://caddyserver.com) is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go. Caddy offers greater memory safety than servers written in C. A hardened TLS stack powered by the Go standard library serves a significant portion of all Internet traffic. 
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/medium.svg" img-alt="Medium Logo"  img-link="https://medium.org" title="Medium" align=top  %}}
-Medium gets "over 25 million unique readers every month and tens of thousands of posts published each week." Medium uses Go to power [their social graph](https://medium.engineering/how-medium-goes-social-b7dbefa6d413), their [image server and several auxiliary services](https://medium.engineering/how-medium-goes-social-b7dbefa6d413). "We’ve found Go very easy to build, package, and deploy. We like the type-safety without the verbosity and JVM tuning of Java." 
+    {{% mediaListBox img-src="/images/logos/medium.svg" img-alt="Medium Logo"  img-link="https://medium.org" align=top  %}}
+Medium uses Go to power [their social graph](https://medium.engineering/how-medium-goes-social-b7dbefa6d413), their [image server and several auxiliary services](https://medium.engineering/how-medium-goes-social-b7dbefa6d413). "We’ve found Go very easy to build, package, and deploy. We like the type-safety without the verbosity and JVM tuning of Java." 
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/cloudflare-icon.svg" img-alt="Cloudflare Logo" title="Cloudflare" align="top" %}}
-Cloudflare speeds up and protects millions of websites, APIs, SaaS services, and other properties connected to the Internet. "[Go is at the heart of CloudFlare's services](https://blog.cloudflare.com/what-weve-been-doing-with-go/) including handling compression for high-latency HTTP connections, our entire DNS infrastructure, SSL, load testing and more." Go's early support for TLS 1.3 enabled CloudFlare to be [one of the early adopters](https://blog.cloudflare.com/know-your-scm_rights/) of this critical improvement before OpenSSL or BoringSSL even had an implementation. 
+    {{% mediaListBox img-src="/images/logos/cloudflare-icon.svg" img-alt="Cloudflare Logo" align="top" %}}
+Cloudflare speeds up and protects millions of websites, APIs, SaaS services, and other properties connected to the Internet. "[Go is at the heart of CloudFlare's services](https://blog.cloudflare.com/what-weve-been-doing-with-go/) including handling compression for high-latency HTTP connections, our entire DNS infrastructure, SSL, load testing and more."  
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/economist.svg" img-alt="Economist Logo" img-link="https://economist.com" title="The  Economist" align=top %}}
-The Economist needed more flexibility to deliver content to increasingly diverse digital channels. Services written in Go was a key component of the new system that would enable The Economist to deliver scalable, high performing services and quickly iterate new products. 
+    {{% mediaListBox img-src="/images/logos/economist.svg" img-alt="Economist Logo" img-link="https://economist.com" align=top %}}
+The Economist needed more flexibility to deliver content to increasingly diverse digital channels. Services written in Go were a key component of the new system that would enable The Economist to deliver scalable, high performing services and quickly iterate new products. 
 [“Overall, it was determined that Go was the language best designed for usability and efficiency in a distributed, cloud-based system.”](https://www.infoq.com/articles/golang-the-economist/)
     {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/govuk.svg" img-alt="Gov.UK Logo" img-link="https://gov.uk" title="Gov.UK" align=top %}}
-The simplicity and safety of the Go language were a good fit for a core component of their HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. [“In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,”](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
+    {{% mediaListBox img-src="/images/logos/govuk.svg" img-alt="Gov.UK Logo" img-link="https://gov.uk" align=top %}}
+The simplicity and safety of the Go language were a good fit for their HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. [“In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,”](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
     {{% /mediaListBox %}}
-
 {{% /mediaList %}}
 
 ## Key Solutions
@@ -99,31 +98,30 @@ The simplicity and safety of the Go language were a good fit for a core componen
 
 {{< headerWithLink header="Routers" search="http router" level=3 >}} 
 
-* [httprouter](https://pkg.go.dev/github.com/julienschmidt/httprouter?tab=overview), a lightweight high performance HTTP request router
-* [Gorilla/mux](http://www.gorillatoolkit.org/pkg/mux), a powerful HTTP router and URL matcher for building Go web servers with 🦍
-* [Chi](https://pkg.go.dev/github.com/go-chi/chi?tab=overview), a lightweight, idiomatic and composable router for building Go HTTP services.
+* {{< pkg "github.com/julienschmidt/httprouter" >}}, a lightweight high performance HTTP request router
+* {{< pkg "github.com/gorilla/mux" >}}, a powerful HTTP router and URL matcher for building Go web servers with 🦍
+* {{< pkg "github.com/go-chi/chi" chi >}}, a lightweight, idiomatic and composable router for building Go HTTP services.
 * [net/http](https://pkg.go.dev/net/http), standard library HTTP package
 
 {{< headerWithLink header="Template Engines" search="templates" level=3 >}} 
 
 * [html/template](https://pkg.go.dev/html/template), standard library HTML template engine
-* [pongo2](https://pkg.go.dev/github.com/flosch/pongo2?tab=overview), a Django-syntax like templating-language
+* {{< pkg "github.com/flosch/pongo2" >}}, a Django-syntax like templating-language
 
-{{< headerWithLink header="Databases" search="database" level=3 >}} 
+{{< headerWithLink header="Databases & Drivers" search="database OR sql" level=3 >}} 
 
 * [database/sql](https://pkg.go.dev/database/sql), standard library interface with driver support for MySQL, Postgres, Oracle, MS SQL, BigQuery and [most SQL databases](https://github.com/golang/go/wiki/SQLDrivers)
+* {{< pkg "go.mongodb.org/mongo-driver/mongo" >}}, The MongoDB supported driver for Go
+* {{< pkg "github.com/olivere/elastic" >}}, an Elasticsearch client for Go
 * [GORM](https://gorm.io/), an ORM library for Go
-* [mongo](https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview), The MongoDB supported driver for Go
-* [elastic](https://pkg.go.dev/github.com/olivere/elastic?tab=overview), an Elasticsearch client for Go
-*   [Bleve](http://blevesearch.com/), full-text search and indexing for Go
-*   [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale
-
+* [Bleve](http://blevesearch.com/), full-text search and indexing for Go
+* [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale
 
 ### Courses
 * [Learn to Create Web Applications using Go](https://www.usegolang.com), a paid online course
 
 ### Projects
-*   [GopherJS](https://github.com/gopherjs/gopherjs), a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
+*   {{< pkg "github.com/gopherjs/gopherjs" gopherjs >}}, a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
 *   [Hugo](https://gohugo.io/), The world’s fastest framework for building websites
 *   [Mattermost](https://mattermost.com/), a flexible, open source messaging platform
 that enables secure team collaboration
