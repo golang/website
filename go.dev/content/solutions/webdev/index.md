@@ -33,10 +33,10 @@ resources:
 
 ## Go delivers speed, security, and developer-friendly tools for Web Applications
 
-Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability. 
+Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability. 
 
 {{% gopher gopher=front align=right %}}
-For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code executes to a single, small binary—with zero dependencies—making it very fast.
+For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code compiles to a single, small binary—with zero dependencies—making it very fast.
 
 “If you are looking for powerful tools for web programming, mobile development, microservices, and ERP systems,” [writes Andrew Smith](https://dzone.com/articles/golang-web-development-better-than-python), marketing manager at QArea. “Go web development has proved to be faster than using Python for the same kind of tasks in many use cases.”
 
@@ -77,7 +77,7 @@ The Economist needed more flexibility to deliver content to increasingly diverse
 [“Overall, it was determined that Go was the language best designed for usability and efficiency in a distributed, cloud-based system.”](https://www.infoq.com/articles/golang-the-economist/)
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/govuk.svg" img-alt="Gov.UK Logo" img-link="https://gov.uk" align=top %}}
-The simplicity and safety of the Go language were a good fit for their HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. [“In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,”](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
+The simplicity and safety of the Go language were a good fit for the United Kingdom's government's HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. [“In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,”](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
     {{% /mediaListBox %}}
 {{% /mediaList %}}
 
