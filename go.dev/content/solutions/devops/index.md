@@ -61,7 +61,7 @@ Docker is a software-as-a-service (SaaS) product, written in Go, that DevOps/SRE
 automation and deployment at massive scale](https://www.docker.com/solutions/cicd),” supporting their CI/CD efforts.
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/drone.svg" img-alt="Drone Logo" img-link="https://github.com/drone" title="" align=top %}}
-Drone is a [Continuous Delivery system built on container technology](https://github.com/drone) that uses a simple YAML configuration file, a superset of docker-compose, to define and execute Pipelines inside Docker containers.
+Drone is a [Continuous Delivery system built on container technology](https://github.com/drone), written in Go, that uses a simple YAML configuration file, a superset of docker-compose, to define and execute Pipelines inside Docker containers.
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/etcd.svg" img-alt="etcd Logo" img-link="https://github.com/etcd-io/etcd" title="" align=top %}}
 etcd is a [strongly consistent, distributed key-value store](https://github.com/etcd-io/etcd) that provides a reliable way to store data that needs to be accessed by a distributed system or cluster of machines, and its written in Go.
@@ -76,8 +76,7 @@ teams with OpenShift clusters to maintain regulatory compliance and focus on app
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/terraform.png" img-alt="Terraform Logo" img-link="https://terraform.io" title="" align=top %}}
 Terraform is a [tool for building, changing, and versioning infrastructure](https://www.terraform.io/intro/index.html)
-safely and efficiently. It supports a number of cloud providers such as AWS, IBM Cloud, GCP, and Microsoft
-Azure - and its written in Go.
+safely and efficiently. It supports a number of cloud providers such as AWS, IBM Cloud, GCP, and Microsoft Azure - and its written in Go.
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/prometheus.svg" img-alt="Prometheus Logo" img-link="https://github.com/prometheus/prometheus" title="" align=top %}}
 Prometheus is an [open-source systems monitoring and alerting toolkit](https://github.com/prometheus/prometheus) originally built at SoundCloud. Most Prometheus components are written in Go, making them easy to build and deploy as static binaries.
@@ -112,16 +111,18 @@ Every SRE has written software that ended up growing in scope: "one time use" sc
 
 {{% books %}}
 
-{{< headerWithLink header="Monitoring and tracing" link="https://pkg.go.dev/search?q=tracing" level=3 >}} 
+{{< headerWithLink header="Monitoring and tracing" search="tracing" level=3 >}} 
 
 *   {{< pkg "https://github.com/opentracing/opentracing-go">}}, vendor-neutral APIs and instrumentation for distributed tracing
 *   {{< pkg "https://github.com/jaegertracing/jaeger-client-go">}}, and open source distributed tracing system developed by Uber
 *   {{< pkg "https://github.com/grafana/grafana">}}, an open-source platform for monitoring and observability
 *   {{< pkg "https://github.com/istio/istio">}}, an open-source service mesh and integratable platform  
 
-{{< headerWithLink header="Package Managers" link="https://pkg.go.dev/search?q=package" level=3 >}} 
+{{< headerWithLink header="CLI libraries" search="command line OR CLI" level=3 >}} 
 
-*   {{< pkg "https://github.com/helm/helm">}}, a package manager for Kubernetes  
+*   {{< pkg "github.com/spf13/cobra" >}}, a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go
+*   {{< pkg "github.com/spf13/viper" >}}, a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats
+*   {{< pkg "github.com/urfave/cli" >}}, a minimal framework for creating and organizing command line Go applications
 
 ### Other
 
