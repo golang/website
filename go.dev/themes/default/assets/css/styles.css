@@ -647,14 +647,12 @@ h6 {
 .headerWithLink h3 {
   margin-bottom: 0;
 }
-
 .headerLink {
   align-self: center;
   font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
 }
-
 .LearnGo-subHeader {
   display: flex;
   justify-content: space-between;
@@ -706,7 +704,6 @@ h6 {
   justify-content: center;
   margin: auto;
   max-width: 16.5rem;
-  width: 16.5rem;
   width: 16.5rem;
 }
 .LearnGo-courseImage img {
@@ -870,7 +867,7 @@ h6 {
     width: 22rem;
   }
   .Learn-quickstartThumbnail img {
-    height: 14.6875rem;
+    max-height: 14.6875rem;
     max-width: 22rem;
   }
 }
