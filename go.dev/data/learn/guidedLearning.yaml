@@ -6,12 +6,12 @@ links:
   - title: CLIs
     description: A guided workshop on building command-line interfaces with Go.
     url: https://spf13.com/presentation/building-an-awesome-cli-app-in-go-oscon/
-    thumbnail: 
+    thumbnail: /images/learn/commandline.svg
   - title: New to Coding
     description: A video tutorial that aims to cover the various fundamentals of Go.
     url: https://www.youtube.com/watch?v=Q0sKAMal4WQ
-    thumbnail:
+    thumbnail: /images/learn/edureka.png
   - title: Go by Example
     description: Go by Example is a hands-on introduction to Go using annotated example programs.
     url: https://gobyexample.com/
-    thumbnail:
+    thumbnail: /images/learn/gobyexample.png
