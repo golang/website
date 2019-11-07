@@ -857,13 +857,23 @@ h6 {
   background-color: #e9e9e9;
   border-radius: 0.3125rem;
   display: flex;
-  height: 14.6875rem;
-  width: 22rem;
+  height: 9.66rem;
+  width: 14.6875rem;
 }
 .Learn-quickstartThumbnail img {
-  height: 14.6875rem;
   margin: auto;
-  max-width: 22rem;
+  max-height: 9.66rem;
+  max-width: 14.6875rem;
+}
+@media only screen and (min-width: 57.7rem) {
+  .Learn-quickstartThumbnail {
+    height: 14.6875rem;
+    width: 22rem;
+  }
+  .Learn-quickstartThumbnail img {
+    height: 14.6875rem;
+    max-width: 22rem;
+  }
 }
 .Learn-quickstarts {
   display: flex;
