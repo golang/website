@@ -41,7 +41,7 @@
 
   // Register feedback listeners.
   window.addEventListener('load', () => {
-    const buttons = document.querySelectorAll('js-feedbackButton');
+    const buttons = document.querySelectorAll('.js-feedbackButton');
     buttons.forEach(button => {
       button.addEventListener('click', sendFeedback);
     });
