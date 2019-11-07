@@ -1,4 +1,6 @@
 {{- $link := .Get 0 -}}
+{{- $link = replace $link "https://" ""}}
+{{- $link = replace $link "http://" ""}}
 {{- $label := or (.Get 1) (.Get 0) -}}
 {{- if not (.Get 1) -}}
     {{- $name := path.Base $label -}}
