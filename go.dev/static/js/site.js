@@ -41,7 +41,7 @@
 
   // Register feedback listeners.
   window.addEventListener('load', () => {
-    const buttons = document.querySelectorAll('js-feedbackButton');
+    const buttons = document.querySelectorAll('.js-feedbackButton');
     buttons.forEach(button => {
       button.addEventListener('click', sendFeedback);
     });
@@ -51,4 +51,9 @@
   function sendFeedback() {
     userfeedback.api.startFeedback({ productId: '5131929', bucket: 'Default' });
   }
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'UA-141356704-1');
 })();

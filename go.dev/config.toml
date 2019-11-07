@@ -7,9 +7,6 @@ theme = "default"
   hrefTargetBlank = true
   noreferrerLinks = true
 
-[params]
-  GoogleAnalyticsTrackingID = "UA-141356704-1"
-
 [menu]
   [[menu.main]]
     identifier = "solutions"
