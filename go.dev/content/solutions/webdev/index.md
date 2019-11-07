@@ -95,7 +95,6 @@ The simplicity and safety of the Go language were a good fit for their HTTP infr
 *   [Gin](https://gin-gonic.com/), a web framework written in Go. It features a martini-like API with much better performance, up to 40 times faster. If you need performance and good productivity, you will love Gin.
 *   [Gorilla](http://www.gorillatoolkit.org/), a web toolkit for the Go programming language. Packages include a powerful URL router and dispatcher, context, RPC, schema, sessions, websocket, and more.
 
-
 {{< headerWithLink header="Routers" search="http router" level=3 >}} 
 
 * {{< pkg "github.com/julienschmidt/httprouter" >}}, a lightweight high performance HTTP request router
@@ -116,6 +115,13 @@ The simplicity and safety of the Go language were a good fit for their HTTP infr
 * [GORM](https://gorm.io/), an ORM library for Go
 * [Bleve](http://blevesearch.com/), full-text search and indexing for Go
 * [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale
+
+{{< headerWithLink header="Web Libraries" search="web" level=3 >}} 
+
+* {{< pkg "github.com/markbates/goth" >}}, authentication for web apps 
+*   {{< pkg "https://github.com/jinzhu/gorm" >}}, an ORM library for Go
+*   {{< pkg "https://github.com/dgrijalva/jwt-go" >}}, a Go implementation of json web tokens 
+
 
 ### Courses
 * [Learn to Create Web Applications using Go](https://www.usegolang.com), a paid online course
