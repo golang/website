@@ -856,12 +856,14 @@ h6 {
 .Learn-quickstartThumbnail {
   background-color: #e9e9e9;
   border-radius: 0.3125rem;
+  display: flex;
   height: 14.6875rem;
   width: 22rem;
 }
 .Learn-quickstartThumbnail img {
-  padding: 2em;
-  width: 100%;
+  height: 14.6875rem;
+  margin: auto;
+  max-width: 22rem;
 }
 .Learn-quickstarts {
   display: flex;
