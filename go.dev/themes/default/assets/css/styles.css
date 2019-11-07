@@ -645,6 +645,10 @@ h6 {
   width: 100%;
 }
 
+.headerWithLink h3 {
+  margin-bottom: 0;
+}
+
 .headerLink {
   align-self: center;
   font-size: 1.125rem;
@@ -852,12 +856,24 @@ h6 {
 .Learn-quickstartThumbnail {
   background-color: #e9e9e9;
   border-radius: 0.3125rem;
-  height: 14.6875rem;
-  width: 22rem;
+  display: flex;
+  height: 9.66rem;
+  width: 14.6875rem;
 }
 .Learn-quickstartThumbnail img {
-  padding: 2em;
-  width: 100%;
+  margin: auto;
+  max-height: 9.66rem;
+  max-width: 14.6875rem;
+}
+@media only screen and (min-width: 57.7rem) {
+  .Learn-quickstartThumbnail {
+    height: 14.6875rem;
+    width: 22rem;
+  }
+  .Learn-quickstartThumbnail img {
+    height: 14.6875rem;
+    max-width: 22rem;
+  }
 }
 .Learn-quickstarts {
   display: flex;
@@ -915,11 +931,6 @@ h6 {
   display: flex;
   justify-content: space-between;
   width: 100%;
-}
-.Learn-viewMore {
-  align-self: center;
-  font-size: 1.125rem;
-  font-weight: 600;
 }
 .Learn-tileList {
   display: flex;
@@ -1013,6 +1024,7 @@ h6 {
   border-bottom: 1px solid #e0e0e0;
 }
 .Learn-eventItem {
+  align-items: flex-start;
   display: flex;
   padding: 1rem 0;
 }
@@ -1020,29 +1032,28 @@ h6 {
   border-top: 1px solid #e0e0e0;
 }
 .Learn-eventThumbnail {
-  align-content: center;
   display: flex;
+  flex: 0 0 3rem;
   height: 3rem;
-  min-width: 3rem;
-  width: 3rem;
+  margin-right: 1rem;
 }
 .Learn-eventThumbnail--noimage {
   background-color: #ffffff;
 }
 .Learn-eventThumbnail img {
-  margin: auto;
-  max-height: 100%;
-  max-width: 100%;
+  height: auto;
+  width: 3rem;
 }
 .Learn-eventBody {
-  flex: auto;
-  padding-left: 1rem;
+  display: inline-flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
 }
 .Learn-eventDate {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
 }
 .Learn-eventDate p {
   color: #6e7072;
@@ -1053,7 +1064,6 @@ h6 {
   font-size: 1.25rem;
   font-weight: normal;
   margin: 0;
-  max-width: 30rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1066,20 +1076,22 @@ h6 {
   text-overflow: ellipsis;
 }
 .Learn-viewMore {
+  font-size: 1.125rem;
+  font-weight: 600;
   margin: 0;
+  min-width: 6.25rem;
 }
 @media only screen and (min-width: 57.7rem) {
   .Learn-eventThumbnail {
-    height: 5.375rem;
+    height: auto;
     min-width: 5.375rem;
-    width: 5.375rem;
   }
   .Learn-eventDate {
-    flex: 2;
+    flex: 0;
     flex-direction: column;
     justify-content: center;
     margin: 0 1rem;
-    min-width: 6rem;
+    min-width: 9rem;
   }
   .Learn-eventText {
     display: flex;
@@ -1087,7 +1099,8 @@ h6 {
     flex-direction: column;
     justify-content: space-around;
     max-height: 5.375rem;
-    padding-right: 5rem;
+    min-width: 0;
+    padding-right: 2rem;
   }
   .Learn-eventDescription {
     -webkit-line-clamp: 2; /* see non-media-query definition. */
