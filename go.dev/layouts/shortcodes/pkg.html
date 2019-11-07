@@ -1,0 +1,8 @@
+{{- $link := .Get 0 -}}
+{{- $label := or (.Get 1) (.Get 0) -}}
+{{- if not (.Get 1) -}}
+    {{- $name := path.Base $label -}}
+    {{- $owner := path.Base (path.Dir $label) -}}
+    {{- $label = path.Join $owner $name -}}
+{{end}}
+<a href="https://pkg.go.dev/{{$link}}?tab=overview">{{$label}}</a>
