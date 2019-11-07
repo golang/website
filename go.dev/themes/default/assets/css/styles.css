@@ -922,11 +922,6 @@ h6 {
   justify-content: space-between;
   width: 100%;
 }
-.Learn-viewMore {
-  align-self: center;
-  font-size: 1.125rem;
-  font-weight: 600;
-}
 .Learn-tileList {
   display: flex;
   flex: 1 0 100%;
@@ -1019,6 +1014,7 @@ h6 {
   border-bottom: 1px solid #e0e0e0;
 }
 .Learn-eventItem {
+  align-items: flex-start;
   display: flex;
   padding: 1rem 0;
 }
@@ -1026,29 +1022,28 @@ h6 {
   border-top: 1px solid #e0e0e0;
 }
 .Learn-eventThumbnail {
-  align-content: center;
   display: flex;
+  flex: 0 0 3rem;
   height: 3rem;
-  min-width: 3rem;
-  width: 3rem;
+  margin-right: 1rem;
 }
 .Learn-eventThumbnail--noimage {
   background-color: #ffffff;
 }
 .Learn-eventThumbnail img {
-  margin: auto;
-  max-height: 100%;
-  max-width: 100%;
+  height: auto;
+  width: 3rem;
 }
 .Learn-eventBody {
-  flex: auto;
-  padding-left: 1rem;
+  display: inline-flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
 }
 .Learn-eventDate {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%;
 }
 .Learn-eventDate p {
   color: #6e7072;
@@ -1059,7 +1054,6 @@ h6 {
   font-size: 1.25rem;
   font-weight: normal;
   margin: 0;
-  max-width: 30rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1072,20 +1066,22 @@ h6 {
   text-overflow: ellipsis;
 }
 .Learn-viewMore {
+  font-size: 1.125rem;
+  font-weight: 600;
   margin: 0;
+  min-width: 6.25rem;
 }
 @media only screen and (min-width: 57.7rem) {
   .Learn-eventThumbnail {
-    height: 5.375rem;
+    height: auto;
     min-width: 5.375rem;
-    width: 5.375rem;
   }
   .Learn-eventDate {
-    flex: 2;
+    flex: 0;
     flex-direction: column;
     justify-content: center;
     margin: 0 1rem;
-    min-width: 6rem;
+    min-width: 9rem;
   }
   .Learn-eventText {
     display: flex;
@@ -1093,7 +1089,8 @@ h6 {
     flex-direction: column;
     justify-content: space-around;
     max-height: 5.375rem;
-    padding-right: 5rem;
+    min-width: 0;
+    padding-right: 2rem;
   }
   .Learn-eventDescription {
     -webkit-line-clamp: 2; /* see non-media-query definition. */
