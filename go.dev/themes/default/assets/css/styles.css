@@ -592,11 +592,10 @@ h6 {
 }
 .WhyGo-gridContainer {
   align-items: center;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
 }
 .WhyGo-reasons {
-  flex: 2 2 50%;
+  flex: 1 1 400px;
   list-style: none;
   padding-left: 0;
 }
@@ -631,7 +630,7 @@ h6 {
   height: 20px;
 }
 .WhyGo-gopher {
-  flex: 1 1 50%;
+  flex: 1;
   max-width: 28.4375rem;
   text-align: center;
 }
