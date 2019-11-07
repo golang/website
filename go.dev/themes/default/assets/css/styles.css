@@ -30,6 +30,7 @@ a:hover {
   margin-top: 3.5em;
 }
 .Site-footer {
+  border-top: 0.0625rem solid #dcdee0;
   color: #fff;
   font-size: 14px;
 }
@@ -64,20 +65,17 @@ a.Footer-link {
   font-size: 0.875rem;
   line-height: 2rem;
 }
-a.Footer-link--bold {
-  background: linear-gradient(to right, #fff 50%, transparent 50% 100%) left
-    bottom transparent no-repeat;
-  background-size: 100% 1px;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+a.Footer-link--primary {
+  font-size: 1.125rem;
   line-height: 1.75rem;
+  margin-bottom: 0.5rem;
   margin-top: 0.75rem;
 }
 .Footer-bottom {
   align-items: center;
-  background-color: #fff;
+  border-top: 0.0625rem solid #dcdee0;
   display: flex;
-  padding: 0 1.5rem;
+  margin: 0 1.5rem;
   min-height: 4.125rem;
 }
 .Footer-gopher {
@@ -86,6 +84,7 @@ a.Footer-link--bold {
 }
 .Footer-listRow {
   display: flex;
+  flex: 1;
   flex-wrap: wrap;
   list-style: none;
   margin: 0;
@@ -100,18 +99,22 @@ a.Footer-link--bold {
   margin: 0.4rem 0;
   padding: 0 1rem;
 }
+.Footer-listItem a:link,
+.Footer-listItem a:visited {
+  color: #fff;
+}
 @media only screen and (min-width: 52rem) {
   .Footer-listItem {
     flex: initial;
   }
   .Footer-listItem + .Footer-listItem {
-    border-left: 0.0625rem solid #3e4042;
+    border-left: 0.0625rem solid #c6c8ca;
   }
 }
 .Footer-feedbackButton {
   background: none;
   border: none;
-  color: #007d9c;
+  color: #fff;
   font-size: 0.875rem;
   padding: 0;
 }
@@ -121,7 +124,6 @@ a.Footer-link--bold {
 }
 .Footer-googleLogo {
   align-self: flex-end;
-  flex: 1;
   height: 1.5rem;
   margin-bottom: 1.3rem;
   text-align: right;
@@ -348,7 +350,7 @@ h6 {
 }
 .Article pre {
   background-color: #f8f9f9;
-  border: 1px solid #dcdee0;
+  border: 0.0625rem solid #dcdee0;
   border-radius: 6px;
   color: #3e4042;
   font-size: 16px;
@@ -444,15 +446,15 @@ h6 {
 }
 .Hero-actions a.Primary {
   background-color: #fddd00;
-  border: 1px solid #fddd00;
+  border: 0.0625rem solid #fddd00;
   border-radius: 4px;
-  margin: 1.3125rem 1.25rem 0;
-  height: 4rem;
-  width: 100%;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   color: #202224;
   font-size: 1.5rem;
+  height: 4rem;
+  margin: 1.3125rem 1.25rem 0;
   text-decoration: none;
+  width: 100%;
 }
 .Hero-gopher {
   display: flex;
@@ -726,7 +728,7 @@ h6 {
   padding: 1rem 0;
 }
 .LearnGo-eventItem + .LearnGo-eventItem {
-  border-top: 1px solid #e0e0e0;
+  border-top: 0.0625rem solid #e0e0e0;
 }
 .LearnGo-eventThumbnail {
   display: flex;
@@ -911,7 +913,7 @@ h6 {
 .Learn-viewMoreButton:hover,
 .Learn-viewMoreButton {
   background-color: #f5fcfe;
-  border: 1px solid #00add8;
+  border: 0.0625rem solid #00add8;
   border-radius: 0.25rem;
   box-shadow: 0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.2);
   box-sizing: border-box;
@@ -992,7 +994,7 @@ h6 {
   padding-left: 0;
 }
 .Learn-inPerson {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 0.0625rem solid #e0e0e0;
   flex: 1 1 500px;
   margin: 0 0 0 1rem; /* Gutter between grid cells. */
   max-width: 31rem;
@@ -1000,7 +1002,7 @@ h6 {
 }
 .Learn-inPerson:nth-child(1),
 .Learn-inPerson:nth-child(2) {
-  border-top: 1px solid #e0e0e0;
+  border-top: 0.0625rem solid #e0e0e0;
 }
 .Learn-inPersonTitle {
   font-size: 1.25rem;
@@ -1009,13 +1011,13 @@ h6 {
   margin: 0;
 }
 .Learn-events {
+  border-bottom: 0.0625rem solid #e0e0e0;
+  border-top: 0.0625rem solid #e0e0e0;
   flex: 1 0 100%;
   list-style: none;
   margin: 0.5rem 0 0;
   padding: 0;
   width: 100%;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
 }
 .Learn-eventItem {
   align-items: flex-start;
@@ -1023,7 +1025,7 @@ h6 {
   padding: 1rem 0;
 }
 .Learn-eventItem + .Learn-eventItem {
-  border-top: 1px solid #e0e0e0;
+  border-top: 0.0625rem solid #e0e0e0;
 }
 .Learn-eventThumbnail {
   display: flex;
@@ -1251,7 +1253,7 @@ h6 {
   padding: 2.125rem 0.5rem;
 }
 .LargeMedia + .LargeMedia {
-  border-top: 1px solid #e0e0e0;
+  border-top: 0.0625rem solid #e0e0e0;
 }
 .LargeMedia-image {
   margin-right: 1rem;

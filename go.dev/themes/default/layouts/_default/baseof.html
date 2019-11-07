@@ -104,7 +104,7 @@ gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
     <div class="Container">
       <div class="Footer-links">
         {{- range .Site.Menus.footer}}
-          <div class="Footer-linkColumn {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
+          <div class="Footer-linkColumn">
             {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
             {{- range .Children}}
               {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
@@ -117,7 +117,7 @@ gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
   <div class="Footer">
     <div class="Container Container--fullBleed">
       <div class="Footer-bottom">
-        <img class="Footer-gopher" src="/images/gopher-footer.jpg" alt="The Go Gopher">
+        <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
         <ul class="Footer-listRow">
           <li class="Footer-listItem"><a href="/copyright">Copyright</a></li>
           <li class="Footer-listItem"><a href="/tos">Terms of Service</a></li>
@@ -134,7 +134,7 @@ gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
           </li>
         </ul>
         <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener noreferrer">
-          <img class="Footer-googleLogoImg" src="/images/google-grey.png" alt="Google logo">
+          <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
         </a>
       </div>
     </div>
