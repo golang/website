@@ -100,7 +100,7 @@ a.Footer-link--bold {
   margin: 0.4rem 0;
   padding: 0 1rem;
 }
-@media only screen and (min-width: 48rem) {
+@media only screen and (min-width: 52rem) {
   .Footer-listItem {
     flex: initial;
   }
@@ -218,12 +218,10 @@ h6 {
 }
 .Header-menuItem--active a:link,
 .Header-menuItem--active a:visited {
-  /* border-bottom-color: #00add8; */
   border-top-color: #00add8;
   font-weight: bold;
 }
 .Header-menuItem a:hover {
-  /* border-bottom-color: #ce3262; */
   border-top-color: #ce3262;
   color: #3e4042;
 }

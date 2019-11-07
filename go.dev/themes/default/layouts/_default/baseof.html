@@ -23,7 +23,8 @@ gtag('js', new Date());
 gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
 </script>
 {{end -}}
-<script src="/js/site.js" defer></script>
+<script src="/js/site.js"></script>
+<script src="https://support.google.com/inapp/api.js"></script>
 <title>{{.Title}}{{if not .IsHome}} - {{.Site.Title}}{{end}}</title>
 {{if (isset .Params "link") -}}
 <meta http-equiv="refresh" content="0; url={{.Params.link}}">
@@ -123,7 +124,12 @@ gtag('config', '{{.Site.Params.GoogleAnalyticsTrackingID}}');
           <li class="Footer-listItem"><a href="http://www.google.com/intl/en/policies/privacy/" target="_blank">Privacy Policy</a></li>
           <li class="Footer-listItem">
             <button class="js-feedbackButton Footer-feedbackButton">
-              Report an issue
+              Report an Issue
+            </button>
+          </li>
+          <li class="Footer-listItem">
+            <button class="js-feedbackButton Footer-feedbackButton">
+              Share Feedback
             </button>
           </li>
         </ul>

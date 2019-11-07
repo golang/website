@@ -38,4 +38,17 @@
   window.addEventListener('DOMContentLoaded', () => {
     registerHeaderListeners();
   });
+
+  // Register feedback listeners.
+  window.addEventListener('load', () => {
+    const buttons = document.querySelectorAll('js-feedbackButton');
+    buttons.forEach(button => {
+      button.addEventListener('click', sendFeedback);
+    });
+  });
+
+  // Launches the feedback interface.
+  function sendFeedback() {
+    userfeedback.api.startFeedback({ productId: '5131929', bucket: 'Default' });
+  }
 })();
