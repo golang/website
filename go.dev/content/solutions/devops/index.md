@@ -8,18 +8,15 @@ books:
   - title: Go Programming for Network Operations
     url: https://www.amazon.com/Go-Programming-Network-Operations-Automation-ebook/dp/B07JKKN34L/ref=sr_1_16
     thumbnail: /images/books/go-programming-for-network-operations.jpg
-  - title: 
-    url: 
-    thumbnail: 
-  - title: 
-    url: 
-    thumbnail: 
-  - title: 
-    url: 
-    thumbnail: 
-  - title: 
-    url: 
-    thumbnail: 
+  - title: Go Programming Blueprints
+    url: https://github.com/matryer/goblueprints
+    thumbnail: /images/learn/go-programming-blueprints.png
+  - title: Go in Action
+    url: https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781
+    thumbnail: /images/books/go-in-action.jpg 
+  - title: The Go Programming Language
+    url: https://www.gopl.io/
+    thumbnail: /images/learn/go-programming-language-book.png
 resources:
 - name: icon
   src: cog.png
