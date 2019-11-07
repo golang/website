@@ -13,7 +13,7 @@ This post is part 4 in a series.
 - Part 1 — [[/using-go-modules][Using Go Modules]]
 - Part 2 — [[/migrating-to-go-modules][Migrating To Go Modules]]
 - Part 3 — [[/publishing-go-modules][Publishing Go Modules]]
-- *Part*3*—*Go*Modules:*v2*and*Beyond* (this post)
+- *Part*4*—*Go*Modules:*v2*and*Beyond* (this post)
 
 As a successful project matures and new requirements are added, past features
 and design decisions might stop making sense. Developers may want to integrate
