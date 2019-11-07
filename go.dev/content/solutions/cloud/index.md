@@ -41,6 +41,10 @@ Go was created to address exactly these concurrency needs for scaled application
 
 “Go makes it very easy to scale as a company,” [says developer Ruchi Malik](https://builtin.com/software-engineering-perspectives/golang-advantages) at Choozle. “This is very important because, as our engineering team grows, each service can be managed by a different unit.”
 
+Service developers often make a tradeoff between development cycle time and server performance. Go's helps reduce the need to make this tradeoff, with its fast build times that enable iterative development, lower memory and CPU utilization, making servers built with Go cheaper to run in pay-as-you-go deployments.
+
+Go addresses many challenges developers face with the modern cloud, delivering standard idiomatic APIs, out-of-the-box support for multiple cloud environments (including on-prem), and a great balance between speed and efficiency - granting engineering teams the power to choose and the power to move.
+
 ## Featured Go users & projects
 
 {{% mediaList %}}
@@ -48,10 +52,10 @@ Go was created to address exactly these concurrency needs for scaled application
 Google Cloud is built on Go. Many critical cloud projects used across the industry like [Kubernetes](https://kubernetes.io/), [Istio](https://istio.io/) and [gVisor](https://gvisor.dev/) were created in Go at Google Cloud. Go is fully supported on [Google Cloud](https://cloud.google.com) across all APIs and runtimes including serverless [App Engine](https://cloud.google.com/appengine/) and [Google Cloud Functions](https://cloud.google.com/functions/). 
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/capital-one.svg" img-alt="Capital One Logo" title="" align=top %}}
-Capital One uses Go to power the [Credit Offers API, a critical service](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f). The team initially started by rewriting one endpoint from Java to Go, and after seeing the huge improvements over Java decided to rewrite the entire API in Go. The engineering team then decided to build their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
+Capital One uses Go to power the [Credit Offers API, a critical service](https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f). The engineering team is also building their serverless architecture with Go, citing Go's speed and simplicity, and mentioning that "[they] didn't want to go serverless without Go."
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/dropbox.svg" img-alt="Dropbox Logo" title="" align=top %}}
-Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Dropbox developers wanted better concurrency support and faster execution speeds, and were willing to write around 200,000 lines of new Go code. Today, most of the company's infrastructure is written in Go.  Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
+Dropbox was built on Python, [but in 2013 decided to migrate](https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/) their performance-critical backends to Go. Today, most of the company's infrastructure is written in Go.  Dropbox libraries can be found at [Dropbox's Go github](https://github.com/dropbox/godropbox).
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/mercadoLibre.svg" img-alt="MercadoLibre Logo" title="" align=top %}}
 MercadoLibre uses Go to [scale its eCommerce platform](/solutions/mercadolibre).  Go produces efficient code that readily scales as MercadoLibre’s online commerce grows and supports the company as a boon for developers—improving their productivity while streamlining and expanding MercadoLibre services.
@@ -76,7 +80,7 @@ Go's strengths shine when it comes to building services. Its speed and built-in 
  
 Go has a strong ecosystem supporting service development. The [standard library](https://golang.org/pkg/) includes packages for common needs like HTTP servers and clients, JSON/XML parsing, SQL databases, and a range of security/encryption functionality, while the Go runtime includes tools for [race detection](https://golang.org/doc/articles/race_detector.html), [benchmarking](https://golang.org/pkg/testing/#hdr-Benchmarks)/profiling, code generation, and static code analysis.
 
-Two popular Go tools for cloud computing include Docker and Kubernetes:
+Two popular Go tools for cloud computing include [Docker](https://docker.com) and [Kubernetes](https://kubernetes.io):
 
 **Docker is a platform-as-a-service that delivers software in containers.** Containers bundle software, libraries, and config files, are hosted by a [Docker Engine](https://www.docker.com/), and are run by a single operating-system kernel (utilizing less system resources than virtual machines).
 
@@ -85,37 +89,29 @@ Cloud developers use Docker to manage their Go code and support multiple platfor
 **Kubernetes is an open-source container-orchestration system, written in Go, for automating web app deployment.** Web apps are often built using containers (as noted above) packaged with their dependencies and configurations. Kubernetes helps deploying and managing those containers at scale. Cloud programmers use Kubernetes to build, deliver, and scale containerized apps quickly—managing the growing complexity via APIs that controls how the containers will run.
 
 The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https://aws.amazon.com/sdk-for-go/), [Azure](https://docs.microsoft.com/en-us/azure/go/)) have Go APIs for their services, and popular open source libraries provide support for API tooling ([Swagger](https://github.com/go-swagger/go-swagger)), transport ([protocol buffers](https://github.com/golang/protobuf), [gRPC](https://grpc.io/docs/quickstart/go/)), monitoring ([OpenCensus](https://godoc.org/go.opencensus.io)), Object-Relational Mapping ([gORM](https://gorm.io/)), and authentication ([JWT](https://github.com/dgrijalva/jwt-go)). The open source community has also provided several service frameworks, including [Go Kit](https://gokit.io/[), [Go Micro](https://micro.mu/docs/go-micro.html), and [Gizmo](https://github.com/nytimes/gizmo), which can be a great way to get started quickly.
- 
-Service developers often make a tradeoff between development cycle time and server performance. Go's fast build times make iterative development possible, while still yielding the benefits of fast compiled code. Plus, Go servers tend to have lower memory and CPU utilization, making them cheaper to run in pay-as-you-go deployments.
- 
-Overall, Go's mission to make it easy to write simple, reliable, and efficient software means it is a great choice for developing services.
 
-## Key Solutions
+## Key solutions
 
 ### Go books on web development 
 
 {{% books %}}
 
-{{< headerWithLink header="Frameworks" link="https://pkg.go.dev/search?q=framework" level=3 >}} 
+{{< headerWithLink header="Libraries" link="https://pkg.go.dev/search?q=cloudframework" level=3 >}} 
 
-## Go solutions to legacy challenges
+*   {{< pkg "https://github.com/go-swagger/go-swagger" >}}, a simple and powerful representation of RESTful APIs
+*   {{< pkg "https://github.com/golang/protobuf" >}}, Go support for Google's protocol buffer
+*   {{< pkg "https://github.com/grpc/grpc-go" >}}, a high performance, open source, general RPC framework 
+*   {{< pkg "https://github.com/census-instrumentation/opencensus-go/blob/master/opencensus.go" >}}, a set of libraries for collecting application metrics and distributed traces
+*   {{< pkg "https://github.com/jinzhu/gorm" >}}, an ORM library for Go
+*   {{< pkg "https://github.com/dgrijalva/jwt-go" >}}, a Go implementation of json web tokens 
 
-Historically, challenges facing cloud computing systems have included the need for highly concurrent and distributed processing, multi-nodes and multi-cores, the lack of shared memory, and the very major bottleneck of single-threaded applications.
- 
-Further, cloud engineering teams want to be able to develop cloud applications locally, they want to be able to develop cross-cloud applications with a simple idiomatic interface, and they want to be able to run both on-premise and on the cloud.
- 
-"Go was designed to be scalable to large systems and usable without an IDE, but also productive and being especially good at networking and concurrency," notes Federico Tomassetti in his [blog](https://tomassetti.me/best-programming-languages/). "Other than a well-thought design, it has some specific features for concurrency like a type of light-weight processes called goroutines."
- 
-Goroutines do not have names; they are just anonymous workers. They expose no unique identifier, name, or data structure to the programmer. Some people are surprised by this, expecting the go statement to return some item that can be used to access and control the goroutine later.
- 
-The fundamental reason goroutines are anonymous is so that the full Go language is available when programming concurrent code. By contrast, the usage patterns that develop when threads and goroutines are named can restrict what a library using them can do.
- 
-For example, once one names a goroutine and constructs a model around it, it becomes special, and one would be tempted to associate _all_ computation with that goroutine—ignoring the possibility of using multiple, possibly shared goroutines for the processing. If the net/http package associated per-request state with a goroutine, clients would be unable to use more goroutines when serving a request.
- 
-Go solves the problems of modern cloud development, delivering a standard idiomatic APIs designed around user needs, plus out-of-the-box support for multiple cloud environments (including on-premises), the ability to write and test locally (run in production), and open cloud development - granting development teams the power to choose and the power to move.
+{{< headerWithLink header="Service frameworks" link="https://pkg.go.dev/search?q=cloudframework" level=3 >}} 
 
-## Resources for Learning More
+*   {{< pkg "https://github.com/go-kit/kit" >}}, a programming toolkit for building microservices (or elegant monoliths) in Go
+*   {{< pkg "https://github.com/micro/go-micro" >}}, a framework for microservice development
+*   {{< pkg "https://github.com/nytimes/gizmo" >}}, a microservice framework from The New York Times
 
-*   [EdgeX](http://linuxgizmos.com/latest-edgex-iot-middleware-release-gets-smaller-faster-and-more-secure/) - IoT Middleware
-*   [Microservices in Golang](https://ewanvalentine.io/microservices-in-golang-part-1/) - walkthrough of microservices with Go-micro
-*    [Awesome Go](https://awesome-go.com/) - curated list of Go frameworks, libraries, and software
+### Other
+
+*   [Microservices in Golang](https://ewanvalentine.io/microservices-in-golang-part-1/), a walkthrough of microservices with Go-micro
+*   [Awesome Go](https://awesome-go.com/), a curated list of Go frameworks, libraries, and software

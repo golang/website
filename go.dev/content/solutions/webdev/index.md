@@ -81,7 +81,7 @@ The simplicity and safety of the Go language were a good fit for their HTTP infr
     {{% /mediaListBox %}}
 {{% /mediaList %}}
 
-## Key Solutions
+## Key solutions
 
 ### Go books on web development 
 

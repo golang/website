@@ -101,7 +101,7 @@ I was tasked with building our CLI tool and found two really great projects, Cob
 
 For debugging Go code, {{< pkg "github.com/go-delve/delve" delve >}} is a simple and powerful tool built for programmers used to using a source-level debugger in a compiled language.
 
-## Key Solutions
+## Key solutions
 
 ### Go books for creating CLIs 
 

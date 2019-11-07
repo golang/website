@@ -51,18 +51,20 @@ scaling for speed and code maintainability as development infrastructure grows o
 
 {{% mediaList %}}
     {{% mediaListBox img-src="/images/logos/paypal.svg" img-alt="Paypal Logo" title="" align=top %}}
-PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go. The team originally explored using Go to decrease the complexity of a NoSQL databases' code (which was written in C++). The NoSQL team rebuilt one of their databases in Go and immediately noticed the benefits of having a language built for concurrency, simplicity, and speed.
+PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go.
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/netflix.svg" img-alt="Netflix Logo" title="" align=top %}}
-Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data. It's a high-performance server written in Go that acts as a proxy in front of other processes that actually store the data - and plays a critical role in member personalization for over 150 million users.
+Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data.
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/docker.svg" img-alt="Docker Logo" img-link="https://docker.com" title="" align=top %}}
 Docker is a software-as-a-service (SaaS) product, written in Go, that DevOps/SRE teams leverage to “[drive secure
 automation and deployment at massive scale](https://www.docker.com/solutions/cicd),” supporting their CI/CD efforts.
     {{% /mediaList %}}
-    {{% mediaListBox img-src="/images/logos/google.svg" img-alt="Google Logo" img-link="https://google.com" title="" align=top %}}
-[Google SREs use Go](https://landing.google.com/sre/) to protect, provide for, and progress the software and systems behind all
-of Google’s public services. Google now recommends that Go be used for all new SRE code. 
+    {{% mediaListBox img-src="/images/logos/drone.svg" img-alt="Drone Logo" img-link="https://github.com/drone" title="" align=top %}}
+Drone is a [Continuous Delivery system built on container technology](https://github.com/drone) that uses a simple YAML configuration file, a superset of docker-compose, to define and execute Pipelines inside Docker containers.
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/etcd.svg" img-alt="etcd Logo" img-link="https://github.com/etcd-io/etcd" title="" align=top %}}
+etcd is a [strongly consistent, distributed key-value store](https://github.com/etcd-io/etcd) that provides a reliable way to store data that needs to be accessed by a distributed system or cluster of machines, and its written in Go.
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/ibm.svg" img-alt="IBM Logo" img-link="https://ibm.com" title="" align=top %}}
 IBM’s DevOps teams use Go through Docker and Kubernetes, plus other DevOps and CI/CD tools written in Go. The company also supports connection to it's messaging middleware through a [Go-specific API](https://developer.ibm.com/messaging/2019/02/05/simplified-ibm-mq-applications-golang/).
@@ -76,6 +78,12 @@ teams with OpenShift clusters to maintain regulatory compliance and focus on app
 Terraform is a [tool for building, changing, and versioning infrastructure](https://www.terraform.io/intro/index.html)
 safely and efficiently. It supports a number of cloud providers such as AWS, IBM Cloud, GCP, and Microsoft
 Azure - and its written in Go.
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/prometheus.svg" img-alt="Prometheus Logo" img-link="https://github.com/prometheus/prometheus" title="" align=top %}}
+Prometheus is an [open-source systems monitoring and alerting toolkit](https://github.com/prometheus/prometheus) originally built at SoundCloud. Most Prometheus components are written in Go, making them easy to build and deploy as static binaries.
+    {{% /mediaList %}}
+    {{% mediaListBox img-src="/images/logos/youtube.svg" img-alt="YouTube Logo" img-link="https://youtube.com" title="" align=top %}}
+YouTube uses Go with Vitess, its [database clustering system](https://https://github.com/vitessio/vitess) for horizontal scaling of MySQL through generalized sharding. Since 2011 it's been a core component of YouTube's database infrastructure, and has grown to encompass tens of thousands of MySQL nodes.
     {{% /mediaList %}}
 
 {{% /mediaList %}}
@@ -94,64 +102,27 @@ automation and services, and Go's feature set has benefits for every situation.
 
 **For CLIs:** every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. 
 
-**For larger applications:** Go's garbage collector means DevOps/SRE teams don't have to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting.
+**For larger applications:** Go's garbage collector means DevOps/SRE teams don't have to worry about memory management. And Go’s automatic documentation generator ([godoc](https://godoc.org/golang.org/x/tools/cmd/godoc)) makes code self-documenting.
 
-With Go, DevOps/SREs seek to “balance the risk of unavailability with the goals of rapid innovation and efficient
-service operations,"[ says Marc Alvidrez](https://landing.google.com/sre/), engineer at Google. "So that users’ overall
-happiness—with features, service, and performance—is optimized."
+Every SRE has written software that ended up growing in scope: "one time use" scripts turn into CLIs that are used every day by dozens of engineers, and small deployment automation scripts turn into rollout management services. Starting with Go puts you in a great position to be successful when that happens.
 
-## Key Solutions
+## Key solutions
 
 ### Go books on DevOps & SRE
 
 {{% books %}}
 
-{{< headerWithLink header="Frameworks" link="https://pkg.go.dev/search?q=framework" level=3 >}} 
+{{< headerWithLink header="Monitoring and tracing" link="https://pkg.go.dev/search?q=tracing" level=3 >}} 
 
-## **Go solutions to legacy challenges**
+*   {{< pkg "https://github.com/opentracing/opentracing-go">}}, vendor-neutral APIs and instrumentation for distributed tracing
+*   {{< pkg "https://github.com/jaegertracing/jaeger-client-go">}}, and open source distributed tracing system developed by Uber
+*   {{< pkg "https://github.com/grafana/grafana">}}, an open-source platform for monitoring and observability
+*   {{< pkg "https://github.com/istio/istio">}}, an open-source service mesh and integratable platform  
 
-Traditionally, “DevOps has been more about collaboration between developer and operations. It has also focused more on
-deployments,"[ says Matt Watson](https://stackify.com/site-reliability-engineering/), founder and CEO of Stackify. "Site
-reliability engineering is more focused on operations and monitoring. Depending on how you define DevOps, it could be
-related or not."
+{{< headerWithLink header="Package Managers" link="https://pkg.go.dev/search?q=package" level=3 >}} 
 
-{{% gopher gopher=machine align=right %}}
+*   {{< pkg "https://github.com/helm/helm">}}, a package manager for Kubernetes  
 
-Across deployment, operations, and monitoring, DevOps/SRE teams strive to achieve simplicity, reliability, and speed
-with their systems. But in complex development environments, such disparate goals are hard to unite. 
+### Other
 
-**Go helps by
-allowing engineers to focus on building**, even as they optimize for deployment and support.
-
-For simplicity, Go delivers code readability, built in testing/profiling/benchmarking, a standard library, and a
-homogenous environment that is statically linked.
-
-{{% pullquote author="Natalie Pistunovich, Engineering Manager at Fraugster." link="https://blog.gopheracademy.com/advent-2018/go-devops/" %}}
-[With Go] there’s no need for external libraries, copy dependencies or worry for imports. All the code and its dependencies are in the
-binary, so that’s all you need to distribute.
-{{% /pullquote%}}
-
-For reliability, open source Go delivers pointers, error handling, and safe Type, meaning string operations on an int
-cannot happen, because it will be caught by the compiler.
-
-For speed, Go delivers fast compilation and machine-code execution, small binary sizes, superior garbage collection, and
-import-defined dependences, meaning all dependencies are included in the binary. For a list of practical Go benchmarks,
-visit this[ list of performance benchmarks](https://stackimpact.com/blog/practical-golang-benchmarks/) in various
-functionalities.
-
-Many of the modern tooling apps, for DevOps/SRE and for observability, are written in Go. For example:
-
-*   [Grafana](https://grafana.com/)
-*   [Helm](https://helm.sh/)
-*   [Istio](https://istio.io/)
-*   [Jaeger](https://www.jaegertracing.io/)
-*   [The Open Tracing Project](https://opentracing.io/)
-
-As DevOps/SRE teams automate the processes between software development and IT teams, Go can help them build, test, and
-release software faster and more reliably. Scaling infrastructure and development for CI/CD is critical to many large
-technology firms today, and Go is the right language for enterprises looking to scale successfully.
-
-
-## **Resources for learning more**
-
-*   [Migrate](https://github.com/golang-migrate/migrate) - database migration tool written in Go
+*   {{< pkg "https://github.com/golang-migrate/migrate">}}, database migration tool written in Go
