@@ -32,7 +32,6 @@
     <div class="Learn-subHeader">
       <h2>Guided learning journeys</h2>
       <p class="Learn-viewMore">
-        <a href="#">View More &gt;</a>
       </p>
     </div>
     <ul class="Learn-tileList">
@@ -57,9 +56,6 @@
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Online learning</h2>
-        {{if gt (len $.Site.Data.learn.courses.links) 4}}
-          <a href="#">View More &gt;</a>
-        {{end}}
     </div>
     <ul class="Learn-tileList">
       {{range first 4 $.Site.Data.learn.courses.links}}
@@ -84,9 +80,6 @@
     <div class="Learn-subHeader">
       <h2>Featured books</h2>
       <p class="Learn-viewMore">
-        {{if gt (len $.Site.Data.learn.books.links) 5}}
-          <a href="#">View More &gt;</a>
-        {{end}}
       </p>
     </div>
     <ul class="Learn-tileList">
@@ -112,7 +105,6 @@
     <div class="Learn-subHeader">
       <h2>In-person training</h2>
       <p class="Learn-viewMore">
-        <a href="#">View More &gt;</a>
       </p>
     </div>
     <ul class="Learn-inPersonList">
@@ -136,7 +128,7 @@
     <div class="Learn-subHeader">
       <h2>Meetups</h2>
       <p class="Learn-viewMore">
-        <a href="#">View More &gt;</a>
+        <a href="https://www.meetup.com/pro/go">View more events &gt;</a>
       </p>
     </div>
     <ul class="Learn-events">
