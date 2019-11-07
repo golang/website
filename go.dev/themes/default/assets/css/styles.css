@@ -645,6 +645,10 @@ h6 {
   width: 100%;
 }
 
+.headerWithLink h3 {
+  margin-bottom: 0;
+}
+
 .headerLink {
   align-self: center;
   font-size: 1.125rem;
