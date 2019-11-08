@@ -22,13 +22,13 @@ books:
     thumbnail: 
 resources:
 - name: icon
-  src: globe.png
+  src: cloud-green.svg
   params:
-    alt: globe
+    alt: cloud icon
 - name: icon-white
-  src: globe-white.png
+  src: cloud-white.svg
   params:
-    alt: globe
+    alt: cloud icon
 ---
 
 ## Go helps enterprises build and scale cloud computing systems
