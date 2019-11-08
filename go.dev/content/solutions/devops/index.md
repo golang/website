@@ -41,7 +41,7 @@ companies, such as Amazon and Netflix, also adopted them.” SRE requires a mix 
 “[empowers software developers](https://stackify.com/site-reliability-engineering/) to own the ongoing daily operation
 of their applications in production.”
 
-Go serves both siblings, DevOps and SRE, with its fast build times and lean syntax—readily supporting automation while
+Go serves both siblings, DevOps and SRE, from its fast build times and lean syntax to its security and reliability support. Go's concurrency and networking features also make it ideal for tools that manage cloud deployment—readily supporting automation while
 scaling for speed and code maintainability as development infrastructure grows over time.
 
 ## Featured Go users & projects
@@ -79,7 +79,7 @@ safely and efficiently. It supports a number of cloud providers such as AWS, IBM
 Prometheus is an [open-source systems monitoring and alerting toolkit](https://github.com/prometheus/prometheus) originally built at SoundCloud. Most Prometheus components are written in Go, making them easy to build and deploy as static binaries.
     {{% /mediaList %}}
     {{% mediaListBox img-src="/images/logos/youtube.svg" img-alt="YouTube Logo" img-link="https://youtube.com" title="" align=top %}}
-YouTube uses Go with Vitess, its [database clustering system](https://https://github.com/vitessio/vitess) for horizontal scaling of MySQL through generalized sharding. Since 2011 it's been a core component of YouTube's database infrastructure, and has grown to encompass tens of thousands of MySQL nodes.
+YouTube uses Go with Vitess (now part of [PlanetScale](https://planetscale.com/)), its [database clustering system](https://github.com/vitessio/vitess) for horizontal scaling of MySQL through generalized sharding. Since 2011 it's been a core component of YouTube's database infrastructure, and has grown to encompass tens of thousands of MySQL nodes.
     {{% /mediaList %}}
 
 {{% /mediaList %}}
@@ -91,16 +91,14 @@ Go has been enthusiastically adopted by the DevOps and SRE communities. As previ
 modern cloud environment are themselves written in Go—including Docker, Etcd, Istio, Kubernetes, Prometheus, Terraform,
 and many others.
 
-DevOps/SRE teams write software ranging from small one-time scripts, to command-line interfaces (CLI), to complex
+DevOps/SRE teams write software ranging from small scripts, to command-line interfaces (CLI), to complex
 automation and services, and Go's feature set has benefits for every situation.
 
-**For small scripts:** Go's fast build times and automatic formatter ([gofmt](https://golang.org/cmd/gofmt/)) enable rapid iteration. Go’s extensive standard library—including packages for common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go's static type system and explicit error handling make even small scripts more robust. 
+**For small scripts:** Go's fast build and startup times. Go’s extensive standard library—including packages for common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go's static type system and explicit error handling make even small scripts more robust. 
 
-**For CLIs:** every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. 
+**For CLIs:** every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. Starting with Go puts you in a great position to be successful when that happens.
 
 **For larger applications:** Go's garbage collector means DevOps/SRE teams don't have to worry about memory management. And Go’s automatic documentation generator ([godoc](https://godoc.org/golang.org/x/tools/cmd/godoc)) makes code self-documenting.
-
-Every SRE has written software that ended up growing in scope: "one time use" scripts turn into CLIs that are used every day by dozens of engineers, and small deployment automation scripts turn into rollout management services. Starting with Go puts you in a great position to be successful when that happens.
 
 ## Key solutions
 

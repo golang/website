@@ -66,7 +66,7 @@ Stripe [uses Go for the Stripe CLI](https://github.com/stripe/stripe-cli) aimed 
 Netflix uses Go to build the CLI application [ChaosMonkey](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), an application responsible for randomly terminating instances in production to ensure that engineers implement their services to be resilient to instance failures. 
     {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/mongodb.svg" img-alt="MongoDB Logo"  img-link="https://mongodb.com" title="" align=top  %}}
-MongoDB choose to [implement their Backup CLI Tool in Go](https://www.mongodb.com/blog/post/go-agent-go) citing Go's "C-like syntax, strong standard library, the resolution of concurrency problems via goroutines, and painless multi-platform distribution" as reasons. 
+MongoDB chose to [implement their Backup CLI Tool in Go](https://www.mongodb.com/blog/post/go-agent-go) citing Go's "C-like syntax, strong standard library, the resolution of concurrency problems via goroutines, and painless multi-platform distribution" as reasons. 
 {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/kubernetes.svg" img-alt="Kubernetes Logo"  img-link="https://kubernetes.com" title="" align=top  %}}
 Kubernetes is one of the most popular Go CLI applications. [Kubernetes Creator, Joe Beda, said that for writing Kubernetes](https://blog.gopheracademy.com/birthday-bash-2014/kubernetes-go-crazy-delicious/), "Go was the only logical choice". Calling Go "the sweet spot" between low level languages like C++ and high level languages like Python. 
