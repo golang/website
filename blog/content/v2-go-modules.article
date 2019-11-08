@@ -150,8 +150,8 @@ pre-release suffix), we can develop and make breaking changes as we decide on
 the new API. If we want users to be able to experiment with the new API before
 we officially make it stable, we can publish a `v2` pre-release version:
 
-    $ git tag v2.0.0-alpha1
-    $ git push origin v2.0.0-alpha1
+    $ git tag v2.0.0-alpha.1
+    $ git push origin v2.0.0-alpha.1
     $
 
 Once we are happy with our `v2` API and are sure we don't need any other breaking
