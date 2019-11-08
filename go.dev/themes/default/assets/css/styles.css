@@ -837,13 +837,19 @@ h6 {
 .Learn-books,
 .Learn-guided,
 .Learn-inPersonTraining,
+.Learn-quickstarts,
 .Learn-meetups,
 .Learn-online {
-  margin: 4rem 0;
+  max-width: 75.75rem;
+  margin: 4rem auto;
+}
+.Learn-title {
+  max-width: 75.75rem;
+  margin: auto;
 }
 .Learn-title h1 {
   font-size: 2.625rem;
-  line-height: 3rem;
+  line-height: 2rem;
 }
 .Learn-gettingStarted {
   background-color: #fefadd;
@@ -874,13 +880,13 @@ h6 {
 }
 .Learn-quickstarts {
   display: flex;
-  flex: 1 0 100%;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-around;
   list-style: none;
   margin: 0 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
   padding-inline-start: 0;
+  padding: 0 1.5rem;
 }
 .Learn-quickstart {
   align-items: center;
