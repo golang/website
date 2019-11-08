@@ -1039,7 +1039,8 @@ h6 {
 }
 .Learn-eventThumbnail img {
   height: auto;
-  width: 3rem;
+  object-fit: contain;
+  width: 4rem;
 }
 .Learn-eventBody {
   display: inline-flex;
