@@ -19,13 +19,13 @@ books:
     thumbnail: /images/learn/go-programming-language-book.png
 resources:
 - name: icon
-  src: cog.png
+  src: ops-green.svg
   params:
-    alt: cog
+    alt: ops icon
 - name: icon-white
-  src: cog-white.png
+  src: ops-white.svg
   params:
-    alt: cog
+    alt: ops icon
 ---
 
 ## Go helps enterprises automate and scale

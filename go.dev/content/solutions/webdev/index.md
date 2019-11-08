@@ -22,13 +22,13 @@ books:
     thumbnail: /images/books/mastering-go-web-services.jpg
 resources:
 - name: icon
-  src: globe.png
+  src: webdev-green.svg
   params:
-    alt: globe
+    alt: web dev icon
 - name: icon-white
-  src: globe-white.png
+  src: webdev-white.svg
   params:
-    alt: globe
+    alt: web dev icon
 ---
 
 ## Go delivers speed, security, and developer-friendly tools for Web Applications

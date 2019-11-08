@@ -19,13 +19,13 @@ books:
     thumbnail: /images/learn/go-programming-blueprints.png
 resources:
 - name: icon
-  src: globe.png
+  src: CLI-green.svg
   params:
-    alt: globe
+    alt: CLI icon
 - name: icon-white
-  src: globe-white.png
+  src: cli-white.svg
   params:
-    alt: globe
+    alt: CLI icon
 ---
 
 ## CLI developers prefer Go for portability, performance, and ease of creation
