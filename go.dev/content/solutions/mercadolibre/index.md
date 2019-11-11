@@ -1,7 +1,7 @@
 ---
 title: "MercadoLibre Grows with Go"
 description: ""
-date: 2019-10-03T16:26:31-04:00
+date: 2019-11-10T16:26:31-04:00
 series: Case Studies
 quote: Go provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer productivity by allowing their engineers to serve their ever-increasing audience while writing less code.
 resources:

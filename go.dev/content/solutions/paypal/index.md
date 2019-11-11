@@ -1,7 +1,7 @@
 ---
 title: "PayPal Taps Go to Modernize and Scale"
 description: ""
-date: 2019-10-03T16:26:31-04:00
+date: 2019-11-10T16:26:31-04:00
 series: Case Studies
 quote: Developers benefit from Go’s ability to combine the ease of programming of an interpreted, dynamically typed language with the efficiency and safety of a statically typed, compiled language
 resources:
