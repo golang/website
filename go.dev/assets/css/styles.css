@@ -741,6 +741,7 @@ h6 {
 .LearnGo-eventThumbnail img {
   height: auto;
   object-fit: contain;
+  width: 3rem;
 }
 .LearnGo-eventBody {
   display: inline-flex;
