@@ -144,7 +144,7 @@ title = "go.dev"
     name = "r/golang"
     parent = "connect"
     url = "https://reddit.com/r/golang"
-    weight = -70
+    weight = -35
 
   [[menu.footer]]
     name = "Twitter"
