@@ -154,7 +154,6 @@ has a team developing a _Go-meli-toolkit_: A complete Go library to interface al
 Just as MercadoLibre started with a proof-of-concept project to implement Go, dozens of other large enterprises are
 adopting Go as well. 
 
-There are over one million developers using Go worldwide—spanning
-banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as American Express, Dropbox, New York Times, Salesforce, Target, Capital One, Monzo, Twitch, IBM, Square, Uber, and of course Google.
+There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as American Express, Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
 
 To learn more about how Go can help your enterprise build reliable, scalable software as it does at MercadoLibre, visit [go.dev](https://go.dev) today.
