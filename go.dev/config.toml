@@ -134,6 +134,12 @@ title = "go.dev"
     weight = -40
 
   [[menu.footer]]
+    name = "Code of Conduct"
+    parent = "about"
+    url = "https://golang.org/conduct"
+    weight = -30
+
+  [[menu.footer]]
     identifier = "connect"
     name = "Connect"
     title = "Connect"
