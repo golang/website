@@ -70,6 +70,6 @@ Go’s garbage collection is also a major improvement over other languages, both
 Just as American Express is using Go to modernize its payment and rewards networks, dozens of other large enterprises are adopting Go as well. 
 
 There are over one million developers using Go worldwide—spanning
-banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as Mercado Libre, Dropbox, New York Times, Salesforce, Target, Capital One, Monzo, Twitch, IBM, Square, Uber, PayPal, and of course Google.
+banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as Mercado Libre, Dropbox, New York Times, Salesforce, Target, Capital One, Monzo, Twitch, IBM, Square, Uber, and of course Google.
 
 To learn more about how Go can help your enterprise build reliable, scalable software as it does at American Express, visit [go.dev](https://go.dev) today.

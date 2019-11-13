@@ -47,9 +47,6 @@ scaling for speed and code maintainability as development infrastructure grows o
 ## Featured Go users & projects
 
 {{% mediaList %}}
-    {{% mediaListBox img-src="/images/logos/paypal.svg" img-alt="Paypal Logo" title="" align=top %}}
-PayPal [uses Go across its payment ecosystem](/solutions/paypal), from build, test, and release pipelines, to NoSQL databases, to a large build farm completely managed in Go.
-    {{% /mediaListBox %}}
     {{% mediaListBox img-src="/images/logos/netflix.svg" img-alt="Netflix Logo" title="" align=top %}}
 Netflix uses Go to [handle large scale data caching](https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef), with a service called [Rend](https://github.com/netflix/rend), which manages globally replicated storage for personalization data.
     {{% /mediaListBox %}}
