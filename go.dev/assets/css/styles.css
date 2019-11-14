@@ -27,7 +27,7 @@ a:hover {
 }
 .Site-content {
   flex: 1;
-  margin-top: 3.5rem;
+  margin-top: 4.0625rem;
 }
 .Site-footer {
   border-top: 0.0625rem solid #dcdee0;
@@ -45,6 +45,9 @@ a:hover {
 .Container {
   margin: 0 auto;
   max-width: 75.75rem;
+}
+.Container--padded {
+  padding: 0 1.5rem;
 }
 .Footer {
   background-color: #253443;
@@ -1484,4 +1487,39 @@ h6 {
 }
 .SearchForm-submitIcon--white {
   fill: #fff;
+}
+.Series-list {
+  list-style: none;
+  padding: 0;
+}
+.Series-listItem {
+  display: flex;
+}
+.Series-listItem a {
+  display: flex;
+  flex: 1;
+  padding: 1.25rem 0;
+}
+.Series-listItem + .Series-listItem {
+  border-top: 1px solid #e0e0e0;
+}
+.Series-listItemIcon {
+  margin-right: 1rem;
+}
+.Series-listItemIcon img {
+  width: 4rem;
+}
+.Series-listItemText {
+  flex: 1;
+}
+.Series-listItemPrimary {
+  display: block;
+  font-size: 1.125rem;
+  margin: 0;
+}
+.Series-listItemSecondary {
+  color: #000;
+  display: inline-block;
+  margin-bottom: 0;
+  text-decoration: none;
 }

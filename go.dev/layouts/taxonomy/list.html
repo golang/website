@@ -1,0 +1,29 @@
+{{define "main" -}}
+  <div class="Container Container--padded">
+    <h1>{{.Title}}</h1>
+    <ul class="Series-list">
+      {{range .Pages}}
+        <li class="Series-listItem">
+          {{$link := .Permalink -}}
+          {{if isset .Params "link" }}
+            {{$link = .Params.link -}}
+          {{end -}}
+          <a href="{{$link}}">
+            {{$logo := .Resources.GetMatch "logo" -}}
+            {{if $logo -}}
+              <span class="Series-listItemIcon">
+                <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
+              </span>
+            {{end -}}
+            <div class="Series-listItemText">
+              <h2 class="Series-listItemPrimary">{{.Title}}</h2>
+              {{if .Description -}}
+                <p class="Series-listItemSecondary">{{.Description}}</p>
+              {{end -}}
+            </div>
+          </a>
+        </li>
+      {{end}}
+    </ul>
+  </div>
+{{end -}}

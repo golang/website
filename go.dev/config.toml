@@ -7,6 +7,11 @@ title = "go.dev"
   hrefTargetBlank = true
   noreferrerLinks = true
 
+[taxonomies]
+  category = "categories"
+  series = "series"
+  tag = "tags"
+
 [menu]
   [[menu.main]]
     identifier = "solutions"
