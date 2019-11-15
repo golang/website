@@ -39,6 +39,10 @@ func TestLiveServer(t *testing.T) {
 			Substring: "an introduction to using modules in a simple project",
 		},
 		{
+			Path:      "/conduct",
+			Substring: "Project Stewards",
+		},
+		{
 			Path:      "/doc/faq",
 			Substring: "What is the purpose of the project",
 		},
