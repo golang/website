@@ -28,7 +28,7 @@ present in the final binary. They are embedded into `static/static.go` by runnin
 1) Make changes to an existing file such as `static/style.css`.
 
 2) If a new file is being added to the `static` directory, add it to the `files`
-slice in `static/gen`.
+slice in `static/gen.go`.
 
 3) Run `go generate golang.org/x/website/content/static` so `static/static.go` is
 up to date.
