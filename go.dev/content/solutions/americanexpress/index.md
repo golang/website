@@ -57,7 +57,7 @@ Today, scores of developers are programming with Go at American Express, with mo
  
 "Tooling has always been a critical area of need for our legacy code base," says Cane. "We have found that Go has excellent tooling, plus built-in testing, benchmarking, and profiling frameworks. It is easy to write efficient and resilient applications."
 
-{{% pullquote author="Benajmin Cane, Vice President and Principal Engineer at American Express" %}}
+{{% pullquote author="Benjamin Cane, Vice President and Principal Engineer at American Express" %}}
 After working on Go, most of our developers don't want to go back to other languages.
 {{% /pullquote %}}
  
