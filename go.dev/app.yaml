@@ -20,7 +20,7 @@ handlers:
   script: auto
 
 # Special handler for static content in themes or page bundles.
-- url: /(.*)\.(png|svg|js|css|jpeg|jpg|xml|html)$
+- url: /(.*)\.(png|svg|js|css|jpeg|jpg|xml|html|txt)$
   static_files: public/\1.\2
   upload: public/(.*)
   http_headers:
