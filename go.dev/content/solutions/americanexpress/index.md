@@ -65,6 +65,8 @@ American Express is just beginning to see the benefits of Go. For example, Go wa
  
 Go’s garbage collection is also a major improvement over other languages, both in terms of performance and ease of development. “We saw far better results of garbage collection in Go than we did in other languages, and garbage collection for real time transaction processing is a big deal.” says Cane. “Tuning garbage collection in other languages can be very complicated. With Go you don’t tune anything.”
 
+To learn more, read ["Choosing Go at American Express"](https://americanexpress.io/choosing-go/) which goes into more depth about American Express' Go adoption. 
+
 ## Getting your enterprise started with Go
 
 Just as American Express is using Go to modernize its payment and rewards networks, dozens of other large enterprises are adopting Go as well. 
