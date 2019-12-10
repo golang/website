@@ -118,6 +118,11 @@ func TestLiveServer(t *testing.T) {
 			Substring:   "", // just check it is a 2xx.
 			NoAnalytics: true,
 		},
+		{
+			Path:        "/x/net",
+			Substring:   `<meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">`,
+			NoAnalytics: true,
+		},
 	}
 
 	for _, tc := range substringTests {
