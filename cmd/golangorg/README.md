@@ -1,4 +1,4 @@
-# Running golangorg
+# golangorg
 
 ## Local Development
 
@@ -57,27 +57,29 @@ It serves on localhost:8080.
 
 ## Deploying to golang.org
 
-Make sure you're signed in to gcloud:
+1.	Run `make cloud-build deploy` to build the image, push it to gcr.io,
+	and deploy to Flex (but not yet update golang.org to point to it).
 
-	gcloud auth login
+2.	Check that the new version, mentioned on "target url:" line, looks OK.
 
-Build the image, push it to gcr.io, and deploy to Flex:
+3.	If all is well, run `make publish` to publish the new version to golang.org.
+	It will run regression tests and then point the load balancer to the newly
+	deployed version.
 
-	make cloud-build deploy
+4.	Stop and/or delete any very old versions. (Stopped versions can be re-started.)
+	Keep at least one older verson to roll back to, just in case.
 
-Point the load balancer to the newly deployed version:
-(This also runs regression tests)
+	You can view, stop/delete, or migrate traffic between versions via the
+	[GCP Console UI](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default&versionsquery=%255B%257B_22k_22_3A_22env_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22FLEXIBLE_5C_22_22_2C_22s_22_3Atrue%257D%255D).
 
-	make publish
-
-Stop and/or delete down any very old versions. (Stopped versions can be re-started.)
-Keep at least one older verson to roll back to, just in case.
-You can also migrate traffic to the new version via this UI.
-
-	https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default&versionssize=50
+5.	You're done.
 
 ## Troubleshooting
 
 Ensure the Cloud SDK is on your PATH and you have the app-engine-go component
 installed (`gcloud components install app-engine-go`) and your components are
-up-to-date (`gcloud components update`)
+up-to-date (`gcloud components update`).
+
+For deployment, make sure you're signed in to gcloud:
+
+	gcloud auth login

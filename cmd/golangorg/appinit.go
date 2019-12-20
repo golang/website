@@ -6,8 +6,8 @@
 
 package main
 
-// This file replaces main.go when running godoc under app-engine.
-// See README.golangorg-app for details.
+// This file replaces main.go when running golangorg under App Engine.
+// See README.md for details.
 
 import (
 	"archive/zip"

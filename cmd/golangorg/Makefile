@@ -4,7 +4,7 @@
 
 .PHONY: usage
 
-GO_REF ?= release-branch.go1.11
+GO_REF ?= release-branch.go1.13
 WEBSITE_HEAD := $(shell git rev-parse HEAD)
 WEBSITE_CLEAN := $(shell (git status --porcelain | grep -q .) && echo dirty || echo clean)
 ifeq ($(WEBSITE_CLEAN),clean)
@@ -17,7 +17,7 @@ GCP_SERVICE := default
 DOCKER_TAG := gcr.io/$(GCP_PROJECT)/golangorg:$(DOCKER_VERSION)
 
 usage:
-	@echo "See Makefile and README.golangorg-app"
+	@echo "See Makefile and README.md"
 	@exit 1
 
 cloud-build: Dockerfile.prod
