@@ -1,6 +1,6 @@
 links:
   - title: Codecademy
-    url: https://www.codecademy.com/learn/learn-go
+    url: https://www.codecademy.com/learn/learn-go?utm_source=customer_io&utm_campaign=oct_21_golaunch&utm_medium=email&utm_content=header_img
     thumbnail: /images/learn/codecademy.png
   - title: Exercism.io
     url: https://exercism.io/tracks/go
