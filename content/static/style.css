@@ -463,7 +463,8 @@ a#start .desc {
   }
   .Header-menuItem a:hover,
   .Header-menuItem a:focus {
-    text-decoration: underline;
+    text-decoration: none;
+    color:#00acd7;
   }
   .Header-menuItem--search,
   .HeaderSearch {
