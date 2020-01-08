@@ -41,6 +41,7 @@ var files = []string{
 	"doc/devel/release.html",
 	"doc/devel/weekly.html",
 	"doc/docs.html",
+	"doc/gopath_code.html",
 	"doc/root.html",
 	"doc/security.html",
 	"error.html",
