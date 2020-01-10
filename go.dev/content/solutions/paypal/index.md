@@ -3,7 +3,7 @@ title: PayPal Taps Go to Modernize and Scale
 description: “”
 date: 2019-12-18
 series: Case Studies
-quote: Developers benefit from Go’s ability to combine the ease of programming of an interpreted, dynamically typed language with the efficiency and safety of a statically typed, compiled language.
+quote: Go’s value in producing clean, efficient code that readily scales as software deployment scales made the language a strong fit to support PayPal’s goals.
 resources:
 - name: logo
   src: logo.svg
