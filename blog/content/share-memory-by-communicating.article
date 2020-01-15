@@ -76,4 +76,4 @@ Let's take a look at the same functionality implemented using Go idiom. In this 
 
 The delicate logic from the previous example is conspicuously absent, and our Resource data structure no longer contains bookkeeping data. In fact, all that's left are the important parts. This should give you an inkling as to the power of these simple language features.
 
-There are many omissions from the above code snippets. For a walkthrough of a complete, idiomatic Go program that uses these ides, see the Codewalk [[https://golang.org/doc/codewalk/sharemem/][_Share_Memory_By_Communicating_]].
+There are many omissions from the above code snippets. For a walkthrough of a complete, idiomatic Go program that uses these ideas, see the Codewalk [[https://golang.org/doc/codewalk/sharemem/][_Share_Memory_By_Communicating_]].
