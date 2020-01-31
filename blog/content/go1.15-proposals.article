@@ -74,6 +74,9 @@ are constant, the compiler can constant-evaluate such expressions and produce a
 constant (possibly untyped) result. This is a fully backward-compatible change
 and we propose to make the necessary adjustments to the spec and compilers.
 
+(Correction: We found out after posting that this change is not backward-compatible;
+see [[https://golang.org/issue/28591#issuecomment-579993684][comment]] for details.)
+
 * Timeline
 
 We believe that none of these three proposals are controversial but there’s
