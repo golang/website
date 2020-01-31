@@ -25,7 +25,7 @@ import.
 To minimize confusion about which site to use, later this year we are planning
 to redirect traffic from [[https://godoc.org][godoc.org]] to the corresponding
 page on [[https://pkg.go.dev][pkg.go.dev]]. We need your help to ensure that
-pkg.go.dev addresses all of our users needs. We encourage everyone to begin
+pkg.go.dev addresses all of our users' needs. We encourage everyone to begin
 using pkg.go.dev today for all of their needs and provide feedback.
 
 Your feedback will inform our transition plan, with the goal of making
