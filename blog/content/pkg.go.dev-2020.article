@@ -72,7 +72,7 @@ Since our launch in November, we've made the following improvements:
 
 As always, our license policy is at
 [[https://pkg.go.dev/license-policy][pkg.go.dev/license-policy]]. If you are
-having issues, feel free to [[https://golang.org/x/discovery-feedback][file an issue on the Go issue tracker]], or email
+having issues, feel free to [[https://golang.org/s/discovery-feedback][file an issue on the Go issue tracker]], or email
 [[mailto:go-discovery-feedback@google.com][go-discovery-feedback@google.com]]
 so that we can work with you directly!
 
