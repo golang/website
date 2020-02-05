@@ -78,7 +78,7 @@ go: creating new go.mod: module github.com/user/hello
 $ cat go.mod
 module github.com/user/hello
 
-go 1.13
+go 1.14
 $
 </pre>
 
@@ -115,13 +115,36 @@ $
 <p>
 This command builds the <code>hello</code> command, producing an executable
 binary. It then installs that binary as <code>$HOME/go/bin/hello</code> (or,
-under Windows, <code>%USERPROFILE%\go\bin\hello.exe</code>). You can change the
-install directory by setting the <code>GOBIN</code>
-<a href="/cmd/go/#hdr-Environment_variables">environment variable</a>.
+under Windows, <code>%USERPROFILE%\go\bin\hello.exe</code>).
+</p>
+
+<p>
+The install directory is controlled by the <code>GOPATH</code>
+and <code>GOBIN</code> <a href="/cmd/go/#hdr-Environment_variables">environment
+variables</a>. If <code>GOBIN</code> is set, binaries are installed to that
+directory. If <code>GOPATH</code> is set, binaries are installed to
+the <code>bin</code> subdirectory of the first directory in
+the <code>GOPATH</code> list. Otherwise, binaries are installed to
+the <code>bin</code> subdirectory of the default <code>GOPATH</code>
+(<code>$HOME/go</code> or <code>%USERPROFILE%\go</code>).
+</p>
+
+<p>
+You can use the <code>go env</code> command to portably set the default value
+for an environment variable for future <code>go</code> commands:
 </p>
 
 <pre>
 $ go env -w GOBIN=/somewhere/else/bin
+$
+</pre>
+
+<p>
+To unset a variable previously set by <code>go env -w</code>, use <code>go env -u</code>:
+</p>
+
+<pre>
+$ go env -u GOBIN
 $
 </pre>
 
@@ -156,10 +179,11 @@ add the install directory to our <code>PATH</code> to make running binaries
 easy:
 </p>
 
+<!-- Note: we can't use $(go env GOBIN) here until https://golang.org/issue/23439 is addressed. -->
 <pre>
 # Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
 # for setting %PATH%.
-$ <b>export PATH=$PATH:$(go env GOBIN)</b>
+$ <b>export PATH=$PATH:$(dirname $(go list -f '{{.Target}}' .))</b>
 $ <b>hello</b>
 Hello, world.
 $
@@ -181,6 +205,14 @@ $ <b>git commit -m "initial commit"</b>
  create mode 100644 go.mod hello.go
 $
 </pre>
+
+<p>
+The <code>go</code> command locates the repository containing a given module path by requesting a corresponding HTTPS URL and reading metadata embedded in the HTML response (see
+<code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>).
+Many hosting services already provide that metadata for repositories containing
+Go code, so the easiest way to make your module available for others to use is
+usually to make its module path match the URL for the repository.
+</p>
 
 <h3 id="ImportingLocal">Importing packages from your module</h3>
 
@@ -292,33 +324,44 @@ func main() {
 
 <p>
 When you run commands like <code>go install</code>, <code>go build</code>, or
-<code>go run</code>, the remote module will automatically be added to your
-<code>go.mod</code> file (and downloaded):
+<code>go run</code>, the <code>go</code> command will automatically download the
+remote module and record its version in your <code>go.mod</code> file:
+</p>
 
 <pre>
 $ go install github.com/user/hello
+go: finding module for package github.com/google/go-cmp/cmp
+go: downloading github.com/google/go-cmp v0.4.0
+go: found github.com/google/go-cmp/cmp in github.com/google/go-cmp v0.4.0
 $ hello
 Hello, Go!
-  string(
-- 	"Hello World",
-+ 	"Hello Go",
-  )
+  string(
+- 	"Hello World",
++ 	"Hello Go",
+  )
 $ cat go.mod
 module github.com/user/hello
 
-go 1.13
+go 1.14
 
-<b>require github.com/google/go-cmp v0.3.1</b>
+<b>require github.com/google/go-cmp v0.4.0</b>
 $
 </pre>
 
 <p>
-A module's path doesn't have to match the URL for its repository, but this
-convention is the easiest way to make your Go packages available for others to
-use. For more information on using remote modules with the <code>go</code> tool, see
-<code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>
-and <a href="https://blog.golang.org/using-go-modules">Using Go Modules</a>.
+Module dependencies are automatically downloaded to the <code>pkg/mod</code>
+subdirectory of the directory indicated by the <code>GOPATH</code> environment
+variable. The downloaded contents for a given version of a module are shared
+among all other modules that <code>require</code> that version, so
+the <code>go</code> command marks those files and directories as read-only. To
+remove all downloaded modules, you can pass the <code>-modcache</code> flag
+to <code>go clean</code>:
 </p>
+
+<pre>
+$ go clean -modcache
+$
+</pre>
 
 <h2 id="Testing">Testing</h2>
 
