@@ -912,7 +912,7 @@ ensure this table is readable. If the cells are too large, and it's difficult
 to scan, use paragraphs or sections below.
 -->
 
-<table>
+<table class="ModProtocol">
   <thead>
     <tr>
       <th>Path</th>
@@ -940,7 +940,7 @@ type Info struct {
     Version string    // version string
     Time    time.Time // commit time
 }
-        </pre>
+</pre>
         <p>
           The <code>Version</code> field is required and must contain a valid,
           <a href="#glos-canonical-version">canonical version</a> (see
@@ -1097,7 +1097,7 @@ corresponding lower-case letter. This allows modules `example.com/M` and
 Parts of the path surrounded by square brakets, like `[.p/$W]` denote optional
 values.
 
-<table>
+<table class="ModProtocol">
   <thead>
     <tr>
       <th>Path</th>
