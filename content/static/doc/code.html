@@ -183,7 +183,7 @@ easy:
 <pre>
 # Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
 # for setting %PATH%.
-$ <b>export PATH=$PATH:$(dirname $(go list -f '{{.Target}}' .))</b>
+$ <b>export PATH=$PATH:$(dirname $(go list -f '{{"{{"}}.Target{{"}}"}}' .))</b>
 $ <b>hello</b>
 Hello, world.
 $
