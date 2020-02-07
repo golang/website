@@ -1,11 +1,10 @@
 <!--{
   "Title": "Go Modules Reference",
-  "Subtitle": "Version of Sep 4, 2019",
+  "Subtitle": "Version of Feb 5, 2019",
   "Path": "/ref/modules"
 }-->
-<!-- TODO(jayconrod): ensure golang.org/x/website can render Markdown or convert
-this document to HTML before Go 1.14. -->
-<!-- TODO(jayconrod): ensure anchors work correctly after Markdown rendering -->
+<!-- TODO(jayconrod): change anchors to header id attributes either during
+markdown rendering or as HTML postprocessing step. -->
 
 <a id="introduction"></a>
 ## Introduction
