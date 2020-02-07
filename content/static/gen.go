@@ -11,7 +11,10 @@ import (
 	"fmt"
 	"go/format"
 	"io/ioutil"
+	"strings"
 	"unicode"
+
+	"golang.org/x/website/markdown"
 )
 
 var files = []string{
@@ -68,21 +71,42 @@ var files = []string{
 	"style.css",
 }
 
+var markdownFiles = []string{
+	"doc/modules.md",
+}
+
 // Generate reads a set of files and returns a file buffer that declares
 // a map of string constants containing contents of the input files.
 func Generate() ([]byte, error) {
 	buf := new(bytes.Buffer)
 	fmt.Fprintf(buf, "%v\n\n%v\n\npackage static\n\n", license, warning)
 	fmt.Fprintf(buf, "var Files = map[string]string{\n")
+
 	for _, fn := range files {
 		b, err := ioutil.ReadFile(fn)
 		if err != nil {
-			return b, err
+			return nil, err
 		}
 		fmt.Fprintf(buf, "\t%q: ", fn)
 		appendQuote(buf, b)
 		fmt.Fprintf(buf, ",\n\n")
 	}
+
+	for _, fn := range markdownFiles {
+		src, err := ioutil.ReadFile(fn)
+		if err != nil {
+			return nil, err
+		}
+		gen, err := markdown.Render(src)
+		if err != nil {
+			return nil, fmt.Errorf("%s: %v", fn, err)
+		}
+		htmlName := strings.TrimSuffix(fn, ".md") + ".html"
+		fmt.Fprintf(buf, "\t%q: ", htmlName)
+		appendQuote(buf, gen)
+		fmt.Fprintf(buf, ",\n\n")
+	}
+
 	fmt.Fprintln(buf, "}")
 	return format.Source(buf.Bytes())
 }
