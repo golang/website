@@ -9,7 +9,7 @@ Welcome to the official Go Blog. We, the Go team, hope to use this blog to keep 
  
 It's been a few months since we launched (November last year), so let's talk about what's been happening in Go World since then.
  
-The core team at Google has continued to develop the language, compilers, packages, tools, and documentation.  The compilers now produce code that is in some cases between 2x and an order of magnitude faster than at release. We have put together some graphs of a selection of [[http://godashboard.appspot.com/benchmarks][Benchmarks]], and the the [[http://godashboard.appspot.com/][Build Status]] page tracks the reliability of each changeset submitted to the repository.
+The core team at Google has continued to develop the language, compilers, packages, tools, and documentation.  The compilers now produce code that is in some cases between 2x and an order of magnitude faster than at release. We have put together some graphs of a selection of [[http://godashboard.appspot.com/benchmarks][Benchmarks]], and the [[http://godashboard.appspot.com/][Build Status]] page tracks the reliability of each changeset submitted to the repository.
  
 We have made syntax changes to make the language more concise, regular, and flexible. Semicolons have been [[http://groups.google.com/group/golang-nuts/t/5ee32b588d10f2e9][almost entirely removed]] from the language.  The [[https://golang.org/doc/go_spec.html#Function_types][...T syntax]] makes it simpler to handle an arbitrary number of typed function parameters.  The syntax x[lo:] is now shorthand for x[lo:len(x)]. Go also now natively supports complex numbers. See the [[https://golang.org/doc/devel/release.html][release notes]] for more. 
  
