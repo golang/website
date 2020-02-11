@@ -5,6 +5,8 @@
 }-->
 <!-- TODO(jayconrod): change anchors to header id attributes either during
 markdown rendering or as HTML postprocessing step. -->
+<!-- TODO(jayconrod): use <dfn> tags where meaningful.
+Currently, *term* is used instead, which renders to <em>term</em>. -->
 
 <a id="introduction"></a>
 ## Introduction
@@ -655,6 +657,122 @@ build, but it still stores downloaded dependencies (in `GOPATH/pkg/mod`; see
 <a id="go-get"></a>
 ### `go get`
 
+Usage:
+
+```
+go get [-d] [-t] [-u] [build flags] [packages]
+```
+
+Examples:
+
+```
+# Install the latest version of a tool.
+$ go get golang.org/x/tools/cmd/goimports
+
+# Upgrade a specific module.
+$ go get -d golang.org/x/net
+
+# Upgrade modules that provide packages imported by package in the main module.
+$ go get -u ./...
+
+# Upgrade or downgrade to a specific version of a module.
+$ go get -d golang.org/x/text@v0.3.2
+
+# Update to the commit on the module's master branch.
+$ go get -d golang.org/x/text@master
+
+# Remove a dependency on a module and downgrade modules that require it
+# to versions that don't require it.
+$ go get -d golang.org/x/text@none
+```
+
+The `go get` command updates module dependencies in the [`go.mod`
+file](#go.mod-files) for the [main module](#glos-main-module), then builds and
+installs packages listed on the command line.
+
+The first step is to determine which modules to update. `go get` accepts a list
+of packages, package patterns, and module paths as arguments. If a package
+argument is specified, `go get` updates the module that provides the package.
+If a package pattern is specified (for example, `all` or a path with a `...`
+wildcard), `go get` expands the pattern to a set of packages, then updates the
+modules that provide the packages. If an argument names a module but not a
+package (for example, the module `golang.org/x/net` has no package in its root
+directory), `go get` will update the module but will not build a package. If no
+arguments are specified, `go get` acts as if `.` were specified (the package in
+the current directory); this may be used together with the `-u` flag to update
+modules that provide imported packages.
+
+Each argument may include a <dfn>version query suffix</dfn> indicating the
+desired version, as in `go get golang.org/x/text@v0.3.0`. A version query
+suffix consists of an `@` symbol followed by a [version query](#version-queries),
+which may indicate a specific version (`v0.3.0`), a version prefix (`v0.3`),
+a branch or tag name (`master`), a revision (`1234abcd`), or one of the special
+queries `latest`, `upgrade`, `patch`, or `none`. If no version is given,
+`go get` uses the `@upgrade` query.
+
+Once `go get` has resolved its arguments to specific modules and versions, `go
+get` will add, change, or remove [`require` directives](#go.mod-require) in the
+main module's `go.mod` file to ensure the modules remain at the desired
+versions in the future. Note that required versions in `go.mod` files are
+*minimum versions* and may be increased automatically as new dependencies are
+added. See [Minimal version selection (MVS)](#minimal-version-selection) for
+details on how versions are selected and conflicts are resolved by module-aware
+commands.
+
+<!-- TODO(jayconrod): add diagrams for the examples below.
+We need a consistent strategy for visualizing module graphs here, in the MVS
+section, and perhaps in other documentation (blog posts, etc.).
+-->
+
+Other modules may be upgraded when a module named on the command line is added,
+upgraded, or downgraded if the new version of the named module requires other
+modules at higher versions. For example, suppose module `example.com/a` is
+upgraded to version `v1.5.0`, and that version requires module `example.com/b`
+at version `v1.2.0`. If module `example.com/b` is currently required at version
+`v1.1.0`, `go get example.com/a@v1.5.0` will also upgrade `example.com/b` to
+`v1.2.0`.
+
+Other modules may be downgraded when a module named on the command line is
+downgraded or removed. To continue the above example, suppose module
+`example.com/b` is downgraded to `v1.1.0`. Module `example.com/a` would also be
+downgraded to a version that requires `example.com/b` at version `v1.1.0` or
+lower.
+
+A module requirement may be removed using the version suffix `@none`. This is a
+special kind of downgrade. Modules that depend on the removed module will be
+downgraded or removed as needed. A module requirement may be removed even if one
+or more of its packages are imported by packages in the main module. In this
+case, the next build command may add a new module requirement.
+
+If a module is needed at two different versions (specified explicitly in command
+line arguments or to satisfy upgrades and downgrades), `go get` will report an
+error.
+
+After `go get` updates the `go.mod` file, it builds the packages named
+on the command line. Executables will be installed in the directory named by
+the `GOBIN` environment variable, which defaults to `$GOPATH/bin` or
+`$HOME/go/bin` if the `GOPATH` environment variable is not set.
+
+`go get` supports the following flags:
+
+* The `-d` flag tells `go get` not to build or install packages. When `-d` is
+  used, `go get` will only manage dependencies in `go.mod`.
+* The `-u` flag tells `go get` to upgrade modules providing packages
+  imported directly or indirectly by packages named on the command line.
+  Each module selected by `-u` will be upgraded to its latest version unless
+  it is already required at a higher version (a pre-release).
+* The `-u=patch` flag (not `-u patch`) also tells `go get` to upgrade
+  dependencies, but `go get` will upgrade each dependency to the latest patch
+  version (similar to the `@patch` version query).
+* The `-t` flag tells `go get` to consider modules needed to build tests
+  of packages named on the command line. When `-t` and `-u` are used together,
+  `go get` will update test dependencies as well.
+* The `-insecure` flag should no longer be used. It permits `go get` to resolve
+  custom import paths and fetch from repositories and module proxies using
+  insecure schemes such as HTTP. The `GOINSECURE` [environment
+  variable](#environment-variables) provides more fine-grained control and
+  should be used instead.
+
 <a id="go-list-m"></a>
 ### `go list -m`
 
@@ -674,7 +792,7 @@ $ go list -m -json example.com/m@latest
 
 The `-m` flag causes `go list` to list modules instead of packages. In this
 mode, the arguments to `go list` may be modules, module patterns (containing the
-`...` wildcard), [module queries](#module-queries), or the special pattern
+`...` wildcard), [version queries](#version-queries), or the special pattern
 `all`, which matches all modules in the [build list](#glos-build-list). If no
 arguments are specified, the [main module](#glos-main-module) is listed.
 
@@ -762,8 +880,8 @@ $ go mod download golang.org/x/mod@v0.2.0
 
 The `go mod download` command downloads the named modules into the [module
 cache](#glos-module-cache). Arguments can be module paths or module
-patterns selecting dependencies of the main module or [module
-queries](#module-queries) of the form `path@version`. With no arguments,
+patterns selecting dependencies of the main module or [version
+queries](#version-queries) of the form `path@version`. With no arguments,
 `download` applies to all dependencies of the [main module](#glos-main-module).
 
 The `go` command will automatically download modules as needed during ordinary
@@ -855,8 +973,8 @@ requirements and to drop unused requirements.
 <a id="go-clean-modcache"></a>
 ### `go clean -modcache`
 
-<a id="module-queries"></a>
-### Module queries
+<a id="version-queries"></a>
+### Version queries
 
 <a id="commands-outside"></a>
 ### Module commands outside a module
