@@ -976,6 +976,60 @@ requirements and to drop unused requirements.
 <a id="version-queries"></a>
 ### Version queries
 
+Several commands allow you to specify a version of a module using a *version
+query*, which appears after an `@` character following a module or package path
+on the command line.
+
+Examples:
+
+```
+go get example.com/m@latest
+go mod download example.com/m@master
+go list -m -json example.com/m@e3702bed2
+```
+
+A version query may be one of the following:
+
+* A fully-specified semantic version, such as `v1.2.3`, which selects a
+  specific version. See [Versions](#versions) for syntax.
+* A semantic version prefix, such as `v1` or `v1.2`, which selects the highest
+  available version with that prefix.
+* A semantic version comparison, such as `<v1.2.3` or `>=v1.5.6`, which selects
+  the nearest available version to the comparison target (the lowest version
+  for `>` and `>=`, and the highest version for `<` and `<=`).
+* A revision identifier for the underlying source repository, such as a commit
+  hash prefix, revision tag, or branch name. If the revision is tagged with a
+  semantic version, this query selects that version. Otherwise, this query
+  selects a [pseudo-version](#glos-pseudo-version) for the underlying
+  commit. Note that branches and tags with names matched by other version
+  queries cannot be selected this way. For example, the query `v2` selects the
+  latest version starting with `v2`, not the branch named `v2`.
+* The string `latest`, which selects the highest available release version. If
+  there are no release versions, `latest` selects the highest pre-release
+  version.  If there no tagged versions, `latest` selects a pseudo-version for
+  the commit at the tip of the repository's default branch.
+* The string `upgrade`, which is like `latest` except that if the module is
+  currently required at a higher version than the version `latest` would select
+  (for example, a pre-release), `upgrade` will select the current version.
+* The string `patch`, which selects the latest available version with the same
+  major and minor version numbers as the currently required version. If no
+  version is currently required, `patch` is equivalent to `latest`.
+
+Except for queries for specific named versions or revisions, all queries
+consider available versions reported by `go list -m -versions` (see [`go list
+-m`](#go-list-m)). This list contains only tagged versions, not pseudo-versions.
+Module versions disallowed by [exclude](#go.mod-exclude) directives in
+the main module's [`go.mod` file](#glos-go.mod-file) are not considered.
+
+[Release versions](#glos-release-version) are preferred over pre-release
+versions. For example, if versions `v1.2.2` and `v1.2.3-pre` are available, the
+`latest` query will select `v1.2.2`, even though `v1.2.3-pre` is higher. The
+`<v1.2.4` query would also select `v1.2.2`, even though `v1.2.3-pre` is closer
+to `v1.2.4`. If no release or pre-release version is available, the `latest`,
+`upgrade`, and `patch` queries will select a pseudo-version for the commit
+at the tip of the repository's default branch. Other queries will report
+an error.
+
 <a id="commands-outside"></a>
 ### Module commands outside a module
 
