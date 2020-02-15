@@ -84,7 +84,7 @@ const templateHTML = `
   <nav class="Header-nav">
     <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
     <button class="Header-menuButton js-headerMenuButton" aria-label="Main menu" aria-expanded="false">
-      <div class="Header-menuButtonInner">
+      <div class="Header-menuButtonInner"></div>
     </button>
     <ul class="Header-menu">
       <li class="Header-menuItem"><a href="/doc/">Documents</a></li>
