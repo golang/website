@@ -5,7 +5,7 @@
 // +build ignore
 
 // Command makestatic writes the generated file buffer to "static.go".
-// It is intended to be invoked via "go generate" (directive in "gen.go").
+// It is intended to be invoked via "go generate" (directive in "doc.go").
 package main
 
 import (
@@ -13,7 +13,7 @@ import (
 	"io/ioutil"
 	"os"
 
-	"golang.org/x/website/content/static"
+	"golang.org/x/website/content/static/internal/gen"
 )
 
 func main() {
@@ -24,7 +24,7 @@ func main() {
 }
 
 func makestatic() error {
-	buf, err := static.Generate()
+	buf, err := gen.Generate()
 	if err != nil {
 		return fmt.Errorf("error while generating static.go: %v\n", err)
 	}

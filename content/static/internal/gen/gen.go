@@ -2,9 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package static
-
-//go:generate go run makestatic.go
+// Package gen is used by content/static/makestatic.go
+// to generate content/static/static.go.
+//
+// This is a separate package so that it can be tested without
+// build constraints. cmd/golangorg and other binaries should not
+// depend on it.
+package gen
 
 import (
 	"bytes"

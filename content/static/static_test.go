@@ -7,9 +7,9 @@ package static
 import (
 	"bytes"
 	"io/ioutil"
-	"strconv"
 	"testing"
-	"unicode"
+
+	"golang.org/x/website/content/static/internal/gen"
 )
 
 func TestStaticIsUpToDate(t *testing.T) {
@@ -18,7 +18,7 @@ func TestStaticIsUpToDate(t *testing.T) {
 		t.Errorf("error while reading static.go: %v\n", err)
 	}
 
-	newBuf, err := Generate()
+	newBuf, err := gen.Generate()
 	if err != nil {
 		t.Errorf("error while generating static.go: %v\n", err)
 	}
@@ -29,21 +29,5 @@ func TestStaticIsUpToDate(t *testing.T) {
   $ git diff
 to see the differences.`)
 
-	}
-}
-
-// TestAppendQuote ensures that AppendQuote produces a valid literal.
-func TestAppendQuote(t *testing.T) {
-	var in, out bytes.Buffer
-	for r := rune(0); r < unicode.MaxRune; r++ {
-		in.WriteRune(r)
-	}
-	appendQuote(&out, in.Bytes())
-	in2, err := strconv.Unquote(out.String())
-	if err != nil {
-		t.Fatalf("AppendQuote produced invalid string literal: %v", err)
-	}
-	if got, want := in2, in.String(); got != want {
-		t.Fatal("AppendQuote modified string") // no point printing got/want: huge
 	}
 }
