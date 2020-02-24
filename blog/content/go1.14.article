@@ -1,0 +1,25 @@
+Go 1.14 is released
+25 Feb 2020
+
+Alex Rakoczy
+
+* Introduction
+
+Today the Go team is very happy to announce the release of Go 1.14. You can get it from the [[https://golang.org/dl][download page]].
+
+Some of the highlights include:
+
+- Module support in the `go` command is now ready for production use. We encourage all users to [[https://golang.org/doc/go1.14#introduction][migrate to `go` modules for dependency management]].
+- [[https://golang.org/doc/go1.14#language][Embedding interfaces with overlapping method sets]]
+- [[https://golang.org/doc/go1.14#runtime][Improved defer performance]]
+- [[https://golang.org/doc/go1.14#runtime][Goroutines are asynchronously preemptible]]
+- [[https://golang.org/doc/go1.14#runtime][The page allocator is more efficient]]
+- [[https://golang.org/doc/go1.14#runtime][Internal timers are more efficient]]
+
+For the complete list of changes and more information about the improvements above, see the [[https://golang.org/doc/go1.14][*Go*1.14*release*notes*]].
+
+We want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the beta and release candidate.
+Your contributions and diligence helped to ensure that Go 1.14 is as stable as possible.
+That said, if you notice any problems, please [[https://golang.org/issue/new][file an issue]].
+
+We hope you enjoy the new release!
