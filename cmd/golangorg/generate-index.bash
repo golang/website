@@ -57,7 +57,7 @@ makeIndexfile() {
 splitIndexfile() {
 	echo "*** split $INDEXFILE"
 	rm -f $SPLITFILES*
-	split -b8m $INDEXFILE $SPLITFILES
+	split -b 8m -a 8 $INDEXFILE $SPLITFILES
 }
 
 cd $(dirname $0)
