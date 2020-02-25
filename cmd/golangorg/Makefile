@@ -4,7 +4,7 @@
 
 .PHONY: usage
 
-GO_REF ?= release-branch.go1.13
+GO_REF ?= release-branch.go1.14
 WEBSITE_HEAD := $(shell git rev-parse HEAD)
 WEBSITE_CLEAN := $(shell (git status --porcelain | grep -q .) && echo dirty || echo clean)
 ifeq ($(WEBSITE_CLEAN),clean)
