@@ -50,8 +50,8 @@ makeZipfile() {
 makeIndexfile() {
 	echo "*** make $INDEXFILE"
 	golangorg=$(go env GOPATH)/bin/golangorg
-	# NOTE: run golangorg without GOPATH set. Otherwise third-party packages will end up in the index.
-	GOPATH= $golangorg -write_index -goroot goroot -index_files=$INDEXFILE -zip=$ZIPFILE
+	# Run golangorg with GOPATH set to an empty directory, otherwise third-party packages will be in the index.
+	GOPATH=$(mktemp -d) $golangorg -write_index -goroot goroot -index_files=$INDEXFILE -zip=$ZIPFILE
 }
 
 splitIndexfile() {
