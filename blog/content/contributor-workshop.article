@@ -142,7 +142,7 @@ GitHub vs Geritt terminology, so we had better understanding of the process.
 
 .image contributor-workshop/image10.png
 
-Ok, now it was time to become a **freaking** *Go* **contributor**.
+Ok, now it was time to become a *freaking*Go*contributor*.
 
 To make this more exciting than it already is, the Go team set up a game where
 we could track as a group how many points we could rack up based on the Gerrit
@@ -265,7 +265,7 @@ other functions have (and I could use the practice using Gerrit).
 
 I started looking at `go/src/regexp` to try to find where to add examples and I
 got lost pretty quickly. Lucky for me, [[https://twitter.com/francesc][Francesc]] was around that day. He walked
-me through how all examples are actually in-line tests in a `example_test.go
+me through how all examples are actually in-line tests in a `example_test.go`
 file. They follow the format of test cases followed by "Output" commented out
 and then the answers to the tests. For example:
 
@@ -288,7 +288,7 @@ in my patch. It's going to be open for a bit longer given the additional scope,
 but I think it's worth it on this one.
 
 I can hear your question already: how did I verify it worked? Well it wasn't
-easy to be honest. Running `go test example_test.go -run QuoteMeta -v` won't do
+easy to be honest. Running `go`test`example_test.go`-run`QuoteMeta`-v` won't do
 it since we're working outside of our $GOPATH. I struggled to figure it out
 until [[https://medium.com/@vCabbage/go-testing-standard-library-changes-1e9cbed11339][Kale Blakenship wrote this awesome post on testing in Go]].
 Bookmark this one for later.

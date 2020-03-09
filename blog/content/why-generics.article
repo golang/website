@@ -288,13 +288,13 @@ We want to do the same with generics.
 To make this more concrete I’m going to list a few guidelines we
 should follow.
 
-*** Minimize new concepts
+** Minimize new concepts
 
 We should add as few new concepts to the language as possible.
 That means a minimum of new syntax and a minimum of new keywords and
 other names.
 
-*** Complexity falls on the writer of generic code, not the user
+** Complexity falls on the writer of generic code, not the user
 
 As much as possible the complexity should fall on the programmer
 writing the generic package.
@@ -304,7 +304,7 @@ natural way, and it means that any errors in using a generic package
 should be reported in a way that is easy to understand and to fix.
 It should also be easy to debug calls into generic code.
 
-*** Writer and user can work independently
+** Writer and user can work independently
 
 Similarly, we should make it easy to separate the concerns of the
 writer of the generic code and its user, so that they can develop their
@@ -315,7 +315,7 @@ have to worry.
 This sounds obvious, but it's not true of generics in every other
 programming language.
 
-*** Short build times, fast execution times
+** Short build times, fast execution times
 
 Naturally, as much as possible, we want to keep the short build times
 and fast execution time that Go gives us today.
@@ -323,7 +323,7 @@ Generics tend to introduce a tradeoff between fast builds and fast
 execution.
 As much as possible, we want both.
 
-*** Preserve clarity and simplicity of Go
+** Preserve clarity and simplicity of Go
 
 Most importantly, Go today is a simple language.
 Go programs are usually clear and easy to understand.

@@ -20,6 +20,6 @@ The SDK now includes the appengine package source code, so you can use the local
 
 	    /path/to/sdk/godoc appengine/datastore Get
 
-*Important*note:* We have deprecated `api_version` 2. Go apps that use `api_version` 2 will stop working after 16 December 2011. Please update your apps to use api_version 3 before then.
+*Important*note:* We have deprecated `api_version` 2. Go apps that use `api_version` 2 will stop working after 16 December 2011. Please update your apps to use `api_version` 3 before then.
 
 See the [[http://code.google.com/p/googleappengine/wiki/SdkForGoReleaseNotes][release notes]] for a full list of changes. Please direct any questions about the new SDK to the [[http://groups.google.com/group/google-appengine-go][Go App Engine discussion group]].
