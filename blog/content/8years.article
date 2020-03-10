@@ -71,7 +71,8 @@ alone over 50 scholarships to conferences have been given through efforts of
 Go Bridge and Women Who Go.
 
 This year we had two significant firsts for the Go project. We had our first
-[[https://blog.golang.org/contributors-summit][contributor summit]] where people from across the Go community came together to
+[[https://blog.golang.org/contributors-summit][contributor summit]] where
+people from across the Go community came together to
 discuss the needs and future of the Go project. Shortly after, we had the
 first [[https://blog.golang.org/contributor-workshop][Go contributor workshop]] 
 where hundreds of people came to make their first Go contribution.
@@ -87,23 +88,47 @@ most popular projects and enabling innovations across many industries. Find
 thousands of additional applications and libraries at [[https://github.com/avelino/awesome-go][awesome-go]]. Here are
 just a handful of the most popular:
 
-- [[https://mobyproject.org/][Moby]] (formerly Docker) is a tool for packaging and running applications in lightweight containers. Its creator Solomon Hykes cited Go's standard library, concurrency primitives, and ease of deployment as key factors, and said "To put it simply, if Docker had not been written in Go, it would not have been as successful."
+- [[https://mobyproject.org/][Moby]] (formerly Docker) is a tool for packaging
+  and running applications in lightweight containers.
+  Its creator Solomon Hykes cited Go's standard library,
+  concurrency primitives, and ease of deployment as key factors,
+  and said "To put it simply, if Docker had not been written in Go,
+  it would not have been as successful."
 
-- [[https://kubernetes.io/][Kubernetes]] is a system for automating deployment, scaling and management of containerized applications. Initially designed by Google and used in the Google cloud, Kubernetes now is a critical part of every major cloud offering. 
+- [[https://kubernetes.io/][Kubernetes]] is a system for automating deployment,
+  scaling and management of containerized applications.
+  Initially designed by Google and used in the Google cloud,
+  Kubernetes now is a critical part of every major cloud offering.
 
-- [[https://gohugo.io/][Hugo]] is now the most popular open-source static website engine. With its amazing speed and flexibility, Hugo makes building websites fun again. According to [[https://w3techs.com/technologies/overview/content_management/all][w3techs]], Hugo now has nearly 3x the usage of Jekyll, the former leader. 
+- [[https://gohugo.io/][Hugo]] is now the most popular open-source static website engine.
+  With its amazing speed and flexibility, Hugo makes building websites fun again.
+  According to [[https://w3techs.com/technologies/overview/content_management/all][w3techs]],
+  Hugo now has nearly 3x the usage of Jekyll, the former leader.
 
-- [[https://prometheus.io/][Prometheus]] is an open source monitoring solution and time series database that powers metrics and alerting designed to be the system you go to during an outage to allow you to quickly diagnose problems.
+- [[https://prometheus.io/][Prometheus]] is an open source monitoring solution
+  and time series database that powers metrics and alerting designed to be
+  the system you go to during an outage to allow you to quickly diagnose problems.
 
-- [[https://grafana.com/][Grafana]] is an open source, feature-rich metrics dashboard and graph editor for Graphite, Elasticsearch, OpenTSDB, Prometheus and InfluxDB.
+- [[https://grafana.com/][Grafana]] is an open source,
+  feature-rich metrics dashboard and graph editor for Graphite,
+  Elasticsearch, OpenTSDB, Prometheus and InfluxDB.
 
 - [[https://getlantern.org/][Lantern]] delivers fast, reliable and secure access to blocked websites and apps. 
 
-- [[https://syncthing.net/][Syncthing]] is an open-source cross platform peer-to-peer continuous file synchronization application
+- [[https://syncthing.net/][Syncthing]] is an open-source cross platform
+  peer-to-peer continuous file synchronization application
 
-- [[https://keybase.io/][Keybase]] is a new and free security app for mobile phones and computers. Think of it as an open source Dropbox & Slack with end-to-end encryption public-key cryptography. 
+- [[https://keybase.io/][Keybase]] is a new and free security app for mobile
+  phones and computers.
+  Think of it as an open source Dropbox & Slack with end-to-end encryption
+  public-key cryptography.
 
-- [[https://github.com/junegunn/fzf][Fzf]] is an interactive Unix filter for command-line that can be used with any list; files, command history, processes, hostnames, bookmarks, git commits, etc. Fzf supports Unix, macOS and has beta support for Windows. It also can operate as a vim plugin. 
+- [[https://github.com/junegunn/fzf][Fzf]] is an interactive Unix filter
+  for command-line that can be used with any list;
+  files, command history, processes, hostnames,
+  bookmarks, git commits, etc.
+  Fzf supports Unix, macOS and has beta support for Windows.
+  It also can operate as a vim plugin.
 
 Many of these authors have said that their projects would not exist without
 Go. Some like Kubernetes and Docker created entirely new solutions. Others

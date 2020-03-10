@@ -97,9 +97,14 @@ to use to build the module.
 
 A semantic version has the form `vMAJOR.MINOR.PATCH`.
 
-- Increment the `MAJOR` version when you make a [[https://golang.org/doc/go1compat][backwards incompatible]] change to the public API of your module. This should only be done when absolutely necessary.
-- Increment the `MINOR` version when you make a backwards compatible change to the API, like changing dependencies or adding a new function, method, struct field, or type.
-- Increment the `PATCH` version after making minor changes that don't affect your module's public API or dependencies, like fixing a bug.
+- Increment the `MAJOR` version when you make a [[https://golang.org/doc/go1compat][backwards incompatible]]
+  change to the public API of your module.
+  This should only be done when absolutely necessary.
+- Increment the `MINOR` version when you make a backwards compatible change to the API,
+  like changing dependencies or adding a new function,
+  method, struct field, or type.
+- Increment the `PATCH` version after making minor changes that don't affect
+  your module's public API or dependencies, like fixing a bug.
 
 You can specify pre-release versions by appending a hyphen and dot separated
 identifiers (for example, `v1.0.1-alpha` or `v2.2.2-beta.2`). Normal releases
@@ -197,7 +202,9 @@ OK. An imperfect API is better than breaking users' existing code.
 The standard library's `strings` package is a prime example of maintaining
 backwards compatibility at the cost of API consistency.
 
-- [[https://godoc.org/strings#Split][`Split`]] slices a string into all substrings separated by a separator and returns a slice of the substrings between those separators.
+- [[https://godoc.org/strings#Split][`Split`]] slices a string into all
+  substrings separated by a separator and returns a slice of the substrings
+  between those separators.
 - [[https://godoc.org/strings#SplitN][`SplitN`]] can be used to control the number of substrings to return.
 
 However, [[https://godoc.org/strings#Replace][`Replace`]] took a count of how

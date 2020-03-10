@@ -207,11 +207,20 @@ continue to support programs that use APIv1.
 
 - `github.com/golang/protobuf@v1.3.4` is the most recent pre-APIv2 version of APIv1.
 
-- `github.com/golang/protobuf@v1.4.0` is a version of APIv1 implemented in terms of APIv2. The API is the same, but the underlying implementation is backed by the new one. This version contains functions to convert between the APIv1 and APIv2 `proto.Message` interfaces to ease the transition between the two.
+- `github.com/golang/protobuf@v1.4.0` is a version of APIv1 implemented in terms of APIv2.
+  The API is the same, but the underlying implementation is backed by the new one.
+  This version contains functions to convert between the APIv1 and APIv2 `proto.Message`
+  interfaces to ease the transition between the two.
 
-- `google.golang.org/protobuf@v1.20.0` is APIv2. This module depends upon `github.com/golang/protobuf@v1.4.0`, so any program which uses APIv2 will automatically pick a version of APIv1 which integrates with it.
+- `google.golang.org/protobuf@v1.20.0` is APIv2.
+  This module depends upon `github.com/golang/protobuf@v1.4.0`,
+  so any program which uses APIv2 will automatically pick a version of APIv1
+  which integrates with it.
 
-(Why start at version `v1.20.0`? To provide clarity. We do not anticipate APIv1 to ever reach `v1.20.0`, so the version number alone should be enough to unambiguously differentiate between APIv1 and APIv2.)
+(Why start at version `v1.20.0`? To provide clarity.
+We do not anticipate APIv1 to ever reach `v1.20.0`,
+so the version number alone should be enough to unambiguously differentiate
+between APIv1 and APIv2.)
 
 We intend to maintain support for APIv1 indefinitely.
 

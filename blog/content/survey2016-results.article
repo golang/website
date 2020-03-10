@@ -21,7 +21,8 @@ In fact, 77% chose two or more areas, and 53% chose three or more.
 
 We also asked about the kinds of programs people write in Go.
 63% of respondents write command-line programs, 60% write API or RPC services, and 52% write web services.
-Like in the previous question, most made multiple choices, with 85% choosing two or more and 72% choosing three or more.
+Like in the previous question, most made multiple choices,
+with 85% choosing two or more and 72% choosing three or more.
 
 
 We asked about people’s expertise and preference among programming languages.
@@ -87,26 +88,33 @@ We asked how strongly people agreed or disagreed with various statements about G
 Users most agreed that Go’s performance meets their needs (57:1 ratio agree versus disagree),
 that they are able to quickly find answers to their questions (20:1),
 and that they are able to effectively use Go’s concurrency features (14:1).
-On the other hand, users least agreed that they are able to effectively debug uses of Go’s concurrency features (2.7:1).
+On the other hand, users least agreed that they are able to effectively
+debug uses of Go’s concurrency features (2.7:1).
 
 
 Users mostly agreed that they were able to quickly find libraries they need (7.5:1).
 When asked what libraries are still missing, the most common request by far was a library for writing GUIs.
 Another popular topic was requests around data processing, analytics, and numerical and scientific computing.
 
-Of the 30% of users who suggested ways to improve Go’s documentation, the most common suggestion by far was more examples.
+Of the 30% of users who suggested ways to improve Go’s documentation,
+the most common suggestion by far was more examples.
 
-The primary sources for Go news are the Go blog, Reddit’s /r/golang and Twitter; there may be some bias here since these are also how the survey was announced.
+The primary sources for Go news are the Go blog,
+Reddit’s /r/golang and Twitter;
+there may be some bias here since these are also how the survey was announced.
 
-The primary sources for finding answers to Go questions are the Go web site, Stack Overflow, and reading source code directly.
+The primary sources for finding answers to Go questions are the Go web site,
+Stack Overflow, and reading source code directly.
 
 .html survey2016/effective.html
 
 * The Go Project
 
 55% of respondents expressed interest in contributing in some way to the Go community and projects.
-Unfortunately, relatively few agreed that they felt welcome to do so (3.3:1) and even fewer felt that the process was clear (1.3:1).
-In 2017, we intend to work on improving the contribution process and to continue to work to make all contributors feel welcome.
+Unfortunately, relatively few agreed that they felt welcome to do so (3.3:1)
+and even fewer felt that the process was clear (1.3:1).
+In 2017, we intend to work on improving the contribution process and to
+continue to work to make all contributors feel welcome.
 
 Respondents agree that they are confident in the leadership of the Go project (9:1),
 but they agree much less that the project leadership understands their needs (2.6:1),
@@ -128,7 +136,8 @@ but the responses under-represent some Asian countries.
 In particular, India, China, and Japan each accounted for about 5% of the site visits to golang.org in 2016
 but only 3%, 2%, and 1% of survey responses.
 
-An important part of a community is making everyone feel welcome, especially people from under-represented demographics.
+An important part of a community is making everyone feel welcome,
+especially people from under-represented demographics.
 We asked an optional question about identification across a few diversity groups.
 37% of respondents left the question blank and 12% of respondents chose “I prefer not to answer”,
 so we cannot make many broad conclusions from the data.

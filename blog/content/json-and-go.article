@@ -6,9 +6,16 @@ Andrew Gerrand
 
 * Introduction
 
-JSON (JavaScript Object Notation) is a simple data interchange format. Syntactically it resembles the objects and lists of JavaScript. It is most commonly used for communication between web back-ends and JavaScript programs running in the browser, but it is used in many other places, too. Its home page, [[http://json.org][json.org]], provides a wonderfully clear and concise definition of the standard.
+JSON (JavaScript Object Notation) is a simple data interchange format.
+Syntactically it resembles the objects and lists of JavaScript.
+It is most commonly used for communication between web back-ends and JavaScript
+programs running in the browser,
+but it is used in many other places, too.
+Its home page, [[http://json.org][json.org]],
+provides a wonderfully clear and concise definition of the standard.
 
-With the [[https://golang.org/pkg/encoding/json/][json package]] it's a snap to read and write JSON data from your Go programs.
+With the [[https://golang.org/pkg/encoding/json/][json package]] it's a
+snap to read and write JSON data from your Go programs.
 
 * Encoding
 
@@ -38,7 +45,9 @@ If all is well, `err` will be `nil` and `b` will be a `[]byte` containing this J
 
 Only data structures that can be represented as valid JSON will be encoded:
 
-- JSON objects only support strings as keys; to encode a Go map type it must be of the form `map[string]T` (where `T` is any Go type supported by the json package).
+- JSON objects only support strings as keys;
+  to encode a Go map type it must be of the form `map[string]T` (where `T`
+  is any Go type supported by the json package).
 
 - Channel, complex, and function types cannot be encoded.
 
@@ -46,7 +55,9 @@ Only data structures that can be represented as valid JSON will be encoded:
 
 - Pointers will be encoded as the values they point to (or 'null' if the pointer is `nil`).
 
-The json package only accesses the exported fields of struct types (those that begin with an uppercase letter). Therefore only the the exported fields of a struct will be present in the JSON output.
+The json package only accesses the exported fields of struct types (those
+that begin with an uppercase letter).
+Therefore only the the exported fields of a struct will be present in the JSON output.
 
 * Decoding
 
@@ -62,7 +73,10 @@ and call `json.Unmarshal`, passing it a `[]byte` of JSON data and a pointer to `
 
 	    err := json.Unmarshal(b, &m)
 
-If `b` contains valid JSON that fits in `m`, after the call `err` will be `nil` and the data from `b` will have been stored in the struct `m`, as if by an assignment like:
+If `b` contains valid JSON that fits in `m`,
+after the call `err` will be `nil` and the data from `b` will have been
+stored in the struct `m`,
+as if by an assignment like:
 
 	    m = Message{
 	        Name: "Alice",
@@ -70,9 +84,13 @@ If `b` contains valid JSON that fits in `m`, after the call `err` will be `nil` 
 	        Time: 1294706395881547000,
 	    }
 
-How does `Unmarshal` identify the fields in which to store the decoded data? For a given JSON key `"Foo"`, `Unmarshal` will look through the destination struct's fields to find (in order of preference):
+How does `Unmarshal` identify the fields in which to store the decoded data?
+For a given JSON key `"Foo"`,
+`Unmarshal` will look through the destination struct's fields to find (in
+order of preference):
 
-- An exported field with a tag of `"Foo"` (see the [[https://golang.org/ref/spec#Struct_types][Go spec]] for more on struct tags),
+- An exported field with a tag of `"Foo"` (see the [[https://golang.org/ref/spec#Struct_types][Go spec]]
+  for more on struct tags),
 
 - An exported field named `"Foo"`, or
 
@@ -84,13 +102,20 @@ What happens when the structure of the JSON data doesn't exactly match the Go ty
 	    var m Message
 	    err := json.Unmarshal(b, &m)
 
-`Unmarshal` will decode only the fields that it can find in the destination type.  In this case, only the Name field of m will be populated, and the Food field will be ignored. This behavior is particularly useful when you wish to pick only a few specific fields out of a large JSON blob. It also means that any unexported fields in the destination struct will be unaffected by `Unmarshal`.
+`Unmarshal` will decode only the fields that it can find in the destination type.
+In this case, only the Name field of m will be populated,
+and the Food field will be ignored.
+This behavior is particularly useful when you wish to pick only a few specific
+fields out of a large JSON blob.
+It also means that any unexported fields in the destination struct will
+be unaffected by `Unmarshal`.
 
 But what if you don't know the structure of your JSON data beforehand?
 
 * Generic JSON with interface{}
 
-The `interface{}` (empty interface) type describes an interface with zero methods.  Every Go type implements at least zero methods and therefore satisfies the empty interface.
+The `interface{}` (empty interface) type describes an interface with zero methods.
+Every Go type implements at least zero methods and therefore satisfies the empty interface.
 
 The empty interface serves as a general container type:
 
@@ -142,7 +167,8 @@ Without knowing this data's structure, we can decode it into an `interface{}` va
 	    var f interface{}
 	    err := json.Unmarshal(b, &f)
 
-At this point the Go value in `f` would be a map whose keys are strings and whose values are themselves stored as empty interface values:
+At this point the Go value in `f` would be a map whose keys are strings
+and whose values are themselves stored as empty interface values:
 
 	    f = map[string]interface{}{
 	        "Name": "Wednesday",
@@ -157,7 +183,8 @@ To access this data we can use a type assertion to access `f`'s underlying `map[
 
 	    m := f.(map[string]interface{})
 
-We can then iterate through the map with a range statement and use a type switch to access its values as their concrete types:
+We can then iterate through the map with a range statement and use a type
+switch to access its values as their concrete types:
 
 	    for k, v := range m {
 	        switch vv := v.(type) {
@@ -190,7 +217,14 @@ Let's define a Go type to contain the data from the previous example:
 	    var m FamilyMember
 	    err := json.Unmarshal(b, &m)
 
-Unmarshaling that data into a `FamilyMember` value works as expected, but if we look closely we can see a remarkable thing has happened. With the var statement we allocated a `FamilyMember` struct, and then provided a pointer to that value to `Unmarshal`, but at that time the `Parents` field was a `nil` slice value. To populate the `Parents` field, `Unmarshal` allocated a new slice behind the scenes. This is typical of how `Unmarshal` works with the supported reference types (pointers, slices, and maps).
+Unmarshaling that data into a `FamilyMember` value works as expected,
+but if we look closely we can see a remarkable thing has happened.
+With the var statement we allocated a `FamilyMember` struct,
+and then provided a pointer to that value to `Unmarshal`,
+but at that time the `Parents` field was a `nil` slice value.
+To populate the `Parents` field, `Unmarshal` allocated a new slice behind the scenes.
+This is typical of how `Unmarshal` works with the supported reference types
+(pointers, slices, and maps).
 
 Consider unmarshaling into this data structure:
 
@@ -198,25 +232,40 @@ Consider unmarshaling into this data structure:
 	    Bar *Bar
 	}
 
-If there were a `Bar` field in the JSON object, `Unmarshal` would allocate a new `Bar` and populate it. If not, `Bar` would be left as a `nil` pointer.
+If there were a `Bar` field in the JSON object,
+`Unmarshal` would allocate a new `Bar` and populate it.
+If not, `Bar` would be left as a `nil` pointer.
 
-From this a useful pattern arises: if you have an application that receives a few distinct message types, you might define "receiver" structure like
+From this a useful pattern arises: if you have an application that receives
+a few distinct message types,
+you might define "receiver" structure like
 
 	type IncomingMessage struct {
 	    Cmd *Command
 	    Msg *Message
 	}
 
-and the sending party can populate the `Cmd` field and/or the `Msg` field of the top-level JSON object, depending on the type of message they want to communicate. `Unmarshal`, when decoding the JSON into an `IncomingMessage` struct, will only allocate the data structures present in the JSON data. To know which messages to process, the programmer need simply test that either `Cmd` or `Msg` is not `nil`.
+and the sending party can populate the `Cmd` field and/or the `Msg` field
+of the top-level JSON object,
+depending on the type of message they want to communicate.
+`Unmarshal`, when decoding the JSON into an `IncomingMessage` struct,
+will only allocate the data structures present in the JSON data.
+To know which messages to process, the programmer need simply test that
+either `Cmd` or `Msg` is not `nil`.
 
 * Streaming Encoders and Decoders
 
-The json package provides `Decoder` and `Encoder` types to support the common operation of reading and writing streams of JSON data. The `NewDecoder` and `NewEncoder` functions wrap the [[https://golang.org/pkg/io/#Reader][`io.Reader`]] and [[https://golang.org/pkg/io/#Writer][`io.Writer`]] interface types.
+The json package provides `Decoder` and `Encoder` types to support the common
+operation of reading and writing streams of JSON data.
+The `NewDecoder` and `NewEncoder` functions wrap the [[https://golang.org/pkg/io/#Reader][`io.Reader`]]
+and [[https://golang.org/pkg/io/#Writer][`io.Writer`]] interface types.
 
 	func NewDecoder(r io.Reader) *Decoder
 	func NewEncoder(w io.Writer) *Encoder
 
-Here's an example program that reads a series of JSON objects from standard input, removes all but the `Name` field from each object, and then writes the objects to standard output:
+Here's an example program that reads a series of JSON objects from standard input,
+removes all but the `Name` field from each object,
+and then writes the objects to standard output:
 
 	package main
 
@@ -246,8 +295,12 @@ Here's an example program that reads a series of JSON objects from standard inpu
 	    }
 	}
 
-Due to the ubiquity of Readers and Writers, these `Encoder` and `Decoder` types can be used in a broad range of scenarios, such as reading and writing to HTTP connections, WebSockets, or files.
+Due to the ubiquity of Readers and Writers,
+these `Encoder` and `Decoder` types can be used in a broad range of scenarios,
+such as reading and writing to HTTP connections,
+WebSockets, or files.
 
 * References
 
-For more information see the [[https://golang.org/pkg/encoding/json/][json package documentation]]. For an example usage of json see the source files of the [[https://golang.org/pkg/net/rpc/jsonrpc/][jsonrpc package]].
+For more information see the [[https://golang.org/pkg/encoding/json/][json package documentation]].
+For an example usage of json see the source files of the [[https://golang.org/pkg/net/rpc/jsonrpc/][jsonrpc package]].

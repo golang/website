@@ -34,8 +34,13 @@ programming using Go.
 
 The playground service has three parts:
 
-- A back end that runs on Google's servers. It receives RPC requests, compiles the user program using the gc tool chain, executes the user program, and returns the program output (or compilation errors) as the RPC response.
-- A front end that runs on [[https://cloud.google.com/appengine/docs/go/][Google App Engine]]. It receives HTTP requests from the client and makes corresponding RPC requests to the back end. It also does some caching.
+- A back end that runs on Google's servers.
+  It receives RPC requests, compiles the user program using the gc tool chain,
+  executes the user program, and returns the program output (or compilation
+  errors) as the RPC response.
+- A front end that runs on [[https://cloud.google.com/appengine/docs/go/][Google App Engine]].
+  It receives HTTP requests from the client and makes corresponding RPC requests to the back end.
+  It also does some caching.
 - A JavaScript client that implements the user interface and makes HTTP requests to the front end.
 
 
@@ -119,7 +124,8 @@ earliest timer and then wakes the timer goroutine. Execution continues and the
 program believes that time has passed, when in fact the sleep was nearly
 instantaneous.
 
-These changes to the scheduler can be found in [[https://golang.org/cl/73110043][`proc.c`]] and [[https://golang.org/cl/73110043][`time.goc`]].
+These changes to the scheduler can be found in [[https://golang.org/cl/73110043][`proc.c`]]
+and [[https://golang.org/cl/73110043][`time.goc`]].
 
 Fake time fixes the issue of resource exhaustion on the back end, but what
 about the program output? It would be odd to see a program that sleeps run to
@@ -234,7 +240,9 @@ and each `file` provides a value that implements the [[https://github.com/golang
 There are several implementations of the interface:
 
 - regular files and devices (such as `/dev/random`) are represented by [[https://github.com/golang/go/blob/master/src/syscall/fs_nacl.go#L58][`fsysFile`]],
-- standard input, output, and error are instances of [[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L216][`naclFile`]], which uses system calls to interact with the actual files (these are a playground program's only way to interact with the outside world),
+- standard input, output, and error are instances of [[https://github.com/golang/go/blob/master/src/syscall/fd_nacl.go#L216][`naclFile`]],
+  which uses system calls to interact with the actual files (these are a playground
+  program's only way to interact with the outside world),
 - network sockets have their own implementation, discussed in the next section.
 
 
@@ -257,7 +265,8 @@ file system. It must simulate read and write timeouts, different address types
 and protocols, and so on.
 
 The implementation can be found in [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go][`net_nacl.go`]].
-A good place to start reading is [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go#L461][`netFile`]], the network socket implementation of the `fileImpl` interface.
+A good place to start reading is [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go#L461][`netFile`]],
+the network socket implementation of the `fileImpl` interface.
 
 
 * The front end

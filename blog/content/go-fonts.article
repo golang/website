@@ -17,7 +17,8 @@ Answering this question led us to today's announcement,
 the release of a family of high-quality [[https://en.wikipedia.org/wiki/Windows_Glyph_List_4][WGL4]] TrueType fonts, 
 created by the [[http://bigelowandholmes.typepad.com/][Bigelow & Holmes]] type foundry specifically for the Go project.
 
-The font family, called Go (naturally), includes proportional- and fixed-width faces in normal, bold, and italic renderings.
+The font family, called Go (naturally), includes proportional- and fixed-width faces in normal,
+bold, and italic renderings.
 The fonts have been tested for technical uses, particularly programming.
 Go source code looks particularly good when displayed in Go fonts, as its name implies, with things like
 punctuation characters easily distinguishable and operators lined up and placed consistently:
@@ -269,17 +270,27 @@ of the Go WGL4 sets can be used for a wide range of languages.
 * References
 
 
-[1] Morris, R. A., Aquilante, K., Yager, D., & Bigelow, C. (2002, May). P‐13: Serifs Slow RSVP Reading at Very Small Sizes, but Don't Matter at Larger Sizes. In SID Symposium Digest of Technical Papers (Vol. 33, No. 1, pp. 244-247). Blackwell Publishing Ltd.
+[1] Morris, R. A., Aquilante, K., Yager, D., & Bigelow, C.
+(2002, May). P‐13: Serifs Slow RSVP Reading at Very Small Sizes,
+but Don't Matter at Larger Sizes.
+In SID Symposium Digest of Technical Papers (Vol.
+33, No. 1, pp. 244-247). Blackwell Publishing Ltd.
 
 
-[2] Bryan Reimer et al. (2014) “Assessing the impact of typeface design in a text-rich automotive user interface”, Ergonomics, 57:11, 1643-1658.
+[2] Bryan Reimer et al. (2014) “Assessing the impact of typeface design
+in a text-rich automotive user interface”,
+Ergonomics, 57:11, 1643-1658.
 http://www.tandfonline.com/doi/abs/10.1080/00140139.2014.940000
 
 
-[3] Adrian Frutiger - Typefaces: The Complete Works. H. Osterer and P. Stamm, editors. Birkhäuser, Basel, 2009, page 257.
+[3] Adrian Frutiger - Typefaces: The Complete Works.
+H. Osterer and P. Stamm, editors. Birkhäuser,
+Basel, 2009, page 257.
 
 
-[4] Legge, G. E., & Bigelow, C. A. (2011). Does print size matter for reading? A review of findings from vision science and typography. Journal of Vision, 11(5), 8-8. http://jov.arvojournals.org/article.aspx?articleid=2191906
+[4] Legge, G. E., & Bigelow, C. A. (2011).
+Does print size matter for reading? A review of findings from vision science and typography.
+Journal of Vision, 11(5), 8-8. http://jov.arvojournals.org/article.aspx?articleid=2191906
 
 
 [5] Charles Bigelow. "Oh, oh, zero!" TUGboat, Volume 34 (2013), No. 2. 
