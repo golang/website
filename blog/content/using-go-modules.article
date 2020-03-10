@@ -1,39 +1,40 @@
-Using Go Modules
+# Using Go Modules
 19 Mar 2019
 Tags: tools, versioning
+Summary: This post is part 1 in a series.
 
 Tyler Bui-Palsulich
 
 Eno Compton
 
-* Introduction
+## Introduction
 
 This post is part 1 in a series.
 
-- *Part*1*—*Using*Go*Modules* (this post)
-- Part 2 — [[/migrating-to-go-modules][Migrating To Go Modules]]
-- Part 3 — [[/publishing-go-modules][Publishing Go Modules]]
-- Part 4 — [[/v2-go-modules][Go Modules: v2 and Beyond]]
+  - **Part 1 — Using Go Modules** (this post)
+  - Part 2 — [Migrating To Go Modules](/migrating-to-go-modules)
+  - Part 3 — [Publishing Go Modules](/publishing-go-modules)
+  - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
 
 Go 1.11 and 1.12 include preliminary
-[[https://golang.org/doc/go1.11#modules][support for modules]],
+[support for modules](https://golang.org/doc/go1.11#modules),
 Go’s
-[[https://blog.golang.org/versioning-proposal][new dependency management system]]
+[new dependency management system](https://blog.golang.org/versioning-proposal)
 that makes dependency version information explicit
 and easier to manage.
 This blog post is an introduction to the basic operations needed
 to get started using modules.
 
 A module is a collection of
-[[https://golang.org/ref/spec#Packages][Go packages]]
+[Go packages](https://golang.org/ref/spec#Packages)
 stored in a file tree with a `go.mod` file at its root.
-The `go.mod` file defines the module’s _module_path_,
+The `go.mod` file defines the module’s _module path_,
 which is also the import path used for the root directory,
-and its _dependency_requirements_,
+and its _dependency requirements_,
 which are the other modules needed for a successful build.
 Each dependency requirement is
 written as a module path and a specific
-[[http://semver.org/][semantic version]].
+[semantic version](http://semver.org/).
 
 As of Go 1.11, the go command enables the use of modules
 when the current directory or any parent directory has a `go.mod`,
@@ -41,21 +42,21 @@ provided the directory is _outside_ `$GOPATH/src`.
 (Inside `$GOPATH/src`, for compatibility, the go command
 still runs in the old GOPATH mode, even if a `go.mod` is found.
 See the
-[[https://golang.org/cmd/go/#hdr-Preliminary_module_support][go command documentation]]
+[go command documentation](https://golang.org/cmd/go/#hdr-Preliminary_module_support)
 for details.)
 Starting in Go 1.13, module mode will be the default for all development.
 
 This post walks through a sequence of common operations
 that arise when developing Go code with modules:
 
-- Creating a new module.
-- Adding a dependency.
-- Upgrading dependencies.
-- Adding a dependency on a new major version.
-- Upgrading a dependency to a new major version.
-- Removing unused dependencies.
+  - Creating a new module.
+  - Adding a dependency.
+  - Upgrading dependencies.
+  - Adding a dependency on a new major version.
+  - Upgrading a dependency to a new major version.
+  - Removing unused dependencies.
 
-* Creating a new module
+## Creating a new module
 
 Let's create a new module.
 
@@ -83,7 +84,7 @@ Let's write a test, too, in `hello_test.go`:
 
 At this point, the directory contains a package, but not a module,
 because there is no `go.mod` file.
-If we were working in `/home/gopher/hello` and ran `go`test` now,
+If we were working in `/home/gopher/hello` and ran `go test` now,
 we'd see:
 
 	$ go test
@@ -99,7 +100,7 @@ the current directory and makes up a fake one based
 on the directory name: `_/home/gopher/hello`.
 
 Let's make the current directory the root of a module
-by using `go`mod`init` and then try `go`test` again:
+by using `go mod init` and then try `go test` again:
 
 	$ go mod init example.com/hello
 	go: creating new go.mod: module example.com/hello
@@ -110,7 +111,7 @@ by using `go`mod`init` and then try `go`test` again:
 
 Congratulations! You’ve written and tested your first module.
 
-The `go`mod`init` command wrote a `go.mod` file:
+The `go mod init` command wrote a `go.mod` file:
 
 	$ cat go.mod
 	module example.com/hello
@@ -122,12 +123,12 @@ The `go.mod` file only appears in the root of the module.
 Packages in subdirectories have import paths consisting of
 the module path plus the path to the subdirectory.
 For example, if we created a subdirectory `world`,
-we would not need to (nor want to) run `go`mod`init` there.
+we would not need to (nor want to) run `go mod init` there.
 The package would automatically be recognized as part of the
 `example.com/hello` module, with import path
 `example.com/hello/world`.
 
-* Adding a dependency
+## Adding a dependency
 
 The primary motivation for Go modules was to improve the
 experience of using (that is, adding a dependency on)
@@ -167,11 +168,11 @@ by any module in `go.mod`, the `go` command automatically
 looks up the module containing that package and adds it to
 `go.mod`, using the latest version.
 (“Latest” is defined as the
-latest tagged stable (non-[[https://semver.org/#spec-item-9][prerelease]]) version,
+latest tagged stable (non-[prerelease](https://semver.org/#spec-item-9)) version,
 or else the latest tagged prerelease version,
 or else the latest untagged version.)
-In our example, `go`test` resolved the new import `rsc.io/quote`
-to the module `rsc.io/quote`v1.5.2`.
+In our example, `go test` resolved the new import `rsc.io/quote`
+to the module `rsc.io/quote v1.5.2`.
 It also downloaded two dependencies used by `rsc.io/quote`,
 namely `rsc.io/sampler` and `golang.org/x/text`.
 Only direct dependencies are recorded in the `go.mod` file:
@@ -184,7 +185,7 @@ Only direct dependencies are recorded in the `go.mod` file:
 	require rsc.io/quote v1.5.2
 	$
 
-A second `go`test` command will not repeat this work,
+A second `go test` command will not repeat this work,
 since the `go.mod` is now up-to-date and the downloaded
 modules are cached locally (in `$GOPATH/pkg/mod`):
 
@@ -199,11 +200,11 @@ Your module now literally _depends_ on the new dependency
 in critical areas such as correctness, security, and proper licensing,
 just to name a few.
 For more considerations, see Russ Cox's blog post,
-“[[https://research.swtch.com/deps][Our Software Dependency Problem]].”
+“[Our Software Dependency Problem](https://research.swtch.com/deps).”
 
 As we saw above, adding one direct dependency often
 brings in other indirect dependencies too.
-The command `go`list`-m`all` lists the current module
+The command `go list -m all` lists the current module
 and all its dependencies:
 
 	$ go list -m all
@@ -213,20 +214,20 @@ and all its dependencies:
 	rsc.io/sampler v1.3.0
 	$
 
-In the `go`list` output, the current module,
-also known as the _main_module_,
+In the `go list` output, the current module,
+also known as the _main module_,
 is always the first line,
 followed by dependencies sorted by module path.
 
 The `golang.org/x/text` version `v0.0.0-20170915032832-14c0d48ead0c`
 is an example of a
-[[https://golang.org/cmd/go/#hdr-Pseudo_versions][pseudo-version]],
+[pseudo-version](https://golang.org/cmd/go/#hdr-Pseudo_versions),
 which is the `go` command's version syntax
 for a specific untagged commit.
 
 In addition to `go.mod`, the `go` command
 maintains a file named `go.sum` containing
-the expected [[https://golang.org/cmd/go/#hdr-Module_downloading_and_verification][cryptographic hashes]] of the content of specific module versions:
+the expected [cryptographic hashes](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification) of the content of specific module versions:
 
 	$ cat go.sum
 	golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c h1:qgOY6WgZO...
@@ -245,7 +246,7 @@ do not change unexpectedly,
 whether for malicious, accidental, or other reasons.
 Both `go.mod` and `go.sum` should be checked into version control.
 
-* Upgrading dependencies
+## Upgrading dependencies
 
 With Go modules, versions are referenced with semantic version tags.
 A semantic version has three parts: major, minor, and patch.
@@ -254,7 +255,7 @@ and the patch version is 2.
 Let's walk through a couple minor version upgrades.
 In the next section, we’ll consider a major version upgrade.
 
-From the output of `go`list`-m`all`,
+From the output of `go list -m all`,
 we can see we're using an untagged version of `golang.org/x/text`.
 Let's upgrade to the latest tagged version and test that everything still works:
 
@@ -268,7 +269,7 @@ Let's upgrade to the latest tagged version and test that everything still works:
 	$
 
 Woohoo! Everything passes.
-Let's take another look at `go`list`-m`all` and the `go.mod` file:
+Let's take another look at `go list -m all` and the `go.mod` file:
 
 	$ go list -m all
 	example.com/hello
@@ -290,10 +291,10 @@ The `golang.org/x/text` package has been upgraded to the latest tagged version (
 The `go.mod` file has been updated to specify `v0.3.0` too.
 The `indirect` comment indicates a dependency is not used directly
 by this module, only indirectly by other module dependencies.
-See `go`help`modules` for details.
+See `go help modules` for details.
 
 Now let's try upgrading the `rsc.io/sampler` minor version.
-Start the same way, by running `go`get` and running tests:
+Start the same way, by running `go get` and running tests:
 
 	$ go get rsc.io/sampler
 	go: finding rsc.io/sampler v1.99.99
@@ -327,15 +328,15 @@ Maybe we can try using v1.3.1 instead:
 	ok  	example.com/hello	0.022s
 	$
 
-Note the explicit `@v1.3.1` in the `go`get` argument.
-In general each argument passed to `go`get` can take
+Note the explicit `@v1.3.1` in the `go get` argument.
+In general each argument passed to `go get` can take
 an explicit version; the default is `@latest`,
 which resolves to the latest version as defined earlier.
 
-* Adding a dependency on a new major version
+## Adding a dependency on a new major version
 
 Let's add a new function to our package:
-`func`Proverb` returns a Go concurrency proverb,
+`func Proverb` returns a Go concurrency proverb,
 by calling `quote.Concurrency`, which is provided by
 the module `rsc.io/quote/v3`.
 First we update `hello.go` to add the new function:
@@ -386,7 +387,7 @@ uses a different module path: starting at `v2`, the path must end in the major v
 In the example, `v3` of `rsc.io/quote` is no longer `rsc.io/quote`: instead,
 it is identified by the module path `rsc.io/quote/v3`.
 This convention is called
-[[https://research.swtch.com/vgo-import][semantic import versioning]],
+[semantic import versioning](https://research.swtch.com/vgo-import),
 and it gives incompatible packages (those with different major versions)
 different names.
 In contrast, `v1.6.0` of `rsc.io/quote` should be backwards-compatible
@@ -402,17 +403,17 @@ version: one `rsc.io/quote`, one `rsc.io/quote/v2`, one `rsc.io/quote/v3`,
 and so on.
 This gives module authors a clear rule about possible duplication
 of a single module path: it is impossible for a program to build with both
-`rsc.io/quote`v1.5.2` and `rsc.io/quote`v1.6.0`.
+`rsc.io/quote v1.5.2` and `rsc.io/quote v1.6.0`.
 At the same time, allowing different major versions of a module
 (because they have different paths)
 gives module consumers the ability to
 upgrade to a new major version incrementally.
-In this example, we wanted to use `quote.Concurrency` from `rsc/quote/v3`v3.1.0`
-but are not yet ready to migrate our uses of `rsc.io/quote`v1.5.2`.
+In this example, we wanted to use `quote.Concurrency` from `rsc/quote/v3 v3.1.0`
+but are not yet ready to migrate our uses of `rsc.io/quote v1.5.2`.
 The ability to migrate incrementally
 is especially important in a large program or codebase.
 
-* Upgrading a dependency to a new major version
+## Upgrading a dependency to a new major version
 
 Let's complete our conversion from using `rsc.io/quote` to using only `rsc.io/quote/v3`.
 Because of the major version change, we should expect that some APIs may have
@@ -432,7 +433,7 @@ Reading the docs, we can see that `Hello` has become `HelloV3`:
 	$
 
 (There is also a
-[[https://golang.org/issue/30778][known bug]] in the output;
+[known bug](https://golang.org/issue/30778) in the output;
 the displayed import path has incorrectly dropped the `/v3`.)
 
 We can update our use of `quote.Hello()` in `hello.go` to use `quoteV3.HelloV3()`:
@@ -470,10 +471,10 @@ Let's re-run the tests to make sure everything is working:
 	PASS
 	ok      example.com/hello       0.014s
 
-* Removing unused dependencies
+## Removing unused dependencies
 
 We've removed all our uses of `rsc.io/quote`,
-but it still shows up in `go`list`-m`all` and in our `go.mod` file:
+but it still shows up in `go list -m all` and in our `go.mod` file:
 
 	$ go list -m all
 	example.com/hello
@@ -494,7 +495,7 @@ but it still shows up in `go`list`-m`all` and in our `go.mod` file:
 	)
 	$
 
-Why? Because building a single package, like with `go`build` or `go`test`,
+Why? Because building a single package, like with `go build` or `go test`,
 can easily tell when something is missing and needs to be added,
 but not when something can safely be removed.
 Removing a dependency can only be done after
@@ -503,7 +504,7 @@ and all possible build tag combinations for those packages.
 An ordinary build command does not load this information,
 and so it cannot safely remove dependencies.
 
-The `go`mod`tidy` command cleans up these unused dependencies:
+The `go mod tidy` command cleans up these unused dependencies:
 
 	$ go mod tidy
 	$ go list -m all
@@ -527,7 +528,7 @@ The `go`mod`tidy` command cleans up these unused dependencies:
 	ok  	example.com/hello	0.020s
 	$
 
-* Conclusion
+## Conclusion
 
 Go modules are the future of dependency management in Go.
 Module functionality is now available in all supported Go versions
@@ -535,16 +536,16 @@ Module functionality is now available in all supported Go versions
 
 This post introduced these workflows using Go modules:
 
-- `go`mod`init` creates a new module, initializing the `go.mod` file that describes it.
-- `go`build`, `go`test`, and other package-building commands add new dependencies to `go.mod` as needed.
-- `go`list`-m`all` prints the current module’s dependencies.
-- `go`get` changes the required version of a dependency (or adds a new dependency).
-- `go`mod`tidy` removes unused dependencies.
+  - `go mod init` creates a new module, initializing the `go.mod` file that describes it.
+  - `go build`, `go test`, and other package-building commands add new dependencies to `go.mod` as needed.
+  - `go list -m all` prints the current module’s dependencies.
+  - `go get` changes the required version of a dependency (or adds a new dependency).
+  - `go mod tidy` removes unused dependencies.
 
 We encourage you to start using modules in your local development
 and to add `go.mod` and `go.sum` files to your projects.
 To provide feedback and help shape the future of dependency management in Go,
 please send us
-[[https://golang.org/issue/new][bug reports]] or [[https://golang.org/wiki/ExperienceReports][experience reports]].
+[bug reports](https://golang.org/issue/new) or [experience reports](https://golang.org/wiki/ExperienceReports).
 
 Thanks for all your feedback and help improving modules.

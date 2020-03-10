@@ -1,12 +1,13 @@
-Testable Examples in Go
+# Testable Examples in Go
 7 May 2015
 Tags: godoc, testing
+Summary: Godoc [examples](https://golang.org/pkg/testing/#hdr-Examples) are snippets of Go code that are displayed as package documentation and that are verified by running them as tests. They can also be run by a user visiting the godoc web page for the package and clicking the associated "Run" button.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
-Godoc [[https://golang.org/pkg/testing/#hdr-Examples][examples]] are snippets of
+Godoc [examples](https://golang.org/pkg/testing/#hdr-Examples) are snippets of
 Go code that are displayed as package documentation and that are verified by
 running them as tests.
 They can also be run by a user visiting the godoc web page for the package
@@ -16,12 +17,12 @@ Having executable documentation for a package guarantees that the information
 will not go out of date as the API changes.
 
 The standard library includes many such examples
-(see the [[https://golang.org/pkg/strings/#Contains][`strings` package]],
+(see the [`strings` package](https://golang.org/pkg/strings/#Contains),
 for instance).
 
 This article explains how to write your own example functions.
 
-* Examples are tests
+## Examples are tests
 
 Examples are compiled (and optionally executed) as part of a package's test
 suite.
@@ -31,8 +32,8 @@ As with typical tests, examples are functions that reside in a package's
 Unlike normal test functions, though, example functions take no arguments
 and begin with the word `Example` instead of `Test`.
 
-The [[https://godoc.org/github.com/golang/example/stringutil/][`stringutil` package]]
-is part of the [[https://github.com/golang/example][Go example repository]].
+The [`stringutil` package](https://godoc.org/github.com/golang/example/stringutil/)
+is part of the [Go example repository](https://github.com/golang/example).
 Here's an example that demonstrates its `Reverse` function:
 
 	package stringutil_test
@@ -65,7 +66,7 @@ with no further arrangement from us:
 	PASS
 	ok  	github.com/golang/example/stringutil	0.009s
 
-* Output comments
+## Output comments
 
 What does it mean that the `ExampleReverse` function "passes"?
 
@@ -110,7 +111,7 @@ Examples without output comments are useful for demonstrating code that cannot
 run as unit tests, such as that which accesses the network,
 while guaranteeing the example at least compiles.
 
-* Example function names
+## Example function names
 
 Godoc uses a naming convention to associate an example function with a
 package-level identifier.
@@ -130,11 +131,11 @@ Each of these examples documents the `Reverse` function:
 	func ExampleReverse_second()
 	func ExampleReverse_third()
 
-* Larger examples
+## Larger examples
 
 Sometimes we need more than just a function to write a good example.
 
-For instance, to demonstrate the [[https://golang.org/pkg/sort/][`sort` package]]
+For instance, to demonstrate the [`sort` package](https://golang.org/pkg/sort/)
 we should show an implementation of `sort.Interface`.
 Since methods cannot be declared inside a function body, the example must
 include some context in addition to the example function.
@@ -189,10 +190,10 @@ Here is a whole file example from the `sort` package:
 	}
 
 A package can contain multiple whole file examples; one example per file.
-Take a look at the [[https://golang.org/src/sort/][`sort` package's source code]]
+Take a look at the [`sort` package's source code](https://golang.org/src/sort/)
 to see this in practice.
 
-* Conclusion
+## Conclusion
 
 Godoc examples are a great way to write and maintain code as documentation.
 They also present editable, working, runnable examples your users can build on.

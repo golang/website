@@ -1,14 +1,14 @@
-Contribution Workshop
+# Contribution Workshop
 9 Aug 2017
 Tags: community
 
 Steve Francia, Cassandra Salisbury, Matt Broberg, Dmitri Shuralyov
 
-* Contribution Workshop
+##
 
-** Event Overview
+## Event Overview
 
-by [[https://twitter.com/spf13][Steve]]
+by [Steve](https://twitter.com/spf13)
 
 During the community day at GopherCon, the Go team held two workshops
 where we worked with people to help them make their first contribution to the
@@ -26,7 +26,7 @@ workshop, we rewrote our contributor guide, including adding a "troubleshooting"
 section and built a tool `go-contrib-init`, which automated the process of
 setting up a development environment to be able to contribute to Go.
 
-For the workshop itself, we developed a presentation _"Contributing_to_Go,"_
+For the workshop itself, we developed a presentation _"Contributing to Go,"_
 and a dashboard / scoreboard that was presented during the event. The
 scoreboard was designed to encourage us all to work together towards a common
 goal of seeing our collective score increase. Participants added 1, 2 or 3 points to
@@ -44,7 +44,7 @@ thought he was an automated bot. Internally our team is now calling him
 .image contributor-workshop/image9.jpg
 .image contributor-workshop/image6.png
 
-*** Impact
+### Impact
 
 We had a total of 65 CLs submitted from the people who participated in the
 workshop (within a week of the workshop). Of these, 44 were from contributors
@@ -53,35 +53,35 @@ Half (22) of these contributions were already merged. Many of the others are
 waiting on the codebase to thaw as we are in the middle of a freeze for the
 upcoming 1.9 release. In addition to CLs, many contributed to the project in
 the form of bug reports,
-[[https://golang.org/wiki/Gardening][gardening tasks]], and other types
+[gardening tasks](https://golang.org/wiki/Gardening), and other types
 of contributions.
 
 The most common type of contribution was an example function to be used in the
-documentation. The [[https://blog.golang.org/survey2016-results][Go User survey]]
+documentation. The [Go User survey](https://blog.golang.org/survey2016-results)
 identified that our documentation was significantly lacking examples. In the
 presentation, we asked users to find a package they loved and to add an example. In
 the Go project, examples are written as code in Go files
-(with specific naming) and the `go`doc` tool displays them along side the documentation.
+(with specific naming) and the `go doc` tool displays them along side the documentation.
 This is a perfect first contribution as it's something that can be merged
 during a freeze, it's of critical importance to our users, and it's an addition
 that has a relatively narrow scope.
 
 One of the examples added is that of creating a Stringer, one of the more
 widely used interfaces in Go.
-[[https://golang.org/cl/49270/][CL 49270]]
+[CL 49270](https://golang.org/cl/49270/)
 
 In addition to examples, many people contributed critical bug fixes including:
 
-- [[https://golang.org/cl/48988/][CL 48988]] fixing [[https://golang.org/issue/21029][issue #21029]]
-- [[https://golang.org/cl/49050/][CL 49050]] fixing [[https://golang.org/issue/20054][issue #20054]]
-- [[https://golang.org/cl/49031/][CL 49031]] fixing [[https://golang.org/issue/20166][issue #20166]]
-- [[https://golang.org/cl/49170/][CL 49170]] fixing [[https://golang.org/issue/20877][issue #20877]]
+  - [CL 48988](https://golang.org/cl/48988/) fixing [issue #21029](https://golang.org/issue/21029)
+  - [CL 49050](https://golang.org/cl/49050/) fixing [issue #20054](https://golang.org/issue/20054)
+  - [CL 49031](https://golang.org/cl/49031/) fixing [issue #20166](https://golang.org/issue/20166)
+  - [CL 49170](https://golang.org/cl/49170/) fixing [issue #20877](https://golang.org/issue/20877)
 
 Some people even surprised us by arriving with a bug in mind that they wanted
 to fix. Nikhita arrived ready to tackle
-[[https://golang.org/issue/20786][issue #20786]]
+[issue #20786](https://golang.org/issue/20786)
 and she did submitting
-[[https://golang.org/cl/48871/][CL 48871]],
+[CL 48871](https://golang.org/cl/48871/),
 after which she tweeted:
 
 .image contributor-workshop/image19.png
@@ -96,7 +96,7 @@ remarked that felt welcome to participate in the project.
 .image contributor-workshop/image13.png
 .image contributor-workshop/image3.png
 
-*** Future
+### Future
 
 The event was successful well beyond our expectations. Sameer Ajmani, Go team
 manager said, "The contributor workshop was incredibly fun and educational–for
@@ -107,13 +107,13 @@ hit 1000 was awesome."
 We are looking into ways to make this workshop easier to run for future events
 (like meetups and conferences). Our biggest challenge is providing enough
 mentorship so that users feel supported. If you have any ideas or would like to
-help with this process please [[mailto:spf@golang.org][let me know]].
+help with this process please [let me know](mailto:spf@golang.org).
 
 I've asked a few participants of the event to share their experiences below:
 
-** My Contribution Experience
+## My Contribution Experience
 
-by [[https://twitter.com/cassandraoid][Cassandra]]
+by [Cassandra](https://twitter.com/cassandraoid)
 
 When I heard about the go-contrib workshop I was very excited and then I was
 extremely intimidated. I was encouraged by a member of the Go team to
@@ -126,7 +126,7 @@ down at one of the 16 round tables that had two hats and three non-hats.
 Brought up my screen and was ready to roll…
 
 Jess Frazelle stood up and started the presentation and provided the group with
-[[https://docs.google.com/presentation/d/1ap2fycBSgoo-jCswhK9lqgCIFroE1pYpsXC1ffYBCq4/edit#slide=id.p][a link]]
+[a link](https://docs.google.com/presentation/d/1ap2fycBSgoo-jCswhK9lqgCIFroE1pYpsXC1ffYBCq4/edit#slide=id.p)
 to make it easy to follow.
 
 .image contributor-workshop/image16.png
@@ -142,7 +142,7 @@ GitHub vs Geritt terminology, so we had better understanding of the process.
 
 .image contributor-workshop/image10.png
 
-Ok, now it was time to become a *freaking*Go*contributor*.
+Ok, now it was time to become a **freaking Go contributor**.
 
 To make this more exciting than it already is, the Go team set up a game where
 we could track as a group how many points we could rack up based on the Gerrit
@@ -167,9 +167,9 @@ I'd personally like to thank the Go Team, the Gopher mentors in hats, and my
 fellow participants for making it one of my most memorable moments at
 GopherCon.
 
-** My Contribution Experience
+## My Contribution Experience
 
-by [[https://twitter.com/mbbroberg][Matt]]
+by [Matt](https://twitter.com/mbbroberg)
 
 I've always found programming languages to be intimidating. It's the code that
 enables the world to write code. Given the impact, surely smarter people than
@@ -180,9 +180,9 @@ later, I'm now certain that anyone and everyone can (and should) contribute back
 
 Here are my very verbose steps to go from 0 to 2 contributions to Go:
 
-*** The Setup
+### The Setup
 
-Given Go's use of Gerrit, I started by setting up my environment for it. [[https://docs.google.com/presentation/d/1ap2fycBSgoo-jCswhK9lqgCIFroE1pYpsXC1ffYBCq4/edit#slide=id.g1f953ef7df_0_9][Jess Frazzelle's guide]]
+Given Go's use of Gerrit, I started by setting up my environment for it. [Jess Frazzelle's guide](https://docs.google.com/presentation/d/1ap2fycBSgoo-jCswhK9lqgCIFroE1pYpsXC1ffYBCq4/edit#slide=id.g1f953ef7df_0_9)
 is a great place to start to not miss a step.
 
 The real fun starts when you clone the Go repo. Ironically, you don't hack on
@@ -206,14 +206,14 @@ Next, install `codereview` so you can participate in a Gerrit code review:
 This package includes `git change` and `git mail` which will replace your
 normal workflow of `git commit` and `git push` respectively.
 
-Okay, installations are out of the way. Now setup your [[https://go-review.googlesource.com/settings/#Profile][Gerrit account here]],
-then [[https://go-review.googlesource.com/settings#Agreements][sign the CLA]] appropriate for
+Okay, installations are out of the way. Now setup your [Gerrit account here](https://go-review.googlesource.com/settings/#Profile),
+then [sign the CLA](https://go-review.googlesource.com/settings#Agreements) appropriate for
 you (I signed a personal one for all Google projects, but choose the right option for you.
-You can see all CLAs you've signed at [[https://cla.developers.google.com/clas][cla.developers.google.com/clas]]).
+You can see all CLAs you've signed at [cla.developers.google.com/clas](https://cla.developers.google.com/clas)).
 
 AND BAM. You're good (to go)! But where to contribute?
 
-*** Contributing
+### Contributing
 
 In the workshop, they sent us into the `scratch` repository, which is a safe place to
 fool around in order to master the workflow:
@@ -236,7 +236,7 @@ which is the one line you shouldn't touch. Other than that, it feels just like
 Two good notes to take at this point: `git change` also works like `git commit --amend`, so
 if you need to update your patch you can `add` then `change` and it will all
 link to the same patch. Secondly, you can always review your patch from your
-[[https://go-review.googlesource.com/dashboard/][personal Gerrit dashboard]].
+[personal Gerrit dashboard](https://go-review.googlesource.com/dashboard/).
 
 After a few back and forths, I officially had a contribute to Go! And if Jaana
 is right, it might be the first with emojis ✌️.
@@ -244,7 +244,7 @@ is right, it might be the first with emojis ✌️.
 .image contributor-workshop/image15.png
 .image contributor-workshop/image23.png
 
-*** Contributing, For Real
+### Contributing, For Real
 
 The scratch repo is fun and all, but there's a ton of ways to get into the
 depths of Go's packages and give back. It's at this point where I cruised
@@ -256,7 +256,7 @@ went to my source code to see what's around under the `go/src/` folder:
 
 I decided to see what I can do in the `regexp` package, maybe out of love and
 fear of regex. Here's where I switched to the
-[[https://godoc.org/regexp][website's view of the package]] (it's good to know
+[website's view of the package](https://godoc.org/regexp) (it's good to know
 that each standard package can be found at https://godoc.org/$PACKAGENAME). In
 there I noticed that `QuoteMeta` was missing the same level of detailed examples
 other functions have (and I could use the practice using Gerrit).
@@ -264,7 +264,7 @@ other functions have (and I could use the practice using Gerrit).
 .image contributor-workshop/image1.png
 
 I started looking at `go/src/regexp` to try to find where to add examples and I
-got lost pretty quickly. Lucky for me, [[https://twitter.com/francesc][Francesc]] was around that day. He walked
+got lost pretty quickly. Lucky for me, [Francesc](https://twitter.com/francesc) was around that day. He walked
 me through how all examples are actually in-line tests in a `example_test.go`
 file. They follow the format of test cases followed by "Output" commented out
 and then the answers to the tests. For example:
@@ -288,23 +288,23 @@ in my patch. It's going to be open for a bit longer given the additional scope,
 but I think it's worth it on this one.
 
 I can hear your question already: how did I verify it worked? Well it wasn't
-easy to be honest. Running `go`test`example_test.go`-run`QuoteMeta`-v` won't do
+easy to be honest. Running `go test example_test.go -run QuoteMeta -v` won't do
 it since we're working outside of our $GOPATH. I struggled to figure it out
-until [[https://medium.com/@vCabbage/go-testing-standard-library-changes-1e9cbed11339][Kale Blakenship wrote this awesome post on testing in Go]].
+until [Kale Blakenship wrote this awesome post on testing in Go](https://medium.com/@vCabbage/go-testing-standard-library-changes-1e9cbed11339).
 Bookmark this one for later.
 
-You can see my completed [[https://go-review.googlesource.com/c/49130/][contribution here]]. What I also hope you see is
+You can see my completed [contribution here](https://go-review.googlesource.com/c/49130/). What I also hope you see is
 how simple it is to get into the flow of contributing. If you're like me,
 you'll be good at finding a small typo or missing example in the docs to start to
 get used to the `git codereview` workflow. After that, you'll be ready to find
-an open issue, ideally one [[https://github.com/golang/go/milestones][tagged for an upcoming release]], and give it a go. No matter
+an open issue, ideally one [tagged for an upcoming release](https://github.com/golang/go/milestones), and give it a go. No matter
 what you choose to do, definitely go forth and do it. The Go team proved to me
 just how much they care about helping us all contribute back. I can't wait for
 my next `git mail`.
 
-** My Mentorship Experience
+## My Mentorship Experience
 
-by [[https://twitter.com/dmitshur][Dmitri]]
+by [Dmitri](https://twitter.com/dmitshur)
 
 I was looking forward to participating in the Contribution Workshop event as a
 mentor. I had high expectations for the event, and thought it was a great idea
@@ -323,12 +323,12 @@ it a shot.
 After a few months passed, I thought "enough is enough," and decided to
 dedicate an entire day of an upcoming weekend to figuring out the process. I
 set aside all of Saturday for doing one thing: sending my first CL to Go. I
-opened up [[https://golang.org/doc/contribute.html][the Contribution Guide]]
+opened up [the Contribution Guide](https://golang.org/doc/contribute.html)
 and started following all the steps, from the very top. Within an hour, I was
 done. I had send my first CL. I was both in awe and shock. In awe, because I
 had finally sent a contribution to Go, and it was accepted! In shock, because,
 why did I wait so long to finally do this? Following the steps in
-[[https://golang.org/doc/contribute.html][the Contribution Guide]] was very
+[the Contribution Guide](https://golang.org/doc/contribute.html) was very
 easy, and the entire process went completely smoothly. If only someone had told
 me that I'd be done within an hour and nothing would go wrong, I would've done
 it much sooner!
@@ -376,7 +376,7 @@ was also great to be able to help them out, and explain tricky situations that
 they sometimes found themselves. From what I can tell, many happy gophers
 walked away from the event, myself included!
 
-** Photos from the event
+## Photos from the event
 
 .image contributor-workshop/image2.jpg
 .image contributor-workshop/image4.jpg

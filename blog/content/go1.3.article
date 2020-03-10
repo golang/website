@@ -1,57 +1,58 @@
-Go 1.3 is released
+# Go 1.3 is released
 18 Jun 2014
+Summary: Today we are happy to announce the release of [Go 1.3](https://golang.org/doc/go1.3). This release comes six months after our last major release and provides better performance, improved tools, support for running Go in new environments, and more. All Go users should upgrade to Go 1.3. You can grab the release from our [downloads page](https://golang.org/dl/) and find the full list of improvements and fixes in the [release notes](https://golang.org/doc/go1.3). What follows are some highlights.
 
 Andrew Gerrand
 
-* Go 1.3 is released
+##
 
-Today we are happy to announce the release of [[https://golang.org/doc/go1.3][Go 1.3]].
+Today we are happy to announce the release of [Go 1.3](https://golang.org/doc/go1.3).
 This release comes six months after our last major release and provides better
 performance, improved tools, support for running Go in new environments, and more.
 All Go users should upgrade to Go 1.3.
-You can grab the release from our [[https://golang.org/dl/][downloads page]] and
+You can grab the release from our [downloads page](https://golang.org/dl/) and
 find the full list of improvements and fixes in the
-[[https://golang.org/doc/go1.3][release notes]].
+[release notes](https://golang.org/doc/go1.3).
 What follows are some highlights.
 
-[[https://godoc.org/code.google.com/p/go.tools/cmd/godoc][Godoc]],
+[Godoc](https://godoc.org/code.google.com/p/go.tools/cmd/godoc),
 the Go documentation server, now performs static analysis.
 When enabled with the -analysis flag, analysis results are presented
 in both the source and package documentation views, making it easier
 than ever to navigate and understand Go programs.
-See [[https://golang.org/lib/godoc/analysis/help.html][the documentation]] for the details.
+See [the documentation](https://golang.org/lib/godoc/analysis/help.html) for the details.
 
 The gc toolchain now supports the Native Client (NaCl) execution sandbox on the
 32- and 64-bit Intel architectures.
 This permits the safe execution of untrusted code, useful in environments such as the
-[[https://blog.golang.org/playground][Playground]].
-To set up NaCl on your system see the [[https://golang.org/wiki/NativeClient][NativeClient wiki page]].
+[Playground](https://blog.golang.org/playground).
+To set up NaCl on your system see the [NativeClient wiki page](https://golang.org/wiki/NativeClient).
 
 Also included in this release is experimental support for the DragonFly BSD,
 Plan 9, and Solaris operating systems. To use Go on these systems you must
-[[https://golang.org/doc/install/source][install from source]].
+[install from source](https://golang.org/doc/install/source).
 
 Changes to the runtime have improved the
-[[https://golang.org/doc/go1.3#performance][performance]] of Go binaries,
+[performance](https://golang.org/doc/go1.3#performance) of Go binaries,
 with an improved garbage collector, a new
-[[https://golang.org/s/contigstacks]["contiguous" goroutine stack management strategy]],
+["contiguous" goroutine stack management strategy](https://golang.org/s/contigstacks),
 a faster race detector, and improvements to the regular expression engine.
 
-As part of the general [[https://golang.org/s/go13linker][overhaul]] of the Go
+As part of the general [overhaul](https://golang.org/s/go13linker) of the Go
 linker, the compilers and linkers have been refactored. The instruction
 selection phase that was part of the linker has been moved to the compiler.
 This can speed up incremental builds for large projects.
 
-The [[https://golang.org/doc/go1.3#garbage_collector][garbage collector]] is now
+The [garbage collector](https://golang.org/doc/go1.3#garbage_collector) is now
 precise when examining stacks (collection of the heap has been precise since Go
 1.1), meaning that a non-pointer value such as an integer will never be
 mistaken for a pointer and prevent unused memory from being reclaimed. This
 change affects code that uses package unsafe; if you have unsafe code you
-should read the [[https://golang.org/doc/go1.3#garbage_collector][release notes]]
+should read the [release notes](https://golang.org/doc/go1.3#garbage_collector)
 carefully to see if your code needs updating.
 
 We would like to thank the many people who contributed to this release;
 it would not have been possible without your help.
 
 So, what are you waiting for?
-Head on over to the [[https://golang.org/dl/][downloads page]] and start hacking.
+Head on over to the [downloads page](https://golang.org/dl/) and start hacking.

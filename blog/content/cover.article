@@ -1,21 +1,22 @@
-The cover story
+# The cover story
 2 Dec 2013
 Tags: tools, coverage, testing
+Summary: From the beginning of the project, Go was designed with tools in mind. Those tools include some of the most iconic pieces of Go technology such as the documentation presentation tool [godoc](https://golang.org/cmd/godoc), the code formatting tool [gofmt](https://golang.org/cmd/gofmt), and the API rewriter [gofix](https://golang.org/cmd/fix). Perhaps most important of all is the [`go` command](https://golang.org/cmd/go), the program that automatically installs, builds, and tests Go programs using nothing more than the source code as the build specification.
 
 Rob Pike
 
-* Introduction
+## Introduction
 
 From the beginning of the project, Go was designed with tools in mind.
 Those tools include some of the most iconic pieces of Go technology such as
 the documentation presentation tool
-[[https://golang.org/cmd/godoc][godoc]],
+[godoc](https://golang.org/cmd/godoc),
 the code formatting tool
-[[https://golang.org/cmd/gofmt][gofmt]],
+[gofmt](https://golang.org/cmd/gofmt),
 and the API rewriter
-[[https://golang.org/cmd/fix][gofix]].
+[gofix](https://golang.org/cmd/fix).
 Perhaps most important of all is the
-[[https://golang.org/cmd/go][`go` command]],
+[`go` command](https://golang.org/cmd/go),
 the program that automatically installs, builds, and tests Go programs
 using nothing more than the source code as the build specification.
 
@@ -23,10 +24,10 @@ The release of Go 1.2 introduces a new tool for test coverage that takes an
 unusual approach to the way it generates coverage statistics, an approach
 that builds on the technology laid down by godoc and friends.
 
-* Support for tools
+## Support for tools
 
 First, some background: What does it mean for a
-[[https://talks.golang.org/2012/splash.article#TOC_17.][language to support good tooling]]?
+[language to support good tooling](https://talks.golang.org/2012/splash.article#TOC_17.)?
 It means that the language makes it easy to write good tools and that its ecosystem
 supports the construction of tools of all flavors.
 
@@ -50,7 +51,7 @@ correct and easy-to-read code.
 One example is the gofix tool, which automates the
 rewriting of code to use new language features or updated libraries.
 Gofix let us make fundamental changes to the language and libraries in the
-[[https://blog.golang.org/the-path-to-go-1][run-up to Go 1.0]],
+[run-up to Go 1.0](https://blog.golang.org/the-path-to-go-1),
 with the confidence that users could just run the tool to update their source to the newest version.
 
 Inside Google, we have used gofix to make sweeping changes in a huge code repository that would be almost
@@ -63,7 +64,7 @@ They also make it easy to write more modest programs such as IDE plugins, for in
 All these items build on each other, making the Go environment
 more productive by automating many tasks.
 
-* Test coverage
+## Test coverage
 
 Test coverage is a term that describes how much of a package's code is exercised by running the package's tests.
 If executing the test suite causes 80% of the package's source statements to be run, we say that the test coverage is 80%.
@@ -71,7 +72,7 @@ If executing the test suite causes 80% of the package's source statements to be 
 The program that provides test coverage in Go 1.2 is the latest to exploit the tooling support in the Go ecosystem.
 
 The usual way to compute test coverage is to instrument the binary.
-For instance, the GNU [[http://gcc.gnu.org/onlinedocs/gcc/Gcov.html][gcov]] program sets breakpoints at branches
+For instance, the GNU [gcov](http://gcc.gnu.org/onlinedocs/gcc/Gcov.html) program sets breakpoints at branches
 executed by the binary.
 As each branch executes, the breakpoint is cleared and the target statements of the branch are marked as 'covered'.
 
@@ -90,7 +91,7 @@ It does work, though, and for instance if you are a user of gccgo, the gcov tool
 information.
 However If you're a user of gc, the more commonly used Go compiler suite, until Go 1.2 you were out of luck.
 
-* Test coverage for Go
+## Test coverage for Go
 
 For the new test coverage tool for Go, we took a different approach that avoids dynamic debugging.
 The idea is simple: Rewrite the package's source code before compilation to add instrumentation,
@@ -135,7 +136,7 @@ Although that annotating assignment might look expensive, it compiles to a singl
 Its run-time overhead is therefore modest, adding only about 3% when running a typical (more realistic) test.
 That makes it reasonable to include test coverage as part of the standard development pipeline.
 
-* Viewing the results
+## Viewing the results
 
 The test coverage for our example was poor.
 To discover why, we ask `go` `test` to write a "coverage profile" for us, a file that holds
@@ -177,7 +178,7 @@ of the cases!
 And we can see exactly which ones they are, which makes it easy to
 improve our test coverage.
 
-* Heat maps
+## Heat maps
 
 A big advantage of this source-level approach to test coverage is that it's
 easy to instrument the code in different ways.
@@ -187,14 +188,14 @@ but how many times.
 The `go` `test` command accepts a `-covermode` flag to set the coverage mode
 to one of three settings:
 
-- set:    did each statement run?
-- count:  how many times did each statement run?
-- atomic: like count, but counts precisely in parallel programs
+  - set:    did each statement run?
+  - count:  how many times did each statement run?
+  - atomic: like count, but counts precisely in parallel programs
 
 The default is 'set', which we've already seen.
 The `atomic` setting is needed only when accurate counts are required
 when running parallel algorithms. It uses atomic operations from the
-[[https://golang.org/pkg/sync/atomic/][sync/atomic]] package,
+[sync/atomic](https://golang.org/pkg/sync/atomic/) package,
 which can be quite expensive.
 For most purposes, though, the `count` mode works fine and, like
 the default `set` mode, is very cheap.
@@ -256,7 +257,7 @@ markers to make them easier to show):
 That's a lot of information about the execution of the function,
 information that might be useful in profiling.
 
-* Basic blocks
+## Basic blocks
 
 You might have noticed that the counts in the previous example
 were not what you expected on the lines with closing braces.
@@ -287,7 +288,7 @@ To be fair, even `gcov` has trouble here. That tool gets the
 instrumentation right but the presentation is line-based and
 can therefore miss some nuances.
 
-* The big picture
+## The big picture
 
 That's the story about test coverage in Go 1.2.
 A new tool with an interesting implementation enables not only

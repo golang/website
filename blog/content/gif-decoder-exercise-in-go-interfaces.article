@@ -1,10 +1,11 @@
-A GIF decoder: an exercise in Go interfaces
+# A GIF decoder: an exercise in Go interfaces
 25 May 2011
 Tags: gif, gopher, image, interface, lagomorph, lzw, moustache, rodent, technical
+Summary: At the Google I/O conference in San Francisco on May 10, 2011, we announced that the Go language is now available on Google App Engine. Go is the first language to be made available on App Engine that compiles directly to machine code, which makes it a good choice for CPU-intensive tasks such as image manipulation.
 
 Rob Pike
 
-* Introduction
+## Introduction
 
 At the Google I/O conference in San Francisco on May 10,
 2011, we announced that the Go language is now available on Google App Engine.
@@ -12,7 +13,7 @@ Go is the first language to be made available on App Engine that compiles
 directly to machine code,
 which makes it a good choice for CPU-intensive tasks such as image manipulation.
 
-In that vein, we demonstrated a program called [[http://moustach-io.appspot.com/][Moustachio]]
+In that vein, we demonstrated a program called [Moustachio](http://moustach-io.appspot.com/)
 that makes it easy to improve a picture such as this one:
 
 .image gif-decoder-exercise-in-go-interfaces_image00.jpg
@@ -23,7 +24,7 @@ by adding a moustache and sharing the result:
 
 All the graphical processing, including rendering the antialiased moustache,
 is done by a Go program running on App Engine.
-(The source is available at [[http://code.google.com/p/appengine-go/source/browse/example/moustachio/][the appengine-go project]].)
+(The source is available at [the appengine-go project](http://code.google.com/p/appengine-go/source/browse/example/moustachio/).)
 
 Although most images on the web—at least those likely to be moustachioed—are JPEGs,
 there are countless other formats floating around,
@@ -35,7 +36,7 @@ That decoder contains a few pieces that demonstrate how Go's interfaces
 make some problems easier to solve.
 The rest of this blog post describes a couple of instances.
 
-* The GIF format
+## The GIF format
 
 First, a quick tour of the GIF format.  A GIF image file is _paletted_,
 that is, each pixel value is an index into a fixed color map that is included in the file.
@@ -61,12 +62,12 @@ count (0-255) followed by that many bytes:
 
 .image gif-decoder-exercise-in-go-interfaces_image03.gif
 
-* Deblocking the pixel data
+## Deblocking the pixel data
 
 To decode GIF pixel data in Go, we can use the LZW decompressor from the
 `compress/lzw` package.
 It has a NewReader function that returns an object that,
-as [[https://golang.org/pkg/compress/lzw/#NewReader][the documentation]] says,
+as [the documentation](https://golang.org/pkg/compress/lzw/#NewReader) says,
 "satisfies reads by decompressing the data read from r":
 
 	func NewReader(r io.Reader, order Order, litWidth int) io.ReadCloser
@@ -149,7 +150,7 @@ It's a nice technique in Go programming to couple a slice (`b.slice`) to an arra
 In this case, it means `blockReader` type's `Read` method never does any allocations.
 It also means we don't need to keep a count around (it's implicit in the slice length),
 and the built-in `copy` function guarantees we never copy more than we should.
-(For more about slices, see [[https://blog.golang.org/2011/01/go-slices-usage-and-internals.html][this post from the Go Blog]].)
+(For more about slices, see [this post from the Go Blog](https://blog.golang.org/2011/01/go-slices-usage-and-internals.html).)
 
 Given the `blockReader` type, we can unblock the image data stream just
 by wrapping the input reader,
@@ -160,7 +161,7 @@ say a file, like this:
 This wrapping turns a block-delimited GIF image stream into a simple stream
 of bytes accessible by calls to the `Read` method of the `blockReader`.
 
-* Connecting the pieces
+## Connecting the pieces
 
 With `blockReader` implemented and the LZW compressor available from the library,
 we have all the pieces we need to decode the image data stream.
@@ -192,7 +193,7 @@ call into the argument list for `ReadFull`,
 just as we built the `blockReader` inside the call to `NewReader`,
 but that might be packing too much into a single line of code.
 
-* Conclusion
+## Conclusion
 
 Go's interfaces make it easy to construct software by assembling piece parts
 like this to restructure data.
@@ -209,4 +210,4 @@ That deserves another picture, a GIF this time:
 
 .image gif-decoder-exercise-in-go-interfaces_image01.gif
 
-The GIF format is defined at [[http://www.w3.org/Graphics/GIF/spec-gif89a.txt][http://www.w3.org/Graphics/GIF/spec-gif89a.txt]].
+The GIF format is defined at [http://www.w3.org/Graphics/GIF/spec-gif89a.txt](http://www.w3.org/Graphics/GIF/spec-gif89a.txt).

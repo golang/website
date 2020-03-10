@@ -1,56 +1,57 @@
-Nine years of Go
+# Nine years of Go
 10 Nov 2018
 Tags: community, birthday
+Summary: Today marks the ninth anniversary of the day we open-sourced our initial sketch of Go. On each anniversary we like to take time to reflect on what has happened over the past year. The past 12 months have been a breakout year for the Go language and community.
 
 Steve Francia
 
-* Introduction
+## Introduction
 
 Today marks the ninth anniversary of the day we open-sourced our initial sketch of Go.
 On each anniversary we like to take time to reflect on what has happened over the past year.
 The past 12 months have been a breakout year for the Go language and community.
 
-* Go Love & Adoption
+## Go Love & Adoption
 
 Thanks to all of you, 2018 was an amazing year for Go!
 In multiple industry surveys Gophers expressed how happy they were using Go,
 and many non-Go developers indicated they intended to learn Go before any other language.
 
-In [[https://insights.stackoverflow.com/survey/2018#most-loved-dreaded-and-wanted][Stack Overflow’s 2018 Developer Survey]],
+In [Stack Overflow’s 2018 Developer Survey](https://insights.stackoverflow.com/survey/2018#most-loved-dreaded-and-wanted),
 Go retained its coveted spot in both the top 5 most loved and top 5 most wanted languages.
 People who use Go love it, and people who aren’t using Go want to.
 
-In [[https://www.activestate.com/developer-survey-2018-open-source-runtime-pains][ActiveState’s 2018 Developer Survey]],
+In [ActiveState’s 2018 Developer Survey](https://www.activestate.com/developer-survey-2018-open-source-runtime-pains),
 Go topped the charts with 36% of users responding they were “Extremely Satisfied” using Go
 and 61% responding “Very Satisfied” or better.
 
-[[https://www.jetbrains.com/research/devecosystem-2018/][JetBrains’s 2018 Developer Survey]] awarded Go
+[JetBrains’s 2018 Developer Survey](https://www.jetbrains.com/research/devecosystem-2018/) awarded Go
 the “Most promising language” with 12% of respondents using Go today and 16% intending to use Go in the future.
 
-In [[https://research.hackerrank.com/developer-skills/2018/][HackerRank’s 2018 Developer Survey]],
+In [HackerRank’s 2018 Developer Survey](https://research.hackerrank.com/developer-skills/2018/),
 38% of developers responded that they were intending to learn Go next.
 
 We are excited about all of our new gophers and actively working to improve our educational and community resources.
 
-* Go Community
+## Go Community
 
 It’s hard to believe that it’s only been five years since
 the first Go conferences and Go meetups.
 We’ve seen major growth in this area of community leadership over the last year.
-There are now over 20 [[https://github.com/golang/go/wiki/Conferences][Go conferences]]
-and over 300 [[https://www.meetup.com/topics/golang/][Go-related meetups]] spanning the globe.
+There are now over 20 [Go conferences](https://github.com/golang/go/wiki/Conferences)
+and over 300 [Go-related meetups](https://www.meetup.com/topics/golang/) spanning the globe.
 
 Thanks to the hard work put into these many conferences and meetups,
 there have been hundreds of great talks this year.
 Here are a few of our favorite talks specifically discussing the growth of our community
 and how we can better support gophers worldwide.
 
-- [[https://www.youtube.com/watch?v=cVaDY0ChvOQ][Writing Accessible Go]], by Julia Ferraioli at GopherCon
-- [[https://www.youtube.com/watch?v=7yMXs9TRvVI][The Importance of Beginners]], by Natalie Pistunovich at GopherCon
-- [[https://www.youtube.com/watch?v=I_KcpgxcFyU][The Legacy of Go, Part 2]], by Carmen Andoh at GothamGo
-- [[https://www.youtube.com/watch?v=dl1mCGKwlYY][Growing a Community of Gophers]], by Cassandra Salisbury at Gopherpalooza
+  - [Writing Accessible Go](https://www.youtube.com/watch?v=cVaDY0ChvOQ), by Julia Ferraioli at GopherCon
+  - [The Importance of Beginners](https://www.youtube.com/watch?v=7yMXs9TRvVI), by Natalie Pistunovich at GopherCon
+  - [The Legacy of Go, Part 2](https://www.youtube.com/watch?v=I_KcpgxcFyU), by Carmen Andoh at GothamGo
+  - [Growing a Community of Gophers](https://www.youtube.com/watch?v=dl1mCGKwlYY), by Cassandra Salisbury at Gopherpalooza
 
-On that theme, this year we also [[https://blog.golang.org/conduct-2018][revised our code of conduct]]
+On that theme, this year we also [revised our code of conduct](https://blog.golang.org/conduct-2018)
 to better support inclusivity in the Go community.
 
 The Go community is truly global.
@@ -58,27 +59,27 @@ At GopherCon Europe in Iceland this past summer, gophers literally spanned the g
 
 .image 9years-iceland.jpg _ 800
 
-_(Photo_by_Winter_Francia.)_
+_(Photo by Winter Francia.)_
 
-* Go 2
+## Go 2
 
 After five years of experience with Go 1, we’ve started looking at
 what we should change about Go to better support
-[[https://talks.golang.org/2012/splash.article][programming at scale]].
+[programming at scale](https://talks.golang.org/2012/splash.article).
 
-Last spring, we published a [[https://blog.golang.org/versioning-proposal][draft design for Go modules]],
+Last spring, we published a [draft design for Go modules](https://blog.golang.org/versioning-proposal),
 which provide an integrated mechanism for versioning and package distribution.
 The most recent Go release, Go 1.11, included
-[[https://golang.org/doc/go1.11#modules][preliminary support for modules]].
+[preliminary support for modules](https://golang.org/doc/go1.11#modules).
 
 Last summer we published
-[[https://blog.golang.org/go2draft][early draft designs]]
+[early draft designs](https://blog.golang.org/go2draft)
 for how Go 2 might better support error values, error handling, and generic programming.
 
 We are excited about refining these designs with the community’s help as we work
-[[https://blog.golang.org/toward-go2][toward Go 2]].
+[toward Go 2](https://blog.golang.org/toward-go2).
 
-* Go Contributors
+## Go Contributors
 
 The Go project has been increasing in the number of contributions from the community for several years.
 The project hit a major milestone in mid-2018 when, for the first time,
@@ -86,7 +87,7 @@ we had more contributions coming from the community than the Go team.
 
 .image 9years-graph.png _ 600
 
-* Thank You
+## Thank You
 
 On a personal note, from the entire Go team,
 we want to sincerely thank all of you.

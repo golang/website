@@ -1,20 +1,21 @@
-Using Subtests and Sub-benchmarks
-03 Oct 2016
+# Using Subtests and Sub-benchmarks
+3 Oct 2016
 Tags: testing, hierarchy, table-driven, subtests, sub-benchmarks
+Summary: In Go 1.7, the `testing` package introduces a Run method on the [`T`](https://golang.org/pkg/testing/#T.Run) and [`B`](https://golang.org/pkg/testing/#B.Run) types that allows for the creation of subtests and sub-benchmarks. The introduction of subtests and sub-benchmarks enables better handling of failures, fine-grained control of which tests to run from the command line, control of parallelism, and often results in simpler and more maintainable code.
 
 Marcel van Lohuizen
 
-* Introduction
+## Introduction
 
 In Go 1.7, the `testing` package introduces a Run method on the
-[[https://golang.org/pkg/testing/#T.Run][`T`]] and
-[[https://golang.org/pkg/testing/#B.Run][`B`]] types
+[`T`](https://golang.org/pkg/testing/#T.Run) and
+[`B`](https://golang.org/pkg/testing/#B.Run) types
 that allows for the creation of subtests and sub-benchmarks.
 The introduction of subtests and sub-benchmarks enables better handling of
 failures, fine-grained control of which tests to run from the command line,
 control of parallelism, and often results in simpler and more maintainable code.
 
-* Table-driven tests basics
+## Table-driven tests basics
 
 Before digging into the details, let's first discuss a common
 way of writing tests in Go.
@@ -47,7 +48,7 @@ This approach, commonly referred to as table-driven tests, reduces the amount
 of repetitive code compared to repeating the same code for each test
 and makes it straightforward to add more test cases.
 
-* Table-driven benchmarks
+## Table-driven benchmarks
 
 Before Go 1.7 it was not possible to use the same table-driven approach for
 benchmarks.
@@ -111,7 +112,7 @@ and consistent with the table-driven approach commonly used for testing.
 Moreover, common setup code is now shared between runs while eliminating the
 need to reset the timer.
 
-* Table-driven tests using subtests
+## Table-driven tests using subtests
 
 Go 1.7 also introduces a `Run` method for creating subtests.
 This test is a rewritten version of our earlier example using subtests:
@@ -167,10 +168,10 @@ identify the test again within the error messages.
 There are several other benefits to using subtests or sub-benchmarks,
 as clarified by the following sections.
 
-* Running specific tests or benchmarks
+## Running specific tests or benchmarks
 
 Both subtests and sub-benchmarks can be singled out on the command line using
-the [[https://golang.org/cmd/go/#hdr-Description_of_testing_flags][`-run` or `-bench` flag]].
+the [`-run` or `-bench` flag](https://golang.org/cmd/go/#hdr-Description_of_testing_flags).
 Both flags take a slash-separated list of regular expressions that match the
 corresponding parts of the full name of the subtest or sub-benchmark.
 
@@ -234,7 +235,7 @@ So one could just pass an empty string to `Run`
 if there is no obvious naming scheme for subtests and the subtests
 can easily be identified by their sequence number.
 
-* Setup and Tear-down
+## Setup and Tear-down
 
 Subtests and sub-benchmarks can be used to manage common setup and tear-down code:
 
@@ -254,7 +255,7 @@ The setup and tear-down code will run if any of the enclosed subtests are run
 and will run at most once.
 This applies even if any of the subtests calls `Skip`, `Fail`, or `Fatal`.
 
-* Control of Parallelism
+## Control of Parallelism
 
 Subtests allow fine-grained control over parallelism.
 To understand how to use subtests in the way
@@ -278,7 +279,7 @@ This behavior is identical for tests created by `Run` and top-level tests.
 In fact, under the hood top-level tests are implemented as subtests of
 a hidden master test.
 
-** Run a group of tests in parallel
+### Run a group of tests in parallel
 
 The above semantics allows for running a group of tests in parallel with
 each other but not with other parallel tests:
@@ -303,7 +304,7 @@ As a result, no other parallel tests can run in parallel to these parallel tests
 Note that we need to capture the range variable to ensure that `tc` gets bound to
 the correct instance.
 
-** Cleaning up after a group of parallel tests
+### Cleaning up after a group of parallel tests
 
 In the previous example we used the semantics to wait on a group of parallel
 tests to complete before commencing other tests.
@@ -324,7 +325,7 @@ that share common resources:
 The behavior of waiting on a group of parallel tests is identical to that
 of the previous example.
 
-* Conclusion
+## Conclusion
 
 Go 1.7's addition of subtests and sub-benchmarks allows you to write structured
 tests and benchmarks in a natural way that blends nicely into the existing

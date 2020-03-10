@@ -1,25 +1,26 @@
-The first Go program
+# The first Go program
 18 Jul 2013
 Tags: history
+Summary: Brad Fitzpatrick and I (Andrew Gerrand) recently started restructuring [godoc](https://golang.org/cmd/godoc/), and it occurred to me that it is one of the oldest Go programs. Robert Griesemer started writing it back in early 2009, and we're still using it today.
 
 Andrew Gerrand
 
-* Introduction
+##
 
 Brad Fitzpatrick and I (Andrew Gerrand) recently started restructuring
-[[https://golang.org/cmd/godoc/][godoc]], and it occurred to me that it is one
+[godoc](https://golang.org/cmd/godoc/), and it occurred to me that it is one
 of the oldest Go programs.
 Robert Griesemer started writing it back in early 2009,
 and we're still using it today.
 
-When I [[https://twitter.com/enneff/status/357403054632484865][tweeted]] about
-this, Dave Cheney replied with an [[https://twitter.com/davecheney/status/357406479415914497][interesting question]]:
+When I [tweeted](https://twitter.com/enneff/status/357403054632484865) about
+this, Dave Cheney replied with an [interesting question](https://twitter.com/davecheney/status/357406479415914497):
 what is the oldest Go program? Rob Pike dug into his mail and found it
 in an old message to Robert and Ken Thompson.
 
 What follows is the first Go program. It was written by Rob in February 2008,
 when the team was just Rob, Robert, and Ken. They had a solid feature list
-(mentioned in [[https://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html][this blog post]])
+(mentioned in [this blog post](https://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html))
 and a rough language specfication. Ken had just finished the first working version of
 a Go compiler (it didn't produce native code, but rather transliterated Go code
 to C for fast prototyping) and it was time to try writing a program with it.
@@ -47,11 +48,11 @@ statements, printed for debugging.)
 .code first-go-program/slist.go
 
 The program parses and prints an
-[[https://en.wikipedia.org/wiki/S-expression][S-expression]].
+[S-expression](https://en.wikipedia.org/wiki/S-expression).
 It takes no user input and has no imports, relying only on the built-in
 `print` facility for output.
 It was written literally the first day there was a
-[[https://golang.org/change/8b8615138da3][working but rudimentary compiler]].
+[working but rudimentary compiler](https://golang.org/change/8b8615138da3).
 Much of the language wasn't implemented and some of it wasn't even specified.
 
 Still, the basic flavor of the language today is recognizable in this program.
@@ -115,7 +116,7 @@ But even more striking is how much we have learned about _writing_ Go code.
 For instance, Rob called his method receivers `this`, but now we use shorter
 context-specific names. There are hundreds of more significant examples
 and to this day we're still discovering better ways to write Go code.
-(Check out the [[https://github.com/golang/glog][glog package]]'s clever trick for
-[[https://github.com/golang/glog/blob/c6f9652c7179652e2fd8ed7002330db089f4c9db/glog.go#L893][handling verbosity levels]].)
+(Check out the [glog package](https://github.com/golang/glog)'s clever trick for
+[handling verbosity levels](https://github.com/golang/glog/blob/c6f9652c7179652e2fd8ed7002330db089f4c9db/glog.go#L893).)
 
 I wonder what we'll learn tomorrow.

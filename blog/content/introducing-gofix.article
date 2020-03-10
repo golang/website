@@ -1,25 +1,26 @@
-Introducing Gofix
+# Introducing Gofix
 15 Apr 2011
 Tags: gofix, technical
+Summary: The next Go release will include significant API changes in several fundamental Go packages. Code that [implements an HTTP server handler](http://codereview.appspot.com/4239076), [calls `net.Dial`](http://codereview.appspot.com/4244055), [calls `os.Open`](http://codereview.appspot.com/4357052), or [uses the reflect package](http://codereview.appspot.com/4281055) will not build unless it is updated to use the new APIs. Now that our releases are [more stable and less frequent](https://blog.golang.org/2011/03/go-becomes-more-stable.html), this will be a common situation. Each of these API changes happened in a different weekly snapshot and might have been manageable on its own; together, however, they represent a significant amount of manual effort to update existing code.
 
 Russ Cox
 
-* Introduction
+##
 
 The next Go release will include significant API changes in several fundamental Go packages.
-Code that [[http://codereview.appspot.com/4239076][implements an HTTP server handler]],
-[[http://codereview.appspot.com/4244055][calls `net.Dial`]],
-[[http://codereview.appspot.com/4357052][calls `os.Open`]],
-or [[http://codereview.appspot.com/4281055][uses the reflect package]] will
+Code that [implements an HTTP server handler](http://codereview.appspot.com/4239076),
+[calls `net.Dial`](http://codereview.appspot.com/4244055),
+[calls `os.Open`](http://codereview.appspot.com/4357052),
+or [uses the reflect package](http://codereview.appspot.com/4281055) will
 not build unless it is updated to use the new APIs.
-Now that our releases are [[https://blog.golang.org/2011/03/go-becomes-more-stable.html][more stable and less frequent]],
+Now that our releases are [more stable and less frequent](https://blog.golang.org/2011/03/go-becomes-more-stable.html),
 this will be a common situation.
 Each of these API changes happened in a different weekly snapshot and might
 have been manageable on its own;
 together, however, they represent a significant amount of manual effort
 to update existing code.
 
-[[https://golang.org/cmd/fix/][Gofix]] is a new tool that reduces the amount
+[Gofix](https://golang.org/cmd/fix/) is a new tool that reduces the amount
 of effort it takes to update existing code.
 It reads a program from a source file, looks for uses of old APIs,
 rewrites them to use the current API, and writes the program back to the file.
@@ -43,10 +44,10 @@ handle a particular API change.
 Right now, writing a new fix requires doing some scanning and rewriting
 of the go/ast syntax tree,
 usually in proportion to how complex the API changes are.
-If you want to explore, the [[https://go.googlesource.com/go/+/go1/src/cmd/fix/netdial.go][`netdialFix`]],
-[[https://go.googlesource.com/go/+/go1/src/cmd/fix/osopen.go][`osopenFix`]],
-[[https://go.googlesource.com/go/+/go1/src/cmd/fix/httpserver.go][`httpserverFix`]],
-and [[https://go.googlesource.com/go/+/go1/src/cmd/fix/reflect.go][`reflectFix`]]
+If you want to explore, the [`netdialFix`](https://go.googlesource.com/go/+/go1/src/cmd/fix/netdial.go),
+[`osopenFix`](https://go.googlesource.com/go/+/go1/src/cmd/fix/osopen.go),
+[`httpserverFix`](https://go.googlesource.com/go/+/go1/src/cmd/fix/httpserver.go),
+and [`reflectFix`](https://go.googlesource.com/go/+/go1/src/cmd/fix/reflect.go)
 are all illustrative examples,
 in increasing order of complexity.
 
@@ -58,7 +59,7 @@ We use gofix to update other Go code bases and our personal projects.
 We even use gofix to update Google’s internal source tree when it is time
 to build against a new Go release.
 
-As an example, gofix can rewrite code like [[http://codereview.appspot.com/4353043/diff/10001/src/pkg/fmt/print.go#newcode657][this snippet from `fmt/print.go`]]:
+As an example, gofix can rewrite code like [this snippet from `fmt/print.go`](http://codereview.appspot.com/4353043/diff/10001/src/pkg/fmt/print.go#newcode657):
 
 	switch f := value.(type) {
 	case *reflect.BoolValue:
@@ -94,8 +95,8 @@ Nearly every line above changed in some small way.
 The changes involved in the rewrite are extensive but nearly entirely mechanical,
 just the kind of thing that computers are great at doing.
 
-Gofix is possible because Go has support in its standard libraries for [[https://golang.org/pkg/go/parser][parsing Go source files into syntax trees]]
-and also for [[https://golang.org/pkg/go/printer][printing those syntax trees back to Go source code]].
+Gofix is possible because Go has support in its standard libraries for [parsing Go source files into syntax trees](https://golang.org/pkg/go/parser)
+and also for [printing those syntax trees back to Go source code](https://golang.org/pkg/go/printer).
 Importantly, the Go printing library prints a program in the official format
 (typically enforced via the gofmt tool),
 allowing gofix to make mechanical changes to Go programs without causing

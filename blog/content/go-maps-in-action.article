@@ -1,23 +1,24 @@
-Go maps in action
+# Go maps in action
 6 Feb 2013
 Tags: map, technical
+Summary: One of the most useful data structures in computer science is the hash table. Many hash table implementations exist with varying properties, but in general they offer fast lookups, adds, and deletes. Go provides a built-in map type that implements a hash table.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 One of the most useful data structures in computer science is the hash table.
 Many hash table implementations exist with varying properties,
 but in general they offer fast lookups, adds, and deletes.
 Go provides a built-in map type that implements a hash table.
 
-* Declaration and initialization
+## Declaration and initialization
 
 A Go map type looks like this:
 
 	map[KeyType]ValueType
 
-where `KeyType` may be any type that is [[https://golang.org/ref/spec#Comparison_operators][comparable]]
+where `KeyType` may be any type that is [comparable](https://golang.org/ref/spec#Comparison_operators)
 (more on this later),
 and `ValueType` may be any type at all, including another map!
 
@@ -41,7 +42,7 @@ runtime and are not specified by the language itself.
 In this article we will focus on the _use_ of maps,
 not their implementation.
 
-* Working with maps
+## Working with maps
 
 Go provides a familiar syntax for working with maps. This statement sets the key `"route"` to the value `66`:
 
@@ -51,7 +52,7 @@ This statement retrieves the value stored under the key `"route"` and assigns it
 
 	i := m["route"]
 
-If the requested key doesn't exist, we get the value type's _zero_value_.
+If the requested key doesn't exist, we get the value type's _zero value_.
 In this case the value type is `int`, so the zero value is `0`:
 
 	j := m["root"]
@@ -99,7 +100,7 @@ The same syntax may be used to initialize an empty map, which is functionally id
 
 	m = map[string]int{}
 
-* Exploiting zero values
+## Exploiting zero values
 
 It can be convenient that a map retrieval yields a zero value when the key is not present.
 
@@ -137,10 +138,10 @@ Note that since both range and len treat a nil slice as a zero-length slice,
 these last two examples will work even if nobody likes cheese or bacon (however
 unlikely that may be).
 
-* Key types
+## Key types
 
 As mentioned earlier, map keys may be of any type that is comparable.
-The [[https://golang.org/ref/spec#Comparison_operators][language spec]]
+The [language spec](https://golang.org/ref/spec#Comparison_operators)
 defines this precisely,
 but in short, comparable types are boolean,
 numeric, string, pointer, channel, and interface types,
@@ -193,13 +194,13 @@ And it's similarly straightforward to see how many Swiss people have read the sp
 
 	n := hits[Key{"/ref/spec", "ch"}]
 
-* Concurrency
+## Concurrency
 
-[[https://golang.org/doc/faq#atomic_maps][Maps are not safe for concurrent use]]:
+[Maps are not safe for concurrent use](https://golang.org/doc/faq#atomic_maps):
 it's not defined what happens when you read and write to them simultaneously.
 If you need to read from and write to a map from concurrently executing goroutines,
 the accesses must be mediated by some kind of synchronization mechanism.
-One common way to protect maps is with [[https://golang.org/pkg/sync/#RWMutex][sync.RWMutex]].
+One common way to protect maps is with [sync.RWMutex](https://golang.org/pkg/sync/#RWMutex).
 
 This statement declares a `counter` variable that is an anonymous struct
 containing a map and an embedded `sync.RWMutex`.
@@ -222,7 +223,7 @@ To write to the counter, take the write lock:
 	counter.m["some_key"]++
 	counter.Unlock()
 
-* Iteration order
+## Iteration order
 
 When iterating over a map with a range loop,
 the iteration order is not specified and is not guaranteed to be the same

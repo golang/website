@@ -1,9 +1,10 @@
-Errors are values
+# Errors are values
 12 Jan 2015
+Summary: A common point of discussion among Go programmers, especially those new to the language, is how to handle errors. The conversation often turns into a lament at the number of times the sequence
 
 Rob Pike
 
-* Introduction
+##
 
 A common point of discussion among Go programmers,
 especially those new to the language, is how to handle errors.
@@ -33,7 +34,7 @@ Over time the Go code collects many such snippets, and the result feels clumsy.
 
 Regardless of whether this explanation fits,
 it is clear that these Go programmers miss a fundamental point about errors:
-_Errors_are_values._
+_Errors are values._
 
 Values can be programmed, and since errors are values, errors can be programmed.
 
@@ -43,8 +44,8 @@ and application of some of those other things can make your program better,
 eliminating much of the boilerplate that arises if every error is checked with a rote if statement.
 
 Here's a simple example from the `bufio` package's
-[[https://golang.org/pkg/bufio/#Scanner][`Scanner`]] type.
-Its [[https://golang.org/pkg/bufio/#Scanner.Scan][`Scan`]] method performs the underlying I/O,
+[`Scanner`](https://golang.org/pkg/bufio/#Scanner) type.
+Its [`Scan`](https://golang.org/pkg/bufio/#Scanner.Scan) method performs the underlying I/O,
 which can of course lead to an error.
 Yet the `Scan` method does not expose an error at all.
 Instead, it returns a boolean, and a separate method, to be run at the end of the scan,
@@ -86,7 +87,7 @@ Error handling does not obscure the flow of control.
 
 Under the covers what's happening, of course,
 is that as soon as `Scan` encounters an I/O error, it records it and returns `false`.
-A separate method, [[https://golang.org/pkg/bufio/#Scanner.Err][`Err`]],
+A separate method, [`Err`](https://golang.org/pkg/bufio/#Scanner.Err),
 reports the error value when the client asks.
 Trivial though this is, it's not the same as putting
 
@@ -102,7 +103,7 @@ The discussion here is not about how to avoid checking errors,
 it's about using the language to handle errors with grace.
 
 The topic of repetitive error-checking code arose when I attended the autumn 2014 GoCon in Tokyo.
-An enthusiastic gopher, who goes by [[https://twitter.com/jxck_][`@jxck_`]] on Twitter,
+An enthusiastic gopher, who goes by [`@jxck_`](https://twitter.com/jxck_) on Twitter,
 echoed the familiar lament about error checking.
 He had some code that looked schematically like this:
 
@@ -198,12 +199,12 @@ It could coalesce writes into a single buffer that can then be transmitted atomi
 And much more.
 
 In fact, this pattern appears often in the standard library.
-The [[https://golang.org/pkg/archive/zip/][`archive/zip`]] and
-[[https://golang.org/pkg/net/http/][`net/http`]] packages use it.
-More salient to this discussion, the [[https://golang.org/pkg/bufio/][`bufio` package's `Writer`]]
+The [`archive/zip`](https://golang.org/pkg/archive/zip/) and
+[`net/http`](https://golang.org/pkg/net/http/) packages use it.
+More salient to this discussion, the [`bufio` package's `Writer`](https://golang.org/pkg/bufio/)
 is actually an implementation of the `errWriter` idea.
 Although `bufio.Writer.Write` returns an error,
-that is mostly about honoring the [[https://golang.org/pkg/io/#Writer][`io.Writer`]] interface.
+that is mostly about honoring the [`io.Writer`](https://golang.org/pkg/io/#Writer) interface.
 The `Write` method of `bufio.Writer` behaves just like our `errWriter.write`
 method above, with `Flush` reporting the error, so our example could be written like this:
 
@@ -231,5 +232,5 @@ Use the language to simplify your error handling.
 
 But remember: Whatever you do, always check your errors!
 
-Finally, for the full story of my interaction with @jxck_, including a little video he recorded,
-visit [[http://jxck.hatenablog.com/entry/golang-error-handling-lesson-by-rob-pike][his blog]].
+Finally, for the full story of my interaction with @jxck\_, including a little video he recorded,
+visit [his blog](http://jxck.hatenablog.com/entry/golang-error-handling-lesson-by-rob-pike).

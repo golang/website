@@ -1,48 +1,49 @@
-Go 2018 Survey Results
+# Go 2018 Survey Results
 28 Mar 2019
 Tags: survey, community
+Summary: This post summarizes the results of our 2018 user survey and draws comparisons between the results of our prior surveys from [2016](https://blog.golang.org/survey2016-results) and [2017](https://blog.golang.org/survey2017-results).
 
 Todd Kulesza, Steve Francia
 tkulesza@google.com, spf@golang.org
 
-* Thank you
+## Thank you
 
 .html survey2018/style.html
 
 This post summarizes the results of our 2018 user survey and draws comparisons
-between the results of our prior surveys from [[https://blog.golang.org/survey2016-results][2016]]
-and [[https://blog.golang.org/survey2017-results][2017]].
+between the results of our prior surveys from [2016](https://blog.golang.org/survey2016-results)
+and [2017](https://blog.golang.org/survey2017-results).
 
 This year we had 5,883 survey respondents from 103 different countries.
 We are grateful to everyone who provided their feedback through this survey
 to help shape the future of Go. Thank you!
 
-* Summary of findings
+## Summary of findings
 
-- For the first time, *half*of*survey*respondents*are*now*using*Go*as*part*of*their*daily*routine*.
-  This year also saw significant increases in the number of respondents who
-  develop in Go as part of their jobs and use Go outside of work responsibilities.
-- The most *common*uses*for*Go*remain*API/RPC*services*and*CLI*tools*.
-  Automation tasks, while not as common as CLI tools and API services,
-  are a fast-growing area for Go.
-- *Web*development*remains*the*most*common*domain* that survey respondents work in,
-  but *DevOps*showed*the*highest*year-over-year*growth* and is now the second most common domain.
-- A large majority of survey respondents said *Go*is*their*most-preferred*programming*language*,
-  despite generally feeling less proficient with it than at least one other language.
-- *VS*Code*and*GoLand*are*surging*in*popularity* and are now the most popular code editors among survey respondents.
-- Highlighting the portable nature of Go,
-  *many*Go*developers*use*more*than*one*primary*OS* for development.
-  Linux and macOS are particularly popular,
-  with a large majority of survey respondents using one or both of these operating
-  systems to write Go code.
-- Survey respondents appear to be *shifting*away*from*on-prem*Go*deployments*
-  and moving towards containers and serverless cloud deployments.
-- The majority of respondents said they feel welcome in the Go community,
-  and most ideas for improving the Go community specifically focus on *improving*the*experience*of*newcomers*.
+  - For the first time, **half of survey respondents are now using Go as part of their daily routine**.
+    This year also saw significant increases in the number of respondents who
+    develop in Go as part of their jobs and use Go outside of work responsibilities.
+  - The most **common uses for Go remain API/RPC services and CLI tools**.
+    Automation tasks, while not as common as CLI tools and API services,
+    are a fast-growing area for Go.
+  - **Web development remains the most common domain** that survey respondents work in,
+    but **DevOps showed the highest year-over-year growth** and is now the second most common domain.
+  - A large majority of survey respondents said **Go is their most-preferred programming language**,
+    despite generally feeling less proficient with it than at least one other language.
+  - **VS Code and GoLand are surging in popularity** and are now the most popular code editors among survey respondents.
+  - Highlighting the portable nature of Go,
+    **many Go developers use more than one primary OS** for development.
+    Linux and macOS are particularly popular,
+    with a large majority of survey respondents using one or both of these operating
+    systems to write Go code.
+  - Survey respondents appear to be **shifting away from on-prem Go deployments**
+    and moving towards containers and serverless cloud deployments.
+  - The majority of respondents said they feel welcome in the Go community,
+    and most ideas for improving the Go community specifically focus on **improving the experience of newcomers**.
 
 Read on for all of the details.
 
-* Programming background
+## Programming background
 
 This year's results show a significant increase in the number of survey
 respondents who are paid to write Go as part of their jobs (68% → 72%),
@@ -72,7 +73,7 @@ use it outside of work suggests that the language appeals to developers
 who do not view software engineering as a day job:
 they also choose to hack on code outside of work responsibilities,
 and (as evidenced by 85% of respondents saying they'd prefer Go for their next project,
-see section _Attitudes_towards_Go_ below) Go is the top language they'd
+see section _Attitudes towards Go_ below) Go is the top language they'd
 prefer to use for these non-work-related projects.
 
 .image survey2018/fig4.svg _ 600
@@ -98,31 +99,31 @@ The charts below are sorted by the number of respondents who ranked each
 language as their most preferred/understood (the darkest blue bars),
 which highlights three interesting bits:
 
-- While about ⅓ of respondents consider Go to be the language in which
-  they have the most expertise,
-  twice that many respondents consider it their most preferred programming language.
-  So even though many respondents feel they haven't become as proficient with
-  Go as with some other language,
-  they still frequently prefer to develop with Go.
-- Few survey respondents rank Rust as a language in which they have expertise (6.8%),
-  yet 19% rank it as a top preferred language,
-  indicating a high level of interest in Rust among this audience.
-- Only three languages have more respondents who say they prefer the language
-  than say they have expertise with it:
-  Rust (2.41:1 ratio of preference:expertise),
-  Kotlin (1.95:1), and Go (1.02:1).
-  Higher preference than expertise implies interest—but little direct experience—in a language,
-  while lower preference than expertise numbers suggests barriers to proficient use.
-  Ratios near 1.0 suggest that most developers are able to work effectively
-  _and_ enjoyably with a given language.
-  This data is corroborated by [[https://insights.stackoverflow.com/survey/2018/#most-loved-dreaded-and-wanted][Stack Overflow's 2018 developer survey]],
-  which also found Rust, Kotlin, and Go to be among the most-preferred programming languages.
+  - While about ⅓ of respondents consider Go to be the language in which
+    they have the most expertise,
+    twice that many respondents consider it their most preferred programming language.
+    So even though many respondents feel they haven't become as proficient with
+    Go as with some other language,
+    they still frequently prefer to develop with Go.
+  - Few survey respondents rank Rust as a language in which they have expertise (6.8%),
+    yet 19% rank it as a top preferred language,
+    indicating a high level of interest in Rust among this audience.
+  - Only three languages have more respondents who say they prefer the language
+    than say they have expertise with it:
+    Rust (2.41:1 ratio of preference:expertise),
+    Kotlin (1.95:1), and Go (1.02:1).
+    Higher preference than expertise implies interest—but little direct experience—in a language,
+    while lower preference than expertise numbers suggests barriers to proficient use.
+    Ratios near 1.0 suggest that most developers are able to work effectively
+    _and_ enjoyably with a given language.
+    This data is corroborated by [Stack Overflow's 2018 developer survey](https://insights.stackoverflow.com/survey/2018/#most-loved-dreaded-and-wanted),
+    which also found Rust, Kotlin, and Go to be among the most-preferred programming languages.
 
 .image survey2018/fig6.svg _ 600
 .image survey2018/fig7.svg _ 600
 .html survey2018/reading.html
 
-* Development domains
+## Development domains
 
 Survey respondents reported working on a median of three different domains,
 with a large majority (72%) working in 2-5 different areas.
@@ -156,10 +157,10 @@ with 38% of respondents now using Go for scripts and automation tasks (up from 3
 To better understand the contexts in which developers are using Go,
 we added a question about Go adoption across different industries.
 Perhaps unsurprisingly for a relatively new language,
-over half of survey respondents work in companies in the _Internet/web_services_
+over half of survey respondents work in companies in the _Internet/web services_
 and _Software_ categories (i.e., tech companies).
-The only other industries with >3% responses were _Finance,_banking,_or_insurance_
-and _Media,_advertising,_publishing,_or_entertainment_.
+The only other industries with >3% responses were _Finance, banking, or insurance_
+and _Media, advertising, publishing, or entertainment_.
 (In the chart below, we've condensed all of the categories with response
 rates below 3% into the "Other" category.) We'll continue tracking Go's
 adoption across industries to better understand developer needs outside
@@ -167,10 +168,10 @@ of technology companies.
 
 .image survey2018/fig10.svg _ 600
 
-* Attitudes towards Go
+## Attitudes towards Go
 
 This year we added a question asking "How likely are you to recommend Go
-to a friend or colleague?" to calculate our [[https://en.wikipedia.org/wiki/Net_Promoter][Net Promoter Score]].
+to a friend or colleague?" to calculate our [Net Promoter Score](https://en.wikipedia.org/wiki/Net_Promoter).
 This score attempts to measure how many more "promoters" a product has than
 "detractors" and ranges from -100 to 100;
 a positive value suggests most people are likely to recommend using a product,
@@ -189,8 +190,8 @@ and feel that it is working well for their team (66%),
 while a plurality feel that Go is at least somewhat critical to their company's success (44%).
 While all of these metrics showed an increase in 2017,
 they remained mostly stable this year.
-(The wording of the first question changed in 2018 from "_I_would_recommend_using_Go_to_others_"
-to "_Overall,_I'm_happy_with_Go_",
+(The wording of the first question changed in 2018 from "_I would recommend using Go to others_"
+to "_Overall, I'm happy with Go_",
 so those results are not directly comparable.)
 
 .image survey2018/fig12.svg _ 600
@@ -209,16 +210,16 @@ We analyzed the results via machine learning to identify common themes and
 counting the number of responses that supported each theme.
 The top three major challenges we identified are:
 
-- Package management (e.g., "Keeping up with vendoring",
-  "dependency / packet [sic] management / vendoring not unified")
-- Differences from more familiar programming languages (e.g.,
-  "syntax close to C-languages with slightly different semantics makes me
-  look up references somewhat more than I'd like",
-  "coworkers who come from non-Go backgrounds trying to use Go as a version
-  of their previous language but with channels and Goroutines")
-- Lack of generics (e.g., "Lack of generics makes it difficult to persuade
-  people who have not tried Go that they would find it efficient.",
-  "Hard to build richer abstractions (want generics)")
+  - Package management (e.g., "Keeping up with vendoring",
+    "dependency / packet [sic] management / vendoring not unified")
+  - Differences from more familiar programming languages (e.g.,
+    "syntax close to C-languages with slightly different semantics makes me
+    look up references somewhat more than I'd like",
+    "coworkers who come from non-Go backgrounds trying to use Go as a version
+    of their previous language but with channels and Goroutines")
+  - Lack of generics (e.g., "Lack of generics makes it difficult to persuade
+    people who have not tried Go that they would find it efficient.",
+    "Hard to build richer abstractions (want generics)")
 
 .image survey2018/fig13.svg _ 600
 .image survey2018/fig14.svg _ 600
@@ -252,7 +253,7 @@ with a goal of improving the overall debugging experience for Go developers.
 .image survey2018/fig15.svg _ 600
 .image survey2018/fig29.svg _ 600
 
-* Development environments
+## Development environments
 
 We asked respondents which operating systems they primarily use when writing Go code.
 A majority (65%) of respondents said they use Linux,
@@ -282,10 +283,10 @@ We also asked respondents what would most improve Go support in their preferred 
 Like the "biggest challenge" question above,
 participants could write in their own response rather than select from a
 multiple-choice list.
-A thematic analysis on the responses revealed that _improved_debugging_support_ (e.g.,
+A thematic analysis on the responses revealed that _improved debugging support_ (e.g.,
 "Live debugging", "Integrated debugging",
 "Even better debugging") was the most-common request,
-followed by _improved_code_completion_ (e.g.,
+followed by _improved code completion_ (e.g.,
 "autocomplete performance and quality", "smarter autocomplete").
 Other requests include better integration with Go's CLI toolchain,
 better support for modules/packages, and general performance improvements.
@@ -306,7 +307,7 @@ WebAssembly (30%), and ARM (22%), but very little interest in other platforms.
 
 .image survey2018/fig19.svg _ 600
 
-* Deployments and services
+## Deployments and services
 
 For 2018 we see a continuation of the trend from on-prem to cloud hosting
 for both Go and non-Go deployments.
@@ -338,7 +339,7 @@ As the below chart shows, service usage increased across the board.
 
 .image survey2018/fig21.svg _ 600
 
-* Go community
+## Go community
 
 The top community sources for finding answers to Go questions continue to
 be Stack Overflow (23% of respondents marked it as their top source),
@@ -377,7 +378,7 @@ In 2017 we saw year-over-year increases across the board.
 For 2018, we saw a similar percentage of respondents (12%) identify as part
 of an under-represented group,
 and this was paired with a significant decrease in the percentage of respondents
-who do *not* identify as part of an under-represented group.
+who do **not** identify as part of an under-represented group.
 In 2017, for every person who identified as part of an under-represented group,
 3.5 people identified as not part of an under-represented group (3.5:1 ratio).
 In 2018 that ratio improved to 3.08:1. This suggests that the Go community
@@ -406,15 +407,15 @@ This interpretation of the data is supported by responses to the question
 "What changes would make the Go community more welcoming?".
 Respondents' comments can be broadly grouped into four categories:
 
-- Reduce a perception of elitism, especially for newcomers to Go (e.g.,
-  "less dismissiveness", "Less defensiveness and hubris")
-- Increase transparency at the leadership level (e.g.,
-  "Future direction and planning discussions",
-  "Less top down leadership", "More democratic")
-- Increase introductory resources (e.g., "A more clear introduction for contributors",
-  "Fun challenges to learn best practices")
-- More events and meetups, with a focus on covering a larger geographic area (e.g.,
-  "More meetups & social events", "Events in more cities")
+  - Reduce a perception of elitism, especially for newcomers to Go (e.g.,
+    "less dismissiveness", "Less defensiveness and hubris")
+  - Increase transparency at the leadership level (e.g.,
+    "Future direction and planning discussions",
+    "Less top down leadership", "More democratic")
+  - Increase introductory resources (e.g., "A more clear introduction for contributors",
+    "Fun challenges to learn best practices")
+  - More events and meetups, with a focus on covering a larger geographic area (e.g.,
+    "More meetups & social events", "Events in more cities")
 
 This feedback is very helpful and gives us concrete areas we can focus on
 to improve the experience of being a Go developer.
@@ -424,7 +425,7 @@ we take this feedback very seriously and are working on improving each area.
 .image survey2018/fig22.svg _ 600
 .image survey2018/fig23.svg _ 600
 
-* Conclusion
+## Conclusion
 
 We hope you've enjoyed seeing the results of our 2018 developer survey.
 These results are impacting our 2019 planning,

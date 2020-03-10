@@ -1,10 +1,11 @@
-A preview of Go version 1
+# A preview of Go version 1
 5 Oct 2011
 Tags: go1, release
+Summary: We want to be able to provide a stable base for people using Go. People should be able to write Go programs and expect that they will continue to compile and run without change, on a timescale of years. Similarly, people should be able to write books about Go, be able to say which version of Go the book is describing, and have that version number still be meaningful much later. None of these properties is true for Go today.
 
 Russ Cox
 
-* Introduction
+##
 
 We want to be able to provide a stable base for people using Go.
 People should be able to write Go programs and expect that they will continue
@@ -42,6 +43,6 @@ announce, implement, and test these changes as part of the preparation of Go 1,
 rather than delay them until after it is released and thereby introduce
 divergence that contradicts our goals.
 
-Today, we are publishing our preliminary [[https://docs.google.com/document/pub?id=1ny8uI-_BHrDCZv_zNBSthNKAMX_fR_0dc6epA6lztRE][plan for Go 1]]
+Today, we are publishing our preliminary [plan for Go 1](https://docs.google.com/document/pub?id=1ny8uI-_BHrDCZv_zNBSthNKAMX_fR_0dc6epA6lztRE)
 for feedback from the Go community.
-If you have feedback, please reply to the [[http://groups.google.com/group/golang-nuts/browse_thread/thread/badc4f323431a4f6][thread on the golang-nuts mailing list]].
+If you have feedback, please reply to the [thread on the golang-nuts mailing list](http://groups.google.com/group/golang-nuts/browse_thread/thread/badc4f323431a4f6).

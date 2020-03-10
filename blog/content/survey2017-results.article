@@ -1,18 +1,19 @@
-Go 2017 Survey Results
+# Go 2017 Survey Results
 26 Feb 2018
 Tags: survey, community
+Summary: This post summarizes the result of our 2017 user survey along with commentary and insights. It also draws key comparisons between the results of the 2016 and 2017 survey.
 
 Steve Francia
 spf@golang.org
 
-* Thank you
+## Thank you
 
 This post summarizes the result of our 2017 user survey along with commentary
 and insights. It also draws key comparisons between the results of the 2016 and
 2017 survey.
 
 This year we had 6,173 survey respondents, 70% more than the 3,595 we had in the
-[[https://blog.golang.org/survey2016-results][Go 2016 User Survey]]. In
+[Go 2016 User Survey](https://blog.golang.org/survey2016-results). In
 addition, it also had a slightly higher completion rate (84% → 87%) and a
 higher response rate to most of the questions. We believe that survey length is
 the main cause of this improvement as the 2017 survey was shortened in response
@@ -21,7 +22,7 @@ to feedback that the 2016 survey was too long.
 We are grateful to everyone who provided their feedback through the survey to
 help shape the future of Go.
 
-* Programming background
+## Programming background
 
 For the first time, more survey respondents say they are paid to write Go
 than say they write it outside work. This indicates a significant shift in
@@ -45,7 +46,7 @@ year.
 
 .html survey2017/background.html
 
-* Go usage
+## Go usage
 
 In nearly every question around the usage and perception of Go, Go has
 demonstrated improvement over our prior survey. Users are happier using Go, and
@@ -56,10 +57,10 @@ clearly conveyed that lack of dependency management and lack of generics were
 their two biggest issues, consistent with 2016. In 2017 we laid a foundation to
 be able to address these issues. We improved our proposal and development
 process with the addition of
-[[https://golang.org/wiki/ExperienceReports][Experience Reports]] which is
+[Experience Reports](https://golang.org/wiki/ExperienceReports) which is
 enabling the project to gather and obtain feedback critical to making these
 significant changes. We also made
-[[https://golang.org/doc/go1.10#build][sigificant changes]] under the hood in
+[sigificant changes](https://golang.org/doc/go1.10#build) under the hood in
 how Go obtains, and builds packages. This is foundational work essential to
 addressing our dependency management needs.
 
@@ -76,7 +77,7 @@ than these changes, the list remains consistent with last year.
 
 .html survey2017/usage.html
 
-* Development and deployment
+## Development and deployment
 
 We asked programmers which operating systems they develop Go on; the ratios of
 their responses remain consistent with last year. 64% of respondents say
@@ -99,12 +100,12 @@ increase over 2016. For Non-Go applications, AWS Lambda saw the largest increase
 
 .html survey2017/dev.html
 
-* Working Effectively
+## Working Effectively
 
 We asked how strongly people agreed or disagreed with various statements about
 Go. All questions are repeated from last year with the addition of one new
 question which we introduced to add further clarifaction around how users are
-able to both find and *use* Go libraries.
+able to both find and **use** Go libraries.
 
 All responses either indicated a small improvement or are comparable to 2016.
 
@@ -122,7 +123,7 @@ the survey was announced.
 
 .html survey2017/effective.html
 
-* The Go Project
+## The Go Project
 
 59% of respondents expressed interest in contributing in some way to the Go
 community and projects, up from 55% last year. Respondents also indicated that
@@ -140,13 +141,13 @@ continues to be an area of focus for the project and its leadership going
 forward. We will continue to work to improve our understanding of user needs and
 approachability.
 
-We tried some [[https://blog.golang.org/8years#TOC_1.3.][new ways]] to engage
+We tried some [new ways](https://blog.golang.org/8years#TOC_1.3.) to engage
 with users in 2017 and while progress was made, we are still working on making these
 solutions scalable for our growing community.
 
 .html survey2017/project.html
 
-* Community
+## Community
 
 At the end of the survey, we asked some demographic questions.
 

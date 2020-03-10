@@ -1,10 +1,11 @@
-HTTP/2 Server Push
+# HTTP/2 Server Push
 24 Mar 2017
 Tags: http, technical
+Summary: HTTP/2 is designed to address many of the failings of HTTP/1.x. Modern web pages use many resources: HTML, stylesheets, scripts, images, and so on. In HTTP/1.x, each of these resources must be requested explicitly. This can be a slow process. The browser starts by fetching the HTML, then learns of more resources incrementally as it parses and evaluates the page. Since the server must wait for the browser to make each request, the network is often idle and underutilized.
 
 Jaana Burcu Dogan, Tom Bergan
 
-* Introduction
+## Introduction
 
 HTTP/2 is designed to address many of the failings of HTTP/1.x.
 Modern web pages use many resources: HTML, stylesheets,
@@ -15,7 +16,7 @@ incrementally as it parses and evaluates the page. Since the server
 must wait for the browser to make each request, the network is often
 idle and underutilized.
 
-To improve latency, HTTP/2 introduced _server_push_, which allows the
+To improve latency, HTTP/2 introduced _server push_, which allows the
 server to push resources to the browser before they are explicitly
 requested. A server often knows many of the additional resources a
 page will need and can start pushing those resources as it responds
@@ -32,13 +33,13 @@ If the browser later discovers that it needs this resource, it will
 wait for the push to complete rather than sending a new request.
 This reduces the time the browser spends waiting on the network.
 
-* Server Push in net/http
+## Server Push in net/http
 
-Go 1.8 introduced support for pushing responses from an [[https://golang.org/pkg/net/http/#Server][`http.Server`]].
+Go 1.8 introduced support for pushing responses from an [`http.Server`](https://golang.org/pkg/net/http/#Server).
 This feature is available if the running server is an HTTP/2 server
 and the incoming connection uses HTTP/2. In any HTTP handler,
 you can assert if the http.ResponseWriter supports server push by checking
-if it implements the new [[https://golang.org/pkg/net/http/#Pusher][`http.Pusher`]] interface.
+if it implements the new [`http.Pusher`](https://golang.org/pkg/net/http/#Pusher) interface.
 
 For example, if the server knows that `app.js` will be required to
 render the page, the handler can initiate a push if `http.Pusher`
@@ -60,13 +61,13 @@ A fully working example is available at:
 
 	$ go get golang.org/x/blog/content/h2push/server
 
-If you run the server and load [[https://localhost:8080][https://localhost:8080]],
+If you run the server and load [https://localhost:8080](https://localhost:8080),
 your browser's developer tools should show that `app.js` and
 `style.css` were pushed by the server.
 
 .image h2push/networktimeline.png _ 605
 
-* Start Your Pushes Before You Respond
+## Start Your Pushes Before You Respond
 
 It's a good idea to call the Push method before sending any bytes
 of the response. Otherwise it is possible to accidentally generate
@@ -78,12 +79,12 @@ response:
 		<link rel="stylesheet" href="a.css">...
 
 Then you call Push("a.css", nil). The browser may parse this fragment
-of HTML before it receives your PUSH_PROMISE, in which case the browser
+of HTML before it receives your PUSH\_PROMISE, in which case the browser
 will send a request for `a.css` in addition to receiving your
 `PUSH_PROMISE`. Now the server will generate two responses for `a.css`.
 Calling Push before writing the response avoids this possibility entirely.
 
-* When To Use Server Push
+## When To Use Server Push
 
 Consider using server push any time your network link is idle.
 Just finished sending the HTML for your web app? Don't waste time waiting,
@@ -104,17 +105,17 @@ resources on your page often makes performance worse. When in doubt, measure.
 
 The following links make for good supplemental reading:
 
-- [[https://calendar.perfplanet.com/2016/http2-push-the-details/][HTTP/2 Push: The Details]]
-- [[https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/][Innovating with HTTP/2 Server Push]]
-- [[https://github.com/h2o/h2o/issues/421][Cache-Aware Server Push in H2O]]
-- [[https://developers.google.com/web/fundamentals/performance/prpl-pattern/][The PRPL Pattern]]
-- [[https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0][Rules of Thumb for HTTP/2 Push]]
-- [[https://tools.ietf.org/html/rfc7540#section-8.2][Server Push in the HTTP/2 spec]]
+  - [HTTP/2 Push: The Details](https://calendar.perfplanet.com/2016/http2-push-the-details/)
+  - [Innovating with HTTP/2 Server Push](https://www.igvita.com/2013/06/12/innovating-with-http-2.0-server-push/)
+  - [Cache-Aware Server Push in H2O](https://github.com/h2o/h2o/issues/421)
+  - [The PRPL Pattern](https://developers.google.com/web/fundamentals/performance/prpl-pattern/)
+  - [Rules of Thumb for HTTP/2 Push](https://docs.google.com/document/d/1K0NykTXBbbbTlv60t5MyJvXjqKGsCVNYHyLEXIxYMv0)
+  - [Server Push in the HTTP/2 spec](https://tools.ietf.org/html/rfc7540#section-8.2)
 
-* Conclusion
+## Conclusion
 
 With Go 1.8, the standard library provides out-of-the-box support for HTTP/2
 Server Push, giving you more flexibility to optimize your web applications.
 
-Go to our [[https://http2.golang.org/serverpush][HTTP/2 Server Push demo]]
+Go to our [HTTP/2 Server Push demo](https://http2.golang.org/serverpush)
 page to see it in action.

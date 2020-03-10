@@ -1,12 +1,13 @@
-Working with Errors in Go 1.13
+# Working with Errors in Go 1.13
 17 Oct 2019
 Tags: errors, technical
+Summary: Go’s treatment of [errors as values](https://blog.golang.org/errors-are-values) has served us well over the last decade. Although the standard library’s support for errors has been minimal—just the `errors.New` and `fmt.Errorf` functions, which produce errors that contain only a message—the built-in `error` interface allows Go programmers to add whatever information they desire. All it requires is a type that implements an `Error` method:
 
 Damien Neil and Jonathan Amsterdam
 
-* Introduction
+## Introduction
 
-Go’s treatment of [[https://blog.golang.org/errors-are-values][errors as values]]
+Go’s treatment of [errors as values](https://blog.golang.org/errors-are-values)
 has served us well over the last decade. Although the standard library’s support
 for errors has been minimal—just the `errors.New` and `fmt.Errorf` functions,
 which produce errors that contain only a message—the built-in `error` interface
@@ -25,7 +26,7 @@ widely, from timestamps to filenames to server addresses. Often, that
 information includes another, lower-level error to provide additional context.
 
 The pattern of one error containing another is so pervasive in Go code that,
-after [[https://golang.org/issue/29934][extensive discussion]], Go 1.13 added
+after [extensive discussion](https://golang.org/issue/29934), Go 1.13 added
 explicit support for it. This post describes the additions to the standard
 library that provide that support: three new functions in the `errors` package,
 and a new formatting verb for `fmt.Errorf`.
@@ -33,9 +34,9 @@ and a new formatting verb for `fmt.Errorf`.
 Before describing the changes in detail, let's review how errors are examined
 and constructed in previous versions of the language.
 
-* Errors before Go 1.13
+## Errors before Go 1.13
 
-** Examining errors
+### Examining errors
 
 Go errors are values. Programs make decisions based on those values in a few
 ways. The most common is to compare an error to `nil` to see if an operation
@@ -67,7 +68,7 @@ value as a more specific type.
 		// e.Name wasn't found
 	}
 
-** Adding information
+### Adding information
 
 Frequently a function passes an error up the call stack while adding information
 to it, like a brief description of what was happening when the error occurred. A
@@ -98,9 +99,9 @@ error.
 
 The `os.PathError` type in the standard library is another example of one error which contains another.
 
-* Errors in Go 1.13
+## Errors in Go 1.13
 
-** The Unwrap method
+### The Unwrap method
 
 Go 1.13 introduces new features to the `errors` and `fmt` standard library
 packages to simplify working with errors that contain other errors. The most
@@ -115,9 +116,9 @@ method that returns its contained error:
 	func (e *QueryError) Unwrap() error { return e.Err }
 
 The result of unwrapping an error may itself have an `Unwrap` method; we call
-the sequence of errors produced by repeated unwrapping the _error_chain_.
+the sequence of errors produced by repeated unwrapping the _error chain_.
 
-** Examining errors with Is and As
+### Examining errors with Is and As
 
 The Go 1.13 `errors` package includes two new functions for examining errors: `Is` and `As`.
 
@@ -159,7 +160,7 @@ result of calling an error's `Unwrap` method, or `nil` when the error has no
 `Unwrap` method. It is usually better to use `errors.Is` or `errors.As`,
 however, since these functions will examine the entire chain in a single call.
 
-** Wrapping errors with %w
+### Wrapping errors with %w
 
 As mentioned earlier, it is common to use the `fmt.Errorf` function to add additional information to an error.
 
@@ -183,7 +184,7 @@ Wrapping an error with `%w` makes it available to `errors.Is` and `errors.As`:
 	...
 	if errors.Is(err, ErrPermission) ...
 
-** Whether to Wrap
+### Whether to Wrap
 
 When adding additional context to an error, either with `fmt.Errorf` or by
 implementing a custom type, you need to decide whether the new error should wrap
@@ -204,9 +205,9 @@ database used by the function is an implementation detail, then exposing these
 errors is a violation of abstraction. For example, if the `LookupUser` function
 of your package `pkg` uses Go's `database/sql` package, then it may encounter a
 `sql.ErrNoRows` error. If you return that error with
-`fmt.Errorf("accessing`DB:`%v",`err)`
+`fmt.Errorf("accessing DB: %v", err)`
 then a caller cannot look inside to find the `sql.ErrNoRows`. But if
-the function instead returns `fmt.Errorf("accessing`DB:`%w",`err)`, then a
+the function instead returns `fmt.Errorf("accessing DB: %w", err)`, then a
 caller could reasonably write
 
 	err := pkg.LookupUser(...)
@@ -224,7 +225,7 @@ either way; the choice to wrap is about whether to give _programs_ additional
 information so they can make more informed decisions, or to withhold that
 information to preserve an abstraction layer.
 
-* Customizing error tests with Is and As methods
+## Customizing error tests with Is and As methods
 
 The `errors.Is` function examines each error in a chain for a match with a
 target value. By default, an error matches the target if the two are equal. In
@@ -232,7 +233,7 @@ addition, an error in the chain may declare that it matches a target by
 implementing an `Is` _method_.
 
 As an example, consider this error inspired by the
-[[https://commandcenter.blogspot.com/2017/12/error-handling-in-upspin.html][Upspin error package]]
+[Upspin error package](https://commandcenter.blogspot.com/2017/12/error-handling-in-upspin.html)
 which compares an error against a template, considering only fields which are
 non-zero in the template:
 
@@ -256,7 +257,7 @@ non-zero in the template:
 
 The `errors.As` function similarly consults an `As` method when present.
 
-* Errors and package APIs
+## Errors and package APIs
 
 A package which returns errors (and most do) should describe what properties of
 those errors programmers may rely on. A well-designed package will also avoid
@@ -326,7 +327,7 @@ do not return the underlying error directly.
 		// ...
 	}
 
-* Conclusion
+## Conclusion
 
 Although the changes we’ve discussed amount to just three functions and a
 formatting verb, we hope they will go a long way toward improving how errors are
@@ -334,6 +335,6 @@ handled in Go programs. We expect that wrapping to provide additional context
 will become commonplace, helping programs to make better decisions and helping
 programmers to find bugs more quickly.
 
-As Russ Cox said in his [[https://blog.golang.org/experiment][GopherCon 2019 keynote]],
+As Russ Cox said in his [GopherCon 2019 keynote](https://blog.golang.org/experiment),
 on the path to Go 2 we experiment, simplify and ship. Now that we’ve
 shipped these changes, we look forward to the experiments that will follow.

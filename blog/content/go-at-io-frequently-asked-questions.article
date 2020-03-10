@@ -1,10 +1,11 @@
-Go at I/O: Frequently Asked Questions
+# Go at I/O: Frequently Asked Questions
 27 May 2010
 Tags: appengine
+Summary: Among the high-profile product launches at Google I/O last week, our small team gave presentations to packed rooms and met many present and future Go programmers. It was especially gratifying to meet with so many people who, after learning a bit about Go, were excited by the potential benefits (both immediate and long-term) they could gain from using it.
 
 Andrew Gerrand
 
-* Introduction
+##
 
 Among the high-profile product launches at Google I/O last week,
 our small team gave presentations to packed rooms and met many present and
@@ -68,6 +69,6 @@ Thanks to everyone who attended our presentations,
 or came to talk with us at Office Hours.
 We hope to see you again at future events.
 
-The video of [[http://code.google.com/events/io/2010/sessions/go-programming.html][Rob and Russ' talk]]
+The video of [Rob and Russ' talk](http://code.google.com/events/io/2010/sessions/go-programming.html)
 will be uploaded to YouTube within the next week,
 and will then be posted on this blog.

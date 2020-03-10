@@ -1,22 +1,23 @@
-Go Turns 10
+# Go Turns 10
 8 Nov 2019
+Summary: Happy birthday, Go!
 
 Russ Cox, for the Go team
 rsc@golang.org
 
-* Introduction
+##
 
 Happy birthday, Go!
 
 This weekend we celebrate the 10th anniversary of
-[[https://opensource.googleblog.com/2009/11/hey-ho-lets-go.html][the Go release]],
+[the Go release](https://opensource.googleblog.com/2009/11/hey-ho-lets-go.html),
 marking the 10th birthday of Go as an open-source programming language
 and ecosystem for building modern networked software.
 
 To mark the occasion,
-[[https://twitter.com/reneefrench][Renee French]],
+[Renee French](https://twitter.com/reneefrench),
 the creator of the
-[[https://blog.golang.org/gopher][Go gopher]],
+[Go gopher](https://blog.golang.org/gopher),
 painted this delightful scene:
 
 .html 10years/img1.html
@@ -46,14 +47,14 @@ and dissemination before a new language really takes off.
 I wondered: where would Go be after a decade?
 
 Today, we can answer that question:
-Go is everywhere, used by at least [[https://research.swtch.com/gophercount][a million developers worldwide]].
+Go is everywhere, used by at least [a million developers worldwide](https://research.swtch.com/gophercount).
 
 Go’s original target was networked system infrastructure,
 what we now call cloud software.
 Every major cloud provider today uses core cloud infrastructure written in Go,
 such as Docker, Etcd, Istio, Kubernetes, Prometheus, and Terraform;
 the majority of the
-[[https://www.cncf.io/projects/][Cloud Native Computing Foundation’s projects]]
+[Cloud Native Computing Foundation’s projects](https://www.cncf.io/projects/)
 are written in Go.
 Countless companies are using Go to move their own work to the cloud as well,
 from startups building from scratch
@@ -62,9 +63,9 @@ Go has also found adoption well beyond its original cloud target,
 with uses ranging
 from
 controlling tiny embedded systems with
-[[https://gobot.io][GoBot]] and [[https://tinygo.org/][TinyGo]]
+[GoBot](https://gobot.io) and [TinyGo](https://tinygo.org/)
 to detecting cancer with
-[[https://medium.com/grail-eng/bigslice-a-cluster-computing-system-for-go-7e03acd2419b][massive big data analysis and machine learning at GRAIL]],
+[massive big data analysis and machine learning at GRAIL](https://medium.com/grail-eng/bigslice-a-cluster-computing-system-for-go-7e03acd2419b),
 and everything in between.
 
 All this is to say that Go has succeeded beyond our wildest dreams.
@@ -85,8 +86,8 @@ we have evolved this idea and sketch into a productive language
 with fantastic tooling,
 a production-quality implementation,
 a
-[[https://blog.golang.org/ismmkeynote][state-of-the-art garbage collector]],
-and [[https://golang.org/doc/install/source#introduction][ports to 12 operating systems and 10 architectures]].
+[state-of-the-art garbage collector](https://blog.golang.org/ismmkeynote),
+and [ports to 12 operating systems and 10 architectures](https://golang.org/doc/install/source#introduction).
 
 Any programming language needs the support of a thriving ecosystem.
 The open source release was the seed for that ecosystem,
@@ -98,10 +99,10 @@ Go could never have succeeded without the support of this ecosystem.
 Of course, the ecosystem needs the support of a thriving community.
 In 2019 there are dozens of Go conferences all over the world,
 along with
-[[https://www.meetup.com/pro/go][over 150 Go meetup groups with over 90,000 members]].
-[[https://golangbridge.org][GoBridge]]
+[over 150 Go meetup groups with over 90,000 members](https://www.meetup.com/pro/go).
+[GoBridge](https://golangbridge.org)
 and
-[[https://medium.com/@carolynvs/www-loves-gobridge-ccb26309f667][Women Who Go]]
+[Women Who Go](https://medium.com/@carolynvs/www-loves-gobridge-ccb26309f667)
 help bring new voices into the Go community,
 through mentoring, training, and conference scholarships.
 This year alone, they have taught
@@ -109,7 +110,7 @@ hundreds of people from traditionally underrepresented groups
 at workshops where community members teach and mentor those new to Go.
 
 There are
-[[https://research.swtch.com/gophercount][over a million Go developers]]
+[over a million Go developers](https://research.swtch.com/gophercount)
 worldwide,
 and companies all over the globe are looking to hire more.
 In fact, people often tell us that learning Go
@@ -121,7 +122,7 @@ We aimed to create a language that would help us be better developers,
 and we are thrilled that Go has helped so many others.
 
 As
-[[https://twitter.com/search?q=%23GoTurns10][#GoTurns10]],
+[\#GoTurns10](https://twitter.com/search?q=%23GoTurns10),
 I hope everyone will take a moment to celebrate
 the Go community and all we have achieved.
 On behalf of the entire Go team at Google,

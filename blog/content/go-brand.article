@@ -1,10 +1,11 @@
-Go's New Brand
+# Go's New Brand
 26 Apr 2018
 Tags: brand
+Summary: I am delighted to announce the launch of Go’s new look and logo.
 
 Steve Francia
 
-* Introduction
+## Introduction
 
 I am delighted to announce the launch of Go’s new look and logo.
 
@@ -14,11 +15,11 @@ reflect where we have been and convey where we are going.
 
 Go’s new brand is about our identity, our values, and our users. Over the past
 several months we have worked with a brand agency to develop a brand guide for
-Go. Our agency, [[http://within.us/][Within]], coordinated with and built upon
+Go. Our agency, [Within](http://within.us/), coordinated with and built upon
 the great foundation that Renee French established. Rest easy, our beloved
 Gopher Mascot remains at the center of our brand.
 
-* New Logo
+## New Logo
 
 Our logo follows the brand’s core philosophy of simplicity over complexity.
 Using a modern, italicized sans-serif typeface combined with three simple motion
@@ -34,7 +35,7 @@ revisions we went through…
 
 .html go-brand/video.html
 
-* New Brand Guide
+## New Brand Guide
 
 The brand guide establishes the mission, values and voice for the Go project. In
 general terms, a brand guide is a reference tool for establishing a consistent
@@ -46,7 +47,7 @@ designers, writers, and developers to create consistent, on-brand content.
 .image go-brand/Go-BB_spread1.jpg
 .image go-brand/Go-BB_spread2.jpg
 
-* New presentation themes
+## New presentation themes
 
 In addition to our brand guide we have also developed a presentation theme. This
 presentation theme will enable us to have a consistent representation of Go in
@@ -62,26 +63,26 @@ them to keynote, powerpoint, etc.
 Like this blog and all our gopher images,
 the slide themes are Creative Commons Attribution 3.0 licensed.
 The photos in the slides are all from
-[[https://unsplash.com/][unsplash]] and are released under the unsplash license.
+[unsplash](https://unsplash.com/) and are released under the unsplash license.
 
 Instructions to use slides:
 
-- Open the [[https://golang.org/s/presentation-theme][Go Slide Masters]] presentation on Google slides.
-- File > “Make a Copy” (you may need to login first)
-- Create new slides using the layouts provided in the layouts menu.
-- Use the included example slides to help guide the styling and creation of your presentation.
+  - Open the [Go Slide Masters](https://golang.org/s/presentation-theme) presentation on Google slides.
+  - File > “Make a Copy” (you may need to login first)
+  - Create new slides using the layouts provided in the layouts menu.
+  - Use the included example slides to help guide the styling and creation of your presentation.
 
-** Download
+### Download
 
 The brand guide, logo and themes are copyrighted by the Go authors.
 
 The brand guide contains the guidelines for acceptable logo use.
 
-- [[https://golang.org/s/brandbook][Brand Book (pdf)]]
-- [[https://golang.org/s/logos][Go Logos (zip)]]
-- [[https://golang.org/s/presentation-theme][Go Slide Masters (Google Slides)]]
+  - [Brand Book (pdf)](https://golang.org/s/brandbook)
+  - [Go Logos (zip)](https://golang.org/s/logos)
+  - [Go Slide Masters (Google Slides)](https://golang.org/s/presentation-theme)
 
-* What’s happening next
+## What’s happening next
 
 The website will be getting a refresh based on the new design. Since we are
 making significant changes, we are also taking this opportunity to update our

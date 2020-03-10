@@ -1,10 +1,11 @@
-Go GC: Prioritizing low latency and simplicity
+# Go GC: Prioritizing low latency and simplicity
 31 Aug 2015
+Summary: Go is building a garbage collector (GC) not only for 2015 but for 2025 and beyond: A GC that supports today’s software development and scales along with new software and hardware throughout the next decade. Such a future has no place for stop-the-world GC pauses, which have been an impediment to broader uses of safe and secure languages such as Go.
 
 Richard Hudson
 rlh@golang.org
 
-* The Setup
+## The Setup
 
 Go is building a garbage collector (GC) not only for 2015 but for 2025 and
 beyond: A GC that supports today’s software development and scales along with
@@ -14,13 +15,13 @@ uses of safe and secure languages such as Go.
 
 Go 1.5, the first glimpse of this future, achieves GC latencies well below the
 10 millisecond goal we set a year ago. We presented some impressive numbers
-in [[https://talks.golang.org/2015/go-gc.pdf][a talk at Gophercon]].
+in [a talk at Gophercon](https://talks.golang.org/2015/go-gc.pdf).
 The latency improvements have generated a lot of attention;
 Robin Verlangen’s blog post
-[[https://medium.com/@robin.verlangen/billions-of-request-per-day-meet-go-1-5-362bfefa0911][_Billions_of_requests_per_day_meet_Go_1.5_]]
+[_Billions of requests per day meet Go 1.5_](https://medium.com/@robin.verlangen/billions-of-request-per-day-meet-go-1-5-362bfefa0911)
 validates our direction with end to end results.
 We also particularly enjoyed
-[[https://twitter.com/inconshreveable/status/620650786662555648][Alan Shreve’s production server graphs]]
+[Alan Shreve’s production server graphs](https://twitter.com/inconshreveable/status/620650786662555648)
 and his "Holy 85% reduction" comment.
 
 Today 16 gigabytes of RAM costs $100 and CPUs come with many cores, each with
@@ -33,12 +34,12 @@ these first steps will forever influence Go and the applications it best
 supports. This blog post gives a high-level overview of what we have done for
 the Go 1.5 collector.
 
-* The Embellishment
+## The Embellishment
 
 To create a garbage collector for the next decade, we turned to an algorithm
 from decades ago. Go's new garbage collector is a _concurrent_, _tri-color_,
 _mark-sweep_ collector, an idea first proposed by
-[[http://dl.acm.org/citation.cfm?id=359655][Dijkstra in 1978]].
+[Dijkstra in 1978](http://dl.acm.org/citation.cfm?id=359655).
 This is a deliberate divergence from most "enterprise" grade garbage collectors
 of today, and one that we believe is well suited to the properties of modern
 hardware and the latency requirements of modern software.
@@ -58,7 +59,7 @@ changing pointers while the collector is running. Hence, the mutator must
 maintain the invariant that no black object points to a white object, lest the
 garbage collector lose track of an object installed in a part of the heap it
 has already visited. Maintaining this invariant is the job of the
-_write_barrier_, which is a small function run by the mutator whenever a
+_write barrier_, which is a small function run by the mutator whenever a
 pointer in the heap is modified. Go’s write barrier colors the now-reachable
 object grey if it is currently white, ensuring that the garbage collector will
 eventually scan it for pointers.
@@ -102,7 +103,7 @@ Furthermore, unencumbered by ongoing support for dozens of knobs, the runtime
 team can focus on improving the runtime based on feedback from real customer
 applications.
 
-* The Punchline
+## The Punchline
 
 Go 1.5’s GC ushers in a future where stop-the-world pauses are no longer a
 barrier to moving to a safe and secure language. It is a future where
@@ -110,5 +111,5 @@ applications scale effortlessly along with hardware and as hardware becomes
 more powerful the GC will not be an impediment to better, more scalable
 software. It’s a good place to be for the next decade and beyond.
 For more details about the 1.5 GC and how we eliminated latency issues see the
-[[https://www.youtube.com/watch?v=aiv1JOfMjm0][Go GC: Latency Problem Solved presentation]]
-or [[https://talks.golang.org/2015/go-gc.pdf][the slides]].
+[Go GC: Latency Problem Solved presentation](https://www.youtube.com/watch?v=aiv1JOfMjm0)
+or [the slides](https://talks.golang.org/2015/go-gc.pdf).

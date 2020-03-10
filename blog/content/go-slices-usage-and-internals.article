@@ -1,10 +1,11 @@
-Go Slices: usage and internals
+# Go Slices: usage and internals
 5 Jan 2011
 Tags: slice, technical
+Summary: Go's slice type provides a convenient and efficient means of working with sequences of typed data. Slices are analogous to arrays in other languages, but have some unusual properties. This article will look at what slices are and how they are used.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 Go's slice type provides a convenient and efficient means of working with
 sequences of typed data.
@@ -12,7 +13,7 @@ Slices are analogous to arrays in other languages,
 but have some unusual properties.
 This article will look at what slices are and how they are used.
 
-* Arrays
+## Arrays
 
 The slice type is an abstraction built on top of Go's array type,
 and so to understand slices we must first understand arrays.
@@ -57,7 +58,7 @@ Or, you can have the compiler count the array elements for you:
 
 In both cases, the type of `b` is `[2]string`.
 
-* Slices
+## Slices
 
 Arrays have their place, but they're a bit inflexible,
 so you don't see them too often in Go code.
@@ -117,7 +118,7 @@ This is also the syntax to create a slice given an array:
 	x := [3]string{"Лайка", "Белка", "Стрелка"}
 	s := x[:] // a slice referencing the storage of x
 
-* Slice internals
+## Slice internals
 
 A slice is a descriptor of an array segment.
 It consists of a pointer to the array, the length of the segment,
@@ -125,7 +126,7 @@ and its capacity (the maximum length of the segment).
 
 .image go-slices-usage-and-internals_slice-struct.png
 
-Our variable `s`, created earlier by `make([]byte,`5)`, is structured like this:
+Our variable `s`, created earlier by `make([]byte, 5)`, is structured like this:
 
 .image go-slices-usage-and-internals_slice-1.png
 
@@ -165,7 +166,7 @@ Attempting to do so will cause a runtime panic,
 just as when indexing outside the bounds of a slice or array.
 Similarly, slices cannot be re-sliced below zero to access earlier elements in the array.
 
-* Growing slices (the copy and append functions)
+## Growing slices (the copy and append functions)
 
 To increase the capacity of a slice one must create a new,
 larger slice and copy the contents of the original slice into it.
@@ -265,7 +266,7 @@ you can declare a slice variable and then append to it in a loop:
 	    return p
 	}
 
-* A possible "gotcha"
+## A possible "gotcha"
 
 As mentioned earlier, re-slicing a slice doesn't make a copy of the underlying array.
 The full array will be kept in memory until it is no longer referenced.
@@ -302,13 +303,13 @@ To fix this problem one can copy the interesting data to a new slice before retu
 A more concise version of this function could be constructed by using `append`.
 This is left as an exercise for the reader.
 
-* Further Reading
+## Further Reading
 
-[[https://golang.org/doc/effective_go.html][Effective Go]] contains an in-depth
-treatment of [[https://golang.org/doc/effective_go.html#slices][slices]]
-and [[https://golang.org/doc/effective_go.html#arrays][arrays]],
-and the Go [[https://golang.org/doc/go_spec.html][language specification]]
-defines [[https://golang.org/doc/go_spec.html#Slice_types][slices]] and
-their [[https://golang.org/doc/go_spec.html#Length_and_capacity][associated]]
-[[https://golang.org/doc/go_spec.html#Making_slices_maps_and_channels][helper]]
-[[https://golang.org/doc/go_spec.html#Appending_and_copying_slices][functions]].
+[Effective Go](https://golang.org/doc/effective_go.html) contains an in-depth
+treatment of [slices](https://golang.org/doc/effective_go.html#slices)
+and [arrays](https://golang.org/doc/effective_go.html#arrays),
+and the Go [language specification](https://golang.org/doc/go_spec.html)
+defines [slices](https://golang.org/doc/go_spec.html#Slice_types) and
+their [associated](https://golang.org/doc/go_spec.html#Length_and_capacity)
+[helper](https://golang.org/doc/go_spec.html#Making_slices_maps_and_channels)
+[functions](https://golang.org/doc/go_spec.html#Appending_and_copying_slices).

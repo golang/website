@@ -1,10 +1,11 @@
-Constants
+# Constants
 25 Aug 2014
 Tags: constants
+Summary: Go is a statically typed language that does not permit operations that mix numeric types. You can't add a `float64` to an `int`, or even an `int32` to an `int`. Yet it is legal to write `1e6*time.Second` or `math.Exp(1)` or even `1<<('\t'+2.0)`. In Go, constants, unlike variables, behave pretty much like regular numbers. This post explains why that is and what it means.
 
 Rob Pike
 
-* Introduction
+## Introduction
 
 Go is a statically typed language that does not permit operations that mix numeric types.
 You can't add a `float64` to an `int`, or even an `int32` to an `int`.
@@ -12,7 +13,7 @@ Yet it is legal to write `1e6*time.Second` or `math.Exp(1)` or even `1<<('\t'+2.
 In Go, constants, unlike variables, behave pretty much like regular numbers.
 This post explains why that is and what it means.
 
-* Background: C
+## Background: C
 
 In the early days of thinking about Go, we talked about a number of problems
 caused by the way C and its descendants let you mix and match numeric types.
@@ -24,7 +25,7 @@ Although to a seasoned C programmer the result of a calculation like
 	long signed int i = -1;
 	... i + u ...
 
-may be familiar, it isn't _a_priori_ obvious.
+may be familiar, it isn't _a priori_ obvious.
 How big is the result?
 What is its value?
 Is it signed or unsigned?
@@ -67,7 +68,7 @@ able to write things like `math.Sqrt(2)` without being chided by the compiler.
 In short, constants in Go just work, most of the time anyway.
 Let's see how that happens.
 
-* Terminology
+## Terminology
 
 First, a quick definition.
 In Go, `const` is a keyword introducing a name for a scalar value such as `2` or `3.14159` or `"scrumptious"`.
@@ -82,7 +83,7 @@ more intricate properties of more intricate values.
 
 But in Go, a constant is just a simple, unchanging value, and from here on we're talking only about Go.
 
-* String constants
+## String constants
 
 There are many kinds of numeric constants—integers,
 floats, runes, signed, unsigned, imaginary,
@@ -91,19 +92,19 @@ String constants are easy to understand and provide a smaller space in which
 to explore the type issues of constants in Go.
 
 A string constant encloses some text between double quotes.
-(Go also has raw string literals, enclosed by backquotes ``````,
+(Go also has raw string literals, enclosed by backquotes ````````,
 but for the purpose of this discussion they have all the same properties.)
 Here is a string constant:
 
 	"Hello, 世界"
 
 (For much more detail about the representation and interpretation of strings,
-see [[https://blog.golang.org/strings][this blog post]].)
+see [this blog post](https://blog.golang.org/strings).)
 
 What type does this string constant have?
 The obvious answer is `string`, but that is _wrong_.
 
-This is an _untyped_string_constant_, which is to say it is a constant textual
+This is an _untyped string constant_, which is to say it is a constant textual
 value that does not yet have a fixed type.
 Yes, it's a string, but it's not a Go value of type `string`.
 It remains an untyped string constant even when given a name:
@@ -152,14 +153,14 @@ or
 	m = hello
 
 because, unlike the typed constants `typedHello` and `myStringHello`,
-the untyped constants `"Hello,`世界"` and `hello` _have_no_type_.
+the untyped constants `"Hello, 世界"` and `hello` _have no type_.
 Assigning them to a variable of any type compatible with strings works without error.
 
 These untyped string constants are strings,
 of course, so they can only be used where a string is allowed,
 but they do not have _type_ `string`.
 
-* Default type
+## Default type
 
 As a Go programmer, you have certainly seen many declarations like
 
@@ -214,18 +215,18 @@ If the constant has a type, that goes into the interface, as this example shows:
 .play -edit constants/default3.go /START/,/STOP/
 
 (For more information about how interface values work,
-see the first sections of [[https://blog.golang.org/laws-of-reflection][this blog post]].)
+see the first sections of [this blog post](https://blog.golang.org/laws-of-reflection).)
 
 In summary, a typed constant obeys all the rules of typed values in Go.
 On the other hand, an untyped constant does not carry a Go type in the same
 way and can be mixed and matched more freely.
 It does, however, have a default type that is exposed when, and only when, no other type information is available.
 
-* Default type determined by syntax
+## Default type determined by syntax
 
 The default type of an untyped constant is determined by its syntax.
 For string constants, the only possible implicit type is `string`.
-For [[https://golang.org/ref/spec#Numeric_types][numeric constants]], the implicit type has more variety.
+For [numeric constants](https://golang.org/ref/spec#Numeric_types), the implicit type has more variety.
 Integer constants default to `int`, floating-point constants `float64`,
 rune constants to `rune` (an alias for `int32`),
 and imaginary constants to `complex128`.
@@ -235,7 +236,7 @@ Here's our canonical print statement used repeatedly to show the default types i
 
 (Exercise: Explain the result for `'x'`.)
 
-* Booleans
+## Booleans
 
 Everything we said about untyped string constants can be said for untyped boolean constants.
 The values `true` and `false` are untyped boolean constants that can be assigned to any boolean variable,
@@ -246,7 +247,7 @@ but once given a type, boolean variables cannot be mixed:
 Run the example and see what happens, then comment out the "Bad" line and run it again.
 The pattern here follows exactly that of string constants.
 
-* Floats
+## Floats
 
 Floating-point constants are just like boolean constants in most respects.
 Our standard example works as expected in translation:
@@ -283,7 +284,7 @@ prints `10`, as one would expect.
 
 In a related way, floating-point constants may have very high precision,
 so that arithmetic involving them is more accurate.
-The constants defined in the [[https://golang.org/pkg/math][math]] package are given with many more digits than are
+The constants defined in the [math](https://golang.org/pkg/math) package are given with many more digits than are
 available in a `float64`. Here is the definition of `math.Pi`:
 
 	Pi	= 3.14159265358979323846264338327950288419716939937510582097494459
@@ -305,7 +306,7 @@ soft underflows, and `NaNs` arise in constant expressions.
 (Division by a constant zero is a compile-time error,
 and when everything is a number there's no such thing as "not a number".)
 
-* Complex numbers
+## Complex numbers
 
 Complex constants behave a lot like floating-point constants.
 Here's a version of our now-familiar litany translated into complex numbers:
@@ -342,10 +343,10 @@ The output is `2` `and` `2`.
 Even though `Two` is a complex constant, it can be assigned to scalar floating-point variables.
 This ability for a constant to "cross" types like this will prove useful.
 
-* Integers
+## Integers
 
 At last we come to integers.
-They have more moving parts—[[https://golang.org/ref/spec#Numeric_types][many sizes, signed or unsigned, and more]]—but
+They have more moving parts—[many sizes, signed or unsigned, and more](https://golang.org/ref/spec#Numeric_types)—but
 they play by the same rules.
 For the last time, here is our familiar example, using just `int` this time:
 
@@ -397,7 +398,7 @@ This type-checking can catch mistakes like this one:
 
 If the compiler complains about your use of a constant, it's likely a real bug like this.
 
-* An exercise: The largest unsigned int
+## An exercise: The largest unsigned int
 
 Here is an informative little exercise.
 How do we express a constant representing the largest value that fits in a `uint`?
@@ -409,7 +410,7 @@ but we want `uint`, not `uint32`.
 The `int` and `uint` types have equal unspecified numbers of bits, either 32 or 64.
 Since the number of bits available depends on the architecture, we can't just write down a single value.
 
-Fans of [[http://en.wikipedia.org/wiki/Two's_complement][two's-complement arithmetic]],
+Fans of [two's-complement arithmetic](http://en.wikipedia.org/wiki/Two's_complement),
 which Go's integers are defined to use, know that the representation of `-1` has all its bits set to 1,
 so the bit pattern of `-1` is internally the same as that of the
 largest unsigned integer.
@@ -424,7 +425,7 @@ A conversion won't help either, for the same reason:
 .play -edit constants/exercise2.go /const/
 
 Even though at run-time a value of -1 can be converted to an unsigned integer, the rules
-for constant [[https://golang.org/ref/spec#Conversions][conversions]] forbid this kind of coercion at compile time.
+for constant [conversions](https://golang.org/ref/spec#Conversions) forbid this kind of coercion at compile time.
 That is to say, this works:
 
 .play -edit constants/exercise3.go /START/,/STOP/
@@ -456,13 +457,13 @@ Here, then, is our constant:
 .play -edit constants/exercise6.go /START/,/STOP/
 
 Whatever the number of bits it takes to represent a `uint` in the current execution environment
-(on the [[https://blog.golang.org/playground][playground]], it's 32),
+(on the [playground](https://blog.golang.org/playground), it's 32),
 this constant correctly represents the largest value a variable of type `uint` can hold.
 
 If you understand the analysis that got us to this result,
 you understand all the important points about constants in Go.
 
-* Numbers
+## Numbers
 
 The concept of untyped constants in Go means that all the numeric constants,
 whether integer, floating-point, complex,
@@ -486,7 +487,7 @@ written as untyped constants they can be assigned to a variable of any integer t
 
 .play -edit constants/numbers1.go /START/,/STOP/
 
-The output from this snippet is: `1`1`1`1`1`(1+0i)`1`.
+The output from this snippet is: `1 1 1 1 1 (1+0i) 1`.
 
 You can even do nutty stuff like
 

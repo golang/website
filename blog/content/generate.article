@@ -1,10 +1,11 @@
-Generating code
+# Generating code
 22 Dec 2014
 Tags: programming, technical
+Summary: A property of universal computation—Turing completeness—is that a computer program can write a computer program. This is a powerful idea that is not appreciated as often as it might be, even though it happens frequently. It's a big part of the definition of a compiler, for instance. It's also how the `go` `test` command works: it scans the packages to be tested, writes out a Go program containing a test harness customized for the package, and then compiles and runs it. Modern computers are so fast this expensive-sounding sequence can complete in a fraction of a second.
 
 Rob Pike
 
-* Generating code
+##
 
 A property of universal computation—Turing completeness—is that a computer program can write a computer program.
 This is a powerful idea that is not appreciated as often as it might be, even though it happens frequently.
@@ -15,7 +16,7 @@ and then compiles and runs it.
 Modern computers are so fast this expensive-sounding sequence can complete in a fraction of a second.
 
 There are lots of other examples of programs that write programs.
-[[https://godoc.org/golang.org/x/tools/cmd/goyacc][Yacc]], for instance, reads in a description of a grammar and writes out a program to parse that grammar.
+[Yacc](https://godoc.org/golang.org/x/tools/cmd/goyacc), for instance, reads in a description of a grammar and writes out a program to parse that grammar.
 The protocol buffer "compiler" reads an interface description and emits structure definitions,
 methods, and other support code.
 Configuration tools of all sorts work like this too, examining metadata or the environment
@@ -30,7 +31,7 @@ There is simply no mechanism to run Yacc from the go tool alone.
 
 Until now, that is.
 
-The [[https://blog.golang.org/go1.4][latest Go release]], 1.4,
+The [latest Go release](https://blog.golang.org/go1.4), 1.4,
 includes a new command that makes it easier to run such tools.
 It's called `go` `generate`, and it works by scanning for special comments in Go source code
 that identify general commands to run.
@@ -75,7 +76,7 @@ at which point the directory holds the full set of Go source files, so we can bu
 Every time `gopher.y` is modified, just rerun `go` `generate` to regenerate the parser.
 
 For more details about how `go` `generate` works, including options, environment variables,
-and so on, see the [[https://golang.org/s/go1.4-generate][design document]].
+and so on, see the [design document](https://golang.org/s/go1.4-generate).
 
 Go generate does nothing that couldn't be done with Make or some other build mechanism,
 but it comes with the `go` tool—no extra installation required—and fits nicely into the Go ecosystem.
@@ -94,7 +95,7 @@ It's not part of the released distribution, but it's easy to install:
 	$ go get golang.org/x/tools/cmd/stringer
 
 Here's an example from the documentation for
-[[https://godoc.org/golang.org/x/tools/cmd/stringer][`stringer`]].
+[`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer).
 Imagine we have some code that contains a set of integer constants defining different types of pills:
 
 	package painkiller

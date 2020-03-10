@@ -1,20 +1,21 @@
-Two recent Go talks
+# Two recent Go talks
 2 Jan 2013
 Tags: talk, video, ethos
+Summary: Late last year I wrote a couple of Go talks and presented them at [Strange Loop](http://thestrangeloop.com/), [Øredev](http://oredev.com), and various other venues. The talks are designed to give insight into the practice of Go programming, each describing the construction of a real program and demonstrating the power and depth of the Go language and its libraries and tools.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
-Late last year I wrote a couple of Go talks and presented them at [[http://thestrangeloop.com/][Strange Loop]],
-[[http://oredev.com][Øredev]], and various other venues.
+Late last year I wrote a couple of Go talks and presented them at [Strange Loop](http://thestrangeloop.com/),
+[Øredev](http://oredev.com), and various other venues.
 The talks are designed to give insight into the practice of Go programming,
 each describing the construction of a real program and demonstrating the
 power and depth of the Go language and its libraries and tools.
 
 The following videos are, in my opinion, the best recordings of these talks.
 
-* Go: a simple programming environment
+## Go: a simple programming environment
 
 Go is a general-purpose language that bridges the gap between efficient
 statically typed languages and productive dynamic language.
@@ -27,9 +28,9 @@ scope, and simplicity of the Go programming environment.
 
 .iframe //player.vimeo.com/video/53221558?badge=0 281 500
 
-See the [[https://talks.golang.org/2012/simple.slide][slide deck]] (use the left and right arrows to navigate).
+See the [slide deck](https://talks.golang.org/2012/simple.slide) (use the left and right arrows to navigate).
 
-* Go: code that grows with grace
+## Go: code that grows with grace
 
 One of Go's key design goals is code adaptability;
 that it should be easy to take a simple design and build upon it in a clean and natural way.
@@ -42,4 +43,4 @@ Go's flexibility preserves the original design as it grows.
 
 .iframe //player.vimeo.com/video/53221560?badge=0 281 500
 
-See the [[https://talks.golang.org/2012/chat.slide][slide deck]] (use the left and right arrows to navigate).
+See the [slide deck](https://talks.golang.org/2012/chat.slide) (use the left and right arrows to navigate).

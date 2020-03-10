@@ -1,10 +1,11 @@
-Package names
+# Package names
 4 Feb 2015
 Tags: package, names, style
+Summary: Go code is organized into packages. Within a package, code can refer to any identifier (name) defined within, while clients of the package may only reference the package's exported types, functions, constants, and variables. Such references always include the package name as a prefix: `foo.Bar` refers to the exported name `Bar` in the imported package named `foo`.
 
 Sameer Ajmani
 
-* Introduction
+## Introduction
 
 Go code is organized into packages.
 Within a package, code can refer to any identifier (name) defined within, while
@@ -21,66 +22,66 @@ in the package as it evolves.
 Well-named packages make it easier to find the code you need.
 
 Effective Go provides
-[[https://golang.org/doc/effective_go.html#names][guidelines]] for naming
+[guidelines](https://golang.org/doc/effective_go.html#names) for naming
 packages, types, functions, and variables.
 This article expands on that discussion and surveys names found in the standard
 library.
 It also discusses bad package names and how to fix them.
 
-* Package names
+## Package names
 
 Good package names are short and clear.
 They are lower case, with no `under_scores` or `mixedCaps`.
 They are often simple nouns, such as:
 
-- `time` (provides functionality for measuring and displaying time)
-- `list` (implements a doubly linked list)
-- `http` (provides HTTP client and server implementations)
+  - `time` (provides functionality for measuring and displaying time)
+  - `list` (implements a doubly linked list)
+  - `http` (provides HTTP client and server implementations)
 
 The style of names typical of another language might not be idiomatic in a Go
 program.
 Here are two examples of names that might be good style in other languages but
 do not fit well in Go:
 
-- `computeServiceClient`
-- `priority_queue`
+  - `computeServiceClient`
+  - `priority_queue`
 
 A Go package may export several types and functions.
 For example, a `compute` package could export a `Client` type with methods for
 using the service as well as functions for partitioning a compute task across
 several clients.
 
-*Abbreviate*judiciously.*
+**Abbreviate judiciously.**
 Package names may be abbreviated when the abbreviation is familiar to the
 programmer.
 Widely-used packages often have compressed names:
 
-- `strconv` (string conversion)
-- `syscall` (system call)
-- `fmt` (formatted I/O)
+  - `strconv` (string conversion)
+  - `syscall` (system call)
+  - `fmt` (formatted I/O)
 
 On the other hand, if abbreviating a package name makes it ambiguous or unclear,
 don't do it.
 
-*Don't*steal*good*names*from*the*user.*
+**Don't steal good names from the user.**
 Avoid giving a package a name that is commonly used in client code.
 For example, the buffered I/O package is called `bufio`, not `buf`, since `buf`
 is a good variable name for a buffer.
 
-* Naming package contents
+## Naming package contents
 
 A package name and its contents' names are coupled, since client code uses them
 together.
 When designing a package, take the client's point of view.
 
-*Avoid*stutter.*
+**Avoid stutter.**
 Since client code uses the package name as a prefix when referring to the
 package contents, the names for those contents need not repeat the package name.
 The HTTP server provided by the `http` package is called `Server`, not
 `HTTPServer`.
 Client code refers to this type as `http.Server`, so there is no ambiguity.
 
-*Simplify*function*names.*
+**Simplify function names.**
 When a function in package pkg returns a value of type `pkg.Pkg` (or
 `*pkg.Pkg`), the function name can often omit the type name without confusion:
 
@@ -116,7 +117,7 @@ packages if the result seems poor.
 This approach will yield packages that are easier for clients to understand and
 for the package developers to maintain.
 
-* Package paths
+## Package paths
 
 A Go package has both a name and a path.
 The package name is specified in the package statement of its source files;
@@ -132,13 +133,13 @@ By convention, the last element of the package path is the package name:
 	)
 
 Build tools map package paths onto directories.
-The go tool uses the [[https://golang.org/doc/code.html#GOPATH][GOPATH]]
+The go tool uses the [GOPATH](https://golang.org/doc/code.html#GOPATH)
 environment variable to find the source files for path `"github.com/user/hello"`
 in directory `$GOPATH/src/github.com/user/hello`.
 (This situation should be familiar, of course, but it's important to be clear
 about the terminology and structure of packages.)
 
-*Directories.*
+**Directories.**
 The standard library uses like directories `crypto`, `container`, `encoding`,
 and `image` to group packages for related protocols and algorithms.
 There is no actual relationship among the packages in one of these directories;
@@ -149,23 +150,23 @@ cycle.
 Just as types in different packages can have the same name without ambiguity,
 packages in different directories can have the same name.
 For example,
-[[https://golang.org/pkg/runtime/pprof][runtime/pprof]] provides profiling data
-in the format expected by the [[https://github.com/google/pprof][pprof]]
-profiling tool, while [[https://golang.org/pkg/net/http/pprof][net/http/pprof]]
+[runtime/pprof](https://golang.org/pkg/runtime/pprof) provides profiling data
+in the format expected by the [pprof](https://github.com/google/pprof)
+profiling tool, while [net/http/pprof](https://golang.org/pkg/net/http/pprof)
 provides HTTP endpoints to present profiling data in this format.
 Client code uses the package path to import the package, so there is no
 confusion.
 If a source file needs to import both `pprof` packages, it can
-[[https://golang.org/ref/spec#Import_declarations][rename]] one or both locally.
+[rename](https://golang.org/ref/spec#Import_declarations) one or both locally.
 When renaming an imported package, the local name should follow the same
 guidelines as package names (lower case, no `under_scores` or `mixedCaps`).
 
-* Bad package names
+## Bad package names
 
 Bad package names make code harder to navigate and maintain.
 Here are some guidelines for recognizing and fixing bad names.
 
-*Avoid*meaningless*package*names.*
+**Avoid meaningless package names.**
 Packages named `util`, `common`, or `misc` provide clients with no sense of what
 the package contains.
 This makes it harder for clients to use the package and makes it harder for
@@ -176,7 +177,7 @@ And since such package names are generic, they are more likely to collide with
 other packages imported by client code, forcing clients to invent names to
 distinguish them.
 
-*Break*up*generic*packages.*
+**Break up generic packages.**
 To fix such packages, look for types and functions with common name elements and
 pull them into their own package.
 For example, if you have
@@ -217,7 +218,7 @@ which yields even simpler client code:
 The name of the package is a critical piece of its design.
 Work to eliminate meaningless package names from your projects.
 
-*Don't*use*a*single*package*for*all*your*APIs.*
+**Don't use a single package for all your APIs.**
 Many well-intentioned programmers put all the interfaces exposed by their
 program into a single package named `api`, `types`, or `interfaces`, thinking it
 makes it easier to find the entry points to their code base.
@@ -228,23 +229,23 @@ dependencies, and colliding with other imports.
 Break them up, perhaps using directories to separate public packages from
 implementation.
 
-*Avoid*unnecessary*package*name*collisions.*
+**Avoid unnecessary package name collisions.**
 While packages in different directories may have the same name, packages that
 are frequently used together should have distinct names.
 This reduces confusion and the need for local renaming in client code.
 For the same reason, avoid using the same name as popular standard packages like
 `io` or `http`.
 
-* Conclusion
+## Conclusion
 
 Package names are central to good naming in Go programs.
 Take the time to choose good package names and organize your code well.
 This helps clients understand and use your packages and helps maintainers to
 grow them gracefully.
 
-* Further reading
+## Further reading
 
-- [[https://golang.org/doc/effective_go.html][Effective Go]]
-- [[https://golang.org/doc/code.html][How to Write Go Code]]
-- [[https://blog.golang.org/organizing-go-code][Organizing Go Code (2012 blog post)]]
-- [[https://talks.golang.org/2014/organizeio.slide][Organizing Go Code (2014 Google I/O talk)]]
+  - [Effective Go](https://golang.org/doc/effective_go.html)
+  - [How to Write Go Code](https://golang.org/doc/code.html)
+  - [Organizing Go Code (2012 blog post)](https://blog.golang.org/organizing-go-code)
+  - [Organizing Go Code (2014 Google I/O talk)](https://talks.golang.org/2014/organizeio.slide)

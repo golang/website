@@ -1,10 +1,11 @@
-Getting to Go: The Journey of Go's Garbage Collector
+# Getting to Go: The Journey of Go's Garbage Collector
 12 Jul 2018
+Summary: This is the transcript from the keynote I gave at the International Symposium on Memory Management (ISMM) on June 18, 2018. For the past 25 years ISMM has been the premier venue for publishing memory management and garbage collection papers and it was an honor to have been invited to give the keynote.
 
 Rick Hudson
 rlh@golang.org
 
-* Abstract
+##
 
 This is the transcript from the keynote I gave at the International Symposium
 on Memory Management (ISMM) on June 18, 2018.
@@ -12,7 +13,7 @@ For the past 25 years ISMM has been the premier venue for publishing memory
 management and garbage collection papers and it was an honor to have been
 invited to give the keynote.
 
-** Abstract
+## Abstract
 
 The Go language features, goals, and use cases have forced us to rethink
 the entire garbage collection stack and have led us to a surprising place.
@@ -22,7 +23,7 @@ Included are side hikes into dead end box canyons where numbers guided us home.
 This talk will provide insight into the how and the why of our journey,
 where we are in 2018, and Go's preparation for the next part of the journey.
 
-** Bio
+## Bio
 
 Richard L. Hudson (Rick) is best known for his work in memory management
 including the invention of the Train,
@@ -33,9 +34,9 @@ garbage collection and runtime issues.
 
 Contact: rlh@golang.org
 
-Comments: See [[https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns][the discussion on golang-dev]].
+Comments: See [the discussion on golang-dev](https://groups.google.com/forum/#!topic/golang-dev/UuDv7W1Hsns).
 
-** The Transcript
+## The Transcript
 
 .image ismmkeynote/image63.png
 
@@ -322,8 +323,8 @@ If you are doing a concurrent GC you really owe it to yourself to look at
 this math and see if it's the same as your math.
 If you have any suggestions let us know.
 
-[[https://golang.org/s/go15gcpacing][*Go 1.5 concurrent garbage collector pacing]]
-and [[https://github.com/golang/proposal/blob/master/design/14951-soft-heap-limit.md][Proposal: Separate soft and hard heap size goal]]
+[\*Go 1.5 concurrent garbage collector pacing](https://golang.org/s/go15gcpacing)
+and [Proposal: Separate soft and hard heap size goal](https://github.com/golang/proposal/blob/master/design/14951-soft-heap-limit.md)
 
 .image ismmkeynote/image40.png
 
@@ -738,7 +739,7 @@ In other words a DRAM memory cell.
 
 Put another way, we think that doubling memory is going to be a better value than doubling cores.
 
-[[http://www.kurzweilai.net/ask-ray-the-future-of-moores-law][Original graph]]
+[Original graph](http://www.kurzweilai.net/ask-ray-the-future-of-moores-law)
 at www.kurzweilai.net/ask-ray-the-future-of-moores-law.
 
 .image ismmkeynote/image57.png
@@ -769,7 +770,7 @@ of Doctor of Philosophy in Electrical and Computer Engineering Kevin K.
 Chang M.S., Electrical & Computer Engineering,
 Carnegie Mellon University B.S., Electrical & Computer Engineering,
 Carnegie Mellon University Carnegie Mellon University Pittsburgh, PA May, 2017".
-See [[http://repository.cmu.edu/cgi/viewcontent.cgi?article%3D1946%26context%3Ddissertations&amp;sa=D&amp;ust=1531164842660000][Kevin K. Chang's thesis.]]
+See [Kevin K. Chang's thesis.](http://repository.cmu.edu/cgi/viewcontent.cgi?article%3D1946%26context%3Ddissertations&amp;sa=D&amp;ust=1531164842660000)
 The original graph in the introduction was not in a form that I could draw
 a Moore's law line on it easily so I changed the X-axis to be more uniform.)
 
@@ -795,7 +796,7 @@ beyond noting that pricing is cyclic and in the long term supply has a tendency 
 
 Long term, it is our belief that memory pricing will drop at a rate that is much faster than CPU pricing.
 
-(Sources [[https://hblok.net/blog/][https://hblok.net/blog/]] and [[https://hblok.net/storage_data/storage_memory_prices_2005-2017-12.png][https://hblok.net/storage_data/storage_memory_prices_2005-2017-12.png]])
+(Sources [https://hblok.net/blog/](https://hblok.net/blog/) and [https://hblok.net/storage\_data/storage\_memory\_prices\_2005-2017-12.png](https://hblok.net/storage_data/storage_memory_prices_2005-2017-12.png))
 
 .image ismmkeynote/image37.png
 
@@ -848,4 +849,4 @@ So that's it. Thank you.
 
 P.S. The Go team is looking to hire engineers to help develop and maintain the Go runtime and compiler toolchain.
 
-Interested? Have a look at our [[https://go-jobs-at-goog.firebaseapp.com][open positions]].
+Interested? Have a look at our [open positions](https://go-jobs-at-goog.firebaseapp.com).

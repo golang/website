@@ -1,20 +1,21 @@
-Arrays, slices (and strings): The mechanics of 'append'
+# Arrays, slices (and strings): The mechanics of 'append'
 26 Sep 2013
 Tags: array, slice, string, copy, append
+Summary: One of the most common features of procedural programming languages is the concept of an array. Arrays seem like simple things but there are many questions that must be answered when adding them to a language, such as:
 
 Rob Pike
 
-* Introduction
+## Introduction
 
 One of the most common features of procedural programming languages is
 the concept of an array.
 Arrays seem like simple things but there are many questions that must be
 answered when adding them to a language, such as:
 
-- fixed-size or variable-size?
-- is the size part of the type?
-- what do multidimensional arrays look like?
-- does the empty array have meaning?
+  - fixed-size or variable-size?
+  - is the size part of the type?
+  - what do multidimensional arrays look like?
+  - does the empty array have meaning?
 
 The answers to these questions affect whether arrays are just
 a feature of the language or a core part of its design.
@@ -30,7 +31,7 @@ In this post we'll attempt to clear up the confusion.
 We'll do so by building up the pieces to explain how the `append` built-in function
 works, and why it works the way it does.
 
-* Arrays
+## Arrays
 
 Arrays are an important building block in Go, but like the foundation of a building
 they are often hidden below more visible components.
@@ -68,14 +69,14 @@ Arrays have their place—they are a good representation of a transformation
 matrix for instance—but their most common purpose in Go is to hold storage
 for a slice.
 
-* Slices: The slice header
+## Slices: The slice header
 
 Slices are where the action is, but to use them well one must understand
 exactly what they are and what they do.
 
 A slice is a data structure describing a contiguous section of an array
 stored separately from the slice variable itself.
-_A_slice_is_not_an_array_.
+_A slice is not an array_.
 A slice _describes_ a piece of an array.
 
 Given our `buffer` array variable from the previous section, we could create
@@ -153,7 +154,7 @@ the first and last elements of our slice:
 You'll often hear experienced Go programmers talk about the "slice header"
 because that really is what's stored in a slice variable.
 For instance, when you call a function that takes a slice as an argument, such as
-[[https://golang.org/pkg/bytes/#IndexRune][bytes.IndexRune]], that header is
+[bytes.IndexRune](https://golang.org/pkg/bytes/#IndexRune), that header is
 what gets passed to the function.
 In this call,
 
@@ -166,7 +167,7 @@ There's one more data item in the slice header, which we talk about below,
 but first let's see what the existence of the slice header means when you
 program with slices.
 
-* Passing slices to functions
+## Passing slices to functions
 
 It's important to understand that even though a slice contains a pointer,
 it is itself a value.
@@ -212,7 +213,7 @@ parameter, just as we have done here.
 The `slice` variable is unchanged but the returned value has the new length,
 which is then stored in `newSlice`,
 
-* Pointers to slices: Method receivers
+## Pointers to slices: Method receivers
 
 Another way to have a function modify the slice header is to pass a pointer to it.
 Here's a variant of our previous example that does this:
@@ -248,7 +249,7 @@ This form of loop avoids writing `p[i]` multiple times in the body.
 
 [Advanced exercise: Convert the `ToUpper` method to handle Unicode letters, not just ASCII.]
 
-* Capacity
+## Capacity
 
 Look at the following function that extends its argument slice of `ints` by one element:
 
@@ -293,7 +294,7 @@ If you want to inquire what the capacity is for a slice, use the built-in functi
 		fmt.Println("slice is full!")
 	}
 
-* Make
+## Make
 
 What if we want to grow the slice beyond its capacity?
 You can't!
@@ -329,7 +330,7 @@ After
 
 the `gophers` slice has both its length and capacity set to 10.
 
-* Copy
+## Copy
 
 When we doubled the capacity of our slice in the previous section,
 we wrote a loop to copy the old data to the new slice.
@@ -376,7 +377,7 @@ Now that's out of the way, let's run our `Insert` function.
 
 .play -edit slices/prog100.go /make/,/OMIT/
 
-* Append: An example
+## Append: An example
 
 A few sections back, we wrote an `Extend` function that extends a slice by one element.
 It was buggy, though, because if the slice's capacity was too small, the function would
@@ -445,7 +446,7 @@ Try it; the behavior is the same as before:
 
 .play -edit slices/prog140.go /START/,/END/
 
-* Append: The built-in function
+## Append: The built-in function
 
 And so we arrive at the motivation for the design of the `append` built-in function.
 It does exactly what our `Append` example does, with equivalent efficiency, but it
@@ -469,9 +470,9 @@ how the design of slices makes it possible for this simple call to work correctl
 
 There are lots more examples of `append`, `copy`, and other ways to use slices
 on the community-built
-[[https://golang.org/wiki/SliceTricks]["Slice Tricks" Wiki page]].
+["Slice Tricks" Wiki page](https://golang.org/wiki/SliceTricks).
 
-* Nil
+## Nil
 
 As an aside, with our newfound knowledge we can see what the representation of a `nil` slice is.
 Naturally, it is the zero value of the slice header:
@@ -502,7 +503,7 @@ It has length zero and can be appended to, with allocation.
 As an example, look at the one-liner above that copies a slice by appending
 to a `nil` slice.
 
-* Strings
+## Strings
 
 Now a brief section about strings in Go in the context of slices.
 
@@ -549,9 +550,9 @@ were added to the language, they provided a model for efficient string handling.
 the benchmarks saw huge speedups as a result.
 
 There's much more to strings, of course, and a
-[[https://blog.golang.org/strings][separate blog post]] covers them in greater depth.
+[separate blog post](https://blog.golang.org/strings) covers them in greater depth.
 
-* Conclusion
+## Conclusion
 
 To understand how slices work, it helps to understand how they are implemented.
 There is a little data structure, the slice header, that is the item associated with the slice
@@ -563,15 +564,15 @@ Once you appreciate how they work, slices become not only easy to use, but
 powerful and expressive, especially with the help of the `copy` and `append`
 built-in functions.
 
-* More reading
+## More reading
 
 There's lots to find around the intertubes about slices in Go.
 As mentioned earlier,
-the [[https://golang.org/wiki/SliceTricks]["Slice Tricks" Wiki page]]
+the ["Slice Tricks" Wiki page](https://golang.org/wiki/SliceTricks)
 has many examples.
-The [[https://blog.golang.org/go-slices-usage-and-internals][Go Slices]] blog post
+The [Go Slices](https://blog.golang.org/go-slices-usage-and-internals) blog post
 describes the memory layout details with clear diagrams.
-Russ Cox's [[https://research.swtch.com/godata][Go Data Structures]] article includes
+Russ Cox's [Go Data Structures](https://research.swtch.com/godata) article includes
 a discussion of slices along with some of Go's other internal data structures.
 
 There is much more material available, but the best way to learn about slices is to use them.

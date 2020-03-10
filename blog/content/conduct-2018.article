@@ -1,10 +1,11 @@
-Updating the Go Code of Conduct
+# Updating the Go Code of Conduct
 23 May 2018
 Tags: conduct
+Summary: In November 2015, we introduced the Go Code of Conduct. It was developed in a collaboration between the Go team members at Google and the Go community. I was fortunate to be one of the community members invited to participate in both drafting and then enforcing the Go Code of Conduct. Since then, we have learned two lessons about limitations in our code of conduct that restricted us from being able to cultivate the safe culture essential to Go’s success.
 
 Steve Francia
 
-* Introduction
+##
 
 In November 2015, we introduced the Go Code of Conduct.
 It was developed in a collaboration between
@@ -33,7 +34,7 @@ to enforce the code
 of conduct place too heavy of a burden on volunteers.
 The initial version of the code of conduct presented the
 working group as disciplinarians. It was soon clear
-that this was too much, so in early 2017 [[https://golang.org/cl/37014][we changed the group’s role]]
+that this was too much, so in early 2017 [we changed the group’s role](https://golang.org/cl/37014)
 to that of advisors and mediators.
 Still, working group community members
 reported feeling overwhelmed, untrained, and vulnerable.
@@ -51,15 +52,15 @@ We started with the text from the
 Contributor Covenant Code of Conduct v1.4
 and then made changes, influenced by
 our experiences in Go community and our collective experiences in open source.
-This resulted in the Google [[https://opensource.google.com/docs/releasing/template/CODE_OF_CONDUCT/][code of conduct template]].
+This resulted in the Google [code of conduct template](https://opensource.google.com/docs/releasing/template/CODE_OF_CONDUCT/).
 
 Today the Go project is adopting this new code of conduct,
-and we’ve updated [[https://golang.org/conduct][golang.org/conduct]].
+and we’ve updated [golang.org/conduct](https://golang.org/conduct).
 This revised code of conduct retains much of the intent, structure and
 language of the original Go code of conduct while making two critical
 changes that address the shortcomings identified above.
 
-First, [[https://golang.org/conduct/#scope][the new code of conduct makes clear]] that people who
+First, [the new code of conduct makes clear](https://golang.org/conduct/#scope) that people who
 participate in any kind of harassment or inappropriate behavior,
 even outside our project spaces, are not welcome in our project spaces.
 This means that the Code of Conduct applies outside
@@ -68,7 +69,7 @@ an individual’s behavior may have a negative
 impact on the project or its community.
 
 Second, in the place of the working group,
-[[https://golang.org/conduct/#reporting][the new code of conduct introduces a single Project Steward]]
+[the new code of conduct introduces a single Project Steward](https://golang.org/conduct/#reporting)
 who will have explicit training and support for this role.
 The Project Steward will receive reported violations
 and then work with a committee,
@@ -76,7 +77,7 @@ consisting of representatives from the Open Source Programs Office
 and the Google Open Source Strategy team,
 to find a resolution.
 
-Our first Project Steward will be [[https://twitter.com/cassandraoid][Cassandra Salisbury]].
+Our first Project Steward will be [Cassandra Salisbury](https://twitter.com/cassandraoid).
 She is well known to the Go community as a member of Go Bridge,
 an organizer of many Go meetups and conferences,
 and as a lead of the Go community outreach working group.

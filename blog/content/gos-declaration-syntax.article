@@ -1,16 +1,17 @@
-Go's Declaration Syntax
+# Go's Declaration Syntax
 7 Jul 2010
 Tags: c, syntax, ethos
+Summary: Newcomers to Go wonder why the declaration syntax is different from the tradition established in the C family. In this post we'll compare the two approaches and explain why Go's declarations look as they do.
 
 Rob Pike
 
-* Introduction
+## Introduction
 
 Newcomers to Go wonder why the declaration syntax is different from the
 tradition established in the C family.
 In this post we'll compare the two approaches and explain why Go's declarations look as they do.
 
-* C syntax
+## C syntax
 
 First, let's talk about C syntax. C took an unusual and clever approach
 to declaration syntax.
@@ -30,7 +31,7 @@ Thus, the declarations
 	int *p;
 	int a[3];
 
-state that p is a pointer to int because '*p' has type int,
+state that p is a pointer to int because '\*p' has type int,
 and that a is an array of ints because a[3] (ignoring the particular index value,
 which is punned to be the size of the array) has type int.
 
@@ -56,7 +57,7 @@ Follow the rules and you get this:
 
 	int (*fp)(int a, int b);
 
-Here, fp is a pointer to a function because if you write the expression (*fp)(a,
+Here, fp is a pointer to a function because if you write the expression (\*fp)(a,
 b) you'll call a function that returns int.
 What if one of fp's arguments is itself a function?
 
@@ -73,7 +74,7 @@ Recall that argv is declared like this,
 	char *argv[]
 
 so you drop the name from the middle of its declaration to construct its type.
-It's not obvious, though, that you declare something of type char *[] by
+It's not obvious, though, that you declare something of type char \*[] by
 putting its name in the middle.
 
 And look what happens to fp's declaration if you don't name the parameters:
@@ -101,7 +102,7 @@ This is why, for instance, C casts always parenthesize the type, as in
 
 	(int)M_PI
 
-* Go syntax
+## Go syntax
 
 Languages outside the C family usually use a distinct type syntax in declarations.
 Although it's a separate point, the name usually comes first,
@@ -157,7 +158,7 @@ The distinction between type and expression syntax makes it easy to write and in
 
 	sum := func(a, b int) int { return a+b } (3, 4)
 
-* Pointers
+## Pointers
 
 Pointers are the exception that proves the rule.
 Notice that in arrays and slices, for instance,
@@ -167,7 +168,7 @@ syntax puts them on the right of the expression:
 	var a []int
 	x = a[1]
 
-For familiarity, Go's pointers use the * notation from C,
+For familiarity, Go's pointers use the \* notation from C,
 but we could not bring ourselves to make a similar reversal for pointer types.
 Thus pointers work like this
 
@@ -179,7 +180,7 @@ We couldn't say
 	var p *int
 	x = p*
 
-because that postfix * would conflate with multiplication. We could have used the Pascal ^, for example:
+because that postfix \* would conflate with multiplication. We could have used the Pascal ^, for example:
 
 	var p ^int
 	x = p^
@@ -191,11 +192,11 @@ For instance, although one can write
 
 	[]int("hi")
 
-as a conversion, one must parenthesize the type if it starts with a *:
+as a conversion, one must parenthesize the type if it starts with a \*:
 
 	(*int)(nil)
 
-Had we been willing to give up * as pointer syntax, those parentheses would be unnecessary.
+Had we been willing to give up \* as pointer syntax, those parentheses would be unnecessary.
 
 So Go's pointer syntax is tied to the familiar C form,
 but those ties mean that we cannot break completely from using parentheses
@@ -203,7 +204,7 @@ to disambiguate types and expressions in the grammar.
 
 Overall, though, we believe Go's type syntax is easier to understand than C's, especially when things get complicated.
 
-* Notes
+## Notes
 
 Go's declarations read left to right. It's been pointed out that C's read in a spiral!
-See [[http://c-faq.com/decl/spiral.anderson.html][ The "Clockwise/Spiral Rule"]] by David Anderson.
+See [ The "Clockwise/Spiral Rule"](http://c-faq.com/decl/spiral.anderson.html) by David Anderson.

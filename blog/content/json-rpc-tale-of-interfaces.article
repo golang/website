@@ -1,16 +1,17 @@
-JSON-RPC: a tale of interfaces
+# JSON-RPC: a tale of interfaces
 27 Apr 2010
 Tags: json, rpc, technical
+Summary: Here we present an example where Go's [interfaces](https://golang.org/doc/effective_go.html#interfaces_and_types) made it easy to refactor some existing code to make it more flexible and extensible. Originally, the standard library's [RPC package](https://golang.org/pkg/net/rpc/) used a custom wire format called [gob](https://golang.org/pkg/encoding/gob/). For a particular application, we wanted to use [JSON](https://golang.org/pkg/encoding/json/) as an alternate wire format.
 
 Andrew Gerrand
 
-* Introduction
+##
 
-Here we present an example where Go's [[https://golang.org/doc/effective_go.html#interfaces_and_types][interfaces]]
+Here we present an example where Go's [interfaces](https://golang.org/doc/effective_go.html#interfaces_and_types)
 made it easy to refactor some existing code to make it more flexible and extensible.
-Originally, the standard library's [[https://golang.org/pkg/net/rpc/][RPC package]]
-used a custom wire format called [[https://golang.org/pkg/encoding/gob/][gob]].
-For a particular application, we wanted to use [[https://golang.org/pkg/encoding/json/][JSON]]
+Originally, the standard library's [RPC package](https://golang.org/pkg/net/rpc/)
+used a custom wire format called [gob](https://golang.org/pkg/encoding/gob/).
+For a particular application, we wanted to use [JSON](https://golang.org/pkg/encoding/json/)
 as an alternate wire format.
 
 We first defined a pair of interfaces to describe the functionality of the
@@ -42,7 +43,7 @@ After some similar changes to the client side,
 this was the full extent of the work we needed to do on the RPC package.
 This whole exercise took about 20 minutes!
 After tidying up and testing the new code,
-the [[https://github.com/golang/go/commit/dcff89057bc0e0d7cb14cf414f2df6f5fb1a41ec][final changeset]] was submitted.
+the [final changeset](https://github.com/golang/go/commit/dcff89057bc0e0d7cb14cf414f2df6f5fb1a41ec) was submitted.
 
 In an inheritance-oriented language like Java or C++,
 the obvious path would be to generalize the RPC class,

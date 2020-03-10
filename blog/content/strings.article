@@ -1,12 +1,13 @@
-Strings, bytes, runes and characters in Go
+# Strings, bytes, runes and characters in Go
 23 Oct 2013
 Tags: strings, bytes, runes, characters
+Summary: The [previous blog post](https://blog.golang.org/slices) explained how slices work in Go, using a number of examples to illustrate the mechanism behind their implementation. Building on that background, this post discusses strings in Go. At first, strings might seem too simple a topic for a blog post, but to use them well requires understanding not only how they work, but also the difference between a byte, a character, and a rune, the difference between Unicode and UTF-8, the difference between a string and a string literal, and other even more subtle distinctions.
 
 Rob Pike
 
-* Introduction
+## Introduction
 
-The [[https://blog.golang.org/slices][previous blog post]] explained how slices
+The [previous blog post](https://blog.golang.org/slices) explained how slices
 work in Go, using a number of examples to illustrate the mechanism behind
 their implementation.
 Building on that background, this post discusses strings in Go.
@@ -25,16 +26,16 @@ in the modern world.
 
 An excellent introduction to some of these issues, independent of Go,
 is Joel Spolsky's famous blog post,
-[[http://www.joelonsoftware.com/articles/Unicode.html][The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)]].
+[The Absolute Minimum Every Software Developer Absolutely, Positively Must Know About Unicode and Character Sets (No Excuses!)](http://www.joelonsoftware.com/articles/Unicode.html).
 Many of the points he raises will be echoed here.
 
-* What is a string?
+## What is a string?
 
 Let's start with some basics.
 
 In Go, a string is in effect a read-only slice of bytes.
 If you're at all uncertain about what a slice of bytes is or how it works,
-please read the [[https://blog.golang.org/slices][previous blog post]];
+please read the [previous blog post](https://blog.golang.org/slices);
 we'll assume here that you have.
 
 It's important to state right up front that a string holds _arbitrary_ bytes.
@@ -48,7 +49,7 @@ Here is a string literal (more about those soon) that uses the
 
 .code strings/basic.go /const sample/
 
-* Printing strings
+## Printing strings
 
 Because some of the bytes in our sample string are not valid ASCII, not even
 valid UTF-8, printing the string directly will produce ugly output.
@@ -145,7 +146,7 @@ instead of a string. Hint: Use a conversion to create the slice.]
 [Exercise: Loop over the string using the `%q` format on each byte.
 What does the output tell you?]
 
-* UTF-8 and string literals
+## UTF-8 and string literals
 
 As we saw, indexing a string yields its bytes, not its characters: a string is just a
 bunch of bytes.
@@ -189,7 +190,7 @@ When we print out the hexadecimal bytes, we're just dumping the
 data the editor placed in the file.
 
 In short, Go source code is UTF-8, so
-_the_source_code_for_the_string_literal_is_UTF-8_text_.
+_the source code for the string literal is UTF-8 text_.
 If that string literal contains no escape sequences, which a raw
 string cannot, the constructed string will hold exactly the
 source text  between the quotes.
@@ -210,7 +211,7 @@ as long as they have no byte-level escapes.
 To summarize, strings can contain arbitrary bytes, but when constructed
 from string literals, those bytes are (almost always) UTF-8.
 
-* Code points, characters, and runes
+## Code points, characters, and runes
 
 We've been very careful so far in how we use the words "byte" and "character".
 That's partly because strings hold bytes, and partly because the idea of "character"
@@ -219,7 +220,7 @@ The Unicode standard uses the term "code point" to refer to the item represented
 by a single value.
 The code point U+2318, with hexadecimal value 2318, represents the symbol ⌘.
 (For lots more information about that code point, see
-[[http://unicode.org/cldr/utility/character.jsp?a=2318][its Unicode page]].)
+[its Unicode page](http://unicode.org/cldr/utility/character.jsp?a=2318).)
 
 To pick a more prosaic example, the Unicode code point U+0061 is the lower
 case Latin letter 'A': a.
@@ -247,7 +248,7 @@ the same as "code point", with one interesting addition.
 The Go language defines the word `rune` as an alias for the type `int32`, so
 programs can be clear when an integer value represents a code point.
 Moreover, what you might think of as a character constant is called a
-_rune_constant_ in Go.
+_rune constant_ in Go.
 The type and value of the expression
 
 	'⌘'
@@ -256,13 +257,13 @@ is `rune` with integer value `0x2318`.
 
 To summarize, here are the salient points:
 
-- Go source code is always UTF-8.
-- A string holds arbitrary bytes.
-- A string literal, absent byte-level escapes, always holds valid UTF-8 sequences.
-- Those sequences represent Unicode code points, called runes.
-- No guarantee is made in Go that characters in strings are normalized.
+  - Go source code is always UTF-8.
+  - A string holds arbitrary bytes.
+  - A string literal, absent byte-level escapes, always holds valid UTF-8 sequences.
+  - Those sequences represent Unicode code points, called runes.
+  - No guarantee is made in Go that characters in strings are normalized.
 
-* Range loops
+## Range loops
 
 Besides the axiomatic detail that Go source code is UTF-8,
 there's really only one way that Go treats UTF-8 specially, and that is when using
@@ -287,14 +288,14 @@ The output shows how each code point occupies multiple bytes:
 [Exercise: Put an invalid UTF-8 byte sequence into the string. (How?)
 What happens to the iterations of the loop?]
 
-* Libraries
+## Libraries
 
 Go's standard library provides strong support for interpreting UTF-8 text.
 If a `for` `range` loop isn't sufficient for your purposes,
 chances are the facility you need is provided by a package in the library.
 
 The most important such package is
-[[https://golang.org/pkg/unicode/utf8/][`unicode/utf8`]],
+[`unicode/utf8`](https://golang.org/pkg/unicode/utf8/),
 which contains
 helper routines to validate, disassemble, and reassemble UTF-8 strings.
 Here is a program equivalent to the `for` `range` example above,
@@ -310,11 +311,11 @@ The `for` `range` loop and `DecodeRuneInString` are defined to produce
 exactly the same iteration sequence.
 
 Look at the
-[[https://golang.org/pkg/unicode/utf8/][documentation]]
+[documentation](https://golang.org/pkg/unicode/utf8/)
 for the `unicode/utf8` package to see what
 other facilities it provides.
 
-* Conclusion
+## Conclusion
 
 To answer the question posed at the beginning: Strings are built from bytes
 so indexing them yields bytes, not characters.

@@ -1,10 +1,11 @@
-Error handling and Go
+# Error handling and Go
 12 Jul 2011
 Tags: error, interface, type, technical
+Summary: If you have written any Go code you have probably encountered the built-in `error` type. Go code uses `error` values to indicate an abnormal state. For example, the `os.Open` function returns a non-nil `error` value when it fails to open a file.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 If you have written any Go code you have probably encountered the built-in `error` type.
 Go code uses `error` values to indicate an abnormal state.
@@ -16,17 +17,17 @@ it fails to open a file.
 The following code uses `os.Open` to open a file.
 If an error occurs it calls `log.Fatal` to print the error message and stop.
 
-	    f, err := os.Open("filename.ext")
-	    if err != nil {
-	        log.Fatal(err)
-	    }
-	    // do something with the open *File f
+	f, err := os.Open("filename.ext")
+	if err != nil {
+	    log.Fatal(err)
+	}
+	// do something with the open *File f
 
 You can get a lot done in Go knowing just this about the `error` type,
 but in this article we'll take a closer look at `error` and discuss some
 good practices for error handling in Go.
 
-* The error type
+## The error type
 
 The `error` type is an interface type. An `error` variable represents any
 value that can describe itself as a string.
@@ -37,10 +38,10 @@ Here is the interface's declaration:
 	}
 
 The `error` type, as with all built in types,
-is [[https://golang.org/doc/go_spec.html#Predeclared_identifiers][predeclared]]
-in the [[https://golang.org/doc/go_spec.html#Blocks][universe block]].
+is [predeclared](https://golang.org/doc/go_spec.html#Predeclared_identifiers)
+in the [universe block](https://golang.org/doc/go_spec.html#Blocks).
 
-The most commonly-used `error` implementation is the [[https://golang.org/pkg/errors/][errors]]
+The most commonly-used `error` implementation is the [errors](https://golang.org/pkg/errors/)
 package's unexported `errorString` type.
 
 	// errorString is a trivial implementation of error.
@@ -76,12 +77,12 @@ The caller can access the error string ("math:
 square root of...") by calling the `error`'s `Error` method,
 or by just printing it:
 
-	    f, err := Sqrt(-1)
-	    if err != nil {
-	        fmt.Println(err)
-	    }
+	f, err := Sqrt(-1)
+	if err != nil {
+	    fmt.Println(err)
+	}
 
-The [[https://golang.org/pkg/fmt/][fmt]] package formats an `error` value by calling its `Error()`string` method.
+The [fmt](https://golang.org/pkg/fmt/) package formats an `error` value by calling its `Error() string` method.
 
 It is the error implementation's responsibility to summarize the context.
 The error returned by `os.Open` formats as "open /etc/passwd:
@@ -92,9 +93,9 @@ To add that information, a useful function is the `fmt` package's `Errorf`.
 It formats a string according to `Printf`'s rules and returns it as an `error`
 created by `errors.New`.
 
-	    if f < 0 {
-	        return 0, fmt.Errorf("math: square root of negative number %g", f)
-	    }
+	if f < 0 {
+	    return 0, fmt.Errorf("math: square root of negative number %g", f)
+	}
 
 In many cases `fmt.Errorf` is good enough,
 but since `error` is an interface, you can use arbitrary data structures as error values,
@@ -111,12 +112,12 @@ We can enable that by defining a new error implementation instead of using
 	    return fmt.Sprintf("math: square root of negative number %g", float64(f))
 	}
 
-A sophisticated caller can then use a [[https://golang.org/doc/go_spec.html#Type_assertions][type assertion]]
+A sophisticated caller can then use a [type assertion](https://golang.org/doc/go_spec.html#Type_assertions)
 to check for a `NegativeSqrtError` and handle it specially,
 while callers that just pass the error to `fmt.Println` or `log.Fatal` will
 see no change in behavior.
 
-As another example, the [[https://golang.org/pkg/encoding/json/][json]]
+As another example, the [json](https://golang.org/pkg/encoding/json/)
 package specifies a `SyntaxError` type that the `json.Decode` function returns
 when it encounters a syntax error parsing a JSON blob.
 
@@ -130,20 +131,20 @@ when it encounters a syntax error parsing a JSON blob.
 The `Offset` field isn't even shown in the default formatting of the error,
 but callers can use it to add file and line information to their error messages:
 
-	    if err := dec.Decode(&val); err != nil {
-	        if serr, ok := err.(*json.SyntaxError); ok {
-	            line, col := findLine(f, serr.Offset)
-	            return fmt.Errorf("%s:%d:%d: %v", f.Name(), line, col, err)
-	        }
-	        return err
+	if err := dec.Decode(&val); err != nil {
+	    if serr, ok := err.(*json.SyntaxError); ok {
+	        line, col := findLine(f, serr.Offset)
+	        return fmt.Errorf("%s:%d:%d: %v", f.Name(), line, col, err)
 	    }
+	    return err
+	}
 
-(This is a slightly simplified version of some [[https://github.com/camlistore/go4/blob/03efcb870d84809319ea509714dd6d19a1498483/jsonconfig/eval.go#L123-L135][actual code]]
-from the [[http://camlistore.org][Camlistore]] project.)
+(This is a slightly simplified version of some [actual code](https://github.com/camlistore/go4/blob/03efcb870d84809319ea509714dd6d19a1498483/jsonconfig/eval.go#L123-L135)
+from the [Camlistore](http://camlistore.org) project.)
 
 The `error` interface requires only a `Error` method;
 specific error implementations might have additional methods.
-For instance, the [[https://golang.org/pkg/net/][net]] package returns errors of type `error`,
+For instance, the [net](https://golang.org/pkg/net/) package returns errors of type `error`,
 following the usual convention, but some of the error implementations have
 additional methods defined by the `net.Error` interface:
 
@@ -160,15 +161,15 @@ transient network errors from permanent ones.
 For instance, a web crawler might sleep and retry when it encounters a temporary
 error and give up otherwise.
 
-	        if nerr, ok := err.(net.Error); ok && nerr.Temporary() {
-	            time.Sleep(1e9)
-	            continue
-	        }
-	        if err != nil {
-	            log.Fatal(err)
-	        }
+	if nerr, ok := err.(net.Error); ok && nerr.Temporary() {
+	    time.Sleep(1e9)
+	    continue
+	}
+	if err != nil {
+	    log.Fatal(err)
+	}
 
-* Simplifying repetitive error handling
+## Simplifying repetitive error handling
 
 In Go, error handling is important. The language's design and conventions
 encourage you to explicitly check for errors where they occur (as distinct
@@ -176,7 +177,7 @@ from the convention in other languages of throwing exceptions and sometimes catc
 In some cases this makes Go code verbose,
 but fortunately there are some techniques you can use to minimize repetitive error handling.
 
-Consider an [[https://cloud.google.com/appengine/docs/go/][App Engine]]
+Consider an [App Engine](https://cloud.google.com/appengine/docs/go/)
 application with an HTTP handler that retrieves a record from the datastore
 and formats it with a template.
 
@@ -222,7 +223,7 @@ Then we can change our `viewRecord` function to return errors:
 	}
 
 This is simpler than the original version,
-but the [[https://golang.org/pkg/net/http/][http]] package doesn't understand
+but the [http](https://golang.org/pkg/net/http/) package doesn't understand
 functions that return `error`.
 To fix this we can implement the `http.Handler` interface's `ServeHTTP`
 method on `appHandler`:
@@ -237,7 +238,7 @@ The `ServeHTTP` method calls the `appHandler` function and displays the
 returned error (if any) to the user.
 Notice that the method's receiver, `fn`, is a function.
 (Go can do that!) The method invokes the function by calling the receiver
-in the expression `fn(w,`r)`.
+in the expression `fn(w, r)`.
 
 Now when registering `viewRecord` with the http package we use the `Handle`
 function (instead of `HandleFunc`) as `appHandler` is an `http.Handler`
@@ -266,7 +267,7 @@ Next we modify the appHandler type to return `*appError` values:
 	type appHandler func(http.ResponseWriter, *http.Request) *appError
 
 (It's usually a mistake to pass back the concrete type of an error rather than `error`,
-for reasons discussed in [[https://golang.org/doc/go_faq.html#nil_error][the Go FAQ]],
+for reasons discussed in [the Go FAQ](https://golang.org/doc/go_faq.html#nil_error),
 but it's the right thing to do here because `ServeHTTP` is the only place
 that sees the value and uses its contents.)
 
@@ -304,20 +305,20 @@ friendlier user experience.
 
 It doesn't end there; we can further improve the error handling in our application. Some ideas:
 
-- give the error handler a pretty HTML template,
+  - give the error handler a pretty HTML template,
 
-- make debugging easier by writing the stack trace to the HTTP response when the user is an administrator,
+  - make debugging easier by writing the stack trace to the HTTP response when the user is an administrator,
 
-- write a constructor function for `appError` that stores the stack trace for easier debugging,
+  - write a constructor function for `appError` that stores the stack trace for easier debugging,
 
-- recover from panics inside the `appHandler`,
-  logging the error to the console as "Critical," while telling the user "a
-  serious error has occurred." This is a nice touch to avoid exposing the
-  user to inscrutable error messages caused by programming errors.
-  See the [[https://golang.org/doc/articles/defer_panic_recover.html][Defer, Panic, and Recover]]
-  article for more details.
+  - recover from panics inside the `appHandler`,
+    logging the error to the console as "Critical," while telling the user "a
+    serious error has occurred." This is a nice touch to avoid exposing the
+    user to inscrutable error messages caused by programming errors.
+    See the [Defer, Panic, and Recover](https://golang.org/doc/articles/defer_panic_recover.html)
+    article for more details.
 
-* Conclusion
+## Conclusion
 
 Proper error handling is an essential requirement of good software.
 By employing the techniques described in this post you should be able to

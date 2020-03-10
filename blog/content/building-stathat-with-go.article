@@ -1,17 +1,18 @@
-Building StatHat with Go
+# Building StatHat with Go
 19 Dec 2011
 Tags: guest
+Summary: My name is Patrick Crosby and I'm the founder of a company called Numerotron. We recently released [StatHat](http://www.stathat.com). This post is about why we chose to develop StatHat in [Go](https://golang.org), including details about how we are using Go.
 
 Patrick Crosby
 
-* Introduction
+## Introduction
 
 My name is Patrick Crosby and I'm the founder of a company called Numerotron.
-We recently released [[http://www.stathat.com][StatHat]].
-This post is about why we chose to develop StatHat in [[https://golang.org][Go]],
+We recently released [StatHat](http://www.stathat.com).
+This post is about why we chose to develop StatHat in [Go](https://golang.org),
 including details about how we are using Go.
 
-[[http://www.stathat.com][StatHat]] is a tool to track statistics and events in your code.
+[StatHat](http://www.stathat.com) is a tool to track statistics and events in your code.
 Everyone from HTML designers to backend engineers can use StatHat easily,
 as it supports sending stats from HTML, JavaScript,
 Go, and twelve other languages.
@@ -29,7 +30,7 @@ Here's an example of a StatHat graph of the temperature in NYC, Chicago, and San
 
 .image building-stathat-with-go_weather.png
 
-* Architecture Overview
+## Architecture Overview
 
 StatHat consists of two main services:  incoming statistic/event API calls
 and the web application for viewing and analyzing stats.
@@ -56,27 +57,27 @@ The interactor layer allows us to have different interfaces to the system:
 http, command line, automated tests, mobile API.
 StatHat uses MySQL for data storage.
 
-* Choosing Go
+## Choosing Go
 
 When we designed StatHat, we had the following check list for our development tools:
 
-- same programming language for backend and frontend systems
+  - same programming language for backend and frontend systems
 
-- good, fast HTML templating system
+  - good, fast HTML templating system
 
-- fast start-up, recompilation, testing for lots of tinkering
+  - fast start-up, recompilation, testing for lots of tinkering
 
-- lots of connections on one machine
+  - lots of connections on one machine
 
-- language tools for handling application-level concurrency
+  - language tools for handling application-level concurrency
 
-- good performance
+  - good performance
 
-- robust RPC layer to talk between tiers
+  - robust RPC layer to talk between tiers
 
-- lots of libraries
+  - lots of libraries
 
-- open source
+  - open source
 
 We evaluated many popular and not-so-popular web technologies and ended up choosing to develop it in Go.
 
@@ -85,30 +86,30 @@ the fast compilation times,
 goroutines, channels, garbage collection,
 and all the packages that were available.
 I was especially pleased with how few lines of code my applications were using.
-I soon experimented with making a web app called [[http://langalot.com/][Langalot]]
+I soon experimented with making a web app called [Langalot](http://langalot.com/)
 that concurrently searched through five foreign language dictionaries as
 you typed in a query.
 It was blazingly fast.  I put it online and it's been running since February, 2010.
 
 The following sections detail how Go meets StatHat's requirements and our experience using Go to solve our problems.
 
-* Runtime
+## Runtime
 
-We use the standard Go [[https://golang.org/pkg/http/][http package]] for
+We use the standard Go [http package](https://golang.org/pkg/http/) for
 our API and web app servers.
 All requests first go through Nginx and any non-file requests are proxied
 to the Go-powered http servers.
-The backend servers are all written in Go and use the [[https://golang.org/pkg/rpc/][rpc package]]
+The backend servers are all written in Go and use the [rpc package](https://golang.org/pkg/rpc/)
 to communicate with the frontend.
 
-* Templating
+## Templating
 
-We built a template system using the standard [[https://golang.org/pkg/template/][template package]].
+We built a template system using the standard [template package](https://golang.org/pkg/template/).
 Our system adds layouts, some common formatting functions,
 and the ability to recompile templates on-the-fly during development.
 We are very pleased with the performance and functionality of the Go templates.
 
-* Tinkering
+## Tinkering
 
 In a previous job, I worked on a video game called Throne of Darkness that was written in C++.
 We had a few header files that, when modified,
@@ -126,18 +127,18 @@ As mentioned previously, templates are recompiled as they change.
 The result is that the StatHat system is very easy to work with,
 and the compiler is not a bottleneck.
 
-* RPC
+## RPC
 
 Since StatHat is a multi-tiered system, we wanted an RPC layer so that all
 communication was standard.
-With Go, we are using the [[https://golang.org/pkg/rpc/][rpc package]] and
-the [[https://golang.org/pkg/gob/][gob package]] for encoding Go objects.
+With Go, we are using the [rpc package](https://golang.org/pkg/rpc/) and
+the [gob package](https://golang.org/pkg/gob/) for encoding Go objects.
 In Go, the RPC server just takes any Go object and registers its exported methods.
 There is no need for an intermediary interface description language.
 We've found it very easy to use and many of our core application servers
 are under 300 lines of code.
 
-* Libraries
+## Libraries
 
 We don't want to spend time rewriting libraries for things like SSL,
 database drivers, JSON/XML parsers.
@@ -145,7 +146,7 @@ Although Go is a young language, it has a lot of system packages and a growing
 number of user-contributed packages.
 With only a few exceptions, we have found Go packages for everything we have needed.
 
-* Open source
+## Open source
 
 In our experience, it has been invaluable to work with open source tools.
 If something is going awry, it is immensely helpful to be able to examine
@@ -156,7 +157,7 @@ Everything in Go is open source.  In the Go codebase,
 we frequently read the tests as they often give great examples of how to
 use packages and language features.
 
-* Performance
+## Performance
 
 People rely on StatHat for up to the minute analysis of their data and we
 need the system to be as responsive as possible.
@@ -169,7 +170,7 @@ Because of this, we were able to easily evaluate different technologies.
 We've also taken advantage of the benchmark performance testing features
 of the Go testing package.
 
-* Application-Level Concurrency
+## Application-Level Concurrency
 
 In a former life, I was the CTO at OkCupid.
 My experience there using OKWS taught me the importance of async programming,
@@ -183,17 +184,17 @@ Go supports this at the language level without any callback spaghetti.
 StatHat uses goroutines extensively to run multiple functions concurrently
 and channels for sharing data between goroutines.
 
-* Hosting and Deployment
+## Hosting and Deployment
 
 StatHat runs on Amazon's EC2 servers.  Our servers are divided into several types:
 
-- API
+  - API
 
-- Web
+  - Web
 
-- Application servers
+  - Application servers
 
-- Database
+  - Database
 
 There are at least two of each type of server,
 and they are in different zones for high availability.
@@ -208,11 +209,11 @@ A script on each server queries its EC2 tags and determines what it is responsib
 for running and starts/stops/restarts any services.
 We frequently only deploy to a subset of the servers.
 
-* More
+## More
 
-For more information on StatHat, please visit [[http://www.stathat.com][stathat.com]].
+For more information on StatHat, please visit [stathat.com](http://www.stathat.com).
 We are releasing some of the Go code we've written.
-Go to [[http://www.stathat.com/src][www.stathat.com/src]] for all of the
+Go to [www.stathat.com/src](http://www.stathat.com/src) for all of the
 open source StatHat projects.
 
-To learn more about Go, visit [[https://golang.org/][golang.org]].
+To learn more about Go, visit [golang.org](https://golang.org/).

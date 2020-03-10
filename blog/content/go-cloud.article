@@ -1,27 +1,28 @@
-Portable Cloud Programming with Go Cloud
+# Portable Cloud Programming with Go Cloud
 24 Jul 2018
+Summary: Today, the Go team at Google is releasing a new open source project, [Go Cloud](https://github.com/google/go-cloud), a library and tools for developing on the [open cloud](https://cloud.google.com/open-cloud/). With this project, we aim to make Go the language of choice for developers building portable cloud applications.
 
 Eno Compton
 
 Cassandra Salisbury
 
-* Introduction
+## Introduction
 
 Today, the Go team at Google is releasing a new open source project,
-[[https://github.com/google/go-cloud][Go Cloud]],
-a library and tools for developing on the [[https://cloud.google.com/open-cloud/][open cloud]].
+[Go Cloud](https://github.com/google/go-cloud),
+a library and tools for developing on the [open cloud](https://cloud.google.com/open-cloud/).
 With this project, we aim to make Go the language of choice for developers
 building portable cloud applications.
 
 This post explains why we started this project, the details of how Go Cloud works, and how to get involved.
 
-* Why portable cloud programming? Why now?
+## Why portable cloud programming? Why now?
 
-We estimate there are now [[https://research.swtch.com/gophercount][over one million]]
+We estimate there are now [over one million](https://research.swtch.com/gophercount)
 Go developers worldwide.
 Go powers many of the most critical cloud infrastructure projects,
 including Kubernetes, Istio, and Docker.
-Companies like Lyft, Capital One, Netflix and [[https://github.com/golang/go/wiki/GoUsers][many more]]
+Companies like Lyft, Capital One, Netflix and [many more](https://github.com/golang/go/wiki/GoUsers)
 are depending on Go in production.
 Over the years, we've found that developers love Go for cloud development
 because of its efficiency,
@@ -31,8 +32,8 @@ As part of our work to support Go's rapid growth,
 we have been interviewing teams who work with Go to understand how they
 use the language and how the Go ecosystem can improve further.
 One common theme with many organizations is the need for portability across cloud providers.
-These teams want to deploy robust applications in [[https://en.wikipedia.org/wiki/Cloud_computing#Multicloud][multi-cloud]]
-and [[https://en.wikipedia.org/wiki/Cloud_computing#Hybrid_cloud][hybrid-cloud]] environments,
+These teams want to deploy robust applications in [multi-cloud](https://en.wikipedia.org/wiki/Cloud_computing#Multicloud)
+and [hybrid-cloud](https://en.wikipedia.org/wiki/Cloud_computing#Hybrid_cloud) environments,
 and migrate their workloads between cloud providers without significant
 changes to their code.
 
@@ -51,7 +52,7 @@ Go Cloud makes it possible for teams to meet their feature development goals
 while also preserving the long-term flexibility for multi-cloud and hybrid-cloud architectures.
 Go Cloud applications can also migrate to the cloud providers that best meet their needs.
 
-* What is Go Cloud?
+## What is Go Cloud?
 
 We have identified common services used by cloud applications and have created
 generic APIs to work across cloud providers.
@@ -70,13 +71,13 @@ cloud libraries that work across providers.
 Community feedback, from all types of developers at all levels,
 will inform the priority of future APIs in Go Cloud.
 
-* How does it work?
+## How does it work?
 
 At the core of Go Cloud is a collection of generic APIs for portable cloud programming.
 Let's look at an example of using blob storage.
-You can use the generic type [[https://godoc.org/github.com/google/go-cloud/blob#Bucket][`*blob.Bucket`]]
+You can use the generic type [`*blob.Bucket`](https://godoc.org/github.com/google/go-cloud/blob#Bucket)
 to copy a file from a local disk to a cloud provider.
-Let's start by opening an S3 bucket using the included [[https://godoc.org/github.com/google/go-cloud/blob/s3blob][s3blob package]]:
+Let's start by opening an S3 bucket using the included [s3blob package](https://godoc.org/github.com/google/go-cloud/blob/s3blob):
 
 	// setupBucket opens an AWS bucket.
 	func setupBucket(ctx context.Context) (*blob.Bucket, error) {
@@ -121,7 +122,7 @@ Notice how the logic of using the bucket does not refer to AWS S3.
 Go Cloud makes swapping out cloud storage a matter of changing the function
 used to open the `*blob.Bucket`.
 The application could instead use Google Cloud Storage by constructing a
-`*blob.Bucket` using [[https://godoc.org/github.com/google/go-cloud/blob/gcsblob#OpenBucket][`gcsblob.OpenBucket`]]
+`*blob.Bucket` using [`gcsblob.OpenBucket`](https://godoc.org/github.com/google/go-cloud/blob/gcsblob#OpenBucket)
 without changing the code that copies the file:
 
 	// setupBucket opens a GCS bucket.
@@ -148,34 +149,34 @@ Go Cloud leverages established interfaces like `io.Writer`,
 
 The setup code needed to access cloud services tends to follow a pattern:
 higher abstractions are constructed from more basic abstractions.
-While you could write this code by hand, Go Cloud automates this with *Wire*,
+While you could write this code by hand, Go Cloud automates this with **Wire**,
 a tool that generates cloud-specific setup code for you.
-The [[https://github.com/google/go-cloud/tree/master/wire][Wire documentation]]
-explains how to install and use the tool and the [[https://github.com/google/go-cloud/tree/master/samples/guestbook][Guestbook sample]]
+The [Wire documentation](https://github.com/google/go-cloud/tree/master/wire)
+explains how to install and use the tool and the [Guestbook sample](https://github.com/google/go-cloud/tree/master/samples/guestbook)
 shows Wire in action.
 
-* How can I get involved and learn more?
+## How can I get involved and learn more?
 
-To get started, we recommend following [[https://github.com/google/go-cloud/tree/master/samples/tutorial][the tutorial]]
+To get started, we recommend following [the tutorial](https://github.com/google/go-cloud/tree/master/samples/tutorial)
 and then trying to build an application yourself.
 If you're already using AWS or GCP, you can try migrating parts of your
 existing application to use Go Cloud.
 If you're using a different cloud provider or an on-premise service,
 you can extend Go Cloud to support it by implementing the driver interfaces
-(like [[https://godoc.org/github.com/google/go-cloud/blob/driver#Bucket][`driver.Bucket`]]).
+(like [`driver.Bucket`](https://godoc.org/github.com/google/go-cloud/blob/driver#Bucket)).
 
 We appreciate any and all input you have about your experience.
-[[https://github.com/google/go-cloud][Go Cloud's]] development is conducted on GitHub.
+[Go Cloud's](https://github.com/google/go-cloud) development is conducted on GitHub.
 We are looking forward to contributions, including pull requests.
-[[https://github.com/google/go-cloud/issues/new][File an issue]] to tell
+[File an issue](https://github.com/google/go-cloud/issues/new) to tell
 us what could be better or what future APIs the project should support.
 For updates and discussion about the project,
-join [[https://groups.google.com/forum/#!forum/go-cloud][the project's mailing list]].
+join [the project's mailing list](https://groups.google.com/forum/#!forum/go-cloud).
 
 The project requires contributors to sign the same Contributor License Agreement
 as that of the Go project.
-Read the [[https://github.com/google/go-cloud/blob/master/CONTRIBUTING.md][contribution guidelines]] for more details.
-Please note, Go Cloud is covered by the Go [[https://github.com/google/go-cloud/blob/master/CODE_OF_CONDUCT.md][Code of Conduct]].
+Read the [contribution guidelines](https://github.com/google/go-cloud/blob/master/CONTRIBUTING.md) for more details.
+Please note, Go Cloud is covered by the Go [Code of Conduct](https://github.com/google/go-cloud/blob/master/CODE_OF_CONDUCT.md).
 
 Thank you for taking the time to learn about Go Cloud.
 We are excited to work with you to make Go the language of choice for developers

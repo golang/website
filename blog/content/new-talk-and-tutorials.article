@@ -1,25 +1,26 @@
-New Talk and Tutorials
+# New Talk and Tutorials
 5 May 2010
+Summary: Rob Pike recently gave a talk at Stanford's [Computer Systems Colloquium](http://www.stanford.edu/class/ee380/) (EE380). Titled [_Another Go at Language Design_](http://www.stanford.edu/class/ee380/Abstracts/100428.html), the presentation gives an overview of the itches Go was built to scratch, and how Go addresses those problems. You can view [a video stream of the talk](https://www.youtube.com/watch?v=7VcArS4Wpqk), and [download the slides](http://www.stanford.edu/class/ee380/Abstracts/100428-pike-stanford.pdf).
 
 Andrew Gerrand
 
-* Introduction
+##
 
-Rob Pike recently gave a talk at Stanford's [[http://www.stanford.edu/class/ee380/][Computer Systems Colloquium]] (EE380).
-Titled [[http://www.stanford.edu/class/ee380/Abstracts/100428.html][_Another_Go_at_Language_Design_]],
+Rob Pike recently gave a talk at Stanford's [Computer Systems Colloquium](http://www.stanford.edu/class/ee380/) (EE380).
+Titled [_Another Go at Language Design_](http://www.stanford.edu/class/ee380/Abstracts/100428.html),
 the presentation gives an overview of the itches Go was built to scratch,
 and how Go addresses those problems.
-You can view [[https://www.youtube.com/watch?v=7VcArS4Wpqk][a video stream of the talk]],
-and [[http://www.stanford.edu/class/ee380/Abstracts/100428-pike-stanford.pdf][download the slides]].
+You can view [a video stream of the talk](https://www.youtube.com/watch?v=7VcArS4Wpqk),
+and [download the slides](http://www.stanford.edu/class/ee380/Abstracts/100428-pike-stanford.pdf).
 
-Last week's release included a code lab, [[https://golang.org/doc/codelab/wiki/][Writing Web Applications]],
+Last week's release included a code lab, [Writing Web Applications](https://golang.org/doc/codelab/wiki/),
 that details the construction of a simple wiki program.
 It is a practical introduction to some fundamental Go concepts,
 and the first of a series of Go code labs.
 
 Lastly, we are often asked "How do Go packages work?" It's easier to show than to explain,
-so I put together a [[http://www.youtube.com/watch?v=jDWBJOXs_iI][Go Packages screen cast]]
+so I put together a [Go Packages screen cast](http://www.youtube.com/watch?v=jDWBJOXs_iI)
 that demonstrates the process of writing,
 building, installing, and redistributing Go packages.
 I hope to post more of these covering a variety of Go programming topics
-to the [[http://youtube.com/gocoding][gocoding YouTube channel]] in the near future.
+to the [gocoding YouTube channel](http://youtube.com/gocoding) in the near future.

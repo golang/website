@@ -1,36 +1,37 @@
-Deploying Go servers with Docker
+# Deploying Go servers with Docker
 26 Sep 2014
+Summary: This week Docker [announced](https://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/) official base images for Go and other major languages, giving programmers a trusted and easy way to build containers for their Go programs.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
-This week Docker [[https://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/][announced]]
+This week Docker [announced](https://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/)
 official base images for Go and other major languages,
 giving programmers a trusted and easy way to build containers for their Go programs.
 
 In this article we'll walk through a recipe for creating a Docker container for
 a simple Go web application and deploying that container to Google Compute Engine.
 If you're not familiar with Docker, you should read
-[[https://docs.docker.com/engine/understanding-docker/][Understanding Docker]]
+[Understanding Docker](https://docs.docker.com/engine/understanding-docker/)
 before reading on.
 
-* The demo app
+## The demo app
 
 For our demonstration we will use the
-[[https://godoc.org/github.com/golang/example/outyet][outyet]] program from the
-[[https://github.com/golang/example][Go examples repository]],
+[outyet](https://godoc.org/github.com/golang/example/outyet) program from the
+[Go examples repository](https://github.com/golang/example),
 a simple web server that reports whether the next version of Go has been released
-(designed to power sites like [[http://isgo1point4.outyet.org/][isgo1point4.outyet.org]]).
+(designed to power sites like [isgo1point4.outyet.org](http://isgo1point4.outyet.org/)).
 It has no dependencies outside the standard library and requires no additional
 data files at run time; for a web server, it's about as simple as it gets.
 
 Use "go get" to fetch and install outyet in your
-[[https://golang.org/doc/code.html#Workspaces][workspace]]:
+[workspace](https://golang.org/doc/code.html#Workspaces):
 
 	$ go get github.com/golang/example/outyet
 
-* Write a Dockerfile
+## Write a Dockerfile
 
 Replace a file named `Dockerfile` in the `outyet` directory with the following contents:
 
@@ -54,12 +55,12 @@ Replace a file named `Dockerfile` in the `outyet` directory with the following c
 
 This `Dockerfile` specifies how to construct a container that runs `outyet`,
 starting with the basic dependencies (a Debian system with Go installed;
-the [[https://registry.hub.docker.com/_/golang/][official `golang` docker image]]),
+the [official `golang` docker image](https://registry.hub.docker.com/_/golang/)),
 adding the `outyet` package source, building it, and then finally running it.
 
 The `ADD`, `RUN`, and `ENTRYPOINT` steps are common tasks for any Go project.
 To simplify this, there is an
-[[https://github.com/docker-library/golang/blob/9ff2ccca569f9525b023080540f1bb55f6b59d7f/1.3.1/onbuild/Dockerfile][`onbuild` variant]]
+[`onbuild` variant](https://github.com/docker-library/golang/blob/9ff2ccca569f9525b023080540f1bb55f6b59d7f/1.3.1/onbuild/Dockerfile)
 of the `golang` image that automatically copies the package source, fetches the
 application dependencies, builds the program, and configures it to run on
 startup.
@@ -69,7 +70,7 @@ With the `onbuild` variant, the `Dockerfile` is much simpler:
 	FROM golang:onbuild
 	EXPOSE 8080
 
-* Build and run the image
+## Build and run the image
 
 Invoke Docker from the `outyet` package directory to build an image using the `Dockerfile`:
 
@@ -96,31 +97,31 @@ you should see something like this:
 
 (If your docker daemon is running on another machine (or in a virtual machine),
 you should replace `localhost` with the address of that machine. If you're
-using [[http://boot2docker.io/][boot2docker]] on OS X or Windows you can find
-that address with `boot2docker`ip`.)
+using [boot2docker](http://boot2docker.io/) on OS X or Windows you can find
+that address with `boot2docker ip`.)
 
 Now that we've verified that the image works, shut down the running container
 from another terminal window:
 
 	$ docker stop test
 
-* Create a repository on Docker Hub
+## Create a repository on Docker Hub
 
-[[https://hub.docker.com/][Docker Hub]], the container registry from which we
+[Docker Hub](https://hub.docker.com/), the container registry from which we
 pulled the `golang` image earlier, offers a feature called
-[[http://docs.docker.com/docker-hub/builds/][Automated Builds]] that builds
+[Automated Builds](http://docs.docker.com/docker-hub/builds/) that builds
 images from a GitHub or BitBucket repository.
 
-By committing [[https://github.com/golang/example/blob/master/outyet/Dockerfile][the Dockerfile]]
+By committing [the Dockerfile](https://github.com/golang/example/blob/master/outyet/Dockerfile)
 to the repository and creating an
-[[https://registry.hub.docker.com/u/adg1/outyet/][automated build]]
+[automated build](https://registry.hub.docker.com/u/adg1/outyet/)
 for it, anyone with Docker installed can download and run our image with a
 single command. (We will see the utility of this in the next section.)
 
 To set up an Automated Build, commit the Dockerfile to your repo on
-[[https://github.com/][GitHub]] or [[https://bitbucket.org/][BitBucket]],
+[GitHub](https://github.com/) or [BitBucket](https://bitbucket.org/),
 create an account on Docker Hub, and follow the instructions for
-[[http://docs.docker.com/docker-hub/builds/][creating an Automated Build]].
+[creating an Automated Build](http://docs.docker.com/docker-hub/builds/).
 
 When you're done, you can run your container using the name of the automated build:
 
@@ -128,15 +129,15 @@ When you're done, you can run your container using the name of the automated bui
 
 (Replace `goexample/outyet` with the name of the automated build you created.)
 
-* Deploy the container to Google Compute Engine
+## Deploy the container to Google Compute Engine
 
 Google provides
-[[https://developers.google.com/compute/docs/containers/container_vms][container-optimized Google Compute Engine images]]
+[container-optimized Google Compute Engine images](https://developers.google.com/compute/docs/containers/container_vms)
 that make it easy to spin up a virtual machine running an arbitrary Docker container.
 On startup, a program running on the instance reads a configuration file that
 specifies which container to run, fetches the container image, and runs it.
 
-Create a [[https://cloud.google.com/compute/docs/containers/container_vms#container_manifest][containers.yaml]]
+Create a [containers.yaml](https://cloud.google.com/compute/docs/containers/container_vms#container_manifest)
 file that specifies the docker image to run and the ports to expose:
 
 	version: v1beta2
@@ -152,7 +153,7 @@ file that specifies the docker image to run and the ports to expose:
 the default port for serving HTTP traffic. And, again, you should replace
 `goexample/outyet` with the name of your Automated Build.)
 
-Use the [[https://cloud.google.com/sdk/#Quick_Start][gcloud tool]]
+Use the [gcloud tool](https://cloud.google.com/sdk/#Quick_Start)
 to create a VM instance running the container:
 
 	$ gcloud compute instances create outyet \
@@ -176,7 +177,7 @@ firewall to expose port 80 on the public network interface.
 
 The `--zone` and `--machine-type` flags specify the zone in which to run the VM
 and the type of machine to run. (To see a list of machine types and the zones,
-run `gcloud`compute`machine-types`list`.)
+run `gcloud compute machine-types list`.)
 
 Once this has completed, the gcloud command should print some information about
 the instance. In the output, locate the `networkInterfaces` section to find the
@@ -185,17 +186,17 @@ to access that IP with your web browser and see the "Has Go 1.4 been released
 yet?" page.
 
 (To see what's happening on the new VM instance you can ssh into it with
-`gcloud`compute`ssh`outyet`. From there, try `sudo`docker`ps` to see which
+`gcloud compute ssh outyet`. From there, try `sudo docker ps` to see which
 Docker containers are running.)
 
-* Learn more
+## Learn more
 
 This is just the tip of the iceberg—there's a lot more you can do with Go, Docker, and Google Compute Engine.
 
-To learn more about Docker, see their [[https://docs.docker.com/][extensive documentation]].
+To learn more about Docker, see their [extensive documentation](https://docs.docker.com/).
 
-To learn more about Docker and Go, see the [[https://registry.hub.docker.com/_/golang/][official `golang` Docker Hub repository]] and Kelsey Hightower's [[https://medium.com/@kelseyhightower/optimizing-docker-images-for-static-binaries-b5696e26eb07][Optimizing Docker Images for Static Go Binaries]].
+To learn more about Docker and Go, see the [official `golang` Docker Hub repository](https://registry.hub.docker.com/_/golang/) and Kelsey Hightower's [Optimizing Docker Images for Static Go Binaries](https://medium.com/@kelseyhightower/optimizing-docker-images-for-static-binaries-b5696e26eb07).
 
-To learn more about Docker and [[http://cloud.google.com/compute][Google Compute Engine]],
-see the [[https://cloud.google.com/compute/docs/containers/container_vms][Container-optimized VMs page]]
-and the [[https://registry.hub.docker.com/u/google/docker-registry/][google/docker-registry Docker Hub repository]].
+To learn more about Docker and [Google Compute Engine](http://cloud.google.com/compute),
+see the [Container-optimized VMs page](https://cloud.google.com/compute/docs/containers/container_vms)
+and the [google/docker-registry Docker Hub repository](https://registry.hub.docker.com/u/google/docker-registry/).

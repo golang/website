@@ -1,27 +1,28 @@
-Text normalization in Go
+# Text normalization in Go
 26 Nov 2013
 Tags: strings, bytes, runes, characters
+Summary: An earlier [post](https://blog.golang.org/strings) talked about strings, bytes and characters in Go. I've been working on various packages for multilingual text processing for the go.text repository. Several of these packages deserve a separate blog post, but today I want to focus on [go.text/unicode/norm](https://godoc.org/code.google.com/p/go.text/unicode/norm), which handles normalization, a topic touched in the [strings article](https://blog.golang.org/strings) and the subject of this post. Normalization works at a higher level of abstraction than raw bytes.
 
 Marcel van Lohuizen
 
-* Introduction
+## Introduction
 
-An earlier [[https://blog.golang.org/strings][post]] talked about strings, bytes
+An earlier [post](https://blog.golang.org/strings) talked about strings, bytes
 and characters in Go. I've been working on various packages for multilingual
 text processing for the go.text repository. Several of these packages deserve a
 separate blog post, but today I want to focus on
-[[https://godoc.org/code.google.com/p/go.text/unicode/norm][go.text/unicode/norm]],
+[go.text/unicode/norm](https://godoc.org/code.google.com/p/go.text/unicode/norm),
 which handles normalization, a topic touched in the
-[[https://blog.golang.org/strings][strings article]] and the subject of this
+[strings article](https://blog.golang.org/strings) and the subject of this
 post. Normalization works at a higher level of abstraction than raw bytes.
 
 To learn pretty much everything you ever wanted to know about normalization
-(and then some), [[http://unicode.org/reports/tr15/][Annex 15 of the Unicode Standard]]
+(and then some), [Annex 15 of the Unicode Standard](http://unicode.org/reports/tr15/)
 is a good read. A more approachable article is the corresponding
-[[http://en.wikipedia.org/wiki/Unicode_equivalence][Wikipedia page]]. Here we
+[Wikipedia page](http://en.wikipedia.org/wiki/Unicode_equivalence). Here we
 focus on how normalization relates to Go.
 
-* What is normalization?
+## What is normalization?
 
 There are often several ways to represent the same string. For example, an é
 (e-acute) can be represented in a string as a single rune ("\u00e9") or an 'e'
@@ -46,12 +47,12 @@ Consortium identifies these forms:
 
 .html normalization/table1.html
 
-* Go's approach to normalization
+## Go's approach to normalization
 
 As mentioned in the strings blog post, Go does not guarantee that characters in
 a string are normalized. However, the go.text packages can compensate. For
 example, the
-[[https://godoc.org/code.google.com/p/go.text/collate][collate]] package, which
+[collate](https://godoc.org/code.google.com/p/go.text/collate) package, which
 can sort strings in a language-specific way, works correctly even with
 unnormalized strings. The packages in go.text do not always require normalized
 input, but in general normalization may be necessary for consistent results.
@@ -59,7 +60,7 @@ input, but in general normalization may be necessary for consistent results.
 Normalization isn't free but it is fast, particularly for collation and
 searching or if a string is either in NFD or in NFC and can be converted to NFD
 by decomposing without reordering its bytes. In practice,
-[[http://www.macchiato.com/unicode/nfc-faq#TOC-How-much-text-is-already-NFC-][99.98%]] of
+[99.98%](http://www.macchiato.com/unicode/nfc-faq#TOC-How-much-text-is-already-NFC-) of
 the web's HTML page content is in NFC form (not counting markup, in which case
 it would be more). By far most NFC can be decomposed to NFD without the need
 for reordering (which requires allocation). Also, it is efficient to detect
@@ -78,7 +79,7 @@ two NFC-normalized strings is not guaranteed to be in NFC.
 Of course, we can also avoid the overhead outright if we know in advance that a
 string is already normalized, which is often the case.
 
-* Why bother?
+## Why bother?
 
 After all this discussion about avoiding normalization, you might ask why it's
 worth worrying about at all. The reason is that there are cases where
@@ -87,7 +88,7 @@ in turn how to do it correctly.
 
 Before discussing those, we must first clarify the concept of 'character'.
 
-* What is a character?
+## What is a character?
 
 As was mentioned in the strings blog post, characters can span multiple runes.
 For example, an 'e' and '◌́' (acute "\u0301") can combine to form 'é' ("e\u0301"
@@ -119,7 +120,7 @@ placed after a freshly inserted Combining Grapheme Joiner (CGJ or U+034F). Go
 adopts this approach for all normalization algorithms. This decision gives up a
 little conformance but gains a little safety.
 
-* Writing in normal form
+## Writing in normal form
 
 Even if you don't need to normalize text within your Go code, you might still
 want to do so when communicating to the outside world. For example, normalizing
@@ -129,7 +130,7 @@ APIs might expect text in a certain normal form. Or you might just want to fit
 in and output your text as NFC like the rest of the world.
 
 To write your text as NFC, use the
-[[https://godoc.org/code.google.com/p/go.text/unicode/norm][unicode/norm]] package
+[unicode/norm](https://godoc.org/code.google.com/p/go.text/unicode/norm) package
 to wrap your `io.Writer` of choice:
 
 	wc := norm.NFC.Writer(w)
@@ -144,7 +145,7 @@ simpler form:
 Package norm provides various other methods for normalizing text.
 Pick the one that suits your needs best.
 
-* Catching look-alikes
+## Catching look-alikes
 
 Can you tell the difference between 'K' ("\u004B") and 'K' (Kelvin sign
 "\u212A") or 'Ω' ("\u03a9") and 'Ω' (Ohm sign "\u2126")? It is easy to overlook
@@ -159,7 +160,7 @@ look alike, but are really from two different alphabets. For example the Latin
 'o', Greek 'ο', and Cyrillic 'о' are still different characters as defined by
 these forms.
 
-* Correct text modifications
+## Correct text modifications
 
 The norm package might also come to the rescue when one needs to modify text.
 Consider a case where you want to search and replace the word "cafe" with its
@@ -202,14 +203,14 @@ the fact that characters can span multiple runes. Generally these kinds of
 problems can be avoided by using search functionality that respects character
 boundaries (such as the planned go.text/search package.)
 
-* Iteration
+## Iteration
 
 Another tool provided by the norm package that may help dealing with character
 boundaries is its iterator,
-[[https://godoc.org/code.google.com/p/go.text/unicode/norm#Iter][`norm.Iter`]].
+[`norm.Iter`](https://godoc.org/code.google.com/p/go.text/unicode/norm#Iter).
 It iterates over characters one at a time in the normal form of choice.
 
-* Performing magic
+## Performing magic
 
 As mentioned earlier, most text is in NFC form, where base characters and
 modifiers are combined into a single rune whenever possible.  For the purpose
@@ -240,16 +241,16 @@ of choice as follows:
 This will, for example, convert any mention of "cafés" in the text to "cafes",
 regardless of the normal form in which the original text was encoded.
 
-* Normalization info
+## Normalization info
 
 As mentioned earlier, some packages precompute normalizations into their tables
 to minimize the need for normalization at run time. The type `norm.Properties`
 provides access to the per-rune information needed by these packages, most
 notably the Canonical Combining Class and decomposition information. Read the
-[[https://godoc.org/code.google.com/p/go.text/unicode/norm/#Properties][documentation]]
+[documentation](https://godoc.org/code.google.com/p/go.text/unicode/norm/#Properties)
 for this type if you want to dig deeper.
 
-* Performance
+## Performance
 
 To give an idea of the performance of normalization, we compare it against the
 performance of strings.ToLower. The sample in the first row is both lowercase
@@ -269,7 +270,7 @@ processing larger strings. As it turns out, these buffers are rarely needed, so
 we may change the implementation at some point to speed up the common case for
 small strings even further.
 
-* Conclusion
+## Conclusion
 
 If you're dealing with text inside Go, you generally do not have to use the
 unicode/norm package to normalize your text. The package may still be useful

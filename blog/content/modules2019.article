@@ -1,10 +1,11 @@
-Go Modules in 2019
+# Go Modules in 2019
 19 Dec 2018
 Tags: tools, versioning
+Summary: 2018 was a great year for the Go ecosystem, with package management as one of our major focuses. In February, we started a community-wide discussion about how to integrate package management directly into the Go toolchain, and in August we delivered the first rough implementation of that feature, called Go modules, in Go 1.11. The migration to Go modules will be the most far-reaching change for the Go ecosystem since Go 1. Converting the entire ecosystem—code, users, tools, and so on—from GOPATH to modules will require work in many different areas. The module system will in turn help us deliver better authentication and build speeds to the Go ecosystem.
 
 Russ Cox
 
-* What a year!
+## What a year!
 
 2018 was a great year for the Go ecosystem, with
 package management as one of our major focuses.
@@ -22,9 +23,9 @@ better authentication and build speeds to the Go ecosystem.
 This post is a preview of what the Go team is planning
 relating to modules in 2019.
 
-* Releases
+## Releases
 
-Go 1.11, released in August 2018, introduced [[https://golang.org/doc/go1.11#modules][preliminary support for modules]].
+Go 1.11, released in August 2018, introduced [preliminary support for modules](https://golang.org/doc/go1.11#modules).
 For now, module support is maintained alongside the
 traditional GOPATH-based mechanisms.
 The `go` command defaults to module mode when run
@@ -51,7 +52,7 @@ and deprecate GOPATH mode.
 In order to do that, we’ve been working on better tooling support
 along with better support for the open-source module ecosystem.
 
-* Tooling & IDE Integration
+## Tooling & IDE Integration
 
 In the eight years that we’ve had GOPATH,
 an incredible amount of tooling has been created
@@ -59,7 +60,7 @@ that assumes Go source code is stored in GOPATH.
 Moving to modules requires updating all code that makes
 that assumption.
 We’ve designed a new package,
-[[https://godoc.org/golang.org/x/tools/go/packages][golang.org/x/tools/go/packages]],
+[golang.org/x/tools/go/packages](https://godoc.org/golang.org/x/tools/go/packages),
 that abstracts the operation of finding and loading information
 about the Go source code for a given target.
 This new package adapts automatically to both
@@ -74,7 +75,7 @@ unify the various source code querying tools
 like gocode, godef, and go-outline
 into a single tool that can be used from the
 command line and also supports
-the [[https://langserver.org/][language server protocol]]
+the [language server protocol](https://langserver.org/)
 used by modern IDEs.
 
 The transition to modules and the changes in package loading
@@ -85,7 +86,7 @@ analysis of Go programs,
 in which an analyzer is invoked for one package at a time.
 In this framework, the analysis of one package can write out facts
 made available to analyses of other packages that import the first.
-For example, `go` `vet`’s analysis of the [[https://golang.org/pkg/log/][log package]]
+For example, `go` `vet`’s analysis of the [log package](https://golang.org/pkg/log/)
 determines and records the fact that `log.Printf` is a `fmt.Printf` wrapper.
 Then `go` `vet` can check printf-style format strings in other packages
 that call `log.Printf`.
@@ -93,7 +94,7 @@ This framework should enable many new, sophisticated
 program analysis tools to help developers find bugs earlier
 and understand code better.
 
-* Module Index
+## Module Index
 
 One of the most important parts of the original design for `go` `get`
 was that it was _decentralized_:
@@ -126,7 +127,7 @@ We also want the service to allow looking up packages
 using simple queries, to allow `goimports` to add
 imports for packages that have not yet been downloaded to the local system.
 
-* Module Authentication
+## Module Authentication
 
 Today, `go` `get` relies on connection-level authentication (HTTPS or SSH)
 to check that it is talking to the right server to download code.
@@ -157,8 +158,8 @@ downloads new modules,
 and cryptographically signs statements of the form
 “module M at version V has file tree hash H.”
 The notary service will publish all these notarized hashes
-in a queryable, [[https://www.certificate-transparency.org/][Certificate Transparency]]-style
-[[http://static.usenix.org/event/sec09/tech/full_papers/crosby.pdf][tamper-proof log]],
+in a queryable, [Certificate Transparency](https://www.certificate-transparency.org/)-style
+[tamper-proof log](http://static.usenix.org/event/sec09/tech/full_papers/crosby.pdf),
 so that anyone can verify that the notary is behaving correctly.
 This log will serve as a public, global `go.sum` file
 that `go` `get` can use to authenticate modules
@@ -168,7 +169,7 @@ We are aiming to have the `go` command check notarized hashes
 for publicly-available modules not already in `go.sum`
 starting in Go 1.13.
 
-* Module Mirrors
+## Module Mirrors
 
 Because the decentralized `go` `get` fetches code from multiple origin servers,
 fetching code is only as fast and reliable as the slowest,
@@ -183,7 +184,7 @@ repository that uses it.
 The Go module design introduces the idea of a module proxy,
 which is a server that the `go` command asks for modules,
 instead of the origin servers.
-One important kind of proxy is a _module_mirror_,
+One important kind of proxy is a _module mirror_,
 which answers requests for modules by fetching them
 from origin servers and then caching them for use in
 future requests.
@@ -210,7 +211,7 @@ ready to be used by default in the `go` command starting in Go 1.13.
 Using an alternate mirror, or no mirror at all, will be trivial
 to configure.
 
-* Module Discovery
+## Module Discovery
 
 Finally, we mentioned earlier that the module index will make it easier to
 build sites like godoc.org.
@@ -219,7 +220,7 @@ to make it more useful for developers who need to
 discover available modules
 and then decide whether to rely on a given module or not.
 
-* Big Picture
+## Big Picture
 
 This diagram shows how module source code
 moves through the design in this post.

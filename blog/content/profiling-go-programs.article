@@ -1,13 +1,14 @@
-Profiling Go Programs
+# Profiling Go Programs
 24 Jun 2011
 Tags: benchmark, pprof, profiling, technical
+Summary: At Scala Days 2011, Robert Hundt presented a paper titled [Loop Recognition in C++/Java/Go/Scala.](http://research.google.com/pubs/pub37122.html) The paper implemented a specific loop finding algorithm, such as you might use in a flow analysis pass of a compiler, in C++, Go, Java, Scala, and then used those programs to draw conclusions about typical performance concerns in these languages. The Go program presented in that paper runs quite slowly, making it an excellent opportunity to demonstrate how to use Go's profiling tools to take a slow program and make it faster.
 
 Russ Cox, July 2011; updated by Shenghou Ma, May 2013
 
-* Introduction
+##
 
 At Scala Days 2011, Robert Hundt presented a paper titled
-[[http://research.google.com/pubs/pub37122.html][Loop Recognition in C++/Java/Go/Scala.]]
+[Loop Recognition in C++/Java/Go/Scala.](http://research.google.com/pubs/pub37122.html)
 The paper implemented a specific loop finding algorithm, such as you might use
 in a flow analysis pass of a compiler, in C++, Go, Java, Scala, and then used
 those programs to draw conclusions about typical performance concerns in these
@@ -16,7 +17,7 @@ The Go program presented in that paper runs quite slowly, making it
 an excellent opportunity to demonstrate how to use Go's profiling tools to take
 a slow program and make it faster.
 
-_By_using_Go's_profiling_tools_to_identify_and_correct_specific_bottlenecks,_we_can_make_the_Go_loop_finding_program_run_an_order_of_magnitude_faster_and_use_6x_less_memory._
+_By using Go's profiling tools to identify and correct specific bottlenecks, we can make the Go loop finding program run an order of magnitude faster and use 6x less memory._
 (Update: Due to recent optimizations of `libstdc++` in `gcc`, the memory reduction is now 3.7x.)
 
 Hundt's paper does not specify which versions of the C++, Go, Java, and Scala
@@ -51,7 +52,7 @@ The machine is running with CPU frequency scaling disabled via
 	done
 	#
 
-We've taken [[https://github.com/hundt98847/multi-language-bench][Hundt's benchmark programs]]
+We've taken [Hundt's benchmark programs](https://github.com/hundt98847/multi-language-bench)
 in C++ and Go, combined each into a single source file, and removed all but one
 line of output.
 We'll time the program using Linux's `time` utility with a format that shows user time,
@@ -84,7 +85,7 @@ point of this post is to explore how to use `go tool pprof`, not to reproduce th
 results from the paper.)
 
 To start tuning the Go program, we have to enable profiling.
-If the code used the [[https://golang.org/pkg/testing/][Go testing package]]'s
+If the code used the [Go testing package](https://golang.org/pkg/testing/)'s
 benchmarking support, we could use gotest's standard `-cpuprofile` and `-memprofile`
 flags.
 In a standalone program like this one, we have to import `runtime/pprof` and add a few
@@ -105,12 +106,12 @@ lines of code:
 	    ...
 
 The new code defines a flag named `cpuprofile`, calls the
-[[https://golang.org/pkg/flag/][Go flag library]] to parse the command line flags,
+[Go flag library](https://golang.org/pkg/flag/) to parse the command line flags,
 and then, if the `cpuprofile` flag has been set on the command line,
-[[https://golang.org/pkg/runtime/pprof/#StartCPUProfile][starts CPU profiling]]
+[starts CPU profiling](https://golang.org/pkg/runtime/pprof/#StartCPUProfile)
 redirected to that file.
 The profiler requires a final call to
-[[https://golang.org/pkg/runtime/pprof/#StopCPUProfile][`StopCPUProfile`]] to
+[`StopCPUProfile`](https://golang.org/pkg/runtime/pprof/#StopCPUProfile) to
 flush any pending writes to the file before the program exits; we use `defer`
 to make sure this happens as `main` returns.
 
@@ -125,7 +126,7 @@ and then run `go tool pprof` to interpret the profile.
 	(pprof)
 
 The `go tool pprof` program is a slight variant of
-[[https://github.com/gperftools/gperftools][Google's `pprof` C++ profiler]].
+[Google's `pprof` C++ profiler](https://github.com/gperftools/gperftools).
 The most important command is `topN`, which shows the top `N` samples in the profile:
 
 	(pprof) top10
@@ -180,12 +181,12 @@ than the text listings can show.
 The `web` command writes a graph of the profile data in SVG format and opens it in a web
 browser.
 (There is also a `gv` command that writes PostScript and opens it in Ghostview.
-For either command, you need [[http://www.graphviz.org/][graphviz]] installed.)
+For either command, you need [graphviz](http://www.graphviz.org/) installed.)
 
 	(pprof) web
 
 A small fragment of
-[[https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.svg][the full graph]] looks like:
+[the full graph](https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.svg) looks like:
 
 .image profiling-go-programs_havlak1a-75.png
 
@@ -240,7 +241,7 @@ The related command `disasm` shows a disassembly of the function instead of a so
 listing; when there are enough samples this can help you see which instructions are
 expensive.
 The `weblist` command mixes the two modes: it shows
-[[https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.html][a source listing in which clicking a line shows the disassembly]].
+[a source listing in which clicking a line shows the disassembly](https://rawgit.com/rsc/benchgraffiti/master/havlak/havlak1.html).
 
 Since we already know that the time is going into map lookups implemented by the
 hash runtime functions, we care most about the second column.
@@ -265,7 +266,7 @@ and cut its run time by nearly a factor of two:
 	16.55u 0.11s 16.69r 1321008kB ./havlak2
 	$
 
-(See the [[https://github.com/rsc/benchgraffiti/commit/58ac27bcac3ffb553c29d0b3fb64745c91c95948][diff between `havlak1` and `havlak2`]])
+(See the [diff between `havlak1` and `havlak2`](https://github.com/rsc/benchgraffiti/commit/58ac27bcac3ffb553c29d0b3fb64745c91c95948))
 
 We can run the profiler again to confirm that `main.DFS` is no longer a significant
 part of the run time:
@@ -317,7 +318,7 @@ We invoke the program with `-memprofile` flag to write a profile:
 	./havlak3 -memprofile=havlak3.mprof
 	$
 
-(See the [[https://github.com/rsc/benchgraffiti/commit/b78dac106bea1eb3be6bb3ca5dba57c130268232][diff from havlak2]])
+(See the [diff from havlak2](https://github.com/rsc/benchgraffiti/commit/b78dac106bea1eb3be6bb3ca5dba57c130268232))
 
 We use `go tool pprof` exactly the same way. Now the samples we are examining are
 memory allocations, not clock ticks.
@@ -426,7 +427,7 @@ of maps requires changing just a few lines of code.
 	11.84u 0.08s 11.94r 810416kB ./havlak4
 	$
 
-(See the [[https://github.com/rsc/benchgraffiti/commit/245d899f7b1a33b0c8148a4cd147cb3de5228c8a][diff from havlak3]])
+(See the [diff from havlak3](https://github.com/rsc/benchgraffiti/commit/245d899f7b1a33b0c8148a4cd147cb3de5228c8a))
 
 We're now at 2.11x faster than when we started. Let's look at a CPU profile again.
 
@@ -525,33 +526,33 @@ We'll add a global `cache` structure:
 
 and then have `FindLoops` consult it as a replacement for allocation:
 
-	    if cache.size < size {
-	        cache.size = size
-	        cache.nonBackPreds = make([][]int, size)
-	        cache.backPreds = make([][]int, size)
-	        cache.number = make([]int, size)
-	        cache.header = make([]int, size)
-	        cache.types = make([]int, size)
-	        cache.last = make([]int, size)
-	        cache.nodes = make([]*UnionFindNode, size)
-	        for i := range cache.nodes {
-	            cache.nodes[i] = new(UnionFindNode)
-	        }
+	if cache.size < size {
+	    cache.size = size
+	    cache.nonBackPreds = make([][]int, size)
+	    cache.backPreds = make([][]int, size)
+	    cache.number = make([]int, size)
+	    cache.header = make([]int, size)
+	    cache.types = make([]int, size)
+	    cache.last = make([]int, size)
+	    cache.nodes = make([]*UnionFindNode, size)
+	    for i := range cache.nodes {
+	        cache.nodes[i] = new(UnionFindNode)
 	    }
+	}
 
-	    nonBackPreds := cache.nonBackPreds[:size]
-	    for i := range nonBackPreds {
-	        nonBackPreds[i] = nonBackPreds[i][:0]
-	    }
-	    backPreds := cache.backPreds[:size]
-	    for i := range nonBackPreds {
-	        backPreds[i] = backPreds[i][:0]
-	    }
-	    number := cache.number[:size]
-	    header := cache.header[:size]
-	    types := cache.types[:size]
-	    last := cache.last[:size]
-	    nodes := cache.nodes[:size]
+	nonBackPreds := cache.nonBackPreds[:size]
+	for i := range nonBackPreds {
+	    nonBackPreds[i] = nonBackPreds[i][:0]
+	}
+	backPreds := cache.backPreds[:size]
+	for i := range nonBackPreds {
+	    backPreds[i] = backPreds[i][:0]
+	}
+	number := cache.number[:size]
+	header := cache.header[:size]
+	types := cache.types[:size]
+	last := cache.last[:size]
+	nodes := cache.nodes[:size]
 
 Such a global variable is bad engineering practice, of course: it means that
 concurrent calls to `FindLoops` are now unsafe.
@@ -568,7 +569,7 @@ track this memory, restoring the possibility of concurrent use.
 	8.03u 0.06s 8.11r 770352kB ./havlak5
 	$
 
-(See the [[https://github.com/rsc/benchgraffiti/commit/2d41d6d16286b8146a3f697dd4074deac60d12a4][diff from havlak4]])
+(See the [diff from havlak4](https://github.com/rsc/benchgraffiti/commit/2d41d6d16286b8146a3f697dd4074deac60d12a4))
 
 There's more we can do to clean up the program and make it faster, but none of
 it requires profiling techniques that we haven't already shown.
@@ -577,7 +578,7 @@ calls to `FindLoops`, and it can be combined with the separate “node pool” g
 during that pass.
 Similarly, the loop graph storage can be reused on each iteration instead of reallocated.
 In addition to these performance changes, the
-[[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.go][final version]]
+[final version](https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.go)
 is written using idiomatic Go style, using data structures and methods.
 The stylistic changes have only a minor effect on the run time: the algorithm and
 constraints are unchanged.
@@ -605,7 +606,7 @@ Of course, it's no longer fair to compare this Go program to the original C++
 program, which used inefficient data structures like `set`s where `vector`s would
 be more appropriate.
 As a sanity check, we translated the final Go program into
-[[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.cc][equivalent C++ code]].
+[equivalent C++ code](https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.cc).
 Its execution time is similar to the Go program's:
 
 	$ make havlak6cc
@@ -623,8 +624,8 @@ cache, the C++ program a bit shorter and easier to write, but not dramatically s
 	 461 1441 9467 havlak6.go
 	$
 
-(See [[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.cc][havlak6.cc]]
-and [[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.go][havlak6.go]])
+(See [havlak6.cc](https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.cc)
+and [havlak6.go](https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.go))
 
 Benchmarks are only as good as the programs they measure.
 We used `go tool pprof` to study an inefficient Go program and then to improve its
@@ -634,11 +635,11 @@ competitive with C++ when programmers are careful about how much garbage is gene
 by inner loops.
 
 The program sources, Linux x86-64 binaries, and profiles used to write this post
-are available in the [[https://github.com/rsc/benchgraffiti/][benchgraffiti project on GitHub]].
+are available in the [benchgraffiti project on GitHub](https://github.com/rsc/benchgraffiti/).
 
-As mentioned above, [[https://golang.org/cmd/go/#Test_packages][`go test`]] includes
+As mentioned above, [`go test`](https://golang.org/cmd/go/#Test_packages) includes
 these profiling flags already: define a
-[[https://golang.org/pkg/testing/][benchmark function]] and you're all set.
+[benchmark function](https://golang.org/pkg/testing/) and you're all set.
 There is also a standard HTTP interface to profiling data. In an HTTP server, adding
 
 	import _ "net/http/pprof"

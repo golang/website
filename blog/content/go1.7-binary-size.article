@@ -1,10 +1,11 @@
-Smaller Go 1.7 binaries
+# Smaller Go 1.7 binaries
 18 Aug 2016
+Summary: Go was designed for writing servers. That is how it is most widely used today, and as a result a lot of work on the runtime and compiler is focused on issues that matter to servers: latency, ease of deployment, precise garbage collection, fast startup time, performance.
 
 David Crawshaw
 crawshaw@golang.org
 
-* Introduction
+## Introduction
 
 Go was designed for writing servers.
 That is how it is most widely used today, and as a result a lot of
@@ -15,13 +16,13 @@ fast startup time, performance.
 As Go gets used for a wider variety of programs, there are new issues that must be considered.
 One of these is binary size.
 It has been on the radar for a long time
-(issue [[https://golang.org/issue/6853][#6853]] was filed over two
+(issue [\#6853](https://golang.org/issue/6853) was filed over two
 years ago), but the growing interest in using Go for
 deploying binaries on smaller devices — such as the Raspberry Pi or
 mobile devices — means it received some attention for the Go 1.7
 release.
 
-* Work done in Go 1.7
+## Work done in Go 1.7
 
 Three significant changes in Go 1.7 affect binary size.
 
@@ -41,7 +42,7 @@ Now the compiler discards any unexported methods that do not match an
 interface.
 Similarly the linker can discard other exported methods, those that are only
 accessible through reflection, if the corresponding
-[[https://golang.org/pkg/reflect/#Value.Call][reflection features]]
+[reflection features](https://golang.org/pkg/reflect/#Value.Call)
 are not used anywhere in the program.
 That change shrinks binaries by 5–20%.
 
@@ -61,9 +62,9 @@ interface data layout, better static data layout, and simplified
 dependencies. For example, the HTTP client no longer links in the entire HTTP
 server.
 The full list of changes can be found in issue
-[[https://golang.org/issue/6853][#6853]].
+[\#6853](https://golang.org/issue/6853).
 
-* Results
+## Results
 
 Typical programs, ranging from tiny toys to large production programs,
 are about 30% smaller when built with Go 1.7.
@@ -99,7 +100,7 @@ of program shipped to phones.
 Big downloads make for a poor user experience, so the reduction here
 is good news.
 
-* Future Work
+## Future Work
 
 Several changes to the run-time type information were too late for the
 Go 1.7 freeze, but will hopefully make it into 1.8, further shrinking
@@ -108,7 +109,7 @@ programs, especially position-independent ones.
 These changes are all conservative, reducing binary size without increasing
 build time, startup time, overall execution time, or memory usage.
 We could take more radical steps to reduce binary size: the
-[[http://upx.sourceforge.net/][upx]] tool for compressing executables
+[upx](http://upx.sourceforge.net/) tool for compressing executables
 shrinks binaries by another 50% at the cost of increased startup time
 and potentially increased memory use.
 For extremely small systems (the kind that might live on a keychain)

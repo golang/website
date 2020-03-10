@@ -1,32 +1,33 @@
-Two Go Talks: "Lexical Scanning in Go" and "Cuddle: an App Engine Demo"
+# Two Go Talks: "Lexical Scanning in Go" and "Cuddle: an App Engine Demo"
 1 Sep 2011
 Tags: appengine, lexer, talk, video
+Summary: On Tuesday night Rob Pike and Andrew Gerrand each presented at the [Sydney Google Technology User Group](http://www.sydney-gtug.org/).
 
 Andrew Gerrand
 
-* Introduction
+##
 
-On Tuesday night Rob Pike and Andrew Gerrand each presented at the [[http://www.sydney-gtug.org/][Sydney Google Technology User Group]].
+On Tuesday night Rob Pike and Andrew Gerrand each presented at the [Sydney Google Technology User Group](http://www.sydney-gtug.org/).
 
-Rob's talk, "[[http://www.youtube.com/watch?v=HxaD_trXwRE][Lexical Scanning in Go]]",
+Rob's talk, "[Lexical Scanning in Go](http://www.youtube.com/watch?v=HxaD_trXwRE)",
 discusses the design of  a particularly interesting and idiomatic piece of Go code,
-the lexer component of the new [[https://golang.org/pkg/exp/template/][template package.]]
+the lexer component of the new [template package.](https://golang.org/pkg/exp/template/)
 
 .iframe //www.youtube.com/embed/HxaD_trXwRE 345 560
 
-The slides are [[http://cuddle.googlecode.com/hg/talk/lex.html][available here]].
-The new template package is available as [[https://golang.org/pkg/exp/template/][exp/template]] in Go release r59.
+The slides are [available here](http://cuddle.googlecode.com/hg/talk/lex.html).
+The new template package is available as [exp/template](https://golang.org/pkg/exp/template/) in Go release r59.
 In a future release it will replace the old template package.
 
-Andrew's talk, "[[http://www.youtube.com/watch?v=HQtLRqqB-Kk][Cuddle: an App Engine Demo]]",
+Andrew's talk, "[Cuddle: an App Engine Demo](http://www.youtube.com/watch?v=HQtLRqqB-Kk)",
 describes the construction of a simple real-time chat application that uses
-App Engine's [[http://code.google.com/appengine/docs/go/datastore/overview.html][Datastore]],
-[[http://code.google.com/appengine/docs/go/channel/overview.html][Channel]],
-and [[http://code.google.com/appengine/docs/go/datastore/memcache.html][Memcache]] APIs.
-It also includes a question and answer session that covers [[http://code.google.com/appengine/docs/go/gettingstarted/][Go for App Engine]]
+App Engine's [Datastore](http://code.google.com/appengine/docs/go/datastore/overview.html),
+[Channel](http://code.google.com/appengine/docs/go/channel/overview.html),
+and [Memcache](http://code.google.com/appengine/docs/go/datastore/memcache.html) APIs.
+It also includes a question and answer session that covers [Go for App Engine](http://code.google.com/appengine/docs/go/gettingstarted/)
 and Go more generally.
 
 .iframe //www.youtube.com/embed/HQtLRqqB-Kk 345 560
 
-The slides are [[http://cuddle.googlecode.com/hg/talk/index.html][available here]].
-The code is available at the [[http://code.google.com/p/cuddle/][cuddle Google Code project]].
+The slides are [available here](http://cuddle.googlecode.com/hg/talk/index.html).
+The code is available at the [cuddle Google Code project](http://code.google.com/p/cuddle/).

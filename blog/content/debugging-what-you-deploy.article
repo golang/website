@@ -1,10 +1,11 @@
-Debugging what you deploy in Go 1.12
+# Debugging what you deploy in Go 1.12
 21 Mar 2019
 Tags: debug, technical
+Summary: Go 1.11 and Go 1.12 make significant progress toward allowing developers to debug the same optimized binaries that they deploy to production.
 
 David Chase
 
-* Introduction
+## Introduction
 
 Go 1.11 and Go 1.12 make significant progress toward allowing developers
 to debug the same optimized binaries that they deploy to production.
@@ -23,32 +24,32 @@ For Go 1.11 and 1.12, we focused on improving the debugging experience on
 optimized binaries (the default setting of the Go compiler).
 Improvements include
 
-- More accurate value inspection, in particular for arguments at function entry;
-- More precisely identifying statement boundaries so that stepping is less
-  jumpy and breakpoints more often land where the programmer expects;
-- And preliminary support for Delve to call Go functions (goroutines and
-  garbage collection make this trickier than it is in C and C++).
+  - More accurate value inspection, in particular for arguments at function entry;
+  - More precisely identifying statement boundaries so that stepping is less
+    jumpy and breakpoints more often land where the programmer expects;
+  - And preliminary support for Delve to call Go functions (goroutines and
+    garbage collection make this trickier than it is in C and C++).
 
-* Debugging optimized code with Delve
+## Debugging optimized code with Delve
 
-[[https://github.com/go-delve/delve][Delve]] is a debugger for Go on x86
+[Delve](https://github.com/go-delve/delve) is a debugger for Go on x86
 supporting both Linux and macOS.
 Delve is aware of goroutines and other Go features and provides one of the
 best Go debugging experiences.
-Delve is also the debugging engine behind [[https://www.jetbrains.com/go/][GoLand]],
-[[https://code.visualstudio.com/][VS Code]],
-and [[https://github.com/fatih/vim-go][Vim]].
+Delve is also the debugging engine behind [GoLand](https://www.jetbrains.com/go/),
+[VS Code](https://code.visualstudio.com/),
+and [Vim](https://github.com/fatih/vim-go).
 
-Delve normally rebuilds the code it is debugging with `-gcflags`"all=-N`-l"`,
+Delve normally rebuilds the code it is debugging with `-gcflags "all=-N -l"`,
 which disables inlining and most optimizations.
 To debug optimized code with delve, first build the optimized binary,
-then use `dlv`exec`your_program` to debug it.
+then use `dlv exec your_program` to debug it.
 Or, if you have a core file from a crash,
-you can examine it with `dlv`core`your_program`your_core`.
+you can examine it with `dlv core your_program your_core`.
 With 1.12 and the latest Delve releases, you should be able to examine many variables,
 even in optimized binaries.
 
-* Improved value inspection
+## Improved value inspection
 
 When debugging optimized binaries produced by Go 1.10,
 variable values were usually completely unavailable.
@@ -59,7 +60,7 @@ In Go 1.11 the compiler began emitting DWARF location lists so debuggers
 can track variables as they move in and out of registers and reconstruct
 complex objects that are split across different registers and stack slots.
 
-* Improved stepping
+## Improved stepping
 
 This shows an example of stepping through a simple function in a debugger in 1.10,
 with flaws (skipped and repeated lines) highlighted by red arrows.
@@ -74,7 +75,7 @@ of tracking source line numbers through optimizations and inlining.
 As a result, in Go 1.12, stepping through this code stops on every line
 and does so in the order you would expect.
 
-* Function calls
+## Function calls
 
 Function call support in Delve is still under development, but simple cases work.  For example:
 
@@ -83,7 +84,7 @@ Function call support in Delve is still under development, but simple cases work
 	Values returned:
 		~r1: 8
 
-* The path forward
+## The path forward
 
 Go 1.12 is a step toward a better debugging experience for optimized binaries
 and we have plans to improve it even further.
@@ -102,13 +103,13 @@ we’re focusing on the order of stepping with panics,
 the order of stepping around loops, and generally trying to follow source
 order where possible.
 
-* A note on macOS support
+## A note on macOS support
 
 Go 1.11 started compressing debug information to reduce binary sizes.
 This is natively supported by Delve, but neither LLDB nor GDB support compressed
 debug info on macOS.
 If you are using LLDB or GDB, there are two workarounds:
 build binaries with `-ldflags=-compressdwarf=false`,
-or use [[https://godoc.org/golang.org/x/tools/cmd/splitdwarf][splitdwarf]]
-(`go`get`golang.org/x/tools/cmd/splitdwarf`) to decompress the debug information
+or use [splitdwarf](https://godoc.org/golang.org/x/tools/cmd/splitdwarf)
+(`go get golang.org/x/tools/cmd/splitdwarf`) to decompress the debug information
 in an existing binary.

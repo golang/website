@@ -1,16 +1,17 @@
-Go 2016 Survey Results
-06 Mar 2017
+# Go 2016 Survey Results
+6 Mar 2017
 Tags: survey, community
+Summary: This post summarizes the result of our December 2016 user survey along with our commentary and insights. We are grateful to everyone who provided their feedback through the survey to help shape the future of Go.
 
 Steve Francia, for the Go team
 spf@golang.org
 
-* Thank you
+## Thank you
 
 This post summarizes the result of our December 2016 user survey along with our commentary and insights.
 We are grateful to everyone who provided their feedback through the survey to help shape the future of Go.
 
-* Programming background
+## Programming background
 
 Of the 3,595 survey respondents, 89% said they program in Go at work or outside of work,
 with 39% using Go both at home and at work, 27% using Go only at home, and 23% using Go only at work.
@@ -34,7 +35,7 @@ Go is clearly attracting many programmers from dynamic languages.
 
 .html survey2016/background.html
 
-* Go usage
+## Go usage
 
 Users are overwhelmingly happy with Go:
 they agree that they would recommend Go to others by a ratio of 19:1,
@@ -66,7 +67,7 @@ We welcome suggestions and contributions from the community in making these chal
 
 .html survey2016/usage.html
 
-* Development and deployment
+## Development and deployment
 
 When asked which operating systems they develop Go on,
 63% of respondents say they use Linux, 44% use MacOS, and 19% use Windows,
@@ -78,7 +79,7 @@ Go deployment is roughly evenly split between privately managed servers and host
 
 .html survey2016/dev.html
 
-* Working Effectively
+## Working Effectively
 
 We asked how strongly people agreed or disagreed with various statements about Go.
 Users most agreed that Go’s performance meets their needs (57:1 ratio agree versus disagree),
@@ -103,7 +104,7 @@ Stack Overflow, and reading source code directly.
 
 .html survey2016/effective.html
 
-* The Go Project
+## The Go Project
 
 55% of respondents expressed interest in contributing in some way to the Go community and projects.
 Unfortunately, relatively few agreed that they felt welcome to do so (3.3:1)
@@ -123,7 +124,7 @@ Throughout 2017 we will be exploring new ways to engage with users to better und
 
 .html survey2016/project.html
 
-* Community
+## Community
 
 At the end of the survey, we asked some demographic questions.
 The country distribution of responses roughly matches the country distribution of site visits to golang.org,

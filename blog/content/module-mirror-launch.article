@@ -1,48 +1,49 @@
-Module Mirror and Checksum Database Launched
+# Module Mirror and Checksum Database Launched
 29 Aug 2019
 Tags: tools, versioning
+Summary: We are excited to share that our module [mirror](https://proxy.golang.org), [index](https://index.golang.org), and [checksum database](https://sum.golang.org) are now production ready! The `go` command will use the module mirror and checksum database by default for [Go 1.13 module users](https://golang.org/doc/go1.13#introduction).  See [proxy.golang.org/privacy](https://proxy.golang.org/privacy) for privacy information about these services and the [go command documentation](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification) for configuration details, including how to disable the use of these servers or use different ones.  If you depend on non-public modules, see the [documentation for configuring your environment](https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules).
 
 Katie Hockman
 
-* Introduction
+##
 
-We are excited to share that our module [[https://proxy.golang.org][mirror]],
-[[https://index.golang.org][index]], and
-[[https://sum.golang.org][checksum database]] are now production ready! The `go` command
+We are excited to share that our module [mirror](https://proxy.golang.org),
+[index](https://index.golang.org), and
+[checksum database](https://sum.golang.org) are now production ready! The `go` command
 will use the module mirror and checksum database by default for
-[[https://golang.org/doc/go1.13#introduction][Go 1.13 module users]].  See
-[[https://proxy.golang.org/privacy][proxy.golang.org/privacy]] for privacy
+[Go 1.13 module users](https://golang.org/doc/go1.13#introduction).  See
+[proxy.golang.org/privacy](https://proxy.golang.org/privacy) for privacy
 information about these services and the
-[[https://golang.org/cmd/go/#hdr-Module_downloading_and_verification][go command documentation]]
+[go command documentation](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification)
 for configuration details, including how to disable the use of these servers or
 use different ones.  If you depend on non-public modules, see the
-[[https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules][documentation for configuring your environment]].
+[documentation for configuring your environment](https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules).
 
 This post will describe these services and the benefits of using them, and
 summarizes some of the points from the
-[[https://youtu.be/KqTySYYhPUE][Go Module Proxy: Life of a Query]] talk at Gophercon 2019.
-See the [[https://youtu.be/KqTySYYhPUE][recording]] if you are interested in the full talk.
+[Go Module Proxy: Life of a Query](https://youtu.be/KqTySYYhPUE) talk at Gophercon 2019.
+See the [recording](https://youtu.be/KqTySYYhPUE) if you are interested in the full talk.
 
-** Module Mirror
+## Module Mirror
 
-[[https://blog.golang.org/versioning-proposal][Modules]] are sets of Go packages
+[Modules](https://blog.golang.org/versioning-proposal) are sets of Go packages
 that are versioned together, and the contents of each version are immutable.
 That immutability provides new opportunities for caching and authentication.
-When `go`get` runs in module mode, it must fetch the module containing the
+When `go get` runs in module mode, it must fetch the module containing the
 requested packages, as well as any new dependencies introduced by that module,
 updating your
-[[https://golang.org/cmd/go/#hdr-The_go_mod_file][go.mod]] and
-[[https://golang.org/cmd/go/#hdr-Module_downloading_and_verification][go.sum]]
+[go.mod](https://golang.org/cmd/go/#hdr-The_go_mod_file) and
+[go.sum](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification)
 files as needed. Fetching modules from version control can be expensive in terms
 of latency and storage in your system: the `go` command may be forced to pull down
 the full commit history of a repository containing a transitive dependency, even
 one that isn’t being built, just to resolve its version.
 
 The solution is to use a module proxy, which speaks an API that is better suited
-to the `go` command’s needs (see `go`help`goproxy`). When `go`get` runs in
+to the `go` command’s needs (see `go help goproxy`). When `go get` runs in
 module mode with a proxy, it will work faster by only asking for the specific
 module metadata or source code it needs, and not worrying about the rest. Below is
-an example of how the `go` command may use a proxy with `go`get` by requesting the list
+an example of how the `go` command may use a proxy with `go get` by requesting the list
 of versions, then the info, mod, and zip file for the latest tagged version.
 
 .image module-mirror-launch/proxy-protocol.png _ 800
@@ -51,15 +52,15 @@ A module mirror is a special kind of module proxy that caches metadata and
 source code in its own storage system, allowing the mirror to continue to serve
 source code that is no longer available from the original locations. This can
 speed up downloads and protect you from disappearing dependencies. See
-[[https://blog.golang.org/modules2019][Go Modules in 2019]] for more information.
+[Go Modules in 2019](https://blog.golang.org/modules2019) for more information.
 
 The Go team maintains a module mirror, served at
-[[https://proxy.golang.org][proxy.golang.org]], which the `go` command will use by
+[proxy.golang.org](https://proxy.golang.org), which the `go` command will use by
 default for module users as of Go 1.13. If you are running an earlier version of the `go`
 command, then you can use this service by setting
 `GOPROXY=https://proxy.golang.org` in your local environment.
 
-** Checksum Database
+## Checksum Database
 
 Modules introduced the `go.sum` file, which is a list of SHA-256 hashes of the
 source code and `go.mod` files of each dependency when it was first downloaded.
@@ -76,15 +77,15 @@ someone else, perhaps because a proxy intentionally served malicious code
 targeted to you.
 
 Go's solution is a global source of `go.sum` lines, called a
-[[https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#checksum-database][checksum database]],
+[checksum database](https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#checksum-database),
 which ensures that the `go` command always adds the same lines to everyone's
 `go.sum` file. Whenever the `go` command receives new source code, it can verify the
 hash of that code against this global database to make sure the hashes match,
 ensuring that everyone is using the same code for a given version.
 
-The checksum database is served by [[https://sum.golang.org][sum.golang.org]], and
-is built on a [[https://research.swtch.com/tlog][Transparent Log]] (or “Merkle
-tree”) of hashes backed by [[https://github.com/google/trillian][Trillian]]. The
+The checksum database is served by [sum.golang.org](https://sum.golang.org), and
+is built on a [Transparent Log](https://research.swtch.com/tlog) (or “Merkle
+tree”) of hashes backed by [Trillian](https://github.com/google/trillian). The
 main advantage of a Merkle tree is that it is tamper proof and has properties
 that don’t allow for misbehavior to go undetected, which makes it more
 trustworthy than a simple database. The `go` command uses this tree to check
@@ -95,7 +96,7 @@ to your module’s `go.sum` file. Below is an example of such a tree.
 .image module-mirror-launch/tree.png _ 800
 
 The checksum database supports
-[[https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#checksum-database][a set of endpoints]]
+[a set of endpoints](https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#checksum-database)
 used by the `go` command to request and verify `go.sum` lines. The `/lookup`
 endpoint provides a “signed tree head” (STH) and the requested `go.sum` lines. The
 `/tile` endpoint provides chunks of the tree called _tiles_ which the `go` command
@@ -114,7 +115,7 @@ a specific version from one day to the next without the change being detected.
 
 If you are using Go 1.12 or earlier, you can manually check a `go.sum` file
 against the checksum database with
-[[https://godoc.org/golang.org/x/mod/gosumcheck][gosumcheck]]:
+[gosumcheck](https://godoc.org/golang.org/x/mod/gosumcheck):
 
 	$ go get golang.org/x/mod/gosumcheck
 	$ gosumcheck /path/to/go.sum
@@ -125,17 +126,17 @@ looking for bad entries. They can work together and gossip about the state of
 the tree as it grows to ensure that it remains uncompromised, and we hope that
 the Go community will run them.
 
-** Module Index
+## Module Index
 
-The module index is served by [[https://index.golang.org][index.golang.org]], and
+The module index is served by [index.golang.org](https://index.golang.org), and
 is a public feed of new module versions that become available through
-[[https://proxy.golang.org][proxy.golang.org]]. This is particularly useful for
+[proxy.golang.org](https://proxy.golang.org). This is particularly useful for
 tool developers that want to keep their own cache of what’s available in
-[[https://proxy.golang.org][proxy.golang.org]], or keep up-to-date on some of the
+[proxy.golang.org](https://proxy.golang.org), or keep up-to-date on some of the
 newest modules that people are using.
 
-** Feedback or bugs
+## Feedback or bugs
 
 We hope these services improve your experience with modules, and encourage you
-to [[https://github.com/golang/go/issues/new?title=proxy.golang.org][file issues]] if you run into
+to [file issues](https://github.com/golang/go/issues/new?title=proxy.golang.org) if you run into
 problems or have feedback!

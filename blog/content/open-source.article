@@ -1,13 +1,14 @@
-Go, Open Source, Community
-08 Jul 2015
+# Go, Open Source, Community
+8 Jul 2015
 Tags: community
+Summary: [This is the text of my opening keynote at Gophercon 2015. [The video is available here](https://www.youtube.com/watch?v=XvZOdpd_9tc).]
 
 Russ Cox
 
-* Welcome
+## Welcome
 
 [This is the text of my opening keynote at Gophercon 2015.
-[[https://www.youtube.com/watch?v=XvZOdpd_9tc][The video is available here]].]
+[The video is available here](https://www.youtube.com/watch?v=XvZOdpd_9tc).]
 
 Thank you all for traveling to Denver to be here,
 and thank you to everyone watching on video.
@@ -33,7 +34,7 @@ and then based on that explain
 how I see the Go open source project
 evolving.
 
-* Why Go?
+## Why Go?
 
 To get started,
 we have to go back to the beginning.
@@ -96,7 +97,7 @@ Other people have made similar observations.
 Here are two.
 Last year, on RedMonk.com, Donnie Berkholz
 wrote about
-“[[http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/][Go as the emerging language of cloud infrastructure]],”
+“[Go as the emerging language of cloud infrastructure](http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/),”
 observing that
 “[Go's] marquee projects ... are cloud-centric or otherwise
 made for dealing with distributed systems
@@ -104,13 +105,13 @@ or transient environments.”
 
 This year, on Texlution.com, the author
 wrote an article titled
-“[[https://texlution.com/post/why-go-is-doomed-to-succeed/][Why Golang is doomed to succeed]],”
+“[Why Golang is doomed to succeed](https://texlution.com/post/why-go-is-doomed-to-succeed/),”
 pointing out that this focus on large-scale development
 was possibly even better suited to open source than
 to Google itself: “This open source fitness is why I think
 you are about to see more and more Go around ...”
 
-* The Go Balance
+## The Go Balance
 
 How does Go accomplish those things?
 
@@ -131,7 +132,7 @@ In Go, we have explicitly tried not to solve everything.
 Instead, we've tried to do just enough that you can build
 your own custom solutions easily.
 
-The way I would summarize Go's chosen balance is this: *Do*Less.*Enable*More.*
+The way I would summarize Go's chosen balance is this: **Do Less. Enable More.**
 
 Do less, but enable more.
 
@@ -147,7 +148,7 @@ the solutions and tools they need,
 and ideally can interoperate with
 the solutions and tools built by others.
 
-** Examples
+### Examples
 
 Let me illustrate this with some examples.
 
@@ -351,7 +352,7 @@ about those core details.
 
 I'm going to return to that idea later.
 
-* Why is Go open source?
+## Why is Go open source?
 
 But first, as I said earlier,
 I want to explain how I see
@@ -434,7 +435,7 @@ need to enable all this ``more''
 while doing less.
 Open source is a huge part of that.
 
-* Go's open source
+## Go's open source
 
 What does open source mean?
 The minimum requirement is to open the source code,
@@ -496,7 +497,7 @@ to explain one part of the vision
 earlier:
 Do Less, Enable More.
 
-* Google's role
+## Google's role
 
 A natural question is:
 What is the role
@@ -628,7 +629,7 @@ where the next great idea will come from.
 Everyone contributing to Go
 should have the opportunity to be heard.
 
-** Examples
+### Examples
 
 I want to share some evidence for this claim
 that, over time,
@@ -861,7 +862,7 @@ on well-understood solutions.
 
 This brings me to my last point.
 
-* Code of Conduct
+## Code of Conduct
 
 I've argued that Go must be open,
 and that Go needs your help.
@@ -1069,7 +1070,7 @@ where the next great idea will come from.
 We need all the help we can get.
 We need a large, diverse Go community.
 
-* Thank You
+## Thank You
 
 I consider the many people
 releasing software for download using “go get,”

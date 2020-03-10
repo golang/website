@@ -1,19 +1,20 @@
-Two recent Go articles
+# Two recent Go articles
 6 Mar 2013
 Tags: google, talk, ethos
+Summary: In today's blog post I'd like to highlight a couple of recent articles about Go.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 In today's blog post I'd like to highlight a couple of recent articles about Go.
 
-* Go at Google
+## Go at Google
 
-In October last year, Rob Pike presented a keynote at the ACM [[http://splashcon.org/2012/][SPLASH]] conference in Tucson.
-The talk, titled [[https://talks.golang.org/2012/splash.slide][Go at Google]],
+In October last year, Rob Pike presented a keynote at the ACM [SPLASH](http://splashcon.org/2012/) conference in Tucson.
+The talk, titled [Go at Google](https://talks.golang.org/2012/splash.slide),
 was a comprehensive discussion of the motivations behind Go.
-Rob later expanded on his talk to produce an essay titled [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]].
+Rob later expanded on his talk to produce an essay titled [Go at Google: Language Design in the Service of Software Engineering](http://talks.golang.org/2012/splash.article).
 Here is the abstract:
 
 	The Go programming language was conceived in late 2007 as an
@@ -44,17 +45,17 @@ compiled programming language that feels lightweight and pleasant.
 Examples and explanations will be taken from the real-world problems faced at Google.
 
 If you have wondered about the design decisions behind Go,
-you may find your questions answered by [[https://talks.golang.org/2012/splash.article][the essay]].
+you may find your questions answered by [the essay](https://talks.golang.org/2012/splash.article).
 It is recommended reading for both new and experienced Go programmers.
 
-* Go at the Google Developers Academy
+## Go at the Google Developers Academy
 
-At Google I/O 2012 the Google Developers team [[http://googledevelopers.blogspot.com.au/2012/06/google-launches-new-developer-education.html][launched]] the [[https://developers.google.com/academy/][Google Developers Academy]],
+At Google I/O 2012 the Google Developers team [launched](http://googledevelopers.blogspot.com.au/2012/06/google-launches-new-developer-education.html) the [Google Developers Academy](https://developers.google.com/academy/),
 a program that provides training materials on Google technologies.
 Go is one of those technologies and we're pleased to announce the first
 GDA article featuring Go front and center:
 
-[[https://developers.google.com/appengine/training/go-plus-appengine/][Getting Started with Go, App Engine and Google+ API]] is
+[Getting Started with Go, App Engine and Google+ API](https://developers.google.com/appengine/training/go-plus-appengine/) is
 an introduction to writing web applications in Go.
 It demonstrates how to build and deploy App Engine applications and make
 calls to the Google+ API using the Google APIs Go Client.

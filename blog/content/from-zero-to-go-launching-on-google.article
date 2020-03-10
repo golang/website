@@ -1,16 +1,17 @@
-From zero to Go: launching on the Google homepage in 24 hours
+# From zero to Go: launching on the Google homepage in 24 hours
 13 Dec 2011
 Tags: appengine, google, guest
+Summary: _This article was written by Reinaldo Aguiar, a software engineer from the Search team at Google. He shares his experience developing his first Go program and launching it to an audience of millions - all in one day!_
 
 Reinaldo Aguiar
 
-* Introduction
+## Introduction
 
-_This_article_was_written_by_Reinaldo_Aguiar,_a_software_engineer_from_the_Search_team_at_Google._He_shares_his_experience_developing_his_first_Go_program_and_launching_it_to_an_audience_of_millions_-_all_in_one_day!_
+_This article was written by Reinaldo Aguiar, a software engineer from the Search team at Google. He shares his experience developing his first Go program and launching it to an audience of millions - all in one day!_
 
 I was recently given the opportunity to collaborate on a small but highly
 visible "20% project":
-the [[http://www.google.com/logos/2011/thanksgiving.html][Thanksgiving 2011 Google Doodle]].
+the [Thanksgiving 2011 Google Doodle](http://www.google.com/logos/2011/thanksgiving.html).
 The doodle features a turkey produced by randomly combining different styles of head,
 wings, feathers and legs.
 The user can customize it by clicking on the different parts of the turkey.
@@ -37,8 +38,8 @@ The next thing we needed to decide was which App Engine runtime to use.
 Image manipulation tasks are CPU-bound, so performance is the deciding factor in this case.
 
 To make an informed decision we ran a test.
-We quickly prepared a couple of equivalent demo apps for the new [[http://code.google.com/appengine/docs/python/python27/newin27.html][Python 2.7 runtime]]
-(which provides [[http://www.pythonware.com/products/pil/][PIL]],
+We quickly prepared a couple of equivalent demo apps for the new [Python 2.7 runtime](http://code.google.com/appengine/docs/python/python27/newin27.html)
+(which provides [PIL](http://www.pythonware.com/products/pil/),
 a C-based imaging library) and the Go runtime.
 Each app generates an image composed of several small images,
 encodes the image as a JPEG, and sends the JPEG data as the HTTP response.
@@ -55,7 +56,7 @@ development velocity.
 How fast can a person with no Go experience pick it up and build something
 that performs and scales?
 
-* Design
+## Design
 
 The approach was to encode the state of the turkey in the URL, drawing and encoding the snapshot on the fly.
 
@@ -81,7 +82,7 @@ If an error occurs, a default image is served.
 There's no point serving an error page because the user will never see it -
 the browser is almost certainly loading this URL into an image tag.
 
-* Implementation
+## Implementation
 
 In the package scope we declare some data structures to describe the elements of the turkey,
 the location of the corresponding images,
@@ -122,7 +123,7 @@ The geometry of the points above was calculated by measuring the actual
 location and size of each layout element within the image.
 
 Loading the images from disk on each request would be wasteful repetition,
-so we load all 106 images (13 * 8 elements + 1 background + 1 default) into
+so we load all 106 images (13 \* 8 elements + 1 background + 1 default) into
 global variables upon receipt of the first request.
 
 	var (
@@ -157,15 +158,15 @@ global variables upon receipt of the first request.
 
 Requests are handled in a straightforward sequence:
 
-- Parse the request URL, decoding the decimal value of each character in the path.
+  - Parse the request URL, decoding the decimal value of each character in the path.
 
-- Make a copy of the background image as the base for the final image.
+  - Make a copy of the background image as the base for the final image.
 
-- Draw each image element onto the background image using the layoutMap to determine where they should be drawn.
+  - Draw each image element onto the background image using the layoutMap to determine where they should be drawn.
 
-- Encode the image as a JPEG
+  - Encode the image as a JPEG
 
-- Return the image to user by writing the JPEG directly to the HTTP response writer.
+  - Return the image to user by writing the JPEG directly to the HTTP response writer.
 
 Should any error occur, we serve the defaultImage to the user and log the
 error to the App Engine dashboard for later analysis.
@@ -227,9 +228,9 @@ Here's the code for the request handler with explanatory comments:
 	}
 
 For brevity, I've omitted several helper functions from these code listings.
-See the [[http://code.google.com/p/go-thanksgiving/source/browse/][source code]] for the full scoop.
+See the [source code](http://code.google.com/p/go-thanksgiving/source/browse/) for the full scoop.
 
-* Performance
+## Performance
 
 .image from-zero-to-go-launching-on-google_image02.png
 
@@ -240,7 +241,7 @@ with a median latency of 32 milliseconds.
 This is wicked fast, considering that our request handler is doing image
 manipulation and encoding on the fly.
 
-* Conclusions
+## Conclusions
 
 I found Go's syntax to be intuitive, simple and clean.
 I have worked a lot with interpreted languages in the past,
@@ -248,7 +249,7 @@ and although Go is instead a statically typed and compiled language,
 writing this app felt more like working with a dynamic,
 interpreted language.
 
-The development server provided with the [[http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go][SDK]]
+The development server provided with the [SDK](http://code.google.com/appengine/downloads.html#Google_App_Engine_SDK_for_Go)
 quickly recompiles the program after any change,
 so I could iterate as fast as I would with an interpreted language.
 It's dead simple, too - it took less than a minute to set up my development environment.
@@ -261,14 +262,14 @@ function does but also encourages the developer to dig into the package implemen
 making it easier to learn good style and conventions.
 
 In writing this application I used just three resources:
-App Engine's [[http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html][Hello World Go example]],
-[[https://golang.org/pkg/][the Go packages documentation]],
-and [[https://blog.golang.org/2011/09/go-imagedraw-package.html][a blog post showcasing the Draw package]].
+App Engine's [Hello World Go example](http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html),
+[the Go packages documentation](https://golang.org/pkg/),
+and [a blog post showcasing the Draw package](https://blog.golang.org/2011/09/go-imagedraw-package.html).
 Thanks to the rapid iteration made possible by the development server and
 the language itself,
 I was able to pick up the language and build a super fast,
 production ready, doodle generator in less than 24 hours.
 
-Download the full app source code (including images) at [[http://code.google.com/p/go-thanksgiving/source/browse/][the Google Code project]].
+Download the full app source code (including images) at [the Google Code project](http://code.google.com/p/go-thanksgiving/source/browse/).
 
 Special thanks go to Guillermo Real and Ryan Germick who designed the doodle.

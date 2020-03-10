@@ -1,22 +1,23 @@
-Organizing Go code
+# Organizing Go code
 16 Aug 2012
 Tags: godoc, gopath, interface, libraries, tools, technical
+Summary: Go code is organized differently to that of other languages. This post discusses how to name and package the elements of your Go program to best serve its users.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 Go code is organized differently to that of other languages.
 This post discusses how to name and package the elements of your Go program
 to best serve its users.
 
-* Choose good names
+## Choose good names
 
 The names you choose affect how you think about your code,
 so take care when naming your package and its exported identifiers.
 
 A package's name provides context for its contents.
-For instance, the [[https://golang.org/pkg/bytes/][bytes package]] from
+For instance, the [bytes package](https://golang.org/pkg/bytes/) from
 the standard library exports the `Buffer` type.
 On its own, the name `Buffer` isn't very descriptive,
 but when combined with its package name its meaning becomes clear: `bytes.Buffer`.
@@ -27,7 +28,7 @@ Don't be shy about renaming things as you work.
 As you spend time with your program you will better understand how its pieces fit together and,
 therefore, what their names should be.
 There's no need to lock yourself into early decisions.
-(The [[https://golang.org/cmd/gofmt/][gofmt command]] has a `-r` flag that
+(The [gofmt command](https://golang.org/cmd/gofmt/) has a `-r` flag that
 provides a syntax-aware search and replace,
 making large-scale refactoring easier.)
 
@@ -36,7 +37,7 @@ the name is the first thing every client of the code will see.
 A well-chosen name is therefore the starting point for good documentation.
 Many of the following practices result organically from good naming.
 
-* Choose a good import path (make your package "go get"-able)
+## Choose a good import path (make your package "go get"-able)
 
 An import path is the string with which users import a package.
 It specifies the directory (relative to `$GOROOT/src/pkg` or `$GOPATH/src`)
@@ -48,7 +49,7 @@ an import path of `"golang.org/x/net/websocket"`.
 The Go project owns the path `"github.com/golang"`,
 so that path cannot be used by another author for a different package.
 Because the repository URL and import path are one and the same,
-the `go`get` command can fetch and install the package automatically.
+the `go get` command can fetch and install the package automatically.
 
 If you don't use a hosted source repository,
 choose some unique prefix such as a domain,
@@ -68,10 +69,10 @@ put their packages in directories relative to the repository root,
 such as `"src/my/package"`.
 On one hand, this keeps the import paths short (`"my/package"` instead of
 `"github.com/me/project/my/package"`),
-but on the other it breaks `go`get` and forces users to re-set their `GOPATH`
+but on the other it breaks `go get` and forces users to re-set their `GOPATH`
 to use the package. Don't do this.
 
-* Minimize the exported interface
+## Minimize the exported interface
 
 Your code is likely composed of many small pieces of useful code,
 and so it is tempting to expose much of that functionality in your package's
@@ -88,7 +89,7 @@ You should take similar care when distributing your own libraries.
 
 If in doubt, leave it out!
 
-* What to put into a package
+## What to put into a package
 
 It is easy to just throw everything into a "grab bag" package,
 but this dilutes the meaning of the package name (as it must encompass a
@@ -102,9 +103,9 @@ rather than just getting the job done.
 
 Look to the Go standard libraries as a guide.
 Some of its packages are large and some are small.
-For instance, the [[https://golang.org/pkg/net/http/][http package]] comprises
+For instance, the [http package](https://golang.org/pkg/net/http/) comprises
 17 go source files (excluding tests) and exports 109 identifiers,
-and the [[https://golang.org/pkg/hash/][hash package]] consists of one file
+and the [hash package](https://golang.org/pkg/hash/) consists of one file
 that exports just three declarations.
 There is no hard and fast rule; both approaches are appropriate given their context.
 
@@ -112,10 +113,10 @@ With that said, package main is often larger than other packages.
 Complex commands contain a lot of code that is of little use outside the
 context of the executable,
 and often it's simpler to just keep it all in the one place.
-For instance, the go tool is more than 12000 lines spread across [[https://golang.org/src/cmd/go/][34 files]].
+For instance, the go tool is more than 12000 lines spread across [34 files](https://golang.org/src/cmd/go/).
 
-* Document your code
+## Document your code
 
 Good documentation is an essential quality of usable and maintainable code.
-Read the [[https://golang.org/doc/articles/godoc_documenting_go_code.html][Godoc: documenting Go code]]
+Read the [Godoc: documenting Go code](https://golang.org/doc/articles/godoc_documenting_go_code.html)
 article to learn how to write good doc comments.

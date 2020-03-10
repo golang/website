@@ -1,10 +1,11 @@
-Why Generics?
+# Why Generics?
 31 Jul 2019
 Tags: go2, proposals, generics
+Summary: This is the blog post version of my talk last week at Gophercon 2019.
 
 Ian Lance Taylor
 
-* Introduction
+## Introduction
 
 This is the blog post version of my talk last week at Gophercon 2019.
 
@@ -17,19 +18,19 @@ adding generics to Go.
 
 Go was released on November 10, 2009.
 Less than 24 hours later we saw the
-[[https://groups.google.com/d/msg/golang-nuts/70-pdwUUrbI/onMsQspcljcJ][first comment about generics]].
+[first comment about generics](https://groups.google.com/d/msg/golang-nuts/70-pdwUUrbI/onMsQspcljcJ).
 (That comment also mentions exceptions, which we added to the
 language, in the form of `panic` and `recover`, in early 2010.)
 
 In three years of Go surveys, lack of generics has always been listed
 as one of the top three problems to fix in the language.
 
-* Why generics?
+## Why generics?
 
 But what does it mean to add generics, and why would we want it?
 
 To paraphrase
-[[https://www.dagstuhl.de/en/program/calendar/semhp/?semnr=98171][Jazayeri, et al]]:
+[Jazayeri, et al](https://www.dagstuhl.de/en/program/calendar/semhp/?semnr=98171):
 generic programming enables the representation of functions and data
 structures in a generic form, with types factored out.
 
@@ -99,7 +100,7 @@ the slice elements.
 Most other statically typed languages, like C++ or Java or Rust or
 Swift, support generics to address exactly this kind of issue.
 
-* Go generic programming today
+## Go generic programming today
 
 So how do people write this kind of code in Go?
 
@@ -175,7 +176,7 @@ representation of functions and data structures in a generic form,
 with types factored out.
 That's exactly what we want here.
 
-* What generics can bring to Go
+## What generics can bring to Go
 
 The first and most important thing we want from generics in Go is to
 be able to write functions like `Reverse` without caring about the
@@ -196,11 +197,11 @@ which support quite a bit more than what I’ve written here.
 I went through `Reverse` in detail, but there are many other functions
 that we could write generically, such as:
 
-- Find smallest/largest element in slice
-- Find average/standard deviation of slice
-- Compute union/intersection of maps
-- Find shortest path in node/edge graph
-- Apply transformation function to slice/map, returning new slice/map
+  - Find smallest/largest element in slice
+  - Find average/standard deviation of slice
+  - Compute union/intersection of maps
+  - Find shortest path in node/edge graph
+  - Apply transformation function to slice/map, returning new slice/map
 
 These examples are available in most other languages.
 In fact, I wrote this list by glancing at the C++ standard template
@@ -209,10 +210,10 @@ library.
 There are also examples that are specific to Go with its strong
 support for concurrency.
 
-- Read from a channel with a timeout
-- Combine two channels into a single channel
-- Call a list of functions in parallel, returning a slice of results
-- Call a list of functions, using a Context, return the result of the first function to finish, canceling and cleaning up extra goroutines
+  - Read from a channel with a timeout
+  - Combine two channels into a single channel
+  - Call a list of functions in parallel, returning a slice of results
+  - Call a list of functions, using a Context, return the result of the first function to finish, canceling and cleaning up extra goroutines
 
 I've seen all of these functions written out many times with different
 types.
@@ -239,10 +240,10 @@ Slices and maps are the most useful generic data structures, but they
 aren’t the only ones.
 Here are some other examples.
 
-- Sets
-- Self-balancing trees, with efficient insertion and traversal in sorted order
-- Multimaps, with multiple instances of a key
-- Concurrent hash maps, supporting parallel insertions and lookups with no single lock
+  - Sets
+  - Self-balancing trees, with efficient insertion and traversal in sorted order
+  - Multimaps, with multiple instances of a key
+  - Concurrent hash maps, supporting parallel insertions and lookups with no single lock
 
 If we can write generic types, we can define new data structures, like
 these, that have the same type-checking advantages as slices and maps:
@@ -266,12 +267,12 @@ and build programs more easily.
 
 I hope I’ve explained why this is worth looking into.
 
-* Benefits and costs
+## Benefits and costs
 
 But generics don't come from the
-[[https://mainlynorfolk.info/folk/songs/bigrockcandymountain.html][Big Rock Candy Mountain]],
+[Big Rock Candy Mountain](https://mainlynorfolk.info/folk/songs/bigrockcandymountain.html),
 the land where the sun shines every day over the
-[[http://www.lat-long.com/Latitude-Longitude-773297-Montana-Lemonade_Springs.html][lemonade springs]].
+[lemonade springs](http://www.lat-long.com/Latitude-Longitude-773297-Montana-Lemonade_Springs.html).
 Every language change has a cost.
 There's no doubt that adding generics to Go will make the language
 more complicated.
@@ -288,13 +289,13 @@ We want to do the same with generics.
 To make this more concrete I’m going to list a few guidelines we
 should follow.
 
-** Minimize new concepts
+### Minimize new concepts
 
 We should add as few new concepts to the language as possible.
 That means a minimum of new syntax and a minimum of new keywords and
 other names.
 
-** Complexity falls on the writer of generic code, not the user
+### Complexity falls on the writer of generic code, not the user
 
 As much as possible the complexity should fall on the programmer
 writing the generic package.
@@ -304,7 +305,7 @@ natural way, and it means that any errors in using a generic package
 should be reported in a way that is easy to understand and to fix.
 It should also be easy to debug calls into generic code.
 
-** Writer and user can work independently
+### Writer and user can work independently
 
 Similarly, we should make it easy to separate the concerns of the
 writer of the generic code and its user, so that they can develop their
@@ -315,7 +316,7 @@ have to worry.
 This sounds obvious, but it's not true of generics in every other
 programming language.
 
-** Short build times, fast execution times
+### Short build times, fast execution times
 
 Naturally, as much as possible, we want to keep the short build times
 and fast execution time that Go gives us today.
@@ -323,7 +324,7 @@ Generics tend to introduce a tradeoff between fast builds and fast
 execution.
 As much as possible, we want both.
 
-** Preserve clarity and simplicity of Go
+### Preserve clarity and simplicity of Go
 
 Most importantly, Go today is a simple language.
 Go programs are usually clear and easy to understand.
@@ -335,9 +336,9 @@ without turning it into something quite different.
 
 These guidelines should apply to any generics implementation in Go.
 That’s the most important message I want to leave you with today:
-*generics*can*bring*a*significant*benefit*to*the*language,*but*they*are*only*worth*doing*if*Go*still*feels*like*Go*.
+**generics can bring a significant benefit to the language, but they are only worth doing if Go still feels like Go**.
 
-* Draft design
+## Draft design
 
 Fortunately, I think it can be done.
 To finish up this article I’m going to shift from discussing why we
@@ -345,7 +346,7 @@ want generics, and what the requirements on them are, to briefly
 discuss a design for how we think we can add them to the language.
 
 At this year's Gophercon Robert Griesemer and I published
-[[https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md][a design draft]]
+[a design draft](https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md)
 for adding generics to Go.
 See the draft for full details.
 I'll go over some of the main points here.
@@ -367,7 +368,7 @@ Only the signature has changed.
 
 The element type of the slice has been factored out.
 It's now named `Element` and has become what we call a
-_type_parameter_.
+_type parameter_.
 Instead of being part of the type of the slice parameter, it's now a
 separate, additional, type parameter.
 
@@ -397,7 +398,7 @@ In other words, although the generic `Reverse` function is slightly
 more complex than `ReverseInts` and `ReverseStrings`, that complexity
 falls on the writer of the function, not the caller.
 
-** Contracts
+### Contracts
 
 Since Go is a statically typed language, we have to talk about the
 type of a type parameter.
@@ -456,7 +457,7 @@ It's pretty simple, since this is a simple example: the type parameter
 Here `contract` may be a new keyword, or a special identifier
 recognized in package scope; see the design draft for details.
 
-Anybody who remembers [[https://github.com/golang/proposal/blob/4a530dae40977758e47b78fae349d8e5f86a6c0a/design/go2draft-contracts.md][the design we presented at Gophercon 2018]]
+Anybody who remembers [the design we presented at Gophercon 2018](https://github.com/golang/proposal/blob/4a530dae40977758e47b78fae349d8e5f86a6c0a/design/go2draft-contracts.md)
 will see that this way of writing a contract is a lot simpler.
 We got a lot of feedback on that earlier design that contracts were
 too complicated, and we've tried to take that into account.
@@ -468,7 +469,7 @@ list the methods of a type parameter.
 They also let you describe the relationship between different type
 parameters.
 
-** Contracts with methods
+### Contracts with methods
 
 Here is another simple example, of a function that uses the String
 method to return a `[]string` of the string representation of all the
@@ -506,7 +507,7 @@ of `fmt`.Stringer are normally different, and Go does not support
 direct conversions between them.
 So this is worth writing, even though `fmt.Stringer` exists.
 
-** Contracts with multiple types
+### Contracts with multiple types
 
 Here is an example of a contract with multiple type parameters.
 
@@ -540,7 +541,7 @@ The important takeaway here is that a contract isn't just about a
 single type.  It can describe the relationships between two or more
 types.
 
-** Ordered types
+### Ordered types
 
 One surprisingly common complaint about Go is that it doesn't have a
 `Min` function.
@@ -601,7 +602,7 @@ referring to the contract Ordered defined in the package contracts.
 		return b
 	}
 
-** Generic data structures
+### Generic data structures
 
 Finally, let's look at a simple generic data structure, a binary
 tree.  In this example the tree has a comparison function, so there
@@ -686,7 +687,7 @@ have to explicitly write out type arguments for supporting types, but
 as much as possible using one is no different from using an ordinary
 non-generic data structure.
 
-** Next steps
+### Next steps
 
 We are working on actual implementations to allow us to experiment
 with this design.
@@ -696,7 +697,7 @@ It hasn't gone as fast as we'd hoped, but we'll send out more detail
 on these implementations as they become available.
 
 Robert Griesemer has written a
-[[https://golang.org/cl/187317][preliminary CL]]
+[preliminary CL](https://golang.org/cl/187317)
 that modifies the go/types package.
 This permits testing whether code using generics and contracts can
 type check.

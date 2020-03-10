@@ -1,43 +1,44 @@
-Go updates in App Engine 1.7.1
+# Go updates in App Engine 1.7.1
 22 Aug 2012
 Tags: appengine, release
+Summary: This week we released version 1.7.1 of the App Engine SDK. It includes some significant updates specific to the App Engine runtime for Go.
 
 Andrew Gerrand
 
-* Introduction
+##
 
 This week we released version 1.7.1 of the App Engine SDK.
 It includes some significant updates specific to the App Engine runtime for Go.
 
-The [[https://developers.google.com/appengine/docs/go/memcache/reference][memcache package]] has
-had some additions to its [[https://developers.google.com/appengine/docs/go/memcache/reference#Codec][Codec]] convenience type.
+The [memcache package](https://developers.google.com/appengine/docs/go/memcache/reference) has
+had some additions to its [Codec](https://developers.google.com/appengine/docs/go/memcache/reference#Codec) convenience type.
 The SetMulti, AddMulti, CompareAndSwap, and CompareAndSwapMulti methods
-make it easier to store and update encoded data in the [[https://developers.google.com/appengine/docs/go/memcache/overview][Memcache Service]].
+make it easier to store and update encoded data in the [Memcache Service](https://developers.google.com/appengine/docs/go/memcache/overview).
 
-The [[https://developers.google.com/appengine/docs/go/tools/uploadingdata][bulkloader tool]] can
+The [bulkloader tool](https://developers.google.com/appengine/docs/go/tools/uploadingdata) can
 now be used with Go apps,
 allowing users to upload and download datastore records in bulk.
 This is useful for backups and offline processing,
 and a great help when migrating Python or Java apps to the Go runtime.
 
-The [[https://developers.google.com/appengine/docs/go/images/overview][Images Service]] is
+The [Images Service](https://developers.google.com/appengine/docs/go/images/overview) is
 now available to Go users.
-The new [[https://developers.google.com/appengine/docs/go/images/reference][appengine/image package]] supports serving
+The new [appengine/image package](https://developers.google.com/appengine/docs/go/images/reference) supports serving
 images directly from Blobstore and resizing or cropping those images on the fly.
 Note that this is not the full image service as provided by the Python and Java SDKs,
-as much of the equivalent functionality is available in the [[https://golang.org/pkg/image/][standard Go image package]] and
-external packages such as [[http://code.google.com/p/graphics-go/][graphics-go]].
+as much of the equivalent functionality is available in the [standard Go image package](https://golang.org/pkg/image/) and
+external packages such as [graphics-go](http://code.google.com/p/graphics-go/).
 
-The new [[https://developers.google.com/appengine/docs/go/backends/runtime#RunInBackground][runtime.RunInBackground]] function
+The new [runtime.RunInBackground](https://developers.google.com/appengine/docs/go/backends/runtime#RunInBackground) function
 allows backend requests to spawn a new request independent of the initial request.
 These can run in the background as long as the backend stays alive.
 
 Finally, we have filled in some missing functionality:
-the [[https://developers.google.com/appengine/docs/go/xmpp/reference][xmpp package]] now
+the [xmpp package](https://developers.google.com/appengine/docs/go/xmpp/reference) now
 supports sending presence updates and chat invitations and retrieving the
 presence state of another user,
-and the [[https://developers.google.com/appengine/docs/go/users/reference][user package]] supports
+and the [user package](https://developers.google.com/appengine/docs/go/users/reference) supports
 authenticating clients with OAuth.
 
-You can grab the new SDK from the [[https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go][App Engine downloads page]] and
-browse the [[https://developers.google.com/appengine/docs/go][updated documentation]].
+You can grab the new SDK from the [App Engine downloads page](https://developers.google.com/appengine/downloads#Google_App_Engine_SDK_for_Go) and
+browse the [updated documentation](https://developers.google.com/appengine/docs/go).

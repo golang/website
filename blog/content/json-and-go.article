@@ -1,25 +1,26 @@
-JSON and Go
+# JSON and Go
 25 Jan 2011
 Tags: json, technical
+Summary: JSON (JavaScript Object Notation) is a simple data interchange format. Syntactically it resembles the objects and lists of JavaScript. It is most commonly used for communication between web back-ends and JavaScript programs running in the browser, but it is used in many other places, too. Its home page, [json.org](http://json.org), provides a wonderfully clear and concise definition of the standard.
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
 JSON (JavaScript Object Notation) is a simple data interchange format.
 Syntactically it resembles the objects and lists of JavaScript.
 It is most commonly used for communication between web back-ends and JavaScript
 programs running in the browser,
 but it is used in many other places, too.
-Its home page, [[http://json.org][json.org]],
+Its home page, [json.org](http://json.org),
 provides a wonderfully clear and concise definition of the standard.
 
-With the [[https://golang.org/pkg/encoding/json/][json package]] it's a
+With the [json package](https://golang.org/pkg/encoding/json/) it's a
 snap to read and write JSON data from your Go programs.
 
-* Encoding
+## Encoding
 
-To encode JSON data we use the [[https://golang.org/pkg/encoding/json/#Marshal][`Marshal`]] function.
+To encode JSON data we use the [`Marshal`](https://golang.org/pkg/encoding/json/#Marshal) function.
 
 	func Marshal(v interface{}) ([]byte, error)
 
@@ -33,11 +34,11 @@ Given the Go data structure, `Message`,
 
 and an instance of `Message`
 
-	    m := Message{"Alice", "Hello", 1294706395881547000}
+	m := Message{"Alice", "Hello", 1294706395881547000}
 
 we can marshal a JSON-encoded version of m using `json.Marshal`:
 
-	    b, err := json.Marshal(m)
+	b, err := json.Marshal(m)
 
 If all is well, `err` will be `nil` and `b` will be a `[]byte` containing this JSON data:
 
@@ -45,62 +46,62 @@ If all is well, `err` will be `nil` and `b` will be a `[]byte` containing this J
 
 Only data structures that can be represented as valid JSON will be encoded:
 
-- JSON objects only support strings as keys;
-  to encode a Go map type it must be of the form `map[string]T` (where `T`
-  is any Go type supported by the json package).
+  - JSON objects only support strings as keys;
+    to encode a Go map type it must be of the form `map[string]T` (where `T`
+    is any Go type supported by the json package).
 
-- Channel, complex, and function types cannot be encoded.
+  - Channel, complex, and function types cannot be encoded.
 
-- Cyclic data structures are not supported; they will cause `Marshal` to go into an infinite loop.
+  - Cyclic data structures are not supported; they will cause `Marshal` to go into an infinite loop.
 
-- Pointers will be encoded as the values they point to (or 'null' if the pointer is `nil`).
+  - Pointers will be encoded as the values they point to (or 'null' if the pointer is `nil`).
 
 The json package only accesses the exported fields of struct types (those
 that begin with an uppercase letter).
 Therefore only the the exported fields of a struct will be present in the JSON output.
 
-* Decoding
+## Decoding
 
-To decode JSON data we use the [[https://golang.org/pkg/encoding/json/#Unmarshal][`Unmarshal`]] function.
+To decode JSON data we use the [`Unmarshal`](https://golang.org/pkg/encoding/json/#Unmarshal) function.
 
 	func Unmarshal(data []byte, v interface{}) error
 
 We must first create a place where the decoded data will be stored
 
-	    var m Message
+	var m Message
 
 and call `json.Unmarshal`, passing it a `[]byte` of JSON data and a pointer to `m`
 
-	    err := json.Unmarshal(b, &m)
+	err := json.Unmarshal(b, &m)
 
 If `b` contains valid JSON that fits in `m`,
 after the call `err` will be `nil` and the data from `b` will have been
 stored in the struct `m`,
 as if by an assignment like:
 
-	    m = Message{
-	        Name: "Alice",
-	        Body: "Hello",
-	        Time: 1294706395881547000,
-	    }
+	m = Message{
+	    Name: "Alice",
+	    Body: "Hello",
+	    Time: 1294706395881547000,
+	}
 
 How does `Unmarshal` identify the fields in which to store the decoded data?
 For a given JSON key `"Foo"`,
 `Unmarshal` will look through the destination struct's fields to find (in
 order of preference):
 
-- An exported field with a tag of `"Foo"` (see the [[https://golang.org/ref/spec#Struct_types][Go spec]]
-  for more on struct tags),
+  - An exported field with a tag of `"Foo"` (see the [Go spec](https://golang.org/ref/spec#Struct_types)
+    for more on struct tags),
 
-- An exported field named `"Foo"`, or
+  - An exported field named `"Foo"`, or
 
-- An exported field named `"FOO"` or `"FoO"` or some other case-insensitive match of `"Foo"`.
+  - An exported field named `"FOO"` or `"FoO"` or some other case-insensitive match of `"Foo"`.
 
 What happens when the structure of the JSON data doesn't exactly match the Go type?
 
-	    b := []byte(`{"Name":"Bob","Food":"Pickle"}`)
-	    var m Message
-	    err := json.Unmarshal(b, &m)
+	b := []byte(`{"Name":"Bob","Food":"Pickle"}`)
+	var m Message
+	err := json.Unmarshal(b, &m)
 
 `Unmarshal` will decode only the fields that it can find in the destination type.
 In this case, only the Name field of m will be populated,
@@ -112,99 +113,99 @@ be unaffected by `Unmarshal`.
 
 But what if you don't know the structure of your JSON data beforehand?
 
-* Generic JSON with interface{}
+## Generic JSON with interface{}
 
 The `interface{}` (empty interface) type describes an interface with zero methods.
 Every Go type implements at least zero methods and therefore satisfies the empty interface.
 
 The empty interface serves as a general container type:
 
-	    var i interface{}
-	    i = "a string"
-	    i = 2011
-	    i = 2.777
+	var i interface{}
+	i = "a string"
+	i = 2011
+	i = 2.777
 
 A type assertion accesses the underlying concrete type:
 
-	    r := i.(float64)
-	    fmt.Println("the circle's area", math.Pi*r*r)
+	r := i.(float64)
+	fmt.Println("the circle's area", math.Pi*r*r)
 
 Or, if the underlying type is unknown, a type switch determines the type:
 
-	    switch v := i.(type) {
-	    case int:
-	        fmt.Println("twice i is", v*2)
-	    case float64:
-	        fmt.Println("the reciprocal of i is", 1/v)
-	    case string:
-	        h := len(v) / 2
-	        fmt.Println("i swapped by halves is", v[h:]+v[:h])
-	    default:
-	        // i isn't one of the types above
-	    }
+	switch v := i.(type) {
+	case int:
+	    fmt.Println("twice i is", v*2)
+	case float64:
+	    fmt.Println("the reciprocal of i is", 1/v)
+	case string:
+	    h := len(v) / 2
+	    fmt.Println("i swapped by halves is", v[h:]+v[:h])
+	default:
+	    // i isn't one of the types above
+	}
 
 The json package uses `map[string]interface{}` and
 `[]interface{}` values to store arbitrary JSON objects and arrays;
 it will happily unmarshal any valid JSON blob into a plain
 `interface{}` value.  The default concrete Go types are:
 
-- `bool` for JSON booleans,
+  - `bool` for JSON booleans,
 
-- `float64` for JSON numbers,
+  - `float64` for JSON numbers,
 
-- `string` for JSON strings, and
+  - `string` for JSON strings, and
 
-- `nil` for JSON null.
+  - `nil` for JSON null.
 
-* Decoding arbitrary data
+## Decoding arbitrary data
 
 Consider this JSON data, stored in the variable `b`:
 
-	    b := []byte(`{"Name":"Wednesday","Age":6,"Parents":["Gomez","Morticia"]}`)
+	b := []byte(`{"Name":"Wednesday","Age":6,"Parents":["Gomez","Morticia"]}`)
 
 Without knowing this data's structure, we can decode it into an `interface{}` value with `Unmarshal`:
 
-	    var f interface{}
-	    err := json.Unmarshal(b, &f)
+	var f interface{}
+	err := json.Unmarshal(b, &f)
 
 At this point the Go value in `f` would be a map whose keys are strings
 and whose values are themselves stored as empty interface values:
 
-	    f = map[string]interface{}{
-	        "Name": "Wednesday",
-	        "Age":  6,
-	        "Parents": []interface{}{
-	            "Gomez",
-	            "Morticia",
-	        },
-	    }
+	f = map[string]interface{}{
+	    "Name": "Wednesday",
+	    "Age":  6,
+	    "Parents": []interface{}{
+	        "Gomez",
+	        "Morticia",
+	    },
+	}
 
 To access this data we can use a type assertion to access `f`'s underlying `map[string]interface{}`:
 
-	    m := f.(map[string]interface{})
+	m := f.(map[string]interface{})
 
 We can then iterate through the map with a range statement and use a type
 switch to access its values as their concrete types:
 
-	    for k, v := range m {
-	        switch vv := v.(type) {
-	        case string:
-	            fmt.Println(k, "is string", vv)
-	        case float64:
-	            fmt.Println(k, "is float64", vv)
-	        case []interface{}:
-	            fmt.Println(k, "is an array:")
-	            for i, u := range vv {
-	                fmt.Println(i, u)
-	            }
-	        default:
-	            fmt.Println(k, "is of a type I don't know how to handle")
+	for k, v := range m {
+	    switch vv := v.(type) {
+	    case string:
+	        fmt.Println(k, "is string", vv)
+	    case float64:
+	        fmt.Println(k, "is float64", vv)
+	    case []interface{}:
+	        fmt.Println(k, "is an array:")
+	        for i, u := range vv {
+	            fmt.Println(i, u)
 	        }
+	    default:
+	        fmt.Println(k, "is of a type I don't know how to handle")
 	    }
+	}
 
 In this way you can work with unknown JSON data while still enjoying the benefits of type safety.
 
-* Reference Types
+## Reference Types
 
 Let's define a Go type to contain the data from the previous example:
 
@@ -253,12 +254,12 @@ will only allocate the data structures present in the JSON data.
 To know which messages to process, the programmer need simply test that
 either `Cmd` or `Msg` is not `nil`.
 
-* Streaming Encoders and Decoders
+## Streaming Encoders and Decoders
 
 The json package provides `Decoder` and `Encoder` types to support the common
 operation of reading and writing streams of JSON data.
-The `NewDecoder` and `NewEncoder` functions wrap the [[https://golang.org/pkg/io/#Reader][`io.Reader`]]
-and [[https://golang.org/pkg/io/#Writer][`io.Writer`]] interface types.
+The `NewDecoder` and `NewEncoder` functions wrap the [`io.Reader`](https://golang.org/pkg/io/#Reader)
+and [`io.Writer`](https://golang.org/pkg/io/#Writer) interface types.
 
 	func NewDecoder(r io.Reader) *Decoder
 	func NewEncoder(w io.Writer) *Encoder
@@ -300,7 +301,7 @@ these `Encoder` and `Decoder` types can be used in a broad range of scenarios,
 such as reading and writing to HTTP connections,
 WebSockets, or files.
 
-* References
+## References
 
-For more information see the [[https://golang.org/pkg/encoding/json/][json package documentation]].
-For an example usage of json see the source files of the [[https://golang.org/pkg/net/rpc/jsonrpc/][jsonrpc package]].
+For more information see the [json package documentation](https://golang.org/pkg/encoding/json/).
+For an example usage of json see the source files of the [jsonrpc package](https://golang.org/pkg/net/rpc/jsonrpc/).

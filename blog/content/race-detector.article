@@ -1,14 +1,15 @@
-Introducing the Go Race Detector
+# Introducing the Go Race Detector
 26 Jun 2013
 Tags: concurrency, technical
+Summary: [Race conditions](http://en.wikipedia.org/wiki/Race_condition) are among the most insidious and elusive programming errors. They typically cause erratic and mysterious failures, often long after the code has been deployed to production. While Go's concurrency mechanisms make it easy to write clean concurrent code, they don't prevent race conditions. Care, diligence, and testing are required. And tools can help.
 
 Dmitry Vyukov
 
 Andrew Gerrand
 
-* Introduction
+## Introduction
 
-[[http://en.wikipedia.org/wiki/Race_condition][Race conditions]] are among the
+[Race conditions](http://en.wikipedia.org/wiki/Race_condition) are among the
 most insidious and elusive programming errors. They typically cause erratic and
 mysterious failures, often long after the code has been deployed to production.
 While Go's concurrency mechanisms make it easy to write clean concurrent code,
@@ -16,28 +17,28 @@ they don't prevent race conditions. Care, diligence, and testing are required.
 And tools can help.
 
 We're happy to announce that Go 1.1 includes a
-[[https://golang.org/doc/articles/race_detector.html][race detector]],
+[race detector](https://golang.org/doc/articles/race_detector.html),
 a new tool for finding race conditions in Go code.
 It is currently available for Linux, OS X, and Windows systems
 with 64-bit x86 processors.
 
 The race detector is based on the C/C++
-[[https://github.com/google/sanitizers][ThreadSanitizer runtime library]],
+[ThreadSanitizer runtime library](https://github.com/google/sanitizers),
 which has been used to detect many errors in Google's internal code base and in
-[[http://www.chromium.org/][Chromium]].
+[Chromium](http://www.chromium.org/).
 The technology was integrated with Go in September 2012; since then it has detected
-[[https://github.com/golang/go/issues?utf8=%E2%9C%93&q=ThreadSanitizer][42 races]]
+[42 races](https://github.com/golang/go/issues?utf8=%E2%9C%93&q=ThreadSanitizer)
 in the standard library. It is now part of our continuous build process,
 where it continues to catch race conditions as they arise.
 
-* How it works
+## How it works
 
 The race detector is integrated with the go tool chain. When the
 `-race` command-line flag is set, the compiler instruments all memory accesses
 with code that records when and how the memory was accessed, while the runtime
 library watches for unsynchronized accesses to shared variables.
 When such "racy" behavior is detected, a warning is printed.
-(See [[https://github.com/google/sanitizers/wiki/ThreadSanitizerAlgorithm][this article]]
+(See [this article](https://github.com/google/sanitizers/wiki/ThreadSanitizerAlgorithm)
 for the details of the algorithm.)
 
 Because of its design, the race detector can detect race conditions only when
@@ -51,7 +52,7 @@ to exercise concurrent parts of the code.
 Another approach using production workloads is to deploy a single race-enabled
 instance within a pool of running servers.
 
-* Using the race detector
+## Using the race detector
 
 The race detector is fully integrated with the Go tool chain.
 To build your code with the race detector enabled, just add the
@@ -67,18 +68,18 @@ To try out the race detector for yourself, fetch and run this example program:
 	$ go get -race golang.org/x/blog/support/racy
 	$ racy
 
-* Examples
+## Examples
 
 Here are two examples of real issues caught by the race detector.
 
-** Example 1: Timer.Reset
+### Example 1: Timer.Reset
 
 The first example is a simplified version of an actual bug found by the race
 detector. It uses a timer to print a message after a random duration between 0
 and 1 second. It does so repeatedly for five seconds.
-It uses [[https://golang.org/pkg/time/#AfterFunc][`time.AfterFunc`]] to create a
-[[https://golang.org/pkg/time/#Timer][`Timer`]] for the first message and then
-uses the [[https://golang.org/pkg/time/#Timer.Reset][`Reset`]] method to
+It uses [`time.AfterFunc`](https://golang.org/pkg/time/#AfterFunc) to create a
+[`Timer`](https://golang.org/pkg/time/#Timer) for the first message and then
+uses the [`Reset`](https://golang.org/pkg/time/#Timer.Reset) method to
 schedule the next message, re-using the `Timer` each time.
 
 .play -numbers race-detector/timer.go /func main/,$
@@ -132,19 +133,19 @@ Here the main goroutine is wholly responsible for setting and resetting the
 a thread-safe way.
 
 A simpler but less efficient approach is to
-[[http://play.golang.org/p/kuWTrY0pS4][avoid reusing timers]].
+[avoid reusing timers](http://play.golang.org/p/kuWTrY0pS4).
 
-** Example 2: ioutil.Discard
+### Example 2: ioutil.Discard
 
 The second example is more subtle.
 
 The `ioutil` package's
-[[https://golang.org/pkg/io/ioutil/#Discard][`Discard`]] object implements
-[[https://golang.org/pkg/io/#Writer][`io.Writer`]],
+[`Discard`](https://golang.org/pkg/io/ioutil/#Discard) object implements
+[`io.Writer`](https://golang.org/pkg/io/#Writer),
 but discards all the data written to it.
 Think of it like `/dev/null`: a place to send data that you need to read but
 don't want to store.
-It is commonly used with [[https://golang.org/pkg/io/#Copy][`io.Copy`]]
+It is commonly used with [`io.Copy`](https://golang.org/pkg/io/#Copy)
 to drain a reader, like this:
 
 	io.Copy(ioutil.Discard, reader)
@@ -165,22 +166,22 @@ is delegated to this potentially more efficient call:
 	writer.ReadFrom(reader)
 
 We
-[[https://golang.org/cl/4817041][added a ReadFrom method]]
+[added a ReadFrom method](https://golang.org/cl/4817041)
 to Discard's underlying type, which has an internal buffer that is shared
 between all its users.
 We knew this was theoretically a race condition, but since all writes to the
 buffer should be thrown away we didn't think it was important.
 
 When the race detector was implemented it immediately
-[[https://golang.org/issue/3970][flagged this code]] as racy.
+[flagged this code](https://golang.org/issue/3970) as racy.
 Again, we considered that the code might be problematic, but decided that the
 race condition wasn't "real".
 To avoid the "false positive" in our build we implemented
-[[https://golang.org/cl/6624059][a non-racy version]]
+[a non-racy version](https://golang.org/cl/6624059)
 that is enabled only when the race detector is running.
 
-But a few months later [[https://bradfitz.com/][Brad]] encountered a
-[[https://golang.org/issue/4589][frustrating and strange bug]].
+But a few months later [Brad](https://bradfitz.com/) encountered a
+[frustrating and strange bug](https://golang.org/issue/4589).
 After a few days of debugging, he narrowed it down to a real race condition
 caused by `ioutil.Discard`.
 
@@ -232,11 +233,11 @@ No errors or panics occurred, but the hashes were wrong. Nasty!
 	}
 
 The bug was finally
-[[https://golang.org/cl/7011047][fixed]]
+[fixed](https://golang.org/cl/7011047)
 by giving a unique buffer to each use of `ioutil.Discard`, eliminating the race
 condition on the shared buffer.
 
-* Conclusions
+## Conclusions
 
 The race detector is a powerful tool for checking the correctness of concurrent
 programs. It will not issue false positives, so take its warnings seriously.
@@ -244,4 +245,4 @@ But it is only as good as your tests; you must make sure they thoroughly
 exercise the concurrent properties of your code so that the race detector can
 do its job.
 
-What are you waiting for? Run `"go`test`-race"` on your code today!
+What are you waiting for? Run `"go test -race"` on your code today!

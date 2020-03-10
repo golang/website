@@ -1,10 +1,11 @@
-Experiment, Simplify, Ship
-01 Aug 2019
+# Experiment, Simplify, Ship
+1 Aug 2019
 Tags: community, go2, proposals
+Summary: This is the blog post version of my talk last week at Gophercon 2019.
 
 Russ Cox
 
-* Introduction
+## Introduction
 
 This is the blog post version of my talk last week at Gophercon 2019.
 
@@ -34,13 +35,13 @@ And then we simplify again.
 And so on.
 And so on.
 
-* The Four R’s of Simplifying
+## The Four R’s of Simplifying
 
 During this process, there are four main ways that we can simplify
 the overall experience of writing Go programs:
 reshaping, redefining, removing, and restricting.
 
-*Simplify*by*Reshaping*
+**Simplify by Reshaping**
 
 The first way we simplify is by reshaping what exists into a new form,
 one that ends up being simpler overall.
@@ -94,7 +95,7 @@ but on balance we simplified the experience of writing Go programs.
 The new structure also created space for other interesting experiments,
 which we’ll see later.
 
-*Simplify*by*Redefining*
+**Simplify by Redefining**
 
 A second way we simplify is by redefining
 functionality we already have,
@@ -117,7 +118,7 @@ without adding anything new to the language.
 	var more string
 	b = append(b, more...) // ok later
 
-*Simplify*by*Removing*
+**Simplify by Removing**
 
 A third way we simplify is by removing functionality
 when it has turned out to be less useful
@@ -142,7 +143,7 @@ These operations were also possible to do using `select`,
 making it confusing to need to decide which form to use.
 Removing them simplified the language without reducing its power.
 
-*Simplify*by*Restricting*
+**Simplify by Restricting**
 
 We can also simplify by restricting what is allowed.
 From day one, Go has restricted the encoding of Go source files:
@@ -163,7 +164,7 @@ This restriction has simplified program rewriters
 and led to successful experiments like
 `goimports`, `gorename`, and many others.
 
-* Go Development Process
+## Go Development Process
 
 This cycle of experiment and simplify is a good model for what we’ve been doing the past ten years.
 but it has a problem:
@@ -229,7 +230,7 @@ stopping to inspect the technical detail
 of what will be shipping soon in Go 1.13
 for error handling.
 
-* Errors
+## Errors
 
 It is hard enough to write a program
 that works the right way in all cases
@@ -250,7 +251,7 @@ We’ll look at each in turn,
 with the technical detour I promised focusing
 on the Go 1.13 error value changes.
 
-*Error*Values*
+**Error Values**
 
 Error values had to start somewhere.
 Here is the `Read` function from the first version of the `os` package:
@@ -262,7 +263,7 @@ Here is the `Read` function from the first version of the `os` package:
 
 There was no `File` type yet, and also no error type.
 `Read` and the other functions in the package
-returned an `errno`int64` directly from the underlying Unix system call.
+returned an `errno int64` directly from the underlying Unix system call.
 
 This code was checked in on September 10, 2008 at 12:14pm.
 Like everything back then, it was an experiment,
@@ -308,13 +309,13 @@ But we have written many Go programs,
 and as a result we have experimented a lot with how
 best to implement and use errors.
 
-*Errors*Are*Values*
+**Errors Are Values**
 
 Making `error` a simple interface
 and allowing many different implementations
 means we have the entire Go language
 available to define and inspect errors.
-We like to say that [[https://blog.golang.org/errors-are-values][errors are values]],
+We like to say that [errors are values](https://blog.golang.org/errors-are-values),
 the same as any other Go value.
 
 Here’s an example.
@@ -341,7 +342,7 @@ for the host operating system’s defined error numbers.
 In this case, on this system, `ECONNREFUSED` is number 61.
 Code that gets an error from a function
 can test whether the error is `ECONNREFUSED`
-using ordinary [[https://golang.org/ref/spec#Comparison_operators][value equality]].
+using ordinary [value equality](https://golang.org/ref/spec#Comparison_operators).
 
 Moving up a level,
 in package `os`,
@@ -430,7 +431,7 @@ Here is the code:
 		return err == syscall.EADDRNOTAVAIL
 	}
 
-A [[https://golang.org/ref/spec#Type_assertions][type assertion]] peels away any `net.OpError` wrapping.
+A [type assertion](https://golang.org/ref/spec#Type_assertions) peels away any `net.OpError` wrapping.
 And then a second type assertion peels away any `os.SyscallError` wrapping.
 And then the function checks the unwrapped error for equality with `EADDRNOTAVAIL`.
 
@@ -451,11 +452,11 @@ enabled everyone to experiment with
 additional functionality that an error might provide,
 leading to many packages,
 such as
-[[https://godoc.org/github.com/pkg/errors][github.com/pkg/errors]],
-[[https://godoc.org/gopkg.in/errgo.v2][gopkg.in/errgo.v2]],
-[[https://godoc.org/github.com/hashicorp/errwrap][github.com/hashicorp/errwrap]],
-[[https://godoc.org/upspin.io/errors][upspin.io/errors]],
-[[https://godoc.org/github.com/spacemonkeygo/errors][github.com/spacemonkeygo/errors]],
+[github.com/pkg/errors](https://godoc.org/github.com/pkg/errors),
+[gopkg.in/errgo.v2](https://godoc.org/gopkg.in/errgo.v2),
+[github.com/hashicorp/errwrap](https://godoc.org/github.com/hashicorp/errwrap),
+[upspin.io/errors](https://godoc.org/upspin.io/errors),
+[github.com/spacemonkeygo/errors](https://godoc.org/github.com/spacemonkeygo/errors),
 and more.
 
 One problem with unconstrained experimentation,
@@ -467,7 +468,7 @@ was to define a standard version of commonly-added functionality,
 in the form of agreed-upon optional interfaces,
 so that different implementations could interoperate.
 
-*Unwrap*
+**Unwrap**
 
 The most commonly-added functionality
 in these packages is some method that can be
@@ -561,7 +562,7 @@ version of an error type assertion:
 	   ...
 	}
 
-*To*Unwrap*Or*Not*To*Unwrap?*
+**To Unwrap Or Not To Unwrap?**
 
 Whether to make it possible to unwrap an error is an API decision,
 the same way that whether to export a struct field is an API decision.
@@ -610,11 +611,11 @@ now also has an `Unwrap` method returning that field,
 but implementations with unexported error fields do not,
 and existing uses of `fmt.Errorf` with `%v` still use `%v`, not `%w`.
 
-*Error*Value*Printing*(Abandoned)*
+**Error Value Printing (Abandoned)**
 
 Along with the design draft for Unwrap,
 we also published a
-[[https://golang.org/design/go2draft-error-printing][design draft for an optional method for richer error printing]],
+[design draft for an optional method for richer error printing](https://golang.org/design/go2draft-error-printing),
 including stack frame information
 and support for localized, translated errors.
 
@@ -641,14 +642,14 @@ On balance, it did not simplify Go development.
 As a result of this community discussion,
 we abandoned this printing design.
 
-*Error*Syntax*
+**Error Syntax**
 
 That was error values.
 Let’s look briefly at error syntax,
 another abandoned experiment.
 
 Here is some code from
-[[https://go.googlesource.com/go/+/go1.12/src/compress/lzw/writer.go#209][`compress/lzw/writer.go`]] in the standard library:
+[`compress/lzw/writer.go`](https://go.googlesource.com/go/+/go1.12/src/compress/lzw/writer.go#209) in the standard library:
 
 	// Write the savedCode if valid.
 	if e.savedCode != invalidCode {
@@ -675,7 +676,7 @@ a fact that is easy to miss on a quick skim.
 If you were debugging this code, how long would it take to notice that?
 
 At Gophercon last year we
-[[https://golang.org/design/go2draft-error-handling][presented a draft design]]
+[presented a draft design](https://golang.org/design/go2draft-error-handling)
 for a new control flow construct marked by the keyword `check`.
 `Check` consumes the error result from a function call or expression.
 If the error is non-nil, the `check` returns that error.
@@ -723,18 +724,18 @@ like in this snippet:
 
 In essence, `check` was a short way to write the `if` statement,
 and `handle` was like
-[[https://golang.org/ref/spec#Defer_statements][`defer`]] but only for error return paths.
+[`defer`](https://golang.org/ref/spec#Defer_statements) but only for error return paths.
 In contrast to exceptions in other languages,
 this design retained Go’s important property that
 every potential failing call was marked explicitly in the code,
-now using the `check` keyword instead of `if`err`!=`nil`.
+now using the `check` keyword instead of `if err != nil`.
 
 The big problem with this design
 was that `handle` overlapped too much,
 and in confusing ways, with `defer`.
 
 In May we posted
-[[https://golang.org/design/32437-try-builtin][a new design with three simplifications]]:
+[a new design with three simplifications](https://golang.org/design/32437-try-builtin):
 to avoid the confusion with `defer`, the design dropped `handle` in favor of just using `defer`;
 to match a similar idea in Rust and Swift, the design renamed `check` to `try`;
 and to allow experimentation in a way that existing parsers like `gofmt` would recognize,
@@ -777,7 +778,7 @@ so we abandoned this experiment.
 That’s everything about error handling,
 which was one of the main focuses for this year.
 
-* Generics
+## Generics
 
 Now for something a little less controversial: generics.
 
@@ -820,7 +821,7 @@ so we put the entire topic aside for a few years.
 
 Last year we started exploring and experimenting again,
 and we presented a
-[[https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md][new design]],
+[new design](https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md),
 based on the idea of a contract,
 at Gophercon last summer.
 We’ve continued to experiment and simplify,
@@ -838,15 +839,15 @@ We’ll find out.
 At Gophercon 2019, Ian Lance Taylor talked about
 why we might want to add generics to Go
 and briefly previewed the latest design draft.
-For details, see his blog post “[[https://blog.golang.org/why-generics][Why Generics?]]”
+For details, see his blog post “[Why Generics?](https://blog.golang.org/why-generics)”
 
-* Dependencies
+## Dependencies
 
 The third big topic we identified for Go 2 was dependency management.
 
 In 2010 we published a tool called `goinstall`,
 which we called
-“[[https://groups.google.com/forum/#!msg/golang-nuts/8JFwR3ESjjI/cy7qZzN7Lw4J][an experiment in package installation]].”
+“[an experiment in package installation](https://groups.google.com/forum/#!msg/golang-nuts/8JFwR3ESjjI/cy7qZzN7Lw4J).”
 It downloaded dependencies and stored them in your
 Go distribution tree, in GOROOT.
 
@@ -863,7 +864,7 @@ Adding GOPATH created more places for Go packages
 but simplified Go development overall,
 by separating your Go distribution from your Go libraries.
 
-*Compatibility*
+**Compatibility**
 
 The `goinstall` experiment intentionally left out
 an explicit concept of package versioning.
@@ -871,7 +872,7 @@ Instead, `goinstall` always downloaded the latest copy.
 We did this so we could focus on the other
 design problems for package installation.
 
-`Goinstall` became `go`get` as part of Go 1.
+`Goinstall` became `go get` as part of Go 1.
 When people asked about versions,
 we encouraged them to experiment by
 creating additional tools, and they did.
@@ -879,7 +880,7 @@ And we encouraged package AUTHORS
 to provide their USERS
 with the same backwards compatibility
 we did for the Go 1 libraries.
-Quoting [[https://golang.org/doc/faq#get_version][the Go FAQ]]:
+Quoting [the Go FAQ](https://golang.org/doc/faq#get_version):
 
 .html experiment/div-quote.html
 
@@ -905,7 +906,7 @@ Of course, people kept experimenting.
 One of the most interesting experiments
 was started by Gustavo Niemeyer.
 He created a Git redirector called
-[[https://gopkg.in][`gopkg.in`]],
+[`gopkg.in`](https://gopkg.in),
 which provided different import paths
 for different API versions,
 to help package authors
@@ -915,21 +916,21 @@ a new import path.
 
 For example,
 the Go source code in the GitHub repository
-[[https://github.com/go-yaml/yaml][go-yaml/yaml]]
+[go-yaml/yaml](https://github.com/go-yaml/yaml)
 has different APIs
 in the v1 and v2 semantic version tags.
 The `gopkg.in` server provides these with
 different import paths
-[[https://godoc.org/gopkg.in/yaml.v1][gopkg.in/yaml.v1]]
+[gopkg.in/yaml.v1](https://godoc.org/gopkg.in/yaml.v1)
 and
-[[https://godoc.org/gopkg.in/yaml.v2][gopkg.in/yaml.v2]].
+[gopkg.in/yaml.v2](https://godoc.org/gopkg.in/yaml.v2).
 
 The convention of providing backwards compatibility,
 so that a newer version of a package can be used
 in place of an older version,
-is what makes `go`get`’s very simple rule—“always download the latest copy”—work well even today.
+is what makes `go get`’s very simple rule—“always download the latest copy”—work well even today.
 
-*Versioning*And*Vendoring*
+**Versioning And Vendoring**
 
 But in production contexts you need to be more precise
 about dependency versions, to make builds reproducible.
@@ -958,7 +959,7 @@ made these uses simpler overall.
 Shipping vendor directories in the `go` command
 led to more experimentation with vendoring itself,
 and we realized that we had introduced a few problems.
-The most serious was that we lost _package_uniqueness_.
+The most serious was that we lost _package uniqueness_.
 Before, during any given build,
 an import path
 might appear in lots of different packages,
@@ -998,7 +999,7 @@ to agree about the semantics,
 likely breaking their respective users.
 Convergence did not happen.
 
-*Dep*
+**Dep**
 
 At Gophercon in 2016, we started an effort
 to define a single tool to manage dependencies.
@@ -1069,7 +1070,7 @@ convention for so long that we took it for granted.
 The dep experiment helped us
 appreciate that convention better,
 and we gave it a name:
-the _import_compatibility_rule_:
+the _import compatibility rule_:
 
 .html experiment/div-quote.html
 
@@ -1078,7 +1079,7 @@ the new package must be backwards compatible with the old package.”
 
 .html experiment/div-end.html
 
-*Go*Modules*
+**Go Modules**
 
 We took what worked well in the dep experiment
 and what we learned about what didn’t work well,
@@ -1099,7 +1100,7 @@ so we refer to the system now as Go modules.
 Go modules are now integrated with the `go` command,
 which avoids needing to copy around vendor directories at all.
 
-*Replacing*GOPATH*
+**Replacing GOPATH**
 
 With Go modules comes the end of GOPATH as a
 global name space.
@@ -1144,21 +1145,21 @@ which may change often.
 Everything needs updating for this new convention.
 
 Most development tools use the
-[[https://godoc.org/go/build][`go/build`]] package to find and load Go source code.
+[`go/build`](https://godoc.org/go/build) package to find and load Go source code.
 We’ve kept that package working,
 but the API did not anticipate modules,
 and the workarounds we added to avoid API changes
 are slower than we’d like.
 We’ve published a replacement,
-[[https://godoc.org/golang.org/x/tools/go/packages][`golang.org/x/tools/go/packages`]].
+[`golang.org/x/tools/go/packages`](https://godoc.org/golang.org/x/tools/go/packages).
 Developer tools should now use that instead.
 It supports both GOPATH and Go modules,
 and it is faster and easier to use.
 In a release or two we may move it into the standard library,
-but for now [[https://godoc.org/golang.org/x/tools/go/packages][`golang.org/x/tools/go/packages`]]
+but for now [`golang.org/x/tools/go/packages`](https://godoc.org/golang.org/x/tools/go/packages)
 is stable and ready for use.
 
-*Go*Module*Proxies*
+**Go Module Proxies**
 
 One of the ways modules simplify Go development
 is by separating the concept of a group of packages
@@ -1167,7 +1168,7 @@ where they are stored.
 
 When we talked to Go users about dependencies,
 almost everyone using Go at their companies
-asked how to route `go`get` package fetches
+asked how to route `go get` package fetches
 through their own servers,
 to better control what code can be used.
 And even open-source developers were concerned
@@ -1186,18 +1187,18 @@ that can be asked for a specific module version.
 Companies can now easily run their own module proxy,
 with custom rules about what is allowed
 and where cached copies are stored.
-The open-source [[https://docs.gomods.io][Athens project]] has built just such a proxy,
+The open-source [Athens project](https://docs.gomods.io) has built just such a proxy,
 and Aaron Schlesinger gave a talk about it at Gophercon 2019.
 (We’ll add a link here when the video becomes available.)
 
 And for individual developers and open source teams,
-the Go team at Google has [[https://groups.google.com/forum/#!topic/golang-announce/0wo8cOhGuAI][launched a proxy]] that serves
+the Go team at Google has [launched a proxy](https://groups.google.com/forum/#!topic/golang-announce/0wo8cOhGuAI) that serves
 as a public mirror of all open-source Go packages,
 and Go 1.13 will use that proxy by default when in module mode.
 Katie Hockman gave a talk about this system at Gophercon 2019.
 (We’ll add a link here when the video becomes available.)
 
-*Go*Modules*Status*
+**Go Modules Status**
 
 Go 1.11 introduced modules as an experimental, opt-in preview.
 We keep experimenting and simplifying.
@@ -1229,10 +1230,10 @@ You probably can too.
 And if you can’t,
 please let us know what’s not working for you
 or what’s too complex,
-by [[https://golang.org/issue/new][filing a bug report]],
+by [filing a bug report](https://golang.org/issue/new),
 and we will experiment and simplify.
 
-* Tools
+## Tools
 
 Error handling, generics, and dependency management
 are going to take a few more years at least,
@@ -1265,7 +1266,7 @@ We began an effort to unify the most commonly-required
 development helpers into a single tool,
 now called `gopls` (pronounced “go, please”).
 `Gopls` speaks the
-[[https://langserver.org/][Language Server Protocol, LSP]],
+[Language Server Protocol, LSP](https://langserver.org/),
 and works with any integrated development environment
 or text editor with LSP support,
 which is essentially everything at this point.
@@ -1277,10 +1278,10 @@ to also delivering a complete IDE service.
 Rebecca Stambler gave a talk with more details about `gopls` and IDEs at Gophercon 2019.
 (We’ll add a link here when the video becomes available.)
 
-After `gopls`, we also have ideas for reviving `go`fix` in an
-extensible way and for making `go`vet` even more helpful.
+After `gopls`, we also have ideas for reviving `go fix` in an
+extensible way and for making `go vet` even more helpful.
 
-* Coda
+## Coda
 
 .html experiment/div-indent.html
 .image experiment/expsimp2.png _ 326

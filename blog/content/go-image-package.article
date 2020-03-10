@@ -1,22 +1,23 @@
-The Go image package
+# The Go image package
 21 Sep 2011
 Tags: image, libraries, technical
+Summary: The [image](https://golang.org/pkg/image/) and [image/color](https://golang.org/pkg/image/color/) packages define a number of types: `color.Color` and `color.Model` describe colors, `image.Point` and `image.Rectangle` describe basic 2-D geometry, and `image.Image` brings the two concepts together to represent a rectangular grid of colors. A [separate article](https://golang.org/doc/articles/image_draw.html) covers image composition with the [image/draw](https://golang.org/pkg/image/draw/) package.
 
 Nigel Tao
 
-* Introduction
+## Introduction
 
-The [[https://golang.org/pkg/image/][image]] and [[https://golang.org/pkg/image/color/][image/color]]
+The [image](https://golang.org/pkg/image/) and [image/color](https://golang.org/pkg/image/color/)
 packages define a number of types:
 `color.Color` and `color.Model` describe colors,
 `image.Point` and `image.Rectangle` describe basic 2-D geometry,
 and `image.Image` brings the two concepts together to represent a rectangular grid of colors.
-A [[https://golang.org/doc/articles/image_draw.html][separate article]]
-covers image composition with the [[https://golang.org/pkg/image/draw/][image/draw]] package.
+A [separate article](https://golang.org/doc/articles/image_draw.html)
+covers image composition with the [image/draw](https://golang.org/pkg/image/draw/) package.
 
-* Colors and Color Models
+## Colors and Color Models
 
-[[https://golang.org/pkg/image/color/#Color][Color]] is an interface that
+[Color](https://golang.org/pkg/image/color/#Color) is an interface that
 defines the minimal method set of any type that can be considered a color:
 one that can be converted to red, green, blue and alpha values.
 The conversion may be lossy, such as converting from CMYK or YCbCr color spaces.
@@ -39,7 +40,7 @@ Third, the type returned is `uint32`, even though the maximum value is 65535,
 to guarantee that multiplying two values together won't overflow.
 Such multiplications occur when blending two colors according to an alpha
 mask from a third color,
-in the style of [[https://en.wikipedia.org/wiki/Alpha_compositing][Porter and Duff's]] classic algebra:
+in the style of [Porter and Duff's](https://en.wikipedia.org/wiki/Alpha_compositing) classic algebra:
 
 	dstr, dstg, dstb, dsta := dst.RGBA()
 	srcr, srcg, srcb, srca := src.RGBA()
@@ -55,7 +56,7 @@ which is why `Color` uses alpha-premultiplied values.
 
 The image/color package also defines a number of concrete types that implement
 the `Color` interface.
-For example, [[https://golang.org/pkg/image/color/#RGBA][`RGBA`]] is a struct
+For example, [`RGBA`](https://golang.org/pkg/image/color/#RGBA) is a struct
 that represents the classic "8 bits per channel" color.
 
 	type RGBA struct {
@@ -66,16 +67,16 @@ Note that the `R` field of an `RGBA` is an 8-bit alpha-premultiplied color
 in the range [0, 255].
 `RGBA` satisfies the `Color` interface by multiplying that value by 0x101
 to generate a 16-bit alpha-premultiplied color in the range [0, 65535].
-Similarly, the [[https://golang.org/pkg/image/color/#NRGBA][`NRGBA`]] struct
+Similarly, the [`NRGBA`](https://golang.org/pkg/image/color/#NRGBA) struct
 type represents an 8-bit non-alpha-premultiplied color,
 as used by the PNG image format.
 When manipulating an `NRGBA`'s fields directly,
 the values are non-alpha-premultiplied, but when calling the `RGBA` method,
 the return values are alpha-premultiplied.
 
-A [[https://golang.org/pkg/image/color/#Model][`Model`]] is simply something
+A [`Model`](https://golang.org/pkg/image/color/#Model) is simply something
 that can convert `Color`s to other `Color`s, possibly lossily.
-For example, the `GrayModel` can convert any `Color` to a desaturated [[https://golang.org/pkg/image/color/#Gray][`Gray`]].
+For example, the `GrayModel` can convert any `Color` to a desaturated [`Gray`](https://golang.org/pkg/image/color/#Gray).
 A `Palette` can convert any `Color` to one from a limited palette.
 
 	type Model interface {
@@ -84,9 +85,9 @@ A `Palette` can convert any `Color` to one from a limited palette.
 
 	type Palette []Color
 
-* Points and Rectangles
+## Points and Rectangles
 
-A [[https://golang.org/pkg/image/#Point][`Point`]] is an (x,
+A [`Point`](https://golang.org/pkg/image/#Point) is an (x,
 y) co-ordinate on the integer grid, with axes increasing right and down.
 It is neither a pixel nor a grid square. A `Point` has no intrinsic width,
 height or color, but the visualizations below use a small colored square.
@@ -97,9 +98,9 @@ height or color, but the visualizations below use a small colored square.
 
 .image go-image-package_image-package-01.png
 
-	    p := image.Point{2, 1}
+	p := image.Point{2, 1}
 
-A [[https://golang.org/pkg/image/#Rectangle][`Rectangle`]] is an axis-aligned
+A [`Rectangle`](https://golang.org/pkg/image/#Rectangle) is an axis-aligned
 rectangle on the integer grid,
 defined by its top-left and bottom-right `Point`.
 A `Rectangle` also has no intrinsic color,
@@ -110,11 +111,11 @@ and call out their `Min` and `Max` `Point`s.
 	    Min, Max Point
 	}
 
-For convenience, `image.Rect(x0,`y0,`x1,`y1)` is equivalent to `image.Rectangle{image.Point{x0,`y0},`image.Point{x1,`y1}}`,
+For convenience, `image.Rect(x0, y0, x1, y1)` is equivalent to `image.Rectangle{image.Point{x0, y0}, image.Point{x1, y1}}`,
 but is much easier to type.
 
 A `Rectangle` is inclusive at the top-left and exclusive at the bottom-right.
-For a `Point`p` and a `Rectangle`r`, `p.In(r)` if and only if `r.Min.X`<=`p.X`&&`p.X`<`r.Max.X`,
+For a `Point p` and a `Rectangle r`, `p.In(r)` if and only if `r.Min.X <= p.X && p.X < r.Max.X`,
 and similarly for `Y`.
 This is analogous to how a slice `s[i0:i1]` is inclusive at the low end
 and exclusive at the high end.
@@ -122,34 +123,34 @@ and exclusive at the high end.
 
 .image go-image-package_image-package-02.png
 
-	    r := image.Rect(2, 1, 5, 5)
-	    // Dx and Dy return a rectangle's width and height.
-	    fmt.Println(r.Dx(), r.Dy(), image.Pt(0, 0).In(r)) // prints 3 4 false
+	r := image.Rect(2, 1, 5, 5)
+	// Dx and Dy return a rectangle's width and height.
+	fmt.Println(r.Dx(), r.Dy(), image.Pt(0, 0).In(r)) // prints 3 4 false
 
 Adding a `Point` to a `Rectangle` translates the `Rectangle`.
 Points and Rectangles are not restricted to be in the bottom-right quadrant.
 
 .image go-image-package_image-package-03.png
 
-	    r := image.Rect(2, 1, 5, 5).Add(image.Pt(-4, -2))
-	    fmt.Println(r.Dx(), r.Dy(), image.Pt(0, 0).In(r)) // prints 3 4 true
+	r := image.Rect(2, 1, 5, 5).Add(image.Pt(-4, -2))
+	fmt.Println(r.Dx(), r.Dy(), image.Pt(0, 0).In(r)) // prints 3 4 true
 
 Intersecting two Rectangles yields another Rectangle, which may be empty.
 
 .image go-image-package_image-package-04.png
 
-	    r := image.Rect(0, 0, 4, 3).Intersect(image.Rect(2, 2, 5, 5))
-	    // Size returns a rectangle's width and height, as a Point.
-	    fmt.Printf("%#v\n", r.Size()) // prints image.Point{X:2, Y:1}
+	r := image.Rect(0, 0, 4, 3).Intersect(image.Rect(2, 2, 5, 5))
+	// Size returns a rectangle's width and height, as a Point.
+	fmt.Printf("%#v\n", r.Size()) // prints image.Point{X:2, Y:1}
 
 Points and Rectangles are passed and returned by value.
 A function that takes a `Rectangle` argument will be as efficient as a function
 that takes two `Point` arguments,
 or four `int` arguments.
 
-* Images
+## Images
 
-An [[https://golang.org/pkg/image/#Image][Image]] maps every grid square
+An [Image](https://golang.org/pkg/image/#Image) maps every grid square
 in a `Rectangle` to a `Color` from a `Model`.
 "The pixel at (x, y)" refers to the color of the grid square defined by the points (x,
 y), (x+1, y), (x+1, y+1) and (x, y+1).
@@ -180,7 +181,7 @@ The correct way to iterate over an `Image` m's pixels looks like:
 	}
 
 `Image` implementations do not have to be based on an in-memory slice of pixel data.
-For example, a [[https://golang.org/pkg/image/#Uniform][`Uniform`]] is an
+For example, a [`Uniform`](https://golang.org/pkg/image/#Uniform) is an
 `Image` of enormous bounds and uniform color,
 whose in-memory representation is simply that color.
 
@@ -189,7 +190,7 @@ whose in-memory representation is simply that color.
 	}
 
 Typically, though, programs will want an image based on a slice.
-Struct types like [[https://golang.org/pkg/image/#RGBA][`RGBA`]] and [[https://golang.org/pkg/image/#Gray][`Gray`]]
+Struct types like [`RGBA`](https://golang.org/pkg/image/#RGBA) and [`Gray`](https://golang.org/pkg/image/#Gray)
 (which other packages refer to as `image.RGBA` and `image.Gray`) hold slices
 of pixel data and implement the `Image` interface.
 
@@ -203,10 +204,10 @@ of pixel data and implement the `Image` interface.
 	    Rect Rectangle
 	}
 
-These types also provide a `Set(x,`y`int,`c`color.Color)` method that allows modifying the image one pixel at a time.
+These types also provide a `Set(x, y int, c color.Color)` method that allows modifying the image one pixel at a time.
 
-	    m := image.NewRGBA(image.Rect(0, 0, 640, 480))
-	    m.Set(5, 5, color.RGBA{255, 0, 0, 255})
+	m := image.NewRGBA(image.Rect(0, 0, 640, 480))
+	m.Set(5, 5, color.RGBA{255, 0, 0, 255})
 
 If you're reading or writing a lot of pixel data,
 it can be more efficient, but more complicated,
@@ -220,23 +221,23 @@ the contents of the original slice `s`.
 
 .image go-image-package_image-package-05.png
 
-	    m0 := image.NewRGBA(image.Rect(0, 0, 8, 5))
-	    m1 := m0.SubImage(image.Rect(1, 2, 5, 5)).(*image.RGBA)
-	    fmt.Println(m0.Bounds().Dx(), m1.Bounds().Dx()) // prints 8, 4
-	    fmt.Println(m0.Stride == m1.Stride)             // prints true
+	m0 := image.NewRGBA(image.Rect(0, 0, 8, 5))
+	m1 := m0.SubImage(image.Rect(1, 2, 5, 5)).(*image.RGBA)
+	fmt.Println(m0.Bounds().Dx(), m1.Bounds().Dx()) // prints 8, 4
+	fmt.Println(m0.Stride == m1.Stride)             // prints true
 
 For low-level code that works on an image's `Pix` field,
 be aware that ranging over `Pix` can affect pixels outside an image's bounds.
 In the example above, the pixels covered by `m1.Pix` are shaded in blue.
-Higher-level code, such as the `At` and `Set` methods or the [[https://golang.org/pkg/image/draw/][image/draw package]],
+Higher-level code, such as the `At` and `Set` methods or the [image/draw package](https://golang.org/pkg/image/draw/),
 will clip their operations to the image's bounds.
 
-* Image Formats
+## Image Formats
 
 The standard package library supports a number of common image formats,
 such as GIF, JPEG and PNG.
 If you know the format of a source image file,
-you can decode from an [[https://golang.org/pkg/io/#Reader][`io.Reader`]] directly.
+you can decode from an [`io.Reader`](https://golang.org/pkg/io/#Reader) directly.
 
 	import (
 	 "image/jpeg"
@@ -254,7 +255,7 @@ you can decode from an [[https://golang.org/pkg/io/#Reader][`io.Reader`]] direct
 	}
 
 If you have image data of unknown format,
-the [[https://golang.org/pkg/image/#Decode][`image.Decode`]] function can detect the format.
+the [`image.Decode`](https://golang.org/pkg/image/#Decode) function can detect the format.
 The set of recognized formats is constructed at run time and is not limited
 to those in the standard package library.
 An image format package typically registers its format in an init function,
