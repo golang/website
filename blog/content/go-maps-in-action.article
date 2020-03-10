@@ -211,7 +211,6 @@ containing a map and an embedded `sync.RWMutex`.
 
 To read from the counter, take the read lock:
 
-
 	counter.RLock()
 	n := counter.m["some_key"]
 	counter.RUnlock()

@@ -24,7 +24,6 @@ We also asked about the kinds of programs people write in Go.
 Like in the previous question, most made multiple choices,
 with 85% choosing two or more and 72% choosing three or more.
 
-
 We asked about people’s expertise and preference among programming languages.
 Unsurprisingly, Go ranked highest among respondents’ first choices in both expertise (26%) and preference (62%).
 With Go excluded, the top five first choices for language expertise were
@@ -32,7 +31,6 @@ Python (18%), Java (17%), JavaScript (13%), C (11%), and PHP (8%);
 and the top five first choices for language preference were
 Python (22%), JavaScript (10%), C (9%), Java (9%), and Ruby (7%).
 Go is clearly attracting many programmers from dynamic languages.
-
 
 .html survey2016/background.html
 
@@ -76,9 +74,7 @@ with multiple choices allowed and 49% of respondents developing on multiple syst
 The 51% of responses choosing a single system split into
 29% on Linux, 17% on MacOS, 5% on Windows, and 0.2% on other systems.
 
-
 Go deployment is roughly evenly split between privately managed servers and hosted cloud servers.
-
 
 .html survey2016/dev.html
 
@@ -90,7 +86,6 @@ that they are able to quickly find answers to their questions (20:1),
 and that they are able to effectively use Go’s concurrency features (14:1).
 On the other hand, users least agreed that they are able to effectively
 debug uses of Go’s concurrency features (2.7:1).
-
 
 Users mostly agreed that they were able to quickly find libraries they need (7.5:1).
 When asked what libraries are still missing, the most common request by far was a library for writing GUIs.
@@ -121,7 +116,7 @@ but they agree much less that the project leadership understands their needs (2.
 and they agree even less that they feel comfortable approaching project leadership with questions and feedback (2.2:1).
 In fact, these were the only questions in the survey for which more than half of respondents
 did not mark “somewhat agree”, “agree”, or “strongly agree” (many were neutral or did not answer).
- 
+
 We hope that the survey and this blog post convey to those of you
 who are aren’t comfortable reaching out that the Go project leadership is listening.
 Throughout 2017 we will be exploring new ways to engage with users to better understand their needs.

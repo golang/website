@@ -263,7 +263,7 @@ and cut its run time by nearly a factor of two:
 	$ ./xtime ./havlak2
 	# of loops: 76000 (including 1 artificial root node)
 	16.55u 0.11s 16.69r 1321008kB ./havlak2
-	$ 
+	$
 
 (See the [[https://github.com/rsc/benchgraffiti/commit/58ac27bcac3ffb553c29d0b3fb64745c91c95948][diff between `havlak1` and `havlak2`]])
 
@@ -315,7 +315,8 @@ We invoke the program with `-memprofile` flag to write a profile:
 	$ make havlak3.mprof
 	go build havlak3.go
 	./havlak3 -memprofile=havlak3.mprof
-	$ 
+	$
+
 (See the [[https://github.com/rsc/benchgraffiti/commit/b78dac106bea1eb3be6bb3ca5dba57c130268232][diff from havlak2]])
 
 We use `go tool pprof` exactly the same way. Now the samples we are examining are
@@ -372,7 +373,6 @@ simpler data structures suffice.
 As an aside, if we run `go tool pprof` with the `--inuse_objects` flag, it will
 report allocation counts instead of sizes:
 
-
 	$ go tool pprof --inuse_objects havlak3 havlak3.mprof
 	Adjusting heap profiles for 1-in-524288 sampling rate
 	Welcome to pprof!  For help, type 'help'.
@@ -424,7 +424,8 @@ of maps requires changing just a few lines of code.
 	$ ./xtime ./havlak4
 	# of loops: 76000 (including 1 artificial root node)
 	11.84u 0.08s 11.94r 810416kB ./havlak4
-	$ 
+	$
+
 (See the [[https://github.com/rsc/benchgraffiti/commit/245d899f7b1a33b0c8148a4cd147cb3de5228c8a][diff from havlak3]])
 
 We're now at 2.11x faster than when we started. Let's look at a CPU profile again.
@@ -566,6 +567,7 @@ track this memory, restoring the possibility of concurrent use.
 	# of loops: 76000 (including 1 artificial root node)
 	8.03u 0.06s 8.11r 770352kB ./havlak5
 	$
+
 (See the [[https://github.com/rsc/benchgraffiti/commit/2d41d6d16286b8146a3f697dd4074deac60d12a4][diff from havlak4]])
 
 There's more we can do to clean up the program and make it faster, but none of
@@ -587,7 +589,7 @@ The final version runs in 2.29 seconds and uses 351 MB of memory:
 	$ ./xtime ./havlak6
 	# of loops: 76000 (including 1 artificial root node)
 	2.26u 0.02s 2.29r 360224kB ./havlak6
-	$ 
+	$
 
 That's 11 times faster than the program we started with.
 Even if we disable reuse of the generated loop graph, so that the only cached memory
@@ -620,6 +622,7 @@ cache, the C++ program a bit shorter and easier to write, but not dramatically s
 	 401 1220 9040 havlak6.cc
 	 461 1441 9467 havlak6.go
 	$
+
 (See [[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.cc][havlak6.cc]]
 and [[https://github.com/rsc/benchgraffiti/blob/master/havlak/havlak6.go][havlak6.go]])
 

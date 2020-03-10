@@ -7,6 +7,7 @@ Andrew Gerrand
 * Introduction
 
 .image go-version-1-is-released_gophermega.jpg
+
 Today marks a major milestone in the development of the Go programming language.
 We're announcing Go version 1, or Go 1 for short,
 which defines a language and a set of core libraries to provide a stable

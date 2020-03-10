@@ -60,7 +60,6 @@ soon.
 - SourceGraph: a Code Search Engine in Go,
   by Quinn Slack. ([[https://youtu.be/-DpKaoPz8l8][video]] and [[https://go-talks.appspot.com/github.com/sourcegraph/talks/google-io-2014/gio2014.slide#1][slides]])
 
-
 We also organized Q&A sessions and lightning talks by members of the Go
 community:
 

@@ -21,7 +21,7 @@ The complete series of talks is available
 * Scaling with Go: YouTube's Vitess
 
 Google Engineer Sugu Sougoumarane described how he and his
-team built [[https://github.com/youtube/vitess][Vitess]] in Go to help scale 
+team built [[https://github.com/youtube/vitess][Vitess]] in Go to help scale
 [[https://youtube.com][YouTube]].
 
 Vitess is a set of servers and tools primarily developed in Go.
@@ -63,11 +63,10 @@ your own."
 
 * More
 
-There were many more great talks, so please check out the complete series 
+There were many more great talks, so please check out the complete series
 [[http://www.youtube.com/playlist?list=PLtLJO5JKE5YDKG4WcaNts3IVZqhDmmuBH][as a YouTube playlist]].
 In particular, the [[http://www.youtube.com/watch?v=cwpI5ONWGxc&list=PLtLJO5JKE5YDKG4WcaNts3IVZqhDmmuBH&index=7][lightning talks]] were a lot of fun.
 
 I would like to give my personal thanks to the excellent speakers, Mathieu
 Lonjaret for managing the video gear, and to the FOSDEM staff for making all
 this possible.
-

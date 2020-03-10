@@ -83,7 +83,6 @@ Function call support in Delve is still under development, but simple cases work
 	Values returned:
 		~r1: 8
 
-
 * The path forward
 
 Go 1.12 is a step toward a better debugging experience for optimized binaries

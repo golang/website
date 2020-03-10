@@ -12,6 +12,7 @@ make it easier to find.
 These changes are also reflected in the web interface of [[https://golang.org/cmd/godoc/][godoc]],
 the Go documentation tool.
 But the real news is a prominent new feature: the [[https://golang.org/][Go Playground]].
+
 .image introducing-go-playground_Untitled.png
 
 The Playground allows anyone with a web browser to write Go code that we

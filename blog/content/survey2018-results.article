@@ -6,6 +6,7 @@ Todd Kulesza, Steve Francia
 tkulesza@google.com, spf@golang.org
 
 * Thank you
+
 .html survey2018/style.html
 
 This post summarizes the results of our 2018 user survey and draws comparisons
@@ -54,18 +55,8 @@ These findings suggests companies are continuing to embrace Go for professional
 software development at a consistent pace,
 and that Go's general popularity with developers remains strong.
 
-#This year we saw an 8-point increase in the number of respondents who program in other languages at work. The majority of these developers (55%) still program in Go as part of their daily routine, and an additional 31% program in Go weekly. This suggests there is a sizable (and growing) audience of Go developers whose work involves switching between multiple languages; , and may be dealing with a difficult mental context switch due to syntactic and semantic language differences. Indeed, participants reported that one of their challenges to using Go was "differences from familiar languages/ecosystems", as we'll discuss in the _Attitudes_towards_Go_ section below.
-
-#.html survey2018/fig1-3.html
-
 .image survey2018/fig1.svg _ 600
-#.caption Figure 1
-
 .image survey2018/fig2.svg _ 600
-#.caption Figure 2
-
-#.image survey2018/fig3.svg _ 600
-#.caption Figure 3
 
 To better understand where developers use Go,
 we broke responses down into three groups:
@@ -85,7 +76,6 @@ see section _Attitudes_towards_Go_ below) Go is the top language they'd
 prefer to use for these non-work-related projects.
 
 .image survey2018/fig4.svg _ 600
-#.caption Figure 4
 
 When asked how long they've been using Go,
 participants' answers are strongly trending upward over time,
@@ -98,7 +88,6 @@ as this suggests that developers are not dropping out of the ecosystem after
 initially learning the language.
 
 .image survey2018/fig5.svg _ 600
-#.caption Figure 5
 
 As in prior years, Go ranks at the top of respondents' preferred languages
 and languages in which they have expertise.
@@ -130,10 +119,7 @@ which highlights three interesting bits:
   which also found Rust, Kotlin, and Go to be among the most-preferred programming languages.
 
 .image survey2018/fig6.svg _ 600
-#.caption Figure 6
-
 .image survey2018/fig7.svg _ 600
-#.caption Figure 7
 .html survey2018/reading.html
 
 * Development domains
@@ -151,7 +137,6 @@ suggesting that respondents are adopting Go for a wider variety of projects,
 rather than shifting usage from one domain to another.
 
 .image survey2018/fig8.svg _ 600
-#.caption Figure 8
 
 Since 2016, the top two uses of Go have been writing API/RPC services and
 developing CLI applications.
@@ -167,7 +152,6 @@ Another year-over-year trend suggests that automation is also a growing area for
 with 38% of respondents now using Go for scripts and automation tasks (up from 31% in 2016).
 
 .image survey2018/fig9.svg _ 600
-#.caption Figure 9
 
 To better understand the contexts in which developers are using Go,
 we added a question about Go adoption across different industries.
@@ -182,7 +166,6 @@ adoption across industries to better understand developer needs outside
 of technology companies.
 
 .image survey2018/fig10.svg _ 600
-#.caption Figure 10
 
 * Attitudes towards Go
 
@@ -196,7 +179,6 @@ Our 2018 score is 61 (68% promoters - 7% detractors) and will serve as a
 baseline to help us gauge community sentiment towards the Go ecosystem over time.
 
 .image survey2018/fig11.svg _ 600
-#.caption Figure 11
 
 In addition to NPS, we asked several questions about developer satisfaction with Go.
 Overall, survey respondents indicated a high level of satisfaction,
@@ -211,10 +193,7 @@ they remained mostly stable this year.
 to "_Overall,_I'm_happy_with_Go_",
 so those results are not directly comparable.)
 
-#We also looked at only the respondents who _strongly_ agreed with each statement and found the same pattern: increases in 2017, stabilizing in 2018.
-
 .image survey2018/fig12.svg _ 600
-#.caption Figure 12
 
 Given the strong sentiment towards preferring Go for future development,
 we want to understand what prevents developers from doing so.
@@ -242,10 +221,7 @@ The top three major challenges we identified are:
   "Hard to build richer abstractions (want generics)")
 
 .image survey2018/fig13.svg _ 600
-#.caption Figure 13
-
 .image survey2018/fig14.svg _ 600
-#.caption Figure 14
 
 This year we added several questions about developer satisfaction with different aspects of Go.
 Survey respondents were very satisfied with Go applications' CPU performance (46:1,
@@ -274,10 +250,7 @@ We plan to investigate how developers debug Go applications in more depth this y
 with a goal of improving the overall debugging experience for Go developers.
 
 .image survey2018/fig15.svg _ 600
-#.caption Figure 15
-
 .image survey2018/fig29.svg _ 600
-#.caption Figure 29
 
 * Development environments
 
@@ -292,7 +265,6 @@ Overall, 41% of respondents use multiple operating systems for Go development,
 highlighting the cross-platform nature of Go.
 
 .image survey2018/fig16.svg _ 600
-#.caption Figure 16
 
 Last year, VS Code edged out Vim as the most popular Go editor among survey respondents.
 This year it significantly expanded its lead to become the preferred editor
@@ -319,10 +291,7 @@ Other requests include better integration with Go's CLI toolchain,
 better support for modules/packages, and general performance improvements.
 
 .image survey2018/fig17.svg _ 600
-#.caption Figure 17
-
 .image survey2018/fig18.svg _ 600
-#.caption Figure 18
 
 This year we also added a question asking which deployment architectures
 are most important to Go developers.
@@ -336,7 +305,6 @@ there is significant interest in ARM64 (45%),
 WebAssembly (30%), and ARM (22%), but very little interest in other platforms.
 
 .image survey2018/fig19.svg _ 600
-#.caption Figure 19
 
 * Deployments and services
 
@@ -358,7 +326,6 @@ We also see steady growth in Go deployments to GCP since 2016,
 increasing from 12% → 19% of respondents.
 
 .image survey2018/fig20.svg _ 600
-#.caption Figure 20
 
 Perhaps correlated with the decrease in on-prem deployments,
 this year we saw cloud storage become the second-most used service by survey respondents,
@@ -370,7 +337,6 @@ which ticked up from 61% → 65% of respondents.
 As the below chart shows, service usage increased across the board.
 
 .image survey2018/fig21.svg _ 600
-#.caption Figure 21
 
 * Go community
 
@@ -388,10 +354,7 @@ In the two charts below, we've grouped sources used by less than < 5% of
 respondents into the "Other" category.
 
 .image survey2018/fig24.svg _ 600
-#.caption Figure 24
-
 .image survey2018/fig25.svg _ 600
-#.caption Figure 25
 
 This year, 55% of survey respondents said they have or are interested in
 contributing to the Go community,
@@ -404,10 +367,7 @@ leadership with questions and feedback" (30% → 25%) and "I am confident
 in the leadership of Go (54% → 46%).
 
 .image survey2018/fig26.svg _ 600
-#.caption Figure 26
-
 .image survey2018/fig27.svg _ 600
-#.caption Figure 27
 
 An important aspect of community is helping everyone feel welcome,
 especially people from traditionally under-represented demographics.
@@ -425,7 +385,6 @@ is at least retaining the same proportions of under-represented members,
 and may even be increasing.
 
 .image survey2018/fig28.svg _ 600
-#.caption Figure 28
 
 Maintaining a healthy community is extremely important to the Go project,
 so for the past three years we've been measuring the extent to which developers
@@ -447,7 +406,6 @@ This interpretation of the data is supported by responses to the question
 "What changes would make the Go community more welcoming?".
 Respondents' comments can be broadly grouped into four categories:
 
-
 - Reduce a perception of elitism, especially for newcomers to Go (e.g.,
   "less dismissiveness", "Less defensiveness and hubris")
 - Increase transparency at the leadership level (e.g.,
@@ -464,10 +422,7 @@ While it doesn't represent a large percentage of our user base,
 we take this feedback very seriously and are working on improving each area.
 
 .image survey2018/fig22.svg _ 600
-#.caption Figure 22
-
 .image survey2018/fig23.svg _ 600
-#.caption Figure 23
 
 * Conclusion
 

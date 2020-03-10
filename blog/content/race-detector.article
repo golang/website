@@ -139,7 +139,7 @@ A simpler but less efficient approach is to
 The second example is more subtle.
 
 The `ioutil` package's
-[[https://golang.org/pkg/io/ioutil/#Discard][`Discard`]] object implements 
+[[https://golang.org/pkg/io/ioutil/#Discard][`Discard`]] object implements
 [[https://golang.org/pkg/io/#Writer][`io.Writer`]],
 but discards all the data written to it.
 Think of it like `/dev/null`: a place to send data that you need to read but

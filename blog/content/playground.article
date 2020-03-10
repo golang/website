@@ -27,7 +27,6 @@ The implementation involves a variant operating system environment and runtime
 and our description here assumes you have some familiarity with systems
 programming using Go.
 
-
 * Overview
 
 .image playground/overview.png
@@ -42,7 +41,6 @@ The playground service has three parts:
   It receives HTTP requests from the client and makes corresponding RPC requests to the back end.
   It also does some caching.
 - A JavaScript client that implements the user interface and makes HTTP requests to the front end.
-
 
 * The back end
 
@@ -81,7 +79,6 @@ A more recent update to the playground introduced a fake network stack and a
 fake file system, making the playground's tool chain similar to a normal
 Go tool chain.
 These facilities are described in the following sections.
-
 
 ** Faking time
 
@@ -182,7 +179,6 @@ The JavaScript client (running in the user's web browser) then plays back the
 events using the provided delay intervals.
 To the user it appears that the program is running in real time.
 
-
 ** Faking the file system
 
 Programs built with the Go's NaCl tool chain cannot access the local machine's
@@ -245,7 +241,6 @@ There are several implementations of the interface:
   program's only way to interact with the outside world),
 - network sockets have their own implementation, discussed in the next section.
 
-
 ** Faking the network
 
 Like the file system, the playground's network stack is an in-process fake
@@ -268,7 +263,6 @@ The implementation can be found in [[https://github.com/golang/go/blob/master/sr
 A good place to start reading is [[https://github.com/golang/go/blob/master/src/syscall/net_nacl.go#L461][`netFile`]],
 the network socket implementation of the `fileImpl` interface.
 
-
 * The front end
 
 The playground front end is another simple program (shorter than 100 lines).
@@ -289,7 +283,6 @@ The cache prevents popular programs such as those on the
 If there is no cached response, the front end makes an RPC request to the back
 end, stores the response in memcache, parses the playback events, and returns
 a JSON object to the client as the HTTP response (as described above).
-
 
 * The client
 
@@ -324,7 +317,6 @@ the various web servers (godoc, for instance) proxy requests to
 The common [[https://godoc.org/golang.org/x/tools/playground][`golang.org/x/tools/playground`]]
 package does this proxying.
 
-
 * Playing offline
 
 Both the [[https://tour.golang.org][Go Tour]] and the
@@ -342,7 +334,6 @@ The WebSocket back end implementation can be found in the
 [[https://godoc.org/golang.org/x/tools/playground/socket][`golang.org/x/tools/playground/socket`]] package.
 The [[https://talks.golang.org/2012/insidepresent.slide#1][Inside Present]] talk discusses this code in detail.
 
-
 * Other clients
 
 The playground service is used by more than just the official Go project
@@ -351,7 +342,6 @@ and we are happy for you to use it on your own site. All we ask is that
 you [[mailto:golang-dev@googlegroups.com][contact us first]],
 use a unique user agent in your requests (so we can identify you), and that
 your service is of benefit to the Go community.
-
 
 * Conclusion
 

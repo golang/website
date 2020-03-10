@@ -72,7 +72,7 @@ characters. We'll return to that topic in detail below. For now, let's
 stick with just the bytes.
 This is the output from the byte-by-byte loop:
 
-	bd b2 3d bc 20 e2 8c 98 
+	bd b2 3d bc 20 e2 8c 98
 
 Notice how the individual bytes match the
 hexadecimal escapes that defined the string.
@@ -166,7 +166,7 @@ The output is:
 
 	plain string: ⌘
 	quoted string: "\u2318"
-	hex bytes: e2 8c 98 
+	hex bytes: e2 8c 98
 
 which reminds us that the Unicode character value U+2318, the "Place
 of Interest" symbol ⌘, is represented by the bytes `e2` `8c` `98`, and
@@ -261,7 +261,6 @@ To summarize, here are the salient points:
 - A string literal, absent byte-level escapes, always holds valid UTF-8 sequences.
 - Those sequences represent Unicode code points, called runes.
 - No guarantee is made in Go that characters in strings are normalized.
-
 
 * Range loops
 

@@ -70,7 +70,7 @@ As an example, gofix can rewrite code like [[http://codereview.appspot.com/43530
 	    // Byte slices are special.
 	    if f.Type().(reflect.ArrayOrSliceType).Elem().Kind() == reflect.Uint8 {
 	        // ...
-	    }   
+	    }
 	// ...
 	}
 
@@ -86,7 +86,7 @@ to adapt it to the new reflect API:
 	    // Byte slices are special.
 	    if f.Type().Elem().Kind() == reflect.Uint8 {
 	        // ...
-	    }   
+	    }
 	// ...
 	}
 

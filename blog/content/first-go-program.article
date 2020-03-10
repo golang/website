@@ -41,7 +41,6 @@ Rob sent mail to the "Go team":
 	here's the code.
 	some ugly hackery to get around the lack of strings.
 
-
 (The `icounter` line in the program output is the number of executed
 statements, printed for debugging.)
 
@@ -50,7 +49,7 @@ statements, printed for debugging.)
 The program parses and prints an
 [[https://en.wikipedia.org/wiki/S-expression][S-expression]].
 It takes no user input and has no imports, relying only on the built-in
-`print` facility for output. 
+`print` facility for output.
 It was written literally the first day there was a
 [[https://golang.org/change/8b8615138da3][working but rudimentary compiler]].
 Much of the language wasn't implemented and some of it wasn't even specified.
@@ -117,7 +116,6 @@ For instance, Rob called his method receivers `this`, but now we use shorter
 context-specific names. There are hundreds of more significant examples
 and to this day we're still discovering better ways to write Go code.
 (Check out the [[https://github.com/golang/glog][glog package]]'s clever trick for
-[[https://github.com/golang/glog/blob/c6f9652c7179652e2fd8ed7002330db089f4c9db/glog.go#L893][handling verbosity levels]].) 
+[[https://github.com/golang/glog/blob/c6f9652c7179652e2fd8ed7002330db089f4c9db/glog.go#L893][handling verbosity levels]].)
 
 I wonder what we'll learn tomorrow.
-

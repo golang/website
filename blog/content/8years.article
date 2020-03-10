@@ -23,7 +23,7 @@ Source: [[https://trends.google.com/trends/explore?date=2009-10-01%202017-10-30&
 ** Developers love Go
 
 Go has been embraced by developers all over the world with approximately one
-million users worldwide. In the [[https://octoverse.github.com/][freshly published 2017 Octoverse]] 
+million users worldwide. In the [[https://octoverse.github.com/][freshly published 2017 Octoverse]]
 by GitHub, *Go*has*become*the*#9*most*popular*language*, surpassing C.
 *Go*is*the*fastest*growing*language*on*GitHub*in*2017* in the top 10 with
 *52%*growth*over*the*previous*year*. In growth, Go swapped places with
@@ -34,20 +34,19 @@ Javascript, which fell to the second spot with 44%.
 Source: [[https://octoverse.github.com/][octoverse.github.com]]
 
 In [[https://insights.stackoverflow.com/survey/2017#most-loved-dreaded-and-wanted][Stack Overflow's 2017 developer survey]]
-, Go was the only language that was both on the *top*5*most*loved*and*top*5*most*wanted* languages. 
+, Go was the only language that was both on the *top*5*most*loved*and*top*5*most*wanted* languages.
 People who use Go, love it, and the people who aren’t using Go, want to be.
 
 .image 8years/image3.png
-
 .image 8years/image4.png
 
 Source: [[https://insights.stackoverflow.com/survey/2017#most-loved-dreaded-and-wanted][insights.stackoverflow.com/survey/2017]]
 
 ** Go: The language of Cloud Infrastructure
 
-In 2014, analyst Donnie Berkholz called Go 
+In 2014, analyst Donnie Berkholz called Go
 [[http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/][the emerging language of cloud infrastructure]].
-*By*2017,*Go*has*emerged*as*the*language*of*cloud*infrastructure*. 
+*By*2017,*Go*has*emerged*as*the*language*of*cloud*infrastructure*.
 Today, *every*single*cloud*company*has*critical*components*of*their*cloud*infrastructure*implemented*in*Go*
 including Google Cloud, AWS, Microsoft Azure, Digital Ocean, Heroku and many others. Go
 is a key part of cloud companies like Alibaba, Cloudflare, and Dropbox. Go is
@@ -74,14 +73,14 @@ This year we had two significant firsts for the Go project. We had our first
 [[https://blog.golang.org/contributors-summit][contributor summit]] where
 people from across the Go community came together to
 discuss the needs and future of the Go project. Shortly after, we had the
-first [[https://blog.golang.org/contributor-workshop][Go contributor workshop]] 
+first [[https://blog.golang.org/contributor-workshop][Go contributor workshop]]
 where hundreds of people came to make their first Go contribution.
 
 .image 8years/photo.jpg
 
 Photo by Sameer Ajmani
 
-** Go’s impact on open source 
+** Go’s impact on open source
 
 Go has become a major force in the world of open source powering some of the
 most popular projects and enabling innovations across many industries. Find
@@ -113,7 +112,7 @@ just a handful of the most popular:
   feature-rich metrics dashboard and graph editor for Graphite,
   Elasticsearch, OpenTSDB, Prometheus and InfluxDB.
 
-- [[https://getlantern.org/][Lantern]] delivers fast, reliable and secure access to blocked websites and apps. 
+- [[https://getlantern.org/][Lantern]] delivers fast, reliable and secure access to blocked websites and apps.
 
 - [[https://syncthing.net/][Syncthing]] is an open-source cross platform
   peer-to-peer continuous file synchronization application
@@ -155,6 +154,6 @@ expertise in design discussions, writing blog posts or books, running events,
 attending or speaking at events, helping others learn or improve, open
 sourcing Go packages you wrote, contributing artwork, introducing Go to
 someone, or being part of the Go community. Without you, Go would not be as
-complete, useful, or successful as it is today. 
+complete, useful, or successful as it is today.
 
 Thank you, and here’s to eight more years!

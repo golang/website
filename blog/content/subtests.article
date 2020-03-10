@@ -111,8 +111,6 @@ and consistent with the table-driven approach commonly used for testing.
 Moreover, common setup code is now shared between runs while eliminating the
 need to reset the timer.
 
-
-
 * Table-driven tests using subtests
 
 Go 1.7 also introduces a `Run` method for creating subtests.
@@ -168,7 +166,6 @@ identify the test again within the error messages.
 
 There are several other benefits to using subtests or sub-benchmarks,
 as clarified by the following sections.
-
 
 * Running specific tests or benchmarks
 
@@ -305,7 +302,6 @@ As a result, no other parallel tests can run in parallel to these parallel tests
 
 Note that we need to capture the range variable to ensure that `tc` gets bound to
 the correct instance.
-
 
 ** Cleaning up after a group of parallel tests
 

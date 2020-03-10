@@ -264,7 +264,7 @@ Floating-point values are a good place to introduce the concept of overflow, or 
 Numeric constants live in an arbitrary-precision numeric space; they are just regular numbers.
 But when they are assigned to a variable the value must be able to fit in the destination.
 We can declare a constant with a very large value:
-	
+
 .code constants/float3.go /Huge/
 
 —that's just a number, after all—but we can't assign it or even print it. This statement won't even compile:
@@ -512,5 +512,3 @@ or
 and have the results mean what you expect.
 
 Because in Go, numeric constants work as you expect: like numbers.
-
-

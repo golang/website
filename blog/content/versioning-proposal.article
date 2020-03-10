@@ -38,11 +38,11 @@ The most important new feature of
 [[https://blog.golang.org/preview-of-go-version-1][Go 1]]
 was not a language feature.
 It was Go 1’s emphasis on backwards compatibility.
-Until that point we’d issued stable release 
+Until that point we’d issued stable release
 snapshots approximately monthly,
 each with significant incompatible changes.
 We observed significant acceleration in interest and adoption
-immediately after the release of Go 1. 
+immediately after the release of Go 1.
 We believe that the
 [[https://golang.org/doc/go1compat.html][promise of compatibility]]
 made developers feel much more comfortable relying on
@@ -84,7 +84,7 @@ semantic import versioning.
 When I realized this, the logical necessity surprised me.
 
 I was also surprised to realize that
-there is a second, independent logical route to 
+there is a second, independent logical route to
 semantic import versioning:
 [[https://talks.golang.org/2016/refactor.article][gradual code repair]]
 or partial code upgrades.
@@ -130,7 +130,7 @@ I was also surprised to discover how much
 import compatibility simplifies version selection,
 which is the problem of deciding which package versions to use for a given build.
 The constraints of Cargo and Dep make version selection
-equivalent to 
+equivalent to
 [[https://research.swtch.com/version-sat][solving Boolean satisfiability]],
 meaning it can be very expensive to determine whether
 a valid version configuration even exists.
@@ -140,7 +140,7 @@ Relying on import compatibility can instead let Go use
 a trivial, linear-time algorithm
 to find the single best configuration, which always exists.
 This algorithm,
-which I call 
+which I call
 [[https://research.swtch.com/vgo-mvs][_minimal_version_selection_]],
 in turn eliminates the need for separate lock and manifest files.
 It replaces them with a single, short configuration file,
@@ -227,7 +227,7 @@ I spent the first three weeks of February turning the
 wrapper into a full versioned `go` command, `vgo`;
 writing drafts of a
 [[https://research.swtch.com/vgo][blog post series introducing `vgo`]];
-and discussing them with 
+and discussing them with
 Sam Boyer, the package management working group,
 and the Go team.
 And then I spent the last week of February finally
@@ -275,7 +275,7 @@ updated as feedback arrives.
 For this proposal to succeed, the Go ecosystem as a
 whole—and in particular today’s major Go projects—will need to
 adopt the import compatibility rule and semantic import versioning.
-To make sure that can happen smoothly, 
+To make sure that can happen smoothly,
 we will also be conducting user feedback sessions
 by video conference with projects that have questions about
 how to incorporate the new versioning proposal into their code bases

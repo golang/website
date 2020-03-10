@@ -276,7 +276,7 @@ minus a small measurement error.
 	start := time.Now()       // 3:04:05.000
 	event()
 	end := time.Now()         // 3:04:05.010
-	
+
 	elapsed := end.Sub(start) // 10 ms
 
 This obvious procedure can fail during a [[https://en.wikipedia.org/wiki/Leap_second][leap second]]. When our clocks
@@ -294,7 +294,7 @@ taking negative 990 milliseconds.
 	start := time.Now()       // 11:59:59.995
 	event()
 	end := time.Now()         // 11:59:59.005 (really 11:59:60.005)
-	
+
 	elapsed := end.Sub(start) // –990 ms
 
 Because the time-of-day clock is inaccurate for timing events across
@@ -398,7 +398,7 @@ handling leap second time resets correctly, we did not effectively
 convey to the broader Go community the significance of handling
 gradual code migration and repair during large-scale changes.
 
-In the fall we started over. I gave a [[https://www.youtube.com/watch?v=h6Cw9iCDVcU][talk]] and wrote 
+In the fall we started over. I gave a [[https://www.youtube.com/watch?v=h6Cw9iCDVcU][talk]] and wrote
 [[https://talks.golang.org/2016/refactor.article][an article presenting the problem]]
 using multiple concrete examples drawn from
 open source codebases, showing how this problem arises everywhere, not
@@ -415,7 +415,7 @@ environment can understand. To discuss major changes to Go as a
 community, we will need to pay particular attention to describing the
 significance of any problem we want to solve. The clearest way to do
 that is by showing how the problem affects real programs and real
-production systems, like in 
+production systems, like in
 [[https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/][Cloudflare's blog post]] and in
 [[https://talks.golang.org/2016/refactor.article][my refactoring article]].
 
@@ -481,7 +481,7 @@ More recently, we designed for Go 1.9 a [[https://beta.golang.org/doc/go1.9#math
 contains various bit manipulation functions:
 
 	package bits // import "math/bits"
-	
+
 	func LeadingZeros32(x uint32) int
 	func Len32(x uint32) int
 	func OnesCount32(x uint32) int

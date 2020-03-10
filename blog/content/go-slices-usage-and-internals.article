@@ -148,7 +148,7 @@ Therefore, modifying the _elements_ (not the slice itself) of a re-slice
 modifies the elements of the original slice:
 
 	d := []byte{'r', 'o', 'a', 'd'}
-	e := d[2:] 
+	e := d[2:]
 	// e == []byte{'a', 'd'}
 	e[1] = 'm'
 	// e == []byte{'a', 'm'}
@@ -233,7 +233,7 @@ But most programs don't need complete control,
 so Go provides a built-in `append` function that's good for most purposes;
 it has the signature
 
-	func append(s []T, x ...T) []T 
+	func append(s []T, x ...T) []T
 
 The `append` function appends the elements `x` to the end of the slice `s`,
 and grows the slice if a greater capacity is needed.

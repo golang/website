@@ -36,7 +36,7 @@ We are also working on an
 [[https://groups.google.com/forum/#!topic/Golang-nuts/8oCSjAiKXUQ][official Go plugin for Sublime Text]],
 with better support for other editors in the pipeline.
 
-Early next year we will release more improvements in Go 1.6, including 
+Early next year we will release more improvements in Go 1.6, including
 HTTP/2 support for [[https://golang.org/pkg/net/http/][net/http]] servers and
 clients, an official package vendoring mechanism, support for blocks in text
 and HTML templates, a memory sanitizer that checks both Go and C/C++ code, and

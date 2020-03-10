@@ -5,6 +5,7 @@ Rick Hudson
 rlh@golang.org
 
 * Abstract
+
 This is the transcript from the keynote I gave at the International Symposium
 on Memory Management (ISMM) on June 18, 2018.
 For the past 25 years ISMM has been the premier venue for publishing memory
@@ -12,6 +13,7 @@ management and garbage collection papers and it was an honor to have been
 invited to give the keynote.
 
 ** Abstract
+
 The Go language features, goals, and use cases have forced us to rethink
 the entire garbage collection stack and have led us to a surprising place.
 The journey has been exhilarating. This talk describes our journey.
@@ -21,6 +23,7 @@ This talk will provide insight into the how and the why of our journey,
 where we are in 2018, and Go's preparation for the next part of the journey.
 
 ** Bio
+
 Richard L. Hudson (Rick) is best known for his work in memory management
 including the invention of the Train,
 Sapphire, and Mississippi Delta algorithms as well as GC stack maps which
@@ -546,6 +549,7 @@ So how do you do promoting. If you find something marked with a 1 pointing
 to something marked with a 0 then you promote the referent simply by setting that zero to a one.
 
 .image ismmkeynote/image49.png
+
 You have to do a transitive walk to make sure all reachable objects are promoted.
 
 .image ismmkeynote/image69.png
@@ -734,7 +738,6 @@ In other words a DRAM memory cell.
 
 Put another way, we think that doubling memory is going to be a better value than doubling cores.
 
-
 [[http://www.kurzweilai.net/ask-ray-the-future-of-moores-law][Original graph]]
 at www.kurzweilai.net/ask-ray-the-future-of-moores-law.
 
@@ -748,8 +751,6 @@ Oddly enough I saw a graph that goes all the way back to 1939 when we were
 using drum memory and that capacity and Moore's law were chugging along
 together so this graph has been going on for a long time,
 certainly longer than probably anybody in this room has been alive.
-
-
 
 If we compare this graph to CPU frequency or the various Moore's-law-is-dead graphs,
 we are led to the conclusion that memory,

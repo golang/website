@@ -129,7 +129,7 @@ many of which were driven by feedback from the community.
   [[https://golang.org/doc/go_spec.html#Function_Types][spec]],
   [[https://golang.org/doc/go_spec.html#Passing_arguments_to_..._parameters][ spec]],
   [[https://golang.org/doc/devel/release.html#2010-09-29][release.2010-09-29]]
- 
+
 Go is certainly ready for production use,
 but there is still room for improvement.
 Our focus for the immediate future is making Go programs faster and more

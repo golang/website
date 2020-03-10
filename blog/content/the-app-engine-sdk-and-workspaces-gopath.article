@@ -88,17 +88,17 @@ is a slower version that avoids unsafe by using the [[https://golang.org/pkg/ref
 Let's take a simple Go web server and turn it into a hybrid app. This is main.go:
 
 	    package main
-	    
+
 	    import (
 	        "fmt"
 	        "net/http"
 	    )
-	    
+
 	    func main() {
 	        http.HandleFunc("/", handler)
 	        http.ListenAndServe("localhost:8080", nil)
 	    }
-	    
+
 	    func handler(w http.ResponseWriter, r *http.Request) {
 	        fmt.Fprint(w, "Hello!")
 	    }
@@ -111,16 +111,16 @@ To convert main.go to an App Engine app, drop the call to ListenAndServe
 and register the handler in an init function (which runs before main). This is app.go:
 
 	    package main
-	    
+
 	    import (
 	        "fmt"
 	        "net/http"
 	    )
-	    
+
 	    func init() {
 	        http.HandleFunc("/", handler)
 	    }
-	    
+
 	    func handler(w http.ResponseWriter, r *http.Request) {
 	        fmt.Fprint(w, "Hello!")
 	    }
@@ -138,13 +138,13 @@ main.go runs the web server. It includes the "!appengine" build constraint,
 as it must only included when building the stand-alone binary.
 
 	    // +build !appengine
-	    
+
 	    package main
-	    
+
 	    import "net/http"
-	    
+
 	    func main() {
-	        http.ListenAndServe("localhost:8080", nil)        
+	        http.ListenAndServe("localhost:8080", nil)
 	    }
 
 To see a more complex hybrid app, take a look at the [[https://godoc.org/golang.org/x/tools/present][present tool]].

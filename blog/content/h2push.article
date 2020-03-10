@@ -60,7 +60,6 @@ A fully working example is available at:
 
 	$ go get golang.org/x/blog/content/h2push/server
 
-
 If you run the server and load [[https://localhost:8080][https://localhost:8080]],
 your browser's developer tools should show that `app.js` and
 `style.css` were pushed by the server.
@@ -74,11 +73,9 @@ of the response. Otherwise it is possible to accidentally generate
 duplicate responses. For example, suppose you write part of an HTML
 response:
 
-
 	<html>
 	<head>
 		<link rel="stylesheet" href="a.css">...
-
 
 Then you call Push("a.css", nil). The browser may parse this fragment
 of HTML before it receives your PUSH_PROMISE, in which case the browser

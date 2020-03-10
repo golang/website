@@ -96,9 +96,9 @@ This post uses `github.com/googleapis/gax-go` as an example:
 	header.go
 	$ cat go.mod
 	module github.com/googleapis/gax-go
-	
+
 	go 1.9
-	
+
 	require (
 		github.com/golang/protobuf v1.3.1
 		golang.org/x/exp v0.0.0-20190221220918-438050ddec5e
@@ -120,7 +120,7 @@ new `v2/` directory and copy our package into it.
 	header.go
 	invoke.go
 	tools.go
-	
+
 	sent 10588 bytes  received 130 bytes  21436.00 bytes/sec
 	total size is 10208  speedup is 0.95
 	$

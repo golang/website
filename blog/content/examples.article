@@ -107,9 +107,8 @@ then the example function is compiled but not executed:
 	ok  	github.com/golang/example/stringutil	0.009s
 
 Examples without output comments are useful for demonstrating code that cannot
-run as unit tests, such as that which accesses the network, 
+run as unit tests, such as that which accesses the network,
 while guaranteeing the example at least compiles.
-
 
 * Example function names
 
@@ -131,13 +130,12 @@ Each of these examples documents the `Reverse` function:
 	func ExampleReverse_second()
 	func ExampleReverse_third()
 
-
 * Larger examples
 
 Sometimes we need more than just a function to write a good example.
 
 For instance, to demonstrate the [[https://golang.org/pkg/sort/][`sort` package]]
-we should show an implementation of `sort.Interface`. 
+we should show an implementation of `sort.Interface`.
 Since methods cannot be declared inside a function body, the example must
 include some context in addition to the example function.
 

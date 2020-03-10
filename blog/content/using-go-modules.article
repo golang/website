@@ -48,7 +48,6 @@ Starting in Go 1.13, module mode will be the default for all development.
 This post walks through a sequence of common operations
 that arise when developing Go code with modules:
 
-
 - Creating a new module.
 - Adding a dependency.
 - Upgrading dependencies.
@@ -161,7 +160,6 @@ Now let’s run the test again:
 	ok  	example.com/hello	0.023s
 	$
 
-
 The `go` command resolves imports by using the specific
 dependency module versions listed in `go.mod`.
 When it encounters an `import` of a package not provided
@@ -194,7 +192,6 @@ modules are cached locally (in `$GOPATH/pkg/mod`):
 	PASS
 	ok  	example.com/hello	0.020s
 	$
-
 
 Note that while the `go` command makes adding a new dependency
 quick and easy, it is not without cost.
@@ -377,7 +374,6 @@ Then we can test our code:
 	ok  	example.com/hello	0.024s
 	$
 
-
 Note that our module now depends on both `rsc.io/quote` and `rsc.io/quote/v3`:
 
 	$ go list -m rsc.io/q...
@@ -467,7 +463,6 @@ so we can undo that:
 	func Proverb() string {
 		return quote.Concurrency()
 	}
-
 
 Let's re-run the tests to make sure everything is working:
 

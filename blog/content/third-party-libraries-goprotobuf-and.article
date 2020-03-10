@@ -28,7 +28,7 @@ You can then install the 'proto' package with [[https://golang.org/cmd/goinstall
 And then install the protobuf compiler plugin:
 
 	 cd $GOROOT/src/pkg/goprotobuf.googlecode.com/hg/compiler
-	 make install 
+	 make install
 
 For more detail see the project's [[http://code.google.com/p/goprotobuf/source/browse/README][README]] file.
 

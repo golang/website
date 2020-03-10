@@ -95,7 +95,7 @@ in the software industry.
 Other people have made similar observations.
 Here are two.
 Last year, on RedMonk.com, Donnie Berkholz
-wrote about 
+wrote about
 “[[http://redmonk.com/dberkholz/2014/03/18/go-the-emerging-language-of-cloud-infrastructure/][Go as the emerging language of cloud infrastructure]],”
 observing that
 “[Go's] marquee projects ... are cloud-centric or otherwise
@@ -125,7 +125,7 @@ but I think there is a broader idea behind them.
 
 I think of that idea as Go's balance.
 There are competing concerns in any software design,
-and there is a very natural tendency to try to solve 
+and there is a very natural tendency to try to solve
 all the problems you foresee.
 In Go, we have explicitly tried not to solve everything.
 Instead, we've tried to do just enough that you can build
@@ -141,7 +141,7 @@ But if we work at it,
 Go can probably do
 a few things well.
 If we select those things carefully,
-we can lay a foundation 
+we can lay a foundation
 on which developers can _easily_ build
 the solutions and tools they need,
 and ideally can interoperate with
@@ -275,7 +275,7 @@ to build in directly.
 But we knew one thing that we had to do.
 In our experience attempting
 automated program changes in other settings,
-the most significant barrier we hit 
+the most significant barrier we hit
 was actually writing the modified program out
 in a format that developers can accept.
 
@@ -307,7 +307,7 @@ I believe the work here is only just getting started.
 Even more can be done.
 
 Last, building and sharing software.
-In the run up to Go 1, we built goinstall, 
+In the run up to Go 1, we built goinstall,
 which became what we all know as "go get".
 That tool defined a standard zero-configuration way
 to resolve import paths on sites like github.com,
@@ -375,7 +375,7 @@ worked on open source projects before Go,
 and we naturally wanted Go
 to be part of that open source world.
 But our preferences are not a business justification.
-The business justification is that 
+The business justification is that
 Go is open source
 because that's the only way
 that Go can succeed.
@@ -445,7 +445,7 @@ But we also opened our development process:
 since announcing Go,
 we've done all our development in public,
 on public mailing lists open to all.
-We accept and review 
+We accept and review
 source code contributions from anyone.
 The process is the same
 whether you work for Google or not.
@@ -515,7 +515,7 @@ In the very early days,
 before Go was known to the public,
 the Go team at Google
 was obviously working by itself.
-We wrote the first draft of everything: 
+We wrote the first draft of everything:
 the specification,
 the compiler,
 the runtime,
@@ -633,7 +633,7 @@ should have the opportunity to be heard.
 I want to share some evidence for this claim
 that, over time,
 the original Go team at Google
-is focusing more on 
+is focusing more on
 coordination than direct development.
 
 First, the sources of funding
@@ -739,7 +739,7 @@ with this vendoring problem,
 we left it to users outside Google to develop solutions.
 Over the past five years,
 people have built a series of tools.
-The main ones in use today are 
+The main ones in use today are
 Keith Rarick's godep,
 Owen Ou's nut,
 and the gb-vendor plugin for Dave Cheney's gb,
@@ -816,7 +816,7 @@ is that at the next Gophercon
 we should have broad interoperability
 between vendoring tools and the go command,
 and the design to make that happen
-was done entirely by contributors 
+was done entirely by contributors
 outside the original Go team.
 
 Not only that,
@@ -845,7 +845,7 @@ coming from the broader Go community
 is important for Go.
 You, the broader Go community,
 know what is working
-and what is not 
+and what is not
 in the environments where you use Go.
 We at Google don't.
 More and more,
@@ -903,7 +903,7 @@ it's important to understand that
 this kind of spec
 cannot be as precise as a language spec.
 We must start with the assumption
-that we will all be reasonable in applying it. 
+that we will all be reasonable in applying it.
 
 This kind of spec
 is often referred to as

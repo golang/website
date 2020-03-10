@@ -13,7 +13,6 @@ which produce errors that contain only a message—the built-in `error` interfac
 allows Go programmers to add whatever information they desire. All it requires
 is a type that implements an `Error` method:
 
-
 	type QueryError struct {
 		Query string
 		Err   error
@@ -68,7 +67,6 @@ value as a more specific type.
 		// e.Name wasn't found
 	}
 
-
 ** Adding information
 
 Frequently a function passes an error up the call stack while adding information
@@ -85,7 +83,6 @@ error except the text. As we saw above with `QueryError`, we may sometimes want
 to define a new error type that contains the underlying error, preserving it for
 inspection by code. Here is `QueryError` again:
 
-
 	type QueryError struct {
 		Query string
 		Err   error
@@ -98,7 +95,6 @@ error.
 	if e, ok := err.(*QueryError); ok && e.Err == ErrPermission {
 		// query failed because of a permission problem
 	}
-
 
 The `os.PathError` type in the standard library is another example of one error which contains another.
 
@@ -123,7 +119,7 @@ the sequence of errors produced by repeated unwrapping the _error_chain_.
 
 ** Examining errors with Is and As
 
-The Go 1.13 `errors` package includes two new functions for examining errors: `Is` and `As`. 
+The Go 1.13 `errors` package includes two new functions for examining errors: `Is` and `As`.
 
 The `errors.Is` function compares an error to a value.
 
@@ -158,7 +154,6 @@ Using the `errors.Is` function, we can write this as:
 		// err, or some error that it wraps, is a permission problem
 	}
 
-
 The `errors` package also includes a new `Unwrap` function which returns the
 result of calling an error's `Unwrap` method, or `nil` when the error has no
 `Unwrap` method. It is usually better to use `errors.Is` or `errors.As`,
@@ -187,7 +182,6 @@ Wrapping an error with `%w` makes it available to `errors.Is` and `errors.As`:
 	err := fmt.Errorf("access denied: %w", ErrPermission)
 	...
 	if errors.Is(err, ErrPermission) ...
-
 
 ** Whether to Wrap
 

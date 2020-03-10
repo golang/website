@@ -33,7 +33,7 @@ Additionally, the more Go code we write (and thus the better we learn how
 to write Go code ourselves),
 the less we feel the need for such a language feature.
 
-Do you have any plans to support GPU programming? 
+Do you have any plans to support GPU programming?
 We don't have any immediate plans to do this,
 but as Go is architecture-agnostic it's quite possible.
 The ability to launch a goroutine that runs on a different processor architecture,

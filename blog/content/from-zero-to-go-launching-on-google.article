@@ -132,7 +132,7 @@ global variables upon receipt of the first request.
 	    // backgroundImage contains the background image data.
 	    backgroundImage *image.RGBA
 
-	    // defaultImage is the image that is served if an error occurs. 
+	    // defaultImage is the image that is served if an error occurs.
 	    defaultImage *image.RGBA
 
 	    // loadOnce is used to call the load function only on the first request.

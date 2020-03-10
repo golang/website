@@ -113,7 +113,7 @@ we run the test with coverage enabled by providing the `-cover` flag to `go` `te
 	PASS
 	coverage: 42.9% of statements
 	ok  	size	0.026s
-	% 
+	%
 
 Notice that the coverage is 42.9%, which isn't very good.
 Before we ask how to raise that number, let's see how that was computed.
@@ -142,11 +142,11 @@ To discover why, we ask `go` `test` to write a "coverage profile" for us, a file
 the collected statistics so we can study them in more detail.
 That's easy to do: use the `-coverprofile` flag to specify a file for the output:
 
-	% go test -coverprofile=coverage.out 
+	% go test -coverprofile=coverage.out
 	PASS
 	coverage: 42.9% of statements
 	ok  	size	0.030s
-	% 
+	%
 
 (The `-coverprofile` flag automatically sets `-cover` to enable coverage analysis.)
 The test runs just as before, but the results are saved in a file.
@@ -158,7 +158,7 @@ only one function:
 	% go tool cover -func=coverage.out
 	size.go:	Size          42.9%
 	total:      (statements)  42.9%
-	% 
+	%
 
 A much more interesting way to see the data is to get an HTML presentation
 of the source code decorated with coverage information.
@@ -203,7 +203,7 @@ Let's try counting statement execution for a standard package, the `fmt` formatt
 We run the test and write out a coverage profile so we can present the information
 nicely afterwards.
 
-	% go test -covermode=count -coverprofile=count.out fmt 
+	% go test -covermode=count -coverprofile=count.out fmt
 	ok  	fmt	0.056s	coverage: 91.7% of statements
 	%
 

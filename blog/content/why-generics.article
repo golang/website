@@ -642,7 +642,6 @@ or to the location in the tree where it should go.
 		return pn
 	}
 
-
 The details here don't really matter, especially since I haven't
 tested this code.
 I'm just trying to show what it looks like to write a simple generic
