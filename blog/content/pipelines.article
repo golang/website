@@ -122,10 +122,10 @@ to change the outbound channels to have a buffer.  A buffer can hold a fixed
 number of values; send operations complete immediately if there's room in the
 buffer:
 
-        c := make(chan int, 2) // buffer size 2
-        c <- 1  // succeeds immediately
-        c <- 2  // succeeds immediately
-        c <- 3  // blocks until another goroutine does <-c and receives 1
+	c := make(chan int, 2) // buffer size 2
+	c <- 1  // succeeds immediately
+	c <- 2  // succeeds immediately
+	c <- 3  // blocks until another goroutine does <-c and receives 1
 
 When the number of values to be sent is known at channel creation time, a buffer
 can simplify the code.  For example, we can rewrite `gen` to copy the list of

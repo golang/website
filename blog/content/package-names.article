@@ -86,13 +86,13 @@ When a function in package pkg returns a value of type `pkg.Pkg` (or
 
 	start := time.Now()                                  // start is a time.Time
 	t, err := time.Parse(time.Kitchen, "6:06PM")         // t is a time.Time
-        ctx = context.WithTimeout(ctx, 10*time.Millisecond)  // ctx is a context.Context
-        ip, ok := userip.FromContext(ctx)                    // ip is a net.IP
+	ctx = context.WithTimeout(ctx, 10*time.Millisecond)  // ctx is a context.Context
+	ip, ok := userip.FromContext(ctx)                    // ip is a net.IP
 
 A function named `New` in package `pkg` returns a value of type `pkg.Pkg`.
 This is a standard entry point for client code using that type:
 
-         q := list.New()  // q is a *list.List
+	 q := list.New()  // q is a *list.List
 
 When a function returns a value of type `pkg.T`, where `T` is not `Pkg`, the
 function name may include `T` to make client code easier to understand.

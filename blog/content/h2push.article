@@ -58,7 +58,7 @@ then the `PUSH_PROMISE` should include an Accept-Encoding value:
 
 A fully working example is available at:
 
-    $ go get golang.org/x/blog/content/h2push/server
+	$ go get golang.org/x/blog/content/h2push/server
 
 
 If you run the server and load [[https://localhost:8080][https://localhost:8080]],
@@ -75,9 +75,9 @@ duplicate responses. For example, suppose you write part of an HTML
 response:
 
 
-    <html>
-    <head>
-        <link rel="stylesheet" href="a.css">...
+	<html>
+	<head>
+		<link rel="stylesheet" href="a.css">...
 
 
 Then you call Push("a.css", nil). The browser may parse this fragment

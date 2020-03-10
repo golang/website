@@ -69,35 +69,35 @@ First, we'll write a `.proto` file defining an extension of the
 type so we can annotate fields as containing
 sensitive information or not.
 
-    syntax = "proto3";
-    import "google/protobuf/descriptor.proto";
-    package golang.example.policy;
-    extend google.protobuf.FieldOptions {
-        bool non_sensitive = 50000;
-    }
+	syntax = "proto3";
+	import "google/protobuf/descriptor.proto";
+	package golang.example.policy;
+	extend google.protobuf.FieldOptions {
+		bool non_sensitive = 50000;
+	}
 
 We can use this option to mark certain fields as non-sensitive.
 
-    message MyMessage {
-        string public_name = 1 [(golang.example.policy.non_sensitive) = true];
-    }
+	message MyMessage {
+		string public_name = 1 [(golang.example.policy.non_sensitive) = true];
+	}
 
 Next, we will write a Go function which accepts an arbitrary message
 value and removes all the sensitive fields.
 
-    // Redact clears every sensitive field in pb.
-    func Redact(pb proto.Message) {
-       // ...
-    }
+	// Redact clears every sensitive field in pb.
+	func Redact(pb proto.Message) {
+	   // ...
+	}
 
 This function accepts a
 [[https://pkg.go.dev/google.golang.org/protobuf/proto?tab=doc#Message][`proto.Message`]],
 an interface type implemented by all generated message types. This type
 is an alias for one defined in the `protoreflect` package:
 
-    type ProtoMessage interface{
-        ProtoReflect() Message
-    }
+	type ProtoMessage interface{
+		ProtoReflect() Message
+	}
 
 To avoid filling up the namespace of generated
 messages, the interface contains only a single method returning a
@@ -112,11 +112,11 @@ The
 [[https://pkg.go.dev/google.golang.org/protobuf/reflect/protoreflect?tab=doc#Message.Range][`protoreflect.Message.Range`]]
 method calls a function for every populated field in a message.
 
-    m := pb.ProtoReflect()
-    m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
-        // ...
-        return true
-    })
+	m := pb.ProtoReflect()
+	m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+		// ...
+		return true
+	})
 
 The range function is called with a
 [[https://pkg.go.dev/google.golang.org/protobuf/reflect/protoreflect?tab=doc#FieldDescriptor][`protoreflect.FieldDescriptor`]]
@@ -129,7 +129,7 @@ The
 method returns the field options as a `google.protobuf.FieldOptions`
 message.
 
-    opts := fd.Options().(*descriptorpb.FieldOptions)
+	opts := fd.Options().(*descriptorpb.FieldOptions)
 
 (Why the type assertion? Since the generated `descriptorpb` package
 depends on `protoreflect`, the `protoreflect` package can't return the
@@ -137,9 +137,9 @@ concrete options type without causing an import cycle.)
 
 We can then check the options to see the value of our extension boolean:
 
-    if proto.GetExtension(opts, policypb.E_NonSensitive).(bool) {
-        return true // don't redact non-sensitive fields
-    }
+	if proto.GetExtension(opts, policypb.E_NonSensitive).(bool) {
+		return true // don't redact non-sensitive fields
+	}
 
 Note that we are looking at the field _descriptor_ here, not the field
 _value_. The information we're interested in lies in the protocol
@@ -155,22 +155,22 @@ not present. Extension decoding errors are reported at `Unmarshal` time.
 
 Once we have identified a field that needs redaction, clearing it is simple:
 
-    m.Clear(fd)
+	m.Clear(fd)
 
 Putting all the above together, our complete redaction function is:
 
-    // Redact clears every sensitive field in pb.
-    func Redact(pb proto.Message) {
-        m := pb.ProtoReflect()
-        m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
-            opts := fd.Options().(*descriptorpb.FieldOptions)
-            if proto.GetExtension(opts, policypb.E_NonSensitive).(bool) {
-                return true
-            }
-            m.Clear(fd)
-            return true
-        })
-    }
+	// Redact clears every sensitive field in pb.
+	func Redact(pb proto.Message) {
+		m := pb.ProtoReflect()
+		m.Range(func(fd protoreflect.FieldDescriptor, v protoreflect.Value) bool {
+			opts := fd.Options().(*descriptorpb.FieldOptions)
+			if proto.GetExtension(opts, policypb.E_NonSensitive).(bool) {
+				return true
+			}
+			m.Clear(fd)
+			return true
+		})
+	}
 
 A more complete implementation might recursively descend into
 message-valued fields. We hope that this simple example gives a

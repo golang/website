@@ -45,37 +45,37 @@ we'll address the latter two in this post.
 
 To convert a project that already uses a dependency management tool, run the following commands:
 
-    $ git clone https://github.com/my/project
-    [...]
-    $ cd project
-    $ cat Godeps/Godeps.json
-    {
-        "ImportPath": "github.com/my/project",
-        "GoVersion": "go1.12",
-        "GodepVersion": "v80",
-        "Deps": [
-            {
-                "ImportPath": "rsc.io/binaryregexp",
-                "Comment": "v0.2.0-1-g545cabd",
-                "Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
-            },
-            {
-                "ImportPath": "rsc.io/binaryregexp/syntax",
-                "Comment": "v0.2.0-1-g545cabd",
-                "Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
-            }
-        ]
-    }
-    $ go mod init github.com/my/project
-    go: creating new go.mod: module github.com/my/project
-    go: copying requirements from Godeps/Godeps.json
-    $ cat go.mod
-    module github.com/my/project
+	$ git clone https://github.com/my/project
+	[...]
+	$ cd project
+	$ cat Godeps/Godeps.json
+	{
+		"ImportPath": "github.com/my/project",
+		"GoVersion": "go1.12",
+		"GodepVersion": "v80",
+		"Deps": [
+			{
+				"ImportPath": "rsc.io/binaryregexp",
+				"Comment": "v0.2.0-1-g545cabd",
+				"Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
+			},
+			{
+				"ImportPath": "rsc.io/binaryregexp/syntax",
+				"Comment": "v0.2.0-1-g545cabd",
+				"Rev": "545cabda89ca36b48b8e681a30d9d769a30b3074"
+			}
+		]
+	}
+	$ go mod init github.com/my/project
+	go: creating new go.mod: module github.com/my/project
+	go: copying requirements from Godeps/Godeps.json
+	$ cat go.mod
+	module github.com/my/project
 
-    go 1.12
+	go 1.12
 
-    require rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
-    $
+	require rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
+	$
 
 `go`mod`init` creates a new go.mod file and automatically imports dependencies from `Godeps.json`,
 `Gopkg.lock`, or a number of [[https://go.googlesource.com/go/+/362625209b6cd2bc059b6b0a67712ddebab312d9/src/cmd/go/internal/modconv/modconv.go#9][other supported formats]].
@@ -87,13 +87,13 @@ Later steps may modify your `go.mod` file,
 so if you prefer to take an iterative approach,
 this is the closest your `go.mod` file will be to your pre-modules dependency specification.
 
-    $ go mod tidy
-    go: downloading rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
-    go: extracting rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
-    $ cat go.sum
-    rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca h1:FKXXXJ6G2bFoVe7hX3kEX6Izxw5ZKRH57DFBJmHCbkU=
-    rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
-    $
+	$ go mod tidy
+	go: downloading rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
+	go: extracting rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
+	$ cat go.sum
+	rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca h1:FKXXXJ6G2bFoVe7hX3kEX6Izxw5ZKRH57DFBJmHCbkU=
+	rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca/go.mod h1:qTv7/COck+e2FymRvadv62gMdZztPaShugOCi3I+8D8=
+	$
 
 `go`mod`tidy` finds all the packages transitively imported by packages in your module.
 It adds new module requirements for packages not provided by any known module,
@@ -106,10 +106,10 @@ file to version control.
 
 Let's finish by making sure the code builds and tests pass:
 
-    $ go build ./...
-    $ go test ./...
-    [...]
-    $
+	$ go build ./...
+	$ go test ./...
+	[...]
+	$
 
 Note that other dependency managers may specify dependencies at the level
 of individual packages or entire repositories (not modules),
@@ -120,11 +120,11 @@ and there's some risk of upgrading past breaking changes.
 Therefore, it's important to follow the above commands with an audit of
 the resulting dependencies. To do so, run
 
-    $ go list -m all
-    go: finding rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
-    github.com/my/project
-    rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
-    $
+	$ go list -m all
+	go: finding rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
+	github.com/my/project
+	rsc.io/binaryregexp v0.2.1-0.20190524193500-545cabda89ca
+	$
 
 and compare the resulting versions with your old dependency management file
 to ensure that the selected versions are appropriate.
@@ -134,27 +134,27 @@ and upgrade or downgrade to the correct version using `go`get`.
 (If the version you request is older than the version that was previously selected,
 `go`get` will downgrade other dependencies as needed to maintain compatibility.) For example,
 
-    $ go mod why -m rsc.io/binaryregexp
-    [...]
-    $ go mod graph | grep rsc.io/binaryregexp
-    [...]
-    $ go get rsc.io/binaryregexp@v0.2.0
-    $
+	$ go mod why -m rsc.io/binaryregexp
+	[...]
+	$ go mod graph | grep rsc.io/binaryregexp
+	[...]
+	$ go get rsc.io/binaryregexp@v0.2.0
+	$
 
 * Without a dependency manager
 
 For a Go project without a dependency management system, start by creating a `go.mod` file:
 
-    $ git clone https://go.googlesource.com/blog
-    [...]
-    $ cd blog
-    $ go mod init golang.org/x/blog
-    go: creating new go.mod: module golang.org/x/blog
-    $ cat go.mod
-    module golang.org/x/blog
+	$ git clone https://go.googlesource.com/blog
+	[...]
+	$ cd blog
+	$ go mod init golang.org/x/blog
+	go: creating new go.mod: module golang.org/x/blog
+	$ cat go.mod
+	module golang.org/x/blog
 
-    go 1.12
-    $
+	go 1.12
+	$
 
 Without a configuration file from a previous dependency manager,
 `go`mod`init` will create a `go.mod` file with only the `module` and `go` directives.
@@ -169,58 +169,58 @@ used to compile the code within the module.
 
 Next, run `go`mod`tidy` to add the module's dependencies:
 
-    $ go mod tidy
-    go: finding golang.org/x/website latest
-    go: finding gopkg.in/tomb.v2 latest
-    go: finding golang.org/x/net latest
-    go: finding golang.org/x/tools latest
-    go: downloading github.com/gorilla/context v1.1.1
-    go: downloading golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
-    go: downloading golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
-    go: extracting github.com/gorilla/context v1.1.1
-    go: extracting golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
-    go: downloading gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
-    go: extracting gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
-    go: extracting golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
-    go: downloading golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
-    go: extracting golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
-    $ cat go.mod
-    module golang.org/x/blog
+	$ go mod tidy
+	go: finding golang.org/x/website latest
+	go: finding gopkg.in/tomb.v2 latest
+	go: finding golang.org/x/net latest
+	go: finding golang.org/x/tools latest
+	go: downloading github.com/gorilla/context v1.1.1
+	go: downloading golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
+	go: downloading golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+	go: extracting github.com/gorilla/context v1.1.1
+	go: extracting golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+	go: downloading gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
+	go: extracting gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
+	go: extracting golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
+	go: downloading golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
+	go: extracting golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
+	$ cat go.mod
+	module golang.org/x/blog
 
-    go 1.12
+	go 1.12
 
-    require (
-        github.com/gorilla/context v1.1.1
-        golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
-        golang.org/x/text v0.3.2
-        golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
-        golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
-        gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
-    )
-    $ cat go.sum
-    cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-    cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
-    git.apache.org/thrift.git v0.0.0-20180902110319-2566ecd5d999/go.mod h1:fPE2ZNJGynbRyZ4dJvy6G277gSllfV2HJqblrnkyeyg=
-    git.apache.org/thrift.git v0.0.0-20181218151757-9b75e4fe745a/go.mod h1:fPE2ZNJGynbRyZ4dJvy6G277gSllfV2HJqblrnkyeyg=
-    github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
-    [...]
-    $
+	require (
+		github.com/gorilla/context v1.1.1
+		golang.org/x/net v0.0.0-20190813141303-74dc4d7220e7
+		golang.org/x/text v0.3.2
+		golang.org/x/tools v0.0.0-20190813214729-9dba7caff850
+		golang.org/x/website v0.0.0-20190809153340-86a7442ada7c
+		gopkg.in/tomb.v2 v2.0.0-20161208151619-d5d1b5820637
+	)
+	$ cat go.sum
+	cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+	cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
+	git.apache.org/thrift.git v0.0.0-20180902110319-2566ecd5d999/go.mod h1:fPE2ZNJGynbRyZ4dJvy6G277gSllfV2HJqblrnkyeyg=
+	git.apache.org/thrift.git v0.0.0-20181218151757-9b75e4fe745a/go.mod h1:fPE2ZNJGynbRyZ4dJvy6G277gSllfV2HJqblrnkyeyg=
+	github.com/beorn7/perks v0.0.0-20180321164747-3a771d992973/go.mod h1:Dwedo/Wpr24TaqPxmxbtue+5NUziq4I4S80YR8gNf3Q=
+	[...]
+	$
 
 `go`mod`tidy` added module requirements for all the packages transitively
 imported by packages in your module and built a `go.sum` with checksums
 for each library at a specific version.
 Let's finish by making sure the code still builds and tests still pass:
 
-    $ go build ./...
-    $ go test ./...
-    ok  	golang.org/x/blog	0.335s
-    ?   	golang.org/x/blog/content/appengine	[no test files]
-    ok  	golang.org/x/blog/content/cover	0.040s
-    ?   	golang.org/x/blog/content/h2push/server	[no test files]
-    ?   	golang.org/x/blog/content/survey2016	[no test files]
-    ?   	golang.org/x/blog/content/survey2017	[no test files]
-    ?   	golang.org/x/blog/support/racy	[no test files]
-    $
+	$ go build ./...
+	$ go test ./...
+	ok  	golang.org/x/blog	0.335s
+	?   	golang.org/x/blog/content/appengine	[no test files]
+	ok  	golang.org/x/blog/content/cover	0.040s
+	?   	golang.org/x/blog/content/h2push/server	[no test files]
+	?   	golang.org/x/blog/content/survey2016	[no test files]
+	?   	golang.org/x/blog/content/survey2017	[no test files]
+	?   	golang.org/x/blog/support/racy	[no test files]
+	$
 
 Note that when `go`mod`tidy` adds a requirement,
 it adds the latest version of the module.
@@ -260,8 +260,8 @@ but without an official release, downstream users will depend on specific
 commits using [[https://golang.org/cmd/go/#hdr-Pseudo_versions][pseudo-versions]],
 which may be more difficult to support.
 
-    $ git tag v1.2.0
-    $ git push origin v1.2.0
+	$ git tag v1.2.0
+	$ git push origin v1.2.0
 
 Your new `go.mod` file defines a canonical import path for your module and adds
 new minimum version requirements. If your users are already using the correct

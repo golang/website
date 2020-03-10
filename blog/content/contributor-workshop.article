@@ -188,12 +188,12 @@ is a great place to start to not miss a step.
 The real fun starts when you clone the Go repo. Ironically, you don't hack on
 Go under `$GOPATH`, so I put it in my other workspace (which is `~/Develop`).
 
-    cd $DEV # That's my source code folder outside of $GOPATH
-    git clone --depth 1 https://go.googlesource.com/go
+	cd $DEV # That's my source code folder outside of $GOPATH
+	git clone --depth 1 https://go.googlesource.com/go
 
 Then install the handy dandy helper tool, `go-contrib-init`:
 
-    go get -u golang.org/x/tools/cmd/go-contrib-init
+	go get -u golang.org/x/tools/cmd/go-contrib-init
 
 Now you can run `go-contrib-init` from the `go/` folder we cloned above and see
 whether or not we're ready to contribute. But hold on if you're following along,
@@ -201,7 +201,7 @@ you're not ready just yet.
 
 Next, install `codereview` so you can participate in a Gerrit code review:
 
-    go get -u golang.org/x/review/git-codereview
+	go get -u golang.org/x/review/git-codereview
 
 This package includes `git change` and `git mail` which will replace your
 normal workflow of `git commit` and `git push` respectively.
@@ -218,13 +218,13 @@ AND BAM. You're good (to go)! But where to contribute?
 In the workshop, they sent us into the `scratch` repository, which is a safe place to
 fool around in order to master the workflow:
 
-    cd $(go env GOPATH)/src/golang.org/x
-    git clone --depth 1 [[https://go.googlesource.com/scratch][go.googlesource.com/scratch]]
+	cd $(go env GOPATH)/src/golang.org/x
+	git clone --depth 1 [[https://go.googlesource.com/scratch][go.googlesource.com/scratch]]
 
 First stop is to `cd` in and run `go-contrib-init` to make sure you're ready to contribute:
 
-    go-contrib-init
-    All good. Happy hacking!
+	go-contrib-init
+	All good. Happy hacking!
 
 From there, I made a folder named after my GitHub account, did a `git add -u`
 then took `git change` for a spin. It has a hash that keeps track of your work,
@@ -269,14 +269,14 @@ me through how all examples are actually in-line tests in a `example_test.go`
 file. They follow the format of test cases followed by "Output" commented out
 and then the answers to the tests. For example:
 
-    func ExampleRegexp_FindString() {
-        re := regexp.MustCompile("fo.?")
-        fmt.Printf("%q\n", re.FindString("seafood"))
-        fmt.Printf("%q\n", re.FindString("meat"))
-        // Output:
-        // "foo"
-        // ""
-    }
+	func ExampleRegexp_FindString() {
+		re := regexp.MustCompile("fo.?")
+		fmt.Printf("%q\n", re.FindString("seafood"))
+		fmt.Printf("%q\n", re.FindString("meat"))
+		// Output:
+		// "foo"
+		// ""
+	}
 
 Kind of cool, right?? I followed Francesc's lead and added a function
 `ExampleQuoteMeta` and added a few I thought would be helpful. From there it's

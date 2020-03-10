@@ -34,8 +34,8 @@ major version, and how to maintain multiple major versions of a module.
 Modules formalized an important principle in Go, the
 [[https://research.swtch.com/vgo-import][*import*compatibility*rule*]]:
 
-    If an old package and a new package have the same import path,
-    the new package must be backwards compatible with the old package.
+	If an old package and a new package have the same import path,
+	the new package must be backwards compatible with the old package.
 
 By definition, a new major version of a package is not backwards compatible with
 the previous version. This means a new major version of a module must have a
@@ -64,9 +64,9 @@ domains need a slash suffix like `/v2`.
 The recommended strategy is to develop `v2+` modules in a directory named after
 the major version suffix.
 
-    github.com/googleapis/gax-go @ master branch
-    /go.mod    → module github.com/googleapis/gax-go
-    /v2/go.mod → module github.com/googleapis/gax-go/v2
+	github.com/googleapis/gax-go @ master branch
+	/go.mod    → module github.com/googleapis/gax-go
+	/v2/go.mod → module github.com/googleapis/gax-go/v2
 
 This approach is compatible with tools that aren't aware of modules: file paths
 within the repository match the paths expected by `go`get` in `GOPATH` mode.
@@ -86,51 +86,51 @@ follow this strategy as long as they have users developing in `GOPATH` mode.
 
 This post uses `github.com/googleapis/gax-go` as an example:
 
-    $ pwd
-    /tmp/gax-go
-    $ ls
-    CODE_OF_CONDUCT.md  call_option.go  internal
-    CONTRIBUTING.md     gax.go          invoke.go
-    LICENSE             go.mod          tools.go
-    README.md           go.sum          RELEASING.md
-    header.go
-    $ cat go.mod
-    module github.com/googleapis/gax-go
-    
-    go 1.9
-    
-    require (
-        github.com/golang/protobuf v1.3.1
-        golang.org/x/exp v0.0.0-20190221220918-438050ddec5e
-        golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3
-        golang.org/x/tools v0.0.0-20190114222345-bf090417da8b
-        google.golang.org/grpc v1.19.0
-        honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099
-    )
-    $
+	$ pwd
+	/tmp/gax-go
+	$ ls
+	CODE_OF_CONDUCT.md  call_option.go  internal
+	CONTRIBUTING.md     gax.go          invoke.go
+	LICENSE             go.mod          tools.go
+	README.md           go.sum          RELEASING.md
+	header.go
+	$ cat go.mod
+	module github.com/googleapis/gax-go
+	
+	go 1.9
+	
+	require (
+		github.com/golang/protobuf v1.3.1
+		golang.org/x/exp v0.0.0-20190221220918-438050ddec5e
+		golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3
+		golang.org/x/tools v0.0.0-20190114222345-bf090417da8b
+		google.golang.org/grpc v1.19.0
+		honnef.co/go/tools v0.0.0-20190102054323-c2f93a96b099
+	)
+	$
 
 To start development on `v2` of `github.com/googleapis/gax-go`, we'll create a
 new `v2/` directory and copy our package into it.
 
-    $ mkdir v2
-    $ cp *.go v2/
-    building file list ... done
-    call_option.go
-    gax.go
-    header.go
-    invoke.go
-    tools.go
-    
-    sent 10588 bytes  received 130 bytes  21436.00 bytes/sec
-    total size is 10208  speedup is 0.95
-    $
+	$ mkdir v2
+	$ cp *.go v2/
+	building file list ... done
+	call_option.go
+	gax.go
+	header.go
+	invoke.go
+	tools.go
+	
+	sent 10588 bytes  received 130 bytes  21436.00 bytes/sec
+	total size is 10208  speedup is 0.95
+	$
 
 Now, let's create a v2 `go.mod` file by copying the current `go.mod` file and
 adding a `v2/` suffix to the module path:
 
-    $ cp go.mod v2/go.mod
-    $ go mod edit -module github.com/googleapis/gax-go/v2 v2/go.mod
-    $
+	$ cp go.mod v2/go.mod
+	$ go mod edit -module github.com/googleapis/gax-go/v2 v2/go.mod
+	$
 
 Note that the `v2` version is treated as a separate module from the `v0`/`v1`
 versions: both may coexist in the same build. So, if your `v2+` module has
@@ -139,10 +139,10 @@ otherwise, your `v2+` module will depend on your `v0`/`v1` module. For example,
 to update all `github.com/my/project` references to `github.com/my/project/v2`,
 you can use `find` and `sed`:
 
-    $ find . -type f \
-        -name '*.go' \
-        -exec sed -i -e 's,github.com/my/project,github.com/my/project/v2,g' {} \;
-    $
+	$ find . -type f \
+		-name '*.go' \
+		-exec sed -i -e 's,github.com/my/project,github.com/my/project/v2,g' {} \;
+	$
 
 Now we have a `v2` module, but we want to experiment and make changes before
 publishing a release. Until we release `v2.0.0` (or any version without a
@@ -150,16 +150,16 @@ pre-release suffix), we can develop and make breaking changes as we decide on
 the new API. If we want users to be able to experiment with the new API before
 we officially make it stable, we can publish a `v2` pre-release version:
 
-    $ git tag v2.0.0-alpha.1
-    $ git push origin v2.0.0-alpha.1
-    $
+	$ git tag v2.0.0-alpha.1
+	$ git push origin v2.0.0-alpha.1
+	$
 
 Once we are happy with our `v2` API and are sure we don't need any other breaking
 changes, we can tag `v2.0.0`:
 
-    $ git tag v2.0.0
-    $ git push origin v2.0.0
-    $
+	$ git tag v2.0.0
+	$ git push origin v2.0.0
+	$
 
 At that point, there are now two major versions to maintain. Backwards
 compatible changes and bug fixes will lead to new minor and patch releases

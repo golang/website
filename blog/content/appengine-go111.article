@@ -55,7 +55,7 @@ supports.
 With the application code complete, create an `app.yaml` file to specify
 the runtime:
 
-    runtime: go111
+	runtime: go111
 
 Finally, set your machine up with a Google Cloud Platform account:
 
@@ -65,7 +65,7 @@ Finally, set your machine up with a Google Cloud Platform account:
 
 With all the setup complete, you can deploy using one command:
 
-    gcloud app deploy
+	gcloud app deploy
 
 We think Go developers will find the new Go 1.11 runtime for App Engine an
 exciting addition to the available options to run Go applications. There is a

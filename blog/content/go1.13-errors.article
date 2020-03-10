@@ -14,12 +14,12 @@ allows Go programmers to add whatever information they desire. All it requires
 is a type that implements an `Error` method:
 
 
-    type QueryError struct {
-        Query string
-        Err   error
-    }
+	type QueryError struct {
+		Query string
+		Err   error
+	}
 
-    func (e *QueryError) Error() string { return e.Query + ": " + e.Err.Error() }
+	func (e *QueryError) Error() string { return e.Query + ": " + e.Err.Error() }
 
 Error types like this one are ubiquitous, and the information they store varies
 widely, from timestamps to filenames to server addresses. Often, that
@@ -42,31 +42,31 @@ Go errors are values. Programs make decisions based on those values in a few
 ways. The most common is to compare an error to `nil` to see if an operation
 failed.
 
-    if err != nil {
-        // something went wrong
-    }
+	if err != nil {
+		// something went wrong
+	}
 
 Sometimes we compare an error to a known _sentinel_ value, to see if a specific error has occurred.
 
-    var ErrNotFound = errors.New("not found")
+	var ErrNotFound = errors.New("not found")
 
-    if err == ErrNotFound {
-        // something wasn't found
-    }
+	if err == ErrNotFound {
+		// something wasn't found
+	}
 
 An error value may be of any type which satisfies the language-defined `error`
 interface. A program can use a type assertion or type switch to view an error
 value as a more specific type.
 
-    type NotFoundError struct {
-        Name string
-    }
+	type NotFoundError struct {
+		Name string
+	}
 
-    func (e *NotFoundError) Error() string { return e.Name + ": not found" }
+	func (e *NotFoundError) Error() string { return e.Name + ": not found" }
 
-    if e, ok := err.(*NotFoundError); ok {
-        // e.Name wasn't found
-    }
+	if e, ok := err.(*NotFoundError); ok {
+		// e.Name wasn't found
+	}
 
 
 ** Adding information
@@ -76,9 +76,9 @@ to it, like a brief description of what was happening when the error occurred. A
 simple way to do this is to construct a new error that includes the text of the
 previous one:
 
-    if err != nil {
-        return fmt.Errorf("decompress %v: %v", name, err)
-    }
+	if err != nil {
+		return fmt.Errorf("decompress %v: %v", name, err)
+	}
 
 Creating a new error with `fmt.Errorf` discards everything from the original
 error except the text. As we saw above with `QueryError`, we may sometimes want
@@ -86,18 +86,18 @@ to define a new error type that contains the underlying error, preserving it for
 inspection by code. Here is `QueryError` again:
 
 
-    type QueryError struct {
-        Query string
-        Err   error
-    }
+	type QueryError struct {
+		Query string
+		Err   error
+	}
 
 Programs can look inside a `*QueryError` value to make decisions based on the
 underlying error. You'll sometimes see this referred to as "unwrapping" the
 error.
 
-    if e, ok := err.(*QueryError); ok && e.Err == ErrPermission {
-        // query failed because of a permission problem
-    }
+	if e, ok := err.(*QueryError); ok && e.Err == ErrPermission {
+		// query failed because of a permission problem
+	}
 
 
 The `os.PathError` type in the standard library is another example of one error which contains another.
@@ -116,7 +116,7 @@ that you can _unwrap_ `e1` to get `e2`.
 Following this convention, we can give the `QueryError` type above an `Unwrap`
 method that returns its contained error:
 
-    func (e *QueryError) Unwrap() error { return e.Err }
+	func (e *QueryError) Unwrap() error { return e.Err }
 
 The result of unwrapping an error may itself have an `Unwrap` method; we call
 the sequence of errors produced by repeated unwrapping the _error_chain_.
@@ -127,20 +127,20 @@ The Go 1.13 `errors` package includes two new functions for examining errors: `I
 
 The `errors.Is` function compares an error to a value.
 
-    // Similar to:
-    //   if err == ErrNotFound { … }
-    if errors.Is(err, ErrNotFound) {
-        // something wasn't found
-    }
+	// Similar to:
+	//   if err == ErrNotFound { … }
+	if errors.Is(err, ErrNotFound) {
+		// something wasn't found
+	}
 
 The `As` function tests whether an error is a specific type.
 
-    // Similar to:
-    //   if e, ok := err.(*QueryError); ok { … }
-    var e *QueryError
-    if errors.As(err, &e) {
-        // err is a *QueryError, and e is set to the error's value
-    }
+	// Similar to:
+	//   if e, ok := err.(*QueryError); ok { … }
+	var e *QueryError
+	if errors.As(err, &e) {
+		// err is a *QueryError, and e is set to the error's value
+	}
 
 In the simplest case, the `errors.Is` function behaves like a comparison to a
 sentinel error, and the `errors.As` function behaves like a type assertion. When
@@ -148,15 +148,15 @@ operating on wrapped errors, however, these functions consider all the errors in
 a chain. Let's look again at the example from above of unwrapping a `QueryError`
 to examine the underlying error:
 
-    if e, ok := err.(*QueryError); ok && e.Err == ErrPermission {
-        // query failed because of a permission problem
-    }
+	if e, ok := err.(*QueryError); ok && e.Err == ErrPermission {
+		// query failed because of a permission problem
+	}
 
 Using the `errors.Is` function, we can write this as:
 
-    if errors.Is(err, ErrPermission) {
-        // err, or some error that it wraps, is a permission problem
-    }
+	if errors.Is(err, ErrPermission) {
+		// err, or some error that it wraps, is a permission problem
+	}
 
 
 The `errors` package also includes a new `Unwrap` function which returns the
@@ -168,25 +168,25 @@ however, since these functions will examine the entire chain in a single call.
 
 As mentioned earlier, it is common to use the `fmt.Errorf` function to add additional information to an error.
 
-    if err != nil {
-        return fmt.Errorf("decompress %v: %v", name, err)
-    }
+	if err != nil {
+		return fmt.Errorf("decompress %v: %v", name, err)
+	}
 
 In Go 1.13, the `fmt.Errorf` function supports a new `%w` verb. When this verb
 is present, the error returned by `fmt.Errorf` will have an `Unwrap` method
 returning the argument of `%w`, which must be an error. In all other ways, `%w`
 is identical to `%v`.
 
-    if err != nil {
-        // Return an error which unwraps to err.
-        return fmt.Errorf("decompress %v: %w", name, err)
-    }
+	if err != nil {
+		// Return an error which unwraps to err.
+		return fmt.Errorf("decompress %v: %w", name, err)
+	}
 
 Wrapping an error with `%w` makes it available to `errors.Is` and `errors.As`:
 
-    err := fmt.Errorf("access denied: %w", ErrPermission)
-    ...
-    if errors.Is(err, ErrPermission) ...
+	err := fmt.Errorf("access denied: %w", ErrPermission)
+	...
+	if errors.Is(err, ErrPermission) ...
 
 
 ** Whether to Wrap
@@ -215,8 +215,8 @@ then a caller cannot look inside to find the `sql.ErrNoRows`. But if
 the function instead returns `fmt.Errorf("accessing`DB:`%w",`err)`, then a
 caller could reasonably write
 
-    err := pkg.LookupUser(...)
-    if errors.Is(err, sql.ErrNoRows) …
+	err := pkg.LookupUser(...)
+	if errors.Is(err, sql.ErrNoRows) …
 
 At that point, the function must always return `sql.ErrNoRows` if you don't want
 to break your clients, even if you switch to a different database package. In
@@ -242,23 +242,23 @@ As an example, consider this error inspired by the
 which compares an error against a template, considering only fields which are
 non-zero in the template:
 
-    type Error struct {
-        Path string
-        User string
-    }
+	type Error struct {
+		Path string
+		User string
+	}
 
-    func (e *Error) Is(target error) bool {
-        t, ok := target.(*Error)
-        if !ok {
-            return false
-        }
-        return (e.Path == t.Path || t.Path == "") &&
-               (e.User == t.User || t.User == "")
-    }
+	func (e *Error) Is(target error) bool {
+		t, ok := target.(*Error)
+		if !ok {
+			return false
+		}
+		return (e.Path == t.Path || t.Path == "") &&
+			   (e.User == t.User || t.User == "")
+	}
 
-    if errors.Is(err, &Error{User: "someuser"}) {
-        // err's User field is "someuser".
-    }
+	if errors.Is(err, &Error{User: "someuser"}) {
+		// err's User field is "someuser".
+	}
 
 The `errors.As` function similarly consults an `As` method when present.
 
@@ -275,18 +275,18 @@ information is needed.
 If we wish a function to return an identifiable error condition, such as "item
 not found," we might return an error wrapping a sentinel.
 
-    var ErrNotFound = errors.New("not found")
+	var ErrNotFound = errors.New("not found")
 
-    // FetchItem returns the named item.
-    //
-    // If no item with the name exists, FetchItem returns an error
-    // wrapping ErrNotFound.
-    func FetchItem(name string) (*Item, error) {
-        if itemNotFound(name) {
-            return nil, fmt.Errorf("%q: %w", name, ErrNotFound)
-        }
-        // ...
-    }
+	// FetchItem returns the named item.
+	//
+	// If no item with the name exists, FetchItem returns an error
+	// wrapping ErrNotFound.
+	func FetchItem(name string) (*Item, error) {
+		if itemNotFound(name) {
+			return nil, fmt.Errorf("%q: %w", name, ErrNotFound)
+		}
+		// ...
+	}
 
 There are other existing patterns for providing errors which can be semantically
 examined by the caller, such as directly returning a sentinel value, a specific
@@ -298,39 +298,39 @@ an error from another package you should convert the error to a form that does
 not expose the underlying error, unless you are willing to commit to returning
 that specific error in the future.
 
-    f, err := os.Open(filename)
-    if err != nil {
-        // The *os.PathError returned by os.Open is an internal detail.
-        // To avoid exposing it to the caller, repackage it as a new
-        // error with the same text. We use the %v formatting verb, since
-        // %w would permit the caller to unwrap the original *os.PathError.
-        return fmt.Errorf("%v", err)
-    }
+	f, err := os.Open(filename)
+	if err != nil {
+		// The *os.PathError returned by os.Open is an internal detail.
+		// To avoid exposing it to the caller, repackage it as a new
+		// error with the same text. We use the %v formatting verb, since
+		// %w would permit the caller to unwrap the original *os.PathError.
+		return fmt.Errorf("%v", err)
+	}
 
 If a function is defined as returning an error wrapping some sentinel or type,
 do not return the underlying error directly.
 
-    var ErrPermission = errors.New("permission denied")
+	var ErrPermission = errors.New("permission denied")
 
-    // DoSomething returns an error wrapping ErrPermission if the user
-    // does not have permission to do something.
-    func DoSomething() error {
-        if !userHasPermission() {
-            // If we return ErrPermission directly, callers might come
-            // to depend on the exact error value, writing code like this:
-            //
-            //     if err := pkg.DoSomething(); err == pkg.ErrPermission { … }
-            //
-            // This will cause problems if we want to add additional
-            // context to the error in the future. To avoid this, we
-            // return an error wrapping the sentinel so that users must
-            // always unwrap it:
-            //
-            //     if err := pkg.DoSomething(); errors.Is(err, pkg.ErrPermission) { ... }
-            return fmt.Errorf("%w", ErrPermission)
-        }
-        // ...
-    }
+	// DoSomething returns an error wrapping ErrPermission if the user
+	// does not have permission to do something.
+	func DoSomething() error {
+		if !userHasPermission() {
+			// If we return ErrPermission directly, callers might come
+			// to depend on the exact error value, writing code like this:
+			//
+			//     if err := pkg.DoSomething(); err == pkg.ErrPermission { … }
+			//
+			// This will cause problems if we want to add additional
+			// context to the error in the future. To avoid this, we
+			// return an error wrapping the sentinel so that users must
+			// always unwrap it:
+			//
+			//     if err := pkg.DoSomething(); errors.Is(err, pkg.ErrPermission) { ... }
+			return fmt.Errorf("%w", ErrPermission)
+		}
+		// ...
+	}
 
 * Conclusion
 

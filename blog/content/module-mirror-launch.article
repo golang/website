@@ -116,8 +116,8 @@ If you are using Go 1.12 or earlier, you can manually check a `go.sum` file
 against the checksum database with
 [[https://godoc.org/golang.org/x/mod/gosumcheck][gosumcheck]]:
 
-    $ go get golang.org/x/mod/gosumcheck
-    $ gosumcheck /path/to/go.sum
+	$ go get golang.org/x/mod/gosumcheck
+	$ gosumcheck /path/to/go.sum
 
 In addition to verification done by the `go` command, third-party
 auditors can hold the checksum database accountable by iterating over the log
