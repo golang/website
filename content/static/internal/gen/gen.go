@@ -76,7 +76,7 @@ var files = []string{
 }
 
 var markdownFiles = []string{
-	"doc/modules.md",
+	"doc/mod.md",
 }
 
 // Generate reads a set of files and returns a file buffer that declares

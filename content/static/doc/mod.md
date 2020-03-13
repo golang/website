@@ -1,7 +1,7 @@
 <!--{
   "Title": "Go Modules Reference",
   "Subtitle": "Version of Feb 5, 2019",
-  "Path": "/ref/modules"
+  "Path": "/ref/mod"
 }-->
 <!-- TODO(jayconrod): change anchors to header id attributes either during
 markdown rendering or as HTML postprocessing step. -->
