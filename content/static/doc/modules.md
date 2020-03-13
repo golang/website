@@ -1033,6 +1033,86 @@ an error.
 <a id="commands-outside"></a>
 ### Module commands outside a module
 
+Module-aware Go commands normally run in the context of a [main
+module](#glos-main-module) defined by a `go.mod` file in the working directory
+or a parent directory. Some commands may be run in module-aware mode without a
+`go.mod` file by setting the `GO111MODULE` environment variable to `on`.
+Most commands work differently when no `go.mod` file is present.
+
+See [Module-aware commands](#mod-commands) for information on enabling and
+disabling module-aware mode.
+
+<table class="ModTable">
+  <thead>
+    <tr>
+      <th>Command</th>
+      <th>Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <code>go build</code><br>
+        <code>go doc</code><br>
+        <code>go fix</code><br>
+        <code>go fmt</code><br>
+        <code>go generate</code><br>
+        <code>go install</code><br>
+        <code>go list</code><br>
+        <code>go run</code><br>
+        <code>go test</code><br>
+        <code>go vet</code>
+      </td>
+      <td>
+        Only packages in the standard library and packages specified as
+        <code>.go</code> files on the command line can be loaded, imported, and
+        built. Packages from other modules cannot be built, since there is no
+        place to record module requirements and ensure deterministic builds.
+      </td>
+    </tr>
+    <tr>
+      <td><code>go get</code></td>
+      <td>
+        Packages and executables may be built and installed as usual. Note that
+        there is no main module when <code>go get</code> is run without a
+        <code>go.mod</code> file, so <code>replace</code> and
+        <code>exclude</code> directives are not applied.
+      </td>
+    </tr>
+    <tr>
+      <td><code>go list -m</code></td>
+      <td>
+        Explicit <a href="#version-queries">version queries</a> are required
+        for most arguments, except when the <code>-versions</code> flag is used.
+      </td>
+    </tr>
+    <tr>
+      <td><code>go mod download</code></td>
+      <td>
+        Explicit <a href="#version-queries">version queries</a> are required
+        for most arguments.
+      </td>
+    </tr>
+    <tr>
+      <td><code>go mod edit</code></td>
+      <td>An explicit file argument is required.</td>
+    </tr>
+    <tr>
+      <td>
+        <code>go mod graph</code><br>
+        <code>go mod tidy</code><br>
+        <code>go mod vendor</code><br>
+        <code>go mod verify</code><br>
+        <code>go mod why</code>
+      </td>
+      <td>
+        These commands require a <code>go.mod</code> file and will report
+        an error if one is not present.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <a id="retrieving-modules"></a>
 ## Retrieving modules
 
@@ -1084,7 +1164,7 @@ ensure this table is readable. If the cells are too large, and it's difficult
 to scan, use paragraphs or sections below.
 -->
 
-<table class="ModProtocol">
+<table class="ModTable">
   <thead>
     <tr>
       <th>Path</th>
@@ -1269,7 +1349,7 @@ corresponding lower-case letter. This allows modules `example.com/M` and
 Parts of the path surrounded by square brakets, like `[.p/$W]` denote optional
 values.
 
-<table class="ModProtocol">
+<table class="ModTable">
   <thead>
     <tr>
       <th>Path</th>

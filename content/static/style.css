@@ -166,21 +166,24 @@ div#nav table td {
   vertical-align: top;
 }
 
-.ModProtocol {
+.ModTable {
   border-collapse: collapse;
   margin: 1.25rem;
   max-width: 50rem;
 }
-.ModProtocol td,
-.ModProtocol th {
+.ModTable code {
+  white-space: nowrap;
+}
+.ModTable td,
+.ModTable th {
   border: 1px solid #a9a9a9;
   padding: 1rem;
   vertical-align: top;
 }
-.ModProtocol td p {
+.ModTable td p {
   margin: 0 0 1rem 0;
 }
-.ModProtocol td p:last-child {
+.ModTable td p:last-child {
   margin-bottom: 0;
 }
 
