@@ -1,6 +1,6 @@
 # Go 1.14 is released
 25 Feb 2020
-Summary: Today the Go team is very happy to announce the release of Go 1.14. You can get it from the [download page](https://golang.org/dl).
+Summary: Go 1.14 adds production-ready module support, faster defers, better goroutine preemption, and more.
 
 Alex Rakoczy
 

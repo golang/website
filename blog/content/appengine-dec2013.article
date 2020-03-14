@@ -1,7 +1,7 @@
 # Go on App Engine: tools, tests, and concurrency
 13 Dec 2013
 Tags: appengine
-Summary: When we [launched Go for App Engine](https://blog.golang.org/go-and-google-app-engine) in May 2011 the SDK was just a modified version of the Python SDK. At the time, there was no canonical way to build or organize Go programs, so it made sense to take the Python approach. Since then Go 1.0 was released, including the [go tool](https://golang.org/cmd/go/) and a [convention](https://golang.org/doc/code.html) for organizing Go programs.
+Summary: Announcing improvements to Go on App Engine.
 
 Andrew Gerrand
 

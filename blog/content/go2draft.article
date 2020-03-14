@@ -1,7 +1,7 @@
 # Go 2 Draft Designs
 28 Aug 2018
 Tags: community, video
-Summary: Yesterday, at our annual Go contributor summit, attendees got a sneak peek at preliminary _drafts_ of possible designs for changes to error handling and generics. [The development of Go 2](https://blog.golang.org/toward-go2) was announced last year and we are excited to share updates with you today.
+Summary: Announcing the draft designs for the major Go 2 changes.
 
 ##
 

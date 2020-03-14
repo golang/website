@@ -1,7 +1,7 @@
 # Go and Google App Engine
 10 May 2011
 Tags: appengine, release
-Summary: Google’s App Engine provides a reliable, scalable, easy way to build and deploy applications for the web. Over a hundred thousand apps are hosted at appspot.com and custom domains using the App Engine infrastructure. Originally written for Python apps, in 2009 the system added a Java runtime. And today, at Google I/O, we’re thrilled to announce that Go will be next. It’s marked as an experimental App Engine feature for now, because it’s early days, but both the App Engine and Go teams are very excited about this milestone.
+Summary: Announcing support for Go in Google App Engine.
 
 David Symonds
 

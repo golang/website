@@ -1,7 +1,7 @@
 # Go Concurrency Patterns: Pipelines and cancellation
 13 Mar 2014
 Tags: concurrency, pipelines, cancellation
-Summary: Go's concurrency primitives make it easy to construct streaming data pipelines that make efficient use of I/O and multiple CPUs.  This article presents examples of such pipelines, highlights subtleties that arise when operations fail, and introduces techniques for dealing with failures cleanly.
+Summary: How to use Go's concurrency to build data-processing pipelines.
 
 Sameer Ajmani
 

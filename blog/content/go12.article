@@ -1,7 +1,7 @@
 # Go 1.2 is released
 1 Dec 2013
 Tags: release
-Summary: We are pleased to announce the release of Go 1.2, the latest stable version of the Go Programming Language.
+Summary: Go 1.2 adds test coverage results, goroutine preemption, and more.
 
 Andrew Gerrand
 

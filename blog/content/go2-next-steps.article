@@ -1,7 +1,7 @@
 # Next steps toward Go 2
 26 Jun 2019
 Tags: go2, proposals, community
-Summary: We’re well on the way towards the release of Go 1.13, hopefully in early August of this year. This is the first release that will include concrete changes to the language (rather than just minor adjustments to the spec), after a longer moratorium on any such changes.
+Summary: What Go 2 language changes should we include in Go 1.14?
 
 Robert Griesemer, for the Go team
 

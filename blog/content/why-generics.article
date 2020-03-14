@@ -1,7 +1,7 @@
 # Why Generics?
 31 Jul 2019
 Tags: go2, proposals, generics
-Summary: This is the blog post version of my talk last week at Gophercon 2019.
+Summary: Why should we add generics to Go, and what might they look like?
 
 Ian Lance Taylor
 

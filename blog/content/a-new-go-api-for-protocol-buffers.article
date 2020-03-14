@@ -1,7 +1,7 @@
 # A new Go API for Protocol Buffers
 2 Mar 2020
 Tags: protobuf, technical
-Summary: We are pleased to announce the release of a major revision of the Go API for [protocol buffers](https://developers.google.com/protocol-buffers), Google's language-neutral data interchange format.
+Summary: Announcing a major revision of the Go API for protocol buffers.
 
 Joe Tsai, Damien Neil, and Herbie Ong
 

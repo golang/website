@@ -1,7 +1,7 @@
 # Language and Locale Matching in Go
 9 Feb 2016
 Tags: language, locale, tag, BCP 47, matching
-Summary: Consider an application, such as a web site, with support for multiple languages in its user interface. When a user arrives with a list of preferred languages, the application must decide which language it should use in its presentation to the user. This requires finding the best match between the languages the application supports and those the user prefers. This post explains why this is a difficult decision and how Go can help.
+Summary: How to internationalize your web site with Go's language and locale matching.
 
 Marcel van Lohuizen
 

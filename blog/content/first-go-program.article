@@ -1,7 +1,7 @@
 # The first Go program
 18 Jul 2013
 Tags: history
-Summary: Brad Fitzpatrick and I (Andrew Gerrand) recently started restructuring [godoc](https://golang.org/cmd/godoc/), and it occurred to me that it is one of the oldest Go programs. Robert Griesemer started writing it back in early 2009, and we're still using it today.
+Summary: Rob Pike dug up the first Go program ever written.
 
 Andrew Gerrand
 

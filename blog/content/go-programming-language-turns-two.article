@@ -1,7 +1,7 @@
 # The Go Programming Language turns two
 10 Nov 2011
 Tags: appengine, community, gopher
-Summary: Two years ago a small team at Google went public with their fledgling project - the Go Programming Language. They presented a language spec, two compilers, a modest standard library, some novel tools, and plenty of accurate (albeit succinct) documentation. They watched with excitement as programmers around the world began to play with Go. The team continued to iterate and improve on what they had built, and were gradually joined by dozens - and then hundreds - of programmers from the open source community. The Go Authors went on to produce lots of libraries, new tools, and reams of [documentation](https://golang.org/doc/docs.html). They celebrated a successful year in the public eye with a [blog post](https://blog.golang.org/2010/11/go-one-year-ago-today.html) last November that concluded "Go is certainly ready for production use, but there is still room for improvement. Our focus for the immediate future is making Go programs faster and more efficient in the context of high performance systems."
+Summary: Happy 2nd birthday, Go!
 
 Andrew Gerrand
 

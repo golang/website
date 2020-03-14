@@ -1,7 +1,7 @@
 # Generating code
 22 Dec 2014
 Tags: programming, technical
-Summary: A property of universal computation—Turing completeness—is that a computer program can write a computer program. This is a powerful idea that is not appreciated as often as it might be, even though it happens frequently. It's a big part of the definition of a compiler, for instance. It's also how the `go` `test` command works: it scans the packages to be tested, writes out a Go program containing a test harness customized for the package, and then compiles and runs it. Modern computers are so fast this expensive-sounding sequence can complete in a fraction of a second.
+Summary: How to use go generate.
 
 Rob Pike
 

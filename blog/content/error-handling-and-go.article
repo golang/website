@@ -1,7 +1,7 @@
 # Error handling and Go
 12 Jul 2011
 Tags: error, interface, type, technical
-Summary: If you have written any Go code you have probably encountered the built-in `error` type. Go code uses `error` values to indicate an abnormal state. For example, the `os.Open` function returns a non-nil `error` value when it fails to open a file.
+Summary: An introduction to Go errors.
 
 Andrew Gerrand
 

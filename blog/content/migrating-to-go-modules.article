@@ -1,7 +1,7 @@
 # Migrating to Go Modules
 21 Aug 2019
 Tags: tools, versioning, modules
-Summary: This post is part 2 in a series.
+Summary: How to use Go modules to manage your program's dependencies.
 
 Jean de Klerk
 

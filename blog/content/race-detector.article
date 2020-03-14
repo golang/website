@@ -1,7 +1,7 @@
 # Introducing the Go Race Detector
 26 Jun 2013
 Tags: concurrency, technical
-Summary: [Race conditions](http://en.wikipedia.org/wiki/Race_condition) are among the most insidious and elusive programming errors. They typically cause erratic and mysterious failures, often long after the code has been deployed to production. While Go's concurrency mechanisms make it easy to write clean concurrent code, they don't prevent race conditions. Care, diligence, and testing are required. And tools can help.
+Summary: How and why to use the Go race detector to improve your programs.
 
 Dmitry Vyukov
 

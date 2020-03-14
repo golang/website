@@ -1,6 +1,6 @@
 # Go fonts
 16 Nov 2016
-Summary: The experimental user interface toolkit being built at [`golang.org/x/exp/shiny`](https://godoc.org/golang.org/x/exp/shiny) includes several text elements, but there is a problem with testing them: What font should be used? Answering this question led us to today's announcement, the release of a family of high-quality [WGL4](https://en.wikipedia.org/wiki/Windows_Glyph_List_4) TrueType fonts, created by the [Bigelow & Holmes](http://bigelowandholmes.typepad.com/) type foundry specifically for the Go project.
+Summary: Announcing the Go font family, by Bigelow & Holmes.
 
 Nigel Tao
 

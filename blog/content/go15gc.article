@@ -1,6 +1,6 @@
 # Go GC: Prioritizing low latency and simplicity
 31 Aug 2015
-Summary: Go is building a garbage collector (GC) not only for 2015 but for 2025 and beyond: A GC that supports today’s software development and scales along with new software and hardware throughout the next decade. Such a future has no place for stop-the-world GC pauses, which have been an impediment to broader uses of safe and secure languages such as Go.
+Summary: Go 1.5 is the first step toward a new low-latency future for the Go garbage collector.
 
 Richard Hudson
 rlh@golang.org

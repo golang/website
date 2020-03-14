@@ -1,7 +1,7 @@
 # Go 1.1 is released
 13 May 2013
 Tags: release
-Summary: It is our great pleasure to announce the release of Go 1.1.
+Summary: Go 1.1 is faster, less picky about return statements, and adds method expressions.
 
 Andrew Gerrand
 

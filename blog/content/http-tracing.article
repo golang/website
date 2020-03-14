@@ -1,7 +1,7 @@
 # Introducing HTTP Tracing
 4 Oct 2016
 Tags: http, technical
-Summary: In Go 1.7 we introduced HTTP tracing, a facility to gather fine-grained information throughout the lifecycle of an HTTP client request. Support for HTTP tracing is provided by the [`net/http/httptrace`](https://golang.org/pkg/net/http/httptrace/) package. The collected information can be used for debugging latency issues, service monitoring, writing adaptive systems, and more.
+Summary: How to use Go 1.7's HTTP tracing to understand your client requests.
 
 Jaana Burcu Dogan
 

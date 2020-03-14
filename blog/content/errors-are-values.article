@@ -1,6 +1,6 @@
 # Errors are values
 12 Jan 2015
-Summary: A common point of discussion among Go programmers, especially those new to the language, is how to handle errors. The conversation often turns into a lament at the number of times the sequence
+Summary: Idioms and patterns for handling errors in Go.
 
 Rob Pike
 

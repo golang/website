@@ -1,6 +1,6 @@
 # Go 1.8 is released
 16 Feb 2017
-Summary: Today the Go team is happy to announce the release of Go 1.8. You can get it from the [download page](https://golang.org/dl/). There are significant performance improvements and changes across the standard library.
+Summary: Go 1.8 adds faster non-x86 compiled code, sub-millisecond garbage collection pauses, HTTP/2 push, and more.
 
 Chris Broadfoot
 cbro@golang.org

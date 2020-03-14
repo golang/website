@@ -1,7 +1,7 @@
 # Two Go Talks: "Lexical Scanning in Go" and "Cuddle: an App Engine Demo"
 1 Sep 2011
 Tags: appengine, lexer, talk, video
-Summary: On Tuesday night Rob Pike and Andrew Gerrand each presented at the [Sydney Google Technology User Group](http://www.sydney-gtug.org/).
+Summary: Two talks about Go from the Sydney GTUG: Rob Pike explains lexical scanning, and Andrew Gerrand builds a simple real-time chat using App Engine. 
 
 Andrew Gerrand
 

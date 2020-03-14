@@ -1,6 +1,6 @@
 # Compile-time Dependency Injection With Go Cloud's Wire
 9 Oct 2018
-Summary: The Go team recently [announced](https://blog.golang.org/go-cloud) the open source project [Go Cloud](https://github.com/google/go-cloud), with portable Cloud APIs and tools for [open cloud](https://cloud.google.com/open-cloud/) development. This post goes into more detail about Wire, a dependency injection tool used in Go Cloud.
+Summary: How to use Wire, a dependency injection tool for Go.
 
 Robert van Gent
 

@@ -1,7 +1,7 @@
 # Go Concurrency Patterns: Timing out, moving on
 23 Sep 2010
 Tags: concurrency, technical
-Summary: Concurrent programming has its own idioms. A good example is timeouts. Although Go's channels do not support them directly, they are easy to implement. Say we want to receive from the channel `ch`, but want to wait at most one second for the value to arrive. We would start by creating a signalling channel and launching a goroutine that sleeps before sending on the channel:
+Summary: How to implement timeouts using Go's concurrency support.
 
 Andrew Gerrand
 

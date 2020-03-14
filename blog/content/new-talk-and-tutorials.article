@@ -1,6 +1,6 @@
 # New Talk and Tutorials
 5 May 2010
-Summary: Rob Pike recently gave a talk at Stanford's [Computer Systems Colloquium](http://www.stanford.edu/class/ee380/) (EE380). Titled [_Another Go at Language Design_](http://www.stanford.edu/class/ee380/Abstracts/100428.html), the presentation gives an overview of the itches Go was built to scratch, and how Go addresses those problems. You can view [a video stream of the talk](https://www.youtube.com/watch?v=7VcArS4Wpqk), and [download the slides](http://www.stanford.edu/class/ee380/Abstracts/100428-pike-stanford.pdf).
+Summary: More materials for learning about Go: one talk, one codelab and one screencast.
 
 Andrew Gerrand
 

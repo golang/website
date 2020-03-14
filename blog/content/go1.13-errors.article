@@ -1,7 +1,7 @@
 # Working with Errors in Go 1.13
 17 Oct 2019
 Tags: errors, technical
-Summary: Go’s treatment of [errors as values](https://blog.golang.org/errors-are-values) has served us well over the last decade. Although the standard library’s support for errors has been minimal—just the `errors.New` and `fmt.Errorf` functions, which produce errors that contain only a message—the built-in `error` interface allows Go programmers to add whatever information they desire. All it requires is a type that implements an `Error` method:
+Summary: How to use the new Go 1.13 error interfaces and functions.
 
 Damien Neil and Jonathan Amsterdam
 

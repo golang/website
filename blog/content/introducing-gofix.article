@@ -1,7 +1,7 @@
 # Introducing Gofix
 15 Apr 2011
 Tags: gofix, technical
-Summary: The next Go release will include significant API changes in several fundamental Go packages. Code that [implements an HTTP server handler](http://codereview.appspot.com/4239076), [calls `net.Dial`](http://codereview.appspot.com/4244055), [calls `os.Open`](http://codereview.appspot.com/4357052), or [uses the reflect package](http://codereview.appspot.com/4281055) will not build unless it is updated to use the new APIs. Now that our releases are [more stable and less frequent](https://blog.golang.org/2011/03/go-becomes-more-stable.html), this will be a common situation. Each of these API changes happened in a different weekly snapshot and might have been manageable on its own; together, however, they represent a significant amount of manual effort to update existing code.
+Summary: How to use go fix to update your code with each new Go release.
 
 Russ Cox
 

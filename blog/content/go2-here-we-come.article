@@ -1,7 +1,7 @@
 # Go 2, here we come!
 29 Nov 2018
 Tags: go2, proposals, community
-Summary: At GopherCon 2017, Russ Cox officially started the thought process on the next big version of Go with his talk [The Future of Go](https://www.youtube.com/watch?v=0Zbh_vmAKvk) ([blog post](https://blog.golang.org/toward-go2)). We have called this future language informally Go 2, even though we understand now that it will arrive in incremental steps rather than with a big bang and a single major release. Still, Go 2 is a useful moniker, if only to have a way to talk about that future language, so let’s keep using it for now.
+Summary: How Go 2 proposals will be evaluated, selected, and shipped.
 
 Robert Griesemer
 

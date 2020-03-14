@@ -1,7 +1,7 @@
 # The App Engine SDK and workspaces (GOPATH)
 9 Jan 2013
 Tags: appengine, tools, gopath
-Summary: When we released Go 1 we introduced the [go tool](https://golang.org/cmd/go/) and, with it, the concept of workspaces. Workspaces (specified by the GOPATH environment variable) are a convention for organizing code that simplifies fetching, building, and installing Go packages. If you're not familiar with workspaces, please read [this article](https://golang.org/doc/code.html) or watch [this screencast](http://www.youtube.com/watch?v=XCsL89YtqCs) before reading on.
+Summary: App Engine SDK 1.7.4 adds support for GOPATH-style workspaces.
 
 Andrew Gerrand
 

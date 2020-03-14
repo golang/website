@@ -1,7 +1,7 @@
 # The Go image/draw package
 29 Sep 2011
 Tags: draw, image, libraries, technical
-Summary: [Package image/draw](https://golang.org/pkg/image/draw/) defines only one operation: drawing a source image onto a destination image, through an optional mask image. This one operation is surprisingly versatile and can perform a number of common image manipulation tasks elegantly and efficiently.
+Summary: An introduction to image compositing in Go using the image/draw package.
 
 Nigel Tao
 

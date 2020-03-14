@@ -1,7 +1,7 @@
 # Concurrency is not parallelism
 16 Jan 2013
 Tags: concurrency, talk, video
-Summary: If there's one thing most people know about Go, is that it is designed for concurrency. No introduction to Go is complete without a demonstration of its goroutines and channels.
+Summary: Watch Rob Pike's talk, _Concurrency is not parallelism._
 
 Andrew Gerrand
 

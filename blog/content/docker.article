@@ -1,6 +1,6 @@
 # Deploying Go servers with Docker
 26 Sep 2014
-Summary: This week Docker [announced](https://blog.docker.com/2014/09/docker-hub-official-repos-announcing-language-stacks/) official base images for Go and other major languages, giving programmers a trusted and easy way to build containers for their Go programs.
+Summary: How to use Docker's new official base images for Go.
 
 Andrew Gerrand
 

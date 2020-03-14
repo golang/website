@@ -1,7 +1,7 @@
 # Go 2018 Survey Results
 28 Mar 2019
 Tags: survey, community
-Summary: This post summarizes the results of our 2018 user survey and draws comparisons between the results of our prior surveys from [2016](https://blog.golang.org/survey2016-results) and [2017](https://blog.golang.org/survey2017-results).
+Summary: What we learned from the December 2018 Go User Survey.
 
 Todd Kulesza, Steve Francia
 tkulesza@google.com, spf@golang.org

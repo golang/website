@@ -1,7 +1,7 @@
 # Organizing Go code
 16 Aug 2012
 Tags: godoc, gopath, interface, libraries, tools, technical
-Summary: Go code is organized differently to that of other languages. This post discusses how to name and package the elements of your Go program to best serve its users.
+Summary: How to name and package the parts of your Go program to best serve your users.
 
 Andrew Gerrand
 

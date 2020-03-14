@@ -1,7 +1,7 @@
 # Godoc: documenting Go code
 31 Mar 2011
 Tags: godoc, technical
-Summary: The Go project takes documentation seriously. Documentation is a huge part of making software accessible and maintainable. Of course it must be well-written and accurate, but it also must be easy to write and to maintain. Ideally, it should be coupled to the code itself so the documentation evolves along with the code. The easier it is for programmers to produce good documentation, the better for everyone.
+Summary: How and why to document your Go packages.
 
 Andrew Gerrand
 

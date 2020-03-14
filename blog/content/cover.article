@@ -1,7 +1,7 @@
 # The cover story
 2 Dec 2013
 Tags: tools, coverage, testing
-Summary: From the beginning of the project, Go was designed with tools in mind. Those tools include some of the most iconic pieces of Go technology such as the documentation presentation tool [godoc](https://golang.org/cmd/godoc), the code formatting tool [gofmt](https://golang.org/cmd/gofmt), and the API rewriter [gofix](https://golang.org/cmd/fix). Perhaps most important of all is the [`go` command](https://golang.org/cmd/go), the program that automatically installs, builds, and tests Go programs using nothing more than the source code as the build specification.
+Summary: Introducing Go 1.12's code coverage tool.
 
 Rob Pike
 

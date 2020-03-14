@@ -1,7 +1,7 @@
 # go fmt your code
 23 Jan 2013
 Tags: gofix, gofmt, technical
-Summary: [Gofmt](https://golang.org/cmd/gofmt/) is a tool that automatically formats Go source code.
+Summary: How and why to format your Go code using gofmt.
 
 Andrew Gerrand
 

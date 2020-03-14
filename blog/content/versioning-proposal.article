@@ -1,7 +1,7 @@
 # A Proposal for Package Versioning in Go
 26 Mar 2018
 Tags: tools, versioning
-Summary: Eight years ago, the Go team introduced `goinstall` (which led to `go get`) and with it the decentralized, URL-like import paths that Go developers are familiar with today. After we released `goinstall`, one of the first questions people asked was how to incorporate version information. We admitted we didn’t know. For a long time, we believed that the problem of package versioning would be best solved by an add-on tool, and we encouraged people to create one. The Go community created many tools with different approaches. Each one helped us all better understand the problem, but by mid-2016 it was clear that there were now too many solutions. We needed to adopt a single, official tool.
+Summary: Proposing official support for package versioning in Go, using Go modules.
 
 Russ Cox
 

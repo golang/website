@@ -1,7 +1,7 @@
 # C? Go? Cgo!
 17 Mar 2011
 Tags: cgo, technical
-Summary: Cgo lets Go packages call C code. Given a Go source file written with some special features, cgo outputs Go and C files that can be combined into a single Go package.
+Summary: How to use cgo to let Go packages call C code.
 
 Andrew Gerrand
 

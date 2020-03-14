@@ -1,8 +1,8 @@
 # What's new in the Go Cloud Development Kit
 4 Mar 2019
-Summary: Last July, we [introduced](https://blog.golang.org/go-cloud) the [Go Cloud Development Kit](https://gocloud.dev) (previously referred to as simply "Go Cloud"), an open source project building libraries and tools to improve the experience of developing for the cloud with Go. We've made a lot of progress since then -- thank you to early contributors! We look forward to growing the Go CDK community of users and contributors, and are excited to work closely with early adopters.
+Summary: Recent changes to the Go Cloud Development Kit (Go CDK).
 
-The Go Cloud Development Kit team at Google, Twitter #GoCDK
+The Go Cloud Development Kit team at Google
 
 ## Introduction
 

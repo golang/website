@@ -1,7 +1,7 @@
 # Testable Examples in Go
 7 May 2015
 Tags: godoc, testing
-Summary: Godoc [examples](https://golang.org/pkg/testing/#hdr-Examples) are snippets of Go code that are displayed as package documentation and that are verified by running them as tests. They can also be run by a user visiting the godoc web page for the package and clicking the associated "Run" button.
+Summary: How to add examples, which double as tests, to your packages.
 
 Andrew Gerrand
 

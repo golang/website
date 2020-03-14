@@ -1,6 +1,6 @@
 # Smaller Go 1.7 binaries
 18 Aug 2016
-Summary: Go was designed for writing servers. That is how it is most widely used today, and as a result a lot of work on the runtime and compiler is focused on issues that matter to servers: latency, ease of deployment, precise garbage collection, fast startup time, performance.
+Summary: Go 1.7 includes some binary size reductions important for small devices.
 
 David Crawshaw
 crawshaw@golang.org

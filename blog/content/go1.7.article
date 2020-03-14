@@ -1,6 +1,6 @@
 # Go 1.7 is released
 15 Aug 2016
-Summary: Today we are happy to announce the release of Go 1.7. You can get it from the [download page](https://golang.org/dl/). There are several significant changes in this release: a port for [Linux on IBM z Systems](https://en.wikipedia.org/wiki/IBM_System_z) (s390x), compiler improvements, the addition of the [context](https://golang.org/pkg/context/) package, and support for [hierarchical tests and benchmarks](https://golang.org/pkg/testing/#hdr-Subtests_and_Sub_benchmarks).
+Summary: Go 1.7 adds faster x86 compiled code, context in the standard library, and more.
 
 Chris Broadfoot
 cbro@golang.org

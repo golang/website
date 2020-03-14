@@ -1,7 +1,7 @@
 # The Laws of Reflection
 6 Sep 2011
 Tags: interface, reflect, type, technical
-Summary: Reflection in computing is the ability of a program to examine its own structure, particularly through types; it's a form of metaprogramming. It's also a great source of confusion.
+Summary: How reflections works in Go, how to think about it, and how to use it.
 
 Rob Pike
 

@@ -1,7 +1,7 @@
 # Two recent Go talks
 2 Jan 2013
 Tags: talk, video, ethos
-Summary: Late last year I wrote a couple of Go talks and presented them at [Strange Loop](http://thestrangeloop.com/), [Øredev](http://oredev.com), and various other venues. The talks are designed to give insight into the practice of Go programming, each describing the construction of a real program and demonstrating the power and depth of the Go language and its libraries and tools.
+Summary: Two Go talks: “Go: A Simple Programming Environment” and “Go: Code That Grows With Grace”.
 
 Andrew Gerrand
 

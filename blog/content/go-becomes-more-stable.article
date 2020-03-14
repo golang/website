@@ -1,7 +1,7 @@
 # Go becomes more stable
 16 Mar 2011
 Tags: release
-Summary: The Go project is moving fast. As we learn more about Go we are compelled to change our tools, libraries, and occasionally even the language itself. We permit backward-incompatible changes so that we can learn from, rather than immortalize, our mistakes. We believe flexibility at this stage of Go’s development is essential to the project’s development and, ultimately, its longevity.
+Summary: Moving from weekly unstable Go releases toward less frequent, more stable ones.
 
 Andrew Gerrand
 

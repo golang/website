@@ -1,7 +1,7 @@
 # Go's Declaration Syntax
 7 Jul 2010
 Tags: c, syntax, ethos
-Summary: Newcomers to Go wonder why the declaration syntax is different from the tradition established in the C family. In this post we'll compare the two approaches and explain why Go's declarations look as they do.
+Summary: Why Go's declaration syntax doesn't look like, and is much simpler than, C's.
 
 Rob Pike
 

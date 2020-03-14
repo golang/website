@@ -1,7 +1,7 @@
 # Strings, bytes, runes and characters in Go
 23 Oct 2013
 Tags: strings, bytes, runes, characters
-Summary: The [previous blog post](https://blog.golang.org/slices) explained how slices work in Go, using a number of examples to illustrate the mechanism behind their implementation. Building on that background, this post discusses strings in Go. At first, strings might seem too simple a topic for a blog post, but to use them well requires understanding not only how they work, but also the difference between a byte, a character, and a rune, the difference between Unicode and UTF-8, the difference between a string and a string literal, and other even more subtle distinctions.
+Summary: How strings work in Go, and how to use them.
 
 Rob Pike
 

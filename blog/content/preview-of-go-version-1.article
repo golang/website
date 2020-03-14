@@ -1,7 +1,7 @@
 # A preview of Go version 1
 5 Oct 2011
 Tags: go1, release
-Summary: We want to be able to provide a stable base for people using Go. People should be able to write Go programs and expect that they will continue to compile and run without change, on a timescale of years. Similarly, people should be able to write books about Go, be able to say which version of Go the book is describing, and have that version number still be meaningful much later. None of these properties is true for Go today.
+Summary: What the Go team is planning for Go version 1.
 
 Russ Cox
 

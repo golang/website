@@ -1,7 +1,7 @@
 # Go Modules in 2019
 19 Dec 2018
 Tags: tools, versioning
-Summary: 2018 was a great year for the Go ecosystem, with package management as one of our major focuses. In February, we started a community-wide discussion about how to integrate package management directly into the Go toolchain, and in August we delivered the first rough implementation of that feature, called Go modules, in Go 1.11. The migration to Go modules will be the most far-reaching change for the Go ecosystem since Go 1. Converting the entire ecosystem—code, users, tools, and so on—from GOPATH to modules will require work in many different areas. The module system will in turn help us deliver better authentication and build speeds to the Go ecosystem.
+Summary: What the Go team is planning for Go modules in 2019.
 
 Russ Cox
 

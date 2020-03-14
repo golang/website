@@ -1,7 +1,7 @@
 # Module Mirror and Checksum Database Launched
 29 Aug 2019
 Tags: tools, versioning
-Summary: We are excited to share that our module [mirror](https://proxy.golang.org), [index](https://index.golang.org), and [checksum database](https://sum.golang.org) are now production ready! The `go` command will use the module mirror and checksum database by default for [Go 1.13 module users](https://golang.org/doc/go1.13#introduction).  See [proxy.golang.org/privacy](https://proxy.golang.org/privacy) for privacy information about these services and the [go command documentation](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification) for configuration details, including how to disable the use of these servers or use different ones.  If you depend on non-public modules, see the [documentation for configuring your environment](https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules).
+Summary: The Go module mirror and checksum database provide faster, verified downloads of your Go dependencies.
 
 Katie Hockman
 

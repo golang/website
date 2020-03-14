@@ -1,6 +1,6 @@
 # Go 1.11 is released
 24 Aug 2018
-Summary: Who says releasing on Friday is a bad idea?
+Summary: Go 1.11 adds preliminary support for Go modules, WebAssembly, and more.
 
 Andrew Bonventre
 andybons@golang.org

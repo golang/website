@@ -1,7 +1,7 @@
 # Package names
 4 Feb 2015
 Tags: package, names, style
-Summary: Go code is organized into packages. Within a package, code can refer to any identifier (name) defined within, while clients of the package may only reference the package's exported types, functions, constants, and variables. Such references always include the package name as a prefix: `foo.Bar` refers to the exported name `Bar` in the imported package named `foo`.
+Summary: How to name your packages.
 
 Sameer Ajmani
 

@@ -1,7 +1,7 @@
 # Debugging Go code (a status report)
 2 Nov 2010
 Tags: debug, gdb
-Summary: When it comes to debugging, nothing beats a few strategic print statements to inspect variables or a well-placed panic to obtain a stack trace. However, sometimes you’re missing either the patience or the source code, and in those cases a good debugger can be invaluable. That's why over the past few releases we have been improving the support in Go’s gc linker (6l, 8l) for GDB, the GNU debugger.
+Summary: What works and what doesn't when debugging Go programs with GDB.
 
 Luuk van Dijk
 

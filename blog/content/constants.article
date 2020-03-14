@@ -1,7 +1,7 @@
 # Constants
 25 Aug 2014
 Tags: constants
-Summary: Go is a statically typed language that does not permit operations that mix numeric types. You can't add a `float64` to an `int`, or even an `int32` to an `int`. Yet it is legal to write `1e6*time.Second` or `math.Exp(1)` or even `1<<('\t'+2.0)`. In Go, constants, unlike variables, behave pretty much like regular numbers. This post explains why that is and what it means.
+Summary: An introduction to constants in Go.
 
 Rob Pike
 

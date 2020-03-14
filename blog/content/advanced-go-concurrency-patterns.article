@@ -1,7 +1,7 @@
 # Advanced Go Concurrency Patterns
 23 May 2013
 Tags: talk, video, concurrency
-Summary: At Google I/O a year ago Rob Pike presented [_Go Concurrency Patterns_](https://talks.golang.org/2012/concurrency.slide), an introduction to Go's concurrency model. Last week, at I/O 2013, Go team member Sameer Ajmani continued the story with [_Advanced Go Concurrency Patterns_](http://talks.golang.org/2013/advconc.slide), an in-depth look at a real concurrent programming problem. The talk shows how to detect and avoid deadlocks and race conditions, and demonstrates the implementation of deadlines, cancellation, and more. For those who want to take their Go programming to the next level, this is a must-see.
+Summary: Watch Sameer Ajmani's talk, “Advanced Go Concurrency Patterns,” from Google I/O 2013.
 
 Andrew Gerrand
 

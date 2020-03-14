@@ -1,7 +1,7 @@
 # Go Slices: usage and internals
 5 Jan 2011
 Tags: slice, technical
-Summary: Go's slice type provides a convenient and efficient means of working with sequences of typed data. Slices are analogous to arrays in other languages, but have some unusual properties. This article will look at what slices are and how they are used.
+Summary: How to use Go slices, and how they work.
 
 Andrew Gerrand
 

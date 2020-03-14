@@ -1,6 +1,6 @@
 # Go 1.6 is released
 17 Feb 2016
-Summary: Today we release [Go version 1.6](https://golang.org/doc/go1.6), the seventh major stable release of Go. You can grab it right now from the [download page](https://golang.org/dl/). Although [the release of Go 1.5](https://blog.golang.org/go1.5) six months ago contained dramatic implementation changes, this release is more incremental.
+Summary: Go 1.6 adds HTTP/2, template blocks, and more.
 
 Andrew Gerrand
 adg@golang.org

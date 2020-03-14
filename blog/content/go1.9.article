@@ -1,6 +1,6 @@
 # Go 1.9 is released
 24 Aug 2017
-Summary: Today the Go team is happy to announce the release of Go 1.9. You can get it from the [download page](https://golang.org/dl/). There are many changes to the language, standard library, runtime, and tooling. This post covers the most significant visible ones. Most of the engineering effort put into this release went to improvements of the runtime and tooling, which makes for a less exciting announcement, but nonetheless a great release.
+Summary: Go 1.9 adds type aliases, bit intrinsics, optimizations, and more.
 
 Francesc Campoy
 campoy@golang.org

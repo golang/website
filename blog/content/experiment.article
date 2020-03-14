@@ -1,13 +1,13 @@
 # Experiment, Simplify, Ship
 1 Aug 2019
 Tags: community, go2, proposals
-Summary: This is the blog post version of my talk last week at Gophercon 2019.
+Summary: How we develop Go, a talk from GopherCon 2019.
 
 Russ Cox
 
 ## Introduction
 
-This is the blog post version of my talk last week at Gophercon 2019.
+This is the blog post version of my talk last week at GopherCon 2019.
 
 .iframe //www.youtube.com/embed/kNHo788oO5Y?rel=0 309 549
 

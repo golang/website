@@ -1,7 +1,7 @@
 # Debugging what you deploy in Go 1.12
 21 Mar 2019
 Tags: debug, technical
-Summary: Go 1.11 and Go 1.12 make significant progress toward allowing developers to debug the same optimized binaries that they deploy to production.
+Summary: Go 1.12 improves support for debugging optimized binaries.
 
 David Chase
 

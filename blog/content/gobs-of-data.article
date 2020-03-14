@@ -1,7 +1,7 @@
 # Gobs of data
 24 Mar 2011
 Tags: gob, json, protobuf, xml, technical
-Summary: To transmit a data structure across a network or to store it in a file, it must be encoded and then decoded again. There are many encodings available, of course: [JSON](http://www.json.org/), [XML](http://www.w3.org/XML/), Google's [protocol buffers](http://code.google.com/p/protobuf), and more. And now there's another, provided by Go's [gob](https://golang.org/pkg/encoding/gob/) package.
+Summary: Introducing gob, a high-speed Go-to-Go wire encoding format.
 
 Rob Pike
 

@@ -1,7 +1,7 @@
 # Defer, Panic, and Recover
 4 Aug 2010
 Tags: defer, panic, recover, technical, function
-Summary: Go has the usual mechanisms for control flow: if, for, switch, goto. It also has the go statement to run code in a separate goroutine. Here I'd like to discuss some of the less common ones: defer, panic, and recover.
+Summary: An introduction to the Go's defer, panic, and recover control flow mechanisms.
 
 Andrew Gerrand
 

@@ -1,7 +1,7 @@
 # Go updates in App Engine 1.7.1
 22 Aug 2012
 Tags: appengine, release
-Summary: This week we released version 1.7.1 of the App Engine SDK. It includes some significant updates specific to the App Engine runtime for Go.
+Summary: App Engine SDK 1.7.1 adds memcache and other functionality for Go.
 
 Andrew Gerrand
 

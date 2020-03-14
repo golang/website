@@ -1,7 +1,7 @@
 # Profiling Go Programs
 24 Jun 2011
 Tags: benchmark, pprof, profiling, technical
-Summary: At Scala Days 2011, Robert Hundt presented a paper titled [Loop Recognition in C++/Java/Go/Scala.](http://research.google.com/pubs/pub37122.html) The paper implemented a specific loop finding algorithm, such as you might use in a flow analysis pass of a compiler, in C++, Go, Java, Scala, and then used those programs to draw conclusions about typical performance concerns in these languages. The Go program presented in that paper runs quite slowly, making it an excellent opportunity to demonstrate how to use Go's profiling tools to take a slow program and make it faster.
+Summary: How to use Go's built-in profiler to understand and optimize your programs.
 
 Russ Cox, July 2011; updated by Shenghou Ma, May 2013
 

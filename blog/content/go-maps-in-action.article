@@ -1,7 +1,7 @@
 # Go maps in action
 6 Feb 2013
 Tags: map, technical
-Summary: One of the most useful data structures in computer science is the hash table. Many hash table implementations exist with varying properties, but in general they offer fast lookups, adds, and deletes. Go provides a built-in map type that implements a hash table.
+Summary: How and when to use Go maps.
 
 Andrew Gerrand
 

@@ -1,6 +1,6 @@
 # Half a decade with Go
 10 Nov 2014
-Summary: Five years ago we launched the Go project. It seems like only yesterday that we were preparing the initial public release: our [website](https://web.archive.org/web/20091112094121/http://golang.org/) was a lovely shade of yellow, we were calling Go a "systems language", and you had to terminate statements with a semicolon and write Makefiles to build your code. We had no idea how Go would be received. Would people share our vision and goals? Would people find Go useful?
+Summary: Happy 5th birthday, Go!
 
 Andrew Gerrand
 adg@golang.org

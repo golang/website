@@ -1,7 +1,7 @@
 # The Go image package
 21 Sep 2011
 Tags: image, libraries, technical
-Summary: The [image](https://golang.org/pkg/image/) and [image/color](https://golang.org/pkg/image/color/) packages define a number of types: `color.Color` and `color.Model` describe colors, `image.Point` and `image.Rectangle` describe basic 2-D geometry, and `image.Image` brings the two concepts together to represent a rectangular grid of colors. A [separate article](https://golang.org/doc/articles/image_draw.html) covers image composition with the [image/draw](https://golang.org/pkg/image/draw/) package.
+Summary: An introduction to 2-D image processing with the Go image package.
 
 Nigel Tao
 

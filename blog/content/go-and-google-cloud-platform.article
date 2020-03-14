@@ -1,6 +1,6 @@
 # Go and the Google Cloud Platform
 12 Jun 2013
-Summary: In 2011 we announced the [Go runtime for App Engine](https://developers.google.com/appengine/docs/go/overview). Since then, we have continued to improve the Go App Engine experience, and generally improved Go support for the Google Cloud Platform. For instance, the [google-api-go-client](http://code.google.com/p/google-api-go-client) provides a Go interface to a range of Google's public APis, including Compute Engine, Cloud Storage, BigQuery, Drive, and many more.
+Summary: Two talks about using Go with the Google Cloud Platform, from Google I/O 2013.
 
 Andrew Gerrand
 

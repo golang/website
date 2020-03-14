@@ -1,6 +1,6 @@
 # Portable Cloud Programming with Go Cloud
 24 Jul 2018
-Summary: Today, the Go team at Google is releasing a new open source project, [Go Cloud](https://github.com/google/go-cloud), a library and tools for developing on the [open cloud](https://cloud.google.com/open-cloud/). With this project, we aim to make Go the language of choice for developers building portable cloud applications.
+Summary: Announcing Go Cloud, for portable cloud programming with Go.
 
 Eno Compton
 

@@ -1,7 +1,7 @@
 # Share Memory By Communicating
 13 Jul 2010
 Tags: concurrency, technical
-Summary: Traditional threading models (commonly used when writing Java, C++, and Python programs, for example) require the programmer to communicate between threads using shared memory. Typically, shared data structures are protected by locks, and threads will contend over those locks to access the data. In some cases, this is made easier by the use of thread-safe data structures such as Python's Queue.
+Summary: A preview of the new Go codelab, Share Memory by Communicating.
 
 Andrew Gerrand
 

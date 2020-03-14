@@ -1,7 +1,7 @@
 # Building StatHat with Go
 19 Dec 2011
 Tags: guest
-Summary: My name is Patrick Crosby and I'm the founder of a company called Numerotron. We recently released [StatHat](http://www.stathat.com). This post is about why we chose to develop StatHat in [Go](https://golang.org), including details about how we are using Go.
+Summary: How StatHat uses Go, and why they chose it.
 
 Patrick Crosby
 

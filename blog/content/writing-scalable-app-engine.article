@@ -1,7 +1,7 @@
 # Writing scalable App Engine applications
 1 Nov 2011
 Tags: appengine, optimization
-Summary: Back in May, we [announced](https://blog.golang.org/2011/05/go-and-google-app-engine.html) the Go runtime for App Engine. Since then, we've opened it up for everyone to use, added many new APIs, and improved performance. We have been thrilled by all the interesting ways that people are using Go on App Engine. One of the key benefits of the Go runtime, apart from working in a fantastic language, is that it has high performance. Go applications compile to native code, with no interpreter or virtual machine getting between your program and the machine.
+Summary: How to build scalable web applications using Go with Google App Engine.
 
 David Symonds
 

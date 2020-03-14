@@ -1,7 +1,7 @@
 # Arrays, slices (and strings): The mechanics of 'append'
 26 Sep 2013
 Tags: array, slice, string, copy, append
-Summary: One of the most common features of procedural programming languages is the concept of an array. Arrays seem like simple things but there are many questions that must be answered when adding them to a language, such as:
+Summary: How Go arrays and slices work, and how to use copy and append.
 
 Rob Pike
 

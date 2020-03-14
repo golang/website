@@ -1,7 +1,7 @@
 # Proposals for Go 1.15
 28 Jan 2020
 Tags: go1.15, proposals, community, language, vet
-Summary: We are close to the Go 1.14 release, planned for February assuming all goes well, with an RC1 candidate almost ready. Per the process outlined in the [Go 2, here we come!](https://blog.golang.org/go2-here-we-come) blog post, it is again the time in our development and release cycle to consider if and what language or library changes we might want to include for our next release, Go 1.15, scheduled for August of this year.
+Summary: For Go 1.15, we propose three minor language cleanup changes.
 
 Robert Griesemer, for the Go team
 gri@golang.org

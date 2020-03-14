@@ -1,7 +1,7 @@
 # Introducing the Go Playground
 15 Sep 2010
 Tags: playground
-Summary: If you visit [golang.org](https://golang.org/) today you'll see our new look. We have given the site a new coat of paint and reorganized its content to make it easier to find. These changes are also reflected in the web interface of [godoc](https://golang.org/cmd/godoc/), the Go documentation tool. But the real news is a prominent new feature: the [Go Playground](https://golang.org/).
+Summary: Announcing the Go Playground, https://play.golang.org/.
 
 Andrew Gerrand
 

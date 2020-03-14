@@ -1,7 +1,7 @@
 # Third-party libraries: goprotobuf and beyond
 20 Apr 2010
 Tags: protobuf, community
-Summary: On March 24, Rob Pike announced [goprotobuf](http://code.google.com/p/goprotobuf/), the Go bindings of Google's data interchange format [Protocol Buffers](http://code.google.com/apis/protocolbuffers/docs/overview.html), called protobufs for short. With this announcement, Go joins C++, Java, and Python as languages providing official protobuf implementations. This marks an important milestone in enabling the interoperability between existing systems and those built in Go.
+Summary: Announcing Go support for Protocol Buffers, Google's data interchange format.
 
 Andrew Gerrand
 

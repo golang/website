@@ -1,6 +1,6 @@
 # Go 1.12 is released
 25 Feb 2019
-Summary: Today the Go team is happy to announce the release of Go 1.12. You can get it from the [download page](https://golang.org/dl/).
+Summary: Go 1.12 adds opt-in TLS 1.3, improved modules, and more.
 
 Andrew Bonventre
 andybons@golang.org
