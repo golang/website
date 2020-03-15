@@ -15,7 +15,7 @@ and user groups pop up [around](https://blog.golang.org/gophercon2015)
 [the](https://blog.golang.org/gouk15)
 [world](https://blog.golang.org/gopherchina) with regularity.
 
-.image 6years-gopher.png
+.image 6years/6years-gopher.png
 
 In August we [released Go 1.5](https://blog.golang.org/go1.5), the most
 significant release since Go 1. It features a completely

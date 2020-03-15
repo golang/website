@@ -9,7 +9,7 @@ Andrew Gerrand
 
 Today marks the fourth anniversary of Go as an open source project.
 
-.image 4years-gopher.png
+.image 4years/4years-gopher.png
 
 Rather than talk about our technical progress (there'll be much to talk about
 when we release Go 1.2 in a couple of weeks) we thought we would instead take
@@ -17,7 +17,7 @@ this occasion to look at how the Go community has grown.
 
 Let's start with a chart:
 
-.image 4years-graph.png
+.image 4years/4years-graph.png
 
 This chart shows the growth of Google searches for the term
 "[golang](http://www.google.com/trends/explore?hl=en-US#q=golang&date=10/2009+50m&cmpt=q)"

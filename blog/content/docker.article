@@ -93,7 +93,7 @@ The `--rm` flag tells docker to remove the container image when the outyet serve
 With the container running, open `http://localhost:6060/` in a web browser and
 you should see something like this:
 
-.image docker-outyet.png
+.image docker/outyet.png
 
 (If your docker daemon is running on another machine (or in a virtual machine),
 you should replace `localhost` with the address of that machine. If you're

@@ -82,7 +82,7 @@ The canonical hello world program goes from 2.3MB to 1.6MB:
 When compiled without debugging information the statically
 linked binary is now under a megabyte.
 
-.image go1.7-binary-size.png
+.image go1.7-binary-size/graph.png
 
 A large production program used for testing this cycle, `jujud`, went from 94MB
 to 67MB.
