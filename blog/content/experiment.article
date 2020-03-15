@@ -18,9 +18,9 @@ This post discusses how we actually
 find and follow the path to Go 2.
 Here’s what the process looks like.
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/expsimp1.png _ 179
-.html experiment/div-end.html
+</div>
 
 We experiment with Go as it exists now,
 to understand it better,
@@ -177,9 +177,9 @@ Of course, using it enables more experiments,
 and possibly more simplifying,
 and the process cycles on and on.
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/expsimp2.png _ 326
-.html experiment/div-end.html
+</div>
 
 We shipped Go to all of you for the first time
 on November 10, 2009.
@@ -882,7 +882,7 @@ with the same backwards compatibility
 we did for the Go 1 libraries.
 Quoting [the Go FAQ](https://golang.org/doc/faq#get_version):
 
-.html experiment/div-quote.html
+<div style="margin-left: 2em; font-style: italic;">
 
 “Packages intended for public use should try to maintain backwards compatibility as they evolve.
 
@@ -892,7 +892,7 @@ add a new name instead of changing an old one.
 If a complete break is required,
 create a new package with a new import path.”
 
-.html experiment/div-end.html
+</div>
 
 This convention
 simplifies the overall experience of using a package
@@ -1030,18 +1030,18 @@ Suppose you are building your own program,
 and you need to have a configuration file,
 so you use version 2 of a popular Go YAML package:
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/yamldeps1.png _ 214
-.html experiment/div-end.html
+</div>
 
 Now suppose your program
 imports the Kubernetes client.
 It turns out that Kubernetes uses YAML extensively,
 and it uses version 1 of the same popular package:
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/yamldeps2.png _ 557
-.html experiment/div-end.html
+</div>
 
 Version 1 and version 2 have incompatible APIs,
 but they also have different import paths,
@@ -1059,9 +1059,9 @@ combined with package uniqueness,
 makes it impossible to build this program
 that you could build before:
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/yamldeps3.png _ 450
-.html experiment/div-end.html
+</div>
 
 It took us a while to understand this problem,
 because we had been applying the
@@ -1072,12 +1072,12 @@ appreciate that convention better,
 and we gave it a name:
 the _import compatibility rule_:
 
-.html experiment/div-quote.html
+<div style="margin-left: 2em; font-style: italic;">
 
 “If an old package and a new package have the same import path,
 the new package must be backwards compatible with the old package.”
 
-.html experiment/div-end.html
+</div>
 
 **Go Modules**
 
@@ -1283,9 +1283,9 @@ extensible way and for making `go vet` even more helpful.
 
 ## Coda
 
-.html experiment/div-indent.html
+<div style="margin-left: 2em;">
 .image experiment/expsimp2.png _ 326
-.html experiment/div-end.html
+</div>
 
 So there’s the path to Go 2.
 We will experiment and simplify.

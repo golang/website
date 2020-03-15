@@ -8,7 +8,12 @@ tkulesza@google.com, spf@golang.org
 
 ## Thank you
 
-.html survey2018/style.html
+<style>
+    p.note {
+        font-size: 0.80em;
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+    }
+</style>
 
 This post summarizes the results of our 2018 user survey and draws comparisons
 between the results of our prior surveys from [2016](https://blog.golang.org/survey2016-results)
@@ -121,7 +126,10 @@ which highlights three interesting bits:
 
 .image survey2018/fig6.svg _ 600
 .image survey2018/fig7.svg _ 600
-.html survey2018/reading.html
+
+<p class="note">
+    <i>Reading the data</i>: Participants could rank their top 5 languages. The color coding starts with dark blue for the top rank and lightens for each successive rank. These charts are sorted by the percentage of participants who ranked each language as their top choice.
+</p>
 
 ## Development domains
 

@@ -16,32 +16,32 @@ On September 25, 2007, after Rob Pike, Robert Griesemer, and Ken
 Thompson had been discussing a new programming language for a few
 days, Rob suggested the name “Go.”
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/mail.png _ 446
-.html toward-go2/div-end.html
+</div>
 
 The next year, Ian Lance Taylor and I joined the team, and together
 the five of us built two compilers and a standard library, leading up
 to the [open-source release](https://opensource.googleblog.com/2009/11/hey-ho-lets-go.html) on November 10, 2009.
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/tweet.png _ 467
-.html toward-go2/div-end.html
+</div>
 
 For the next two years, with the help of the new Go open source
 community, we experimented with changes large and small, refining Go
 and leading to the [plan for Go 1](https://blog.golang.org/preview-of-go-version-1), proposed on October 5, 2011.
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/go1-preview.png _ 560
-.html toward-go2/div-end.html
+</div>
 
 With more help from the Go community, we revised and implemented that
 plan, eventually [releasing Go 1](https://blog.golang.org/go-version-1-is-released) on March 28, 2012.
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/go1-release.png _ 556
-.html toward-go2/div-end.html
+</div>
 
 The release of Go 1 marked the culmination of nearly five years of
 creative, frenetic effort that took us from a name and a list of ideas
@@ -170,9 +170,9 @@ consciously thought about it. Looking back, though, I think this is
 the basic outline of our work on Go, the process we've been following
 since the first prototype was running.
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/process.png _ 410
-.html toward-go2/div-end.html
+</div>
 
 Step 1 is to use Go, to accumulate experience with it.
 
@@ -210,9 +210,9 @@ Andrew Gerrand's GopherCon 2015 talk “[How Go was Made](https://www.youtube.co
 
 ## Explaining Problems
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/process2.png _ 410
-.html toward-go2/div-end.html
+</div>
 
 There are two parts to explaining a problem. The first part—the easier
 part—is stating exactly what the problem is. We developers are
@@ -231,9 +231,9 @@ not today.
 Let's look at an old example from 2011. Here is what I wrote about
 renaming os.Error to error.Value while we were planning Go 1.
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/error.png _ 495
-.html toward-go2/div-end.html
+</div>
 
 It begins with a precise, one-line statement of the problem: in very
 low-level libraries everything imports "os" for os.Error. Then there
@@ -460,9 +460,9 @@ After you've posted, please add the post to our new wiki page,
 
 ## Solutions
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/process34.png _ 410
-.html toward-go2/div-end.html
+</div>
 
 Now that we know how we're going to identify and explain problems that
 need to be solved, I want to note briefly that not all problems are
@@ -518,9 +518,9 @@ problems are best solved in the language.
 
 ## Shipping Go 2
 
-.html toward-go2/div-indent.html
+<div style="margin-left: 2em;">
 .image toward-go2/process5.png _ 410
-.html toward-go2/div-end.html
+</div>
 
 Finally, how will we ship and deliver Go 2?
 

@@ -20,9 +20,9 @@ the creator of the
 [Go gopher](https://blog.golang.org/gopher),
 painted this delightful scene:
 
-.html 10years/img1.html
+<a href="10years/gopher10th-large.jpg">
 .image 10years/gopher10th-small.jpg _ 850
-.html 10years/img2.html
+</a>
 
 Celebrating 10 years of Go makes me think back to early November 2009,
 when we were getting ready to share Go with the world.
@@ -129,6 +129,9 @@ On behalf of the entire Go team at Google,
 thank you to everyone who has joined us over the past decade.
 Let’s make the next one even more incredible!
 
-.html 10years/pin1.html
+<div>
+<center>
+<a href="10years/gopher10th-pin-large.jpg">
 .image 10years/gopher10th-pin-small.jpg _ 150
-.html 10years/pin2.html
+</center>
+</div>
