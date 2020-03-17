@@ -1,6 +1,6 @@
 # Go 1.5 is released
 19 Aug 2015
-Summary: Go 1.15 adds a new, much faster garbage collector, more parallelism by default, go tool trace, and more.
+Summary: Go 1.5 adds a new, much faster garbage collector, more parallelism by default, go tool trace, and more.
 
 Andrew Gerrand
 adg@golang.org
