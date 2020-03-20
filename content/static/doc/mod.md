@@ -654,6 +654,48 @@ build, but it still stores downloaded dependencies (in `GOPATH/pkg/mod`; see
 <a id="vendoring"></a>
 ### Vendoring
 
+When using modules, the `go` command typically satisfies dependencies by
+downloading modules from their sources into the module cache, then loading
+packages from those downloaded copies. *Vendoring* may be used to allow
+interoperation with older versions of Go, or to ensure that all files used for a
+build are stored in a single file tree.
+
+The `go mod vendor` command constructs a directory named `vendor` in the [main
+module's](#glos-main-module) root directory containing copies of all packages
+needed to build and test packages in the main module. Packages that are only
+imported by tests of packages outside the main module are not included. As with
+[`go mod tidy`](#go-mod-tidy) and other module commands, [build
+constraints](#glos-build-constraint) except for `ignore` are not considered when
+constructing the `vendor` directory.
+
+`go mod vendor` also creates the file `vendor/modules.txt` that contains a list
+of vendored packages and the module versions they were copied from. When
+vendoring is enabled, this manifest is used as a source of module version
+information, as reported by [`go list -m`](#go-list-m) and [`go version
+-m`](#go-version-m). When the `go` command reads `vendor/modules.txt`, it checks
+that the module versions are consistent with `go.mod`. If `go.mod` has changed
+since `vendor/modules.txt` was generated, the `go` command will report an error.
+`go mod vendor` should be run again to update the `vendor` directory.
+
+If the `vendor` directory is present in the main module's root directory, it
+will be used automatically if the [`go` version](#go.mod-go) in the main
+module's [`go.mod` file](#glos-go.mod-file) is `1.14` or higher. To explicitly
+enable vendoring, invoke the `go` command with the flag `-mod=vendor`. To
+disable vendoring, use the flag `-mod=mod`.
+
+When vendoring is enabled, [build commands](#build-commands) like `go build` and
+`go test` load packages from the `vendor` directory instead of accessing the
+network or the local module cache. The [`go list -m`](#go-list-m) command only
+prints information about modules listed in `go.mod`. `go mod` commands such as
+[`go mod download`](#go-mod-download) and [`go mod tidy`](#go-mod-tidy) do not
+work differently when vendoring is enabled and will still download modules and
+access the module cache. [`go get`](#go-get) also does not work differently when
+vendoring is enabled.
+
+Unlike [vendoring in `GOPATH`](https://golang.org/s/go15vendor), the `go`
+command ignores vendor directories in locations other than the main module's
+root directory.
+
 <a id="go-get"></a>
 ### `go get`
 
@@ -967,8 +1009,50 @@ requirements and to drop unused requirements.
 <a id="go-mod-tidy"></a>
 ### `go mod tidy`
 
+<a id="go-mod-vendor"></a>
+### `go mod vendor`
+
+Usage:
+
+```
+go mod vendor [-v]
+```
+
+The `go mod vendor` command constructs a directory named `vendor` in the [main
+module's](#glos-main-module) root directory that contains copies of all packages
+needed to support builds and tests of packages in the main module. Packages
+that are only imported by tests of packages outside the main module are not
+included. As with [`go mod tidy`](#go-mod-tidy) and other module commands,
+[build constraints](#glos-build-constraint) except for `ignore` are not
+considered when constructing the `vendor` directory.
+
+When vendoring is enabled, the `go` command will load packages from the `vendor`
+directory instead of downloading modules from their sources into the module
+cache and using packages those downloaded copies. See [Vendoring](#vendoring)
+for more information.
+
+`go mod vendor` also creates the file `vendor/modules.txt` that contains a list
+of vendored packages and the module versions they were copied from. When
+vendoring is enabled, this manifest is used as a source of module version
+information, as reported by [`go list -m`](#go-list-m) and [`go version
+-m`](#go-version-m). When the `go` command reads `vendor/modules.txt`, it checks
+that the module versions are consistent with `go.mod`. If `go.mod` changed since
+`vendor/modules.txt` was generated, `go mod vendor` should be run again.
+
+Note that `go mod vendor` removes the `vendor` directory if it exists before
+re-constructing it. Local changes should not be made to vendored packages.
+The `go` command does not check that packages in the `vendor` directory have
+not been modified, but one can verify the integrity of the `vendor` directory
+by running `go mod vendor` and checking that no changes were made.
+
+The `-v` flag causes `go mod vendor` to print the names of vendored modules
+and packages to standard error.
+
 <a id="go-mod-verify"></a>
 ### `go mod verify`
+
+<a id="go-version-m"></a>
+### `go version -m`
 
 <a id="go-clean-modcache"></a>
 ### `go clean -modcache`
@@ -1468,6 +1552,13 @@ for future `go` command invocations.
 
 <a id="glossary"></a>
 ## Glossary
+
+<a id="glos-build-constraint"></a>
+**build constraint:** A condition that determines whether a Go source file is
+used when compiling a package. Build constraints may be expressed with file name
+suffixes (for example, `foo_linux_amd64.go`) or with build constraint comments
+(for example, `// +build linux,amd64`). See [Build
+Constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
 
 <a id="glos-build-list"></a>
 **build list:** The list of module versions that will be used for a build
