@@ -39,20 +39,28 @@ declared with the [`module` directive](#go.mod-module) in the module's
 paths within the module.
 
 A module path should describe both what the module does and where to find it.
-Typically, a module path consists of a repository root path, a subdirectory
-within the repository (usually empty), and a major version suffix (for major
+Typically, a module path consists of a repository root path, a directory within
+the repository (usually empty), and a major version suffix (only for major
 version 2 or higher).
 
-* The repository root path is part of a URL that corresponds to a version
-  control repository. For example, `golang.org/x/net`. See [Custom import
-  paths](#custom-import-paths) for details on how paths are resolved to
-  repositories.
-* If the module is in a subdirectory of the version control repository, the
-  subdirectory should be part of the module path (but not the repository root
-  path). For example, the module `golang.org/x/tools/gopls` is in the `/gopls`
-  subdirectory of the repository `golang.org/x/tools`.
+* The <dfn>repository root path</dfn> is the portion of the module path that
+  corresponds to the root directory of the version control repository where the
+  module is developed. Most modules are defined in their repository's root
+  directory, so this is usually the entire path. For example,
+  `golang.org/x/net` is the repository root path for the module of the same
+  name. See [Finding a repository for a module path](#vcs-find) for information
+  on how the `go` command locates a repository using HTTP requests derived
+  from a module path.
+* If the module is not defined in the repository's root directory, the
+  <dfn>module subdirectory</dfn> is the part of the module path that names the
+  directory, not including the major version suffix. This also serves as a
+  prefix for semantic version tags. For example, the module
+  `golang.org/x/tools/gopls` is in the `gopls` subdirectory of the repository
+  with root path `golang.org/x/tools`, so it has the module subdirectory
+  `gopls`. See [Mapping versions to commits](#vcs-version) and [Module
+  directories within a repository](#vcs-dir).
 * If the module is released at major version 2 or higher, the module path must
-  end with a [major version suffix](#major-version-suffixes) like
+  end with a [*major version suffix*](#major-version-suffixes) like
   `/v2`. This may or may not be part of the subdirectory name. For example, the
   module with path `golang.org/x/repo/sub/v2` could be in the `/sub` or
   `/sub/v2` subdirectory of the repository `golang.org/x/repo`.
@@ -120,6 +128,70 @@ golang.org/x/net@daa7c041` will convert the commit hash `daa7c041` into the
 pseudo-version `v0.0.0-20191109021931-daa7c04131f5`. Canonical versions are
 required outside the main module, and the `go` command will report an error if a
 non-canonical version like `master` appears in a `go.mod` file.
+
+<a id="pseudo-versions"></a>
+### Pseudo-versions
+
+A <dfn>pseudo-version</dfn> is a specially formatted
+[pre-release](#glos-pre-release-version) [version](#glos-version) that encodes
+information about a specific revision in a version control repository. For
+example, `v0.0.0-20191109021931-daa7c04131f5` is a pseudo-version.
+
+Pseudo-versions are used to refer to revisions for which no [semantic version
+tags](#glos-semantic-version-tag) are available. They may be used to test
+commits before creating version tags, for example, on a development branch.
+
+Each pseudo-version has three parts:
+
+* A base version (`vX.Y.Z`), which refers to a version before the revision
+  described by the pseudo-version or `vX.0.0` if there is no such version.
+* A timestamp (`yymmddhhmmss`), which is the UTC time the revision was created.
+  In Git, this is the commit time, not the author time.
+* A revision identifier (`abcdefabcdef`), which is a 12-character prefix of the
+  commit hash, or in Subversion, a zero-padded revision number.
+
+Each pseudo-version may be in one of three forms, depending on the base version.
+These forms ensure that a pseudo-version compares higher than its base version,
+but lower than the next tagged version.
+
+* `vX.0.0-yyyymmddhhmmss-abcdefabcdef` is used when there is no known base
+  version. As with all versions, the major version `X` must match the module's
+  [major version suffix](#glos-major-version-suffix).
+* `vX.Y.Z-pre.0.yyyymmddhhmmss-abcdefabcdef` is used when the base version is
+  a pre-release version like `vX.Y.Z-pre`.
+* `vX.Y.(Z+1)-0.yyyymmddhhmmss-abcdefabcdef` is used when the base version is
+  a release version like `vX.Y.Z`. For example, if the base version is
+  `v1.2.3`, a pseudo-version might be `v1.2.4-0.20191109021931-daa7c04131f5`.
+
+More than one pseudo-version may refer to the same commit by using different
+base versions. This happens naturally when a lower version is tagged after a
+pseudo-version is written.
+
+The `go` command performs several checks to ensure that module authors have
+control over how pseudo-versions are compared with other versions and that
+pseudo-versions refer to revisions that are actually part of a module's
+commit history.
+
+* If a base version is specified, there must be a corresponding semantic version
+  tag that is an ancestor of the revision described by the pseudo-version. This
+  prevents developers from bypassing [minimal version
+  selection](#glos-minimal-version-selection) using a pseudo-version that
+  compares higher than all tagged versions like
+  `v1.999.999-99999999999999-daa7c04131f5`.
+* The timestamp must match the revision's timestamp. This prevents attackers
+  from flooding [module proxies](#glos-module-proxy) with an unbounded number
+  of pseudo-versions that refer to the same revision.
+* The revision must be an ancestor of one of the module repository's branches.
+  This prevents attackers from referring to unapproved changes or pull requests.
+
+Pseudo-versions never need to be typed by hand. Many commands accept
+a commit hash or a branch name and will translate it into a pseudo-version
+(or tagged version if available) automatically. For example:
+
+```
+go get -d example.com/mod@master
+go list -m -json example.com/mod@abcd1234
+```
 
 <a id="major-version-suffixes"></a>
 ### Major version suffixes
@@ -201,10 +273,9 @@ When the `go` command looks up a new module for a package path, it checks the
 the keywords `direct` or `off`. A proxy URL indicates the `go` command should
 contact a [module proxy](#glos-module-proxy) using the [`GOPROXY`
 protocol](#goproxy-protocol). `direct` indicates that the `go` command should
-[communicate with a version control system](#communicating-with-vcs). `off`
-indicates that no communication should be attempted. The `GOPRIVATE` and
-`GONOPROXY` [environment variables](#environment-variables) can also be used to
-control this behavior.
+[communicate with a version control system](#vcs). `off` indicates that no
+communication should be attempted. The `GOPRIVATE` and `GONOPROXY` [environment
+variables](#environment-variables) can also be used to control this behavior.
 
 For each entry in the `GOPROXY` list, the `go` command requests the latest
 version of each module path that might provide the package (that is, each prefix
@@ -618,6 +689,12 @@ updating requirements in `go.mod`.
 
 <a id="non-module-compat"></a>
 ## Compatibility with non-module repositories
+
+<!-- TODO(jayconrod):
+* Synthesized go.mod file in root directory.
+* +incompatible
+* Minimal module compatibility.
+-->
 
 <a id="mod-commands"></a>
 ## Module-aware commands
@@ -1197,8 +1274,8 @@ disabling module-aware mode.
   </tbody>
 </table>
 
-<a id="retrieving-modules"></a>
-## Retrieving modules
+<a id="module-proxy"></a>
+## Module proxies
 
 <a id="goproxy-protocol"></a>
 ### `GOPROXY` protocol
@@ -1361,9 +1438,9 @@ The `go` command may download module source code and metadata from a [module
 proxy](#glos-module-proxy). The `GOPROXY` [environment
 variable](#environment-variables) may be used to configure which proxies the
 `go` command may connect to and whether it may communicate directly with
-[version control systems](#communicating-with-vcs). Downloaded module data is
-saved in the [module cache](#glos-module-cache). The `go` command will only
-contact a proxy when it needs information not already in the cache.
+[version control systems](#vcs). Downloaded module data is saved in the [module
+cache](#glos-module-cache). The `go` command will only contact a proxy when it
+needs information not already in the cache.
 
 The [`GOPROXY` protocol](#goproxy-protocol) section describes requests that
 may be sent to a `GOPROXY` server. However, it's also helpful to understand
@@ -1427,7 +1504,7 @@ than `.zip` files. Additionally, if a Go project does not have a `go.mod` file,
 the proxy will serve a synthetic `go.mod` file that only contains a [`module`
 directive](#go.mod-module). Synthetic `go.mod` files are generated by the `go`
 command when downloading from a [version control
-system](#communicating-with-vcs).
+system](#vcs).
 
 If the `go` command needs to load a package not provided by any module in the
 build list, it will attempt to find a new module that provides it. The section
@@ -1470,25 +1547,242 @@ entirely. See [Authenticating modules](#authenticating) for more
 information. Note that version lists and version metadata returned for `.info`
 requests are not authenticated and may change over time.
 
-<a id="communicating-with-vcs"></a>
-### Communicating with version control systems
+<a id="vcs"></a>
+## Version control systems
 
-<a id="custom-import-paths"></a>
-### Custom import paths
+The `go` command may download module source code and metadata directly from a
+version control repository. Downloading a module from a
+[proxy](#communicating-with-proxies) is usually faster, but connecting directly
+to a repository is necessary if a proxy is not available or if a module's
+repository is not accessible to a proxy (frequently true for private
+repositories). Git, Subversion, Mercurial, Bazaar, and Fossil are supported. A
+version control tool must be installed in a directory in `PATH` in order for the
+`go` command to use it.
 
-<!-- TODO(jayconrod): custom import paths, details of direct mode -->
+To download specific modules from source repositories instead of a proxy, set
+the `GOPRIVATE` or `GONOPROXY` environment variables. To configure the `go`
+command to download all modules directly from source repositories, set `GOPROXY`
+to `direct`. See [Environment variables](#environment-variables) for more
+information.
+
+<a id="vcs-find"></a>
+### Finding a repository for a module path
+
+When the `go` command downloads a module in `direct` mode, it starts by locating
+the repository that contains the module. The `go` command sends an
+HTTP `GET` request to a URL derived from the module path with a
+`?go-get=1` query string. For example, for the module `golang.org/x/mod`,
+the `go` command may send the following requests:
+
+```
+https://golang.org/x/mod?go-get=1 (preferred)
+http://golang.org/x/mod?go-get=1  (fallback, only with GOINSECURE)
+```
+
+The `go` command will follow redirects but otherwise ignores response status
+codes, so the server may respond with a 404 or any other error status. The
+`GOINSECURE` environment variable may be set to allow fallback and redirects to
+unencrypted HTTP for specific modules.
+
+The server must respond with an HTML document containing a `<meta>` tag in the
+document's `<head>`. The `<meta>` tag should appear early in the document to
+avoid confusing the `go` command's restricted parser. In particular, it should
+appear before any raw JavaScript or CSS. The `<meta>` tag must have the form:
+
+```
+<meta name="go-import" content="root-path vcs repo-url">
+```
+
+`root-path` is the repository root path, the portion of the module path that
+corresponds to the repository's root directory. It must be a prefix or an exact
+match of the requested module path. If it's not an exact match, another request
+is made for the prefix to verify the `<meta>` tags match.
+
+`vcs` is the version control system. It must be one of `bzr`, `fossil`, `git`,
+`hg`, `svn`, `mod`. The `mod` scheme instructs the `go` command to download the
+module from the given URL using the [`GOPROXY`
+protocol](#goproxy-protocol). This allows developers to distribute modules
+without exposing source repositories.
+
+`repo-url` is the repository's URL. If the URL does not include a scheme, the
+`go` command will try each protocol supported by the version control system.
+For example, with Git, the `go` command will try `https://` then `git+ssh://`.
+Insecure protocols may only be used if the module path is matched by the
+`GOINSECURE` environment variable.
+
+As an example, consider `golang.org/x/mod` again. The `go` command sends
+a request to `https://golang.org/x/mod?go-get=1`. The server responds
+with an HTML document containing the tag:
+
+```
+<meta name="go-import" content="golang.org/x/mod git https://go.googlesource.com/mod">
+```
+
+From this response, the `go` command will use the Git repository at
+the remote URL `https://go.googlesource.com/mod`.
+
+GitHub and other popular hosting services respond to `?go-get=1` queries for
+all repositories, so usually no server configuration is necessary for modules
+hosted at those sites.
+
+After the repository URL is found, the `go` command will clone the repository
+into the module cache. In general, the `go` command tries to avoid fetching
+unneeded data from a repository. However, the actual commands used vary by
+version control system and may change over time. For Git, the `go` command can
+list most available versions without downloading commits. It will usually fetch
+commits without downloading ancestor commits, but doing so is sometimes
+necessary.
+
+<a id="vcs-version"></a>
+### Mapping versions to commits
+
+The `go` command may check out a module within a repository at a specific
+[canonical version](#glos-canonical-version) like `v1.2.3`, `v2.4.0-beta`, or
+`v3.0.0+incompatible`. Each module version should have a <dfn>semantic version
+tag</dfn> within the repository that indicates which revision should be checked
+out for a given version.
+
+If a module is defined in the repository root directory or in a major version
+subdirectory of the root directory, then each version tag name is equal to the
+corresponding version. For example, the module `golang.org/x/text` is defined in
+the root directory of its repository, so the version `v0.3.2` has the tag
+`v0.3.2` in that repository. This is true for most modules.
+
+If a module is defined in a subdirectory within the repository, that is, the
+[module subdirectory](#glos-module-subdirectory) portion of the module path is
+not empty, then each tag name must be prefixed with the module subdirectory,
+followed by a slash. For example, the module `golang.org/x/tools/gopls` is
+defined in the `gopls` subdirectory of the repository with root path
+`golang.org/x/tools`. The version `v0.4.0` of that module must have the tag
+named `gopls/v0.4.0` in that repository.
+
+The major version number of a semantic version tag must be consistent with the
+module path's major version suffix (if any). For example, the tag `v1.0.0` could
+belong to the module `example.com/mod` but not `example.com/mod/v2`, which would
+have tags like `v2.0.0`.
+
+A tag with major version `v2` or higher may belong to a module without a major
+version suffix if no `go.mod` file is present, and the module is in the
+repository root directory. This kind of version is denoted with the suffix
+`+incompatible`. The version tag itself must not have the suffix. See
+[Compatibility with non-module repositories](#non-module-compat).
+
+Once a tag is created, it should not be deleted or changed to a different
+revision. Versions are [authenticated](#authenticating) to ensure safe,
+repeatable builds. If a tag is modified, clients may see a security error when
+downloading it. Even after a tag is deleted, its content may remain
+available on [module proxies](#glos-module-proxy).
+
+<a id="vcs-pseudo"></a>
+### Mapping pseudo-versions to commits
+
+The `go` command may check out a module within a repository at a specific
+revision, encoded as a [pseudo-version](#glos-pseudo-version) like
+`v1.3.2-0.20191109021931-daa7c04131f5`.
+
+The last 12 characters of the pseudo-version (`daa7c04131f5` in the example
+above) indicate a revision in the repository to check out. The meaning of this
+depends on the version control system. For Git and Mercurial, this is a prefix
+of a commit hash. For Subversion, this is a zero-padded revision number.
+
+Before checking out a commit, the `go` command verifies that the timestamp
+(`20191109021931` above) matches the commit date. It also verifies that the base
+version (`v1.3.1`, the version before `v1.3.2` in the example above) corresponds
+to a semantic version tag that is an ancestor of the commit. These checks ensure
+that module authors have full control over how pseudo-versions compare with
+other released versions.
+
+See [Pseudo-versions](#pseudo-versions) for more information.
+
+<a id="vcs-branch"></a>
+### Mapping branches and commits to versions
+
+A module may be checked out at a specific branch, tag, or revision using a
+[version query](#version-queries).
+
+```
+go get example.com/mod@master
+```
+
+The `go` command converts these names into [canonical
+versions](#glos-canonical-version) that can be used with [minimal version
+selection (MVS)](#minimal-version-selection). MVS depends on the ability to
+order versions unambiguously. Branch names and revisions can't be compared
+reliably over time, since they depend on repository structure which may change.
+
+If a revision is tagged with one or more semantic version tags like `v1.2.3`,
+the tag for the highest valid version will be used. The `go` command only
+considers semantic version tags that could belong to the target module; for
+example, the tag `v1.5.2` would not be considered for `example.com/mod/v2` since
+the major version doesn't match the module path's suffix.
+
+If a revision is not tagged with a valid semantic version tag, the `go` command
+will generate a [pseudo-version](#glos-pseudo-version). If the revision has
+ancestors with valid semantic version tags, the highest ancestor version will be
+used as the pseudo-version base. See [Pseudo-versions](#pseudo-versions).
+
+<a id="vcs-dir"></a>
+### Module directories within a repository
+
+Once a module's repository has been checked out at a specific revision, the `go`
+command must locate the directory that contains the module's `go.mod` file
+(the module's root directory).
+
+Recall that a [module path](#module-path) consists of three parts: a
+repository root path (corresponding to the repository root directory),
+a module subdirectory, and a major version suffix (only for modules released at
+`v2` or higher).
+
+For most modules, the module path is equal to the repository root path, so
+the module's root directory is the repository's root directory.
+
+Modules are sometimes defined in repository subdirectories. This is typically
+done for large repositories with multiple components that need to be released
+and versioned indepently. Such a module is expected to be found in a
+subdirectory that matches the part of the module's path after the repository
+root path.  For example, suppose the module `example.com/monorepo/foo/bar` is in
+the repository with root path `example.com/monorepo`. Its `go.mod` file must be
+in the `foo/bar` subdirectory.
+
+If a module is released at major version `v2` or higher, its path must have a
+[major version suffix](#major-version-suffixes). A module with a major version
+suffix may be defined in one of two subdirectories: one with the suffix,
+and one without. For example, suppose a new version of the module above is
+released with the path `example.com/monorepo/foo/bar/v2`. Its `go.mod` file
+may be in either `foo/bar` or `foo/bar/v2`.
+
+Subdirectories with a major version suffix are <dfn>major version
+subdirectories</dfn>. They may be used to develop multiple major versions of a
+module on a single branch. This may be unnecessary when development of multiple
+major versions proceeds on separate branches. However, major version
+subdirectories have an important property: in `GOPATH` mode, package import
+paths exactly match directories under `GOPATH/src`. The `go` command provides
+minimal module compatibility in `GOPATH` mode (see [Compatibility with
+non-module repositories](#non-module-compat)), so major version
+subdirectories aren't always necessary for compatibility with projects built in
+`GOPATH` mode. Older tools that don't support minimal module compatibility
+may have problems though.
+
+Once the `go` command has found the module root directory, it creates a `.zip`
+file of the contents of the directory, then extracts the `.zip` file into the
+module cache. See [File name and path constraints](#path-constraints) for
+details on what files may be included in the `.zip` file. See [Module zip
+format](#zip-format) for details on the format of the `.zip` file itself. The
+contents of the `.zip` file are [authenticated](#authenticating) before
+extraction into the module cache the same way they would be if the `.zip` file
+were downloaded from a proxy.
+
+<a id="zip-format"></a>
+## Module zip format
 
 <a id="path-constraints"></a>
 ### File name and path constraints
 
-<a id="zip-format"></a>
-### Module zip format
-
 <a id="private-modules"></a>
-### Private modules
+## Private modules
 
 <a id="module-cache"></a>
-### Module cache
+## Module cache
 
 <a id="authenticating"></a>
 ## Authenticating modules
@@ -1706,6 +2000,15 @@ a release with incompatible changes, the major version must be incremented, and
 the minor and patch versions must be set to 0. Semantic versions with major
 version 0 are considered unstable.
 
+<a id="glos-major-version-subdirectory"></a>
+**major version subdirectory:** A subdirectory within a version control
+repository matching a module's [major version
+suffix](#glos-major-version-suffix) where a module may be defined. For example,
+the module `example.com/mod/v2` in the repository with [root
+path](#glos-repository-root-path) `example.com/mod` may be defined in the
+repository root directory or the major version subdirectory `v2`. See [Module
+directories within a repository](#vcs-dir).
+
 <a id="glos-major-version-suffix"></a>
 **major version suffix:** A module path suffix that matches the major version
 number. For example, `/v2` in `example.com/mod/v2`. Major version suffixes are
@@ -1749,6 +2052,16 @@ protocol](#goproxy-protocol). The `go` command downloads version information,
 **module root directory:** The directory that contains the `go.mod` file that
 defines a module.
 
+<a id="glos-module-subdirectory"></a>
+**module subdirectory:** The portion of a [module path](#glos-module-path) after
+the [repository root path](#glos-repository-root-path) that indicates the
+subdirectory where the module is defined. When non-empty, the module
+subdirectory is also a prefix for [semantic version
+tags](#glos-semantic-version-tag). The module subdirectory does not include the
+[major version suffix](#glos-major-version-suffix), if there is one, even if the
+module is in a [major version subdirectory](#glos-major-version-subdirectory).
+See [Module paths](#module-path).
+
 <a id="glos-package"></a>
 **package:** A collection of source files in the same directory that are
 compiled together. See the [Packages section](/ref/spec#Packages) in the Go
@@ -1785,6 +2098,16 @@ version is not available.
 **release version:** A version without a pre-release suffix. For example,
 `v1.2.3`, not `v1.2.3-pre`. See also [pre-release
 version](#glos-pre-release-version).
+
+<a id="glos-repository-root-path"></a>
+**repository root path:** The portion of a [module path](#glos-module-path) that
+corresponds to a version control repository's root directory. See [Module
+paths](#module-path).
+
+<a id="glos-semantic-version-tag"></a>
+**semantic version tag:** A tag in a version control repository that maps a
+[version](#glos-version) to a specific revision. See [Mapping versions to
+commits](#vcs-version).
 
 <a id="glos-version"></a>
 **version:** An identifier for an immutable snapshot of a module, written as the
