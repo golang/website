@@ -15,22 +15,22 @@ title = "go.dev"
 [menu]
   [[menu.main]]
     identifier = "solutions"
-    name = "Solutions"
-    title = "Solutions"
+    name = "Why Go"
+    title = "Why Go"
     url = "/solutions"
     weight = -110
 
   [[menu.main]]
     identifier = "learn"
-    name = "Learn"
-    title = "Learn"
+    name = "Getting Started"
+    title = "Getting Started"
     url = "/learn"
     weight = -100
 
   [[menu.main]]
     identifier = "explore"
-    name = "Explore"
-    title = "Explore"
+    name = "Discover Packages"
+    title = "Discover Packages"
     url = "https://pkg.go.dev"
     weight = -90
 
@@ -48,8 +48,8 @@ title = "go.dev"
 
   [[menu.footer]]
     identifier = "solutions"
-    name = "Solutions"
-    title = "Solutions"
+    name = "Why Go"
+    title = "Why Go"
     url = "/solutions"
     weight = -110
 
@@ -71,8 +71,8 @@ title = "go.dev"
 
   [[menu.footer]]
     identifier = "learn"
-    name = "Learn"
-    title = "Learn"
+    name = "Getting Started"
+    title = "Getting Started"
     url = "/learn"
     weight = -100
 
@@ -96,8 +96,8 @@ title = "go.dev"
 
   [[menu.footer]]
     identifier = "explore"
-    name = "Explore"
-    title = "Explore"
+    name = "Discover Packages"
+    title = "Discover Packages"
     url = "https://pkg.go.dev"
     weight = -90
 
