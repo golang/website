@@ -15,21 +15,39 @@ Go.dev provides:
 
 Go.dev is currently in [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) status. We're proud of what we've built and excited to share it with the community. We hope you find value and joy in using go.dev. Go.dev only has a small portion of features we intend to build, and we are actively seeking feedback. If you have any ideas, suggestions or issues, please let us know.
 
-## Sharing feedback / Reporting an issue
-
-On the footer of every page there are two links, "Share Feedback" and "Report an issue". These links will enable you to capture a screenshot of the page you are on, annotate that screenshot, and then send this directly to the go.dev team. 
-
-Or you can send your bugs, ideas, feature requests and questions to [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com). 
-
 ## Adding a package
-To add a package or module, simply fetch it from proxy.golang.org. Documentation is generated based on Go source code downloaded from the proxy.golang.org/\<module\>@\<version\>.zip. New module versions are fetched from index.golang.org and added to the go.dev site every few minutes.
+Data for the site is downloaded from [proxy.golang.org](https://proxy.golang.org/). We monitor the [Go Module Index](https://index.golang.org/index) regularly for new packages to add to pkg.go.dev. If you don’t see a package on pkg.go.dev, you can add it by doing one of the following:
 
-The [guidelines](https://blog.golang.org/godoc-documenting-go-code) for writing documentation for the [godoc](https://pkg.go.dev/golang.org/x/tools/cmd/godoc) tool apply to go.dev. 
+*  Making a request to proxy.golang.org for the module version, to any endpoint specified by the [Module proxy protocol](https://golang.org/cmd/go/#hdr-Module_proxy_protocol%3CPaste%3E). For example:
 
-It's important to write a good summary of the package in the first sentence of the package comment. The go.dev site indexes the first sentence and displays it in search results.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://<span></span>proxy.golang.org/example.com/my/module/@v/v1.0.0.info
+
+*  Downloading the package via the [go command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them). For example:
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GOPROXY="https://<span></span>proxy.golang.org GO111MODULE=on go get &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;example.com/my/module@v1.0.0
 
 ## Removing a package
-If you would like a package removed, please send an email to [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com), with the import path or module path that you want to remove. 
+If you would like a package removed,  please post on the [Go Issue Tracker](https://golang.org/s/discovery-feedback) or email [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com) with the import path or module path that you want to remove.
+
+Note that we can only remove a module entirely from the site. We cannot remove it just for specific versions.
+
+## Documentation
+
+Documentation is generated based on Go source code downloaded from the Go Module Mirror at proxy.golang.org/<module>@<version>.zip. New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
+
+The [guidelines for writing documentation](https://blog.golang.org/godoc) for the godoc tool apply to pkg.go.dev.
+
+It’s important to write a good summary of the package in the first sentence of the package comment. The go.dev site indexes the first sentence and displays it in search results.
+
+Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the bottom of the documentation page.
+
+## Keyboard Shortcuts
+
+There are keyboard shortcuts for navigating package documentation pages. Type '?' on a package page for help.
 
 ## License policy
 Information for a given package or module may be limited if we are not able to detect a suitable license. See our [license policy](https://pkg.go.dev/license-policy) for more information.
+
+## Feedback
+
+Share your ideas, feature requests, and bugs on the [Go Issue Tracker](https://golang.org/s/discovery-feedback) For questions, please post on the #tools slack channel on the [Gophers Slack](https://invite.slack.golangbridge.org/), or email the [golang-dev mailing list](https://groups.google.com/group/golang-dev).
