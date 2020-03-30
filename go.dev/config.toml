@@ -12,9 +12,6 @@ title = "go.dev"
   series = "series"
   tag = "tags"
 
-[Params]
-  google_tag_manager = "GTM-W8MVQXG"
-
 [menu]
   [[menu.main]]
     identifier = "solutions"
