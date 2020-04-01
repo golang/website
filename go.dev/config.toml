@@ -39,13 +39,6 @@ title = "go.dev"
     url = "/about"
     weight = -80
 
-  [[menu.main]]
-    identifier = "golang.org"
-    name = "golang.org"
-    title = "golang.org"
-    url = "https://golang.org"
-    weight = -70
-
   [[menu.footer]]
     identifier = "solutions"
     name = "Why Go"
