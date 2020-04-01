@@ -16,21 +16,21 @@ title = "go.dev"
   [[menu.main]]
     identifier = "solutions"
     name = "Why Go"
-    title = "Why Go"
+    title = "Solutions"
     url = "/solutions"
     weight = -110
 
   [[menu.main]]
     identifier = "learn"
     name = "Getting Started"
-    title = "Getting Started"
+    title = "Learn"
     url = "/learn"
     weight = -100
 
   [[menu.main]]
     identifier = "explore"
     name = "Discover Packages"
-    title = "Discover Packages"
+    title = "Explore"
     url = "https://pkg.go.dev"
     weight = -90
 
