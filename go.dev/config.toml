@@ -114,12 +114,6 @@ title = "go.dev"
     weight = -60
 
   [[menu.footer]]
-    name = "Issue Tracker"
-    parent = "about"
-    url = "https://github.com/golang/go/issues"
-    weight = -50
-
-  [[menu.footer]]
     name = "Release Notes"
     parent = "about"
     url = "https://golang.org/doc/devel/release.html"
@@ -145,19 +139,13 @@ title = "go.dev"
     weight = -70
 
   [[menu.footer]]
-    name = "r/golang"
-    parent = "connect"
-    url = "https://reddit.com/r/golang"
-    weight = -35
-
-  [[menu.footer]]
     name = "Twitter"
     parent = "connect"
     url = "https://www.twitter.com/golang"
     weight = -70
 
   [[menu.footer]]
-    name = "Github"
+    name = "GitHub"
     parent = "connect"
     url = "https://github.com/golang"
     weight = -50
@@ -173,9 +161,3 @@ title = "go.dev"
     parent = "connect"
     url = "https://www.meetup.com/pro/go"
     weight = -30
-
-  [[menu.footer]]
-    name = "Golang Weekly"
-    parent = "connect"
-    url = "https://golangweekly.com/"
-    weight = -20
