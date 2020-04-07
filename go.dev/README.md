@@ -3,7 +3,7 @@
 ## Contributing
 
 ```
-git clone sso://team/golang/go.dev && (cd go.dev && f=`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)
+git clone sso://partner-code/go.dev && (cd go.dev && f=`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)
 ```
 
 - `data/learn` contains links for the Learn pages, as all content is currently external.
