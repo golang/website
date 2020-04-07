@@ -31,6 +31,14 @@
 </head>
 <body class="Site">
 <header class="Site-header">
+  {{if .IsHome}}
+  <div class="Banner">
+    <div class="Banner-inner">
+      <div class="Banner-message">Read our message to the Go community regarding the coronavirus (COVID-19)</div>
+      <a class="Banner-action" href="https://blog.golang.org/pandemic">Read the post</a>
+    </div>
+  </div>
+  {{end}}
   <div class="Header Header--dark">
     <nav class="Header-nav">
       <a href="{{.Site.BaseURL}}">
@@ -95,7 +103,7 @@
 </aside>
 <div class="NavigationDrawer-scrim js-scrim" role="presentation">
 </div>
-<main class="Site-content">
+<main class="Site-content {{if .IsHome}}Site-content--withBanner{{end}}">
   {{- block "main" . -}}{{- end -}}
 </main>
 <footer class="Site-footer">

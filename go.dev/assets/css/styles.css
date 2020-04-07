@@ -41,6 +41,38 @@ a:hover {
   top: 0;
   width: 100%;
 }
+.Banner {
+  /**
+   * Only show on wide viewports so the
+   * text never wraps or gets cut off.
+   */
+  display: none;
+  background-color: #fffbe0;
+}
+.Banner-inner {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  max-width: 75.75rem;
+  min-height: 2.5rem;
+  padding: 0.5rem 1.5rem;
+}
+.Banner-message {
+  margin-right: 1.25rem;
+}
+.Banner-action {
+  white-space: nowrap;
+}
+@media only screen and (min-width: 52rem) {
+  .Banner {
+    display: block;
+  }
+  .Site-content--withBanner {
+    /* fixed header height + banner height */
+    margin-top: calc(4.0625rem + 2.5rem);
+  }
+}
 .Header,
 .Container {
   margin: 0 auto;
