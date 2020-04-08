@@ -94,6 +94,7 @@ var primaryPorts = map[string]bool{
 	"linux/386":     true,
 	"linux/amd64":   true,
 	"linux/armv6l":  true,
+	"linux/arm64":   true,
 	"windows/386":   true,
 	"windows/amd64": true,
 }
