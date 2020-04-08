@@ -21,6 +21,7 @@ import (
 	"net/http"
 	"net/url"
 	"regexp"
+	"strings"
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/website/internal/memcache"
@@ -61,14 +62,16 @@ func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Cli
 }
 
 // linkHandler services requests to short URLs.
-//   http://golang.org/s/key
+//   http://golang.org/s/key[/remaining/path]
 // It consults memcache and datastore for the Link for key.
 // It then sends a redirects or an error message.
+// If the remaining path part is not empty, the redirects
+// will be the relative path from the resolved Link.
 func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	key := r.URL.Path[len(prefix)+1:]
-	if !validKey.MatchString(key) {
+	key, remainingPath, err := extractKey(r)
+	if err != nil { // invalid key or url
 		http.Error(w, "not found", http.StatusNotFound)
 		return
 	}
@@ -96,7 +99,28 @@ func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Redirect(w, r, link.Target, http.StatusFound)
+	target := link.Target
+	if remainingPath != "" {
+		target += remainingPath
+	}
+	http.Redirect(w, r, target, http.StatusFound)
+}
+
+func extractKey(r *http.Request) (key, remainingPath string, err error) {
+	path := r.URL.Path
+	if !strings.HasPrefix(path, prefix+"/") {
+		return "", "", errors.New("invalid path")
+	}
+
+	key, remainingPath = path[len(prefix)+1:], ""
+	if slash := strings.Index(key, "/"); slash > 0 {
+		key, remainingPath = key[:slash], key[slash:]
+	}
+
+	if !validKey.MatchString(key) {
+		return "", "", errors.New("invalid key")
+	}
+	return key, remainingPath, nil
 }
 
 var adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
