@@ -3,8 +3,7 @@
 // license that can be found in the LICENSE file.
 
 // Package markdown provides a wrapper for rendering Markdown. It is intended
-// to be used by x/website and x/blog so that we can use the same renderer
-// with the same settings.
+// to be used on the golang.org website.
 //
 // This package is not intended for general use, and its API is not guaranteed
 // to be stable.

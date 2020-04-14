@@ -18,7 +18,7 @@ import (
 	"strings"
 	"unicode"
 
-	"golang.org/x/website/markdown"
+	"golang.org/x/website/internal/markdown"
 )
 
 var files = []string{
