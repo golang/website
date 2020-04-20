@@ -9,26 +9,26 @@ tkulesza@google.com
 ## What a response!
 
 I want to start with an enormous **thank you** to the thousands of Go developers
-who participated in this year's survey.
+who participated in this year’s survey.
 For 2019, we saw 10,975 responses, nearly [twice as many as last year](https://blog.golang.org/survey2018-results)!
 On behalf of the rest of the team, I cannot adequately stress how much we
 appreciate you taking the time and effort to tell us about your experiences with Go. Thank you!
 
 ## A note about prior years
 
-Sharp-eyed readers may notice that our year-over-year comparisons don't
-quite square with numbers we've shared in the past.
+Sharp-eyed readers may notice that our year-over-year comparisons don’t
+quite square with numbers we’ve shared in the past.
 The reason is that from 2016–2018, we calculated percentages for each
 question using the total number of people who started the survey as the denominator.
-While that's nice and consistent, it ignores the fact that not everyone
+While that’s nice and consistent, it ignores the fact that not everyone
 finishes the survey—up to 40% of participants stop before reaching the final page,
 which meant questions that occurred later in the survey appeared to perform
 worse solely because they were later.
-Thus, this year we've recalculated all of our results (including the 2016–2018
+Thus, this year we’ve recalculated all of our results (including the 2016–2018
 responses shown in this post) to use the number of people who responded
 to a given question as the denominator for that question.
-We've included the number of 2019 responses for each chart—in the form
-of "n=[number of respondents]" on the x-axis or in the chart's legend—to
+We’ve included the number of 2019 responses for each chart—in the form
+of "n=[number of respondents]" on the x-axis or in the chart’s legend—to
 give readers a better understanding of the weight of evidence underlying each finding.
 
 Similarly, we learned that in prior surveys options that appeared earlier
@@ -52,19 +52,19 @@ free-text responses.
 Last year we used machine learning to roughly—but quickly—categorize these responses.
 This year two researchers manually analyzed and categorized these responses,
 allowing for a more granular analysis but preventing valid comparisons with
-last year's numbers.
+last year’s numbers.
 Like the randomization discussed above, the purpose of this change is to
 give us a reliable baseline for 2019 onward.
 
 ## Without further ado…
 
-This is a long post. Here's the tl;dr of our major findings:
+This is a long post. Here’s the tl;dr of our major findings:
 
-- The demographics of our respondents are similar to Stack Overflow's survey respondents,
+- The demographics of our respondents are similar to Stack Overflow’s survey respondents,
   which increases our confidence that these results are representative of
   the larger Go developer audience.
 - A majority of respondents use Go every day, and this number has been trending up each year.
-- Go's use is still concentrated in technology companies,
+- Go’s use is still concentrated in technology companies,
   but Go is increasingly found in a wider variety of industries,
   such as finance and media.
 - Methodology changes showed us that most of our year-over-year metrics
@@ -78,19 +78,19 @@ This is a long post. Here's the tl;dr of our major findings:
 - Almost everyone in the Go ecosystem is now using modules, but some confusion around package management remains.
 - High-priority areas for improvement include improving the developer experience for debugging,
   working with modules, and working with cloud services.
-- VS Code and GoLand have continued to see increased use; they're now preferred by 3 out of 4 respondents.
+- VS Code and GoLand have continued to see increased use; they’re now preferred by 3 out of 4 respondents.
 
 ## Who did we hear from?
 
 This year we asked some new demographic questions to help us better understand
-the people who've responded to this survey.
+the people who’ve responded to this survey.
 In particular, we asked about the duration of professional programming experience
 and the size of the organizations where people work.
 These were modeled on questions that StackOverflow asks in their annual survey,
-and the distribution of responses we saw is very close to StackOverflow's 2019 results.
+and the distribution of responses we saw is very close to StackOverflow’s 2019 results.
 Our take-away is the respondents to this survey have similar levels of professional
 experience and proportional representation of different sizes of organizations
-as the StackOverflow survey audience (with the obvious difference that we're
+as the StackOverflow survey audience (with the obvious difference that we’re
 primarily hearing from developers working with Go).
 That increases our confidence when generalizing these findings to the estimated
 1 million Go developers worldwide.
@@ -126,7 +126,7 @@ TypeScript, and PHP.
 One caveat is that this is self-reported "expertise";
 it may be more helpful to think of it instead as "familiarity".
 Python appears to be the language (other than Go) familiar to the most respondents,
-regardless of how long they've been working with Go.
+regardless of how long they’ve been working with Go.
 
 .image survey2019/fig5.svg _ 750
 
@@ -138,19 +138,19 @@ However, we also simplified the list of industries to reduce confusion from
 potentially overlapping categories (e.g.,
 the separate categories for "Software" and "Internet / web services" from
 2018 were combined into "Technology" for 2019).
-Thus, this isn't strictly an apples-to-apples comparison.
-For example, it's possible that one effect of simplifying the category list
+Thus, this isn’t strictly an apples-to-apples comparison.
+For example, it’s possible that one effect of simplifying the category list
 was to reduce the use of the "Software" category as a catch-all for respondents
-writing Go software for an industry that wasn't explicitly listed.
+writing Go software for an industry that wasn’t explicitly listed.
 
 .image survey2019/fig6.svg _ 700
 
-Go is a successful open-source project, but that doesn't mean the developers
+Go is a successful open-source project, but that doesn’t mean the developers
 working with it are also writing free or open-source software.
 As in prior years, we found that most respondents are not frequent contributors
 to Go open-source projects,
 with 75% saying they do so "infrequently" or "never".
-As the Go community expands, we see the proportion of respondents who've
+As the Go community expands, we see the proportion of respondents who’ve
 never contributed to Go open-source projects slowly trending up.
 
 .image survey2019/fig7.svg _ 700
@@ -159,7 +159,7 @@ never contributed to Go open-source projects slowly trending up.
 
 As in prior years, the vast majority of survey respondents reported working
 with Go on Linux and macOS systems.
-This is one area of strong divergence between our respondents and StackOverflow's 2019 results:
+This is one area of strong divergence between our respondents and StackOverflow’s 2019 results:
 in our survey, only 20% of respondents use Windows as a primary development platform,
 while for StackOverflow it was 45% of respondents.
 Linux is used by 66% and macOS by 53%—both much higher than the StackOverflow audience,
@@ -171,12 +171,12 @@ which reported 25% and 30%, respectively.
 The trend in editor consolidation has continued this year.
 GoLand saw the sharpest increase in use this year,
 rising from 24% → 34%.
-VS Code's growth slowed, but it remains the most popular editor among respondents at 41%.
+VS Code’s growth slowed, but it remains the most popular editor among respondents at 41%.
 Combined, these two editors are now preferred by 3 out of 4 respondents.
 
-Every other editor saw a small decrease. This doesn't mean those editors
-aren't being used at all,
-but they're not what respondents say they _prefer_ to use for writing Go code.
+Every other editor saw a small decrease. This doesn’t mean those editors
+aren’t being used at all,
+but they’re not what respondents say they _prefer_ to use for writing Go code.
 
 .image survey2019/fig10.svg _ 700
 
@@ -196,17 +196,17 @@ amount of effort required to initially set it up and maintain it (38%).
 ## Sentiments towards Go
 
 Large majorities of respondents agreed that Go is working well for their
-teams (86%) and that they'd prefer to use it for their next project (89%).
+teams (86%) and that they’d prefer to use it for their next project (89%).
 We also found that over half of respondents (59%) believe Go is critical
 to the success of their companies.
 All of these metrics have remained stable since 2016.
 
 Normalizing the results changed most of these numbers for prior years.
 For example, the percentage of respondents who agreed with the statement
-"Go is working well for my team" was previously in the 50's and 60's because
+"Go is working well for my team" was previously in the 50’s and 60’s because
 of participant drop-off;
 when we remove participants who never saw the question,
-we see it's been fairly stable since 2016.
+we see it’s been fairly stable since 2016.
 
 .image survey2019/fig12.svg _ 700
 
@@ -248,7 +248,7 @@ and is thus another area we plan to further investigate.
 
 The other big differences are a clear upward trend in responses to the statement
 "I feel welcome to contribute to the Go project" and a large year-over-year
-increase in the proportion of respondents who feel Go's project leadership
+increase in the proportion of respondents who feel Go’s project leadership
 understands their needs.
 
 All of these results show a pattern of higher agreement correlated with
@@ -286,7 +286,7 @@ Building API/RPC services (71%) and CLIs (62%) remain the most common uses of Go
 The chart below appears to show major changes from 2018,
 but these are most likely the result of randomizing the order of choices,
 which used to be listed alphabetically:
-3 of the 4 choices beginning with 'A' decreased,
+3 of the 4 choices beginning with ’A’ decreased,
 while everything else remained stable or increased.
 Thus, this chart is best interpreted as a more accurate baseline for 2019
 with trends from 2016–2018.
@@ -347,7 +347,7 @@ As mentioned earlier, some of the 2018 results appear to be outliers,
 such as an unexpectedly low result for self-owned servers,
 and an unexpectedly high result for GCP deployments.
 
-We see two clear trends: 
+We see two clear trends:
 
 1. The three largest global cloud providers (Amazon Web Services,
 Google Cloud Platform, and Microsoft Azure) all appear to be trending up
@@ -401,17 +401,17 @@ working on a team that prefers to use another language (37%),
 and the lack of a critical feature in Go itself (25%).
 
 This was one of the questions where we randomized the choice list,
-so year-over-year comparisons aren't valid,
+so year-over-year comparisons aren’t valid,
 though 2016–2018 trends are.
 For example, we are confident that the number of developers unable to use
 Go more frequently because their team prefers a different language is decreasing each year,
-but we don't know whether that decrease dramatically accelerated this year,
+but we don’t know whether that decrease dramatically accelerated this year,
 or was always a bit lower than our 2016–2018 numbers estimated.
 
 .image survey2019/fig27.svg _ 700
 
 The top two adoption blockers (working on an existing non-Go project and
-working on a team that prefers a different language) don't have direct technical solutions,
+working on a team that prefers a different language) don’t have direct technical solutions,
 but the remaining blockers might.
 Thus, this year we asked for more details,
 to better understand how we might help developers increase their use of Go.
@@ -435,7 +435,7 @@ not the entire population of survey respondents.
 
 .image survey2019/fig28.svg _ 700
 
-Respondents who said Go "isn't an appropriate language" for what they work
+Respondents who said Go "isn’t an appropriate language" for what they work
 on had a wide variety of reasons and use-cases.
 The most common was that they work on some form of front-end development (22%),
 such as GUIs for web, desktop, or mobile.
@@ -451,7 +451,7 @@ particularly for real-time computing.
 .image survey2019/fig29.svg _ 700
 
 The biggest challenges respondents reported remain largely consistent with last year.
-Go's lack of generics and modules/package management still top the list
+Go’s lack of generics and modules/package management still top the list
 (15% and 12% of responses,
 respectively), and the proportion of respondents highlighting tooling problems increased.
 These numbers are different from the above charts because this question
@@ -466,26 +466,26 @@ in the coming months.
 
 Diagnosing faults and performance issues can be challenging in any language.
 Respondents told us their top challenge for both of these was not something
-specific to Go's implementation or tooling,
+specific to Go’s implementation or tooling,
 but a more fundamental issue:
 a self-reported lack of knowledge, experience, or best practices.
 We hope to help address these knowledge gaps via documentation and other
 educational materials later this year.
 The other major problems do involve tooling,
 specifically a perceived unfavorable cost/benefit trade-off to learning/using
-Go's debugging and profiling tooling,
+Go’s debugging and profiling tooling,
 and challenges making the tooling work in various environments (e.g.,
 debugging in containers, or getting performance profiles from production systems).
 
 .image survey2019/fig31.svg _ 700
 .image survey2019/fig32.svg _ 700
 
-Finally, when we asked what would most improve Go support in respondents'
+Finally, when we asked what would most improve Go support in respondents’
 editing environment,
 the most common response was for general improvements or better support
 for the language server (gopls, 19%).
 This was expected, as gopls replaces about 80 extant tools and is still in beta.
-When respondents were more specific about what they'd like to see improved,
+When respondents were more specific about what they’d like to see improved,
 they were most likely to report the debugging experience (14%) and faster
 or more reliable code completion (13%).
 A number of participants also explicitly referenced the need to frequently
@@ -509,7 +509,7 @@ sources (nearly all of them community-driven) and modalities that respondents
 rely on to overcome challenges while developing with Go.
 Indeed, for many Gophers, this may be one of their main points of interaction
 with the larger community:
-as our community expands, we've seen higher and higher proportions of respondents
+as our community expands, we’ve seen higher and higher proportions of respondents
 who do not attend any Go-related events.
 For 2019, that proportion nearly reached two thirds of respondents (62%).
 
@@ -518,13 +518,13 @@ For 2019, that proportion nearly reached two thirds of respondents (62%).
 Due to updated Google-wide privacy guidelines,
 we can no longer ask about which countries respondents live in.
 Instead we asked about preferred spoken/written language as a very rough
-proxy for Go's worldwide usage,
+proxy for Go’s worldwide usage,
 with the benefit of providing data for potential localization efforts.
 
 Because this survey is in English, there is likely a strong bias toward
 English speakers and people from areas where English is a common second or third language.
 Thus, the non-English numbers should be interpreted as likely minimums rather
-than an approximation of Go's global audience.
+than an approximation of Go’s global audience.
 
 .image survey2019/fig36.svg _ 700
 
@@ -535,9 +535,9 @@ The mistake has been corrected in our draft survey for 2020,
 and we apologize for it.)
 We strongly suspect this 3% is undercounting women in the Go community.
 For example, we know women software developers in the US respond to the
-StackOverflow Developer Survey at [about half the rate we'd expect based on US employment figures](https://insights.stackoverflow.com/survey/2019#developer-profile-_-developer-type) (11% vs 20%).
-Since we don't know the proportion of responses in the US,
-we can't safely extrapolate from these numbers beyond saying the actual
+StackOverflow Developer Survey at [about half the rate we’d expect based on US employment figures](https://insights.stackoverflow.com/survey/2019#developer-profile-_-developer-type) (11% vs 20%).
+Since we don’t know the proportion of responses in the US,
+we can’t safely extrapolate from these numbers beyond saying the actual
 proportion is likely higher than 3%.
 Furthermore, GDPR required us to change how we ask about sensitive information,
 which includes gender and traditionally underrepresented groups.
@@ -556,7 +556,7 @@ highlighting the importance of our continued outreach efforts.
 
 ## Conclusion
 
-We hope you've enjoyed seeing the results of our 2019 developer survey.
-Understanding developers' experiences and challenges helps us plan and prioritize work for 2020.
+We hope you’ve enjoyed seeing the results of our 2019 developer survey.
+Understanding developers’ experiences and challenges helps us plan and prioritize work for 2020.
 Once again, an enormous thank you to everyone who contributed to this survey—your
-feedback is helping to steer Go's direction in the coming year and beyond.
+feedback is helping to steer Go’s direction in the coming year and beyond.
