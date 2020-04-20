@@ -23,6 +23,7 @@ import (
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/redirect"
 )
 
@@ -85,6 +86,7 @@ func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
 	mux.Handle("/", pres)
 	mux.Handle("/pkg/C/", redirect.Handler("/cmd/cgo/"))
 	mux.HandleFunc("/fmt", fmtHandler)
+	mux.Handle("/doc/devel/release.html", releaseHandler{ReleaseHistory: sortReleases(history.Releases)})
 	redirect.Register(mux)
 
 	http.Handle("/", hostEnforcerHandler{mux})

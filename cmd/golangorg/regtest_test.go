@@ -123,6 +123,11 @@ func TestLiveServer(t *testing.T) {
 			Substring:   `<meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">`,
 			NoAnalytics: true,
 		},
+		{
+			Message: "release history page has an entry for Go 1.14.2",
+			Path:    "/doc/devel/release.html",
+			Regexp:  `go1\.14\.2\s+\(released 2020/04/08\)\s+includes\s+fixes to cgo, the go command, the runtime,`,
+		},
 	}
 
 	for _, tc := range substringTests {
