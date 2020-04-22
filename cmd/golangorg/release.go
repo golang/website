@@ -27,7 +27,7 @@ type releaseHandler struct {
 func (h releaseHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	const relPath = "doc/devel/release.html"
 
-	src, err := vfs.ReadFile(fs, "/doc/devel/release.html")
+	src, err := vfs.ReadFile(fs, relPath)
 	if err != nil {
 		log.Printf("reading template %s: %v", relPath, err)
 		pres.ServeError(w, req, relPath, err)

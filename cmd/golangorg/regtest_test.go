@@ -128,6 +128,16 @@ func TestLiveServer(t *testing.T) {
 			Path:    "/doc/devel/release.html",
 			Regexp:  `go1\.14\.2\s+\(released 2020/04/08\)\s+includes\s+fixes to cgo, the go command, the runtime,`,
 		},
+		{
+			Message:   "Go project page has an entry for Go 1.14",
+			Path:      "/project/",
+			Substring: `<li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>`,
+		},
+		{
+			Message:    "Go project subpath does not exist",
+			Path:       "/project/notexist",
+			StatusCode: http.StatusNotFound,
+		},
 	}
 
 	for _, tc := range substringTests {
