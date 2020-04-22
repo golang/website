@@ -43,6 +43,7 @@ var files = []string{
 	"dirlist.html",
 	"doc/code.html",
 	"doc/conduct.html",
+	"doc/contrib.html",
 	"doc/copyright.html",
 	"doc/devel/pre_go1.html",
 	"doc/devel/release.html",
