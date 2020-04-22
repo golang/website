@@ -6,6 +6,7 @@
 package history
 
 import (
+	"fmt"
 	"html/template"
 	"time"
 )
@@ -29,7 +30,7 @@ type Release struct {
 //
 // It contains entries for releases of Go 1.9 and newer.
 // Older releases are listed in doc/devel/release.html.
-var Releases = map[Version]Release{
+var Releases = map[GoVer]Release{
 	{1, 14, 2}: {
 		Date: Date{2020, 4, 8},
 
@@ -457,20 +458,41 @@ of non-Git repositories under certain conditions.`,
 	},
 }
 
-// Version represents the version of a Go release.
-type Version struct {
-	X int // 1 or higher.
-	Y int // 0 or higher.
-	Z int // 0 or higher.
+// GoVer represents a Go release version.
+//
+// In contrast to Semantic Versioning 2.0.0,
+// trailing zero components are omitted,
+// a version like Go 1.14 is considered a major Go release,
+// a version like Go 1.14.1 is considered a minor Go release.
+//
+// See proposal golang.org/issue/32450 for background, details,
+// and a discussion of the costs involved in making a change.
+type GoVer struct {
+	X int // X is the 1st component of a Go X.Y.Z version. It must be 1 or higher.
+	Y int // Y is the 2nd component of a Go X.Y.Z version. It must be 0 or higher.
+	Z int // Z is the 3rd component of a Go X.Y.Z version. It must be 0 or higher.
+}
+
+// String returns the Go release version string,
+// like "1.14", "1.14.1", "1.14.2", and so on.
+func (v GoVer) String() string {
+	switch {
+	case v.Z != 0:
+		return fmt.Sprintf("%d.%d.%d", v.X, v.Y, v.Z)
+	case v.Y != 0:
+		return fmt.Sprintf("%d.%d", v.X, v.Y)
+	default:
+		return fmt.Sprintf("%d", v.X)
+	}
 }
 
 // IsMajor reports whether version v is considered to be a major Go release.
 // For example, Go 1.14 and 1.13 are major Go releases.
-func (v Version) IsMajor() bool { return v.Z == 0 }
+func (v GoVer) IsMajor() bool { return v.Z == 0 }
 
 // IsMinor reports whether version v is considered to be a minor Go release.
 // For example, Go 1.14.1 and 1.13.9 are minor Go releases.
-func (v Version) IsMinor() bool { return v.Z != 0 }
+func (v GoVer) IsMinor() bool { return v.Z != 0 }
 
 // Date represents the date (year, month, day) of a Go release.
 //

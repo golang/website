@@ -78,9 +78,9 @@ func (h releaseHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 // sortReleases returns a sorted list of Go releases, suitable to be
 // displayed on the Release History page. Releases are arranged into
 // major releases, each with minor revisions.
-func sortReleases(rs map[history.Version]history.Release) []Major {
+func sortReleases(rs map[history.GoVer]history.Release) []Major {
 	var major []Major
-	byMajorVersion := make(map[history.Version]Major)
+	byMajorVersion := make(map[history.GoVer]Major)
 	for v, r := range rs {
 		switch {
 		case v.IsMajor():
@@ -108,8 +108,8 @@ func sortReleases(rs map[history.Version]history.Release) []Major {
 
 // majorOf takes a Go version like 1.5, 1.5.1, 1.5.2, etc.,
 // and returns the corresponding major version like 1.5.
-func majorOf(v history.Version) history.Version {
-	return history.Version{X: v.X, Y: v.Y, Z: 0}
+func majorOf(v history.GoVer) history.GoVer {
+	return history.GoVer{X: v.X, Y: v.Y, Z: 0}
 }
 
 type releaseTemplateData struct {
@@ -125,20 +125,13 @@ type Major struct {
 
 // Release represents a Go release entry as displayed on the release history page.
 type Release struct {
-	ver history.Version
+	ver history.GoVer
 	rel history.Release
 }
 
 // V returns the Go release version string, like "1.14", "1.14.1", "1.14.2", etc.
 func (r Release) V() string {
-	switch {
-	case r.ver.Z != 0:
-		return fmt.Sprintf("%d.%d.%d", r.ver.X, r.ver.Y, r.ver.Z)
-	case r.ver.Y != 0:
-		return fmt.Sprintf("%d.%d", r.ver.X, r.ver.Y)
-	default:
-		return fmt.Sprintf("%d", r.ver.X)
-	}
+	return r.ver.String()
 }
 
 // Date returns the date of the release, formatted for display on the release history page.
