@@ -1957,6 +1957,219 @@ for future `go` command invocations.
 <a id="environment-variables"></a>
 ## Environment variables
 
+Module behavior in the `go` command may be configured using the environment
+variables listed below. This list only includes module-related environment
+variables. See [`go help
+environment`](https://golang.org/cmd/go/#hdr-Environment_variables) for a list
+of all environment variables recognized by the `go` command.
+
+<table class="ModTable">
+  <thead>
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>GO111MODULE</code></td>
+      <td>
+        <p>
+          Controls whether the <code>go</code> command runs in module-aware mode
+          or <code>GOPATH</code> mode. Three values are recognized:
+        </p>
+        <ul>
+          <li>
+            <code>off</code>: the <code>go</code> command ignores
+            <code>go.mod</code> files and runs in <code>GOPATH</code> mode.
+          </li>
+          <li>
+            <code>on</code>: the <code>go</code> command runs in module-aware
+            mode, even when no <code>go.mod</code> file is present.
+          </li>
+          <li>
+            <code>auto</code> (or unset): the <code>go</code> command runs in
+            module-aware mode if a <code>go.mod</code> file is present in the
+            current directory or any parent directory (the default behavior).
+          </li>
+        </ul>
+        <p>
+          See <a href="mod-commands">Module-aware commands</a> for more
+          information.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOINSECURE</code></td>
+      <td>
+        <p>
+          Comma-separated list of glob patterns (in the syntax of Go's
+          <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
+          prefixes that may always be fetched in an insecure manner. Only
+          applies to dependencies that are being fetched directly.
+        </p>
+        <p>
+          Unlike the <code>-insecure</code> flag on <code>go get</code>,
+          <code>GOINSECURE</code> does not disable module checksum database
+          validation. <code>GOPRIVATE</code> or <code>GONOSUMDB</code> may be
+          used to achieve that.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GONOPROXY</code></td>
+      <td>
+        <p>
+          Comma-separated list of glob patterns (in the syntax of Go's
+          <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
+          prefixes that should always be fetched directly from version control
+          repositories, not from module proxies.
+        </p>
+        <p>
+          If <code>GONOPROXY</code> is not set, it defaults to
+          <code>GOPRIVATE</code>. See <a href="#privacy">Privacy</a>.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GONOSUMDB</code></td>
+      <td>
+        <p>
+          Comma-separated list of glob patterns (in the syntax of Go's
+          <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
+          prefixes for which the <code>go</code> should not verify checksums
+          using the checksum database.
+        </p>
+        <p>
+          If <code>GONOSUMDB</code> is not set, it defaults to
+          <code>GOPRIVATE</code>. See <a href="#privacy">Privacy</a>.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOPATH</code></td>
+      <td>
+        <p>
+          In <code>GOPATH</code> mode, the <code>GOPATH</code> variable is a list
+          of directories that may contain Go code.
+        </p>
+        <p>
+          In module-aware mode, the <a href="#glos-module-cache">module
+          cache</a> is stored in the <code>pkg/mod</code> subdirectory of the
+          first <code>GOPATH</code> directory. Module source code outside the
+          cache may be stored in any directory.
+        </p>
+        <p>
+          If <code>GOPATH</code> is not set, it defaults to the <code>go</code>
+          subdirectory of the user's home directory.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOPRIVATE</code></td>
+      <td>
+        Comma-separated list of glob patterns (in the syntax of Go's
+        <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
+        prefixes that should be considered private. <code>GOPRIVATE</code>
+        is a default value for <code>GONOPROXY</code> and
+        <code>GONOSUMDB</code>. <code>GOPRIVATE</code> itself has no other
+        meaning. See <a href="#privacy">Privacy</a>.
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOPROXY</code></td>
+      <td>
+        <p>
+          Comma-separated list of module proxy URLs. When the <code>go</code>
+          command looks up information about a module, it will contact each
+          proxy in the list, in sequence. A proxy may respond with a 404 (Not
+          Found) or 410 (Gone) status to indicate the module is not available
+          and the <code>go</code> command should contact the next proxy in
+          the list. Any other error will cause the <code>go</code> command
+          to stop without contacting other proxies in the list. This allows
+          a proxy to act as a gatekeeper, for example, by responding with
+          403 (Forbidden) for modules not on an approved list.
+        </p>
+        <p>
+          <code>GOPROXY</code> URLs may have the schemes <code>https</code>,
+          <code>http</code>, or <code>file</code>. If no scheme is specified,
+          <code>https</code> is assumed. A module cache may be used direclty as
+          a file proxy:
+        </p>
+        <pre>GOPROXY=file://$(go env GOPATH)/pkg/mod/cache/download</pre>
+        <p>Two keywords may be used in place of proxy URLs:</p>
+        <ul>
+          <li>
+            <code>off</code>: disallows downloading modules from any source.
+          </li>
+          <li>
+            <code>direct</code>: download directly from version control
+            repositories.
+          </li>
+        </ul>
+        <p>
+          <code>GOPROXY</code> defaults to
+          <code>https://proxy.golang.org,direct</code>. Under that
+          configuration, the <code>go</code> command will first contact the Go
+          module mirror run by Google, then fall back to a direct connection if
+          the mirror does not have the module. See
+          <a href="https://proxy.golang.org/privacy">https://proxy.golang.org/privacy</a>
+          for the mirror's privacy policy. The <code>GOPRIVATE</code> and
+          <code>GONOPROXY</code> environment variables may be set to prevent
+          specific modules from being downloaded using proxies.
+        </p>
+        <p>
+          See <a href="#module-proxy">Module proxies</a> and
+          <a href="#resolve-pkg-mod">Resolving a package to a module</a> for
+          more information.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOSUMDB</code></td>
+      <td>
+        <p>
+          Identifies the name of the checksum database to use and optionally
+          its public key and URL. For example:
+        </p>
+        <pre>
+GOSUMDB="sum.golang.org"
+GOSUMDB="sum.golang.org+&lt;publickey&gt;"
+GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org
+</pre>
+        <p>
+          The <code>go</code> command knows the public key of
+          <code>sum.golang.org</code> and also that the name
+          <code>sum.golang.google.cn</code> (available inside mainland China)
+          connects to the <code>sum.golang.org</code> database; use of any other
+          database requires giving the public key explicitly. The URL defaults
+          to <code>https://</code> followed by the database name.
+        </p>
+        <p>
+          <code>GOSUMDB</code> defaults to <code>sum.golang.org</code>, the
+          Go checksum database run by Google. See
+          <a href="https://sum.golang.org/privacy">https://sum.golang.org/privacy</a>
+          for the service's privacy policy.
+        <p>
+        <p>
+          If <code>GOSUMDB</code> is set to <code>off</code> or if
+          <code>go get</code> is invoked with the <code>-insecure</code> flag,
+          the checksum database is not consulted, and all unrecognized modules
+          are accepted, at the cost of giving up the security guarantee of
+          verified repeatable downloads for all modules. A better way to bypass
+          the checksum database for specific modules is to use the
+          <code>GOPRIVATE</code> or <code>GONOSUMDB</code> environment
+          variables.
+        </p>
+        <p>
+          See <a href="#authenticating">Authenticating modules</a> and
+          <a href="#privacy">Privacy</a> for more information.
+        </p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <a id="glossary"></a>
 ## Glossary
 
