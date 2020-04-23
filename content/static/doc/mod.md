@@ -137,14 +137,15 @@ A <dfn>pseudo-version</dfn> is a specially formatted
 information about a specific revision in a version control repository. For
 example, `v0.0.0-20191109021931-daa7c04131f5` is a pseudo-version.
 
-Pseudo-versions are used to refer to revisions for which no [semantic version
+Pseudo-versions may refer to revisions for which no [semantic version
 tags](#glos-semantic-version-tag) are available. They may be used to test
 commits before creating version tags, for example, on a development branch.
 
 Each pseudo-version has three parts:
 
-* A base version (`vX.Y.Z`), which refers to a version before the revision
-  described by the pseudo-version or `vX.0.0` if there is no such version.
+* A base version prefix (`vX.0.0` or `vX.Y.Z-0`), which is either derived from a
+  semantic version tag that precedes the revision or `vX.0.0` if there is no
+  such tag.
 * A timestamp (`yymmddhhmmss`), which is the UTC time the revision was created.
   In Git, this is the commit time, not the author time.
 * A revision identifier (`abcdefabcdef`), which is a 12-character prefix of the
@@ -167,6 +168,12 @@ More than one pseudo-version may refer to the same commit by using different
 base versions. This happens naturally when a lower version is tagged after a
 pseudo-version is written.
 
+These forms give pseudo-versions two useful properties:
+
+* Pseudo-versions with known base versions sort higher than those versions but
+  lower than other pre-release for later versions.
+* Pseudo-versions with the same base version prefix sort chronologically.
+
 The `go` command performs several checks to ensure that module authors have
 control over how pseudo-versions are compared with other versions and that
 pseudo-versions refer to revisions that are actually part of a module's
@@ -180,9 +187,11 @@ commit history.
   `v1.999.999-99999999999999-daa7c04131f5`.
 * The timestamp must match the revision's timestamp. This prevents attackers
   from flooding [module proxies](#glos-module-proxy) with an unbounded number
-  of pseudo-versions that refer to the same revision.
-* The revision must be an ancestor of one of the module repository's branches.
-  This prevents attackers from referring to unapproved changes or pull requests.
+  of otherwise identical pseudo-versions. This also prevents module consumers
+  from changing the relative ordering of versions.
+* The revision must be an ancestor of one of the module repository's branches or
+  tags. This prevents attackers from referring to unapproved changes or pull
+  requests.
 
 Pseudo-versions never need to be typed by hand. Many commands accept
 a commit hash or a branch name and will translate it into a pseudo-version
