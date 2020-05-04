@@ -92,7 +92,7 @@ String constants are easy to understand and provide a smaller space in which
 to explore the type issues of constants in Go.
 
 A string constant encloses some text between double quotes.
-(Go also has raw string literals, enclosed by backquotes ````````,
+(Go also has raw string literals, enclosed by backquotes <code>``</code>,
 but for the purpose of this discussion they have all the same properties.)
 Here is a string constant:
 
