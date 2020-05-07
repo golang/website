@@ -55,6 +55,29 @@
 <section class="Learn-online">
   <div class="Container">
     <div class="Learn-subHeader">
+      <h2>Google Cloud Self-Paced Labs</h2>
+    </div>
+    <ul class="Learn-tileList">
+      {{range first 4 $.Site.Data.learn.cloud.links}}
+      <li class="Learn-tile">
+        <a href="{{.url}}">
+          <div class="Learn-tileThumbnail">
+            {{if .thumbnail}}
+            <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
+            {{end}}
+          </div>
+          <p class="Learn-tileTitle">
+            {{.title}}
+          </p>
+        </a>
+      </li>
+      {{end}}
+    </ul>
+  </div>
+</section>
+<section class="Learn-online">
+  <div class="Container">
+    <div class="Learn-subHeader">
       <h2>Online learning</h2>
     </div>
     <ul class="Learn-tileList">
