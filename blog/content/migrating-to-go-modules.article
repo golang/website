@@ -13,6 +13,7 @@ This post is part 2 in a series.
   - **Part 2 — Migrating To Go Modules** (this post)
   - Part 3 — [Publishing Go Modules](/publishing-go-modules)
   - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
+  - Part 5 - [Keeping Your Modules Compatible](/module-compatibility)
 
 Go projects use a wide variety of dependency management strategies.
 [Vendoring](https://golang.org/cmd/go/#hdr-Vendor_Directories) tools such
