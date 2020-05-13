@@ -140,7 +140,7 @@ in directory `$GOPATH/src/github.com/user/hello`.
 about the terminology and structure of packages.)
 
 **Directories.**
-The standard library uses like directories `crypto`, `container`, `encoding`,
+The standard library uses directories like `crypto`, `container`, `encoding`,
 and `image` to group packages for related protocols and algorithms.
 There is no actual relationship among the packages in one of these directories;
 a directory just provides a way to arrange the files.
