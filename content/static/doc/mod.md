@@ -1210,6 +1210,49 @@ requirements and to drop unused requirements.
 <a id="go-mod-tidy"></a>
 ### `go mod tidy`
 
+Usage:
+
+```
+go mod tidy [-v]
+```
+
+`go mod tidy` ensures that the `go.mod` file matches the source code in the
+module. It adds any missing module requirements necessary to build the current
+module's packages and dependencies, and it removes requirements on modules that
+don't provide any relevant packages. It also adds any missing entries to
+`go.sum` and removes unnecessary entries.
+
+The `-v` flag causes `go mod tidy` to print information about removed modules
+to standard error.
+
+`go mod tidy` works by loading all of the packages in the [main
+module](#glos-main-module) and all of the packages they import,
+recursively. This includes packages imported by tests (including tests in other
+modules). `go mod tidy` acts as if all build tags are enabled, so it will
+consider platform-specific source files and files that require custom build
+tags, even if those source files wouldn't normally be built. There is one
+exception: the `ignore` build tag is not enabled, so a file with the build
+constraint `// +build ignore` will not be considered. Note that `go mod tidy`
+will not consider packages in the main module in directories named `testdata` or
+with names that start with `.` or `_` unless those packages are explicitly
+imported by other packages.
+
+Once `go mod tidy` has loaded this set of packages, it ensures that each module
+that provides one or more packages either has a `require` directive in the main
+module's `go.mod` file or is required by another required module.  `go mod tidy`
+will add a requirement on the latest version on each missing module (see
+[Version queries](#version-queries) for the definition of the `latest`
+version). `go mod tidy` will remove `require` directives for modules that don't
+provide any packages in the set described above.
+
+`go mod tidy` may also add or remove `// indirect` comments on `require`
+directives. An `// indirect` comment denotes a module that does not provide
+packages imported by packages in the main module. These requirements will be
+present if the module that imports packages in the indirect dependency has
+no `go.mod` file. They may also be present if the indirect dependency is
+required at a higher version than is implied by the module graph; this usually
+happens after running a command like `go get -u ./...`.
+
 <a id="go-mod-vendor"></a>
 ### `go mod vendor`
 
