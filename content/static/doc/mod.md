@@ -1409,6 +1409,43 @@ and packages to standard error.
 <a id="go-mod-verify"></a>
 ### `go mod verify`
 
+Usage:
+
+```
+go mod verify
+```
+
+`go mod verify` checks that dependencies of the [main module](#glos-main-module)
+stored in the [module cache](#glos-module-cache) have not been modified since
+they were downloaded. To perform this check, `go mod verify` hashes each
+downloaded module [`.zip` file](#zip-files) and extracted directory, then
+compares those hashes with a hash recorded when the module was first
+downloaded. `go mod verify` checks each module in the [build
+list](#glos-build-list) (which may be printed with [`go list -m
+all`](#go-list-m)).
+
+If all the modules are unmodified, `go mod verify` prints "all modules
+verified". Otherwise, it reports which modules have been changed and exits with
+a non-zero status.
+
+Note that all module-aware commands verify that hashes in the main module's
+`go.sum` file match hashes recorded for modules downloaded into the module
+cache. If a hash is missing from `go.sum` (for example, because the module is
+being used for the first time), the `go` command verifies its hash using the
+[checksum database](#checksum-database) (unless the module path is matched by
+`GOPRIVATE` or `GONOSUMDB`). See [Authenticating modules](#authenticating) for
+details.
+
+In contrast, `go mod verify` checks that module `.zip` files and their extracted
+directories have hashes that match hashes recorded in the module cache when they
+were first downloaded. This is useful for detecting changes to files in the
+module cache *after* a module has been downloaded and verified. `go mod verify`
+does not download content for modules not in the cache, and it does not use
+`go.sum` files to verify module content. However, `go mod verify` may download
+`go.mod` files in order to perform [minimal version
+selection](#minimal-version-selection). It will use `go.sum` to verify those
+files, and it may add `go.sum` entries for missing hashes.
+
 <a id="go-version-m"></a>
 ### `go version -m`
 
