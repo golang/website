@@ -1044,6 +1044,121 @@ to standard error.
 <a id="go-mod-edit"></a>
 ### `go mod edit`
 
+Usage:
+
+```
+go mod edit [editing flags] [-fmt|-print|-json] [go.mod]
+```
+
+Example:
+
+```
+# Add a replace directive.
+$ go mod edit -replace example.com/a@v1.0.0=./a
+
+# Remove a replace directive.
+$ go mod edit -dropreplace example.com/a@v1.0.0
+
+# Set the go version, add a requirement, and print the file
+# instead of writing it to disk.
+$ go mod edit -go=1.14 -require=example.com/m@v1.0.0 -print
+
+# Format the go.mod file.
+$ go mod edit -fmt
+
+# Format and print a different .mod file.
+$ go mod edit -print tools.mod
+
+# Print a JSON representation of the go.mod file.
+$ go mod edit -json
+```
+
+The `go mod edit` command provides a command-line interface for editing and
+formatting `go.mod` files, for use primarily by tools and scripts. `go mod edit`
+reads only one `go.mod` file; it does not look up information about other
+modules. By default, `go mod edit` reads and writes the `go.mod` file of the
+main module, but a different target file can be specified after the editing
+flags.
+
+The editing flags specify a sequence of editing operations.
+
+* The `-module` flag changes the module's path (the `go.mod` file's module
+  line).
+* The `-go=version` flag sets the expected Go language version.
+* The `-require=path@version` and `-droprequire=path` flags add and drop a
+  requirement on the given module path and version. Note that `-require`
+  overrides any existing requirements on `path`. These flags are mainly for
+  tools that understand the module graph. Users should prefer `go get
+  path@version` or `go get path@none`, which make other `go.mod` adjustments as
+  needed to satisfy constraints imposed by other modules. See [`go
+  get`](#go-get).
+* The `-exclude=path@version` and `-dropexclude=path@version` flags add and drop
+  an exclusion for the given module path and version. Note that
+  `-exclude=path@version` is a no-op if that exclusion already exists.
+* The `-replace=old[@v]=new[@v]` flag adds a replacement of the given module
+  path and version pair. If the `@v` in `old@v` is omitted, a replacement
+  without a version on the left side is added, which applies to all versions of
+  the old module path. If the `@v` in `new@v` is omitted, the new path should be
+  a local module root directory, not a module path. Note that `-replace`
+  overrides any redundant replacements for `old[@v]`, so omitting `@v` will drop
+  replacements for specific versions.
+* The `-dropreplace=old[@v]` flag drops a replacement of the given module path
+  and version pair. If the `@v` is provided, a replacement with the given
+  version is dropped. An existing replacement without a version on the left side
+  may still replace the module. If the `@v` is omitted, a replacement without a
+  version is dropped.
+
+The editing flags may be repeated. The changes are applied in the order given.
+
+`go mod edit` has additional flags that control its output.
+
+* The `-fmt` flag reformats the `go.mod` file without making other changes.
+  This reformatting is also implied by any other modifications that use or
+  rewrite the `go.mod` file. The only time this flag is needed is if no
+  other flags are specified, as in `go mod edit -fmt`.
+* The `-print` flag prints the final `go.mod` in its text format instead of
+  writing it back to disk.
+* The `-json` flag prints the final `go.mod` in JSON format instead of writing
+  it back to disk in text format. The JSON output corresponds to these Go types:
+
+```
+type Module struct {
+        Path string
+        Version string
+}
+
+type GoMod struct {
+        Module  Module
+        Go      string
+        Require []Require
+        Exclude []Module
+        Replace []Replace
+}
+
+type Require struct {
+        Path string
+        Version string
+        Indirect bool
+}
+
+type Replace struct {
+        Old Module
+        New Module
+}
+```
+
+Note that this only describes the `go.mod` file itself, not other modules
+referred to indirectly. For the full set of modules available to a build,
+use `go list -m -json all`. See [`go list -m`](#go-list-m).
+
+For example, a tool can obtain the `go.mod` file as a data structure by
+parsing the output of `go mod edit -json` and can then make changes by invoking
+`go mod edit` with `-require`, `-exclude`, and so on.
+
+Tools may also use the package
+[`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
+to parse, edit, and format `go.mod` files.
+
 <a id="go-mod-init"></a>
 ### `go mod init`
 
