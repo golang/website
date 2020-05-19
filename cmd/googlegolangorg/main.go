@@ -12,8 +12,8 @@ import (
 var repoMap = map[string]*repoImport{
 	"api": {
 		VCS: "git",
-		URL: "https://code.googlesource.com/google-api-go-client",
-		Src: github("google/google-api-go-client"),
+		URL: "https://github.com/googleapis/google-api-go-client",
+		Src: github("googleapis/google-api-go-client"),
 	},
 	"appengine": {
 		VCS: "git",
@@ -25,12 +25,12 @@ var repoMap = map[string]*repoImport{
 		// here gives nicer errors in godoc.org and the go tool.
 		VCS: "git",
 		URL: "https://code.googlesource.com/gocloud",
-		Src: github("GoogleCloudPlatform/gcloud-golang"),
+		Src: github("googleapis/google-cloud-go"),
 	},
 	"genproto": {
 		VCS: "git",
-		URL: "https://github.com/google/go-genproto",
-		Src: github("google/go-genproto"),
+		URL: "https://github.com/googleapis/go-genproto",
+		Src: github("googleapis/go-genproto"),
 	},
 	"grpc": {
 		VCS: "git",
