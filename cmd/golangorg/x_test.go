@@ -61,6 +61,16 @@ func TestXHandler(t *testing.T) {
 			},
 		},
 		{
+			name: "pkgsite",
+			path: "/x/pkgsite",
+			checks: []check{
+				status(200),
+				substr(`<meta name="go-import" content="golang.org/x/pkgsite git https://go.googlesource.com/pkgsite">`),
+				substr(`Nothing to see here; <a href="https://pkg.go.dev/golang.org/x/pkgsite">move along</a>.`),
+				substr(`http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/pkgsite">`),
+			},
+		},
+		{
 			name:   "notexist",
 			path:   "/x/notexist",
 			checks: []check{status(404)},

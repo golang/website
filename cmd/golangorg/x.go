@@ -42,10 +42,15 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	docSite := "godoc.org"
+	if repo.UsePkgGoDev() {
+		docSite = "pkg.go.dev"
+	}
 	data := struct {
-		Proj   string // Gerrit project ("net", "sys", etc)
-		Suffix string // optional "/path" for requests like /x/PROJ/path
-	}{proj, suffix}
+		DocSite string // Website providing documentation, either "godoc.org" or "pkg.go.dev".
+		Proj    string // Gerrit project ("net", "sys", etc)
+		Suffix  string // optional "/path" for requests like /x/PROJ/path
+	}{docSite, proj, suffix}
 	if err := xTemplate.Execute(w, data); err != nil {
 		log.Println("xHandler:", err)
 	}
@@ -57,10 +62,10 @@ var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="go-import" content="golang.org/x/{{.Proj}} git https://go.googlesource.com/{{.Proj}}">
 <meta name="go-source" content="golang.org/x/{{.Proj}} https://github.com/golang/{{.Proj}}/ https://github.com/golang/{{.Proj}}/tree/master{/dir} https://github.com/golang/{{.Proj}}/blob/master{/dir}/{file}#L{line}">
-<meta http-equiv="refresh" content="0; url=https://godoc.org/golang.org/x/{{.Proj}}{{.Suffix}}">
+<meta http-equiv="refresh" content="0; url=https://{{.DocSite}}/golang.org/x/{{.Proj}}{{.Suffix}}">
 </head>
 <body>
-Nothing to see here; <a href="https://godoc.org/golang.org/x/{{.Proj}}{{.Suffix}}">move along</a>.
+Nothing to see here; <a href="https://{{.DocSite}}/golang.org/x/{{.Proj}}{{.Suffix}}">move along</a>.
 </body>
 </html>
 `))
