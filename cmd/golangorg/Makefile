@@ -75,7 +75,4 @@ publish: regtest
 		--splits=$(shell make get-latest-id)=1 \
 		--project=$(GCP_PROJECT)
 
-	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	@echo Stop and/or delete old versions:
-	@echo "https://console.cloud.google.com/appengine/versions?project=$(GCP_PROJECT)&serviceId=$(GCP_SERVICE)&versionsquery=%255B%257B_22k_22_3A_22env_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22FLEXIBLE_5C_22_22_2C_22s_22_3Atrue%257D%255D"
-	@echo !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	@echo Continue with the rest of the steps in \"Deploying to golang.org\" in the README.

@@ -70,7 +70,7 @@ It serves on localhost:8080.
 	Keep at least one older verson to roll back to, just in case.
 
 	You can view, stop/delete, or migrate traffic between versions via the
-	[GCP Console UI](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default&versionsquery=%255B%257B_22k_22_3A_22env_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22FLEXIBLE_5C_22_22_2C_22s_22_3Atrue%257D%255D).
+	[GCP Console UI](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default&pageState=(%22versionsTable%22:(%22f%22:%22%255B%257B_22k_22_3A_22Environment_22_2C_22t_22_3A10_2C_22v_22_3A_22_5C_22Flexible_5C_22_22_2C_22s_22_3Atrue_2C_22i_22_3A_22env_22%257D%255D%22))).
 
 5.	You're done.
 
