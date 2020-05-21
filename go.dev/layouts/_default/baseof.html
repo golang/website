@@ -13,8 +13,6 @@
   {{$stylesFP := $styles | fingerprint -}}
   <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
 {{end -}}
-{{if not .Site.IsServer -}}
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141356704-1"></script>
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -22,7 +20,6 @@
   'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
-{{end -}}
 <script src="/js/site.js"></script>
 <title>{{.Title}}{{if not .IsHome}} - {{.Site.Title}}{{end}}</title>
 {{if (isset .Params "link") -}}
