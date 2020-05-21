@@ -34,7 +34,7 @@ To format your code, you can use the gofmt tool directly:
 
 	gofmt -w yourcode.go
 
-Or you can use the "[go fmt](https://golang.org/cmd/go/#hdr-Run_gofmt_on_package_sources)" command:
+Or you can use the "[go fmt](https://golang.org/cmd/go/#hdr-Gofmt__reformat__package_sources)" command:
 
 	go fmt path/to/your/package
 
