@@ -1298,6 +1298,71 @@ and packages to standard error.
 <a id="go-version-m"></a>
 ### `go version -m`
 
+Usage:
+
+```
+go version [-m] [-v] [file ...]
+```
+
+Example:
+
+```
+# Print Go version used to build go.
+$ go version
+
+# Print Go version used to build a specific executable.
+$ go version ~/go/bin/gopls
+
+# Print Go version and module versions used to build a specific executable.
+$ go version -m ~/go/bin/gopls
+
+# Print Go version and module versions used to build executables in a directory.
+$ go version -m ~/go/bin/
+```
+
+`go version` reports the Go version used to build each executable file named
+on the command line.
+
+If no files are named on the command line, `go version` prints its own version
+information.
+
+If a directory is named, `go version` walks that directory, recursively, looking
+for recognized Go binaries and reporting their versions. By default, `go
+version` does not report unrecognized files found during a directory scan. The
+`-v` flag causes it to report unrecognized files.
+
+The `-m` flag causes `go version` to print each executable's embedded module
+version information, when available. For each executable, `go version -m` prints
+a table with tab-separated columns like the one below.
+
+```
+$ go version -m ~/go/bin/goimports
+/home/jrgopher/go/bin/goimports: go1.14.3
+        path    golang.org/x/tools/cmd/goimports
+        mod     golang.org/x/tools      v0.0.0-20200518203908-8018eb2c26ba      h1:0Lcy64USfQQL6GAJma8BdHCgeofcchQj+Z7j0SXYAzU=
+        dep     golang.org/x/mod        v0.2.0          h1:KU7oHjnv3XNWfa5COkzUifxZmxp1TyI7ImMXqFxLwvQ=
+        dep     golang.org/x/xerrors    v0.0.0-20191204190536-9bdfabe68543      h1:E7g+9GITq07hpfrRu66IVDexMakfv52eLZ2CXBWiKr4=
+```
+
+The format of the table may change in the future. The same information may be
+obtained from
+[`runtime/debug.ReadBuildInfo`](https://pkg.go.dev/runtime/debug?tab=doc#ReadBuildInfo).
+
+The meaning of each row in the table is determined by the word in the first
+column.
+
+* **`path`**: the path of the `main` package used to build the executable.
+* **`mod`**: the module containing the `main` package. The columns are the
+  module path, version, and sum, respectively. The [main
+  module](#glos-main-module) has the version `(devel)` and no sum.
+* **`dep`**: a module that provided one or more packages linked into the
+  executable. Same format as `mod`.
+* **`=>`**: a [replacement](#go.mod-replace) for the module on the previous
+  line. If the replacement is a local directory, only the directory path is
+  listed (no version or sum). If the replacement is a module version, the path,
+  version, and sum are listed, as with `mod` and `dep`. A replaced module has
+  no sum.
+
 <a id="go-clean-modcache"></a>
 ### `go clean -modcache`
 
