@@ -200,7 +200,7 @@ func filesToReleases(fs []File) (stable, unstable, archive []Release) {
 	sort.Sort(fileOrder(fs))
 
 	var r *Release
-	var stableMaj, stableMin int
+	var stableMaj int
 	add := func() {
 		if r == nil {
 			return
@@ -208,12 +208,6 @@ func filesToReleases(fs []File) (stable, unstable, archive []Release) {
 		if !r.Stable {
 			if len(unstable) != 0 {
 				// Only show one (latest) unstable version.
-				return
-			}
-			maj, min, _ := parseVersion(r.Version)
-			if maj < stableMaj || maj == stableMaj && min <= stableMin {
-				// Display unstable version only if newer than the
-				// latest stable release.
 				return
 			}
 			unstable = append(unstable, *r)
@@ -229,7 +223,7 @@ func filesToReleases(fs []File) (stable, unstable, archive []Release) {
 			}
 			if len(stable) == 0 {
 				// Most recent stable version.
-				stableMaj, stableMin, _ = parseVersion(r.Version)
+				stableMaj, _, _ = parseVersion(r.Version)
 				return true
 			}
 			if maj, _, _ := parseVersion(r.Version); maj == stableMaj {
