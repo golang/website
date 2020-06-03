@@ -1366,6 +1366,41 @@ column.
 <a id="go-clean-modcache"></a>
 ### `go clean -modcache`
 
+Usage:
+
+```
+go clean [-modcache]
+```
+
+The `-modcache` flag causes [`go
+clean`](/cmd/go/#hdr-Remove_object_files_and_cached_files) to remove the entire
+[module cache](#glos-module-cache), including unpacked source code of versioned
+dependencies.
+
+This is usually the best way to remove the module cache. By default, most files
+and directories in the module cache are read-only to prevent tests and editors
+from unintentionally changing files after they've been
+[authenticated](#authenticating). Unfortunately, this causes commands like
+`rm -r` to fail, since files can't be removed without first making their parent
+directories writable.
+
+The `-modcacherw` flag (accepted by [`go
+build`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies) and
+other module-aware commands) causes new directories in the module cache to
+be writable. To pass `-modcacherw` to all module-aware commands, add it to the
+`GOFLAGS` variable. `GOFLAGS` may be set in the environment or with [`go env
+-w`](https://golang.org/cmd/go/#hdr-Print_Go_environment_information). For
+example, the command below sets it permanently:
+
+```
+go env -w GOFLAGS=-modcacherw
+```
+
+`-modcacherw` should be used with caution; developers should be careful not
+to make changes to files in the module cache. [`go mod verify`](#go-mod-verify)
+may be used to check that files in the cache match hashes in the main module's
+`go.sum` file.
+
 <a id="version-queries"></a>
 ### Version queries
 
