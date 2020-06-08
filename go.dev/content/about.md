@@ -45,6 +45,10 @@ Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the b
 
 There are keyboard shortcuts for navigating package documentation pages. Type '?' on a package page for help.
 
+## Bookmarklet
+
+The pkg.go.dev bookmarklet navigates from pages on source code hosts, such as GitHub, Bitbucket, Launchpad etc., to the package documentation. To install the bookmarklet, click and drag the following link to your bookmark bar: <a href="javascript:(function(){ const pathRegex = window.location.pathname.match(/([^\/]+)(?:\/([^\/]+))?/); const host = window.location.hostname; if (pathRegex) { window.location='https://pkg.go.dev/'+host+'/'+pathRegex[0]; } else { alert('There was an error navigating to pkg.go.dev!'); } })()">Pkg.go.dev Doc</a>
+
 ## License policy
 Information for a given package or module may be limited if we are not able to detect a suitable license. See our [license policy](https://pkg.go.dev/license-policy) for more information.
 
