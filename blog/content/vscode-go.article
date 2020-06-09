@@ -30,7 +30,7 @@ help the Go extension maintainers. The Go team also began a new initiative to
 improve the tools powering all Go editor extensions, with a focus on supporting
 the
 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
-with [`gopls`](http://golang.org/s/gopls) and
+with [`gopls`](https://golang.org/s/gopls) and
 [the Debug Adapter Protocol with Delve](https://github.com/go-delve/delve/issues/1515).
 
 Through this collaborative work between the VS Code and Go teams, we realized
@@ -44,7 +44,7 @@ joining the Go project**. With this come two critical changes:
 1. The publisher of the plugin is shifting from "Microsoft" to "Golang".
 2. The project's repository is moving to join the rest of the Go project at [https://github.com/golang/vscode-go](https://github.com/golang/vscode-go).
 
-We cannot overstate our gratitude to the community of those who have helped
+We cannot overstate our gratitude to those who have helped
 build and maintain this beloved extension. We know that innovative ideas and
 features come from you, our users. The Go team’s primary aim as owners of the
 extension is to reduce the burden of maintenance work on the Go community.
