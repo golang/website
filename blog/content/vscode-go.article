@@ -1,6 +1,6 @@
 # The VS Code Go extension joins the Go project
 09 Jun 2020
-Summary: Announcement of VS Code Go's move to the Go project.
+Summary: Announcement of VS Code Go’s move to the Go project.
 OldURL: /the-vs-code-go-extension-joins-the-go-project
 
 The Go & VS Code Teams
@@ -43,7 +43,7 @@ partnership with the VS Code team: **The VS Code extension for Go is officially
 joining the Go project**. With this come two critical changes:
 
 1. The publisher of the plugin is shifting from "Microsoft" to "Golang".
-2. The project's repository is moving to join the rest of the Go project at [https://github.com/golang/vscode-go](https://github.com/golang/vscode-go).
+2. The project’s repository is moving to join the rest of the Go project at [https://github.com/golang/vscode-go](https://github.com/golang/vscode-go).
 
 We cannot overstate our gratitude to those who have helped
 build and maintain this beloved extension. We know that innovative ideas and
@@ -70,3 +70,5 @@ editor, a more cohesive and refined development experience.
 
 As always, our goal remains the same: Every user should have an excellent
 experience writing Go code.
+
+*See the accompanying post from the [Visual Studio Code team](https://aka.ms/go-blog-vscode-202006).*
