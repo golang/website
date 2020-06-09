@@ -42,7 +42,7 @@ As a result, we’re happy to announce the next phase in the Go team’s
 partnership with the VS Code team: **The VS Code extension for Go is officially
 joining the Go project**. With this come two critical changes:
 
-1. The publisher of the plugin is shifting from "Microsoft" to "Golang".
+1. The publisher of the plugin is shifting from "Microsoft" to "Go Team at Google".
 2. The project’s repository is moving to join the rest of the Go project at [https://github.com/golang/vscode-go](https://github.com/golang/vscode-go).
 
 We cannot overstate our gratitude to those who have helped
