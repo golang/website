@@ -24,7 +24,7 @@ var repoMap = map[string]*repoImport{
 		// This repo is now at "cloud.google.com/go", but still specifying the repo
 		// here gives nicer errors in godoc.org and the go tool.
 		VCS: "git",
-		URL: "https://code.googlesource.com/gocloud",
+		URL: "https://github.com/googleapis/google-cloud-go",
 		Src: github("googleapis/google-cloud-go"),
 	},
 	"genproto": {
