@@ -81,6 +81,12 @@ const templateHTML = `
 </style>
 <body class="Site">
 <header class="Header js-header">
+  <div class="Header-banner">
+    Black Lives Matter.
+    <a href="https://support.eji.org/give/153413/#!/donation/checkout"
+       target="_blank"
+       rel="noopener">Support the Equal Justice Initiative.</a>
+  </div>
   <nav class="Header-nav">
     <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
     <button class="Header-menuButton js-headerMenuButton" aria-label="Main menu" aria-expanded="false">
