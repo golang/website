@@ -300,6 +300,9 @@ a#start .desc {
 .Header.is-active {
   background-color: #f7f9fa;
 }
+.Header-banner {
+  display: none;
+}
 .Header-logo {
   height: 2rem;
   width: 5.125rem;
@@ -454,7 +457,22 @@ a#start .desc {
 }
 @media only screen and (min-width: 56rem) {
   .Header {
-    height: 5.125rem;
+    display: block;
+    padding: 0;
+  }
+  .Header-banner {
+    background-color: #000;
+    color: #fff;
+    display: block;
+    padding: 1rem;
+  }
+  .Header-banner a:link,
+  .Header-banner a:visited {
+    color: #fff;
+    text-decoration: underline;
+  }
+  .Header-nav {
+    width: auto;
   }
   .Header.is-active {
     background-color: #fff;
