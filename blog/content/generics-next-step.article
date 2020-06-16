@@ -110,7 +110,7 @@ specific topics.
 
 If you find bugs in the generics type checker or the translation tool,
 they should be filed in the standard Go issue tracker at
-https://golang.org/issue.
+[https://golang.org/issue](https://golang.org/issue).
 Please start the issue title with `cmd/go2go:`.
 Note that the issue tracker is not the best place to discuss changes
 to the language, because it does not provide threading and it is not
