@@ -4,6 +4,7 @@ Tags: go2, proposals, generics
 Summary: An updated generics design draft, and a translation tool for experimentation
 
 Ian Lance Taylor
+
 Robert Griesemer
 
 ## Introduction
