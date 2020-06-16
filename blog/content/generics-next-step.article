@@ -6,6 +6,8 @@ Summary: An updated generics design draft, and a translation tool for experiment
 Ian Lance Taylor
 Robert Griesemer
 
+## Introduction
+
 It’s been almost a year since we [last wrote about the possibility of
 adding generics to Go](https://blog.golang.org/why-generics).
 It’s time for an update.
