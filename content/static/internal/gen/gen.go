@@ -22,8 +22,8 @@ import (
 )
 
 var files = []string{
-	"analysis/call3.png",
 	"analysis/call-eg.png",
+	"analysis/call3.png",
 	"analysis/callers1.png",
 	"analysis/callers2.png",
 	"analysis/chan1.png",
@@ -50,6 +50,11 @@ var files = []string{
 	"doc/devel/weekly.html",
 	"doc/docs.html",
 	"doc/gopath_code.html",
+	"doc/mvs/buildlist.svg",
+	"doc/mvs/downgrade.svg",
+	"doc/mvs/exclude.svg",
+	"doc/mvs/replace.svg",
+	"doc/mvs/upgrade.svg",
 	"doc/root.html",
 	"doc/security.html",
 	"error.html",
@@ -57,9 +62,9 @@ var files = []string{
 	"godoc.html",
 	"godocs.js",
 	"images/cloud-download.svg",
+	"images/footer-gopher.jpg",
 	"images/go-logo-blue.svg",
 	"images/home-gopher.png",
-	"images/footer-gopher.jpg",
 	"images/minus.gif",
 	"images/play-link.svg",
 	"images/plus.gif",
