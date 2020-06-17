@@ -188,6 +188,12 @@ func (h server) getHandler(w http.ResponseWriter, r *http.Request) {
 		h.listHandler(w, r)
 		return
 	case fileRe.MatchString(name):
+		// This is a /dl/{file} request to download a file. It's implemented by
+		// redirecting to another host, which serves the bytes more efficiently.
+		//
+		// The redirect target is an internal implementation detail and may change
+		// if there is a good reason to do so. Last time was in CL 76971 (in 2017).
+		const downloadBaseURL = "https://dl.google.com/go/"
 		http.Redirect(w, r, downloadBaseURL+name, http.StatusFound)
 		return
 	case name == "gotip":

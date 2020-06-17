@@ -74,7 +74,7 @@ func TestLiveServer(t *testing.T) {
 		},
 		{
 			Path:      "/dl/",
-			Substring: "go1.11.windows-amd64.msi",
+			Substring: `href="/dl/go1.11.windows-amd64.msi"`,
 			Message:   "missing data on dl page - misconfiguration of datastore?",
 		},
 		{

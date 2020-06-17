@@ -8,8 +8,9 @@
 // lists entities with sorting and filtering.
 // It is designed to run only on the instance of godoc that serves golang.org.
 //
-// The package also serves the list of downloads at:
+// The package also serves the list of downloads and individual files at:
 //     https://golang.org/dl/
+//     https://golang.org/dl/{file}
 //
 // An optional query param, mode=json, serves the list of stable release
 // downloads in JSON format:
@@ -32,9 +33,8 @@ import (
 )
 
 const (
-	downloadBaseURL = "https://dl.google.com/go/"
-	cacheKey        = "download_list_4" // increment if listTemplateData changes
-	cacheDuration   = time.Hour
+	cacheKey      = "download_list_4" // increment if listTemplateData changes
+	cacheDuration = time.Hour
 )
 
 // File represents a file on the golang.org downloads page.
@@ -125,8 +125,12 @@ func (f File) Highlight() bool {
 	return false
 }
 
+// URL returns the canonical URL of the file.
 func (f File) URL() string {
-	return downloadBaseURL + f.Filename
+	// The download URL of a Go release file is /dl/{name}. It is handled by getHandler.
+	// Use a relative URL so it works for any host like golang.org and golang.google.cn.
+	// Don't shortcut to the redirect target here, we want canonical URLs to be visible. See issue 38713.
+	return "/dl/" + f.Filename
 }
 
 type Release struct {

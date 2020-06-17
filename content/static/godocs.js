@@ -277,7 +277,7 @@
       $('.testWindows').show();
     }
 
-    var download = 'https://dl.google.com/go/' + filename;
+    var download = '/dl/' + filename;
 
     var message = $(
       '<p class="downloading">' +
