@@ -2,11 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build golangorg
-
-// Package short implements a simple URL shortener, serving an administrative
-// interface at /s and shortened urls from /s/key.
-// It is designed to run only on the instance of godoc that serves golang.org.
+// Package short implements a simple URL shortener, serving shortened urls
+// from /s/key. An administrative handler is provided for other services to use.
 package short
 
 // TODO(adg): collect statistics on URL visits
@@ -16,7 +13,6 @@ import (
 	"errors"
 	"fmt"
 	"html/template"
-	"io"
 	"log"
 	"net/http"
 	"net/url"
@@ -25,7 +21,6 @@ import (
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/website/internal/memcache"
-	"google.golang.org/appengine/user"
 )
 
 const (
@@ -46,19 +41,16 @@ type server struct {
 	memcache  *memcache.CodecClient
 }
 
-func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Client) {
-	s := server{dc, mc.WithCodec(memcache.JSON)}
-	mux.HandleFunc(prefix+"/", s.linkHandler)
+func newServer(dc *datastore.Client, mc *memcache.Client) *server {
+	return &server{
+		datastore: dc,
+		memcache:  mc.WithCodec(memcache.JSON),
+	}
+}
 
-	// TODO(cbro): move storage of the links to a text file in Gerrit.
-	// Disable the admin handler until that happens, since GAE Flex doesn't support
-	// the "google.golang.org/appengine/user" package.
-	// See golang.org/issue/29988 and golang.org/issue/27205#issuecomment-418673218.
-	// mux.HandleFunc(prefix, adminHandler)
-	mux.HandleFunc(prefix, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusForbidden)
-		io.WriteString(w, "Link creation temporarily unavailable. See golang.org/issue/29988.")
-	})
+func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Client) {
+	s := newServer(dc, mc)
+	mux.HandleFunc(prefix+"/", s.linkHandler)
 }
 
 // linkHandler services requests to short URLs.
@@ -123,16 +115,20 @@ func extractKey(r *http.Request) (key, remainingPath string, err error) {
 	return key, remainingPath, nil
 }
 
+// AdminHandler serves an administrative interface for managing shortener entries.
+// Be careful. It is the caller’s responsibility to ensure that the handler is
+// only exposed to authorized users.
+func AdminHandler(dc *datastore.Client, mc *memcache.Client) http.HandlerFunc {
+	s := newServer(dc, mc)
+	return s.adminHandler
+}
+
 var adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
 
 // adminHandler serves an administrative interface.
+// Be careful. Ensure that this handler is only be exposed to authorized users.
 func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
-
-	if !user.IsAdmin(ctx) {
-		http.Error(w, "forbidden", http.StatusForbidden)
-		return
-	}
 
 	var newLink *Link
 	var doErr error

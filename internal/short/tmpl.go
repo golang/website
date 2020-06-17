@@ -6,22 +6,24 @@ package short
 
 const templateHTML = `
 <!doctype HTML>
-<html>
-<head>
+<html lang="en">
 <title>golang.org URL shortener</title>
 <style>
+* {
+	box-sizing: border-box;
+}
 body {
-	background: white;
+	font-family: system-ui, sans-serif;
 }
 input {
 	border: 1px solid #ccc;
 }
-input[type=text] {
+input[type=text],
+input[type=url] {
 	width: 400px;
 }
 input, td, th {
 	color: #333;
-	font-family: Georgia, Times New Roman, serif;
 }
 input, td {
 	font-size: 14pt;
@@ -42,18 +44,15 @@ table {
 	margin-right: auto;
 }
 </style>
-</head>
-<body>
-
 <table>
 
 {{with .Error}}
-<tr>
-	<th colspan="3">Error</th>
-</tr>
-<tr>
-	<td class="error" colspan="3">{{.}}</td>
-</tr>
+	<tr>
+		<th colspan="3">Error</th>
+	</tr>
+	<tr>
+		<td class="error" colspan="3">{{.}}</td>
+	</tr>
 {{end}}
 
 <tr>
@@ -62,58 +61,50 @@ table {
 	<th></th>
 </tr>
 
-<form method="POST" action="{{.Prefix}}">
+<form method="POST">
 <tr>
-	<td><input type="text" name="key"{{with .New}} value="{{.Key}}"{{end}}></td>
-	<td><input type="text" name="target"{{with .New}} value="{{.Target}}"{{end}}></td>
+	<td><input type="text" name="key"{{with .New}} value="{{.Key}}"{{end}} required></td>
+	<td><input type="url" name="target"{{with .New}} value="{{.Target}}"{{end}} required></td>
 	<td><input type="submit" name="do" value="Add">
 </tr>
 </form>
 
 {{with .Links}}
-<tr>
-	<th>Short Link</th>
-	<th>&nbsp;</th>
-	<th>&nbsp;</th>
-</tr>
-{{range .}}
-<tr>
-	<td><input class="autoselect" type="text" orig="{{$.BaseURL}}/{{.Key}}" value="{{$.BaseURL}}/{{.Key}}"></td>
-	<td><input class="autoselect" type="text" orig="{{.Target}}" value="{{.Target}}"></td>
-	<td>
-		<form method="POST" action="{{$.Prefix}}">
-			<input type="hidden" name="key" value="{{.Key}}">
-			<input type="submit" name="do" value="Delete" class="delete">
-		</form>
-	</td>
-</tr>
+	<tr>
+		<th>Short Link</th>
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	</tr>
+	{{range .}}
+		<tr>
+			<td><input class="autoselect" type="text" value="{{$.BaseURL}}/{{.Key}}" readonly></td>
+			<td><input class="autoselect" type="text" value="{{.Target}}" readonly></td>
+			<td>
+				<form method="POST">
+					<input type="hidden" name="key" value="{{.Key}}">
+					<input type="submit" name="do" value="Delete" class="delete">
+				</form>
+			</td>
+		</tr>
+	{{end}}
 {{end}}
-{{end}}
-
 </table>
-
-</body>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script type="text/javascript">window.jQuery || document.write(unescape("%3Cscript src='/doc/jquery.js' type='text/javascript'%3E%3C/script%3E"));</script>
 <script>
-$(document).ready(function() {
-	$('.autoselect').each(function() {
-		$(this).click(function() {
-			$(this).select();
-		});
-		$(this).change(function() {
-			$(this).val($(this).attr('orig'));
-		});
-	});
-	$('.delete').click(function(e) {
-		var link = $(this).closest('tr').find('input').first().val();
-		var ok = confirm('Delete this link?\n' + link);
-		if (!ok) {
-			e.preventDefault();
-			return false;
-		}
+document.querySelectorAll('.autoselect').forEach(el => {
+	el.addEventListener('click', e => {
+		e.target.select();
 	});
 });
+
+const baseURL = '{{$.BaseURL}}';
+document.querySelectorAll('.delete').forEach(el => {
+	el.addEventListener('click', e => {
+		const key = e.target.form.elements['key'].value;
+		if (!confirm('Delete this link?\n' + baseURL + '/' + key)) {
+			e.preventDefault();
+			return;
+		}
+	})
+});
 </script>
-</html>
 `
