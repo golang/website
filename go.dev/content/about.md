@@ -4,12 +4,12 @@ date: 2019-06-25T17:51:23-04:00
 draft: false
 ---
 
-[Go.dev](https://go.dev) is a companion website to [golang.org](https://golang.org). [Golang.org](https://golang.org) is the home of the open source project and distribution, while [go.dev](https://go.dev) is the hub for Go users providing centralized and curated resources from across the Go ecosystem. 
+[Go.dev](https://go.dev) is a companion website to [golang.org](https://golang.org). [Golang.org](https://golang.org) is the home of the open source project and distribution, while [go.dev](https://go.dev) is the hub for Go users providing centralized and curated resources from across the Go ecosystem.
 
 {{% gopher gopher=pink align=right %}}
 Go.dev provides:
 
-1. Centralized information for Go packages and modules published on index.golang.org. 
+1. Centralized information for Go packages and modules published on index.golang.org.
 2. Essential learning resources
 3. Critical use cases & case studies
 
@@ -18,13 +18,9 @@ Go.dev is currently in [MVP](https://en.wikipedia.org/wiki/Minimum_viable_produc
 ## Adding a package
 Data for the site is downloaded from [proxy.golang.org](https://proxy.golang.org/). We monitor the [Go Module Index](https://index.golang.org/index) regularly for new packages to add to pkg.go.dev. If you don’t see a package on pkg.go.dev, you can add it by doing one of the following:
 
-*  Making a request to proxy.golang.org for the module version, to any endpoint specified by the [Module proxy protocol](https://golang.org/cmd/go/#hdr-Module_proxy_protocol%3CPaste%3E). For example:
+*  Making a request to proxy.golang.org for the module version, to any endpoint specified by the [Module proxy protocol](https://golang.org/cmd/go/#hdr-Module_proxy_protocol). For example: <br /> https://<span></span>proxy.golang.org/example.com/my/module/@v/v1.0.0.info
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; https://<span></span>proxy.golang.org/example.com/my/module/@v/v1.0.0.info
-
-*  Downloading the package via the [go command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them). For example:
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  GOPROXY="https://<span></span>proxy.golang.org GO111MODULE=on go get &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;example.com/my/module@v1.0.0
+*  Downloading the package via the [go command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them). For example:  <br /> GOPROXY=https://<span></span>proxy.golang.org GO111MODULE=on go get example.com/my/module@v1.0.0
 
 ## Removing a package
 If you would like a package removed,  please post on the [Go Issue Tracker](https://golang.org/s/discovery-feedback) or email [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com) with the import path or module path that you want to remove.
@@ -33,7 +29,7 @@ Note that we can only remove a module entirely from the site. We cannot remove i
 
 ## Documentation
 
-Documentation is generated based on Go source code downloaded from the Go Module Mirror at proxy.golang.org/<module>@<version>.zip. New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
+Documentation is generated based on Go source code downloaded from the Go Module Mirror at `proxy.golang.org/<module>@<version>.zip.` New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
 
 The [guidelines for writing documentation](https://blog.golang.org/godoc) for the godoc tool apply to pkg.go.dev.
 
