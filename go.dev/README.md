@@ -12,8 +12,25 @@ git clone sso://partner-code/go.dev && (cd go.dev && f=`git rev-parse --git-dir`
 - `themes/default` contains the site layout.
 
 ### Style Guides
+
 - [CSS](https://golang.org/wiki/CSSStyleGuide)
 - [JavaScript](https://google.github.io/styleguide/jsguide.html)
+
+## Installation/Usage
+
+Go.dev uses Hugo to serve the frontend client.
+
+To build using the _Dockerfile.hugo_ image:
+
+```
+docker build -t hugo -f Dockerfile.hugo .
+```
+
+Then run and serve locally
+
+```
+docker run -v $(pwd):/src -p 1313:1313 -t -i hugo serve --bind 0.0.0.0 -s /src
+```
 
 ## Deploying
 
@@ -21,14 +38,16 @@ All commits targeting `master` will trigger a CI test defined in `cloudbuild.ci.
 All commits pushed to `master` will be automatically deployed to https://dev.go.dev.
 
 ## Code repo
+
 https://partner-code.git.corp.google.com/go.dev
 
 ## Commands
 
-- Running the server:  `hugo server -D`
-- Pushing to staging:  `git push -f origin HEAD:staging`
+- Running the server: `hugo server -D`
+- Pushing to staging: `git push -f origin HEAD:staging`
 
 ## Where things live
+
 - Javascript:
 - Carousels: /static/js/carousels.js
 - Tab navigation, filtering, listeners: /static/js/site.js
