@@ -2260,6 +2260,180 @@ a wide range of platforms.
 <a id="private-modules"></a>
 ## Private modules
 
+Go modules are frequently developed and distributed on version control servers
+and module proxies that aren't available on the public internet. The `go`
+command can download and build modules from private sources, though it usually
+requires some configuration.
+
+The environment variables below may be used to configure access to private
+modules. See [Environment variables](#environment-variables) for details. See
+also [Privacy](#privacy) for information on controlling information sent to
+public servers.
+
+* `GOPROXY` — list of module proxy URLs. The `go` command will attempt to
+  download modules from each server in sequence. The keyword `direct` instructs
+  the `go` command to download modules from version control repositories
+  where they're developed instead of using a proxy.
+* `GOPRIVATE` — list of glob patterns of module path prefixes that should be
+  considered private. Acts as a default value for `GONOPROXY` and `GONOSUMDB`.
+* `GONOPROXY` — list of glob patterns of module path prefixes that should not be
+  downloaded from a proxy. The `go` command will download matching modules from
+  version control repositories where they're developed, regardless of `GOPROXY`.
+* `GONOSUMDB` — list of glob patterns of module path prefixes that should not be
+  checked using the public checksum database,
+  [sum.golang.org](https://sum.golang.org).
+* `GOINSECURE` — list of glob patterns of module path prefixes that may be
+  retrieved over HTTP and other insecure protocols.
+
+These variables may be set in the development environment (for example, in a
+`.profile` file), or they may be set permanently with [`go env
+-w`](https://golang.org/cmd/go/#hdr-Print_Go_environment_information).
+
+The rest of this section describes common patterns for providing access to
+private module proxies and version control repositories.
+
+<a id="private-module-proxy-all"></a>
+### Private proxy serving all modules
+
+A central private proxy server that serves all modules (public and private)
+provides the most control for administrators and requires the least
+configuration for individual developers.
+
+To configure the `go` command to use such a server, set the following
+environment variables, replacing `https://proxy.corp.example.com` with your
+proxy URL and `corp.example.com` with your module prefix:
+
+```
+GOPROXY=https://proxy.corp.example.com
+GONOSUMDB=corp.example.com
+```
+
+The `GOPROXY` setting instructs the `go` command to only download modules from
+`https://proxy.corp.example.com`; the `go` command will not connect to other
+proxies or version control repositories.
+
+The `GONOSUMDB` setting instructs the `go` command not to use the public
+checksum database to authenticate modules with paths starting with
+`corp.example.com`.
+
+A proxy running in this configuration will likely need read access to
+private version control servers. It will also need access to the public internet
+to download new versions of public modules.
+
+There are several existing implementations of `GOPROXY` servers that may be used
+this way. A minimal implementation would serve files from a [module
+cache](#glos-module-cache) directory and would use [`go mod
+download`](#go-mod-download) (with suitable configuration) to retrieve missing
+modules.
+
+<a id="private-module-proxy-private"></a>
+### Private proxy serving private modules
+
+A private proxy server may serve private modules without also serving publicly
+available modules. The `go` command can be configured to fall back to
+public sources for modules that aren't available on the private server.
+
+To configure the `go` command to work this way, set the following environment
+variables, replacing `https://proxy.corp.example.com` with the proxy URL and
+`corp.example.com` with the module prefix:
+
+```
+GOPROXY=https://proxy.corp.example.com,https://proxy.golang.org,direct
+GONOSUMDB=corp.example.com
+```
+
+The `GOPROXY` setting instructs the `go` command to try to download modules from
+`https://proxy.corp.example.com` first. If that server responds with 404 (Not
+Found) or 410 (Gone), the `go` command will fall back to
+`https://proxy.golang.org`, then to direct connections to repositories.
+
+The `GONOSUMDB` setting instructs the `go` command not to use the public checksum
+database to authenticate modules whose paths start with `corp.example.com`.
+
+Note that a proxy used in this configuration may still control access to public
+modules, even though it doesn't serve them. If the proxy responds to a request
+with an error status other than 404 or 410, the `go` command will not fall back
+to later entries in the `GOPROXY` list. For example, the proxy could respond
+with 403 (Forbidden) for a module with an unsuitable license or with known
+security vulnerabilities.
+
+<a id="private-module-proxy-direct"></a>
+### Direct access to private modules
+
+The `go` command may be configured to bypass public proxies and download private
+modules directly from version control servers. This is useful when running a
+private proxy server is not feasible.
+
+To configure the `go` command to work this way, set `GOPRIVATE`, replacing
+`corp.example.com` the private module prefix:
+
+```
+GOPRIVATE=corp.example.com
+```
+
+The `GOPROXY` variable does not need to be changed in this situation. It
+defaults to `https://proxy.golang.org,direct`, which instructs the `go` command
+to attempt to download modules from `https://proxy.golang.org` first, then fall
+back to a direct connection if that proxy responds with 404 (Not Found) or 410
+(Gone).
+
+The `GOPRIVATE` setting instructs the `go` command not to connect to a proxy or
+to the checksum database for modules starting with `corp.example.com`.
+
+An internal HTTP server may still be needed to [resolve module paths to
+repository URLs](#vcs-find). For example, when the `go` command downloads the
+module `corp.example.com/mod`, it will send a GET request to
+`https://corp.example.com/mod?go-get=1`, and it will look for the repository URL
+in the response. To avoid this requirement, ensure that each private module path
+has a VCS suffix (like `.git`) marking the repository root prefix. For example,
+when the `go` command downloads the module `corp.example.com/repo.git/mod`, it
+will clone the Git repository at `https://corp.example.com/repo.git` or
+`ssh://corp.example.com/repo.git` without needing to make additional requests.
+
+Developers will need read access to repositories containing private modules.
+This may be configured in global VCS configuration files like `.gitconfig`.
+It's best if VCS tools are configured not to need interactive authentication
+prompts. By default, when invoking Git, the `go` command disables interactive
+prompts by setting `GIT_TERMINAL_PROMPT=0`, but it respects explicit settings.
+
+<a id="private-module-proxy-auth"></a>
+### Passing credentials to private proxies
+
+The `go` command supports HTTP [basic
+authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) when
+communicating with proxy servers.
+
+Credentials may be specified in a [`.netrc`
+file](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html).
+For example, a `.netrc` file containing the lines below would configure the `go`
+command to connect to the machine `proxy.corp.example.com` with the given
+username and password.
+
+```
+machine proxy.corp.example.com
+login jrgopher
+password hunter2
+```
+
+The location of the file may be set with the `NETRC` environment variable. If
+`NETRC` is not set, the `go` command will read `$HOME/.netrc` on UNIX-like
+platforms or `%USERPROFILE%\_netrc` on Windows.
+
+Fields in `.netrc` are separated with spaces, tabs, and newlines. Unfortunately,
+these characters cannot be used in usernames or passwords. Note also that the
+machine name cannot be a full URL, so it's not possible to specify different
+usernames and passwords for different paths on the same machine.
+
+Alternatively, credentials may be specified directly in `GOPROXY` URLs. For
+example:
+
+```
+GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
+```
+
+Use caution when taking this approach: environment variables may be appear
+in shell history and in logs.
+
 <a id="module-cache"></a>
 ## Module cache
 
