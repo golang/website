@@ -908,6 +908,12 @@ Do not send CLs removing the interior tags from such phrases.
       The erroneous case never worked as expected, and will now be
       reported with an error <code>can't give argument to non-function</code>.
     </p>
+
+    <p><!-- CL 207637 -->
+      <a href="/pkg/text/template/#JSEscape"><code>JSEscape</code></a> now
+      escapes the <code>&amp;</code> and <code>&equals;</code> characters to
+      mitigate the impact of its output being misused in HTML contexts.
+    </p>
   </dd>
 </dl><!-- text/template -->
 
