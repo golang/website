@@ -1807,7 +1807,7 @@ type Info struct {
       <td><code>$base/$module/@v/$version.zip</code></td>
       <td>
         Returns a zip file containing the contents of a specific version of
-        a module. See <a href="#zip-format">Module zip format</a> for details
+        a module. See <a href="#zip-files">Module zip files</a> for details
         on how this zip file must be formatted.
       </td>
     </tr>
@@ -1837,7 +1837,7 @@ versions, but this is no longer true since Go 1.13.
 A module proxy must always serve the same content for successful
 responses for `$base/$module/$version.mod` and `$base/$module/$version.zip`
 queries. This content is [cryptographically authenticated](#authenticating)
-using [`go.sum` files](#go.sum-file-format) and, by default, the
+using [`go.sum` files](#go.sum-files) and, by default, the
 [checksum database](#checksum-database).
 
 The `go` command caches most content it downloads from module proxies in its
@@ -2447,8 +2447,58 @@ fetched from a proxy or origin server, the `go` command first consults the
 does not contain an entry for that module version, then it may consult the
 checksum database.
 
-<a id="go.sum-file-format"></a>
-### go.sum file format
+<a id="go.sum-files"></a>
+### go.sum files
+
+A module may have a text file named `go.sum` in its root directory, alongside
+its `go.mod` file. The `go.sum` file contains cryptographic hashes of the
+module's direct and indirect dependencies. `go.sum` may be empty or absent
+if the module has no dependencies or if all dependencies are replaced with
+local directories using [`replace` directives](#go.mod-replace).
+
+Each line in `go.sum` has three fields separated by spaces: a module path,
+a version (possibly ending with `/go.mod`), and a hash.
+
+* The module path is the name of the module the hash belongs to.
+* The version is the version of the module the hash belongs to. If the version
+  ends with `/go.mod`, the hash is for the module's `go.mod` file only;
+  otherwise, the hash is for the files within the module's `.zip` file.
+* The hash column consists of an algorithm name (like `h1`) and a base64-encoded
+  cryptographic hash, separated by a colon (`:`). Currently, SHA-256 (`h1`) is
+  the only supported hash algorithm. If a vulnerability in SHA-256 is discovered
+  in the future, support will be added for another algorithm (named `h2` and
+  so on).
+
+When the `go` command downloads a module `.mod` or `.zip` file into the [module
+cache](#module-cache), it computes a hash and checks that the hash matches the
+corresponding hash in the main module's `go.sum` file. For `.mod` files, the
+file contents are hashed. For `.zip` files, the files within the archive are
+hashed. The hash is not affected by file ordering, compression, alignment, or
+metadata. See [Module zip files](#zip-files) for information on which files are
+included. See
+[`golang.org/x/mod/sumdb/dirhash`](https://pkg.go.dev/golang.org/x/mod/sumdb/dirhash?tab=doc)
+for hash implementation details.
+
+If the computed hash does not match the corresponding hash in `go.sum`, the `go`
+command reports a security error. If the hash is not present in `go.sum`, the
+`go` command looks up the correct hash in the [checksum
+database](#checksum-database) (unless the module matches `GONOSUMDB` or
+`GOSUMDB` is set to `off`; see [Environment
+variables](#environment-variables)). If no mismatch is detected, the `go`
+command adds the hash to `go.sum`.
+
+The `go` command does not automatically verify modules already in the cache. By
+default, files and directories in the module cache have read-only permissions to
+prevent accidental changes. The [`go mod verify`](#go-mod-verify) command may be
+used to check that `.zip` files and extracted directories in the module cache
+match hashes recorded when they were downloaded.
+
+The `go.sum` file may contain hashes for multiple versions of a module. The `go`
+command may need to load `go.mod` files from multiple versions of a dependency
+in order to perform [minimal version selection](#minimal-version-selection).
+`go.sum` may also contain hashes for module versions that aren't needed anymore
+(for example, after an upgrade). [`go mod tidy`](#go-mod-tidy) will add missing
+hashes and will remove unnecessary hashes from `go.sum`.
 
 <a id="checksum-database"></a>
 ### Checksum database
