@@ -27,7 +27,7 @@
     </p>
   </div>
 </section>
-<section class="Learn-guided">
+<section id="guided-learning-journeys" class="Learn-guided">
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Guided learning journeys</h2>
@@ -52,7 +52,7 @@
     </ul>
   </div>
 </section>
-<section class="Learn-online">
+<section id="online-learning" class="Learn-online">
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Online learning</h2>
@@ -75,7 +75,7 @@
     </ul>
   </div>
 </section>
-<section class="Learn-online">
+<section id="self-paced-labs" class="Learn-online">
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Google Cloud Self-Paced Labs</h2>
@@ -98,7 +98,7 @@
     </ul>
   </div>
 </section>
-<section class="Learn-books">
+<section id="featured-books" class="Learn-books">
   <div class="Container">
     <div class="Learn-subHeader">
       <h2>Featured books</h2>
@@ -159,9 +159,9 @@
       <li class="Learn-eventItem">
         <div class="Learn-eventThumbnail {{if not .thumbnailurl}}Learn-eventThumbnail--noimage{{end}}">
           {{if .thumbnailurl}}
-          <img alt="{{.name}} group photo" src="{{.thumbnailurl}}"/>
+          <img alt="{{.name}} group photo" src="{{.thumbnailurl}}">
           {{else}}
-          <img src="/images/meetup.svg" alt="meetup logo"/>
+          <img src="/images/meetup.svg" alt="meetup logo">
           {{end}}
         </div>
         <div class="Learn-eventBody">

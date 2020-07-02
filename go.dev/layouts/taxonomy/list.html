@@ -12,7 +12,11 @@
             {{$logo := .Resources.GetMatch "logo" -}}
             {{if $logo -}}
               <span class="Series-listItemIcon">
-                <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
+                <img
+                  loading="lazy"
+                  src="{{$logo.RelPermalink}}"
+                  class="WhoUses-logo"
+                  alt="{{$logo.Params.alt}}">
               </span>
             {{end -}}
             <div class="Series-listItemText">

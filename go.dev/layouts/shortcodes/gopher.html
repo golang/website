@@ -101,5 +101,14 @@
     {{$src = "/images/gophers/violet.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
+{{if eq $gopher "factory"}}
+    {{$src = "/images/gophers/factory.png"}}
+    {{$alt = "Go gopher factory"}}
+{{end}}
 
-<img class="{{$size}}Media-image {{$align}}" alt="{{$alt}}" src="{{$src}}">
+
+<img
+  loading="lazy"
+  class="{{$size}}Media-image {{$align}}"
+  alt="{{$alt}}"
+  src="{{$src}}">

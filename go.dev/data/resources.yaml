@@ -1,0 +1,57 @@
+resources:
+  - title: Cloud & Network Services
+    description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
+    link: /solutions/cloud/
+    icon: /images/icons/sphere.svg
+    iconName: Sphere
+    packages:
+    - title: cloud.google.com/go
+      url: https://cloud.google.com/go/home
+    - title: aws/client
+      url: https://aws.amazon.com/sdk-for-go/
+    - title: Azure/azure-sdk-for-go
+      url: https://github.com/Azure/azure-sdk-for-go
+  - title: Command-line Interfaces
+    description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
+    link: /solutions/clis/
+    icon: /images/icons/command-folder.svg
+    iconName: Command Line
+    packages:
+    - title: spf13/cobra
+      url: https://github.com/spf13/cobra
+    - title: spf13/viper
+      url: https://github.com/spf13/viper
+    - title: urfave/cli
+      url: https://github.com/urfave/cli
+    - title: delve
+      url: https://github.com/go-delve/delve
+    - title: chzyer/readline
+      url: https://github.com/chzyer/readline
+  - title: Web Development
+    description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
+    link: /solutions/webdev/
+    icon: /images/icons/code.svg
+    iconName: Code
+    packages:
+    - title: net/http
+      url: https://golang.org/pkg/net/http/
+    - title: html/template
+      url: https://golang.org/pkg/html/template/
+    - title: flosch/pongo2
+      url: https://github.com/flosch/pongo2
+    - title: database/sql
+      url: https://golang.org/pkg/database/sql/
+    - title: olivere/elastic
+      url: https://github.com/olivere/elastic
+  - title: DevOps & Site Reliability
+    description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
+    link: /solutions/devops/
+    icon: /images/icons/gear.svg
+    iconName: Sphere
+    packages:
+    - title: opentracing/opentracing-go
+      url: https://github.com/opentracing/opentracing-go
+    - title: istio/istio
+      url: https://github.com/istio/istio
+    - title: urfave/cli
+      url: https://github.com/urfave/cli
