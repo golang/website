@@ -147,7 +147,7 @@ func NewReader(r io.Reader) *Reader {
 }
 
 func (r *Reader) Read(b []byte) (int, error) {
-  if rs, ok := r.r(io.Seeker); ok {
+  if rs, ok := r.r.(io.Seeker); ok {
     // Use more efficient rs.Seek.
   }
   // Use less efficient r.r.Read.
