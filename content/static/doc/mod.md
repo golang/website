@@ -2437,6 +2437,139 @@ in shell history and in logs.
 <a id="module-cache"></a>
 ## Module cache
 
+The <dfn>module cache</dfn> is the directory where the `go` command stores
+downloaded module files. The module cache is distinct from the build cache,
+which contains compiled packages and other build artifacts.
+
+The default location of the module cache is `$GOPATH/pkg/mod`. To use a
+different location, set the `GOMODCACHE` [environment
+variable](#environment-variables).
+
+The module cache has no maximum size, and the `go` command does not remove its
+contents automatically.
+
+The cache may be shared by multiple Go projects developed on the same machine.
+The `go` command will use the same cache regardless of the location of the
+main module. Multiple instances of the `go` command may safely access the
+same module cache at the same time.
+
+The `go` command creates module source files and directories in the cache with
+read-only permissions to prevent accidental changes to modules after they're
+downloaded. This has the unfortunate side-effect of making the cache difficult
+to delete with commands like `rm -rf`. The cache may instead be deleted with
+[`go clean -modcache`](#go-clean-modcache). Alternatively, when the
+`-modcacherw` flag is used, the `go` command will create new directories with
+read-write permissions. This increases the risk of editors, tests, and other
+programs modifying files in the module cache. The [`go mod
+verify`](#go-mod-verify) command may be used to detect modifications to
+dependencies of the main module. It scans the extracted contents of each
+module dependency and confirms they match the expected hash in `go.sum`.
+
+The table below explains the purpose of most files in the module cache. Some
+transient files (lock files, temporary directories) are omitted. For each path,
+`$module` is a module path, and `$version` is a version. Paths ending with
+slashes (`/`) are directories. Capital letters in module paths and versions are
+escaped using exclamation points (`Azure` is escaped as `!azure`) to avoid
+conflicts on case-insensitive file systems.
+
+<table class="ModTable">
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$module@$version/</code></td>
+      <td>
+        Directory containing extracted contents of a module <code>.zip</code>
+        file. This serves as a module root directory for a downloaded module. It
+        won't contain contain a <code>go.mod</code> file if the original module
+        didn't have one.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/</code></td>
+      <td>
+        Directory containing files downloaded from module proxies and files
+        derived from <a href="#vcs">version control systems</a>. The layout of
+        this directory follows the
+        <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>, so
+        this directory may be used as a proxy when served by an HTTP file
+        server or when referenced with a <code>file://</code> URL.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/$module/@v/list</code></td>
+      <td>
+        List of known versions (see
+        <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). This
+        may change over time, so the <code>go</code> command usually fetches a
+        new copy instead of re-using this file.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/$module/@v/$version.info</code></td>
+      <td>
+        JSON metadata about the version. (see
+        <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). This
+        may change over time, so the <code>go</code> command usually fetches a
+        new copy instead of re-using this file.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/$module/@v/$version.mod</code></td>
+      <td>
+        The <code>go.mod</code> file for this version (see
+        <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). If
+        the original module did not have a <code>go.mod</code> file, this is
+        a synthesized file with no requirements.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/$module/@v/$version.zip</code></td>
+      <td>
+        The zipped contents of the module (see
+        <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a> and
+        <a href="#zip-files">Module zip files</a>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/$module/@v/$version.ziphash</code></td>
+      <td>
+        A cryptographic hash of the files in the <code>.zip</code> file.
+        Note that the <code>.zip</code> file itself is not hashed, so file
+        order, compression, alignment, and metadata don't affect the hash.
+        When using a module, the <code>go</code> command verifies this hash
+        matches the corresponding line in
+        <a href="#go.sum-files"><code>go.sum</code></a>. The
+        <a href="#go-mod-verify"><code>go mod verify</code></a> command checks
+        that the hashes of module <code>.zip</code> files and extracted
+        directories match these files.
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/download/sumdb/</code></td>
+      <td>
+        Directory containing files downloaded from a
+        <a href="#checksum-database">checksum database</a> (typically
+        <code>sum.golang.org</code>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>cache/vcs/</code></td>
+      <td>
+        Contains cloned version control repositories for modules fetched
+        directly from their sources. Directory names are hex-encoded hashes
+        derived from the repository type and URL. Repositories are optimized
+        for size on disk. For example, cloned Git repositories are bare and
+        shallow when possible.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
 <a id="authenticating"></a>
 ## Authenticating modules
 
@@ -2699,6 +2832,20 @@ of all environment variables recognized by the `go` command.
         <p>
           See <a href="mod-commands">Module-aware commands</a> for more
           information.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOMODCACHE</code></td>
+      <td>
+        <p>
+          The directory where the <code>go</code> command will store downloaded
+          modules and related files. See <a href="#module-cache">Module
+          cache</a> for details on the structure of this directory.
+        </p>
+        <p>
+          If <code>GOMODCACHE</code> is not set, it defaults to
+          <code>$GOPATH/pkg/mod</code>.
         </p>
       </td>
     </tr>
