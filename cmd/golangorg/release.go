@@ -178,9 +178,11 @@ var releaseSummaryHTML = template.Must(template.New("").Parse(`
 	{{with .ComponentsAndPackages}} to {{.}}{{end}}.
 	{{.More}}
 
+	{{if .Released}}
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo{{.V}}+label%3ACherryPickApproved">Go
 	{{.V}} milestone</a> on our issue tracker for details.
+	{{end}}
 {{else}}
 	{{.CustomSummary}}
 {{end}}
