@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build golangorg
-
 package dl
 
 import (
@@ -46,7 +44,7 @@ func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Cli
 var rootKey = datastore.NameKey("FileRoot", "root", nil)
 
 func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
-	if r.Method != "GET" {
+	if r.Method != "GET" && r.Method != "OPTIONS" {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
@@ -80,24 +78,38 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.URL.Query().Get("mode") == "json" {
-		var releases []Release
-		switch r.URL.Query().Get("include") {
-		case "all":
-			releases = append(append(d.Stable, d.Archive...), d.Unstable...)
-		default:
-			releases = d.Stable
-		}
-		w.Header().Set("Content-Type", "application/json")
-		enc := json.NewEncoder(w)
-		enc.SetIndent("", " ")
-		if err := enc.Encode(releases); err != nil {
-			log.Printf("ERROR rendering JSON for releases: %v", err)
-		}
+		serveJSON(w, r, d)
 		return
 	}
 
 	if err := listTemplate.ExecuteTemplate(w, "root", d); err != nil {
 		log.Printf("ERROR executing template: %v", err)
+	}
+}
+
+// serveJSON serves a JSON representation of d. It assumes that requests are
+// limited to GET and OPTIONS, the latter used for CORS requests, which this
+// endpoint supports.
+func serveJSON(w http.ResponseWriter, r *http.Request, d listTemplateData) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	if r.Method == "OPTIONS" {
+		// Likely a CORS preflight request.
+		w.WriteHeader(http.StatusNoContent)
+		return
+	}
+	var releases []Release
+	switch r.URL.Query().Get("include") {
+	case "all":
+		releases = append(append(d.Stable, d.Archive...), d.Unstable...)
+	default:
+		releases = d.Stable
+	}
+	w.Header().Set("Content-Type", "application/json")
+	enc := json.NewEncoder(w)
+	enc.SetIndent("", " ")
+	if err := enc.Encode(releases); err != nil {
+		log.Printf("ERROR rendering JSON for releases: %v", err)
 	}
 }
 
