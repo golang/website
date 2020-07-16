@@ -34,13 +34,13 @@ var Releases = map[GoVer]Release{
 	{1, 14, 6}: {
 		Date: Date{2020, 7, 16},
 
-		Components: []template.HTML{"the <code>go</code> command", "the toolchain"},
-		Packages:   []string{"database/sql", "encoding/json", "net/http", "testing"},
+		Components: []template.HTML{"the <code>go</code> command", "the compiler", "the linker", "vet"},
+		Packages:   []string{"database/sql", "encoding/json", "net/http", "reflect", "testing"},
 	},
 	{1, 13, 14}: {
 		Date: Date{2020, 7, 16},
 
-		Components: []template.HTML{"the <code>go</code> command", "the compiler", "the toolchain"},
+		Components: []template.HTML{"the compiler", "vet"},
 		Packages:   []string{"database/sql", "net/http", "reflect"},
 	},
 
