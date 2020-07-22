@@ -8,6 +8,7 @@ env_variables:
 handlers:
   - url: .*
     script: auto
+    secure: always
     login: admin # THIS MUST BE SET
 
 vpc_access_connector:
