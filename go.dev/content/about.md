@@ -37,6 +37,12 @@ It’s important to write a good summary of the package in the first sentence of
 
 Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the bottom of the documentation page.
 
+## Creating a badge
+
+The pkg.go.dev badge provides a way for Go users to learn about the pkg.go.dev page associated with a given Go package or module. You can create a badge using the [badge generation tool](https://pkg.go.dev/badge). The tool will generate html and markdown snippets that you can use on your project website or in a README file.
+
+[![PkgGoDev](https://pkg.go.dev/badge/golang.org/x/pkgsite)](https://pkg.go.dev/golang.org/x/pkgsite)
+
 ## Keyboard Shortcuts
 
 There are keyboard shortcuts for navigating package documentation pages. Type '?' on a package page for help.
