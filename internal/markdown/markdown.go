@@ -13,6 +13,7 @@ import (
 	"bytes"
 
 	"github.com/yuin/goldmark"
+	"github.com/yuin/goldmark/parser"
 	"github.com/yuin/goldmark/renderer/html"
 )
 
@@ -24,8 +25,11 @@ import (
 // untrusted content is not performed: the caller is responsible for ensuring
 // that only trusted content is provided.
 func Render(src []byte) ([]byte, error) {
+	// parser.WithHeadingAttribute allows custom ids on headings.
 	// html.WithUnsafe allows use of raw HTML, which we need for tables.
-	md := goldmark.New(goldmark.WithRendererOptions(html.WithUnsafe()))
+	md := goldmark.New(
+		goldmark.WithParserOptions(parser.WithHeadingAttribute()),
+		goldmark.WithRendererOptions(html.WithUnsafe()))
 	var buf bytes.Buffer
 	if err := md.Convert(src, &buf); err != nil {
 		return nil, err
