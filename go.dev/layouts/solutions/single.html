@@ -1,12 +1,79 @@
 {{define "main"}}
+<div>
+  <div class="WhoUsesSubPage-hero{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
+    <div class="WhoUsesSubPage-heroInner{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
+      <div class="WhoUsesSubPage-heroContent{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
+        <div class="WhoUsesSubPage-heroText{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
+          {{ partial "breadcrumbs.html" . }}
+            <h1>{{.Title}}</h1>
+            {{range .Params.authors}}
+            <div class="Article-author">{{.}}</div>
+            {{end}}
+            <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
+          </div>
+          {{if isset .Params "company"}}
+          <div class="WhoUsesSubPage-heroImg">
+            <img src="/images/{{ .Params.heroImgSrc }}" alt="{{ .Params.company }}">
+          </div>
+        {{end}}
+        </div>
+      </div>
+
+  </div>
   <article class="Article {{if .Section -}}Article--{{.Section}}{{end -}}">
-    <h1>{{.Title}}</h1>
-    {{if eq .Params.Series "Case Studies"}}
-      {{range .Params.authors}}
-        <div class="Article-author">{{.}}</div>
-      {{end}}
-      <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
+    {{if (eq .Params.Series "Case Studies") }}
+      <div class="CaseStudy-content">
+        <div class="CaseStudy-contentBody">
+          {{.Content}}
+        </div>
+        <div class="CaseStudy-contentAside">
+          <div class="CaseStudy-aboutBlock">
+            {{$logo := .Resources.GetMatch "logo"}}
+            <img src="/images/logos/{{.Params.logoSrc}}" class="CaseStudy-aboutBlockImg" alt="{{.Params.company}}">
+            {{if not (eq .Params.company "Google")}}
+              <h3 class="CaseStudy-aboutBlockTitle">
+                About {{.Params.company}}
+              </h3>
+            {{end}}
+            <p class="CaseStudy-aboutBlockBody">{{.Params.quote}}</p>
+          </div>
+        </div>
+      </div>
+    {{else if (eq .Params.Series "Use Cases") }}
+      <div class="UseCase-content">
+        <div class="UseCase-contentAside">
+          <div
+            class="js-useCaseStickyNav UseCaseSubNav-anchorLinks">
+          </div>
+        </div>
+        <div class="UseCase-contentBody js-useCaseContentBody">
+          <!-- Messaging -->
+          {{ if .Params.inlineMessage }}
+            <div class="InlineMessage">
+              <span class="InlineMessage-imageWrap">
+                <img
+                  loading="lazy"
+                  class="InlineMessage-img"
+                  src="/images/gophers/megaphone-gopher.svg"
+                  alt="Gopher with megaphone">
+              </span>
+              <span class="InlineMessage-description">
+                <p class="InlineMessage-descParagraph">{{ .Params.inlineMessage.description }}</p>
+              </span>
+              <span class="InlineMessage-ctas">
+                <a href="{{ .Params.inlineMessage.ctas.primary.url }}" class="InlineMessage-cta">
+                  {{ .Params.inlineMessage.ctas.primary.title }}
+                </a>
+                <a href="{{ .Params.inlineMessage.ctas.secondary.url }}" class="InlineMessage-cta">
+                  {{ .Params.inlineMessage.ctas.secondary.title }}
+                </a>
+              </span>
+            </div>
+          {{ end }}
+          {{.Content | replaceRE " .sectionHeading" "\" class=\"sectionHeading" | safeHTML}}
+        </div>
+      </div>
     {{end}}
-    {{.Content}}
   </article>
+</div>
 {{end}}

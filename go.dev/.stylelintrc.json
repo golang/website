@@ -1,0 +1,13 @@
+{
+  "plugins": [
+      "stylelint-order"
+  ],
+  "rules": {
+      "selector-list-comma-newline-after": "always",
+      "order/order": [
+          "custom-properties",
+          "declarations"
+      ],
+      "order/properties-alphabetical-order": true
+  }
+}

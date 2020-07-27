@@ -1,0 +1,11 @@
+<tr>
+  <td>
+    {{with .Get "img-link"}}
+      <a href="{{.}}" target="_blank" rel="noopener">
+    {{end -}}
+      <img class="MediaList-itemBoxImage" src="{{.Get "img-src"}}" alt="{{.Get "img-alt"}}">
+    {{- with .Get "img-link"}}</a>{{end}}
+  </td>
+  <td><p class="MediaList-itemBoxTitle">{{.Get "title"}}</p></td>
+  <td><p class="MediaList-itemBoxBody{{if eq (.Get "align") "top"}}-top{{end}}">{{.Inner | markdownify -}}</p></td>
+</tr>

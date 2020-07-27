@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="{{$.Site.LanguageCode | default "en"}}">
 <head>
+<!-- Google Tag Manager -->
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+  <!-- End Google Tag Manager -->
 <meta charset="utf-8">
 <meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Roboto:400,700|Source+Code+Pro|Material+Icons">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
 {{$styles := resources.Get "css/styles.css" -}}
 {{if .Site.IsServer -}}
   <link rel="stylesheet" href="{{$styles.RelPermalink}}">
@@ -27,12 +35,10 @@
 {{end -}}
 </head>
 <body class="Site">
-{{if not .Site.IsServer -}}
   <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
-{{end -}}
 <header class="Site-header">
   <div class="Banner">
     <div class="Banner-inner">
@@ -40,44 +46,54 @@
       <a class="Banner-action"
          href="https://support.eji.org/give/153413/#!/donation/checkout"
          target="_blank"
-         rel="noopener">Support the Equal Justice Initiative</a>
+         rel="noopener">
+         Support the Equal Justice Initiative
+      </a>
     </div>
   </div>
   <div class="Header Header--dark">
     <nav class="Header-nav">
-      <a href="{{.Site.BaseURL}}">
-        <img class="Header-logo" src="/images/go-logo-white.svg" alt="Go">
+      <a href="/">
+        <img
+          class="js-headerLogo Header-logo"
+          src="/images/go-logo-white.svg"
+          alt="Go">
       </a>
-      <form class="SearchForm SearchForm--white" action="https://pkg.go.dev/search" role="search">
-        <input class="SearchForm-input SearchForm-input--white" aria-label="Search for a package" type="text" name="q" size="1"
-               placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
-               spellcheck="false" title="Search for a package">
-        <button class="SearchForm-submit" aria-label="Search for a package">
-          <svg class="SearchForm-submitIcon SearchForm-submitIcon--white" focusable="false" viewBox="0 0 24 24" aria-hidden="true"
-               role="presentation">
-            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path>
-            <path fill="none" d="M0 0h24v24H0z"></path>
-          </svg>
+      <div class="Header-rightContent">
+        {{ partial "searchForm.html" . }}
+        <ul class="Header-menu">
+          {{- $currentPage := .}}
+          {{- range .Site.Menus.main}}
+          {{- $url := .URL}}
+          {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
+            {{- $url = "https://learn.go.dev"}}
+          {{- end}}
+          {{- if not $currentPage.Site.IsServer}}
+            {{- $url = $url | absURL}}
+          {{- end}}
+          <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
+            <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
+          </li>
+          {{- end}}
+        </ul>
+        <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
         </button>
-      </form>
-      <ul class="Header-menu">
-        {{- $currentPage := .}}
-        {{- range .Site.Menus.main}}
-        {{- $url := .URL}}
-        {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
-          {{- $url = "https://learn.go.dev"}}
-        {{- end}}
-        {{- if not $currentPage.Site.IsServer}}
-          {{- $url = $url | absURL}}
-        {{- end}}
-        <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
-          <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
-        </li>
-        {{- end}}
-      </ul>
-      <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
-      </button>
+      </div>
     </nav>
+    {{ if (eq .Params.Series "Use Cases") }}
+    <div class="UseCaseSubNav js-useCaseSubnav">
+      <button class="UseCaseSubNav-menuHeader js-useCaseSubnavHeader">
+        Jump to
+        <img
+          class="UseCaseSubNav-menuIcon js-useCaseSubnavMenuIcon"
+          alt="Open menu icon" src="/images/icons/chevron-down.svg">
+      </button>
+      <div class="UseCaseSubNav-menu js-useCaseSubnavMenu">
+        <div class="UseCaseSubNav-anchorLinks js-useCaseSubnavLinks">
+        </div>
+      </div>
+    </div>
+    {{end}}
   </div>
 </header>
 <aside class="NavigationDrawer js-header">
@@ -86,8 +102,6 @@
       <a href="{{.Site.BaseURL}}">
         <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
       </a>
-      <button class="NavigationDrawer-close js-headerMenuButton" aria-label="Close navigation.">
-      </button>
     </div>
     <ul class="NavigationDrawer-list">
       {{- range .Site.Menus.main}}
@@ -105,9 +119,8 @@
     </ul>
   </nav>
 </aside>
-<div class="NavigationDrawer-scrim js-scrim" role="presentation">
-</div>
-<main class="Site-content">
+<div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
+<main class="SiteContent{{if $.Site.Data.messaging.messaging.HeaderMessagingBar }} SiteContent--lower{{else}} SiteContent--default{{end}}">
   {{- block "main" . -}}{{- end -}}
 </main>
 <footer class="Site-footer">
@@ -130,22 +143,46 @@
       <div class="Footer-bottom">
         <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
         <ul class="Footer-listRow">
-          <li class="Footer-listItem"><a href="/copyright">Copyright</a></li>
-          <li class="Footer-listItem"><a href="/tos">Terms of Service</a></li>
-          <li class="Footer-listItem"><a href="http://www.google.com/intl/en/policies/privacy/" target="_blank">Privacy Policy</a></li>
           <li class="Footer-listItem">
-            <a href="https://golang.org/s/discovery-feedback" target="_blank">
+            <a href="/copyright">Copyright</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="/tos">Terms of Service</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="http://www.google.com/intl/en/policies/privacy/"
+              target="_blank"
+              rel="noopener">
+              Privacy Policy
+            </a>
+            </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org/s/discovery-feedback"
+              target="_blank"
+              rel="noopener"
+              >
               Report an Issue
             </a>
           </li>
-          <li class="Footer-listItem"><a href="https://golang.org" target="_blank">golang.org</a></li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org"
+              target="_blank"
+              rel="noopener"
+              >golang.org
+            </a>
+          </li>
         </ul>
-        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener noreferrer">
+        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener">
           <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
         </a>
       </div>
     </div>
   </div>
+  <script src="/js/carousels.js"></script>
+  <script src="/js/searchBox.js"></script>
+  <script src="/js/misc.js"></script>
 </footer>
 </body>
 </html>

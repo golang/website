@@ -1,0 +1,29 @@
+{{with .Get "link"}}
+<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
+  <div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      " {{.Inner | markdownify}}"
+    </p>
+    {{$author := .Get 0 -}}
+    {{$title := .Get 1 -}}
+    {{$company := .Get 2 -}}
+    {{if .IsNamedParams -}}
+      {{$author = .Get "author" -}}
+      {{$title = .Get "title" -}}
+      {{$company = .Get "company" -}}
+    {{end -}}
+    {{if $author -}}
+    <div class="BackgroundQuote-author">
+      <span>&mdash; {{$author -}}</span>
+      {{if $title -}},&nbsp;
+      <span class="BackgroundQuote-title">{{$title | safeHTML}}</span>
+      {{end -}}
+      {{if $company -}}
+      <span class="BackgroundQuote-title">&nbsp;at {{$company -}}</span>
+      {{end -}}
+    </div>
+    {{end -}}
+  </div>
+  {{with .Get "link"}}
+</a>
+{{end -}}

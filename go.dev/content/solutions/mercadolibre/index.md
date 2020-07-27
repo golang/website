@@ -1,15 +1,17 @@
 ---
 title: "MercadoLibre Grows with Go"
-description: ""
+company: MercadoLibre
+logoSrc: mercadoLibre.svg
+heroImgSrc: go_mercadolibre_case_study_logo.png
+carouselImgSrc: go_mercadolibre_case_study.png
 date: 2019-11-10T16:26:31-04:00
 series: Case Studies
 quote: Go provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer productivity by allowing their engineers to serve their ever-increasing audience while writing less code.
-resources:
-- name: logo
-  src: logo.svg
-  params:
-    alt: MercadoLibre
 ---
+
+{{% pullquote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
+I think that **the tour of Go is by far the best introduction to a language that I’ve seen**, It’s really simple and it gives you a fair overview of probably 80 percent of the language. When we want to get developers to learn Go, and to get to production fast, we tell them to start with the tour of Go.
+{{% /pullquote %}}
 
 ## Go helps integrated ecosystem attract developers and scale eCommerce
 
@@ -18,7 +20,7 @@ in 1999 and headquartered in Argentina, the company has turned to Go to help it 
 provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer
 productivity by allowing their engineers to serve their ever-increasing audience while writing less code.
 
-## MercadoLibre taps Go for scale
+### MercadoLibre taps Go for scale
 
 Back in 2015, there was a growing sense within MercadoLibre that their existing API framework, on Groovy and Grails, was
 reaching its limits and the company needed a different platform to continue scaling. MercadoLibre’s platform was (and
@@ -29,7 +31,7 @@ to develop and tune to achieve desired performance. Test execution times were sl
 slow. Thus, the need for code efficiency and scalability became as important as the need for speed in code development.
 
 
-## Go improves system efficiency
+### Go improves system efficiency
 
 As one example of Go’s contributions to network efficiency, the core API team builds and maintains the largest APIs at
 the center of the company’s microservices solutions. This team creates user APIs, which in turn are used by the
@@ -37,7 +39,6 @@ MercadoLibre Marketplace, by the MercadoPago FinTech platform, by MercadoLibre�
 other hosted solutions. With the high service levels demanded by these solutions—the average user API has between eight
 and ten million requests per minute—the team employs Go to serve them at less than ten milliseconds per request.
 
-{{% gopher gopher=pilot align=right %}}
 The API team also deploys Docker containers—a software-as-a-service (SaaS) product, also written in Go—to virtualize
 their development and readily deploy their microservices via the Docker Engine. This system supports larger,
 mission-critical APIs that handle **more than 20 million requests per minute in Go.**
@@ -47,7 +48,7 @@ was able to accomplish this with just a few lines of Go code, and the success of
 migrate more and more microservices to Go. The end result for MercadoLibre has been improved cost-efficiencies and
 system response times.
 
-## Go for scalability
+### Go for scalability
 
 Historically, much of the company’s stack was based on Grails and Groovy backed by relational  databases. However this
 big framework with multiple layers was soon found encountering scalability issues.
@@ -56,10 +57,10 @@ Converting that legacy architecture to Go as a new, very thin framework for buil
 layers and yielded great performance benefits. For example, one large Go service is now able to **run 70,000 requests
 per machine with just 20 MB of RAM.**
 
-{{% pullquote author="Eric Kohan, Software Engineering Manager @ MercadoLibre" %}}
+{{% backgroundQuote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
 Go was just marvelous for us. It’s very powerful
 and very easy to learn, and with backend infrastructure, has been great for us in terms of scalability.
-{{% /pullquote %}}
+{{% /backgroundQuote %}}
 
 Using **Go allowed MercadoLibre to cut the number of servers** they use for this service to one-eighth the original
 number (from 32 servers down to four), plus each server can operate with less power (originally four CPU cores, now down
@@ -76,9 +77,8 @@ up a new project—all while effectively standardizing the build and deployment 
 Today, **roughly half of Mercadolibre's traffic is handled by Go applications.**
 
 
-## MercadoLibre uses Go for developers
+### MercadoLibre uses Go for developers
 
-{{% gopher gopher=wrench %}}
 The programming _lingua francas_ for MercadoLibre’s infrastructure are currently Go and Java. Every app, every program,
 every microservice is hosted on its own GitHub repository, plus the company uses an additional GitHub repository of
 toolkits to solve new problems and allow clients to interact with its services.
@@ -90,16 +90,16 @@ fosters internal working groups to provide training sessions for new MercadoLibr
 for external developers to help build a broader community of Latin American Go developers.
 
 
-## Go as a recruiting tool
+### Go as a recruiting tool
 
 MercadoLibre’s Go advocacy has also become a strong recruiting tool for the company. MercadoLibre was among the first
 companies using Go in Argentina, and is perhaps the largest in Latin America using the language so widely in production.
 Headquartered in Buenos Aires, with many start-ups and emerging technology companies nearby, MercadoLibre's adoption of
 Go has shaped the market for developers across the Pampas.
 
-{{% pullquote author="Eric Kohan, Software Engineering Manager @ MercadoLibre" %}}
+{{% backgroundQuote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
 We really see eye-to-eye with the larger philosophy of the language. We love Go's simplicity, and we find that having its very explicit error handling has been a gain for developers because it results in safer, more stable code in production.
-{{% /pullquote %}}
+{{% /backgroundQuote %}}
 
 Buenos Aires is today a very competitive market for programmers, offering computer programmers many employment options,
 and the high demand for technology in the region drives great salaries, great benefits, and the ability to be selective
@@ -108,23 +108,19 @@ to provide an exciting workplace and strong career path. Go has proven to be a k
 company organizes Go workshops for external developers so they can come and learn Go, and when they enjoy what they are
 doing and the people they talk to, they quickly recognize MercadoLibre as an enticing place to work.
 
-## Go enabling developers
+### Go enabling developers
 
 MercadoLibre employs Go for its simplicity with systems at scale, but that simplicity is also why the company's
 developers love Go.
 
-{{% pullquote author="Eric Kohan, Software Engineering Manager @ MercadoLibre" %}}
-I think that **the tour of Go is by far the best introduction to a language that I’ve seen**, It’s really simple and it gives you a fair overview of probably 80 percent of the language. When we want to get developers to learn Go, and to get to production fast, we tell them to start with the tour of Go.
-{{% /pullquote %}}
- 
 The company also uses web pages like[ Go by Example](https://gobyexample.com/) and[ Effective
 Go](https://golang.org/doc/effective_go.html) to educate new programmers, and shares representative internal APIs
 written in Go to speed understanding and proficiency. MercadoLibre developers get the resources they need to embrace the
 language, then leverage their own skills and enthusiasm to start programming.
 
-{{% pullquote author="Federico Martin Roasio, Technical Project Lead @ MercadoLibre" %}}
+{{% backgroundQuote author="Federico Martin Roasio" title="Technical Project Lead" company="MercadoLibre" %}}
 Go has been great for writing business logic, and we are the team that writes those APIs.
-{{% /pullquote %}}
+{{% /backgroundQuote %}}
 
 MercadoLibre leverages Go’s expressive and clean syntax to make it easier for developers to write programs that run
 efficiently on modern cloud platforms. And while speed in development yields cost efficiency for the company, developers
@@ -136,7 +132,6 @@ only knew about programming from recent courses at university. Similarly, Mercad
 proficient with other programming languages (such as Java or .NET or Ruby) learn Go fast enough start writing production
 services in just a few weeks.
 
-{{% gopher gopher=plane align=right %}}
 With Go, MercadoLibre’s **build times are three times (3x) faster** and their **test suite runs an amazing 24 times
 faster**. This means the company’s developers can make a change, then build and test that change much faster than they
 could before.
@@ -149,10 +144,10 @@ education. The company sends key engineering leaders to GopherCon and other Go e
 infrastructure and security teams encourage all the development teams to keep Go versions up to date, and the company
 has a team developing a _Go-meli-toolkit_: A complete Go library to interface all the services provided by Fury.
 
-## Getting your enterprise started with Go
+### Getting your enterprise started with Go
 
 Just as MercadoLibre started with a proof-of-concept project to implement Go, dozens of other large enterprises are
-adopting Go as well. 
+adopting Go as well.
 
 There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [American Express](https://go.dev/solutions/americanexpress), [PayPal](https://go.dev/solutions/paypal), Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
 

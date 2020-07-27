@@ -3,13 +3,53 @@
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
       <h1>Build fast, reliable, and efficient software at scale</h1>
-      <h2>
-        Go is an open source programming language supported by Google.
-      </h2>
+      <ul class="Hero-blurbList">
+        <li>
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
+          </svg>
+          Go is an open source programming language supported by Google
+        </li>
+        <li>
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
+          </svg>
+          Easy to learn and get started with
+        </li>
+        <li>
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
+          </svg>
+          Built-in concurrency and a robust standard library
+        </li>
+        <li>
+          <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
+          </svg>
+          Growing ecosystem of partners, communities, and tools
+        </li>
+      </ul>
     </div>
     <div class="Hero-actions">
-      <a class="Primary" href="/learn">Get Started</a>
-      <a href="https://golang.org/dl">Download Go</a>
+      <div
+        data-version="{{.Site.Data.global.latestVersion}}"
+        class="js-latestGoVersion">
+        <a class="Primary" href="https://learn.go.dev/">Get Started</a>
+        <a class="Secondary js-downloadBtn"
+          href="https://golang.org/dl"
+          target="_blank" rel="noopener"
+          >Download
+          <span
+            class="js-goVersion DownloadBtn-versionNum">
+          </span>
+        </a>
+      </div>
+      <p class="Hero-footnote">Download packages for
+        <a class="js-downloadWin">Windows 64-bit</a>,
+        <a class="js-downloadMac">macOS</a>,
+        <a class="js-downloadLinux">Linux</a>, and
+        <a href="https://golang.org/dl/">more</a>
+      </p>
     </div>
     <div class="Hero-gopher">
       <img class="Hero-gopherLadder" src="/images/gophers/ladder.svg" alt="Go Gopher climbing a ladder.">
@@ -20,200 +60,258 @@
   {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
-      <h2>Companies using Go</h2>
+      <h2 class="WhoUses-headerH2">Companies using Go</h2>
+      <p class="WhoUses-subheader">Organizations in every industry use Go to power their software and services
+        <a href="/solutions" class="WhoUsesCaseStudyList-seeAll">
+        View all stories
+       </a>
+     </p>
     </div>
-    <ul class="WhoUses-caseStudyList">
-      {{range where $solutions.Pages "Params.series" "Case Studies"}}
-        <li class="WhoUses-caseStudy">
-        {{if isset .Params "link" }}
-          <a href="{{.Params.link}}" target="_blank">
+  <div class="WhoUsesCaseStudyList">
+    <ul class="WhoUsesCaseStudyList-gridContainer">
+    {{range where $solutions.Pages "Params.series" "Case Studies"}}
+      {{if .Params.link }}
+        {{if .Params.inLandingPageGrid }}
+          <li class="WhoUsesCaseStudyList-caseStudy">
             {{$logo := .Resources.GetMatch "logo"}}
-            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
-            <p>View article <i class="material-icons" style="font-size:1rem;">open_in_new</i></p>
-          </a>
-        {{else}}
-          <a href="{{.RelPermalink}}">
-            {{$logo := .Resources.GetMatch "logo"}}
-            <img src="{{$logo.RelPermalink}}" class="WhoUses-logo" alt="{{$logo.Params.alt}}">
+            <a href="{{.Params.link}}" target="_blank" rel="noopener"
+              class="WhoUsesCaseStudyList-caseStudyLink">
+              <img
+                loading="lazy"
+                height="48"
+                width="30%"
+                src="/images/logos/{{.Params.logoSrc}}"
+                class="WhoUsesCaseStudyList-logo"
+                alt="">
+            </a>
+          </li>
+        {{end}}
+      {{else}}
+        <li class="WhoUsesCaseStudyList-caseStudy">
+          <a href="{{.RelPermalink}}" class="WhoUsesCaseStudyList-caseStudyLink">
+            <img
+              loading="lazy"
+              height="48"
+              width="30%"
+              src="/images/logos/{{.Params.logoSrc}}"
+              class="WhoUsesCaseStudyList-logo"
+              alt="">
             <p>View case study</p>
           </a>
-        {{end}}
         </li>
       {{end}}
+    {{end}}
     </ul>
   </div>
 </section>
+<section class="TestimonialsGo">
+  <div class="GoCarousel">
+    <div class="GoCarousel-controlsContainer">
+      <div class="GoCarousel-wrapper">
+        <ul class="js-testimonialsGoQuotes TestimonialsGo-quotes">
+          {{ range $index, $element := $.Site.Data.testimonials.all }}
+            <li class="TestimonialsGo-quoteGroup GoCarousel-slide" id="quote_slide{{$index}}">
+              <div class="TestimonialsGo-quoteSingleItem">
+                <div class="TestimonialsGo-quoteSection">
+                  <p class="TestimonialsGo-quote">{{.quote | safeHTML}}</p>
+                  <div class="TestimonialsGo-author">— {{.name}},
+                    <span class="NoWrapSpan">{{.title}}</span>
+                    <span class="NoWrapSpan"> at {{.company}}</span>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {{end}}
+        </ul>
+      </div>
+    <button class="js-testimonialsPrev GoCarousel-controlPrev" hidden>
+      <i class="GoCarousel-icon material-icons">navigate_before</i>
+    </button>
+    <button class="js-testimonialsNext GoCarousel-controlNext">
+      <i class="GoCarousel-icon material-icons">navigate_next</i>
+    </button>
+  </div>
+  </div>
+</section>
+
 <section class="WhyGo">
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
-      <h2>Why choose Go</h2>
+      <h2 class="WhyGo-headerH2">What’s possible with Go</h2>
+      <h4 class="WhyGo-headerH4">
+        Use Go for a variety of software development purposes
+      </h4>
     </div>
     <ul class="WhyGo-reasons">
-      <li class="WhyGo-reason">
-        <div class="WhyGo-reasonIcon" role="presentation">
-          <img src="/images/star-24px.svg" alt="Star."/>
-        </div>
-        <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Easy to learn</h3>
-          <p>
-              “At the time, no single team member knew Go, but <b>within a month, everyone was writing in Go</b> and we were building out the
-              endpoints. It was the flexibility, how easy it was to use, and the really cool concept behind Go (how Go handles native
-              concurrency, garbage collection, and of course safety+speed.) that helped engage us during the build. Also, who can beat
-              that cute mascot!”
-          </p>
-          <p style="text-align: right;">
-          - <a
-          href="https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f"
-          target="_blank">Jaime Enrique Garcia Lopez, Senior Software Development Manager at CapitalOne</a>
-          </p>
-
-        </div>
-      </li>
-      <li class="WhyGo-reason">
-        <div class="WhyGo-reasonIcon" role="presentation">
-          <img src="/images/star-24px.svg" alt="Star."/>
-        </div>
-        <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Efficient</h3>
-          <p>
-              <b>"A small language that compiles fast makes for a happy developer.</b> The Go language is small, compiles really fast, and as
-              a result it lets your mind focus on the actual problem and less on the tool you are using to solve it. Code, test, debug
-              cycles are so quick that you forget you are not working with an interpreted language. Looking at our code, you see <b>less
-              boilerplate and more business logic</b>."
-          </p>
-          <p style="text-align: right;">
-          - <a
-          href="https://blog.gopheracademy.com/birthday-bash-2014/openshift-3-old-dogs-new-tricks/"
-          target="_blank">Clayton Coleman, lead engineer, Open Shift at RedHat</a>
-          </p>
-        </div>
-      </li>
-      <li class="WhyGo-reason">
-        <div class="WhyGo-reasonIcon" role="presentation">
-          <img src="/images/star-24px.svg" alt="Star."/>
-        </div>
-        <div class="WhyGo-reasonText">
-          <h3 class="WhyGo-reasonTitle">Powerful</h3>
-          <p>
-              “<b>Go has excellent characteristics for scalability and services written using it typically have very 
-              small memory footprints</b>. Because code is compiled into a single static binary, services can also be 
-              containerised with ease, making it much simpler to build and deploy. These attributes make <b>Go an ideal 
-              choice for companies building microservices</b>, as you can easily deploy into a highly available and scalable 
-              environment such as Kubernetes.” 
-          </p>
-          <p style="text-align: right;">
-          - <a
-          href="https://www.computerweekly.com/blog/Open-Source-Insider/Golang-or-go-home-how-Curve-is-taking-Golang-to-new-heights"
-          target="_blank">Matt Boyle, lead software engineer at Curve</a>
-          </p>
-        </div>
-      </li>
-    </ul>
-    <div class="WhyGo-gopher">
-      <img src="images/gophers/biplane.svg" alt="Go Gopher piloting a biplane."> 
-    </div>
-  </div>
-</section>
-<section class="UseCases">
-  {{$solutions := index (where .Pages "Section" "solutions") 0}}
-  <div class="Container">
-    <div class="UseCases-gridContainer">
-      <div class="UseCases-header">
-        <h2>Designed for today's needs</h2>
-      </div>
-      {{range where $solutions.Pages "Params.series" "Use Cases"}}
-        <div class="UseCase">
-          <div class="UseCase-logo">
-            {{$icon := .Resources.GetMatch "icon-white"}}
-            {{if $icon}}
-            <img alt="{{$icon.Params.alt}}" src="{{$icon.RelPermalink}}">
-            {{end}}
-          </div>
-          <h3 class="UseCase-title">{{.LinkTitle}}</h3>
-          <p class="UseCase-description">
-            {{.Description}}
-          </p>
-          <p class="UseCase-action">
-            <a href="{{.RelPermalink}}">Learn More &gt;</a>
-          </p>
-        </div>
-      {{end}}
-    </div>
-  </div>
-</section>
-<section class="LearnGo">
-  <div class="LearnGo-gridContainer">
-    <div class="LearnGo-header">
-      <h2>Learn Go</h2>
-      <p>
-        “I started writing in Go when I was just out of college and couldn’t believe how quickly I picked it up,
-        especially compared to other languages. I had spent months learning about how to build APIs in other languages
-        (and mostly failing), but <b>after a week of writing Go, I had completed my first API</b>.”
-      </p>
-      <p style="text-align: right;">
-        -
-        <a href="https://medium.com/capital-one-tech/good-to-go-a-language-that-makes-it-easy-for-engineers-to-talk-to-each-other-17ad0f47f76c"
-           target="_blank">
-          Kaylyn Gibilterra, Senior Software Engineer, Capital One
-        </a>
-      </p>
-    </div>
-    <div class="LearnGo-subHeader">
-      <h3>Get started learning Go today</h3>
-      <p class="LearnGo-viewMore">
-        {{if gt (len $.Site.Data.learn.courses.links) 4}}
-          <a href="#">View More &gt;</a>
-        {{end}}
-      </p>
-    </div>
-    <ul class="LearnGo-courses">
-      {{range first 4 $.Site.Data.learn.courses.links}}
-      <li class="LearnGo-courseItem">
-        <div class="LearnGo-course">
-          <a href="{{.url}}">
-            <div class="LearnGo-courseImage">
-              {{if .thumbnail}}
-                <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-              {{end}}
+      {{ range first 4 $.Site.Data.resources.resources }}
+        <li class="WhyGo-reason">
+          <div class="WhyGo-reasonDetails">
+            <div class="WhyGo-reasonIcon" role="presentation">
+              <img src="{{.icon}}" alt="{{.iconName}}">
             </div>
-            <p class="LearnGo-courseTitle">{{.title}}</p>
-          </a>
-        </div>
-      </li>
-      {{end}}
-    </ul>
-    <div class="LearnGo-subHeader">
-      <h3>Events</h3>
-      <p class="LearnGo-viewMore"><a href="https://www.meetup.com/pro/go">View more events &gt;</a></p>
-    </div>
-    <ul class="LearnGo-events">
-      {{range first 3 $.Site.Data.events.all}}
-        <li class="LearnGo-eventItem">
-          <div class="LearnGo-eventThumbnail {{if not .thumbnailurl}}LearnGo-eventThumbnail--noimage{{end}}">
-            {{if .thumbnailurl}}
-              <img src="{{.thumbnailurl}}" alt="{{.name}} group photo"/>
-            {{else}}
-              <img src="/images/meetup.svg" alt="meetup logo"/>          
-            {{end}}
-          </div>
-          <div class="LearnGo-eventBody">
-            <div class="LearnGo-eventDate">
-              <p>{{.local_date}}</p>
-              <p>{{.city}}, {{.state}} {{.country}}</p>
-            </div>
-            <div class="LearnGo-eventText">
-              <h4 class="LearnGo-eventName">
-                <a href="{{.url}}">{{.name}}</a>
-              </h4>
-              <p class="LearnGo-eventDescription">
-                {{.description | safeHTML}}
+            <div class="WhyGo-reasonText">
+              <h3 class="WhyGo-reasonTitle">{{.title}}</h3>
+              <p>
+                {{.description}}
               </p>
             </div>
-            <p class="LearnGo-viewMore"><a href="{{.url}}">Learn more &gt;</a></p>
+          </div>
+          <div class="WhyGo-reasonFooter">
+            <div class="WhyGo-reasonPackages">
+              <div class="WhyGo-reasonPackagesHeader">
+                <img src="/images/icons/package.svg" alt="Packages.">
+                Popular Packages:
+              </div>
+              <ul class="WhyGo-reasonPackagesList">
+                {{range .packages }}
+                  <li class="WhyGo-reasonPackage">
+                    <a href="{{.url}}" target="_blank" rel="noopener">
+                      {{.title}}
+                    </a>
+                  </li>
+                  {{end}}
+              </ul>
+            </div>
+            <div class="WhyGo-reasonLearnMoreLink">
+              <a href="{{.link}}">Learn More <i class="material-icons WhyGo-forwardArrowIcon">arrow_forward</i></a>
+            </div>
+          </div>
+        </li>
+      {{end}}
+      {{ if (gt ($.Site.Data.resources.resources | len) 3) }}
+        <li class="WhyGo-reason">
+          <div class="WhyGo-reasonShowMore">
+            <div class="WhyGo-reasonShowMoreImgWrapper">
+              <img
+                class="WhyGo-reasonShowMoreImg"
+                loading="lazy"
+                height="148"
+                width="229"
+                src="/images/gophers/biplane.svg"
+                alt="Go Gopher is skateboarding.">
+            </div>
+            <div class="WhyGo-reasonShowMoreLink">
+              <a href="/solutions">More use cases <i class="material-icons WhyGo-forwardArrowIcon">arrow_forward</i></a>
+            </div>
           </div>
         </li>
       {{end}}
     </ul>
+  </div>
+</section>
+<section class="LearnGo">
+  <div class="GoCarousel" id="LearnGo-carousel">
+    <div class="GoCarousel-controlsContainer">
+      <div class="GoCarousel-eventsWrapper">
+        <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
+          {{ range $index, $element := $.Site.Data.events.all }}
+            <li
+            class="GoCarousel-eventGroup"
+            id="event_slide{{$index}}">
+              <div class="GoCarousel-eventThumbnail">
+                {{if .thumbnailurl}}
+                  <img
+                    loading="lazy"
+                    src="{{.thumbnailurl}}"
+                    alt="{{.name}} group photo">
+                {{else}}
+                  <img
+                    loading="lazy"
+                    src="/images/meetup.svg"
+                    alt="meetup logo">
+                {{end}}
+              </div>
+              <div class="GoCarousel-eventBody">
+                <div class="GoCarousel-eventText">
+                  <div class="GoCarousel-eventHeader">Upcoming Events</div>
+                  <h4 class="GoCarousel-eventName">
+                    <a href="{{.url}}">{{.name}}</a>
+                  </h4>
+                  <div class="GoCarousel-eventDate">
+                    <p>{{.local_date}} | {{.city}}, {{.state}} {{.country}}</p>
+                  </div>
+                  <p class="GoCarousel-viewMore"><a href="{{.url}}">Learn more</a></p>
+                </div>
+              </div>
+            </li>
+          {{end}}
+        </ul>
+      </div>
+      <button class="js-eventsCarouselPrev GoCarousel-controlPrev" hidden>
+        <i class="GoCarousel-icon material-icons">navigate_before</i>
+      </button>
+      <button class="js-eventsCarouselNext GoCarousel-controlNext">
+        <i class="GoCarousel-icon material-icons">navigate_next</i>
+      </button>
+    </div>
+  </div>
+</section>
+<section class="GettingStartedGo">
+  <div class="GettingStartedGo-gridContainer">
+    <div class="GettingStartedGo-header">
+      <h2 class="GettingStartedGo-headerH2">Get started with Go</h2>
+      <p class="GettingStartedGo-headerDesc">
+        Explore a wealth of learning resources, including guided journeys, courses, books, and more.
+      </p>
+      <div class="GettingStartedGo-ctas">
+        <a class="GettingStartedGo-primaryCta" href="http://learn.go.dev">Get Started</a>
+        <a href="https://golang.org/dl" target="_blank" rel="noopener">Download Go</a>
+      </div>
+    </div>
+    <div class="GettingStartedGo-resourcesSection">
+      <ul class="GettingStartedGo-resourcesList">
+        <li class="GettingStartedGo-resourcesHeader">
+          Resources to start on your own
+        </li>
+        <li class="GettingStartedGo-resourceItem">
+          <a href="/learn#guided-learning-journeys" class="GettingStartedGo-resourceItemTitle">
+            Guided learning journeys
+          </a>
+          <div class="GettingStartedGo-resourceItemDescription">
+            Step-by-step tutorials to get your feet wet
+          </div>
+        </li>
+        <li class="GettingStartedGo-resourceItem">
+          <a href="/learn#online-learning" class="GettingStartedGo-resourceItemTitle">
+            Online learning
+          </a>
+          <div class="GettingStartedGo-resourceItemDescription">
+            Browse resources and learn at your own pace
+          </div>
+        </li>
+        <li class="GettingStartedGo-resourceItem">
+          <a href="/learn#featured-books" class="GettingStartedGo-resourceItemTitle">
+            Featured books
+          </a>
+          <div class="GettingStartedGo-resourceItemDescription">
+            Read through structured chapters and theories
+          </div>
+        </li>
+        <li class="GettingStartedGo-resourceItem">
+          <a href="/learn#self-paced-labs" class="GettingStartedGo-resourceItemTitle">
+            Cloud Self-paced labs
+          </a>
+          <div class="GettingStartedGo-resourceItemDescription">
+            Jump in to deploying Go apps on GCP
+          </div>
+        </li>
+      </ul>
+      <ul class="GettingStartedGo-resourcesList">
+        <li class="GettingStartedGo-resourcesHeader">
+          In-Person Trainings
+        </li>
+        {{range first 4 $.Site.Data.learn.inPerson.links }}
+          <li class="GettingStartedGo-resourceItem">
+            <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle">
+              {{.title}}
+            </a>
+            <div class="GettingStartedGo-resourceItemDescription">
+              {{.blurb}}
+            </div>
+          </li>
+        {{end}}
+      </ul>
+    </div>
   </div>
 </section>
 {{end}}

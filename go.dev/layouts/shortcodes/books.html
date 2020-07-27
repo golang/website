@@ -4,14 +4,14 @@
     {{range $books}}
     <li class="Learn-tile">
         <a href="{{.url}}">
-            <div class="Learn-tileThumbnail Learn-tileThumbnail--book">
-                {{if .thumbnail}}
-                <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-                {{end}}
-            </div>
-            <p class="Learn-tileTitle">
+            {{if .thumbnail}}
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="{{.title}} thumbnail." src="{{.thumbnail}}">
+            {{end}}
+            <span class="Learn-tileTitle">
                 {{.title}}
-            </p>
+            </span>
         </a>
     </li>
     {{end}}

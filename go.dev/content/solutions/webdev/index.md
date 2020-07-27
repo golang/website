@@ -29,99 +29,180 @@ resources:
   src: webdev-white.svg
   params:
     alt: web dev icon
+featuredProjects:
+  - company: Caddy
+    url: https://caddyserver.com/
+    logoSrc: caddy.svg
+    desc: Caddy 2 is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go. Caddy offers greater memory safety than servers written in C. A hardened TLS stack powered by the Go standard library serves a significant portion of all Internet traffic.
+    ctas:
+      - text: Caddy 2
+        url: https://caddyserver.com/
+  - company: Cloudflare
+    url: https://www.cloudflare.com/en-gb/
+    logoSrc: cloudflare-icon.svg
+    desc: Cloudflare speeds up and protects millions of websites, APIs, SaaS services, and other properties connected to the Internet. “Go is at the heart of CloudFlare’s services including handling compression for high-latency HTTP connections, our entire DNS infrastructure, SSL, load testing and more.”
+    ctas:
+      - text: Cloudflare and Go
+        url: https://blog.cloudflare.com/what-weve-been-doing-with-go/
+  - company: gov.uk
+    url: https://gov.uk/
+    logoSrc: govuk.svg
+    desc: The simplicity and safety of the Go language were a good fit for the United Kingdom’s government’s HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. “In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications.”
+    ctas:
+      - text: Building a new router for gov.uk
+        url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
+      - text: Using Go in government
+        url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
+  - company: Hugo
+    url: http://gohugo.io/
+    logoSrc: hugo.svg
+    desc: Hugo is a fast and modern website engine written in Go, and designed to make website creation fun again. Websites built with Hugo are extremely fast and secure and can be hosted anywhere without any dependencies.
+    ctas:
+      - text: Hugo
+        url: http://gohugo.io/
+  - company: Mattermost
+    url: https://mattermost.com/
+    logoSrc: mattermost.png
+    desc: Mattermost is a flexible, open source messaging platform that enables secure team collaboration. It’s written in Go and React.
+    ctas:
+      - text: Mattermost
+        url: https://mattermost.com/
+  - company: Medium
+    url: https://medium.org/
+    logoSrc: medium.svg
+    desc: Medium uses Go to power their social graph, their image server and several auxiliary services. “We’ve found Go very easy to build, package, and deploy. We like the type-safety without the verbosity and JVM tuning of Java.”
+    ctas:
+      - text: Medium's Go Services
+        url: https://medium.engineering/how-medium-goes-social-b7dbefa6d413
+  - company: The Economist
+    url: https://economist.com/
+    logoSrc: economist.svg
+    desc: The Economist needed more flexibility to deliver content to increasingly diverse digital channels. Services written in Go were a key component of the new system that would enable The Economist to deliver scalable, high performing services and quickly iterate new products. “Overall, it was determined that Go was the language best designed for usability and efficiency in a distributed, cloud-based system.”
+    ctas:
+      - text: The Economist's Go microservices
+        url: https://www.infoq.com/articles/golang-the-economist/
+goLibraries:
+  - title: Web frameworks
+    viewMoreUrl: https://pkg.go.dev/search?q=web+framework
+    items:
+      - text: Buffalo
+        url: https://gobuffalo.io/en/
+        desc: A framework for rapid web development in Go, curating Go and JS libraries together.
+      - text: Echo
+        url: https://echo.labstack.com/
+        desc: A high performance, extensible, and minimalist Go web framework
+      - text: Flamingo
+        url: https://www.flamingo.me/
+        desc: A fast open-source framework based on Go with clean and scalable architecture
+      - text: Gin
+        url: https://gin-gonic.com/
+        desc: A web framework written in Go, with a martini-like API.
+      - text: Gorilla
+        url: http://www.gorillatoolkit.org/
+        desc: A web toolkit for the Go programming language.
+  - title: Routers
+    viewMoreUrl: https://pkg.go.dev/search?q=http%20router
+    items:
+      - text: julienschmidt/httprouter
+        url: https://pkg.go.dev/github.com/julienschmidt/httprouter?tab=overview
+        desc: A lightweight high performance HTTP request router
+      - text: gorilla/mux
+        url: https://pkg.go.dev/github.com/gorilla/mux?tab=overview
+        desc: A powerful HTTP router and URL matcher for building Go web servers with 🦍
+      - text: Chi
+        url: https://pkg.go.dev/github.com/go-chi/chi?tab=overview
+        desc: A lightweight, idiomatic and composable router for building Go HTTP services.
+      - text: net/http
+        url: https://pkg.go.dev/net/http
+        desc: A standard library HTTP package
+  - title: Template Engines
+    viewMoreUrl: https://pkg.go.dev/search?q=templates
+    items:
+      - text: html/template
+        url: https://pkg.go.dev/html/template
+        desc: A standard library HTML template engine
+      - text: flosch/pongo2
+        url: https://pkg.go.dev/github.com/flosch/pongo2?tab=overview
+        desc: A Django-syntax like templating-language
+  - title: Databases & Drivers
+    viewMoreUrl: https://pkg.go.dev/search?q=database%20OR%20sql
+    items:
+      - text: database/sql
+        url: https://pkg.go.dev/database/sql
+        desc: A standard library interface with driver support for MySQL, Postgres, Oracle, MS SQL, BigQuery and most SQL databases
+      - text: mongo-driver/mongo
+        url: https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview
+        desc: The MongoDB supported driver for Go
+      - text: olivere/elastic
+        url: https://pkg.go.dev/github.com/olivere/elastic?tab=overview
+        desc: A Elasticsearch client for Go
+      - text: GORM
+        url: https://gorm.io/
+        desc: An ORM library for Go
+      - text: Bleve
+        url: http://blevesearch.com/
+        desc: Full-text search and indexing for Go
+      - text: CockroachDB
+        url: https://www.cockroachlabs.com/
+        desc: An evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale
+  - title: Web Libraries
+    viewMoreUrl: https://pkg.go.dev/search?q=web
+    items:
+      - text: markbates/goth
+        url: https://pkg.go.dev/github.com/markbates/goth?tab=overview
+        desc: Authentication for web apps
+      - text: jinzhu/gorm
+        url: https://pkg.go.dev/github.com/jinzhu/gorm?tab=overview
+        desc: An ORM library for Go
+      - text: dgrijalva/jwt-go
+        url: https://pkg.go.dev/github.com/dgrijalva/jwt-go?tab=overview
+        desc: A Go implementation of json web tokens
+  - title: Other Projects
+    items:
+      - text: gopherjs
+        url: https://pkg.go.dev/github.com/gopherjs/gopherjs?tab=overview
+        desc: A compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
 ---
 
-## Go delivers speed, security, and developer-friendly tools for Web Applications
+## Overview {#overview .sectionHeading}
 
-Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability. 
+### Go delivers speed, security, and developer-friendly tools for Web Applications
 
-{{% gopher gopher=front align=right %}}
+Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
+
+## Key Benefits {#key-benefits .sectionHeading}
+
+### Deploy across platforms in record speed
+
 For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code compiles to a single, small binary—with zero dependencies—making it very fast.
 
-“If you are looking for powerful tools for web programming, mobile development, microservices, and ERP systems,” [writes Andrew Smith](https://dzone.com/articles/golang-web-development-better-than-python), marketing manager at QArea. “Go web development has proved to be faster than using Python for the same kind of tasks in many use cases.”
+### Leverage Go’s out-of-the-box performance to scale with ease
 
-{{% pullquote author="Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc." link="https://hackernoon.com/5-reasons-why-we-switched-from-python-to-go-4414d5f42690" %}}
-Go Language is the easiest language that I’ve ever seen and used... For me, Go is easier to learn than even JavaScript.
-{{% /pullquote %}}
+Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reasons his company switched to Go:
 
-Bayburtsyan summarizes the five key reasons his company switched to Go:
+-   **Compiles into a single binary** — “Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
 
-1.   **Compiles into a single binary** — “Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
+-   **Static type system** — “Type system is really important for large scale applications.”
 
-2.   **Static type system** — “Type system is really important for large scale applications.”
+-   **Performance** — “Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
 
-3.   **Performance** — “Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
+-   **No need for a web framework** — “In most of the cases you really don’t need any third-party library.”
 
-4.   **No need for a web framework** — “In most of the cases you really don’t need any third-party library.”
-
-5.   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
+-   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
 
 
-## Featured Go users & projects
+{{< rawhtml >}}<div class="FeaturedUsers">{{< /rawhtml >}}
 
-{{% mediaList %}}
-    {{% mediaListBox img-src="/images/logos/hugo.svg" img-alt="Hugo Logo"  img-link="https://gohugo.io" align=top  %}}
-[Hugo](https://gohugo.io) is a fast and modern website engine written in Go, and designed to make website creation fun again. Websites built with Hugo are extremely fast and secure and can be hosted anywhere without any dependencies. 
-    {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/caddy.svg" img-alt="Caddy Logo"  img-link="https://caddyserver.com" align=top  %}}
-[Caddy 2](https://caddyserver.com) is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go. Caddy offers greater memory safety than servers written in C. A hardened TLS stack powered by the Go standard library serves a significant portion of all Internet traffic. 
-    {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/medium.svg" img-alt="Medium Logo"  img-link="https://medium.org" align=top  %}}
-Medium uses Go to power [their social graph](https://medium.engineering/how-medium-goes-social-b7dbefa6d413), their [image server and several auxiliary services](https://medium.engineering/how-medium-goes-social-b7dbefa6d413). "We’ve found Go very easy to build, package, and deploy. We like the type-safety without the verbosity and JVM tuning of Java." 
-    {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/cloudflare-icon.svg" img-alt="Cloudflare Logo" align="top" %}}
-Cloudflare speeds up and protects millions of websites, APIs, SaaS services, and other properties connected to the Internet. "[Go is at the heart of CloudFlare's services](https://blog.cloudflare.com/what-weve-been-doing-with-go/) including handling compression for high-latency HTTP connections, our entire DNS infrastructure, SSL, load testing and more."  
-    {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/economist.svg" img-alt="Economist Logo" img-link="https://economist.com" align=top %}}
-The Economist needed more flexibility to deliver content to increasingly diverse digital channels. Services written in Go were a key component of the new system that would enable The Economist to deliver scalable, high performing services and quickly iterate new products. 
-[“Overall, it was determined that Go was the language best designed for usability and efficiency in a distributed, cloud-based system.”](https://www.infoq.com/articles/golang-the-economist/)
-    {{% /mediaListBox %}}
-    {{% mediaListBox img-src="/images/logos/govuk.svg" img-alt="Gov.UK Logo" img-link="https://gov.uk" align=top %}}
-The simplicity and safety of the Go language were a good fit for the United Kingdom's government's HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. [“In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications,”](https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/).
-    {{% /mediaListBox %}}
-{{% /mediaList %}}
+## Featured users {#featured-users .sectionHeading}
+{{< featuredProjects >}}
 
-## Key solutions
+{{< rawhtml >}}</div>{{< /rawhtml >}}
 
-### Go books on web development 
+## Get Started {#get-started .sectionHeading}
 
-{{% books %}}
-
-{{< headerWithLink header="Web Frameworks" link="https://pkg.go.dev/search?q=web+framework" level=3 >}} 
-
-*   [Buffalo](https://gobuffalo.io/en/), for rapid web development in Go. While Buffalo can be considered as a framework, it's mostly an ecosystem of Go and Javascript libraries curated to fit together.
-*   [Echo](https://echo.labstack.com), a high performance, extensible, and minimalist Go web framework providing optimized HTTP router, group APIs, data binding for JSON and XML, HTTP/2 support, and much more.
-*   [Flamingo](https://www.flamingo.me), a fast open-source framework based on Go with clean and scalable architecture designed to build custom, fast and flexible frontend interfaces. Includes Flamingo Core and Flamingo Commerce.
-*   [Gin](https://gin-gonic.com/), a web framework written in Go. It features a martini-like API with much better performance, up to 40 times faster. If you need performance and good productivity, you will love Gin.
-*   [Gorilla](http://www.gorillatoolkit.org/), a web toolkit for the Go programming language. Packages include a powerful URL router and dispatcher, context, RPC, schema, sessions, websocket, and more.
-
-{{< headerWithLink header="Routers" search="http router" level=3 >}} 
-
-* {{< pkg "github.com/julienschmidt/httprouter" >}}, a lightweight high performance HTTP request router
-* {{< pkg "github.com/gorilla/mux" >}}, a powerful HTTP router and URL matcher for building Go web servers with 🦍
-* {{< pkg "github.com/go-chi/chi" chi >}}, a lightweight, idiomatic and composable router for building Go HTTP services.
-* [net/http](https://pkg.go.dev/net/http), standard library HTTP package
-
-{{< headerWithLink header="Template Engines" search="templates" level=3 >}} 
-
-* [html/template](https://pkg.go.dev/html/template), standard library HTML template engine
-* {{< pkg "github.com/flosch/pongo2" >}}, a Django-syntax like templating-language
-
-{{< headerWithLink header="Databases & Drivers" search="database OR sql" level=3 >}} 
-
-* [database/sql](https://pkg.go.dev/database/sql), standard library interface with driver support for MySQL, Postgres, Oracle, MS SQL, BigQuery and [most SQL databases](https://github.com/golang/go/wiki/SQLDrivers)
-* {{< pkg "go.mongodb.org/mongo-driver/mongo" >}}, The MongoDB supported driver for Go
-* {{< pkg "github.com/olivere/elastic" >}}, an Elasticsearch client for Go
-* [GORM](https://gorm.io/), an ORM library for Go
-* [Bleve](http://blevesearch.com/), full-text search and indexing for Go
-* [CockroachDB](https://www.cockroachlabs.com/), an evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale
-
-{{< headerWithLink header="Web Libraries" search="web" level=3 >}} 
-
-* {{< pkg "github.com/markbates/goth" >}}, authentication for web apps 
-*   {{< pkg "https://github.com/jinzhu/gorm" >}}, an ORM library for Go
-*   {{< pkg "https://github.com/dgrijalva/jwt-go" >}}, a Go implementation of json web tokens 
-
+### Go books on web development
+{{< books >}}
+{{< goLibraries >}}
 
 ### Courses
 * [Learn to Create Web Applications using Go](https://www.usegolang.com), a paid online course
