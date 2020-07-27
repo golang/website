@@ -162,14 +162,16 @@ Tagging a new version has a few steps:
 
 4. Push the new tag to the origin repository.
 
-	$ go mod tidy
-	$ go test ./...
-	ok      example.com/hello       0.015s
-	$ git add go.mod go.sum hello.go hello_test.go
-	$ git commit -m "hello: changes for v0.1.0"
-	$ git tag v0.1.0
-	$ git push origin v0.1.0
-	$
+```
+$ go mod tidy
+$ go test ./...
+ok      example.com/hello       0.015s
+$ git add go.mod go.sum hello.go hello_test.go
+$ git commit -m "hello: changes for v0.1.0"
+$ git tag v0.1.0
+$ git push origin v0.1.0
+$
+```
 
 Now other projects can depend on `v0.1.0` of `example.com/hello`. For your own
 module, you can run `go list -m example.com/hello@v0.1.0` to confirm the latest
