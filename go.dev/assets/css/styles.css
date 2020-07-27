@@ -68,7 +68,8 @@ a:hover {
   margin-bottom: 0.6875rem;
 }
 .CaseStudy-aboutBlockImg {
-  margin-left: 0.125rem;
+  display: block;
+  margin: 0 auto;
   max-height: 3.125rem;
 }
 .CaseStudy-aboutBlockBody {
@@ -1113,11 +1114,14 @@ a.GettingStartedGo-resourceItemTitle {
     0 0.0625rem 0.125rem rgba(60, 64, 67, 0.3),
     0 0.0625rem 0.1875rem rgba(60, 64, 67, 0.15);
 }
+.WhoUsesCaseStudyList-caseStudyLink img {
+  height: auto;
+}
 .WhoUsesCaseStudyList-logo {
   margin: auto;
-  max-height: 3rem;
+  max-height: 4rem;
   max-width: 9.375rem;
-  width: 100%;
+  width: auto;
 }
 .WhoUsesCaseStudyList-caseStudyLink:link,
 .WhoUsesCaseStudyList-caseStudyLink:visited {
@@ -1631,6 +1635,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   align-self: center;
   height: auto;
   object-fit: contain;
+  padding: 1rem;
   width: 100%;
 }
 .GoCarousel-eventBody {
@@ -2351,16 +2356,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Solutions-useCaseLogo {
   display: flex;
   flex: 1;
+  justify-content: center;
   margin: 0;
 }
 
 .Solutions-useCaseLogo img {
   align-self: center;
-  max-height: 3.5rem;
-  max-width: 100%;
-}
-.Solutions-useCaseLogo--GRAIL img {
-  max-height: 2rem;
+  max-height: 4rem;
+  max-width: 11rem;
 }
 .Solutions-useCaseLink {
   height: 100%;
@@ -2895,6 +2898,10 @@ p.BackgroundQuote-body {
 .CaseStudy-contentBody img {
   width: 100%;
 }
+.CaseStudy-contentBody hr {
+  border: 0.0625rem solid #cfcfcf;
+  margin: 2rem 0 2rem;
+}
 .CaseStudy-contentAside {
   flex: 0 0 33.33%;
   min-width: 18.75rem;
@@ -2919,10 +2926,6 @@ p.BackgroundQuote-body {
 .FeaturedUsers h2:first-of-type {
   margin-bottom: 1.5rem;
   margin-top: 3rem;
-}
-.UseCase-contentBody h2 span {
-  margin-bottom: -4.5rem;
-  padding-top: 4.5rem;
 }
 @media only screen and (min-width: 57.7rem) {
   .CaseStudy-content {
@@ -3039,7 +3042,10 @@ a.UseCase-anchorLink.selected::before {
   z-index: 1;
 }
 .WhoUsesSubPage-heroImg img {
+  height: auto;
   max-height: 10.625rem;
+  min-height: 8rem;
+  width: auto;
 }
 @media only screen and (min-width: 38rem) {
   .Solutions-title h1,
@@ -3053,6 +3059,7 @@ a.UseCase-anchorLink.selected::before {
   }
   .WhoUsesSubPage-heroImg img {
     max-height: 15.625rem;
+    min-height: 10.625rem;
   }
 }
 @media only screen and (min-width: 57.7rem) {
@@ -3069,7 +3076,8 @@ a.UseCase-anchorLink.selected::before {
   }
   .WhoUsesSubPage-heroImg {
     background: transparent;
-    padding: none;
+    min-width: 37.75rem;
+    padding: 0;
     width: 55%;
   }
   .WhoUsesSubPage-heroText--caseStudy {
@@ -3077,6 +3085,7 @@ a.UseCase-anchorLink.selected::before {
   }
   .WhoUsesSubPage-heroImg img {
     max-height: none;
+    min-height: 18.75rem;
     width: 100%;
   }
   .WhoUsesSubPage-heroInner--useCase h1 {

@@ -41,7 +41,9 @@
 
     if (tabList) {
       const tabs = tabList.querySelectorAll('[role="tab"]');
-      let tabFocus = 0;
+      let tabFocus = getTabFocus();
+
+      changeTabs({ target: tabs[tabFocus] })
 
       tabs.forEach(tab => {
         tab.addEventListener('click', changeTabs);
@@ -68,8 +70,34 @@
           }
           tabs[tabFocus].setAttribute('tabindex', 0);
           tabs[tabFocus].focus();
+          setTabFocus(tabs[tabFocus].id);
         }
       });
+
+      function getTabFocus() {
+        const hash = window.location.hash;
+
+        switch (hash) {
+          case '#use-cases':
+            return 1;
+          case '#case-studies':
+          default:
+            return 0;
+        }
+      }
+
+      function setTabFocus(id) {
+        switch (id) {
+          case 'btn-tech':
+            tabFocus = 1;
+            window.location.hash = '#use-cases';
+            break;
+          case 'btn-companies':
+          default:
+            window.location.hash = '#case-studies';
+            tabFocus = 0;
+        }
+      }
 
       function changeTabs(e) {
         const target = e.target;
@@ -83,6 +111,7 @@
 
         // Set this tab as selected
         target.setAttribute('aria-selected', true);
+        setTabFocus(target.id)
 
         // Hide all tab panels
         grandparent

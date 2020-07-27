@@ -55,7 +55,7 @@
         id="btn-companies"
         aria-controls="tab-companies"
       >
-        All companies
+        Case studies
       </button>
       <button
         role="tab"
@@ -64,7 +64,7 @@
         id="btn-tech"
         aria-controls="tab-tech"
       >
-        By Technology
+        Use cases
       </button>
       <hr />
     </div>
@@ -76,7 +76,8 @@
       role="tabpanel"
       tabindex="0"
     >
-      {{range where .Pages "Params.series" "Case Studies"}}
+      {{$solutions := where .Pages "Params.series" "Case Studies"}}
+      {{range sort $solutions "Params.company" "asc"}}
       <li class="Solutions-card">
         {{if isset .Params "link" }}
         <a

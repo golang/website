@@ -5,17 +5,19 @@
       <div class="WhoUsesSubPage-heroContent{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
         <div class="WhoUsesSubPage-heroText{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
           {{ partial "breadcrumbs.html" . }}
-            <h1>{{.Title}}</h1>
-            {{range .Params.authors}}
+          <h1>{{.Title}}</h1>
+          {{range .Params.authors}}
             <div class="Article-author">{{.}}</div>
-            {{end}}
+          {{end}}
+          {{if isset .Params "date"}}
             <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
-          </div>
+          {{end}}
+        </div>
           {{if isset .Params "company"}}
-          <div class="WhoUsesSubPage-heroImg">
-            <img src="/images/{{ .Params.heroImgSrc }}" alt="{{ .Params.company }}">
-          </div>
-        {{end}}
+            <div class="WhoUsesSubPage-heroImg">
+              <img src="/images/{{ .Params.heroImgSrc }}" alt="{{.Params.company }}">
+            </div>
+          {{end}}
         </div>
       </div>
 
@@ -30,12 +32,14 @@
           <div class="CaseStudy-aboutBlock">
             {{$logo := .Resources.GetMatch "logo"}}
             <img src="/images/logos/{{.Params.logoSrc}}" class="CaseStudy-aboutBlockImg" alt="{{.Params.company}}">
-            {{if not (eq .Params.company "Google")}}
-              <h3 class="CaseStudy-aboutBlockTitle">
-                About {{.Params.company}}
-              </h3>
+            <h3 class="CaseStudy-aboutBlockTitle">
+              About {{.Params.company}}
+            </h3>
+            {{if isset .Params "description"}}
+              <p class="CaseStudy-aboutBlockBody">{{- .Params.description | markdownify -}}</p>
+            {{ else }}
+              <p class="CaseStudy-aboutBlockBody">{{- .Params.quote | markdownify -}}</p>
             {{end}}
-            <p class="CaseStudy-aboutBlockBody">{{.Params.quote}}</p>
           </div>
         </div>
       </div>

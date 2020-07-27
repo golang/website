@@ -6,7 +6,9 @@ description: At GRAIL, we use the Go programming language for most of our bioinf
   about performance; and its ability to control data layout and allocation makes
   it possible to write highly performant data processing code.
 company: GRAIL
-logoSrc: grail.svg
+logoSrc: grail.png
 series: Case Studies
-link: https://medium.com/grail-eng/bigslice-a-cluster-computing-system-for-go-7e03acd2419b
+link:
+  https://medium.com/grail-eng/bigslice-a-cluster-computing-system-for-go-7e03acd2419b
+inLandingPageGrid: true
 ---

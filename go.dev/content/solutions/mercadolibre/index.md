@@ -1,7 +1,7 @@
 ---
 title: "MercadoLibre Grows with Go"
 company: MercadoLibre
-logoSrc: mercadoLibre.svg
+logoSrc: mercado-libre.png
 heroImgSrc: go_mercadolibre_case_study_logo.png
 carouselImgSrc: go_mercadolibre_case_study.png
 date: 2019-11-10T16:26:31-04:00
