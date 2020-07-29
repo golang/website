@@ -1,4 +1,4 @@
-baseURL = ""
+baseURL = "https://go.dev/"
 languageCode = "en"
 title = "go.dev"
 
@@ -20,14 +20,14 @@ title = "go.dev"
     identifier = "solutions"
     name = "Why Go"
     title = "Why Go"
-    url = "/solutions"
+    url = "https://go.dev/solutions"
     weight = -110
 
   [[menu.main]]
     identifier = "learn"
     name = "Getting Started"
     title = "Getting Started"
-    url = "/learn"
+    url = "https://go.dev/learn"
     weight = -100
 
   [[menu.main]]
@@ -39,21 +39,21 @@ title = "go.dev"
 
   [[menu.main]]
     name = "About"
-    url = "/about"
+    url = "https://go.dev/about"
     weight = -80
 
   [[menu.footer]]
     identifier = "solutions"
     name = "Why Go"
     title = "Why Go"
-    url = "/solutions"
+    url = "https://go.dev/solutions"
     weight = -110
 
   [[menu.footer]]
     identifier = "usecases"
     name = "Use Cases"
     title = "Use Cases"
-    url = "/solutions#use-cases"
+    url = "https://go.dev/solutions#use-cases"
     parent = "solutions"
     weight = -112
 
@@ -61,7 +61,7 @@ title = "go.dev"
     identifier = "casestudies"
     name = "Case Studies"
     title = "Case Studies"
-    url = "/solutions#case-studies"
+    url = "https://go.dev/solutions#case-studies"
     parent = "solutions"
     weight = -111
 
@@ -69,7 +69,7 @@ title = "go.dev"
     identifier = "learn"
     name = "Getting Started"
     title = "Getting Started"
-    url = "/learn"
+    url = "https://go.dev/learn"
     weight = -100
 
   [[menu.footer]]
@@ -101,7 +101,7 @@ title = "go.dev"
     identifier = "about"
     name = "About"
     title = "About"
-    url = "/about"
+    url = "https://go.dev//about"
     weight = -80
 
   [[menu.footer]]
