@@ -1,0 +1,188 @@
+<!--{
+    "Title": "Return and handle an error",
+    "Path":  "/doc/tutorial/handle-errors"
+}-->
+
+<p>
+  Handling errors is an essential feature of solid code. In this section, you'll
+  add a bit of code to return an error from the greetings module, then handle it
+  in the caller.
+</p>
+
+<aside class="Note">
+  <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
+  with <a href="create-module.html">Create a Go module</a>.
+</aside>
+
+<ol>
+  <li>
+    In greetings/greetings.go, add the code highlighted below.
+
+    <p>
+      There's no sense sending a greeting back if you don't know who to greet.
+      Return an error to the caller if the name is empty. Copy the following
+      code into greetings.go and save the file.
+    </p>
+
+    <pre>
+package greetings
+
+import (
+    <ins>"errors"</ins>
+    "fmt"
+)
+
+// Hello returns a greeting for the named person.
+func Hello(name string) (string, error) {
+    <ins>// If no name was given, return an error with a message.
+    if name == "" {
+        return "", errors.New("empty name")
+    }</ins>
+
+    // If a name was received, return a value that embeds the name 
+    // in a greeting message.
+    message := fmt.Sprintf("Hi, %v. Welcome!", name)
+    return message, nil
+}
+</pre>
+
+    <p>
+      In this code, you:
+    </p>
+
+    <ul>
+      <li>
+        Change the function so that it returns two values: a
+        <code>string</code> and an <code>error</code>. Your caller will check
+        the second value to see if an error occurred. (Any Go function can
+        <a href="https://golang.org/doc/effective_go.html#multiple-returns"
+          >return multiple values</a
+        >.)
+      </li>
+      <li>
+        Import the Go standard library <code>errors</code> package so you can
+        use its
+        <a href="https://golang.org/pkg/errors/#example_New"
+          ><code>errors.New</code> function</a
+        >.
+      </li>
+      <li>
+        Add an <code>if</code> statement to check for an invalid request (an
+        empty string where the name should be) and return an error if the
+        request is invalid. The <code>errors.New</code> function returns an
+        <code>error</code> with your message inside.
+      </li>
+      <li>
+        Add <code>nil</code> (meaning no error) as a second value in the
+        successful return. That way, the caller can see that the function
+        succeeded.
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    In your hello/hello.go file, handle the error now returned by the
+    <code>Hello</code> function, along with the non-error value.
+
+    <p>
+      Paste the following code into hello.go.
+    </p>
+
+    <pre>
+package main
+
+import (
+    "fmt"
+    <ins>"log"</ins>
+
+    "example.com/greetings"
+)
+
+func main() {
+    <ins>// Set properties of the predefined Logger, including
+    // the log entry prefix and a flag to disable printing
+    // the time, source file, and line number.
+    log.SetPrefix("greetings: ")
+    log.SetFlags(0)</ins>
+
+    // Request a greeting message.
+    message, err := greetings.Hello("")
+    <ins>// If an error was returned, print it to the console and
+    // exit the program.
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // If no error was returned, print the returned message
+    // to the console.</ins>
+    fmt.Println(message)
+}
+</pre>
+
+    <p>
+      In this code, you:
+    </p>
+
+    <ul>
+      <li>
+        Configure the
+        <a href="https://golang.org/pkg/log/"><code>log</code> package</a> to
+        print the command name ("greetings: ") at the start of its log messages,
+        without a time stamp or source file information.
+      </li>
+      <li>
+        Assign both of the <code>Hello</code> return values, including the
+        <code>error</code>, to variables.
+      </li>
+      <li>
+        Change the <code>Hello</code> argument from Gladys’s name to an empty
+        string, so you can try out your error-handling code.
+      </li>
+      <li>
+        Look for a non-nil <code>error</code> value. There's no sense continuing
+        in this case.
+      </li>
+      <li>
+        Use the functions in the standard library's <code>log package</code> to
+        output error information. If you get an error, you use the
+        <code>log</code> package's
+        <a href="https://pkg.go.dev/log?tab=doc#Fatal"
+          ><code>Fatal</code> function</a
+        >
+        to print the error and stop the program.
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    At the command line in the <code>hello</code> directory, run hello.go to
+    confirm that the code works.
+
+    <p>
+      Now that you're passing in an empty name, you'll get an error.
+    </p>
+
+    <pre>
+$ go run hello.go
+greetings: empty name
+exit status 1
+</pre
+    >
+  </li>
+</ol>
+
+<p>
+  That's essentially how error handling in Go works: Return an error as a value
+  so the caller can check for it. It's pretty simple. In the tutorial's
+  <a href="random-greeting.html">next topic</a>, you'll use a Go slice to return
+  a randomly-selected greeting.
+</p>
+
+<p class="Navigation">
+  <a class="Navigation-prev" href="call-module-code.html"
+    >&lt; Call your code from another module</a
+  >
+  <a class="Navigation-next" href="random-greeting.html"
+    >Return a random greeting &gt;</a
+  >
+</p>

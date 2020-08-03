@@ -1,0 +1,204 @@
+<!--{
+    "Title": "Download and install",
+    "Path":  "/doc/install"
+}-->
+<p>
+  Download and install Go quickly with the steps described here.
+</p>
+<p>For other content on installing, you might be interested in:</p>
+<ul>
+  <li>
+    <a href="/doc/manage-install.html">Managing Go installations</a> -- How to
+    install multiple versions and uninstall.
+  </li>
+  <li>
+    <a href="/doc/install-source.html">Installing Go from source</a> -- How to
+    check out the sources, build them on your own machine, and run them.
+  </li>
+</ul>
+<h2 id="download">1. Go download.</h2>
+<p>
+  Click the button below to download the Go installer.
+</p>
+<p>
+  <a href="/dl/" id="start" class="download js-download">
+    <span id="download-button" class="big js-downloadButton">Download Go</span>
+    <span id="download-description" class="desc js-downloadDescription"></span>
+  </a>
+</p>
+<p>
+  Don't see your operating system here? Try one of the
+  <a href="https://golang.org/dl/">other downloads</a>.
+</p>
+<aside class="Note">
+  <strong>Note:</strong> By default, the <code>go</code> command downloads and
+  authenticates modules using the Go module mirror and Go checksum database
+  run by Google. <a href="https://golang.org/dl">Learn more.</a>
+</aside>
+<h2 id="install">2. Go install.</h2>
+<p>
+  Select the tab for your computer's operating system below, then follow its
+  installation instructions.
+</p>
+<div id="os-install-tabs" class="TabSection js-tabSection">
+  <div id="os-install-tablist" class="TabSection-tabList" role="tablist">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="linux-tab"
+      id="linux"
+      tabindex="0"
+      class="TabSection-tab active"
+    >
+      Linux
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="mac-tab"
+      id="mac"
+      tabindex="-1"
+      class="TabSection-tab"
+    >
+      Mac
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="windows-tab"
+      id="windows"
+      tabindex="-1"
+      class="TabSection-tab"
+    >
+      Windows
+    </button>
+  </div>
+  <div
+    role="tabpanel"
+    id="linux-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="linux"
+  >
+    <p>
+      If you have a previous version of Go installed, be sure to
+      <a href="manage-install">remove it</a> before installing another.
+    </p>
+    <ol>
+      <li>
+        Download the archive and extract it into /usr/local, creating a Go tree
+        in /usr/local/go.
+        <p>
+          For example, run the following as root or through <code>sudo</code>:
+        </p>
+        <pre>
+tar -C /usr/local -xzf go1.14.3.linux-amd64.tar.gz
+</pre
+        >
+      </li>
+      <li>
+        Add /usr/local/go/bin to the <code>PATH</code> environment variable.
+        <p>
+          You can do this by adding the following line to your $HOME/.profile or
+          /etc/profile (for a system-wide installation):
+        </p>
+        <pre>
+export PATH=$PATH:/usr/local/go/bin
+</pre
+        >
+        <p>
+          <strong>Note:</strong> Changes made to a profile file may not apply
+          until the next time you log into your computer. To apply the changes
+          immediately, just run the shell commands directly or execute them from
+          the profile using a command such as
+          <code>source $HOME/.profile</code>.
+        </p>
+      </li>
+      <li>
+        Verify that you've installed Go by opening a command prompt and typing
+        the following command:
+        <pre>
+$ go version
+</pre
+        >
+      </li>
+      <li>Confirm that the command prints the installed version of Go.</li>
+    </ol>
+  </div>
+  <div
+    role="tabpanel"
+    id="mac-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="mac"
+    hidden
+  >
+    <ol>
+      <li>
+        Open the package file you downloaded and follow the prompts to install
+        Go.
+        <p>
+          The package installs the Go distribution to /usr/local/go. The package
+          should put the /usr/local/go/bin directory in your
+          <code>PATH</code> environment variable. You may need to restart any
+          open Terminal sessions for the change to take effect.
+        </p>
+      </li>
+      <li>
+        Verify that you've installed Go by opening a command prompt and typing
+        the following command:
+        <pre>
+$ go version
+</pre
+        >
+      </li>
+      <li>Confirm that the command prints the installed version of Go.</li>
+    </ol>
+  </div>
+  <div
+    role="tabpanel"
+    id="windows-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="windows"
+    hidden
+  >
+    <ol>
+      <li>
+        Open the MSI file you downloaded and follow the prompts to install Go.
+        <p>
+          By default, the installer will install Go to C:\Go. You can change the
+          location as needed. After installing, you will need to close and
+          reopen any open command prompts so that changes to the environment
+          made by the installer are reflected at the command prompt.
+        </p>
+      </li>
+      <li>
+        Verify that you've installed Go.
+        <ol>
+          <li>
+            In <strong>Windows</strong>, click the <strong>Start</strong> menu.
+          </li>
+          <li>
+            In the menu's search box, type <code>cmd</code>, then press the
+            <strong>Enter</strong> key.
+          </li>
+          <li>
+            In the Command Prompt window that appears, type the following
+            command:
+            <pre>
+$ go version
+</pre
+            >
+          </li>
+          <li>Confirm that the command prints the installed version of Go.</li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+</div>
+<h2 id="code">3. Go code.</h2>
+<p>
+  You're set up! Visit the
+  <a href="tutorial/getting-started.html">Getting Started tutorial</a> to write
+  some simple Go code. It takes about 10 minutes to complete.
+</p>
+
+<script async src="/doc/download.js"></script>

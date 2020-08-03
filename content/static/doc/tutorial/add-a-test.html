@@ -1,0 +1,217 @@
+<!--{
+    "Title": "Add a test",
+    "Path":  "/doc/tutorial/add-a-test"
+}-->
+
+<p>
+  Now that you've gotten your code to a stable place (nicely done, by the way),
+  add a test. Testing your code during development can expose bugs that find
+  their way in as you make changes. In this topic, you add a test for the
+  <code>Hello</code> function.
+</p>
+
+<aside class="Note">
+  <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
+  with <a href="create-module.html">Create a Go module</a>.
+</aside>
+
+<p>
+  Go's built-in support for unit testing makes it easier to test as you go.
+  Specifically, using naming conventions, Go's <code>testing</code> package, and
+  the <code>go test</code> command, you can quickly write and execute tests.
+</p>
+
+<ol>
+  <li>
+    In the greetings directory, create a file called greetings_test.go.
+
+    <p>
+      Ending a file's name with _test.go tells the <code>go test</code> command
+      that this file contains test functions.
+    </p>
+  </li>
+
+  <li>
+    In greetings_test.go, paste the following code and save the file.
+
+    <pre>
+package greetings
+
+import (
+    "testing"
+    "regexp"
+)
+
+// TestHelloName calls greetings.Hello with a name, checking 
+// for a valid return value.
+func TestHelloName(t *testing.T) {
+    name := "Gladys"
+    want := regexp.MustCompile(`\b`+name+`\b`)
+    msg, err := Hello("Gladys")
+    if !want.MatchString(msg) || err != nil {
+        t.Fatalf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+    }
+}
+
+// TestHelloEmpty calls greetings.Hello with an empty string, 
+// checking for an error.
+func TestHelloEmpty(t *testing.T) {
+    msg, err := Hello("")
+    if msg != "" || err == nil {
+        t.Fatalf(`Hello("") = %q, %v, want "", error`, msg, err)
+    }
+}
+</pre
+    >
+
+    <p>
+      If this code, you:
+    </p>
+
+    <ul>
+      <li>
+        Implement test functions in the same package as the code you're testing.
+      </li>
+      <li>
+        Create two test functions to test the
+        <code>greetings.Hello</code> function. Test function names have the form
+        <code>Test<em>Name</em></code
+        >, where <em>Name</em> is specific to the test. Also, test functions
+        take a pointer to the
+        <a href="https://golang.org/pkg/testing/"
+          ><code>testing</code> package's</a
+        >
+        <code>testing.T</code> as a parameter. You use this parameter's methods
+        for reporting and logging from your test.
+      </li>
+      <li>
+        Implement two tests:
+
+        <ul>
+          <li>
+            <code>TestHelloName</code> calls the <code>Hello</code> function,
+            passing a <code>name</code> value with which the function should be
+            able to return a valid response message. If the call returns an
+            error or an unexpected response message (one that doesn't include
+            the name you passed in), you use the <code>t</code> parameter's
+            <code>Fatalf</code> method to print a message to the console and end
+            execution.
+          </li>
+          <li>
+            <code>TestHelloEmpty</code> calls the <code>Hello</code> function
+            with an empty string. This test is designed to confirm that your
+            error handling works. If the call returns a non-empty string or no
+            error, you use the <code>t</code> parameter's
+            <a href="https://golang.org/pkg/testing/#T.Fatalf"
+              ><code>Fatalf</code> method</a
+            >
+            to print a message to the console and end execution.
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    At the command line in the greetings directory, run the
+    <a href="https://golang.org/cmd/go/#hdr-Test_packages"
+      ><code>go test</code> command</a
+    >
+    to execute the test.
+
+    <p>
+      The <code>go test</code> command executes test functions (whose names
+      begin with <code>Test</code>) in test files (whose names end with
+      _test.go). You can add the <code>-v</code> flag to get verbose output that
+      lists all of the tests and their results.
+    </p>
+
+    <p>
+      The tests should pass.
+    </p>
+
+    <pre>
+$ go test
+PASS
+ok      example.com/greetings   0.364s
+
+$ go test -v
+=== RUN   TestHelloName
+--- PASS: TestHelloName (0.00s)
+=== RUN   TestHelloEmpty
+--- PASS: TestHelloEmpty (0.00s)
+PASS
+ok      example.com/greetings   0.372s
+</pre
+    >
+  </li>
+
+  <li>
+    Break the <code>greetings.Hello</code> function to view a failing test.
+
+    <p>
+      The <code>TestHelloName</code> test function checks the return value for
+      the name you specified as a <code>Hello</code> function parameter. To view
+      a failing test result, change the <code>greetings.Hello</code> function so
+      that it no longer includes the name.
+    </p>
+
+    <p>
+      In greetings/greetings.go, paste the following code in place of the
+      <code>Hello</code> function. Note that the highlighted lines change the
+      value that the function returns, as if the <code>name</code> argument had
+      been accidentally removed.
+    </p>
+
+    <pre>
+// Hello returns a greeting for the named person.
+func Hello(name string) (string, error) {
+    // If no name was given, return an error with a message.
+    if name == "" {
+        return name, errors.New("empty name")
+    }
+    // Create a message using a random format.
+    <ins>// message := fmt.Sprintf(randomFormat(), name)
+    message := fmt.Sprint(randomFormat())</ins>
+    return message, nil
+}
+</pre>
+  </li>
+
+  <li>
+    At the command line in the greetings directory, run <code>go test</code> to
+    execute the test.
+
+    <p>
+      This time, run <code>go test</code> without the <code>-v</code> flag. The
+      output will include results for only the tests that failed, which can be
+      useful when you have a lot of tests. The <code>TestHelloName</code> test
+      should fail -- <code>TestHelloEmpty</code> still passes.
+    </p>
+
+    <pre>
+$ go test
+--- FAIL: TestHelloName (0.00s)
+    greetings_test.go:15: Hello("Gladys") = "Hail, %v! Well met!", &lt;nil>, want match for `\bGladys\b`, nil
+FAIL
+exit status 1
+FAIL    example.com/greetings   0.182s
+</pre
+    >
+  </li>
+</ol>
+
+<p>
+  This topic introduced Go's built-in support for unit testing. In the
+  tutorial's <a href="compile-install.html">next topic</a>, you'll see how to
+  compile and install your code to run it locally.
+</p>
+
+<p class="Navigation">
+  <a class="Navigation-prev" href="greetings-multiple-people.html"
+    >&lt; Return greetings for multiple people</a
+  >
+  <a class="Navigation-next" href="compile-install.html"
+    >Compile and install the application &gt;</a
+  >
+</p>

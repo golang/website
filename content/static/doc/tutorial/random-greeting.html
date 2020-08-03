@@ -1,0 +1,156 @@
+<!--{
+    "Title": "Return a random greeting",
+    "Path":  "/doc/tutorial/random-greeting"
+}-->
+
+<p>
+  In this section, you'll change your code so that instead of returning a single
+  greeting every time, it returns one of several predefined greeting messages.
+</p>
+
+<aside class="Note">
+  <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
+  with <a href="create-module.html">Create a Go module</a>.
+</aside>
+
+<p>
+  To do this, you'll use a Go slice. A
+  <a href="https://blog.golang.org/slices-intro"><em>slice</em></a> is like an
+  array, except that it's dynamically sized as you add and remove items. It's
+  one of the most useful types in Go. You'll add a small slice to contain three
+  greeting messages, then have your code return one of the messages randomly.
+</p>
+
+<ol>
+  <li>
+    In greetings/greetings.go, change your code so it looks like the following.
+
+    <pre>
+package greetings
+
+import (
+    "errors"
+    "fmt"
+    <ins>"math/rand"
+    "time"</ins>
+)
+
+// Hello returns a greeting for the named person.
+func Hello(name string) (string, error) {
+    // If no name was given, return an error with a message.
+    if name == "" {
+        return name, errors.New("empty name")
+    }
+    // Create a message using a random format.
+    message := fmt.Sprintf(<ins>randomFormat()</ins>, name)
+    return message, nil
+}
+
+<ins>// init sets initial values for variables used in the function.
+func init() {
+    rand.Seed(time.Now().UnixNano())
+}
+
+// randomFormat returns one of a set of greeting messages. The returned
+// message is selected at random.
+func randomFormat() string {
+    // A slice of message formats.
+    formats := []string{
+        "Hi, %v. Welcome!",
+        "Great to see you, %v!",
+        "Hail, %v! Well met!",
+    }
+
+    // Return a randomly selected message format by specifying
+    // a random index for the slice of formats.
+    return formats[rand.Intn(len(formats))]
+}</ins>
+</pre>
+
+    <p>
+      In this code, you:
+    </p>
+
+    <ul>
+      <li>
+        Add a <code>randomFormat</code> function that returns a randomly
+        selected format for a greeting message. Note that
+        <code>randomFormat</code> starts with a lowercase letter, making it
+        accessible only to code in its own package (in other words, it's not
+        exported).
+      </li>
+      <li>
+        In <code>randomFormat</code>, declare a <code>formats</code> slice with
+        three message formats. When declaring a slice, you omit its size in the
+        brackets, like this: <code>[]string</code>. This tells Go that the array
+        underlying a slice can be dynamically sized.
+      </li>
+      <li>
+        Use the
+        <a href="https://golang.org/pkg/math/rand/"
+          ><code>math/rand</code> package</a
+        >
+        to generate a random number for selecting an item from the slice.
+      </li>
+      <li>
+        Add an
+        <a href="https://golang.org/doc/effective_go.html#init"
+          ><code>init</code> function</a
+        >
+        to seed the <code>rand</code> package with the current time. Go executes
+        <code>init</code> functions automatically at program startup, after
+        global variables have been initialized.
+      </li>
+      <li>
+        In <code>Hello</code>, call the <code>randomFormat</code> function to
+        get a format for the message you'll return, then use the format and
+        <code>name</code> value together to create the message.
+      </li>
+      <li>Return the message (or an error) as you did before.</li>
+    </ul>
+
+    <p>
+      Your hello.go needn't change.
+    </p>
+  </li>
+
+  <li>
+    At the command line, change to the hello directory, then run hello.go to
+    confirm that the code works. Run it multiple times, noticing that the
+    greeting changes.
+
+    <p>
+      Oh -- don't forget to add Gladys's name (or a different name, if you like)
+      as an argument to the <code>Hello</code> function call in hello.go:
+      <code>greetings.Hello("Gladys")</code>
+    </p>
+
+    <pre>
+$ go build
+$ ./hello
+Great to see you, Gladys!
+
+$ ./hello
+Hi, Gladys. Welcome!
+
+$ ./hello
+Hail, Gladys! Well met!
+</pre
+    >
+  </li>
+</ol>
+
+<p>
+  That's an introduction to a Go slice. To get even more use out of this type,
+  you'll use a slice to greet multiple people. That's in the tutorial's
+  <a href="greetings-multiple-people.html">next topic</a>.
+</p>
+
+<p class="Navigation">
+  <a class="Navigation-prev" href="handle-errors.html"
+    >&lt; Return and handle an error</a
+  >
+  <a class="Navigation-next" href="greetings-multiple-people.html"
+    >Return greetings for multiple people &gt;</a
+  >
+</p>

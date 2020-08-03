@@ -1,0 +1,259 @@
+<!--{
+    "Title": "Tutorial: Create a Go module",
+    "Path":  "/doc/tutorial/create-module"
+}-->
+
+<p>
+  This is the first part of a tutorial that introduces a few fundamental
+  features of the Go language. If you're just getting started with Go, be sure
+  to take a look at the
+  <a href="getting-started.html">getting started</a> tutorial, which introduces
+  the <code>go</code> command, Go modules, and very simple Go code.
+</p>
+
+<p>
+  In this tutorial you'll create two modules. The first is a library which is
+  intended to be imported by other libraries or applications. The second is a
+  caller application which will use the first.
+</p>
+
+<p>
+  This tutorial's sequence includes six brief topics that each illustrate a
+  different part of the language.
+</p>
+
+<ol>
+  <li>
+    Create a module -- Write a small module with functions you can call from
+    another module.
+  </li>
+  <li>
+    <a href="call-module-code.html">Call your code from another module</a> --
+    Add simple error handling.
+  </li>
+  <li>
+    <a href="handle-errors.html">Return and handle an error</a> -- Add simple
+    error handling.
+  </li>
+  <li>
+    <a href="random-greeting.html">Return a random greeting</a> -- Handle data
+    in slices (Go's dynamically-sized arrays).
+  </li>
+  <li>
+    <a href="greetings-multiple-people.html"
+      >Return greetings for multiple people</a
+    >
+    -- Store key/value pairs in a map.
+  </li>
+  <li>
+    <a href="add-a-test.html">Add a test</a> -- Use Go's built-in unit testing
+    features to test your code.
+  </li>
+  <li>
+    <a href="compile-install.html">Compile and install the application</a> --
+    Compile and install your code locally.
+  </li>
+</ol>
+
+<aside class="Note">
+  <strong>Note:</strong> For other tutorials, see
+  <a href="index.html">Tutorials</a>.
+</aside>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+  <li>
+    <strong>Some programming experience.</strong> The code here is pretty
+    simple, but it helps to know something about functions, loops, and arrays.
+  </li>
+  <li>
+    <strong>A tool to edit your code.</strong> Any text editor you have will
+    work fine. Most text editors have good support for Go. The most popular are
+    VSCode (free), GoLand (paid), and Vim (free).
+  </li>
+  <li>
+    <strong>A command terminal.</strong> Go works well using any terminal on
+    Linux and Mac, and on PowerShell or cmd in Windows.
+  </li>
+</ul>
+
+<h2 id="start">Start a module that others can use</h2>
+
+<p>
+  Start by creating a
+  <a href="https://golang.org/doc/code.html#Organization">Go module</a>. In a
+  module, you collect one or more related packages for a discrete and useful set
+  of functions. For example, you might create a module with packages that have
+  functions for doing financial analysis so that others writing financial
+  applications can use your work.
+</p>
+
+<p>
+  Go code is grouped into packages, and packages are grouped into modules. Your
+  package's module specifies the context Go needs to run the code, including the
+  Go version the code is written for and the set of other modules it requires.
+</p>
+
+<p>
+  As you add or improve functionality in your module, you publish new versions
+  of the module. Developers writing code that calls functions in your module can
+  import the module's updated packages and test with the new version before
+  putting it into production use.
+</p>
+
+<ol>
+  <li>
+    Open a command prompt and <code>cd</code> to your home directory.
+
+    <p>
+      On Linux or Mac:
+    </p>
+
+    <pre>
+cd
+</pre
+    >
+
+    <p>
+      On Windows:
+    </p>
+
+    <pre>
+cd %HOMEPATH%
+</pre
+    >
+  </li>
+
+  <li>
+    Create a <code>greetings</code> directory for your Go module source code.
+    This is where you'll write your module code.
+
+    <p>
+      For example, from your home directory use the following commands:
+    </p>
+
+    <pre>
+mkdir greetings
+cd greetings
+</pre
+    >
+  </li>
+
+  <li>
+    Start your module using the
+    <a
+      href="https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory"
+      ><code>go mod init</code> command</a
+    >
+    to create a go.mod file.
+
+    <p>
+      Run the <code>go mod init</code> command, giving it the path of the module
+      your code will be in. Here, use <code>example.com/greetings</code> for the
+      module path -- in production code, this would be the URL from which your
+      module can be downloaded.
+    </p>
+
+    <pre>
+$ go mod init example.com/greetings
+go: creating new go.mod: module example.com/greetings
+</pre
+    >
+
+    <p>
+      The <code>go mod init</code> command creates a go.mod file that identifies
+      your code as a module that might be used from other code. The file you
+      just created includes only the name of your module and the Go version your
+      code supports. But as you add dependencies -- meaning packages from other
+      modules -- the go.mod file will list the specific module versions to use.
+      This keeps builds reproducible and gives you direct control over which
+      module versions to use.
+    </p>
+  </li>
+
+  <li>
+    In your text editor, create a file in which to write your code and call it
+    greetings.go.
+  </li>
+
+  <li>
+    Paste the following code into your greetings.go file and save the file.
+
+    <pre>
+package greetings
+
+import "fmt"
+
+// Hello returns a greeting for the named person.
+func Hello(name string) string {
+// Return a greeting that embeds the name in a message.
+    message := fmt.Sprintf("Hi, %v. Welcome!", name)
+    return message
+}
+</pre
+    >
+
+    <p>
+      This is the first code for your module. It returns a greeting to any
+      caller that asks for one. You'll write code that calls this function in
+      the next step.
+    </p>
+
+    <p>
+      In this code, you:
+    </p>
+
+    <ul>
+      <li>
+        Declare a <code>greetings</code> package to collect related functions.
+      </li>
+      <li>
+        Implement a <code>Hello</code> function to return the greeting.
+        <p>
+          This function takes a <code>name</code> parameter whose type is
+          <code>string</code>, and returns a <code>string</code>. In Go, a
+          function whose name starts with a capital letter can be called by a
+          function not in the same package. This is known in Go as an
+          <a href="https://tour.golang.org/basics/3"><em>exported</em> name</a>.
+        </p>
+        <img src="images/function-syntax.png" width="300px" />
+      </li>
+
+      <li>
+        Declare a <code>message</code> variable to hold your greeting.
+        <p>
+          In Go, the <code>:=</code> operator is a shortcut for declaring and
+          initializing a variable in one line (Go uses the value on the right to
+          determine the variable's type). Taking the long way, you might have
+          written this as:
+        </p>
+        <pre>
+var message string
+message = fmt.Sprintf("Hi, %v. Welcome!", name)
+</pre
+        >
+      </li>
+
+      <li>
+        Use the <code>fmt</code> package's <code>Sprintf</code> function to
+        create a greeting message. The first argument is a format string, and
+        <code>Sprintf</code> substitutes the <code>name</code> parameter's value
+        for the <code>%v</code> format verb. Inserting the value of the
+        <code>name</code> parameter completes the greeting text.
+      </li>
+      <li>Return the formatted greeting text to the caller.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>
+  In the <a href="call-module-code.html">next step</a>, you'll call this
+  function from another module.
+</p>
+
+<p class="Navigation">
+  <a class="Navigation-next" href="call-module-code.html"
+    >Call your code from another module &gt;</a
+  >
+</p>
