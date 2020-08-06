@@ -34,12 +34,12 @@ var Releases = map[GoVer]Release{
 	{1, 14, 7}: {
 		Date:     Date{2020, 8, 6},
 		Security: true,
-		Future:   true,
+		Packages: []string{"encoding/binary"},
 	},
 	{1, 13, 15}: {
 		Date:     Date{2020, 8, 6},
 		Security: true,
-		Future:   true,
+		Packages: []string{"encoding/binary"},
 	},
 
 	{1, 14, 6}: {
