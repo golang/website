@@ -99,10 +99,27 @@ func serveJSON(w http.ResponseWriter, r *http.Request, d listTemplateData) {
 		return
 	}
 	var releases []Release
-	switch r.URL.Query().Get("include") {
-	case "all":
-		releases = append(append(d.Stable, d.Archive...), d.Unstable...)
-	default:
+	includes := strings.Split(r.URL.Query().Get("include"), ",")
+	includesMap := map[string]bool{}
+	for _, include := range includes {
+		includesMap[include] = true
+	}
+	if includesMap["all"] {
+		releases = append(releases, d.Stable...)
+		releases = append(releases, d.Archive...)
+		releases = append(releases, d.Unstable...)
+	} else {
+		if includesMap["stable"] {
+			releases = append(releases, d.Stable...)
+		}
+		if includesMap["archive"] {
+			releases = append(releases, d.Archive...)
+		}
+		if includesMap["unstable"] {
+			releases = append(releases, d.Unstable...)
+		}
+	}
+	if len(releases) == 0 {
 		releases = d.Stable
 	}
 	w.Header().Set("Content-Type", "application/json")
