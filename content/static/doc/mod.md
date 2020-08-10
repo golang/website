@@ -1830,10 +1830,10 @@ disabling module-aware mode.
 
 ### `GOPROXY` protocol {#goproxy-protocol}
 
-A [*module proxy*](#glos-module-proxy) is an HTTP server that can respond to
-`GET` requests for paths specified below. The requests have no query parameters,
-and no specific headers are required, so even a site serving from a fixed file
-system (including a `file://` URL) can be a module proxy.
+A <dfn>module proxy</dfn> is an HTTP server that can respond to `GET` requests
+for paths specified below. The requests have no query parameters, and no
+specific headers are required, so even a site serving from a fixed file system
+(including a `file://` URL) can be a module proxy.
 
 Successful HTTP responses must have the status code 200 (OK). Redirects (3xx)
 are followed. Responses with status codes 4xx and 5xx are treated as errors.
@@ -1843,17 +1843,17 @@ elsewhere. Error responses should have content type `text/plain` with
 `charset` either `utf-8` or `us-ascii`.
 
 The `go` command may be configured to contact proxies or source control servers
-using the `GOPROXY` environment variable, which is a comma-separated list of
-URLs or the keywords `direct` or `off` (see [Environment
-variables](#environment-variables) for details). When the `go` command receives
-a 404 or 410 response from a proxy, it falls back to later proxies in the
-list. The `go` command does not fall back to later proxies in response to other
-4xx and 5xx errors. This allows a proxy to act as a gatekeeper, for example, by
-responding with error 403 (Forbidden) for modules not on an approved list.
-
-<!-- TODO(katiehockman): why only fall back for 410/404? Either add the details
-here, or write a blog post about how to build multiple types of proxies. e.g.
-a "privacy preserving one" and an "authorization one" -->
+using the `GOPROXY` environment variable, which accepts a list of proxy URLs.
+The list may include the keywords `direct` or `off` (see [Environment
+variables](#environment-variables) for details). List elements may be separated
+by commas (`,`) or pipes (`|`), which determine error fallback behavior. When a
+URL is followed by a comma, the `go` command falls back to later sources only
+after a 404 (Not Found) or 410 (Gone) response. When a URL is followed by a
+pipe, the `go` command falls back to later sources after any error, including
+non-HTTP errors such as timeouts. This error handling behavior lets a proxy act
+as a gatekeeper for unknown modules. For example, a proxy could respond with
+error 403 (Forbidden) for modules not on an approved list (see [Private proxy
+serving private modules](#private-module-proxy-private)).
 
 The table below specifies queries that a module proxy must respond to. For each
 path, `$base` is the path portion of a proxy URL,`$module` is a module path, and
@@ -3035,23 +3035,29 @@ of all environment variables recognized by the `go` command.
       <td><code>GOPROXY</code></td>
       <td>
         <p>
-          Comma-separated list of module proxy URLs. When the <code>go</code>
-          command looks up information about a module, it will contact each
-          proxy in the list, in sequence. A proxy may respond with a 404 (Not
-          Found) or 410 (Gone) status to indicate the module is not available
-          and the <code>go</code> command should contact the next proxy in
-          the list. Any other error will cause the <code>go</code> command
-          to stop without contacting other proxies in the list. This allows
-          a proxy to act as a gatekeeper, for example, by responding with
-          403 (Forbidden) for modules not on an approved list.
+          List of module proxy URLs, separated by commas (<code>,</code>) or
+          pipes (<code>|</code>). When the <code>go</code> command looks up
+          information about a module, it contacts each proxy in the list in
+          sequence until it receives a successful response or a terminal error.
+          A proxy may respond with a 404 (Not Found) or 410 (Gone) status to
+          indicate the module is not available on that server.
+        </p>
+        <p>
+          The <code>go</code> command's error fallback behavior is determined
+          by the separator characters between URLs. If a proxy URL is followed
+          by a comma, the <code>go</code> command falls back to the next URL
+          after a 404 or 410 error; all other errors are considered terminal.
+          If the proxy URL is followed by a pipe, the <code>go</code> command
+          falls back to the next source after any error, including non-HTTP
+          errors like timeouts.
         </p>
         <p>
           <code>GOPROXY</code> URLs may have the schemes <code>https</code>,
-          <code>http</code>, or <code>file</code>. If no scheme is specified,
+          <code>http</code>, or <code>file</code>. If a URL has no scheme,
           <code>https</code> is assumed. A module cache may be used direclty as
           a file proxy:
         </p>
-        <pre>GOPROXY=file://$(go env GOPATH)/pkg/mod/cache/download</pre>
+        <pre>GOPROXY=file://$(go env GOMODCACHE)/cache/download</pre>
         <p>Two keywords may be used in place of proxy URLs:</p>
         <ul>
           <li>
@@ -3059,24 +3065,26 @@ of all environment variables recognized by the `go` command.
           </li>
           <li>
             <code>direct</code>: download directly from version control
-            repositories.
+            repositories instead of using a module proxy.
           </li>
         </ul>
         <p>
           <code>GOPROXY</code> defaults to
           <code>https://proxy.golang.org,direct</code>. Under that
-          configuration, the <code>go</code> command will first contact the Go
-          module mirror run by Google, then fall back to a direct connection if
+          configuration, the <code>go</code> command first contacts the Go
+          module mirror run by Google, then falls back to a direct connection if
           the mirror does not have the module. See
           <a href="https://proxy.golang.org/privacy">https://proxy.golang.org/privacy</a>
           for the mirror's privacy policy. The <code>GOPRIVATE</code> and
           <code>GONOPROXY</code> environment variables may be set to prevent
-          specific modules from being downloaded using proxies.
+          specific modules from being downloaded using proxies. See
+          <a href="#privacy">Privacy</a> for information on
+          private proxy configuration.
         </p>
         <p>
           See <a href="#module-proxy">Module proxies</a> and
           <a href="#resolve-pkg-mod">Resolving a package to a module</a> for
-          more information.
+          more information on how proxies are used.
         </p>
       </td>
     </tr>
