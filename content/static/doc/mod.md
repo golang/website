@@ -1,37 +1,46 @@
 <!--{
   "Title": "Go Modules Reference",
-  "Subtitle": "Version of Feb 5, 2019",
+  "Subtitle": "For Go 1.15",
   "Path": "/ref/mod"
 }-->
-<!-- TODO(jayconrod): use <dfn> tags where meaningful.
-Currently, *term* is used instead, which renders to <em>term</em>. -->
+<!-- TODO(golang.org/issue/33637): Write focused "guide" articles on specific
+module topics and tasks. Link to those instead of the blog, which will probably
+not be updated over time. -->
 
 ## Introduction {#introduction}
 
+Modules are how Go manages dependencies.
+
+This document is a detailed reference manual for Go's module system. For an
+introduction to creating Go projects, see [How to Write Go
+Code](https://golang.org/doc/code.html). For information on using modules,
+migrating projects to modules, and other topics, see the blog series starting
+with [Using Go Modules](https://blog.golang.org/using-go-modules).
+
 ## Modules, packages, and versions {#modules-overview}
 
-A [*module*](#glos-module) is a collection of packages that are released,
-versioned, and distributed together. A module is identified by a [*module
-path*](#glos-module-path), which is declared in a [`go.mod`
-file](#go.mod-files), together with information about the module's
-dependencies. The [*module root directory*](#glos-module-root-directory) is the
-directory that contains the `go.mod` file. The [*main
-module*](#glos-main-module) is the module containing the directory where the
-`go` command is invoked.
+A <dfn>module</dfn> is a collection of packages that are released, versioned,
+and distributed together. Modules may be downloaded directly from version
+control repositories or from module proxy servers.
 
-Each [*package*](#glos-package) within a module is a collection of source files
-in the same directory that are compiled together. A [*package
-path*](#glos-package-path) is the module path joined with the subdirectory
-containing the package (relative to the module root). For example, the module
-`"golang.org/x/net"` contains a package in the directory `"html"`. That
-package's path is `"golang.org/x/net/html"`.
+A module is identified by a [module path](#glos-module-path), which is declared
+in a [`go.mod` file](#go.mod-files), together with information about the
+module's dependencies. The <dfn>module root directory</dfn> is the directory
+that contains the `go.mod` file. The <dfn>main module</dfn> is the module
+containing the directory where the `go` command is invoked.
+
+Each <dfn>package</dfn> within a module is a collection of source files in the
+same directory that are compiled together. A <dfn>package path</dfn> is the
+module path joined with the subdirectory containing the package (relative to the
+module root). For example, the module `"golang.org/x/net"` contains a package in
+the directory `"html"`. That package's path is `"golang.org/x/net/html"`.
 
 ### Module paths {#module-path}
 
-A [*module path*](#glos-module-path) is the canonical name for a module,
-declared with the [`module` directive](#go.mod-module) in the module's
-[`go.mod` file](#glos-go.mod-file). A module's path is the prefix for package
-paths within the module.
+A <dfn>module path</dfn> is the canonical name for a module, declared with the
+[`module` directive](#go.mod-module) in the module's [`go.mod`
+file](#glos-go.mod-file). A module's path is the prefix for package paths within
+the module.
 
 A module path should describe both what the module does and where to find it.
 Typically, a module path consists of a repository root path, a directory within
@@ -55,7 +64,7 @@ version 2 or higher).
   `gopls`. See [Mapping versions to commits](#vcs-version) and [Module
   directories within a repository](#vcs-dir).
 * If the module is released at major version 2 or higher, the module path must
-  end with a [*major version suffix*](#major-version-suffixes) like
+  end with a [major version suffix](#major-version-suffixes) like
   `/v2`. This may or may not be part of the subdirectory name. For example, the
   module with path `golang.org/x/repo/sub/v2` could be in the `/sub` or
   `/sub/v2` subdirectory of the repository `golang.org/x/repo`.
@@ -67,8 +76,8 @@ module paths.
 
 ### Versions {#versions}
 
-A [*version*](#glos-version) identifies an immutable snapshot of a module, which
-may be either a [release](#glos-release-version) or a
+A <dfn>version</dfn> identifies an immutable snapshot of a module, which may be
+either a [release](#glos-release-version) or a
 [pre-release](#glos-pre-release-version). Each version starts with the letter
 `v`, followed by a semantic version. See [Semantic Versioning
 2.0.0](https://semver.org/spec/v2.0.0.html) for details on how versions are
@@ -115,7 +124,7 @@ revisions that don't follow these conventions. However, within the main module,
 the `go` command will automatically convert revision names that don't follow
 this standard into canonical versions. The `go` command will also remove build
 metadata suffixes (except for `+incompatible`) as part of this process. This may
-result in a [*pseudo-version*](#glos-pseudo-version), a pre-release version that
+result in a [pseudo-version](#glos-pseudo-version), a pre-release version that
 encodes a revision identifier (such as a Git commit hash) and a timestamp from a
 version control system. For example, the command `go get -d
 golang.org/x/net@daa7c041` will convert the commit hash `daa7c041` into the
@@ -197,13 +206,13 @@ go list -m -json example.com/mod@abcd1234
 
 ### Major version suffixes {#major-version-suffixes}
 
-Starting with major version 2, module paths must have a [*major version
-suffix*](#glos-major-version-suffix) like `/v2` that matches the major
-version. For example, if a module has the path `example.com/mod` at `v1.0.0`, it
-must have the path `example.com/mod/v2` at version `v2.0.0`.
+Starting with major version 2, module paths must have a <dfn>major version
+suffix</dfn> like `/v2` that matches the major version. For example, if a module
+has the path `example.com/mod` at `v1.0.0`, it must have the path
+`example.com/mod/v2` at version `v2.0.0`.
 
-Major version suffixes implement the [*import compatibility
-rule*](https://research.swtch.com/vgo-import):
+Major version suffixes implement the [<dfn>import compatibility
+rule</dfn>](https://research.swtch.com/vgo-import):
 
 > If an old package and a new package have the same import path,
 > the new package must be backwards compatible with the old package.
@@ -859,9 +868,6 @@ Note also that the `+incompatible` suffix may appear on
 [pseudo-versions](#glos-pseudo-version). For example,
 `v2.0.1-20200722182040-012345abcdef+incompatible` may be a valid pseudo-version.
 
-<!-- TODO(jayconrod): Is it appropriate
-to link to the blog here? Ideally, we would have a more detailed guide. -->
-
 ### Minimal module compatibility {#minimal-module-compatibility}
 
 A module released at major version 2 or higher is required to have a [major
@@ -902,8 +908,8 @@ directory in `GOPATH` mode:
   * `$vn` is a major version suffix,
   * `$dir` is a possibly empty subdirectory,
 * If all of the following are true:
-  * The package `$modpath/$vn/$dir` is not present in any relevant `vendor`
-    directory.
+  * The package `$modpath/$vn/$dir` is not present in any relevant [`vendor`
+    directory](#glos-vendor-directory).
   * A `go.mod` file is present in the same directory as the importing file
     or in any parent directory up to the `$GOPATH/src` root,
   * No `$GOPATH[i]/src/$modpath/$vn/$suffix` directory exists (for any root
@@ -923,8 +929,8 @@ Most `go` commands may run in *Module-aware mode* or *`GOPATH` mode*. In
 module-aware mode, the `go` command uses `go.mod` files to find versioned
 dependencies, and it typically loads packages out of the [module
 cache](#glos-module-cache), downloading modules if they are missing. In `GOPATH`
-mode, the `go` command ignores modules; it looks in `vendor` directories and in
-`GOPATH` to find dependencies.
+mode, the `go` command ignores modules; it looks in [`vendor`
+directories](#glos-vendor-directory) and in `GOPATH` to find dependencies.
 
 Module-aware mode is active by default whenever a `go.mod` file is found in the
 current directory or in any parent directory. For more fine-grained control, the
@@ -951,7 +957,7 @@ build, but it still stores downloaded dependencies (in `GOPATH/pkg/mod`; see
 
 When using modules, the `go` command typically satisfies dependencies by
 downloading modules from their sources into the module cache, then loading
-packages from those downloaded copies. *Vendoring* may be used to allow
+packages from those downloaded copies. <dfn>Vendoring</dfn> may be used to allow
 interoperation with older versions of Go, or to ensure that all files used for a
 build are stored in a single file tree.
 
@@ -1816,13 +1822,6 @@ the `$module` and `$version` elements are case-encoded by replacing every
 uppercase letter with an exclamation mark followed by the corresponding
 lower-case letter. This allows modules `example.com/M` and `example.com/m` to
 both be stored on disk, since the former is encoded as `example.com/!m`.
-
-<!-- TODO(jayconrod): This table has multi-line cells, and GitHub Flavored
-Markdown doesn't have syntax for that, so we use raw HTML. Gitiles doesn't
-include this table in the rendered HTML. Once x/website has a Markdown renderer,
-ensure this table is readable. If the cells are too large, and it's difficult
-to scan, use paragraphs or sections below.
--->
 
 <table class="ModTable">
   <thead>
@@ -2891,7 +2890,7 @@ of all environment variables recognized by the `go` command.
           </li>
         </ul>
         <p>
-          See <a href="mod-commands">Module-aware commands</a> for more
+          See <a href="#mod-commands">Module-aware commands</a> for more
           information.
         </p>
       </td>
@@ -3231,6 +3230,11 @@ paths](#module-path).
 **semantic version tag:** A tag in a version control repository that maps a
 [version](#glos-version) to a specific revision. See [Mapping versions to
 commits](#vcs-version).
+
+<a id="glos-vendor-directory"></a>
+**vendor directory:** A directory named `vendor` that contains packages from
+other modules needed to build packages in the main module. Maintained with
+[`go mod vendor`](#go-mod-vendor). See [Vendoring](#vendoring).
 
 <a id="glos-version"></a>
 **version:** An identifier for an immutable snapshot of a module, written as the
