@@ -57,6 +57,8 @@ var files = []string{
 	"doc/mvs/buildlist.svg",
 	"doc/mvs/downgrade.svg",
 	"doc/mvs/exclude.svg",
+	"doc/mvs/get-downgrade.svg",
+	"doc/mvs/get-upgrade.svg",
 	"doc/mvs/replace.svg",
 	"doc/mvs/upgrade.svg",
 	"doc/root.html",

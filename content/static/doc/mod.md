@@ -1107,11 +1107,6 @@ added. See [Minimal version selection (MVS)](#minimal-version-selection) for
 details on how versions are selected and conflicts are resolved by module-aware
 commands.
 
-<!-- TODO(jayconrod): add diagrams for the examples below.
-We need a consistent strategy for visualizing module graphs here, in the MVS
-section, and perhaps in other documentation (blog posts, etc.).
--->
-
 Other modules may be upgraded when a module named on the command line is added,
 upgraded, or downgraded if the new version of the named module requires other
 modules at higher versions. For example, suppose module `example.com/a` is
@@ -1120,11 +1115,15 @@ at version `v1.2.0`. If module `example.com/b` is currently required at version
 `v1.1.0`, `go get example.com/a@v1.5.0` will also upgrade `example.com/b` to
 `v1.2.0`.
 
+![go get upgrading a transitive requirement](/doc/mvs/get-upgrade.svg)
+
 Other modules may be downgraded when a module named on the command line is
 downgraded or removed. To continue the above example, suppose module
 `example.com/b` is downgraded to `v1.1.0`. Module `example.com/a` would also be
 downgraded to a version that requires `example.com/b` at version `v1.1.0` or
 lower.
+
+![go get downgrading a transitive requirement](/doc/mvs/get-downgrade.svg)
 
 A module requirement may be removed using the version suffix `@none`. This is a
 special kind of downgrade. Modules that depend on the removed module will be

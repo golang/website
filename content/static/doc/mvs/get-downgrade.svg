@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="9 -5 545 196" width="545" height="196">
+  <defs>
+    <font-face font-family="Roboto" font-size="16" panose-1="2 0 0 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-73.24219" underline-thickness="48.828125" slope="0" x-height="528.3203" cap-height="710.9375" ascent="927.7344" descent="-244.14062" font-weight="700">
+      <font-face-src>
+        <font-face-name name="Roboto-Bold"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="14" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Roboto" font-size="16" panose-1="2 0 0 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-73.24219" underline-thickness="48.828125" slope="0" x-height="528.3203" cap-height="710.9375" ascent="927.7344" descent="-244.14062" font-weight="400">
+      <font-face-src>
+        <font-face-name name="Roboto-Regular"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="black">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.17.2\n2020-08-10 18:29:02 +0000</metadata>
+  <g id="Canvas_1" stroke-opacity="1" fill-opacity="1" stroke-dasharray="none" fill="none" stroke="none">
+    <title>Canvas 1</title>
+    <g id="Canvas_1_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_2">
+        <rect x="130" y="0" width="50" height="30" fill="#e0ebf5"/>
+        <rect x="130" y="0" width="50" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+        <text transform="translate(135 5.5)" fill="black">
+          <tspan font-family="Roboto" font-size="16" font-weight="700" fill="black" x="2.1015625" y="15">Main</tspan>
+        </text>
+      </g>
+      <g id="Group_87">
+        <g id="Graphic_68">
+          <rect x="330" y="0" width="16" height="16" fill="#e0ebf5"/>
+          <rect x="330" y="0" width="16" height="16" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+        </g>
+        <g id="Graphic_67">
+          <text transform="translate(357 0)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="0" y="13">New selected version</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Graphic_17">
+        <rect x="170" y="60" width="130" height="50" fill="white"/>
+        <path d="M 170 60 L 300 60 L 300 110 L 170 110 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_16">
+        <rect x="180" y="70" width="50" height="30" fill="#e0ebf5"/>
+        <rect x="180" y="70" width="50" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+        <text transform="translate(185 75.5)" fill="black">
+          <tspan font-family="Roboto" font-size="16" font-weight="700" fill="black" x="1.1210938" y="15">A 1.4</tspan>
+        </text>
+      </g>
+      <g id="Graphic_15">
+        <rect x="240" y="70" width="50" height="30" fill="white"/>
+        <rect x="240" y="70" width="50" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(245 75.5)" fill="black">
+          <tspan font-family="Roboto" font-size="16" font-weight="400" fill="black" x="1.7109375" y="15">A 1.5</tspan>
+        </text>
+      </g>
+      <g id="Graphic_70">
+        <rect x="10" y="140" width="130" height="50" fill="white"/>
+        <path d="M 10 140 L 140 140 L 140 190 L 10 190 Z" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Graphic_71">
+        <rect x="20" y="150" width="50" height="30" fill="#e0ebf5"/>
+        <rect x="20" y="150" width="50" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"/>
+        <text transform="translate(25 155.5)" fill="black">
+          <tspan font-family="Roboto" font-size="16" font-weight="700" fill="black" x="1.3984375" y="15">B 1.1</tspan>
+        </text>
+      </g>
+      <g id="Graphic_72">
+        <rect x="80" y="150" width="50" height="30" fill="white"/>
+        <rect x="80" y="150" width="50" height="30" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        <text transform="translate(85 155.5)" fill="black">
+          <tspan font-family="Roboto" font-size="16" font-weight="400" fill="black" x="1.9492188" y="15">B 1.2</tspan>
+        </text>
+      </g>
+      <g id="Line_75">
+        <line x1="240" y1="97.5" x2="138.85483" y2="148.07259" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Line_27">
+        <line x1="180.53571" y1="31.25" x2="233.07632" y2="64.68493" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Line_78">
+        <line x1="166.60714" y1="31.25" x2="187.6386" y2="60.69404" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+      <g id="Group_94">
+        <g id="Graphic_84">
+          <rect x="330" y="25.391998" width="16" height="16" fill="white"/>
+          <rect x="330" y="25.391998" width="16" height="16" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+        </g>
+        <g id="Graphic_83">
+          <text transform="translate(357 26)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="0" y="13">Unavailable due to downgrade</tspan>
+          </text>
+        </g>
+        <g id="Line_82">
+          <line x1="330" y1="41.392" x2="346" y2="25.391998" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+        </g>
+      </g>
+      <g id="Line_90">
+        <line x1="250" y1="93" x2="280" y2="74" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <g id="Line_91">
+        <line x1="149.58333" y1="31.25" x2="113.13065" y2="140.60804" marker-end="url(#FilledArrow_Marker)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1.0,4.0" stroke-width="1"/>
+      </g>
+      <g id="Line_93">
+        <line x1="90" y1="174" x2="120" y2="155" stroke="#666" stroke-linecap="round" stroke-linejoin="round" stroke-width="6"/>
+      </g>
+      <g id="Line_95">
+        <line x1="143.08333" y1="31.25" x2="62.77117" y2="140.76659" marker-end="url(#FilledArrow_Marker_2)" stroke="black" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      </g>
+    </g>
+  </g>
+</svg>
