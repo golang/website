@@ -1210,7 +1210,7 @@ where we believe that they will serve most users,
 but we aren’t ready to shut down GOPATH just yet.
 We will keep experimenting, simplifying, and revising.
 
-We fully recgonize that
+We fully recognize that
 the Go user community
 built up almost a decade of experience
 and tooling and workflows around GOPATH,

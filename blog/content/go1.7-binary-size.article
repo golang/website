@@ -117,7 +117,7 @@ we could build a version of Go without reflection, though it is
 unclear whether such a restricted language would be sufficiently
 useful.
 For some algorithms in the runtime we could use slower but more
-compact implementions when every kilobyte counts.
+compact implementations when every kilobyte counts.
 All of these call for more research in later development cycles.
 
 To the many contributors who helped make Go 1.7 binaries smaller,
