@@ -2382,8 +2382,8 @@ requires some configuration.
 
 The environment variables below may be used to configure access to private
 modules. See [Environment variables](#environment-variables) for details. See
-also [Privacy](#privacy) for information on controlling information sent to
-public servers.
+also [Privacy](#private-module-privacy) for information on controlling
+information sent to public servers.
 
 * `GOPROXY` — list of module proxy URLs. The `go` command will attempt to
   download modules from each server in sequence. The keyword `direct` instructs
@@ -2544,6 +2544,105 @@ GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
 
 Use caution when taking this approach: environment variables may be appear
 in shell history and in logs.
+
+### Privacy {#private-module-privacy}
+
+The `go` command may download modules and metadata from module proxy
+servers and version control systems. The environment variable `GOPROXY`
+controls which servers are used. The environment variables `GOPRIVATE` and
+`GONOPROXY` control which modules are fetched from proxies.
+
+The default value of `GOPROXY` is:
+
+```
+https://proxy.golang.org,direct
+```
+
+With this setting, when the `go` command downloads a module or module metadata,
+it will first send a request to `proxy.golang.org`, a public module proxy
+operated by Google ([privacy policy](https://proxy.golang.org/privacy)). See
+[`GOPROXY` protocol](#goproxy-protocol) for details on what information is sent
+in each request. The `go` command does not transmit personally identifiable
+information, but it does transmit the full module path being requested. If the
+proxy responds with a 404 (Not Found) or 410 (Gone) status, the `go` command
+will attempt to connect directly to the version control system providing the
+module. See [Version control systems](#vcs) for details.
+
+The `GOPRIVATE` or `GONOPROXY` environment variables may be set to lists of glob
+patterns matching module prefixes that are private and should not be requested
+from any proxy. For example:
+
+```
+GOPRIVATE=*.corp.example.com,*.research.example.com
+```
+
+`GOPRIVATE` simply acts as a default for `GONOPROXY` and `GONOSUMDB`, so it's
+not necessary to set `GONOPROXY` unless `GONOSUMDB` should have a different
+value. When a module path is matched by `GONOPROXY`, the `go` command ignores
+`GOPROXY` for that module and fetches it directly from its version control
+repository. This is useful when no proxy serves private modules. See [Direct
+access to private modules](#private-module-proxy-direct).
+
+If there is a [trusted proxy serving all modules](#private-module-proxy-all),
+then `GONOPROXY` should not be set. For example, if `GOPROXY` is set to one
+source, the `go` command will not download modules from other sources.
+`GONOSUMDB` should still be set in this situation.
+
+```
+GOPROXY=https://proxy.corp.example.com
+GONOSUMDB=*.corp.example.com,*.research.example.com
+```
+
+If there is a [trusted proxy serving only private
+modules](#private-module-proxy-private), `GONOPROXY` should not be set, but care
+must be taken to ensure the proxy responds with the correct status codes. For
+example, consider the following configuration:
+
+```
+GOPROXY=https://proxy.corp.example.com,https://proxy.golang.org
+GONOSUMDB=*.corp.example.com,*.research.example.com
+```
+
+Suppose that due to a typo, a developer attempts to download a module that
+doesn't exist.
+
+```
+go mod download corp.example.com/secret-product/typo@latest
+```
+
+The `go` command first requests this module from `proxy.corp.example.com`. If
+that proxy responds with 404 (Not Found) or 410 (Gone), the `go` command will
+fall back to `proxy.golang.org`, transmitting the `secret-product` path in the
+request URL. If the private proxy responds with any other error code, the `go`
+command prints the error and will not fall back to other sources.
+
+In addition to proxies, the `go` command may connect to the checksum database to
+verify cryptographic hashes of modules not listed in `go.sum`. The `GOSUMDB`
+environment variable sets the name, URL, and public key of the checksum
+database. The default value of `GOSUMDB` is `sum.golang.org`, the public
+checksum database operated by Google ([privacy
+policy](https://sum.golang.org/privacy)). See [Checksum
+database](#checksum-database) for details on what is transmitted with each
+request. As with proxies, the `go` command does not transmit personally
+identifiable information, but it does transmit the full module path being
+requested, and the checksum database cannot compute checksums for non-public
+modules.
+
+The `GONOSUMDB` environment variable may be set to patterns indicating which
+modules are private and should not be requested from the checksum
+database. `GOPRIVATE` acts as a default for `GONOSUMDB` and `GONOPROXY`, so it's
+not necessary to set `GONOSUMDB` unless `GONOPROXY` should have a
+different value.
+
+A proxy may [mirror the checksum
+database](https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#proxying-a-checksum-database).
+If a proxy in `GOPROXY` does this, the `go` command will not connect to the
+checksum database directly.
+
+`GOSUMDB` may be set to `off` to disable use of the checksum database
+entirely. With this setting, the `go` command will not authenticate downloaded
+modules unless they're already in `go.sum`. See [Authenticating
+modules](#authenticating).
 
 ## Module cache {#module-cache}
 
@@ -2894,8 +2993,6 @@ The `go env -w` command can be used to
 [set these variables](/pkg/cmd/go/#hdr-Print_Go_environment_information)
 for future `go` command invocations.
 
-## Privacy {#privacy}
-
 ## Environment variables {#environment-variables}
 
 Module behavior in the `go` command may be configured using the environment
@@ -2982,7 +3079,8 @@ of all environment variables recognized by the `go` command.
         </p>
         <p>
           If <code>GONOPROXY</code> is not set, it defaults to
-          <code>GOPRIVATE</code>. See <a href="#privacy">Privacy</a>.
+          <code>GOPRIVATE</code>. See
+          <a href="#private-module-privacy">Privacy</a>.
         </p>
       </td>
     </tr>
@@ -2997,7 +3095,8 @@ of all environment variables recognized by the `go` command.
         </p>
         <p>
           If <code>GONOSUMDB</code> is not set, it defaults to
-          <code>GOPRIVATE</code>. See <a href="#privacy">Privacy</a>.
+          <code>GOPRIVATE</code>. See
+          <a href="#private-module-privacy">Privacy</a>.
         </p>
       </td>
     </tr>
@@ -3028,7 +3127,7 @@ of all environment variables recognized by the `go` command.
         prefixes that should be considered private. <code>GOPRIVATE</code>
         is a default value for <code>GONOPROXY</code> and
         <code>GONOSUMDB</code>. <code>GOPRIVATE</code> itself has no other
-        meaning. See <a href="#privacy">Privacy</a>.
+        meaning. See <a href="#private-module-privacy">Privacy</a>.
       </td>
     </tr>
     <tr>
@@ -3078,7 +3177,7 @@ of all environment variables recognized by the `go` command.
           for the mirror's privacy policy. The <code>GOPRIVATE</code> and
           <code>GONOPROXY</code> environment variables may be set to prevent
           specific modules from being downloaded using proxies. See
-          <a href="#privacy">Privacy</a> for information on
+          <a href="#private-module-privacy">Privacy</a> for information on
           private proxy configuration.
         </p>
         <p>
@@ -3126,7 +3225,7 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org
         </p>
         <p>
           See <a href="#authenticating">Authenticating modules</a> and
-          <a href="#privacy">Privacy</a> for more information.
+          <a href="#private-module-privacy">Privacy</a> for more information.
         </p>
       </td>
     </tr>
