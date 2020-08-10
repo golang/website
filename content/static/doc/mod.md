@@ -2781,20 +2781,53 @@ conflicts on case-insensitive file systems.
 
 ## Authenticating modules {#authenticating}
 
-<!-- TODO: continue this section -->
-When deciding whether to trust the source code for a module version just
-fetched from a proxy or origin server, the `go` command first consults the
-`go.sum` lines in the `go.sum` file of the current module. If the `go.sum` file
-does not contain an entry for that module version, then it may consult the
-checksum database.
+When the `go` command downloads a module [zip file](#zip-files) or [`go.mod`
+file](#go.mod-files) into the [module cache](#module-cache), it computes a
+cryptographic hash and compares it with a known value to verify the file hasn't
+changed since it was first downloaded. The `go` command reports a security error
+if a downloaded file does not have the correct hash.
+
+For `go.mod` files, the `go` commmand computes the hash from the file
+content. For module zip files, the `go` command computes the hash from the names
+and contents of files within the archive in a deterministic order. The hash is
+not affected by file order, compression, alignment, and other metadata. See
+[`golang.org/x/mod/sumdb/dirhash`](https://pkg.go.dev/golang.org/x/mod/sumdb/dirhash?tab=doc)
+for hash implementation details.
+
+The `go` command compares each hash with the corresponding line in the main
+module's [`go.sum` file](#go.sum-files). If the hash is different from the hash
+in `go.sum`, the `go` command reports a security error and deletes the
+downloaded file without adding it into the module cache.
+
+If the `go.sum` file is not present, or if it doesn't contain a hash for the
+downloaded file, the `go` command may verify the hash using the [checksum
+database](#checksum-database), a global source of hashes for publicly available
+modules. Once the hash is verified, the `go` command adds it to `go.sum` and
+adds the downloaded file in the module cache. If a module is private (matched by
+the `GOPRIVATE` or `GONOSUMDB` environment variables) or if the checksum
+database is disabled (by setting `GOSUMDB=off`), the `go` command accepts the
+hash and adds the file to the module cache without verifying it.
+
+The module cache is usually shared by all Go projects on a system, and each
+module may have its own `go.sum` file with potentially different hashes. To
+avoid the need to trust other modules, the `go` command verifies hashes using
+the main module's `go.sum` whenever it accesses a file in the module cache. Zip
+file hashes are expensive to compute, so the `go` command checks pre-computed
+hashes stored alongside zip files instead of re-hashing the files. The [`go mod
+verify`](#go-mod-verify) command may be used to check that zip files and
+extracted directories have not been modified since they were added to the module
+cache.
 
 ### go.sum files {#go.sum-files}
 
 A module may have a text file named `go.sum` in its root directory, alongside
 its `go.mod` file. The `go.sum` file contains cryptographic hashes of the
-module's direct and indirect dependencies. `go.sum` may be empty or absent
-if the module has no dependencies or if all dependencies are replaced with
-local directories using [`replace` directives](#go.mod-replace).
+module's direct and indirect dependencies. When the `go` command downloads a
+module `.mod` or `.zip` file into the [module cache](#module-cache), it computes
+a hash and checks that the hash matches the corresponding hash in the main
+module's `go.sum` file. `go.sum` may be empty or absent if the module has no
+dependencies or if all dependencies are replaced with local directories using
+[`replace` directives](#go.mod-replace).
 
 Each line in `go.sum` has three fields separated by spaces: a module path,
 a version (possibly ending with `/go.mod`), and a hash.
@@ -2808,30 +2841,6 @@ a version (possibly ending with `/go.mod`), and a hash.
   the only supported hash algorithm. If a vulnerability in SHA-256 is discovered
   in the future, support will be added for another algorithm (named `h2` and
   so on).
-
-When the `go` command downloads a module `.mod` or `.zip` file into the [module
-cache](#module-cache), it computes a hash and checks that the hash matches the
-corresponding hash in the main module's `go.sum` file. For `.mod` files, the
-file contents are hashed. For `.zip` files, the files within the archive are
-hashed. The hash is not affected by file ordering, compression, alignment, or
-metadata. See [Module zip files](#zip-files) for information on which files are
-included. See
-[`golang.org/x/mod/sumdb/dirhash`](https://pkg.go.dev/golang.org/x/mod/sumdb/dirhash?tab=doc)
-for hash implementation details.
-
-If the computed hash does not match the corresponding hash in `go.sum`, the `go`
-command reports a security error. If the hash is not present in `go.sum`, the
-`go` command looks up the correct hash in the [checksum
-database](#checksum-database) (unless the module matches `GONOSUMDB` or
-`GOSUMDB` is set to `off`; see [Environment
-variables](#environment-variables)). If no mismatch is detected, the `go`
-command adds the hash to `go.sum`.
-
-The `go` command does not automatically verify modules already in the cache. By
-default, files and directories in the module cache have read-only permissions to
-prevent accidental changes. The [`go mod verify`](#go-mod-verify) command may be
-used to check that `.zip` files and extracted directories in the module cache
-match hashes recorded when they were downloaded.
 
 The `go.sum` file may contain hashes for multiple versions of a module. The `go`
 command may need to load `go.mod` files from multiple versions of a dependency
