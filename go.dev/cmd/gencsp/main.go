@@ -31,6 +31,7 @@ const (
 
 var csp = map[string][]string{
 	"connect-src": {
+		"https://golang.org",
 		"www.google-analytics.com",
 	},
 	"default-src": {

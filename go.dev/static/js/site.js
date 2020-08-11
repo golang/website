@@ -128,14 +128,17 @@
    * Retrieves list of Go versions & returns the latest
    */
   async function getLatestVersion() {
-    let version = 'go1.14.6'; // fallback version if fetch fails
+    let version = 'go1.15'; // fallback version if fetch fails
     try {
-      const response = await fetch('https://golang.org/dl/?mode=json');
-      const versionData = response.json();
+      const versionData = await (
+        await fetch('https://golang.org/dl/?mode=json')
+      ).json();
       if (versionData.length) {
         versionData.sort((a, b) => {
           if (a.files && a.files.length && b.files && b.files.length) {
-            return b.files[0].version - a.files[0].version;
+            return (
+              +b.files[0].version.substr(2) - +a.files[0].version.substr(2)
+            );
           }
           return 0;
         });
