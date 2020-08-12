@@ -133,17 +133,13 @@
       const versionData = await (
         await fetch('https://golang.org/dl/?mode=json')
       ).json();
-      if (versionData.length) {
-        versionData.sort((a, b) => {
-          if (a.files && a.files.length && b.files && b.files.length) {
-            return (
-              +b.files[0].version.substr(2) - +a.files[0].version.substr(2)
-            );
-          }
-          return 0;
-        });
-        version = versionData[0].files[0].version;
+      if (!versionData.length) {
+        return version;
       }
+      versionData.sort((v1, v2) => {
+        return v2.version - v1.version;
+      });
+      version = versionData[0].version;
     } catch (err) {
       console.error(err);
     }
