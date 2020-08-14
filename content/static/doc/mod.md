@@ -24,7 +24,7 @@ and distributed together. Modules may be downloaded directly from version
 control repositories or from module proxy servers.
 
 A module is identified by a [module path](#glos-module-path), which is declared
-in a [`go.mod` file](#go.mod-files), together with information about the
+in a [`go.mod` file](#go-mod-files), together with information about the
 module's dependencies. The <dfn>module root directory</dfn> is the directory
 that contains the `go.mod` file. The <dfn>main module</dfn> is the module
 containing the directory where the `go` command is invoked.
@@ -38,8 +38,8 @@ the directory `"html"`. That package's path is `"golang.org/x/net/html"`.
 ### Module paths {#module-path}
 
 A <dfn>module path</dfn> is the canonical name for a module, declared with the
-[`module` directive](#go.mod-module) in the module's [`go.mod`
-file](#glos-go.mod-file). A module's path is the prefix for package paths within
+[`module` directive](#go-mod-file-module) in the module's [`go.mod`
+file](#glos-go-mod-file). A module's path is the prefix for package paths within
 the module.
 
 A module path should describe both what the module does and where to find it.
@@ -71,7 +71,7 @@ version 2 or higher).
 
 If a module might be depended on by other modules, these rules must be followed
 so that the `go` command can find and download the module. There are also
-several [lexical restrictions](#go.mod-ident) on characters allowed in
+several [lexical restrictions](#go-mod-file-ident) on characters allowed in
 module paths.
 
 ### Versions {#versions}
@@ -314,13 +314,13 @@ the following requests:
   * Request for latest version of `golang.org`
 
 After a suitable module has been found, the `go` command will add a new
-[requirement](#go.mod-require) with the new module's path and version to the
-main module's `go.mod` file. This ensures that when the same package is loaded
-in the future, the same module will be used at the same version. If the resolved
-package is not imported by a package in the main module, the new requirement
-will have an `// indirect` comment.
+[requirement](#go-mod-file-require) with the new module's path and version to
+the main module's `go.mod` file. This ensures that when the same package is
+loaded in the future, the same module will be used at the same version. If the
+resolved package is not imported by a package in the main module, the new
+requirement will have an `// indirect` comment.
 
-## `go.mod` files {#go.mod-files}
+## `go.mod` files {#go-mod-file}
 
 A module is defined by a UTF-8 encoded text file named `go.mod` in its root
 directory. The `go.mod` file is line-oriented. Each line holds a single
@@ -350,13 +350,13 @@ require (
 The `go.mod` file is designed to be human readable and machine writable. The
 `go` command provides several subcommands that change `go.mod` files. For
 example, [`go get`](#go-get) can upgrade or downgrade specific dependencies.
-Commands that load the module graph will [automatically update](#go.mod-updates)
-`go.mod` when needed. [`go mod edit`](#go-mod-tidy) can perform low-level edits.
-The
+Commands that load the module graph will [automatically
+update](#go-mod-file-updates) `go.mod` when needed. [`go mod
+edit`](#go-mod-tidy) can perform low-level edits.  The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
-### Lexical elements {#go.mod-lexical}
+### Lexical elements {#go-mod-file-lexical}
 
 When a `go.mod` file is parsed, its content is broken into a sequence of tokens.
 There are several kinds of tokens: whitespace, comments, punctuation,
@@ -393,7 +393,7 @@ raw strings.
 
 Identifiers and strings are interchangeable in the `go.mod` grammar.
 
-### Module paths and versions {#go.mod-ident}
+### Module paths and versions {#go-mod-file-ident}
 
 Most identifiers and strings in a `go.mod` file are either module paths or
 versions.
@@ -436,13 +436,13 @@ there are some restrictions to avoid problems with file systems, repositories,
 and [module proxies](#glos-module-proxy). Non-canonical versions are only
 allowed in the main module's `go.mod` file. The `go` command will attempt to
 replace each non-canonical version with an equivalent canonical version when it
-automatically [updates](#go.mod-updates) the `go.mod` file.
+automatically [updates](#go-mod-file-updates) the `go.mod` file.
 
 In places where a module path is associated with a verison (as in `require`,
 `replace`, and `exclude` directives), the final path element must be consistent
 with the version. See [Major version suffixes](#major-version-suffixes).
 
-### Grammar {#go.mod-grammar}
+### Grammar {#go-mod-file-grammar}
 
 `go.mod` syntax is specified below using Extended Backus-Naur Form (EBNF).
 See the [Notation section in the Go Language Specificiation](/ref/spec#Notation)
@@ -467,7 +467,7 @@ ModulePath = ident | string . /* see restrictions above */
 Version = ident | string .    /* see restrictions above */
 ```
 
-### `module` directive {#go.mod-module}
+### `module` directive {#go-mod-file-module}
 
 A `module` directive defines the main module's [path](#glos-module-path). A
 `go.mod` file must contain exactly one `module` directive.
@@ -482,7 +482,7 @@ Example:
 module golang.org/x/net
 ```
 
-### `go` directive {#go.mod-go}
+### `go` directive {#go-mod-file-go}
 
 A `go` directive sets the expected language version for the module. The
 version must be a valid Go release version: a positive integer followed by a dot
@@ -512,7 +512,7 @@ Example:
 go 1.14
 ```
 
-### `require` directive {#go.mod-require}
+### `require` directive {#go-mod-file-require}
 
 A `require` directive declares a minimum required version of a given module
 dependency. For each required module version, the `go` command loads the
@@ -548,7 +548,7 @@ require (
 )
 ```
 
-### `exclude` directive {#go.mod-exclude}
+### `exclude` directive {#go-mod-file-exclude}
 
 An `exclude` directive prevents a module version from being loaded by the `go`
 command. If an excluded version is referenced by a `require` directive in a
@@ -557,7 +557,7 @@ shown with `go list -m -versions`) and will load the next higher non-excluded
 version instead. Both release and pre-release versions are considered for this
 purpose, but pseudo-versions are not. If there are no higher versions,
 the `go` command will report an error. Note that this [may
-change](https://golang.org/issue/36465) in Go 1.15.
+change](https://golang.org/issue/36465) in Go 1.16.
 
 <!-- TODO(golang.org/issue/36465): update after change -->
 
@@ -581,7 +581,7 @@ exclude (
 )
 ```
 
-### `replace` directive {#go.mod-replace}
+### `replace` directive {#go-mod-file-replace}
 
 A `replace` directive replaces the contents of a specific version of a module,
 or all versions of a module, with contents found elsewhere. The replacement
@@ -629,7 +629,7 @@ replace (
 )
 ```
 
-### Automatic updates {#go.mod-updates}
+### Automatic updates {#go-mod-file-updates}
 
 The `go` command automatically updates `go.mod` when it uses the module graph if
 some information is missing or `go.mod` doesn't accurately reflect reality.  For
@@ -691,10 +691,10 @@ detail in [Minimal Version Selection](https://research.swtch.com/vgo-mvs) by
 Russ Cox.
 
 Conceptually, MVS operates on a directed graph of modules, specified with
-[`go.mod` files](#glos-go.mod-file). Each vertex in the graph represents a
+[`go.mod` files](#glos-go-mod-file). Each vertex in the graph represents a
 module version. Each edge represents a minimum required version of a dependency,
-specified using a [`require`](#go.mod-require)
-directive. [`replace`](#go.mod-replace) and [`exclude`](#go.mod-exclude)
+specified using a [`require`](#go-mod-file-require)
+directive. [`replace`](#go-mod-file-replace) and [`exclude`](#go-mod-file-exclude)
 directives in the main module's `go.mod` file modify the graph.
 
 MVS produces the [build list](#glos-build-list) as output, the list of module
@@ -726,7 +726,7 @@ requires them.
 ### Replacement {#mvs-replace}
 
 The content of a module (including its `go.mod` file) may be replaced using a
-[`replace` directive](#go.mod-replace) in the the main module's `go.mod` file.
+[`replace` directive](#go-mod-file-replace) in the the main module's `go.mod` file.
 A `replace` directive may apply to a specific version of a module or to all
 versions of a module.
 
@@ -742,7 +742,7 @@ Consider the example below, where C 1.4 has been replaced with R. R depends on D
 ### Exclusion {#mvs-exclude}
 
 A module may also be excluded at specific versions using an [`exclude`
-directive](#go.mod-exclude) in the main module's `go.mod` file.
+directive](#go-mod-file-exclude) in the main module's `go.mod` file.
 
 Exclusions also change the module graph. When a version is excluded, it is
 removed from the module graph, and requirements on it are redirected to the
@@ -799,7 +799,7 @@ of the named module are removed from the module graph.
 
 To ensure a smooth transition from `GOPATH` to modules, the `go` command can
 download and build packages in module-aware mode from repositories that have not
-migrated to modules by adding a [`go.mod` file](#glos-go.mod-file).
+migrated to modules by adding a [`go.mod` file](#glos-go-mod-file).
 
 When the `go` command downloads a module at a given version [directly](#vcs)
 from a repository, it looks up a repository URL for the module path, maps the
@@ -808,11 +808,11 @@ repository at that revision. If the [module's path](#glos-module-path) is equal
 to the [repository root path](#glos-repository-root-path), and the repository
 root directory does not contain a `go.mod` file, the `go` command synthesizes a
 `go.mod` file in the module cache that contains a [`module`
-directive](#go.mod-module) and nothing else. Since synthetic `go.mod` files do
-not contain [`require` directives](#go.mod-require) for their dependencies,
-other modules that depend on them may need additional `require` directives (with
-`// indirect` comments) to ensure each dependency is fetched at the same version
-on every build.
+directive](#go-mod-file-module) and nothing else. Since synthetic `go.mod` files
+do not contain [`require` directives](#go-mod-file-require) for their
+dependencies, other modules that depend on them may need additional `require`
+directives (with `// indirect` comments) to ensure each dependency is fetched at
+the same version on every build.
 
 When the `go` command downloads a module from a
 [proxy](#communicating-with-proxies), it downloads the `go.mod` file separately
@@ -973,13 +973,13 @@ commands accept the following flags, common to all module commands.
 * The `-mod` flag controls whether `go.mod` may be automatically updated and
   whether the `vendor` directory is used.
   * `-mod=mod` tells the `go` command to ignore the vendor directory and to
-     [automatically update](#go.mod-updates) `go.mod`, for example, when an
+     [automatically update](#go-mod-file-updates) `go.mod`, for example, when an
      imported package is not provided by any known module.
   * `-mod=readonly` tells the `go` command to ignore the `vendor` directory and
     to report an error if `go.mod` needs to be updated.
   * `-mod=vendor` tells the `go` command to use the `vendor` directory. In this
     mode, the `go` command will not use the network or the module cache.
-  * By default, if the [`go` version](#go.mod-go) in `go.mod` is `1.14` or
+  * By default, if the [`go` version](#go-mod-file-go) in `go.mod` is `1.14` or
     higher and a `vendor` directory is present, the `go` command will act as if
     `-mod=vendor` were used. Otherwise, the `go` command will act as if
     `-mod=mod` were used.
@@ -1025,8 +1025,8 @@ since `vendor/modules.txt` was generated, the `go` command will report an error.
 `go mod vendor` should be run again to update the `vendor` directory.
 
 If the `vendor` directory is present in the main module's root directory, it
-will be used automatically if the [`go` version](#go.mod-go) in the main
-module's [`go.mod` file](#glos-go.mod-file) is `1.14` or higher. To explicitly
+will be used automatically if the [`go` version](#go-mod-file-go) in the main
+module's [`go.mod` file](#glos-go-mod-file) is `1.14` or higher. To explicitly
 enable vendoring, invoke the `go` command with the flag `-mod=vendor`. To
 disable vendoring, use the flag `-mod=mod`.
 
@@ -1075,7 +1075,7 @@ $ go get -d golang.org/x/text@none
 ```
 
 The `go get` command updates module dependencies in the [`go.mod`
-file](#go.mod-files) for the [main module](#glos-main-module), then builds and
+file](#go-mod-file) for the [main module](#glos-main-module), then builds and
 installs packages listed on the command line.
 
 The first step is to determine which modules to update. `go get` accepts a list
@@ -1099,8 +1099,8 @@ queries `latest`, `upgrade`, `patch`, or `none`. If no version is given,
 `go get` uses the `@upgrade` query.
 
 Once `go get` has resolved its arguments to specific modules and versions, `go
-get` will add, change, or remove [`require` directives](#go.mod-require) in the
-main module's `go.mod` file to ensure the modules remain at the desired
+get` will add, change, or remove [`require` directives](#go-mod-file-require) in
+the main module's `go.mod` file to ensure the modules remain at the desired
 versions in the future. Note that required versions in `go.mod` files are
 *minimum versions* and may be increased automatically as new dependencies are
 added. See [Minimal version selection (MVS)](#minimal-version-selection) for
@@ -1645,7 +1645,7 @@ column.
   module](#glos-main-module) has the version `(devel)` and no sum.
 * **`dep`**: a module that provided one or more packages linked into the
   executable. Same format as `mod`.
-* **`=>`**: a [replacement](#go.mod-replace) for the module on the previous
+* **`=>`**: a [replacement](#go-mod-file-replace) for the module on the previous
   line. If the replacement is a local directory, only the directory path is
   listed (no version or sum). If the replacement is a module version, the path,
   version, and sum are listed, as with `mod` and `dep`. A replaced module has
@@ -1732,8 +1732,8 @@ A version query may be one of the following:
 Except for queries for specific named versions or revisions, all queries
 consider available versions reported by `go list -m -versions` (see [`go list
 -m`](#go-list-m)). This list contains only tagged versions, not pseudo-versions.
-Module versions disallowed by [exclude](#go.mod-exclude) directives in
-the main module's [`go.mod` file](#glos-go.mod-file) are not considered.
+Module versions disallowed by [exclude](#go-mod-file-exclude) directives in
+the main module's [`go.mod` file](#glos-go-mod-file) are not considered.
 
 [Release versions](#glos-release-version) are preferred over pre-release
 versions. For example, if versions `v1.2.2` and `v1.2.3-pre` are available, the
@@ -1990,7 +1990,7 @@ when the `go` command makes these requests. For example, `go build` follows
 the procedure below:
 
 * Compute the [build list](#glos-build-list) by reading [`go.mod`
-  files](#glos-go.mod-file) and performing [minimal version selection
+  files](#glos-go-mod-file) and performing [minimal version selection
   (MVS)](#glos-minimal-version-selection).
 * Read the packages named on the command line and the packages they import.
 * If a package is not provided by any module in the build list, find a module
@@ -2044,9 +2044,8 @@ are usually contained within `.zip` files. The `go` command may need to download
 `go.mod` files for many different modules, and `.mod` files are much smaller
 than `.zip` files. Additionally, if a Go project does not have a `go.mod` file,
 the proxy will serve a synthetic `go.mod` file that only contains a [`module`
-directive](#go.mod-module). Synthetic `go.mod` files are generated by the `go`
-command when downloading from a [version control
-system](#vcs).
+directive](#go-mod-file-module). Synthetic `go.mod` files are generated by the
+`go` command when downloading from a [version control system](#vcs).
 
 If the `go` command needs to load a package not provided by any module in the
 build list, it will attempt to find a new module that provides it. The section
@@ -2347,7 +2346,7 @@ a wide range of platforms.
   version, for example, `golang.org/x/mod@v0.3.0/`. The module path must be
   valid, the version must be valid and canonical, and the version must match the
   module path's major version suffix. See [Module paths and
-  versions](#go.mod-ident) for specific definitions and restrictions.
+  versions](#go-mod-file-ident) for specific definitions and restrictions.
 * File modes, timestamps, and other metadata are ignored.
 * Empty directories (entries with paths ending with a slash) may be included
   in module zip files but are not extracted. The `go` command does not include
@@ -2460,8 +2459,9 @@ The `GOPROXY` setting instructs the `go` command to try to download modules from
 Found) or 410 (Gone), the `go` command will fall back to
 `https://proxy.golang.org`, then to direct connections to repositories.
 
-The `GONOSUMDB` setting instructs the `go` command not to use the public checksum
-database to authenticate modules whose paths start with `corp.example.com`.
+The `GONOSUMDB` setting instructs the `go` command not to use the public
+checksum database to authenticate modules whose paths start with
+`corp.example.com`.
 
 Note that a proxy used in this configuration may still control access to public
 modules, even though it doesn't serve them. If the proxy responds to a request
@@ -2782,7 +2782,7 @@ conflicts on case-insensitive file systems.
 ## Authenticating modules {#authenticating}
 
 When the `go` command downloads a module [zip file](#zip-files) or [`go.mod`
-file](#go.mod-files) into the [module cache](#module-cache), it computes a
+file](#go-mod-files) into the [module cache](#module-cache), it computes a
 cryptographic hash and compares it with a known value to verify the file hasn't
 changed since it was first downloaded. The `go` command reports a security error
 if a downloaded file does not have the correct hash.
@@ -2827,7 +2827,7 @@ module `.mod` or `.zip` file into the [module cache](#module-cache), it computes
 a hash and checks that the hash matches the corresponding hash in the main
 module's `go.sum` file. `go.sum` may be empty or absent if the module has no
 dependencies or if all dependencies are replaced with local directories using
-[`replace` directives](#go.mod-replace).
+[`replace` directives](#go-mod-file-replace).
 
 Each line in `go.sum` has three fields separated by spaces: a module path,
 a version (possibly ending with `/go.mod`), and a hash.
@@ -2968,13 +2968,13 @@ in the module cache, so the `go` command only needs to fetch tiles that are
 missing.
 
 The `go` command doesn't need to directly connect to the checksum database. It
-can request module sums via a module proxy that
-[mirrors the checksum database](https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#proxying-a-checksum-database)
+can request module sums via a module proxy that [mirrors the checksum
+database](https://go.googlesource.com/proposal/+/master/design/25530-sumdb.md#proxying-a-checksum-database)
 and supports the protocol above. This can be particularly helpful for private,
 corporate proxies which block requests outside the organization.
 
-The `GOSUMDB` environment variable identifies the name of checksum database to use
-and optionally its public key and URL, as in:
+The `GOSUMDB` environment variable identifies the name of checksum database to
+use and optionally its public key and URL, as in:
 
 ```
 GOSUMDB="sum.golang.org"
@@ -3113,8 +3113,8 @@ of all environment variables recognized by the `go` command.
       <td><code>GOPATH</code></td>
       <td>
         <p>
-          In <code>GOPATH</code> mode, the <code>GOPATH</code> variable is a list
-          of directories that may contain Go code.
+          In <code>GOPATH</code> mode, the <code>GOPATH</code> variable is a
+          list of directories that may contain Go code.
         </p>
         <p>
           In module-aware mode, the <a href="#glos-module-cache">module
@@ -3254,7 +3254,7 @@ Constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
 **build list:** The list of module versions that will be used for a build
 command such as `go build`, `go list`, or `go test`. The build list is
 determined from the [main module's](#glos-main-module) [`go.mod`
-file](#glos-go.mod-file) and `go.mod` files in transitively required modules
+file](#glos-go-mod-file) and `go.mod` files in transitively required modules
 using [minimal version selection](#glos-minimal-version-selection). The build
 list contains versions for all modules in the [module
 graph](#glos-module-graph), not just those relevant to a specific command.
@@ -3268,7 +3268,7 @@ is a canonical version, but `v1.2.3+meta` is not.
 **`go.mod` file:** The file that defines a module's path, requirements, and
 other metadata. Appears in the [module's root
 directory](#glos-module-root-directory). See the section on [`go.mod`
-files](#go.mod-files).
+files](#go-mod-file).
 
 <a id="glos-import-path"></a>
 **import path:** A string used to import a package in a Go source file.
