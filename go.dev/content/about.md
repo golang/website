@@ -18,12 +18,14 @@ Go.dev is currently in [MVP](https://en.wikipedia.org/wiki/Minimum_viable_produc
 ## Adding a package
 Data for the site is downloaded from [proxy.golang.org](https://proxy.golang.org/). We monitor the [Go Module Index](https://index.golang.org/index) regularly for new packages to add to pkg.go.dev. If you don’t see a package on pkg.go.dev, you can add it by doing one of the following:
 
+* Visiting that page on pkg.go.dev, and clicking the "Request" button. For example: <br /> https://<span></span>pkg.go.dev/example.com/my/module
+
 *  Making a request to proxy.golang.org for the module version, to any endpoint specified by the [Module proxy protocol](https://golang.org/cmd/go/#hdr-Module_proxy_protocol). For example: <br /> https://<span></span>proxy.golang.org/example.com/my/module/@v/v1.0.0.info
 
 *  Downloading the package via the [go command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them). For example:  <br /> GOPROXY=https://<span></span>proxy.golang.org GO111MODULE=on go get example.com/my/module@v1.0.0
 
 ## Removing a package
-If you would like a package removed,  please post on the [Go Issue Tracker](https://golang.org/s/discovery-feedback) or email [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com) with the import path or module path that you want to remove.
+If you are the author of a package and would like to have it removed from pkg.go.dev, please [file an issue](https://golang.org/s/pkgsite-feedback) on the Go Issue Tracker with the path that you want to remove.
 
 Note that we can only remove a module entirely from the site. We cannot remove it just for specific versions.
 
