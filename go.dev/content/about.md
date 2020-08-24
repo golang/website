@@ -29,7 +29,7 @@ Note that we can only remove a module entirely from the site. We cannot remove i
 
 ## Documentation
 
-Documentation is generated based on Go source code downloaded from the Go Module Mirror at `proxy.golang.org/<module>@<version>.zip.` New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
+Documentation is generated based on Go source code downloaded from the Go Module Mirror at `proxy.golang.org/<module>/@v/<version>.zip`. New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
 
 The [guidelines for writing documentation](https://blog.golang.org/godoc) for the godoc tool apply to pkg.go.dev.
 
