@@ -226,17 +226,17 @@ func main() {
 
 	var handler http.Handler = http.DefaultServeMux
 	if *verbose {
-		log.Printf("golang.org server")
-		log.Printf("version = %s", runtime.Version())
-		log.Printf("address = %s", *httpAddr)
-		log.Printf("goroot = %s", *goroot)
+		log.Printf("golang.org server:")
+		log.Printf("\tversion = %s", runtime.Version())
+		log.Printf("\taddress = %s", *httpAddr)
+		log.Printf("\tgoroot = %s", *goroot)
 		switch {
 		case !*indexEnabled:
-			log.Print("search index disabled")
+			log.Print("\tsearch index disabled")
 		case *maxResults > 0:
-			log.Printf("full text index enabled (maxresults = %d)", *maxResults)
+			log.Printf("\tfull text index enabled (maxresults = %d)", *maxResults)
 		default:
-			log.Print("identifier search index enabled")
+			log.Print("\tidentifier search index enabled")
 		}
 		fs.Fprint(os.Stderr)
 		handler = loggingHandler(handler)
@@ -248,9 +248,7 @@ func main() {
 	}
 
 	// Start http server.
-	if *verbose {
-		log.Println("starting HTTP server")
-	}
+	fmt.Fprintf(os.Stderr, "serving http://%s\n", *httpAddr)
 	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
 	}
