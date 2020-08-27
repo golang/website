@@ -1117,6 +1117,12 @@ a.GettingStartedGo-resourceItemTitle {
 .WhoUsesCaseStudyList-caseStudyLink img {
   height: auto;
 }
+@media only screen and (max-width: 38rem) {
+  .WhoUsesCaseStudyList-caseStudyLink img {
+    max-height: 2rem;
+    max-width: 100%;
+  }
+}
 .WhoUsesCaseStudyList-logo {
   margin: auto;
   max-height: 4rem;
@@ -1253,6 +1259,7 @@ a.GettingStartedGo-resourceItemTitle {
   cursor: pointer;
   font-size: 0.875rem;
   padding: .5rem 0;
+  position: relative;
 }
 .FeaturedUsers--hiddenDesktop {
   display: block;

@@ -11,7 +11,10 @@
 
   <tbody>
     {{range $index, $project := $featuredProjects}}
-    <tr class="FeaturedUsers-row {{ if (gt $index 2) }} hidden {{end}}">
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+      {{ if (gt $index 2) }} hidden {{end}}
+    >
       <td class="FeaturedUsers--hiddenMobile">
         <img src="/images/logos/{{.logoSrc}}" alt="{{.company}}" />
       </td>
@@ -34,7 +37,7 @@
 </table>
 
 <button
-  class="js-more-projects-btn FeaturedUsers-moreProjectsBtn"
+  class="js-moreProjectsBtn FeaturedUsers-moreProjectsBtn"
   type="button">
  More projects
 </button>
