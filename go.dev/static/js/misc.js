@@ -1,12 +1,12 @@
 // 'More projects' button on use case pages
 (() => {
-  const button = document.querySelector('.js-more-projects-btn');
+  const button = document.querySelector('.js-moreProjectsBtn');
   if (!button) return;
-  const hiddenProjects = document.querySelectorAll('.FeaturedUsers-row.hidden');
+  const hiddenProjects = document.querySelectorAll('.js-featuredUsersRow[hidden]');
   button.addEventListener('click', () => {
-    button.classList.add('hidden');
+    button.setAttribute('hidden', true);
     hiddenProjects.forEach(project => {
-      project.classList.remove('hidden');
+      project.removeAttribute('hidden');
     });
   });
 })();
