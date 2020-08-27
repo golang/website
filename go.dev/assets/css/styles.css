@@ -935,13 +935,23 @@ a.GettingStartedGo-resourceItemTitle {
   top: 0.3125rem;
 }
 .Hero-footnote {
+  flex-direction: column;
   font-size: 0.8125rem;
   letter-spacing: 0.007rem;
   margin: 0.5rem 0 1.5rem;
 }
+.Hero-footnote p {
+  margin: 0;
+}
+.Hero-footnote p + p {
+  margin-top: 0.75rem;
+}
 .Hero-footnote a {
   color: #fff;
   text-decoration: underline;
+}
+.Hero-footnote code {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
 .SubHero-gridContainer {
   display: grid;
@@ -1258,7 +1268,7 @@ a.GettingStartedGo-resourceItemTitle {
   color: #12b5cb;
   cursor: pointer;
   font-size: 0.875rem;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
   position: relative;
 }
 .FeaturedUsers--hiddenDesktop {
@@ -2274,7 +2284,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding-left: 0;
 }
 .Solutions-cardList[hidden] {
-  display: none
+  display: none;
 }
 .Solutions-caseStudiesList {
   margin: 0 0 1rem 0;
