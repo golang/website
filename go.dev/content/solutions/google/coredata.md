@@ -14,6 +14,8 @@ quote: |
   improve the development process.
 authors:
   - Prasanna Meda, Software Engineer, Core Data Solutions
+aliases:
+    - /solutions/coredata
 ---
 
 Google's mission is “to organize the world's information and make it universally
