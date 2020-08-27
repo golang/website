@@ -38,9 +38,9 @@
       'featured-users': 'Featured Users',
       'get-started': 'Get Started',
     };
-
     const container = document.querySelector('.js-useCaseSubnav');
     const subNavAnchorLinks = document.querySelector('.js-useCaseSubnavLinks');
+    const siteHeader = document.querySelector('.js-siteHeader');
     const header = document.querySelector('.js-useCaseSubnavHeader');
     const icon = document.querySelector('.js-useCaseSubnavMenuIcon');
     const menu = document.querySelector('.js-useCaseSubnavMenu');
@@ -53,10 +53,10 @@
       window.pageYOffset +
       contentBody.getBoundingClientRect().top -
       headerHeightPx;
-
     if (!header || !menu) return;
     container.addEventListener('click', handleClick);
     container.addEventListener('keydown', handleKeydown);
+    changeScrollPosition();
 
     function handleClick(event) {
       if (event.target === header) {
@@ -143,7 +143,38 @@
         window.pageYOffset +
         contentBody.getBoundingClientRect().top -
         headerHeightPx;
+
+      changeScrollPosition()
     });
+
+    /**
+     * Changes scroll position according to the size of the header and menu
+     * Also changes according to the user's browser
+     */
+    function changeScrollPosition() {
+      const SUPPORTS_SCROLL_BEHAVIOR = document.body.style.scrollBehavior !== undefined;
+      const WINDOW_WIDTH_BREAKPOINT_PX = 923;
+      let scrollPosition = headerHeightPx;
+
+      if (SUPPORTS_SCROLL_BEHAVIOR) {
+        if (window.innerWidth < WINDOW_WIDTH_BREAKPOINT_PX) {
+          scrollPosition += header.clientHeight;
+        }
+      } else {
+        if (window.innerWidth >= WINDOW_WIDTH_BREAKPOINT_PX) {
+          scrollPosition = siteHeader.clientHeight
+        } else {
+          scrollPosition = siteHeader.clientHeight + header.clientHeight;
+        }
+      }
+
+      sectionHeadings.forEach((sectionHeading) => {
+        sectionHeading.setAttribute('style', `
+          margin-bottom: -${scrollPosition}px;
+          padding-top: ${scrollPosition}px;
+        `)
+      });
+    }
 
     function setStickyNav() {
       if (window.scrollY > distanceFromTop) {
