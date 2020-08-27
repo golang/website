@@ -1,11 +1,29 @@
-# Go Website
+# Go website
 
-This repository holds the Go Website server code and content.
+This repository holds the Go website server code and content.
 
-## Download/Install
+## Checkout and Run
 
-The easiest way to install is to run `go get -u golang.org/x/website`. You can
-also manually git clone the repository to `$GOPATH/src/golang.org/x/website`.
+To download and run the golang.org web server locally:
+
+ - `git clone https://go.googlesource.com/website`
+ - `cd website`
+ - `go run ./cmd/golangorg`
+ - Open http://localhost:6060/ in your browser.
+
+See [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
+
+## Changing Content
+
+To make basic changes to the golang.org website content:
+
+ - Make the changes you want in the `content/static` directory.
+ - Stop any running `go run ./cmd/golangorg`.
+ - `go generate ./content/static`
+ - `go run ./cmd/golangorg`
+ - Open http://localhost:6060/ in your browser.
+
+See [content/README.md](content/README.md) for more sophisticated instructions.
 
 ## JS/CSS Formatting
 
