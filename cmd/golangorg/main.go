@@ -64,6 +64,7 @@ var (
 	goroot = flag.String("goroot", findGOROOT(), "Go root directory")
 
 	// layout control
+	autoFlag       = flag.Bool("a", false, "update templates automatically")
 	showTimestamps = flag.Bool("timestamps", false, "show timestamps with directory listings")
 	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content/static)")
 	showPlayground = flag.Bool("play", false, "enable playground")
@@ -111,6 +112,26 @@ func initCorpus(corpus *godoc.Corpus) {
 func main() {
 	flag.Usage = usage
 	flag.Parse()
+
+	// Find templates in -a mode.
+	if *autoFlag {
+		if *templateDir != "" {
+			fmt.Fprintln(os.Stderr, "Cannot use -a and -templates together.")
+			usage()
+		}
+		_, file, _, ok := runtime.Caller(0)
+		if !ok {
+			fmt.Fprintln(os.Stderr, "runtime.Caller failed: cannot find templates for -a mode.")
+			os.Exit(2)
+		}
+		dir := filepath.Join(file, "../../../content/static")
+		if _, err := os.Stat(filepath.Join(dir, "godoc.html")); err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			fmt.Fprintln(os.Stderr, "Cannot find templates for -a mode.")
+			os.Exit(2)
+		}
+		*templateDir = dir
+	}
 
 	playEnabled = *showPlayground
 
