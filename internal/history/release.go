@@ -34,12 +34,14 @@ var Releases = map[GoVer]Release{
 	{1, 15, 1}: {
 		Date:     Date{2020, 9, 1},
 		Security: true,
-		Future:   true,
+
+		Packages: []string{"net/http/cgi", "net/http/fcgi"},
 	},
 	{1, 14, 8}: {
 		Date:     Date{2020, 9, 1},
 		Security: true,
-		Future:   true,
+
+		Packages: []string{"net/http/cgi", "net/http/fcgi"},
 	},
 
 	{1, 15, 0}: {
@@ -49,11 +51,13 @@ var Releases = map[GoVer]Release{
 	{1, 14, 7}: {
 		Date:     Date{2020, 8, 6},
 		Security: true,
+
 		Packages: []string{"encoding/binary"},
 	},
 	{1, 13, 15}: {
 		Date:     Date{2020, 8, 6},
 		Security: true,
+
 		Packages: []string{"encoding/binary"},
 	},
 
