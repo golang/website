@@ -135,6 +135,7 @@ The `As` function tests whether an error is a specific type.
 	// Similar to:
 	//   if e, ok := err.(*QueryError); ok { … }
 	var e *QueryError
+	// Note: *QueryError is the type of the error.
 	if errors.As(err, &e) {
 		// err is a *QueryError, and e is set to the error's value
 	}
@@ -159,6 +160,10 @@ The `errors` package also includes a new `Unwrap` function which returns the
 result of calling an error's `Unwrap` method, or `nil` when the error has no
 `Unwrap` method. It is usually better to use `errors.Is` or `errors.As`,
 however, since these functions will examine the entire chain in a single call.
+
+Note: although it may feel odd to take a pointer to a pointer, in this case it
+is correct. Think of it instead as taking a pointer to a value of the error
+type; it so happens in this case that the returned error is a pointer type.
 
 ### Wrapping errors with %w
 
