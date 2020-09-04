@@ -84,6 +84,23 @@ class DownloadsController {
     }
   }
 
+  // Updates install tab with dynamic data.
+  setInstallTabData(osName) {
+    const fnId = `#${osName}-filename`;
+    const el = document.querySelector(fnId);
+    if (!el) {
+      return;
+    }
+    switch(osName) {
+      case 'linux':
+        // Update filename for linux installation step
+        if (this.linuxFileName) {
+          el.textContent = this.linuxFileName;
+        }
+        break;
+    }
+  }
+
   // Detect the users OS for installation default.
   detectOS() {
     if (navigator.appVersion.indexOf('Linux') !== -1) {
@@ -117,6 +134,7 @@ class DownloadsController {
     const el = (e.target);
     this.activateTab(Array.prototype.indexOf.call(this.tabs, el));
     this.setDownloadForOS(el.id);
+    this.setInstallTabData(el.id);
   }
 
 }
