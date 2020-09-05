@@ -216,8 +216,8 @@ Let's define a Go type to contain the data from the previous example:
 	    Parents []string
 	}
 
-	    var m FamilyMember
-	    err := json.Unmarshal(b, &m)
+	var m FamilyMember
+	err := json.Unmarshal(b, &m)
 
 Unmarshaling that data into a `FamilyMember` value works as expected,
 but if we look closely we can see a remarkable thing has happened.
