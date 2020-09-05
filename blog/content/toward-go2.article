@@ -37,7 +37,7 @@ and leading to the [plan for Go 1](https://blog.golang.org/preview-of-go-version
 </div>
 
 With more help from the Go community, we revised and implemented that
-plan, eventually [releasing Go 1](https://blog.golang.org/go-version-1-is-released) on March 28, 2012.
+plan, eventually [releasing Go 1](https://blog.golang.org/go1) on March 28, 2012.
 
 <div style="margin-left: 2em;">
 .image toward-go2/go1-release.png _ 556
@@ -52,7 +52,7 @@ In the years leading to Go 1, we changed Go and broke everyone's Go
 programs nearly every week. We understood that this was keeping Go
 from use in production settings, where programs could not be rewritten
 weekly to keep up with language changes.
-As the [blog post announcing Go 1](https://blog.golang.org/go-version-1-is-released) says, the driving motivation was to provide a stable foundation
+As the [blog post announcing Go 1](https://blog.golang.org/go1) says, the driving motivation was to provide a stable foundation
 for creating reliable products, projects, and publications (blogs,
 tutorials, conference talks, and books), to make users confident that
 their programs would continue to compile and run without change for

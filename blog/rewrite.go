@@ -62,7 +62,7 @@ var urlMap = map[string]string{
 	"/2011/12/building-stathat-with-go.html":                 "building-stathat-with-go",
 	"/2011/12/from-zero-to-go-launching-on-google.html":      "from-zero-to-go-launching-on-google",
 	"/2011/12/getting-to-know-go-community.html":             "getting-to-know-go-community",
-	"/2012/03/go-version-1-is-released.html":                 "go-version-1-is-released",
+	"/2012/03/go-version-1-is-released.html":                 "go1",
 	"/2012/07/gccgo-in-gcc-471.html":                         "gccgo-in-gcc-471",
 	"/2012/07/go-videos-from-google-io-2012.html":            "go-videos-from-google-io-2012",
 	"/2012/08/go-updates-in-app-engine-171.html":             "go-updates-in-app-engine-171",
