@@ -31,6 +31,19 @@ type Release struct {
 // It contains entries for releases of Go 1.9 and newer.
 // Older releases are listed in doc/devel/release.html.
 var Releases = map[GoVer]Release{
+	{1, 15, 2}: {
+		Date: Date{2020, 9, 9},
+
+		Components: []template.HTML{"the compiler", "runtime", "documentation", "the <code>go</code> command"},
+		Packages:   []string{"net/mail", "os", "sync", "testing"},
+	},
+	{1, 14, 9}: {
+		Date: Date{2020, 9, 9},
+
+		Components: []template.HTML{"the compiler", "linker", "runtime", "documentation"},
+		Packages:   []string{"net/http", "testing"},
+	},
+
 	{1, 15, 1}: {
 		Date:     Date{2020, 9, 1},
 		Security: true,
