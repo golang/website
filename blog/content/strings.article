@@ -130,7 +130,7 @@ With that format, the Unicode value of the Swedish symbol shows up as a
 
 	"\xbd\xb2=\xbc \u2318"
 
-These printing techiques are good to know when debugging
+These printing techniques are good to know when debugging
 the contents of strings, and will be handy in the discussion that follows.
 It's worth pointing out as well that all these methods behave exactly the
 same for byte slices as they do for strings.
