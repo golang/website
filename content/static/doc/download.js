@@ -35,7 +35,7 @@ class DownloadsController {
           }
         }
         this.detectOS();
-        let osTab = document.getElementById(this.osName);
+        const osTab = document.getElementById(this.osName);
         if (osTab !== null) {
           osTab.click();
         }
