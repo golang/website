@@ -1,0 +1,33 @@
+<div class="Card">
+  <a href="{{.url}}" target="_blank">
+    <div class="Card-inner">
+      {{if .thumbnail}}
+      <div
+        class="Card-thumbnail"
+        style="background-image: url({{.thumbnail}})"
+      ></div>
+      {{end}}
+      <div class="Card-content">
+        <div class="Card-contentTitle">{{.title}}</div>
+        <p class="Card-contentBody">{{.content}}</p>
+        <div class="Card-contentCta">
+          <span>{{.cta}}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#007D9C"
+              fill-rule="evenodd"
+              d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2h7v2H5zm9 0V3h7v7h-2V6.4l-9.8 9.8-1.4-1.4L17.6 5H14z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

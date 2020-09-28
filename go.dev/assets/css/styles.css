@@ -1749,176 +1749,268 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     width: 28vw;
   }
 }
-.Learn-title,
-.Learn-gettingStarted,
-.Learn-books,
-.Learn-guided,
-.Learn-inPersonTraining,
-.Learn-meetups,
-.Learn-online {
-  padding: 0 1.5rem;
+
+.Learn-hero {
+  background-color: #f6f8f8;
+  background-image: radial-gradient(60.0625rem 60.0625rem, #beeaf5 50%, #f6f8f8 50%);
+  background-position: top -50rem left -9rem;
+  background-repeat: no-repeat;
+  background-size: 75rem 75rem;
+  padding: 0 2.25rem 0;
 }
-.Learn-books,
-.Learn-guided,
-.Learn-inPersonTraining,
-.Learn-quickstarts,
-.Learn-meetups,
-.Learn-online {
-  margin: 4rem auto;
-  max-width: 75.75rem;
+
+.Learn-hero .Container {
+  z-index: 1;
+  position: relative;
+  max-width: 68.125rem;
 }
-.Learn-title {
-  margin: auto;
-  max-width: 75.75rem;
-}
-.Learn-tile a {
-  width: 100%;
-}
-.Learn-title h1 {
-  font-size: 2.625rem;
-  line-height: 2rem;
-}
-.Learn-gettingStarted {
-  background-color: #fefadd;
-  padding-top: 6rem;
-}
-.Learn-quickstartThumbnail {
-  background-color: #fff;
-  border: 0.0625rem solid #e9e9e9;
-  border-radius: 0.3125rem;
+
+.Learn-heroInner {
   display: flex;
-  height: 9.66rem;
-  width: 14.6875rem;
+  flex-direction: column-reverse;
 }
-.Learn-quickstartThumbnail img {
-  margin: auto;
-  max-height: 9.66rem;
-  max-width: 14.6875rem;
-}
-@media only screen and (min-width: 57.7rem) {
-  .Learn-quickstartThumbnail {
-    height: 14.6875rem;
-    width: 22rem;
-  }
-  .Learn-quickstartThumbnail img {
-    max-height: 14.6875rem;
-    max-width: 22rem;
-  }
-}
-.Learn-quickstarts {
+
+.Learn-heroGopher {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  list-style: none;
-  margin: 0 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
-  padding: 0 1.5rem;
-  padding-inline-start: 0;
+  justify-content: flex-end;
+  padding-top: 1.25rem;
 }
-.Learn-quickstart {
-  align-items: center;
-  display: flex;
-  flex: initial;
-  flex-direction: column;
-  padding: 1rem 0 0 1rem;
+
+.Learn-heroGopher img {
+  height: 13.5625rem;
+  width: auto;
 }
-.Learn-quickstart a,
-.Learn-quickstart a:visited,
-.Learn-quickstart a:hover {
-  color: #3e4042;
-  text-decoration: none;
+
+.Learn-heroContent {
+  padding-top: 1.125rem;
 }
-.Learn-quickstartTitle {
-  font-size: 1.25rem;
-  text-align: center;
-}
-@media only screen and (min-width: 81.25rem) {
-  .Learn-quickstarts {
-    justify-content: space-between;
-  }
-}
-.Learn-actions {
-  margin: 0;
-  padding: 1rem 0 3rem;
-  text-align: center;
-}
-.Learn-viewMoreButton,
-.Learn-viewMoreButton:visited,
-.Learn-viewMoreButton:hover,
-.Learn-viewMoreButton {
-  background-color: #f5fcfe;
-  border: 0.0625rem solid #00add8;
-  border-radius: 0.25rem;
-  box-shadow: 0 0.125rem 0.3125rem 0 rgba(0, 0, 0, 0.2);
-  box-sizing: border-box;
-  display: inline-block;
-  line-height: 2.2rem;
-  padding: 0 2.3rem;
-  text-align: center;
-  text-decoration: none;
-}
-.Learn-subHeader {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-.Learn-tileList {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  list-style: none;
-  padding: 0;
-}
-@media only screen and (min-width: 38rem) {
-  .Learn-tileList {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-@media only screen and (min-width: 48rem) {
-  .Learn-tileList {
-    justify-content: space-between;
-  }
-  .Learn-tileList {
-    column-gap: 3rem;
-  }
-}
-.Learn-tile {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.Learn-tile a {
-  color: #3c4043;
-}
-.Learn-tileTitle {
-  display: block;
-  font-size: 0.75rem;
+
+.Learn-heroContent h1 {
+  font-family: Work Sans;
   font-style: normal;
   font-weight: normal;
-  letter-spacing: 0.01rem;
-  line-height: 0.875rem;
-  margin: 1.5rem auto 0;
-  overflow-wrap: break-word;
-  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
 }
-.Learn-tileThumbnail {
+
+.Learn-heroContent p {
+  color: #5f5f5f;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+  max-width: 27.1875rem;
+}
+
+.Learn-heroAction {
   align-items: center;
-  background-color: #fff;
-  border-radius: 0.3125rem;
-  box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
+  background-color: #007d9c;
+  border-radius: 0.25rem;
+  display: flex;
+  height: 2.5rem;
+  justify-content: center;
+  width: 10.5rem;
+}
+
+.Learn-heroAction a,
+.Learn-heroAction a:hover,
+.Learn-heroAction a:visited {
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1rem;
+  text-decoration: none;
+}
+
+.Learn-heroAction span {
+  font-weight: normal;
+}
+
+.Learn-quickstarts {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 0;
+  padding: 2rem 0;
+}
+
+.Learn-quickstart {
+  height: 14rem;
+  max-width: 21.25rem;
+}
+
+.Learn-quickstart:nth-child(2) {
+  margin: 2.125rem 0;
+}
+
+@media only screen and (min-width: 48rem) {
+  .Learn-hero {
+    background-position: top -35rem left 30rem;
+  }
+
+  .Learn-heroInner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .Learn-heroContent {
+    padding-top: 3.75rem;
+  }
+
+  .Learn-heroGopher {
+    flex: 1;
+    justify-content: center;
+    padding-top: 2.625rem;
+  }
+
+  .Learn-heroGopher img {
+    height: 21.0625rem;
+  }
+  
+  .Learn-heroAction {
+    height: 4rem;
+    width: 16.5625rem;
+  }
+
+  .Learn-heroAction a,
+  .Learn-heroAction a:hover,
+  .Learn-heroAction a:visited {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+  }
+
+  .Learn-heroAction span {
+    font-size: 1rem;
+  }
+
+  .Learn-quickstarts {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 1.625rem 0;
+  }
+}
+
+@media only screen and (min-width: 91rem) {
+  .Learn-hero {
+    background-position: top -35rem left 50rem;
+  }
+}
+
+.Learn-guided,
+.Learn-online,
+.Learn-selfPaced,
+.Learn-books {
+  margin-top: 3.75rem;
+  padding: 0 1.5rem;
+}
+
+.Learn-learningResources {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 3.75rem 0;
+}
+
+.Learn-learningResources h2,
+.Learn-learningResourcesHeader h3 {
+  margin: 0;
+}
+
+.Learn-learningResources h2 {
+  font-weight: 500;
+  font-size: 2rem;
+  letter-spacing: 0.1875rem;
+  line-height: 2.3125rem;
+}
+
+.Learn-learningResourcesHeader {
   display: flex;
   justify-content: center;
-  margin: auto;
+}
+
+.Learn-learningResourcesHeader h3 {
+  font-weight: bold;
+  font-size: 1.5rem;
+  letter-spacing: normal;
+  line-height: 2.25rem;
+}
+
+.Learn-cardList {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 1.875rem 0;
+  padding: 0;
+}
+
+.Learn-card {
+  height: 23.375rem;
+  margin-bottom: 1.875rem;
+  max-width: 23.25rem;
+}
+
+.Learn-online .Card-thumbnail {
+  background-position: 1.5rem center;
+  background-repeat: no-repeat;
+  background-size: auto 1.5rem;
+  height: 7.5625rem;
+}
+
+.Learn-selfPaced .Learn-card {
+  height: 20.3125rem;
+}
+
+@media only screen and (min-width: 48rem) {
+  .Learn-learningResourcesHeader {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .Learn-learningResourcesHeader h2 {
+    font-size: 2.25rem;
+    line-height: 2.625rem;
+  }
+
+  .Learn-cardList {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .Learn-card {
+    height: 25rem;
+    width: 16.875rem;
+  }
+}
+
+.Learn-bookList {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  list-style: none;
+  margin: 1.875rem 0;
+  padding: 0;
+}
+
+.Learn-book {
+  margin-bottom: 1.875rem;
   width: 100%;
 }
-.Learn-tileThumbnail img {
-  max-height: 100%;
-  max-width: 100%;
+
+@media only screen and (min-width: 48rem) {
+  .Learn-bookList {
+    align-items: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .Learn-book {
+    width: 13.125rem;
+  }
 }
-.Learn-tileThumbnail--book img {
-  max-height: 100%;
-  max-width: 100%;
-}
+
 .Learn-inPersonList {
   display: flex;
   flex: 1 0 100%;
@@ -1926,9 +2018,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   flex-wrap: wrap;
   justify-content: space-between;
   list-style: none;
-  margin: 0.5rem 0 1rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
+  margin: 1.875rem 0 1.875rem -1rem; /* Offset gutters for the leftmost and top cells in the grid. */
   padding-left: 0;
 }
+
 .Learn-inPerson {
   border-bottom: 0.0625rem solid #e0e0e0;
   flex: 1 1 31.25rem;
@@ -1936,6 +2029,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   max-width: 31rem;
   padding-bottom: 1.25rem;
 }
+
 .Learn-inPerson:nth-child(1),
 .Learn-inPerson:nth-child(2) {
   border-top: 0.0625rem solid #e0e0e0;
@@ -1946,6 +2040,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-inPersonBlurb {
   margin: 0;
 }
+
 .Learn-events {
   border-bottom: 0.0625rem solid #e0e0e0;
   border-top: 0.0625rem solid #e0e0e0;
@@ -2057,6 +2152,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     padding: 1rem 0;
   }
 }
+
+
 .Solutions-title,
 .Solutions-useCases,
 .Solutions-caseStudies {
@@ -3137,4 +3234,148 @@ a.UseCase-anchorLink.selected::before {
 }
 img.PullQuote-image {
   width: 2.625rem;
+}
+
+.Card {
+  border: 0.0625rem solid #CFCFCF;
+  border-radius: 0.25rem;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+.Card a,
+.Card a:visited,
+.Card a:hover {
+  text-decoration: none;
+}
+
+.Card-inner {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.Card-thumbnail {
+  background-size: cover;
+  background-position: center;
+  height: 9.5625rem;
+}
+
+.Card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 1.5rem;
+}
+
+.Card-contentTitle,
+.Card-contentBody {
+  line-height: 1.5rem;
+}
+
+.Card-contentTitle {
+  color: #000000;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.Card-contentBody {
+  color: #5f5f5f;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+  flex: auto;
+}
+
+.Card-contentCta {
+  align-items: center;
+  display: flex;
+}
+
+.Card-contentCta span {
+  margin-right: 0.6875rem;
+}
+
+.Card-selfPacedFooter {
+  display: flex;
+}
+
+.Card-selfPacedCredits {
+  color: #5f5f5f;
+  flex: 1;
+  font-size: 0.75rem;
+}
+
+.Card-selfPacedRating {
+  width: 5rem;
+}
+
+.Card-starRating {
+  background-image: url('/images/learn/star-rating.png');
+  background-position: left;
+  height: 1rem;
+}
+
+.Book a,
+.Book a:visited,
+.Book a:hover {
+  text-decoration: none;
+}
+
+.Book-inner {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Book-thumbnail {
+  width: 6.625rem;
+}
+
+.Book-thumbnail img {
+  width: 100%;
+}
+
+.Book-content {
+  margin-left: 1.6875rem;
+  flex: 1;
+}
+
+.Book-title {
+  color: #000000;
+  font-family: Work Sans;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin: 0 0 0.5rem;
+}
+
+.Book-description {
+  color: #5f5f5f;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+
+.Book-cta {
+  align-items: center;
+  display: flex;
+  height: 1.5rem;
+}
+
+.Book-cta span {
+  margin-right: 0.6875rem;
+}
+
+@media only screen and (min-width: 48rem) {
+  .Book-inner {
+    flex-direction: column;
+  }
+
+  .Book-thumbnail {
+    width: 100%;
+  }
+
+  .Book-content {
+    margin: 1rem 0 0;
+  }
 }
