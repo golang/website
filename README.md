@@ -1,6 +1,8 @@
 # Go website
 
 This repository holds the Go website server code and content.
+This repository serves the essential information about Go website server code and I think it will be very beneficial for you 
+
 
 ## Checkout and Run
 
