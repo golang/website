@@ -1,4 +1,4 @@
-# Go website
+# Go website - An Amazing Project
 
 This repository holds the Go website server code and content.
 
