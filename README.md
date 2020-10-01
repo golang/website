@@ -35,6 +35,7 @@ It is encouraged that all JS and CSS code be run through this before submitting
 a change. However, it is not a strict requirement enforced by CI.
 
 ## Report Issues / Send Patches
+run repository and suggest changes
 
 This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://golang.org/doc/contribute.html.
