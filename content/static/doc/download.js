@@ -35,7 +35,10 @@ class DownloadsController {
           }
         }
         this.detectOS();
-        document.getElementById(this.osName).click();
+        const osTab = document.getElementById(this.osName);
+        if (osTab !== null) {
+          osTab.click();
+        }
         this.setDownloadForOS(this.osName);
       })
       .catch(console.error);
@@ -103,16 +106,13 @@ class DownloadsController {
 
   // Detect the users OS for installation default.
   detectOS() {
-    if (navigator.appVersion.indexOf('Linux') !== -1) {
+    if (navigator.userAgent.indexOf('Linux') !== -1) {
       this.osName = 'linux';
-    }
-    if (navigator.appVersion.indexOf('Mac') !== -1) {
+    } else if (navigator.userAgent.indexOf('Mac') !== -1) {
       this.osName = 'mac';
-    }
-    if (navigator.appVersion.indexOf('X11') !== -1) {
+    } else if (navigator.userAgent.indexOf('X11') !== -1) {
       this.osName = 'unix';
-    }
-    if (navigator.appVersion.indexOf('Win') !== -1) {
+    } else if (navigator.userAgent.indexOf('Win') !== -1) {
       this.osName = 'windows';
     }
   }
