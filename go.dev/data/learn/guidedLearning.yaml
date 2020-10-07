@@ -18,7 +18,7 @@ links:
     thumbnail: /images/learn/edureka.png
     cta: Learn more
   - title: Go by example
-    content: Go by Example is a hands-on introduction to Go using annotated
+    content: <i>Go by Example</i> is a hands-on introduction to Go using annotated
       example programs. It’s a great starting point to use when tackling any Go
       project.
     url: https://gobyexample.com/

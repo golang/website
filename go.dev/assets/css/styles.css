@@ -1785,6 +1785,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding-top: 1.125rem;
 }
 
+.Learn-heroContent a:not(.js-downloadBtn) {
+  text-decoration: underline;
+}
+
 .Learn-heroContent h1 {
   font-family: Work Sans;
   font-style: normal;
@@ -1899,7 +1903,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-guided,
 .Learn-online,
 .Learn-selfPaced,
-.Learn-books {
+.Learn-books,
+.Learn-inPersonTraining,
+.Learn-meetups {
   margin-top: 3.75rem;
   padding: 0 1.5rem;
 }
@@ -1949,6 +1955,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   height: 23.375rem;
   margin-bottom: 1.875rem;
   max-width: 23.25rem;
+}
+
+.Learn-selfPaced .Learn-card .Card-content {
+  justify-content: space-between;
 }
 
 .Learn-online .Card-thumbnail {
@@ -2042,8 +2052,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-events {
-  border-bottom: 0.0625rem solid #e0e0e0;
-  border-top: 0.0625rem solid #e0e0e0;
   flex: 1 0 100%;
   list-style: none;
   margin: 0.5rem 0 0;
@@ -2053,49 +2061,70 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-eventItem {
   align-items: flex-start;
   display: flex;
+  flex-direction: column;
   padding: 1rem 0;
 }
 .Learn-eventItem + .Learn-eventItem {
   border-top: 0.0625rem solid #e0e0e0;
 }
+
 .Learn-eventThumbnail {
   align-self: center;
   display: flex;
   flex: 0 0 3rem;
-  height: 3rem;
-  margin-right: 1rem;
+  height: auto;
+  margin-bottom: 1rem;
 }
 .Learn-eventThumbnail--noimage {
   background-color: #ffffff;
 }
 .Learn-eventThumbnail img {
-  height: auto;
-  object-fit: contain;
-  width: 4rem;
+  width: 100%;
+  height: 40vw;
+
+  object-fit: cover;
+}
+.Learn-eventAttendees {
+  display: flex;
+}
+.Learn-eventAttendeesItem img {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
 }
 .Learn-eventBody {
-  display: inline-flex;
+  display: flex;
   flex: 1;
   flex-direction: column;
   min-width: 0;
+  max-width: 100%;
 }
 .Learn-eventDate {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  margin-bottom: 1rem;
 }
 .Learn-eventDate p {
   color: #6e7072;
   margin: 0;
 }
 .Learn-eventName {
-  color: #007d9c;
+  color: #000;
+  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 1.25rem;
-  font-weight: normal;
+  font-weight: 500;
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  margin-bottom: 1rem;
+}
+.Learn-eventName a {
+  text-decoration: none;
+  color: #000;
 }
 .Learn-eventDescription {
   -webkit-box-orient: vertical; /* See webkit-line-clamp */
@@ -2103,6 +2132,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   -webkit-line-clamp: 4; /* Elide flex text. webkit-line-clamp is broadly compatible with browsers. */
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 24px;
+}
+.Learn-eventText {
+  margin-bottom: 0.5rem;
 }
 .Learn-viewMore {
   align-items: center;
@@ -2119,15 +2152,27 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-left: 0.48rem;
 }
 @media only screen and (min-width: 57.7rem) {
+  .Learn-eventItem {
+      flex-direction: row;
+  }
+  
+  .Learn-eventBody {
+    max-width: 46.825rem;
+  }
   .Learn-eventThumbnail {
-    height: auto;
-    min-width: 5.375rem;
+    height: 10.875rem;
+    min-width: 18.375rem;
+    margin-right: 1rem;
+  }
+  .Learn-eventThumbnail img{
+    height: 10.875rem;
+    width: 17rem;
+    object-fit: contain;
   }
   .Learn-eventDate {
     flex: 0;
     flex-direction: column;
     justify-content: center;
-    margin: 0 1rem;
     min-width: 9rem;
   }
   .Learn-eventText {
@@ -2143,10 +2188,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Learn-viewMore {
     align-self: center;
     text-align: right;
-  }
-  .Learn-eventBody {
-    display: flex;
-    flex-direction: row;
   }
   .Learn-eventItem {
     padding: 1rem 0;

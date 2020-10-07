@@ -145,18 +145,17 @@
       {{range first 3 $.Site.Data.events.all}}
       <li class="Learn-eventItem">
         <div
-          class="Learn-eventThumbnail {{if not .thumbnailurl}}Learn-eventThumbnail--noimage{{end}}"
+          class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"
         >
-          {{if .thumbnailurl}}
-          <img alt="{{.name}} group photo" src="{{.thumbnailurl}}" />
+          {{if .photourl}}
+          <img alt="{{.name}} group photo" src="{{.photourl}}" />
           {{else}}
           <img src="/images/meetup.svg" alt="meetup logo" />
           {{end}}
         </div>
         <div class="Learn-eventBody">
           <div class="Learn-eventDate">
-            <p>{{.local_date}}</p>
-            <p>{{.city}}, {{.state}} {{.country}}</p>
+            <p>{{.local_date}} &#183 {{.city}}, {{.state}} {{.country}}</p>
           </div>
           <div class="Learn-eventText">
             <h4 class="Learn-eventName">
@@ -164,7 +163,15 @@
             </h4>
             <p class="Learn-eventDescription">{{.description | safeHTML}}</p>
           </div>
-          <p class="Learn-viewMore"><a href="{{.url}}">Learn more &gt;</a></p>
+          <div class="Learn-eventAttendees">
+            {{ with .attendees }}
+              {{range first 5 .}}
+              <div class="Learn-eventAttendeesItem">
+                <img src="{{.thumb_link}}" alt="{{.name}}"/>
+              </div>
+              {{end}}
+            {{end}}
+          </div>
         </div>
       </li>
       {{end}}

@@ -9,7 +9,7 @@
       {{end}}
       <div class="Card-content">
         <div class="Card-contentTitle">{{.title}}</div>
-        <p class="Card-contentBody">{{.content}}</p>
+        <p class="Card-contentBody">{{.content | safeHTML}}</p>
         <div class="Card-contentCta">
           <span>{{.cta}}</span>
           <svg
