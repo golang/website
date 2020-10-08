@@ -2062,7 +2062,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
+  padding: 1.875rem 0 .175rem 0;
 }
 .Learn-eventItem + .Learn-eventItem {
   border-top: 0.0625rem solid #e0e0e0;
@@ -2163,6 +2163,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     height: 10.875rem;
     min-width: 18.375rem;
     margin-right: 1rem;
+    margin-bottom: 0;
   }
   .Learn-eventThumbnail img{
     height: 10.875rem;
@@ -2190,7 +2191,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     text-align: right;
   }
   .Learn-eventItem {
-    padding: 1rem 0;
+    padding: 1.875rem 0;
   }
 }
 
