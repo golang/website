@@ -2151,7 +2151,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   font-size: 1rem;
   margin-left: 0.48rem;
 }
-@media only screen and (min-width: 57.7rem) {
+@media only screen and (min-width: 33.75rem) {
   .Learn-eventItem {
       flex-direction: row;
   }
@@ -2167,7 +2167,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Learn-eventThumbnail img{
     height: 10.875rem;
     width: 17rem;
-    object-fit: contain;
+    object-fit: cover;
   }
   .Learn-eventDate {
     flex: 0;
