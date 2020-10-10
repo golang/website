@@ -4,7 +4,7 @@ links:
       or brush up for your existing Go code.
     cta: View documentation
     url: https://golang.org/doc/install
-  - title: Tour Go
+  - title: Tour of Go
     content: An interactive introduction to Go in three sections. Each section
       concludes with a few exercises so you can practice what you've learned.
     cta: Take a tour
