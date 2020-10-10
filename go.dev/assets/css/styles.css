@@ -1990,7 +1990,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
   .Learn-card {
     height: 25rem;
-    width: 16.875rem;
+
+    width: 30%;
+    max-width: 40rem;
   }
 }
 
