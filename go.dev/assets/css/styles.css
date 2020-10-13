@@ -2163,14 +2163,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     max-width: 46.825rem;
   }
   .Learn-eventThumbnail {
-    height: 17rem;
-    min-width: 18.375rem;
+    height: 8rem;
+    min-width: 8rem;
     margin-right: 1rem;
     margin-bottom: 0;
   }
   .Learn-eventThumbnail img{
-    height: 17rem;
-    width: 17rem;
+    height: 8rem;
+    width: 8rem;
     object-fit: contain;
   }
   .Learn-eventDate {
