@@ -1991,8 +1991,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Learn-card {
     height: 25rem;
 
-    width: 30%;
+    width: 25%;
     max-width: 40rem;
+    padding: 0 13.5px;
   }
 }
 
@@ -2082,7 +2083,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Learn-eventThumbnail img {
   width: 100%;
-  height: 40vw;
+  height: auto;
 
   object-fit: cover;
 }
@@ -2168,9 +2169,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     margin-bottom: 0;
   }
   .Learn-eventThumbnail img{
-    height: 10.875rem;
+    height: 17rem;
     width: 17rem;
-    object-fit: cover;
+    object-fit: contain;
   }
   .Learn-eventDate {
     flex: 0;
