@@ -1752,7 +1752,11 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
 .Learn-hero {
   background-color: #f6f8f8;
-  background-image: radial-gradient(60.0625rem 60.0625rem, #beeaf5 50%, #f6f8f8 50%);
+  background-image: radial-gradient(
+    60.0625rem 60.0625rem,
+    #beeaf5 50%,
+    #f6f8f8 50%
+  );
   background-position: top -50rem left -9rem;
   background-repeat: no-repeat;
   background-size: 75rem 75rem;
@@ -1828,26 +1832,77 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   font-weight: normal;
 }
 
-.Learn-quickstarts {
-  align-items: center;
+/* Learn page grid rules */
+
+.LearnGo-gridContainer {
   display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: center;
+  padding: 0rem 0rem 1rem;
+}
+
+.Learn-cardList {
+  column-gap: 3.313rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  justify-content: space-between;
   list-style: none;
-  margin: 0;
-  padding: 2rem 0;
+  padding-left: 0;
+  row-gap: 2rem;
 }
 
-.Learn-quickstart {
-  height: 14rem;
-  max-width: 21.25rem;
-}
-
-.Learn-quickstart:nth-child(2) {
-  margin: 2.125rem 0;
+.Learn-card {
+  height: 23.375rem;
+  max-width: 40rem;
 }
 
 @media only screen and (min-width: 48rem) {
+  .Learn-cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media only screen and (min-width: 72.75rem) {
+  .Learn-cardList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* End Learn page grid rules */
+
+/* Learn quickstart grid */
+
+.Learn-hero .Learn-quickstarts {
+  margin: 0;
+  margin-top: 4rem;
+}
+
+.Learn-hero .Learn-quickstart {
+  height: auto;
+}
+
+.Learn-hero .LearnGo-gridContainer {
+  padding: 3rem 0rem 3rem;
+}
+
+@media only screen and (min-width: 48rem) {
+  .Learn-hero .Learn-cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (min-width: 57.7rem) {
+  .Learn-hero .Learn-cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media only screen and (min-width: 72.75rem) {
+  .Learn-hero .Learn-cardList {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Learn hero section */
+
+@media only screen and (min-width: 57.7rem) {
   .Learn-hero {
     background-position: top -35rem left 30rem;
   }
@@ -1870,7 +1925,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Learn-heroGopher img {
     height: 21.0625rem;
   }
-  
+
   .Learn-heroAction {
     height: 4rem;
     width: 16.5625rem;
@@ -1885,12 +1940,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
   .Learn-heroAction span {
     font-size: 1rem;
-  }
-
-  .Learn-quickstarts {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 1.625rem 0;
   }
 }
 
@@ -1941,21 +1990,11 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   line-height: 2.25rem;
 }
 
-.Learn-cardList {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 1.875rem 0;
-  padding: 0;
-}
-
-.Learn-card {
-  height: 23.375rem;
-  margin-bottom: 1.875rem;
-  max-width: 23.25rem;
-}
+/* @media only screen and (min-width: 48rem) {
+  .Learn-guided .Learn-cardList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} */
 
 .Learn-selfPaced .Learn-card .Card-content {
   justify-content: space-between;
@@ -1982,45 +2021,36 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     font-size: 2.25rem;
     line-height: 2.625rem;
   }
-
-  .Learn-cardList {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-
-  .Learn-card {
-    height: 25rem;
-
-    width: 25%;
-    max-width: 40rem;
-    padding: 0 13.5px;
-  }
 }
 
-.Learn-bookList {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  list-style: none;
-  margin: 1.875rem 0;
-  padding: 0;
-}
-
-.Learn-book {
-  margin-bottom: 1.875rem;
+.Learn-cardList.Learn-bookList {
+  grid-template-columns: repeat(1, 1fr);
   width: 100%;
 }
 
+.Learn-card.Learn-book {
+  height: auto;
+}
+
 @media only screen and (min-width: 48rem) {
-  .Learn-bookList {
-    align-items: flex-start;
-    flex-direction: row;
-    justify-content: space-between;
+  .Learn-cardList.Learn-bookList {
+    grid-template-columns: repeat(3, 1fr);
   }
 
-  .Learn-book {
-    width: 13.125rem;
+  .Learn-card.Learn-book {
+    max-width: 13.125rem;
+  }
+}
+
+@media only screen and (min-width: 57.7rem) {
+  .Learn-cardList.Learn-bookList {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media only screen and (min-width: 72.75rem) {
+  .Learn-cardList.Learn-bookList {
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
@@ -2057,7 +2087,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-events {
   flex: 1 0 100%;
   list-style: none;
-  margin: 0.5rem 0 0;
+  margin: 0.5rem 0 1.875rem;
   padding: 0;
   width: 100%;
 }
@@ -2065,7 +2095,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
-  padding: 1.875rem 0 .175rem 0;
+  padding: 1.875rem 0 0.175rem 0;
 }
 .Learn-eventItem + .Learn-eventItem {
   border-top: 0.0625rem solid #e0e0e0;
@@ -2156,9 +2186,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 @media only screen and (min-width: 33.75rem) {
   .Learn-eventItem {
-      flex-direction: row;
+    flex-direction: row;
   }
-  
+
   .Learn-eventBody {
     max-width: 46.825rem;
   }
@@ -2168,7 +2198,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     margin-right: 1rem;
     margin-bottom: 0;
   }
-  .Learn-eventThumbnail img{
+  .Learn-eventThumbnail img {
     height: 8rem;
     width: 8rem;
     object-fit: contain;
@@ -2197,7 +2227,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     padding: 1.875rem 0;
   }
 }
-
 
 .Solutions-title,
 .Solutions-useCases,
@@ -3282,7 +3311,7 @@ img.PullQuote-image {
 }
 
 .Card {
-  border: 0.0625rem solid #CFCFCF;
+  border: 0.0625rem solid #cfcfcf;
   border-radius: 0.25rem;
   height: 100%;
   background-color: #ffffff;

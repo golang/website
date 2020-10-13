@@ -40,13 +40,15 @@
         <img src="/images/gophers/motorcycle.svg" alt="Go Gopher riding a motorcycle">
       </div>
     </div>
-    <ul class="Learn-quickstarts">
-      {{ range first 3 $.Site.Data.learn.quickstart.links }}
-        <li class="Learn-quickstart">
-          {{ partial "learn/card.html" . }}
-        </li>
-      {{end}}
-    </ul>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-quickstarts Learn-cardList">
+        {{ range first 3 $.Site.Data.learn.quickstart.links }}
+          <li class="Learn-quickstart Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{end}}
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -59,13 +61,15 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Guided learning journeys</h3>
     </div>
-    <ul class="Learn-cardList">
-      {{ range first 4 $.Site.Data.learn.guidedLearning.links }}
-        <li class="Learn-card">
-          {{ partial "learn/card.html" . }}
-        </li>
-      {{ end }}
-    </ul>
+    <div class="LearnGo-gridContainer"> 
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.guidedLearning.links }}
+          <li class="Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div> 
   </div>
 </section>
 
@@ -74,13 +78,15 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Online learning</h3>
     </div>
-    <ul class="Learn-cardList">
-      {{ range first 4 $.Site.Data.learn.courses.links }}
-        <li class="Learn-card">
-          {{ partial "learn/card.html" . }}
-        </li>
-      {{ end }}
-    </ul>
+    <div class="LearnGo-gridContainer"> 
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.courses.links }}
+          <li class="Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div> 
   </div>
 </section>
 
@@ -89,14 +95,16 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Google Cloud Self-Paced Labs</h3>
     </div>
-    <ul class="Learn-cardList">
-      {{ range first 4 $.Site.Data.learn.cloud.links }}
-        <li class="Learn-card">
-          {{ partial "learn/selfPacedCard.html" . }}
-         </li>
-        </li>
-      {{ end }}
-    </ul>
+    <div class="LearnGo-gridContainer"> 
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.cloud.links }}
+          <li class="Learn-card">
+            {{ partial "learn/selfPacedCard.html" . }}
+          </li>
+          </li>
+        {{ end }}
+      </ul>
+    </div> 
   </div>
 </section>
 
@@ -105,13 +113,15 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Featured books</h3>
     </div>
-    <ul class="Learn-bookList">
-      {{ range first 5 $.Site.Data.learn.books.links }}
-        <li class="Learn-book">
-          {{ partial "learn/book.html" . }}
-        </li>
-      {{ end }}
-    </ul>
+    <div class="LearnGo-gridContainer"> 
+      <ul class="Learn-cardList Learn-bookList">
+        {{ range first 5 $.Site.Data.learn.books.links }}
+          <li class="Learn-card Learn-book">
+            {{ partial "learn/book.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div> 
   </div>
 </section>
 
@@ -120,16 +130,18 @@
     <div class="Learn-learningResourcesHeader">
       <h3>In-person training</h3>
     </div>
-    <ul class="Learn-inPersonList">
-      {{range first 4 $.Site.Data.learn.inPerson.links}}
-      <li class="Learn-inPerson">
-        <p class="Learn-inPersonTitle">
-          <a href="{{.url}}"> {{.title}} </a>
-        </p>
-        <p class="Learn-inPersonBlurb">{{.blurb}}</p>
-      </li>
-      {{end}}
-    </ul>
+    <div class="LearnGo-gridContainer"> 
+      <ul class="Learn-inPersonList">
+        {{range first 4 $.Site.Data.learn.inPerson.links}}
+        <li class="Learn-inPerson">
+          <p class="Learn-inPersonTitle">
+            <a href="{{.url}}"> {{.title}} </a>
+          </p>
+          <p class="Learn-inPersonBlurb">{{.blurb}}</p>
+        </li>
+        {{end}}
+      </ul>
+    </div> 
   </div>
 </section>
 
