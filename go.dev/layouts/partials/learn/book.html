@@ -1,0 +1,32 @@
+<div class="Book">
+  <a href="{{.url}}" target="_blank" rel="noopener">
+    <div class="Book-inner">
+      {{if .thumbnail}}
+      <div class="Book-thumbnail">
+        <img alt="{{.title}} thumbnail." src="{{.thumbnail}}" />
+      </div>
+      {{end}}
+      <div class="Book-content">
+        <p class="Book-title">{{.title}}</p>
+        <p class="Book-description">{{.description}}</p>
+        <div class="Book-cta">
+          <span>{{.cta}}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#007D9C"
+              fill-rule="evenodd"
+              d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2h7v2H5zm9 0V3h7v7h-2V6.4l-9.8 9.8-1.4-1.4L17.6 5H14z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>

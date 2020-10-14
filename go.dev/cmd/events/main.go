@@ -82,6 +82,7 @@ func getUpcomingEvents(c client) (*UpcomingEvents, error) {
 			LocalizedCountry:  group.LocalizedCountryName,
 			LocalizedLocation: group.LocalizedLocation,
 			Name:              group.NextEvent.Name,
+			PhotoURL:          chapter.GroupPhoto.PhotoLink,
 			State:             chapter.State,
 			ThumbnailURL:      chapter.GroupPhoto.ThumbLink,
 			URL:               "https://www.meetup.com/" + path.Join(chapter.URLName, "events", group.NextEvent.ID),
@@ -156,6 +157,7 @@ type EventData struct {
 	LocalizedCountry  string
 	LocalizedLocation string
 	Name              string
+	PhotoURL          string
 	State             string
 	ThumbnailURL      string
 	URL               string

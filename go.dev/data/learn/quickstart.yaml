@@ -1,10 +1,16 @@
 links:
-  - title: Installing Go
+  - title: Documentation
+    content: Everything there is to know about Go. Get started on a new project
+      or brush up for your existing Go code.
+    cta: View documentation
     url: https://golang.org/doc/install
-    thumbnail: /images/learn/install.png
-  - title: Hello World
-    url: https://play.golang.org
-    thumbnail: /images/learn/gohelloworld.png
   - title: Tour of Go
+    content: An interactive introduction to Go in three sections. Each section
+      concludes with a few exercises so you can practice what you've learned.
+    cta: Take a tour
     url: https://tour.golang.org
-    thumbnail: /images/learn/tour.png
+  - title: Playground
+    content: The Playground allows anyone with a web browser to write Go code
+      that we immediately compile, link, and run on our servers.
+    cta: Go to playground
+    url: https://play.golang.org

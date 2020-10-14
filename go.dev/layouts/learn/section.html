@@ -1,151 +1,150 @@
 {{define "main"}}
-<section class="Learn-title">
+<section class="Learn-hero">
   <div class="Container">
-    <h1>Getting Started</h1>
-  </div>
-</section>
-<section class="Learn-gettingStarted">
-  <div class="Container">
-    <ul class="Learn-quickstarts">
-      {{range first 3 $.Site.Data.learn.quickstart.links}}
-      <li class="Learn-quickstart">
-        <a href="{{.url}}">
-          <div class="Learn-quickstartThumbnail">
-            {{if .thumbnail}}
-              <img src="{{.thumbnail}}" alt="{{.title}} thumbnail.">
-            {{end}}
-          </div>
-          <p class="Learn-quickstartTitle">
-            {{.title}}
-          </p>
-        </a>
-      </li>
-      {{end}}
-    </ul>
-    <p class="Learn-actions">
-      <a class="Learn-viewMoreButton" href="https://golang.org/doc/">Learn More &gt;</a>
-    </p>
-  </div>
-</section>
-<section id="guided-learning-journeys" class="Learn-guided">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>Guided learning journeys</h2>
-      <p class="Learn-viewMore">
-      </p>
-    </div>
-    <ul class="Learn-tileList">
-      {{range first 4 $.Site.Data.learn.guidedLearning.links}}
-      <li class="Learn-tile">
-        <a href="{{.url}}">
-          <div class="Learn-tileThumbnail">
-            {{if .thumbnail}}
-            <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-            {{end}}
-          </div>
-          <p class="Learn-tileTitle">
-            {{.title}}
-          </p>
-        </a>
-      </li>
-      {{end}}
-    </ul>
-  </div>
-</section>
-<section id="online-learning" class="Learn-online">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>Online learning</h2>
-    </div>
-    <ul class="Learn-tileList">
-      {{range first 4 $.Site.Data.learn.courses.links}}
-      <li class="Learn-tile">
-        <a href="{{.url}}">
-          <div class="Learn-tileThumbnail">
-            {{if .thumbnail}}
-            <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-            {{end}}
-          </div>
-          <p class="Learn-tileTitle">
-            {{.title}}
-          </p>
-        </a>
-      </li>
-      {{end}}
-    </ul>
-  </div>
-</section>
-<section id="self-paced-labs" class="Learn-online">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>Google Cloud Self-Paced Labs</h2>
-    </div>
-    <ul class="Learn-tileList">
-      {{range first 4 $.Site.Data.learn.cloud.links}}
-      <li class="Learn-tile">
-        <a href="{{.url}}">
-          <div class="Learn-tileThumbnail">
-            {{if .thumbnail}}
-            <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-            {{end}}
-          </div>
-          <p class="Learn-tileTitle">
-            {{.title}}
-          </p>
-        </a>
-      </li>
-      {{end}}
-    </ul>
-  </div>
-</section>
-<section id="featured-books" class="Learn-books">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>Featured books</h2>
-      <p class="Learn-viewMore">
-      </p>
-    </div>
-    <ul class="Learn-tileList">
-      {{range first 5 $.Site.Data.learn.books.links}}
-      <li class="Learn-tile">
-        <a href="{{.url}}">
-          <div class="Learn-tileThumbnail Learn-tileThumbnail--book">
-            {{if .thumbnail}}
-            <img alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-            {{end}}
-          </div>
-          <p class="Learn-tileTitle">
-            {{.title}}
-          </p>
-        </a>
-      </li>
-      {{end}}
-    </ul>
-  </div>
-</section>
-<section class="Learn-inPersonTraining">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>In-person training</h2>
-      <p class="Learn-viewMore">
-      </p>
-    </div>
-    <ul class="Learn-inPersonList">
-      {{range first 4 $.Site.Data.learn.inPerson.links}}
-      <li class="Learn-inPerson">
-        <p class="Learn-inPersonTitle">
-          <a href="{{.url}}">
-            {{.title}}
+    <div class="Learn-heroInner">
+      <div class="Learn-heroContent">
+        {{ partial "breadcrumbs.html" . }}
+        <h1>Install the latest version of Go</h1>
+        <p>
+          Install the latest version of Go. For instructions to download and install
+          the Go compilers, tools, and libraries,
+          <a href="https://golang.org/doc/install" target="_blank" rel="noopener">
+            view the install documentation.
           </a>
         </p>
-        <p class="Learn-inPersonBlurb">
-          {{.blurb}}
+        <div class="Learn-heroAction">
+          <div
+            data-version="{{.Site.Data.global.latestVersion}}"
+            class="js-latestGoVersion"
+          >
+            <a
+              class="js-downloadBtn"
+              href="https://golang.org/dl"
+              target="_blank"
+              rel="noopener"
+            >
+              Download
+              <span class="js-goVersion"></span>
+            </a>
+          </div>
+        </div>
+        <p>
+          Download packages for 
+          <a class="js-downloadWin">Windows 64-bit</a>,
+          <a class="js-downloadMac">macOS</a>,
+          <a class="js-downloadLinux">Linux</a>, and
+          <a href="https://golang.org/dl/">more</a>.
         </p>
-      </li>
-      {{end}}
-    </ul>
+      </div>
+      <div class="Learn-heroGopher">
+        <img src="/images/gophers/motorcycle.svg" alt="Go Gopher riding a motorcycle">
+      </div>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-quickstarts Learn-cardList">
+        {{ range first 3 $.Site.Data.learn.quickstart.links }}
+          <li class="Learn-quickstart Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{end}}
+      </ul>
+    </div>
   </div>
 </section>
+
+<section class="Learn-learningResources">
+  <h2>Learning Resources</h2>
+</section>
+
+<section id="guided-learning-journeys" class="Learn-guided">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>Guided learning journeys</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.guidedLearning.links }}
+          <li class="Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="online-learning" class="Learn-online">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>Online learning</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.courses.links }}
+          <li class="Learn-card">
+            {{ partial "learn/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="self-paced-labs" class="Learn-selfPaced">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>Google Cloud Self-Paced Labs</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-cardList">
+        {{ range first 4 $.Site.Data.learn.cloud.links }}
+          <li class="Learn-card">
+            {{ partial "learn/selfPacedCard.html" . }}
+          </li>
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="featured-books" class="Learn-books">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>Featured books</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-cardList Learn-bookList">
+        {{ range first 5 $.Site.Data.learn.books.links }}
+          <li class="Learn-card Learn-book">
+            {{ partial "learn/book.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="Learn-inPersonTraining">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>In-person training</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-inPersonList">
+        {{range first 4 $.Site.Data.learn.inPerson.links}}
+        <li class="Learn-inPerson">
+          <p class="Learn-inPersonTitle">
+            <a href="{{.url}}">{{.title}} </a>
+          </p>
+          <p class="Learn-inPersonBlurb">{{.blurb}}</p>
+        </li>
+        {{end}}
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section class="Learn-meetups">
   <div class="Container">
     <div class="Learn-subHeader">
@@ -157,27 +156,34 @@
     <ul class="Learn-events">
       {{range first 3 $.Site.Data.events.all}}
       <li class="Learn-eventItem">
-        <div class="Learn-eventThumbnail {{if not .thumbnailurl}}Learn-eventThumbnail--noimage{{end}}">
-          {{if .thumbnailurl}}
-          <img alt="{{.name}} group photo" src="{{.thumbnailurl}}">
+        <div
+          class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"
+        >
+          {{if .photourl}}
+          <img alt="{{.name}} group photo" src="{{.photourl}}" />
           {{else}}
-          <img src="/images/meetup.svg" alt="meetup logo">
+          <img src="/images/meetup.svg" alt="meetup logo" />
           {{end}}
         </div>
         <div class="Learn-eventBody">
           <div class="Learn-eventDate">
-            <p>{{.local_date}}</p>
-            <p>{{.city}}, {{.state}} {{.country}}</p>
+            <p>{{.local_date}} &#183 {{.city}}, {{.state}} {{.country}}</p>
           </div>
           <div class="Learn-eventText">
             <h4 class="Learn-eventName">
               <a href="{{.url}}">{{.name}}</a>
             </h4>
-            <p class="Learn-eventDescription">
-              {{.description | safeHTML}}
-            </p>
+            <p class="Learn-eventDescription">{{.description | safeHTML}}</p>
           </div>
-          <p class="Learn-viewMore"><a href="{{.url}}">Learn more &gt;</a></p>
+          <div class="Learn-eventAttendees">
+            {{ with .attendees }}
+              {{range first 5 .}}
+              <div class="Learn-eventAttendeesItem">
+                <img src="{{.thumb_link}}" alt="{{.name}}"/>
+              </div>
+              {{end}}
+            {{end}}
+          </div>
         </div>
       </li>
       {{end}}
