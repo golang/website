@@ -1,0 +1,223 @@
+{{define "main"}}
+<section class="Security-hero">
+  <div class="Container">
+    <div class="Security-heroInner">
+      <div class="Security-heroContent">
+        {{ partial "breadcrumbs.html" . }}
+        <h1>Build secure applications with Go</h1>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
+      <div class="Security-heroGopher">
+        <img src="/images/gophers/motorcycle.svg" alt="Go Gopher riding a motorcycle">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="Security-foundations">
+  <div class="Container">
+    <div class="Security-gridContainer">
+      <ul class="Security-cardList">
+        {{ range $.Site.Data.security.foundations.links }}
+          <li class="Security-card">
+            {{ partial "security/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+    <hr />
+    <div class="Security-comingSoon">
+        <div class="Security-comingSoonTitle">
+          <h3>Coming Soon</h3>
+        </div>
+        <div class="Security-comingSoonContent">
+          <ul>
+            <li>Native support for fuzz testing, maybe OSS-Fuzz integration</li>
+            <li>Vulnerabilities database curated by the Go team, with low-noise auditing tools</li>
+          </ul>
+        </div>
+        <div class="Security-comingSoonImage">
+          <img src="/images/gophers/motorcycle.svg" alt="Go Gopher riding a motorcycle">
+        </div>
+    </div>
+  </div>
+</section>
+
+<section class="Security-getStarted">
+  <div class="Container">
+    <div class="Security-sectionHeader">
+      <h2>Recent Updates</h2>
+    </div>
+    <div class="Security-gridContainer">
+      <ul class="Security-cardList">
+        {{ range $.Site.Data.security.getstarted.links }}
+          <li class="Security-card">
+            {{ partial "security/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+
+<section class="Security-recentupdates">
+  <div class="Container">
+    <div class="Security-sectionHeader">
+      <h2>Get Started</h2>
+    </div>
+    <div class="Security-gridContainer">
+      <ul class="Security-cardList">
+        {{ range $.Site.Data.security.recentUpdates.links }}
+          <li class="Security-card">
+            {{ partial "security/card.html" . }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .Security-gridContainer, .Security-comingSoon  {
+    padding: 3rem 1.5rem 1rem;
+  }
+  .Security-card .Card-content ul {
+    padding-left: 1rem;
+  }
+  .Security-card .Card-content li {
+    margin-bottom: 1rem;
+    list-style: initial;
+  }
+  .Security-card .Card-contentCta {
+    margin-top: 1rem;
+  }
+  
+  /*sections*/
+  .Security-foundations {
+    padding: 2rem 0;
+  }
+  .Security-foundations .Card {
+    border: none;
+  }
+  .Security-foundations .Card-content {
+    padding: 0;
+  }
+  .Security-foundations .Card-contentBody {
+    flex: 0;
+  }
+  .Security-foundations .Card-icon {
+    padding-bottom: 1.5rem;
+  }
+
+  .Security-comingSoon, 
+  .Security-comingSoonTitle,
+  .Security-comingSoonContent,
+  .Security-comingSoonImage {
+    display: flex;
+  }
+
+  .Security-comingSoon {
+    flex-direction: column;
+  }
+
+  .Security-comingSoonTitle {
+    justify-content: center;
+  }
+
+  .Security-comingSoonTitle h3 {
+    font-family: 'Work Sans', sans-serif;
+    color: #71757B;
+    font-weight: 400;
+  }
+
+  .Security-comingSoonContent ul {
+    padding-left: 1rem;
+  }
+
+  .Security-comingSoonContent li {
+    margin-bottom: 1rem;
+  }
+
+  .Security-getStarted {
+    background: #007D9C;
+  }
+
+  .Security-getStarted, .Security-recentupdates {
+    padding: 40px 0;
+  }
+
+  .Security-getStarted .Security-sectionHeader {
+    color: #fff;
+  }
+  .Security-getStarted .Security-sectionHeader,
+  .Security-recentupdates .Security-sectionHeader {
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  .Security-getStarted .Security-sectionHeader h2,
+  .Security-recentupdates .Security-sectionHeader h2 {
+    font-size: 36px;
+    margin: 0;
+  }
+
+  .Security-getStarted .Security-card {
+    height: auto;
+  }
+
+  .Security-getStarted .Card-icon {
+    padding: 1.5rem 0 0 1.5rem;
+  }
+
+  .Security-getStarted .Card-contentTitle {
+    flex: 1;
+  }
+
+  .Security-getStarted .Card-contentImage {
+    flex: 1;
+  }
+  
+  .Security-comingSoonImage img {
+      width: 100%;
+    }
+
+  @media only screen and (min-width: 72.75rem) {
+    
+    .Security-getStarted, .Security-recentupdates {
+        padding: 60px 0 80px 0;
+    }
+    .Security-getStarted .Security-sectionHeader {
+      margin-bottom: 40px;
+    }
+    .Security-getStarted .Security-cardList {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .Security-comingSoon {
+      flex-direction: row;
+    }
+
+    .Security-comingSoonTitle {
+      flex-direction: column;
+      justify-content: center;
+
+      flex: 1 0 100px;
+      align-items: center;
+    }
+
+    .Security-comingSoonContent {
+      flex-direction: column;
+      justify-content: center;
+
+      flex: 1 1 auto;
+    }
+
+    .Security-comingSoonImage {
+      flex: 1 1 100px;
+    }
+
+  }
+</style>
+{{end}}
