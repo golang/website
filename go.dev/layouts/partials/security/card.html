@@ -1,5 +1,4 @@
 <div class="Card">
-  <a href="{{.url}}" target="_blank">
     <div class="Card-inner">
       {{if .icon}}
       <div
@@ -14,6 +13,7 @@
         <div class="Card-contentBody">{{.content | safeHTML}}</div>
         {{end}}
         <div class="Card-contentCta">
+          <a href="{{.url}}" target="_blank">
           <span>{{.cta}}</span>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -29,8 +29,8 @@
               clip-rule="evenodd"
             />
           </svg>
+          </a>
         </div>
       </div>
     </div>
-  </a>
 </div>
