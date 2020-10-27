@@ -71,7 +71,7 @@
           {{- if not $currentPage.Site.IsServer}}
             {{- $url = $url | absURL}}
           {{- end}}
-          <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Title)}} Header-menuItem--active{{end}}">
+          <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.Title .Title)}} Header-menuItem--active{{end}}">
             <a href="{{$url}}" title="{{.Title}}">{{.Name}}</a>
           </li>
           {{- end}}
