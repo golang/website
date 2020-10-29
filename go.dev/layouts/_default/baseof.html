@@ -14,7 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js https://www.googletagmanager.com/gtm.js; style-src 'report-sample' 'self' https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' https://golang.org https://www.google-analytics.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; img-src 'self' https://secure.meetupstatic.com; manifest-src 'self'; media-src 'self'; worker-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.google-analytics.com/analytics.js https://www.googletagmanager.com/gtm.js; style-src 'unsafe-inline' 'self' https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' https://golang.org https://www.google-analytics.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; img-src 'self' *; manifest-src 'self'; media-src 'self'; worker-src 'none';">
 {{$styles := resources.Get "css/styles.css" -}}
 {{if .Site.IsServer -}}
   <link rel="stylesheet" href="{{$styles.RelPermalink}}">
