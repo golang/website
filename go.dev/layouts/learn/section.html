@@ -8,7 +8,7 @@
         <p>
           Install the latest version of Go. For instructions to download and install
           the Go compilers, tools, and libraries,
-          <a href="https://golang.org/doc/install" target="_blank" rel="noopener">
+          <a href="https://golang.org/doc/install" target="_blank">
             view the install documentation.
           </a>
         </p>
@@ -24,7 +24,7 @@
               rel="noopener"
             >
               Download
-              <span class="js-goVersion"></span>
+              <span class="js-goVersion"> </span>
             </a>
           </div>
         </div>
@@ -61,7 +61,7 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Guided learning journeys</h3>
     </div>
-    <div class="LearnGo-gridContainer">
+    <div class="LearnGo-gridContainer"> 
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.guidedLearning.links }}
           <li class="Learn-card">
@@ -69,7 +69,7 @@
           </li>
         {{ end }}
       </ul>
-    </div>
+    </div> 
   </div>
 </section>
 
@@ -78,7 +78,7 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Online learning</h3>
     </div>
-    <div class="LearnGo-gridContainer">
+    <div class="LearnGo-gridContainer"> 
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.courses.links }}
           <li class="Learn-card">
@@ -86,7 +86,7 @@
           </li>
         {{ end }}
       </ul>
-    </div>
+    </div> 
   </div>
 </section>
 
@@ -95,7 +95,7 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Google Cloud Self-Paced Labs</h3>
     </div>
-    <div class="LearnGo-gridContainer">
+    <div class="LearnGo-gridContainer"> 
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.cloud.links }}
           <li class="Learn-card">
@@ -104,7 +104,7 @@
           </li>
         {{ end }}
       </ul>
-    </div>
+    </div> 
   </div>
 </section>
 
@@ -113,7 +113,7 @@
     <div class="Learn-learningResourcesHeader">
       <h3>Featured books</h3>
     </div>
-    <div class="LearnGo-gridContainer">
+    <div class="LearnGo-gridContainer"> 
       <ul class="Learn-cardList Learn-bookList">
         {{ range first 5 $.Site.Data.learn.books.links }}
           <li class="Learn-card Learn-book">
@@ -121,7 +121,7 @@
           </li>
         {{ end }}
       </ul>
-    </div>
+    </div> 
   </div>
 </section>
 
@@ -130,18 +130,18 @@
     <div class="Learn-learningResourcesHeader">
       <h3>In-person training</h3>
     </div>
-    <div class="LearnGo-gridContainer">
+    <div class="LearnGo-gridContainer"> 
       <ul class="Learn-inPersonList">
         {{range first 4 $.Site.Data.learn.inPerson.links}}
         <li class="Learn-inPerson">
           <p class="Learn-inPersonTitle">
-            <a href="{{.url}}">{{.title}} </a>
+            <a href="{{.url}}"> {{.title}} </a>
           </p>
           <p class="Learn-inPersonBlurb">{{.blurb}}</p>
         </li>
         {{end}}
       </ul>
-    </div>
+    </div> 
   </div>
 </section>
 
