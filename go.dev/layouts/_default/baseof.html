@@ -14,6 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
+<meta http-equiv="Content-Security-Policy"  content="default-src 'self'; script-src 'report-sample' 'self' https://www.google-analytics.com/analytics.js https://www.googletagmanager.com/gtm.js; style-src 'report-sample' 'self' https://fonts.googleapis.com; object-src 'none'; base-uri 'self'; connect-src 'self' https://golang.org https://stats.g.doubleclick.net https://www.google-analytics.com; font-src 'self' https://fonts.gstatic.com; frame-src 'self'; img-src 'self' https://secure.meetupstatic.com https://www.google.com; manifest-src 'self'; media-src 'self'; report-uri https://5fa02f7465d1a16209ba9110.endpoint.csper.io/; worker-src 'none';">
 {{$styles := resources.Get "css/styles.css" -}}
 {{if .Site.IsServer -}}
   <link rel="stylesheet" href="{{$styles.RelPermalink}}">
