@@ -75,6 +75,7 @@ var csp = map[string][]string{
 		"'sha256-4ryYrf7Y5daLOBv0CpYtyBIcJPZkRD2eBPdfqsN3r1M='", // Google Tag Manager Preview mode
 		"'sha256-sVKX08+SqOmnWhiySYk3xC7RDUgKyAkmbXV2GWts4fo='", // Google Tag Manager Preview mode
 		"www.google.com",
+		"apis.google.com",
 		"www.gstatic.com",
 		"support.google.com",
 		"www.googletagmanager.com",
