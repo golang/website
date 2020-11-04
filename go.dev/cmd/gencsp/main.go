@@ -33,6 +33,7 @@ var csp = map[string][]string{
 	"connect-src": {
 		"https://golang.org",
 		"www.google-analytics.com",
+		"https://stats.g.doubleclick.net/",
 	},
 	"default-src": {
 		self,
