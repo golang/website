@@ -38,9 +38,7 @@ title = "go.dev"
     weight = -90
 
   [[menu.main]]
-    identifier = "about"
     name = "About"
-    title = "About"
     url = "https://go.dev/about"
     weight = -80
 
@@ -103,7 +101,7 @@ title = "go.dev"
     identifier = "about"
     name = "About"
     title = "About"
-    url = "https://go.dev/about"
+    url = "https://go.dev//about"
     weight = -80
 
   [[menu.footer]]

@@ -547,8 +547,7 @@ a.BreadcrumbNav-link {
 .WhoUsesCaseStudyList-gridContainer,
 .WhyGo-gridContainer,
 .UseCases-gridContainer,
-.LearnGo-gridContainer,
-.Security-gridContainer {
+.LearnGo-gridContainer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -560,8 +559,7 @@ a.BreadcrumbNav-link {
 .WhoUsesHero-gridContainer,
 .WhyGo-gridContainer,
 .UseCases-gridContainer,
-.LearnGo-gridContainer,
-.Security-gridContainer {
+.LearnGo-gridContainer {
   padding: 3rem 1.5rem 1rem;
 }
 .WhoUsesHero-gridContainer {
@@ -573,8 +571,7 @@ a.BreadcrumbNav-link {
   .WhoUsesCaseStudyList-gridContainer,
   .WhyGo-gridContainer,
   .UseCases-gridContainer,
-  .LearnGo-gridContainer,
-  .Security-gridContainer {
+  .LearnGo-gridContainer {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -1753,8 +1750,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   }
 }
 
-.Learn-hero,
-.Security-hero {
+.Learn-hero {
   background-color: #f6f8f8;
   background-image: radial-gradient(
     60.0625rem 60.0625rem,
@@ -1767,34 +1763,29 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding: 0 2.25rem 0;
 }
 
-.Learn-hero .Container,
-.Security-hero .Container {
+.Learn-hero .Container {
   z-index: 1;
   position: relative;
   max-width: 68.125rem;
 }
 
-.Learn-heroInner,
-.Security-heroInner {
+.Learn-heroInner {
   display: flex;
   flex-direction: column-reverse;
 }
 
-.Learn-heroGopher,
-.Security-heroGopher {
+.Learn-heroGopher {
   display: flex;
   justify-content: flex-end;
   padding-top: 1.25rem;
 }
 
-.Learn-heroGopher img,
-.Security-heroGopher img {
+.Learn-heroGopher img {
   height: 13.5625rem;
   width: auto;
 }
 
-.Learn-heroContent,
-.Security-heroContent {
+.Learn-heroContent {
   padding-top: 1.125rem;
 }
 
@@ -1802,8 +1793,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   text-decoration: underline;
 }
 
-.Learn-heroContent h1,
-.Security-heroContent h1 {
+.Learn-heroContent h1 {
   font-family: Work Sans;
   font-style: normal;
   font-weight: normal;
@@ -1811,16 +1801,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   line-height: 2rem;
 }
 
-.Learn-heroContent p,
-.Security-heroContent p {
+.Learn-heroContent p {
   color: #5f5f5f;
   font-size: 0.875rem;
   line-height: 1.5rem;
   max-width: 27.1875rem;
 }
 
-.Learn-heroAction,
-.Security-heroAction {
+.Learn-heroAction {
   align-items: center;
   background-color: #007d9c;
   border-radius: 0.25rem;
@@ -1832,33 +1820,27 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
 .Learn-heroAction a,
 .Learn-heroAction a:hover,
-.Learn-heroAction a:visited,
-.Security-heroAction a,
-.Security-heroAction a:hover,
-.Security-heroAction a:visited {
-  color: #ffffff;
+.Learn-heroAction a:visited {
+  color: #fff;
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1rem;
   text-decoration: none;
 }
 
-.Learn-heroAction span,
-.Security-heroAction span {
+.Learn-heroAction span {
   font-weight: normal;
 }
 
-/* Learn/Security page grid rules */
+/* Learn page grid rules */
 
-.LearnGo-gridContainer,
-.Security-gridContainer {
+.LearnGo-gridContainer {
   display: flex;
   justify-content: center;
   padding: 0rem 0rem 1rem;
 }
 
-.Learn-cardList,
-.Security-cardList {
+.Learn-cardList {
   column-gap: 3.313rem;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
@@ -1868,26 +1850,23 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   row-gap: 2rem;
 }
 
-.Learn-card,
-.Security-card {
+.Learn-card {
   height: 23.375rem;
   max-width: 40rem;
 }
 
 @media only screen and (min-width: 48rem) {
-  .Learn-cardList,
-  .Security-cardList {
+  .Learn-cardList {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 @media only screen and (min-width: 72.75rem) {
-  .Learn-cardList,
-  .Security-cardList {
+  .Learn-cardList {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* End Learn/Security page grid rules */
+/* End Learn page grid rules */
 
 /* Learn quickstart grid */
 
@@ -1924,59 +1903,48 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 /* Learn hero section */
 
 @media only screen and (min-width: 57.7rem) {
-  .Learn-hero,
-  .Security-hero {
+  .Learn-hero {
     background-position: top -35rem left 30rem;
   }
 
-  .Learn-heroInner,
-  .Security-heroInner {
+  .Learn-heroInner {
     flex-direction: row;
     justify-content: space-between;
   }
 
-  .Learn-heroContent,
-  .Security-heroContent {
+  .Learn-heroContent {
     padding-top: 3.75rem;
   }
 
-  .Learn-heroGopher,
-  .Security-heroGopher {
+  .Learn-heroGopher {
     flex: 1;
     justify-content: center;
     padding-top: 2.625rem;
   }
 
-  .Learn-heroGopher img,
-  .Security-heroGopher img {
+  .Learn-heroGopher img {
     height: 21.0625rem;
   }
 
-  .Learn-heroAction,
-  .Security-heroAction {
+  .Learn-heroAction {
     height: 4rem;
     width: 16.5625rem;
   }
 
   .Learn-heroAction a,
   .Learn-heroAction a:hover,
-  .Learn-heroAction a:visited,
-  .Security-heroAction a,
-  .Security-heroAction a:hover,
-  .Security-heroAction a:visited {
+  .Learn-heroAction a:visited {
     font-size: 1.5rem;
     line-height: 1.75rem;
   }
 
-  .Learn-heroAction span,
-  .Security-heroAction span {
+  .Learn-heroAction span {
     font-size: 1rem;
   }
 }
 
 @media only screen and (min-width: 91rem) {
-  .Learn-hero,
-  .Security-hero {
+  .Learn-hero {
     background-position: top -35rem left 50rem;
   }
 }
@@ -1999,8 +1967,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-learningResources h2,
-.Learn-learningResourcesHeader h3,
-.Security-sectionHeader h3 {
+.Learn-learningResourcesHeader h3 {
   margin: 0;
 }
 
@@ -2011,14 +1978,12 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   line-height: 2.3125rem;
 }
 
-.Learn-learningResourcesHeader,
-.Security-sectionHeader {
+.Learn-learningResourcesHeader {
   display: flex;
   justify-content: center;
 }
 
-.Learn-learningResourcesHeader h3,
-.Security-sectionHeader h3 {
+.Learn-learningResourcesHeader h3 {
   font-weight: bold;
   font-size: 1.5rem;
   letter-spacing: normal;
@@ -2026,7 +1991,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 /* @media only screen and (min-width: 48rem) {
-  .Learn-guided .Learn-cardList, .Security-cardList {
+  .Learn-guided .Learn-cardList {
     grid-template-columns: repeat(2, 1fr);
   }
 } */
@@ -2047,14 +2012,12 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 @media only screen and (min-width: 48rem) {
-  .Learn-learningResourcesHeader,
-  .Security-sectionHeader {
+  .Learn-learningResourcesHeader {
     display: flex;
     justify-content: flex-start;
   }
 
-  .Learn-learningResourcesHeader h2,
-  .Security-sectionHeader h2 {
+  .Learn-learningResourcesHeader h2 {
     font-size: 2.25rem;
     line-height: 2.625rem;
   }
@@ -2146,7 +2109,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-bottom: 1rem;
 }
 .Learn-eventThumbnail--noimage {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .Learn-eventThumbnail img {
   width: 100%;
@@ -2263,68 +2226,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Learn-eventItem {
     padding: 1.875rem 0;
   }
-}
-
-.Learn-tile a {
-  width: 100%;
-}
-
-.Learn-tileList {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  list-style: none;
-  padding: 0;
-}
-@media only screen and (min-width: 38rem) {
-  .Learn-tileList {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-@media only screen and (min-width: 48rem) {
-  .Learn-tileList {
-    justify-content: space-between;
-  }
-  .Learn-tileList {
-    column-gap: 3rem;
-  }
-}
-.Learn-tile {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.Learn-tile a {
-  color: #3c4043;
-}
-.Learn-tileTitle {
-  display: block;
-  font-size: 0.75rem;
-  font-style: normal;
-  font-weight: normal;
-  letter-spacing: 0.01rem;
-  line-height: 0.875rem;
-  margin: 1.5rem auto 0;
-  overflow-wrap: break-word;
-  text-align: center;
-}
-.Learn-tileThumbnail {
-  align-items: center;
-  background-color: #fff;
-  border-radius: 0.3125rem;
-  box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
-  display: flex;
-  justify-content: center;
-  margin: auto;
-  width: 100%;
-}
-.Learn-tileThumbnail img {
-  max-height: 100%;
-  max-width: 100%;
-}
-.Learn-tileThumbnail--book img {
-  max-height: 100%;
-  max-width: 100%;
 }
 
 .Solutions-title,
@@ -2475,7 +2376,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   background-color: #f6f8f8;
 }
 .Solutions-headline h2 {
-  color: #000000;
+  color: #000;
   font-family: 'Work Sans', sans-serif;
   font-size: 1.5rem;
   font-style: normal;
@@ -2516,7 +2417,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .SolutionsTabs-tab {
   background-color: #fff;
   border-style: none;
-  color: #000000;
+  color: #000;
   cursor: pointer;
   font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 1rem;
@@ -2560,7 +2461,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 0 0 1rem 0;
 }
 .Solutions-card {
-  background: #ffffff;
+  background: #fff;
   border: 0.0625rem solid #cfcfcf;
   border-radius: 0.625rem;
   box-sizing: border-box;
@@ -2628,7 +2529,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   line-height: 1.5rem;
 }
 .Solutions-useCaseTitle {
-  color: #000000;
+  color: #000;
   font-family: 'Work Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
@@ -2661,7 +2562,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 2rem 0 2.875rem;
 }
 .Solutions-footer p {
-  color: #000000;
+  color: #000;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1.125rem;
   font-weight: normal;
@@ -2703,7 +2604,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   justify-content: space-between;
 }
 .TestimonialsGo-quoteSection p {
-  color: #000000;
+  color: #000;
   font-size: 0.875rem;
   letter-spacing: 0.0082rem;
   line-height: 1.5rem;
@@ -2770,7 +2671,7 @@ p.BackgroundQuote-body {
 }
 .BackgroundQuote {
   background-color: #007f9f;
-  color: #ffffff;
+  color: #fff;
   margin: 1.5rem auto;
   padding: 2rem 1.5rem;
 }
@@ -3413,7 +3314,7 @@ img.PullQuote-image {
   border: 0.0625rem solid #cfcfcf;
   border-radius: 0.25rem;
   height: 100%;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .Card a,
@@ -3447,7 +3348,7 @@ img.PullQuote-image {
 }
 
 .Card-contentTitle {
-  color: #000000;
+  color: #000;
   font-family: 'Work Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
@@ -3486,6 +3387,7 @@ img.PullQuote-image {
 .Card-starRating {
   background-image: url('/images/learn/star-rating.png');
   background-position: left;
+  background-repeat: no-repeat;
   height: 1rem;
 }
 
@@ -3515,7 +3417,7 @@ img.PullQuote-image {
 }
 
 .Book-title {
-  color: #000000;
+  color: #000;
   font-family: Work Sans;
   font-size: 1.125rem;
   font-weight: 500;

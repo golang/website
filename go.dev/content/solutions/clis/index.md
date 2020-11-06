@@ -113,9 +113,6 @@ goLibraries:
       - text: golang/glog
         url: https://pkg.go.dev/github.com/golang/glog?tab=overview
         desc: Leveled execution logs for Go
-      - text: go-prompt
-        url: https://pkg.go.dev/github.com/c-bata/go-prompt?tab=overview
-        desc: A library for building powerful interactive prompts, making it easier to build cross-platform command line tools using Go.
 ---
 
 ## Overview {#overview .sectionHeading}
