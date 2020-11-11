@@ -33,6 +33,7 @@ var csp = map[string][]string{
 	"connect-src": {
 		"https://golang.org",
 		"www.google-analytics.com",
+		"stats.g.doubleclick.net",
 	},
 	"default-src": {
 		self,
@@ -56,6 +57,7 @@ var csp = map[string][]string{
 		"www.google.com",
 		"feedback.googleusercontent.com",
 		"www.googletagmanager.com",
+		"scone-pa.clients6.google.com",
 	},
 	"img-src": {
 		self,
@@ -74,6 +76,7 @@ var csp = map[string][]string{
 		"'sha256-4ryYrf7Y5daLOBv0CpYtyBIcJPZkRD2eBPdfqsN3r1M='", // Google Tag Manager Preview mode
 		"'sha256-sVKX08+SqOmnWhiySYk3xC7RDUgKyAkmbXV2GWts4fo='", // Google Tag Manager Preview mode
 		"www.google.com",
+		"apis.google.com",
 		"www.gstatic.com",
 		"support.google.com",
 		"www.googletagmanager.com",
