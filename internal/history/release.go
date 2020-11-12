@@ -34,12 +34,12 @@ var Releases = map[GoVer]Release{
 	{1, 15, 5}: {
 		Date:     Date{2020, 11, 12},
 		Security: true,
-		Future:   true,
+		Packages: []string{"cmd/go", "math/big"},
 	},
 	{1, 14, 12}: {
 		Date:     Date{2020, 11, 12},
 		Security: true,
-		Future:   true,
+		Packages: []string{"cmd/go", "math/big"},
 	},
 
 	{1, 15, 4}: {
