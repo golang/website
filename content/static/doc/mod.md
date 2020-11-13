@@ -2273,7 +2273,7 @@ the module's root directory is the repository's root directory.
 
 Modules are sometimes defined in repository subdirectories. This is typically
 done for large repositories with multiple components that need to be released
-and versioned indepently. Such a module is expected to be found in a
+and versioned independently. Such a module is expected to be found in a
 subdirectory that matches the part of the module's path after the repository
 root path.  For example, suppose the module `example.com/monorepo/foo/bar` is in
 the repository with root path `example.com/monorepo`. Its `go.mod` file must be
@@ -2364,7 +2364,7 @@ a wide range of platforms.
 * File and directory names within a module may consist of Unicode letters, ASCII
   digits, the ASCII space character (U+0020), and the ASCII punctuation
   characters `!#$%&()+,-.=@[]^_{}~`. Note that package paths may not contain all
-  these all these characters. See
+  these characters. See
   [`module.CheckFilePath`](https://pkg.go.dev/golang.org/x/mod/module?tab=doc#CheckFilePath)
   and
   [`module.CheckImportPath`](https://pkg.go.dev/golang.org/x/mod/module?tab=doc#CheckImportPath)
