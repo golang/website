@@ -5,8 +5,8 @@ Julie Qiu
 
 ##
 
-Since launching pkg.go.dev, we’ve received a lot of great feedback on
-design and usability.
+Since launching [pkg.go.dev](https://pkg.go.dev), we’ve received a lot of great
+feedback on design and usability.
 In particular, it was clear that the way information was organized confused
 users when navigating the site.
 
@@ -24,9 +24,13 @@ Now, regardless of what’s in that directory,
 every path page will have the same layout,
 with the goal of making the experience consistently useful and predictable.
 
-<div class="image">
-<img src="pkgsite-redesign/path.png" width="800" alt="Landing page for cloud.google.com/go/storage" style="border: 1px solid black;">
-</div>
+<figure class="image">
+  <img src="pkgsite-redesign/path.png" width="800" alt="Landing page for cloud.google.com/go/storage" style="border: 1px solid black;">
+  <figcaption>
+    Fig 1. Landing page for
+    <a href="https://pkg.go.dev/cloud.google.com/go/storage">https://pkg.go.dev/cloud.google.com/go/storage</a>.
+  </figcaption>
+</figure>
 
 The path page will display the README at that path if there is one.
 Previously, the overview tab only showed the README if present at the module root.
@@ -41,9 +45,13 @@ There is also a new Jump To input box in the left sidenav,
 to search for identifiers.
 
 
-<div class="image">
-<img src="pkgsite-redesign/nav.png" width="800" alt="Jump To feature navigating net/http" style="border: 1px solid black;">
-</div>
+<figure class="image">
+  <img src="pkgsite-redesign/nav.png" width="800" alt="Jump To feature navigating net/http" style="border: 1px solid black;">
+  <figcaption>
+    Fig 2. Jump To feature on
+    <a href="https://pkg.go.dev/net/http">https://pkg.go.dev/net/http</a>.
+  </figcaption>
+</figure>
 
 See [Go issue 41587](https://golang.org/issue/41587) for details on changes in the documentation section.
 
@@ -54,9 +62,13 @@ such as each package’s “imports” and “imported by” counts.
 Banners also show information about the latest minor and major versions of a module.
 See [Go issue 41588](https://golang.org/issue/41588) for details.
 
-<div class="image">
-<img src="pkgsite-redesign/meta.png" width="800" alt="Header metadata for github.com/russross/blackfriday" style="border: 1px solid black;">
-</div>
+<figure class="image">
+  <img src="pkgsite-redesign/meta.png" width="800" alt="Header metadata for github.com/russross/blackfriday" style="border: 1px solid black;">
+  <figcaption>
+    Fig 3. Header metadata for
+    <a href="https://pkg.go.dev/github.com/russross/blackfriday">https://pkg.go.dev/github.com/russross/blackfriday</a>.
+  </figcaption>
+</figure>
 
 ## Video Walkthrough
 
