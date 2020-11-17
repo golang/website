@@ -25,7 +25,7 @@ every path page will have the same layout,
 with the goal of making the experience consistently useful and predictable.
 
 <div class="image">
-<img src="pkgsite-redesign/path.png" width="800" height="513" alt="Landing page for cloud.google.com/go/storage" style="border: 1px solid black;">
+<img src="pkgsite-redesign/path.png" width="800" alt="Landing page for cloud.google.com/go/storage" style="border: 1px solid black;">
 </div>
 
 The path page will display the README at that path if there is one.
@@ -42,7 +42,7 @@ to search for identifiers.
 
 
 <div class="image">
-<img src="pkgsite-redesign/nav.png" width="800" height="530" alt="Jump To feature navigating net/http" style="border: 1px solid black;">
+<img src="pkgsite-redesign/nav.png" width="800" alt="Jump To feature navigating net/http" style="border: 1px solid black;">
 </div>
 
 See [Go issue 41587](https://golang.org/issue/41587) for details on changes in the documentation section.
@@ -55,7 +55,7 @@ Banners also show information about the latest minor and major versions of a mod
 See [Go issue 41588](https://golang.org/issue/41588) for details.
 
 <div class="image">
-<img src="pkgsite-redesign/meta.png" width="800" height="145" alt="Header metadata for github.com/russross/blackfriday" style="border: 1px solid black;">
+<img src="pkgsite-redesign/meta.png" width="800" alt="Header metadata for github.com/russross/blackfriday" style="border: 1px solid black;">
 </div>
 
 ## Video Walkthrough
