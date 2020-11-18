@@ -6,17 +6,15 @@
 <div class="HomeContainer">
   <section class="HomeSection Hero">
     <h1 class="Hero-header">
-      Go is an open source programming language that makes it easy to build
-      <strong>simple</strong>, <strong>reliable</strong>, and <strong>efficient</strong> software.
+      Go 是一门开放源代码的编程语言，可轻松构建<strong>简单</strong>，<strong>可靠</strong>且<strong>高效</strong>的软件。
     </h1>
     <i class="Hero-gopher"></i>
-    <a href="/dl/" class="Button Button--big HeroDownloadButton">
+    <a href="https://studygolang.com/dl" class="Button Button--big HeroDownloadButton" target="_blank">
       <img class="HeroDownloadButton-image" src="/lib/godoc/images/cloud-download.svg" alt="">
-      Download Go
+      下载 Go
     </a>
     <p class="Hero-description">
-      Binary distributions available for<br>
-      Linux, macOS, Windows, and more.
+      我们提供了 Linux, macOS, Windows 等系统下的二进制发行版
     </p>
   </section>
 
@@ -24,7 +22,7 @@
     <div class="Playground-headerContainer">
       <h2 class="HomeSection-header">Try Go</h2>
       {{if not $.GoogleCN}}
-        <a class="Playground-popout js-playgroundShareEl">Open in Playground</a>
+        <a class="Playground-popout js-playgroundShareEl">在 Playground 中打开</a>
       {{end}}
     </div>
     <div class="Playground-inputContainer">
@@ -54,11 +52,11 @@ func main() {
         <option value="tree.go">Tree Comparison</option>
       </select>
       <div class="Playground-buttons">
-        <button class="Button Button--primary js-playgroundRunEl" title="Run this code [shift-enter]">Run</button>
+        <button class="Button Button--primary js-playgroundRunEl" title="Run this code [shift-enter]">运行</button>
         <div class="Playground-secondaryButtons">
           {{if not $.GoogleCN}}
-            <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
-            <a class="Button tour" href="https://tour.golang.org/" title="Playground Go from your browser">Tour</a>
+            <button class="Button js-playgroundShareEl" title="Share this code">分享</button>
+            <a class="Button tour" href="http://tour.studygolang.com/" title="Playground Go from your browser">指南</a>
           {{end}}
         </div>
       </div>
@@ -67,12 +65,12 @@ func main() {
 
   {{if not $.GoogleCN}}
     <section class="HomeSection Blog js-blogContainerEl">
-      <h2 class="HomeSection-header">Featured articles</h2>
-      <div class="Blog-footer js-blogFooterEl"><a class="Button Button--primary" href="https://blog.golang.org/">Read more &gt;</a></div>
+      <h2 class="HomeSection-header">精选文章</h2>
+      <div class="Blog-footer js-blogFooterEl"><a class="Button Button--primary" href="https://docs.studygolang.com/blog">更多 &gt;</a></div>
     </section>
 
     <section class="HomeSection">
-      <h2 class="HomeSection-header">Featured video</h2>
+      <h2 class="HomeSection-header">精选视频</h2>
       <div class="js-videoContainer" style="--aspect-ratio-padding: 58.07%;">
         <iframe width="415" height="241" src="https://www.youtube.com/embed/rFejpH_tAHM" frameborder="0" allowfullscreen></iframe>
       </div>
