@@ -98,6 +98,11 @@ code {
    * spaces tend to be wider than proportional font spaces. */
   word-spacing: -0.3em;
 }
+pre code {
+  /* Maintain spacing inside preformatted blocks rendered from Markdown.
+   * See golang.org/issue/41507. */
+  word-spacing: 0;
+}
 pre {
   line-height: 1.4;
   overflow-x: auto;
