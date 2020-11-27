@@ -1,129 +1,89 @@
 <!--{
-	"Title": "Go Security Policy",
+	"Title": "Go 安全策略",
 	"Path":  "/security"
 }-->
 
-<h2>Implementation</h2>
+<h2>策略实施</h2>
 
-<h3>Reporting a Security Bug</h3>
+<h3>报告安全漏洞</h3>
 
 <p>
-Please report to us any issues you find.
-This document explains how to do that and what to expect in return.
+如您发现任何问题，请向我们报告。
+本文档描述了具体报告流程和答复信息。
 </p>
 
 <p>
-All security bugs in the Go distribution should be reported by email to
-<a href="mailto:security@golang.org">security@golang.org</a>.
-This mail is delivered to a small security team.
-Your email will be acknowledged within 24 hours, and you'll receive a more
-detailed response to your email within 72 hours indicating the next steps in
-handling your report.
+Go 发行版中的所有安全漏洞均应通过邮件发送至<a href="mailto:security@golang.org">security@golang.org</a>，该邮件会传送至某小型安全团队。
+您的邮件将在24小时内得到确认，并在72小时内收到更详细的回复，在其中会指明处理漏洞的后续流程。
 </p>
 
 <p>
-To ensure your report is not marked as spam, please include the word "vulnerability"
-anywhere in your email. Please use a descriptive subject line for your report email.
+为防止您的报告被当作垃圾邮件，请在邮件中任意处添加“vulnerability”一词，同时，邮件请使用描述性标题。
 </p>
 
 <p>
-After the initial reply to your report, the security team will endeavor to keep
-you informed of the progress being made towards a fix and full announcement.
-These updates will be sent at least every five days.
-In reality, this is more likely to be every 24-48 hours.
+在对您的报告进行初次答复后，安全团队将尽可能地确保您知晓有关漏洞修复及完整公告的进展情况。这些更新信息将至少每五天发送一次。实际上，更有可能是每24-48小时就发送一次。
 </p>
 
 <p>
-If you have not received a reply to your email within 48 hours or you have not
-heard from the security team for the past five days please contact the Go
-security team directly:
+若您在48小时内未收到回复，或者在过去五天内没有收到安全团队的通知，请直接与Go安全团队联系：
 </p>
 
 <ul>
-<li>Primary security coordinator: <a href="mailto:filippo@golang.org">Filippo Valsorda</a>.</li>
-<li>Secondary coordinator: <a href="mailto:agl@golang.org">Adam Langley</a>.</li>
-<li>If you receive no response, mail <a href="mailto:golang-dev@googlegroups.com">golang-dev@googlegroups.com</a> or use the <a href="https://groups.google.com/forum/#!forum/golang-dev">golang-dev web interface</a>.</li>
+<li>首席安全协调员： <a href="mailto:filippo@golang.org">Filippo Valsorda</a>。</li>
+<li>副安全协调员： <a href="mailto:agl@golang.org">Adam Langley</a>。</li>
+<li>若您未收到回复，请向<a href="mailto:golang-dev@googlegroups.com">golang-dev@googlegroups.com</a>发送邮件，或者使用<a href="https://groups.google.com/forum/#!forum/golang-dev">golang-dev Web页面</a>。</li>
 </ul>
 
 <p>
-Please note that golang-dev is a public discussion forum.
-When escalating on this list, please do not disclose the details of the issue.
-Simply state that you're trying to reach a member of the security team.
+请注意，golang-dev 是一个公开论坛，请不要透露具体信息，只需声明您正在尝试联系安全团队成员即可。
 </p>
 
-<h3>Flagging Existing Issues as Security-related</h3>
+<h3>将现有 issues 标记为与安全相关</h3>
 
-<p>
-If you believe that an <a href="https://golang.org/issue">existing issue</a>
-is security-related, we ask that you send an email to
-<a href="mailto:security@golang.org">security@golang.org</a>.
-The email should include the issue ID and a short description of why it should
-be handled according to this security policy.
+<p>若您确定某个现存的 <a href="https://golang.org/issue">issue</a> 有安全漏洞，请发送邮件至<a href="mailto:security@golang.org">security@golang.org</a>。邮件需要包含 issue 号和简短的说明，说明为什么要根据安全策略进行处理。
 </p>
 
-<h3>Disclosure Process</h3>
+<h3>安全相关问题的披露流程</h3>
 
-<p>The Go project uses the following disclosure process:</p>
+<p>Go 使用以下披漏流程：</p>
 
 <ol>
-<li>Once the security report is received it is assigned a primary handler.
-This person coordinates the fix and release process.</li>
-<li>The issue is confirmed and a list of affected software is determined.</li>
-<li>Code is audited to find any potential similar problems.</li>
-<li>If it is determined, in consultation with the submitter, that a CVE-ID is
-required, the primary handler obtains one via email to
-<a href="https://oss-security.openwall.org/wiki/mailing-lists/distros">oss-distros</a>.</li>
-<li>Fixes are prepared for the two most recent major releases and the head/master
-revision. These fixes are not yet committed to the public repository.</li>
-<li>A notification is sent to the
-<a href="https://groups.google.com/group/golang-announce">golang-announce</a>
-mailing list to give users time to prepare their systems for the update.</li>
-<li>Three working days following this notification, the fixes are applied to
-the <a href="https://go.googlesource.com/go">public repository</a> and a new
-Go release is issued.</li>
-<li>On the date that the fixes are applied, announcements are sent to
-<a href="https://groups.google.com/group/golang-announce">golang-announce</a>,
-<a href="https://groups.google.com/group/golang-dev">golang-dev</a>, and
-<a href="https://groups.google.com/group/golang-nuts">golang-nuts</a>.
+<li>收到漏洞报告后，为其分配一个主理人，他负责协调漏洞修复和发布。</li>
+<li>确认该漏洞，并列出受其影响的软件。</li>
+<li>审核代码以找出任何类似的潜在漏洞。</li>
+<li>与代码提交人员协商后，若需要一个 CVE-ID 号，则主理人向 <a href="https://oss-security.openwall.org/wiki/mailing-lists/distros">oss-distros</a> 发送邮件获取。</li>
+<li>为最近的两个主要发行版和 head/master 版本准备了修复程序，但这些补丁尚未提交到公共仓库。</li>
+<li>向<a href="https://groups.google.com/group/golang-announce">golang-announce</a>邮件列表发送通知，以使下游用户有时间对其系统进行更新。</li>
+<li>此通知三个工作日后，补丁将提交到<a href="https://go.googlesource.com/go">公共仓库</a>，并发布新的 Go 版本。</li>
+<li>在应用补丁当日，发送通知到
+<a href="https://groups.google.com/group/golang-announce">golang-announce</a>，
+<a href="https://groups.google.com/group/golang-dev">golang-dev</a>，和
+<a href="https://groups.google.com/group/golang-nuts">golang-nuts</a>。
 </ol>
 
 <p>
-This process can take some time, especially when coordination is required with
-maintainers of other projects. Every effort will be made to handle the bug in
-as timely a manner as possible, however it's important that we follow the
-process described above to ensure that disclosures are handled consistently.
+整个过程可能需要一些时间，尤其是在协调过程涉及到其他项目维护人员时。我们将尽一切努力尽快修复该漏洞，但请务必遵循上述流程，以确保披漏流程的一致。
 </p>
 
-<p>
-For security issues that include the assignment of a CVE-ID,
-the issue is listed publicly under the
-<a href="https://www.cvedetails.com/vulnerability-list/vendor_id-14185/Golang.html">"Golang" product on the CVEDetails website</a>
-as well as the
-<a href="https://web.nvd.nist.gov/view/vuln/search">National Vulnerability Disclosure site</a>.
+<p>对于安全问题，包括 CVE-ID 号的分配，具体情况列于<a href="https://www.cvedetails.com/vulnerability-list/vendor_id-14185/Golang.html"> CVEDetails 网站上的 "Golang" 项目</a>及<a href="https://web.nvd.nist.gov/view/vuln/search"> 国家漏洞公开网站 </a>。
 </p>
 
-<h3>Receiving Security Updates</h3>
+<h3>接收安全更新</h3>
 
-<p>
-The best way to receive security announcements is to subscribe to the
-<a href="https://groups.google.com/forum/#!forum/golang-announce">golang-announce</a>
-mailing list. Any messages pertaining to a security issue will be prefixed
-with <code>[security]</code>.
+<p> 最高效获取安全通知的方法是订阅<a href="https://groups.google.com/forum/#!forum/golang-announce">golang-announce</a>邮件列表，任何涉及安全问题的信息都将带有<code>[security]</code>前缀。
 </p>
 
-<h3>Comments on This Policy</h3>
+<h3>意见和建议</h3>
 
 <p>
-If you have any suggestions to improve this policy, please send an email to
-<a href="mailto:golang-dev@golang.org">golang-dev@golang.org</a> for discussion.
+如果您有任何改进此策率的意见和建议，请发送电子邮件至<a href="mailto:golang-dev@golang.org">golang-dev@golang.org</a>。
 </p>
 
-<h3>PGP Key for <a href="mailto:security@golang.org">security@golang.org</a></h3>
+<h3>用于向<a href="mailto:security@golang.org">security@golang.org</a>发送邮件的 PGP 密钥</h3>
 
 <p>
-We accept PGP-encrypted email, but the majority of the security team
-are not regular PGP users so it's somewhat inconvenient. Please only
-use PGP for critical security reports.
+我们接受 PGP 加密电子邮件，但大多数安全团队并不常用 PGP，这多少有些不便，因此请仅将 PGP 用于重要的安全报告邮件。
 </p>
 
 <pre>
