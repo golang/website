@@ -121,7 +121,7 @@ $
 </pre>
 
 <p>
-    还原默认设置使用 <code>go env -u</code> 命令：
+    可使用 <code>go env -u</code> 命令来还原由 <code>go env -w</code> 设置的变量：
 </p>
 
 <pre>
@@ -161,7 +161,7 @@ $ go install
 
 <!-- Note: we can't use $(go env GOBIN) here until https://golang.org/issue/23439 is addressed. -->
 <pre>
-# Windows 系统可查看 https://github.com/golang/go/wiki/SettingGOPATH
+# Windows 系统下设置 %PATH% 可参考 https://github.com/golang/go/wiki/SettingGOPATH
 $ <b>export PATH=$PATH:$(dirname $(go list -f '{{"{{"}}.Target{{"}}"}}' .))</b>
 $ <b>hello</b>
 Hello, world.
@@ -194,13 +194,12 @@ $
 <p>
 
     让我们编写一个 <code>morestrings</code> 包，并在 <code>hello</code> 程序中使用它。
-    首先，为名为 <code>$HOME/hello/morestrings</code> 的软件包创建一个目录，
-    然后在该目录中创建一个名为 <code>reverse.go</code> 的文件，其中包含以下内容：
+    首先，创建目录 <code>$HOME/hello/morestrings</code>，
+    然后在该目录中添加文件 <code>reverse.go</code> ，其中包含以下内容：
 </p>
 
 <pre>
-// 包morestrings实现了其他功能来操纵UTF-8编码的字符串
-// 此功能超出了标准“strings”包提供的范围。
+//  包 morestrings 实现了一些标准库 "strings" 中没有的函数来操纵UTF-8编码的字符串。
 package morestrings
 
 // ReverseRunes 返回翻转后的字符串
@@ -321,7 +320,7 @@ $
 
     模块依赖将自动下载到 <code>GOPATH</code> 环境变量指示的目录的 <code>pkg/mod</code> 子目录中。
     给定版本的模块的下载内容在需要该版本的所有其他模块之间共享，因此 <code>go</code> 命令将这些文件和目录标记为只读。
-    要删除所有下载的模块，可以使用 <code>go clean</code>命令中 <code>-modcache</code> 进行清理：
+    要移除所有下载的模块，可以在 <code>go clean</code>命令中使用 <code>-modcache</code> 参数：
 </p>
 
 <pre>
@@ -338,8 +337,8 @@ $
 <p>
 
 
-    你可以通过创建一个以 <code>_test.go</code> 结尾的文件来编写测试，该文件名为 <code>TestXXX</code> 且前缀为 <code>func (t *testing.T)</code>。
-    测试框架通过运行每个函数，如果该函数运行过程中调用了如 <code>t.Error</code> 或 <code>t.Fail</code> 等失败函数，则认为测试失败，即该函数有bug。
+    你可以通过创建一个以 <code>_test.go</code> 结尾的文件来编写测试，里面包含命名类似为 <code>TestXXX</code> 的函数，签名为 <code>func (t *testing.T)</code>。
+    测试框架通过运行每个函数，如果该函数运行过程中调用了如 <code>t.Error</code> 或 <code>t.Fail</code> 等失败函数，则认定为函数测试失败。
 </p>
 
 <p>
@@ -382,11 +381,11 @@ $
 
 <p>
 
-    可以通过运行 <code><a href="/cmd/go/#hdr-Test_packages">go help test</a></code> 和查询 <a href="/pkg/testing/">testing
+    可以通过运行 <code><a href="/cmd/go/#hdr-Test_packages">go help test</a></code> 和查阅 <a href="/pkg/testing/">testing
         包文档</a>获取命令更多细节。
 </p>
 
-<h2 id="next">更多</h2>
+<h2 id="next">下一步</h2>
 
 <p>
 
@@ -400,10 +399,10 @@ $
 
 <p>
     打开{{if $.GoogleCN}}
-    A Tour of Go
+    Go 学习之旅
 {{else}}
-    <a href="//tour.golang.org/">A Tour of Go</a>
-{{end}}学习语言
+    <a href="//tour.golang.org/">Go 学习之旅</a>
+{{end}}系统学习 Go
 </p>
 
 <p>
@@ -413,7 +412,7 @@ $
 <h2 id="help">获取帮助</h2>
 
 <p>
-    可以通过在 <a href="https://gophers.slack.com/messages/general/">gophers Slack server</a> 中发帖获取实时的帮组。
+    通过在 <a href="https://gophers.slack.com/messages/general/">gophers Slack server</a> 中发帖获取实时的帮助。
     （邀请链接点击 <a href="https://invite.slack.golangbridge.org/">这里</a>）
 </p>
 
