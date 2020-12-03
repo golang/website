@@ -209,7 +209,7 @@ func (h server) getHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, downloadBaseURL+name, http.StatusFound)
 		return
 	case name == "gotip":
-		redirectURL = "https://godoc.org/golang.org/dl/gotip"
+		redirectURL = "https://pkg.go.dev/golang.org/dl/gotip"
 	case goGetRe.MatchString(name):
 		redirectURL = "https://golang.org/dl/#" + name
 	default:

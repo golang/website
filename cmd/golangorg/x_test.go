@@ -48,7 +48,7 @@ func TestXHandler(t *testing.T) {
 			checks: []check{
 				status(200),
 				substr(`<meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">`),
-				substr(`http-equiv="refresh" content="0; url=https://godoc.org/golang.org/x/net">`),
+				substr(`http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/net">`),
 			},
 		},
 		{
@@ -57,7 +57,7 @@ func TestXHandler(t *testing.T) {
 			checks: []check{
 				status(200),
 				substr(`<meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">`),
-				substr(`http-equiv="refresh" content="0; url=https://godoc.org/golang.org/x/net/suffix">`),
+				substr(`http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/net/suffix">`),
 			},
 		},
 		{
@@ -80,7 +80,7 @@ func TestXHandler(t *testing.T) {
 			path: "/x/",
 			checks: []check{
 				status(307),
-				hasHeader("Location", "https://godoc.org/-/subrepo"),
+				hasHeader("Location", "https://pkg.go.dev/search?q=golang.org/x"),
 			},
 		},
 		{
