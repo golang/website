@@ -1,5 +1,7 @@
 # Go Blog
 
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/blog.svg)](https://pkg.go.dev/golang.org/x/blog)
+
 This repository holds the Go Blog server code and content.
 
 ## Download/Install
