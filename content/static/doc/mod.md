@@ -3264,6 +3264,9 @@ graph](#glos-module-graph), not just those relevant to a specific command.
 a build metadata suffix other than `+incompatible`. For example, `v1.2.3`
 is a canonical version, but `v1.2.3+meta` is not.
 
+<a id="glos-current-module"></a>
+**current module:** Synonym for [main module](#glos-main-module).
+
 <a id="glos-go.mod-file"></a>
 **`go.mod` file:** The file that defines a module's path, requirements, and
 other metadata. Appears in the [module's root
@@ -3275,7 +3278,10 @@ files](#go-mod-file).
 Synonymous with [package path](#glos-package-path).
 
 <a id="glos-main-module"></a>
-**main module:** The module in which the `go` command is invoked.
+**main module:** The module in which the `go` command is invoked. The main
+module is defined by a [`go.mod` file](#glos-go.mod-file) in the current
+directory or a parent directory. See [Modules, packages, and
+versions](#modules-overview).
 
 <a id="glos-major-version"></a>
 **major version:** The first number in a semantic version (`1` in `v1.2.3`). In
