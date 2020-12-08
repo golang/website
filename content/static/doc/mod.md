@@ -148,8 +148,8 @@ Each pseudo-version has three parts:
 * A base version prefix (`vX.0.0` or `vX.Y.Z-0`), which is either derived from a
   semantic version tag that precedes the revision or `vX.0.0` if there is no
   such tag.
-* A timestamp (`yymmddhhmmss`), which is the UTC time the revision was created.
-  In Git, this is the commit time, not the author time.
+* A timestamp (`yyyymmddhhmmss`), which is the UTC time the revision was
+  created. In Git, this is the commit time, not the author time.
 * A revision identifier (`abcdefabcdef`), which is a 12-character prefix of the
   commit hash, or in Subversion, a zero-padded revision number.
 
