@@ -2108,17 +2108,27 @@ information.
 ### Finding a repository for a module path {#vcs-find}
 
 When the `go` command downloads a module in `direct` mode, it starts by locating
-the repository that contains the module. The `go` command sends an
-HTTP `GET` request to a URL derived from the module path with a
-`?go-get=1` query string. For example, for the module `golang.org/x/mod`,
-the `go` command may send the following requests:
+the repository that contains the module.
+
+If the module path has a VCS qualifier (one of `.bzr`, `.fossil`, `.git`, `.hg`,
+`.svn`) at the end of a path component, the `go` command will use everything up
+to that path qualifier as the repository URL. For example, for the module
+`example.com/foo.git/bar`, the `go` command downloads the repository at
+`example.com/foo.git` using git, expecting to find the module in the `bar`
+subdirectory. The `go` command will guess the protocol to use based on the
+protocols supported by the version control tool.
+
+If the module path does not have a qualifier, the `go` command sends an HTTP
+`GET` request to a URL derived from the module path with a `?go-get=1` query
+string. For example, for the module `golang.org/x/mod`, the `go` command may
+send the following requests:
 
 ```
 https://golang.org/x/mod?go-get=1 (preferred)
 http://golang.org/x/mod?go-get=1  (fallback, only with GOINSECURE)
 ```
 
-The `go` command will follow redirects but otherwise ignores response status
+The `go` command follows redirects but otherwise ignores response status
 codes, so the server may respond with a 404 or any other error status. The
 `GOINSECURE` environment variable may be set to allow fallback and redirects to
 unencrypted HTTP for specific modules.
@@ -2143,11 +2153,12 @@ module from the given URL using the [`GOPROXY`
 protocol](#goproxy-protocol). This allows developers to distribute modules
 without exposing source repositories.
 
-`repo-url` is the repository's URL. If the URL does not include a scheme, the
-`go` command will try each protocol supported by the version control system.
-For example, with Git, the `go` command will try `https://` then `git+ssh://`.
-Insecure protocols may only be used if the module path is matched by the
-`GOINSECURE` environment variable.
+`repo-url` is the repository's URL. If the URL does not include a scheme (either
+because the module path has a VCS qualifier or because the `<meta>` tag lacks a
+scheme), the `go` command will try each protocol supported by the version
+control system. For example, with Git, the `go` command will try `https://` then
+`git+ssh://`. Insecure protocols (like `http://` and `git://`) may only be used
+if the module path is matched by the `GOINSECURE` environment variable.
 
 As an example, consider `golang.org/x/mod` again. The `go` command sends
 a request to `https://golang.org/x/mod?go-get=1`. The server responds
