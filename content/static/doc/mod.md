@@ -2545,6 +2545,45 @@ GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
 Use caution when taking this approach: environment variables may be appear
 in shell history and in logs.
 
+### Passing credentials to private repositories {#private-module-repo-auth}
+
+The `go` command may download a module directly from a version control
+repository. This is necessary for private modules if a private proxy is
+not used. See [Direct access to private modules](#private-module-proxy-direct)
+for configuration.
+
+The `go` command runs version control tools like `git` when downloading
+modules directly. These tools perform their own authentication, so you may
+need to configure credentials in a tool-specific configuration file like
+`.gitconfig`.
+
+To ensure this works smoothly, make sure the `go` command uses the correct
+repository URL and that the version control tool doesn't require a password to
+be entered interactively. The `go` command prefers `https://` URLs over other
+schemes like `ssh://` unless the scheme was specified when [looking up the
+repository URL](#vcs-find). For GitHub repositories specifically, the `go`
+command assumes `https://`.
+
+<!-- TODO(golang.org/issue/26134): if this issue is fixed, we can remove the
+mention of the special case for GitHub above. -->
+
+For most servers, you can configure your client to authenticate over HTTP. For
+example, GitHub supports using [OAuth personal access tokens as HTTP
+passwords](https://docs.github.com/en/free-pro-team@latest/github/extending-github/git-automation-with-oauth-tokens).
+You can store HTTP passwords in a `.netrc` file, as when [passing credentials to
+private proxies](#private-module-proxy-auth).
+
+Alternatively, you can rewrite `https://` URLs to another scheme. For example,
+in `.gitconfig`:
+
+```
+[url "git@github.com:']
+    insteadOf = https://github.com/
+```
+
+For more information, see [Why does "go get" use HTTPS when cloning a
+repository?](/doc/faq#git_https)
+
 ### Privacy {#private-module-privacy}
 
 The `go` command may download modules and metadata from module proxy
