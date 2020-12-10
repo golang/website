@@ -45,6 +45,12 @@ The pkg.go.dev badge provides a way for Go users to learn about the pkg.go.dev p
 
 [![PkgGoDev](https://pkg.go.dev/badge/golang.org/x/pkgsite)](https://pkg.go.dev/golang.org/x/pkgsite)
 
+## Adding links
+
+You can add links to your README files and package documentation that will be
+shown on the right side of the pkg.go.dev page. For details, see [this
+issue](https://golang.org/issue/42968).
+
 ## Keyboard Shortcuts
 
 There are keyboard shortcuts for navigating package documentation pages. Type '?' on a package page for help.
