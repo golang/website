@@ -114,7 +114,7 @@ This could also have been implemented as a struct option:
 ```
 notgrpc.Dial("some-target", &notgrpc.Options{
   Authority: "some-authority",
-  MaxDelay:  time.Minute,
+  MaxDelay:  time.Second,
   Block:     true,
 })
 ```
