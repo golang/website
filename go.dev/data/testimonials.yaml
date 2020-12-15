@@ -30,3 +30,26 @@ all:
     attributes make <strong>Go an ideal choice for companies building
     microservices</strong>, as you can easily deploy into a highly available and
     scalable environment such as Kubernetes.”
+- name: Bala Natarajan
+  title: Sr. Director of Engineering, Developer Experience
+  company: PayPal
+  quote: |-
+    "In our tightly managed environments where we run Go code,
+    <strong>we have seen a CPU reduction of approximately 10%</strong>
+    with cleaner and maintainable code."
+- name: Benjamin Cane
+  title: Vice President and Principal Engineer
+  company: American Express
+  quote: |-
+    "Tooling has always been a problem with our legacy code base... but we have
+     found that Go has excellent tooling, plus built-in testing, benchmarking,
+     and profiling frameworks. It is easy to write efficient and resilient
+     applications. <strong>After working on Go, most of our developers don't want
+     to go back to other languages.</strong>"
+- name: John Biggs and Ben Popper
+  title:
+  company: Stack Overflow
+  quote: |-
+    "...when a programming language is designed for exactly the environment most
+     of us use right now—scalable, cloud-based servers that are optimized for
+      performance—a lot can go right."

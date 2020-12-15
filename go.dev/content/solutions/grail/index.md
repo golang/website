@@ -10,5 +10,5 @@ logoSrc: grail.png
 series: Case Studies
 link:
   https://medium.com/grail-eng/bigslice-a-cluster-computing-system-for-go-7e03acd2419b
-inLandingPageGrid: true
+inLandingPageGrid: false
 ---

@@ -337,11 +337,11 @@ h6 {
 }
 .Header-menuItem--active a:link,
 .Header-menuItem--active a:visited {
-  border-top-color: #00add8;
+  border-bottom-color: #00add8;
   font-weight: bold;
 }
 .Header-menuItem a:hover {
-  border-top-color: #ce3262;
+  border-bottom-color: #fff;
   color: #3e4042;
 }
 .Header-navOpen {
