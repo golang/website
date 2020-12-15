@@ -39,6 +39,24 @@ It’s important to write a good summary of the package in the first sentence of
 
 Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the bottom of the documentation page.
 
+## Best practices
+
+Pkg.go.dev surfaces details about Go packages and modules in order to help provide guidelines for best practices with Go.
+
+Here are the details we surface:
+
+* Has go.mod file
+  * The Go module system was introduced in Go 1.11 and is the official dependency management solution for Go. A module version is defined by a tree of source files, with a go.mod file in its root. [More information about the go.mod file](https://golang.org/cmd/go/#hdr-The_go_mod_file).
+
+* Permissive license
+  * Permissive licenses place minimal restrictions on how software can be used, modified, and redistributed. For more information on how pkg.go.dev determines if a license is permissive, see our [license policy](http://pkg.go.dev/license-policy).
+
+* Tagged version
+  * When the go get command resolves modules by default it prioritizes tagged versions. When no tagged versions exist, go get looks up the latest known commit. Modules with tagged versions give importers more predictable builds. See [semver.org](https://semver.org) and [Keeping Your Modules Compatible](https://blog.golang.org/module-compatibility) for more information.
+
+* Stable version
+  * Projects at v0 are assumed to be experimental. When a project reaches a stable version — major version v1 or higher — breaking changes must be done in a new major version. Stable versions give developers the confidence that breaking changes won’t occur when they upgrade a package to the latest minor version. See [Go Modules: v2 and Beyond](https://blog.golang.org/v2-go-modules) for more information.
+
 ## Creating a badge
 
 The pkg.go.dev badge provides a way for Go users to learn about the pkg.go.dev page associated with a given Go package or module. You can create a badge using the [badge generation tool](https://pkg.go.dev/badge). The tool will generate html and markdown snippets that you can use on your project website or in a README file.
