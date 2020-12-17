@@ -67,6 +67,8 @@ func (f File) PrettyChecksum() string {
 
 func (f File) PrettyOS() string {
 	if f.OS == "darwin" {
+		// Some older releases, like Go 1.4,
+		// still contain "osx" in the filename.
 		switch {
 		case strings.Contains(f.Filename, "osx10.8"):
 			return "OS X 10.8+"
@@ -91,6 +93,7 @@ func (f File) PrettySize() string {
 
 var primaryPorts = map[string]bool{
 	"darwin/amd64":  true,
+	"darwin/arm64":  true,
 	"linux/386":     true,
 	"linux/amd64":   true,
 	"linux/armv6l":  true,
@@ -110,17 +113,12 @@ func (f File) Highlight() bool {
 	switch {
 	case f.Kind == "source":
 		return true
-	case f.Arch == "amd64" && f.OS == "linux":
+	case f.OS == "linux" && f.Arch == "amd64":
 		return true
-	case f.Arch == "amd64" && f.Kind == "installer":
-		switch f.OS {
-		case "windows":
-			return true
-		case "darwin":
-			if !strings.Contains(f.Filename, "osx10.6") {
-				return true
-			}
-		}
+	case f.OS == "windows" && f.Kind == "installer" && f.Arch == "amd64":
+		return true
+	case f.OS == "darwin" && f.Kind == "installer" && !strings.Contains(f.Filename, "osx10.6"):
+		return true
 	}
 	return false
 }

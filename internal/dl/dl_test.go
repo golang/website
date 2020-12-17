@@ -31,18 +31,19 @@ func TestParseVersion(t *testing.T) {
 
 func TestFileOrder(t *testing.T) {
 	fs := []File{
-		{Filename: "go1.3.src.tar.gz", Version: "go1.3", OS: "", Arch: "", Kind: "source"},
-		{Filename: "go1.3.1.src.tar.gz", Version: "go1.3.1", OS: "", Arch: "", Kind: "source"},
-		{Filename: "go1.3.linux-amd64.tar.gz", Version: "go1.3", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.3.1.linux-amd64.tar.gz", Version: "go1.3.1", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.3.darwin-amd64.tar.gz", Version: "go1.3", OS: "darwin", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.3.darwin-amd64.pkg", Version: "go1.3", OS: "darwin", Arch: "amd64", Kind: "installer"},
-		{Filename: "go1.3.darwin-386.tar.gz", Version: "go1.3", OS: "darwin", Arch: "386", Kind: "archive"},
-		{Filename: "go1.3beta1.linux-amd64.tar.gz", Version: "go1.3beta1", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.3beta2.linux-amd64.tar.gz", Version: "go1.3beta2", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.3rc1.linux-amd64.tar.gz", Version: "go1.3rc1", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.2.linux-amd64.tar.gz", Version: "go1.2", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.2.2.linux-amd64.tar.gz", Version: "go1.2.2", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.src.tar.gz", Version: "go1.16", OS: "", Arch: "", Kind: "source"},
+		{Filename: "go1.16.1.src.tar.gz", Version: "go1.16.1", OS: "", Arch: "", Kind: "source"},
+		{Filename: "go1.16.linux-amd64.tar.gz", Version: "go1.16", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.1.linux-amd64.tar.gz", Version: "go1.16.1", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.darwin-amd64.tar.gz", Version: "go1.16", OS: "darwin", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.darwin-amd64.pkg", Version: "go1.16", OS: "darwin", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.16.darwin-arm64.tar.gz", Version: "go1.16", OS: "darwin", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.16.darwin-arm64.pkg", Version: "go1.16", OS: "darwin", Arch: "arm64", Kind: "installer"},
+		{Filename: "go1.16beta1.linux-amd64.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16beta2.linux-amd64.tar.gz", Version: "go1.16beta2", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16rc1.linux-amd64.tar.gz", Version: "go1.16rc1", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.15.linux-amd64.tar.gz", Version: "go1.15", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.15.2.linux-amd64.tar.gz", Version: "go1.15.2", OS: "linux", Arch: "amd64", Kind: "archive"},
 	}
 	sort.Sort(fileOrder(fs))
 	var s []string
@@ -51,18 +52,19 @@ func TestFileOrder(t *testing.T) {
 	}
 	got := strings.Join(s, "\n")
 	want := strings.Join([]string{
-		"go1.3.1.src.tar.gz",
-		"go1.3.1.linux-amd64.tar.gz",
-		"go1.3.src.tar.gz",
-		"go1.3.darwin-386.tar.gz",
-		"go1.3.darwin-amd64.tar.gz",
-		"go1.3.darwin-amd64.pkg",
-		"go1.3.linux-amd64.tar.gz",
-		"go1.2.2.linux-amd64.tar.gz",
-		"go1.2.linux-amd64.tar.gz",
-		"go1.3rc1.linux-amd64.tar.gz",
-		"go1.3beta2.linux-amd64.tar.gz",
-		"go1.3beta1.linux-amd64.tar.gz",
+		"go1.16.1.src.tar.gz",
+		"go1.16.1.linux-amd64.tar.gz",
+		"go1.16.src.tar.gz",
+		"go1.16.darwin-amd64.tar.gz",
+		"go1.16.darwin-amd64.pkg",
+		"go1.16.darwin-arm64.tar.gz",
+		"go1.16.darwin-arm64.pkg",
+		"go1.16.linux-amd64.tar.gz",
+		"go1.15.2.linux-amd64.tar.gz",
+		"go1.15.linux-amd64.tar.gz",
+		"go1.16rc1.linux-amd64.tar.gz",
+		"go1.16beta2.linux-amd64.tar.gz",
+		"go1.16beta1.linux-amd64.tar.gz",
 	}, "\n")
 	if got != want {
 		t.Errorf("sort order is\n%s\nwant:\n%s", got, want)
@@ -94,6 +96,41 @@ func TestFilesToReleases(t *testing.T) {
 	}
 	if got, want := list(archive), "go1.7, go1.6, go1.5.2, go1.5"; got != want {
 		t.Errorf("archive = %q; want %q", got, want)
+	}
+}
+
+func TestHighlightedFiles(t *testing.T) {
+	fs := []File{
+		{Filename: "go1.16beta1.src.tar.gz", Version: "go1.16beta1", OS: "", Arch: "", Kind: "source"},
+		{Filename: "go1.16beta1.linux-386.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "386", Kind: "archive"},
+		{Filename: "go1.16beta1.linux-amd64.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16beta1.darwin-amd64.tar.gz", Version: "go1.16beta1", OS: "darwin", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16beta1.darwin-amd64.pkg", Version: "go1.16beta1", OS: "darwin", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.16beta1.darwin-arm64.tar.gz", Version: "go1.16beta1", OS: "darwin", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.16beta1.darwin-arm64.pkg", Version: "go1.16beta1", OS: "darwin", Arch: "arm64", Kind: "installer"},
+		{Filename: "go1.16beta1.windows-386.zip", Version: "go1.16beta1", OS: "windows", Arch: "386", Kind: "archive"},
+		{Filename: "go1.16beta1.windows-386.msi", Version: "go1.16beta1", OS: "windows", Arch: "386", Kind: "installer"},
+		{Filename: "go1.16beta1.windows-amd64.zip", Version: "go1.16beta1", OS: "windows", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16beta1.windows-amd64.msi", Version: "go1.16beta1", OS: "windows", Arch: "amd64", Kind: "installer"},
+	}
+	sort.Sort(fileOrder(fs))
+	var highlighted []string
+	for _, f := range fs {
+		if !f.Highlight() {
+			continue
+		}
+		highlighted = append(highlighted, f.Filename)
+	}
+	got := strings.Join(highlighted, "\n")
+	want := strings.Join([]string{
+		"go1.16beta1.src.tar.gz",
+		"go1.16beta1.darwin-amd64.pkg",
+		"go1.16beta1.darwin-arm64.pkg",
+		"go1.16beta1.linux-amd64.tar.gz",
+		"go1.16beta1.windows-amd64.msi",
+	}, "\n")
+	if got != want {
+		t.Errorf("highlighted files:\n%s\nwant:\n%s", got, want)
 	}
 }
 
