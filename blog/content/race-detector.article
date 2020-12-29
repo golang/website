@@ -105,11 +105,11 @@ What's going on here? Running the program with the race detector enabled is more
 	WARNING: DATA RACE
 	Read by goroutine 5:
 	  main.func·001()
-	     race.go:14 +0x169
+	     race.go:16 +0x169
 
 	Previous write by goroutine 1:
 	  main.main()
-	      race.go:15 +0x174
+	      race.go:14 +0x174
 
 	Goroutine 5 (running) created at:
 	  time.goFunc()
