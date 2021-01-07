@@ -403,7 +403,7 @@ A module path must satisfy the following requirements:
 * The path must consist of one or more path elements separated by slashes
   (`/`, U+002F). It must not begin or end with a slash.
 * Each path element is a non-empty string made of up ASCII letters, ASCII
-  digits, and limited ASCII punctuation (`+`, `-`, `.`, `_`, and `~`).
+  digits, and limited ASCII punctuation (`-`, `.`, `_`, and `~`).
 * A path element may not begin or end with a dot (`.`, U+002E).
 * The element prefix up to the first dot must not be a reserved file name on
   Windows, regardless of case (`CON`, `com1`, `NuL`, and so on).
