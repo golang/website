@@ -22,7 +22,7 @@ var repoMap = map[string]*repoImport{
 	},
 	"cloud": {
 		// This repo is now at "cloud.google.com/go", but still specifying the repo
-		// here gives nicer errors in godoc.org and the go tool.
+		// here gives nicer errors in the go tool.
 		VCS: "git",
 		URL: "https://github.com/googleapis/google-cloud-go",
 		Src: github("googleapis/google-cloud-go"),
@@ -52,7 +52,7 @@ type repoImport struct {
 	Src *src
 }
 
-// src represents a godoc.org source redirect.
+// src represents a pkg.go.dev source redirect.
 // https://github.com/golang/gddo/search?utf8=%E2%9C%93&q=sourceMeta
 type src struct {
 	URL     string
@@ -107,8 +107,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	godoc := "https://godoc.org/google.golang.org/" + head + tail
-	// For users visting in a browser, redirect straight to godoc.org.
+	godoc := "https://pkg.go.dev/google.golang.org/" + head + tail
+	// For users visting in a browser, redirect straight to pkg.go.dev.
 	if isBrowser := r.FormValue("go-get") == ""; isBrowser {
 		http.Redirect(w, r, godoc, http.StatusFound)
 		return
