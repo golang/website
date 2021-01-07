@@ -422,7 +422,7 @@ been removed, renamed, or otherwise changed in incompatible ways.
 Reading the docs, we can see that `Hello` has become `HelloV3`:
 
 	$ go doc rsc.io/quote/v3
-	package quote // import "rsc.io/quote"
+	package quote // import "rsc.io/quote/v3"
 
 	Package quote collects pithy sayings.
 
@@ -432,10 +432,6 @@ Reading the docs, we can see that `Hello` has become `HelloV3`:
 	func HelloV3() string
 	func OptV3() string
 	$
-
-(There is also a
-[known bug](https://golang.org/issue/30778) in the output;
-the displayed import path has incorrectly dropped the `/v3`.)
 
 We can update our use of `quote.Hello()` in `hello.go` to use `quoteV3.HelloV3()`:
 
