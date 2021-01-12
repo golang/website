@@ -59,7 +59,7 @@ enough, and simple enough, to propose adding it to Go.
 
 The [language change proposal process](https://golang.org/s/proposal)
 is how we make changes to the Go language.
-We have now [started this process](https://golang.org/issue/NNNNN)
+We have now [started this process](https://golang.org/issue/43651)
 to add generics to a future version of Go.
 We invite substantive criticisms and comments, but please try to avoid
 repeating earlier comments, and please try to [avoid simple plus-one
