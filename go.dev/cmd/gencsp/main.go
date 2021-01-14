@@ -50,6 +50,7 @@ var csp = map[string][]string{
 		"fonts.googleapis.com",
 		"feedback.googleusercontent.com",
 		"www.gstatic.com",
+		"gstatic.com",
 		"tagmanager.google.com",
 	},
 	"frame-src": {
@@ -65,6 +66,7 @@ var csp = map[string][]string{
 		"www.google-analytics.com",
 		"ssl.gstatic.com",
 		"www.gstatic.com",
+		"gstatic.com",
 		"data: *",
 	},
 	"object-src": {
@@ -78,6 +80,7 @@ var csp = map[string][]string{
 		"www.google.com",
 		"apis.google.com",
 		"www.gstatic.com",
+		"gstatic.com",
 		"support.google.com",
 		"www.googletagmanager.com",
 		"www.google-analytics.com",
