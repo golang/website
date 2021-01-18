@@ -55,6 +55,12 @@ var files = []string{
 	"doc/install.html",
 	"doc/install-source.html",
 	"doc/manage-install.html",
+	"doc/modules/images/multiple-modules.png",
+	"doc/modules/images/single-module.png",
+	"doc/modules/images/source-hierarchy.png",
+	"doc/modules/images/v2-branch-module.png",
+	"doc/modules/images/v2-module.png",
+	"doc/modules/images/version-number.png",
 	"doc/mvs/buildlist.svg",
 	"doc/mvs/downgrade.svg",
 	"doc/mvs/exclude.svg",
@@ -100,6 +106,14 @@ var files = []string{
 
 var markdownFiles = []string{
 	"doc/mod.md",
+	"doc/modules/developing.md",
+	"doc/modules/gomod-ref.md",
+	"doc/modules/major-version.md",
+	"doc/modules/managing-dependencies.md",
+	"doc/modules/managing-source.md",
+	"doc/modules/publishing.md",
+	"doc/modules/release-workflow.md",
+	"doc/modules/version-numbers.md",
 }
 
 // Generate reads a set of files and returns a file buffer that declares

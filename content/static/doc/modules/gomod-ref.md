@@ -1,0 +1,347 @@
+<!--{
+  "Title": "go.mod file reference",
+  "Path": "/doc/modules/gomod-ref"
+}-->
+
+Each Go module is defined by a go.mod file that describes the module's
+properties, including its dependencies on other modules and on versions of Go.
+
+These properties include:
+
+* The current module's **module path**. This serves as both its location and
+  unique identifier, when combined with its version number. It is also the
+  prefix of the package path for all packages in the module.
+* The minimum **version of Go** required by the current module.
+* A list of minimum versions of other **modules required** by the current module.
+* Instructions, optionally, to **replace** a required module with another
+  module version or a local directory, or to **exclude** a specific version of
+  a required module.
+
+Go generates a go.mod file when you run the [`go mod init`
+command](https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory).
+The following example creates a go.mod file, setting the module's module path to
+example.com/mymodule:
+
+```
+$ go mod init example.com/mymodule
+```
+
+Use `go` commands to manage dependencies. The commands ensure that the
+requirements described in your go.mod file remain consistent and the content of
+your go.mod file is valid. These commands include the [`go
+get`](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+and [`go mod
+tidy`](https://golang.org/cmd/go/#hdr-Add_missing_and_remove_unused_modules) and
+[`go mod
+edit`](https://golang.org/cmd/go/#hdr-Edit_go_mod_from_tools_or_scripts)
+commands.
+
+For reference on `go` commands, see [Command go](https://golang.org/cmd/go/).
+You can get help from the command line by typing `go help` _command-name_, as
+with `go help mod tidy`. 
+
+**See also**
+
+* Go tools make changes to your go.mod file as you use them to manage
+  dependencies. For more, see [Managing dependencies](managing-dependencies).
+* For more details and constraints related to go.mod files, see the [Go modules
+  reference](https://golang.org/ref/mod#go-mod-file).
+
+## Example
+
+A go.mod file includes directives shown in the following example. These are
+described in this topic.
+
+```
+module example.com/mymodule
+
+go 1.14
+
+require (
+    example.com/othermodule v1.2.3
+example.com/thismodule v1.2.3
+    example.com/thatmodule v1.2.3
+)
+
+replace example.com/thatmodule => ../thatmodule
+exclude example.com/thismodule v1.3.0
+```
+
+<a id="module" ></a>
+## module
+
+Declares the module's module path, the module's unique identifier when combined
+with the module version.
+
+### Syntax
+
+<pre>module <var>module-path</var></pre>
+
+<dl>
+    <dt>module-path</dt>
+    <dd>The module's module path, usually a concatenation of the module source's
+      repository domain and the module name. For module versions v2 and later,
+      this value must end with the major version number, such as <code>/v2</code>.</dd>
+</dl>
+
+### Examples
+
+* Module declaration for a v0 or v1 module:
+  ```
+  module example.com/mymodule
+  ```
+* Module path for a v2 module:
+  ```
+  module example.com/mymodule/v2
+  ```
+
+### Notes
+
+The module path, together with the module's version number, is a unique
+identifier for the module. Go uses the `module` directive's value to locate the
+module source when building other modules that depend on it.
+
+<a id="go" ></a>
+## go
+
+Specifies the minimum Go version required by the module.
+
+### Syntax
+
+<pre>go <var>minimum-go-version</var></pre>
+
+<dl>
+    <dt>minimum-go-version</dt>
+    <dd>The minimum version of Go required to compile packages in this module.</dd>
+</dl>
+
+### Examples
+
+* Module must run on Go version 1.14 or later:
+  ```
+  go 1.14
+  ```
+
+### Notes
+
+The version number also controls some module-related features in the `go`
+command. For example, if the vendor directory is present, that directory will be
+used automatically if the version number is 1.14 or higher.
+
+For more about version numbers, see [Module version numbering](version-numbers).
+
+<a id="require" ></a>
+## require
+
+Declares a module as dependency required by the current module, specifying the
+minimum version of the module required.
+
+### Syntax
+
+<pre>require <var>module-path</var> <var>module-version</var></pre>
+
+<dl>
+    <dt>module-path</dt>
+    <dd>The module's module path, usually a concatenation of the module source's
+      repository domain and the module name. For module versions v2 and later,
+      this value must end with the major version number, such as <code>/v2</code>.</dd>
+    <dt>module-version</dt>
+    <dd>The module's version. This can be either a release version number, such
+      as v1.2.3, or a Go-generated pseudo-version number, such as
+      v0.0.0-20200921210052-fa0125251cc4.</dd>
+</dl>
+
+### Examples
+
+* Requiring a released version v1.2.3:
+    ```
+    require example.com/othermodule v1.2.3
+    ```
+* Requiring a version not yet tagged in its repository by using a pseudo-version
+  number generated by Go tools:
+    ```
+    require example.com/othermodule v0.0.0-20200921210052-fa0125251cc4
+    ```
+
+### Notes
+
+When you run a `go` command such as `go get`, Go inserts `require` directives
+for each module containing imported packages. When a module isn't yet tagged in
+its repository, Go assigns a pseudo-version number it generates when you run the
+command.
+
+You can have Go require a module from a location other than its repository by
+using the [`replace` directive](#replace).
+
+For more about version numbers, see [Module version numbering](version-numbers).
+
+For more about managing dependencies, see the following:
+
+* [Adding a dependency](managing-dependencies#adding_dependency)
+* [Getting a specific dependency version](managing-dependencies#getting_version)
+* [Discovering available updates](managing-dependencies#discovering_updates)
+* [Upgrading or downgrading a dependency](managing-dependencies#upgrading)
+* [Synchronizing your code's dependencies](managing-dependencies#synchronizing)
+
+<a id="replace" ></a>
+## replace
+
+Replaces the content of a module at a specific version (or all versions) with
+another module version or with a local directory. Go tools will use the
+replacement path when resolving the dependency.
+
+### Syntax
+
+<pre>replace <var>module-path</var> <var>[module-version]</var> => <var>replacement-path</var> <var>[replacement-version]</var></pre>
+
+<dl>
+    <dt>module-path</dt>
+    <dd>The module path of the module to replace.</dd>
+    <dt>module-version</dt>
+    <dd>Optional. A specific version to replace. If this version number is
+      omitted, all versions of the module are replaced with the content on the
+      right side of the arrow.</dd>
+    <dt>replacement-path</dt>
+    <dd>The path at which Go should look for the required module. This can be a
+      module path or a path to a directory on the file system local to the
+      replacement module. If this is a module path, you must specify a
+      _replacement-version_ value. If this is a local path, you may not use a
+      _replacement-version_ value.</dd>
+    <dt>replacement-version</dt>
+    <dd>The version of the replacement module. The replacement version may only
+      be specified if _replacement-path_ is a module path (not a local directory).</dd>
+</dl>
+
+### Examples
+
+* Replacing with a fork of the module repository
+  
+  In the following example, any version of example.com/othermodule is replaced
+  with the specified fork of its code.
+
+  ```
+  require example.com/othermodule v1.2.3
+
+  replace example.com/othermodule => example.com/myfork/othermodule
+  ```
+
+  When you replace one module path with another, do not change import statements
+  for packages in the module you're replacing.
+
+  For more on using a forked copy of module code, see [Requiring external module
+  code from your own repository fork](managing-dependencies#external_fork).
+
+* Replacing with a different version number
+
+  The following example specifies that version v1.2.3 should be used instead of
+  any other version of the module.
+
+  ```
+  require example.com/othermodule v1.2.2
+
+  replace example.com/othermodule => example.com/othermodule v1.2.3
+  ```
+
+  The following example replaces module version v1.2.5 with version v1.2.5 of
+  the same module.
+
+  ```
+  replace example.com/othermodule v1.2.5 => example.com/othermodule v1.2.3
+  ```
+
+* Replacing with local code
+
+  The following example specifies that a local directory should be used as a
+  replacement for all versions of the module.
+
+  ```
+  require example.com/othermodule v1.2.3
+
+  replace example.com/othermodule => ../othermodule
+  ```
+
+  The following example specifies that a local directory should be used as a
+  replacement for v1.2.5 only.
+
+  ```
+  require example.com/othermodule v1.2.5
+
+  replace example.com/othermodule v1.2.5 => ../othermodule
+  ```
+
+  For more on using a local copy of module code, see [Requiring module code in a
+  local directory](managing-dependencies#local_directory).
+
+### Notes
+
+Use the `replace` directive to temporarily substitute a module path value with
+another value when you want Go to use the other path to find the module's
+source. This has the effect of redirecting Go's search for the module to the
+replacement's location. You needn't change package import paths to use the
+replacement path.
+
+Use the `exclude` and `replace` directives to control build-time dependency
+resolution when building the current module. These directives are ignored in
+modules that are dependencies of the current module.
+
+The `replace` directive can be useful in situations such as the following:
+
+* You're developing a new module whose code is not yet in the repository. You
+  want to test with clients using a local version.
+* You've identified an issue with a dependency, have cloned the dependency's
+  repository, and you're testing a fix with the local repository.
+
+For more on replacing a required module, including using Go tools to make the
+change, see:
+
+* [Requiring external module code from your own repository fork](managing-dependencies#external_fork)
+* [Requiring module code in a local directory](managing-dependencies#local_directory)
+
+For more about version numbers, see [Module version numbering](version-numbers).
+
+<a id="exclude" ></a>
+## exclude
+
+Specifies a module or module version to exclude from the current module's
+dependency graph.
+
+### Syntax
+
+<pre>exclude <var>module-path</var> <var>[module-version]</var></pre>
+
+<dl>
+    <dt>module-path</dt>
+    <dd>The module path of the module to exclude.</dd>
+    <dt>module-version</dt>
+    <dd>Optional. A specific version to exclude. If this version number is
+      omitted, all versions of the module are replaced with the content on the
+      right side of the arrow.</dd>
+</dl>
+
+### Example
+
+* Exclude example.com/theirmodule version v1.3.0
+
+  ```
+  exclude example.com/theirmodule v1.3.0
+  ```
+
+### Notes
+
+Use the `exclude` directive to exclude a specific version of a module that is
+indirectly required but can't be loaded for some reason. For example, you might
+use it to exclude a version of a module that has an invalid checksum.
+
+Use the `exclude` and `replace` directives to control build-time dependency
+resolution when building the current module (the main module you're building).
+These directives are ignored in modules that depend on the current module.
+
+You can use the [`go mod
+edit`](https://golang.org/cmd/go/#hdr-Edit_go_mod_from_tools_or_scripts) command
+to exclude a module, as in the followng example.
+
+```
+go mod edit -exclude=example.com/theirmodule@v1.3.0
+```
+
+For more about version numbers, see [Module version numbering](version-numbers).

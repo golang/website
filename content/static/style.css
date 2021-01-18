@@ -67,7 +67,7 @@ body {
 .DocTable-row {
   border-bottom: 0.0625rem solid #dadce0;
   height: 3rem;
-  vertical-align: middle;
+  vertical-align: top;
 }
 .DocTable-head {
   background: #e8eaed;
@@ -76,7 +76,14 @@ body {
   height: 3rem;
 }
 .DocTable-cell {
-  padding: 0rem 0.4375rem;
+  padding: 0.4375rem;
+}
+.DocTable-cell pre {
+  font-size: 0.775rem;
+}
+.DocTable-cell p,
+.DocTable-cell pre {
+  margin:  0rem 0rem 0.875rem;
 }
 .DocTable-row--highlighted {
   background: #f0f0f0;
@@ -239,6 +246,7 @@ h3 > span {
 }
 dl {
   margin: 1.25rem;
+  max-width: 50rem;
 }
 dd {
   margin: 0 0 0 1.25rem;
