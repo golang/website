@@ -5,9 +5,9 @@ Summary: How the Go playground works.
 
 Andrew Gerrand
 
-_NOTE: This article does not describe the current version of the Go Playground._
-
 ## Introduction
+
+_NOTE: This article does not describe the current version of the Go Playground._
 
 In September 2010 we [introduced the Go Playground](https://blog.golang.org/introducing-go-playground),
 a web service that compiles and executes arbitrary Go code and returns the
