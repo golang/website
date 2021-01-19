@@ -24,7 +24,7 @@ and distributed together. Modules may be downloaded directly from version
 control repositories or from module proxy servers.
 
 A module is identified by a [module path](#glos-module-path), which is declared
-in a [`go.mod` file](#go-mod-files), together with information about the
+in a [`go.mod` file](#go-mod-file), together with information about the
 module's dependencies. The <dfn>module root directory</dfn> is the directory
 that contains the `go.mod` file. The <dfn>main module</dfn> is the module
 containing the directory where the `go` command is invoked.
@@ -2910,7 +2910,7 @@ conflicts on case-insensitive file systems.
 ## Authenticating modules {#authenticating}
 
 When the `go` command downloads a module [zip file](#zip-files) or [`go.mod`
-file](#go-mod-files) into the [module cache](#module-cache), it computes a
+file](#go-mod-file) into the [module cache](#module-cache), it computes a
 cryptographic hash and compares it with a known value to verify the file hasn't
 changed since it was first downloaded. The `go` command reports a security error
 if a downloaded file does not have the correct hash.
@@ -3395,7 +3395,7 @@ is a canonical version, but `v1.2.3+meta` is not.
 <a id="glos-current-module"></a>
 **current module:** Synonym for [main module](#glos-main-module).
 
-<a id="glos-go.mod-file"></a>
+<a id="glos-go-mod-file"></a>
 **`go.mod` file:** The file that defines a module's path, requirements, and
 other metadata. Appears in the [module's root
 directory](#glos-module-root-directory). See the section on [`go.mod`
@@ -3407,7 +3407,7 @@ Synonymous with [package path](#glos-package-path).
 
 <a id="glos-main-module"></a>
 **main module:** The module in which the `go` command is invoked. The main
-module is defined by a [`go.mod` file](#glos-go.mod-file) in the current
+module is defined by a [`go.mod` file](#glos-go-mod-file) in the current
 directory or a parent directory. See [Modules, packages, and
 versions](#modules-overview).
 
