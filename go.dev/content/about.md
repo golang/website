@@ -48,8 +48,8 @@ Here are the details we surface:
 * Has go.mod file
   * The Go module system was introduced in Go 1.11 and is the official dependency management solution for Go. A module version is defined by a tree of source files, with a go.mod file in its root. [More information about the go.mod file](https://golang.org/cmd/go/#hdr-The_go_mod_file).
 
-* Permissive license
-  * Permissive licenses place minimal restrictions on how software can be used, modified, and redistributed. For more information on how pkg.go.dev determines if a license is permissive, see our [license policy](http://pkg.go.dev/license-policy).
+* Redistributable license
+  * Redistributable licenses place minimal restrictions on how software can be used, modified, and redistributed. For more information on how pkg.go.dev determines if a license is redistributable, see our [license policy](http://pkg.go.dev/license-policy).
 
 * Tagged version
   * When the go get command resolves modules by default it prioritizes tagged versions. When no tagged versions exist, go get looks up the latest known commit. Modules with tagged versions give importers more predictable builds. See [semver.org](https://semver.org) and [Keeping Your Modules Compatible](https://blog.golang.org/module-compatibility) for more information.
