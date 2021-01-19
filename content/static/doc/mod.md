@@ -1619,6 +1619,49 @@ does not download content for modules not in the cache, and it does not use
 selection](#minimal-version-selection). It will use `go.sum` to verify those
 files, and it may add `go.sum` entries for missing hashes.
 
+### `go mod why` {#go-mod-why}
+
+Usage:
+
+```
+go mod why [-m] [-vendor] packages...
+```
+
+`go mod why` shows a shortest path in the import graph from the main module to
+each of the listed packages.
+
+The output is a sequence of stanzas, one for each package or module named on the
+command line, separated by blank lines. Each stanza begins with a comment line
+starting with `#` giving the target package or module. Subsequent lines give a
+path through the import graph, one package per line. If the package or module
+is not referenced from the main module, the stanza will display a single
+parenthesized not indicating that fact.
+
+For example:
+
+```
+$ go mod why golang.org/x/text/language golang.org/x/text/encoding
+# golang.org/x/text/language
+rsc.io/quote
+rsc.io/sampler
+golang.org/x/text/language
+
+# golang.org/x/text/encoding
+(main module does not need package golang.org/x/text/encoding)
+```
+
+The `-m` flag causes `go mod why` to treat its arguments as a list of modules.
+`go mod why` will print a path to any package in each of the modules. Note that
+even when `-m` is used, `go mod why` queries the package graph, not the
+module graph printed by [`go mod graph`](#go-mod-graph).
+
+The `-vendor` flag causes `go mod why` to ignore imports in tests of packages
+outside the main module (as [`go mod vendor`](#go-mod-vendor) does). By default,
+`go mod why` considers the graph of packages matched by the `all` pattern. This
+flag has no effect after Go 1.16 in modules that declare `go 1.16` or higher
+(using the [`go` directive](#go-mod-file-go) in `go.mod`), since the meaning of
+`all` changed to match the set of packages matched by `go mod vendor`.
+
 ### `go version -m` {#go-version-m}
 
 Usage:
