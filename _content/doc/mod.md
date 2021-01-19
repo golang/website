@@ -1,6 +1,5 @@
 <!--{
   "Title": "Go Modules Reference",
-  "Subtitle": "For Go 1.15",
   "Path": "/ref/mod"
 }-->
 <!-- TODO(golang.org/issue/33637): Write focused "guide" articles on specific
