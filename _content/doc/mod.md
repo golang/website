@@ -931,19 +931,21 @@ cache](#glos-module-cache), downloading modules if they are missing. In `GOPATH`
 mode, the `go` command ignores modules; it looks in [`vendor`
 directories](#glos-vendor-directory) and in `GOPATH` to find dependencies.
 
-Module-aware mode is active by default whenever a `go.mod` file is found in the
-current directory or in any parent directory. For more fine-grained control, the
-`GO111MODULE` environment variable may be set to one of three values: `on`,
-`off`, or `auto`.
+As of Go 1.16, module-aware mode is enabled by default, regardless of whether a
+`go.mod` file is present. In lower versions, module-aware mode was enabled when
+a `go.mod` file was present in the current directory or any parent directory.
+
+Module-aware mode may be controlled with the `GO111MODULE` environment variable,
+which can be set to `on`, `off`, or `auto`.
 
 * If `GO111MODULE=off`, the `go` command ignores `go.mod` files and runs in
   `GOPATH` mode.
-* If `GO111MODULE=on`, the `go` command runs in module-aware mode, even when
-  no `go.mod` file is present. Not all commands work without a `go.mod` file:
-  see [Module commands outside a module](#commands-outside).
-* If `GO111MODULE=auto` or is unset, the `go` command runs in module-aware
-  mode if a `go.mod` file is present in the current directory or any parent
-  directory (the default behavior).
+* If `GO111MODULE=on` or is unset, the `go` command runs in module-aware mode,
+  even when no `go.mod` file is present. Not all commands work without a
+  `go.mod` file: see [Module commands outside a module](#commands-outside).
+* If `GO111MODULE=auto`, the `go` command runs in module-aware mode if a
+  `go.mod` file is present in the current directory or any parent directory.
+  In Go 1.15 and lower, this was the default behavior.
 
 In module-aware mode, `GOPATH` no longer defines the meaning of imports during a
 build, but it still stores downloaded dependencies (in `GOPATH/pkg/mod`; see
@@ -1826,8 +1828,8 @@ an error.
 Module-aware Go commands normally run in the context of a [main
 module](#glos-main-module) defined by a `go.mod` file in the working directory
 or a parent directory. Some commands may be run in module-aware mode without a
-`go.mod` file by setting the `GO111MODULE` environment variable to `on`.
-Most commands work differently when no `go.mod` file is present.
+`go.mod` file, but most commands work differently or report an error when no
+`go.mod` file is present.
 
 See [Module-aware commands](#mod-commands) for information on enabling and
 disabling module-aware mode.
@@ -3158,13 +3160,14 @@ of all environment variables recognized by the `go` command.
             <code>go.mod</code> files and runs in <code>GOPATH</code> mode.
           </li>
           <li>
-            <code>on</code>: the <code>go</code> command runs in module-aware
-            mode, even when no <code>go.mod</code> file is present.
+            <code>on</code> (or unset): the <code>go</code> command runs in
+            module-aware mode, even when no <code>go.mod</code> file is present.
           </li>
           <li>
-            <code>auto</code> (or unset): the <code>go</code> command runs in
-            module-aware mode if a <code>go.mod</code> file is present in the
-            current directory or any parent directory (the default behavior).
+            <code>auto</code>: the <code>go</code> command runs in module-aware
+            mode if a <code>go.mod</code> file is present in the current
+            directory or any parent directory. In Go 1.15 and lower, this was
+            the default.
           </li>
         </ul>
         <p>
