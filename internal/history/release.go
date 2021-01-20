@@ -35,13 +35,15 @@ var Releases = map[GoVer]Release{
 		Date:     Date{2021, 1, 19},
 		Security: true,
 
-		Future: true,
+		Components: []template.HTML{"the <code>go</code> command"},
+		Packages:   []string{"crypto/elliptic"},
 	},
 	{1, 14, 14}: {
 		Date:     Date{2021, 1, 19},
 		Security: true,
 
-		Future: true,
+		Components: []template.HTML{"the <code>go</code> command"},
+		Packages:   []string{"crypto/elliptic"},
 	},
 
 	{1, 15, 6}: {
