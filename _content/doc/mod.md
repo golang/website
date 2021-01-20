@@ -266,10 +266,11 @@ package, in the directory `b`. At least one file with the `.go` extension must
 be present in a directory for it to be considered a package. [Build
 constraints](/pkg/go/build/#hdr-Build_Constraints) are not applied for this
 purpose. If exactly one module in the build list provides the package, that
-module is used. If two or more modules provide the package, an error is
-reported. If no modules provide the package, the `go` command will attempt to
-find a new module (unless the flags `-mod=readonly` or `-mod=vendor` are used,
-in which case, an error is reported).
+module is used. If no modules provide the package or if two or more modules
+provide the package, the `go` command reports an error. The `-mod=mod` flag
+instructs the `go` command to attempt to find new modules providing missing
+packages and to update `go.mod` and `go.sum`. The [`go get`](#go-get) and [`go
+mod tidy`](#go-mod-tidy) commands do this automatically.
 
 <!-- NOTE(golang.org/issue/27899): the go command reports an error when two
 or more modules provide a package with the same path as above. In the future,
@@ -630,9 +631,14 @@ replace (
 
 ### Automatic updates {#go-mod-file-updates}
 
-The `go` command automatically updates `go.mod` when it uses the module graph if
-some information is missing or `go.mod` doesn't accurately reflect reality.  For
-example, consider this `go.mod` file:
+Most commands report an error if `go.mod` is missing information or doesn't
+accurately relect reality. The [`go get`](#go-get) and
+[`go mod tidy`](#go-mod-tidy) commands may be used to fix most of these
+problems. Additionally, the `-mod=mod` flag may be used with most module-aware
+commands (`go build`, `go test`, and so on) to instruct the `go` command to
+fix problems in `go.mod` and `go.sum` automatically.
+
+For example, consider this `go.mod` file:
 
 ```
 module example.com/M
@@ -648,8 +654,8 @@ require (
 exclude example.com/D v1.2.3
 ```
 
-The update rewrites non-canonical version identifiers to
-[canonical](#glos-canonical-version) semver form, so `example.com/A`'s `v1`
+The update triggered with `-mod=mod` rewrites non-canonical version identifiers
+to [canonical](#glos-canonical-version) semver form, so `example.com/A`'s `v1`
 becomes `v1.0.0`, and `example.com/E`'s `dev` becomes the pseudo-version for the
 latest commit on the `dev` branch, perhaps `v0.0.0-20180523231146-b3f5c0f6e5f1`.
 
@@ -671,16 +677,13 @@ that future mechanical changes will result in minimal diffs. The `go` command
 will not update `go.mod` if only formatting changes are needed.
 
 Because the module graph defines the meaning of import statements, any commands
-that load packages also use and therefore update `go.mod`, including `go build`,
-`go get`, `go install`, `go list`, `go test`, `go mod graph`, `go mod tidy`, and
-`go mod why`.
+that load packages also use `go.mod` and can therefore update it, including
+`go build`, `go get`, `go install`, `go list`, `go test`, `go mod tidy`.
 
-The `-mod=readonly` flag prevents commands from automatically updating
-`go.mod`. However, if a command needs to perform an action that would
-update to `go.mod`, it will report an error. For example, if
-`go build` is asked to build a package not provided by any module in the build
-list, `go build` will report an error instead of looking up the module and
-updating requirements in `go.mod`.
+In Go 1.15 and lower, the `-mod=mod` flag was enabled by default, so updates
+were performed automatically. Since Go 1.16, the `go` command acts as
+if `-mod=readonly` were set instead: if any changes to `go.mod` are needed,
+the `go` command reports an error and suggests a fix.
 
 ## Minimal version selection (MVS) {#minimal-version-selection}
 
@@ -981,9 +984,9 @@ commands accept the following flags, common to all module commands.
   * `-mod=vendor` tells the `go` command to use the `vendor` directory. In this
     mode, the `go` command will not use the network or the module cache.
   * By default, if the [`go` version](#go-mod-file-go) in `go.mod` is `1.14` or
-    higher and a `vendor` directory is present, the `go` command will act as if
-    `-mod=vendor` were used. Otherwise, the `go` command will act as if
-    `-mod=mod` were used.
+    higher and a `vendor` directory is present, the `go` command acts as if
+    `-mod=vendor` were used. Otherwise, the `go` command acts as if
+    `-mod=readonly` were used.
 * The `-modcacherw` flag instructs the `go` command to create new directories
   in the module cache with read-write permissions instead of making them
   read-only. When this flag is used consistently (typically by setting
@@ -1029,7 +1032,7 @@ If the `vendor` directory is present in the main module's root directory, it
 will be used automatically if the [`go` version](#go-mod-file-go) in the main
 module's [`go.mod` file](#glos-go-mod-file) is `1.14` or higher. To explicitly
 enable vendoring, invoke the `go` command with the flag `-mod=vendor`. To
-disable vendoring, use the flag `-mod=mod`.
+disable vendoring, use the flag `-mod=readonly` or `-mod=mod`.
 
 When vendoring is enabled, [build commands](#build-commands) like `go build` and
 `go test` load packages from the `vendor` directory instead of accessing the
