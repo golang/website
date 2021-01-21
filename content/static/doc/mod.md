@@ -1635,7 +1635,7 @@ command line, separated by blank lines. Each stanza begins with a comment line
 starting with `#` giving the target package or module. Subsequent lines give a
 path through the import graph, one package per line. If the package or module
 is not referenced from the main module, the stanza will display a single
-parenthesized not indicating that fact.
+parenthesized note indicating that fact.
 
 For example:
 
