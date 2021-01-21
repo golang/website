@@ -948,7 +948,9 @@ which can be set to `on`, `off`, or `auto`.
   `go.mod` file: see [Module commands outside a module](#commands-outside).
 * If `GO111MODULE=auto`, the `go` command runs in module-aware mode if a
   `go.mod` file is present in the current directory or any parent directory.
-  In Go 1.15 and lower, this was the default behavior.
+  In Go 1.15 and lower, this was the default behavior. `go mod` subcommands
+  and `go install` with a [version query](#version-queries) run in module-aware
+  mode even if no `go.mod` file is present.
 
 In module-aware mode, `GOPATH` no longer defines the meaning of imports during a
 build, but it still stores downloaded dependencies (in `GOPATH/pkg/mod`; see
@@ -1058,9 +1060,6 @@ go get [-d] [-t] [-u] [build flags] [packages]
 Examples:
 
 ```
-# Install the latest version of a tool.
-$ go get golang.org/x/tools/cmd/goimports
-
 # Upgrade a specific module.
 $ go get -d golang.org/x/net
 
@@ -1163,6 +1162,80 @@ the `GOBIN` environment variable, which defaults to `$GOPATH/bin` or
   insecure schemes such as HTTP. The `GOINSECURE` [environment
   variable](#environment-variables) provides more fine-grained control and
   should be used instead.
+
+Since Go 1.16, [`go install`](#go-install) is the recommended command for
+building and installing programs. When used with a version suffix (like
+`@latest` or `@v1.4.6`), `go install` builds packages in module-aware mode,
+ignoring the `go.mod` file in the current directory or any parent directory,
+if there is one.
+
+`go get` is more focused on managing requirements in `go.mod`. The `-d` flag
+is deprecated, and in a future release, it will always be enabled.
+
+### `go install` {#go-install}
+
+Usage:
+
+```
+go install [build flags] [packages]
+```
+
+Examples:
+
+```
+# Install the latest version of a program,
+# ignoring go.mod in the current directory (if any).
+$ go install golang.org/x/tools/gopls@latest
+
+# Install a specific version of a program.
+$ go install golang.org/x/tools/gopls@v0.6.4
+
+# Install a program at the version selected by the module in the current directory.
+$ go install golang.org/x/tools/gopls
+
+# Install all programs in a directory.
+$ go install ./cmd/...
+```
+
+The `go install` command builds and installs the packages named by the paths
+on the command line. Executables (`main` packages) are installed to the
+directory named by the `GOBIN` environment variable, which defaults to
+`$GOPATH/bin` or `$HOME/go/bin` if the `GOPATH` environment variable is not set.
+Executables in `$GOROOT` are installed in `$GOROOT/bin` or `$GOTOOLDIR` instead
+of `$GOBIN`.
+
+Since Go 1.16, if the arguments have version suffixes (like `@latest` or
+`@v1.0.0`), `go install` builds packages in module-aware mode, ignoring the
+`go.mod` file in the current directory or any parent directory if there is
+one. This is useful for installing executables without affecting the
+dependencies of the main module.
+
+To eliminate ambiguity about which module versions are used in the build, the
+arguments must satisfy the following constraints:
+
+* Arguments must be package paths or package patterns (with "`...`" wildcards).
+  They must not be standard packages (like `fmt`), meta-patterns (`std`, `cmd`,
+  `all`), or relative or absolute file paths.
+* All arguments must have the same version suffix. Different queries are not
+  allowed, even if they refer to the same version.
+* All arguments must refer to packages in the same module at the same version.
+* No module is considered the [main module](#glos-main-module). If the module
+  containing packages named on the command line has a `go.mod` file, it must not
+  contain directives (`replace` and `exclude`) that would cause it to be
+  interpreted differently than if it were the main module. The module must not
+  require a higher version of itself.
+* Package path arguments must refer to `main` packages. Pattern arguments
+  will only match `main` packages.
+
+See [Version queries](#version-queries) for supported version query syntax.
+Go 1.15 and lower did not support using version queries with `go install`.
+
+If the arguments don't have version suffixes, `go install` may run in
+module-aware mode or `GOPATH` mode, depending on the `GO111MODULE` environment
+variable and the presence of a `go.mod` file. See [Module-aware
+commands](#mod-commands) for details. If module-aware mode is enabled, `go
+install` runs in the context of the main module, which may be different from the
+module containing the package being installed.
 
 ### `go list -m` {#go-list-m}
 
