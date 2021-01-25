@@ -39,6 +39,23 @@ It’s important to write a good summary of the package in the first sentence of
 
 Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the bottom of the documentation page.
 
+Most of the time, pkg.go.dev can determine the location of a package's source
+files, and provide links from symbols in the documentation to their definitions
+in the source. If your package's source is not linked, try one of the following
+two approaches.
+
+If pkg.go.dev finds a `go-source` meta tag on your site that follows the
+[specified format](https://github.com/golang/gddo/wiki/Source-Code-Links), it
+can often determine the right links, even though the format doesn't take
+versioning into account.
+
+If that doesn't work, you will need to add your repo or code-hosting site to
+pkg.go.dev's list of patterns (see  [Go Issue 40477](https://golang.org/issues/40477) for context).
+Read about how to [contribute to pkg.go.dev](https://go.googlesource.com/pkgsite#contributing),
+then produce a CL that adds a pattern to the
+[`internal/source`](https://go.googlesource.com/pkgsite/+/refs/heads/master/internal/source/source.go)
+package.
+
 ## Best practices
 
 Pkg.go.dev surfaces details about Go packages and modules in order to help provide guidelines for best practices with Go.
