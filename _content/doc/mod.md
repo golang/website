@@ -335,6 +335,7 @@ require example.com/other/thing v1.0.2
 require example.com/new/thing/v2 v2.3.4
 exclude example.com/old/thing v1.2.3
 replace example.com/bad/thing v1.4.5 => example.com/good/thing v1.4.5
+retract [v1.9.0, v1.9.5]
 ```
 
 The leading keyword can be factored out of adjacent lines to create a block,
@@ -373,7 +374,7 @@ not allowed.
 *Punctuation* tokens include `(`, `)`, and `=>`.
 
 *Keywords* distinguish different kinds of directives in a `go.mod` file. Allowed
-keywords are `module`, `go`, `require`, `replace`, and `exclude`.
+keywords are `module`, `go`, `require`, `replace`, `exclude`, and `retract`.
 
 *Identifiers* are sequences of non-whitespace characters, such as module paths
 or semantic versions.
@@ -454,7 +455,8 @@ Directive = ModuleDirective |
             GoDirective |
             RequireDirective |
             ExcludeDirective |
-            ReplaceDirective .
+            ReplaceDirective |
+            RetractDirective .
 ```
 
 Newlines, identifiers, and strings are denoted with `newline`, `ident`, and
@@ -628,6 +630,94 @@ replace (
     golang.org/x/net => ./fork/net
 )
 ```
+
+### `retract` directive {#go-mod-file-retract}
+
+A `retract` directive indicates that a version or range of versions of the
+module defined by `go.mod` should not be depended upon. A `retract` directive is
+useful when a version was published prematurely or a severe problem was
+discovered after the version was published. Retracted versions should remain
+available in version control repositories and on [module
+proxies](#glos-module-proxy) to ensure that builds that depend on them are not
+broken. The word *retract* is borrowed from academic literature: a retracted
+research paper is still available, but it has problems and should not be the
+basis of future work.
+
+When a module version is retracted, users will not upgrade to it automatically
+using [`go get`](#go-get), [`go mod tidy`](#go-mod-tidy), or other
+commands. Builds that depend on retracted versions should continue to work, but
+users will be notified of retractions when they check for updates with [`go list
+-m -u`](#go-list-m) or update a related module with [`go get`](#go-get).
+
+To retract a version, a module author should add a `retract` directive to
+`go.mod`, then publish a new version containing that directive. The new version
+must be higher than other release or pre-release versions; that is, the
+`@latest` [version query](#version-queries) should resolve to the new version
+before retractions are considered. The `go` command loads and applies
+retractions from the version shown by `go list -m -retracted $modpath@latest`
+(where `$modpath` is the module path).
+
+Retracted versions are hidden from the version list printed by [`go list -m
+-versions`](#go-list-m) unless the `-retracted` flag is used. Retracted
+versions are excluded when resolving version queries like `@>=v1.2.3` or
+`@latest`.
+
+A version containing retractions may retract itself. If the highest release
+or pre-release version of a module retracts itself, the `@latest` query
+resolves to a lower version after retracted versions are excluded.
+
+As an example, consider a case where the author of module `example.com/m`
+publishes version `v1.0.0` accidentally. To prevent users from upgrading to
+`v1.0.0`, the author can add two `retract` directives to `go.mod`, then tag
+`v1.0.1` with the retractions.
+
+```
+retract (
+	v1.0.0 // Published accidentally.
+	v1.0.1 // Contains retractions only.
+)
+```
+
+When a user runs `go get example.com/m@latest`, the `go` command reads
+retractions from `v1.0.1`, which is now the highest version. Both `v1.0.0` and
+`v1.0.1` are retracted, so the `go` command will upgrade (or downgrade!) to
+the next highest version, perhaps `v0.9.5`.
+
+`retract` directives may be written with either a single version (like `v1.0.0`)
+or with a closed inteval of versions with an upper and lower bound, delimited by
+`[` and `]` (like `[v1.1.0, v1.2.0]`). A single version is equivalent to an
+interval where the upper and lower bound are the same. Like other directives,
+multiple `retract` directives may be grouped together in a block delimited by
+`(` at the end of a line and `)` on its own line.
+
+Each `retract` directive should have a comment explaining the rationale for the
+retraction, though this is not mandatory. The `go` command may display rationale
+comments in warnings about retracted versions and in `go list` output. A
+rationale comment may be written immediately above a `retract` directive
+(without a blank line in between) or afterward on the same line. If a comment
+appears above a block, it applies to all `retract` directives within the block
+that don't have their own comments. A rationale comment may span multiple lines.
+
+```
+RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" ) .
+RetractSpec = ( Version | "[" Version "," Version "]" ) newline .
+```
+
+Example:
+
+```
+retract v1.0.0
+retract [v1.0.0, v1.9.9]
+retract (
+    v1.0.0
+    [v1.0.0, v1.9.9]
+)
+```
+
+The `retract` directive was added in Go 1.16. Go 1.15 and lower will report an
+error if a `retract` directive is written in the [main
+module's](#glos-main-module) `go.mod` file and will ignore `retract` directives
+in `go.mod` files of dependencies.
 
 ### Automatic updates {#go-mod-file-updates}
 
@@ -1138,6 +1228,12 @@ If a module is needed at two different versions (specified explicitly in command
 line arguments or to satisfy upgrades and downgrades), `go get` will report an
 error.
 
+After `go get` has selected a new set of versions, it checks whether any
+newly selected module versions or any modules providing packages named on
+the command line are [retracted](#glos-retracted-version). `go get` prints
+a warning for each retracted version it finds. [`go list -m -u all`](#go-list-m)
+may be used to check for retractions in all dependencies.
+
 After `go get` updates the `go.mod` file, it builds the packages named
 on the command line. Executables will be installed in the directory named by
 the `GOBIN` environment variable, which defaults to `$GOPATH/bin` or
@@ -1242,7 +1338,7 @@ module containing the package being installed.
 Usage:
 
 ```
-go list -m [-u] [-versions] [list flags] [modules]
+go list -m [-u] [-retracted] [-versions] [list flags] [modules]
 ```
 
 Example:
@@ -1288,6 +1384,7 @@ version and replacement if any. For example, `go list -m all` might print:
 
 ```
 example.com/main/module
+golang.org/x/net v0.1.0
 golang.org/x/text v0.3.0 => /tmp/text
 rsc.io/pdf v0.1.1
 ```
@@ -1302,13 +1399,15 @@ is set to `Replace.Dir`, with no access to the replaced source code.)
 
 The `-u` flag adds information about available upgrades. When the latest version
 of a given module is newer than the current one, `list -u` sets the module's
-`Update` field to information about the newer module. The module's `String`
-method indicates an available upgrade by formatting the newer version in
-brackets after the current version. For example, `go list -m -u all` might
-print:
+`Update` field to information about the newer module. `list -u` will also print
+whether the currently selected version is [retracted](#glos-retracted-version).
+The module's `String` method indicates an available upgrade by formatting the
+newer version in brackets after the current version. For example,
+`go list -m -u all` might print:
 
 ```
 example.com/main/module
+golang.org/x/net v0.1.0 (retracted) [v0.2.0]
 golang.org/x/text v0.3.0 [v0.4.0] => /tmp/text
 rsc.io/pdf v0.1.1 [v0.1.2]
 ```
@@ -1319,6 +1418,16 @@ The `-versions` flag causes `list` to set the module's `Versions` field to a
 list of all known versions of that module, ordered according to semantic
 versioning, lowest to highest. The flag also changes the default output format
 to display the module path followed by the space-separated version list.
+Retracted versions are omitted from this list unless the `-retracted` flag
+is also specified.
+
+The `-retracted` flag instructs `list` to show retracted versions in the
+list printed with the `-versions` flag and to consider retracted versions when
+resolving [version queries](#version-queries). For example, `go list -m
+-retracted example.com/m@latest` shows the highest release or pre-release
+version of the module `example.com/m`, even if that version is retracted.
+[`retract` directives](#go-mod-file-retract) are loaded from the `go.mod` file
+at this version. The `-retracted` flag was added in Go 1.16.
 
 The template function `module` takes a single string argument that must be a
 module path or query and returns the specified module as a `Module` struct. If
@@ -1440,6 +1549,12 @@ The editing flags specify a sequence of editing operations.
   version is dropped. An existing replacement without a version on the left side
   may still replace the module. If the `@v` is omitted, a replacement without a
   version is dropped.
+* The `-retract=version` and `-dropretract=version` flags add and drop a
+  retraction for the given version, which may be a single version (like
+  `v1.2.3`) or an internval (like `[v1.1.0,v1.2.0]`). Note that the `-retract`
+  flag cannot add a rationale comment for the `retract` directive. Rationale
+  comments are recommeneded and may be shown by `go list -m -u` and other
+  commands.
 
 The editing flags may be repeated. The changes are applied in the order given.
 
@@ -1456,7 +1571,7 @@ The editing flags may be repeated. The changes are applied in the order given.
 
 ```
 type Module struct {
-        Path string
+        Path    string
         Version string
 }
 
@@ -1469,8 +1584,8 @@ type GoMod struct {
 }
 
 type Require struct {
-        Path string
-        Version string
+        Path     string
+        Version  string
         Indirect bool
 }
 
@@ -1478,6 +1593,13 @@ type Replace struct {
         Old Module
         New Module
 }
+
+type Retract struct {
+        Low       string
+        High      string
+        Rationale string
+}
+
 ```
 
 Note that this only describes the `go.mod` file itself, not other modules
@@ -1887,8 +2009,12 @@ A version query may be one of the following:
 Except for queries for specific named versions or revisions, all queries
 consider available versions reported by `go list -m -versions` (see [`go list
 -m`](#go-list-m)). This list contains only tagged versions, not pseudo-versions.
-Module versions disallowed by [exclude](#go-mod-file-exclude) directives in
+Module versions disallowed by [`exclude` directives](#go-mod-file-exclude) in
 the main module's [`go.mod` file](#glos-go-mod-file) are not considered.
+Versions covered by [`retract` directives](#go-mod-file-retract) in the `go.mod`
+file from the `latest` version of the same module are also ignored except when
+the `-retracted` flag is used with [`go list -m`](#go-list-m) and except when
+loading `retract` directives.
 
 [Release versions](#glos-release-version) are preferred over pre-release
 versions. For example, if versions `v1.2.2` and `v1.2.3-pre` are available, the
@@ -3598,6 +3724,11 @@ version](#glos-pre-release-version).
 **repository root path:** The portion of a [module path](#glos-module-path) that
 corresponds to a version control repository's root directory. See [Module
 paths](#module-path).
+
+<a id="glos-retracted-version"></a>
+**retracted version:** A version that should not be depended upon, either
+because it was published prematurely or because a severe problem was discovered
+after it was published. See [`retract` directive](#go-mod-file-retract).
 
 <a id="glos-semantic-version-tag"></a>
 **semantic version tag:** A tag in a version control repository that maps a
