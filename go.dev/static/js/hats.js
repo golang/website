@@ -1,5 +1,4 @@
-(function () {
-  var cookieName = 'HaTS_BKT';
+function requestHaTs(cookieName, triggerId) {
   var inBucket;
 
   var cookies = decodeURIComponent(document.cookie).split(';');
@@ -37,7 +36,7 @@
         });
 
         helpApi.requestSurvey({
-          triggerId: 'RLVVv5Lf10njVvnD1rP0QUpmtosS',
+          triggerId: triggerId,
           callback: function (requestSurveyCallbackParam) {
             if (!requestSurveyCallbackParam.surveyData) {
               return;
@@ -52,4 +51,24 @@
       };
     }
   }
+}
+
+(function () {
+  // HaTS - go.dev
+  requestHaTs('HaTS_BKT', 'RLVVv5Lf10njVvnD1rP0QUpmtosS');
+
+  // All download links on the go.dev homepage may trigger a survey.
+  [
+    document.querySelector('.js-downloadBtn'),
+    document.querySelector('.js-downloadWin'),
+    document.querySelector('.js-downloadMac'),
+    document.querySelector('.js-downloadLinux'),
+  ].forEach(function (el) {
+    if (el) {
+      el.addEventListener('click', () => {
+        // HaTS - Core Go distribution
+        requestHaTs('HaTS_BKT_DIST', 'dz6fkRxyz0njVvnD1rP0QxCXzhSX');
+      });
+    }
+  });
 })();
