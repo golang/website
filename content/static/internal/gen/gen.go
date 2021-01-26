@@ -51,6 +51,7 @@ var files = []string{
 	"doc/docs.html",
 	"doc/download.js",
 	"doc/gopath_code.html",
+	"doc/hats.js",
 	"doc/install.html",
 	"doc/install-source.html",
 	"doc/manage-install.html",
