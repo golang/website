@@ -553,15 +553,21 @@ require (
 ### `exclude` directive {#go-mod-file-exclude}
 
 An `exclude` directive prevents a module version from being loaded by the `go`
-command. If an excluded version is referenced by a `require` directive in a
-`go.mod` file, the `go` command will list available versions for the module (as
-shown with `go list -m -versions`) and will load the next higher non-excluded
-version instead. Both release and pre-release versions are considered for this
-purpose, but pseudo-versions are not. If there are no higher versions,
-the `go` command will report an error. Note that this [may
-change](https://golang.org/issue/36465) in Go 1.16.
+command.
 
-<!-- TODO(golang.org/issue/36465): update after change -->
+Since Go 1.16, if a version referenced by a `require` directive in any `go.mod`
+file is excluded by an `exclude` directive in the main module's `go.mod` file,
+the requirement is ignored. This may be cause commands like [`go get`](#go-get)
+and [`go mod tidy`](#go-mod-tidy) to add new requirements on higher versions
+to `go.mod`, with an `// indirect` comment if appropriate.
+
+Before Go 1.16, if an excluded version was referenced by a `require` directive,
+the `go` command listed available versions for the module (as shown with [`go
+list -m -versions`](#go-list-m)) and loaded the next higher non-excluded version
+instead. This could result in non-deterministic version selection, since the
+next higher version could change over time. Both release and pre-release
+versions were considered for this purpose, but pseudo-versions were not. If
+there were no higher versions, the `go` command reported an error.
 
 `exclude` directives only apply in the main module's `go.mod` file and are
 ignored in other modules. See [Minimal version
