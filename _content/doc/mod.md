@@ -1701,7 +1701,7 @@ requirements and to drop unused requirements.
 Usage:
 
 ```
-go mod tidy [-v]
+go mod tidy [-e] [-v]
 ```
 
 `go mod tidy` ensures that the `go.mod` file matches the source code in the
@@ -1709,6 +1709,9 @@ module. It adds any missing module requirements necessary to build the current
 module's packages and dependencies, and it removes requirements on modules that
 don't provide any relevant packages. It also adds any missing entries to
 `go.sum` and removes unnecessary entries.
+
+The `-e` flag (added in Go 1.16) causes `go mod tidy` to attempt to proceed
+despite errors encountered while loading packages.
 
 The `-v` flag causes `go mod tidy` to print information about removed modules
 to standard error.
@@ -1746,7 +1749,7 @@ happens after running a command like `go get -u ./...`.
 Usage:
 
 ```
-go mod vendor [-v]
+go mod vendor [-e] [-v]
 ```
 
 The `go mod vendor` command constructs a directory named `vendor` in the [main
@@ -1775,6 +1778,9 @@ re-constructing it. Local changes should not be made to vendored packages.
 The `go` command does not check that packages in the `vendor` directory have
 not been modified, but one can verify the integrity of the `vendor` directory
 by running `go mod vendor` and checking that no changes were made.
+
+The `-e` flag (added in Go 1.16) causes `go mod vendor` to attempt to proceed
+despite errors encountered while loading packages.
 
 The `-v` flag causes `go mod vendor` to print the names of vendored modules
 and packages to standard error.
