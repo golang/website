@@ -2016,7 +2016,9 @@ A version query may be one of the following:
   (for example, a pre-release), `upgrade` will select the current version.
 * The string `patch`, which selects the latest available version with the same
   major and minor version numbers as the currently required version. If no
-  version is currently required, `patch` is equivalent to `latest`.
+  version is currently required, `patch` is equivalent to `latest`. Since
+  Go 1.16, [`go get`](#go-get) requires a current version when using `patch`
+  (but the `-u=patch` flag does not have this requirement).
 
 Except for queries for specific named versions or revisions, all queries
 consider available versions reported by `go list -m -versions` (see [`go list
