@@ -90,6 +90,31 @@ cd hello
   </li>
 
   <li>
+    Initialize a new module for tracking dependencies.
+
+    <p>
+      When your code imports packages from another module, a go.mod file lists
+      the specific modules and versions providing those packages. That file
+      stays with your code, including in your source code repository.
+    </p>
+
+    <p>
+      To create a go.mod file, run the
+      <a
+        href="https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory"
+        ><code>go mod init</code> command</a
+      >, giving it the name of the module your code will be in (here, just use
+      "hello"):
+    </p>
+
+    <pre>
+$ go mod init hello
+go: creating new go.mod: module hello
+</pre
+    >
+  </li>
+
+  <li>
     In your text editor, create a file hello.go in which to write your code.
   </li>
 
@@ -224,26 +249,15 @@ func main() {
   </li>
 
   <li>
-    Put your own code in a module for tracking dependencies.
+    Add new module requirements and sums.
 
     <p>
-      When your code imports packages from another module, a go.mod file lists
-      the specific modules and versions providing those packages. That file
-      stays with your code, including in your source code repository.
+      Go will add the <code>quote</code> module as a requirement, as well as a go.sum file for use in authenticating the module. For more, see <a href="https://golang.org/cmd/go/#hdr-Module_authentication_using_go_sum">Module authentication using go.sum</a>.
     </p>
-
-    <p>
-      To create a go.mod file, run the
-      <a
-        href="https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory"
-        ><code>go mod init</code> command</a
-      >, giving it the name of the module your code will be in (here, just use
-      "hello"):
-    </p>
-
     <pre>
-$ go mod init hello
-go: creating new go.mod: module hello
+$ go mod tidy
+go: finding module for package rsc.io/quote
+go: found rsc.io/quote in rsc.io/quote v1.5.2
 </pre
     >
   </li>
@@ -253,8 +267,6 @@ go: creating new go.mod: module hello
 
     <pre>
 $ go run .
-go: finding module for package rsc.io/quote
-go: found rsc.io/quote in rsc.io/quote v1.5.2
 Don't communicate by sharing memory, share memory by communicating.
 </pre
     >
@@ -265,10 +277,9 @@ Don't communicate by sharing memory, share memory by communicating.
     </p>
 
     <p>
-      But before it ran the code, <code>go run</code> located and downloaded the
+      When you ran <code>go mod tidy</code>, it located and downloaded the
       <code>rsc.io/quote</code> module that contains the package you imported.
-      By default, it downloaded the latest version -- v1.5.2. Go build commands
-      are designed to locate the modules required for packages you import.
+      By default, it downloaded the latest version -- v1.5.2.
     </p>
   </li>
 </ol>
