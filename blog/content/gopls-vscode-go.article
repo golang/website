@@ -1,4 +1,4 @@
-# Gopls on by default in VS Code Go extension
+# Gopls on by default in the VS Code Go extension
 01 Feb 2021
 Tags: tools, gopls
 Summary: Gopls, which provides IDE features for Go to many editors, is now used by default in VS Code Go.
