@@ -17,10 +17,10 @@ _(`gopls` provides IDE features, such as as intelligent autocompletion, signatur
 
 When [Go modules](using-go-modules) were
 released two years ago, they completely changed the landscape of Go developer
-tooling. Tools like goimports and godef previously depended on the fact that
-code was stored in your `$GOPATH`. When the Go team began rewriting these tools
-to work with modules, we immediately realized that we needed a more systematic
-approach to bridge the gap.
+tooling. Tools like `goimports` and `godef` previously depended on the fact
+that code was stored in your `$GOPATH`. When the Go team began rewriting these
+tools to work with modules, we immediately realized that we needed a more
+systematic approach to bridge the gap.
 
 As a result, we began working on a single Go
 [language server](https://microsoft.github.io/language-server-protocol/),
@@ -62,8 +62,8 @@ to help you get started, as well as
 to show off some hard-to-find features.
 
 Gopls is the best way of working with Go code, especially with Go modules.
-With Go 1.16 arriving soon, in which modules are enabled by default, VS Code
-Go users will have the best possible experience out-of-the-box.
+With the upcoming arrival of Go 1.16, in which modules are enabled by default,
+VS Code Go users will have the best possible experience out-of-the-box.
 
 Still, this switch does not mean that `gopls` is complete. We will continue
 working on bug fixes, new features, and general stability. Our next area of
@@ -102,12 +102,10 @@ your hard work and dedication.
 
 ## Learn more
 
-Watch [the screencast](https://www.youtube.com/watch?v=1MXIGYrMk80) for a full
-explanation of how to get started with `gopls` and VS Code Go.
-
-See the [VS Code Go README](https://github.com/golang/vscode-go/blob/master/README.md)
-for additional information on getting started with the Go extension for VS
-Code.
+Watch [the screencast](https://www.youtube.com/watch?v=1MXIGYrMk80) for a
+walk-through of how to get started with `gopls` and VS Code Go, and see the
+[VS Code Go README](https://github.com/golang/vscode-go/blob/master/README.md)
+for additional information.
 
 If you’d like to read about `gopls` in more detail, see the
 [`gopls` README](https://github.com/golang/tools/blob/master/gopls/README.md).
