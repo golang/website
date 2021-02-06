@@ -45,10 +45,10 @@ In another terminal window, run the container:
 
 	docker run --rm \
 		--net host \
-		--env GODOC_REDIS_ADDR=localhost:6379 \
+		--env GOLANGORG_REDIS_ADDR=localhost:6379 \
 		--env DATASTORE_EMULATOR_HOST=$DATASTORE_EMULATOR_HOST \
 		--env DATASTORE_PROJECT_ID=$DATASTORE_PROJECT_ID \
-		gcr.io/golang-org/godoc
+		gcr.io/golang-org/golangorg
 
 It serves on localhost:8080.
 
