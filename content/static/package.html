@@ -31,23 +31,18 @@
 			</dl>
 		</div>
 		<!-- The package's Name is printed as title by the top-level template -->
-		<div id="pkg-overview" class="toggleVisible">
-			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
-			</div>
-			<div class="expanded">
-				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				{{comment_html .Doc}}
-				{{example_html $ ""}}
-			</div>
-		</div>
+		<details id="pkg-overview" open>
+			<summary>
+				<h2 title="Click to show Overview section">Overview</h2>
+			</summary>
+      {{comment_html .Doc}}
+      {{example_html $ ""}}
+		</details>
 
-		<div id="pkg-index" class="toggleVisible">
-		<div class="collapsed">
-			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
-		</div>
-		<div class="expanded">
-			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
+		<details id="pkg-index" open>
+      <summary class="collapsed">
+        <h2 title="Click to show Index section">Index</h2>
+      </summary>
 
 		<!-- Table of contents for API; must be named manual-nav to turn off auto nav. -->
 			<div id="manual-nav">
@@ -104,8 +99,7 @@
 			</span>
 			</p>
 		{{end}}
-		</div><!-- .expanded -->
-		</div><!-- #pkg-index -->
+		</details><!-- #pkg-index -->
 
 		{{with .Consts}}
 			<h2 id="pkg-constants">Constants</h2>

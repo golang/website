@@ -32,12 +32,10 @@
 			</dl>
 		</div>
 
-		<div id="stdlib" class="toggleVisible">
-			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Standard library section">Standard library ▹</h2>
-			</div>
-			<div class="expanded">
-				<h2 class="toggleButton" title="Click to hide Standard library section">Standard library ▾</h2>
+		<details id="stdlib" open>
+			<summary>
+				<h2 title="Click to show Standard library section">Standard library</h2>
+			</summary>
 				<img alt="" class="gopher" src="/doc/gopher/pkg.png"/>
 				<div class="pkg-dir">
 					<table>
@@ -68,16 +66,13 @@
 						{{end}}
 					</table>
 				</div> <!-- .pkg-dir -->
-			</div> <!-- .expanded -->
-		</div> <!-- #stdlib .toggleVisible -->
+		</details>
 
 	{{if hasThirdParty .List }}
-		<div id="thirdparty" class="toggleVisible">
-			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Third party section">Third party ▹</h2>
-			</div>
-			<div class="expanded">
-				<h2 class="toggleButton" title="Click to hide Third party section">Third party ▾</h2>
+		<details id="thirdparty" open>
+			<summary>
+				<h2 title="Click to show Third party section">Third party</h2>
+			</summary>
 				<div class="pkg-dir">
 					<table>
 						<tr>
@@ -106,9 +101,8 @@
 							</tr>
 						{{end}}
 					</table>
-				</div> <!-- .pkg-dir -->
-			</div> <!-- .expanded -->
-		</div> <!-- #stdlib .toggleVisible -->
+                </div> <!-- .pkg-dir -->
+		</details>
 	{{end}}
 
 	<h2 id="other">Other packages</h2>

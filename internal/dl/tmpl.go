@@ -172,15 +172,12 @@ information about Go releases.
 {{end}}
 
 {{with .Archive}}
-<div class="toggle" id="archive">
-  <div class="collapsed">
-    <h3 class="toggleButton" title="Click to show versions">Archived versions ▹</h3>
+<details id="archive">
+  <summary>
+    <h3 title="Click to show versions">Archived versions</h3>
   </div>
-  <div class="expanded">
-    <h3 class="toggleButton" title="Click to hide versions">Archived versions ▾</h3>
-    {{template "releases" .}}
-  </div>
-</div>
+  {{template "releases" .}}
+</details>
 {{end}}
 
 </div><!-- .container -->
@@ -246,23 +243,20 @@ $(document).ready(function() {
 
 {{define "releases"}}
 {{range .}}
-<div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
-	<div class="collapsed">
-		<h2 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▹</h2>
-	</div>
-	<div class="expanded">
-		<h2 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h2>
-		{{if .Stable}}{{else}}
-			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
-			<p>If you already have Go installed, you can install this version by running:</p>
+<details id="{{.Version}}" {{if .Visible}}open{{end}}>
+	<summary>
+		<h2 title="Click to show downloads for this version">{{.Version}}</h2>
+	</summary>
+	{{if .Stable}}{{else}}
+		<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
+		<p>If you already have Go installed, you can install this version by running:</p>
 <pre>
 go get golang.org/dl/{{.Version}}
 </pre>
-			<p>Then, use the <code>{{.Version}}</code> command instead of the <code>go</code> command to use {{.Version}}.</p>
-		{{end}}
-		{{template "files" .}}
-	</div>
-</div>
+		<p>Then, use the <code>{{.Version}}</code> command instead of the <code>go</code> command to use {{.Version}}.</p>
+	{{end}}
+	{{template "files" .}}
+</details>
 {{end}}
 {{end}}
 
