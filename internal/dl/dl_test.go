@@ -94,7 +94,7 @@ func TestFilesToReleases(t *testing.T) {
 	if got, want := list(unstable), ""; got != want {
 		t.Errorf("unstable = %q; want %q", got, want)
 	}
-	if got, want := list(archive), "go1.7, go1.6, go1.5.2, go1.5"; got != want {
+	if got, want := list(archive), "go1.7, go1.6, go1.5.2, go1.5, go1.5beta1"; got != want {
 		t.Errorf("archive = %q; want %q", got, want)
 	}
 }
@@ -140,9 +140,12 @@ func TestOldUnstableNotShown(t *testing.T) {
 		{Version: "go1.7"},
 		{Version: "go1.7beta1"},
 	}
-	_, unstable, _ := filesToReleases(fs)
+	_, unstable, archive := filesToReleases(fs)
 	if len(unstable) != 0 {
 		t.Errorf("got unstable, want none")
+	}
+	if got, want := list(archive), "go1.7, go1.7beta1"; got != want {
+		t.Errorf("archive = %q; want %q", got, want)
 	}
 }
 
@@ -176,10 +179,13 @@ func TestUnstableShown(t *testing.T) {
 		{Version: "go1.7"},
 		{Version: "go1.7beta1"},
 	}
-	_, unstable, _ := filesToReleases(fs)
+	_, unstable, archive := filesToReleases(fs)
 	// Show RCs ahead of betas.
 	if got, want := list(unstable), "go1.8rc1"; got != want {
 		t.Errorf("unstable = %q; want %q", got, want)
+	}
+	if got, want := list(archive), "go1.7, go1.8beta2, go1.7beta1"; got != want {
+		t.Errorf("archive = %q; want %q", got, want)
 	}
 }
 

@@ -209,13 +209,16 @@ func filesToReleases(fs []File) (stable, unstable, archive []Release) {
 		}
 		if !r.Stable {
 			if len(unstable) != 0 {
-				// Only show one (latest) unstable version.
+				// Only show one (latest) unstable version,
+				// consider the older ones to be archived.
+				archive = append(archive, *r)
 				return
 			}
 			maj, min, _ := parseVersion(r.Version)
 			if maj < stableMaj || maj == stableMaj && min <= stableMin {
 				// Display unstable version only if newer than the
-				// latest stable release.
+				// latest stable release, otherwise consider it archived.
+				archive = append(archive, *r)
 				return
 			}
 			unstable = append(unstable, *r)
