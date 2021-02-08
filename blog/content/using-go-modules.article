@@ -17,6 +17,9 @@ This post is part 1 in a series.
   - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
   - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
 
+**Note:** For documentation on managing dependencies with modules, see
+[Managing dependencies](https://golang.org/doc/modules/managing-dependencies).
+
 Go 1.11 and 1.12 include preliminary
 [support for modules](https://golang.org/doc/go1.11#modules),
 Go’s

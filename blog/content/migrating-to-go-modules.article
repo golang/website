@@ -15,6 +15,10 @@ This post is part 2 in a series.
   - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
   - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
 
+**Note:** For documentation, see
+[Managing dependencies](https://golang.org/doc/modules/managing-dependencies)
+and [Developing and publishing modules](https://golang.org/doc/modules/developing).
+
 Go projects use a wide variety of dependency management strategies.
 [Vendoring](https://golang.org/cmd/go/#hdr-Vendor_Directories) tools such
 as [dep](https://github.com/golang/dep) and [glide](https://github.com/Masterminds/glide) are popular,
