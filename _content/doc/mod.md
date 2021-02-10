@@ -2612,6 +2612,89 @@ the `.zip` file are [authenticated](#authenticating) before extraction into the
 module cache the same way they would be if the `.zip` file were downloaded from
 a proxy.
 
+### Controlling version control tools with `GOVCS` {#vcs-govcs}
+
+The `go` command's ability to download modules with version control commands
+like `git` is critical to the decentralized package ecosystem, in which
+code can be imported from any server. It is also a potential security problem
+if a malicious server finds a way to cause the invoked version control command
+to run unintended code.
+
+To balance the functionality and security concerns, the `go` command by default
+will only use `git` and `hg` to download code from public servers. It will use
+any known version control system (`bzr`, `fossil`, `git`, `hg`, `svn`) to
+download code from private servers, defined as those hosting packages matching
+the `GOPRIVATE` [environment variable](#environment-variables). The rationale
+behind allowing only Git and Mercurial is that these two systems have had the
+most attention to issues of being run as clients of untrusted servers. In
+contrast, Bazaar, Fossil, and Subversion have primarily been used in trusted,
+authenticated environments and are not as well scrutinized as attack surfaces.
+
+The version control command restrictions only apply when using direct version
+control access to download code. When downloading modules from a proxy, the `go`
+command uses the [`GOPROXY` protocol](#goproxy-protocol) instead, which is
+always permitted. By default, the `go` command uses the Go module mirror
+([proxy.golang.org](https://proxy.golang.org)) for public modules and only
+falls back to version control for private modules or when the mirror refuses to
+serve a public package (typically for legal reasons). Therefore, clients can
+still access public code served from Bazaar, Fossil, or Subversion repositories
+by default, because those downloads use the Go module mirror, which takes on the
+security risk of running the version control commands using a custom sandbox.
+
+The `GOVCS` variable can be used to change the allowed version control systems
+for specific modules. The `GOVCS` variable applies when building packages
+in both module-aware mode and GOPATH mode. When using modules, the patterns match
+against the module path. When using GOPATH, the patterns match against the
+import path corresponding to the root of the version control repository.
+
+The general form of the `GOVCS` variable is a comma-separated list of
+`pattern:vcslist` rules. The pattern is a [glob pattern](/pkg/path#Match) that
+must match one or more leading elements of the module or import path. The
+vcslist is a pipe-separated list of allowed version control commands, or `all`
+to allow use of any known command, or `off` to allow nothing. Note that if a
+module matches a pattern with vcslist `off`, it may still be downloaded if the
+origin server uses the `mod` scheme, which instructs the go command to download
+the module using the [`GOPROXY` protocol](#goproxy-protocol). The earliest
+matching pattern in the list applies, even if later patterns might also match.
+
+For example, consider:
+
+```
+GOVCS=github.com:git,evil.com:off,*:git|hg
+```
+
+With this setting, code with a module or import path beginning with
+`github.com/` can only use `git`; paths on `evil.com` cannot use any version
+control command, and all other paths (`*` matches everything) can use
+only `git` or `hg`.
+
+The special patterns `public` and `private` match public and private
+module or import paths. A path is private if it matches the `GOPRIVATE`
+variable; otherwise it is public.
+
+If no rules in the `GOVCS` variable match a particular module or import path,
+the `go` command applies its default rule, which can now be summarized
+in `GOVCS` notation as `public:git|hg,private:all`.
+
+To allow unfettered use of any version control system for any package, use:
+
+```
+GOVCS=*:all
+```
+
+To disable all use of version control, use:
+
+```
+GOVCS=*:off
+```
+
+The [`go env -w`
+command](/cmd/go/#hdr-Print_Go_environment_information) can be
+used to set the `GOVCS` variable for future go command invocations.
+
+`GOVCS` was introduced in Go 1.16. Earlier versions of Go may use any known
+version control tool for any module.
+
 ## Module zip files {#zip-files}
 
 Module versions are distributed as `.zip` files. There is rarely any need to
@@ -3481,8 +3564,10 @@ of all environment variables recognized by the `go` command.
         <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
         prefixes that should be considered private. <code>GOPRIVATE</code>
         is a default value for <code>GONOPROXY</code> and
-        <code>GONOSUMDB</code>. <code>GOPRIVATE</code> itself has no other
-        meaning. See <a href="#private-module-privacy">Privacy</a>.
+        <code>GONOSUMDB</code>. See
+        <a href="#private-module-privacy">Privacy</a>. <code>GOPRIVATE</code>
+        also determines whether a module is considered private for
+        <code>GOVCS</code>. 
       </td>
     </tr>
     <tr>
@@ -3581,6 +3666,29 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org
         <p>
           See <a href="#authenticating">Authenticating modules</a> and
           <a href="#private-module-privacy">Privacy</a> for more information.
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td><code>GOVCS</code></td>
+      <td>
+        <p>
+          Controls the set of version control tools the <code>go</code> command
+          may use to download public and private modules (defined by whether
+          their paths match a pattern in <code>GOPRIVATE</code>) or other
+          modules matching a glob pattern.
+        </p>
+        <p>
+          If <code>GOVCS</code> is not set, or if a module does not match any
+          pattern in <code>GOVCS</code>, the <code>go</code> command may use
+          <code>git</code> and <code>hg</code> for a public module, or any known
+          version control tool for a private module. Concretely, the
+          <code>go</code> command acts as if <code>GOVCS</code> were set to:
+        </p>
+        <pre>public:git|hg,private:all</pre>
+        <p>
+          See <a href="#vcs-govcs">Controlling version control tools with
+          <code>GOVCS</code></a> for a complete explanation.
         </p>
       </td>
     </tr>
