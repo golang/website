@@ -7,7 +7,7 @@
 // Web server tree:
 //
 //	https://golang.org/			main landing page
-//	https://golang.org/doc/	serve from content/static/doc, then $GOROOT/doc. spec, mem, etc.
+//	https://golang.org/doc/	serve from content/doc, then $GOROOT/doc. spec, mem, etc.
 //	https://golang.org/src/	serve files from $GOROOT/src; .go gets pretty-printed
 //	https://golang.org/cmd/	serve documentation about commands
 //	https://golang.org/pkg/	serve documentation about packages
@@ -15,7 +15,7 @@
 //				https://golang.org/pkg/compress/zlib)
 //
 
-// Some pages are being transitioned from $GOROOT to content/static/doc.
+// Some pages are being transitioned from $GOROOT to content/doc.
 // See golang.org/issue/29206 and golang.org/issue/33637.
 
 // +build go1.16
@@ -41,7 +41,7 @@ import (
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
 	"golang.org/x/tools/godoc/vfs/zipfs"
-	"golang.org/x/website/content/static"
+	"golang.org/x/website"
 )
 
 const defaultAddr = "localhost:6060" // default webserver address
@@ -66,7 +66,7 @@ var (
 	// layout control
 	autoFlag       = flag.Bool("a", false, "update templates automatically")
 	showTimestamps = flag.Bool("timestamps", false, "show timestamps with directory listings")
-	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content/static)")
+	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content)")
 	showPlayground = flag.Bool("play", false, "enable playground")
 	declLinks      = flag.Bool("links", true, "link identifiers to their declarations")
 
@@ -124,7 +124,7 @@ func main() {
 			fmt.Fprintln(os.Stderr, "runtime.Caller failed: cannot find templates for -a mode.")
 			os.Exit(2)
 		}
-		dir := filepath.Join(file, "../../../content/static")
+		dir := filepath.Join(file, "../../../content")
 		if _, err := os.Stat(filepath.Join(dir, "godoc.html")); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			fmt.Fprintln(os.Stderr, "Cannot find templates for -a mode.")
@@ -172,8 +172,8 @@ func main() {
 		fs.Bind("/doc", vfs.OS(*templateDir), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
-		fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
-		fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
+		fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
+		fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
 	}
 
 	// Bind $GOPATH trees into Go root.

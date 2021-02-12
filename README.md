@@ -2,30 +2,19 @@
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/website.svg)](https://pkg.go.dev/golang.org/x/website)
 
-This repository holds the Go website server code and content.
+This repo holds content and serving programs for the golang.org web site.
 
-## Checkout and Run
+Content is in content/. Server code is in cmd/ and internal/.
 
-To download and run the golang.org web server locally:
+To run the server to preview local content changes, use:
 
- - `git clone https://go.googlesource.com/website`
- - `cd website`
- - `go run ./cmd/golangorg`
- - Open http://localhost:6060/ in your browser.
+	go run ./cmd/golangorg -a
 
-See [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
+The supporting programs cmd/admingolangorg and cmd/googlegolangorg
+are the servers for admin.golang.org and google.golang.org.
+(They do not use the content/ directory.)
 
-## Changing Content
-
-To make basic changes to the golang.org website content:
-
- - Make the changes you want in the `content/static` directory.
- - Stop any running `go run ./cmd/golangorg`.
- - `go generate ./content/static`
- - `go run ./cmd/golangorg`
- - Open http://localhost:6060/ in your browser.
-
-See [content/README.md](content/README.md) for more sophisticated instructions.
+Each command directory has its own README.md explaining deployment.
 
 ## JS/CSS Formatting
 
@@ -44,3 +33,4 @@ this repository, see https://golang.org/doc/contribute.html.
 The main issue tracker for the website repository is located at
 https://github.com/golang/go/issues. Prefix your issue with "x/website:" in the
 subject line, so it is easy to find.
+

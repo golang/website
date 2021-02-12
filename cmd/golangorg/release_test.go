@@ -14,7 +14,7 @@ import (
 
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
-	"golang.org/x/website/content/static"
+	"golang.org/x/website"
 )
 
 // Test that the release history page includes expected entries.
@@ -27,8 +27,8 @@ func TestReleaseHistory(t *testing.T) {
 	origFS, origPres := fs, pres
 	defer func() { fs, pres = origFS, origPres }()
 	fs = vfs.NameSpace{}
-	fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
+	fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
+	fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
 	pres = godoc.NewPresentation(godoc.NewCorpus(fs))
 	readTemplates(pres)
 	mux := registerHandlers(pres)

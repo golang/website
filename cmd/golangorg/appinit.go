@@ -27,7 +27,7 @@ import (
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
 	"golang.org/x/tools/godoc/vfs/zipfs"
-	"golang.org/x/website/content/static"
+	"golang.org/x/website"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
@@ -79,8 +79,8 @@ func main() {
 	// go repository. This lets us update some documentation outside the
 	// Go release cycle. This includes root.html, which redirects to "/".
 	// See golang.org/issue/29206.
-	fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
+	fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
+	fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
 
 	webroot := getFullPath("/src/golang.org/x/website")
 	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)
