@@ -139,9 +139,9 @@ A <dfn>pseudo-version</dfn> is a specially formatted
 information about a specific revision in a version control repository. For
 example, `v0.0.0-20191109021931-daa7c04131f5` is a pseudo-version.
 
-Pseudo-versions may refer to revisions for which no [semantic version
-tags](#glos-semantic-version-tag) are available. They may be used to test
-commits before creating version tags, for example, on a development branch.
+Pseudo-versions may refer to revisions for which no canonical version tags are
+available. They may be used to test commits before creating version tags, for
+example, on a development branch.
 
 Each pseudo-version has three parts:
 
