@@ -2,9 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package static exports a map of static file content that supports the godoc
-// user interface. The map should be used with the mapfs package, see
-// golang.org/x/tools/godoc/vfs/mapfs.
-package static // import "golang.org/x/website/content/static"
+// +build go1.16
 
-//go:generate go run makestatic.go
+// Package static exports the static content as an embed.FS.
+package static
+
+import "embed"
+
+// FS is the static content as a file system.
+//go:embed *
+var FS embed.FS

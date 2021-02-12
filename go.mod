@@ -1,6 +1,6 @@
 module golang.org/x/website
 
-go 1.11
+go 1.16
 
 require (
 	cloud.google.com/go v0.58.0 // indirect

@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build go1.16
+
 package main
 
 import (
@@ -12,7 +14,6 @@ import (
 
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
-	"golang.org/x/tools/godoc/vfs/mapfs"
 	"golang.org/x/website/content/static"
 )
 
@@ -26,8 +27,8 @@ func TestReleaseHistory(t *testing.T) {
 	origFS, origPres := fs, pres
 	defer func() { fs, pres = origFS, origPres }()
 	fs = vfs.NameSpace{}
-	fs.Bind("/doc", mapfs.New(static.Files), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
+	fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
+	fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
 	pres = godoc.NewPresentation(godoc.NewCorpus(fs))
 	readTemplates(pres)
 	mux := registerHandlers(pres)

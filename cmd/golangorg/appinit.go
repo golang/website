@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// +build go1.16
 // +build golangorg
 
 package main
@@ -25,7 +26,6 @@ import (
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
-	"golang.org/x/tools/godoc/vfs/mapfs"
 	"golang.org/x/tools/godoc/vfs/zipfs"
 	"golang.org/x/website/content/static"
 	"golang.org/x/website/internal/dl"
@@ -79,8 +79,8 @@ func main() {
 	// go repository. This lets us update some documentation outside the
 	// Go release cycle. This includes root.html, which redirects to "/".
 	// See golang.org/issue/29206.
-	fs.Bind("/doc", mapfs.New(static.Files), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
+	fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
+	fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
 
 	webroot := getFullPath("/src/golang.org/x/website")
 	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)

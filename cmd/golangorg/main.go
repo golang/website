@@ -18,6 +18,7 @@
 // Some pages are being transitioned from $GOROOT to content/static/doc.
 // See golang.org/issue/29206 and golang.org/issue/33637.
 
+// +build go1.16
 // +build !golangorg
 
 package main
@@ -39,7 +40,6 @@ import (
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
-	"golang.org/x/tools/godoc/vfs/mapfs"
 	"golang.org/x/tools/godoc/vfs/zipfs"
 	"golang.org/x/website/content/static"
 )
@@ -172,8 +172,8 @@ func main() {
 		fs.Bind("/doc", vfs.OS(*templateDir), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
-		fs.Bind("/doc", mapfs.New(static.Files), "/doc", vfs.BindBefore)
-		fs.Bind("/lib/godoc", mapfs.New(static.Files), "/", vfs.BindReplace)
+		fs.Bind("/doc", vfs.FromFS(static.FS), "/doc", vfs.BindBefore)
+		fs.Bind("/lib/godoc", vfs.FromFS(static.FS), "/", vfs.BindReplace)
 	}
 
 	// Bind $GOPATH trees into Go root.
