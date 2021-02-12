@@ -894,21 +894,6 @@ a#start .desc {
     margin-top: 0;
   }
 }
-.toggleButton {
-  cursor: pointer;
-}
-.toggle > .collapsed {
-  display: block;
-}
-.toggle > .expanded {
-  display: none;
-}
-.toggleVisible > .collapsed {
-  display: none;
-}
-.toggleVisible > .expanded {
-  display: block;
-}
 table.codetable {
   margin-left: auto;
   margin-right: auto;
@@ -1139,4 +1124,18 @@ a.error {
     white-space: pre-wrap;
     page-break-inside: avoid;
   }
+}
+summary {
+    margin: 1.25rem 0 1.25rem;
+    background: #e0ebf5;
+    padding: 0.5rem;
+    cursor: pointer;
+}
+summary.exampleHeading {
+    margin: 1.25rem;
+    background: inherit;
+    padding: 0;
+}
+summary > * {
+    display: inline;
 }

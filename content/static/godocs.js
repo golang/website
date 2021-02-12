@@ -10,12 +10,12 @@
  *  + Bind links to foldable sections (bindToggleLinks)
  */
 
-(function() {
+(function () {
   'use strict';
 
   var headerEl = document.querySelector('.js-header');
   var menuButtonEl = document.querySelector('.js-headerMenuButton');
-  menuButtonEl.addEventListener('click', function(e) {
+  menuButtonEl.addEventListener('click', function (e) {
     e.preventDefault();
     headerEl.classList.toggle('is-active');
     menuButtonEl.setAttribute(
@@ -47,7 +47,7 @@
     var toc_items = [];
     $(nav)
       .nextAll('h2, h3')
-      .each(function() {
+      .each(function () {
         var node = this;
         if (node.id == '') node.id = 'tmp_' + toc_items.length;
         var link = $('<a/>')
@@ -94,59 +94,31 @@
       .append(dl2);
   }
 
-  function bindToggle(el) {
-    $('.toggleButton', el).click(function() {
-      if ($(this).closest('.toggle, .toggleVisible')[0] != el) {
-        // Only trigger the closest toggle header.
-        return;
-      }
-
-      if ($(el).is('.toggle')) {
-        $(el)
-          .addClass('toggleVisible')
-          .removeClass('toggle');
-      } else {
-        $(el)
-          .addClass('toggle')
-          .removeClass('toggleVisible');
-      }
-    });
-  }
-
-  function bindToggles(selector) {
-    $(selector).each(function(i, el) {
-      bindToggle(el);
-    });
-  }
-
-  function bindToggleLink(el, prefix) {
-    $(el).click(function() {
+  function bindToggleLink(el) {
+    $(el).click(function () {
       var href = $(el).attr('href');
-      var i = href.indexOf('#' + prefix);
+      var i = href.indexOf('#');
       if (i < 0) {
         return;
       }
-      var id = '#' + prefix + href.slice(i + 1 + prefix.length);
-      if ($(id).is('.toggle')) {
-        $(id)
-          .find('.toggleButton')
-          .first()
-          .click();
+      if ($(href).is('details')) {
+        $(href).attr('open', 'open')
       }
     });
   }
-  function bindToggleLinks(selector, prefix) {
-    $(selector).each(function(i, el) {
-      bindToggleLink(el, prefix);
+
+  function bindToggleLinks(selector) {
+    $(selector).each(function (i, el) {
+      bindToggleLink(el);
     });
   }
 
   function setupInlinePlayground() {
     'use strict';
     // Set up playground when each element is toggled.
-    $('div.play').each(function(i, el) {
+    $('div.play').each(function (i, el) {
       // Set up playground for this example.
-      var setup = function() {
+      var setup = function () {
         var code = $('.code', el);
         playground({
           codeEl: code,
@@ -158,7 +130,7 @@
         });
 
         // Make the code textarea resize to fit content.
-        var resize = function() {
+        var resize = function () {
           code.height(0);
           var h = code[0].scrollHeight;
           code.height(h + 20); // minimize bouncing.
@@ -179,7 +151,7 @@
       var built = false;
       $(el)
         .closest('.toggle')
-        .click(function() {
+        .click(function () {
           // Only set up once.
           if (!built) {
             setup();
@@ -196,7 +168,7 @@
     page.css('outline', 0); // disable outline when focused
     page.attr('tabindex', -1); // and set tabindex so that it is focusable
     $(window)
-      .resize(function(evt) {
+      .resize(function (evt) {
         // only focus page when the topbar is at fixed position (that is, it's in
         // front of page, and keyboard event will go to the former by default.)
         // by focusing page, keyboard event will go to page so that up/down arrow,
@@ -207,26 +179,13 @@
   }
 
   function toggleHash() {
-    var id = window.location.hash.substring(1);
+    var id = window.location.hash;
     // Open all of the toggles for a particular hash.
-    var els = $(
-      document.getElementById(id),
-      $('a[name]').filter(function() {
-        return $(this).attr('name') == id;
-      })
-    );
-
-    while (els.length) {
-      for (var i = 0; i < els.length; i++) {
-        var el = $(els[i]);
-        if (el.is('.toggle')) {
-          el.find('.toggleButton')
-            .first()
-            .click();
-        }
+    $(id).each(function () {
+      if ($(this).is('details')) {
+        $(this).prop('open', true)
       }
-      els = el.parent();
-    }
+    })
   }
 
   function personalizeInstallInstructions() {
@@ -281,8 +240,8 @@
 
     var message = $(
       '<p class="downloading">' +
-        'Your download should begin shortly. ' +
-        'If it does not, click <a>this link</a>.</p>'
+      'Your download should begin shortly. ' +
+      'If it does not, click <a>this link</a>.</p>'
     );
     message.find('a').attr('href', download);
     message.insertAfter('#nav');
@@ -318,54 +277,50 @@
 
     $('#page .container')
       .find('h2[id], h3[id]')
-      .each(function() {
+      .each(function () {
         var el = $(this);
         addPermalink(el, el);
       });
 
     $('#page .container')
       .find('dl[id]')
-      .each(function() {
+      .each(function () {
         var el = $(this);
         // Add the anchor to the "dt" element.
         addPermalink(el, el.find('> dt').first());
       });
   }
 
-  $('.js-expandAll').click(function() {
+  $('.js-expandAll').click(function () {
     if ($(this).hasClass('collapsed')) {
-      toggleExamples('toggle');
+      toggleExamples(true);
       $(this).text('(Collapse All)');
     } else {
-      toggleExamples('toggleVisible');
+      toggleExamples(false);
       $(this).text('(Expand All)');
     }
     $(this).toggleClass('collapsed');
   });
 
-  function toggleExamples(className) {
+  function toggleExamples(open) {
     // We need to explicitly iterate through divs starting with "example_"
     // to avoid toggling Overview and Index collapsibles.
-    $("[id^='example_']").each(function() {
-      // Check for state and click it only if required.
-      if ($(this).hasClass(className)) {
-        $(this)
-          .find('.toggleButton')
-          .first()
-          .click();
+    $("[id^='example_']").each(function () {
+      if (open) {
+        $(this).prop('open', true);
+      } else {
+        $(this).removeAttr("open");
       }
     });
   }
 
-  $(document).ready(function() {
+  $(document).ready(function () {
     generateTOC();
     addPermalinks();
-    bindToggles('.toggle');
-    bindToggles('.toggleVisible');
-    bindToggleLinks('.exampleLink', 'example_');
-    bindToggleLinks('.overviewLink', '');
-    bindToggleLinks('.examplesLink', '');
-    bindToggleLinks('.indexLink', '');
+    bindToggleLinks('.exampleLink');
+    bindToggleLinks('.overviewLink');
+    bindToggleLinks('.examplesLink');
+    bindToggleLinks('.indexLink');
     setupInlinePlayground();
     fixFocus();
     toggleHash();
