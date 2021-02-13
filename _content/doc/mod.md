@@ -353,7 +353,7 @@ The `go.mod` file is designed to be human readable and machine writable. The
 example, [`go get`](#go-get) can upgrade or downgrade specific dependencies.
 Commands that load the module graph will [automatically
 update](#go-mod-file-updates) `go.mod` when needed. [`go mod
-edit`](#go-mod-tidy) can perform low-level edits.  The
+edit`](#go-mod-edit) can perform low-level edits.  The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
