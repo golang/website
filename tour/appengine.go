@@ -12,7 +12,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 
 	_ "golang.org/x/tools/playground"
 	"golang.org/x/website/internal/webtest"
@@ -23,16 +22,14 @@ func gaeMain() {
 	socketAddr = gaeSocketAddr
 	analyticsHTML = template.HTML(os.Getenv("TOUR_ANALYTICS"))
 
-	root := "tour"
-
-	if err := initTour(root, "HTTPTransport"); err != nil {
+	if err := initTour("HTTPTransport"); err != nil {
 		log.Fatal(err)
 	}
 
 	http.Handle("/", hstsHandler(rootHandler))
 	http.Handle("/lesson/", hstsHandler(lessonHandler))
 
-	registerStatic(root)
+	registerStatic()
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -40,7 +37,7 @@ func gaeMain() {
 	}
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
-		filepath.Join(root, "testdata/*.txt"))
+		"tour/testdata/*.txt")
 
 	log.Fatal(http.ListenAndServe(":"+port, h))
 }

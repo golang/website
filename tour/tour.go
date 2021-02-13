@@ -2,19 +2,19 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main // import "golang.org/x/website/tour"
+package main
 
 import (
 	"bytes"
 	"crypto/sha1"
+	"embed"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
-	"io/ioutil"
 	"net/http"
-	"os"
+	"path"
 	"path/filepath"
 	"strings"
 	"time"
@@ -29,28 +29,29 @@ var (
 	lessonNotFound = fmt.Errorf("lesson not found")
 )
 
-// initTour loads tour.article and the relevant HTML templates from the given
-// tour root, and renders the template to the tourContent global variable.
-func initTour(root, transport string) error {
+var (
+	//go:embed content static template
+	root embed.FS
+)
+
+// initTour loads tour.article and the relevant HTML templates from root.
+func initTour(transport string) error {
 	// Make sure playground is enabled before rendering.
 	present.PlayEnabled = true
 
 	// Set up templates.
-	action := filepath.Join(root, "template", "action.tmpl")
-	tmpl, err := present.Template().ParseFiles(action)
+	tmpl, err := present.Template().ParseFS(root, "template/action.tmpl")
 	if err != nil {
 		return fmt.Errorf("parse templates: %v", err)
 	}
 
 	// Init lessons.
-	contentPath := filepath.Join(root, "content")
-	if err := initLessons(tmpl, contentPath); err != nil {
+	if err := initLessons(tmpl); err != nil {
 		return fmt.Errorf("init lessons: %v", err)
 	}
 
-	// Init UI
-	index := filepath.Join(root, "template", "index.tmpl")
-	ui, err := template.ParseFiles(index)
+	// Init UI.
+	ui, err := template.ParseFS(root, "template/index.tmpl")
 	if err != nil {
 		return fmt.Errorf("parse index.tmpl: %v", err)
 	}
@@ -67,29 +68,25 @@ func initTour(root, transport string) error {
 	}
 	uiContent = buf.Bytes()
 
-	return initScript(root)
+	return initScript()
 }
 
-// initLessonss finds all the lessons in the passed directory, renders them,
+// initLessonss finds all the lessons in the content directory, renders them,
 // using the given template and saves the content in the lessons map.
-func initLessons(tmpl *template.Template, content string) error {
-	dir, err := os.Open(content)
-	if err != nil {
-		return err
-	}
-	files, err := dir.Readdirnames(0)
+func initLessons(tmpl *template.Template) error {
+	files, err := root.ReadDir("content")
 	if err != nil {
 		return err
 	}
 	for _, f := range files {
-		if filepath.Ext(f) != ".article" {
+		if path.Ext(f.Name()) != ".article" {
 			continue
 		}
-		content, err := parseLesson(tmpl, filepath.Join(content, f))
+		content, err := parseLesson(path.Join("content", f.Name()), tmpl)
 		if err != nil {
-			return fmt.Errorf("parsing %v: %v", f, err)
+			return fmt.Errorf("parsing %v: %v", f.Name(), err)
 		}
-		name := strings.TrimSuffix(f, ".article")
+		name := strings.TrimSuffix(f.Name(), ".article")
 		lessons[name] = content
 	}
 	return nil
@@ -116,15 +113,20 @@ type Lesson struct {
 	Pages       []Page
 }
 
-// parseLesson parses and returns a lesson content given its name and
-// the template to render it.
-func parseLesson(tmpl *template.Template, path string) ([]byte, error) {
-	f, err := os.Open(path)
+// parseLesson parses and returns a lesson content given its path
+// relative to root ('/'-separated) and the template to render it.
+func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
+	f, err := root.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-	doc, err := present.Parse(prepContent(f), path, 0)
+	ctx := &present.Context{
+		ReadFile: func(filename string) ([]byte, error) {
+			return root.ReadFile(filepath.ToSlash(filename))
+		},
+	}
+	doc, err := ctx.Parse(prepContent(f), filepath.FromSlash(path), 0)
 	if err != nil {
 		return nil, err
 	}
@@ -225,7 +227,7 @@ func renderUI(w io.Writer) error {
 
 // initScript concatenates all the javascript files needed to render
 // the tour UI and serves the result on /script.js.
-func initScript(root string) error {
+func initScript() error {
 	modTime := time.Now()
 	b := new(bytes.Buffer)
 
@@ -251,9 +253,9 @@ func initScript(root string) error {
 	}
 
 	for _, file := range files {
-		f, err := ioutil.ReadFile(filepath.Join(root, file))
+		f, err := root.ReadFile(file)
 		if err != nil {
-			return fmt.Errorf("couldn't open %v: %v", file, err)
+			return fmt.Errorf("couldn't read %v: %v", file, err)
 		}
 		_, err = b.Write(f)
 		if err != nil {

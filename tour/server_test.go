@@ -13,12 +13,12 @@ import (
 )
 
 func TestWeb(t *testing.T) {
-	if err := initTour(".", "SocketTransport"); err != nil {
+	if err := initTour("SocketTransport"); err != nil {
 		log.Fatal(err)
 	}
 	http.HandleFunc("/", rootHandler)
 	http.HandleFunc("/lesson/", lessonHandler)
-	registerStatic(".")
+	registerStatic()
 
 	webtest.TestHandler(t, "testdata/*.txt", http.DefaultServeMux)
 }

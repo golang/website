@@ -5,20 +5,17 @@
 package main
 
 import (
-	"encoding/json"
 	"flag"
-	"go/build"
 	"html/template"
 	"io"
+	"io/fs"
 	"log"
 	"net"
 	"net/http"
 	"net/url"
 	"os"
 	"os/exec"
-	"path/filepath"
 	"runtime"
-	"runtime/debug"
 	"strings"
 	"time"
 
@@ -39,54 +36,6 @@ var (
 	httpAddr string
 )
 
-// isRoot reports whether path is the root directory of the tour tree.
-// To be the root, it must have content and template subdirectories.
-func isRoot(path string) bool {
-	_, err := os.Stat(filepath.Join(path, "content", "welcome.article"))
-	if err == nil {
-		_, err = os.Stat(filepath.Join(path, "template", "index.tmpl"))
-	}
-	return err == nil
-}
-
-// findRoot is a best-effort attempt to find a tour directory
-// that contains the files it needs. It may not always work.
-//
-// TODO: Delete after Go 1.17 is out and we can just use embed; see CL 291849.
-func findRoot() (string, bool) {
-	// Try finding the golang.org/x/website/tour package in the
-	// legacy GOPATH mode workspace or in build list.
-	p, err := build.Import("golang.org/x/website/tour", "", build.FindOnly)
-	if err == nil && isRoot(p.Dir) {
-		return p.Dir, true
-	}
-	// If that didn't work, perhaps we're not inside any module
-	// and the binary was built in module mode (e.g., 'go install
-	// golang.org/x/website/tour@latest' or 'go get golang.org/x/website/tour'
-	// outside a module).
-	// If that's the case, find out what version it is,
-	// and access its content from the module cache.
-	if info, ok := debug.ReadBuildInfo(); ok &&
-		info.Main.Path == "golang.org/x/website" &&
-		info.Main.Replace == nil &&
-		info.Main.Version != "(devel)" {
-		// Make some assumptions for brevity:
-		// • the 'go' binary is in $PATH
-		// • the main module isn't replaced
-		// • the version isn't "(devel)"
-		// They should hold for the use cases we care about, until this
-		// entire mechanism is obsoleted by file embedding.
-		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/website@"+info.Main.Version).Output()
-		var websiteRoot struct{ Dir string }
-		jsonError := json.Unmarshal(out, &websiteRoot)
-		tourDir := filepath.Join(websiteRoot.Dir, "tour")
-		if execError == nil && jsonError == nil && isRoot(tourDir) {
-			return tourDir, true
-		}
-	}
-	return "", false
-}
-
 func main() {
 	flag.Parse()
 
@@ -95,14 +44,6 @@ func main() {
 		gaeMain()
 		return
 	}
-
-	// find and serve the go tour files
-	root, ok := findRoot()
-	if !ok {
-		log.Fatalln("Couldn't find files for the Go tour. Try reinstalling it.")
-	}
-
-	log.Println("Serving content from", root)
 
 	host, port, err := net.SplitHostPort(*httpListen)
 	if err != nil {
@@ -116,7 +57,7 @@ func main() {
 	}
 	httpAddr = host + ":" + port
 
-	if err := initTour(root, "SocketTransport"); err != nil {
+	if err := initTour("SocketTransport"); err != nil {
 		log.Fatal(err)
 	}
 
@@ -126,10 +67,10 @@ func main() {
 	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
 	http.Handle(socketPath, socket.NewHandler(origin))
 
-	registerStatic(root)
+	registerStatic()
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
-		filepath.Join(root, "testdata/*.txt"))
+		"tour/testdata/*.txt")
 
 	go func() {
 		url := "http://" + httpAddr
@@ -144,11 +85,18 @@ func main() {
 
 // registerStatic registers handlers to serve static content
 // from the directory root.
-func registerStatic(root string) {
-	http.Handle("/favicon.ico", http.FileServer(http.Dir(filepath.Join(root, "static", "img"))))
-	static := http.FileServer(http.Dir(root))
+func registerStatic() {
+	http.Handle("/favicon.ico", http.FileServer(http.FS(must(fs.Sub(root, "static/img")))))
+	static := http.FileServer(http.FS(root))
 	http.Handle("/content/img/", static)
 	http.Handle("/static/", static)
+}
+
+func must(fsys fs.FS, err error) fs.FS {
+	if err != nil {
+		panic(err)
+	}
+	return fsys
 }
 
 // rootHandler returns a handler for all the requests except the ones for lessons.
