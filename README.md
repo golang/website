@@ -13,7 +13,7 @@ To download and run the golang.org web server locally:
  - `go run ./cmd/golangorg`
  - Open http://localhost:6060/ in your browser.
 
-See [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
+Please see [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
 
 ## Changing Content
 
@@ -25,7 +25,7 @@ To make basic changes to the golang.org website content:
  - `go run ./cmd/golangorg`
  - Open http://localhost:6060/ in your browser.
 
-See [content/README.md](content/README.md) for more sophisticated instructions.
+Please see [content/README.md](content/README.md) for more sophisticated instructions.
 
 ## JS/CSS Formatting
 
