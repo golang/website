@@ -8,10 +8,10 @@ This repository holds the Go website server code and content.
 
 To download and run the golang.org web server locally:
 
- - `git clone https://go.googlesource.com/website`
- - `cd website`
- - `go run ./cmd/golangorg`
- - Open http://localhost:6060/ in your browser.
+ 1. `git clone https://go.googlesource.com/website`
+ 2. `cd website`
+ 3. `go run ./cmd/golangorg`
+ 4. Open http://localhost:6060/ in your browser.
 
 See [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
 
@@ -19,11 +19,11 @@ See [cmd/golangorg/README.md](cmd/golangorg/README.md) for more details.
 
 To make basic changes to the golang.org website content:
 
- - Make the changes you want in the `content/static` directory.
- - Stop any running `go run ./cmd/golangorg`.
- - `go generate ./content/static`
- - `go run ./cmd/golangorg`
- - Open http://localhost:6060/ in your browser.
+ 1. Make the changes you want in the `content/static` directory.
+ 2. Stop any running `go run ./cmd/golangorg`.
+ 3. `go generate ./content/static`
+ 4. `go run ./cmd/golangorg`
+ 5. Open http://localhost:6060/ in your browser.
 
 See [content/README.md](content/README.md) for more sophisticated instructions.
 
