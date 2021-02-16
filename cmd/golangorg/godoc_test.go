@@ -139,19 +139,11 @@ func killAndWait(cmd *exec.Cmd) {
 
 // Basic integration test for godoc HTTP interface.
 func TestWeb(t *testing.T) {
-	testWeb(t, false)
+	testWeb(t)
 }
 
 // Basic integration test for godoc HTTP interface.
-func TestWebIndex(t *testing.T) {
-	if testing.Short() {
-		t.Skip("skipping test in -short mode")
-	}
-	testWeb(t, true)
-}
-
-// Basic integration test for godoc HTTP interface.
-func testWeb(t *testing.T, withIndex bool) {
+func testWeb(t *testing.T) {
 	if runtime.GOOS == "plan9" {
 		t.Skip("skipping on plan9; fails to start up quickly enough")
 	}
@@ -159,9 +151,6 @@ func testWeb(t *testing.T, withIndex bool) {
 	defer cleanup()
 	addr := serverAddress(t)
 	args := []string{fmt.Sprintf("-http=%s", addr)}
-	if withIndex {
-		args = append(args, "-index", "-index_interval=-1s")
-	}
 	cmd := exec.Command(bin, args...)
 	cmd.Stdout = os.Stderr
 	cmd.Stderr = os.Stderr
@@ -170,7 +159,7 @@ func testWeb(t *testing.T, withIndex bool) {
 	// Set GOPATH variable to non-existing path
 	// and GOPROXY=off to disable module fetches.
 	// We cannot just unset GOPATH variable because godoc would default it to ~/go.
-	// (We don't want the indexer looking at the local workspace during tests.)
+	// (We don't want the server looking at the local workspace during tests.)
 	cmd.Env = append(os.Environ(),
 		"GOPATH=does_not_exist",
 		"GOPROXY=off",
@@ -181,19 +170,14 @@ func testWeb(t *testing.T, withIndex bool) {
 	}
 	defer killAndWait(cmd)
 
-	if withIndex {
-		waitForSearchReady(t, addr)
-	} else {
-		waitForServerReady(t, addr)
-		waitUntilScanComplete(t, addr)
-	}
+	waitForServerReady(t, addr)
+	waitUntilScanComplete(t, addr)
 
 	tests := []struct {
 		path        string
 		contains    []string // substring
 		match       []string // regexp
 		notContains []string
-		needIndex   bool
 		releaseTag  string // optional release tag that must be in go/build.ReleaseTags
 	}{
 		{
@@ -233,16 +217,6 @@ func testWeb(t *testing.T, withIndex bool) {
 			notContains: []string{
 				"cmd/gc",
 			},
-		},
-		{
-			path: "/search?q=ListenAndServe",
-			contains: []string{
-				"/src",
-			},
-			notContains: []string{
-				"/pkg/bootstrap",
-			},
-			needIndex: true,
 		},
 		{
 			path: "/pkg/strings/",
@@ -294,9 +268,6 @@ func testWeb(t *testing.T, withIndex bool) {
 		},
 	}
 	for _, test := range tests {
-		if test.needIndex && !withIndex {
-			continue
-		}
 		url := fmt.Sprintf("http://%s%s", addr, test.path)
 		resp, err := http.Get(url)
 		if err != nil {

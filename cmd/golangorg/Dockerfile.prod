@@ -3,9 +3,6 @@
 
 FROM golang:1.12 AS build
 
-RUN apt-get update && apt-get install -y \
-      zip # required for generate-index.bash
-
 # Check out the desired version of Go, both to build the golangorg binary and serve
 # as the goroot for content serving.
 ARG GO_REF
@@ -23,7 +20,6 @@ RUN go version
 COPY . /website
 
 WORKDIR /website/cmd/golangorg
-RUN GOLANGORG_DOCSET=/goroot ./generate-index.bash
 
 RUN go build -o /golangorg -tags=golangorg golang.org/x/website/cmd/golangorg
 
@@ -55,8 +51,5 @@ COPY --from=build /website/cmd/golangorg/hg-git-mapping.bin /app/
 
 COPY --from=build /goroot /goroot
 ENV GOROOT /goroot
-
-COPY --from=build /website/cmd/golangorg/index.split.* /app/
-ENV GOLANGORG_INDEX_GLOB index.split.*
 
 CMD ["/app/golangorg"]

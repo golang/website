@@ -11,14 +11,12 @@ package main
 // See README.md for details.
 
 import (
-	"archive/zip"
 	"context"
 	"go/build"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"path"
 	"regexp"
 	"runtime"
 	"strings"
@@ -26,7 +24,6 @@ import (
 	"golang.org/x/tools/godoc"
 	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/tools/godoc/vfs/gatefs"
-	"golang.org/x/tools/godoc/vfs/zipfs"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/proxy"
@@ -40,40 +37,14 @@ import (
 func main() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
 
-	var (
-		// .zip filename
-		zipFilename = os.Getenv("GOLANGORG_ZIP")
-
-		// goroot directory in .zip file
-		zipGoroot = os.Getenv("GOLANGORG_ZIP_PREFIX")
-
-		// glob pattern describing search index files
-		// (if empty, the index is built at run-time)
-		indexFilenames = os.Getenv("GOLANGORG_INDEX_GLOB")
-	)
-
 	playEnabled = true
 
 	log.Println("initializing golang.org server ...")
-	log.Printf(".zip file   = %s", zipFilename)
-	log.Printf(".zip GOROOT = %s", zipGoroot)
-	log.Printf("index files = %s", indexFilenames)
 
 	fsGate := make(chan bool, 20)
 
-	if zipFilename != "" {
-		goroot := path.Join("/", zipGoroot) // fsHttp paths are relative to '/'
-		// read .zip file and set up file systems
-		rc, err := zip.OpenReader(zipFilename)
-		if err != nil {
-			log.Fatalf("%s: %s\n", zipFilename, err)
-		}
-		// rc is never closed (app running forever)
-		fs.Bind("/", zipfs.New(rc, zipFilename), goroot, vfs.BindReplace)
-	} else {
-		rootfs := gatefs.New(vfs.OS(runtime.GOROOT()), fsGate)
-		fs.Bind("/", rootfs, "/", vfs.BindReplace)
-	}
+	rootfs := gatefs.New(vfs.OS(runtime.GOROOT()), fsGate)
+	fs.Bind("/", rootfs, "/", vfs.BindReplace)
 
 	// Try serving files in /doc from a local copy before trying the main
 	// go repository. This lets us update some documentation outside the
@@ -88,18 +59,11 @@ func main() {
 	corpus := godoc.NewCorpus(fs)
 	corpus.Verbose = false
 	corpus.MaxResults = 10000 // matches flag default in main.go
-	corpus.IndexEnabled = true
-	corpus.IndexFiles = indexFilenames
+	corpus.IndexEnabled = false
 	if err := corpus.Init(); err != nil {
 		log.Fatal(err)
 	}
-	corpus.IndexDirectory = indexDirectoryDefault
 	corpus.InitVersionInfo()
-	if indexFilenames != "" {
-		corpus.RunIndexer()
-	} else {
-		go corpus.RunIndexer()
-	}
 
 	pres = godoc.NewPresentation(corpus)
 	pres.ShowPlayground = true
