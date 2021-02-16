@@ -4,7 +4,7 @@
 
 This repo holds content and serving programs for the golang.org web site.
 
-Content is in content/. Server code is in cmd/ and internal/.
+Content is in _content/. Server code is in cmd/ and internal/.
 
 To run the server to preview local content changes, use:
 
@@ -12,7 +12,7 @@ To run the server to preview local content changes, use:
 
 The supporting programs cmd/admingolangorg and cmd/googlegolangorg
 are the servers for admin.golang.org and google.golang.org.
-(They do not use the content/ directory.)
+(They do not use the _content/ directory.)
 
 Each command directory has its own README.md explaining deployment.
 

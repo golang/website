@@ -124,7 +124,7 @@ func main() {
 			fmt.Fprintln(os.Stderr, "runtime.Caller failed: cannot find templates for -a mode.")
 			os.Exit(2)
 		}
-		dir := filepath.Join(file, "../../../content")
+		dir := filepath.Join(file, "../../../_content")
 		if _, err := os.Stat(filepath.Join(dir, "godoc.html")); err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			fmt.Fprintln(os.Stderr, "Cannot find templates for -a mode.")
