@@ -11,7 +11,7 @@ import (
 	"os"
 	"strconv"
 
-	"golang.org/x/tools/godoc/golangorgenv"
+	"golang.org/x/website/internal/godoc/golangorgenv"
 )
 
 var (

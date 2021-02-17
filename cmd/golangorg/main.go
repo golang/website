@@ -29,10 +29,10 @@ import (
 	"regexp"
 	"runtime"
 
-	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/vfs"
-	"golang.org/x/tools/godoc/vfs/gatefs"
 	"golang.org/x/website"
+	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/godoc/vfs"
+	"golang.org/x/website/internal/godoc/vfs/gatefs"
 )
 
 var (

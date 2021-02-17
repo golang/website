@@ -15,8 +15,8 @@ import (
 	"net/http"
 	"sort"
 
-	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/vfs"
+	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/godoc/vfs"
 	"golang.org/x/website/internal/history"
 )
 

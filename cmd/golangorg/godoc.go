@@ -13,8 +13,8 @@ import (
 	"net/http"
 	"strings"
 
-	"golang.org/x/tools/godoc"
 	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/godoc"
 )
 
 // This file holds common code from the x/tools/godoc serving engine.

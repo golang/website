@@ -13,9 +13,9 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/vfs"
 	"golang.org/x/website"
+	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // Test that the release history page includes expected entries.
