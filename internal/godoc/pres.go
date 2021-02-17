@@ -68,6 +68,10 @@ type Presentation struct {
 	// the query string highlighted.
 	URLForSrcQuery func(src, query string, line int) string
 
+	// GoogleCN reports whether this request should be marked GoogleCN.
+	// If the function is nil, no requests are marked GoogleCN.
+	GoogleCN func(*http.Request) bool
+
 	// GoogleAnalytics optionally adds Google Analytics via the provided
 	// tracking ID to each page.
 	GoogleAnalytics string
@@ -136,4 +140,8 @@ func (p *Presentation) GetPkgPageInfo(abspath, relpath string, mode PageInfoMode
 // but this doesn't feel right.
 func (p *Presentation) GetCmdPageInfo(abspath, relpath string, mode PageInfoMode) *PageInfo {
 	return p.cmdHandler.GetPageInfo(abspath, relpath, mode, "", "")
+}
+
+func (p *Presentation) googleCN(r *http.Request) bool {
+	return p.GoogleCN != nil && p.GoogleCN(r)
 }

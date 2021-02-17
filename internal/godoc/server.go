@@ -319,7 +319,7 @@ func (h *handlerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		tabtitle = "Commands"
 	}
 
-	info.GoogleCN = googleCN(r)
+	info.GoogleCN = h.p.googleCN(r)
 	var body []byte
 	if info.Dirname == "/src" {
 		body = applyTemplate(h.p.PackageRootHTML, "packageRootHTML", info)
@@ -588,7 +588,7 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 		SrcPath:  relpath,
 		Tabtitle: relpath,
 		Body:     buf.Bytes(),
-		GoogleCN: googleCN(r),
+		GoogleCN: p.googleCN(r),
 	})
 }
 
@@ -659,7 +659,7 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 		SrcPath:  relpath,
 		Tabtitle: relpath,
 		Body:     applyTemplate(p.DirlistHTML, "dirlistHTML", info),
-		GoogleCN: googleCN(r),
+		GoogleCN: p.googleCN(r),
 	})
 }
 
@@ -696,7 +696,7 @@ func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, absp
 	page := Page{
 		Title:    meta.Title,
 		Subtitle: meta.Subtitle,
-		GoogleCN: googleCN(r),
+		GoogleCN: p.googleCN(r),
 	}
 
 	// evaluate as template if indicated

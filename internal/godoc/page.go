@@ -12,9 +12,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"strings"
-
-	"golang.org/x/website/internal/godoc/golangorgenv"
 )
 
 // Page describes the contents of the top-level godoc webpage.
@@ -57,26 +54,7 @@ func (p *Presentation) ServeError(w http.ResponseWriter, r *http.Request, relpat
 		Title:           "File " + relpath,
 		Subtitle:        relpath,
 		Body:            applyTemplate(p.ErrorHTML, "errorHTML", err),
-		GoogleCN:        googleCN(r),
+		GoogleCN:        p.googleCN(r),
 		GoogleAnalytics: p.GoogleAnalytics,
 	})
-}
-
-// googleCN reports whether request r is considered
-// to be served from golang.google.cn.
-func googleCN(r *http.Request) bool {
-	if r.FormValue("googlecn") != "" {
-		return true
-	}
-	if strings.HasSuffix(r.Host, ".cn") {
-		return true
-	}
-	if !golangorgenv.CheckCountry() {
-		return false
-	}
-	switch r.Header.Get("X-Appengine-Country") {
-	case "", "ZZ", "CN":
-		return true
-	}
-	return false
 }

@@ -99,6 +99,7 @@ func main() {
 	if *notesRx != "" {
 		pres.NotesRx = regexp.MustCompile(*notesRx)
 	}
+	pres.GoogleCN = googleCN
 
 	readTemplates(pres)
 	mux := registerHandlers(pres)
