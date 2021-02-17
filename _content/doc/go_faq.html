@@ -1318,49 +1318,55 @@ add these lines to your <code>~/.gitconfig</code>:
 How should I manage package versions using "go get"?</h3>
 
 <p>
-Since the inception of the project, Go has had no explicit concept of package versions,
-but that is changing.
-Versioning is a source of significant complexity, especially in large code bases,
-and it has taken some time to develop an
-approach that works well at scale in a large enough
-variety of situations to be appropriate to supply to all Go users.
+The Go toolchain has a built-in system for managing versioned sets of related packages, known as <dfn>modules</dfn>.
+Modules were introduced in <a href="/doc/go1.11#modules">Go 1.11</a> and have been ready for production use since <a href="/doc/go1.14#introduction">1.14</a>.
 </p>
 
 <p>
-The Go 1.11 release adds new, experimental support
-for package versioning to the <code>go</code> command,
-in the form of Go modules.
-For more information, see the <a href="/doc/go1.11#modules">Go 1.11 release notes</a>
-and the <a href="/cmd/go#hdr-Modules__module_versions__and_more"><code>go</code> command documentation</a>.
+To create a project using modules, run <a href="/ref/mod#go-mod-init"><code>go mod init</code></a>.
+This command creates a <code>go.mod</code> file that tracks dependency versions.
+</p>
+
+<pre>
+go mod init example.com/project
+</pre>
+
+<p>
+To add, upgrade, or downgrade a dependency, run <a href="/ref/mod#go-get"><code>go get</code></a>:
+</p>
+
+<pre>
+go get golang.org/x/text@v0.3.5
+</pre>
+
+<p>
+See <a href="/doc/tutorial/create-module.html">Tutorial: Create a module</a> for more information on getting started.
 </p>
 
 <p>
-Regardless of the actual package management technology,
-"go get" and the larger Go toolchain does provide isolation of
-packages with different import paths.
-For example, the standard library's <code>html/template</code> and <code>text/template</code>
-coexist even though both are "package template".
-This observation leads to some advice for package authors and package users.
+See <a href="/doc/#developing-modules">Developing modules</a> for guides on managing dependencies with modules.
 </p>
 
 <p>
-Packages intended for public use should try to maintain backwards compatibility as they evolve.
+Packages within modules should maintain backward compatibility as they evolve, following the <a href="https://research.swtch.com/vgo-import">import compatibility rule</a>:
+</p>
+
+<blockquote>
+If an old package and a new package have the same import path,<br>
+the new package must be backwards compatible with the old package.
+</blockquote>
+
+<p>
 The <a href="/doc/go1compat.html">Go 1 compatibility guidelines</a> are a good reference here:
 don't remove exported names, encourage tagged composite literals, and so on.
 If different functionality is required, add a new name instead of changing an old one.
-If a complete break is required, create a new package with a new import path.
 </p>
 
 <p>
-If you're using an externally supplied package and worry that it might change in
-unexpected ways, but are not yet using Go modules,
-the simplest solution is to copy it to your local repository.
-This is the approach Google takes internally and is supported by the
-<code>go</code> command through a technique called "vendoring".
-This involves
-storing a copy of the dependency under a new import path that identifies it as a local copy.
-See the <a href="https://golang.org/s/go15vendor">design
-document</a> for details.
+Modules codify this with <a href="https://semver.org/">semantic versioning</a> and semantic import versioning.
+If a break in compatibility is required, release a module at a new major version.
+Modules at major version 2 and higher require a <a href="/ref/mod#major-version-suffixes">major version suffix</a> as part of their path (like <code>/v2</code>).
+This preserves the import compatibility rule: packages in different major versions of a module have distinct paths.
 </p>
 
 <h2 id="Pointers">Pointers and Allocation</h2>
