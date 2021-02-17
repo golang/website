@@ -23,7 +23,6 @@ import (
 	"go/token"
 	"io"
 	"log"
-	"os"
 	pathpkg "path"
 	"regexp"
 	"strconv"
@@ -65,12 +64,7 @@ func (p *Presentation) initFuncMap() {
 	p.funcMap = template.FuncMap{
 		// various helpers
 		"filename": filenameFunc,
-		"repeat":   strings.Repeat,
 		"since":    p.Corpus.pkgAPIInfo.sinceVersionFunc,
-
-		// access to FileInfos (directory listings)
-		"fileInfoName": fileInfoNameFunc,
-		"fileInfoTime": fileInfoTimeFunc,
 
 		// formatting of AST nodes
 		"node":         p.nodeFunc,
@@ -120,21 +114,6 @@ func multiply(a, b int) int { return a * b }
 func filenameFunc(path string) string {
 	_, localname := pathpkg.Split(path)
 	return localname
-}
-
-func fileInfoNameFunc(fi os.FileInfo) string {
-	name := fi.Name()
-	if fi.IsDir() {
-		name += "/"
-	}
-	return name
-}
-
-func fileInfoTimeFunc(fi os.FileInfo) string {
-	if t := fi.ModTime(); t.Unix() != 0 {
-		return t.Local().String()
-	}
-	return "" // don't return epoch if time is obviously not set
 }
 
 func (p *Presentation) nodeFunc(info *PageInfo, node interface{}) string {
