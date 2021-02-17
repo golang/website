@@ -439,7 +439,7 @@ allowed in the main module's `go.mod` file. The `go` command will attempt to
 replace each non-canonical version with an equivalent canonical version when it
 automatically [updates](#go-mod-file-updates) the `go.mod` file.
 
-In places where a module path is associated with a verison (as in `require`,
+In places where a module path is associated with a version (as in `require`,
 `replace`, and `exclude` directives), the final path element must be consistent
 with the version. See [Major version suffixes](#major-version-suffixes).
 
@@ -976,7 +976,7 @@ This has implications for packages that import packages within the module when
 building `GOPATH` mode.
 
 Normally in `GOPATH` mode, a package is stored in a directory matching its
-[repository's root path](#glos-repository-root-path) joined with its diretory
+[repository's root path](#glos-repository-root-path) joined with its directory
 within the repository. For example, a package in the repository with root path
 `example.com/repo` in the subdirectory `sub` would be stored in
 `$GOPATH/src/example.com/repo/sub` and would be imported as
