@@ -242,7 +242,7 @@ replacement path when resolving the dependency.
   replace example.com/othermodule => example.com/othermodule v1.2.3
   ```
 
-  The following example replaces module version v1.2.5 with version v1.2.5 of
+  The following example replaces module version v1.2.5 with version v1.2.3 of
   the same module.
 
   ```
