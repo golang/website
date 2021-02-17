@@ -93,7 +93,6 @@ func main() {
 
 	corpus := godoc.NewCorpus(fs)
 	corpus.Verbose = *verbose
-	corpus.IndexEnabled = false
 	if err := corpus.Init(); err != nil {
 		log.Fatal(err)
 	}

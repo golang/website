@@ -69,11 +69,6 @@ func (p *Presentation) initFuncMap() {
 		"fileInfoName": fileInfoNameFunc,
 		"fileInfoTime": fileInfoTimeFunc,
 
-		// access to search result information
-		"infoKind_html":    infoKind_htmlFunc,
-		"infoLine":         p.infoLineFunc,
-		"infoSnippet_html": p.infoSnippet_htmlFunc,
-
 		// formatting of AST nodes
 		"node":         p.nodeFunc,
 		"node_html":    p.node_htmlFunc,
@@ -105,9 +100,6 @@ func (p *Presentation) initFuncMap() {
 
 		// check whether to display third party section or not
 		"hasThirdParty": hasThirdParty,
-
-		// get the no. of columns to split the toc in search page
-		"tocColCount": tocColCount,
 	}
 	if p.URLForSrc != nil {
 		p.funcMap["srcLink"] = p.URLForSrc
@@ -140,48 +132,6 @@ func fileInfoTimeFunc(fi os.FileInfo) string {
 		return t.Local().String()
 	}
 	return "" // don't return epoch if time is obviously not set
-}
-
-// The strings in infoKinds must be properly html-escaped.
-var infoKinds = [nKinds]string{
-	PackageClause: "package&nbsp;clause",
-	ImportDecl:    "import&nbsp;decl",
-	ConstDecl:     "const&nbsp;decl",
-	TypeDecl:      "type&nbsp;decl",
-	VarDecl:       "var&nbsp;decl",
-	FuncDecl:      "func&nbsp;decl",
-	MethodDecl:    "method&nbsp;decl",
-	Use:           "use",
-}
-
-func infoKind_htmlFunc(info SpotInfo) string {
-	return infoKinds[info.Kind()] // infoKind entries are html-escaped
-}
-
-func (p *Presentation) infoLineFunc(info SpotInfo) int {
-	line := info.Lori()
-	if info.IsIndex() {
-		index, _ := p.Corpus.searchIndex.Get()
-		if index != nil {
-			line = index.(*Index).Snippet(line).Line
-		} else {
-			// no line information available because
-			// we don't have an index - this should
-			// never happen; be conservative and don't
-			// crash
-			line = 0
-		}
-	}
-	return line
-}
-
-func (p *Presentation) infoSnippet_htmlFunc(info SpotInfo) string {
-	if info.IsIndex() {
-		index, _ := p.Corpus.searchIndex.Get()
-		// Snippet.Text was HTML-escaped when it was generated
-		return index.(*Index).Snippet(info.Lori()).Text
-	}
-	return `<span class="alert">no snippet text available</span>`
 }
 
 func (p *Presentation) nodeFunc(info *PageInfo, node interface{}) string {
