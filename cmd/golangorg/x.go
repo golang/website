@@ -63,7 +63,7 @@ var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
 <meta http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">
 </head>
 <body>
-Nothing to see here; <a href="https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">move along</a>.
+<a href="https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">Redirecting to documentation...</a>
 </body>
 </html>
 `))

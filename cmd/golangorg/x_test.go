@@ -69,7 +69,7 @@ func TestXHandler(t *testing.T) {
 			checks: []check{
 				status(200),
 				substr(`<meta name="go-import" content="golang.org/x/pkgsite git https://go.googlesource.com/pkgsite">`),
-				substr(`Nothing to see here; <a href="https://pkg.go.dev/golang.org/x/pkgsite">move along</a>.`),
+				substr(`<a href="https://pkg.go.dev/golang.org/x/pkgsite">Redirecting to documentation...</a>`),
 				substr(`http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/pkgsite">`),
 			},
 		},
