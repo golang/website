@@ -135,9 +135,9 @@ go 1.14
 
         <p>
           Here, the
-          <a href="https://golang.org/ref/mod#tmp_15"
-            ><code>replace</code> directive</a
-          >
+          <a href="/ref/mod#go-mod-file-replace">
+            <code>replace</code> directive
+          </a>
           tells Go to replace the module path (the URL
           <code>example.com/greetings</code>) with a path you specify. In this
           case, that's a greetings directory next to the hello directory.
@@ -172,9 +172,9 @@ replace example.com/greetings => ../greetings
         <p>
           To build the module, Go found the local code in the ../greetings
           directory, then added a
-          <a href="https://golang.org/ref/mod#tmp_13"
-            ><code>require</code> directive</a
-          >
+          <a href="/ref/mod#go-mod-file-require">
+            <code>require</code> directive
+          </a>
           to specify that <code>hello</code> is dependent on (requires)
           <code>example.com/greetings</code>. You created this dependency when
           you imported the <code>greetings</code> package (contained in the

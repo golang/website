@@ -82,7 +82,7 @@ the source for your new version:
 
 * In your Go code, update every imported package path where you import a package
   from the module, appending the major version number to the module path portion.
-  * Old import statement: `import example.com/mymodule/package1`
-  * New import statement: `import example.com/mymodule/v2/package1`
+  * Old import statement: `import "example.com/mymodule/package1"`
+  * New import statement: `import "example.com/mymodule/v2/package1"`
 
 For publishing steps, see [Publishing a module](publishing).

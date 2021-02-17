@@ -62,8 +62,8 @@ Use the following steps to publish a module.
     ```
 
 1.  Make the module available by running the [`go list`
-  command](https://golang.org/cmd/go/#hdr-List_packages_or_modules) to prompt
-  Go to update its index of modules with 1nformation about the module you're
+  command](/cmd/go/#hdr-List_packages_or_modules) to prompt
+  Go to update its index of modules with information about the module you're
   publishing. 
 
     Precede the command with a statement to set the `GOPROXY` environment
@@ -74,10 +74,12 @@ Use the following steps to publish a module.
     $ GOPROXY=proxy.golang.org go list -m example.com/mymodule@v0.1.0
     ```
 
-Developers interested in your module import a package from it and run the [`go
-get` command]() just as they would with any other module. They can run the [`go
-get` command]() for latest versions or they can specify a particular version, as
-in the following example:
+Developers interested in your module import a package from it and run the
+[`go get` command](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+just as they would with any other module. They can run the
+[`go get` command](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+for latest versions or they can specify a particular version, as in the
+following example:
 
 ```
 $ go get example.com/mymodule@v0.1.0

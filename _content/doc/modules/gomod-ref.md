@@ -59,7 +59,7 @@ go 1.14
 
 require (
     example.com/othermodule v1.2.3
-example.com/thismodule v1.2.3
+    example.com/thismodule v1.2.3
     example.com/thatmodule v1.2.3
 )
 
@@ -205,11 +205,11 @@ replacement path when resolving the dependency.
     <dd>The path at which Go should look for the required module. This can be a
       module path or a path to a directory on the file system local to the
       replacement module. If this is a module path, you must specify a
-      _replacement-version_ value. If this is a local path, you may not use a
-      _replacement-version_ value.</dd>
+      <em>replacement-version</em> value. If this is a local path, you may not use a
+      <em>replacement-version</em> value.</dd>
     <dt>replacement-version</dt>
     <dd>The version of the replacement module. The replacement version may only
-      be specified if _replacement-path_ is a module path (not a local directory).</dd>
+      be specified if <em>replacement-path</em> is a module path (not a local directory).</dd>
 </dl>
 
 ### Examples
@@ -222,7 +222,7 @@ replacement path when resolving the dependency.
   ```
   require example.com/othermodule v1.2.3
 
-  replace example.com/othermodule => example.com/myfork/othermodule
+  replace example.com/othermodule => example.com/myfork/othermodule v1.2.3-fixed
   ```
 
   When you replace one module path with another, do not change import statements

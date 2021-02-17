@@ -61,7 +61,7 @@ This process is supported by:
     Developers make their modules available for other developers to use from
     their own repository and publish with a version number.
 *   A **package search engine** and documentation browser (pkg.go.dev) at which
-    you can find modules. See [Package discovery](#discovery).
+    you can find modules. See [Package discovery](developing#discovery).
 *   A module **version numbering convention** to help you understand a module's
     stability and backward compatibility guarantees. See [Module version
     numbering](version-numbers).
@@ -203,7 +203,7 @@ require example.com/theirmodule v1.3.4
 You can check to see if there are newer versions of dependencies you're already
 using in your current module. Use the `go list` command to display a list of
 your module's dependencies, along with the latest version available for that
-module. One you've discovered available upgrades, you can try them out with your
+module. Once you've discovered available upgrades, you can try them out with your
 code to decide whether or not to upgrade to new versions.
 
 For more about the `go list` command, see the [`go` command
