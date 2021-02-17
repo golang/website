@@ -20,12 +20,17 @@ import (
 	"golang.org/x/website/internal/history"
 )
 
-// projectHandler serves The Go Project page.
+// projectHandler serves The Go Project page on /project/.
 type projectHandler struct {
 	ReleaseHistory []MajorRelease // Pre-computed release history to display.
 }
 
 func (h projectHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	if req.URL.Path != "/project/" {
+		pres.ServeHTTP(w, req) // 404
+		return
+	}
+
 	const relPath = "doc/contrib.html"
 
 	src, err := vfs.ReadFile(fs, relPath)

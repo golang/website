@@ -65,8 +65,6 @@ func main() {
 	flag.Usage = usage
 	flag.Parse()
 
-	playEnabled = *showPlayground
-
 	// Check usage.
 	if flag.NArg() > 0 {
 		fmt.Fprintln(os.Stderr, "Unexpected arguments.")

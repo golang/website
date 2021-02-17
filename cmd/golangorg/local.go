@@ -36,5 +36,5 @@ func earlySetup() {
 
 func lateSetup(mux *http.ServeMux) {
 	// Register a redirect handler for /dl/ to the golang.org download page.
-	http.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
+	mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 }

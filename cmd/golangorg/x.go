@@ -20,19 +20,13 @@ import (
 	"golang.org/x/build/repos"
 )
 
-const xPrefix = "/x/"
-
-func init() {
-	http.HandleFunc(xPrefix, xHandler)
-}
-
 func xHandler(w http.ResponseWriter, r *http.Request) {
-	if !strings.HasPrefix(r.URL.Path, xPrefix) {
+	if !strings.HasPrefix(r.URL.Path, "/x/") {
 		// Shouldn't happen if handler is registered correctly.
 		http.Redirect(w, r, "https://pkg.go.dev/search?q=golang.org/x", http.StatusTemporaryRedirect)
 		return
 	}
-	proj, suffix := strings.TrimPrefix(r.URL.Path, xPrefix), ""
+	proj, suffix := strings.TrimPrefix(r.URL.Path, "/x/"), ""
 	if i := strings.Index(proj, "/"); i != -1 {
 		proj, suffix = proj[:i], proj[i:]
 	}
