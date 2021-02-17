@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
 // +build go1.16
 
 package main
@@ -27,8 +28,7 @@ func TestReleaseHistory(t *testing.T) {
 	origFS, origPres := fs, pres
 	defer func() { fs, pres = origFS, origPres }()
 	fs = vfs.NameSpace{}
-	fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
+	fs.Bind("/", vfs.FromFS(website.Content), "/", vfs.BindReplace)
 	pres = godoc.NewPresentation(godoc.NewCorpus(fs))
 	readTemplates(pres)
 	mux := registerHandlers(pres)

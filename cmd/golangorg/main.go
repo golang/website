@@ -26,7 +26,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"path/filepath"
 	"regexp"
 	"runtime"
 
@@ -84,21 +83,14 @@ func main() {
 	rootfs := gatefs.New(vfs.OS(*goroot), fsGate)
 	fs.Bind("/", rootfs, "/", vfs.BindReplace)
 
-	// Try serving files in /doc from a local copy before trying the main
+	// Try serving files from _content before trying the main
 	// go repository. This lets us update some documentation outside the
 	// Go release cycle. This includes root.html, which redirects to "/".
 	// See golang.org/issue/29206.
 	if *templateDir != "" {
-		fs.Bind("/doc", vfs.OS(*templateDir), "/doc", vfs.BindBefore)
-		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
-		root := filepath.Join(*templateDir, "..")
-		fs.Bind("/robots.txt", vfs.OS(root), "/robots.txt", vfs.BindBefore)
-		fs.Bind("/favicon.ico", vfs.OS(root), "/favicon.ico", vfs.BindBefore)
+		fs.Bind("/", vfs.OS(*templateDir), "/", vfs.BindBefore)
 	} else {
-		fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
-		fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
-		fs.Bind("/robots.txt", vfs.FromFS(website.Root), "/robots.txt", vfs.BindBefore)
-		fs.Bind("/favicon.ico", vfs.FromFS(website.Root), "/favicon.ico", vfs.BindBefore)
+		fs.Bind("/", vfs.FromFS(website.Content), "/", vfs.BindBefore)
 	}
 
 	corpus := godoc.NewCorpus(fs)

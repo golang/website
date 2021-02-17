@@ -27,7 +27,7 @@ func earlySetup() {
 		os.Exit(2)
 	}
 	dir := filepath.Join(file, "../../../_content")
-	if _, err := os.Stat(filepath.Join(dir, "godoc.html")); err != nil {
+	if _, err := os.Stat(filepath.Join(dir, "lib/godoc/godoc.html")); err != nil {
 		log.Printf("warning: cannot find template dir; using embedded copy")
 		return
 	}

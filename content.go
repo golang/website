@@ -26,7 +26,3 @@ func subdir(fsys fs.FS, path string) fs.FS {
 	}
 	return s
 }
-
-// Root is the website root files: favicon.ico and robots.txt.
-//go:embed favicon.ico robots.txt
-var Root embed.FS
