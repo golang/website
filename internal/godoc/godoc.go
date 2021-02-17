@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // Package godoc is a work-in-progress (2013-07-17) package to
 // begin splitting up the godoc binary into multiple pieces.
 //

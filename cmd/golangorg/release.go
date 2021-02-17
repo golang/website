@@ -12,13 +12,13 @@ import (
 	"fmt"
 	"html"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 	"sort"
 	"strings"
 
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/godoc/vfs"
 	"golang.org/x/website/internal/history"
 )
 
@@ -30,7 +30,7 @@ type releaseHandler struct {
 func (h releaseHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 	const relPath = "doc/devel/release.html"
 
-	src, err := vfs.ReadFile(fs, relPath)
+	src, err := fs.ReadFile(fsys, toFS(relPath))
 	if err != nil {
 		log.Printf("reading template %s: %v", relPath, err)
 		pres.ServeError(w, req, relPath, err)

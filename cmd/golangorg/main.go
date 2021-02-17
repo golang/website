@@ -23,6 +23,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -31,8 +32,6 @@ import (
 
 	"golang.org/x/website"
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/godoc/vfs"
-	"golang.org/x/website/internal/godoc/vfs/gatefs"
 )
 
 var (
@@ -75,23 +74,16 @@ func main() {
 		usage()
 	}
 
-	fsGate := make(chan bool, 20)
-
-	// Determine file system to use.
-	rootfs := gatefs.New(vfs.OS(*goroot), fsGate)
-	fs.Bind("/", rootfs, "/", vfs.BindReplace)
-
-	// Try serving files from _content before trying the main
-	// go repository. This lets us update some documentation outside the
-	// Go release cycle. This includes root.html, which redirects to "/".
-	// See golang.org/issue/29206.
+	// Serve files from _content, falling back to GOROOT.
+	var content fs.FS
 	if *templateDir != "" {
-		fs.Bind("/", vfs.OS(*templateDir), "/", vfs.BindBefore)
+		content = os.DirFS(*templateDir)
 	} else {
-		fs.Bind("/", vfs.FromFS(website.Content), "/", vfs.BindBefore)
+		content = website.Content
 	}
+	fsys = unionFS{content, os.DirFS(*goroot)}
 
-	corpus := godoc.NewCorpus(fs)
+	corpus := godoc.NewCorpus(fsys)
 	corpus.Verbose = *verbose
 	if err := corpus.Init(); err != nil {
 		log.Fatal(err)
@@ -118,7 +110,6 @@ func main() {
 		log.Printf("\tversion = %s", runtime.Version())
 		log.Printf("\taddress = %s", *httpAddr)
 		log.Printf("\tgoroot = %s", *goroot)
-		fs.Fprint(os.Stderr)
 		handler = loggingHandler(handler)
 	}
 
@@ -127,4 +118,66 @@ func main() {
 	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
 	}
+}
+
+var _ fs.ReadDirFS = unionFS{}
+
+// A unionFS is an FS presenting the union of the file systems in the slice.
+// If multiple file systems provide a particular file, Open uses the FS listed earlier in the slice.
+// If multiple file systems provide a particular directory, ReadDir presents the
+// concatenation of all the directories listed in the slice (with duplicates removed).
+type unionFS []fs.FS
+
+func (fsys unionFS) Open(name string) (fs.File, error) {
+	var errOut error
+	for _, sub := range fsys {
+		f, err := sub.Open(name)
+		if err == nil {
+			// Note: Should technically check for directory
+			// and return a synthetic directory that merges
+			// reads from all the matching directories,
+			// but all the directory reads in internal/godoc
+			// come from fsys.ReadDir, which does that for us.
+			// So we can ignore direct f.ReadDir calls.
+			return f, nil
+		}
+		if errOut == nil {
+			errOut = err
+		}
+	}
+	return nil, errOut
+}
+
+func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
+	var all []fs.DirEntry
+	var seen map[string]bool // seen[name] is true if name is listed in all; lazily initialized
+	var errOut error
+	for _, sub := range fsys {
+		list, err := fs.ReadDir(sub, toFS(name))
+		if err != nil {
+			errOut = err
+		}
+		if len(all) == 0 {
+			all = append(all, list...)
+		} else {
+			if seen == nil {
+				// Initialize seen only after we get two different directory listings.
+				seen = make(map[string]bool)
+				for _, d := range all {
+					seen[d.Name()] = true
+				}
+			}
+			for _, d := range list {
+				name := d.Name()
+				if !seen[name] {
+					seen[name] = true
+					all = append(all, d)
+				}
+			}
+		}
+	}
+	if len(all) > 0 {
+		return all, nil
+	}
+	return nil, errOut
 }

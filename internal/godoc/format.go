@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // This file implements FormatSelections and FormatText.
 // FormatText is used to HTML-format Go and non-Go source
 // text with line numbers and highlighted sections. It is

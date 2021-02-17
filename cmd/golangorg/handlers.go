@@ -10,22 +10,31 @@ package main
 import (
 	"encoding/json"
 	"go/format"
+	"io/fs"
 	"log"
 	"net/http"
+	pathpkg "path"
 	"strings"
 	"text/template"
 
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/godoc/vfs"
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/redirect"
 )
 
 var (
 	pres *godoc.Presentation
-	fs   = vfs.NameSpace{}
+	fsys fs.FS
 )
+
+// toFS returns the io/fs name for path (no leading slash).
+func toFS(path string) string {
+	if path == "/" {
+		return "."
+	}
+	return pathpkg.Clean(strings.TrimPrefix(path, "/"))
+}
 
 // hostEnforcerHandler redirects requests to "http://foo.golang.org/bar"
 // to "https://golang.org/bar".
@@ -100,7 +109,7 @@ func readTemplate(name string) *template.Template {
 
 	// use underlying file system fs to read the template file
 	// (cannot use template ParseFile functions directly)
-	data, err := vfs.ReadFile(fs, path)
+	data, err := fs.ReadFile(fsys, toFS(path))
 	if err != nil {
 		log.Fatal("readTemplate: ", err)
 	}

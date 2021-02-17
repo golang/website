@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // This file contains support functions for parsing .go files
 // accessed via godoc's file system fs.
 
@@ -12,9 +15,8 @@ import (
 	"go/ast"
 	"go/parser"
 	"go/token"
+	"io/fs"
 	pathpkg "path"
-
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 var linePrefix = []byte("//line ")
@@ -47,7 +49,7 @@ func replaceLinePrefixCommentsWithBlankLine(src []byte) {
 }
 
 func (c *Corpus) parseFile(fset *token.FileSet, filename string, mode parser.Mode) (*ast.File, error) {
-	src, err := vfs.ReadFile(c.fs, filename)
+	src, err := fs.ReadFile(c.fs, toFS(filename))
 	if err != nil {
 		return nil, err
 	}

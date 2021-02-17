@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // This file contains the code dealing with package directory trees.
 
 package godoc
@@ -10,14 +13,12 @@ import (
 	"go/doc"
 	"go/parser"
 	"go/token"
+	"io/fs"
 	"log"
-	"os"
 	pathpkg "path"
 	"runtime"
 	"sort"
 	"strings"
-
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // Conventional name for directories containing test data.
@@ -35,19 +36,24 @@ type Directory struct {
 	Dirs     []*Directory // subdirectories
 }
 
-func isGoFile(fi os.FileInfo) bool {
+type dirEntryOrFileInfo interface {
+	Name() string
+	IsDir() bool
+}
+
+func isGoFile(fi dirEntryOrFileInfo) bool {
 	name := fi.Name()
 	return !fi.IsDir() &&
 		len(name) > 0 && name[0] != '.' && // ignore .files
 		pathpkg.Ext(name) == ".go"
 }
 
-func isPkgFile(fi os.FileInfo) bool {
+func isPkgFile(fi dirEntryOrFileInfo) bool {
 	return isGoFile(fi) &&
 		!strings.HasSuffix(fi.Name(), "_test.go") // ignore test files
 }
 
-func isPkgDir(fi os.FileInfo) bool {
+func isPkgDir(fi dirEntryOrFileInfo) bool {
 	name := fi.Name()
 	return fi.IsDir() && len(name) > 0 &&
 		name[0] != '_' && name[0] != '.' // ignore _files and .files
@@ -100,7 +106,7 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 	}
 
 	ioGate <- struct{}{}
-	list, err := b.c.fs.ReadDir(path)
+	list, err := fs.ReadDir(b.c.fs, toFS(path))
 	<-ioGate
 	if err != nil {
 		// TODO: propagate more. See golang.org/issue/14252.
@@ -208,9 +214,17 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 	}
 }
 
-func isGOROOT(fs vfs.FileSystem) bool {
-	_, err := fs.Lstat("src/math/abs.go")
+func isGOROOT(fsys fs.FS) bool {
+	_, err := fs.Stat(fsys, "src/math/abs.go")
 	return err == nil
+}
+
+// toFS returns the io/fs name for path (no leading slash).
+func toFS(path string) string {
+	if path == "/" {
+		return "."
+	}
+	return pathpkg.Clean(strings.TrimPrefix(path, "/"))
 }
 
 // newDirectory creates a new package directory tree with at most maxDepth
@@ -225,7 +239,7 @@ func isGOROOT(fs vfs.FileSystem) bool {
 //
 func (c *Corpus) newDirectory(root string, maxDepth int) *Directory {
 	// The root could be a symbolic link so use Stat not Lstat.
-	d, err := c.fs.Stat(root)
+	d, err := fs.Stat(c.fs, toFS(root))
 	// If we fail here, report detailed error messages; otherwise
 	// is is hard to see why a directory tree was not built.
 	switch {

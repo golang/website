@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // Template support for writing HTML documents.
 // Documents that include Template: true in their
 // metadata are executed as input to text/template.
@@ -34,11 +37,10 @@ package godoc
 import (
 	"bytes"
 	"fmt"
+	"io/fs"
 	"log"
 	"regexp"
 	"strings"
-
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // Functions in this file panic on error, but the panic is recovered
@@ -47,7 +49,7 @@ import (
 // contents reads and returns the content of the named file
 // (from the virtual file system, so for example /doc refers to $GOROOT/doc).
 func (c *Corpus) contents(name string) string {
-	file, err := vfs.ReadFile(c.fs, name)
+	file, err := fs.ReadFile(c.fs, toFS(name))
 	if err != nil {
 		log.Panic(err)
 	}

@@ -11,12 +11,12 @@ import (
 	"bytes"
 	"fmt"
 	"html/template"
+	"io/fs"
 	"log"
 	"net/http"
 	"sort"
 
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/godoc/vfs"
 	"golang.org/x/website/internal/history"
 )
 
@@ -33,7 +33,7 @@ func (h projectHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 
 	const relPath = "doc/contrib.html"
 
-	src, err := vfs.ReadFile(fs, relPath)
+	src, err := fs.ReadFile(fsys, toFS(relPath))
 	if err != nil {
 		log.Printf("reading template %s: %v", relPath, err)
 		pres.ServeError(w, req, relPath, err)

@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
@@ -15,6 +18,7 @@ import (
 	"go/token"
 	htmlpkg "html"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -27,7 +31,6 @@ import (
 	"time"
 
 	"golang.org/x/website/internal/godoc/util"
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // handlerServer is a migration from an old godoc http Handler type.
@@ -65,21 +68,24 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 	ctxt := build.Default
 	ctxt.IsAbsPath = pathpkg.IsAbs
 	ctxt.IsDir = func(path string) bool {
-		fi, err := h.c.fs.Stat(filepath.ToSlash(path))
+		fi, err := fs.Stat(h.c.fs, toFS(filepath.ToSlash(path)))
 		return err == nil && fi.IsDir()
 	}
 	ctxt.ReadDir = func(dir string) ([]os.FileInfo, error) {
-		f, err := h.c.fs.ReadDir(filepath.ToSlash(dir))
+		f, err := fs.ReadDir(h.c.fs, toFS(filepath.ToSlash(dir)))
 		filtered := make([]os.FileInfo, 0, len(f))
 		for _, i := range f {
 			if mode&NoFiltering != 0 || i.Name() != "internal" {
-				filtered = append(filtered, i)
+				info, err := i.Info()
+				if err == nil {
+					filtered = append(filtered, info)
+				}
 			}
 		}
 		return filtered, err
 	}
 	ctxt.OpenFile = func(name string) (r io.ReadCloser, err error) {
-		data, err := vfs.ReadFile(h.c.fs, filepath.ToSlash(name))
+		data, err := fs.ReadFile(h.c.fs, toFS(filepath.ToSlash(name)))
 		if err != nil {
 			return nil, err
 		}
@@ -552,7 +558,7 @@ func redirectFile(w http.ResponseWriter, r *http.Request) (redirected bool) {
 }
 
 func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abspath, relpath, title string) {
-	src, err := vfs.ReadFile(p.Corpus.fs, abspath)
+	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
 	if err != nil {
 		log.Printf("ReadFile: %s", err)
 		p.ServeError(w, r, relpath, err)
@@ -636,17 +642,25 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 		return
 	}
 
-	list, err := p.Corpus.fs.ReadDir(abspath)
+	list, err := fs.ReadDir(p.Corpus.fs, toFS(abspath))
 	if err != nil {
 		p.ServeError(w, r, relpath, err)
 		return
+	}
+
+	var info []fs.FileInfo
+	for _, d := range list {
+		i, err := d.Info()
+		if err == nil {
+			info = append(info, i)
+		}
 	}
 
 	p.ServePage(w, Page{
 		Title:    "Directory",
 		SrcPath:  relpath,
 		Tabtitle: relpath,
-		Body:     applyTemplate(p.DirlistHTML, "dirlistHTML", list),
+		Body:     applyTemplate(p.DirlistHTML, "dirlistHTML", info),
 		GoogleCN: googleCN(r),
 	})
 }
@@ -654,9 +668,9 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
 	// get HTML body contents
 	isMarkdown := false
-	src, err := vfs.ReadFile(p.Corpus.fs, abspath)
+	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
 	if err != nil && strings.HasSuffix(abspath, ".html") {
-		if md, errMD := vfs.ReadFile(p.Corpus.fs, strings.TrimSuffix(abspath, ".html")+".md"); errMD == nil {
+		if md, errMD := fs.ReadFile(p.Corpus.fs, toFS(strings.TrimSuffix(abspath, ".html")+".md")); errMD == nil {
 			src = md
 			isMarkdown = true
 			err = nil
@@ -764,19 +778,20 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	dir, err := p.Corpus.fs.Lstat(abspath)
+	dir, err := fs.Stat(p.Corpus.fs, toFS(abspath))
 	if err != nil {
 		log.Print(err)
 		p.ServeError(w, r, relpath, err)
 		return
 	}
 
+	fsPath := toFS(abspath)
 	if dir != nil && dir.IsDir() {
 		if redirect(w, r) {
 			return
 		}
-		index := pathpkg.Join(abspath, "index.html")
-		if util.IsTextFile(p.Corpus.fs, index) || util.IsTextFile(p.Corpus.fs, pathpkg.Join(abspath, "index.md")) {
+		index := pathpkg.Join(fsPath, "index.html")
+		if util.IsTextFile(p.Corpus.fs, index) || util.IsTextFile(p.Corpus.fs, pathpkg.Join(fsPath, "index.md")) {
 			p.ServeHTMLDoc(w, r, index, index)
 			return
 		}
@@ -784,7 +799,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if util.IsTextFile(p.Corpus.fs, abspath) {
+	if util.IsTextFile(p.Corpus.fs, fsPath) {
 		if redirectFile(w, r) {
 			return
 		}

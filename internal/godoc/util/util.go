@@ -2,16 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // Package util contains utility types and functions for godoc.
 package util // import "golang.org/x/website/internal/godoc/util"
 
 import (
+	"io/fs"
 	pathpkg "path"
 	"sync"
 	"time"
 	"unicode/utf8"
-
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // An RWValue wraps a value and permits mutually exclusive
@@ -66,7 +68,7 @@ var textExt = map[string]bool{
 // a text file, or if a significant chunk of the specified file looks like
 // correct UTF-8; that is, if it is likely that the file contains human-
 // readable text.
-func IsTextFile(fs vfs.Opener, filename string) bool {
+func IsTextFile(fsys fs.FS, filename string) bool {
 	// if the extension is known, use it for decision making
 	if isText, found := textExt[pathpkg.Ext(filename)]; found {
 		return isText
@@ -74,7 +76,7 @@ func IsTextFile(fs vfs.Opener, filename string) bool {
 
 	// the extension is not known; read an initial chunk
 	// of the file and check if it looks like text
-	f, err := fs.Open(filename)
+	f, err := fsys.Open(filename)
 	if err != nil {
 		return false
 	}

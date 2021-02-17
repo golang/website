@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
@@ -9,8 +12,6 @@ import (
 	"regexp"
 	"sync"
 	"text/template"
-
-	"golang.org/x/website/internal/godoc/vfs/httpfs"
 )
 
 // Presentation generates output from a corpus.
@@ -84,7 +85,7 @@ func NewPresentation(c *Corpus) *Presentation {
 	p := &Presentation{
 		Corpus:     c,
 		mux:        http.NewServeMux(),
-		fileServer: http.FileServer(httpfs.New(c.fs)),
+		fileServer: http.FileServer(http.FS(c.fs)),
 
 		TabWidth:  4,
 		DeclLinks: true,

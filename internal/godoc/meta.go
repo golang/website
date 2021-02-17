@@ -2,19 +2,21 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"io/fs"
 	"log"
 	"os"
 	pathpkg "path"
 	"strings"
 	"time"
-
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 var (
@@ -67,7 +69,7 @@ func (c *Corpus) updateMetadata() {
 	metadata := make(map[string]*Metadata)
 	var scan func(string) // scan is recursive
 	scan = func(dir string) {
-		fis, err := c.fs.ReadDir(dir)
+		fis, err := fs.ReadDir(c.fs, toFS(dir))
 		if err != nil {
 			if dir == "/doc" && errors.Is(err, os.ErrNotExist) {
 				// Be quiet during tests that don't have a /doc tree.
@@ -86,7 +88,7 @@ func (c *Corpus) updateMetadata() {
 				continue
 			}
 			// Extract metadata from the file.
-			b, err := vfs.ReadFile(c.fs, name)
+			b, err := fs.ReadFile(c.fs, toFS(name))
 			if err != nil {
 				log.Printf("updateMetadata %s: %v", name, err)
 				continue

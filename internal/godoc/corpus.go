@@ -2,15 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
 	"errors"
+	"io/fs"
 	"sync"
 	"time"
 
 	"golang.org/x/website/internal/godoc/util"
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 // A Corpus holds all the state related to serving and indexing a
@@ -19,7 +22,7 @@ import (
 // Construct a new Corpus with NewCorpus, then modify options,
 // then call its Init method.
 type Corpus struct {
-	fs vfs.FileSystem
+	fs fs.FS
 
 	// Verbose logging.
 	Verbose bool
@@ -58,9 +61,9 @@ type Corpus struct {
 // NewCorpus returns a new Corpus from a filesystem.
 // The returned corpus has all indexing enabled and MaxResults set to 1000.
 // Change or set any options on Corpus before calling the Corpus.Init method.
-func NewCorpus(fs vfs.FileSystem) *Corpus {
+func NewCorpus(fsys fs.FS) *Corpus {
 	c := &Corpus{
-		fs:                    fs,
+		fs:                    fsys,
 		refreshMetadataSignal: make(chan bool, 1),
 	}
 	return c

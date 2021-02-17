@@ -21,6 +21,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -33,7 +34,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/godoc/vfs"
 )
 
 var codewalkHTML, codewalkdirHTML *template.Template
@@ -50,7 +50,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If directory exists, serve list of code walks.
-	dir, err := fs.Lstat(abspath)
+	dir, err := fs.Stat(fsys, toFS(abspath))
 	if err == nil && dir.IsDir() {
 		codewalkDir(w, r, relpath, abspath)
 		return
@@ -146,7 +146,7 @@ func (st *Codestep) String() string {
 
 // loadCodewalk reads a codewalk from the named XML file.
 func loadCodewalk(filename string) (*Codewalk, error) {
-	f, err := fs.Open(filename)
+	f, err := fsys.Open(toFS(filename))
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func loadCodewalk(filename string) (*Codewalk, error) {
 			i = len(st.Src)
 		}
 		filename := st.Src[0:i]
-		data, err := vfs.ReadFile(fs, filename)
+		data, err := fs.ReadFile(fsys, toFS(filename))
 		if err != nil {
 			st.Err = err
 			continue
@@ -214,7 +214,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 		Title string
 	}
 
-	dir, err := fs.ReadDir(abspath)
+	dir, err := fs.ReadDir(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
 		pres.ServeError(w, r, relpath, err)
@@ -248,7 +248,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 // the usual godoc HTML wrapper.
 func codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
 	abspath := f
-	data, err := vfs.ReadFile(fs, abspath)
+	data, err := fs.ReadFile(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
 		pres.ServeError(w, r, f, err)

@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
@@ -10,9 +13,8 @@ import (
 	"net/url"
 	"strings"
 	"testing"
+	"testing/fstest"
 	"text/template"
-
-	"golang.org/x/website/internal/godoc/vfs/mapfs"
 )
 
 // TestIgnoredGoFiles tests the scenario where a folder has no .go or .c files,
@@ -21,11 +23,12 @@ func TestIgnoredGoFiles(t *testing.T) {
 	packagePath := "github.com/package"
 	packageComment := "main is documented in an ignored .go file"
 
-	c := NewCorpus(mapfs.New(map[string]string{
-		"src/" + packagePath + "/ignored.go": `// +build ignore
+	c := NewCorpus(fstest.MapFS{
+		"src/" + packagePath + "/ignored.go": {Data: []byte(`// +build ignore
 
 // ` + packageComment + `
-package main`}))
+package main`)},
+	})
 	srv := &handlerServer{
 		p: &Presentation{
 			Corpus: c,
@@ -54,14 +57,15 @@ package main`}))
 
 func TestIssue5247(t *testing.T) {
 	const packagePath = "example.com/p"
-	c := NewCorpus(mapfs.New(map[string]string{
-		"src/" + packagePath + "/p.go": `package p
+	c := NewCorpus(fstest.MapFS{
+		"src/" + packagePath + "/p.go": {Data: []byte(`package p
 
 //line notgen.go:3
 // F doc //line 1 should appear
 // line 2 should appear
 func F()
-//line foo.go:100`})) // No newline at end to check corner cases.
+//line foo.go:100`)}, // No newline at end to check corner cases.
+	})
 
 	srv := &handlerServer{
 		p: &Presentation{Corpus: c},
@@ -85,14 +89,15 @@ func testServeBody(t *testing.T, p *Presentation, path, body string) {
 }
 
 func TestRedirectAndMetadata(t *testing.T) {
-	c := NewCorpus(mapfs.New(map[string]string{
-		"doc/y/index.html": "Hello, y.",
-		"doc/x/index.html": `<!--{
+	c := NewCorpus(fstest.MapFS{
+		"doc/y/index.html": {Data: []byte("Hello, y.")},
+		"doc/x/index.html": {Data: []byte(`<!--{
 		"Path": "/doc/x/"
 }-->
 
 Hello, x.
-`}))
+`)},
+	})
 	c.updateMetadata()
 	p := &Presentation{
 		Corpus:    c,
@@ -118,10 +123,10 @@ Hello, x.
 
 func TestMarkdown(t *testing.T) {
 	p := &Presentation{
-		Corpus: NewCorpus(mapfs.New(map[string]string{
-			"doc/test.md":  "**bold**",
-			"doc/test2.md": `{{"*template*"}}`,
-		})),
+		Corpus: NewCorpus(fstest.MapFS{
+			"doc/test.md":  {Data: []byte("**bold**")},
+			"doc/test2.md": {Data: []byte(`{{"*template*"}}`)},
+		}),
 		GodocHTML: template.Must(template.New("").Parse(`{{printf "%s" .Body}}`)),
 	}
 

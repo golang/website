@@ -2,26 +2,20 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package godoc
 
 import (
-	"go/build"
-	"path/filepath"
+	"os"
 	"runtime"
 	"sort"
 	"testing"
-
-	"golang.org/x/website/internal/godoc/vfs"
-	"golang.org/x/website/internal/godoc/vfs/gatefs"
 )
 
 func TestNewDirTree(t *testing.T) {
-	fsGate := make(chan bool, 20)
-	rootfs := gatefs.New(vfs.OS(runtime.GOROOT()), fsGate)
-	fs := vfs.NameSpace{}
-	fs.Bind("/", rootfs, "/", vfs.BindReplace)
-
-	c := NewCorpus(fs)
+	c := NewCorpus(os.DirFS(runtime.GOROOT()))
 	// 3 levels deep is enough for testing
 	dir := c.newDirectory("/", 3)
 
@@ -46,15 +40,8 @@ func BenchmarkNewDirectory(b *testing.B) {
 		b.Skip("not running tests requiring large file scan in short mode")
 	}
 
-	fsGate := make(chan bool, 20)
+	fs := os.DirFS(runtime.GOROOT())
 
-	goroot := runtime.GOROOT()
-	rootfs := gatefs.New(vfs.OS(goroot), fsGate)
-	fs := vfs.NameSpace{}
-	fs.Bind("/", rootfs, "/", vfs.BindReplace)
-	for _, p := range filepath.SplitList(build.Default.GOPATH) {
-		fs.Bind("/src/golang.org", gatefs.New(vfs.OS(p), fsGate), "/src/golang.org", vfs.BindAfter)
-	}
 	b.ResetTimer()
 	b.ReportAllocs()
 	for tries := 0; tries < b.N; tries++ {
@@ -73,7 +60,7 @@ func TestIsGOROOT(t *testing.T) {
 	}
 
 	for _, item := range tests {
-		fs := vfs.OS(item.path)
+		fs := os.DirFS(item.path)
 		if isGOROOT(fs) != item.isGOROOT {
 			t.Errorf("%s: isGOROOT = %v, want %v", item.path, !item.isGOROOT, item.isGOROOT)
 		}
