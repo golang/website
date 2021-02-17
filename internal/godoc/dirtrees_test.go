@@ -62,3 +62,20 @@ func BenchmarkNewDirectory(b *testing.B) {
 		corpus.newDirectory("/", -1)
 	}
 }
+
+func TestIsGOROOT(t *testing.T) {
+	tests := []struct {
+		path     string
+		isGOROOT bool
+	}{
+		{runtime.GOROOT(), true},
+		{"/tmp/", false},
+	}
+
+	for _, item := range tests {
+		fs := vfs.OS(item.path)
+		if isGOROOT(fs) != item.isGOROOT {
+			t.Errorf("%s: isGOROOT = %v, want %v", item.path, !item.isGOROOT, item.isGOROOT)
+		}
+	}
+}

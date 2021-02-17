@@ -50,8 +50,6 @@ func (f *fsysToFileSystem) Stat(name string) (os.FileInfo, error) {
 	return fs.Stat(f.fsys, f.fsPath(name))
 }
 
-func (f *fsysToFileSystem) RootType(name string) RootType { return "" }
-
 func (f *fsysToFileSystem) ReadDir(name string) ([]os.FileInfo, error) {
 	dirs, err := fs.ReadDir(f.fsys, f.fsPath(name))
 	var infos []os.FileInfo

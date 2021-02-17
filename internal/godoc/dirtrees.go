@@ -31,7 +31,7 @@ type Directory struct {
 	Name     string       // directory name
 	HasPkg   bool         // true if the directory contains at least one package
 	Synopsis string       // package documentation, if any
-	RootType vfs.RootType // root type of the filesystem containing the directory
+	IsGOROOT bool         // is this GOROOT
 	Dirs     []*Directory // subdirectories
 }
 
@@ -203,9 +203,14 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 		Name:     name,
 		HasPkg:   hasPkgFiles && show, // TODO(bradfitz): add proper Hide field?
 		Synopsis: synopsis,
-		RootType: b.c.fs.RootType(path),
+		IsGOROOT: isGOROOT(b.c.fs),
 		Dirs:     dirs,
 	}
+}
+
+func isGOROOT(fs vfs.FileSystem) bool {
+	_, err := fs.Lstat("src/math/abs.go")
+	return err == nil
 }
 
 // newDirectory creates a new package directory tree with at most maxDepth
@@ -302,13 +307,13 @@ func (dir *Directory) lookup(path string) *Directory {
 // are useful for presenting an entry in an indented fashion.
 //
 type DirEntry struct {
-	Depth    int          // >= 0
-	Height   int          // = DirList.MaxHeight - Depth, > 0
-	Path     string       // directory path; includes Name, relative to DirList root
-	Name     string       // directory name
-	HasPkg   bool         // true if the directory contains at least one package
-	Synopsis string       // package documentation, if any
-	RootType vfs.RootType // root type of the filesystem containing the direntry
+	Depth    int    // >= 0
+	Height   int    // = DirList.MaxHeight - Depth, > 0
+	Path     string // directory path; includes Name, relative to DirList root
+	Name     string // directory name
+	HasPkg   bool   // true if the directory contains at least one package
+	Synopsis string // package documentation, if any
+	IsGOROOT bool   // root type of the filesystem containing the direntry
 }
 
 type DirList struct {
@@ -319,11 +324,6 @@ type DirList struct {
 // hasThirdParty checks whether a list of directory entries has packages outside
 // the standard library or not.
 func hasThirdParty(list []DirEntry) bool {
-	for _, entry := range list {
-		if entry.RootType == vfs.RootTypeGoPath {
-			return true
-		}
-	}
 	return false
 }
 
@@ -375,7 +375,7 @@ func (dir *Directory) listing(skipRoot bool, filter func(string) bool) *DirList 
 		p.Name = d.Name
 		p.HasPkg = d.HasPkg
 		p.Synopsis = d.Synopsis
-		p.RootType = d.RootType
+		p.IsGOROOT = d.IsGOROOT
 		list = append(list, p)
 	}
 

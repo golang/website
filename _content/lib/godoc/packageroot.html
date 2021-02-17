@@ -48,7 +48,7 @@
 
 						{{range .List}}
 							<tr>
-							{{if eq .RootType "GOROOT"}}
+							{{if .IsGOROOT}}
 							{{if $.DirFlat}}
 								{{if .HasPkg}}
 										<td class="pkg-name">

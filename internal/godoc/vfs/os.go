@@ -6,7 +6,6 @@ package vfs
 
 import (
 	"fmt"
-	"go/build"
 	"io/ioutil"
 	"os"
 	pathpkg "path"
@@ -28,42 +27,14 @@ var GOROOT = runtime.GOROOT()
 // passed to Open has no way to specify a drive letter.  Using a root
 // lets code refer to OS(`c:\`), OS(`d:\`) and so on.
 func OS(root string) FileSystem {
-	var t RootType
-	switch {
-	case root == GOROOT:
-		t = RootTypeGoRoot
-	case isGoPath(root):
-		t = RootTypeGoPath
-	}
-	return osFS{rootPath: root, rootType: t}
+	return osFS{rootPath: root}
 }
 
 type osFS struct {
 	rootPath string
-	rootType RootType
-}
-
-func isGoPath(path string) bool {
-	for _, bp := range filepath.SplitList(build.Default.GOPATH) {
-		for _, gp := range filepath.SplitList(path) {
-			if bp == gp {
-				return true
-			}
-		}
-	}
-	return false
 }
 
 func (root osFS) String() string { return "os(" + root.rootPath + ")" }
-
-// RootType returns the root type for the filesystem.
-//
-// Note that we ignore the path argument because roottype is a property of
-// this filesystem. But for other filesystems, the roottype might need to be
-// dynamically deduced at call time.
-func (root osFS) RootType(path string) RootType {
-	return root.rootType
-}
 
 func (root osFS) resolve(path string) string {
 	// Clean the path so that it cannot possibly begin with ../.
