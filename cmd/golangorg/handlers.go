@@ -2,13 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// The /doc/codewalk/ tree is synthesized from codewalk descriptions,
-// files named $GOROOT/doc/codewalk/*.xml.
-// For an example and a description of the format, see
-// http://golang.org/doc/codewalk/codewalk or run godoc -http=:6060
-// and see http://localhost:6060/doc/codewalk/codewalk .
-// That page is itself a codewalk; the source code for it is
-// $GOROOT/doc/codewalk/codewalk.xml.
+//go:build go1.16
+// +build go1.16
 
 package main
 

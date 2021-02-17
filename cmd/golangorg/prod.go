@@ -2,29 +2,19 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build go1.16
-// +build golangorg
+//go:build go1.16 && prod
+// +build go1.16,prod
 
 package main
 
-// This file replaces main.go when running golangorg under App Engine.
-// See README.md for details.
-
 import (
 	"context"
-	"go/build"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"regexp"
-	"runtime"
 	"strings"
 
-	"golang.org/x/tools/godoc"
-	"golang.org/x/tools/godoc/vfs"
-	"golang.org/x/tools/godoc/vfs/gatefs"
-	"golang.org/x/website"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
@@ -34,51 +24,22 @@ import (
 	"golang.org/x/website/internal/memcache"
 )
 
-func main() {
+func earlySetup() {
 	log.SetFlags(log.Lshortfile | log.LstdFlags)
-
-	playEnabled = true
-
 	log.Println("initializing golang.org server ...")
 
-	fsGate := make(chan bool, 20)
-
-	rootfs := gatefs.New(vfs.OS(runtime.GOROOT()), fsGate)
-	fs.Bind("/", rootfs, "/", vfs.BindReplace)
-
-	// Try serving files in /doc from a local copy before trying the main
-	// go repository. This lets us update some documentation outside the
-	// Go release cycle. This includes root.html, which redirects to "/".
-	// See golang.org/issue/29206.
-	fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
-	fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
-
-	webroot := getFullPath("/src/golang.org/x/website")
-	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)
-
-	corpus := godoc.NewCorpus(fs)
-	corpus.Verbose = false
-	corpus.MaxResults = 10000 // matches flag default in main.go
-	corpus.IndexEnabled = false
-	if err := corpus.Init(); err != nil {
-		log.Fatal(err)
+	port := "8080"
+	if p := os.Getenv("PORT"); p != "" {
+		port = p
 	}
-	corpus.InitVersionInfo()
+	*httpAddr = ":" + port
+}
 
-	pres = godoc.NewPresentation(corpus)
-	pres.ShowPlayground = true
-	pres.DeclLinks = true
-	pres.NotesRx = regexp.MustCompile("BUG")
+func lateSetup(mux *http.ServeMux) {
 	pres.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
-
-	readTemplates(pres)
 
 	datastoreClient, memcacheClient := getClients()
 
-	// NOTE(cbro): registerHandlers registers itself against DefaultServeMux.
-	// The mux returned has host enforcement, so it's important to register
-	// against this mux and not DefaultServeMux.
-	mux := registerHandlers(pres)
 	dl.RegisterHandlers(mux, datastoreClient, memcacheClient)
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
 
@@ -100,21 +61,6 @@ func main() {
 	}
 
 	log.Println("godoc initialization complete")
-
-	// TODO(cbro): add instrumentation via opencensus.
-	port := "8080"
-	if p := os.Getenv("PORT"); p != "" { // PORT is set by GAE flex.
-		port = p
-	}
-	log.Fatal(http.ListenAndServe(":"+port, nil))
-}
-
-func getFullPath(relPath string) string {
-	gopath := os.Getenv("GOPATH")
-	if gopath == "" {
-		gopath = build.Default.GOPATH
-	}
-	return gopath + relPath
 }
 
 func getClients() (*datastore.Client, *memcache.Client) {

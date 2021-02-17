@@ -16,10 +16,9 @@ To run in production mode locally, you need:
   * Godoc sources inside $GOPATH
     (`go get -d golang.org/x/website/cmd/golangorg`)
 
-Build with the `golangorg` tag and run:
+Run with the `prod` tag:
 
-	go build -tags golangorg
-	./golangorg
+	go run -tags prod .
 
 In production mode it serves on localhost:8080 (not 6060).
 The port is controlled by $PORT, as in:

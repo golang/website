@@ -21,7 +21,7 @@ COPY . /website
 
 WORKDIR /website/cmd/golangorg
 
-RUN go build -o /golangorg -tags=golangorg golang.org/x/website/cmd/golangorg
+RUN go build -o /golangorg -tags=prod golang.org/x/website/cmd/golangorg
 
 # Clean up goroot for the final image.
 RUN cd /goroot && git clean -xdf

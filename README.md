@@ -8,7 +8,7 @@ Content is in _content/. Server code is in cmd/ and internal/.
 
 To run the server to preview local content changes, use:
 
-	go run ./cmd/golangorg -a
+	go run ./cmd/golangorg
 
 The supporting programs cmd/admingolangorg and cmd/googlegolangorg
 are the servers for admin.golang.org and google.golang.org.

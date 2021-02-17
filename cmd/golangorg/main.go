@@ -15,22 +15,16 @@
 //				https://golang.org/pkg/compress/zlib)
 //
 
-// Some pages are being transitioned from $GOROOT to content/doc.
-// See golang.org/issue/29206 and golang.org/issue/33637.
-
+//go:build go1.16
 // +build go1.16
-// +build !golangorg
 
 package main
 
 import (
-	_ "expvar" // to serve /debug/vars
 	"flag"
 	"fmt"
-	"go/build"
 	"log"
 	"net/http"
-	_ "net/http/pprof" // to serve /debug/pprof/*
 	"os"
 	"path/filepath"
 	"regexp"
@@ -42,39 +36,19 @@ import (
 	"golang.org/x/website"
 )
 
-const defaultAddr = "localhost:6060" // default webserver address
-
 var (
-	// network
-	httpAddr = flag.String("http", defaultAddr, "HTTP service address")
-
-	verbose = flag.Bool("v", false, "verbose mode")
-
-	// file system roots
-	// TODO(gri) consider the invariant that goroot always end in '/'
-	goroot = flag.String("goroot", findGOROOT(), "Go root directory")
-
-	// layout control
-	autoFlag       = flag.Bool("a", false, "update templates automatically")
+	httpAddr       = flag.String("http", "localhost:6060", "HTTP service address")
+	verbose        = flag.Bool("v", false, "verbose mode")
+	goroot         = flag.String("goroot", runtime.GOROOT(), "Go root directory")
 	showTimestamps = flag.Bool("timestamps", false, "show timestamps with directory listings")
 	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content)")
-	showPlayground = flag.Bool("play", false, "enable playground")
+	showPlayground = flag.Bool("play", true, "enable playground")
 	declLinks      = flag.Bool("links", true, "link identifiers to their declarations")
-
-	// source code notes
-	notesRx = flag.String("notes", "BUG", "regular expression matching note markers to show")
+	notesRx        = flag.String("notes", "BUG", "regular expression matching note markers to show")
 )
 
-func getFullPath(relPath string) string {
-	gopath := os.Getenv("GOPATH")
-	if gopath == "" {
-		gopath = build.Default.GOPATH
-	}
-	return gopath + relPath
-}
-
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: golangorg -http="+defaultAddr+"\n")
+	fmt.Fprintf(os.Stderr, "usage: golangorg\n")
 	flag.PrintDefaults()
 	os.Exit(2)
 }
@@ -86,36 +60,11 @@ func loggingHandler(h http.Handler) http.Handler {
 	})
 }
 
-func initCorpus(corpus *godoc.Corpus) {
-	err := corpus.Init()
-	if err != nil {
-		log.Fatal(err)
-	}
-}
-
 func main() {
+	earlySetup()
+
 	flag.Usage = usage
 	flag.Parse()
-
-	// Find templates in -a mode.
-	if *autoFlag {
-		if *templateDir != "" {
-			fmt.Fprintln(os.Stderr, "Cannot use -a and -templates together.")
-			usage()
-		}
-		_, file, _, ok := runtime.Caller(0)
-		if !ok {
-			fmt.Fprintln(os.Stderr, "runtime.Caller failed: cannot find templates for -a mode.")
-			os.Exit(2)
-		}
-		dir := filepath.Join(file, "../../../_content")
-		if _, err := os.Stat(filepath.Join(dir, "godoc.html")); err != nil {
-			fmt.Fprintln(os.Stderr, err)
-			fmt.Fprintln(os.Stderr, "Cannot find templates for -a mode.")
-			os.Exit(2)
-		}
-		*templateDir = dir
-	}
 
 	playEnabled = *showPlayground
 
@@ -129,14 +78,12 @@ func main() {
 		usage()
 	}
 
-	// Set the resolved goroot.
-	vfs.GOROOT = *goroot
-
 	fsGate := make(chan bool, 20)
 
 	// Determine file system to use.
 	rootfs := gatefs.New(vfs.OS(*goroot), fsGate)
 	fs.Bind("/", rootfs, "/", vfs.BindReplace)
+
 	// Try serving files in /doc from a local copy before trying the main
 	// go repository. This lets us update some documentation outside the
 	// Go release cycle. This includes root.html, which redirects to "/".
@@ -144,25 +91,22 @@ func main() {
 	if *templateDir != "" {
 		fs.Bind("/doc", vfs.OS(*templateDir), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", vfs.OS(*templateDir), "/", vfs.BindBefore)
+		root := filepath.Join(*templateDir, "..")
+		fs.Bind("/robots.txt", vfs.OS(root), "/robots.txt", vfs.BindBefore)
+		fs.Bind("/favicon.ico", vfs.OS(root), "/favicon.ico", vfs.BindBefore)
 	} else {
 		fs.Bind("/doc", vfs.FromFS(website.Content), "/doc", vfs.BindBefore)
 		fs.Bind("/lib/godoc", vfs.FromFS(website.Content), "/", vfs.BindReplace)
+		fs.Bind("/robots.txt", vfs.FromFS(website.Root), "/robots.txt", vfs.BindBefore)
+		fs.Bind("/favicon.ico", vfs.FromFS(website.Root), "/favicon.ico", vfs.BindBefore)
 	}
-
-	// Bind $GOPATH trees into Go root.
-	for _, p := range filepath.SplitList(build.Default.GOPATH) {
-		fs.Bind("/src", gatefs.New(vfs.OS(p), fsGate), "/src", vfs.BindAfter)
-	}
-
-	webroot := getFullPath("/src/golang.org/x/website")
-	fs.Bind("/robots.txt", gatefs.New(vfs.OS(webroot), fsGate), "/robots.txt", vfs.BindBefore)
-	fs.Bind("/favicon.ico", gatefs.New(vfs.OS(webroot), fsGate), "/favicon.ico", vfs.BindBefore)
 
 	corpus := godoc.NewCorpus(fs)
 	corpus.Verbose = *verbose
-
-	go initCorpus(corpus)
-
+	corpus.IndexEnabled = false
+	if err := corpus.Init(); err != nil {
+		log.Fatal(err)
+	}
 	// Initialize the version info before readTemplates, which saves
 	// the map value in a method value.
 	corpus.InitVersionInfo()
@@ -176,7 +120,8 @@ func main() {
 	}
 
 	readTemplates(pres)
-	registerHandlers(pres)
+	mux := registerHandlers(pres)
+	lateSetup(mux)
 
 	var handler http.Handler = http.DefaultServeMux
 	if *verbose {

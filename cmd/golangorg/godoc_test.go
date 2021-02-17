@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
 // +build go1.16
 
 package main_test
@@ -74,14 +75,6 @@ func waitForServerReady(t *testing.T, addr string) {
 		fmt.Sprintf("http://%v/", addr),
 		"The Go Programming Language",
 		15*time.Second,
-		false)
-}
-
-func waitForSearchReady(t *testing.T, addr string) {
-	waitForServer(t,
-		fmt.Sprintf("http://%v/search?q=FALLTHROUGH", addr),
-		"The list of tokens.",
-		2*time.Minute,
 		false)
 }
 

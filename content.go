@@ -2,6 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
 // +build go1.16
 
 // Package website exports the static content as an embed.FS.
@@ -25,3 +26,7 @@ func subdir(fsys fs.FS, path string) fs.FS {
 	}
 	return s
 }
+
+// Root is the website root files: favicon.ico and robots.txt.
+//go:embed favicon.ico robots.txt
+var Root embed.FS
