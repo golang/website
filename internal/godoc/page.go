@@ -23,7 +23,6 @@ type Page struct {
 	Query    string
 	Body     []byte
 	GoogleCN bool // page is being served from golang.google.cn
-	TreeView bool // page needs to contain treeview related js and css
 
 	// filled in by ServePage
 	SearchBox       bool

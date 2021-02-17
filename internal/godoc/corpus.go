@@ -9,7 +9,6 @@ import (
 	"sync"
 	"time"
 
-	"golang.org/x/website/internal/godoc/analysis"
 	"golang.org/x/website/internal/godoc/util"
 	"golang.org/x/website/internal/godoc/vfs"
 )
@@ -98,9 +97,6 @@ type Corpus struct {
 
 	// SearchIndex is the search index in use.
 	searchIndex util.RWValue
-
-	// Analysis is the result of type and pointer analysis.
-	Analysis analysis.Result
 
 	// flag to check whether a corpus is initialized or not
 	initMu   sync.RWMutex
