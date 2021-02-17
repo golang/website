@@ -29,8 +29,6 @@ import (
 	"strings"
 	"text/template"
 	"time"
-
-	"golang.org/x/website/internal/godoc/util"
 )
 
 // handlerServer is a migration from an old godoc http Handler type.
@@ -791,7 +789,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 		index := pathpkg.Join(fsPath, "index.html")
-		if util.IsTextFile(p.Corpus.fs, index) || util.IsTextFile(p.Corpus.fs, pathpkg.Join(fsPath, "index.md")) {
+		if isTextFile(p.Corpus.fs, index) || isTextFile(p.Corpus.fs, pathpkg.Join(fsPath, "index.md")) {
 			p.ServeHTMLDoc(w, r, index, index)
 			return
 		}
@@ -799,7 +797,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if util.IsTextFile(p.Corpus.fs, fsPath) {
+	if isTextFile(p.Corpus.fs, fsPath) {
 		if redirectFile(w, r) {
 			return
 		}

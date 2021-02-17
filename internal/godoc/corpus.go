@@ -12,8 +12,6 @@ import (
 	"io/fs"
 	"sync"
 	"time"
-
-	"golang.org/x/website/internal/godoc/util"
 )
 
 // A Corpus holds all the state related to serving and indexing a
@@ -45,9 +43,9 @@ type Corpus struct {
 	refreshMetadataSignal chan bool
 
 	// file system information
-	fsTree      util.RWValue // *Directory tree of packages, updated with each sync (but sync code is removed now)
-	fsModified  util.RWValue // timestamp of last call to invalidateIndex
-	docMetadata util.RWValue // mapping from paths to *Metadata
+	fsTree      rwValue // *Directory tree of packages, updated with each sync (but sync code is removed now)
+	fsModified  rwValue // timestamp of last call to invalidateIndex
+	docMetadata rwValue // mapping from paths to *Metadata
 
 	// flag to check whether a corpus is initialized or not
 	initMu   sync.RWMutex

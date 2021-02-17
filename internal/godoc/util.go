@@ -5,8 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-// Package util contains utility types and functions for godoc.
-package util // import "golang.org/x/website/internal/godoc/util"
+package godoc
 
 import (
 	"io/fs"
@@ -16,22 +15,22 @@ import (
 	"unicode/utf8"
 )
 
-// An RWValue wraps a value and permits mutually exclusive
+// An rwValue wraps a value and permits mutually exclusive
 // access to it and records the time the value was last set.
-type RWValue struct {
+type rwValue struct {
 	mutex     sync.RWMutex
 	value     interface{}
 	timestamp time.Time // time of last set()
 }
 
-func (v *RWValue) Set(value interface{}) {
+func (v *rwValue) Set(value interface{}) {
 	v.mutex.Lock()
 	v.value = value
 	v.timestamp = time.Now()
 	v.mutex.Unlock()
 }
 
-func (v *RWValue) Get() (interface{}, time.Time) {
+func (v *rwValue) Get() (interface{}, time.Time) {
 	v.mutex.RLock()
 	defer v.mutex.RUnlock()
 	return v.value, v.timestamp
@@ -64,11 +63,11 @@ var textExt = map[string]bool{
 	".svg": false, // must be served raw
 }
 
-// IsTextFile reports whether the file has a known extension indicating
+// isTextFile reports whether the file has a known extension indicating
 // a text file, or if a significant chunk of the specified file looks like
 // correct UTF-8; that is, if it is likely that the file contains human-
 // readable text.
-func IsTextFile(fsys fs.FS, filename string) bool {
+func isTextFile(fsys fs.FS, filename string) bool {
 	// if the extension is known, use it for decision making
 	if isText, found := textExt[pathpkg.Ext(filename)]; found {
 		return isText
