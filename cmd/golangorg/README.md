@@ -13,8 +13,6 @@ To run in production mode locally, you need:
   * the Google Cloud SDK; see https://cloud.google.com/sdk/
   * Redis
   * Go sources under $GOROOT
-  * Godoc sources inside $GOPATH
-    (`go get -d golang.org/x/website/cmd/golangorg`)
 
 Run with the `prod` tag:
 

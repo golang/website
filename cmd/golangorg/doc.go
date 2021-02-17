@@ -35,9 +35,9 @@ The flags are:
 	-templates=""
 		directory containing alternate template files; if set,
 		the directory may provide alternative template files
-		for the files in $GOROOT/lib/godoc
+		for the files in _content/
 
-By default, godoc looks at the packages it finds via $GOROOT and $GOPATH (if set).
+By default, golangorg looks at the packages it finds via $GOROOT (if set).
 This behavior can be altered by providing an alternative $GOROOT with the -goroot
 flag.
 

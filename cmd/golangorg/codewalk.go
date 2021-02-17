@@ -6,12 +6,12 @@
 // +build go1.16
 
 // The /doc/codewalk/ tree is synthesized from codewalk descriptions,
-// files named $GOROOT/doc/codewalk/*.xml.
+// files named _content/doc/codewalk/*.xml.
 // For an example and a description of the format, see
 // http://golang.org/doc/codewalk/codewalk or run godoc -http=:6060
 // and see http://localhost:6060/doc/codewalk/codewalk .
 // That page is itself a codewalk; the source code for it is
-// $GOROOT/doc/codewalk/codewalk.xml.
+// _content/doc/codewalk/codewalk.xml.
 
 package main
 
