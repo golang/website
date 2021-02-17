@@ -10,11 +10,11 @@ import (
 	"log"
 	"os"
 	"strconv"
-
-	"golang.org/x/website/internal/godoc/golangorgenv"
 )
 
 var (
+	checkCountry       = boolEnv("GOLANGORG_CHECK_COUNTRY")
+	enforceHosts       = boolEnv("GOLANGORG_ENFORCE_HOSTS")
 	requireDLSecretKey = boolEnv("GOLANGORG_REQUIRE_DL_SECRET_KEY")
 )
 
@@ -25,24 +25,14 @@ func RequireDLSecretKey() bool {
 	return requireDLSecretKey
 }
 
-// Use the golangorgenv package for common configuration, instead
-// of duplicating it. This reduces the risk of divergence between
-// the environment variables that this env package uses, and ones
-// that golangorgenv uses.
-//
-// TODO(dmitshur): When the golang.org/x/tools/playground package becomes unused,
-// and golang.org/x/tools/godoc is modified to accept configuration explicitly,
-// the golang.org/x/tools/godoc/golangorgenv package can be deleted.
-// At that time, its implementation can be inlined into this package, as needed.
-
 // CheckCountry reports whether country restrictions should be enforced.
 func CheckCountry() bool {
-	return golangorgenv.CheckCountry()
+	return checkCountry
 }
 
 // EnforceHosts reports whether host filtering should be enforced.
 func EnforceHosts() bool {
-	return golangorgenv.EnforceHosts()
+	return enforceHosts
 }
 
 func boolEnv(key string) bool {
