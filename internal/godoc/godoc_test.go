@@ -250,25 +250,6 @@ func linkifySource(t *testing.T, src []byte) string {
 	return buf.String()
 }
 
-func TestScanIdentifier(t *testing.T) {
-	tests := []struct {
-		in, want string
-	}{
-		{"foo bar", "foo"},
-		{"foo/bar", "foo"},
-		{" foo", ""},
-		{"фоо", "фоо"},
-		{"f123", "f123"},
-		{"123f", ""},
-	}
-	for _, tt := range tests {
-		got := scanIdentifier([]byte(tt.in))
-		if string(got) != tt.want {
-			t.Errorf("scanIdentifier(%q) = %q; want %q", tt.in, got, tt.want)
-		}
-	}
-}
-
 func TestReplaceLeadingIndentation(t *testing.T) {
 	oldIndent := strings.Repeat(" ", 2)
 	newIndent := strings.Repeat(" ", 4)

@@ -25,10 +25,14 @@ import (
 	"os"
 	pathpkg "path"
 	"path/filepath"
+	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"text/template"
 	"time"
+
+	"golang.org/x/website/internal/texthtml"
 )
 
 // handlerServer is a migration from an old godoc http Handler type.
@@ -555,6 +559,23 @@ func redirectFile(w http.ResponseWriter, r *http.Request) (redirected bool) {
 	return
 }
 
+var selRx = regexp.MustCompile(`^([0-9]+):([0-9]+)`)
+
+// rangeSelection computes the Selection for a text range described
+// by the argument str, of the form Start:End, where Start and End
+// are decimal byte offsets.
+func rangeSelection(str string) texthtml.Selection {
+	m := selRx.FindStringSubmatch(str)
+	if len(m) >= 2 {
+		from, _ := strconv.Atoi(m[1])
+		to, _ := strconv.Atoi(m[2])
+		if from < to {
+			return texthtml.Spans(texthtml.Span{Start: from, End: to})
+		}
+	}
+	return nil
+}
+
 func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abspath, relpath, title string) {
 	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
 	if err != nil {
@@ -568,19 +589,18 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 		return
 	}
 
-	h := r.FormValue("h")
-	s := RangeSelection(r.FormValue("s"))
+	cfg := texthtml.Config{
+		GoComments: pathpkg.Ext(abspath) == ".go",
+		Highlight:  r.FormValue("h"),
+		Selection:  rangeSelection(r.FormValue("s")),
+		Line:       1,
+	}
 
 	var buf bytes.Buffer
-	if pathpkg.Ext(abspath) == ".go" {
-		buf.WriteString("<pre>")
-		formatGoSource(&buf, src, h, s)
-		buf.WriteString("</pre>")
-	} else {
-		buf.WriteString("<pre>")
-		FormatText(&buf, src, 1, false, h, s)
-		buf.WriteString("</pre>")
-	}
+	buf.WriteString("<pre>")
+	buf.Write(texthtml.Format(src, cfg))
+	buf.WriteString("</pre>")
+
 	fmt.Fprintf(&buf, `<p><a href="/%s?m=text">View as plain text</a></p>`, htmlpkg.EscapeString(relpath))
 
 	p.ServePage(w, Page{
@@ -590,49 +610,6 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 		Body:     buf.Bytes(),
 		GoogleCN: p.googleCN(r),
 	})
-}
-
-// formatGoSource HTML-escapes Go source text and writes it to w.
-func formatGoSource(buf *bytes.Buffer, text []byte, pattern string, selection Selection) {
-	// Emit to a temp buffer so that we can add line anchors at the end.
-	saved, buf := buf, new(bytes.Buffer)
-
-	comments := tokenSelection(text, token.COMMENT)
-	var highlights Selection
-	if pattern != "" {
-		highlights = regexpSelection(text, pattern)
-	}
-
-	FormatSelections(buf, text, nil, nil, selectionTag, comments, highlights, selection)
-
-	// Now copy buf to saved, adding line anchors.
-
-	// The lineSelection mechanism can't be composed with our
-	// linkWriter, so we have to add line spans as another pass.
-	n := 1
-	for _, line := range bytes.Split(buf.Bytes(), []byte("\n")) {
-		// The line numbers are inserted into the document via a CSS ::before
-		// pseudo-element. This prevents them from being copied when users
-		// highlight and copy text.
-		// ::before is supported in 98% of browsers: https://caniuse.com/#feat=css-gencontent
-		// This is also the trick Github uses to hide line numbers.
-		//
-		// The first tab for the code snippet needs to start in column 9, so
-		// it indents a full 8 spaces, hence the two nbsp's. Otherwise the tab
-		// character only indents a short amount.
-		//
-		// Due to rounding and font width Firefox might not treat 8 rendered
-		// characters as 8 characters wide, and subsequently may treat the tab
-		// character in the 9th position as moving the width from (7.5 or so) up
-		// to 8. See
-		// https://github.com/webcompat/web-bugs/issues/17530#issuecomment-402675091
-		// for a fuller explanation. The solution is to add a CSS class to
-		// explicitly declare the width to be 8 characters.
-		fmt.Fprintf(saved, `<span id="L%d" class="ln">%6d&nbsp;&nbsp;</span>`, n, n)
-		n++
-		saved.Write(line)
-		saved.WriteByte('\n')
-	}
 }
 
 func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, abspath, relpath string) {

@@ -41,6 +41,8 @@ import (
 	"log"
 	"regexp"
 	"strings"
+
+	"golang.org/x/website/internal/texthtml"
 )
 
 // Functions in this file panic on error, but the panic is recovered
@@ -100,7 +102,7 @@ func (p *Presentation) code(file string, arg ...interface{}) (s string, err erro
 	text = strings.Replace(text, "\t", "    ", -1)
 	var buf bytes.Buffer
 	// HTML-escape text and syntax-color comments like elsewhere.
-	FormatText(&buf, []byte(text), -1, true, "", nil)
+	buf.Write(texthtml.Format([]byte(text), texthtml.Config{GoComments: true}))
 	// Include the command as a comment.
 	text = fmt.Sprintf("<pre><!--{{%s}}\n-->%s</pre>", command, buf.Bytes())
 	return text, nil

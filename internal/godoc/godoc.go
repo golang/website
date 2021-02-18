@@ -31,6 +31,8 @@ import (
 	"time"
 	"unicode"
 	"unicode/utf8"
+
+	"golang.org/x/website/internal/texthtml"
 )
 
 // Fake relative package path for built-ins. Documentation for all globals
@@ -127,148 +129,15 @@ func (p *Presentation) node_htmlFunc(info *PageInfo, node interface{}, linkify b
 	p.writeNode(&buf1, info, info.FSet, node)
 
 	var buf2 bytes.Buffer
-	if n, _ := node.(ast.Node); n != nil && linkify && p.DeclLinks {
-		LinkifyText(&buf2, buf1.Bytes(), n)
-		if st, name := isStructTypeDecl(n); st != nil {
-			addStructFieldIDAttributes(&buf2, name, st)
-		}
-	} else {
-		FormatText(&buf2, buf1.Bytes(), -1, true, "", nil)
+	var n ast.Node
+	if linkify && p.DeclLinks {
+		n, _ = node.(ast.Node)
 	}
-
+	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
+		AST:        n,
+		GoComments: true,
+	}))
 	return buf2.String()
-}
-
-// isStructTypeDecl checks whether n is a struct declaration.
-// It either returns a non-nil StructType and its name, or zero values.
-func isStructTypeDecl(n ast.Node) (st *ast.StructType, name string) {
-	gd, ok := n.(*ast.GenDecl)
-	if !ok || gd.Tok != token.TYPE {
-		return nil, ""
-	}
-	if gd.Lparen > 0 {
-		// Parenthesized type. Who does that, anyway?
-		// TODO: Reportedly gri does. Fix this to handle that too.
-		return nil, ""
-	}
-	if len(gd.Specs) != 1 {
-		return nil, ""
-	}
-	ts, ok := gd.Specs[0].(*ast.TypeSpec)
-	if !ok {
-		return nil, ""
-	}
-	st, ok = ts.Type.(*ast.StructType)
-	if !ok {
-		return nil, ""
-	}
-	return st, ts.Name.Name
-}
-
-// addStructFieldIDAttributes modifies the contents of buf such that
-// all struct fields of the named struct have <span id='name.Field'>
-// in them, so people can link to /#Struct.Field.
-func addStructFieldIDAttributes(buf *bytes.Buffer, name string, st *ast.StructType) {
-	if st.Fields == nil {
-		return
-	}
-	// needsLink is a set of identifiers that still need to be
-	// linked, where value == key, to avoid an allocation in func
-	// linkedField.
-	needsLink := make(map[string]string)
-
-	for _, f := range st.Fields.List {
-		if len(f.Names) == 0 {
-			continue
-		}
-		fieldName := f.Names[0].Name
-		needsLink[fieldName] = fieldName
-	}
-	var newBuf bytes.Buffer
-	foreachLine(buf.Bytes(), func(line []byte) {
-		if fieldName := linkedField(line, needsLink); fieldName != "" {
-			fmt.Fprintf(&newBuf, `<span id="%s.%s"></span>`, name, fieldName)
-			delete(needsLink, fieldName)
-		}
-		newBuf.Write(line)
-	})
-	buf.Reset()
-	buf.Write(newBuf.Bytes())
-}
-
-// foreachLine calls fn for each line of in, where a line includes
-// the trailing "\n", except on the last line, if it doesn't exist.
-func foreachLine(in []byte, fn func(line []byte)) {
-	for len(in) > 0 {
-		nl := bytes.IndexByte(in, '\n')
-		if nl == -1 {
-			fn(in)
-			return
-		}
-		fn(in[:nl+1])
-		in = in[nl+1:]
-	}
-}
-
-// commentPrefix is the line prefix for comments after they've been HTMLified.
-var commentPrefix = []byte(`<span class="comment">// `)
-
-// linkedField determines whether the given line starts with an
-// identifier in the provided ids map (mapping from identifier to the
-// same identifier). The line can start with either an identifier or
-// an identifier in a comment. If one matches, it returns the
-// identifier that matched. Otherwise it returns the empty string.
-func linkedField(line []byte, ids map[string]string) string {
-	line = bytes.TrimSpace(line)
-
-	// For fields with a doc string of the
-	// conventional form, we put the new span into
-	// the comment instead of the field.
-	// The "conventional" form is a complete sentence
-	// per https://golang.org/s/style#comment-sentences like:
-	//
-	//    // Foo is an optional Fooer to foo the foos.
-	//    Foo Fooer
-	//
-	// In this case, we want the #StructName.Foo
-	// link to make the browser go to the comment
-	// line "Foo is an optional Fooer" instead of
-	// the "Foo Fooer" line, which could otherwise
-	// obscure the docs above the browser's "fold".
-	//
-	// TODO: do this better, so it works for all
-	// comments, including unconventional ones.
-	line = bytes.TrimPrefix(line, commentPrefix)
-	id := scanIdentifier(line)
-	if len(id) == 0 {
-		// No leading identifier. Avoid map lookup for
-		// somewhat common case.
-		return ""
-	}
-	return ids[string(id)]
-}
-
-// scanIdentifier scans a valid Go identifier off the front of v and
-// either returns a subslice of v if there's a valid identifier, or
-// returns a zero-length slice.
-func scanIdentifier(v []byte) []byte {
-	var n int // number of leading bytes of v belonging to an identifier
-	for {
-		r, width := utf8.DecodeRune(v[n:])
-		if !(isLetter(r) || n > 0 && isDigit(r)) {
-			break
-		}
-		n += width
-	}
-	return v[:n]
-}
-
-func isLetter(ch rune) bool {
-	return 'a' <= ch && ch <= 'z' || 'A' <= ch && ch <= 'Z' || ch == '_' || ch >= utf8.RuneSelf && unicode.IsLetter(ch)
-}
-
-func isDigit(ch rune) bool {
-	return '0' <= ch && ch <= '9' || ch >= utf8.RuneSelf && unicode.IsDigit(ch)
 }
 
 func comment_htmlFunc(comment string) string {
