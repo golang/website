@@ -189,6 +189,43 @@ func TestUnstableShown(t *testing.T) {
 	}
 }
 
+func TestFilesToFeatured(t *testing.T) {
+	fs := []File{
+		{Filename: "go1.16.3.src.tar.gz", Version: "go1.16.3", OS: "", Arch: "", Kind: "source"},
+		{Filename: "go1.16.3.darwin-amd64.tar.gz", Version: "go1.16.3", OS: "darwin", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.3.darwin-amd64.pkg", Version: "go1.16.3", OS: "darwin", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.16.3.darwin-arm64.tar.gz", Version: "go1.16.3", OS: "darwin", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.16.3.darwin-arm64.pkg", Version: "go1.16.3", OS: "darwin", Arch: "arm64", Kind: "installer"},
+		{Filename: "go1.16.3.freebsd-386.tar.gz", Version: "go1.16.3", OS: "freebsd", Arch: "386", Kind: "archive"},
+		{Filename: "go1.16.3.freebsd-amd64.tar.gz", Version: "go1.16.3", OS: "freebsd", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.3.linux-386.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "386", Kind: "archive"},
+		{Filename: "go1.16.3.linux-amd64.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.3.linux-arm64.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.16.3.linux-armv6l.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "armv6l", Kind: "archive"},
+		{Filename: "go1.16.3.linux-ppc64le.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "ppc64le", Kind: "archive"},
+		{Filename: "go1.16.3.linux-s390x.tar.gz", Version: "go1.16.3", OS: "linux", Arch: "s390x", Kind: "archive"},
+		{Filename: "go1.16.3.windows-386.zip", Version: "go1.16.3", OS: "windows", Arch: "386", Kind: "archive"},
+		{Filename: "go1.16.3.windows-386.msi", Version: "go1.16.3", OS: "windows", Arch: "386", Kind: "installer"},
+		{Filename: "go1.16.3.windows-amd64.zip", Version: "go1.16.3", OS: "windows", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16.3.windows-amd64.msi", Version: "go1.16.3", OS: "windows", Arch: "amd64", Kind: "installer"},
+	}
+	featured := filesToFeatured(fs)
+	var s []string
+	for _, f := range featured {
+		s = append(s, f.Filename)
+	}
+	got := strings.Join(s, "\n")
+	want := strings.Join([]string{
+		"go1.16.3.windows-amd64.msi",
+		"go1.16.3.darwin-amd64.pkg",
+		"go1.16.3.linux-amd64.tar.gz",
+		"go1.16.3.src.tar.gz",
+	}, "\n")
+	if got != want {
+		t.Errorf("featured files:\n%s\nwant:\n%s", got, want)
+	}
+}
+
 // list returns a version list string for the given releases.
 func list(rs []Release) string {
 	var s string

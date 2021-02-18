@@ -160,7 +160,7 @@ var featuredFiles = []Feature{
 	{
 		Platform:     "Apple macOS",
 		Requirements: "macOS 10.12 or later, Intel 64-bit processor",
-		fileRE:       regexp.MustCompile(`\.darwin-amd64(-osx10\.8)?\.pkg$`),
+		fileRE:       regexp.MustCompile(`\.darwin-amd64\.pkg$`),
 	},
 	{
 		Platform:     "Linux",
