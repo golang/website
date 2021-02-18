@@ -32,6 +32,7 @@ import (
 	"text/template"
 	"time"
 
+	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
 )
 
@@ -708,7 +709,7 @@ func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, absp
 	// if it's the language spec, add tags to EBNF productions
 	if strings.HasSuffix(abspath, "go_spec.html") {
 		var buf bytes.Buffer
-		Linkify(&buf, src)
+		spec.Linkify(&buf, src)
 		src = buf.Bytes()
 	}
 

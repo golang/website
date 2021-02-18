@@ -2,22 +2,50 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
-package godoc
-
-// This file contains the mechanism to "linkify" html source
-// text containing EBNF sections (as found in go_spec.html).
-// The result is the input source text with the EBNF sections
-// modified such that identifiers are linked to the respective
-// definitions.
+// Package spec implements hyperlinking of the Go language specification.
+package spec
 
 import (
 	"bytes"
 	"fmt"
 	"io"
 	"text/scanner"
+)
+
+// Linkify adds links to HTML source text containing EBNF sections,
+// as found in go_spec.html, linking identifiers to their definitions.
+// It writes the modified HTML to out.
+func Linkify(out io.Writer, src []byte) {
+	for len(src) > 0 {
+		// i: beginning of EBNF text (or end of source)
+		i := bytes.Index(src, openTag)
+		if i < 0 {
+			i = len(src) - len(openTag)
+		}
+		i += len(openTag)
+
+		// j: end of EBNF text (or end of source)
+		j := bytes.Index(src[i:], closeTag) // close marker
+		if j < 0 {
+			j = len(src) - i
+		}
+		j += i
+
+		// write text before EBNF
+		out.Write(src[0:i])
+		// process EBNF
+		var p ebnfParser
+		p.parse(out, src[i:j])
+
+		// advance
+		src = src[j:]
+	}
+}
+
+// Markers around EBNF sections
+var (
+	openTag  = []byte(`<pre class="ebnf">`)
+	closeTag = []byte(`</pre>`)
 )
 
 type ebnfParser struct {
@@ -146,37 +174,4 @@ func (p *ebnfParser) parse(out io.Writer, src []byte) {
 		p.parseProduction()
 	}
 	p.flush()
-}
-
-// Markers around EBNF sections
-var (
-	openTag  = []byte(`<pre class="ebnf">`)
-	closeTag = []byte(`</pre>`)
-)
-
-func Linkify(out io.Writer, src []byte) {
-	for len(src) > 0 {
-		// i: beginning of EBNF text (or end of source)
-		i := bytes.Index(src, openTag)
-		if i < 0 {
-			i = len(src) - len(openTag)
-		}
-		i += len(openTag)
-
-		// j: end of EBNF text (or end of source)
-		j := bytes.Index(src[i:], closeTag) // close marker
-		if j < 0 {
-			j = len(src) - i
-		}
-		j += i
-
-		// write text before EBNF
-		out.Write(src[0:i])
-		// process EBNF
-		var p ebnfParser
-		p.parse(out, src[i:j])
-
-		// advance
-		src = src[j:]
-	}
 }
