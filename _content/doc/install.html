@@ -79,19 +79,20 @@
     class="TabSection-tabPanel"
     aria-labelledby="linux"
   >
-    <p>
-      If you have a previous version of Go installed, be sure to
-      <a href="manage-install">remove it</a> before installing another.
-    </p>
     <ol>
       <li>
-        Download the archive and extract it into /usr/local, creating a Go tree
+        Extract the archive you downloaded into /usr/local, creating a Go tree
         in /usr/local/go.
+        <p>
+          <strong>Important:</strong> This step will remove a previous
+          installation at /usr/local/go, if any, prior to extracting.
+          Please back up any data before proceeding.
+        </p>
         <p>
           For example, run the following as root or through <code>sudo</code>:
         </p>
         <pre>
-tar -C /usr/local -xzf <span id="linux-filename">go1.14.3.linux-amd64.tar.gz</span>
+rm -rf /usr/local/go && tar -C /usr/local -xzf <span id="linux-filename">go1.14.3.linux-amd64.tar.gz</span>
 </pre
         >
       </li>
