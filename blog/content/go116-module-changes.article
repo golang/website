@@ -128,7 +128,7 @@ That is, the default setting is:
 
     GOVCS=public:git|hg,private:all
 
-See the [Controlling version control tools with `GOVCS`](https://golang.org/ref/mod#vcs-govcs) for more details.
+See [Controlling version control tools with `GOVCS`](https://golang.org/ref/mod#vcs-govcs) for more details.
 
 ## What's next?
 
