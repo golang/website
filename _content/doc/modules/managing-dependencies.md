@@ -203,7 +203,7 @@ require example.com/theirmodule v1.3.4
 You can check to see if there are newer versions of dependencies you're already
 using in your current module. Use the `go list` command to display a list of
 your module's dependencies, along with the latest version available for that
-module. One you've discovered available upgrades, you can try them out with your
+module. Once you've discovered available upgrades, you can try them out with your
 code to decide whether or not to upgrade to new versions.
 
 For more about the `go list` command, see the [`go` command
