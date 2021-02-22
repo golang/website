@@ -3215,7 +3215,7 @@ cryptographic hash and compares it with a known value to verify the file hasn't
 changed since it was first downloaded. The `go` command reports a security error
 if a downloaded file does not have the correct hash.
 
-For `go.mod` files, the `go` commmand computes the hash from the file
+For `go.mod` files, the `go` command computes the hash from the file
 content. For module zip files, the `go` command computes the hash from the names
 and contents of files within the archive in a deterministic order. The hash is
 not affected by file order, compression, alignment, and other metadata. See
