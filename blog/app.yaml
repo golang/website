@@ -2,7 +2,6 @@ service: blog
 runtime: go114
 
 env_variables:
-  GOLANGORG_CHECK_COUNTRY: true
   BLOG_ANALYTICS: |
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-11222381-3"></script>
     <script>
