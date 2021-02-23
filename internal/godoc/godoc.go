@@ -605,7 +605,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *PageInfo, fset *token.Fi
 	}
 
 	mode := printer.TabIndent | printer.UseSpaces
-	err := (&printer.Config{Mode: mode, Tabwidth: p.TabWidth}).Fprint(&tconv{p: p, output: out}, fset, x)
+	err := (&printer.Config{Mode: mode, Tabwidth: p.TabWidth}).Fprint(TabSpacer(out, p.TabWidth), fset, x)
 	if err != nil {
 		log.Print(err)
 	}
