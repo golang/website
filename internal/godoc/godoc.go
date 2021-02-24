@@ -17,14 +17,7 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
-	"time"
 )
-
-// Fake relative package path for built-ins. Documentation for all globals
-// (not just exported ones) will be shown for packages in this directory,
-// and there will be no association of consts, vars, and factory functions
-// with types (see issue 6645).
-const builtinPkgPath = "builtin"
 
 // FuncMap defines template functions used in godoc templates.
 //
@@ -105,9 +98,8 @@ type PageInfo struct {
 	IsFiltered bool                 // true if results were filtered
 
 	// directory info
-	Dirs    *DirList  // nil if no directory information
-	DirTime time.Time // directory time stamp
-	DirFlat bool      // if set, show directory in a flat (non-indented) manner
+	Dirs    *DirList // nil if no directory information
+	DirFlat bool     // if set, show directory in a flat (non-indented) manner
 }
 
 func (info *PageInfo) IsEmpty() bool {

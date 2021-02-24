@@ -23,19 +23,14 @@ func TestIgnoredGoFiles(t *testing.T) {
 	packagePath := "github.com/package"
 	packageComment := "main is documented in an ignored .go file"
 
-	c := NewCorpus(fstest.MapFS{
+	fs := fstest.MapFS{
 		"src/" + packagePath + "/ignored.go": {Data: []byte(`// +build ignore
 
 // ` + packageComment + `
 package main`)},
-	})
-	srv := &handlerServer{
-		p: &Presentation{
-			Corpus: c,
-		},
-		c: c,
 	}
-	pInfo := srv.GetPageInfo("/src/"+packagePath, packagePath, NoFiltering, "linux", "amd64")
+	d := NewDocTree(fs)
+	pInfo := d.GetPageInfo("/src/"+packagePath, packagePath, NoFiltering, "linux", "amd64")
 
 	if pInfo.PDoc == nil {
 		t.Error("pInfo.PDoc = nil; want non-nil.")
@@ -57,7 +52,7 @@ package main`)},
 
 func TestIssue5247(t *testing.T) {
 	const packagePath = "example.com/p"
-	c := NewCorpus(fstest.MapFS{
+	fs := fstest.MapFS{
 		"src/" + packagePath + "/p.go": {Data: []byte(`package p
 
 //line notgen.go:3
@@ -65,13 +60,10 @@ func TestIssue5247(t *testing.T) {
 // line 2 should appear
 func F()
 //line foo.go:100`)}, // No newline at end to check corner cases.
-	})
-
-	srv := &handlerServer{
-		p: &Presentation{Corpus: c},
-		c: c,
 	}
-	pInfo := srv.GetPageInfo("/src/"+packagePath, packagePath, 0, "linux", "amd64")
+
+	d := NewDocTree(fs)
+	pInfo := d.GetPageInfo("/src/"+packagePath, packagePath, 0, "linux", "amd64")
 	if got, want := pInfo.PDoc.Funcs[0].Doc, "F doc //line 1 should appear\nline 2 should appear\n"; got != want {
 		t.Errorf("pInfo.PDoc.Funcs[0].Doc = %q; want %q", got, want)
 	}

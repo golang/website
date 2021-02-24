@@ -48,8 +48,8 @@ func replaceLinePrefixCommentsWithBlankLine(src []byte) {
 	}
 }
 
-func (c *Corpus) parseFile(fset *token.FileSet, filename string, mode parser.Mode) (*ast.File, error) {
-	src, err := fs.ReadFile(c.fs, toFS(filename))
+func parseFile(fsys fs.FS, fset *token.FileSet, filename string, mode parser.Mode) (*ast.File, error) {
+	src, err := fs.ReadFile(fsys, toFS(filename))
 	if err != nil {
 		return nil, err
 	}
@@ -61,11 +61,11 @@ func (c *Corpus) parseFile(fset *token.FileSet, filename string, mode parser.Mod
 	return parser.ParseFile(fset, filename, src, mode)
 }
 
-func (c *Corpus) parseFiles(fset *token.FileSet, relpath string, abspath string, localnames []string) (map[string]*ast.File, error) {
+func parseFiles(fsys fs.FS, fset *token.FileSet, relpath string, abspath string, localnames []string) (map[string]*ast.File, error) {
 	files := make(map[string]*ast.File)
 	for _, f := range localnames {
 		absname := pathpkg.Join(abspath, f)
-		file, err := c.parseFile(fset, absname, parser.ParseComments)
+		file, err := parseFile(fsys, fset, absname, parser.ParseComments)
 		if err != nil {
 			return nil, err
 		}

@@ -8,7 +8,6 @@
 package godoc
 
 import (
-	"errors"
 	"io/fs"
 	"sync"
 	"time"
@@ -27,25 +26,12 @@ type Corpus struct {
 	// Verbose logging.
 	Verbose bool
 
-	// SummarizePackage optionally specifies a function to
-	// summarize a package. It exists as an optimization to
-	// avoid reading files to parse package comments.
-	//
-	// If SummarizePackage returns false for ok, the caller
-	// ignores all return values and parses the files in the package
-	// as if SummarizePackage were nil.
-	//
-	// If showList is false, the package is hidden from the
-	// package listing.
-	SummarizePackage func(pkg string) (summary string, showList, ok bool)
-
 	// Send a value on this channel to trigger a metadata refresh.
 	// It is buffered so that if a signal is not lost if sent
 	// during a refresh.
 	refreshMetadataSignal chan bool
 
 	// file system information
-	fsTree      rwValue // *Directory tree of packages, updated with each sync (but sync code is removed now)
 	fsModified  rwValue // timestamp of last call to invalidateIndex
 	docMetadata rwValue // mapping from paths to *Metadata
 
@@ -77,23 +63,11 @@ func (c *Corpus) FSModifiedTime() time.Time {
 // Init initializes Corpus, once options on Corpus are set.
 // It must be called before any subsequent method calls.
 func (c *Corpus) Init() error {
-	if err := c.initFSTree(); err != nil {
-		return err
-	}
 	c.updateMetadata()
 	go c.refreshMetadataLoop()
 
 	c.initMu.Lock()
 	c.initDone = true
 	c.initMu.Unlock()
-	return nil
-}
-
-func (c *Corpus) initFSTree() error {
-	dir := c.newDirectory("/", -1)
-	if dir == nil {
-		return errors.New("godoc: corpus fstree is nil")
-	}
-	c.fsTree.Set(dir)
 	return nil
 }

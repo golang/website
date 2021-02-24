@@ -16,104 +16,45 @@ import (
 	"io/fs"
 	"log"
 	pathpkg "path"
-	"runtime"
 	"sort"
 	"strings"
 )
 
-// Conventional name for directories containing test data.
-// Excluded from directory trees.
-//
-const testdataDirName = "testdata"
-
 type Directory struct {
-	Depth    int
-	Path     string       // directory path; includes Name
-	Name     string       // directory name
+	Path     string       // directory path
 	HasPkg   bool         // true if the directory contains at least one package
 	Synopsis string       // package documentation, if any
-	IsGOROOT bool         // is this GOROOT
 	Dirs     []*Directory // subdirectories
 }
 
-type dirEntryOrFileInfo interface {
-	Name() string
-	IsDir() bool
+func (d *Directory) Name() string {
+	return pathpkg.Base(d.Path)
 }
 
-func isGoFile(fi dirEntryOrFileInfo) bool {
+func isPkgFile(fi fs.DirEntry) bool {
 	name := fi.Name()
 	return !fi.IsDir() &&
-		len(name) > 0 && name[0] != '.' && // ignore .files
-		pathpkg.Ext(name) == ".go"
-}
-
-func isPkgFile(fi dirEntryOrFileInfo) bool {
-	return isGoFile(fi) &&
+		pathpkg.Ext(name) == ".go" &&
 		!strings.HasSuffix(fi.Name(), "_test.go") // ignore test files
 }
 
-func isPkgDir(fi dirEntryOrFileInfo) bool {
+func isPkgDir(fi fs.DirEntry) bool {
 	name := fi.Name()
-	return fi.IsDir() && len(name) > 0 &&
-		name[0] != '_' && name[0] != '.' // ignore _files and .files
+	return fi.IsDir() &&
+		name != "testdata" &&
+		len(name) > 0 && name[0] != '_' && name[0] != '.' // ignore _files and .files
 }
 
-type treeBuilder struct {
-	c        *Corpus
-	maxDepth int
-}
-
-// ioGate is a semaphore controlling VFS activity (ReadDir, parseFile, etc).
-// Send before an operation and receive after.
-var ioGate = make(chan struct{}, 20)
-
-// workGate controls the number of concurrent workers. Too many concurrent
-// workers and performance degrades and the race detector gets overwhelmed. If
-// we cannot check out a concurrent worker, work is performed by the main thread
-// instead of spinning up another goroutine.
-var workGate = make(chan struct{}, runtime.NumCPU()*4)
-
-func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth int) *Directory {
-	if name == testdataDirName {
-		return nil
-	}
-
-	if depth >= b.maxDepth {
-		// return a dummy directory so that the parent directory
-		// doesn't get discarded just because we reached the max
-		// directory depth
-		return &Directory{
-			Depth: depth,
-			Path:  path,
-			Name:  name,
-		}
-	}
-
+func newDirTree(fsys fs.FS, fset *token.FileSet, path string) *Directory {
 	var synopses [3]string // prioritized package documentation (0 == highest priority)
 
-	show := true // show in package listing
 	hasPkgFiles := false
 	haveSummary := false
 
-	if hook := b.c.SummarizePackage; hook != nil {
-		if summary, show0, ok := hook(strings.TrimPrefix(path, "/src/")); ok {
-			hasPkgFiles = true
-			show = show0
-			synopses[0] = summary
-			haveSummary = true
-		}
-	}
-
-	ioGate <- struct{}{}
-	list, err := fs.ReadDir(b.c.fs, toFS(path))
-	<-ioGate
+	list, err := fs.ReadDir(fsys, toFS(path))
 	if err != nil {
 		// TODO: propagate more. See golang.org/issue/14252.
-		// For now:
-		if b.c.Verbose {
-			log.Printf("newDirTree reading %s: %v", path, err)
-		}
+		log.Printf("newDirTree reading %s: %v", path, err)
 	}
 
 	// determine number of subdirectories and if there are package files
@@ -121,38 +62,24 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 	var dirs []*Directory
 
 	for _, d := range list {
-		filename := pathpkg.Join(path, d.Name())
+		name := d.Name()
+		filename := pathpkg.Join(path, name)
 		switch {
 		case isPkgDir(d):
-			name := d.Name()
-			select {
-			case workGate <- struct{}{}:
-				ch := make(chan *Directory, 1)
-				dirchs = append(dirchs, ch)
-				go func() {
-					ch <- b.newDirTree(fset, filename, name, depth+1)
-					<-workGate
-				}()
-			default:
-				// no free workers, do work synchronously
-				dir := b.newDirTree(fset, filename, name, depth+1)
-				if dir != nil {
-					dirs = append(dirs, dir)
-				}
+			dir := newDirTree(fsys, fset, filename)
+			if dir != nil {
+				dirs = append(dirs, dir)
 			}
+
 		case !haveSummary && isPkgFile(d):
 			// looks like a package file, but may just be a file ending in ".go";
 			// don't just count it yet (otherwise we may end up with hasPkgFiles even
 			// though the directory doesn't contain any real package files - was bug)
 			// no "optimal" package synopsis yet; continue to collect synopses
-			ioGate <- struct{}{}
 			const flags = parser.ParseComments | parser.PackageClauseOnly
-			file, err := b.c.parseFile(fset, filename, flags)
-			<-ioGate
+			file, err := parseFile(fsys, fset, filename, flags)
 			if err != nil {
-				if b.c.Verbose {
-					log.Printf("Error parsing %v: %v", filename, err)
-				}
+				log.Printf("parsing %v: %v", filename, err)
 				break
 			}
 
@@ -186,7 +113,7 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 	// We need to sort the dirs slice because
 	// it is appended again after reading from dirchs.
 	sort.Slice(dirs, func(i, j int) bool {
-		return dirs[i].Name < dirs[j].Name
+		return dirs[i].Path < dirs[j].Path
 	})
 
 	// if there are no package files and no subdirectories
@@ -204,19 +131,11 @@ func (b *treeBuilder) newDirTree(fset *token.FileSet, path, name string, depth i
 	}
 
 	return &Directory{
-		Depth:    depth,
 		Path:     path,
-		Name:     name,
-		HasPkg:   hasPkgFiles && show, // TODO(bradfitz): add proper Hide field?
+		HasPkg:   hasPkgFiles,
 		Synopsis: synopsis,
-		IsGOROOT: isGOROOT(b.c.fs),
 		Dirs:     dirs,
 	}
-}
-
-func isGOROOT(fsys fs.FS) bool {
-	_, err := fs.Stat(fsys, "src/math/abs.go")
-	return err == nil
 }
 
 // toFS returns the io/fs name for path (no leading slash).
@@ -227,112 +146,68 @@ func toFS(path string) string {
 	return pathpkg.Clean(strings.TrimPrefix(path, "/"))
 }
 
-// newDirectory creates a new package directory tree with at most maxDepth
-// levels, anchored at root. The result tree is pruned such that it only
-// contains directories that contain package files or that contain
-// subdirectories containing package files (transitively). If a non-nil
-// pathFilter is provided, directory paths additionally must be accepted
-// by the filter (i.e., pathFilter(path) must be true). If a value >= 0 is
-// provided for maxDepth, nodes at larger depths are pruned as well; they
-// are assumed to contain package files even if their contents are not known
-// (i.e., in this case the tree may contain directories w/o any package files).
-//
-func (c *Corpus) newDirectory(root string, maxDepth int) *Directory {
-	// The root could be a symbolic link so use Stat not Lstat.
-	d, err := fs.Stat(c.fs, toFS(root))
-	// If we fail here, report detailed error messages; otherwise
-	// is is hard to see why a directory tree was not built.
-	switch {
-	case err != nil:
-		log.Printf("newDirectory(%s): %s", root, err)
-		return nil
-	case root != "/" && !isPkgDir(d):
-		log.Printf("newDirectory(%s): not a package directory", root)
-		return nil
-	case root == "/" && !d.IsDir():
-		log.Printf("newDirectory(%s): not a directory", root)
-		return nil
-	}
-	if maxDepth < 0 {
-		maxDepth = 1e6 // "infinity"
-	}
-	b := treeBuilder{c, maxDepth}
-	// the file set provided is only for local parsing, no position
-	// information escapes and thus we don't need to save the set
-	return b.newDirTree(token.NewFileSet(), root, d.Name(), 0)
+// walk calls f(d, depth) for each directory d in the tree rooted at dir, including dir itself.
+// The depth argument specifies the depth of d in the tree.
+// The depth of dir itself is 0.
+func (dir *Directory) walk(f func(d *Directory, depth int)) {
+	walkDirs(f, dir, 0)
 }
 
-func (dir *Directory) walk(c chan<- *Directory, skipRoot bool) {
-	if dir != nil {
-		if !skipRoot {
-			c <- dir
-		}
-		for _, d := range dir.Dirs {
-			d.walk(c, false)
-		}
+func walkDirs(f func(d *Directory, depth int), d *Directory, depth int) {
+	f(d, depth)
+	for _, sub := range d.Dirs {
+		walkDirs(f, sub, depth+1)
 	}
-}
-
-func (dir *Directory) iter(skipRoot bool) <-chan *Directory {
-	c := make(chan *Directory)
-	go func() {
-		dir.walk(c, skipRoot)
-		close(c)
-	}()
-	return c
-}
-
-func (dir *Directory) lookupLocal(name string) *Directory {
-	for _, d := range dir.Dirs {
-		if d.Name == name {
-			return d
-		}
-	}
-	return nil
-}
-
-func splitPath(p string) []string {
-	p = strings.TrimPrefix(p, "/")
-	if p == "" {
-		return nil
-	}
-	return strings.Split(p, "/")
 }
 
 // lookup looks for the *Directory for a given path, relative to dir.
 func (dir *Directory) lookup(path string) *Directory {
-	d := splitPath(dir.Path)
-	p := splitPath(path)
-	i := 0
-	for i < len(d) {
-		if i >= len(p) || d[i] != p[i] {
+	path = pathpkg.Join(dir.Path, path)
+	if path == dir.Path {
+		return dir
+	}
+	dirPathLen := len(dir.Path)
+	if dir.Path == "/" {
+		dirPathLen = 0 // so path[dirPathLen] is a slash
+	}
+	if !strings.HasPrefix(path, dir.Path) || path[dirPathLen] != '/' {
+		println("NO", path, dir.Path)
+		return nil
+	}
+	d := dir
+Walk:
+	for i := dirPathLen + 1; i <= len(path); i++ {
+		if i == len(path) || path[i] == '/' {
+			// Find next child along path.
+			for _, sub := range d.Dirs {
+				if sub.Path == path[:i] {
+					d = sub
+					continue Walk
+				}
+			}
+			println("LOST", path[:i])
 			return nil
 		}
-		i++
 	}
-	for dir != nil && i < len(p) {
-		dir = dir.lookupLocal(p[i])
-		i++
-	}
-	return dir
+	return d
 }
 
-// DirEntry describes a directory entry. The Depth and Height values
-// are useful for presenting an entry in an indented fashion.
-//
+// DirEntry describes a directory entry.
+// The Depth gives the directory depth relative to the overall list,
+// for use in presenting a hierarchical directory entry.
 type DirEntry struct {
 	Depth    int    // >= 0
-	Height   int    // = DirList.MaxHeight - Depth, > 0
-	Path     string // directory path; includes Name, relative to DirList root
-	Name     string // directory name
+	Path     string // relative path to directory from listing start
 	HasPkg   bool   // true if the directory contains at least one package
 	Synopsis string // package documentation, if any
-	IsGOROOT bool   // root type of the filesystem containing the direntry
+}
+
+func (d *DirEntry) Name() string {
+	return pathpkg.Base(d.Path)
 }
 
 type DirList struct {
-	MaxHeight int // directory tree height, > 0
-	List      []DirEntry
+	List []DirEntry
 }
 
 // listing creates a (linear) directory listing from a directory tree.
@@ -340,52 +215,32 @@ type DirList struct {
 // If filter is set, only the directory entries whose paths match the filter
 // are included.
 //
-func (dir *Directory) listing(skipRoot bool, filter func(string) bool) *DirList {
+func (dir *Directory) listing(filter func(string) bool) *DirList {
 	if dir == nil {
 		return nil
 	}
 
-	// determine number of entries n and maximum height
-	n := 0
-	minDepth := 1 << 30 // infinity
-	maxDepth := 0
-	for d := range dir.iter(skipRoot) {
-		n++
-		if minDepth > d.Depth {
-			minDepth = d.Depth
+	var list []DirEntry
+	dir.walk(func(d *Directory, depth int) {
+		if depth == 0 || filter != nil && !filter(d.Path) {
+			return
 		}
-		if maxDepth < d.Depth {
-			maxDepth = d.Depth
-		}
-	}
-	maxHeight := maxDepth - minDepth + 1
-
-	if n == 0 {
-		return nil
-	}
-
-	// create list
-	list := make([]DirEntry, 0, n)
-	for d := range dir.iter(skipRoot) {
-		if filter != nil && !filter(d.Path) {
-			continue
-		}
-		var p DirEntry
-		p.Depth = d.Depth - minDepth
-		p.Height = maxHeight - p.Depth
 		// the path is relative to root.Path - remove the root.Path
 		// prefix (the prefix should always be present but avoid
 		// crashes and check)
 		path := strings.TrimPrefix(d.Path, dir.Path)
 		// remove leading separator if any - path must be relative
 		path = strings.TrimPrefix(path, "/")
-		p.Path = path
-		p.Name = d.Name
-		p.HasPkg = d.HasPkg
-		p.Synopsis = d.Synopsis
-		p.IsGOROOT = d.IsGOROOT
-		list = append(list, p)
-	}
+		list = append(list, DirEntry{
+			Depth:    depth,
+			Path:     path,
+			HasPkg:   d.HasPkg,
+			Synopsis: d.Synopsis,
+		})
+	})
 
-	return &DirList{maxHeight, list}
+	if len(list) == 0 {
+		return nil
+	}
+	return &DirList{list}
 }

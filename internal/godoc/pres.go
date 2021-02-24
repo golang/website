@@ -19,8 +19,6 @@ type Presentation struct {
 
 	mux        *http.ServeMux
 	fileServer http.Handler
-	cmdHandler handlerServer
-	pkgHandler handlerServer
 
 	DirlistHTML,
 	ErrorHTML,
@@ -52,22 +50,12 @@ func NewPresentation(c *Corpus) *Presentation {
 		mux:        http.NewServeMux(),
 		fileServer: http.FileServer(http.FS(c.fs)),
 	}
-	p.cmdHandler = handlerServer{
-		p:       p,
-		c:       c,
-		pattern: "/cmd/",
-		fsRoot:  "/src",
+	docs := &docServer{
+		p: p,
+		d: NewDocTree(c.fs),
 	}
-	p.pkgHandler = handlerServer{
-		p:           p,
-		c:           c,
-		pattern:     "/pkg/",
-		stripPrefix: "pkg/",
-		fsRoot:      "/src",
-		exclude:     []string{"/src/cmd"},
-	}
-	p.cmdHandler.registerWithMux(p.mux)
-	p.pkgHandler.registerWithMux(p.mux)
+	p.mux.Handle("/cmd/", docs)
+	p.mux.Handle("/pkg/", docs)
 	p.mux.HandleFunc("/", p.ServeFile)
 	return p
 }
@@ -78,26 +66,6 @@ func (p *Presentation) FileServer() http.Handler {
 
 func (p *Presentation) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	p.mux.ServeHTTP(w, r)
-}
-
-func (p *Presentation) PkgFSRoot() string {
-	return p.pkgHandler.fsRoot
-}
-
-func (p *Presentation) CmdFSRoot() string {
-	return p.cmdHandler.fsRoot
-}
-
-// TODO(bradfitz): move this to be a method on Corpus. Just moving code around for now,
-// but this doesn't feel right.
-func (p *Presentation) GetPkgPageInfo(abspath, relpath string, mode PageInfoMode) *PageInfo {
-	return p.pkgHandler.GetPageInfo(abspath, relpath, mode, "", "")
-}
-
-// TODO(bradfitz): move this to be a method on Corpus. Just moving code around for now,
-// but this doesn't feel right.
-func (p *Presentation) GetCmdPageInfo(abspath, relpath string, mode PageInfoMode) *PageInfo {
-	return p.cmdHandler.GetPageInfo(abspath, relpath, mode, "", "")
 }
 
 func (p *Presentation) googleCN(r *http.Request) bool {

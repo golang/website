@@ -10,7 +10,6 @@ package godoc
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"fmt"
 	"go/ast"
 	"go/build"
@@ -35,19 +34,27 @@ import (
 	"golang.org/x/website/internal/texthtml"
 )
 
-// handlerServer is a migration from an old godoc http Handler type.
-// This should probably merge into something else.
-type handlerServer struct {
-	p           *Presentation
-	c           *Corpus  // copy of p.Corpus
-	pattern     string   // url pattern; e.g. "/pkg/"
-	stripPrefix string   // prefix to strip from import path; e.g. "pkg/"
-	fsRoot      string   // file system root to which the pattern is mapped; e.g. "/src"
-	exclude     []string // file system paths to exclude; e.g. "/src/cmd"
+type DocTree struct {
+	fs   fs.FS
+	root *Directory
 }
 
-func (s *handlerServer) registerWithMux(mux *http.ServeMux) {
-	mux.Handle(s.pattern, s)
+func NewDocTree(fsys fs.FS) *DocTree {
+	src := newDirTree(fsys, token.NewFileSet(), "/src")
+	root := &Directory{
+		Path: "/",
+		Dirs: []*Directory{src},
+	}
+	return &DocTree{
+		fs:   fsys,
+		root: root,
+	}
+}
+
+// docServer serves a package doc tree (/cmd or /pkg).
+type docServer struct {
+	p *Presentation
+	d *DocTree
 }
 
 // GetPageInfo returns the PageInfo for a package directory abspath. If the
@@ -57,8 +64,7 @@ func (s *handlerServer) registerWithMux(mux *http.ServeMux) {
 // directory, PageInfo.PAst and PageInfo.PDoc are nil. If there are no sub-
 // directories, PageInfo.Dirs is nil. If an error occurred, PageInfo.Err is
 // set to the respective error but the error is not logged.
-//
-func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, goos, goarch string) *PageInfo {
+func (d *DocTree) GetPageInfo(abspath, relpath string, mode PageInfoMode, goos, goarch string) *PageInfo {
 	info := &PageInfo{Dirname: abspath, Mode: mode}
 
 	// Restrict to the package files that would be used when building
@@ -70,11 +76,11 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 	ctxt := build.Default
 	ctxt.IsAbsPath = pathpkg.IsAbs
 	ctxt.IsDir = func(path string) bool {
-		fi, err := fs.Stat(h.c.fs, toFS(filepath.ToSlash(path)))
+		fi, err := fs.Stat(d.fs, toFS(filepath.ToSlash(path)))
 		return err == nil && fi.IsDir()
 	}
 	ctxt.ReadDir = func(dir string) ([]os.FileInfo, error) {
-		f, err := fs.ReadDir(h.c.fs, toFS(filepath.ToSlash(dir)))
+		f, err := fs.ReadDir(d.fs, toFS(filepath.ToSlash(dir)))
 		filtered := make([]os.FileInfo, 0, len(f))
 		for _, i := range f {
 			if mode&NoFiltering != 0 || i.Name() != "internal" {
@@ -87,7 +93,7 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 		return filtered, err
 	}
 	ctxt.OpenFile = func(name string) (r io.ReadCloser, err error) {
-		data, err := fs.ReadFile(h.c.fs, toFS(filepath.ToSlash(name)))
+		data, err := fs.ReadFile(d.fs, toFS(filepath.ToSlash(name)))
 		if err != nil {
 			return nil, err
 		}
@@ -133,7 +139,7 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 	if len(pkgfiles) > 0 {
 		// build package AST
 		fset := token.NewFileSet()
-		files, err := h.c.parseFiles(fset, relpath, abspath, pkgfiles)
+		files, err := parseFiles(d.fs, fset, relpath, abspath, pkgfiles)
 		if err != nil {
 			info.Err = err
 			return info
@@ -170,11 +176,11 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 
 			// collect examples
 			testfiles := append(pkginfo.TestGoFiles, pkginfo.XTestGoFiles...)
-			files, err = h.c.parseFiles(fset, relpath, abspath, testfiles)
+			files, err = parseFiles(d.fs, fset, relpath, abspath, testfiles)
 			if err != nil {
 				log.Println("parsing examples:", err)
 			}
-			info.Examples = collectExamples(h.c, pkg, files)
+			info.Examples = collectExamples(pkg, files)
 			info.Bugs = info.PDoc.Notes["BUG"]
 		} else {
 			// show source code
@@ -188,37 +194,13 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 		info.IsMain = pkgname == "main"
 	}
 
-	// get directory information, if any
-	var dir *Directory
-	if tree, _ := h.c.fsTree.Get(); tree != nil && tree.(*Directory) != nil {
-		// directory tree is present; lookup respective directory
-		// (may still fail if the file system was updated and the
-		// new directory tree has not yet been computed)
-		dir = tree.(*Directory).lookup(abspath)
-	}
-	if dir == nil {
-		// TODO(agnivade): handle this case better, now since there is no CLI mode.
-		// no directory tree present (happens in command-line mode);
-		// compute 2 levels for this page. The second level is to
-		// get the synopses of sub-directories.
-		// note: cannot use path filter here because in general
-		// it doesn't contain the FSTree path
-		dir = h.c.newDirectory(abspath, 2)
-	}
-	info.Dirs = dir.listing(true, func(path string) bool { return h.includePath(path, mode) })
+	info.Dirs = d.root.lookup(abspath).listing(func(path string) bool { return d.includePath(path, mode) })
 	info.DirFlat = mode&FlatDir != 0
 
 	return info
 }
 
-func (h *handlerServer) includePath(path string, mode PageInfoMode) (r bool) {
-	// if the path is under one of the exclusion paths, don't list.
-	for _, e := range h.exclude {
-		if strings.HasPrefix(path, e) {
-			return false
-		}
-	}
-
+func (d *DocTree) includePath(path string, mode PageInfoMode) (r bool) {
 	// if the path includes 'internal', don't list unless we are in the NoFiltering mode.
 	if mode&NoFiltering != 0 {
 		return true
@@ -239,27 +221,23 @@ func (s funcsByName) Len() int           { return len(s) }
 func (s funcsByName) Swap(i, j int)      { s[i], s[j] = s[j], s[i] }
 func (s funcsByName) Less(i, j int) bool { return s[i].Name < s[j].Name }
 
-func (h *handlerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if redirect(w, r) {
 		return
 	}
 
-	relpath := pathpkg.Clean(r.URL.Path[len(h.stripPrefix)+1:])
+	// TODO(rsc): URL should be clean already.
+	relpath := pathpkg.Clean(strings.TrimPrefix(r.URL.Path, "/pkg/"))
 
-	if !h.corpusInitialized() {
-		h.p.ServeError(w, r, relpath, errors.New("Scan is not yet complete. Please retry after a few moments"))
-		return
-	}
-
-	abspath := pathpkg.Join(h.fsRoot, relpath)
+	abspath := pathpkg.Join("/src", relpath)
 	mode := GetPageInfoMode(r.FormValue("m"))
-	if relpath == builtinPkgPath {
+	if relpath == "builtin" {
 		// The fake built-in package contains unexported identifiers,
 		// but we want to show them. Also, disable type association,
 		// since it's not helpful for this fake package (see issue 6645).
 		mode |= NoFiltering | NoTypeAssoc
 	}
-	info := h.GetPageInfo(abspath, relpath, mode, r.FormValue("GOOS"), r.FormValue("GOARCH"))
+	info := h.d.GetPageInfo(abspath, relpath, mode, r.FormValue("GOOS"), r.FormValue("GOARCH"))
 	if info.Err != nil {
 		log.Print(info.Err)
 		h.p.ServeError(w, r, relpath, info.Err)
@@ -316,48 +294,45 @@ func (h *handlerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-func (h *handlerServer) corpusInitialized() bool {
-	h.c.initMu.RLock()
-	defer h.c.initMu.RUnlock()
-	return h.c.initDone
-}
-
 type PageInfoMode uint
 
 const (
 	NoFiltering PageInfoMode = 1 << iota // do not filter exports
+	FlatDir                              // show directory in a flat (non-indented) manner
 	AllMethods                           // show all embedded methods
 	ShowSource                           // show source code, do not extract documentation
-	FlatDir                              // show directory in a flat (non-indented) manner
 	NoTypeAssoc                          // don't associate consts, vars, and factory functions with types (not exposed via ?m= query parameter, used for package builtin, see issue 6645)
 )
 
 // modeNames defines names for each PageInfoMode flag.
-var modeNames = map[string]PageInfoMode{
-	"all":     NoFiltering,
-	"methods": AllMethods,
-	"src":     ShowSource,
-	"flat":    FlatDir,
+// The order here must match the order of the constants above.
+var modeNames = []string{
+	"all",
+	"flat",
+	"methods",
+	"src",
 }
 
 // generate a query string for persisting PageInfoMode between pages.
-func modeQueryString(mode PageInfoMode) string {
-	if modeNames := mode.names(); len(modeNames) > 0 {
-		return "?m=" + strings.Join(modeNames, ",")
-	}
-	return ""
-}
-
-// alphabetically sorted names of active flags for a PageInfoMode.
-func (m PageInfoMode) names() []string {
-	var names []string
-	for name, mode := range modeNames {
-		if m&mode != 0 {
-			names = append(names, name)
+func (m PageInfoMode) String() string {
+	s := ""
+	for i, name := range modeNames {
+		if m&(1<<i) != 0 && name != "" {
+			if s != "" {
+				s += ","
+			}
+			s += name
 		}
 	}
-	sort.Strings(names)
-	return names
+	return s
+}
+
+func modeQueryString(m PageInfoMode) string {
+	s := m.String()
+	if s == "" {
+		return ""
+	}
+	return "?m=" + s
 }
 
 // GetPageInfoMode computes the PageInfoMode flags by analyzing the request
@@ -365,8 +340,11 @@ func (m PageInfoMode) names() []string {
 func GetPageInfoMode(text string) PageInfoMode {
 	var mode PageInfoMode
 	for _, k := range strings.Split(text, ",") {
-		if m, found := modeNames[strings.TrimSpace(k)]; found {
-			mode |= m
+		k = strings.TrimSpace(k)
+		for i, name := range modeNames {
+			if name == k {
+				mode |= 1 << i
+			}
 		}
 	}
 	return mode
@@ -402,7 +380,7 @@ func globalNames(pkg *ast.Package) map[string]bool {
 }
 
 // collectExamples collects examples for pkg from testfiles.
-func collectExamples(c *Corpus, pkg *ast.Package, testfiles map[string]*ast.File) []*doc.Example {
+func collectExamples(pkg *ast.Package, testfiles map[string]*ast.File) []*doc.Example {
 	var files []*ast.File
 	for _, f := range testfiles {
 		files = append(files, f)
@@ -414,8 +392,6 @@ func collectExamples(c *Corpus, pkg *ast.Package, testfiles map[string]*ast.File
 		name := stripExampleSuffix(e.Name)
 		if name == "" || globals[name] {
 			examples = append(examples, e)
-		} else if c.Verbose {
-			log.Printf("skipping example 'Example%s' because '%s' is not a known function or type", e.Name, e.Name)
 		}
 	}
 

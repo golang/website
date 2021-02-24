@@ -45,7 +45,6 @@
 
 						{{range .List}}
 							<tr>
-							{{if .IsGOROOT}}
 							{{if $.DirFlat}}
 								{{if .HasPkg}}
 										<td class="pkg-name">
@@ -57,10 +56,9 @@
 										<a href="{{html .Path}}/{{modeQueryString $.Mode | html}}">{{html .Name}}</a>
 									</td>
 							{{end}}
-								<td class="pkg-synopsis">
-									{{html .Synopsis}}
-								</td>
-							{{end}}
+							<td class="pkg-synopsis">
+								{{html .Synopsis}}
+							</td>
 							</tr>
 						{{end}}
 					</table>
