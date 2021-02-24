@@ -62,7 +62,7 @@ func (p *Presentation) initFuncMap() {
 		// support for URL attributes
 		"pkgLink":       pkgLinkFunc,
 		"srcLink":       srcLinkFunc,
-		"posLink_url":   newPosLink_urlFunc(srcPosLinkFunc),
+		"posLink_url":   posLink_urlFunc,
 		"docLink":       docLinkFunc,
 		"queryLink":     queryLinkFunc,
 		"srcBreadcrumb": srcBreadcrumbFunc,
@@ -73,26 +73,11 @@ func (p *Presentation) initFuncMap() {
 		"example_name":   p.example_nameFunc,
 		"example_suffix": p.example_suffixFunc,
 
-		// formatting of Notes
-		"noteTitle": noteTitle,
-
 		// Number operation
 		"multiply": multiply,
 
 		// formatting of PageInfoMode query string
 		"modeQueryString": modeQueryString,
-
-		// check whether to display third party section or not
-		"hasThirdParty": hasThirdParty,
-	}
-	if p.URLForSrc != nil {
-		p.funcMap["srcLink"] = p.URLForSrc
-	}
-	if p.URLForSrcPos != nil {
-		p.funcMap["posLink_url"] = newPosLink_urlFunc(p.URLForSrcPos)
-	}
-	if p.URLForSrcQuery != nil {
-		p.funcMap["queryLink"] = p.URLForSrcQuery
 	}
 }
 
@@ -111,13 +96,13 @@ type PageInfo struct {
 	Mode PageInfoMode // display metadata from query string
 
 	// package info
-	FSet       *token.FileSet         // nil if no package documentation
-	PDoc       *doc.Package           // nil if no package documentation
-	Examples   []*doc.Example         // nil if no example code
-	Notes      map[string][]*doc.Note // nil if no package Notes
-	PAst       map[string]*ast.File   // nil if no AST with package exports
-	IsMain     bool                   // true for package main
-	IsFiltered bool                   // true if results were filtered
+	FSet       *token.FileSet       // nil if no package documentation
+	PDoc       *doc.Package         // nil if no package documentation
+	Examples   []*doc.Example       // nil if no example code
+	Bugs       []*doc.Note          // nil if no BUG comments
+	PAst       map[string]*ast.File // nil if no AST with package exports
+	IsMain     bool                 // true for package main
+	IsFiltered bool                 // true if results were filtered
 
 	// directory info
 	Dirs    *DirList  // nil if no directory information
@@ -180,38 +165,36 @@ func srcBreadcrumbFunc(relpath string) string {
 	return buf.String()
 }
 
-func newPosLink_urlFunc(srcPosLinkFunc func(s string, line, low, high int) string) func(info *PageInfo, n interface{}) string {
+func posLink_urlFunc(info *PageInfo, n interface{}) string {
 	// n must be an ast.Node or a *doc.Note
-	return func(info *PageInfo, n interface{}) string {
-		var pos, end token.Pos
+	var pos, end token.Pos
 
-		switch n := n.(type) {
-		case ast.Node:
-			pos = n.Pos()
-			end = n.End()
-		case *doc.Note:
-			pos = n.Pos
-			end = n.End
-		default:
-			panic(fmt.Sprintf("wrong type for posLink_url template formatter: %T", n))
-		}
-
-		var relpath string
-		var line int
-		var low, high int // selection offset range
-
-		if pos.IsValid() {
-			p := info.FSet.Position(pos)
-			relpath = p.Filename
-			line = p.Line
-			low = p.Offset
-		}
-		if end.IsValid() {
-			high = info.FSet.Position(end).Offset
-		}
-
-		return srcPosLinkFunc(relpath, line, low, high)
+	switch n := n.(type) {
+	case ast.Node:
+		pos = n.Pos()
+		end = n.End()
+	case *doc.Note:
+		pos = n.Pos
+		end = n.End
+	default:
+		panic(fmt.Sprintf("wrong type for posLink_url template formatter: %T", n))
 	}
+
+	var relpath string
+	var line int
+	var low, high int // selection offset range
+
+	if pos.IsValid() {
+		p := info.FSet.Position(pos)
+		relpath = p.Filename
+		line = p.Line
+		low = p.Offset
+	}
+	if end.IsValid() {
+		high = info.FSet.Position(end).Offset
+	}
+
+	return srcPosLinkFunc(relpath, line, low, high)
 }
 
 func srcPosLinkFunc(s string, line, low, high int) string {
@@ -259,8 +242,4 @@ func queryLinkFunc(s, query string, line int) string {
 
 func docLinkFunc(s string, ident string) string {
 	return pathpkg.Clean("/pkg/"+s) + "/#" + ident
-}
-
-func noteTitle(note string) string {
-	return strings.Title(strings.ToLower(note))
 }

@@ -335,12 +335,6 @@ type DirList struct {
 	List      []DirEntry
 }
 
-// hasThirdParty checks whether a list of directory entries has packages outside
-// the standard library or not.
-func hasThirdParty(list []DirEntry) bool {
-	return false
-}
-
 // listing creates a (linear) directory listing from a directory tree.
 // If skipRoot is set, the root directory itself is excluded from the list.
 // If filter is set, only the directory entries whose paths match the filter

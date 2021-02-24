@@ -74,10 +74,8 @@
 					<dd>&nbsp; &nbsp; <a href="#{{$tname_html}}.{{$name_html}}">{{node_html $ .Decl false | sanitize}}</a></dd>
 				{{end}}
 			{{end}}
-			{{if $.Notes}}
-				{{range $marker, $item := $.Notes}}
-				<dd><a href="#pkg-note-{{$marker}}">{{noteTitle $marker | html}}s</a></dd>
-				{{end}}
+			{{if $.Bugs}}
+				<dd><a href="#pkg-note-BUG">Bugs</a></dd>
 			{{end}}
 			</dl>
 			</div><!-- #manual-nav -->
@@ -184,15 +182,13 @@
 		{{end}}
 	{{end}}
 
-	{{with $.Notes}}
-		{{range $marker, $content := .}}
-			<h2 id="pkg-note-{{$marker}}">{{noteTitle $marker | html}}s</h2>
-			<ul style="list-style: none; padding: 0;">
-			{{range .}}
-			<li><a href="{{posLink_url $ .}}" style="float: left;">&#x261e;</a> {{comment_html .Body}}</li>
-			{{end}}
-			</ul>
+	{{with $.Bugs}}
+		<h2 id="pkg-note-BUG">Bugs</h2>
+		<ul style="list-style: none; padding: 0;">
+		{{range .}}
+		<li><a href="{{posLink_url $ .}}" style="float: left;">&#x261e;</a> {{comment_html .Body}}</li>
 		{{end}}
+		</ul>
 	{{end}}
 {{end}}
 

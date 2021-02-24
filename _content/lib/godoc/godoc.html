@@ -28,9 +28,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 {{end}}
 <script src="/lib/godoc/jquery.js" defer></script>
 
-{{if .Playground}}
 <script src="/lib/godoc/playground.js" defer></script>
-{{end}}
 {{with .Version}}<script>var goVersion = {{printf "%q" .}};</script>{{end}}
 <script src="/lib/godoc/godocs.js" defer></script>
 
@@ -54,9 +52,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
       <li class="Header-menuItem"><a href="/help/">Help</a></li>
       {{if not .GoogleCN}}
         <li class="Header-menuItem"><a href="/blog/">Blog</a></li>
-        {{if .Playground}}
-          <li class="Header-menuItem"><a href="https://play.golang.org/">Play</a></li>
-        {{end}}
+        <li class="Header-menuItem"><a href="https://play.golang.org/">Play</a></li>
       {{end}}
     </ul>
   </nav>

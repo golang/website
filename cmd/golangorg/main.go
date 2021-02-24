@@ -27,7 +27,6 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"regexp"
 	"runtime"
 
 	"golang.org/x/website"
@@ -35,14 +34,10 @@ import (
 )
 
 var (
-	httpAddr       = flag.String("http", "localhost:6060", "HTTP service address")
-	verbose        = flag.Bool("v", false, "verbose mode")
-	goroot         = flag.String("goroot", runtime.GOROOT(), "Go root directory")
-	showTimestamps = flag.Bool("timestamps", false, "show timestamps with directory listings")
-	templateDir    = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content)")
-	showPlayground = flag.Bool("play", true, "enable playground")
-	declLinks      = flag.Bool("links", true, "link identifiers to their declarations")
-	notesRx        = flag.String("notes", "BUG", "regular expression matching note markers to show")
+	httpAddr    = flag.String("http", "localhost:6060", "HTTP service address")
+	verbose     = flag.Bool("v", false, "verbose mode")
+	goroot      = flag.String("goroot", runtime.GOROOT(), "Go root directory")
+	templateDir = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content)")
 )
 
 func usage() {
@@ -93,12 +88,6 @@ func main() {
 	corpus.InitVersionInfo()
 
 	pres = godoc.NewPresentation(corpus)
-	pres.ShowTimestamps = *showTimestamps
-	pres.ShowPlayground = *showPlayground
-	pres.DeclLinks = *declLinks
-	if *notesRx != "" {
-		pres.NotesRx = regexp.MustCompile(*notesRx)
-	}
 	pres.GoogleCN = googleCN
 
 	readTemplates(pres)

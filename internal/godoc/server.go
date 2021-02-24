@@ -30,7 +30,6 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
-	"time"
 
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
@@ -176,22 +175,7 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 				log.Println("parsing examples:", err)
 			}
 			info.Examples = collectExamples(h.c, pkg, files)
-
-			// collect any notes that we want to show
-			if info.PDoc.Notes != nil {
-				// could regexp.Compile only once per godoc, but probably not worth it
-				if rx := h.p.NotesRx; rx != nil {
-					for m, n := range info.PDoc.Notes {
-						if rx.MatchString(m) {
-							if info.Notes == nil {
-								info.Notes = make(map[string][]*doc.Note)
-							}
-							info.Notes[m] = n
-						}
-					}
-				}
-			}
-
+			info.Bugs = info.PDoc.Notes["BUG"]
 		} else {
 			// show source code
 			// TODO(gri) Consider eliminating export filtering in this mode,
@@ -206,13 +190,11 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 
 	// get directory information, if any
 	var dir *Directory
-	var timestamp time.Time
-	if tree, ts := h.c.fsTree.Get(); tree != nil && tree.(*Directory) != nil {
+	if tree, _ := h.c.fsTree.Get(); tree != nil && tree.(*Directory) != nil {
 		// directory tree is present; lookup respective directory
 		// (may still fail if the file system was updated and the
 		// new directory tree has not yet been computed)
 		dir = tree.(*Directory).lookup(abspath)
-		timestamp = ts
 	}
 	if dir == nil {
 		// TODO(agnivade): handle this case better, now since there is no CLI mode.
@@ -222,11 +204,8 @@ func (h *handlerServer) GetPageInfo(abspath, relpath string, mode PageInfoMode, 
 		// note: cannot use path filter here because in general
 		// it doesn't contain the FSTree path
 		dir = h.c.newDirectory(abspath, 2)
-		timestamp = time.Now()
 	}
 	info.Dirs = dir.listing(true, func(path string) bool { return h.includePath(path, mode) })
-
-	info.DirTime = timestamp
 	info.DirFlat = mode&FlatDir != 0
 
 	return info
@@ -273,7 +252,7 @@ func (h *handlerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	abspath := pathpkg.Join(h.fsRoot, relpath)
-	mode := h.p.GetPageInfoMode(r)
+	mode := GetPageInfoMode(r.FormValue("m"))
 	if relpath == builtinPkgPath {
 		// The fake built-in package contains unexported identifiers,
 		// but we want to show them. Also, disable type association,
@@ -299,9 +278,6 @@ func (h *handlerServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	default:
 		tabtitle = info.Dirname
 		title = "Directory "
-		if h.p.ShowTimestamps {
-			subtitle = "Last update: " + info.DirTime.String()
-		}
 	}
 	if title == "" {
 		if info.IsMain {
@@ -349,8 +325,6 @@ func (h *handlerServer) corpusInitialized() bool {
 type PageInfoMode uint
 
 const (
-	PageInfoModeQueryString = "m" // query string where PageInfoMode is stored
-
 	NoFiltering PageInfoMode = 1 << iota // do not filter exports
 	AllMethods                           // show all embedded methods
 	ShowSource                           // show source code, do not extract documentation
@@ -387,17 +361,13 @@ func (m PageInfoMode) names() []string {
 }
 
 // GetPageInfoMode computes the PageInfoMode flags by analyzing the request
-// URL form value "m". It is value is a comma-separated list of mode names
-// as defined by modeNames (e.g.: m=src,text).
-func (p *Presentation) GetPageInfoMode(r *http.Request) PageInfoMode {
+// URL form value "m". It is value is a comma-separated list of mode names (for example, "all,flat").
+func GetPageInfoMode(text string) PageInfoMode {
 	var mode PageInfoMode
-	for _, k := range strings.Split(r.FormValue(PageInfoModeQueryString), ",") {
+	for _, k := range strings.Split(text, ",") {
 		if m, found := modeNames[strings.TrimSpace(k)]; found {
 			mode |= m
 		}
-	}
-	if p.AdjustPageInfoMode != nil {
-		mode = p.AdjustPageInfoMode(r, mode)
 	}
 	return mode
 }
@@ -585,7 +555,7 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 		return
 	}
 
-	if r.FormValue(PageInfoModeQueryString) == "text" {
+	if r.FormValue("m") == "text" {
 		p.ServeText(w, src)
 		return
 	}

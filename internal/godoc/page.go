@@ -25,7 +25,6 @@ type Page struct {
 	GoogleCN bool // page is being served from golang.google.cn
 
 	// filled in by ServePage
-	Playground      bool
 	Version         string
 	GoogleAnalytics string
 }
@@ -34,7 +33,6 @@ func (p *Presentation) ServePage(w http.ResponseWriter, page Page) {
 	if page.Tabtitle == "" {
 		page.Tabtitle = page.Title
 	}
-	page.Playground = p.ShowPlayground
 	page.Version = runtime.Version()
 	page.GoogleAnalytics = p.GoogleAnalytics
 	applyTemplateToResponseWriter(w, p.GodocHTML, page)

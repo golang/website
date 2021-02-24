@@ -145,16 +145,16 @@ type T struct {
 }
 `))
 	want := `type T struct {
-<span id="T.NoDoc"></span>NoDoc <a href="/pkg/builtin/#string">string</a>
+<span id="T.NoDoc"></span>    NoDoc <a href="/pkg/builtin/#string">string</a>
 
-<span id="T.Doc"></span><span class="comment">// Doc has a comment.</span>
-Doc <a href="/pkg/builtin/#string">string</a>
+<span id="T.Doc"></span>    <span class="comment">// Doc has a comment.</span>
+    Doc <a href="/pkg/builtin/#string">string</a>
 
-<span id="T.Opt"></span><span class="comment">// Opt, if non-nil, is an option.</span>
-Opt *<a href="/pkg/builtin/#int">int</a>
+<span id="T.Opt"></span>    <span class="comment">// Opt, if non-nil, is an option.</span>
+    Opt *<a href="/pkg/builtin/#int">int</a>
 
-<span id="T.Опция"></span><span class="comment">// Опция - другое поле.</span>
-Опция <a href="/pkg/builtin/#bool">bool</a>
+<span id="T.Опция"></span>    <span class="comment">// Опция - другое поле.</span>
+    Опция <a href="/pkg/builtin/#bool">bool</a>
 }`
 	if got != want {
 		t.Errorf("got: %s\n\nwant: %s\n", got, want)
@@ -176,12 +176,12 @@ const (
 	NoVal
 )`))
 	want := `const (
-<span id="NoDoc">NoDoc</span> <a href="/pkg/builtin/#string">string</a> = &#34;NoDoc&#34;
+    <span id="NoDoc">NoDoc</span> <a href="/pkg/builtin/#string">string</a> = &#34;NoDoc&#34;
 
-<span class="comment">// Doc has a comment</span>
-<span id="Doc">Doc</span> = &#34;Doc&#34;
+    <span class="comment">// Doc has a comment</span>
+    <span id="Doc">Doc</span> = &#34;Doc&#34;
 
-<span id="NoVal">NoVal</span>
+    <span id="NoVal">NoVal</span>
 )`
 	if got != want {
 		t.Errorf("got: %s\n\nwant: %s\n", got, want)
@@ -198,7 +198,7 @@ type T struct {
 
 var S T = T{X: 12}`))
 	want := `type T struct {
-<span id="T.X"></span>X <a href="/pkg/builtin/#int">int</a>
+<span id="T.X"></span>    X <a href="/pkg/builtin/#int">int</a>
 }
 var <span id="S">S</span> <a href="#T">T</a> = <a href="#T">T</a>{<a href="#T.X">X</a>: 12}`
 	if got != want {
@@ -229,9 +229,7 @@ func (h Header) Get(key string) string`))
 }
 
 func linkifySource(t *testing.T, src []byte) string {
-	p := &Presentation{
-		DeclLinks: true,
-	}
+	p := &Presentation{}
 	fset := token.NewFileSet()
 	af, err := parser.ParseFile(fset, "foo.go", src, parser.ParseComments)
 	if err != nil {

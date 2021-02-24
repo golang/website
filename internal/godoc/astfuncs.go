@@ -36,7 +36,7 @@ func (p *Presentation) node_htmlFunc(info *PageInfo, node interface{}, linkify b
 
 	var buf2 bytes.Buffer
 	var n ast.Node
-	if linkify && p.DeclLinks {
+	if linkify {
 		n, _ = node.(ast.Node)
 	}
 	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
@@ -45,6 +45,8 @@ func (p *Presentation) node_htmlFunc(info *PageInfo, node interface{}, linkify b
 	}))
 	return buf2.String()
 }
+
+const TabWidth = 4
 
 // writeNode writes the AST node x to w.
 //
@@ -82,7 +84,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *PageInfo, fset *token.Fi
 	}
 
 	mode := printer.TabIndent | printer.UseSpaces
-	err := (&printer.Config{Mode: mode, Tabwidth: p.TabWidth}).Fprint(TabSpacer(out, p.TabWidth), fset, x)
+	err := (&printer.Config{Mode: mode, Tabwidth: TabWidth}).Fprint(TabSpacer(out, TabWidth), fset, x)
 	if err != nil {
 		log.Print(err)
 	}

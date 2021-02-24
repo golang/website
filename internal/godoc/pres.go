@@ -9,7 +9,6 @@ package godoc
 
 import (
 	"net/http"
-	"regexp"
 	"sync"
 	"text/template"
 )
@@ -29,44 +28,6 @@ type Presentation struct {
 	GodocHTML,
 	PackageHTML,
 	PackageRootHTML *template.Template
-
-	// TabWidth optionally specifies the tab width.
-	TabWidth int
-
-	ShowTimestamps bool
-	ShowPlayground bool
-	DeclLinks      bool
-
-	// NotesRx optionally specifies a regexp to match
-	// notes to render in the output.
-	NotesRx *regexp.Regexp
-
-	// AdjustPageInfoMode optionally specifies a function to
-	// modify the PageInfoMode of a request. The default chosen
-	// value is provided.
-	AdjustPageInfoMode func(req *http.Request, mode PageInfoMode) PageInfoMode
-
-	// URLForSrc optionally specifies a function that takes a source file and
-	// returns a URL for it.
-	// The source file argument has the form /src/<path>/<filename>.
-	URLForSrc func(src string) string
-
-	// URLForSrcPos optionally specifies a function to create a URL given a
-	// source file, a line from the source file (1-based), and low & high offset
-	// positions (0-based, bytes from beginning of file). Ideally, the returned
-	// URL will be for the specified line of the file, while the high & low
-	// positions will be used to highlight a section of the file.
-	// The source file argument has the form /src/<path>/<filename>.
-	URLForSrcPos func(src string, line, low, high int) string
-
-	// URLForSrcQuery optionally specifies a function to create a URL given a
-	// source file, a query string, and a line from the source file (1-based).
-	// The source file argument has the form /src/<path>/<filename>.
-	// The query argument will be escaped for the purposes of embedding in a URL
-	// query parameter.
-	// Ideally, the returned URL will be for the specified line of the file with
-	// the query string highlighted.
-	URLForSrcQuery func(src, query string, line int) string
 
 	// GoogleCN reports whether this request should be marked GoogleCN.
 	// If the function is nil, no requests are marked GoogleCN.
@@ -90,9 +51,6 @@ func NewPresentation(c *Corpus) *Presentation {
 		Corpus:     c,
 		mux:        http.NewServeMux(),
 		fileServer: http.FileServer(http.FS(c.fs)),
-
-		TabWidth:  4,
-		DeclLinks: true,
 	}
 	p.cmdHandler = handlerServer{
 		p:       p,

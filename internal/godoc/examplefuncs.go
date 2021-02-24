@@ -40,7 +40,7 @@ func (p *Presentation) example_htmlFunc(info *PageInfo, funcName string) string 
 			// remove surrounding braces
 			code = code[1 : n-1]
 			// unindent
-			code = replaceLeadingIndentation(code, strings.Repeat(" ", p.TabWidth), "")
+			code = replaceLeadingIndentation(code, strings.Repeat(" ", TabWidth), "")
 			// remove output comment
 			if loc := exampleOutputRx.FindStringIndex(code); loc != nil {
 				code = strings.TrimSpace(code[:loc[0]])
@@ -50,7 +50,7 @@ func (p *Presentation) example_htmlFunc(info *PageInfo, funcName string) string 
 		// Write out the playground code in standard Go style
 		// (use tabs, no comment highlight, etc).
 		play := ""
-		if eg.Play != nil && p.ShowPlayground {
+		if eg.Play != nil {
 			var buf bytes.Buffer
 			eg.Play.Comments = filterOutBuildAnnotations(eg.Play.Comments)
 			if err := format.Node(&buf, info.FSet, eg.Play); err != nil {
