@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package api
 
 import (
 	"go/build"
@@ -15,7 +15,7 @@ import (
 func TestParseVersionRow(t *testing.T) {
 	tests := []struct {
 		row  string
-		want versionedRow
+		want row
 	}{
 		{
 			row: "# comment",
@@ -25,7 +25,7 @@ func TestParseVersionRow(t *testing.T) {
 		},
 		{
 			row: "pkg archive/tar, type Writer struct",
-			want: versionedRow{
+			want: row{
 				pkg:  "archive/tar",
 				kind: "type",
 				name: "Writer",
@@ -33,7 +33,7 @@ func TestParseVersionRow(t *testing.T) {
 		},
 		{
 			row: "pkg archive/tar, type Header struct, AccessTime time.Time",
-			want: versionedRow{
+			want: row{
 				pkg:        "archive/tar",
 				kind:       "field",
 				structName: "Header",
@@ -42,7 +42,7 @@ func TestParseVersionRow(t *testing.T) {
 		},
 		{
 			row: "pkg archive/tar, method (*Reader) Read([]uint8) (int, error)",
-			want: versionedRow{
+			want: row{
 				pkg:  "archive/tar",
 				kind: "method",
 				name: "Read",
@@ -51,7 +51,7 @@ func TestParseVersionRow(t *testing.T) {
 		},
 		{
 			row: "pkg archive/zip, func FileInfoHeader(os.FileInfo) (*FileHeader, error)",
-			want: versionedRow{
+			want: row{
 				pkg:  "archive/zip",
 				kind: "func",
 				name: "FileInfoHeader",
@@ -59,7 +59,7 @@ func TestParseVersionRow(t *testing.T) {
 		},
 		{
 			row: "pkg encoding/base32, method (Encoding) WithPadding(int32) *Encoding",
-			want: versionedRow{
+			want: row{
 				pkg:  "encoding/base32",
 				kind: "method",
 				name: "WithPadding",
@@ -71,7 +71,7 @@ func TestParseVersionRow(t *testing.T) {
 	for i, tt := range tests {
 		got, ok := parseRow(tt.row)
 		if !ok {
-			got = versionedRow{}
+			got = row{}
 		}
 		if got != tt.want {
 			t.Errorf("%d. parseRow(%q) = %+v; want %+v", i, tt.row, got, tt.want)
@@ -91,7 +91,7 @@ func hasTag(t string) bool {
 }
 
 func TestAPIVersion(t *testing.T) {
-	av, err := parsePackageAPIInfo()
+	av, err := Load()
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -135,7 +135,7 @@ func TestAPIVersion(t *testing.T) {
 		if tc.want != "" && !hasTag("go"+tc.want) {
 			continue
 		}
-		if got := av.sinceVersionFunc(tc.kind, tc.receiver, tc.name, tc.pkg); got != tc.want {
+		if got := av.Func(tc.kind, tc.receiver, tc.name, tc.pkg); got != tc.want {
 			t.Errorf(`sinceFunc("%s", "%s", "%s", "%s") = "%s"; want "%s"`, tc.kind, tc.receiver, tc.name, tc.pkg, got, tc.want)
 		}
 	}

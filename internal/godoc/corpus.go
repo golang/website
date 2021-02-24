@@ -12,6 +12,8 @@ import (
 	"io/fs"
 	"sync"
 	"time"
+
+	"golang.org/x/website/internal/api"
 )
 
 // A Corpus holds all the state related to serving and indexing a
@@ -53,7 +55,7 @@ type Corpus struct {
 
 	// pkgAPIInfo contains the information about which package API
 	// features were added in which version of Go.
-	pkgAPIInfo apiVersions
+	pkgAPIInfo api.DB
 }
 
 // NewCorpus returns a new Corpus from a filesystem.

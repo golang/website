@@ -51,7 +51,7 @@ func (p *Presentation) initFuncMap() {
 	p.funcMap = template.FuncMap{
 		// various helpers
 		"filename": filenameFunc,
-		"since":    p.Corpus.pkgAPIInfo.sinceVersionFunc,
+		"since":    p.Corpus.pkgAPIInfo.Func,
 
 		// formatting of AST nodes
 		"node":         p.nodeFunc,

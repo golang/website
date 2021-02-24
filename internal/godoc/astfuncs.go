@@ -18,6 +18,7 @@ import (
 	"log"
 	"unicode"
 
+	"golang.org/x/website/internal/api"
 	"golang.org/x/website/internal/texthtml"
 )
 
@@ -61,7 +62,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *PageInfo, fset *token.Fi
 	//           implemented in the printer than here with another layer)
 
 	var pkgName, structName string
-	var apiInfo pkgAPIVersions
+	var apiInfo api.PkgDB
 	if gd, ok := x.(*ast.GenDecl); ok && pageInfo != nil && pageInfo.PDoc != nil &&
 		p.Corpus != nil &&
 		gd.Tok == token.TYPE && len(gd.Specs) != 0 {
@@ -88,8 +89,8 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *PageInfo, fset *token.Fi
 
 	// Add comments to struct fields saying which Go version introduced them.
 	if structName != "" {
-		fieldSince := apiInfo.fieldSince[structName]
-		typeSince := apiInfo.typeSince[structName]
+		fieldSince := apiInfo.Field[structName]
+		typeSince := apiInfo.Type[structName]
 		// Add/rewrite comments on struct fields to note which Go version added them.
 		var buf2 bytes.Buffer
 		buf2.Grow(buf.Len() + len(" // Added in Go 1.n")*10)
