@@ -22,7 +22,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	pathpkg "path"
+	"path"
 	"path/filepath"
 	"regexp"
 	"sort"
@@ -74,7 +74,7 @@ func (d *DocTree) GetPageInfo(abspath, relpath string, mode PageInfoMode, goos, 
 	// Note: If goos/goarch aren't set, the current binary's GOOS/GOARCH
 	// are used.
 	ctxt := build.Default
-	ctxt.IsAbsPath = pathpkg.IsAbs
+	ctxt.IsAbsPath = path.IsAbs
 	ctxt.IsDir = func(path string) bool {
 		fi, err := fs.Stat(d.fs, toFS(filepath.ToSlash(path)))
 		return err == nil && fi.IsDir()
@@ -159,7 +159,7 @@ func (d *DocTree) GetPageInfo(abspath, relpath string, mode PageInfoMode, goos, 
 			if mode&AllMethods != 0 {
 				m |= doc.AllMethods
 			}
-			info.PDoc = doc.New(pkg, pathpkg.Clean(relpath), m) // no trailing '/' in importpath
+			info.PDoc = doc.New(pkg, path.Clean(relpath), m) // no trailing '/' in importpath
 			if mode&NoTypeAssoc != 0 {
 				for _, t := range info.PDoc.Types {
 					info.PDoc.Consts = append(info.PDoc.Consts, t.Consts...)
@@ -227,9 +227,9 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO(rsc): URL should be clean already.
-	relpath := pathpkg.Clean(strings.TrimPrefix(r.URL.Path, "/pkg/"))
+	relpath := path.Clean(strings.TrimPrefix(r.URL.Path, "/pkg/"))
 
-	abspath := pathpkg.Join("/src", relpath)
+	abspath := path.Join("/src", relpath)
 	mode := GetPageInfoMode(r.FormValue("m"))
 	if relpath == "builtin" {
 		// The fake built-in package contains unexported identifiers,
@@ -260,7 +260,7 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if title == "" {
 		if info.IsMain {
 			// assume that the directory name is the command name
-			_, tabtitle = pathpkg.Split(relpath)
+			_, tabtitle = path.Split(relpath)
 			title = "Command "
 		} else {
 			title = "Package "
@@ -481,7 +481,7 @@ func applyTemplateToResponseWriter(rw http.ResponseWriter, t *template.Template,
 }
 
 func redirect(w http.ResponseWriter, r *http.Request) (redirected bool) {
-	canonical := pathpkg.Clean(r.URL.Path)
+	canonical := path.Clean(r.URL.Path)
 	if !strings.HasSuffix(canonical, "/") {
 		canonical += "/"
 	}
@@ -495,7 +495,7 @@ func redirect(w http.ResponseWriter, r *http.Request) (redirected bool) {
 }
 
 func redirectFile(w http.ResponseWriter, r *http.Request) (redirected bool) {
-	c := pathpkg.Clean(r.URL.Path)
+	c := path.Clean(r.URL.Path)
 	c = strings.TrimRight(c, "/")
 	if r.URL.Path != c {
 		url := *r.URL
@@ -537,7 +537,7 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 	}
 
 	cfg := texthtml.Config{
-		GoComments: pathpkg.Ext(abspath) == ".go",
+		GoComments: path.Ext(abspath) == ".go",
 		Highlight:  r.FormValue("h"),
 		Selection:  rangeSelection(r.FormValue("s")),
 		Line:       1,
@@ -690,7 +690,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 	abspath := relpath
 	relpath = relpath[1:] // strip leading slash
 
-	switch pathpkg.Ext(relpath) {
+	switch path.Ext(relpath) {
 	case ".html":
 		p.ServeHTMLDoc(w, r, abspath, relpath)
 		return
@@ -712,8 +712,8 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 		if redirect(w, r) {
 			return
 		}
-		index := pathpkg.Join(fsPath, "index.html")
-		if isTextFile(p.Corpus.fs, index) || isTextFile(p.Corpus.fs, pathpkg.Join(fsPath, "index.md")) {
+		index := path.Join(fsPath, "index.html")
+		if isTextFile(p.Corpus.fs, index) || isTextFile(p.Corpus.fs, path.Join(fsPath, "index.md")) {
 			p.ServeHTMLDoc(w, r, index, index)
 			return
 		}

@@ -16,7 +16,7 @@ import (
 	"go/parser"
 	"go/token"
 	"io/fs"
-	pathpkg "path"
+	"path"
 )
 
 var linePrefix = []byte("//line ")
@@ -64,12 +64,12 @@ func parseFile(fsys fs.FS, fset *token.FileSet, filename string, mode parser.Mod
 func parseFiles(fsys fs.FS, fset *token.FileSet, relpath string, abspath string, localnames []string) (map[string]*ast.File, error) {
 	files := make(map[string]*ast.File)
 	for _, f := range localnames {
-		absname := pathpkg.Join(abspath, f)
+		absname := path.Join(abspath, f)
 		file, err := parseFile(fsys, fset, absname, parser.ParseComments)
 		if err != nil {
 			return nil, err
 		}
-		files[pathpkg.Join(relpath, f)] = file
+		files[path.Join(relpath, f)] = file
 	}
 
 	return files, nil

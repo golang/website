@@ -15,7 +15,7 @@ import (
 	"go/token"
 	"io/fs"
 	"log"
-	pathpkg "path"
+	"path"
 	"sort"
 	"strings"
 )
@@ -28,13 +28,13 @@ type Directory struct {
 }
 
 func (d *Directory) Name() string {
-	return pathpkg.Base(d.Path)
+	return path.Base(d.Path)
 }
 
 func isPkgFile(fi fs.DirEntry) bool {
 	name := fi.Name()
 	return !fi.IsDir() &&
-		pathpkg.Ext(name) == ".go" &&
+		path.Ext(name) == ".go" &&
 		!strings.HasSuffix(fi.Name(), "_test.go") // ignore test files
 }
 
@@ -45,16 +45,16 @@ func isPkgDir(fi fs.DirEntry) bool {
 		len(name) > 0 && name[0] != '_' && name[0] != '.' // ignore _files and .files
 }
 
-func newDirTree(fsys fs.FS, fset *token.FileSet, path string) *Directory {
+func newDirTree(fsys fs.FS, fset *token.FileSet, abspath string) *Directory {
 	var synopses [3]string // prioritized package documentation (0 == highest priority)
 
 	hasPkgFiles := false
 	haveSummary := false
 
-	list, err := fs.ReadDir(fsys, toFS(path))
+	list, err := fs.ReadDir(fsys, toFS(abspath))
 	if err != nil {
 		// TODO: propagate more. See golang.org/issue/14252.
-		log.Printf("newDirTree reading %s: %v", path, err)
+		log.Printf("newDirTree reading %s: %v", abspath, err)
 	}
 
 	// determine number of subdirectories and if there are package files
@@ -63,7 +63,7 @@ func newDirTree(fsys fs.FS, fset *token.FileSet, path string) *Directory {
 
 	for _, d := range list {
 		name := d.Name()
-		filename := pathpkg.Join(path, name)
+		filename := path.Join(abspath, name)
 		switch {
 		case isPkgDir(d):
 			dir := newDirTree(fsys, fset, filename)
@@ -131,7 +131,7 @@ func newDirTree(fsys fs.FS, fset *token.FileSet, path string) *Directory {
 	}
 
 	return &Directory{
-		Path:     path,
+		Path:     abspath,
 		HasPkg:   hasPkgFiles,
 		Synopsis: synopsis,
 		Dirs:     dirs,
@@ -139,11 +139,11 @@ func newDirTree(fsys fs.FS, fset *token.FileSet, path string) *Directory {
 }
 
 // toFS returns the io/fs name for path (no leading slash).
-func toFS(path string) string {
-	if path == "/" {
+func toFS(name string) string {
+	if name == "/" {
 		return "."
 	}
-	return pathpkg.Clean(strings.TrimPrefix(path, "/"))
+	return path.Clean(strings.TrimPrefix(name, "/"))
 }
 
 // walk calls f(d, depth) for each directory d in the tree rooted at dir, including dir itself.
@@ -160,32 +160,32 @@ func walkDirs(f func(d *Directory, depth int), d *Directory, depth int) {
 	}
 }
 
-// lookup looks for the *Directory for a given path, relative to dir.
-func (dir *Directory) lookup(path string) *Directory {
-	path = pathpkg.Join(dir.Path, path)
-	if path == dir.Path {
+// lookup looks for the *Directory for a given named path, relative to dir.
+func (dir *Directory) lookup(name string) *Directory {
+	name = path.Join(dir.Path, name)
+	if name == dir.Path {
 		return dir
 	}
 	dirPathLen := len(dir.Path)
 	if dir.Path == "/" {
 		dirPathLen = 0 // so path[dirPathLen] is a slash
 	}
-	if !strings.HasPrefix(path, dir.Path) || path[dirPathLen] != '/' {
-		println("NO", path, dir.Path)
+	if !strings.HasPrefix(name, dir.Path) || name[dirPathLen] != '/' {
+		println("NO", name, dir.Path)
 		return nil
 	}
 	d := dir
 Walk:
-	for i := dirPathLen + 1; i <= len(path); i++ {
-		if i == len(path) || path[i] == '/' {
+	for i := dirPathLen + 1; i <= len(name); i++ {
+		if i == len(name) || name[i] == '/' {
 			// Find next child along path.
 			for _, sub := range d.Dirs {
-				if sub.Path == path[:i] {
+				if sub.Path == name[:i] {
 					d = sub
 					continue Walk
 				}
 			}
-			println("LOST", path[:i])
+			println("LOST", name[:i])
 			return nil
 		}
 	}
@@ -203,7 +203,7 @@ type DirEntry struct {
 }
 
 func (d *DirEntry) Name() string {
-	return pathpkg.Base(d.Path)
+	return path.Base(d.Path)
 }
 
 type DirList struct {

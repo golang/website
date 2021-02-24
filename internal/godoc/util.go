@@ -9,7 +9,7 @@ package godoc
 
 import (
 	"io/fs"
-	pathpkg "path"
+	"path"
 	"sync"
 	"time"
 	"unicode/utf8"
@@ -69,7 +69,7 @@ var textExt = map[string]bool{
 // readable text.
 func isTextFile(fsys fs.FS, filename string) bool {
 	// if the extension is known, use it for decision making
-	if isText, found := textExt[pathpkg.Ext(filename)]; found {
+	if isText, found := textExt[path.Ext(filename)]; found {
 		return isText
 	}
 

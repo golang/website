@@ -14,7 +14,7 @@ import (
 	"io/fs"
 	"log"
 	"os"
-	pathpkg "path"
+	"path"
 	"strings"
 	"time"
 )
@@ -79,7 +79,7 @@ func (c *Corpus) updateMetadata() {
 			return
 		}
 		for _, fi := range fis {
-			name := pathpkg.Join(dir, fi.Name())
+			name := path.Join(dir, fi.Name())
 			if fi.IsDir() {
 				scan(name) // recurse
 				continue

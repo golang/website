@@ -13,7 +13,7 @@ import (
 	"go/ast"
 	"go/doc"
 	"go/token"
-	pathpkg "path"
+	"path"
 	"strconv"
 	"strings"
 	"text/template"
@@ -76,8 +76,8 @@ func (p *Presentation) initFuncMap() {
 
 func multiply(a, b int) int { return a * b }
 
-func filenameFunc(path string) string {
-	_, localname := pathpkg.Split(path)
+func filenameFunc(name string) string {
+	_, localname := path.Split(name)
 	return localname
 }
 
@@ -119,7 +119,7 @@ func pkgLinkFunc(path string) string {
 // documentation of relpath.
 func srcToPkgLinkFunc(relpath string) string {
 	relpath = pkgLinkFunc(relpath)
-	relpath = pathpkg.Dir(relpath)
+	relpath = path.Dir(relpath)
 	if relpath == "pkg" {
 		return `<a href="/pkg">Index</a>`
 	}
@@ -212,7 +212,7 @@ func srcPosLinkFunc(s string, line, low, high int) string {
 }
 
 func srcLinkFunc(s string) string {
-	s = pathpkg.Clean("/" + s)
+	s = path.Clean("/" + s)
 	if !strings.HasPrefix(s, "/src/") {
 		s = "/src" + s
 	}
@@ -225,7 +225,7 @@ func srcLinkFunc(s string) string {
 // query is expected to be a string that has already been appropriately escaped
 // for use in a URL query.
 func queryLinkFunc(s, query string, line int) string {
-	url := pathpkg.Clean("/"+s) + "?h=" + query
+	url := path.Clean("/"+s) + "?h=" + query
 	if line > 0 {
 		url += "#L" + strconv.Itoa(line)
 	}
@@ -233,5 +233,5 @@ func queryLinkFunc(s, query string, line int) string {
 }
 
 func docLinkFunc(s string, ident string) string {
-	return pathpkg.Clean("/pkg/"+s) + "/#" + ident
+	return path.Clean("/pkg/"+s) + "/#" + ident
 }
