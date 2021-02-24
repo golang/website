@@ -15,14 +15,15 @@ import (
 	"log"
 	"regexp"
 	"strings"
-	"unicode"
 	"unicode/utf8"
+
+	"golang.org/x/website/internal/pkgdoc"
 )
 
-func (p *Presentation) example_htmlFunc(info *PageInfo, funcName string) string {
+func (p *Presentation) example_htmlFunc(info *pkgdoc.Page, funcName string) string {
 	var buf bytes.Buffer
 	for _, eg := range info.Examples {
-		name := stripExampleSuffix(eg.Name)
+		name := pkgdoc.TrimExampleSuffix(eg.Name)
 
 		if name != funcName {
 			continue
@@ -190,7 +191,7 @@ func filterOutBuildAnnotations(cg []*ast.CommentGroup) []*ast.CommentGroup {
 // example_nameFunc takes an example function name and returns its display
 // name. For example, "Foo_Bar_quux" becomes "Foo.Bar (Quux)".
 func (p *Presentation) example_nameFunc(s string) string {
-	name, suffix := splitExampleName(s)
+	name, suffix := pkgdoc.SplitExampleName(s)
 	// replace _ with . for method names
 	name = strings.Replace(name, "_", ".", 1)
 	// use "Package" if no name provided
@@ -203,33 +204,6 @@ func (p *Presentation) example_nameFunc(s string) string {
 // example_suffixFunc takes an example function name and returns its suffix in
 // parenthesized form. For example, "Foo_Bar_quux" becomes " (Quux)".
 func (p *Presentation) example_suffixFunc(name string) string {
-	_, suffix := splitExampleName(name)
+	_, suffix := pkgdoc.SplitExampleName(name)
 	return suffix
-}
-
-func splitExampleName(s string) (name, suffix string) {
-	i := strings.LastIndex(s, "_")
-	if 0 <= i && i < len(s)-1 && !startsWithUppercase(s[i+1:]) {
-		name = s[:i]
-		suffix = " (" + strings.Title(s[i+1:]) + ")"
-		return
-	}
-	name = s
-	return
-}
-
-// stripExampleSuffix strips lowercase braz in Foo_braz or Foo_Bar_braz from name
-// while keeping uppercase Braz in Foo_Braz.
-func stripExampleSuffix(name string) string {
-	if i := strings.LastIndex(name, "_"); i != -1 {
-		if i < len(name)-1 && !startsWithUppercase(name[i+1:]) {
-			name = name[:i]
-		}
-	}
-	return name
-}
-
-func startsWithUppercase(s string) bool {
-	r, _ := utf8.DecodeRuneInString(s)
-	return unicode.IsUpper(r)
 }

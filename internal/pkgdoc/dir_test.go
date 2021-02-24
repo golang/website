@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package pkgdoc
 
 import (
 	"go/token"
@@ -16,11 +16,11 @@ import (
 )
 
 func TestNewDirTree(t *testing.T) {
-	dir := newDirTree(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "/src")
+	dir := newDir(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "/src")
 	processDir(t, dir)
 }
 
-func processDir(t *testing.T, dir *Directory) {
+func processDir(t *testing.T, dir *Dir) {
 	var list []string
 	for _, d := range dir.Dirs {
 		list = append(list, d.Name())
@@ -43,6 +43,6 @@ func BenchmarkNewDirectory(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 	for tries := 0; tries < b.N; tries++ {
-		newDirTree(fs, token.NewFileSet(), "/src")
+		newDir(fs, token.NewFileSet(), "/src")
 	}
 }

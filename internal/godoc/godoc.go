@@ -17,6 +17,8 @@ import (
 	"strconv"
 	"strings"
 	"text/template"
+
+	"golang.org/x/website/internal/pkgdoc"
 )
 
 // FuncMap defines template functions used in godoc templates.
@@ -81,31 +83,6 @@ func filenameFunc(name string) string {
 	return localname
 }
 
-type PageInfo struct {
-	Dirname  string // directory containing the package
-	Err      error  // error or nil
-	GoogleCN bool   // page is being served from golang.google.cn
-
-	Mode PageInfoMode // display metadata from query string
-
-	// package info
-	FSet       *token.FileSet       // nil if no package documentation
-	PDoc       *doc.Package         // nil if no package documentation
-	Examples   []*doc.Example       // nil if no example code
-	Bugs       []*doc.Note          // nil if no BUG comments
-	PAst       map[string]*ast.File // nil if no AST with package exports
-	IsMain     bool                 // true for package main
-	IsFiltered bool                 // true if results were filtered
-
-	// directory info
-	Dirs    *DirList // nil if no directory information
-	DirFlat bool     // if set, show directory in a flat (non-indented) manner
-}
-
-func (info *PageInfo) IsEmpty() bool {
-	return info.Err != nil || info.PAst == nil && info.PDoc == nil && info.Dirs == nil
-}
-
 func pkgLinkFunc(path string) string {
 	// because of the irregular mapping under goroot
 	// we need to correct certain relative paths
@@ -157,7 +134,7 @@ func srcBreadcrumbFunc(relpath string) string {
 	return buf.String()
 }
 
-func posLink_urlFunc(info *PageInfo, n interface{}) string {
+func posLink_urlFunc(info *pkgdoc.Page, n interface{}) string {
 	// n must be an ast.Node or a *doc.Note
 	var pos, end token.Pos
 

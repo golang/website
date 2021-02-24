@@ -14,6 +14,8 @@ import (
 	"go/token"
 	"strings"
 	"testing"
+
+	"golang.org/x/website/internal/pkgdoc"
 )
 
 func TestPkgLinkFunc(t *testing.T) {
@@ -236,7 +238,7 @@ func linkifySource(t *testing.T, src []byte) string {
 		t.Fatal(err)
 	}
 	var buf bytes.Buffer
-	pi := &PageInfo{
+	pi := &pkgdoc.Page{
 		FSet: fset,
 	}
 	sep := ""

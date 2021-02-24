@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"sync"
 	"text/template"
+
+	"golang.org/x/website/internal/pkgdoc"
 )
 
 // Presentation generates output from a corpus.
@@ -52,7 +54,7 @@ func NewPresentation(c *Corpus) *Presentation {
 	}
 	docs := &docServer{
 		p: p,
-		d: NewDocTree(c.fs),
+		d: pkgdoc.NewDocs(c.fs),
 	}
 	p.mux.Handle("/cmd/", docs)
 	p.mux.Handle("/pkg/", docs)

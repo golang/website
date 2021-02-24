@@ -19,18 +19,19 @@ import (
 	"unicode"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/texthtml"
 )
 
 var slashSlash = []byte("//")
 
-func (p *Presentation) nodeFunc(info *PageInfo, node interface{}) string {
+func (p *Presentation) nodeFunc(info *pkgdoc.Page, node interface{}) string {
 	var buf bytes.Buffer
 	p.writeNode(&buf, info, info.FSet, node)
 	return buf.String()
 }
 
-func (p *Presentation) node_htmlFunc(info *PageInfo, node interface{}, linkify bool) string {
+func (p *Presentation) node_htmlFunc(info *pkgdoc.Page, node interface{}, linkify bool) string {
 	var buf1 bytes.Buffer
 	p.writeNode(&buf1, info, info.FSet, node)
 
@@ -53,7 +54,7 @@ const TabWidth = 4
 // The provided fset must be non-nil. The pageInfo is optional. If
 // present, the pageInfo is used to add comments to struct fields to
 // say which version of Go introduced them.
-func (p *Presentation) writeNode(w io.Writer, pageInfo *PageInfo, fset *token.FileSet, x interface{}) {
+func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token.FileSet, x interface{}) {
 	// convert trailing tabs into spaces using a tconv filter
 	// to ensure a good outcome in most browsers (there may still
 	// be tabs in comments and strings, but converting those into
