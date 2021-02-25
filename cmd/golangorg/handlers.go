@@ -15,7 +15,6 @@ import (
 	"net/http"
 	pathpkg "path"
 	"strings"
-	"text/template"
 
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/godoc"
@@ -98,35 +97,14 @@ func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
 	return mux
 }
 
-func readTemplate(name string) *template.Template {
-	if pres == nil {
-		panic("no global Presentation set yet")
-	}
-	path := "lib/godoc/" + name
-
-	// use underlying file system fs to read the template file
-	// (cannot use template ParseFile functions directly)
-	data, err := fs.ReadFile(fsys, toFS(path))
-	if err != nil {
-		log.Fatal("readTemplate: ", err)
-	}
-	// be explicit with errors (for app engine use)
-	t, err := template.New(name).Funcs(pres.FuncMap()).Parse(string(data))
-	if err != nil {
-		log.Fatal("readTemplate: ", err)
-	}
-	return t
-}
-
 func readTemplates(p *godoc.Presentation) {
-	codewalkHTML = readTemplate("codewalk.html")
-	codewalkdirHTML = readTemplate("codewalkdir.html")
-	p.DirlistHTML = readTemplate("dirlist.html")
-	p.ErrorHTML = readTemplate("error.html")
-	p.ExampleHTML = readTemplate("example.html")
-	p.GodocHTML = readTemplate("godoc.html")
-	p.PackageHTML = readTemplate("package.html")
-	p.PackageRootHTML = readTemplate("packageroot.html")
+	var err error
+	if codewalkHTML, err = p.ReadTemplate("codewalk.html"); err != nil {
+		log.Fatal(err)
+	}
+	if codewalkdirHTML, err = p.ReadTemplate("codewalkdir.html"); err != nil {
+		log.Fatal(err)
+	}
 }
 
 type fmtResponse struct {

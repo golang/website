@@ -22,30 +22,18 @@ import (
 	"golang.org/x/website/internal/pkgdoc"
 )
 
-// FuncMap defines template functions used in godoc templates.
-//
-// Convention: template function names ending in "_html" or "_url" produce
-//             HTML- or URL-escaped strings; all other function results may
-//             require explicit escaping in the template.
-func (p *Presentation) FuncMap() template.FuncMap {
-	p.initFuncMapOnce.Do(p.initFuncMap)
-	return p.funcMap
-}
-
-func (p *Presentation) TemplateFuncs() template.FuncMap {
-	p.initFuncMapOnce.Do(p.initFuncMap)
-	return p.templateFuncs
-}
-
 func (p *Presentation) initFuncMap() {
-	if p.fs == nil {
-		panic("nil Presentation.fs")
-	}
-	p.templateFuncs = template.FuncMap{
+	// Template function maps.
+	// Convention: template function names ending in "_html" or "_url" produce
+	//             HTML- or URL-escaped strings; all other function results may
+	//             require explicit escaping in the template.
+
+	p.DocFuncs = template.FuncMap{
 		"code":     p.code,
 		"releases": func() []*history.Major { return history.Majors },
 	}
-	p.funcMap = template.FuncMap{
+
+	p.SiteFuncs = template.FuncMap{
 		// various helpers
 		"filename": filenameFunc,
 		"since":    p.api.Func,

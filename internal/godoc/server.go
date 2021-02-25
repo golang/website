@@ -290,7 +290,7 @@ func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file
 
 	// evaluate as template if indicated
 	if f.Template {
-		tmpl, err := template.New("main").Funcs(p.TemplateFuncs()).Parse(string(src))
+		tmpl, err := template.New("main").Funcs(p.DocFuncs).Parse(string(src))
 		if err != nil {
 			log.Printf("parsing template %s: %v", f.Path, err)
 			p.ServeError(w, r, f.Path, err)

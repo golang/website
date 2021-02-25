@@ -78,7 +78,11 @@ func main() {
 	}
 	fsys = unionFS{content, os.DirFS(*goroot)}
 
-	pres = godoc.NewPresentation(fsys)
+	var err error
+	pres, err = godoc.NewPresentation(fsys)
+	if err != nil {
+		log.Fatal(err)
+	}
 	pres.GoogleCN = googleCN
 
 	readTemplates(pres)
