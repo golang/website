@@ -19,7 +19,6 @@ import (
 
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/godoc"
-	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/redirect"
 )
 
@@ -87,11 +86,9 @@ func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
 	mux.Handle("/", pres)
 	mux.Handle("/blog/", http.HandlerFunc(blogHandler))
 	mux.Handle("/doc/codewalk/", http.HandlerFunc(codewalk))
-	mux.Handle("/doc/devel/release.html", releaseHandler{ReleaseHistory: sortReleases(history.Releases)})
 	mux.Handle("/doc/play/", pres.FileServer())
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/pkg/C/", redirect.Handler("/cmd/cgo/"))
-	mux.Handle("/project/", projectHandler{ReleaseHistory: sortMajorReleases(history.Releases)})
 	mux.Handle("/robots.txt", pres.FileServer())
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)

@@ -18,6 +18,7 @@ import (
 	"strings"
 	"text/template"
 
+	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/pkgdoc"
 )
 
@@ -41,7 +42,8 @@ func (p *Presentation) initFuncMap() {
 		panic("nil Presentation.Corpus")
 	}
 	p.templateFuncs = template.FuncMap{
-		"code": p.code,
+		"code":     p.code,
+		"releases": func() []*history.Major { return history.Majors },
 	}
 	p.funcMap = template.FuncMap{
 		// various helpers

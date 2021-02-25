@@ -8,42 +8,10 @@
 package main
 
 import (
-	"bytes"
-	"encoding/json"
 	"net/http"
 	"strings"
 
 	"golang.org/x/website/internal/env"
-	"golang.org/x/website/internal/godoc"
-)
-
-// This file holds common code from the x/tools/godoc serving engine.
-// It's being used during the transition. See golang.org/issue/29206.
-
-// extractMetadata extracts the godoc.Metadata from a byte slice.
-// It returns the godoc.Metadata value and the remaining data.
-// If no metadata is present the original byte slice is returned.
-//
-func extractMetadata(b []byte) (meta godoc.Metadata, tail []byte, _ error) {
-	tail = b
-	if !bytes.HasPrefix(b, jsonStart) {
-		return godoc.Metadata{}, tail, nil
-	}
-	end := bytes.Index(b, jsonEnd)
-	if end < 0 {
-		return godoc.Metadata{}, tail, nil
-	}
-	b = b[len(jsonStart)-1 : end+1] // drop leading <!-- and include trailing }
-	if err := json.Unmarshal(b, &meta); err != nil {
-		return godoc.Metadata{}, nil, err
-	}
-	tail = tail[end+len(jsonEnd):]
-	return meta, tail, nil
-}
-
-var (
-	jsonStart = []byte("<!--{")
-	jsonEnd   = []byte("}-->")
 )
 
 // googleCN reports whether request r is considered

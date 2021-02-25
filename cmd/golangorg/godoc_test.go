@@ -259,6 +259,13 @@ func testWeb(t *testing.T) {
 			},
 			releaseTag: "go1.11",
 		},
+		{
+			path: "/project/",
+			contains: []string{
+				`<li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>`,
+				`<li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>`,
+			},
+		},
 	}
 	for _, test := range tests {
 		url := fmt.Sprintf("http://%s%s", addr, test.path)
