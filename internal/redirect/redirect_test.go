@@ -21,15 +21,21 @@ func errorResult(status int) redirectResult {
 
 func TestRedirects(t *testing.T) {
 	var tests = map[string]redirectResult{
-		"/build":    {301, "http://build.golang.org"},
-		"/ref":      {301, "/doc/#references"},
-		"/doc/mem":  {301, "/ref/mem"},
-		"/doc/spec": {301, "/ref/spec"},
-		"/tour":     {301, "http://tour.golang.org"},
-		"/foo":      errorResult(404),
+		"/build":       {301, "https://build.golang.org"},
+		"/ref":         {301, "/doc/#references"},
+		"/doc/mem":     {301, "/ref/mem"},
+		"/doc/spec":    {301, "/ref/spec"},
+		"/tour":        {301, "https://tour.golang.org"},
+		"/foo":         errorResult(404),
+		"/blog":        {301, "https://blog.golang.org"},
+		"/blog/":       {302, "/blog"},
+		"/blog/go1.16": {302, "https://blog.golang.org/go1.16"},
 
 		"/pkg/asn1":           {301, "/pkg/encoding/asn1/"},
 		"/pkg/template/parse": {301, "/pkg/text/template/parse/"},
+		"/pkg/C":              {301, "/pkg/C/"},
+		"/pkg/C/":             {301, "/cmd/cgo/"},
+		"/pkg/C/foo":          {301, "/cmd/cgo/"}, // historical
 
 		"/src/pkg/foo": {301, "/src/foo"},
 
@@ -98,6 +104,7 @@ func TestRedirects(t *testing.T) {
 
 		if resp.StatusCode != want.status {
 			t.Errorf("(path: %q) got status %d, want %d", path, resp.StatusCode, want.status)
+			continue
 		}
 
 		if want.status != 301 && want.status != 302 {

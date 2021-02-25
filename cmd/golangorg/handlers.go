@@ -83,12 +83,8 @@ func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
 	}
 	mux := http.NewServeMux()
 	mux.Handle("/", pres)
-	mux.Handle("/blog/", http.HandlerFunc(blogHandler))
 	mux.Handle("/doc/codewalk/", http.HandlerFunc(codewalk))
-	mux.Handle("/doc/play/", pres.FileServer())
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
-	mux.Handle("/pkg/C/", redirect.Handler("/cmd/cgo/"))
-	mux.Handle("/robots.txt", pres.FileServer())
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)
 

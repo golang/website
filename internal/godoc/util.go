@@ -10,6 +10,7 @@ package godoc
 import (
 	"io/fs"
 	"path"
+	"strings"
 	"unicode/utf8"
 )
 
@@ -33,21 +34,18 @@ func IsText(s []byte) bool {
 	return true
 }
 
-// textExt[x] is true if the extension x indicates a text file, and false otherwise.
-var textExt = map[string]bool{
-	".css": false, // must be served raw
-	".js":  false, // must be served raw
-	".svg": false, // must be served raw
-}
-
 // isTextFile reports whether the file has a known extension indicating
 // a text file, or if a significant chunk of the specified file looks like
 // correct UTF-8; that is, if it is likely that the file contains human-
 // readable text.
 func isTextFile(fsys fs.FS, filename string) bool {
-	// if the extension is known, use it for decision making
-	if isText, found := textExt[path.Ext(filename)]; found {
-		return isText
+	// Various special cases must be served raw, not converted to nice HTML.
+	if filename == "robots.txt" || strings.HasPrefix(filename, "doc/play/") {
+		return false
+	}
+	switch path.Ext(filename) {
+	case ".css", ".js", ".svg":
+		return false
 	}
 
 	// the extension is not known; read an initial chunk

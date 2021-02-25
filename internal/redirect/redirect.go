@@ -95,8 +95,8 @@ var cmdRedirects = map[string]string{
 }
 
 var redirects = map[string]string{
-	"/blog":       "/blog/",
-	"/build":      "http://build.golang.org",
+	"/blog":       "https://blog.golang.org",
+	"/build":      "https://build.golang.org",
 	"/change":     "https://go.googlesource.com/go",
 	"/cl":         "https://go-review.googlesource.com",
 	"/cmd/godoc/": "https://pkg.go.dev/golang.org/x/tools/cmd/godoc",
@@ -104,7 +104,7 @@ var redirects = map[string]string{
 	"/issue/new":  "https://github.com/golang/go/issues/new",
 	"/issues":     "https://github.com/golang/go/issues",
 	"/issues/new": "https://github.com/golang/go/issues/new",
-	"/play":       "http://play.golang.org",
+	"/play":       "https://play.golang.org",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
 
 	// In Go 1.2 the references page is part of /doc/.
@@ -114,11 +114,12 @@ var redirects = map[string]string{
 	// "/ref/": "/doc/#references",
 
 	// Be nice to people who are looking in the wrong place.
+	"/pkg/C/":   "/cmd/cgo/",
 	"/doc/mem":  "/ref/mem",
 	"/doc/spec": "/ref/spec",
 
-	"/talks": "http://talks.golang.org",
-	"/tour":  "http://tour.golang.org",
+	"/talks": "https://talks.golang.org",
+	"/tour":  "https://tour.golang.org",
 	"/wiki":  "https://github.com/golang/go/wiki",
 
 	"/doc/articles/c_go_cgo.html":                    "/blog/c-go-cgo",
@@ -135,15 +136,16 @@ var redirects = map[string]string{
 	"/doc/articles/laws_of_reflection.html":          "/blog/laws-of-reflection",
 	"/doc/articles/slices_usage_and_internals.html":  "/blog/go-slices-usage-and-internals",
 	"/doc/go_for_cpp_programmers.html":               "/wiki/GoForCPPProgrammers",
-	"/doc/go_tutorial.html":                          "http://tour.golang.org/",
+	"/doc/go_tutorial.html":                          "https://tour.golang.org/",
 }
 
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
-	"play":   "http://play.golang.org/",
-	"talks":  "http://talks.golang.org/",
+	"play":   "https://play.golang.org/",
+	"talks":  "https://talks.golang.org/",
 	"wiki":   "https://github.com/golang/go/wiki/",
+	"blog":   "https://blog.golang.org/",
 }
 
 func Handler(target string) http.Handler {
@@ -156,7 +158,7 @@ func Handler(target string) http.Handler {
 	})
 }
 
-var validID = regexp.MustCompile(`^[A-Za-z0-9-]*/?$`)
+var validID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
 
 func PrefixHandler(prefix, baseURL string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -176,7 +178,7 @@ func PrefixHandler(prefix, baseURL string) http.Handler {
 }
 
 // Redirect requests from the old "/src/pkg/foo" to the new "/src/foo".
-// See http://golang.org/s/go14nopkg
+// See https://golang.org/s/go14nopkg
 func srcPkgHandler(w http.ResponseWriter, r *http.Request) {
 	r.URL.Path = "/src/" + r.URL.Path[len("/src/pkg/"):]
 	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)

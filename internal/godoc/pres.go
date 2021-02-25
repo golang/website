@@ -86,10 +86,6 @@ func NewPresentation(fsys fs.FS) (*Presentation, error) {
 	return p, nil
 }
 
-func (p *Presentation) FileServer() http.Handler {
-	return p.fileServer
-}
-
 func (p *Presentation) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	p.mux.ServeHTTP(w, r)
 }
