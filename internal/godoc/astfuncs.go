@@ -67,7 +67,6 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token
 	var pkgName, structName string
 	var apiInfo api.PkgDB
 	if gd, ok := x.(*ast.GenDecl); ok && pageInfo != nil && pageInfo.PDoc != nil &&
-		p.Corpus != nil &&
 		gd.Tok == token.TYPE && len(gd.Specs) != 0 {
 		pkgName = pageInfo.PDoc.ImportPath
 		if ts, ok := gd.Specs[0].(*ast.TypeSpec); ok {
@@ -75,7 +74,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token
 				structName = ts.Name.Name
 			}
 		}
-		apiInfo = p.Corpus.pkgAPIInfo[pkgName]
+		apiInfo = p.api[pkgName]
 	}
 
 	var out = w

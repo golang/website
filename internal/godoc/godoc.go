@@ -38,8 +38,8 @@ func (p *Presentation) TemplateFuncs() template.FuncMap {
 }
 
 func (p *Presentation) initFuncMap() {
-	if p.Corpus == nil {
-		panic("nil Presentation.Corpus")
+	if p.fs == nil {
+		panic("nil Presentation.fs")
 	}
 	p.templateFuncs = template.FuncMap{
 		"code":     p.code,
@@ -48,7 +48,7 @@ func (p *Presentation) initFuncMap() {
 	p.funcMap = template.FuncMap{
 		// various helpers
 		"filename": filenameFunc,
-		"since":    p.Corpus.pkgAPIInfo.Func,
+		"since":    p.api.Func,
 
 		// formatting of AST nodes
 		"node":         p.nodeFunc,

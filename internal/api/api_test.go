@@ -9,6 +9,8 @@ package api
 
 import (
 	"go/build"
+	"os"
+	"runtime"
 	"testing"
 )
 
@@ -91,7 +93,7 @@ func hasTag(t string) bool {
 }
 
 func TestAPIVersion(t *testing.T) {
-	av, err := Load()
+	av, err := Load(os.DirFS(runtime.GOROOT()))
 	if err != nil {
 		t.Fatal(err)
 	}

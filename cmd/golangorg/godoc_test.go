@@ -176,8 +176,11 @@ func testWeb(t *testing.T) {
 		releaseTag  string // optional release tag that must be in go/build.ReleaseTags
 	}{
 		{
-			path:     "/",
-			contains: []string{"Go is an open source programming language"},
+			path: "/",
+			contains: []string{
+				"Go is an open source programming language",
+				"Binary distributions available for",
+			},
 		},
 		{
 			path:     "/conduct",

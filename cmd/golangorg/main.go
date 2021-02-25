@@ -78,12 +78,7 @@ func main() {
 	}
 	fsys = unionFS{content, os.DirFS(*goroot)}
 
-	corpus := godoc.NewCorpus(fsys)
-	// Initialize the version info before readTemplates, which saves
-	// the map value in a method value.
-	corpus.InitVersionInfo()
-
-	pres = godoc.NewPresentation(corpus)
+	pres = godoc.NewPresentation(fsys)
 	pres.GoogleCN = googleCN
 
 	readTemplates(pres)

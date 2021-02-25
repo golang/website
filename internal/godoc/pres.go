@@ -8,16 +8,20 @@
 package godoc
 
 import (
+	"io/fs"
+	"log"
 	"net/http"
 	"sync"
 	"text/template"
 
+	"golang.org/x/website/internal/api"
 	"golang.org/x/website/internal/pkgdoc"
 )
 
-// Presentation generates output from a corpus.
+// Presentation generates output from a file system.
 type Presentation struct {
-	Corpus *Corpus
+	fs  fs.FS
+	api api.DB
 
 	mux        *http.ServeMux
 	fileServer http.Handler
@@ -42,19 +46,21 @@ type Presentation struct {
 	templateFuncs   template.FuncMap
 }
 
-// NewPresentation returns a new Presentation from a corpus.
-func NewPresentation(c *Corpus) *Presentation {
-	if c == nil {
-		panic("nil Corpus")
+// NewPresentation returns a new Presentation from a file system.
+func NewPresentation(fsys fs.FS) *Presentation {
+	apiDB, err := api.Load(fsys)
+	if err != nil {
+		log.Fatalf("NewPresentation loading api: %v", err)
 	}
 	p := &Presentation{
-		Corpus:     c,
+		fs:         fsys,
+		api:        apiDB,
 		mux:        http.NewServeMux(),
-		fileServer: http.FileServer(http.FS(c.fs)),
+		fileServer: http.FileServer(http.FS(fsys)),
 	}
 	docs := &docServer{
 		p: p,
-		d: pkgdoc.NewDocs(c.fs),
+		d: pkgdoc.NewDocs(fsys),
 	}
 	p.mux.Handle("/cmd/", docs)
 	p.mux.Handle("/pkg/", docs)

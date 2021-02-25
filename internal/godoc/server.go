@@ -203,8 +203,8 @@ func rangeSelection(str string) texthtml.Selection {
 	return nil
 }
 
-func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abspath, relpath, title string) {
-	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
+func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
+	src, err := fs.ReadFile(p.fs, toFS(abspath))
 	if err != nil {
 		log.Printf("ReadFile: %s", err)
 		p.ServeError(w, r, relpath, err)
@@ -230,6 +230,10 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 
 	fmt.Fprintf(&buf, `<p><a href="/%s?m=text">View as plain text</a></p>`, htmlpkg.EscapeString(relpath))
 
+	title := "Text file"
+	if strings.HasSuffix(relpath, ".go") {
+		title = "Source file"
+	}
 	p.ServePage(w, Page{
 		Title:    title,
 		SrcPath:  relpath,
@@ -244,7 +248,7 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 		return
 	}
 
-	list, err := fs.ReadDir(p.Corpus.fs, toFS(abspath))
+	list, err := fs.ReadDir(p.fs, toFS(abspath))
 	if err != nil {
 		p.ServeError(w, r, relpath, err)
 		return
@@ -267,15 +271,9 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 	})
 }
 
-func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
-	// get HTML body contents
-	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
-	if err != nil {
-		log.Printf("ReadFile: %s", err)
-		p.ServeError(w, r, relpath, err)
-		return
-	}
-	isMarkdown := strings.HasSuffix(abspath, ".md")
+func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file) {
+	src := f.Body
+	isMarkdown := strings.HasSuffix(f.FilePath, ".md")
 
 	// if it begins with "<!DOCTYPE " assume it is standalone
 	// html that doesn't need the template wrapping.
@@ -284,30 +282,24 @@ func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, absp
 		return
 	}
 
-	// if it begins with a JSON blob, read in the metadata.
-	meta, src, err := extractMetadata(src)
-	if err != nil {
-		log.Printf("decoding metadata %s: %v", relpath, err)
-	}
-
 	page := Page{
-		Title:    meta.Title,
-		Subtitle: meta.Subtitle,
+		Title:    f.Title,
+		Subtitle: f.Subtitle,
 		GoogleCN: p.googleCN(r),
 	}
 
 	// evaluate as template if indicated
-	if meta.Template {
+	if f.Template {
 		tmpl, err := template.New("main").Funcs(p.TemplateFuncs()).Parse(string(src))
 		if err != nil {
-			log.Printf("parsing template %s: %v", relpath, err)
-			p.ServeError(w, r, relpath, err)
+			log.Printf("parsing template %s: %v", f.Path, err)
+			p.ServeError(w, r, f.Path, err)
 			return
 		}
 		var buf bytes.Buffer
 		if err := tmpl.Execute(&buf, page); err != nil {
-			log.Printf("executing template %s: %v", relpath, err)
-			p.ServeError(w, r, relpath, err)
+			log.Printf("executing template %s: %v", f.Path, err)
+			p.ServeError(w, r, f.Path, err)
 			return
 		}
 		src = buf.Bytes()
@@ -318,15 +310,15 @@ func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, absp
 	if isMarkdown {
 		html, err := renderMarkdown(src)
 		if err != nil {
-			log.Printf("executing markdown %s: %v", relpath, err)
-			p.ServeError(w, r, relpath, err)
+			log.Printf("executing markdown %s: %v", f.Path, err)
+			p.ServeError(w, r, f.Path, err)
 			return
 		}
 		src = html
 	}
 
 	// if it's the language spec, add tags to EBNF productions
-	if strings.HasSuffix(abspath, "go_spec.html") {
+	if strings.HasSuffix(f.FilePath, "go_spec.html") {
 		var buf bytes.Buffer
 		spec.Linkify(&buf, src)
 		src = buf.Bytes()
@@ -350,36 +342,26 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 
 	// Check to see if we need to redirect or serve another file.
 	abspath := r.URL.Path
-	if m := p.Corpus.MetadataFor(abspath); m != nil {
-		if m.Path != abspath {
+	if f := open(p.fs, abspath); f != nil {
+		if f.Path != abspath {
 			// Redirect to canonical path.
-			http.Redirect(w, r, m.Path, http.StatusMovedPermanently)
+			http.Redirect(w, r, f.Path, http.StatusMovedPermanently)
 			return
 		}
 		// Serve from the actual filesystem path.
-		p.ServeHTMLDoc(w, r, m.FilePath, m.Path)
+		p.serveHTML(w, r, f)
 		return
 	}
 
 	relpath := abspath[1:] // strip leading slash
 
-	switch path.Ext(relpath) {
-	case ".html":
-		p.ServeHTMLDoc(w, r, abspath, relpath)
-		return
-
-	case ".go":
-		p.serveTextFile(w, r, abspath, relpath, "Source file")
-		return
-	}
-
-	dir, err := fs.Stat(p.Corpus.fs, toFS(abspath))
+	dir, err := fs.Stat(p.fs, toFS(abspath))
 	if err != nil {
 		// Check for spurious trailing slash.
 		if strings.HasSuffix(abspath, "/") {
 			trimmed := abspath[:len(abspath)-1]
-			if _, err := fs.Stat(p.Corpus.fs, toFS(trimmed)); err == nil ||
-				p.Corpus.MetadataFor(trimmed) != nil {
+			if _, err := fs.Stat(p.fs, toFS(trimmed)); err == nil ||
+				open(p.fs, trimmed) != nil {
 				http.Redirect(w, r, trimmed, http.StatusMovedPermanently)
 				return
 			}
@@ -393,20 +375,15 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 		if redirect(w, r) {
 			return
 		}
-		index := path.Join(fsPath, "index.html")
-		if isTextFile(p.Corpus.fs, index) || isTextFile(p.Corpus.fs, path.Join(fsPath, "index.md")) {
-			p.ServeHTMLDoc(w, r, index, index)
-			return
-		}
 		p.serveDirectory(w, r, abspath, relpath)
 		return
 	}
 
-	if isTextFile(p.Corpus.fs, fsPath) {
+	if isTextFile(p.fs, fsPath) {
 		if redirectFile(w, r) {
 			return
 		}
-		p.serveTextFile(w, r, abspath, relpath, "Text file")
+		p.serveTextFile(w, r, abspath, relpath)
 		return
 	}
 

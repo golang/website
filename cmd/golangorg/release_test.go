@@ -27,7 +27,7 @@ func TestReleaseHistory(t *testing.T) {
 	origFS, origPres := fsys, pres
 	defer func() { fsys, pres = origFS, origPres }()
 	fsys = website.Content
-	pres = godoc.NewPresentation(godoc.NewCorpus(fsys))
+	pres = godoc.NewPresentation(fsys)
 	readTemplates(pres)
 	mux := registerHandlers(pres)
 

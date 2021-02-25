@@ -12,8 +12,8 @@ package api
 
 import (
 	"bufio"
-	"go/build"
-	"os"
+	"io/fs"
+	"path"
 	"path/filepath"
 	"sort"
 	"strconv"
@@ -64,15 +64,10 @@ func (v DB) Func(kind, receiver, name, pkg string) string {
 	return ""
 }
 
-func Load() (DB, error) {
-	var apiGlob string
-	if os.Getenv("GOROOT") == "" {
-		apiGlob = filepath.Join(build.Default.GOROOT, "api", "go*.txt")
-	} else {
-		apiGlob = filepath.Join(os.Getenv("GOROOT"), "api", "go*.txt")
-	}
-
-	files, err := filepath.Glob(apiGlob)
+// Load loads a database from fsys's api/go*.txt files.
+// Typically, fsys should be the root of a Go repository (a $GOROOT).
+func Load(fsys fs.FS) (DB, error) {
+	files, err := fs.Glob(fsys, "api/go*.txt")
 	if err != nil {
 		return nil, err
 	}
@@ -87,7 +82,7 @@ func Load() (DB, error) {
 	// when the symbol was added. See golang.org/issue/44081.
 	//
 	ver := func(name string) int {
-		base := filepath.Base(name)
+		base := path.Base(name)
 		ver := strings.TrimPrefix(strings.TrimSuffix(base, ".txt"), "go1.")
 		if ver == "go1" {
 			return 0
@@ -98,7 +93,7 @@ func Load() (DB, error) {
 	sort.Slice(files, func(i, j int) bool { return ver(files[i]) > ver(files[j]) })
 	vp := new(parser)
 	for _, f := range files {
-		if err := vp.parseFile(f); err != nil {
+		if err := vp.parseFile(fsys, f); err != nil {
 			return nil, err
 		}
 	}
@@ -116,8 +111,8 @@ type parser struct {
 // vp.res to VERSION, overwriting any previous value.
 // As a special case, if goVERSION is "go1", it deletes
 // from the map instead.
-func (vp *parser) parseFile(name string) error {
-	f, err := os.Open(name)
+func (vp *parser) parseFile(fsys fs.FS, name string) error {
+	f, err := fsys.Open(name)
 	if err != nil {
 		return err
 	}

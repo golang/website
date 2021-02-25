@@ -29,11 +29,11 @@ func testServeBody(t *testing.T, p *Presentation, path, body string) {
 }
 
 func TestRedirectAndMetadata(t *testing.T) {
-	c := NewCorpus(fstest.MapFS{
+	fsys := fstest.MapFS{
 		"doc/x/index.html": {Data: []byte("Hello, x.")},
-	})
+	}
 	p := &Presentation{
-		Corpus:    c,
+		fs:        fsys,
 		GodocHTML: template.Must(template.New("").Parse(`{{printf "%s" .Body}}`)),
 	}
 
@@ -54,10 +54,10 @@ func TestRedirectAndMetadata(t *testing.T) {
 
 func TestMarkdown(t *testing.T) {
 	p := &Presentation{
-		Corpus: NewCorpus(fstest.MapFS{
+		fs: fstest.MapFS{
 			"doc/test.md":  {Data: []byte("**bold**")},
 			"doc/test2.md": {Data: []byte(`{{"*template*"}}`)},
-		}),
+		},
 		GodocHTML: template.Must(template.New("").Parse(`{{printf "%s" .Body}}`)),
 	}
 
