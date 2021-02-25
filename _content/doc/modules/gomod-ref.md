@@ -36,7 +36,7 @@ commands.
 
 For reference on `go` commands, see [Command go](/cmd/go/).
 You can get help from the command line by typing `go help` _command-name_, as
-with `go help mod tidy`. 
+with `go help mod tidy`.
 
 **See also**
 
@@ -232,7 +232,7 @@ replacement path when resolving the dependency.
 ### Examples {#replace-examples}
 
 * Replacing with a fork of the module repository
-  
+
   In the following example, any version of example.com/othermodule is replaced
   with the specified fork of its code.
 

@@ -31,10 +31,10 @@ the following:
 
 * Be clear with your users about what releasing the new major version means
   for your support of previous major versions.
-  
+
   Are previous versions deprecated? Supported as they were before? Will you be
   maintaining previous versions, including with bug fixes?
-  
+
 * Be ready to take on the maintenance of two versions: the old and the new.
   For example, if you fix bugs in one, you'll often be porting those fixes into
   the other.

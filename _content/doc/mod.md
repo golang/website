@@ -3567,7 +3567,7 @@ of all environment variables recognized by the `go` command.
         <code>GONOSUMDB</code>. See
         <a href="#private-module-privacy">Privacy</a>. <code>GOPRIVATE</code>
         also determines whether a module is considered private for
-        <code>GOVCS</code>. 
+        <code>GOVCS</code>.
       </td>
     </tr>
     <tr>

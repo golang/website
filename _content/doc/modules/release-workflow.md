@@ -5,7 +5,7 @@
 
 When you develop modules for use by other developers, you can follow a workflow
 that helps ensure a reliable, consistent experience for developers using the
-module. This topic describes the high-level steps in that workflow. 
+module. This topic describes the high-level steps in that workflow.
 
 For an overview of module development, see [Developing and publishing
 modules](developing).
@@ -50,7 +50,7 @@ example new module. For more about each step, see the sections in this topic.
     out. For more, see [Publishing the first (unstable) version](#first-unstable).
 
 1.  After your v0 version is published, you can (and should!) continue to
-    **release new versions** of it. 
+    **release new versions** of it.
 
     These new versions might include bug fixes (patch releases), additions to
     the module's public API (minor releases), and even breaking changes. Because
@@ -99,7 +99,7 @@ directory](managing-dependencies#local_directory).
 
 You can publish pre-release versions to make a module available for others to
 try it out and give you feedback. A pre-release version includes no guarantee of
-stability. 
+stability.
 
 Pre-release version numbers are appended with a pre-release identifier. For more
 on version numbers, see [Module version numbering](/doc/modules/version-numbers).

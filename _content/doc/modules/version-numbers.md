@@ -10,23 +10,18 @@ changes since the preceding release.
 
 When you're developing code that uses external modules, you can use the version
 numbers to understand an external module's stability when you're considering an
-upgrade. For more on managing versions, see
-[Managing dependencies](/doc/modules/managing-dependencies).
-
-When you're developing your own modules, your version numbers will
+upgrade. When you're developing your own modules, your version numbers will
 signal your modules' stability and backward compatibility to other developers.
-For more about versioning in the module development workflow, see
-[Module release and versioning workflow](/doc/modules/release-workflow).
 
 This topic describes what module version numbers mean.
 
 **See also**
 
 * When you're using external packages in your code, you can manage those
-  dependencies with Go tools. For more, see [Managing dependencies](/doc/modules/managing-dependencies).
+  dependencies with Go tools. For more, see [Managingdependencies](managing-dependencies).
 * If you're developing modules for others to use, you apply a version number
   when you publish the module, tagging the module in its repository. For more,
-  see [Publishing a module](/doc/modules/publishing).
+  see [Publishing a module](publishing).
 
 A released module is published with a version number in the semantic versioning
 model, as in the following illustration:
@@ -86,7 +81,8 @@ module's stability and backward compatibility.
   </tbody>
 </table>
 
-## In development {#in-development}
+<a id="in-development" ></a>
+## In development
 
 Signals that the module is still in development and **unstable**. This release
 carries no backward compatibility or stability guarantees.
@@ -95,17 +91,14 @@ The version number can take one of the following forms:
 
 **Pseudo-version number**
 
-```
-v0.0.0-20170915032832-14c0d48ead0c
-```
+> v0.0.0-20170915032832-14c0d48ead0c
 
 **v0 number**
 
-```
-v0.x.x
-```
+> v0.x.x
 
-### Pseudo-version number {#pseudo}
+<a id="pseudo" ></a>
+### Pseudo-version number
 
 When a module has not been tagged in its repository, Go tools will generate a
 pseudo-version number for use in the go.mod file of code that calls functions in
@@ -121,11 +114,11 @@ semantic version tag yet.
 A pseudo-version number has three parts separated by dashes, as shown in the
 following form:
 
-#### Syntax {#pseudo-syntax}
+#### Syntax
 
 _baseVersionPrefix_-_timestamp_-_revisionIdentifier_
 
-#### Parts {#pseudo-parts}
+#### Parts
 
 * **baseVersionPrefix** (vX.0.0 or vX.Y.Z-0) is a value derived either from a
   semantic version tag that precedes the revision or from vX.0.0 if there is no
@@ -137,7 +130,8 @@ _baseVersionPrefix_-_timestamp_-_revisionIdentifier_
 * **revisionIdentifier** (abcdefabcdef) is a 12-character prefix of the commit
   hash, or in Subversion, a zero-padded revision number.
 
-### v0 number {#v0}
+<a id="v0" ></a>
+### v0 number
 
 A module published with a v0 number will have a formal semantic version number
 with a major, minor, and patch part, as well as an optional pre-release
@@ -149,12 +143,13 @@ break backward compatibility for code using the v0 versions. For this reason, a
 developer with code consuming functions in a v0 module is responsible for
 adapting to incompatible changes until v1 is released.
 
-## Pre-release version {#pre-release}
+<a id="pre-release" ></a>
+## Pre-release version
 
 Signals that this is a pre-release milestone, such as an alpha or beta. This
 release carries no stability guarantees.
 
-#### Example {#pre-release-example}
+#### Example
 
 ```
 vx.x.x-beta.2
@@ -163,12 +158,13 @@ vx.x.x-beta.2
 A module's developer can use a pre-release identifier with any major.minor.patch
 combination by appending a hyphen and the pre-release identifier.
 
-## Minor version {#minor}
+<a id="minor" ></a>
+## Minor version
 
 Signals backward-compatible changes to the module’s public API. This release
 guarantees backward compatibility and stability.
 
-#### Example {#minor-example}
+#### Example
 
 ```
 vx.4.x
@@ -182,12 +178,13 @@ In other words, this version might include enhancements through new functions
 that another developer might want to use. However, a developer using previous
 minor versions needn’t change their code otherwise.
 
-## Patch version {#patch}
+<a id="patch" ></a>
+## Patch version
 
 Signals changes that don't affect the module's public API or its dependencies.
 This release guarantees backward compatibility and stability.
 
-#### Example {#patch-example}
+#### Example
 
 ```
 vx.x.1
@@ -197,17 +194,16 @@ An update that increments this number is only for minor changes such as bug
 fixes. Developers of consuming code can upgrade to this version safely without
 needing to change their code.
 
-## Major version {#major}
+<a id="major" ></a>
+## Major version
 
 Signals backward-incompatible changes in a module’s public API. This release
 carries no guarantee that it will be backward compatible with preceding major
 versions.
 
-#### Example {#major-example}
+#### Example
 
-```
 v1.x.x
-```
 
 A v1 or above version number signals that the module is stable for use (with
 exceptions for its pre-release versions).
@@ -234,6 +230,6 @@ module example.com/mymodule/v2 v2.0.0
 A major version update makes this a new module with a separate history from the
 module's previous version. If you're developing modules to publish for others,
 see "Publishing breaking API changes" in [Module release and versioning
-workflow](/doc/modules/release-workflow). 
+workflow](release-workflow).
 
-For more on the module directive, see [go.mod reference](/doc/modules/gomod-ref).
+For more on the module directive, see [go.mod reference](gomod-ref).

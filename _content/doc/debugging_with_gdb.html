@@ -17,7 +17,7 @@ The following instructions apply to the standard toolchain
 Gccgo has native gdb support.
 </p>
 <p>
-Note that 
+Note that
 <a href="https://github.com/go-delve/delve">Delve</a> is a better
 alternative to GDB when debugging Go programs built with the standard
 toolchain. It understands the Go runtime, data structures, and
@@ -220,7 +220,7 @@ This GDB was configured as "x86_64-linux".
 Reading symbols from  /home/user/go/src/regexp/regexp.test...
 done.
 Loading Go Runtime support.
-(gdb) 
+(gdb)
 </pre>
 
 <p>
@@ -282,7 +282,7 @@ List a specific file and line number:
 <p>
 Variable and function names must be qualified with the name of the packages
 they belong to. The <code>Compile</code> function from the <code>regexp</code>
-package is known to GDB as <code>'regexp.Compile'</code>. 
+package is known to GDB as <code>'regexp.Compile'</code>.
 </p>
 
 <p>
@@ -362,7 +362,7 @@ The other goroutine, number 1, is stuck in <code>runtime.gosched</code>, blocked
 #2  0x0000000000403299 in runtime.chanrecv1 (t=void, c=void) at/home/user/go/src/runtime/chan.c:423
 #3  0x000000000043075b in testing.RunTests (matchString={void (struct string, struct string, bool *, error *)}
  0x7ffff7f9ef60, tests=  []testing.InternalTest = {...}) at /home/user/go/src/testing/testing.go:201
-#4  0x00000000004302b1 in testing.Main (matchString={void (struct string, struct string, bool *, error *)} 
+#4  0x00000000004302b1 in testing.Main (matchString={void (struct string, struct string, bool *, error *)}
  0x7ffff7f9ef80, tests= []testing.InternalTest = {...}, benchmarks= []testing.InternalBenchmark = {...})
 at /home/user/go/src/testing/testing.go:168
 #5  0x0000000000400dc1 in main.main () at /home/user/go/src/regexp/_testmain.go:98
@@ -378,7 +378,7 @@ The stack frame shows we’re currently executing the <code>regexp.TestFind</cod
 <pre>
 (gdb) <b>info frame</b>
 Stack level 0, frame at 0x7ffff7f9ff88:
- rip = 0x425530 in regexp.TestFind (/home/user/go/src/regexp/find_test.go:148); 
+ rip = 0x425530 in regexp.TestFind (/home/user/go/src/regexp/find_test.go:148);
     saved rip 0x430233
  called by frame at 0x7ffff7f9ffa8
  source language minimal.
@@ -441,12 +441,12 @@ $4 = ""
 (gdb) <b>p re</b>
 $5 = (struct regexp.Regexp *) 0xf84068d070
 (gdb) <b>p *re</b>
-$6 = {expr = "", prog = 0xf840688b80, prefix = "", prefixBytes =  []uint8, prefixComplete = true, 
-  prefixRune = 0, cond = 0 '\000', numSubexp = 0, longest = false, mu = {state = 0, sema = 0}, 
+$6 = {expr = "", prog = 0xf840688b80, prefix = "", prefixBytes =  []uint8, prefixComplete = true,
+  prefixRune = 0, cond = 0 '\000', numSubexp = 0, longest = false, mu = {state = 0, sema = 0},
   machine =  []*regexp.machine}
 (gdb) <b>p *re->prog</b>
-$7 = {Inst =  []regexp/syntax.Inst = {{Op = 5 '\005', Out = 0, Arg = 0, Rune =  []int}, {Op = 
-    6 '\006', Out = 2, Arg = 0, Rune =  []int}, {Op = 4 '\004', Out = 0, Arg = 0, Rune =  []int}}, 
+$7 = {Inst =  []regexp/syntax.Inst = {{Op = 5 '\005', Out = 0, Arg = 0, Rune =  []int}, {Op =
+    6 '\006', Out = 2, Arg = 0, Rune =  []int}, {Op = 4 '\004', Out = 0, Arg = 0, Rune =  []int}},
   Start = 1, NumCap = 2}
 </pre>
 
@@ -515,7 +515,7 @@ you can look inside the runtime representation to do that (tab completion helps 
 (gdb) <b>p slc</b>
 $11 =  []int = {0, 0}
 (gdb) <b>p slc-&gt;</b><i>&lt;TAB&gt;</i>
-array  slc    len    
+array  slc    len
 (gdb) <b>p slc->array</b>
 $12 = (int *) 0xf84057af00
 (gdb) <b>p slc->array[1]</b>

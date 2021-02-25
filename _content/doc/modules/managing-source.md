@@ -52,7 +52,7 @@ module by following the conventions described here. Getting your module code
 into a repository is generally as simple as with other code.
 
 The following diagram illustrates a source hierarchy for a simple module with
-two packages. 
+two packages.
 
 <img src="images/source-hierarchy.png"
      alt="Diagram illustrating a module source code hierarchy"
@@ -117,7 +117,7 @@ $ git push
 ## Choosing repository scope {#repository-scope}
 
 You publish code in a module when the code should be versioned independently
-from code in other modules. 
+from code in other modules.
 
 Designing your repository so that it hosts a single module at its root directory
 will help keep maintenance simpler, particularly over time as you publish new

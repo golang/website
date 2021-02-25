@@ -32,7 +32,7 @@ and for AMD64 on Plan 9.
 <p>
 As always, Go 1.4 keeps the <a href="/doc/go1compat.html">promise
 of compatibility</a>,
-and almost everything 
+and almost everything
 will continue to compile and run without change when moved to 1.4.
 </p>
 
@@ -169,7 +169,7 @@ The <a href="go1compat.html">Go compatibility guidelines</a> and the
 docs for the <a href="/pkg/unsafe/"><code>unsafe</code></a> package
 are now explicit that unsafe code is not guaranteed to remain compatible.
 </p>
-  
+
 <p>
 <em>Updating</em>: Nothing technical has changed; this is just a clarification
 of the documentation.
@@ -369,7 +369,7 @@ package pdf // import "rsc.io/pdf"
 <p>
 With this in place,
 the <code>go</code> command will
-refuse to compile a package that imports <code>github.com/rsc/pdf</code>, 
+refuse to compile a package that imports <code>github.com/rsc/pdf</code>,
 ensuring that the code can be moved without breaking users.
 </p>
 
@@ -425,7 +425,7 @@ tool in the <code>golang.org/x/tools</code> subrepository.
 </p>
 
 <p>
-For more information, see the 
+For more information, see the
 <a href="https://golang.org/s/go1.4-generate">design document</a>.
 </p>
 
@@ -486,7 +486,7 @@ The non-functional <code>-file</code> flag has been removed.
 <li>
 The <a href="/cmd/go/#hdr-Test_packages"><code>go</code> <code>test</code></a>
 subcommand will compile and link all <code>*_test.go</code> files in the package,
-even when there are no <code>Test</code> functions in them. 
+even when there are no <code>Test</code> functions in them.
 It previously ignored such files.
 </li>
 
@@ -588,7 +588,7 @@ There are no new packages in this release.
 The <a href="/pkg/bufio/#Scanner"><code>Scanner</code></a> type in the
 <a href="/pkg/bufio/"><code>bufio</code></a> package
 has had a bug fixed that may require changes to custom
-<a href="/pkg/bufio/#SplitFunc"><code>split functions</code></a>. 
+<a href="/pkg/bufio/#SplitFunc"><code>split functions</code></a>.
 The bug made it impossible to generate an empty token at EOF; the fix
 changes the end conditions seen by the split function.
 Previously, scanning stopped at EOF if there was no more data.
@@ -681,7 +681,7 @@ of the <a href="/pkg/crypto/tls/#Config"><code>Config</code></a> struct.
 </li>
 
 <li>
-Also in the crypto/tls package, the server now supports 
+Also in the crypto/tls package, the server now supports
 <a href="https://tools.ietf.org/html/draft-ietf-tls-downgrade-scsv-00">TLS_FALLBACK_SCSV</a>
 to help clients detect fallback attacks.
 (The Go client does not support fallback at all, so it is not vulnerable to
@@ -852,7 +852,7 @@ The <a href="/pkg/testing/"><code>testing</code></a> package
 has a new facility to provide more control over running a set of tests.
 If the test code contains a function
 <pre>
-func TestMain(m *<a href="/pkg/testing/#M"><code>testing.M</code></a>) 
+func TestMain(m *<a href="/pkg/testing/#M"><code>testing.M</code></a>)
 </pre>
 
 that function will be called instead of running the tests directly.

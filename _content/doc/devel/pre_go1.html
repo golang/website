@@ -10,7 +10,7 @@ See the <a href="release.html">Release History</a> page for notes on recent rele
 <h2 id="r60">r60 (released 2011/09/07)</h2>
 
 <p>
-The r60 release corresponds to 
+The r60 release corresponds to
 <code><a href="weekly.html#2011-08-17">weekly.2011-08-17</a></code>.
 This section highlights the most significant changes in this release.
 For a more detailed summary, see the
@@ -49,7 +49,7 @@ using the <a href="/pkg/image/jpeg/">image/jpeg</a> package, compose them using
 <a href="/pkg/image/draw/">image/draw</a>, and then encode the result using
 <a href="/pkg/img/png">image/png</a>, then your code should still work as
 before.
-If your code <i>does</i> refer to <code>Pix</code> fields see the 
+If your code <i>does</i> refer to <code>Pix</code> fields see the
 <a href="/doc/devel/weekly.html#2011-07-19">weekly.2011-07-19</a>
 snapshot notes for how to update your code.
 </p>
@@ -85,7 +85,7 @@ more accessible.
 <h3 id="r60.minor">Minor revisions</h3>
 
 <p>
-r60.1 includes a 
+r60.1 includes a
 <a href="//golang.org/change/1824581bf62d">linker
 fix</a>, a pair of
 <a href="//golang.org/change/9ef4429c2c64">goplay</a>
@@ -111,7 +111,7 @@ r60.3 fixes a
 <h2 id="r59">r59 (released 2011/08/01)</h2>
 
 <p>
-The r59 release corresponds to 
+The r59 release corresponds to
 <code><a href="weekly.html#2011-07-07">weekly.2011-07-07</a></code>.
 This section highlights the most significant changes in this release.
 For a more detailed summary, see the
@@ -218,7 +218,7 @@ See the <a href="/cmd/goinstall/">goinstall documentation</a> for details.
 <h2 id="r58">r58 (released 2011/06/29)</h2>
 
 <p>
-The r58 release corresponds to 
+The r58 release corresponds to
 <code><a href="weekly.html#2011-06-09">weekly.2011-06-09</a></code>
 with additional bug fixes.
 This section highlights the most significant changes in this release.
@@ -262,12 +262,12 @@ by <a href="/pkg/unicode/#IsPrint">unicode.IsPrint</a>.
 Previously Quote would escape all non-ASCII characters.
 This also affects the <a href="/pkg/fmt/">fmt</a> package's <code>"%q"</code>
 formatting directive. The previous quoting behavior is still available via
-strconv's new <a href="/pkg/strconv/#QuoteToASCII">QuoteToASCII</a> function.   
+strconv's new <a href="/pkg/strconv/#QuoteToASCII">QuoteToASCII</a> function.
 </p>
 
 <p>
 <a href="/pkg/os/signal/">Package os/signal</a>'s
-<a href="/pkg/os/#Signal">Signal</a> and 
+<a href="/pkg/os/#Signal">Signal</a> and
 <a href="/pkg/os/#UnixSignal">UnixSignal</a> types have been moved to the
 <a href="/pkg/os/">os</a> package.
 </p>
@@ -289,7 +289,7 @@ the Go tree (and avoid writing Makefiles).
 
 <h3 id="r58.minor">Minor revisions</h3>
 
-<p>r58.1 adds 
+<p>r58.1 adds
 <a href="//golang.org/change/293c25943586">build</a> and
 <a href="//golang.org/change/bf17e96b6582">runtime</a>
 changes to make Go run on OS X 10.7 Lion.
@@ -298,7 +298,7 @@ changes to make Go run on OS X 10.7 Lion.
 <h2 id="r57">r57 (released 2011/05/03)</h2>
 
 <p>
-The r57 release corresponds to 
+The r57 release corresponds to
 <code><a href="weekly.html#2011-04-27">weekly.2011-04-27</a></code>
 with additional bug fixes.
 This section highlights the most significant changes in this release.
@@ -312,7 +312,7 @@ For complete information, see the
 newer ones.  After you update to a new Go release, gofix helps make the
 necessary changes to your programs. Gofix will handle the http, os, and syscall
 package changes described below, and we will update the program to keep up with
-future changes to the libraries. 
+future changes to the libraries.
 Gofix can’t
 handle all situations perfectly, so read and test the changes it makes before
 committing them.
@@ -352,7 +352,7 @@ indicating whether the channel is closed. This code:
 <a href="/pkg/gob/">Package gob</a> will now encode and decode values of types that implement the
 <a href="/pkg/gob/#GobEncoder">GobEncoder</a> and
 <a href="/pkg/gob/#GobDecoder">GobDecoder</a> interfaces. This allows types with unexported
-fields to transmit self-consistent descriptions; examples include 
+fields to transmit self-consistent descriptions; examples include
 <a href="/pkg/big/#Int.GobDecode">big.Int</a> and <a href="/pkg/big/#Rat.GobDecode">big.Rat</a>.
 </p>
 
@@ -383,7 +383,7 @@ from <a href="/pkg/net/#LookupHost">LookupHost</a>.
 The implementation now uses <a href="/cmd/cgo/">cgo</a> to implement
 network name lookups using the C library getaddrinfo(3)
 function when possible.  This ensures that Go and C programs
-resolve names the same way and also avoids the OS X 
+resolve names the same way and also avoids the OS X
 application-level firewall.
 </p>
 
@@ -431,7 +431,7 @@ The Makefiles know about the flag: use <code>make testshort</code>.
 
 <p>
 The run-time support now implements CPU and memory profiling.
-Gotest's new 
+Gotest's new
 <a href="/cmd/gotest/"><code>-test.cpuprofile</code> and
 <code>-test.memprofile</code> flags</a> make it easy to
 profile tests.

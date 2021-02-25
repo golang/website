@@ -307,7 +307,7 @@ $ go get code.google.com/p/go.tools/cmd/cover
 
 <p>
 The cover tool does two things.
-First, when "go test" is given the <code>-cover</code> flag, it is run automatically 
+First, when "go test" is given the <code>-cover</code> flag, it is run automatically
 to rewrite the source for the package and insert instrumentation statements.
 The test is then compiled and run as usual, and basic coverage statistics are reported:
 </p>
@@ -375,7 +375,7 @@ By default, as before, dependencies of the tests are not downloaded.
 There are a number of significant performance improvements in the standard library; here are a few of them.
 </p>
 
-<ul> 
+<ul>
 
 <li>
 The <a href="/pkg/compress/bzip2/"><code>compress/bzip2</code></a>
@@ -568,7 +568,7 @@ Instead of writing,
 </p>
 
 <pre>
-{{"{{"}}if eq .A 1{{"}}"}} X {{"{{"}}else{{"}}"}} {{"{{"}}if eq .A 2{{"}}"}} Y {{"{{"}}end{{"}}"}} {{"{{"}}end{{"}}"}} 
+{{"{{"}}if eq .A 1{{"}}"}} X {{"{{"}}else{{"}}"}} {{"{{"}}if eq .A 2{{"}}"}} Y {{"{{"}}end{{"}}"}} {{"{{"}}end{{"}}"}}
 </pre>
 
 <p>
@@ -632,7 +632,7 @@ methods to <a href="/pkg/bufio/#Reader"><code>Reader</code></a> and
 These methods allow the <a href="/pkg/io/#Reader"><code>Readers</code></a>
 and <a href="/pkg/io/#Writer"><code>Writers</code></a>
 to be re-used on new input and output readers and writers, saving
-allocation overhead. 
+allocation overhead.
 </li>
 
 <li>
@@ -642,7 +642,7 @@ can now decompress concatenated archives.
 
 <li>
 The <a href="/pkg/compress/flate/"><code>compress/flate</code></a>
-package adds a <a href="/pkg/compress/flate/#Writer.Reset"><code>Reset</code></a> 
+package adds a <a href="/pkg/compress/flate/#Writer.Reset"><code>Reset</code></a>
 method on the <a href="/pkg/compress/flate/#Writer"><code>Writer</code></a>,
 to make it possible to reduce allocation when, for instance, constructing an
 archive to hold multiple compressed files.
@@ -683,14 +683,14 @@ used with AES encryption.
 </li>
 
 <li>
-The 
+The
 <a href="/pkg/crypto/md5/"><code>crypto/md5</code></a> package
 adds a new <a href="/pkg/crypto/md5/#Sum"><code>Sum</code></a> function
 to simplify hashing without sacrificing performance.
 </li>
 
 <li>
-Similarly, the 
+Similarly, the
 <a href="/pkg/crypto/md5/"><code>crypto/sha1</code></a> package
 adds a new <a href="/pkg/crypto/sha1/#Sum"><code>Sum</code></a> function.
 </li>
@@ -826,7 +826,7 @@ and <a href="/pkg/image/gif/#EncodeAll"><code>EncodeAll</code></a>
 functions.
 Their options argument allows specification of an image
 <a href="/pkg/image/draw/#Quantizer"><code>Quantizer</code></a> to use;
-if it is <code>nil</code>, the generated GIF will use the 
+if it is <code>nil</code>, the generated GIF will use the
 <a href="/pkg/image/color/palette/#Plan9"><code>Plan9</code></a>
 color map (palette) defined in the new
 <a href="/pkg/image/color/palette/"><code>image/color/palette</code></a> package.
@@ -875,7 +875,7 @@ function now permits the <code>*Request</code> parameter to be <code>nil</code>,
 whereupon it assumes a GET request.
 Finally, an HTTP server will now serve HEAD
 requests transparently, without the need for special casing in handler code.
-While serving a HEAD request, writes to a 
+While serving a HEAD request, writes to a
 <a href="/pkg/net/http/#Handler"><code>Handler</code></a>'s
 <a href="/pkg/net/http/#ResponseWriter"><code>ResponseWriter</code></a>
 are absorbed by the
@@ -884,8 +884,8 @@ and the client receives an empty body as required by the HTTP specification.
 </li>
 
 <li>
-The <a href="/pkg/os/exec/"><code>os/exec</code></a> package's 
-<a href="/pkg/os/exec/#Cmd.StdinPipe"><code>Cmd.StdinPipe</code></a> method 
+The <a href="/pkg/os/exec/"><code>os/exec</code></a> package's
+<a href="/pkg/os/exec/#Cmd.StdinPipe"><code>Cmd.StdinPipe</code></a> method
 returns an <code>io.WriteCloser</code>, but has changed its concrete
 implementation from <code>*os.File</code> to an unexported type that embeds
 <code>*os.File</code>, and it is now safe to close the returned value.
@@ -946,7 +946,7 @@ Also, the
 <a href="/pkg/testing/#AllocsPerRun"><code>AllocsPerRun</code></a>
 function now quantizes the return value to an integer (although it
 still has type <code>float64</code>), to round off any error caused by
-initialization and make the result more repeatable. 
+initialization and make the result more repeatable.
 </li>
 
 <li>

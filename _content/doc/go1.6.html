@@ -720,10 +720,10 @@ First, the
 Second, the
 <a href="/pkg/net/http/#ServeFile"><code>ServeFile</code></a> function now refuses to serve a result
 if the request's URL path contains &ldquo;..&rdquo; (dot-dot) as a path element.
-Programs should typically use <code>FileServer</code> and 
+Programs should typically use <code>FileServer</code> and
 <a href="/pkg/net/http/#Dir"><code>Dir</code></a>
 instead of calling <code>ServeFile</code> directly.
-Programs that need to serve file content in response to requests for URLs containing dot-dot can 
+Programs that need to serve file content in response to requests for URLs containing dot-dot can
 still call <a href="/pkg/net/http/#ServeContent"><code>ServeContent</code></a>.
 Third, the
 <a href="/pkg/net/http/#Client"><code>Client</code></a> now allows user code to set the

@@ -850,10 +850,10 @@ This weekly snapshot renamed the html package to exp/html. The package will not
 be present in the Go 1 distribution, but will be installable from source.
 
 Error variables in the archive/tar, archive/zip, compress/gzip, compress/zlib,
-and crypto/bcrypt packages have been renamed from FooError to ErrFoo. 
+and crypto/bcrypt packages have been renamed from FooError to ErrFoo.
 There is no gofix, but the compiler will flag code that needs updating.
 
-This weekly snapshot relocates many packages to sub-repositories of the main 
+This weekly snapshot relocates many packages to sub-repositories of the main
 Go repository. These are the old and new import paths:
 
 	crypto/bcrypt          code.google.com/p/go.crypto/bcrypt
@@ -1315,7 +1315,7 @@ themselves be compared. See the Go 1 release notes for the details:
 	http://weekly.golang.org/doc/go1.html#equality
 
 The rune type is now an alias for int32 and character literals have the default
-type of rune. Code that uses int where it should use rune will break. 
+type of rune. Code that uses int where it should use rune will break.
 See the Go 1 release notes for the details:
 	http://weekly.golang.org/doc/go1.html#rune
 
@@ -2948,7 +2948,7 @@ The strconv package's Quote function now escapes only those Unicode code points
 not classified as printable by unicode.IsPrint. Previously Quote would escape
 all non-ASCII characters. This also affects the fmt package's "%q" formatting
 directive. The previous quoting behavior is still available via strconv's new
-QuoteToASCII function.   
+QuoteToASCII function.
 
 Most instances of the type map[string][]string in the http package have been
 replaced with the new Values type. The http.Values type has the Get, Set, Add,
@@ -4079,7 +4079,7 @@ number of sends would fail silently before causing a panic.
 
 The log package's Exit, Exitf, and Exitln functions have been renamed Fatal,
 Fatalf, and Fatalln respectively. This brings them in line with the naming of
-the testing package. 
+the testing package.
 
 The port to the "tiny" operating system has been removed. It is unmaintained
 and untested. It was a toy to show that Go can run on raw hardware and it
@@ -4087,7 +4087,7 @@ served its purpose. The source code will of course remain in the repository
 history, so it could be brought back if needed later.
 
 This release also changes some of the internal structure of the memory
-allocator in preparation for other garbage collector changes. 
+allocator in preparation for other garbage collector changes.
 If you run into problems, please let us know.
 There is one known issue that we are aware of but have not debugged yet:
 	http://code.google.com/p/go/issues/detail?id=1464&amp;.
@@ -4322,7 +4322,7 @@ This release includes several fixes and changes:
 <h2 id="2010-12-22">2010-12-22</h2>
 
 <pre>
-A small release this week. The most significant change is that some 
+A small release this week. The most significant change is that some
 outstanding cgo issues were resolved.
 
 * cgo: handle references to symbols in shared libraries.
@@ -4585,7 +4585,7 @@ The ARM port now uses the hardware floating point unit (VFP).  It still has a
 few bugs, mostly around conversions between unsigned integer and floating-point
 values, but it's stabilizing.
 
-In addition, there have been many smaller fixes and updates: 
+In addition, there have been many smaller fixes and updates:
 
 * 6l: generate dwarf variable names with disambiguating suffix.
 * container/list: make Remove return Value of removed element.
@@ -4643,7 +4643,7 @@ Other changes:
 <h2 id="2010-10-27">2010-10-27</h2>
 
 <pre>
-*** This release changes the encoding used by package gob. 
+*** This release changes the encoding used by package gob.
     If you store gobs on disk, see below. ***
 
 The ARM port (5g) now passes all tests. The optimizer is not yet enabled, and
@@ -4659,11 +4659,11 @@ the outer literal's element type. For example, these expressions:
 can be simplified to:
 	[][]int{{1, 2, 3}, {4, 5}}
 	map[string]Point{"x": {1.5, -3.5}, "y": {0, 0}}
-Gofmt can make these simplifications mechanically when invoked with the 
+Gofmt can make these simplifications mechanically when invoked with the
 new -s flag.
 
 The built-in copy function can now copy bytes from a string value to a []byte.
-Code like this (for []byte b and string s): 
+Code like this (for []byte b and string s):
 	for i := 0; i &lt; len(s); i++ {
 		b[i] = s[i]
 	}
@@ -4674,7 +4674,7 @@ The gob package can now encode and decode interface values containing types
 registered ahead of time with the new Register function. These changes required
 a backwards-incompatible change to the wire format.  Data written with the old
 version of the package will not be readable with the new one, and vice versa.
-(Steps were made in this change to make sure this doesn't happen again.) 
+(Steps were made in this change to make sure this doesn't happen again.)
 We don't know of anyone using gobs to create permanent data, but if you do this
 and need help converting, please let us know, and do not update to this release
 yet.  We will help you convert your data.
@@ -4717,7 +4717,7 @@ Code that has not been updated to use the new interface will break.
 See the previous release notes for details:
 	http://golang.org/doc/devel/release.html#2010-10-13
 
-Also included are major improvements to the linker. It is now faster, 
+Also included are major improvements to the linker. It is now faster,
 uses less memory, and more parallelizable (but not yet parallel).
 
 The nntp package has been removed from the standard library.
@@ -4840,7 +4840,7 @@ change gives you that control at the cost of a few characters in the call.
 If you want the promotion to ...,  append ... to the argument:
         func message(f string, s ...interface{}) { fmt.Printf(f, s...) }
 Without the ..., s would be passed to Printf as a single argument of type
-[]interface{}.  The bad news is you might need to fix up some of your code, 
+[]interface{}.  The bad news is you might need to fix up some of your code,
 but the compiler will detect the situation and warn you.
 
 Also, the http.Handler and http.HandlerFunc types have changed. Where http
@@ -4850,8 +4850,8 @@ so in most cases the only change required will be changing the type signature
 of your handler function's first parameter. See:
   http://golang.org/pkg/http/#Handler
 
-The utf8 package has a new type, String, that provides efficient indexing 
-into utf8 strings by rune (previously an expensive conversion to []int 
+The utf8 package has a new type, String, that provides efficient indexing
+into utf8 strings by rune (previously an expensive conversion to []int
 was required). See:
   http://golang.org/pkg/utf8/#String
 
@@ -5045,7 +5045,7 @@ as well as the following fixes and changes:
 
 <pre>
 This release includes the syntactic modernization of more than 100 files in /test,
-and these additions, changes, and fixes: 
+and these additions, changes, and fixes:
 * 6l/8l: emit DWARF in macho.
 * 8g: use FCHS, not FMUL, for minus float.
 * 8l: emit DWARF in ELF,
@@ -5118,7 +5118,7 @@ This release includes changes to the build system that will likely require you
 to make changes to your environment variables and Makefiles.
 
 All environment variables are now optional:
- - $GOOS and $GOARCH are now optional; their values should now be inferred 
+ - $GOOS and $GOARCH are now optional; their values should now be inferred
    automatically by the build system,
  - $GOROOT is now optional, but if you choose not to set it you must run
    'gomake' instead of 'make' or 'gmake' when developing Go programs
@@ -5133,7 +5133,7 @@ inherit from the Go Makefiles, you must change this line:
 to this:
     include ../../Make.inc
 
-This release also removes the deprecated functions in regexp and the 
+This release also removes the deprecated functions in regexp and the
 once package. Any code that still uses them will break.
 See the notes from the last release for details:
     http://golang.org/doc/devel/release.html#2010-08-11
@@ -5191,13 +5191,13 @@ supersede the functionality provided by the once package. We intend to remove
 the once package after this release. See:
     http://golang.org/pkg/sync/#Once
 All instances of once in the standard library have been replaced with
-sync.Once. Reviewing these changes may help you modify your existing code. 
+sync.Once. Reviewing these changes may help you modify your existing code.
 The relevant changeset:
     http://code.google.com/p/go/source/detail?r=fa2c43595119
 
 A new set of methods has been added to the regular expression package, regexp.
 These provide a uniformly named approach to discovering the matches of an
-expression within a piece of text; see the package documentation for details: 
+expression within a piece of text; see the package documentation for details:
     http://golang.org/pkg/regexp/
 These new methods will, in a later release, replace the old methods for
 matching substrings.  The following methods are deprecated:
@@ -5207,10 +5207,10 @@ matching substrings.  The following methods are deprecated:
     MatchSlices (use FindSubmatch)
     AllMatches (use FindAll; note that n&lt;0 means 'all matches'; was n&lt;=0)
     AllMatchesString (use FindAllString; note that n&lt;0 means 'all matches'; was n&lt;=0)
-(Plus there are ten new methods you didn't know you wanted.) 
+(Plus there are ten new methods you didn't know you wanted.)
 Please update your code to use the new routines before the next release.
 
-An image.Image now has a Bounds rectangle, where previously it ranged 
+An image.Image now has a Bounds rectangle, where previously it ranged
 from (0, 0) to (Width, Height). Loops that previously looked like:
     for y := 0; y &lt; img.Height(); y++ {
         for x := 0; x &lt; img.Width(); x++ {
@@ -5283,7 +5283,7 @@ Other changes:
 * syscall: make go errors not clash with windows errors (thanks Alex Brainman).
 * test/run: diff old new,
 * websocket: correct challenge response (thanks Tarmigan Casebolt),
-        fix bug involving spaces in header keys (thanks Bill Neubauer). 
+        fix bug involving spaces in header keys (thanks Bill Neubauer).
 </pre>
 
 <h2 id="2010-07-29">2010-07-29</h2>
@@ -5379,12 +5379,12 @@ Other changes:
 <h2 id="2010-07-01">2010-07-01</h2>
 
 <pre>
-This release includes some package changes that may require changes to 
+This release includes some package changes that may require changes to
 client code.
 
 The Split function in the bytes and strings packages has been changed.
 The count argument, which limits the size of the return, previously treated
-zero as unbounded. It now treats 0 as 0, and will return an empty slice.  
+zero as unbounded. It now treats 0 as 0, and will return an empty slice.
 To request unbounded results, use -1 (or some other negative value).
 The new Replace functions in bytes and strings share this behavior.
 This may require you change your existing code.
@@ -5397,7 +5397,7 @@ The release also includes a Code Walk: "Share Memory By Communicating".
 It describes an idiomatic Go program that uses goroutines and channels:
 	http://golang.org/doc/codewalk/sharemem/
 
-There is now a Projects page on the Go Dashboard that lists Go programs, 
+There is now a Projects page on the Go Dashboard that lists Go programs,
 tools, and libraries:
 	http://godashboard.appspot.com/project
 
@@ -5431,7 +5431,7 @@ Other changes:
 * syscall: add syscall_bsd.go to zsycall_freebsd_386.go (thanks Peter Mundy),
         add socketpair (thanks Ivan Krasin).
 * time: implement time zones for Windows (thanks Alex Brainman).
-* x509: support non-self-signed certs. 
+* x509: support non-self-signed certs.
 </pre>
 
 <h2 id="2010-06-21">2010-06-21</h2>
@@ -5445,7 +5445,7 @@ handling of the fmt.Stringer interface. You may need to make changes to your
 code. For details, see:
         https://groups.google.com/group/golang-nuts/msg/6fffba90a3e3dc06
 
-The reflect package has been changed. If you have code that uses reflect, 
+The reflect package has been changed. If you have code that uses reflect,
 it will need to be updated. For details, see:
         https://groups.google.com/group/golang-nuts/msg/7a93d07c590e7beb
 
@@ -5477,7 +5477,7 @@ Other changes:
         fix 386 signal handler bug.
 * strconv: add AtofN, FtoaN.
 * string: add IndexFunc and LastIndexFunc (thanks Roger Peppe).
-* syslog: use local network for tests. 
+* syslog: use local network for tests.
 </pre>
 
 <h2 id="2010-06-09">2010-06-09</h2>
@@ -5491,7 +5491,7 @@ restrictive: assignments no longer convert implicitly from *[10]int to []int
 (write x[0:] instead of &amp;x), and conversions can no longer change the names of
 types inside composite types.
 
-The fmt package now includes flexible type-driven (fmt.Scan) and 
+The fmt package now includes flexible type-driven (fmt.Scan) and
 format-driven (fmt.Scanf) scanners for all basic types.
 
 * big: bug fix for Quo aliasing problem.
@@ -5524,7 +5524,7 @@ format-driven (fmt.Scanf) scanners for all basic types.
 * spec: clean-ups and consolidation.
 * syscall: additional Windows compatibility fixes (thanks Alex Brainman).
 * test/bench: added regex-dna-parallel.go (thanks Kyle Consalus).
-* vector: type-specific Do functions now take f(type) (thanks Michael Hoisie). 
+* vector: type-specific Do functions now take f(type) (thanks Michael Hoisie).
 </pre>
 
 <h2 id="2010-05-27">2010-05-27</h2>
@@ -5532,7 +5532,7 @@ format-driven (fmt.Scanf) scanners for all basic types.
 <pre>
 A sizeable release, including standard library improvements and a slew of
 compiler bug fixes. The three-week interval was largely caused by the team
-preparing for Google I/O. 
+preparing for Google I/O.
 
 * big: add Rat type (thanks Evan Shaw),
         new features, much performance tuning, cleanups, and more tests.
@@ -5627,7 +5627,7 @@ If you are currently building for 'mingw' you should set GOOS=windows instead.
 
 <pre>
 This release includes a new Codelab that illustrates the construction of a
-simple wiki web application: 
+simple wiki web application:
 	http://golang.org/doc/codelab/wiki/
 
 It also includes a Codewalk framework for documenting code. See:
@@ -5707,7 +5707,7 @@ This release contains many changes:
 * io/ioutil: fix bug in ReadFile when Open succeeds but Stat fails.
 * kate: update for recent language changes (thanks Evan Shaw).
 * libcgo: initial mingw port work - builds but untested (thanks Joe Poirier).
-* math: new functions and special cases (thanks Charles L. Dorian) 
+* math: new functions and special cases (thanks Charles L. Dorian)
 * net: use chan bool instead of chan *netFD to avoid cycle.
 * netchan: allow client to send as well as receive.
 * nntp: new package, NNTP client (thanks Conrad Meyer).
@@ -5727,17 +5727,17 @@ This release contains many changes:
 <pre>
 This release contains three language changes:
 
-1. Accessing a non-existent key in a map is no longer a run-time error.  
+1. Accessing a non-existent key in a map is no longer a run-time error.
 It now evaluates to the zero value for that type.  For example:
         x := myMap[i]   is now equivalent to:   x, _ := myMap[i]
 
-2. It is now legal to take the address of a function's return value.  
+2. It is now legal to take the address of a function's return value.
 The return values are copied back to the caller only after deferred
 functions have run.
 
 3. The functions panic and recover, intended for reporting and recovering from
 failure, have been added to the spec:
-	http://golang.org/doc/go_spec.html#Handling_panics 
+	http://golang.org/doc/go_spec.html#Handling_panics
 In a related change, panicln is gone, and panic is now a single-argument
 function.  Panic and recover are recognized by the gc compilers but the new
 behavior is not yet implemented.
@@ -5781,7 +5781,7 @@ Other changes:
 * xgb: fix request length and request size (thanks Firmansyah Adiputra).
 * xml: add CopyToken (thanks Kyle Consalus),
         add line numbers to syntax errors (thanks Kyle Consalus),
-        use io.ReadByter in place of local readByter (thanks Raif S. Naffah). 
+        use io.ReadByter in place of local readByter (thanks Raif S. Naffah).
 </pre>
 
 <h2 id="2010-03-22">2010-03-22</h2>
@@ -5827,7 +5827,7 @@ This release includes a language change: support for complex numbers.
 	http://golang.org/doc/go_spec.html#Complex_numbers
 There is no library support as yet.
 
-This release also includes the goinstall command-line tool. 
+This release also includes the goinstall command-line tool.
 	http://golang.org/cmd/goinstall/
 	http://groups.google.com/group/golang-nuts/t/f091704771128e32
 
@@ -5849,7 +5849,7 @@ This release also includes the goinstall command-line tool.
 * hash: add Sum64 interface.
 * hash/crc32: add Update function.
 * hash/crc64: new package implementing 64-bit CRC.
-* math: add ilogb, logb, remainder. (thanks Charles L. Dorian) 
+* math: add ilogb, logb, remainder. (thanks Charles L. Dorian)
 * regexp: add ReplaceAllFunc, ReplaceAllStringFunc.
 * runtime: clock garbage collection on bytes allocated, not pages in use.
 * strings: make Split(s, "", n) faster. (thanks Spring Mc)
@@ -5860,12 +5860,12 @@ This release also includes the goinstall command-line tool.
 <h2 id="2010-03-04">2010-03-04</h2>
 
 <pre>
-There is one language change: the ability to convert a string to []byte or 
+There is one language change: the ability to convert a string to []byte or
 []int.  This deprecates the strings.Bytes and strings.Runes functions.
 You can convert your existing sources using these gofmt commands:
 	gofmt -r 'strings.Bytes(x) -&gt; []byte(x)' -w file-or-directory-list
 	gofmt -r 'strings.Runes(x) -&gt; []int(x)' -w file-or-directory-list
-After running these you might need to delete unused imports of the "strings" 
+After running these you might need to delete unused imports of the "strings"
 package.
 
 Other changes and fixes:
@@ -5883,7 +5883,7 @@ Other changes and fixes:
 * path: add Match,
 	fix bug in Match with non-greedy stars (thanks Kevin Ballard)
 * strings: delete Bytes, Runes (see above)
-* tests: an Eratosthenesque concurrent prime sieve (thanks Anh Hai Trinh) 
+* tests: an Eratosthenesque concurrent prime sieve (thanks Anh Hai Trinh)
 </pre>
 
 <h2 id="2010-02-23">2010-02-23</h2>
@@ -5908,7 +5908,7 @@ runtime: work around Linux kernel bug in futex,
 sync: fix to work on armv5 (thanks Dean Prichard)
 websocket: fix binary frame size decoding (thanks Timo Savola)
 xml: allow unquoted attribute values in non-Strict mode (thanks Amrut Joshi)
-	treat bool as value in Unmarshal (thanks Michael Hoisie) 
+	treat bool as value in Unmarshal (thanks Michael Hoisie)
 </pre>
 
 <h2 id="2010-02-17">2010-02-17</h2>
@@ -5948,7 +5948,7 @@ Other changes and fixes:
 There is one language change: support for ...T parameters:
 	http://golang.org/doc/go_spec.html#Function_types
 
-You can now check build status on various platforms at the Go Dashboard: 
+You can now check build status on various platforms at the Go Dashboard:
 	http://godashboard.appspot.com
 
 * 5l/6l/8l: several minor fixes
@@ -5980,7 +5980,7 @@ You can now check build status on various platforms at the Go Dashboard:
 
 <pre>
 There are two small language changes: the meaning of chan &lt;- chan int
-is now defined, and functions returning functions do not need to 
+is now defined, and functions returning functions do not need to
 parenthesize the result type.
 
 There is one significant implementation change: the compilers can
@@ -6136,65 +6136,65 @@ xml: better mapping of tag names to Go identifiers (thanks Kei Son),
 <h2 id="2009-12-09">2009-12-09</h2>
 
 <pre>
-Since the last release there are two changes to the language: 
+Since the last release there are two changes to the language:
 
-* new builtin copy(dst, src) copies n = min(len(dst), len(src)) 
-  elements to dst from src and returns n.  It works correctly 
-  even if dst and src overlap.  bytes.Copy is gone. 
-  Convert your programs using: 
-      gofmt -w -r 'bytes.Copy(d, s) -&gt; copy(d, s)' *.go 
+* new builtin copy(dst, src) copies n = min(len(dst), len(src))
+  elements to dst from src and returns n.  It works correctly
+  even if dst and src overlap.  bytes.Copy is gone.
+  Convert your programs using:
+      gofmt -w -r 'bytes.Copy(d, s) -&gt; copy(d, s)' *.go
 
-* new syntax x[lo:] is shorthand for x[lo:len(x)]. 
-  Convert your programs using: 
-      gofmt -w -r 'a[b:len(a)] -&gt; a[b:]' *.go 
+* new syntax x[lo:] is shorthand for x[lo:len(x)].
+  Convert your programs using:
+      gofmt -w -r 'a[b:len(a)] -&gt; a[b:]' *.go
 
-In addition, there have been many smaller fixes and updates: 
+In addition, there have been many smaller fixes and updates:
 
-* 6g/8g/5g: many bug fixes 
-* 8g: fix 386 floating point stack bug (thanks Charles Dorian) 
-* all.bash: now works even when $GOROOT has spaces (thanks Sergio Luis O. B. Correia), 
-    starting to make build work with mingw (thanks Hector Chu), 
-    FreeBSD support (thanks Devon O'Dell) 
-* big: much faster on 386. 
-* bytes: new function IndexByte, implemented in assembly 
-    new function Runes (thanks Peter Froehlich), 
-    performance tuning in bytes.Buffer. 
-* codereview: various bugs fixed 
-* container/vector: New is gone; just declare a Vector instead. 
-    call Resize to set len and cap. 
-* cgo: many bug fixes (thanks Eden Li) 
-* crypto: added MD4 (thanks Chris Lennert), 
-    added XTEA (thanks Adrian O'Grady). 
-* crypto/tls: basic client 
-* exp/iterable: new functions (thanks Michael Elkins) 
-* exp/nacl: native client tree builds again 
-* fmt: preliminary performance tuning 
-* go/ast: more powerful Visitor (thanks Roger Peppe) 
-* gob: a few bug fixes 
-* gofmt: better handling of standard input, error reporting (thanks Fazlul Shahriar) 
-    new -r flag for rewriting programs 
-* gotest: support for Benchmark functions (thanks Trevor Strohman) 
-* io: ReadFile, WriteFile, ReadDir now in separate package io/ioutil. 
-* json: new Marshal function (thanks Michael Hoisie), 
-    better white space handling (thanks Andrew Skiba), 
-    decoding into native data structures (thanks Sergey Gromov), 
-    handling of nil interface values (thanks Ross Light). 
-* math: correct handling of sin/cos of large angles 
-* net: better handling of Close (thanks Devon O'Dell and Christopher Wedgwood) 
-    support for UDP broadcast (thanks Jonathan Wills), 
-    support for empty packets 
-* rand: top-level functions now safe to call from multiple goroutines 
-(thanks Roger Peppe). 
-* regexp: a few easy optimizations 
-* rpc: better error handling, a few bug fixes 
-* runtime: better signal handling on OS X, malloc fixes, 
-    global channel lock is gone. 
-* sync: RWMutex now allows concurrent readers (thanks Péter Szabó) 
-* template: can use maps as data (thanks James Meneghello) 
-* unicode: updated to Unicode 5.2. 
-* websocket: new package (thanks Fumitoshi Ukai) 
-* xgb: preliminary X Go Bindings (thanks Tor Andersson) 
-* xml: fixed crash (thanks Vish Subramanian) 
-* misc: bbedit config (thanks Anthony Starks), 
-    kate config (thanks Evan Shaw) 
+* 6g/8g/5g: many bug fixes
+* 8g: fix 386 floating point stack bug (thanks Charles Dorian)
+* all.bash: now works even when $GOROOT has spaces (thanks Sergio Luis O. B. Correia),
+    starting to make build work with mingw (thanks Hector Chu),
+    FreeBSD support (thanks Devon O'Dell)
+* big: much faster on 386.
+* bytes: new function IndexByte, implemented in assembly
+    new function Runes (thanks Peter Froehlich),
+    performance tuning in bytes.Buffer.
+* codereview: various bugs fixed
+* container/vector: New is gone; just declare a Vector instead.
+    call Resize to set len and cap.
+* cgo: many bug fixes (thanks Eden Li)
+* crypto: added MD4 (thanks Chris Lennert),
+    added XTEA (thanks Adrian O'Grady).
+* crypto/tls: basic client
+* exp/iterable: new functions (thanks Michael Elkins)
+* exp/nacl: native client tree builds again
+* fmt: preliminary performance tuning
+* go/ast: more powerful Visitor (thanks Roger Peppe)
+* gob: a few bug fixes
+* gofmt: better handling of standard input, error reporting (thanks Fazlul Shahriar)
+    new -r flag for rewriting programs
+* gotest: support for Benchmark functions (thanks Trevor Strohman)
+* io: ReadFile, WriteFile, ReadDir now in separate package io/ioutil.
+* json: new Marshal function (thanks Michael Hoisie),
+    better white space handling (thanks Andrew Skiba),
+    decoding into native data structures (thanks Sergey Gromov),
+    handling of nil interface values (thanks Ross Light).
+* math: correct handling of sin/cos of large angles
+* net: better handling of Close (thanks Devon O'Dell and Christopher Wedgwood)
+    support for UDP broadcast (thanks Jonathan Wills),
+    support for empty packets
+* rand: top-level functions now safe to call from multiple goroutines
+(thanks Roger Peppe).
+* regexp: a few easy optimizations
+* rpc: better error handling, a few bug fixes
+* runtime: better signal handling on OS X, malloc fixes,
+    global channel lock is gone.
+* sync: RWMutex now allows concurrent readers (thanks Péter Szabó)
+* template: can use maps as data (thanks James Meneghello)
+* unicode: updated to Unicode 5.2.
+* websocket: new package (thanks Fumitoshi Ukai)
+* xgb: preliminary X Go Bindings (thanks Tor Andersson)
+* xml: fixed crash (thanks Vish Subramanian)
+* misc: bbedit config (thanks Anthony Starks),
+    kate config (thanks Evan Shaw)
 </pre>

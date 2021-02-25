@@ -19,9 +19,9 @@ a new version.
 * For an overview of module development, see [Developing and publishing
   modules](developing)
 * For a high-level module development workflow -- which includes publishing --
-  see [Module release and versioning workflow](/doc/modules/release-workflow).
+  see [Module release and versioning workflow](release-workflow).
 
-## Publishing steps {#steps}
+## Publishing steps
 
 Use the following steps to publish a module.
 
@@ -62,9 +62,9 @@ Use the following steps to publish a module.
     ```
 
 1.  Make the module available by running the [`go list`
-  command](/cmd/go/#hdr-List_packages_or_modules) to prompt
-  Go to update its index of modules with information about the module you're
-  publishing. 
+  command](https://golang.org/cmd/go/#hdr-List_packages_or_modules) to prompt
+  Go to update its index of modules with 1nformation about the module you're
+  publishing.
 
     Precede the command with a statement to set the `GOPROXY` environment
     variable to a Go proxy. This will ensure that your request reaches the
@@ -74,12 +74,10 @@ Use the following steps to publish a module.
     $ GOPROXY=proxy.golang.org go list -m example.com/mymodule@v0.1.0
     ```
 
-Developers interested in your module import a package from it and run the
-[`go get` command](/ref/mod#go-get)
-just as they would with any other module. They can run the
-[`go get` command](/ref/mod#go-get)
-for latest versions or they can specify a particular version, as in the
-following example:
+Developers interested in your module import a package from it and run the [`go
+get` command]() just as they would with any other module. They can run the [`go
+get` command]() for latest versions or they can specify a particular version, as
+in the following example:
 
 ```
 $ go get example.com/mymodule@v0.1.0

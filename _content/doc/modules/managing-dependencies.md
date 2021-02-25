@@ -1,6 +1,6 @@
 <!--{
   "Title": "Managing dependencies",
-  "Path": "/doc/modules/managing-dependencies" 
+  "Path": "/doc/modules/managing-dependencies"
 }-->
 
 When your code uses external packages, those packages (distributed as modules)
@@ -70,7 +70,7 @@ This process is supported by:
 ## Locating and importing useful packages {#locating_packages}
 
 You can search [pkg.go.dev](https://pkg.go.dev) to find packages with functions
-you might find useful. 
+you might find useful.
 
 When you've found a package you want to use in your code, locate the package
 path at the top of the page and click the Copy path button to copy the path to
@@ -108,7 +108,7 @@ temporarily using a safe substitute, such as the name of a domain you own or
 directory.
 
 As you use Go tools to manage dependencies, the tools update the go.mod file so
-that it maintains a current list of your dependencies. 
+that it maintains a current list of your dependencies.
 
 When you add dependencies, Go tools also create a go.sum file that contains
 checksums of modules you depend on. Go uses this to verify the integrity of
@@ -267,7 +267,7 @@ consumes them.
 You might want to do this when:
 
 *   You want to make your own changes to an external module's code, such as
-    after forking and/or cloning it. For example, you might want to prepare a 
+    after forking and/or cloning it. For example, you might want to prepare a
     fix to the module, then send it as a pull request to the module's developer.
 *   You're building a new module and haven't yet published it, so it's
     unavailable on a repository where the `go get` command can reach it.
@@ -445,7 +445,7 @@ other behavior, see the [`go` command
 reference](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification).
 
 You can set the variable to URLs for other module proxy servers, separating URLs
-with either a comma or a pipe. 
+with either a comma or a pipe.
 
 *   When you use a comma, Go tools will try the next URL in the list only if the
     current URL returns an HTTP 404 or 410.
