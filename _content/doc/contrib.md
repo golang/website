@@ -1,0 +1,3 @@
+<!--{
+	"Redirect": "/project/"
+}-->

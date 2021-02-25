@@ -79,10 +79,6 @@ func main() {
 	fsys = unionFS{content, os.DirFS(*goroot)}
 
 	corpus := godoc.NewCorpus(fsys)
-	corpus.Verbose = *verbose
-	if err := corpus.Init(); err != nil {
-		log.Fatal(err)
-	}
 	// Initialize the version info before readTemplates, which saves
 	// the map value in a method value.
 	corpus.InitVersionInfo()

@@ -269,20 +269,13 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 
 func (p *Presentation) ServeHTMLDoc(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
 	// get HTML body contents
-	isMarkdown := false
 	src, err := fs.ReadFile(p.Corpus.fs, toFS(abspath))
-	if err != nil && strings.HasSuffix(abspath, ".html") {
-		if md, errMD := fs.ReadFile(p.Corpus.fs, toFS(strings.TrimSuffix(abspath, ".html")+".md")); errMD == nil {
-			src = md
-			isMarkdown = true
-			err = nil
-		}
-	}
 	if err != nil {
 		log.Printf("ReadFile: %s", err)
 		p.ServeError(w, r, relpath, err)
 		return
 	}
+	isMarkdown := strings.HasSuffix(abspath, ".md")
 
 	// if it begins with "<!DOCTYPE " assume it is standalone
 	// html that doesn't need the template wrapping.
@@ -356,19 +349,19 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check to see if we need to redirect or serve another file.
-	relpath := r.URL.Path
-	if m := p.Corpus.MetadataFor(relpath); m != nil {
-		if m.Path != relpath {
+	abspath := r.URL.Path
+	if m := p.Corpus.MetadataFor(abspath); m != nil {
+		if m.Path != abspath {
 			// Redirect to canonical path.
 			http.Redirect(w, r, m.Path, http.StatusMovedPermanently)
 			return
 		}
 		// Serve from the actual filesystem path.
-		relpath = m.filePath
+		p.ServeHTMLDoc(w, r, m.FilePath, m.Path)
+		return
 	}
 
-	abspath := relpath
-	relpath = relpath[1:] // strip leading slash
+	relpath := abspath[1:] // strip leading slash
 
 	switch path.Ext(relpath) {
 	case ".html":
@@ -382,7 +375,15 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 
 	dir, err := fs.Stat(p.Corpus.fs, toFS(abspath))
 	if err != nil {
-		log.Print(err)
+		// Check for spurious trailing slash.
+		if strings.HasSuffix(abspath, "/") {
+			trimmed := abspath[:len(abspath)-1]
+			if _, err := fs.Stat(p.Corpus.fs, toFS(trimmed)); err == nil ||
+				p.Corpus.MetadataFor(trimmed) != nil {
+				http.Redirect(w, r, trimmed, http.StatusMovedPermanently)
+				return
+			}
+		}
 		p.ServeError(w, r, relpath, err)
 		return
 	}

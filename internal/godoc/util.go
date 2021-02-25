@@ -10,31 +10,8 @@ package godoc
 import (
 	"io/fs"
 	"path"
-	"sync"
-	"time"
 	"unicode/utf8"
 )
-
-// An rwValue wraps a value and permits mutually exclusive
-// access to it and records the time the value was last set.
-type rwValue struct {
-	mutex     sync.RWMutex
-	value     interface{}
-	timestamp time.Time // time of last set()
-}
-
-func (v *rwValue) Set(value interface{}) {
-	v.mutex.Lock()
-	v.value = value
-	v.timestamp = time.Now()
-	v.mutex.Unlock()
-}
-
-func (v *rwValue) Get() (interface{}, time.Time) {
-	v.mutex.RLock()
-	defer v.mutex.RUnlock()
-	return v.value, v.timestamp
-}
 
 // IsText reports whether a significant prefix of s looks like correct UTF-8;
 // that is, if it is likely that s is human-readable text.

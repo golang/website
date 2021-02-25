@@ -10,13 +10,9 @@ package godoc
 import (
 	"bytes"
 	"encoding/json"
-	"errors"
 	"io/fs"
 	"log"
-	"os"
-	"path"
 	"strings"
-	"time"
 )
 
 var (
@@ -25,28 +21,28 @@ var (
 	jsonEnd   = []byte("}-->")
 )
 
-// ----------------------------------------------------------------------------
-// Documentation Metadata
-
 type Metadata struct {
-	// These fields can be set in the JSON header at the top of a doc.
+	// Copied from document metadata
 	Title    string
 	Subtitle string
-	Template bool     // execute as template
-	Path     string   // canonical path for this page
-	AltPaths []string // redirect these other paths to this page
+	Template bool
 
-	// These are internal to the implementation.
-	filePath string // filesystem path relative to goroot
+	Path     string // URL path
+	FilePath string // filesystem path relative to goroot
 }
 
-func (m *Metadata) FilePath() string { return m.filePath }
+type MetaJSON struct {
+	Title    string
+	Subtitle string
+	Template bool
+	Redirect string // if set, redirect to other URL
+}
 
-// extractMetadata extracts the Metadata from a byte slice.
+// extractMetadata extracts the MetaJSON from a byte slice.
 // It returns the Metadata value and the remaining data.
 // If no metadata is present the original byte slice is returned.
 //
-func extractMetadata(b []byte) (meta Metadata, tail []byte, err error) {
+func extractMetadata(b []byte) (meta MetaJSON, tail []byte, err error) {
 	tail = b
 	if !bytes.HasPrefix(b, jsonStart) {
 		return
@@ -63,101 +59,66 @@ func extractMetadata(b []byte) (meta Metadata, tail []byte, err error) {
 	return
 }
 
-// UpdateMetadata scans $GOROOT/doc for HTML and Markdown files, reads their metadata,
-// and updates the DocMetadata map.
-func (c *Corpus) updateMetadata() {
-	metadata := make(map[string]*Metadata)
-	var scan func(string) // scan is recursive
-	scan = func(dir string) {
-		fis, err := fs.ReadDir(c.fs, toFS(dir))
-		if err != nil {
-			if dir == "/doc" && errors.Is(err, os.ErrNotExist) {
-				// Be quiet during tests that don't have a /doc tree.
-				return
-			}
-			log.Printf("updateMetadata %s: %v", dir, err)
-			return
-		}
-		for _, fi := range fis {
-			name := path.Join(dir, fi.Name())
-			if fi.IsDir() {
-				scan(name) // recurse
-				continue
-			}
-			if !strings.HasSuffix(name, ".html") && !strings.HasSuffix(name, ".md") {
-				continue
-			}
-			// Extract metadata from the file.
-			b, err := fs.ReadFile(c.fs, toFS(name))
-			if err != nil {
-				log.Printf("updateMetadata %s: %v", name, err)
-				continue
-			}
-			meta, _, err := extractMetadata(b)
-			if err != nil {
-				log.Printf("updateMetadata: %s: %v", name, err)
-				continue
-			}
-			// Present all .md as if they were .html,
-			// so that it doesn't matter which one a page is written in.
-			if strings.HasSuffix(name, ".md") {
-				name = strings.TrimSuffix(name, ".md") + ".html"
-			}
-			// Store relative filesystem path in Metadata.
-			meta.filePath = name
-			if meta.Path == "" {
-				// If no Path, canonical path is actual path with .html removed.
-				meta.Path = strings.TrimSuffix(name, ".html")
-			}
-			// Store under both paths.
-			metadata[meta.Path] = &meta
-			metadata[meta.filePath] = &meta
-			for _, path := range meta.AltPaths {
-				metadata[path] = &meta
-			}
-		}
+// MetadataFor returns the *Metadata for a given absolute path
+// or nil if none exists.
+func (c *Corpus) MetadataFor(path string) *Metadata {
+	// Strip any .html or .md; it all names the same page.
+	if strings.HasSuffix(path, ".html") {
+		path = strings.TrimSuffix(path, ".html")
+	} else if strings.HasSuffix(path, ".md") {
+		path = strings.TrimSuffix(path, ".md")
 	}
-	scan("/doc")
-	c.docMetadata.Set(metadata)
-}
 
-// MetadataFor returns the *Metadata for a given relative path or nil if none
-// exists.
-//
-func (c *Corpus) MetadataFor(relpath string) *Metadata {
-	if m, _ := c.docMetadata.Get(); m != nil {
-		meta := m.(map[string]*Metadata)
-		// If metadata for this relpath exists, return it.
-		if p := meta[relpath]; p != nil {
-			return p
+	file := path + ".html"
+	b, err := fs.ReadFile(c.fs, toFS(file))
+	if err != nil {
+		file = path + ".md"
+		b, err = fs.ReadFile(c.fs, toFS(file))
+	}
+	if err != nil {
+		// Special case for memory model and spec, which live
+		// in the main Go repo's doc directory and therefore have not
+		// been renamed to their serving paths.
+		// We wait until the ReadFiles above have failed so that the
+		// code works if these are ever moved to /ref/spec and /ref/mem.
+		switch path {
+		case "/ref/spec":
+			if m := c.MetadataFor("/doc/go_spec"); m != nil {
+				return m
+			}
+		case "/ref/mem":
+			if m := c.MetadataFor("/doc/go_mem"); m != nil {
+				return m
+			}
 		}
-		// Try with or without trailing slash.
-		if strings.HasSuffix(relpath, "/") {
-			relpath = relpath[:len(relpath)-1]
-		} else {
-			relpath = relpath + "/"
-		}
-		return meta[relpath]
+		return nil
 	}
-	return nil
-}
 
-// refreshMetadata sends a signal to update DocMetadata. If a refresh is in
-// progress the metadata will be refreshed again afterward.
-//
-func (c *Corpus) refreshMetadata() {
-	select {
-	case c.refreshMetadataSignal <- true:
-	default:
+	js, _, err := extractMetadata(b)
+	if err != nil {
+		log.Printf("MetadataFor %s: %v", path, err)
+		return nil
 	}
-}
 
-// RefreshMetadataLoop runs forever, updating DocMetadata when the underlying
-// file system changes. It should be launched in a goroutine.
-func (c *Corpus) refreshMetadataLoop() {
-	for {
-		<-c.refreshMetadataSignal
-		c.updateMetadata()
-		time.Sleep(10 * time.Second) // at most once every 10 seconds
+	meta := &Metadata{
+		Title:    js.Title,
+		Subtitle: js.Subtitle,
+		Template: js.Template,
+		Path:     path,
+		FilePath: file,
 	}
+	if js.Redirect != "" {
+		// Allow (placeholder) documents to declare a redirect.
+		meta.Path = js.Redirect
+	}
+
+	// Special case for memory model and spec, continued.
+	switch path {
+	case "/doc/go_spec":
+		meta.Path = "/ref/spec"
+	case "/doc/go_mem":
+		meta.Path = "/ref/mem"
+	}
+
+	return meta
 }

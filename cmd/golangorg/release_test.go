@@ -31,7 +31,7 @@ func TestReleaseHistory(t *testing.T) {
 	readTemplates(pres)
 	mux := registerHandlers(pres)
 
-	req := httptest.NewRequest(http.MethodGet, "/doc/devel/release.html", nil)
+	req := httptest.NewRequest(http.MethodGet, "/doc/devel/release", nil)
 	rr := httptest.NewRecorder()
 	mux.ServeHTTP(rr, req)
 	resp := rr.Result()

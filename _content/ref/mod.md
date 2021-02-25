@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Go Modules Reference",
-  "Path": "/ref/mod"
+  "Title": "Go Modules Reference"
 }-->
 <!-- TODO(golang.org/issue/33637): Write focused "guide" articles on specific
 module topics and tasks. Link to those instead of the blog, which will probably

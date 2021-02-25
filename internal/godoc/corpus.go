@@ -9,8 +9,6 @@ package godoc
 
 import (
 	"io/fs"
-	"sync"
-	"time"
 
 	"golang.org/x/website/internal/api"
 )
@@ -23,22 +21,6 @@ import (
 type Corpus struct {
 	fs fs.FS
 
-	// Verbose logging.
-	Verbose bool
-
-	// Send a value on this channel to trigger a metadata refresh.
-	// It is buffered so that if a signal is not lost if sent
-	// during a refresh.
-	refreshMetadataSignal chan bool
-
-	// file system information
-	fsModified  rwValue // timestamp of last call to invalidateIndex
-	docMetadata rwValue // mapping from paths to *Metadata
-
-	// flag to check whether a corpus is initialized or not
-	initMu   sync.RWMutex
-	initDone bool
-
 	// pkgAPIInfo contains the information about which package API
 	// features were added in which version of Go.
 	pkgAPIInfo api.DB
@@ -49,25 +31,7 @@ type Corpus struct {
 // Change or set any options on Corpus before calling the Corpus.Init method.
 func NewCorpus(fsys fs.FS) *Corpus {
 	c := &Corpus{
-		fs:                    fsys,
-		refreshMetadataSignal: make(chan bool, 1),
+		fs: fsys,
 	}
 	return c
-}
-
-func (c *Corpus) FSModifiedTime() time.Time {
-	_, ts := c.fsModified.Get()
-	return ts
-}
-
-// Init initializes Corpus, once options on Corpus are set.
-// It must be called before any subsequent method calls.
-func (c *Corpus) Init() error {
-	c.updateMetadata()
-	go c.refreshMetadataLoop()
-
-	c.initMu.Lock()
-	c.initDone = true
-	c.initMu.Unlock()
-	return nil
 }

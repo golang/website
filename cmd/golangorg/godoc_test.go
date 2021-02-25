@@ -19,6 +19,7 @@ import (
 	"path/filepath"
 	"regexp"
 	"runtime"
+	"strings"
 	"testing"
 	"time"
 )
@@ -171,11 +172,68 @@ func testWeb(t *testing.T) {
 		contains    []string // substring
 		match       []string // regexp
 		notContains []string
+		redirect    string
 		releaseTag  string // optional release tag that must be in go/build.ReleaseTags
 	}{
 		{
 			path:     "/",
 			contains: []string{"Go is an open source programming language"},
+		},
+		{
+			path:     "/conduct",
+			contains: []string{"Project Stewards"},
+		},
+		{
+			path:     "/doc/asm",
+			contains: []string{"Quick Guide", "Assembler"},
+		},
+		{
+			path:     "/doc/gdb",
+			contains: []string{"Debugging Go Code"},
+		},
+		{
+			path:     "/doc/debugging_with_gdb.html",
+			redirect: "/doc/gdb",
+		},
+		{
+			path:     "/ref/spec",
+			contains: []string{"Go Programming Language Specification"},
+		},
+		{
+			path:     "/doc/go_spec",
+			redirect: "/ref/spec",
+		},
+		{
+			path:     "/doc/go_spec.html",
+			redirect: "/ref/spec",
+		},
+		{
+			path:     "/doc/go_spec.md",
+			redirect: "/ref/spec",
+		},
+		{
+			path:     "/ref/mem",
+			contains: []string{"Memory Model"},
+		},
+		{
+			path:     "/doc/go_mem.html",
+			redirect: "/ref/mem",
+		},
+		{
+			path:     "/doc/go_mem.md",
+			redirect: "/ref/mem",
+		},
+		{
+			path:     "/doc/help.html",
+			redirect: "/help",
+		},
+		{
+			path:     "/help/",
+			redirect: "/help",
+		},
+		{
+			path:     "/help",
+			contains: []string{"Get help"},
 		},
 		{
 			path:     "/pkg/fmt/",
@@ -190,7 +248,11 @@ func testWeb(t *testing.T) {
 			contains: []string{"// Println formats using"},
 		},
 		{
-			path: "/pkg",
+			path:     "/pkg",
+			redirect: "/pkg/",
+		},
+		{
+			path: "/pkg/",
 			contains: []string{
 				"Standard library",
 				"Package fmt implements formatted I/O",
@@ -260,26 +322,56 @@ func testWeb(t *testing.T) {
 			releaseTag: "go1.11",
 		},
 		{
-			path: "/project/",
+			path: "/project",
 			contains: []string{
 				`<li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>`,
 				`<li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>`,
 			},
 		},
+		{
+			path:     "/doc/go1.16.html",
+			redirect: "/doc/go1.16",
+		},
+		{
+			path:     "/doc/go1.16",
+			contains: []string{"Go 1.16"},
+		},
 	}
 	for _, test := range tests {
 		url := fmt.Sprintf("http://%s%s", addr, test.path)
-		resp, err := http.Get(url)
+		var redirect string
+		client := &http.Client{
+			CheckRedirect: func(req *http.Request, via []*http.Request) error {
+				redirect = strings.TrimPrefix(req.URL.String(), "http://"+addr)
+				return fmt.Errorf("not following redirects")
+			},
+		}
+		resp, err := client.Get(url)
+		if redirect != "" {
+			resp.Body.Close()
+			if test.redirect == "" {
+				t.Errorf("GET %s: unexpected redirect -> %s", url, redirect)
+				continue
+			}
+			if test.redirect != redirect {
+				t.Errorf("GET %s: redirect -> %s, want %s", url, redirect, test.redirect)
+				continue
+			}
+			continue
+		}
 		if err != nil {
 			t.Errorf("GET %s failed: %s", url, err)
 			continue
 		}
 		body, err := ioutil.ReadAll(resp.Body)
-		strBody := string(body)
 		resp.Body.Close()
 		if err != nil {
 			t.Errorf("GET %s: failed to read body: %s (response: %v)", url, err, resp)
 		}
+		if test.redirect != "" {
+			t.Errorf("GET %s: have direct response, want redirect -> %s", url, test.redirect)
+		}
+		strBody := string(body)
 		isErr := false
 		for _, substr := range test.contains {
 			if test.releaseTag != "" && !hasTag(test.releaseTag) {
