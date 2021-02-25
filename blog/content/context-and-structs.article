@@ -32,7 +32,7 @@ func (w *Worker) Fetch(ctx context.Context) (*Work, error) {
   _ = ctx // A per-call ctx is used for cancellation, deadlines, and metadata.
 }
 
-func (w *Worker) Process(ctx context.Context, w *Work) error {
+func (w *Worker) Process(ctx context.Context, work *Work) error {
   _ = ctx // A per-call ctx is used for cancellation, deadlines, and metadata.
 }
 ```
@@ -56,7 +56,7 @@ func (w *Worker) Fetch() (*Work, error) {
   _ = w.ctx // A shared w.ctx is used for cancellation, deadlines, and metadata.
 }
 
-func (w *Worker) Process(w *Work) error {
+func (w *Worker) Process(work *Work) error {
   _ = w.ctx // A shared w.ctx is used for cancellation, deadlines, and metadata.
 }
 ```
