@@ -21,9 +21,9 @@ import (
 
 var (
 	httpAddr     = flag.String("http", "localhost:8080", "HTTP listen address")
-	contentPath  = flag.String("content", "content/", "path to content files")
-	templatePath = flag.String("template", "template/", "path to template files")
-	staticPath   = flag.String("static", "static/", "path to static files")
+	contentPath  = flag.String("content", "_content/", "path to content files")
+	templatePath = flag.String("template", "_template/", "path to template files")
+	staticPath   = flag.String("static", "_static/", "path to static files")
 	websitePath  = flag.String("website", defaultWebsitePath(), "path to lib/godoc static files")
 	reload       = flag.Bool("reload", false, "reload content on each page load")
 )

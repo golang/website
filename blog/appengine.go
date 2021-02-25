@@ -16,8 +16,8 @@ import (
 )
 
 func gaeMain() {
-	config.ContentPath = "content/"
-	config.TemplatePath = "template/"
+	config.ContentPath = "_content/"
+	config.TemplatePath = "_template/"
 	config.AnalyticsHTML = template.HTML(os.Getenv("BLOG_ANALYTICS"))
 	s, err := blog.NewServer(config)
 	if err != nil {
