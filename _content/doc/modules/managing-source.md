@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Managing module source",
-  "Path": "/doc/modules/managing-source"
+  "Title": "Managing module source"
 }-->
 
 When you're developing modules to publish for others to use, you can help ensure

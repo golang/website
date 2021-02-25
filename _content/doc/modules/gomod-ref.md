@@ -1,6 +1,5 @@
 <!--{
-  "Title": "go.mod file reference",
-  "Path": "/doc/modules/gomod-ref"
+  "Title": "go.mod file reference"
 }-->
 
 Each Go module is defined by a go.mod file that describes the module's

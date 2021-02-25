@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Developing and publishing modules",
-  "Path": "/doc/modules/developing"
+  "Title": "Developing and publishing modules"
 }-->
 
 You can collect related packages into modules, then publish the modules for

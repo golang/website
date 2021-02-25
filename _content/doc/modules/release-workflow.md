@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Module release and versioning workflow",
-  "Path": "/doc/modules/release-workflow"
+  "Title": "Module release and versioning workflow"
 }-->
 
 When you develop modules for use by other developers, you can follow a workflow

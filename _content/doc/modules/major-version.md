@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Developing a major version update",
-  "Path": "/doc/modules/major-version"
+  "Title": "Developing a major version update"
 }-->
 
 You must update to a major version when changes you're making in a potential new

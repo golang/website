@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Module version numbering",
-  "Path": "/doc/modules/version-numbers"
+  "Title": "Module version numbering"
 }-->
 
 A module's developer uses each part of a module's version number to signal the

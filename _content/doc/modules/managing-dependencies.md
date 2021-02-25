@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Managing dependencies",
-  "Path": "/doc/modules/managing-dependencies"
+  "Title": "Managing dependencies"
 }-->
 
 When your code uses external packages, those packages (distributed as modules)

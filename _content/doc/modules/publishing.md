@@ -1,6 +1,5 @@
 <!--{
-  "Title": "Publishing a module",
-  "Path": "/doc/modules/publishing"
+  "Title": "Publishing a module"
 }-->
 
 When you want to make a module available for other developers, you publish it so
