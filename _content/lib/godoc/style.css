@@ -1071,3 +1071,61 @@ a.error {
     page-break-inside: avoid;
   }
 }
+table.downloadtable {
+  margin-left: 20px;
+  margin-right: 20px;
+  border-collapse: collapse;
+}
+table.downloadtable tr {
+  background-color: #f0f0f0;
+}
+table.downloadtable tr:nth-child(2n), table.downloadtable tr.first {
+  background-color: white;
+}
+table.downloadtable td, table.downloadtable th {
+  white-space: nowrap;
+  padding: 6px 10px;
+}
+table.downloadtable tt {
+  font-size: xx-small;
+}
+table.downloadtable tr.highlight td {
+  font-weight: bold;
+}
+a.downloadBox {
+  display: block;
+  color: #222;
+  border: 1px solid #375EAB;
+  border-radius: 5px;
+  background: #E0EBF5;
+  width: 280px;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+a.downloadBox:hover {
+  text-decoration: none;
+}
+.downloadBox .platform {
+  font-size: large;
+}
+.downloadBox .filename {
+  color: #007d9c;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+a.downloadBox:hover .filename {
+  text-decoration: underline;
+}
+.downloadBox .size {
+  font-size: small;
+  font-weight: normal;
+}
+.downloadBox .reqs {
+  font-size: small;
+  font-style: italic;
+}
+.downloadBox .checksum {
+  font-size: 5pt;
+}

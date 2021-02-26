@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 // Package dl implements a simple downloads frontend server.
 //
 // It accepts HTTP POST requests to create a new download metadata entity, and
@@ -24,7 +27,6 @@ package dl
 
 import (
 	"fmt"
-	"html/template"
 	"regexp"
 	"sort"
 	"strconv"
@@ -33,7 +35,7 @@ import (
 )
 
 const (
-	cacheKey      = "download_list_4" // increment if listTemplateData changes
+	cacheKey      = "download_list_5" // increment if listTemplateData changes
 	cacheDuration = time.Hour
 )
 
@@ -57,6 +59,9 @@ func (f File) ChecksumType() string {
 	}
 	return "SHA1"
 }
+
+func (f File) PrettyArch() string { return pretty(f.Arch) }
+func (f File) PrettyKind() string { return pretty(f.Kind) }
 
 func (f File) PrettyChecksum() string {
 	if f.ChecksumSHA256 != "" {
@@ -177,13 +182,7 @@ var featuredFiles = []Feature{
 type listTemplateData struct {
 	Featured                  []Feature
 	Stable, Unstable, Archive []Release
-	GoogleCN                  bool
 }
-
-var (
-	listTemplate  = template.Must(template.New("").Funcs(templateFuncs).Parse(templateHTML))
-	templateFuncs = template.FuncMap{"pretty": pretty}
-)
 
 func filesToFeatured(fs []File) (featured []Feature) {
 	for _, feature := range featuredFiles {

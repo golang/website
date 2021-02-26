@@ -1,0 +1,159 @@
+{{with .Data}}
+<p>
+After downloading a binary release suitable for your system,
+please follow the <a href="/doc/install">installation instructions</a>.
+</p>
+
+<p>
+If you are building from source,
+follow the <a href="/doc/install/source">source installation instructions</a>.
+</p>
+
+<p>
+See the <a href="/doc/devel/release.html">release history</a> for more
+information about Go releases.
+</p>
+
+<p>
+  As of Go 1.13, the go command by default downloads and authenticates
+  modules using the Go module mirror and Go checksum database run by Google. See
+  <a href="https://proxy.golang.org/privacy">https://proxy.golang.org/privacy</a>
+  for privacy information about these services and the
+  <a href="/cmd/go/">go command documentation</a>
+  for configuration details including how to disable the use of these servers or use
+  different ones.
+</p>
+
+{{with .Featured}}
+<h3 id="featured">Featured downloads</h3>
+{{range .}}
+{{template "download" .}}
+{{end}}
+{{end}}
+
+<div style="clear: both;"></div>
+
+{{with .Stable}}
+<h3 id="stable">Stable versions</h3>
+{{template "download-releases" .}}
+{{end}}
+
+{{with .Unstable}}
+<h3 id="unstable">Unstable version</h3>
+{{template "download-releases" .}}
+{{end}}
+
+{{with .Archive}}
+<div class="toggle" id="archive">
+  <div class="collapsed">
+    <h3 class="toggleButton" title="Click to show versions">Archived versions ▹</h3>
+  </div>
+  <div class="expanded">
+    <h3 class="toggleButton" title="Click to hide versions">Archived versions ▾</h3>
+    {{template "download-releases" .}}
+  </div>
+</div>
+{{end}}
+
+<script>
+$(document).ready(function() {
+  $('a.download').click(function(e) {
+    // Try using the link text as the file name,
+    // unless there's a child element of class 'filename'.
+    var filename = $(this).text();
+    var child = $(this).find('.filename');
+    if (child.length > 0) {
+      filename = child.text();
+    }
+
+    // This must be kept in sync with the filenameRE in godocs.js.
+    var filenameRE = /^go1\.\d+(\.\d+)?([a-z0-9]+)?\.([a-z0-9]+)(-[a-z0-9]+)?(-osx10\.[68])?\.([a-z.]+)$/;
+    var m = filenameRE.exec(filename);
+    if (!m) {
+      // Don't redirect to the download page if it won't recognize this file.
+      // (Should not happen.)
+      return;
+    }
+
+    var dest = "/doc/install";
+    if (filename.indexOf(".src.") != -1) {
+      dest += "/source";
+    }
+    dest += "?download=" + filename;
+
+    e.preventDefault();
+    e.stopPropagation();
+    window.location = dest;
+  });
+});
+</script>
+{{end}}
+
+{{define "download-releases"}}
+{{range .}}
+<div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
+	<div class="collapsed">
+		<h2 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▹</h2>
+	</div>
+	<div class="expanded">
+		<h2 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h2>
+		{{if .Stable}}{{else}}
+			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
+			<p>If you already have Go installed, you can install this version by running:</p>
+<pre>
+go get golang.org/dl/{{.Version}}
+</pre>
+			<p>Then, use the <code>{{.Version}}</code> command instead of the <code>go</code> command to use {{.Version}}.</p>
+		{{end}}
+		{{template "download-files" .}}
+	</div>
+</div>
+{{end}}
+{{end}}
+
+{{define "download-files"}}
+<table class="downloadtable">
+<thead>
+<tr class="first">
+  <th>File name</th>
+  <th>Kind</th>
+  <th>OS</th>
+  <th>Arch</th>
+  <th>Size</th>
+  {{/* Use the checksum type of the first file for the column heading. */}}
+  <th>{{(index .Files 0).ChecksumType}} Checksum</th>
+</tr>
+</thead>
+{{if .SplitPortTable}}
+  {{range .Files}}{{if .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
+
+  {{/* TODO(cbro): add a link to an explanatory doc page */}}
+  <tr class="first"><th colspan="6" class="first">Other Ports</th></tr>
+  {{range .Files}}{{if not .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
+{{else}}
+  {{range .Files}}{{template "download-file" .}}{{end}}
+{{end}}
+</table>
+{{end}}
+
+{{define "download-file"}}
+<tr{{if .Highlight}} class="highlight"{{end}}>
+  <td class="filename"><a class="download" href="{{.URL}}">{{.Filename}}</a></td>
+  <td>{{.PrettyKind}}</td>
+  <td>{{.PrettyOS}}</td>
+  <td>{{.PrettyArch}}</td>
+  <td>{{.PrettySize}}</td>
+  <td><tt>{{.PrettyChecksum}}</tt></td>
+</tr>
+{{end}}
+
+{{define "download"}}
+<a class="download downloadBox" href="{{.URL}}">
+<div class="platform">{{.Platform}}</div>
+{{with .Requirements}}<div class="reqs">{{.}}</div>{{end}}
+<div>
+  <span class="filename">{{.Filename}}</span>
+  {{if .Size}}<span class="size">({{.PrettySize}})</span>{{end}}
+</div>
+</a>
+{{end}}

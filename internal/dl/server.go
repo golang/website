@@ -2,6 +2,9 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build go1.16
+// +build go1.16
+
 package dl
 
 import (
@@ -21,15 +24,17 @@ import (
 	"cloud.google.com/go/datastore"
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/memcache"
+	"golang.org/x/website/internal/web"
 )
 
 type server struct {
+	site      *web.Site
 	datastore *datastore.Client
 	memcache  *memcache.CodecClient
 }
 
-func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Client) {
-	s := server{dc, mc.WithCodec(memcache.Gob)}
+func RegisterHandlers(mux *http.ServeMux, site *web.Site, dc *datastore.Client, mc *memcache.Client) {
+	s := server{site, dc, mc.WithCodec(memcache.Gob)}
 	mux.HandleFunc("/dl", s.getHandler)
 	mux.HandleFunc("/dl/", s.getHandler) // also serves listHandler
 	mux.HandleFunc("/dl/upload", s.uploadHandler)
@@ -49,9 +54,7 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	ctx := r.Context()
-	d := listTemplateData{
-		GoogleCN: googleCN(r),
-	}
+	d := listTemplateData{}
 
 	if err := h.memcache.Get(ctx, cacheKey, &d); err != nil {
 		if err != memcache.ErrCacheMiss {
@@ -82,9 +85,11 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := listTemplate.ExecuteTemplate(w, "root", d); err != nil {
-		log.Printf("ERROR executing template: %v", err)
-	}
+	h.site.ServePage(w, r, web.Page{
+		Title:    "Downloads",
+		Template: "dl.html",
+		Data:     d,
+	})
 }
 
 // serveJSON serves a JSON representation of d. It assumes that requests are

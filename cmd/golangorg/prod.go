@@ -40,7 +40,7 @@ func lateSetup(mux *http.ServeMux) {
 
 	datastoreClient, memcacheClient := getClients()
 
-	dl.RegisterHandlers(mux, datastoreClient, memcacheClient)
+	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
 
 	// Register /compile and /share handlers against the default serve mux
