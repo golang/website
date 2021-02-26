@@ -13,7 +13,7 @@
 // That page is itself a codewalk; the source code for it is
 // _content/doc/codewalk/codewalk.xml.
 
-package main
+package codewalk
 
 import (
 	"encoding/xml"
@@ -26,7 +26,6 @@ import (
 	"net/http"
 	"os"
 	"path"
-	pathpkg "path"
 	"regexp"
 	"sort"
 	"strconv"
@@ -36,17 +35,17 @@ import (
 	"golang.org/x/website/internal/web"
 )
 
-type CodewalkServer struct {
+type Server struct {
 	fsys fs.FS
 	site *web.Site
 }
 
-func NewCodewalkServer(fsys fs.FS, site *web.Site) *CodewalkServer {
-	return &CodewalkServer{fsys, site}
+func NewServer(fsys fs.FS, site *web.Site) *Server {
+	return &Server{fsys, site}
 }
 
 // Handler for /doc/codewalk/ and below.
-func (s *CodewalkServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	relpath := path.Clean(r.URL.Path[1:])
 
 	r.ParseForm()
@@ -92,7 +91,7 @@ func (s *CodewalkServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 
 func redir(w http.ResponseWriter, r *http.Request) (redirected bool) {
-	canonical := pathpkg.Clean(r.URL.Path)
+	canonical := path.Clean(r.URL.Path)
 	if !strings.HasSuffix(canonical, "/") {
 		canonical += "/"
 	}
@@ -105,15 +104,15 @@ func redir(w http.ResponseWriter, r *http.Request) (redirected bool) {
 	return
 }
 
-// A Codewalk represents a single codewalk read from an XML file.
-type Codewalk struct {
+// A codewalk represents a single codewalk read from an XML file.
+type codewalk struct {
 	Title string      `xml:"title,attr"`
 	File  []string    `xml:"file"`
-	Step  []*Codestep `xml:"step"`
+	Step  []*codestep `xml:"step"`
 }
 
-// A Codestep is a single step in a codewalk.
-type Codestep struct {
+// A codestep is a single step in a codewalk.
+type codestep struct {
 	// Filled in from XML
 	Src   string `xml:"src,attr"`
 	Title string `xml:"title,attr"`
@@ -129,13 +128,13 @@ type Codestep struct {
 	Data   []byte
 }
 
-func (c *Codestep) HTML() template.HTML {
+func (c *codestep) HTML() template.HTML {
 	return template.HTML(c.XML)
 }
 
 // String method for printing in template.
 // Formats file address nicely.
-func (st *Codestep) String() string {
+func (st *codestep) String() string {
 	s := st.File
 	if st.Lo != 0 || st.Hi != 0 {
 		s += fmt.Sprintf(":%d", st.Lo)
@@ -147,13 +146,13 @@ func (st *Codestep) String() string {
 }
 
 // loadCodewalk reads a codewalk from the named XML file.
-func (s *CodewalkServer) loadCodewalk(filename string) (*Codewalk, error) {
+func (s *Server) loadCodewalk(filename string) (*codewalk, error) {
 	f, err := s.fsys.Open(filename)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-	cw := new(Codewalk)
+	cw := new(codewalk)
 	d := xml.NewDecoder(f)
 	d.Entity = xml.HTMLEntity
 	err = d.Decode(cw)
@@ -210,7 +209,7 @@ func (s *CodewalkServer) loadCodewalk(filename string) (*Codewalk, error) {
 // codewalkDir serves the codewalk directory listing.
 // It scans the directory for subdirectories or files named *.xml
 // and prepares a table.
-func (s *CodewalkServer) codewalkDir(w http.ResponseWriter, r *http.Request, relpath string) {
+func (s *Server) codewalkDir(w http.ResponseWriter, r *http.Request, relpath string) {
 	type elem struct {
 		Name  string
 		Title string
@@ -249,7 +248,7 @@ func (s *CodewalkServer) codewalkDir(w http.ResponseWriter, r *http.Request, rel
 // in the response.  This format is used for the middle window pane
 // of the codewalk pages.  It is a separate iframe and does not get
 // the usual godoc HTML wrapper.
-func (s *CodewalkServer) codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
+func (s *Server) codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
 	relpath := strings.Trim(path.Clean(f), "/")
 	data, err := fs.ReadFile(s.fsys, relpath)
 	if err != nil {

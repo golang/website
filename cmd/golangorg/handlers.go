@@ -14,6 +14,7 @@ import (
 	"net/http"
 	"strings"
 
+	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/web"
@@ -73,7 +74,7 @@ func registerHandlers(site *web.Site) *http.ServeMux {
 	}
 	mux := http.NewServeMux()
 	mux.Handle("/", site)
-	mux.Handle("/doc/codewalk/", NewCodewalkServer(fsys, site))
+	mux.Handle("/doc/codewalk/", codewalk.NewServer(fsys, site))
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)
