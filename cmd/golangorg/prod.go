@@ -36,7 +36,7 @@ func earlySetup() {
 }
 
 func lateSetup(mux *http.ServeMux) {
-	pres.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
+	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	datastoreClient, memcacheClient := getClients()
 
