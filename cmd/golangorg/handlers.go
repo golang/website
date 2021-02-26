@@ -67,13 +67,13 @@ func (h hostEnforcerHandler) validHost(host string) bool {
 	return false
 }
 
-func registerHandlers(pres *web.Site) *http.ServeMux {
-	if pres == nil {
-		panic("nil Presentation")
+func registerHandlers(site *web.Site) *http.ServeMux {
+	if site == nil {
+		panic("nil Site")
 	}
 	mux := http.NewServeMux()
-	mux.Handle("/", pres)
-	mux.Handle("/doc/codewalk/", http.HandlerFunc(codewalk))
+	mux.Handle("/", site)
+	mux.Handle("/doc/codewalk/", NewCodewalkServer(fsys, site))
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)
