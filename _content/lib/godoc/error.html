@@ -4,6 +4,8 @@
 	license that can be found in the LICENSE file.
 -->
 
+{{with .Data}}
 <p>
-<span class="alert" style="font-size:120%">{{html .}}</span>
+<span class="alert" style="font-size:120%">{{.}}</span>
 </p>
+{{end}}

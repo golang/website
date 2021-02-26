@@ -1,6 +1,5 @@
 <!--{
-	"Title": "Go 1.2 Release Notes",
-	"Template": true
+	"Title": "Go 1.2 Release Notes"
 }-->
 
 <h2 id="introduction">Introduction to Go 1.2</h2>
@@ -554,7 +553,7 @@ argument with one or more following arguments. The template in this example,
 </p>
 
 <pre>
-{{"{{"}}if eq .A 1 2 3 {{"}}"}} equal {{"{{"}}else{{"}}"}} not equal {{"{{"}}end{{"}}"}}
+{{if eq .A 1 2 3}} equal {{else}} not equal {{end}}
 </pre>
 
 <p>
@@ -567,7 +566,7 @@ Instead of writing,
 </p>
 
 <pre>
-{{"{{"}}if eq .A 1{{"}}"}} X {{"{{"}}else{{"}}"}} {{"{{"}}if eq .A 2{{"}}"}} Y {{"{{"}}end{{"}}"}} {{"{{"}}end{{"}}"}}
+{{if eq .A 1}} X {{else}} {{if eq .A 2}} Y {{end}} {{end}}
 </pre>
 
 <p>
@@ -575,7 +574,7 @@ one can fold the second "if" into the "else" and have only one "end", like this:
 </p>
 
 <pre>
-{{"{{"}}if eq .A 1{{"}}"}} X {{"{{"}}else if eq .A 2{{"}}"}} Y {{"{{"}}end{{"}}"}}
+{{if eq .A 1}} X {{else if eq .A 2}} Y {{end}}
 </pre>
 
 <p>

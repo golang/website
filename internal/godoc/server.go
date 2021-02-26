@@ -12,6 +12,7 @@ import (
 	"encoding/json"
 	"fmt"
 	htmlpkg "html"
+	"html/template"
 	"io"
 	"io/fs"
 	"log"
@@ -20,7 +21,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"text/template"
 
 	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/spec"
@@ -47,7 +47,8 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// TODO(rsc): URL should be clean already.
-	relpath := path.Clean(strings.TrimPrefix(r.URL.Path, "/pkg/"))
+	relpath := path.Clean(strings.TrimPrefix(r.URL.Path, "/pkg"))
+	relpath = strings.TrimPrefix(relpath, "/")
 
 	abspath := path.Join("/src", relpath)
 	mode := pkgdoc.ParseMode(r.FormValue("m"))
@@ -60,7 +61,7 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	info := pkgdoc.Doc(h.d, abspath, relpath, mode, r.FormValue("GOOS"), r.FormValue("GOARCH"))
 	if info.Err != nil {
 		log.Print(info.Err)
-		h.p.ServeError(w, r, relpath, info.Err)
+		h.p.ServeError(w, r, info.Err)
 		return
 	}
 
@@ -93,23 +94,23 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		tabtitle = "Commands"
 	}
 
-	info.GoogleCN = h.p.googleCN(r)
-	var body []byte
+	name := "package.html"
 	if info.Dirname == "/src" {
-		body = applyTemplate(h.p.PackageRootHTML, "packageRootHTML", info)
-	} else {
-		body = applyTemplate(h.p.PackageHTML, "packageHTML", info)
+		name = "packageroot.html"
 	}
-	h.p.ServePage(w, Page{
+	h.p.ServePage(w, r, Page{
 		Title:    title,
-		Tabtitle: tabtitle,
+		TabTitle: tabtitle,
 		Subtitle: subtitle,
-		Body:     body,
-		GoogleCN: info.GoogleCN,
+		Template: name,
+		Data:     info,
 	})
 }
 
-func modeQueryString(m pkgdoc.Mode) string {
+// ModeQuery returns the "?m=..." query for the current page.
+// The page's Data must be a *pkgdoc.Page (to find the mode).
+func (p *Page) ModeQuery() string {
+	m := p.Data.(*pkgdoc.Page).Mode
 	s := m.String()
 	if s == "" {
 		return ""
@@ -117,12 +118,17 @@ func modeQueryString(m pkgdoc.Mode) string {
 	return "?m=" + s
 }
 
-func applyTemplate(t *template.Template, name string, data interface{}) []byte {
+// Invoke invokes the template with the given name on
+// a copy of p with .Data set to data, returning the resulting HTML.
+func (p *Page) Invoke(name string, data interface{}) template.HTML {
+	t := p.pres.Templates.Lookup(name)
 	var buf bytes.Buffer
-	if err := t.Execute(&buf, data); err != nil {
-		log.Printf("%s.Execute: %s", name, err)
+	p1 := *p
+	p1.Data = data
+	if err := t.Execute(&buf, &p1); err != nil {
+		log.Printf("%s.Execute: %s", t.Name(), err)
 	}
-	return buf.Bytes()
+	return template.HTML(buf.String())
 }
 
 type writerCapturesErr struct {
@@ -202,12 +208,12 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 	src, err := fs.ReadFile(p.fs, toFS(abspath))
 	if err != nil {
 		log.Printf("ReadFile: %s", err)
-		p.ServeError(w, r, relpath, err)
+		p.ServeError(w, r, err)
 		return
 	}
 
 	if r.FormValue("m") == "text" {
-		p.ServeText(w, src)
+		p.serveText(w, src)
 		return
 	}
 
@@ -229,12 +235,11 @@ func (p *Presentation) serveTextFile(w http.ResponseWriter, r *http.Request, abs
 	if strings.HasSuffix(relpath, ".go") {
 		title = "Source file"
 	}
-	p.ServePage(w, Page{
+	p.ServePage(w, r, Page{
 		Title:    title,
 		SrcPath:  relpath,
-		Tabtitle: relpath,
-		Body:     buf.Bytes(),
-		GoogleCN: p.googleCN(r),
+		TabTitle: relpath,
+		Data:     template.HTML(buf.String()),
 	})
 }
 
@@ -245,7 +250,7 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 
 	list, err := fs.ReadDir(p.fs, toFS(abspath))
 	if err != nil {
-		p.ServeError(w, r, relpath, err)
+		p.ServeError(w, r, err)
 		return
 	}
 
@@ -257,14 +262,16 @@ func (p *Presentation) serveDirectory(w http.ResponseWriter, r *http.Request, ab
 		}
 	}
 
-	p.ServePage(w, Page{
+	p.ServePage(w, r, Page{
 		Title:    "Directory",
 		SrcPath:  relpath,
-		Tabtitle: relpath,
-		Body:     applyTemplate(p.DirlistHTML, "dirlistHTML", info),
-		GoogleCN: p.googleCN(r),
+		TabTitle: relpath,
+		Template: "dirlist.html",
+		Data:     info,
 	})
 }
+
+var doctype = []byte("<!DOCTYPE ")
 
 func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file) {
 	src := f.Body
@@ -280,21 +287,21 @@ func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file
 	page := Page{
 		Title:    f.Title,
 		Subtitle: f.Subtitle,
-		GoogleCN: p.googleCN(r),
 	}
 
 	// evaluate as template if indicated
 	if f.Template {
-		tmpl, err := template.New("main").Funcs(p.DocFuncs).Parse(string(src))
+		page = p.fullPage(r, page)
+		tmpl, err := template.New("main").Funcs(p.docFuncs).Parse(string(src))
 		if err != nil {
 			log.Printf("parsing template %s: %v", f.Path, err)
-			p.ServeError(w, r, f.Path, err)
+			p.ServeError(w, r, err)
 			return
 		}
 		var buf bytes.Buffer
 		if err := tmpl.Execute(&buf, page); err != nil {
 			log.Printf("executing template %s: %v", f.Path, err)
-			p.ServeError(w, r, f.Path, err)
+			p.ServeError(w, r, err)
 			return
 		}
 		src = buf.Bytes()
@@ -306,7 +313,7 @@ func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file
 		html, err := renderMarkdown(src)
 		if err != nil {
 			log.Printf("executing markdown %s: %v", f.Path, err)
-			p.ServeError(w, r, f.Path, err)
+			p.ServeError(w, r, err)
 			return
 		}
 		src = html
@@ -319,12 +326,8 @@ func (p *Presentation) serveHTML(w http.ResponseWriter, r *http.Request, f *file
 		src = buf.Bytes()
 	}
 
-	page.Body = src
-	p.ServePage(w, page)
-}
-
-func (p *Presentation) ServeFile(w http.ResponseWriter, r *http.Request) {
-	p.serveFile(w, r)
+	page.Data = template.HTML(src)
+	p.ServePage(w, r, page)
 }
 
 func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
@@ -361,7 +364,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 		}
-		p.ServeError(w, r, relpath, err)
+		p.ServeError(w, r, err)
 		return
 	}
 
@@ -385,7 +388,7 @@ func (p *Presentation) serveFile(w http.ResponseWriter, r *http.Request) {
 	p.fileServer.ServeHTTP(w, r)
 }
 
-func (p *Presentation) ServeText(w http.ResponseWriter, text []byte) {
+func (p *Presentation) serveText(w http.ResponseWriter, text []byte) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write(text)
 }

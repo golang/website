@@ -9,23 +9,24 @@
 	them to conflict with generated attributes (some of which
 	correspond to Go identifiers).
 -->
-{{with .PDoc}}
-	{{if $.IsMain}}
+{{$pkg := .Data}}
+{{with $pkg.PDoc}}
+	{{if $pkg.IsMain}}
 		{{/* command documentation */}}
-		{{comment_html .Doc}}
+		{{$.Comment .Doc}}
 	{{else}}
 		{{/* package documentation */}}
 		<div id="short-nav">
 			<dl>
-			<dd><code>import "{{html .ImportPath}}"</code></dd>
+			<dd><code>import "{{.ImportPath}}"</code></dd>
 			</dl>
 			<dl>
 			<dd><a href="#pkg-overview" class="overviewLink">Overview</a></dd>
 			<dd><a href="#pkg-index" class="indexLink">Index</a></dd>
-			{{if $.Examples}}
+			{{if $pkg.Examples}}
 				<dd><a href="#pkg-examples" class="examplesLink">Examples</a></dd>
 			{{end}}
-			{{if $.Dirs}}
+			{{if $pkg.Dirs}}
 				<dd><a href="#pkg-subdirectories">Subdirectories</a></dd>
 			{{end}}
 			</dl>
@@ -37,8 +38,8 @@
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				{{comment_html .Doc}}
-				{{example_html $ ""}}
+				{{$.Comment .Doc}}
+				{{$.Example ""}}
 			</div>
 		</div>
 
@@ -59,33 +60,30 @@
 				<dd><a href="#pkg-variables">Variables</a></dd>
 			{{end}}
 			{{range .Funcs}}
-				{{$name_html := html .Name}}
-				<dd><a href="#{{$name_html}}">{{node_html $ .Decl false | sanitize}}</a></dd>
+				<dd><a href="#{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
 			{{end}}
 			{{range .Types}}
-				{{$tname_html := html .Name}}
-				<dd><a href="#{{$tname_html}}">type {{$tname_html}}</a></dd>
+				{{$typeName := .Name}}
+				<dd><a href="#{{.Name}}">type {{.Name}}</a></dd>
 				{{range .Funcs}}
-					{{$name_html := html .Name}}
-					<dd>&nbsp; &nbsp; <a href="#{{$name_html}}">{{node_html $ .Decl false | sanitize}}</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
 				{{end}}
 				{{range .Methods}}
-					{{$name_html := html .Name}}
-					<dd>&nbsp; &nbsp; <a href="#{{$tname_html}}.{{$name_html}}">{{node_html $ .Decl false | sanitize}}</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#{{$typeName}}.{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
 				{{end}}
 			{{end}}
-			{{if $.Bugs}}
+			{{if $pkg.Bugs}}
 				<dd><a href="#pkg-note-BUG">Bugs</a></dd>
 			{{end}}
 			</dl>
 			</div><!-- #manual-nav -->
 
-		{{if $.Examples}}
+		{{if $pkg.Examples}}
 		<div id="pkg-examples">
 			<h3>Examples</h3>
 			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
 			<dl>
-			{{range $.Examples}}
+			{{range $pkg.Examples}}
 			<dd><a class="exampleLink" href="#example_{{.Name}}">{{example_name .Name}}</a></dd>
 			{{end}}
 			</dl>
@@ -97,7 +95,7 @@
 			<p>
 			<span style="font-size:90%">
 			{{range .}}
-				<a href="{{.|srcLink|html}}">{{.|filename|html}}</a>
+				<a href="/src/{{.}}">{{basename .}}</a>
 			{{end}}
 			</span>
 			</p>
@@ -108,93 +106,87 @@
 		{{with .Consts}}
 			<h2 id="pkg-constants">Constants</h2>
 			{{range .}}
-				{{comment_html .Doc}}
-				<pre>{{node_html $ .Decl true}}</pre>
+				{{$.Comment .Doc}}
+				<pre>{{$.Node .Decl}}</pre>
 			{{end}}
 		{{end}}
 		{{with .Vars}}
 			<h2 id="pkg-variables">Variables</h2>
 			{{range .}}
-				{{comment_html .Doc}}
-				<pre>{{node_html $ .Decl true}}</pre>
+				{{$.Comment .Doc}}
+				<pre>{{$.Node .Decl}}</pre>
 			{{end}}
 		{{end}}
 		{{range .Funcs}}
 			{{/* Name is a string - no need for FSet */}}
-			{{$name_html := html .Name}}
-			<h2 id="{{$name_html}}">func <a href="{{posLink_url $ .Decl}}">{{$name_html}}</a>
-				<a class="permalink" href="#{{$name_html}}">&#xb6;</a>
-				{{$since := since "func" "" .Name $.PDoc.ImportPath}}
+			<h2 id="{{.Name}}">func <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
+				{{$since := $.Since "func" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
-			<pre>{{node_html $ .Decl true}}</pre>
-			{{comment_html .Doc}}
-			{{example_html $ .Name}}
-
+			<pre>{{$.Node .Decl}}</pre>
+			{{$.Comment .Doc}}
+			{{$.Example .Name}}
 		{{end}}
 		{{range .Types}}
-			{{$tname := .Name}}
-			{{$tname_html := html .Name}}
-			<h2 id="{{$tname_html}}">type <a href="{{posLink_url $ .Decl}}">{{$tname_html}}</a>
-				<a class="permalink" href="#{{$tname_html}}">&#xb6;</a>
-				{{$since := since "type" "" .Name $.PDoc.ImportPath}}
+			{{$typeName := .Name}}
+			<h2 id="{{.Name}}">type <a href="{{$.SrcPosLink .Decl}}">{{$typeName}}</a>
+				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
+				{{$since := $.Since "type" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
-			{{comment_html .Doc}}
-			<pre>{{node_html $ .Decl true}}</pre>
+			{{$.Comment .Doc}}
+			<pre>{{$.Node .Decl}}</pre>
 
 			{{range .Consts}}
-				{{comment_html .Doc}}
-				<pre>{{node_html $ .Decl true}}</pre>
+				{{$.Comment .Doc}}
+				<pre>{{$.Node .Decl}}</pre>
 			{{end}}
 
 			{{range .Vars}}
-				{{comment_html .Doc}}
-				<pre>{{node_html $ .Decl true}}</pre>
+				{{$.Comment .Doc}}
+				<pre>{{$.Node .Decl}}</pre>
 			{{end}}
 
-			{{example_html $ $tname}}
+			{{$.Example .Name}}
 
 			{{range .Funcs}}
-				{{$name_html := html .Name}}
-				<h3 id="{{$name_html}}">func <a href="{{posLink_url $ .Decl}}">{{$name_html}}</a>
-					<a class="permalink" href="#{{$name_html}}">&#xb6;</a>
-					{{$since := since "func" "" .Name $.PDoc.ImportPath}}
+				<h3 id="{{.Name}}">func <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+					<a class="permalink" href="#{{.Name}}">&#xb6;</a>
+					{{$since := $.Since "func" "" .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
-				<pre>{{node_html $ .Decl true}}</pre>
-				{{comment_html .Doc}}
-				{{example_html $ .Name}}
+				<pre>{{$.Node .Decl}}</pre>
+				{{$.Comment .Doc}}
+				{{$.Example .Name}}
 			{{end}}
 
 			{{range .Methods}}
-				{{$name_html := html .Name}}
-				<h3 id="{{$tname_html}}.{{$name_html}}">func ({{html .Recv}}) <a href="{{posLink_url $ .Decl}}">{{$name_html}}</a>
-					<a class="permalink" href="#{{$tname_html}}.{{$name_html}}">&#xb6;</a>
-					{{$since := since "method" .Recv .Name $.PDoc.ImportPath}}
+				<h3 id="{{$typeName}}.{{.Name}}">func ({{html .Recv}}) <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+					<a class="permalink" href="#{{$typeName}}.{{.Name}}">&#xb6;</a>
+					{{$since := $.Since "method" .Recv .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
-				<pre>{{node_html $ .Decl true}}</pre>
-				{{comment_html .Doc}}
-				{{$name := printf "%s_%s" $tname .Name}}
-				{{example_html $ $name}}
+				<pre>{{$.Node .Decl}}</pre>
+				{{$.Comment .Doc}}
+				{{$.Example (printf "%s_%s" $typeName .Name)}}
 			{{end}}
 		{{end}}
 	{{end}}
 
-	{{with $.Bugs}}
+	{{with $pkg.Bugs}}
 		<h2 id="pkg-note-BUG">Bugs</h2>
 		<ul style="list-style: none; padding: 0;">
 		{{range .}}
-		<li><a href="{{posLink_url $ .}}" style="float: left;">&#x261e;</a> {{comment_html .Body}}</li>
+		<li><a href="{{$.SrcPosLink .}}" style="float: left;">&#x261e;</a> {{$.Comment .Body}}</li>
 		{{end}}
 		</ul>
 	{{end}}
 {{end}}
 
-{{with .Dirs}}
+{{with $pkg.Dirs}}
 	{{/* DirList entries are numbers and strings - no need for FSet */}}
-	{{if $.PDoc}}
+	{{if $pkg.PDoc}}
 		<h2 id="pkg-subdirectories">Subdirectories</h2>
 	{{end}}
 	<div class="pkg-dir">
@@ -204,7 +196,7 @@
 				<th class="pkg-synopsis">Synopsis</th>
 			</tr>
 
-			{{if not (or (eq $.Dirname "/src/cmd") $.DirFlat)}}
+			{{if not (or (eq $pkg.Dirname "/src/cmd") $pkg.DirFlat)}}
 			<tr>
 				<td colspan="2"><a href="..">..</a></td>
 			</tr>
@@ -212,19 +204,19 @@
 
 			{{range .List}}
 				<tr>
-				{{if $.DirFlat}}
+				{{if $pkg.DirFlat}}
 					{{if .HasPkg}}
 						<td class="pkg-name">
-							<a href="{{html .Path}}/{{modeQueryString $.Mode | html}}">{{html .Path}}</a>
+							<a href="{{.Path}}/{{$.ModeQuery}}">{{.Path}}</a>
 						</td>
 					{{end}}
 				{{else}}
 					<td class="pkg-name" style="padding-left: {{multiply .Depth 20}}px;">
-						<a href="{{html .Path}}/{{modeQueryString $.Mode | html}}">{{html .Name}}</a>
+						<a href="{{.Path}}/{{$.ModeQuery}}">{{.Name}}</a>
 					</td>
 				{{end}}
 					<td class="pkg-synopsis">
-						{{html .Synopsis}}
+						{{.Synopsis}}
 					</td>
 				</tr>
 			{{end}}

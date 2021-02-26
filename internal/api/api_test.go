@@ -137,8 +137,8 @@ func TestAPIVersion(t *testing.T) {
 		if tc.want != "" && !hasTag("go"+tc.want) {
 			continue
 		}
-		if got := av.Func(tc.kind, tc.receiver, tc.name, tc.pkg); got != tc.want {
-			t.Errorf(`sinceFunc("%s", "%s", "%s", "%s") = "%s"; want "%s"`, tc.kind, tc.receiver, tc.name, tc.pkg, got, tc.want)
+		if got := av.Func(tc.pkg, tc.kind, tc.receiver, tc.name); got != tc.want {
+			t.Errorf(`sinceFunc(%q, %q, %q, %q) = %q; want %q`, tc.pkg, tc.kind, tc.receiver, tc.name, got, tc.want)
 		}
 	}
 }

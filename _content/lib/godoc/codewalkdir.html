@@ -5,12 +5,11 @@
 -->
 
 <table class="layout">
-{{range .}}
+{{range .Data}}
 <tr>
-	{{$name_html := html .Name}}
-	<td><a href="{{$name_html}}">{{$name_html}}</a></td>
+	<td><a href="{{.Name}}">{{.Name}}</a></td>
 	<td width="25">&nbsp;</td>
-	<td>{{html .Title}}</td>
+	<td>{{.Title}}</td>
 </tr>
 {{end}}
 </table>

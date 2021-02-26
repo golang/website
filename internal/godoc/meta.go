@@ -17,7 +17,6 @@ import (
 )
 
 var (
-	doctype   = []byte("<!DOCTYPE ")
 	jsonStart = []byte("<!--{")
 	jsonEnd   = []byte("}-->")
 )

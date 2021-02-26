@@ -32,7 +32,6 @@ func TestReleaseHistory(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	readTemplates(pres)
 	mux := registerHandlers(pres)
 
 	req := httptest.NewRequest(http.MethodGet, "/doc/devel/release", nil)

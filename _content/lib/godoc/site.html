@@ -4,8 +4,8 @@
 <meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00ADD8">
-{{with .Tabtitle}}
-  <title>{{html .}} - The Go Programming Language</title>
+{{with .TabTitle}}
+  <title>{{.}} - The Go Programming Language</title>
 {{else}}
   <title>The Go Programming Language</title>
 {{end}}
@@ -63,18 +63,18 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 
 {{if or .Title .SrcPath}}
   <h1>
-    {{html .Title}}
-    {{html .SrcPath | srcBreadcrumb}}
+    {{.Title}}
+    {{$.SrcBreadcrumb}}
   </h1>
 {{end}}
 
 {{with .Subtitle}}
-  <h2>{{html .}}</h2>
+  <h2>{{.}}</h2>
 {{end}}
 
 {{with .SrcPath}}
   <h2>
-    Documentation: {{html . | srcToPkgLink}}
+    Documentation: {{$.SrcPkgLink}}
   </h2>
 {{end}}
 
@@ -82,8 +82,11 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
      Do not delete this <div>. */}}
 <div id="nav"></div>
 
-{{/* Body is HTML-escaped elsewhere */}}
-{{printf "%s" .Body}}
+{{if .Template}}
+{{.Invoke .Template .Data}}
+{{else}}
+{{.Data}}
+{{end}}
 
 </div><!-- .container -->
 </main><!-- #page -->
@@ -108,4 +111,3 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 })();
 </script>
 {{end}}
-

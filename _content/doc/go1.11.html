@@ -1,6 +1,5 @@
 <!--{
-	"Title": "Go 1.11 Release Notes",
-	"Template": true
+	"Title": "Go 1.11 Release Notes"
 }-->
 
 <!--
@@ -907,11 +906,11 @@ for k := range m {
       Modifying template variables via assignments is now permitted via the <code>=</code> token:
     </p>
     <pre>
-  {{"{{"}} $v := "init" {{"}}"}}
-  {{"{{"}} if true {{"}}"}}
-    {{"{{"}} $v = "changed" {{"}}"}}
-  {{"{{"}} end {{"}}"}}
-  v: {{"{{"}} $v {{"}}"}} {{"{{"}}/* "changed" */{{"}}"}}</pre>
+  {{ $v := "init" }}
+  {{ if true }}
+    {{ $v = "changed" }}
+  {{ end }}
+  v: {{ $v }} {{/* "changed" */}}</pre>
 
     <p><!-- CL 95215 -->
       In previous versions untyped <code>nil</code> values passed to

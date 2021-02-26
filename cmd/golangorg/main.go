@@ -85,7 +85,6 @@ func main() {
 	}
 	pres.GoogleCN = googleCN
 
-	readTemplates(pres)
 	mux := registerHandlers(pres)
 	lateSetup(mux)
 

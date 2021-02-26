@@ -37,6 +37,7 @@ package godoc
 import (
 	"bytes"
 	"fmt"
+	"html/template"
 	"io/fs"
 	"log"
 	"regexp"
@@ -74,7 +75,7 @@ func stringFor(arg interface{}) string {
 	return ""
 }
 
-func (p *Presentation) code(file string, arg ...interface{}) (s string, err error) {
+func (p *Presentation) code(file string, arg ...interface{}) (_ template.HTML, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = fmt.Errorf("%v", r)
@@ -105,7 +106,7 @@ func (p *Presentation) code(file string, arg ...interface{}) (s string, err erro
 	buf.Write(texthtml.Format([]byte(text), texthtml.Config{GoComments: true}))
 	// Include the command as a comment.
 	text = fmt.Sprintf("<pre><!--{{%s}}\n-->%s</pre>", command, buf.Bytes())
-	return text, nil
+	return template.HTML(text), nil
 }
 
 // parseArg returns the integer or string value of the argument and tells which it is.

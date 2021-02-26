@@ -3638,13 +3638,13 @@ from data items passed to <code>templ.Execute</code>, in this case the
 form value.
 Within the template text (<code>templateStr</code>),
 double-brace-delimited pieces denote template actions.
-The piece from <code>{{html "{{if .}}"}}</code>
-to <code>{{html "{{end}}"}}</code> executes only if the value of the current data item, called <code>.</code> (dot),
+The piece from <code>{{"{{if .}}"}}</code>
+to <code>{{"{{end}}"}}</code> executes only if the value of the current data item, called <code>.</code> (dot),
 is non-empty.
 That is, when the string is empty, this piece of the template is suppressed.
 </p>
 <p>
-The two snippets <code>{{html "{{.}}"}}</code> say to show the data presented to
+The two snippets <code>{{"{{.}}"}}</code> say to show the data presented to
 the template—the query string—on the web page.
 The HTML template package automatically provides appropriate escaping so the
 text is safe to display.

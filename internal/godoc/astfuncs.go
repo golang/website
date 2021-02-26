@@ -14,6 +14,7 @@ import (
 	"go/doc"
 	"go/printer"
 	"go/token"
+	"html/template"
 	"io"
 	"log"
 	"unicode"
@@ -25,26 +26,36 @@ import (
 
 var slashSlash = []byte("//")
 
-func (p *Presentation) nodeFunc(info *pkgdoc.Page, node interface{}) string {
-	var buf bytes.Buffer
-	p.writeNode(&buf, info, info.FSet, node)
-	return buf.String()
-}
-
-func (p *Presentation) node_htmlFunc(info *pkgdoc.Page, node interface{}, linkify bool) string {
+// Node formats the given AST node as HTML.
+// Identifiers in the rendered node
+// are turned into links to their documentation.
+func (p *Page) Node(node interface{}) template.HTML {
+	info := p.Data.(*pkgdoc.Page)
 	var buf1 bytes.Buffer
-	p.writeNode(&buf1, info, info.FSet, node)
+	p.pres.writeNode(&buf1, info, info.FSet, node)
 
 	var buf2 bytes.Buffer
-	var n ast.Node
-	if linkify {
-		n, _ = node.(ast.Node)
-	}
+	n, _ := node.(ast.Node)
 	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
 		AST:        n,
 		GoComments: true,
 	}))
-	return buf2.String()
+	return template.HTML(buf2.String())
+}
+
+// NodeTOC formats the given AST node as HTML
+// for inclusion in the table of contents.
+func (p *Page) NodeTOC(node interface{}) template.HTML {
+	info := p.Data.(*pkgdoc.Page)
+	var buf1 bytes.Buffer
+	p.pres.writeNode(&buf1, info, info.FSet, node)
+
+	var buf2 bytes.Buffer
+	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
+		GoComments: true,
+	}))
+
+	return sanitize(template.HTML(buf2.String()))
 }
 
 const TabWidth = 4
@@ -140,18 +151,19 @@ func firstIdent(x []byte) string {
 	return string(x[:i])
 }
 
-func comment_htmlFunc(comment string) string {
+// Comment formats the given documentation comment as HTML.
+func (p *Page) Comment(comment string) template.HTML {
 	var buf bytes.Buffer
 	// TODO(gri) Provide list of words (e.g. function parameters)
 	//           to be emphasized by ToHTML.
 	doc.ToHTML(&buf, comment, nil) // does html-escaping
-	return buf.String()
+	return template.HTML(buf.String())
 }
 
-// sanitizeFunc sanitizes the argument src by replacing newlines with
+// sanitize sanitizes the argument src by replacing newlines with
 // blanks, removing extra blanks, and by removing trailing whitespace
 // and commas before closing parentheses.
-func sanitizeFunc(src string) string {
+func sanitize(src template.HTML) template.HTML {
 	buf := make([]byte, len(src))
 	j := 0      // buf index
 	comma := -1 // comma index if >= 0
@@ -189,5 +201,13 @@ func sanitizeFunc(src string) string {
 	if j > 0 && buf[j-1] == ' ' {
 		j--
 	}
-	return string(buf[:j])
+	return template.HTML(buf[:j])
+}
+
+// Since reports the Go version that introduced the API feature
+// identified by kind, reeciver, name.
+// The current package is deduced from p.Data, which must be a *pkgdoc.Page.
+func (p *Page) Since(kind, receiver, name string) string {
+	pkg := p.Data.(*pkgdoc.Page).PDoc.ImportPath
+	return p.pres.api.Func(pkg, kind, receiver, name)
 }

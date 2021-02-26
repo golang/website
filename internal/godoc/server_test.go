@@ -14,14 +14,13 @@ import (
 	"strings"
 	"testing"
 	"testing/fstest"
-	"text/template"
 )
 
 func testServeBody(t *testing.T, p *Presentation, path, body string) {
 	t.Helper()
 	r := &http.Request{URL: &url.URL{Path: path}}
 	rw := httptest.NewRecorder()
-	p.ServeFile(rw, r)
+	p.serveFile(rw, r)
 	if rw.Code != 200 || !strings.Contains(rw.Body.String(), body) {
 		t.Fatalf("GET %s: expected 200 w/ %q: got %d w/ body:\n%s",
 			path, body, rw.Code, rw.Body)
@@ -30,11 +29,12 @@ func testServeBody(t *testing.T, p *Presentation, path, body string) {
 
 func TestRedirectAndMetadata(t *testing.T) {
 	fsys := fstest.MapFS{
-		"doc/x/index.html": {Data: []byte("Hello, x.")},
+		"doc/x/index.html":    {Data: []byte("Hello, x.")},
+		"lib/godoc/site.html": {Data: []byte(`{{.Data}}`)},
 	}
-	p := &Presentation{
-		fs:        fsys,
-		GodocHTML: template.Must(template.New("").Parse(`{{printf "%s" .Body}}`)),
+	p, err := NewPresentation(fsys)
+	if err != nil {
+		t.Fatal(err)
 	}
 
 	// Test that redirect is sent back correctly.
@@ -43,7 +43,7 @@ func TestRedirectAndMetadata(t *testing.T) {
 
 	r := &http.Request{URL: &url.URL{Path: dir + "index.html"}}
 	rw := httptest.NewRecorder()
-	p.ServeFile(rw, r)
+	p.serveFile(rw, r)
 	loc := rw.Result().Header.Get("Location")
 	if rw.Code != 301 || loc != dir {
 		t.Errorf("GET %s: expected 301 -> %q, got %d -> %q", r.URL.Path, dir, rw.Code, loc)
@@ -53,12 +53,13 @@ func TestRedirectAndMetadata(t *testing.T) {
 }
 
 func TestMarkdown(t *testing.T) {
-	p := &Presentation{
-		fs: fstest.MapFS{
-			"doc/test.md":  {Data: []byte("**bold**")},
-			"doc/test2.md": {Data: []byte(`{{"*template*"}}`)},
-		},
-		GodocHTML: template.Must(template.New("").Parse(`{{printf "%s" .Body}}`)),
+	p, err := NewPresentation(fstest.MapFS{
+		"doc/test.md":         {Data: []byte("**bold**")},
+		"doc/test2.md":        {Data: []byte(`{{"*template*"}}`)},
+		"lib/godoc/site.html": {Data: []byte(`{{.Data}}`)},
+	})
+	if err != nil {
+		t.Fatal(err)
 	}
 
 	testServeBody(t, p, "/doc/test", "<strong>bold</strong>")

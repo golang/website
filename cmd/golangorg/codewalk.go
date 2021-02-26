@@ -16,10 +16,10 @@
 package main
 
 import (
-	"bytes"
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"io/fs"
 	"log"
@@ -30,13 +30,10 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"text/template"
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/godoc"
 )
-
-var codewalkHTML, codewalkdirHTML *template.Template
 
 // Handler for /doc/codewalk/ and below.
 func codewalk(w http.ResponseWriter, r *http.Request) {
@@ -58,7 +55,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 
 	// If file exists, serve using standard file server.
 	if err == nil {
-		pres.ServeFile(w, r)
+		pres.ServeHTTP(w, r)
 		return
 	}
 
@@ -69,7 +66,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 	cw, err := loadCodewalk(abspath + ".xml")
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, relpath, err)
+		pres.ServeError(w, r, err)
 		return
 	}
 
@@ -78,10 +75,11 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pres.ServePage(w, godoc.Page{
+	pres.ServePage(w, r, godoc.Page{
 		Title:    "Codewalk: " + cw.Title,
-		Tabtitle: cw.Title,
-		Body:     applyTemplate(codewalkHTML, "codewalk", cw),
+		TabTitle: cw.Title,
+		Template: "codewalk.html",
+		Data:     cw,
 	})
 }
 
@@ -97,14 +95,6 @@ func redir(w http.ResponseWriter, r *http.Request) (redirected bool) {
 		redirected = true
 	}
 	return
-}
-
-func applyTemplate(t *template.Template, name string, data interface{}) []byte {
-	var buf bytes.Buffer
-	if err := t.Execute(&buf, data); err != nil {
-		log.Printf("%s.Execute: %s", name, err)
-	}
-	return buf.Bytes()
 }
 
 // A Codewalk represents a single codewalk read from an XML file.
@@ -129,6 +119,10 @@ type Codestep struct {
 	Hi     int
 	HiByte int
 	Data   []byte
+}
+
+func (c *Codestep) HTML() template.HTML {
+	return template.HTML(c.XML)
 }
 
 // String method for printing in template.
@@ -217,7 +211,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 	dir, err := fs.ReadDir(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, relpath, err)
+		pres.ServeError(w, r, err)
 		return
 	}
 	var v []interface{}
@@ -234,9 +228,10 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 		}
 	}
 
-	pres.ServePage(w, godoc.Page{
-		Title: "Codewalks",
-		Body:  applyTemplate(codewalkdirHTML, "codewalkdir", v),
+	pres.ServePage(w, r, godoc.Page{
+		Title:    "Codewalks",
+		Template: "codewalkdir.html",
+		Data:     v,
 	})
 }
 
@@ -251,7 +246,7 @@ func codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
 	data, err := fs.ReadFile(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, f, err)
+		pres.ServeError(w, r, err)
 		return
 	}
 	lo, _ := strconv.Atoi(r.FormValue("lo"))

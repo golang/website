@@ -9,10 +9,11 @@
 	them to conflict with generated attributes (some of which
 	correspond to Go identifiers).
 -->
+{{$pkg := .Data}}
 
-{{with .Dirs}}
+{{with $pkg.Dirs}}
 	{{/* DirList entries are numbers and strings - no need for FSet */}}
-	{{if $.PDoc}}
+	{{if $pkg.PDoc}}
 		<h2 id="pkg-subdirectories">Subdirectories</h2>
 	{{end}}
 		<div id="manual-nav">
@@ -40,19 +41,19 @@
 
 						{{range .List}}
 							<tr>
-							{{if $.DirFlat}}
+							{{if $pkg.DirFlat}}
 								{{if .HasPkg}}
 										<td class="pkg-name">
-											<a href="{{html .Path}}/{{modeQueryString $.Mode | html}}">{{html .Path}}</a>
+											<a href="{{.Path}}/{{$.ModeQuery}}">{{.Path}}</a>
 										</td>
 								{{end}}
 							{{else}}
 									<td class="pkg-name" style="padding-left: {{multiply .Depth 20}}px;">
-										<a href="{{html .Path}}/{{modeQueryString $.Mode | html}}">{{html .Name}}</a>
+										<a href="{{.Path}}/{{$.ModeQuery}}">{{.Name}}</a>
 									</td>
 							{{end}}
 							<td class="pkg-synopsis">
-								{{html .Synopsis}}
+								{{.Synopsis}}
 							</td>
 							</tr>
 						{{end}}

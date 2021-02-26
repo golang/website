@@ -11,7 +11,6 @@ import (
 	"encoding/json"
 	"go/format"
 	"io/fs"
-	"log"
 	"net/http"
 	pathpkg "path"
 	"strings"
@@ -91,16 +90,6 @@ func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
 	http.Handle("/", hostEnforcerHandler{mux})
 
 	return mux
-}
-
-func readTemplates(p *godoc.Presentation) {
-	var err error
-	if codewalkHTML, err = p.ReadTemplate("codewalk.html"); err != nil {
-		log.Fatal(err)
-	}
-	if codewalkdirHTML, err = p.ReadTemplate("codewalkdir.html"); err != nil {
-		log.Fatal(err)
-	}
 }
 
 type fmtResponse struct {

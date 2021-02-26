@@ -51,7 +51,7 @@ type PkgDB struct {
 //
 // The name is the symbol name ("Server") and the pkg is the package
 // ("net/http").
-func (v DB) Func(kind, receiver, name, pkg string) string {
+func (v DB) Func(pkg, kind, receiver, name string) string {
 	pv := v[pkg]
 	switch kind {
 	case "func":

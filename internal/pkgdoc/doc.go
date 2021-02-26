@@ -44,9 +44,8 @@ func NewDocs(fsys fs.FS) *Docs {
 }
 
 type Page struct {
-	Dirname  string // directory containing the package
-	Err      error  // error or nil
-	GoogleCN bool   // page is being served from golang.google.cn
+	Dirname string // directory containing the package
+	Err     error  // error or nil
 
 	Mode Mode // display metadata from query string
 

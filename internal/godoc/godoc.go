@@ -13,67 +13,35 @@ import (
 	"go/ast"
 	"go/doc"
 	"go/token"
+	"html"
+	"html/template"
 	"path"
-	"strconv"
 	"strings"
-	"text/template"
 
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/pkgdoc"
 )
 
 func (p *Presentation) initFuncMap() {
-	// Template function maps.
-	// Convention: template function names ending in "_html" or "_url" produce
-	//             HTML- or URL-escaped strings; all other function results may
-	//             require explicit escaping in the template.
-
-	p.DocFuncs = template.FuncMap{
+	p.docFuncs = template.FuncMap{
 		"code":     p.code,
 		"releases": func() []*history.Major { return history.Majors },
 	}
-
-	p.SiteFuncs = template.FuncMap{
-		// various helpers
-		"filename": filenameFunc,
-		"since":    p.api.Func,
-
-		// formatting of AST nodes
-		"node":         p.nodeFunc,
-		"node_html":    p.node_htmlFunc,
-		"comment_html": comment_htmlFunc,
-		"sanitize":     sanitizeFunc,
-
-		// support for URL attributes
-		"pkgLink":       pkgLinkFunc,
-		"srcLink":       srcLinkFunc,
-		"posLink_url":   posLink_urlFunc,
-		"docLink":       docLinkFunc,
-		"queryLink":     queryLinkFunc,
-		"srcBreadcrumb": srcBreadcrumbFunc,
-		"srcToPkgLink":  srcToPkgLinkFunc,
-
-		// formatting of Examples
-		"example_html":   p.example_htmlFunc,
-		"example_name":   p.example_nameFunc,
-		"example_suffix": p.example_suffixFunc,
-
-		// Number operation
-		"multiply": multiply,
-
-		// formatting of PageInfoMode query string
-		"modeQueryString": modeQueryString,
-	}
 }
 
-func multiply(a, b int) int { return a * b }
+var siteFuncs = template.FuncMap{
+	// various helpers
+	"basename": path.Base,
 
-func filenameFunc(name string) string {
-	_, localname := path.Split(name)
-	return localname
+	// formatting of Examples
+	"example_name":   example_nameFunc,
+	"example_suffix": example_suffixFunc,
+
+	// Number operation
+	"multiply": func(a, b int) int { return a * b },
 }
 
-func pkgLinkFunc(path string) string {
+func srcToPkg(path string) string {
 	// because of the irregular mapping under goroot
 	// we need to correct certain relative paths
 	path = strings.TrimPrefix(path, "/")
@@ -82,26 +50,26 @@ func pkgLinkFunc(path string) string {
 	return "pkg/" + path
 }
 
-// srcToPkgLinkFunc builds an <a> tag linking to the package
-// documentation of relpath.
-func srcToPkgLinkFunc(relpath string) string {
-	relpath = pkgLinkFunc(relpath)
-	relpath = path.Dir(relpath)
-	if relpath == "pkg" {
+// SrcPkgLink builds an <a> tag linking to the package documentation
+// for p.SrcPath.
+func (p *Page) SrcPkgLink() template.HTML {
+	dir := path.Dir(srcToPkg(p.SrcPath))
+	if dir == "pkg" {
 		return `<a href="/pkg">Index</a>`
 	}
-	return fmt.Sprintf(`<a href="/%s">%s</a>`, relpath, relpath[len("pkg/"):])
+	dir = html.EscapeString(dir)
+	return template.HTML(fmt.Sprintf(`<a href="/%s">%s</a>`, dir, dir[len("pkg/"):]))
 }
 
-// srcBreadcrumbFun converts each segment of relpath to a HTML <a>.
+// SrcBreadcrumb converts each segment of p.SrcPath to a HTML <a>.
 // Each segment links to its corresponding src directories.
-func srcBreadcrumbFunc(relpath string) string {
-	segments := strings.Split(relpath, "/")
+func (p *Page) SrcBreadcrumb() template.HTML {
+	segments := strings.Split(p.SrcPath, "/")
 	var buf bytes.Buffer
 	var selectedSegment string
 	var selectedIndex int
 
-	if strings.HasSuffix(relpath, "/") {
+	if strings.HasSuffix(p.SrcPath, "/") {
 		// relpath is a directory ending with a "/".
 		// Selected segment is the segment before the last slash.
 		selectedIndex = len(segments) - 2
@@ -113,18 +81,22 @@ func srcBreadcrumbFunc(relpath string) string {
 
 	for i := range segments[:selectedIndex] {
 		buf.WriteString(fmt.Sprintf(`<a href="/%s">%s</a>/`,
-			strings.Join(segments[:i+1], "/"),
-			segments[i],
+			html.EscapeString(strings.Join(segments[:i+1], "/")),
+			html.EscapeString(segments[i]),
 		))
 	}
 
 	buf.WriteString(`<span class="text-muted">`)
-	buf.WriteString(selectedSegment)
+	buf.WriteString(html.EscapeString(selectedSegment))
 	buf.WriteString(`</span>`)
-	return buf.String()
+	return template.HTML(buf.String())
 }
 
-func posLink_urlFunc(info *pkgdoc.Page, n interface{}) string {
+// SrcPosLink returns a link to the specific source code position containing n,
+// which must be either an ast.Node or a *doc.Note.
+// The current package is deduced from p.Data, which must be a *pkgdoc.Page.
+func (p *Page) SrcPosLink(n interface{}) template.HTML {
+	info := p.Data.(*pkgdoc.Page)
 	// n must be an ast.Node or a *doc.Note
 	var pos, end token.Pos
 
@@ -136,7 +108,7 @@ func posLink_urlFunc(info *pkgdoc.Page, n interface{}) string {
 		pos = n.Pos
 		end = n.End
 	default:
-		panic(fmt.Sprintf("wrong type for posLink_url template formatter: %T", n))
+		panic(fmt.Sprintf("wrong type for SrcPosLink template formatter: %T", n))
 	}
 
 	var relpath string
@@ -156,8 +128,11 @@ func posLink_urlFunc(info *pkgdoc.Page, n interface{}) string {
 	return srcPosLinkFunc(relpath, line, low, high)
 }
 
-func srcPosLinkFunc(s string, line, low, high int) string {
-	s = srcLinkFunc(s)
+func srcPosLinkFunc(s string, line, low, high int) template.HTML {
+	s = path.Clean("/" + s)
+	if !strings.HasPrefix(s, "/src/") {
+		s = "/src" + s
+	}
 	var buf bytes.Buffer
 	template.HTMLEscape(&buf, []byte(s))
 	// selection ranges are of form "s=low:high"
@@ -175,30 +150,5 @@ func srcPosLinkFunc(s string, line, low, high int) string {
 	if line > 0 {
 		fmt.Fprintf(&buf, "#L%d", line) // no need for URL escaping
 	}
-	return buf.String()
-}
-
-func srcLinkFunc(s string) string {
-	s = path.Clean("/" + s)
-	if !strings.HasPrefix(s, "/src/") {
-		s = "/src" + s
-	}
-	return s
-}
-
-// queryLinkFunc returns a URL for a line in a source file with a highlighted
-// query term.
-// s is expected to be a path to a source file.
-// query is expected to be a string that has already been appropriately escaped
-// for use in a URL query.
-func queryLinkFunc(s, query string, line int) string {
-	url := path.Clean("/"+s) + "?h=" + query
-	if line > 0 {
-		url += "#L" + strconv.Itoa(line)
-	}
-	return url
-}
-
-func docLinkFunc(s string, ident string) string {
-	return path.Clean("/pkg/"+s) + "/#" + ident
+	return template.HTML(buf.String())
 }

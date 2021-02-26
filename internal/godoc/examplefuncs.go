@@ -12,6 +12,7 @@ import (
 	"go/ast"
 	"go/format"
 	"go/printer"
+	"html/template"
 	"log"
 	"regexp"
 	"strings"
@@ -20,7 +21,10 @@ import (
 	"golang.org/x/website/internal/pkgdoc"
 )
 
-func (p *Presentation) example_htmlFunc(info *pkgdoc.Page, funcName string) string {
+// Example renders the examples for the given function name as HTML.
+// The current package is deduced from p.Data, which must be a *pkgdoc.Page.
+func (p *Page) Example(funcName string) template.HTML {
+	info := p.Data.(*pkgdoc.Page)
 	var buf bytes.Buffer
 	for _, eg := range info.Examples {
 		name := pkgdoc.TrimExampleSuffix(eg.Name)
@@ -31,7 +35,7 @@ func (p *Presentation) example_htmlFunc(info *pkgdoc.Page, funcName string) stri
 
 		// print code
 		cnode := &printer.CommentedNode{Node: eg.Code, Comments: eg.Comments}
-		code := p.node_htmlFunc(info, cnode, true)
+		code := string(p.Node(cnode))
 		out := eg.Output
 		wholeFile := true
 
@@ -66,20 +70,23 @@ func (p *Presentation) example_htmlFunc(info *pkgdoc.Page, funcName string) stri
 			out = ""
 		}
 
-		if p.ExampleHTML == nil {
-			out = ""
+		t := p.pres.Templates.Lookup("example.html")
+		if t == nil {
 			return ""
 		}
 
-		err := p.ExampleHTML.Execute(&buf, struct {
+		newPage := *p
+		newPage.Data = struct {
 			Name, Doc, Code, Play, Output string
-			GoogleCN                      bool
-		}{eg.Name, eg.Doc, code, play, out, info.GoogleCN})
+		}{
+			eg.Name, eg.Doc, code, play, out,
+		}
+		err := t.Execute(&buf, &newPage)
 		if err != nil {
 			log.Print(err)
 		}
 	}
-	return buf.String()
+	return template.HTML(buf.String())
 }
 
 // replaceLeadingIndentation replaces oldIndent at the beginning of each line
@@ -190,7 +197,7 @@ func filterOutBuildAnnotations(cg []*ast.CommentGroup) []*ast.CommentGroup {
 
 // example_nameFunc takes an example function name and returns its display
 // name. For example, "Foo_Bar_quux" becomes "Foo.Bar (Quux)".
-func (p *Presentation) example_nameFunc(s string) string {
+func example_nameFunc(s string) string {
 	name, suffix := pkgdoc.SplitExampleName(s)
 	// replace _ with . for method names
 	name = strings.Replace(name, "_", ".", 1)
@@ -203,7 +210,7 @@ func (p *Presentation) example_nameFunc(s string) string {
 
 // example_suffixFunc takes an example function name and returns its suffix in
 // parenthesized form. For example, "Foo_Bar_quux" becomes " (Quux)".
-func (p *Presentation) example_suffixFunc(name string) string {
+func example_suffixFunc(name string) string {
 	_, suffix := pkgdoc.SplitExampleName(name)
 	return suffix
 }

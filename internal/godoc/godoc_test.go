@@ -12,13 +12,14 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
+	"html/template"
 	"strings"
 	"testing"
 
 	"golang.org/x/website/internal/pkgdoc"
 )
 
-func TestPkgLinkFunc(t *testing.T) {
+func TestSrcToPkg(t *testing.T) {
 	for _, tc := range []struct {
 		path string
 		want string
@@ -27,9 +28,11 @@ func TestPkgLinkFunc(t *testing.T) {
 		{"src/fmt", "pkg/fmt"},
 		{"/fmt", "pkg/fmt"},
 		{"fmt", "pkg/fmt"},
+		{"src/pkg/fmt", "pkg/fmt"},
+		{"/src/pkg/fmt", "pkg/fmt"},
 	} {
-		if got := pkgLinkFunc(tc.path); got != tc.want {
-			t.Errorf("pkgLinkFunc(%v) = %v; want %v", tc.path, got, tc.want)
+		if got := srcToPkg(tc.path); got != tc.want {
+			t.Errorf("srcToPkg(%v) = %v; want %v", tc.path, got, tc.want)
 		}
 	}
 }
@@ -40,7 +43,7 @@ func TestSrcPosLinkFunc(t *testing.T) {
 		line int
 		low  int
 		high int
-		want string
+		want template.HTML
 	}{
 		{"/src/fmt/print.go", 42, 30, 50, "/src/fmt/print.go?s=30:50#L32"},
 		{"/src/fmt/print.go", 2, 1, 5, "/src/fmt/print.go?s=1:5#L1"},
@@ -51,64 +54,15 @@ func TestSrcPosLinkFunc(t *testing.T) {
 		{"fmt/print.go", 0, 1, 5, "/src/fmt/print.go?s=1:5#L1"},
 	} {
 		if got := srcPosLinkFunc(tc.src, tc.line, tc.low, tc.high); got != tc.want {
-			t.Errorf("srcLinkFunc(%v, %v, %v, %v) = %v; want %v", tc.src, tc.line, tc.low, tc.high, got, tc.want)
+			t.Errorf("srcPosLink(%v, %v, %v, %v) = %v; want %v", tc.src, tc.line, tc.low, tc.high, got, tc.want)
 		}
 	}
 }
 
-func TestSrcLinkFunc(t *testing.T) {
+func TestSanitize(t *testing.T) {
 	for _, tc := range []struct {
-		src  string
-		want string
-	}{
-		{"/src/fmt/print.go", "/src/fmt/print.go"},
-		{"src/fmt/print.go", "/src/fmt/print.go"},
-		{"/fmt/print.go", "/src/fmt/print.go"},
-		{"fmt/print.go", "/src/fmt/print.go"},
-	} {
-		if got := srcLinkFunc(tc.src); got != tc.want {
-			t.Errorf("srcLinkFunc(%v) = %v; want %v", tc.src, got, tc.want)
-		}
-	}
-}
-
-func TestQueryLinkFunc(t *testing.T) {
-	for _, tc := range []struct {
-		src   string
-		query string
-		line  int
-		want  string
-	}{
-		{"/src/fmt/print.go", "Sprintf", 33, "/src/fmt/print.go?h=Sprintf#L33"},
-		{"/src/fmt/print.go", "Sprintf", 0, "/src/fmt/print.go?h=Sprintf"},
-		{"src/fmt/print.go", "EOF", 33, "/src/fmt/print.go?h=EOF#L33"},
-		{"src/fmt/print.go", "a%3f+%26b", 1, "/src/fmt/print.go?h=a%3f+%26b#L1"},
-	} {
-		if got := queryLinkFunc(tc.src, tc.query, tc.line); got != tc.want {
-			t.Errorf("queryLinkFunc(%v, %v, %v) = %v; want %v", tc.src, tc.query, tc.line, got, tc.want)
-		}
-	}
-}
-
-func TestDocLinkFunc(t *testing.T) {
-	for _, tc := range []struct {
-		src   string
-		ident string
-		want  string
-	}{
-		{"fmt", "Sprintf", "/pkg/fmt/#Sprintf"},
-		{"fmt", "EOF", "/pkg/fmt/#EOF"},
-	} {
-		if got := docLinkFunc(tc.src, tc.ident); got != tc.want {
-			t.Errorf("docLinkFunc(%v, %v) = %v; want %v", tc.src, tc.ident, got, tc.want)
-		}
-	}
-}
-
-func TestSanitizeFunc(t *testing.T) {
-	for _, tc := range []struct {
-		src  string
-		want string
+		src  template.HTML
+		want template.HTML
 	}{
 		{},
 		{"foo", "foo"},
@@ -121,8 +75,8 @@ func TestSanitizeFunc(t *testing.T) {
 		{"{   a,   b}", "{a, b}"},
 		{"[   a,   b]", "[a, b]"},
 	} {
-		if got := sanitizeFunc(tc.src); got != tc.want {
-			t.Errorf("sanitizeFunc(%v) = %v; want %v", tc.src, got, tc.want)
+		if got := sanitize(tc.src); got != tc.want {
+			t.Errorf("sanitize(%v) = %v; want %v", tc.src, got, tc.want)
 		}
 	}
 }
@@ -241,11 +195,15 @@ func linkifySource(t *testing.T, src []byte) string {
 	pi := &pkgdoc.Page{
 		FSet: fset,
 	}
+	pg := &Page{
+		pres: p,
+		Data: pi,
+	}
 	sep := ""
 	for _, decl := range af.Decls {
 		buf.WriteString(sep)
 		sep = "\n"
-		buf.WriteString(p.node_htmlFunc(pi, decl, true))
+		buf.WriteString(string(pg.Node(decl)))
 	}
 	return buf.String()
 }
@@ -279,29 +237,29 @@ func TestReplaceLeadingIndentation(t *testing.T) {
 func TestSrcBreadcrumbFunc(t *testing.T) {
 	for _, tc := range []struct {
 		path string
-		want string
+		want template.HTML
 	}{
 		{"src/", `<span class="text-muted">src/</span>`},
 		{"src/fmt/", `<a href="/src">src</a>/<span class="text-muted">fmt/</span>`},
 		{"src/fmt/print.go", `<a href="/src">src</a>/<a href="/src/fmt">fmt</a>/<span class="text-muted">print.go</span>`},
 	} {
-		if got := srcBreadcrumbFunc(tc.path); got != tc.want {
+		if got := (&Page{SrcPath: tc.path}).SrcBreadcrumb(); got != tc.want {
 			t.Errorf("srcBreadcrumbFunc(%v) = %v; want %v", tc.path, got, tc.want)
 		}
 	}
 }
 
-func TestSrcToPkgLinkFunc(t *testing.T) {
+func TestSrcPkgLink(t *testing.T) {
 	for _, tc := range []struct {
 		path string
-		want string
+		want template.HTML
 	}{
 		{"src/", `<a href="/pkg">Index</a>`},
 		{"src/fmt/", `<a href="/pkg/fmt">fmt</a>`},
 		{"pkg/", `<a href="/pkg">Index</a>`},
 		{"pkg/LICENSE", `<a href="/pkg">Index</a>`},
 	} {
-		if got := srcToPkgLinkFunc(tc.path); got != tc.want {
+		if got := (&Page{SrcPath: tc.path}).SrcPkgLink(); got != tc.want {
 			t.Errorf("srcToPkgLinkFunc(%v) = %v; want %v", tc.path, got, tc.want)
 		}
 	}

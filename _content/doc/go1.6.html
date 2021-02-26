@@ -1,6 +1,5 @@
 <!--{
-	"Title": "Go 1.6 Release Notes",
-	"Template": true
+	"Title": "Go 1.6 Release Notes"
 }-->
 
 <!--
@@ -443,9 +442,9 @@ For example, the template
 </p>
 
 <pre>
-{{"{{"}}23 -}}
+{{23 -}}
    &lt;
-{{"{{"}}- 45}}
+{{- 45}}
 </pre>
 
 <p>
@@ -453,7 +452,7 @@ formats as <code>23&lt;45</code>.
 </p>
 
 <p>
-Second, the new <a href="/pkg/text/template/#hdr-Actions"><code>{{"{{"}}block}}</code> action</a>,
+Second, the new <a href="/pkg/text/template/#hdr-Actions"><code>{{block}}</code> action</a>,
 combined with allowing redefinition of named templates,
 provides a simple way to define pieces of a template that
 can be replaced in different instantiations.

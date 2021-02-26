@@ -4,6 +4,7 @@
 	license that can be found in the LICENSE file.
 -->
 
+{{with .Data}}
 <style type='text/css'>@import "/doc/codewalk/codewalk.css";</style>
 <script type="text/javascript" src="/doc/codewalk/codewalk.js"></script>
 
@@ -17,7 +18,7 @@
         </a>
         <select id="code-selector">
           {{range .File}}
-          <option value="/doc/codewalk/?fileprint=/{{urlquery .}}">{{html .}}</option>
+          <option value="/doc/codewalk/?fileprint=/{{.}}">{{.}}</option>
           {{end}}
         </select>
       </div>
@@ -35,15 +36,15 @@
     <div id="comment-area">
       {{range .Step}}
       <div class="comment first last">
-        <a class="comment-link" href="/doc/codewalk/?fileprint=/{{urlquery .File}}&amp;lo={{urlquery .Lo}}&amp;hi={{urlquery .Hi}}#mark" target="code-display"></a>
-        <div class="comment-title">{{html .Title}}</div>
+        <a class="comment-link" href="/doc/codewalk/?fileprint=/{{.File}}&amp;lo={{.Lo}}&amp;hi={{.Hi}}#mark" target="code-display"></a>
+        <div class="comment-title">{{.Title}}</div>
         <div class="comment-text">
 	{{with .Err}}
-	ERROR LOADING FILE: {{html .}}<br/><br/>
+	ERROR LOADING FILE: {{.}}<br/><br/>
 	{{end}}
-        {{.XML}}
+        {{.HTML}}
         </div>
-        <div class="comment-text file-name"><span class="path-file">{{html .}}</span></div>
+        <div class="comment-text file-name"><span class="path-file">{{.}}</span></div>
       </div>
       {{end}}
     </div>
@@ -54,3 +55,4 @@
     </div>
   </div>
 </div>
+{{end}}
