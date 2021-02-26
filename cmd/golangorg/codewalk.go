@@ -25,6 +25,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	pathpkg "path"
 	"regexp"
 	"sort"
@@ -37,8 +38,7 @@ import (
 
 // Handler for /doc/codewalk/ and below.
 func codewalk(w http.ResponseWriter, r *http.Request) {
-	relpath := r.URL.Path[len("/doc/codewalk/"):]
-	abspath := r.URL.Path
+	relpath := path.Clean(r.URL.Path[1:])
 
 	r.ParseForm()
 	if f := r.FormValue("fileprint"); f != "" {
@@ -47,9 +47,9 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// If directory exists, serve list of code walks.
-	dir, err := fs.Stat(fsys, toFS(abspath))
+	dir, err := fs.Stat(fsys, relpath)
 	if err == nil && dir.IsDir() {
-		codewalkDir(w, r, relpath, abspath)
+		codewalkDir(w, r, relpath)
 		return
 	}
 
@@ -62,8 +62,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 	// Otherwise append .xml and hope to find
 	// a codewalk description, but before trim
 	// the trailing /.
-	abspath = strings.TrimRight(abspath, "/")
-	cw, err := loadCodewalk(abspath + ".xml")
+	cw, err := loadCodewalk(relpath + ".xml")
 	if err != nil {
 		log.Print(err)
 		site.ServeError(w, r, err)
@@ -140,7 +139,7 @@ func (st *Codestep) String() string {
 
 // loadCodewalk reads a codewalk from the named XML file.
 func loadCodewalk(filename string) (*Codewalk, error) {
-	f, err := fsys.Open(toFS(filename))
+	f, err := fsys.Open(filename)
 	if err != nil {
 		return nil, err
 	}
@@ -161,7 +160,7 @@ func loadCodewalk(filename string) (*Codewalk, error) {
 			i = len(st.Src)
 		}
 		filename := st.Src[0:i]
-		data, err := fs.ReadFile(fsys, toFS(filename))
+		data, err := fs.ReadFile(fsys, filename)
 		if err != nil {
 			st.Err = err
 			continue
@@ -202,13 +201,13 @@ func loadCodewalk(filename string) (*Codewalk, error) {
 // codewalkDir serves the codewalk directory listing.
 // It scans the directory for subdirectories or files named *.xml
 // and prepares a table.
-func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string) {
+func codewalkDir(w http.ResponseWriter, r *http.Request, relpath string) {
 	type elem struct {
 		Name  string
 		Title string
 	}
 
-	dir, err := fs.ReadDir(fsys, toFS(abspath))
+	dir, err := fs.ReadDir(fsys, relpath)
 	if err != nil {
 		log.Print(err)
 		site.ServeError(w, r, err)
@@ -220,7 +219,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 		if fi.IsDir() {
 			v = append(v, &elem{name + "/", ""})
 		} else if strings.HasSuffix(name, ".xml") {
-			cw, err := loadCodewalk(abspath + "/" + name)
+			cw, err := loadCodewalk(relpath + "/" + name)
 			if err != nil {
 				continue
 			}
@@ -242,8 +241,8 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 // of the codewalk pages.  It is a separate iframe and does not get
 // the usual godoc HTML wrapper.
 func codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
-	abspath := f
-	data, err := fs.ReadFile(fsys, toFS(abspath))
+	relpath := strings.Trim(path.Clean(f), "/")
+	data, err := fs.ReadFile(fsys, relpath)
 	if err != nil {
 		log.Print(err)
 		site.ServeError(w, r, err)

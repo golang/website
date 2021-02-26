@@ -22,14 +22,6 @@ import (
 	"strings"
 )
 
-// toFS returns the io/fs name for path (no leading slash).
-func toFS(name string) string {
-	if name == "/" {
-		return "."
-	}
-	return path.Clean(strings.TrimPrefix(name, "/"))
-}
-
 type Dir struct {
 	Path     string // directory path
 	HasPkg   bool   // true if the directory contains at least one package
@@ -65,17 +57,15 @@ func (dir *Dir) Lookup(name string) *Dir {
 	if name == dir.Path {
 		return dir
 	}
-	dirPathLen := len(dir.Path)
-	if dir.Path == "/" {
-		dirPathLen = 0 // so path[dirPathLen] is a slash
-	}
-	if !strings.HasPrefix(name, dir.Path) || name[dirPathLen] != '/' {
-		println("NO", name, dir.Path)
-		return nil
+	if dir.Path != "." {
+		if !strings.HasPrefix(name, dir.Path) || name[len(dir.Path)] != '/' {
+			return nil
+		}
+		name = name[len(dir.Path)+1:]
 	}
 	d := dir
 Walk:
-	for i := dirPathLen + 1; i <= len(name); i++ {
+	for i := 0; i <= len(name); i++ {
 		if i == len(name) || name[i] == '/' {
 			// Find next child along path.
 			for _, sub := range d.Dirs {
@@ -84,7 +74,6 @@ Walk:
 					continue Walk
 				}
 			}
-			println("LOST", name[:i])
 			return nil
 		}
 	}
@@ -126,16 +115,16 @@ func (dir *Dir) List(filter func(string) bool) *DirList {
 	return &DirList{list}
 }
 
-func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
+func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
 	var synopses [3]string // prioritized package documentation (0 == highest priority)
 
 	hasPkgFiles := false
 	haveSummary := false
 
-	list, err := fs.ReadDir(fsys, toFS(abspath))
+	list, err := fs.ReadDir(fsys, dirpath)
 	if err != nil {
 		// TODO: propagate more. See golang.org/issue/14252.
-		log.Printf("newDirTree reading %s: %v", abspath, err)
+		log.Printf("newDirTree reading %s: %v", dirpath, err)
 	}
 
 	// determine number of subdirectories and if there are package files
@@ -143,7 +132,7 @@ func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
 	var dirs []*Dir
 
 	for _, d := range list {
-		filename := path.Join(abspath, d.Name())
+		filename := path.Join(dirpath, d.Name())
 		switch {
 		case isPkgDir(d):
 			dir := newDir(fsys, fset, filename)
@@ -168,7 +157,7 @@ func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
 				// prioritize documentation
 				i := -1
 				switch file.Name.Name {
-				case path.Base(abspath):
+				case path.Base(dirpath):
 					i = 0 // normal case: directory name matches package name
 				case "main":
 					i = 1 // directory contains a main package
@@ -211,7 +200,7 @@ func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
 	}
 
 	return &Dir{
-		Path:     abspath,
+		Path:     dirpath,
 		HasPkg:   hasPkgFiles,
 		Synopsis: synopsis,
 		Dirs:     dirs,
@@ -247,7 +236,7 @@ func walkDirs(f func(d *Dir, depth int), d *Dir, depth int) {
 }
 
 func parseFile(fsys fs.FS, fset *token.FileSet, filename string, mode parser.Mode) (*ast.File, error) {
-	src, err := fs.ReadFile(fsys, toFS(filename))
+	src, err := fs.ReadFile(fsys, filename)
 	if err != nil {
 		return nil, err
 	}
@@ -259,15 +248,15 @@ func parseFile(fsys fs.FS, fset *token.FileSet, filename string, mode parser.Mod
 	return parser.ParseFile(fset, filename, src, mode)
 }
 
-func parseFiles(fsys fs.FS, fset *token.FileSet, relpath string, abspath string, localnames []string) (map[string]*ast.File, error) {
+func parseFiles(fsys fs.FS, fset *token.FileSet, dirname string, localnames []string) (map[string]*ast.File, error) {
 	files := make(map[string]*ast.File)
 	for _, f := range localnames {
-		absname := path.Join(abspath, f)
-		file, err := parseFile(fsys, fset, absname, parser.ParseComments)
+		filename := path.Join(dirname, f)
+		file, err := parseFile(fsys, fset, filename, parser.ParseComments)
 		if err != nil {
 			return nil, err
 		}
-		files[path.Join(relpath, f)] = file
+		files[filename] = file
 	}
 
 	return files, nil

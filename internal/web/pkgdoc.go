@@ -31,7 +31,6 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	relpath := path.Clean(strings.TrimPrefix(r.URL.Path, "/pkg"))
 	relpath = strings.TrimPrefix(relpath, "/")
 
-	abspath := path.Join("/src", relpath)
 	mode := pkgdoc.ParseMode(r.FormValue("m"))
 	if relpath == "builtin" {
 		// The fake built-in package contains unexported identifiers,
@@ -39,7 +38,7 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		// since it's not helpful for this fake package (see issue 6645).
 		mode |= pkgdoc.ModeAll | pkgdoc.ModeBuiltin
 	}
-	info := pkgdoc.Doc(h.d, abspath, relpath, mode, r.FormValue("GOOS"), r.FormValue("GOARCH"))
+	info := pkgdoc.Doc(h.d, "src/"+relpath, mode, r.FormValue("GOOS"), r.FormValue("GOARCH"))
 	if info.Err != nil {
 		log.Print(info.Err)
 		h.p.ServeError(w, r, info.Err)
@@ -76,7 +75,7 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	name := "package.html"
-	if info.Dirname == "/src" {
+	if info.Dirname == "src" {
 		name = "packageroot.html"
 	}
 	h.p.ServePage(w, r, Page{

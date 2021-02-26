@@ -25,7 +25,7 @@ func TestIgnoredGoFiles(t *testing.T) {
 package main`)},
 	}
 	d := NewDocs(fs)
-	pInfo := Doc(d, "/src/"+packagePath, packagePath, ModeAll, "linux", "amd64")
+	pInfo := Doc(d, "src/"+packagePath, ModeAll, "linux", "amd64")
 
 	if pInfo.PDoc == nil {
 		t.Error("pInfo.PDoc = nil; want non-nil.")
@@ -58,7 +58,7 @@ func F()
 	}
 
 	d := NewDocs(fs)
-	pInfo := Doc(d, "/src/"+packagePath, packagePath, 0, "linux", "amd64")
+	pInfo := Doc(d, "src/"+packagePath, 0, "linux", "amd64")
 	if got, want := pInfo.PDoc.Funcs[0].Doc, "F doc //line 1 should appear\nline 2 should appear\n"; got != want {
 		t.Errorf("pInfo.PDoc.Funcs[0].Doc = %q; want %q", got, want)
 	}

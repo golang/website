@@ -34,25 +34,23 @@ type fileJSON struct {
 	Redirect string // if set, redirect to other URL
 }
 
-var join = path.Join
-
-// open returns the file for a given absolute path or nil if none exists.
-func open(fsys fs.FS, path string) *file {
+// open returns the *file for a given relative path or nil if none exists.
+func open(fsys fs.FS, relpath string) *file {
 	// Strip trailing .html or .md or /; it all names the same page.
-	if strings.HasSuffix(path, ".html") {
-		path = strings.TrimSuffix(path, ".html")
-	} else if strings.HasSuffix(path, ".md") {
-		path = strings.TrimSuffix(path, ".md")
-	} else if path != "/" && strings.HasSuffix(path, "/") {
-		path = strings.TrimSuffix(path, "/")
+	if strings.HasSuffix(relpath, ".html") {
+		relpath = strings.TrimSuffix(relpath, ".html")
+	} else if strings.HasSuffix(relpath, ".md") {
+		relpath = strings.TrimSuffix(relpath, ".md")
+	} else if strings.HasSuffix(relpath, "/") {
+		relpath = strings.TrimSuffix(relpath, "/")
 	}
 
-	files := []string{path + ".html", path + ".md", join(path, "index.html"), join(path, "index.md")}
+	files := []string{relpath + ".html", relpath + ".md", path.Join(relpath, "index.html"), path.Join(relpath, "index.md")}
 	var filePath string
 	var b []byte
 	var err error
 	for _, filePath = range files {
-		b, err = fs.ReadFile(fsys, toFS(filePath))
+		b, err = fs.ReadFile(fsys, filePath)
 		if err == nil {
 			break
 		}
@@ -60,14 +58,14 @@ func open(fsys fs.FS, path string) *file {
 
 	// Special case for memory model and spec, which live
 	// in the main Go repo's doc directory and therefore have not
-	// been renamed to their serving paths.
+	// been renamed to their serving relpaths.
 	// We wait until the ReadFiles above have failed so that the
 	// code works if these are ever moved to /ref/spec and /ref/mem.
-	if err != nil && path == "/ref/spec" {
-		return open(fsys, "/doc/go_spec")
+	if err != nil && relpath == "ref/spec" {
+		return open(fsys, "doc/go_spec")
 	}
-	if err != nil && path == "/ref/mem" {
-		return open(fsys, "/doc/go_mem")
+	if err != nil && relpath == "ref/mem" {
+		return open(fsys, "doc/go_mem")
 	}
 
 	if err != nil {
@@ -75,21 +73,21 @@ func open(fsys fs.FS, path string) *file {
 	}
 
 	// Special case for memory model and spec, continued.
-	switch path {
-	case "/doc/go_spec":
-		path = "/ref/spec"
-	case "/doc/go_mem":
-		path = "/ref/mem"
+	switch relpath {
+	case "doc/go_spec":
+		relpath = "ref/spec"
+	case "doc/go_mem":
+		relpath = "ref/mem"
 	}
 
-	// If we read an index.md or index.html, the canonical path is without the index.md/index.html suffix.
-	if strings.HasSuffix(filePath, "/index.md") || strings.HasSuffix(filePath, "/index.html") {
-		path = filePath[:strings.LastIndex(filePath, "/")+1]
+	// If we read an index.md or index.html, the canonical relpath is without the index.md/index.html suffix.
+	if name := path.Base(filePath); name == "index.html" || name == "index.md" {
+		relpath, _ = path.Split(filePath)
 	}
 
 	js, body, err := parseFile(b)
 	if err != nil {
-		log.Printf("extractMetadata %s: %v", path, err)
+		log.Printf("extractMetadata %s: %v", relpath, err)
 		return nil
 	}
 
@@ -97,7 +95,7 @@ func open(fsys fs.FS, path string) *file {
 		Title:    js.Title,
 		Subtitle: js.Subtitle,
 		Template: js.Template,
-		Path:     path,
+		Path:     "/" + relpath,
 		FilePath: filePath,
 		Body:     body,
 	}

@@ -28,14 +28,6 @@ import (
 	"golang.org/x/website/internal/texthtml"
 )
 
-// toFS returns the io/fs name for path (no leading slash).
-func toFS(name string) string {
-	if name == "/" {
-		return "."
-	}
-	return path.Clean(strings.TrimPrefix(name, "/"))
-}
-
 // Site is a website served from a file system.
 type Site struct {
 	fs  fs.FS
@@ -204,7 +196,8 @@ func (s *Site) serveFile(w http.ResponseWriter, r *http.Request) {
 
 	// Check to see if we need to redirect or serve another file.
 	abspath := r.URL.Path
-	if f := open(s.fs, abspath); f != nil {
+	relpath := path.Clean(strings.TrimPrefix(abspath, "/"))
+	if f := open(s.fs, relpath); f != nil {
 		if f.Path != abspath {
 			// Redirect to canonical path.
 			http.Redirect(w, r, f.Path, http.StatusMovedPermanently)
@@ -215,16 +208,14 @@ func (s *Site) serveFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	relpath := abspath[1:] // strip leading slash
-
-	dir, err := fs.Stat(s.fs, toFS(abspath))
+	dir, err := fs.Stat(s.fs, relpath)
 	if err != nil {
 		// Check for spurious trailing slash.
 		if strings.HasSuffix(abspath, "/") {
-			trimmed := abspath[:len(abspath)-1]
-			if _, err := fs.Stat(s.fs, toFS(trimmed)); err == nil ||
+			trimmed := relpath[:len(relpath)-1]
+			if _, err := fs.Stat(s.fs, trimmed); err == nil ||
 				open(s.fs, trimmed) != nil {
-				http.Redirect(w, r, trimmed, http.StatusMovedPermanently)
+				http.Redirect(w, r, "/"+trimmed, http.StatusMovedPermanently)
 				return
 			}
 		}
@@ -232,20 +223,19 @@ func (s *Site) serveFile(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fsPath := toFS(abspath)
 	if dir != nil && dir.IsDir() {
 		if maybeRedirect(w, r) {
 			return
 		}
-		s.serveDir(w, r, abspath, relpath)
+		s.serveDir(w, r, relpath)
 		return
 	}
 
-	if isTextFile(s.fs, fsPath) {
+	if isTextFile(s.fs, relpath) {
 		if maybeRedirectFile(w, r) {
 			return
 		}
-		s.serveText(w, r, abspath, relpath)
+		s.serveText(w, r, relpath)
 		return
 	}
 
@@ -337,12 +327,12 @@ func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, f *file) {
 	s.ServePage(w, r, page)
 }
 
-func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
+func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, relpath string) {
 	if maybeRedirect(w, r) {
 		return
 	}
 
-	list, err := fs.ReadDir(s.fs, toFS(abspath))
+	list, err := fs.ReadDir(s.fs, relpath)
 	if err != nil {
 		s.ServeError(w, r, err)
 		return
@@ -365,8 +355,8 @@ func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, abspath, relpath
 	})
 }
 
-func (s *Site) serveText(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
-	src, err := fs.ReadFile(s.fs, toFS(abspath))
+func (s *Site) serveText(w http.ResponseWriter, r *http.Request, relpath string) {
+	src, err := fs.ReadFile(s.fs, relpath)
 	if err != nil {
 		log.Printf("ReadFile: %s", err)
 		s.ServeError(w, r, err)
@@ -379,7 +369,7 @@ func (s *Site) serveText(w http.ResponseWriter, r *http.Request, abspath, relpat
 	}
 
 	cfg := texthtml.Config{
-		GoComments: path.Ext(abspath) == ".go",
+		GoComments: path.Ext(relpath) == ".go",
 		Highlight:  r.FormValue("h"),
 		Selection:  rangeSelection(r.FormValue("s")),
 		Line:       1,

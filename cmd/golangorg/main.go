@@ -137,7 +137,7 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 	var seen map[string]bool // seen[name] is true if name is listed in all; lazily initialized
 	var errOut error
 	for _, sub := range fsys {
-		list, err := fs.ReadDir(sub, toFS(name))
+		list, err := fs.ReadDir(sub, name)
 		if err != nil {
 			errOut = err
 		}

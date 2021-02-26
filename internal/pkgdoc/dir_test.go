@@ -17,7 +17,7 @@ import (
 )
 
 func TestNewDirTree(t *testing.T) {
-	dir := newDir(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "/src")
+	dir := newDir(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
 	processDir(t, dir)
 }
 
@@ -62,6 +62,6 @@ func BenchmarkNewDirectory(b *testing.B) {
 	b.ResetTimer()
 	b.ReportAllocs()
 	for tries := 0; tries < b.N; tries++ {
-		newDir(fs, token.NewFileSet(), "/src")
+		newDir(fs, token.NewFileSet(), "src")
 	}
 }

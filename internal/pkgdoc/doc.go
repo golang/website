@@ -32,9 +32,9 @@ type Docs struct {
 }
 
 func NewDocs(fsys fs.FS) *Docs {
-	src := newDir(fsys, token.NewFileSet(), "/src")
+	src := newDir(fsys, token.NewFileSet(), "src")
 	root := &Dir{
-		Path: "/",
+		Path: ".",
 		Dirs: []*Dir{src},
 	}
 	return &Docs{
@@ -112,14 +112,15 @@ func ParseMode(text string) Mode {
 	return mode
 }
 
-// Doc returns the Page for a package directory abspath.
+// Doc returns the Page for a package directory dir.
 // Package documentation (Page.PDoc) is extracted from the AST.
 // If there is no corresponding package in the
 // directory, Page.PDoc is nil. If there are no sub-
 // directories, Page.Dirs is nil. If an error occurred, PageInfo.Err is
 // set to the respective error but the error is not logged.
-func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page {
-	info := &Page{Dirname: abspath, Mode: mode}
+func Doc(d *Docs, dir string, mode Mode, goos, goarch string) *Page {
+	dir = path.Clean(dir)
+	info := &Page{Dirname: dir, Mode: mode}
 
 	// Restrict to the package files that would be used when building
 	// the package on this system.  This makes sure that if there are
@@ -130,11 +131,11 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 	ctxt := build.Default
 	ctxt.IsAbsPath = path.IsAbs
 	ctxt.IsDir = func(path string) bool {
-		fi, err := fs.Stat(d.fs, toFS(filepath.ToSlash(path)))
+		fi, err := fs.Stat(d.fs, filepath.ToSlash(path))
 		return err == nil && fi.IsDir()
 	}
 	ctxt.ReadDir = func(dir string) ([]os.FileInfo, error) {
-		f, err := fs.ReadDir(d.fs, toFS(filepath.ToSlash(dir)))
+		f, err := fs.ReadDir(d.fs, filepath.ToSlash(dir))
 		filtered := make([]os.FileInfo, 0, len(f))
 		for _, i := range f {
 			if mode&ModeAll != 0 || i.Name() != "internal" {
@@ -147,7 +148,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 		return filtered, err
 	}
 	ctxt.OpenFile = func(name string) (r io.ReadCloser, err error) {
-		data, err := fs.ReadFile(d.fs, toFS(filepath.ToSlash(name)))
+		data, err := fs.ReadFile(d.fs, filepath.ToSlash(name))
 		if err != nil {
 			return nil, err
 		}
@@ -159,7 +160,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 	// linux/amd64 means the wasm syscall/js package was blank.
 	// And you can't run godoc on js/wasm anyway, so host defaults
 	// don't make sense here.
-	if goos == "" && goarch == "" && relpath == "syscall/js" {
+	if goos == "" && goarch == "" && dir == "syscall/js" {
 		goos, goarch = "js", "wasm"
 	}
 	if goos != "" {
@@ -169,7 +170,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 		ctxt.GOARCH = goarch
 	}
 
-	pkginfo, err := ctxt.ImportDir(abspath, 0)
+	pkginfo, err := ctxt.ImportDir(dir, 0)
 	// continue if there are no Go source files; we still want the directory info
 	if _, nogo := err.(*build.NoGoError); err != nil && !nogo {
 		info.Err = err
@@ -193,7 +194,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 	if len(pkgfiles) > 0 {
 		// build package AST
 		fset := token.NewFileSet()
-		files, err := parseFiles(d.fs, fset, relpath, abspath, pkgfiles)
+		files, err := parseFiles(d.fs, fset, dir, pkgfiles)
 		if err != nil {
 			info.Err = err
 			return info
@@ -213,7 +214,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 		if mode&ModeMethods != 0 {
 			m |= doc.AllMethods
 		}
-		info.PDoc = doc.New(pkg, path.Clean(relpath), m) // no trailing '/' in importpath
+		info.PDoc = doc.New(pkg, strings.TrimPrefix(dir, "src/"), m)
 		if mode&ModeBuiltin != 0 {
 			for _, t := range info.PDoc.Types {
 				info.PDoc.Consts = append(info.PDoc.Consts, t.Consts...)
@@ -230,7 +231,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 
 		// collect examples
 		testfiles := append(pkginfo.TestGoFiles, pkginfo.XTestGoFiles...)
-		files, err = parseFiles(d.fs, fset, relpath, abspath, testfiles)
+		files, err = parseFiles(d.fs, fset, dir, testfiles)
 		if err != nil {
 			log.Println("parsing examples:", err)
 		}
@@ -238,7 +239,7 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 		info.Bugs = info.PDoc.Notes["BUG"]
 	}
 
-	info.Dirs = d.root.Lookup(abspath).List(func(path string) bool { return d.includePath(path, mode) })
+	info.Dirs = d.root.Lookup(dir).List(func(path string) bool { return d.includePath(path, mode) })
 	info.DirFlat = mode&ModeFlat != 0
 
 	return info

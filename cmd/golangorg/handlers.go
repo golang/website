@@ -12,7 +12,6 @@ import (
 	"go/format"
 	"io/fs"
 	"net/http"
-	pathpkg "path"
 	"strings"
 
 	"golang.org/x/website/internal/env"
@@ -24,14 +23,6 @@ var (
 	site *web.Site
 	fsys fs.FS
 )
-
-// toFS returns the io/fs name for path (no leading slash).
-func toFS(path string) string {
-	if path == "/" {
-		return "."
-	}
-	return pathpkg.Clean(strings.TrimPrefix(path, "/"))
-}
 
 // hostEnforcerHandler redirects requests to "http://foo.golang.org/bar"
 // to "https://golang.org/bar".
