@@ -50,6 +50,16 @@ Do not send CLs removing the interior tags from such phrases.
   transparent to anyone using gomobile to build iOS apps.
 </p>
 
+<p>
+  The introduction of <code>GOOS=ios</code> means that file names
+  like <code>x_ios.go</code> will now only be built for
+  <code>GOOS=ios</code>; see
+  <a href="/cmd/go/#hdr-Build_constraints"><code>go</code>
+    <code>help</code> <code>buildconstraint</code></a> for details.
+  Existing packages that use file names of this form will have to
+  rename the files.
+</p>
+
 <p><!-- golang.org/issue/42100, CL 263798 -->
   Go 1.16 adds an <code>ios/amd64</code> port, which targets the iOS
   simulator running on AMD64-based macOS. Previously this was
