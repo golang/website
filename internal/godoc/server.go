@@ -66,11 +66,6 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	var tabtitle, title, subtitle string
 	switch {
-	case info.PAst != nil:
-		for _, ast := range info.PAst {
-			tabtitle = ast.Name.Name
-			break
-		}
 	case info.PDoc != nil:
 		tabtitle = info.PDoc.Name
 	default:

@@ -51,13 +51,12 @@ type Page struct {
 	Mode Mode // display metadata from query string
 
 	// package info
-	FSet       *token.FileSet       // nil if no package documentation
-	PDoc       *doc.Package         // nil if no package documentation
-	Examples   []*doc.Example       // nil if no example code
-	Bugs       []*doc.Note          // nil if no BUG comments
-	PAst       map[string]*ast.File // nil if no AST with package exports
-	IsMain     bool                 // true for package main
-	IsFiltered bool                 // true if results were filtered
+	FSet       *token.FileSet // nil if no package documentation
+	PDoc       *doc.Package   // nil if no package documentation
+	Examples   []*doc.Example // nil if no example code
+	Bugs       []*doc.Note    // nil if no BUG comments
+	IsMain     bool           // true for package main
+	IsFiltered bool           // true if results were filtered
 
 	// directory info
 	Dirs    *DirList // nil if no directory information
@@ -65,7 +64,7 @@ type Page struct {
 }
 
 func (info *Page) IsEmpty() bool {
-	return info.Err != nil || info.PAst == nil && info.PDoc == nil && info.Dirs == nil
+	return info.Err != nil || info.PDoc == nil && info.Dirs == nil
 }
 
 type Mode uint
@@ -74,7 +73,6 @@ const (
 	ModeAll     Mode = 1 << iota // do not filter exports
 	ModeFlat                     // show directory in a flat (non-indented) manner
 	ModeMethods                  // show all embedded methods
-	ModeSrc                      // show source code, do not extract documentation
 	ModeBuiltin                  // don't associate consts, vars, and factory functions with types (not exposed via ?m= query parameter, used for package builtin, see issue 6645)
 )
 
@@ -84,7 +82,6 @@ var modeNames = []string{
 	"all",
 	"flat",
 	"methods",
-	"src",
 }
 
 // generate a query string for persisting PageInfoMode between pages.
@@ -116,12 +113,11 @@ func ParseMode(text string) Mode {
 	return mode
 }
 
-// GetPageInfo returns the PageInfo for a package directory abspath. If the
-// parameter genAST is set, an AST containing only the package exports is
-// computed (PageInfo.PAst), otherwise package documentation (PageInfo.Doc)
-// is extracted from the AST. If there is no corresponding package in the
-// directory, PageInfo.PAst and PageInfo.PDoc are nil. If there are no sub-
-// directories, PageInfo.Dirs is nil. If an error occurred, PageInfo.Err is
+// Doc returns the Page for a package directory abspath.
+// Package documentation (Page.PDoc) is extracted from the AST.
+// If there is no corresponding package in the
+// directory, Page.PDoc is nil. If there are no sub-
+// directories, Page.Dirs is nil. If an error occurred, PageInfo.Err is
 // set to the respective error but the error is not logged.
 func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page {
 	info := &Page{Dirname: abspath, Mode: mode}
@@ -209,48 +205,38 @@ func Doc(d *Docs, abspath, relpath string, mode Mode, goos, goarch string) *Page
 
 		// extract package documentation
 		info.FSet = fset
-		if mode&ModeSrc == 0 {
-			// show extracted documentation
-			var m doc.Mode
-			if mode&ModeAll != 0 {
-				m |= doc.AllDecls
-			}
-			if mode&ModeMethods != 0 {
-				m |= doc.AllMethods
-			}
-			info.PDoc = doc.New(pkg, path.Clean(relpath), m) // no trailing '/' in importpath
-			if mode&ModeBuiltin != 0 {
-				for _, t := range info.PDoc.Types {
-					info.PDoc.Consts = append(info.PDoc.Consts, t.Consts...)
-					info.PDoc.Vars = append(info.PDoc.Vars, t.Vars...)
-					info.PDoc.Funcs = append(info.PDoc.Funcs, t.Funcs...)
-					t.Consts = nil
-					t.Vars = nil
-					t.Funcs = nil
-				}
-				// for now we cannot easily sort consts and vars since
-				// go/doc.Value doesn't export the order information
-				sort.Sort(funcsByName(info.PDoc.Funcs))
-			}
-
-			// collect examples
-			testfiles := append(pkginfo.TestGoFiles, pkginfo.XTestGoFiles...)
-			files, err = parseFiles(d.fs, fset, relpath, abspath, testfiles)
-			if err != nil {
-				log.Println("parsing examples:", err)
-			}
-			info.Examples = collectExamples(pkg, files)
-			info.Bugs = info.PDoc.Notes["BUG"]
-		} else {
-			// show source code
-			// TODO(gri) Consider eliminating export filtering in this mode,
-			//           or perhaps eliminating the mode altogether.
-			if mode&ModeAll == 0 {
-				packageExports(fset, pkg)
-			}
-			info.PAst = files
-		}
 		info.IsMain = pkgname == "main"
+		// show extracted documentation
+		var m doc.Mode
+		if mode&ModeAll != 0 {
+			m |= doc.AllDecls
+		}
+		if mode&ModeMethods != 0 {
+			m |= doc.AllMethods
+		}
+		info.PDoc = doc.New(pkg, path.Clean(relpath), m) // no trailing '/' in importpath
+		if mode&ModeBuiltin != 0 {
+			for _, t := range info.PDoc.Types {
+				info.PDoc.Consts = append(info.PDoc.Consts, t.Consts...)
+				info.PDoc.Vars = append(info.PDoc.Vars, t.Vars...)
+				info.PDoc.Funcs = append(info.PDoc.Funcs, t.Funcs...)
+				t.Consts = nil
+				t.Vars = nil
+				t.Funcs = nil
+			}
+			// for now we cannot easily sort consts and vars since
+			// go/doc.Value doesn't export the order information
+			sort.Sort(funcsByName(info.PDoc.Funcs))
+		}
+
+		// collect examples
+		testfiles := append(pkginfo.TestGoFiles, pkginfo.XTestGoFiles...)
+		files, err = parseFiles(d.fs, fset, relpath, abspath, testfiles)
+		if err != nil {
+			log.Println("parsing examples:", err)
+		}
+		info.Examples = collectExamples(pkg, files)
+		info.Bugs = info.PDoc.Notes["BUG"]
 	}
 
 	info.Dirs = d.root.Lookup(abspath).List(func(path string) bool { return d.includePath(path, mode) })
