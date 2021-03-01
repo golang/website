@@ -78,7 +78,7 @@ go: creating new go.mod: module example.com/user/hello
 $ cat go.mod
 module example.com/user/hello
 
-go 1.14
+go 1.16
 $
 </pre>
 
@@ -323,16 +323,17 @@ func main() {
 </pre>
 
 <p>
-When you run commands like <code>go install</code>, <code>go build</code>, or
-<code>go run</code>, the <code>go</code> command will automatically download the
-remote module and record its version in your <code>go.mod</code> file:
+Now that you have a dependency on an external module, you need to download that
+module and record its version in your <code>go.mod</code> file. The <code>go
+mod tidy</code> command adds missing module requirements for imported packages
+and removes requirements on modules that aren't used anymore.
 </p>
 
 <pre>
-$ go install example.com/user/hello
+$ go mod tidy
 go: finding module for package github.com/google/go-cmp/cmp
-go: downloading github.com/google/go-cmp v0.4.0
-go: found github.com/google/go-cmp/cmp in github.com/google/go-cmp v0.4.0
+go: found github.com/google/go-cmp/cmp in github.com/google/go-cmp v0.5.4
+$ go install example.com/user/hello
 $ hello
 Hello, Go!
   string(
@@ -342,9 +343,9 @@ Hello, Go!
 $ cat go.mod
 module example.com/user/hello
 
-go 1.14
+go 1.16
 
-<b>require github.com/google/go-cmp v0.4.0</b>
+<b>require github.com/google/go-cmp v0.5.4</b>
 $
 </pre>
 

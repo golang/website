@@ -4,16 +4,26 @@
 }-->
 
 <p>
-  In the last section, you'll learn a new <code>go</code> command. While the
-  <code>go run</code> command is a useful shortcut for compiling and running a
-  single-file program, it doesn't generate a binary executable you can easily
-  run again. If you want one of those, a good choice is to run the
-  <a
-    href="https://golang.org/cmd/go/#hdr-Compile_and_install_packages_and_dependencies"
-    ><code>go install</code> command</a
-  >, which compiles your code and installs the resulting binary executable where
-  you can run it.
+  In this last topic, you'll learn a couple new <code>go</code> commands. While
+  the <code>go run</code> command is a useful shortcut for compiling and running
+  a program when you're making frequent changes, it doesn't generate a binary
+  executable.</p>
+
+<p>
+  This topic introduces two additional commands for building code:
 </p>
+
+<ul>
+  <li>
+    The <a href="/cmd/go/#hdr-Compile_packages_and_dependencies"><code>go
+    build</code> command</a> compiles the packages, along with their dependencies,
+    but it doesn't install the results.
+  </li>
+  <li>
+    The <a href="/ref/mod#go-install"><code>go
+    install</code> command</a> compiles and installs the packages.
+  </li>
+</ul>
 
 <aside class="Note">
   <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
@@ -22,7 +32,49 @@
 
 <ol>
   <li>
-    At the command line, change to the directory that contains hello/hello.go.
+    From the command line in the hello directory, run the <code>go build</code>
+    command to compile the code into an executable.
+
+    <pre>$ go build</pre>
+  </li>
+
+  <li>
+    From the command line in the hello directory, run the new <code>hello</code>
+    executable to confirm that the code works.
+
+    <p>
+      Note that your result might differ depending on whether you changed
+      your greetings.go code after testing it.
+    </p>
+
+    <ul>
+      <li>
+        On Linux or Mac:
+
+        <pre>
+$ ./hello
+map[Darrin:Great to see you, Darrin! Gladys:Hail, Gladys! Well met! Samantha:Hail, Samantha! Well met!]
+</pre>
+      </li>
+
+      <li>
+        On Windows:
+
+        <pre>
+$ hello.exe
+map[Darrin:Great to see you, Darrin! Gladys:Hail, Gladys! Well met! Samantha:Hail, Samantha! Well met!]
+</pre>
+      </li>
+    </ul>
+    <p>
+      You've compiled the application into an executable so you can run it.
+      But to run it currently, your prompt needs either to be in the executable's
+      directory, or to specify the executable's path.
+    </p>
+    <p>
+      Next, you'll install the executable so you can run it without specifying
+      its path.
+    </p>
   </li>
 
   <li>
@@ -31,21 +83,18 @@
 
     <p>
       You can discover the install path by running the
-      <a href="https://golang.org/cmd/go/#hdr-List_packages_or_modules"
-        ><code>go list</code> command</a
-      >, as in the following example:
+      <a href="/cmd/go/#hdr-List_packages_or_modules">
+        <code>go list</code> command</a>, as in the following example:
     </p>
 
     <pre>
-go list -f '{{.Target}}'
-</pre
-    >
+$ go list -f '{{.Target}}'
+</pre>
 
     <p>
-      For example, the command's output might say
-      <code>/home/gopher/bin/hello</code>, meaning that binaries are installed
-      to /home/gopher/bin. This is the install directory you'll need in the next
-      step.
+      For example, the command's output might say <code>/home/gopher/bin/hello</code>,
+      meaning that binaries are installed to /home/gopher/bin. You'll need this
+      install directory in the next step.
     </p>
   </li>
 
@@ -62,7 +111,7 @@ go list -f '{{.Target}}'
         On Linux or Mac, run the following command:
 
         <pre>
-export PATH=$PATH:/path/to/your/install/directory
+$ export PATH=$PATH:/path/to/your/install/directory
 </pre
         >
       </li>
@@ -71,7 +120,7 @@ export PATH=$PATH:/path/to/your/install/directory
         On Windows, run the following command:
 
         <pre>
-set PATH=%PATH%;C:\path\to\your\install\directory
+$ set PATH=%PATH%;C:\path\to\your\install\directory
 </pre
         >
       </li>
@@ -80,24 +129,22 @@ set PATH=%PATH%;C:\path\to\your\install\directory
     <p>
       As an alternative, if you already have a directory like
       <code>$HOME/bin</code> in your shell path and you'd like to install your
-      Go programs there, you can change the install target by setting the GOBIN
-      variable using the
-      <a href="https://golang.org/cmd/go/#hdr-Print_Go_environment_information"
-        ><code>go env</code> command</a
-      >:
+      Go programs there, you can change the install target by setting the
+      <code>GOBIN</code> variable using the
+      <a href="/cmd/go/#hdr-Print_Go_environment_information">
+        <code>go env</code> command</a>:
     </p>
 
     <pre>
-go env -w GOBIN=/path/to/your/bin
-</pre
-    >
+$ go env -w GOBIN=/path/to/your/bin
+</pre>
 
     <p>
       or
     </p>
 
     <pre>
-go env -w GOBIN=C:\path\to\your\bin
+$ go env -w GOBIN=C:\path\to\your\bin
 </pre
     >
   </li>
@@ -106,14 +153,13 @@ go env -w GOBIN=C:\path\to\your\bin
     Once you've updated the shell path, run the <code>go install</code> command
     to compile and install the package.
 
-    <pre>
-$ go install
-</pre
-    >
+    <pre>$ go install</pre>
   </li>
 
   <li>
-    Run your application by simply typing its name.
+    Run your application by simply typing its name. To make this interesting,
+    open a new command prompt and run the <code>hello</code> executable name
+    in some other directory.
 
     <pre>
 $ hello
@@ -124,11 +170,11 @@ map[Darrin:Hail, Darrin! Well met! Gladys:Great to see you, Gladys! Samantha:Hai
 </ol>
 
 <p>
-  That wraps up this Go tutorial! For a next step that introduces many more of
-  Go features, check out the
-  <a href="https://tour.golang.org/welcome/1">Tour of Go</a>.
+  That wraps up this Go tutorial!
 </p>
 
 <p class="Navigation">
   <a class="Navigation-prev" href="add-a-test.html">&lt; Add a test</a>
+  <a class="Navigation-next" href="module-conclusion.html">Conclusion and links
+    to more information &gt;</a>
 </p>

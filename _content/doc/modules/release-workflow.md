@@ -13,11 +13,11 @@ modules](developing).
 **See also**
 
 * If you're merely wanting to use external packages in your code, be sure to
-  see [Managing dependencies](managing-dependencies).
+  see [Managing dependencies](/doc/modules/managing-dependencies).
 * With each new version, you signal the changes to your module with its
-  version number. For more, see [Module version numbering](version-numbers).
+  version number. For more, see [Module version numbering](/doc/modules/version-numbers).
 
-## Common workflow steps
+## Common workflow steps {#common-steps}
 
 The following sequence illustrates release and versioning workflow steps for an
 example new module. For more about each step, see the sections in this topic.
@@ -26,10 +26,10 @@ example new module. For more about each step, see the sections in this topic.
     to use and for you to maintain.
 
     If you're brand new to developing modules, check out [Tutorial: Create a Go
-    module](https://golang.org/doc/tutorial/create-module).
+    module](/doc/tutorial/create-module).
 
     In Go's decentralized module publishing system, how you organize your code
-    matters. For more, see [Managing module source](managing-source).
+    matters. For more, see [Managing module source](/doc/modules/managing-source).
 
 1.  Set up to **write local client code** that calls functions in the
     unpublished module.
@@ -82,8 +82,7 @@ example new module. For more about each step, see the sections in this topic.
     disruptive upgrade for your module's users. It should be a last resort. For
     more, see [Publishing breaking API changes](#breaking).
 
-<a id="unpublished" ></a>
-## Coding against an unpublished module
+## Coding against an unpublished module {#unpublished}
 
 When you begin developing a module or a new version of a module, you won't yet
 have published it. Before you publish a module, you won't be able to use Go
@@ -96,15 +95,14 @@ the `replace` directive in the client module's go.mod file. For more
 information, see in [Requiring module code in a local
 directory](managing-dependencies#local_directory).
 
-<a id="pre-release" ></a>
-## Publishing pre-release versions
+## Publishing pre-release versions {#pre-release}
 
 You can publish pre-release versions to make a module available for others to
 try it out and give you feedback. A pre-release version includes no guarantee of
 stability. 
 
 Pre-release version numbers are appended with a pre-release identifier. For more
-on version numbers, see [Module version numbering](version-numbers).
+on version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
 Here are two examples:
 
@@ -128,8 +126,7 @@ You publish a pre-release by tagging the module code in your repository,
 specifying the pre-release identifier in the tag. For more, see [Publishing a
 module](publishing).
 
-<a id="first-unstable" ></a>
-## Publishing the first (unstable) version
+## Publishing the first (unstable) version {#first-unstable}
 
 As when you publish a pre-release version, you can publish release versions that
 don't guarantee stability or backward compatibility, but give your users an
@@ -156,8 +153,7 @@ You publish an unstable release by tagging the module code in your repository,
 specifying a v0 version number in the tag. For more, see [Publishing a
 module](publishing).
 
-<a id="first-stable" ></a>
-## Publishing the first stable version
+## Publishing the first stable version {#first-stable}
 
 Your first stable release will have a v1.x.x version number. The first stable
 release follows pre-release and v0 releases through which you got feedback,
@@ -182,7 +178,7 @@ does not signal stability or backward compatibility guarantees. As a result,
 when you increment from v0 to v1, you needn't be mindful of breaking backward
 compatibility because the v0 release was not considered stable.
 
-For more about version numbers, see [Module version numbering](version-numbers).
+For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
 Here's an example of a stable version number:
 
@@ -194,8 +190,7 @@ You publish a first stable release by tagging the module code in your
 repository, specifying a v1 version number in the tag. For more, see [Publishing
 a module](publishing).
 
-<a id="bug-fixes" ></a>
-## Publishing bug fixes
+## Publishing bug fixes {#bug-fixes}
 
 You can publish a release in which the changes are limited to bug fixes. This is
 known as a patch release.
@@ -210,7 +205,7 @@ upgrading to the patch of your module could wind up accidentally pulling in a
 more invasive change to a transitive dependency that they use.
 
 A patch release increments the patch part of the module's version number. For
-more see, [Module version numbering](version-numbers).
+more see, [Module version numbering](/doc/modules/version-numbers).
 
 In the following example, v1.0.1 is a patch release.
 
@@ -222,8 +217,7 @@ You publish a patch release by tagging the module code in your repository,
 incrementing the patch version number in the tag. For more, see [Publishing a
 module](publishing).
 
-<a id="non-breaking" ></a>
-## Publishing non-breaking API changes
+## Publishing non-breaking API changes {#non-breaking}
 
 You can make non-breaking changes to your module's public API and publish those
 changes in a _minor_ version release.
@@ -235,7 +229,7 @@ this kind of release guarantees backward compatibility and stability for
 existing code that calls the module's functions.
 
 A minor release increments the minor part of the module's version number. For
-more, see [Module version numbering](version-numbers).
+more, see [Module version numbering](/doc/modules/version-numbers).
 
 In the following example, v1.1.0 is a minor release.
 
@@ -247,8 +241,7 @@ You publish a minor release by tagging the module code in your repository,
 incrementing the minor version number in the tag. For more, see [Publishing a
 module](publishing).
 
-<a id="breaking" ></a>
-## Publishing breaking API changes
+## Publishing breaking API changes {#breaking}
 
 You can publish a version that breaks backward compatibility by publishing a
 _major_ version release.
@@ -259,7 +252,7 @@ using the module's previous versions.
 
 Given the disruptive effect a major version upgrade can have on code relying on
 the module, you should avoid a major version update if you can. For more about
-major version updates, see [Developing a major version update](major-version).
+major version updates, see [Developing a major version update](/doc/modules/major-version).
 For strategies to avoid making breaking changes, see the blog post [Keeping your
 modules compatible](https://blog.golang.org/module-compatibility).
 
@@ -272,7 +265,7 @@ steps.
 
     One way to do this is to create a new branch in your repository that is
     specifically for the new major version and its subsequent minor and patch
-    versions. For more, see [Managing module source](managing-source).
+    versions. For more, see [Managing module source](/doc/modules/managing-source).
 
 1.  In the module's go.mod file, revise the module path to append the new major
     version number, as in the following example:
@@ -298,4 +291,4 @@ steps.
     incrementing the major version number in the tag -- such as from v1.5.2 to
     v2.0.0.
 
-    For more, see [Publishing a module](publishing).
+    For more, see [Publishing a module](/doc/modules/publishing).

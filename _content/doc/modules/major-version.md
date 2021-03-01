@@ -13,7 +13,7 @@ different meaning for a module's users. Those users rely on these differences to
 understand the level of risk a release represents to their own code. In other
 words, when preparing a release, be sure that its version number accurately
 reflects the nature of the changes since the preceding release. For more on
-version numbers, see [Module version numbering](version-numbers).
+version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
 **See also**
 
@@ -22,7 +22,7 @@ version numbers, see [Module version numbering](version-numbers).
 * For an end-to-end view, see [Module release and versioning
   workflow](release-workflow).
 
-## Considerations for a major version update
+## Considerations for a major version update {#considerations}
 
 You should only update to a new major version when it's absolutely necessary.
 A major version update represents significant churn for both you and your
@@ -52,7 +52,7 @@ the following:
   wherever code imports packages from the new module. Your module's users must
   also update their import paths if they want to upgrade to the new major version.
 
-## Branching for a major release
+## Branching for a major release {#branching}
 
 The most straightforward approach to handling source when preparing to develop a
 new major version is to branch the repository at the latest version of the
@@ -85,4 +85,4 @@ the source for your new version:
   * Old import statement: `import "example.com/mymodule/package1"`
   * New import statement: `import "example.com/mymodule/v2/package1"`
 
-For publishing steps, see [Publishing a module](publishing).
+For publishing steps, see [Publishing a module](/doc/modules/publishing).

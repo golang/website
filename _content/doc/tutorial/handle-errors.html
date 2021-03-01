@@ -11,7 +11,7 @@
 
 <aside class="Note">
   <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
-  with <a href="create-module.html">Create a Go module</a>.
+  with <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
 </aside>
 
 <ol>
@@ -55,14 +55,13 @@ func Hello(name string) <ins>(</ins>string<ins>, error)</ins> {
         Change the function so that it returns two values: a
         <code>string</code> and an <code>error</code>. Your caller will check
         the second value to see if an error occurred. (Any Go function can
-        <a href="https://golang.org/doc/effective_go.html#multiple-returns"
-          >return multiple values</a
-        >.)
+        return multiple values. For more, see 
+        <a href="/doc/effective_go.html#multiple-returns">Effective Go</a>.)
       </li>
       <li>
         Import the Go standard library <code>errors</code> package so you can
         use its
-        <a href="https://golang.org/pkg/errors/#example_New"
+        <a href="https://pkg.go.dev/errors/#example-New"
           ><code>errors.New</code> function</a
         >.
       </li>
@@ -106,7 +105,7 @@ func main() {
     log.SetFlags(0)</ins>
 
     // Request a greeting message.
-    message, err := greetings.Hello("")
+    <ins>message, err := greetings.Hello("")</ins>
     <ins>// If an error was returned, print it to the console and
     // exit the program.
     if err != nil {
@@ -126,7 +125,7 @@ func main() {
     <ul>
       <li>
         Configure the
-        <a href="https://golang.org/pkg/log/"><code>log</code> package</a> to
+        <a href="https://pkg.go.dev/log/"><code>log</code> package</a> to
         print the command name ("greetings: ") at the start of its log messages,
         without a time stamp or source file information.
       </li>
@@ -163,7 +162,7 @@ func main() {
     </p>
 
     <pre>
-$ go run hello.go
+$ go run .
 greetings: empty name
 exit status 1
 </pre
@@ -172,17 +171,19 @@ exit status 1
 </ol>
 
 <p>
-  That's essentially how error handling in Go works: Return an error as a value
-  so the caller can check for it. It's pretty simple. In the tutorial's
-  <a href="random-greeting.html">next topic</a>, you'll use a Go slice to return
-  a randomly-selected greeting.
+  That's common error handling in Go: Return an error as a value so the caller
+  can check for it.
+</p>
+
+<p>
+  Next, you'll use a Go slice to return a randomly-selected greeting.
 </p>
 
 <p class="Navigation">
-  <a class="Navigation-prev" href="call-module-code.html"
+  <a class="Navigation-prev" href="/doc/tutorial/call-module-code.html"
     >&lt; Call your code from another module</a
   >
-  <a class="Navigation-next" href="random-greeting.html"
+  <a class="Navigation-next" href="/doc/tutorial/random-greeting.html"
     >Return a random greeting &gt;</a
   >
 </p>

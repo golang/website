@@ -19,9 +19,9 @@ a new version.
 * For an overview of module development, see [Developing and publishing
   modules](developing)
 * For a high-level module development workflow -- which includes publishing --
-  see [Module release and versioning workflow](release-workflow).
+  see [Module release and versioning workflow](/doc/modules/release-workflow).
 
-## Publishing steps
+## Publishing steps {#steps}
 
 Use the following steps to publish a module.
 
@@ -75,9 +75,9 @@ Use the following steps to publish a module.
     ```
 
 Developers interested in your module import a package from it and run the
-[`go get` command](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+[`go get` command](/ref/mod#go-get)
 just as they would with any other module. They can run the
-[`go get` command](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+[`go get` command](/ref/mod#go-get)
 for latest versions or they can specify a particular version, as in the
 following example:
 

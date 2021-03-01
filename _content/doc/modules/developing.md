@@ -25,7 +25,7 @@ To support developing, publishing, and using modules, you use:
 	[Versioning](#versioning).
 *   **Go tools** that make it easier for other developers to manage
 	dependencies, including getting your module's source, upgrading, and so on.
-	See [Managing dependencies](managing-dependencies).
+	See [Managing dependencies](/doc/modules/managing-dependencies).
 
 **See also**
 
@@ -33,10 +33,9 @@ To support developing, publishing, and using modules, you use:
 	isn't the topic for you. Instead, see [Managing
 	dependencies](managing-dependencies).
 *   For a tutorial that includes a few module development basics, see
-	[Tutorial: Create a Go module](https://golang.org/doc/tutorial/create-module).
+	[Tutorial: Create a Go module](/doc/tutorial/create-module).
 
-<a id="workflow" ></a>
-## Workflow for developing and publishing modules
+## Workflow for developing and publishing modules {#workflow}
 
 When you want to publish your modules for others, you adopt a few conventions to
 make using those modules easier.
@@ -51,8 +50,7 @@ and versioning workflow](release-workflow).
 1. Over time, revise the module with versions that use a version numbering
 	convention that signals each version's stability and backward compatibility.
 
-<a id="design" ></a>
-## Design and development
+## Design and development {#design}
 
 Your module will be easier for developers to find and use if the functions and
 packages in it form a coherent whole. When you're designing a module's public
@@ -70,8 +68,7 @@ functions in the module while the module is still in development. For more
 information, see "Coding against an unpublished module" in [Module release and
 versioning workflow](release-workflow#unpublished).
 
-<a id="decentralized" ></a>
-## Decentralized publishing
+## Decentralized publishing {#decentralized}
 
 In Go, you publish your module by tagging its code in your repository to make it
 available for other developers to use. You don't need to push your module to a
@@ -88,13 +85,12 @@ along with the module version number you use to tag the module for release, to
 locate and download the module for its users.
 
 For more about source and publishing conventions and best practices, see
-[Managing module source](managing-source).
+[Managing module source](/doc/modules/managing-source).
 
 For step-by-step instructions on publishing a module, see [Publishing a
 module](publishing).
 
-<a id="discovery" ></a>
-## Package discovery
+## Package discovery {#discovery}
 
 After you've published your module and someone has fetched it with Go tools, it
 will become visible on the Go package discovery site at
@@ -107,8 +103,7 @@ runs the `go get` command to download its source code to compile with.
 For more about how developers find and use modules, see [Managing
 dependencies](managing-dependencies).
 
-<a id="versioning" ></a>
-## Versioning
+## Versioning {#versioning}
 
 As you revise and improve your module over time, you assign version numbers
 (based on the semantic versioning model) designed to signal each version's
@@ -121,4 +116,4 @@ For more on developing major version updates, see [Developing a major version
 update](major-version).
 
 For more about how you use the semantic versioning model for Go modules, see
-[Module version numbering](version-numbers).
+[Module version numbering](/doc/modules/version-numbers).

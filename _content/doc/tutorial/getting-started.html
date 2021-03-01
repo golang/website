@@ -21,7 +21,7 @@
 
 <aside class="Note">
   <strong>Note:</strong> For other tutorials, see
-  <a href="index.html">Tutorials</a>.
+  <a href="/doc/tutorial/index.html">Tutorials</a>.
 </aside>
 
 <h2 id="prerequisites">Prerequisites</h2>
@@ -90,26 +90,35 @@ cd hello
   </li>
 
   <li>
-    Initialize a new module for tracking dependencies.
+    Enable dependency tracking for your code.
 
     <p>
-      When your code imports packages from another module, a go.mod file lists
-      the specific modules and versions providing those packages. That file
-      stays with your code, including in your source code repository.
+      When your code imports packages contained in other modules, you manage
+      those dependencies through your code's own module. That module is defined
+      by a go.mod file that tracks the modules that provide those packages. That
+      go.mod file stays with your code, including in your source code
+      repository.
     </p>
 
     <p>
-      To create a go.mod file, run the
-      <a
-        href="https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory"
-        ><code>go mod init</code> command</a
-      >, giving it the name of the module your code will be in (here, just use
-      "hello"):
+      To enable dependency tracking for your code by creating a go.mod file, run
+      the
+      <a href="/ref/mod#go-mod-init"><code>go mod init</code> command</a>,
+        giving it the name of the module your code will be in. The name is the
+        module's module path. In most cases, this will be the repository
+        location where your source code will be kept, such as
+        <code>github.com/mymodule</code>. If you plan to publish your module
+        for others to use, the module path <em>must</em> be a location from
+        which Go tools can download your module.
+    </p>
+
+      <p>For the purposes of this tutorial, just use
+        <code>example.com/hello</code>.
     </p>
 
     <pre>
-$ go mod init hello
-go: creating new go.mod: module hello
+$ go mod init example.com/hello
+go: creating new go.mod: module example.com/hello
 </pre
     >
   </li>
@@ -143,10 +152,10 @@ func main() {
       </li>
       <li>
         Import the popular
-        <a href="https://golang.org/pkg/fmt/"><code>fmt</code> package</a>,
+        <a href="https://pkg.go.dev/fmt/"><code>fmt</code> package</a>,
         which contains functions for formatting text, including printing to the
         console. This package is one of the
-        <a href="https://golang.org/pkg/">standard library</a> packages you got
+        <a href="https://pkg.go.dev/std">standard library</a> packages you got
         when you installed Go.
       </li>
       <li>
@@ -168,7 +177,7 @@ Hello, World!
 
     <p>
       The
-      <a href="https://golang.org/cmd/go/#hdr-Compile_and_run_Go_program"
+      <a href="/cmd/go/#hdr-Compile_and_run_Go_program"
         ><code>go run</code> command</a
       >
       is one of many <code>go</code> commands you'll use to get things done with
@@ -252,7 +261,10 @@ func main() {
     Add new module requirements and sums.
 
     <p>
-      Go will add the <code>quote</code> module as a requirement, as well as a go.sum file for use in authenticating the module. For more, see <a href="https://golang.org/cmd/go/#hdr-Module_authentication_using_go_sum">Module authentication using go.sum</a>.
+      Go will add the <code>quote</code> module as a requirement, as well as a
+      go.sum file for use in authenticating the module. For more, see
+      <a href="/ref/mod#authenticating">Authenticating modules</a> in the Go
+      Modules Reference.
     </p>
     <pre>
 $ go mod tidy
@@ -289,5 +301,5 @@ Don't communicate by sharing memory, share memory by communicating.
 <p>
   With this quick introduction, you got Go installed and learned some of the
   basics. To write some more code with another tutorial, take a look at
-  <a href="create-module.html">Create a Go module</a>.
+  <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
 </p>

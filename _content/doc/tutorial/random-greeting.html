@@ -10,15 +10,20 @@
 
 <aside class="Note">
   <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
-  with <a href="create-module.html">Create a Go module</a>.
+  with <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
 </aside>
 
 <p>
-  To do this, you'll use a Go slice. A
-  <a href="https://blog.golang.org/slices-intro"><em>slice</em></a> is like an
-  array, except that it's dynamically sized as you add and remove items. It's
-  one of the most useful types in Go. You'll add a small slice to contain three
-  greeting messages, then have your code return one of the messages randomly.
+  To do this, you'll use a Go slice. A slice is like an array, except that its
+  size changes dynamically as you add and remove items. The slice is one of Go's
+  most useful types.
+</p>
+
+<p>
+  You'll add a small slice to contain three greeting messages, then have your
+  code return one of the messages randomly. For more on slices,
+  see <a href="https://blog.golang.org/slices-intro">Go slices</a> in the Go
+  blog.
 </p>
 
 <ol>
@@ -82,24 +87,22 @@ func randomFormat() string {
       <li>
         In <code>randomFormat</code>, declare a <code>formats</code> slice with
         three message formats. When declaring a slice, you omit its size in the
-        brackets, like this: <code>[]string</code>. This tells Go that the array
-        underlying a slice can be dynamically sized.
+        brackets, like this: <code>[]string</code>. This tells Go that the size
+        of the array underlying the slice can be dynamically changed.
       </li>
       <li>
         Use the
-        <a href="https://golang.org/pkg/math/rand/"
+        <a href="https://pkg.go.dev/math/rand/"
           ><code>math/rand</code> package</a
         >
         to generate a random number for selecting an item from the slice.
       </li>
       <li>
-        Add an
-        <a href="https://golang.org/doc/effective_go.html#init"
-          ><code>init</code> function</a
-        >
-        to seed the <code>rand</code> package with the current time. Go executes
-        <code>init</code> functions automatically at program startup, after
-        global variables have been initialized.
+        Add an <code>init</code> function to seed the <code>rand</code> package
+        with the current time. Go executes <code>init</code> functions
+        automatically at program startup, after global variables have been
+        initialized. For more about <code>init</code> functions, see
+        <a href="/doc/effective_go.html#init">Effective Go</a>.
       </li>
       <li>
         In <code>Hello</code>, call the <code>randomFormat</code> function to
@@ -109,48 +112,70 @@ func randomFormat() string {
       <li>Return the message (or an error) as you did before.</li>
     </ul>
 
-    <p>
-      Your hello.go needn't change.
-    </p>
   </li>
 
   <li>
-    At the command line, change to the hello directory, then run hello.go to
-    confirm that the code works. Run it multiple times, noticing that the
-    greeting changes.
+    In hello/hello.go, change your code so it looks like the following.
 
-    <p>
-      Oh -- don't forget to add Gladys's name (or a different name, if you like)
-      as an argument to the <code>Hello</code> function call in hello.go:
-      <code>greetings.Hello("Gladys")</code>
-    </p>
+    <p>You're just adding Gladys's name (or a different name, if you like)
+      as an argument to the <code>Hello</code> function call in hello.go.</p>
+
+    <pre>package main
+
+import (
+    "fmt"
+    "log"
+
+    "example.com/greetings"
+)
+
+func main() {
+    // Set properties of the predefined Logger, including
+    // the log entry prefix and a flag to disable printing
+    // the time, source file, and line number.
+    log.SetPrefix("greetings: ")
+    log.SetFlags(0)
+
+    // Request a greeting message.
+    <ins>message, err := greetings.Hello("Gladys")</ins>
+    // If an error was returned, print it to the console and
+    // exit the program.
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    // If no error was returned, print the returned message
+    // to the console.
+    fmt.Println(message)
+}</pre>
+  </li>
+
+  <li>
+    At the command line, in the hello directory, run hello.go to confirm that
+    the code works. Run it multiple times, noticing that the greeting changes.
 
     <pre>
-$ go build
-$ ./hello
+$ go run .
 Great to see you, Gladys!
 
-$ ./hello
+$ go run .
 Hi, Gladys. Welcome!
 
-$ ./hello
+$ go run .
 Hail, Gladys! Well met!
-</pre
-    >
+</pre>
   </li>
 </ol>
 
 <p>
-  That's an introduction to a Go slice. To get even more use out of this type,
-  you'll use a slice to greet multiple people. That's in the tutorial's
-  <a href="greetings-multiple-people.html">next topic</a>.
+  Next, you'll use a slice to greet multiple people.
 </p>
 
 <p class="Navigation">
-  <a class="Navigation-prev" href="handle-errors.html"
+  <a class="Navigation-prev" href="/doc/tutorial/handle-errors.html"
     >&lt; Return and handle an error</a
   >
-  <a class="Navigation-next" href="greetings-multiple-people.html"
+  <a class="Navigation-next" href="/doc/tutorial/greetings-multiple-people.html"
     >Return greetings for multiple people &gt;</a
   >
 </p>

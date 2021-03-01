@@ -14,7 +14,7 @@ workflow](release-workflow).
 
 Some of the conventions described here are required in modules, while others are
 best practices. This content assumes you're familiar with the basic module use
-practices described in [Managing dependencies](managing-dependencies).
+practices described in [Managing dependencies](/doc/modules/managing-dependencies).
 
 Go supports the following repositories for publishing modules: Git, Subversion,
 Mercurial, Bazaar, and Fossil.
@@ -22,8 +22,7 @@ Mercurial, Bazaar, and Fossil.
 For an overview of module development, see [Developing and publishing
 modules](developing).
 
-<a id="tools" ></a>
-## How Go tools find your published module
+## How Go tools find your published module {#tools}
 
 In Go's decentralized system for publishing modules and retrieving their code,
 you can publish your module while leaving the code in your repository. Go tools
@@ -31,7 +30,7 @@ rely on naming rules that have repository paths and repository tags indicating a
 module's name and version number. When your repository follows these
 requirements, your module code is downloadable from your repository by Go tools
 such as the [`go get`
-command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them).
+command](/ref/mod#go-get).
 
 When a developer uses the `go get` command to get source code for packages their
 code imports, the command does the following:
@@ -46,8 +45,7 @@ code imports, the command does the following:
   release version.
 1. Retrieves module source and downloads it to the developer's local module cache.
 
-<a id="repository" ></a>
-## Organizing code in the repository
+## Organizing code in the repository {#repository}
 
 You can keep maintenance simple and improve developers' experience with your
 module by following the conventions described here. Getting your module code
@@ -116,8 +114,7 @@ $ git commit -m "mycode: initial commit"
 $ git push
 ```
 
-<a id="repository-scope" ></a>
-## Choosing repository scope
+## Choosing repository scope {#repository-scope}
 
 You publish code in a module when the code should be versioned independently
 from code in other modules. 
@@ -128,8 +125,7 @@ minor and patch versions, branch into new major versions, and so on. However, if
 your needs require it, you can instead maintain a collection of modules in a
 single repository.
 
-<a id="one-module-source" ></a>
-### Sourcing one module per repository
+### Sourcing one module per repository {#one-module-source}
 
 You can maintain a repository that has a single module's source in it. In this
 model, you place your go.mod file at the repository root, with package
@@ -143,8 +139,7 @@ directory path.
      alt="Diagram illustrating a single module's source in its repository"
      style="width: 425px;" />
 
-<a id="multiple-module-source" ></a>
-### Sourcing multiple modules in a single repository
+### Sourcing multiple modules in a single repository {#multiple-module-source}
 
 You can publish multiple modules from a single repository. For example, you
 might have code in a single repository that constitutes multiple modules, but
@@ -155,7 +150,7 @@ Each subdirectory that is a module root directory must have its own go.mod file.
 Sourcing module code in subdirectories changes the form of the version tag you
 must use when publishing a module. You must prefix the version number part of
 the tag with the name of the subdirectory that is the module root. For more
-about version numbers, see [Module version numbering](version-numbers).
+about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
 For example, for module `example.com/mymodules/module1` below, you would have
 the following for version v1.2.3:

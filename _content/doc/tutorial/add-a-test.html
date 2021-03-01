@@ -12,7 +12,7 @@
 
 <aside class="Note">
   <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
-  with <a href="create-module.html">Create a Go module</a>.
+  with <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
 </aside>
 
 <p>
@@ -73,16 +73,13 @@ func TestHelloEmpty(t *testing.T) {
         Implement test functions in the same package as the code you're testing.
       </li>
       <li>
-        Create two test functions to test the
-        <code>greetings.Hello</code> function. Test function names have the form
-        <code>Test<em>Name</em></code
-        >, where <em>Name</em> is specific to the test. Also, test functions
-        take a pointer to the
-        <a href="https://golang.org/pkg/testing/"
-          ><code>testing</code> package's</a
-        >
-        <code>testing.T</code> as a parameter. You use this parameter's methods
-        for reporting and logging from your test.
+        Create two test functions to test the <code>greetings.Hello</code>
+        function. Test function names have the form <code>Test<em>Name</em></code>,
+        where <em>Name</em> says something about the specific test. Also, test
+        functions take a pointer to the <code>testing</code> package's
+        <a href="https://pkg.go.dev/testing/#T"><code>testing.T</code>
+        type</a> as a parameter. You use this parameter's methods for reporting
+        and logging from your test.
       </li>
       <li>
         Implement two tests:
@@ -94,18 +91,16 @@ func TestHelloEmpty(t *testing.T) {
             able to return a valid response message. If the call returns an
             error or an unexpected response message (one that doesn't include
             the name you passed in), you use the <code>t</code> parameter's
-            <code>Fatalf</code> method to print a message to the console and end
-            execution.
+            <a href="https://pkg.go.dev/testing/#T.Fatalf">
+            <code>Fatalf</code> method</a> to print a message to the console
+            and end execution.
           </li>
           <li>
             <code>TestHelloEmpty</code> calls the <code>Hello</code> function
             with an empty string. This test is designed to confirm that your
             error handling works. If the call returns a non-empty string or no
-            error, you use the <code>t</code> parameter's
-            <a href="https://golang.org/pkg/testing/#T.Fatalf"
-              ><code>Fatalf</code> method</a
-            >
-            to print a message to the console and end execution.
+            error, you use the <code>t</code> parameter's <code>Fatalf</code>
+            method to print a message to the console and end execution.
           </li>
         </ul>
       </li>
@@ -114,7 +109,7 @@ func TestHelloEmpty(t *testing.T) {
 
   <li>
     At the command line in the greetings directory, run the
-    <a href="https://golang.org/cmd/go/#hdr-Test_packages"
+    <a href="/cmd/go/#hdr-Test_packages"
       ><code>go test</code> command</a
     >
     to execute the test.
@@ -202,16 +197,15 @@ FAIL    example.com/greetings   0.182s
 </ol>
 
 <p>
-  This topic introduced Go's built-in support for unit testing. In the
-  tutorial's <a href="compile-install.html">next topic</a>, you'll see how to
-  compile and install your code to run it locally.
+  In the next (and last) topic, you'll see how to compile and install your code
+  to run it locally.
 </p>
 
 <p class="Navigation">
-  <a class="Navigation-prev" href="greetings-multiple-people.html"
+  <a class="Navigation-prev" href="/doc/tutorial/greetings-multiple-people.html"
     >&lt; Return greetings for multiple people</a
   >
-  <a class="Navigation-next" href="compile-install.html"
+  <a class="Navigation-next" href="/doc/tutorial/compile-install.html"
     >Compile and install the application &gt;</a
   >
 </p>

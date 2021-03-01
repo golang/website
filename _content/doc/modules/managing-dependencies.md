@@ -16,24 +16,23 @@ useful.
 **See also**
 
 *   If you're new to working with dependencies as modules, take a look at the
-    [Getting started tutorial](https://golang.org/doc/tutorial/getting-started)
+    [Getting started tutorial](/doc/tutorial/getting-started)
     for a brief introduction.
 *   Using the `go` command to manage dependencies helps ensure that your
     requirements remain consistent and the content of your go.mod file is valid.
-    For reference on the commands, see [Command go](https://golang.org/cmd/go/).
+    For reference on the commands, see [Command go](/cmd/go/).
     You can also get help from the command line by typing `go help`
     _command-name_, as with `go help mod tidy`.
 *   Go commands you use to make dependency changes edit your go.mod file. For
-    more about the contents of the file, see [go.mod file reference](gomod-ref).
+    more about the contents of the file, see [go.mod file reference](/doc/modules/gomod-ref).
 *   Making your editor or IDE aware of Go modules can make the work of managing
     them easier. For more on editors that support Go, see [Editor plugins and
-    IDEs](https://golang.org/doc/editors.html).
+    IDEs](/doc/editors.html).
 *   This topic doesn't describe how to develop, publish, and version modules for
     others to use. For more on that, see [Developing and publishing
     modules](developing).
 
-<a id="workflow" ></a>
-## Workflow for using and managing dependencies
+## Workflow for using and managing dependencies {#workflow}
 
 You can get and use useful packages with Go tools. On
 [pkg.go.dev](https://pkg.go.dev), you can search for packages you might find
@@ -46,13 +45,12 @@ each, see the sections in this topic.
 1. [Locate useful packages](#locating_packages) on [pkg.go.dev](https://pkg.go.dev).
 1. [Import the packages](#locating_packages) you want in your code.
 1. Add your code to a module for dependency tracking (if it isn't in a module
-    already). See [Enabling dependencies tracking](#enable_tracking)
+    already). See [Enabling dependency tracking](#enable_tracking)
 1. [Add external packages as dependencies](#adding_dependency) so you can manage
     them.
 1. [Upgrade or downgrade dependency versions](#upgrading) as needed over time.
 
-<a id="modules" ></a>
-## Managing dependencies as modules
+## Managing dependencies as modules {#modules}
 
 In Go, you manage dependencies as modules that contain the packages you import.
 This process is supported by:
@@ -61,7 +59,7 @@ This process is supported by:
     Developers make their modules available for other developers to use from
     their own repository and publish with a version number.
 *   A **package search engine** and documentation browser (pkg.go.dev) at which
-    you can find modules. See [Package discovery](developing#discovery).
+    you can find modules. See [Locating and importing useful packages](#locating_packages).
 *   A module **version numbering convention** to help you understand a module's
     stability and backward compatibility guarantees. See [Module version
     numbering](version-numbers).
@@ -69,8 +67,7 @@ This process is supported by:
     getting a module's source, upgrading, and so on. See sections of this topic
     for more.
 
-<a id="locating_packages" ></a>
-## Locating and importing useful packages
+## Locating and importing useful packages {#locating_packages}
 
 You can search [pkg.go.dev](https://pkg.go.dev) to find packages with functions
 you might find useful. 
@@ -88,21 +85,27 @@ After your code imports the package, enable dependency tracking and get the
 package's code to compile with. For more, see [Enabling dependency tracking in
 your code](#enable_tracking) and [Adding a dependency](#adding_dependency).
 
-<a id="enable_tracking" ></a>
-## Enabling dependency tracking in your code
+## Enabling dependency tracking in your code {#enable_tracking}
 
 To track and manage the dependencies you add, you begin by putting your code in
 its own module. This creates a go.mod file at the root of your source tree.
 Dependencies you add will be listed in that file.
 
 To add your code to its own module, use the [`go mod init`
-command](https://golang.org/cmd/go/#hdr-Initialize_new_module_in_current_directory).
+command](/ref/mod#go-mod-init).
 For example, from the command line, change to your code's root directory, then
 run the command as in the following example:
 
 ```
 $ go mod init example.com/mymodule
 ```
+
+The `go mod init` command's argument is your module's module path. If possible,
+the module path should be the repository location of your source code. If at
+first you don't know the module's eventual repository location, consider
+temporarily using a safe substitute, such as the name of a domain you own or
+`example.com`, along with a path following from the module's name or source
+directory.
 
 As you use Go tools to manage dependencies, the tools update the go.mod file so
 that it maintains a current list of your dependencies. 
@@ -114,21 +117,20 @@ project.
 
 Include the go.mod and go.sum files in your repository with your code.
 
-See the [go.mod reference](gomod-ref) for more.
+See the [go.mod reference](/doc/modules/gomod-ref) for more.
 
-<a id="adding_dependency" ></a>
-## Adding a dependency
+## Adding a dependency {#adding_dependency}
 
 Once you're importing packages from a published module, you can add that module
 to manage as a dependency by using the [`go get`
-command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them).
+command](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them).
 
 The command does the following:
 
 *   If needed, it adds `require` directives to your go.mod file for modules
     needed to build packages named on the command line. A `require` directive
     tracks the minimum version of a module that your module depends on. See the
-    [go.mod reference](gomod-ref) for more.
+    [go.mod reference](/doc/modules/gomod-ref) for more.
 *   If needed, it downloads module source code so you can compile packages that
     depend on them. It can download modules from a module proxy like
     proxy.golang.org or directly from version control repositories. The source
@@ -159,8 +161,7 @@ was published -- for example, the developer changed the contents of the commit
 -- Go tools will present a security error. This authentication check protects
 you from modules that might have been tampered with.
 
-<a id="getting_version" ></a>
-## Getting a specific dependency version
+## Getting a specific dependency version {#getting_version}
 
 You can get a specific version of a dependency module by specifying its version
 in the `go get` command. The command updates the `require` directive in your
@@ -174,7 +175,7 @@ You might want to do this if:
 *   You want to upgrade or downgrade a module you're already requiring.
 
 Here are examples for using the [`go get`
-command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them):
+command](/ref/mod#go-get):
 
 *   To get a specific numbered version, append the module path with an @ sign
     followed by the version you want:
@@ -190,15 +191,14 @@ command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_i
     ```
 
 The following go.mod file `require` directive example (see the [go.mod
-reference](gomod-ref) for more) illustrates how to require a specific version
+reference]/doc/modules/gomod-ref) for more) illustrates how to require a specific version
 number:
 
 ```
 require example.com/theirmodule v1.3.4
 ```
 
-<a id="discovering_updates" ></a>
-## Discovering available updates
+## Discovering available updates {#discovering_updates}
 
 You can check to see if there are newer versions of dependencies you're already
 using in your current module. Use the `go list` command to display a list of
@@ -206,8 +206,7 @@ your module's dependencies, along with the latest version available for that
 module. Once you've discovered available upgrades, you can try them out with your
 code to decide whether or not to upgrade to new versions.
 
-For more about the `go list` command, see the [`go` command
-reference](https://golang.org/cmd/go/#hdr-List_packages_or_modules).
+For more about the `go list` command, see [`go list -m`](/ref/mod#go-list-m).
 
 Here are a couple of examples.
 
@@ -224,8 +223,7 @@ Here are a couple of examples.
     $ go list -m -u example.com/theirmodule
     ```
 
-<a id="upgrading" ></a>
-## Upgrading or downgrading a dependency
+## Upgrading or downgrading a dependency {#upgrading}
 
 You can upgrade or downgrade a dependency module by using Go tools to discover
 available versions, then add a different version as a dependency.
@@ -234,10 +232,9 @@ available versions, then add a different version as a dependency.
     [Discovering available updates](#discovering_updates).
 
 1. To add a particular version as a dependency, use the `go get` command as
-    described in [Getting a specific module version](#getting_version).
+    described in [Getting a specific dependency version](#getting_version).
 
-<a id="synchronizing" ></a>
-## Synchronizing your code's dependencies
+## Synchronizing your code's dependencies {#synchronizing}
 
 You can ensure that you're managing dependencies for all of your code's imported
 packages while also removing dependencies for packages you're no longer
@@ -260,8 +257,7 @@ about removed modules.
 $ go mod tidy
 ```
 
-<a id="unpublished" ></a>
-## Developing and testing against unpublished module code
+## Developing and testing against unpublished module code {#unpublished}
 
 You can specify that your code should use dependency modules that may not be
 published. The code for these modules might be in their respective repositories,
@@ -276,8 +272,7 @@ You might want to do this when:
 *   You're building a new module and haven't yet published it, so it's
     unavailable on a repository where the `go get` command can reach it.
 
-<a id="local_directory" ></a>
-### Requiring module code in a local directory
+### Requiring module code in a local directory {#local_directory}
 
 You can specify that the code for a required module is on the same local drive
 as the code that requires it. You might find this useful when you are:
@@ -290,8 +285,8 @@ as the code that requires it. You might find this useful when you are:
 
 To tell Go commands to use the local copy of the module's code, use the
 `replace` directive in your go.mod file to replace the module path given in a
-`require` directive. See the [go.mod reference](gomod-ref) for more about
-directives.
+`require` directive. See the [go.mod reference](/doc/modules/gomod-ref) for
+more about directives.
 
 In the following go.mod file example, the current module requires the external
 module `example.com/theirmodule`, with a nonexistent version number
@@ -310,11 +305,9 @@ require example.com/theirmodule v0.0.0-unpublished
 replace example.com/theirmodule v0.0.0-unpublished => ../theirmodule
 ```
 
-When setting up a `require`/`replace` pair, use the [`go mod
-edit`](https://golang.org/cmd/go/#hdr-Edit_go_mod_from_tools_or_scripts) and
-[`go
-get`](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
-commands to ensure that requirements described by the file remain consistent:
+When setting up a `require`/`replace` pair, use the
+[`go mod edit`](/ref/mod#go-mod-edit) and [`go get`](/ref/mod#go-get) commands
+to ensure that requirements described by the file remain consistent:
 
 ```
 $ go mod edit -replace=example.com/theirmodule@v0.0.0-unpublished=../theirmodule
@@ -324,10 +317,9 @@ $ go get -d example.com/theirmodule@v0.0.0-unpublished
 **Note:** When you use the replace directive, Go tools don't authenticate
 external modules as described in [Adding a dependency](#adding_dependency).
 
-For more about version numbers, see [Module version numbering](version-numbers).
+For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
-<a id="external_fork" ></a>
-### Requiring external module code from your own repository fork
+### Requiring external module code from your own repository fork {#external_fork}
 
 When you have forked an external module's repository (such as to fix an issue in
 the module's code or to add a feature), you can have Go tools use your fork for
@@ -362,10 +354,9 @@ replace example.com/theirmodule v1.2.3 => example.com/myfork/theirmodule v1.2.3-
 
 When setting up a `require`/`replace` pair, use Go tool commands to ensure that
 requirements described by the file remain consistent. Use the [`go
-list`](https://golang.org/cmd/go/#hdr-List_packages_or_modules) command to get
-the version in use by the current module. Then use the [`go mod
-edit`](https://golang.org/cmd/go/#hdr-Edit_go_mod_from_tools_or_scripts) command
-to replace the required module with the fork:
+list`](/ref/mod#go-list-m) command to get the version in use by the current
+module. Then use the [`go mod edit`](/ref/mod#go-mod-edit) command to replace
+the required module with the fork:
 
 ```
 $ go list -m example.com/theirmodule
@@ -376,10 +367,9 @@ $ go mod edit -replace=example.com/theirmodule@v1.2.3=example.com/myfork/theirmo
 **Note:** When you use the `replace` directive, Go tools don't authenticate
 external modules as described in [Adding a dependency](#adding_dependency).
 
-For more about version numbers, see [Module version numbering](version-numbers).
+For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
-<a id="repo_identifier" ></a>
-## Getting a specific commit using a repository identifier
+## Getting a specific commit using a repository identifier {#repo_identifier}
 
 You can use the `go get` command to add unpublished code for a module from a
 specific commit in its repository.
@@ -404,25 +394,22 @@ whose source is in a git repository.
     $ go get example.com/theirmodule@bugfixes
     ```
 
-<a id="removing_dependency" ></a>
-## Removing a dependency
+## Removing a dependency {#removing_dependency}
 
 When your code no longer uses any packages in a module, you can stop tracking
 the module as a dependency.
 
 To stop tracking all unused modules, run the [`go mod tidy`
-command](https://golang.org/cmd/go/#hdr-Add_missing_and_remove_unused_modules).
-This command also may also add missing dependencies needed to build packages in
-your module.
+command](/ref/mod#go-mod-tidy). This command also may also add missing
+dependencies needed to build packages in your module.
 
 ```
 $ go mod tidy
 ```
 
 To remove a specific dependency, use the [`go get`
-command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them),
-specifying the module's module path and appending `@none`, as in the following
-example:
+command](/ref/mod#go-get), specifying the module's module path and appending
+`@none`, as in the following example:
 
 ```
 $ go get example.com/theirmodule@none
@@ -431,8 +418,7 @@ $ go get example.com/theirmodule@none
 The `go get` command will also downgrade or remove other dependencies that
 depend on the removed module.
 
-<a id="proxy_server" ></a>
-## Specifying a module proxy server
+## Specifying a module proxy server {#proxy_server}
 
 When you use Go tools to work with modules, the tools by default download
 modules from proxy.golang.org (a public Google-run module mirror) or directly

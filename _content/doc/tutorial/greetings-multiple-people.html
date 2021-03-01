@@ -6,33 +6,27 @@
 <p>
   In the last changes you'll make to your module's code, you'll add support for
   getting greetings for multiple people in one request. In other words, you'll
-  handle a multiple-value input and pair values with a multiple-value output.
+  handle a multiple-value input, then pair values in that input with a
+  multiple-value output. To do this, you'll need to pass a set of names to a
+  function that can return a greeting for each of them. 
 </p>
 
 <aside class="Note">
   <strong>Note:</strong> This topic is part of a multi-part tutorial that begins
-  with <a href="create-module.html">Create a Go module</a>.
+  with <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
 </aside>
 
 <p>
-  To do this, you'll need to pass a set of names to a function that can return a
-  greeting for each of them. Changing the <code>Hello</code> function's
-  parameter from a single name to a set of names would change the function
-  signature. If you had already published the <code>greetings</code> module and
-  users had already written code calling <code>Hello</code>, that change would
-  break their programs. In this situation, a better choice is to give new
-  functionality a new name.
-</p>
+  But there's a hitch. Changing the <code>Hello</code> function's
+  parameter from a single name to a set of names would change the function's
+  signature. If you had already published the <code>example.com/greetings</code>
+  module and users had already written code calling <code>Hello</code>, that
+  change would break their programs.</p>
 
 <p>
-  In the last code you'll add with this tutorial, update the code as if you've
-  already published a version of the <code>greetings</code> module. Instead of
-  changing the <code>Hello</code> function, add a new function
-  <code>Hellos</code> that takes a set of names. Then, for the sake of
-  simplicity, have the new function call the existing one. Keeping both
-  functions in the package leaves the original for existing callers (or future
-  callers who only need one greeting) and adds a new one for callers that want
-  the expanded functionality.
+  In this situation, a better choice is to write a new function with a different
+  name. The new function will take multiple parameters. That preserves the old
+  function for backward compatibility.
 </p>
 
 <ol>
@@ -111,27 +105,28 @@ func randomFormat() string {
         mapped to greeting messages.
       </li>
       <li>
-        Have the new Hellos function call the existing Hello function. This
-        leaves both functions in place.
+        Have the new <code>Hellos</code> function call the existing
+        <code>Hello</code> function. This helps reduce duplication while also
+        leaving both functions in place.
       </li>
       <li>
-        Create a <code>messages</code>
-        <a href="https://blog.golang.org/maps">map</a> to associate each of the
+        Create a <code>messages</code> map to associate each of the
         received names (as a key) with a generated message (as a value). In Go,
         you initialize a map with the following syntax:
         <code>make(map[<em>key-type</em>]<em>value-type</em>)</code>. You have
-        the <code>Hellos</code> function return this map to the caller.
+        the <code>Hellos</code> function return this map to the caller. For more
+        about maps, see <a href="https://blog.golang.org/maps">Go maps in
+        action</a> on the Go blog.
       </li>
       <li>
         Loop through the names your function received, checking that each has a
         non-empty value, then associate a message with each. In this
         <code>for</code> loop, <code>range</code> returns two values: the index
         of the current item in the loop and a copy of the item's value. You
-        don't need the index, so you use the Go
-        <a href="https://golang.org/doc/effective_go.html#blank"
-          >blank identifier (an underscore)</a
-        >
-        to ignore it.
+        don't need the index, so you use the Go blank identifier (an underscore)
+        to ignore it. For more, see
+        <a href="/doc/effective_go.html#blank">The blank
+        identifier</a> in Effective Go.
       </li>
     </ul>
   </li>
@@ -193,7 +188,7 @@ func main() {
 
   <li>
     At the command line, change to the directory that contains hello/hello.go,
-    then run hello.go to confirm that the code works.
+    then use <code>go run</code> to confirm that the code works.
 
     <p>
       The output should be a string representation of the map associating names
@@ -201,7 +196,7 @@ func main() {
     </p>
 
     <pre>
-$ go run hello.go
+$ go run .
 map[Darrin:Hail, Darrin! Well met! Gladys:Hi, Gladys. Welcome! Samantha:Hail, Samantha! Well met!]
 </pre
     >
@@ -210,18 +205,18 @@ map[Darrin:Hail, Darrin! Well met! Gladys:Hi, Gladys. Welcome! Samantha:Hail, Sa
 
 <p>
   This topic introduced maps for representing name/value pairs. It also
-  introduced the idea of
-  <a href="https://blog.golang.org/module-compatibility"
-    >preserving backward compatibility</a
-  >
+  introduced the idea of preserving backward compatibility
   by implementing a new function for new or changed functionality in a module.
-  In the tutorial's <a href="add-a-test.html">next topic</a>, you'll use
-  built-in features to create a unit test for your code.
+  For more about backward compatibility, see
+  <a href="https://blog.golang.org/module-compatibility">Keeping your modules
+  compatible</a>.
 </p>
 
+<p>Next, you'll use built-in Go features to create a unit test for your code.</p>
+
 <p class="Navigation">
-  <a class="Navigation-prev" href="random-greeting.html"
+  <a class="Navigation-prev" href="/doc/tutorial/random-greeting.html"
     >&lt; Return a random greeting</a
   >
-  <a class="Navigation-next" href="add-a-test.html">Add a test &gt;</a>
+  <a class="Navigation-next" href="/doc/tutorial/add-a-test.html">Add a test &gt;</a>
 </p>
