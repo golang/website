@@ -690,7 +690,7 @@ retractions from `v1.0.1`, which is now the highest version. Both `v1.0.0` and
 the next highest version, perhaps `v0.9.5`.
 
 `retract` directives may be written with either a single version (like `v1.0.0`)
-or with a closed inteval of versions with an upper and lower bound, delimited by
+or with a closed interval of versions with an upper and lower bound, delimited by
 `[` and `]` (like `[v1.1.0, v1.2.0]`). A single version is equivalent to an
 interval where the upper and lower bound are the same. Like other directives,
 multiple `retract` directives may be grouped together in a block delimited by
@@ -728,7 +728,7 @@ in `go.mod` files of dependencies.
 ### Automatic updates {#go-mod-file-updates}
 
 Most commands report an error if `go.mod` is missing information or doesn't
-accurately relect reality. The [`go get`](#go-get) and
+accurately reflect reality. The [`go get`](#go-get) and
 [`go mod tidy`](#go-mod-tidy) commands may be used to fix most of these
 problems. Additionally, the `-mod=mod` flag may be used with most module-aware
 commands (`go build`, `go test`, and so on) to instruct the `go` command to
@@ -817,14 +817,14 @@ require C 1.3 and C 1.4, respectively. C 1.3 and C 1.4 both require D 1.2.
 
 MVS visits and loads the `go.mod` file for each of the module versions
 highlighted in blue. At the end of the graph traversal, MVS returns a build list
-containing the bolded versions: A 1.2, B 1.2, C 1.4, and D 1.2. Note that higher
+containing the boldface versions: A 1.2, B 1.2, C 1.4, and D 1.2. Note that higher
 versions of B and D are available but MVS does not select them, since nothing
 requires them.
 
 ### Replacement {#mvs-replace}
 
 The content of a module (including its `go.mod` file) may be replaced using a
-[`replace` directive](#go-mod-file-replace) in the the main module's `go.mod` file.
+[`replace` directive](#go-mod-file-replace) in the main module's `go.mod` file.
 A `replace` directive may apply to a specific version of a module or to all
 versions of a module.
 
@@ -1357,7 +1357,7 @@ $ go list -m -json example.com/m@latest
 
 The `-m` flag causes `go list` to list modules instead of packages. In this
 mode, the arguments to `go list` may be modules, module patterns (containing the
-`...` wildcard), [version queries](#version-queries), or the special pattern
+`...` wild card), [version queries](#version-queries), or the special pattern
 `all`, which matches all modules in the [build list](#glos-build-list). If no
 arguments are specified, the [main module](#glos-main-module) is listed.
 
@@ -1557,9 +1557,9 @@ The editing flags specify a sequence of editing operations.
   version is dropped.
 * The `-retract=version` and `-dropretract=version` flags add and drop a
   retraction for the given version, which may be a single version (like
-  `v1.2.3`) or an internval (like `[v1.1.0,v1.2.0]`). Note that the `-retract`
+  `v1.2.3`) or an interval (like `[v1.1.0,v1.2.0]`). Note that the `-retract`
   flag cannot add a rationale comment for the `retract` directive. Rationale
-  comments are recommeneded and may be shown by `go list -m -u` and other
+  comments are recommended and may be shown by `go list -m -u` and other
   commands.
 
 The editing flags may be repeated. The changes are applied in the order given.
