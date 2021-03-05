@@ -93,11 +93,6 @@ func TestLiveServer(t *testing.T) {
 			StatusCode:  302,
 		},
 		{
-			Message:   "incorrect search result - broken index?",
-			Path:      "/search?q=IsDir",
-			Substring: "src/os/types.go",
-		},
-		{
 			Path:        "/compile",
 			PostBody:    "body=" + url.QueryEscape("package main; func main() { print(6*7); }"),
 			Regexp:      `^{"compile_errors":"","output":"42"}$`,
