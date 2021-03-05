@@ -130,7 +130,7 @@ information about Go releases.
   modules using the Go module mirror and Go checksum database run by Google. See
   <a href="https://proxy.golang.org/privacy">https://proxy.golang.org/privacy</a>
   for privacy information about these services and the
-  <a href="/cmd/go/#hdr-Module_downloading_and_verification">go command documentation</a>
+  <a href="/cmd/go/">go command documentation</a>
   for configuration details including how to disable the use of these servers or use
   different ones.
 </p>
