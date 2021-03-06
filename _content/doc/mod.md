@@ -446,7 +446,7 @@ with the version. See [Major version suffixes](#major-version-suffixes).
 ### Grammar {#go-mod-file-grammar}
 
 `go.mod` syntax is specified below using Extended Backus-Naur Form (EBNF).
-See the [Notation section in the Go Language Specificiation](/ref/spec#Notation)
+See the [Notation section in the Go Language Specification](/ref/spec#Notation)
 for details on EBNF syntax.
 
 ```
@@ -1557,9 +1557,9 @@ The editing flags specify a sequence of editing operations.
   version is dropped.
 * The `-retract=version` and `-dropretract=version` flags add and drop a
   retraction for the given version, which may be a single version (like
-  `v1.2.3`) or an internval (like `[v1.1.0,v1.2.0]`). Note that the `-retract`
+  `v1.2.3`) or an interval (like `[v1.1.0,v1.2.0]`). Note that the `-retract`
   flag cannot add a rationale comment for the `retract` directive. Rationale
-  comments are recommeneded and may be shown by `go list -m -u` and other
+  comments are recommended and may be shown by `go list -m -u` and other
   commands.
 
 The editing flags may be repeated. The changes are applied in the order given.
@@ -3215,7 +3215,7 @@ cryptographic hash and compares it with a known value to verify the file hasn't
 changed since it was first downloaded. The `go` command reports a security error
 if a downloaded file does not have the correct hash.
 
-For `go.mod` files, the `go` commmand computes the hash from the file
+For `go.mod` files, the `go` command computes the hash from the file
 content. For module zip files, the `go` command computes the hash from the names
 and contents of files within the archive in a deterministic order. The hash is
 not affected by file order, compression, alignment, and other metadata. See
@@ -3316,7 +3316,7 @@ corresponding lower-case letter. This allows modules `example.com/M` and
 `example.com/m` to both be stored on disk, since the former is encoded as
 `example.com/!m`.
 
-Parts of the path surrounded by square brakets, like `[.p/$W]` denote optional
+Parts of the path surrounded by square brackets, like `[.p/$W]` denote optional
 values.
 
 <table class="ModTable">
@@ -3593,7 +3593,7 @@ of all environment variables recognized by the `go` command.
         <p>
           <code>GOPROXY</code> URLs may have the schemes <code>https</code>,
           <code>http</code>, or <code>file</code>. If a URL has no scheme,
-          <code>https</code> is assumed. A module cache may be used direclty as
+          <code>https</code> is assumed. A module cache may be used directly as
           a file proxy:
         </p>
         <pre>GOPROXY=file://$(go env GOMODCACHE)/cache/download</pre>

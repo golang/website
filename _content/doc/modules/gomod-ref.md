@@ -354,7 +354,7 @@ resolution when building the current module (the main module you're building).
 These directives are ignored in modules that depend on the current module.
 
 You can use the [`go mod edit`](/ref/mod#go-mod-edit) command
-to exclude a module, as in the followng example.
+to exclude a module, as in the following example.
 
 ```
 go mod edit -exclude=example.com/theirmodule@v1.3.0
