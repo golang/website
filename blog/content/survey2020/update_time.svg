@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 510.24'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='249.04,434.99 249.04,120.80 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='344.97,434.99 344.97,120.80 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='440.91,434.99 440.91,120.80 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='536.85,434.99 536.85,120.80 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='632.78,434.99 632.78,120.80 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='249.04' y='132.30' width='19.94' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='170.61' width='269.09' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='208.93' width='75.60' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='247.24' width='28.71' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='285.56' width='11.39' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='323.87' width='2.63' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='362.19' width='58.95' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='249.04' y='400.50' width='13.37' height='22.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='273.88' y='148.88' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='524.61' y='187.19' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>56 %</text>
+<text x='331.12' y='225.51' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='282.65' y='263.82' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='265.33' y='302.14' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='256.57' y='340.45' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='314.47' y='378.77' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>12 %</text>
+<text x='267.31' y='417.08' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='54.14' y='409.45' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='170.78px' lengthAdjust='spacingAndGlyphs'>I don't use Go in production</text>
+<text x='179.80' y='424.57' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='45.12px' lengthAdjust='spacingAndGlyphs'>at work</text>
+<text x='94.64' y='371.13' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='130.28px' lengthAdjust='spacingAndGlyphs'>It's different for every</text>
+<text x='179.00' y='386.25' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='45.92px' lengthAdjust='spacingAndGlyphs'>release</text>
+<text x='78.63' y='340.38' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='146.29px' lengthAdjust='spacingAndGlyphs'>After more than 2 years</text>
+<text x='125.33' y='302.06' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='99.59px' lengthAdjust='spacingAndGlyphs'>After 1 - 2 years</text>
+<text x='105.87' y='263.74' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='119.05px' lengthAdjust='spacingAndGlyphs'>After 6 - 11 months</text>
+<text x='113.65' y='225.43' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='111.27px' lengthAdjust='spacingAndGlyphs'>After 3 - 5 months</text>
+<text x='104.32' y='187.11' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='120.60px' lengthAdjust='spacingAndGlyphs'>Within 0 - 2 months</text>
+<text x='45.91' y='141.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='179.01px' lengthAdjust='spacingAndGlyphs'>During the release candidate</text>
+<text x='127.64' y='156.36' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='97.28px' lengthAdjust='spacingAndGlyphs'>phase or earlier</text>
+<text x='238.92' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='330.96' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='426.90' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='522.84' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='618.77' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='378.65' y='478.51' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='229.85' y='111.95' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  2189</text>
+<text x='229.85' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='317.50px' lengthAdjust='spacingAndGlyphs'>When a new version of Go is released, when</text>
+<text x='229.85' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='314.81px' lengthAdjust='spacingAndGlyphs'>does your team at work start evaluating it for</text>
+<text x='229.85' y='74.36' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='340.64px' lengthAdjust='spacingAndGlyphs'>production use? (e.g., moving from 1.13 to 1.14,</text>
+<text x='229.85' y='91.64' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='108.52px' lengthAdjust='spacingAndGlyphs'>or 1.14 to 1.15)</text>
+</svg>

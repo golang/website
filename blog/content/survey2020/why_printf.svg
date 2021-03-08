@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg=='>
+    <rect x='305.31' y='86.24' width='346.65' height='518.83' />
+  </clipPath>
+</defs>
+<polyline points='321.07,605.07 321.07,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<polyline points='399.86,605.07 399.86,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<polyline points='478.64,605.07 478.64,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<polyline points='557.43,605.07 557.43,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<polyline points='636.21,605.07 636.21,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='559.29' width='18.72' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='508.42' width='51.95' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='457.56' width='56.33' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='406.69' width='59.82' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='355.83' width='63.85' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='304.96' width='93.76' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='254.10' width='95.16' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='203.23' width='106.35' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='152.37' width='165.48' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<rect x='321.07' y='101.50' width='168.98' height='30.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)' />
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='344.69' y='579.63' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>5 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='379.50' y='528.77' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>13 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='383.88' y='477.90' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>14 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='387.38' y='427.04' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>15 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='391.40' y='376.17' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='421.31' y='325.31' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>24 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='422.71' y='274.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>24 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='433.91' y='223.58' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>27 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='493.03' y='172.71' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>42 %</text></g>
+<g clip-path='url(#cpMzA1LjMxNHw2NTEuOTY5fDYwNS4wNjd8ODYuMjQxNg==)'><text x='496.53' y='121.85' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>43 %</text></g>
+<defs>
+  <clipPath id='cpMHw2ODAuMzE1fDY4MC4zMTV8MA=='>
+    <rect x='0.00' y='0.00' width='680.31' height='680.31' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='100.79' y='572.00' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='199.60px' lengthAdjust='spacingAndGlyphs'>Go's debugging tools don’t have</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='197.66' y='587.12' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='102.72px' lengthAdjust='spacingAndGlyphs'>feature(s) I need</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='76.66' y='521.13' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='223.72px' lengthAdjust='spacingAndGlyphs'>Go's debugging tools don’t integrate</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='154.09' y='536.25' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='146.29px' lengthAdjust='spacingAndGlyphs'>well into my code editor</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='74.34' y='470.27' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='226.04px' lengthAdjust='spacingAndGlyphs'>Go's debugging tools are too difficult</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='262.24' y='485.39' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='38.14px' lengthAdjust='spacingAndGlyphs'>to use</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='84.45' y='411.84' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='215.93px' lengthAdjust='spacingAndGlyphs'>Go's debugging tools don’t support</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='81.72' y='426.96' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='218.66px' lengthAdjust='spacingAndGlyphs'>my environment (e.g. containerized</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='216.34' y='442.08' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='84.04px' lengthAdjust='spacingAndGlyphs'>deployments)</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='265.37' y='376.09' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='61.44' y='317.67' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='238.94px' lengthAdjust='spacingAndGlyphs'>I need better documentation on how to</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='152.49' y='332.79' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='147.89px' lengthAdjust='spacingAndGlyphs'>use Go debugging tools</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='79.79' y='266.80' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='220.60px' lengthAdjust='spacingAndGlyphs'>I've never tried using Go debugging</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='270.81' y='281.92' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='29.57px' lengthAdjust='spacingAndGlyphs'>tools</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='60.71' y='215.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='239.67px' lengthAdjust='spacingAndGlyphs'>I’m not sure how to get started with Go</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='201.52' y='231.06' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='98.86px' lengthAdjust='spacingAndGlyphs'>debugging tools</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='123.73' y='172.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='176.65px' lengthAdjust='spacingAndGlyphs'>This is how I prefer to debug</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='99.64' y='106.65' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='200.74px' lengthAdjust='spacingAndGlyphs'>Text logs / printf() let me use the</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='45.91' y='121.77' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='254.47px' lengthAdjust='spacingAndGlyphs'>same debugging strategy across multiple</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='149.40' y='136.89' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='150.98px' lengthAdjust='spacingAndGlyphs'>programming languages</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='310.95' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='385.85' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='464.63' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='543.42' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='622.20' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='285.18' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='386.93px' lengthAdjust='spacingAndGlyphs'>% of respondents who use logging/printf for debugging</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='305.31' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  2252</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='305.31' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='370.88px' lengthAdjust='spacingAndGlyphs'>Why do you use text logs to debug Go code? (select</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='305.31' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='95.16px' lengthAdjust='spacingAndGlyphs'>all that apply)</text></g>
+</svg>

@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='290.64,605.07 290.64,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='376.67,605.07 376.67,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='462.70,605.07 462.70,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='548.73,605.07 548.73,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='634.76,605.07 634.76,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='290.64' y='215.95' width='148.60' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='306.44' width='103.86' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='396.93' width='76.80' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='366.77' width='77.43' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='276.28' width='109.81' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='487.43' width='42.39' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='155.62' width='168.78' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='547.75' width='25.65' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='185.78' width='167.06' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='577.92' width='21.90' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='246.11' width='137.81' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='336.60' width='88.53' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='517.59' width='30.35' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='95.29' width='280.93' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='125.46' width='244.64' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='457.26' width='69.61' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='290.64' y='427.10' width='70.70' height='18.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='455.44' y='230.08' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>35 %</text>
+<text x='410.70' y='320.58' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>24 %</text>
+<text x='383.64' y='411.07' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='384.27' y='380.90' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='416.65' y='290.41' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>26 %</text>
+<text x='349.23' y='501.56' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='475.62' y='169.75' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>39 %</text>
+<text x='328.54' y='561.89' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='473.90' y='199.92' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>39 %</text>
+<text x='324.79' y='592.05' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>5 %</text>
+<text x='444.65' y='260.25' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>32 %</text>
+<text x='395.38' y='350.74' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>21 %</text>
+<text x='333.23' y='531.73' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='587.77' y='109.43' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>65 %</text>
+<text x='551.48' y='139.59' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>57 %</text>
+<text x='376.45' y='471.40' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='377.54' y='441.23' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='236.59' y='591.98' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>other</text>
+<text x='196.11' y='561.81' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='72.39px' lengthAdjust='spacingAndGlyphs'>golang.nuts</text>
+<text x='183.68' y='531.65' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='84.82px' lengthAdjust='spacingAndGlyphs'>Gopher Slack</text>
+<text x='226.47' y='501.48' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='42.03px' lengthAdjust='spacingAndGlyphs'>go.dev</text>
+<text x='48.27' y='463.76' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='220.23px' lengthAdjust='spacingAndGlyphs'>The Go wiki (github.com.golang/go/</text>
+<text x='240.51' y='478.88' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='27.99px' lengthAdjust='spacingAndGlyphs'>wiki)</text>
+<text x='211.68' y='441.15' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='56.82px' lengthAdjust='spacingAndGlyphs'>YouTube</text>
+<text x='171.22' y='410.99' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='97.28px' lengthAdjust='spacingAndGlyphs'>Books / eBooks</text>
+<text x='144.76' y='380.83' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='123.74px' lengthAdjust='spacingAndGlyphs'>Colleagues / friends</text>
+<text x='164.22' y='350.66' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='104.28px' lengthAdjust='spacingAndGlyphs'>Reddit (r/golang)</text>
+<text x='160.35' y='320.50' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='108.15px' lengthAdjust='spacingAndGlyphs'>Community blogs</text>
+<text x='154.89' y='290.33' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='113.61px' lengthAdjust='spacingAndGlyphs'>gobyexample.com</text>
+<text x='200.00' y='260.17' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='68.50px' lengthAdjust='spacingAndGlyphs'>pkg.go.dev</text>
+<text x='80.16' y='230.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='188.34px' lengthAdjust='spacingAndGlyphs'>The Go Blog (blog.golang.org)</text>
+<text x='202.33' y='199.84' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='66.17px' lengthAdjust='spacingAndGlyphs'>golang.org</text>
+<text x='206.23' y='169.68' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='62.27px' lengthAdjust='spacingAndGlyphs'>godoc.org</text>
+<text x='45.91' y='131.95' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='222.58px' lengthAdjust='spacingAndGlyphs'>Reading source code (e.g. standard</text>
+<text x='80.96' y='147.07' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='187.54px' lengthAdjust='spacingAndGlyphs'>libary, open-source packages)</text>
+<text x='174.36' y='109.35' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='94.14px' lengthAdjust='spacingAndGlyphs'>Stack Overflow</text>
+<text x='280.52' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='362.66' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='448.69' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='534.72' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='620.75' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='400.44' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='273.43' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  2750</text>
+<text x='273.43' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='341.54px' lengthAdjust='spacingAndGlyphs'>Please select the top 5 resources you use to get</text>
+<text x='273.43' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='270.36px' lengthAdjust='spacingAndGlyphs'>answers to your Go-related questions:</text>
+</svg>

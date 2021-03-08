@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='234.28,230.47 234.28,48.65 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='310.81,230.47 310.81,48.65 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='387.35,230.47 387.35,48.65 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='463.88,230.47 463.88,48.65 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='540.41,230.47 540.41,48.65 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='234.28' y='74.63' width='250.26' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='204.50' width='106.65' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='117.92' width='120.69' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='161.21' width='127.13' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='61.64' width='247.92' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='191.51' width='113.84' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='104.93' width='154.00' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='148.22' width='131.10' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<text x='500.74' y='89.45' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>65 %</text>
+<text x='357.13' y='219.32' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>28 %</text>
+<text x='371.17' y='132.74' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>32 %</text>
+<text x='377.61' y='176.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>33 %</text>
+<text x='498.40' y='69.97' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>65 %</text>
+<text x='364.32' y='199.84' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>30 %</text>
+<text x='404.48' y='113.26' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>40 %</text>
+<text x='381.58' y='156.55' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>34 %</text>
+<polyline points='234.28,417.77 234.28,235.95 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='310.81,417.77 310.81,235.95 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='387.35,417.77 387.35,235.95 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='463.88,417.77 463.88,235.95 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='540.41,417.77 540.41,235.95 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='234.28' y='312.20' width='82.56' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='282.87' width='135.01' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='341.52' width='65.22' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='253.55' width='244.47' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='370.85' width='39.00' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='303.40' width='86.10' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='391.38' width='6.19' height='17.60' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='274.07' width='133.94' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='332.73' width='63.59' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='244.75' width='239.17' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='362.05' width='63.59' height='8.80' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<text x='333.04' y='323.88' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>22 %</text>
+<text x='385.49' y='294.56' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>35 %</text>
+<text x='315.70' y='353.21' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<text x='494.95' y='265.23' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>64 %</text>
+<text x='289.48' y='382.53' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='336.58' y='310.69' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>22 %</text>
+<text x='252.72' y='405.26' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='384.42' y='281.36' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>35 %</text>
+<text x='314.07' y='340.01' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<text x='489.65' y='252.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>62 %</text>
+<text x='314.07' y='369.34' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<polyline points='234.28,605.07 234.28,423.25 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='310.81,605.07 310.81,423.25 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='387.35,605.07 387.35,423.25 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='463.88,605.07 463.88,423.25 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='540.41,605.07 540.41,423.25 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='234.28' y='449.22' width='180.44' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='535.80' width='69.92' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='579.09' width='27.82' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='492.51' width='195.47' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='234.28' y='436.24' width='206.92' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='522.82' width='95.98' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='566.11' width='26.18' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='234.28' y='479.53' width='122.16' height='12.99' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<text x='430.92' y='464.05' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>47 %</text>
+<text x='320.40' y='550.63' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='274.34' y='593.92' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='445.95' y='507.34' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>51 %</text>
+<text x='457.40' y='444.57' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>54 %</text>
+<text x='346.46' y='531.15' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>25 %</text>
+<text x='272.70' y='574.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='372.64' y='487.86' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>32 %</text>
+<defs>
+  <clipPath id='cpNTU1LjcyMnw1NzYuMzMzfDIzMC40NzJ8NDguNjU0'>
+    <rect x='555.72' y='48.65' width='20.61' height='181.82' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTU1LjcyMnw1NzYuMzMzfDIzMC40NzJ8NDguNjU0)'><text transform='translate(561.45,124.99) rotate(90)' style='font-size: 12.80px; fill: #1A1A1A; font-family: Arial;' textLength='29.15px' lengthAdjust='spacingAndGlyphs'>AWS</text></g>
+<defs>
+  <clipPath id='cpMHw2ODAuMzE1fDY4MC4zMTV8MA=='>
+    <rect x='0.00' y='0.00' width='680.31' height='680.31' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cpNTU1LjcyMnw1NzYuMzMzfDQxNy43Njl8MjM1Ljk1MQ=='>
+    <rect x='555.72' y='235.95' width='20.61' height='181.82' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTU1LjcyMnw1NzYuMzMzfDQxNy43Njl8MjM1Ljk1MQ==)'><text transform='translate(561.45,313.00) rotate(90)' style='font-size: 12.80px; fill: #1A1A1A; font-family: Arial;' textLength='27.73px' lengthAdjust='spacingAndGlyphs'>GCP</text></g>
+<defs>
+  <clipPath id='cpMHw2ODAuMzE1fDY4MC4zMTV8MA=='>
+    <rect x='0.00' y='0.00' width='680.31' height='680.31' />
+  </clipPath>
+</defs>
+<defs>
+  <clipPath id='cpNTU1LjcyMnw1NzYuMzMzfDYwNS4wNjd8NDIzLjI0OQ=='>
+    <rect x='555.72' y='423.25' width='20.61' height='181.82' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNTU1LjcyMnw1NzYuMzMzfDYwNS4wNjd8NDIzLjI0OQ==)'><text transform='translate(561.45,497.44) rotate(90)' style='font-size: 12.80px; fill: #1A1A1A; font-family: Arial;' textLength='33.43px' lengthAdjust='spacingAndGlyphs'>Azure</text></g>
+<defs>
+  <clipPath id='cpMHw2ODAuMzE1fDY4MC4zMTV8MA=='>
+    <rect x='0.00' y='0.00' width='680.31' height='680.31' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='224.16' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='296.80' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='373.33' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='449.87' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='526.40' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='65.43' y='201.95' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='148.61px' lengthAdjust='spacingAndGlyphs'>AWS Elastic Containers</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='167.35' y='217.07' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='46.68px' lengthAdjust='spacingAndGlyphs'>Service</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='127.67' y='166.22' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='86.37px' lengthAdjust='spacingAndGlyphs'>AWS Lambda</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='61.53' y='115.37' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='152.51px' lengthAdjust='spacingAndGlyphs'>AWS Elastic Kubernetes</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='167.35' y='130.49' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='46.68px' lengthAdjust='spacingAndGlyphs'>Service</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='151.02' y='79.64' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='63.01px' lengthAdjust='spacingAndGlyphs'>AWS EC2</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='80.95' y='405.18' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='133.09px' lengthAdjust='spacingAndGlyphs'>Google Cloud Anthos</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='98.85' y='375.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='115.19px' lengthAdjust='spacingAndGlyphs'>Google Cloud Run</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='63.84' y='346.53' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='150.20px' lengthAdjust='spacingAndGlyphs'>Google Cloud Functions</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='92.61' y='317.21' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='121.43px' lengthAdjust='spacingAndGlyphs'>Google App Engine</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='60.71' y='287.88' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='153.32px' lengthAdjust='spacingAndGlyphs'>Google Compute Engine</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='45.91' y='258.55' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='168.12px' lengthAdjust='spacingAndGlyphs'>Google Kubernetes Engine</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='112.88' y='584.10' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='101.16px' lengthAdjust='spacingAndGlyphs'>Azure Functions</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='56.06' y='540.81' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='157.98px' lengthAdjust='spacingAndGlyphs'>Azure Container Instance</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='70.09' y='497.52' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='143.95px' lengthAdjust='spacingAndGlyphs'>Azure Virtual Machines</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='51.40' y='454.23' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='162.64px' lengthAdjust='spacingAndGlyphs'>Azure Kubernetes Service</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='202.35' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='369.98px' lengthAdjust='spacingAndGlyphs'>% of respondents using service given cloud provider</text></g>
+<rect x='593.48' y='314.27' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)' />
+<rect x='593.48' y='331.55' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)' />
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='618.02' y='326.78' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2020</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='618.02' y='344.06' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2019</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDY4MC4zMTV8MA==)'><text x='218.97' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='448.18px' lengthAdjust='spacingAndGlyphs'>My team at work deploys Go programs to: (select all that apply)</text></g>
+</svg>

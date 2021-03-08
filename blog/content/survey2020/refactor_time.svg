@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 340.16'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='168.80,264.91 168.80,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='283.84,264.91 283.84,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='398.88,264.91 398.88,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='513.92,264.91 513.92,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='628.96,264.91 628.96,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='168.80' y='94.89' width='95.30' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='168.80' y='123.70' width='193.16' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='168.80' y='152.52' width='165.54' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='168.80' y='181.34' width='58.68' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='168.80' y='210.16' width='32.55' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='168.80' y='238.97' width='29.98' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='270.58' y='108.62' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<text x='368.44' y='137.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>34 %</text>
+<text x='340.82' y='166.25' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>29 %</text>
+<text x='233.96' y='195.07' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='206.25' y='223.89' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='203.68' y='252.70' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>5 %</text>
+<text x='45.91' y='252.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='94.94px' lengthAdjust='spacingAndGlyphs'>More than 50%</text>
+<text x='84.82' y='223.81' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='56.03px' lengthAdjust='spacingAndGlyphs'>41 - 50%</text>
+<text x='84.82' y='194.99' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='56.03px' lengthAdjust='spacingAndGlyphs'>31 - 40%</text>
+<text x='84.82' y='166.17' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='56.03px' lengthAdjust='spacingAndGlyphs'>21 - 30%</text>
+<text x='84.82' y='137.36' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='56.03px' lengthAdjust='spacingAndGlyphs'>11 - 20%</text>
+<text x='92.61' y='108.54' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='48.25px' lengthAdjust='spacingAndGlyphs'>0 - 10%</text>
+<text x='158.68' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='269.83' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='384.87' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='499.91' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='614.95' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='336.62' y='308.44' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='145.79' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  2686</text>
+<text x='145.79' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='361.99px' lengthAdjust='spacingAndGlyphs'>Roughly how much of the time you spend coding in</text>
+<text x='145.79' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='270.37px' lengthAdjust='spacingAndGlyphs'>Go involves refactoring existing code?</text>
+</svg>

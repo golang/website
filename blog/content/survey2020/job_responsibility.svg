@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 566.93'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='321.08,491.68 321.08,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='399.87,491.68 399.87,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='478.65,491.68 478.65,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='557.43,491.68 557.43,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='636.21,491.68 636.21,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='321.08' y='98.17' width='275.45' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='217.41' width='14.56' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='137.92' width='37.47' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='336.66' width='4.94' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='257.16' width='10.12' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='177.66' width='24.98' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='416.16' width='1.01' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='376.41' width='4.33' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='296.91' width='7.76' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='321.08' y='455.91' width='13.30' height='23.85' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='603.02' y='115.18' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>70 %</text>
+<text x='340.54' y='234.42' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='365.04' y='154.93' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='330.92' y='353.67' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='336.11' y='274.17' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='350.97' y='194.67' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='326.99' y='433.17' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>0 %</text>
+<text x='330.32' y='393.42' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='333.74' y='313.92' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='339.28' y='472.92' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='265.38' y='472.84' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='52.93' y='425.53' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='247.46px' lengthAdjust='spacingAndGlyphs'>Responding to system health alerts (on-</text>
+<text x='233.48' y='440.65' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='66.92px' lengthAdjust='spacingAndGlyphs'>call duties)</text>
+<text x='105.84' y='393.34' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='194.55px' lengthAdjust='spacingAndGlyphs'>Data analysis/machine learning</text>
+<text x='49.80' y='346.03' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='250.60px' lengthAdjust='spacingAndGlyphs'>Monitoring and troubleshooting issues in</text>
+<text x='45.91' y='361.15' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='254.48px' lengthAdjust='spacingAndGlyphs'>software and apps releases/deployments</text>
+<text x='120.63' y='313.84' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='179.76px' lengthAdjust='spacingAndGlyphs'>Project/product management</text>
+<text x='69.25' y='266.53' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='231.15px' lengthAdjust='spacingAndGlyphs'>Managing staff and/or overseeing the</text>
+<text x='101.19' y='281.65' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='199.21px' lengthAdjust='spacingAndGlyphs'>direction and procurement for IT</text>
+<text x='52.96' y='234.35' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='247.44px' lengthAdjust='spacingAndGlyphs'>Maintaining IT systems and architecture</text>
+<text x='94.20' y='179.48' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='206.20px' lengthAdjust='spacingAndGlyphs'>Overseeing my company’s cloud,</text>
+<text x='81.73' y='194.60' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='218.66px' lengthAdjust='spacingAndGlyphs'>application, or platform architecture</text>
+<text x='200.77' y='209.72' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='99.63px' lengthAdjust='spacingAndGlyphs'>and deployment</text>
+<text x='55.29' y='154.85' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='245.10px' lengthAdjust='spacingAndGlyphs'>Designing IT systems and architectures</text>
+<text x='68.47' y='115.10' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='231.92px' lengthAdjust='spacingAndGlyphs'>Developing software and applications</text>
+<text x='310.97' y='506.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='385.86' y='506.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='464.64' y='506.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='543.42' y='506.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='622.20' y='506.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='416.39' y='535.21' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='305.33' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  7821</text>
+<text x='305.33' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='264.98px' lengthAdjust='spacingAndGlyphs'>Which of the following is your primary</text>
+<text x='305.33' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='239.22px' lengthAdjust='spacingAndGlyphs'>responsibility in your current role?</text>
+</svg>

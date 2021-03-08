@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 340.16'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='241.13,264.91 241.13,138.08 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='320.94,264.91 320.94,138.08 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='400.75,264.91 400.75,138.08 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='480.56,264.91 480.56,138.08 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='560.37,264.91 560.37,138.08 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='241.13' y='161.86' width='259.83' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='241.13' y='241.13' width='10.18' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='241.13' y='201.50' width='49.24' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<rect x='241.13' y='149.97' width='264.01' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='241.13' y='229.24' width='7.41' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='241.13' y='189.61' width='47.81' height='11.89' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<text x='507.44' y='175.87' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>81 %</text>
+<text x='256.21' y='255.13' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='296.85' y='215.50' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>15 %</text>
+<text x='511.62' y='158.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>83 %</text>
+<text x='253.44' y='237.30' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='295.43' y='197.66' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>15 %</text>
+<text x='88.73' y='246.14' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='131.51px' lengthAdjust='spacingAndGlyphs'>I identify as a woman</text>
+<text x='87.95' y='206.50' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='132.29px' lengthAdjust='spacingAndGlyphs'>I prefer not to answer</text>
+<text x='45.91' y='166.87' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='174.32px' lengthAdjust='spacingAndGlyphs'>I do not identify as a woman</text>
+<text x='231.01' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='306.93' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>25%</text>
+<text x='386.74' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='466.55' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>75%</text>
+<text x='542.47' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.81px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='338.49' y='308.44' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='593.48' y='188.91' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #1F78B4;' />
+<rect x='593.48' y='206.19' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #A6CEE3;' />
+<text x='618.02' y='201.42' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2020</text>
+<text x='618.02' y='218.70' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2019</text>
+<text x='225.17' y='129.23' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  5555</text>
+<text x='225.17' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='369.94px' lengthAdjust='spacingAndGlyphs'>We want the Go community to be inclusive; we want</text>
+<text x='225.17' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='325.02px' lengthAdjust='spacingAndGlyphs'>to see how we're doing and how to improve. If</text>
+<text x='225.17' y='74.36' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='321.07px' lengthAdjust='spacingAndGlyphs'>you would like to, you can tell us whether you</text>
+<text x='225.17' y='91.64' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='313.07px' lengthAdjust='spacingAndGlyphs'>identify with a traditionally underrepresented</text>
+<text x='225.17' y='108.92' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='116.52px' lengthAdjust='spacingAndGlyphs'>group: (optional)</text>
+</svg>
