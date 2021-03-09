@@ -69,8 +69,8 @@ func TestRedirects(t *testing.T) {
 		"/cl/152048": {302, "https://codereview.appspot.com/152048"},
 
 		// And verify we're using the "bigEnoughAssumeRietveld" value:
-		"/cl/299999": {302, "https://go-review.googlesource.com/299999"},
-		"/cl/300000": {302, "https://codereview.appspot.com/300000"},
+		"/cl/3999999": {302, "https://go-review.googlesource.com/3999999"},
+		"/cl/4000000": {302, "https://codereview.appspot.com/4000000"},
 	}
 
 	mux := http.NewServeMux()
