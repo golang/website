@@ -37,7 +37,37 @@ The [guidelines for writing documentation](https://blog.golang.org/godoc) for th
 
 It’s important to write a good summary of the package in the first sentence of the package comment. The go.dev site indexes the first sentence and displays it in search results.
 
-Pkg.go.dev displays the GOOS and GOARCH for the documentation displayed at the bottom of the documentation page.
+### Build Context
+
+Most Go packages look and behave the same regardless of the machine architecture
+or operating system. But some have different documentation, even different
+exported symbols, for different architectures or OSes. Some packages may not even
+exist for some architectures.
+
+Go calls an OS/architecture pair a "build context" and writes it with a slash,
+like `linux/amd64`. You may also see the terms `GOOS` and `GOARCH` for the OS
+and architecture respectively, because those are the names of the environment
+variables that the go command uses. (See the [go command
+documentation](https://golang.org/cmd/go) for more information.)
+
+If a package exists at only one build context, pkg.go.dev displays that build
+context at the upper right corner of the documentation. For example,
+https://pkg.go.dev/syscall/js displays "js/wasm".
+
+If a package is different in different build contexts, then pkg.go.dev will
+display one by default and provide a dropdown control at the upper right so you
+can select a different one.
+
+For packages that are the same across all build contexts, pkg.go.dev does not
+display any build context information.
+
+Although there are many possible OS/architecture pairs, pkg.go.dev considers
+only a
+[handful](https://go.googlesource.com/pkgsite/+/master/internal/build_context.go#29)
+of them. So if a package only exists for unsupported build contexts, pkg.go.dev
+will not display documentation for it.
+
+### Source Links
 
 Most of the time, pkg.go.dev can determine the location of a package's source
 files, and provide links from symbols in the documentation to their definitions
