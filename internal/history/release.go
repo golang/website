@@ -35,13 +35,13 @@ var Releases = map[GoVer]Release{
 		Date:     Date{2021, 3, 10},
 		Security: true,
 
-		Future: true,
+		Packages: []string{"archive/zip", "encoding/xml"},
 	},
 	{1, 15, 9}: {
 		Date:     Date{2021, 3, 10},
 		Security: true,
 
-		Future: true,
+		Packages: []string{"encoding/xml"},
 	},
 
 	{1, 16, 0}: {
