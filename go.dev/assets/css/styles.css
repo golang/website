@@ -4,7 +4,19 @@
   box-sizing: border-box;
 }
 body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
+  'Apple Color Emoji', 'Segoe UI Emoji';
   max-height: 100%;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+code,
+pre {
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
 html,
 .Site {
@@ -24,7 +36,6 @@ a:hover {
 .Site {
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   margin: 0;
 }
 .bluebg {
@@ -61,7 +72,6 @@ a:hover {
 }
 .CaseStudy-aboutBlockTitle {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 3rem;
@@ -74,7 +84,6 @@ a:hover {
 }
 .CaseStudy-aboutBlockBody {
   color: #464a4d;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   letter-spacing: 0.0063rem;
   line-height: 1.5rem;
@@ -274,15 +283,6 @@ a.Footer-link--primary {
 }
 
 h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
-}
-
-h1,
 h2 {
   font-weight: 600;
   letter-spacing: 0.03rem;
@@ -424,7 +424,6 @@ h6 {
 }
 .Article-author,
 .Article-date {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 0.875rem;
   line-height: 1.375rem;
 }
@@ -438,7 +437,6 @@ h6 {
 .Article h5,
 .Article h6 {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
 }
 .Article h1 {
   font-size: 2.25rem;
@@ -487,7 +485,6 @@ h6 {
 .Article pre,
 .Article code {
   color: #3e4042;
-  font-family: 'Source Code Pro', monospace;
 }
 @media only screen and (min-width: 57.7rem) {
   .Article h1,
@@ -523,7 +520,6 @@ h6 {
 }
 a.BreadcrumbNav-link {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
   font-size: 0.875rem;
   text-decoration: none;
   white-space: nowrap;
@@ -816,7 +812,6 @@ a.GettingStartedGo-resourceItemTitle {
   color: #fff;
 }
 .Hero h1 {
-  font-family: 'Work Sans', sans-serif;
   font-size: 2.625rem;
   font-weight: 500;
   letter-spacing: 0.3rem;
@@ -950,9 +945,6 @@ a.GettingStartedGo-resourceItemTitle {
   color: #fff;
   text-decoration: underline;
 }
-.Hero-footnote code {
-  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
-}
 .SubHero-gridContainer {
   display: grid;
   gap: 0 5vw;
@@ -1019,7 +1011,7 @@ a.GettingStartedGo-resourceItemTitle {
     grid-row: 1 / 3;
   }
   .Hero-blurb h1 {
-    font-size: 2.25rem;
+    font-size: 2.45rem;
     font-weight: 500;
   }
   .Hero-blurbList {
@@ -1074,7 +1066,6 @@ a.GettingStartedGo-resourceItemTitle {
   }
 }
 .WhoUses-heroInnerLeft h3 {
-  font-family: 'Work Sans', sans-serif;
   font-size: 1.5rem;
   font-weight: normal;
   margin: 1.375rem 0;
@@ -1337,7 +1328,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .WhoUsesCaseStudy-view-more a {
   color: #3c4043;
-  font-family: 'Google Sans', sans-serif;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
@@ -1450,7 +1440,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .WhyGo-reasonPackages {
   color: #3c4043;
-  font-family: 'Google Sans', sans-serif;
   font-size: 0.875rem;
   letter-spacing: 0.055rem;
 }
@@ -1670,7 +1659,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .GoCarousel-eventDate p {
   color: #5f6368;
-  font-family: 'Google Sans', sans-serif;
   font-size: 0.8125rem;
   font-style: normal;
   line-height: 1rem;
@@ -1794,10 +1782,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-heroContent h1 {
-  font-family: Work Sans;
+  font-size: 1.5rem;
   font-style: normal;
   font-weight: normal;
-  font-size: 1.5rem;
   line-height: 2rem;
 }
 
@@ -2139,7 +2126,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Learn-eventName {
   color: #000;
-  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 1.25rem;
   font-weight: 500;
   margin: 0;
@@ -2352,7 +2338,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Solutions-title h1,
 .WhoUsesSubPage-heroInner--caseStudy h1,
 .WhoUsesSubPage-heroInner--useCase h1 {
-  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: normal;
@@ -2370,7 +2355,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-title h3 {
   color: #3c4043;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.0063rem;
@@ -2395,7 +2379,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   color: #5f5f5f;
   display: flex;
   flex-direction: column;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 0.875rem;
   font-weight: normal;
   line-height: 1.5rem;
@@ -2421,7 +2404,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-headlineNotification {
   color: #71757b;
-  font-family: 'Work Sans', sans-serif;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
@@ -2433,7 +2415,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-headline h2 {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: normal;
@@ -2475,7 +2456,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   border-style: none;
   color: #000;
   cursor: pointer;
-  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: 500;
   line-height: 2.25rem;
@@ -2561,7 +2541,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Solutions-useCaseAction {
   bottom: 1rem;
   color: #007f9f;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.0063rem;
@@ -2577,7 +2556,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-useCaseDescription {
   color: #71757b;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
@@ -2586,7 +2564,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-useCaseTitle {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -2619,7 +2596,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-footer p {
   color: #000;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1.125rem;
   font-weight: normal;
   letter-spacing: 0.007rem;
@@ -2668,7 +2644,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .TestimonialsGo-author {
   color: #3c4043;
-  font-family: 'Work Sans', Arial, Helvetica, sans-serif;
   font-size: 0.8rem;
   font-style: normal;
   font-weight: normal;
@@ -2703,7 +2678,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-bottom: 2rem;
 }
 .PullQuote-body {
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   margin: 1.5rem 0 1rem;
 }
 .PullQuote-link,
@@ -2715,7 +2689,6 @@ p.BackgroundQuote-body {
 .BackgroundQuote-author {
   display: flex;
   flex-wrap: wrap;
-  font-family: 'Work Sans', sans-serif;
   font-style: normal;
   font-weight: 500;
   justify-content: flex-end;
@@ -2770,14 +2743,12 @@ p.BackgroundQuote-body {
 }
 .QuoteBlock-body {
   color: #3f4346;
-  font-family: 'Roboto', Arial, Helvetica, sans-serif;
   font-size: 1.125rem;
   letter-spacing: 0.007rem;
   line-height: 2rem;
 }
 .QuoteBlock-author {
   color: #3f4346;
-  font-family: 'Work Sans', sans-serif;
   font-size: 1rem;
   font-style: normal;
   font-weight: 500;
@@ -3405,7 +3376,6 @@ img.PullQuote-image {
 
 .Card-contentTitle {
   color: #000;
-  font-family: 'Work Sans', sans-serif;
   font-size: 1.125rem;
   font-weight: 500;
 }
@@ -3468,13 +3438,12 @@ img.PullQuote-image {
 }
 
 .Book-content {
-  margin-left: 1.6875rem;
   flex: 1;
+  margin-left: 1.6875rem;
 }
 
 .Book-title {
   color: #000;
-  font-family: Work Sans;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
