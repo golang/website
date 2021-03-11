@@ -5,11 +5,11 @@
 {{ $gopher := .Get "gopher"}}
 {{ $sizeIn := .Get "size"}}
 
-{{if or (eq (.Get "align") "right") (eq (.Get "align") "Right")}}
+{{if eq (.Get "align") "right" "Right"}}
    {{$align = "Right"}}
 {{end}}
 
-{{if or (or (eq $sizeIn "XLarge") (eq $sizeIn "xl")) (eq $sizeIn "xlarge") }}
+{{if eq $sizeIn "XLarge" "xl" "xlarge"}}
     {{$size = "XLarge"}}
 {{end}}
 
@@ -21,7 +21,7 @@
     {{$src = "/images/gophers/blue.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
-{{if (eq $gopher "front") (eq $gopher "sticker1")}}
+{{if eq $gopher "front" "sticker1"}}
     {{$src = "/images/gophers/front.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
@@ -37,11 +37,11 @@
     {{$src = "/images/gophers/green.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
-{{if or (eq $gopher "grey") (eq $gopher "gray")}}
+{{if eq $gopher "grey" "gray"}}
     {{$src = "/images/gophers/grey.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
-{{if (eq $gopher "happy") (eq $gopher "sticker2")}}
+{{if eq $gopher "happy" "sticker2"}}
     {{$src = "/images/gophers/happy.svg"}}
     {{$alt = "Go gopher"}}
 {{end}}
