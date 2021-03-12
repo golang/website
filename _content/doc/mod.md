@@ -486,19 +486,39 @@ module golang.org/x/net
 
 ### `go` directive {#go-mod-file-go}
 
-A `go` directive sets the expected language version for the module. The
-version must be a valid Go release version: a positive integer followed by a dot
-and a non-negative integer (for example, `1.9`, `1.14`).
+A `go` directive indicates that a module was written assuming the semantics of a
+given version of Go. The version must be a valid Go release version: a positive
+integer followed by a dot and a non-negative integer (for example, `1.9`,
+`1.14`).
 
-The language version determines which language features are available when
-compiling packages in the module. Language features present in that version
-will be available for use. Language features removed in earlier versions,
-or added in later versions, will not be available. The language version does not
-affect build tags, which are determined by the Go release being used.
+The `go` directive was originally intended to support backward incompatible
+changes to the Go language (see [Go 2
+transition](/design/28221-go2-transitions)). There have been no incompatible
+language changes since modules were introduced, but the `go` directive still
+affects use of new language features:
 
-The language version is also used to enable features in the `go` command. For
-example, automatic [vendoring](#vendoring) may be enabled with a `go` version of
-`1.14` or higher.
+* For packages within the module, the compiler rejects use of language features
+  introduced after the version specified by the `go` directive. For example, if
+  a module has the directive `go 1.12`, its packages may not use numeric
+  literals like `1_000_000`, which were introduced in Go 1.13.
+* If an older Go version builds one of the module's packages and encounters a
+  compile error, the error notes that the module was written for a newer Go
+  version. For example, suppose a module has `go 1.13` and a package uses the
+  numeric literal `1_000_000`. If that package is built with Go 1.12, the
+  compiler notes that the code is written for Go 1.13.
+
+Additionally, the `go` command changes its behavior based on the version
+specified by the `go` directive. This has the following effects:
+
+* At `go 1.14` or higher, automatic [vendoring](#vendoring) may be enabled.
+  If the file `vendor/modules.txt` is present and consistent with `go.mod`,
+  there is no need to explicitly use the `-mod=vendor` flag.
+* At `go 1.16` or higher, the `all` package pattern matches only packages
+  transitively imported by packages and tests in the [main
+  module](#glos-main-module). This is the same set of packages retained by
+  [`go mod vendor`](#go-mod-vendor) since modules were introduced. In lower
+  versions, `all` also includes tests of packages imported by packages in
+  the main module, tests of those packages, and so on.
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.

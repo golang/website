@@ -122,7 +122,8 @@ go mod init example.com/stringtools
 
 ## go {#go}
 
-Specifies the minimum Go version required by the module.
+Indicates that the module was written assuming the semantics of the Go version
+specified by the directive.
 
 ### Syntax {#go-syntax}
 
@@ -142,11 +143,37 @@ Specifies the minimum Go version required by the module.
 
 ### Notes {#go-notes}
 
-The version number also controls some module-related features in the `go`
-command. For example, if the vendor directory is present, that directory will be
-used automatically if the version number is 1.14 or higher.
+The `go` directive was originally intended to support backward incompatible
+changes to the Go language (see [Go 2
+transition](/design/28221-go2-transitions)). There have been no incompatible
+language changes since modules were introduced, but the `go` directive still
+affects use of new language features:
 
-For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
+* For packages within the module, the compiler rejects use of language features
+  introduced after the version specified by the `go` directive. For example, if
+  a module has the directive `go 1.12`, its packages may not use numeric
+  literals like `1_000_000`, which were introduced in Go 1.13.
+* If an older Go version builds one of the module's packages and encounters a
+  compile error, the error notes that the module was written for a newer Go
+  version. For example, suppose a module has `go 1.13` and a package uses the
+  numeric literal `1_000_000`. If that package is built with Go 1.12, the
+  compiler notes that the code is written for Go 1.13.
+
+Additionally, the `go` command changes its behavior based on the version
+specified by the `go` directive. This has the following effects:
+
+* At `go 1.14` or higher, automatic [vendoring](/ref/mod#vendoring) may be
+  enabled.  If the file `vendor/modules.txt` is present and consistent with
+  `go.mod`, there is no need to explicitly use the `-mod=vendor` flag.
+* At `go 1.16` or higher, the `all` package pattern matches only packages
+  transitively imported by packages and tests in the [main
+  module](/ref/mod#glos-main-module). This is the same set of packages retained
+  by [`go mod vendor`](/ref/mod#go-mod-vendor) since modules were introduced. In
+  lower versions, `all` also includes tests of packages imported by packages in
+  the main module, tests of those packages, and so on.
+
+A `go.mod` file may contain at most one `go` directive. Most commands will add a
+`go` directive with the current Go version if one is not present.
 
 ## require {#require}
 
