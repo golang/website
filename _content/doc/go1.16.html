@@ -1090,6 +1090,19 @@ func TestFoo(t *testing.T) {
   </dd>
 </dl><!-- path/filepath -->
 
+<dl id="reflect"><dt><a href="/pkg/reflect/">reflect</a></dt>
+  <dd>
+    <p><!-- CL 192331 -->
+      The Zero function has been optimized to avoid allocations. Code
+      which incorrectly compares the returned Value to another Value
+      using == or DeepEqual may get different results than those
+      obtained in previous Go versions. The documentation
+      for <a href="/pkg/reflect#Value"><code>reflect.Value</code></a>
+      describes how to compare two <code>Value</code>s correctly.
+    </p>
+  </dd>
+</dl><!-- reflect -->
+
 <dl id="runtime/debug"><dt><a href="/pkg/runtime/debug/">runtime/debug</a></dt>
   <dd>
     <p><!-- CL 249677 -->
