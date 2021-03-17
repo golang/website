@@ -26,10 +26,10 @@ Godoc parses Go source code - including comments - and produces documentation
 as HTML or plain text.
 The end result is documentation tightly coupled with the code it documents.
 For example, through godoc's web interface you can navigate from a function's
-[documentation](https://golang.org/pkg/strings/#HasPrefix) to its [implementation](https://golang.org/src/pkg/strings/strings.go#L493) with one click.
+[documentation](https://golang.org/pkg/strings/#HasPrefix) to its [implementation](https://golang.org/src/strings/strings.go?s=11163:11200#L434) with one click.
 
-Godoc is conceptually related to Python's [Docstring](http://www.python.org/dev/peps/pep-0257/)
-and Java's [Javadoc](http://www.oracle.com/technetwork/java/javase/documentation/index-jsp-135444.html),
+Godoc is conceptually related to Python's [Docstring](https://www.python.org/dev/peps/pep-0257/)
+and Java's [Javadoc](https://www.oracle.com/java/technologies/javase/javadoc-tool.html)
 but its design is simpler.
 The comments read by godoc are not language constructs (as with Docstring)
 nor must they have their own machine-readable syntax (as with Javadoc).
@@ -88,7 +88,6 @@ programs.
 To signal that an identifier should not be used, add a paragraph to its doc
 comment that begins with "Deprecated:" followed by some information about the
 deprecation.
-There are a few examples [in the standard library](https://golang.org/search?q=Deprecated:).
 
 There are a few formatting rules that Godoc uses when converting comments to HTML:
 
