@@ -109,7 +109,7 @@ directory.
 As you use Go tools to manage dependencies, the tools update the go.mod file so
 that it maintains a current list of your dependencies.
 
-When you add dependencies, Go tools also create a go.sum file that contains
+When you add dependencies, Go tools also creates a go.sum file that contains
 checksums of modules you depend on. Go uses this to verify the integrity of
 downloaded module files, especially for other developers working on your
 project.
@@ -399,7 +399,7 @@ When your code no longer uses any packages in a module, you can stop tracking
 the module as a dependency.
 
 To stop tracking all unused modules, run the [`go mod tidy`
-command](/ref/mod#go-mod-tidy). This command also may also add missing
+command](/ref/mod#go-mod-tidy). This command may also add missing
 dependencies needed to build packages in your module.
 
 ```
