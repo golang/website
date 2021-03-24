@@ -8,7 +8,7 @@ properties, including its dependencies on other modules and on versions of Go.
 These properties include:
 
 * The current module's **module path**. This should be a location from which
-the module can be down loaded by Go tools, such as the module code's
+the module can be downloaded by Go tools, such as the module code's
 repository location. This serves as a unique identifier, when combined
 with the module's version number. It is also the prefix of the package path for
 all packages in the module. For more about how Go locates the module, see the
