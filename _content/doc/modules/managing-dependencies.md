@@ -399,8 +399,8 @@ When your code no longer uses any packages in a module, you can stop tracking
 the module as a dependency.
 
 To stop tracking all unused modules, run the [`go mod tidy`
-command](/ref/mod#go-mod-tidy). This command also may also add missing
-dependencies needed to build packages in your module.
+command](/ref/mod#go-mod-tidy). This command may also add missing dependencies
+needed to build packages in your module.
 
 ```
 $ go mod tidy
