@@ -330,9 +330,11 @@ func parseVersion(v string) (maj, min int, tail string) {
 	return
 }
 
+// validUser controls whether the named gomote user is allowed to upload
+// Go release binaries via the /dl/upload endpoint.
 func validUser(user string) bool {
 	switch user {
-	case "adg", "bradfitz", "cbro", "andybons", "valsorda", "dmitshur", "katiehockman", "julieqiu", "rakoczy", "amedee", "cherryyz", "drchase", "mknyszek":
+	case "amedee", "cherryyz", "dmitshur", "drchase", "katiehockman", "mknyszek", "rakoczy", "valsorda":
 		return true
 	}
 	return false
