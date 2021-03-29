@@ -332,7 +332,7 @@ func parseVersion(v string) (maj, min int, tail string) {
 
 func validUser(user string) bool {
 	switch user {
-	case "adg", "bradfitz", "cbro", "andybons", "valsorda", "dmitshur", "katiehockman", "julieqiu", "rakoczy", "amedee":
+	case "adg", "bradfitz", "cbro", "andybons", "valsorda", "dmitshur", "katiehockman", "julieqiu", "rakoczy", "amedee", "cherryyz", "drchase", "mknyszek":
 		return true
 	}
 	return false
