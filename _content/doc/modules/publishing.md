@@ -62,7 +62,7 @@ Use the following steps to publish a module.
 
 1.  Make the module available by running the [`go list`
   command](https://golang.org/cmd/go/#hdr-List_packages_or_modules) to prompt
-  Go to update its index of modules with 1nformation about the module you're
+  Go to update its index of modules with information about the module you're
   publishing.
 
     Precede the command with a statement to set the `GOPROXY` environment
