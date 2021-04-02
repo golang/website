@@ -710,7 +710,7 @@ retractions from `v1.0.1`, which is now the highest version. Both `v1.0.0` and
 the next highest version, perhaps `v0.9.5`.
 
 `retract` directives may be written with either a single version (like `v1.0.0`)
-or with a closed inteval of versions with an upper and lower bound, delimited by
+or with a closed interval of versions with an upper and lower bound, delimited by
 `[` and `]` (like `[v1.1.0, v1.2.0]`). A single version is equivalent to an
 interval where the upper and lower bound are the same. Like other directives,
 multiple `retract` directives may be grouped together in a block delimited by
@@ -748,7 +748,7 @@ in `go.mod` files of dependencies.
 ### Automatic updates {#go-mod-file-updates}
 
 Most commands report an error if `go.mod` is missing information or doesn't
-accurately relect reality. The [`go get`](#go-get) and
+accurately reflect reality. The [`go get`](#go-get) and
 [`go mod tidy`](#go-mod-tidy) commands may be used to fix most of these
 problems. Additionally, the `-mod=mod` flag may be used with most module-aware
 commands (`go build`, `go test`, and so on) to instruct the `go` command to
@@ -844,7 +844,7 @@ requires them.
 ### Replacement {#mvs-replace}
 
 The content of a module (including its `go.mod` file) may be replaced using a
-[`replace` directive](#go-mod-file-replace) in the the main module's `go.mod` file.
+[`replace` directive](#go-mod-file-replace) in the main module's `go.mod` file.
 A `replace` directive may apply to a specific version of a module or to all
 versions of a module.
 
