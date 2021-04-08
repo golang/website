@@ -475,7 +475,7 @@ A `module` directive defines the main module's [path](#glos-module-path). A
 `go.mod` file must contain exactly one `module` directive.
 
 ```
-ModuleDirective = "module" ( ModulePath | "(" newline ModulePath newline ")" newline .
+ModuleDirective = "module" ( ModulePath | "(" newline ModulePath newline ")" ) newline .
 ```
 
 Example:
@@ -594,7 +594,7 @@ ignored in other modules. See [Minimal version
 selection](#minimal-version-selection) for details.
 
 ```
-ExcludeDirective = "exclude" ( ExcludeSpec | "(" newline { ExcludeSpec } ")" ) .
+ExcludeDirective = "exclude" ( ExcludeSpec | "(" newline { ExcludeSpec } ")" newline ) .
 ExcludeSpec = ModulePath Version newline .
 ```
 
@@ -638,7 +638,7 @@ and are ignored in other modules. See [Minimal version
 selection](#minimal-version-selection) for details.
 
 ```
-ReplaceDirective = "replace" ( ReplaceSpec | "(" newline { ReplaceSpec } ")" newline ")" ) .
+ReplaceDirective = "replace" ( ReplaceSpec | "(" newline { ReplaceSpec } ")" newline ) .
 ReplaceSpec = ModulePath [ Version ] "=>" FilePath newline
             | ModulePath [ Version ] "=>" ModulePath Version newline .
 FilePath = /* platform-specific relative or absolute file path */
@@ -725,7 +725,7 @@ appears above a block, it applies to all `retract` directives within the block
 that don't have their own comments. A rationale comment may span multiple lines.
 
 ```
-RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" ) .
+RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" newline ) .
 RetractSpec = ( Version | "[" Version "," Version "]" ) newline .
 ```
 
