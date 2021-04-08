@@ -3657,7 +3657,7 @@ of all environment variables recognized by the `go` command.
         <pre>
 GOSUMDB="sum.golang.org"
 GOSUMDB="sum.golang.org+&lt;publickey&gt;"
-GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org
+GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
 </pre>
         <p>
           The <code>go</code> command knows the public key of
