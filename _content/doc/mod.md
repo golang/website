@@ -484,6 +484,45 @@ Example:
 module golang.org/x/net
 ```
 
+#### Deprecation {#go-mod-file-module-deprecation}
+
+A module can be marked as deprecated in a block of comments containing the
+string `Deprecated:` (case-sensitive) at the beginning of a paragraph. The
+deprecation message starts after the colon and runs to the end of the paragraph.
+The comments may appear immediately before the `module` directive or afterward
+on the same line.
+
+Example:
+
+```
+// Deprecated: use example.com/mod/v2 instead.
+module example.com/mod
+```
+
+Since Go 1.17, [`go list -m -u`](#go-list-m) checks for information on all
+deprecated modules in the [build list](#glos-build-list). [`go get`](#go-get)
+checks for deprecated modules needed to build packages named on the command
+line.
+
+When the `go` command retrieves deprecation information for a module, it loads
+the `go.mod` file from the version matching the `@latest` [version
+query](#version-queries) without considering retractions or exclusions. The `go`
+command loads [retractions](#glos-retracted-version) from the same `go.mod`
+file.
+
+To deprecate a module, an author may add a `// Deprecated:` comment and tag a
+new release. The author may change or remove the deprecation message in a higher
+release.
+
+A deprecation applies to all minor versions of a module. Major versions higher
+than `v2` are considered separate modules for this purpose, since their [major
+version suffixes](#glos-major-version-suffix) give them distinct module paths.
+
+Deprecation messages are intended to inform users that the module is no longer
+supported and to provide migration instructions, for example, to the latest
+major version. Individual minor and patch versions cannot be deprecated;
+[`retract`](#go-mod-file-retract) may be more appropriate for that.
+
 ### `go` directive {#go-mod-file-go}
 
 A `go` directive indicates that a module was written assuming the semantics of a
@@ -1254,11 +1293,13 @@ If a module is needed at two different versions (specified explicitly in command
 line arguments or to satisfy upgrades and downgrades), `go get` will report an
 error.
 
-After `go get` has selected a new set of versions, it checks whether any
-newly selected module versions or any modules providing packages named on
-the command line are [retracted](#glos-retracted-version). `go get` prints
-a warning for each retracted version it finds. [`go list -m -u all`](#go-list-m)
-may be used to check for retractions in all dependencies.
+After `go get` has selected a new set of versions, it checks whether any newly
+selected module versions or any modules providing packages named on the command
+line are [retracted](#glos-retracted-version) or
+[deprecated](#glos-deprecated-module). `go get` prints a warning for each
+retracted version or deprecated module it finds. [`go list -m -u
+all`](#go-list-m) may be used to check for retractions and deprecations in all
+dependencies.
 
 After `go get` updates the `go.mod` file, it builds the packages named
 on the command line. Executables will be installed in the directory named by
@@ -1386,18 +1427,19 @@ to a Go struct, but now a `Module` struct:
 
 ```
 type Module struct {
-    Path      string       // module path
-    Version   string       // module version
-    Versions  []string     // available module versions (with -versions)
-    Replace   *Module      // replaced by this module
-    Time      *time.Time   // time version was created
-    Update    *Module      // available update, if any (with -u)
-    Main      bool         // is this the main module?
-    Indirect  bool         // is this module only an indirect dependency of main module?
-    Dir       string       // directory holding files for this module, if any
-    GoMod     string       // path to go.mod file for this module, if any
-    GoVersion string       // go version used in module
-    Error     *ModuleError // error loading module
+    Path       string       // module path
+    Version    string       // module version
+    Versions   []string     // available module versions (with -versions)
+    Replace    *Module      // replaced by this module
+    Time       *time.Time   // time version was created
+    Update     *Module      // available update, if any (with -u)
+    Main       bool         // is this the main module?
+    Indirect   bool         // is this module only an indirect dependency of main module?
+    Dir        string       // directory holding files for this module, if any
+    GoMod      string       // path to go.mod file for this module, if any
+    GoVersion  string       // go version used in module
+    Deprecated string       // deprecation message, if any (with -u)
+    Error      *ModuleError // error loading module
 }
 
 type ModuleError struct {
@@ -1425,14 +1467,16 @@ is set to `Replace.Dir`, with no access to the replaced source code.)
 
 The `-u` flag adds information about available upgrades. When the latest version
 of a given module is newer than the current one, `list -u` sets the module's
-`Update` field to information about the newer module. `list -u` will also print
-whether the currently selected version is [retracted](#glos-retracted-version).
-The module's `String` method indicates an available upgrade by formatting the
-newer version in brackets after the current version. For example,
-`go list -m -u all` might print:
+`Update` field to information about the newer module. `list -u` also prints
+whether the currently selected version is [retracted](#glos-retracted-version)
+and whether the module is [deprecated](#go-mod-file-module-deprecation). The
+module's `String` method indicates an available upgrade by formatting the newer
+version in brackets after the current version. For example, `go list -m -u all`
+might print:
 
 ```
 example.com/main/module
+golang.org/x/old v1.9.9 (deprecated)
 golang.org/x/net v0.1.0 (retracted) [v0.2.0]
 golang.org/x/text v0.3.0 [v0.4.0] => /tmp/text
 rsc.io/pdf v0.1.1 [v0.1.2]
@@ -1447,13 +1491,14 @@ to display the module path followed by the space-separated version list.
 Retracted versions are omitted from this list unless the `-retracted` flag
 is also specified.
 
-The `-retracted` flag instructs `list` to show retracted versions in the
-list printed with the `-versions` flag and to consider retracted versions when
+The `-retracted` flag instructs `list` to show retracted versions in the list
+printed with the `-versions` flag and to consider retracted versions when
 resolving [version queries](#version-queries). For example, `go list -m
 -retracted example.com/m@latest` shows the highest release or pre-release
 version of the module `example.com/m`, even if that version is retracted.
-[`retract` directives](#go-mod-file-retract) are loaded from the `go.mod` file
-at this version. The `-retracted` flag was added in Go 1.16.
+[`retract` directives](#go-mod-file-retract) and
+[deprecations](#go-mod-file-module-deprecation) are loaded from the `go.mod`
+file at this version. The `-retracted` flag was added in Go 1.16.
 
 The template function `module` takes a single string argument that must be a
 module path or query and returns the specified module as a `Module` struct. If
@@ -3740,6 +3785,13 @@ is a canonical version, but `v1.2.3+meta` is not.
 
 <a id="glos-current-module"></a>
 **current module:** Synonym for [main module](#glos-main-module).
+
+<a id="glos-deprecated-module"></a>
+**deprecated module:** A module that is no longer supported by its authors
+(though major versions are considered distinct modules for this purpose).
+A deprecated module is marked with a [deprecation
+comment](#go-mod-file-module-deprecation) in the latest version of its
+[`go.mod` file](#glos-go-mod-file).
 
 <a id="glos-go-mod-file"></a>
 **`go.mod` file:** The file that defines a module's path, requirements, and
