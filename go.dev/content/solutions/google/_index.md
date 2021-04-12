@@ -66,3 +66,11 @@ When the product Chrome comes to mind, you probably think solely of the user-ins
 The Firebase Hosting team provides static web hosting services for Google Cloud customers. They provide a static web host that sits behind a global content delivery network, and offer users tools that are easy to use. The team also develops features that range from uploading site files to registering domains to tracking usage.
 
 [Learn more](/solutions/google/firebase/)
+
+---
+
+### Actuating Google Production: How Google’s Site Reliability Engineering Team Uses Go
+
+Google runs a small number of very large services. Those services are powered by a global infrastructure covering everything one needs: storage systems, load balancers, network, logging, monitoring, and many more. Nevertheless, it is not a static system - it cannot be. Architecture evolves, new products and ideas are created, new versions must be rolled out, configs pushed, database schema updated, and more. We end up deploying changes to our systems dozens of times per second.
+
+[Learn more](/solutions/google/sitereliability/)

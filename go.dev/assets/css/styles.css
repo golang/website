@@ -517,12 +517,16 @@ h6 {
 .BreadcrumbNav-li {
   align-items: center;
   display: flex;
+  white-space: nowrap;
 }
 a.BreadcrumbNav-link {
   color: #000;
   font-size: 0.875rem;
   text-decoration: none;
-  white-space: nowrap;
+}
+.BreadcrumbNav-li:last-child {
+  padding-right: 0.812rem;
+  white-space: normal;
 }
 .BreadcrumbNav-li:not(:last-child):after {
   background: url('/images/icons/arrow-forward.svg') no-repeat;
