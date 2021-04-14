@@ -3,6 +3,7 @@
       "stylelint-order"
   ],
   "rules": {
+      "color-hex-case": "lower",
       "selector-list-comma-newline-after": "always",
       "order/order": [
           "custom-properties",
