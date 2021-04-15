@@ -1195,8 +1195,7 @@ And for individual developers and open source teams,
 the Go team at Google has [launched a proxy](https://groups.google.com/forum/#!topic/golang-announce/0wo8cOhGuAI) that serves
 as a public mirror of all open-source Go packages,
 and Go 1.13 will use that proxy by default when in module mode.
-Katie Hockman gave a talk about this system at Gophercon 2019.
-(We’ll add a link here when the video becomes available.)
+Katie Hockman gave a [talk about this system at Gophercon 2019](https://youtu.be/KqTySYYhPUE).
 
 **Go Modules Status**
 
