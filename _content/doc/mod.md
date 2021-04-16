@@ -2322,7 +2322,7 @@ versions, but this is no longer true since Go 1.13.
 A module proxy must always serve the same content for successful
 responses for `$base/$module/$version.mod` and `$base/$module/$version.zip`
 queries. This content is [cryptographically authenticated](#authenticating)
-using [`go.sum` files](#go.sum-files) and, by default, the
+using [`go.sum` files](go-sum-files) and, by default, the
 [checksum database](#checksum-database).
 
 The `go` command caches most content it downloads from module proxies in its
@@ -3245,7 +3245,7 @@ conflicts on case-insensitive file systems.
         order, compression, alignment, and metadata don't affect the hash.
         When using a module, the <code>go</code> command verifies this hash
         matches the corresponding line in
-        <a href="#go.sum-files"><code>go.sum</code></a>. The
+        <a href="go-sum-files"><code>go.sum</code></a>. The
         <a href="#go-mod-verify"><code>go mod verify</code></a> command checks
         that the hashes of module <code>.zip</code> files and extracted
         directories match these files.
@@ -3288,7 +3288,7 @@ not affected by file order, compression, alignment, and other metadata. See
 for hash implementation details.
 
 The `go` command compares each hash with the corresponding line in the main
-module's [`go.sum` file](#go.sum-files). If the hash is different from the hash
+module's [`go.sum` file](go-sum-files). If the hash is different from the hash
 in `go.sum`, the `go` command reports a security error and deletes the
 downloaded file without adding it into the module cache.
 
@@ -3311,7 +3311,7 @@ verify`](#go-mod-verify) command may be used to check that zip files and
 extracted directories have not been modified since they were added to the module
 cache.
 
-### go.sum files {#go.sum-files}
+### go.sum files {#go-sum-files}
 
 A module may have a text file named `go.sum` in its root directory, alongside
 its `go.mod` file. The `go.sum` file contains cryptographic hashes of the
