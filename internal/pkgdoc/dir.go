@@ -143,8 +143,7 @@ func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
 	var dirs []*Dir
 
 	for _, d := range list {
-		name := d.Name()
-		filename := path.Join(abspath, name)
+		filename := path.Join(abspath, d.Name())
 		switch {
 		case isPkgDir(d):
 			dir := newDir(fsys, fset, filename)
@@ -169,7 +168,7 @@ func newDir(fsys fs.FS, fset *token.FileSet, abspath string) *Dir {
 				// prioritize documentation
 				i := -1
 				switch file.Name.Name {
-				case name:
+				case path.Base(abspath):
 					i = 0 // normal case: directory name matches package name
 				case "main":
 					i = 1 // directory contains a main package
