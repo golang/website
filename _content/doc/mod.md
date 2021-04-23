@@ -3031,7 +3031,7 @@ Alternatively, you can rewrite `https://` URLs to another scheme. For example,
 in `.gitconfig`:
 
 ```
-[url "git@github.com:']
+[url "git@github.com:"]
     insteadOf = https://github.com/
 ```
 
