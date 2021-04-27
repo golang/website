@@ -29,7 +29,9 @@
 {{end}}
 
 {{define "section"}}
-  <h4 id="TOC_{{.FormattedNumber}}">{{.Title}}</h4>
+  {{$name := printf "TOC_%s" .FormattedNumber}}
+  {{with .ID}}{{$name = .}}{{end}}
+  <a {{with .ID}}name="{{.}}" {{end}}class="head" href="#{{$name}}"><h4 id="TOC_{{.FormattedNumber}}">{{.Title}}</h4></a>
   {{range .Elem}}{{elem $.Template .}}{{end}}
 {{end}}
 
