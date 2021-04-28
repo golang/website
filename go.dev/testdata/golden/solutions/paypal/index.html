@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
+<link rel="stylesheet" href="/css/styles.73fb2ccdcaa5280aaf4dffb96bf0f7621d090f417ecd7883100b759d4dc23c5d.css" integrity="sha256-c/sszcqlKAqvTf&#43;5a/D3Yh0JD0F&#43;zXiDEAt1nU3CPF0=">
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<script src="/js/site.js"></script>
+<title>PayPal Taps Go to Modernize and Scale - go.dev</title>
+</head>
+<body class="Site">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="Site-header js-siteHeader">
+  <div class="Banner">
+    <div class="Banner-inner">
+      <div class="Banner-message">Black Lives Matter</div>
+      <a class="Banner-action"
+         href="https://support.eji.org/give/153413/#!/donation/checkout"
+         target="_blank"
+         rel="noopener">
+         Support the Equal Justice Initiative
+      </a>
+    </div>
+  </div>
+  <div class="Header Header--dark">
+    <nav class="Header-nav">
+      <a href="https://go.dev/">
+        <img
+          class="js-headerLogo Header-logo"
+          src="/images/go-logo-white.svg"
+          alt="Go">
+      </a>
+      <div class="Header-rightContent">
+
+<form
+  class="js-searchForm SearchForm" action="https://pkg.go.dev/search" role="search">
+  <button
+    class="js-searchFormSubmit SearchForm-submit"
+    aria-label="Search for a package">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z">
+      </svg>
+  </button>
+  <input class="SearchForm-input" aria-label="Search for a package" type="text" name="q" size="1"
+         placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
+         spellcheck="false" title="Search for a package">
+        </input>
+</form>
+
+        <ul class="Header-menu">
+          <li class="Header-menuItem ">
+            <a href="https://go.dev/solutions" title="Why Go">Why Go</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://learn.go.dev" title="Getting Started">Getting Started</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://pkg.go.dev" title="Discover Packages">Discover Packages</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://go.dev/about" title="About">About</a>
+          </li>
+        </ul>
+        <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
+        </button>
+      </div>
+    </nav>
+
+  </div>
+</header>
+<aside class="NavigationDrawer js-header">
+  <nav class="NavigationDrawer-nav">
+    <div class="NavigationDrawer-header">
+      <a href="https://go.dev/">
+        <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
+      </a>
+    </div>
+    <ul class="NavigationDrawer-list">
+        <li class="NavigationDrawer-listItem  NavigationDrawer-listItem--active">
+          <a href="https://go.dev/solutions" title="Why Go">Why Go</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://learn.go.dev" title="Getting Started">Getting Started</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://pkg.go.dev" title="Discover Packages">Discover Packages</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://go.dev/about" title="About">About</a>
+        </li>
+    </ul>
+  </nav>
+</aside>
+<div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
+<main class="SiteContent SiteContent--default">
+<div>
+  <div class="WhoUsesSubPage-hero--caseStudy">
+    <div class="WhoUsesSubPage-heroInner--caseStudy">
+      <div class="WhoUsesSubPage-heroContent--caseStudy">
+        <div class="WhoUsesSubPage-heroText--caseStudy">
+
+  <div class="BreadcrumbNav">
+    <ol class="BreadcrumbNav-inner">
+
+
+
+
+
+
+
+
+
+
+
+
+      <li class="BreadcrumbNav-li ">
+        <a class="BreadcrumbNav-link" href="https://go.dev/solutions/">
+
+            Why Go
+
+        </a>
+      </li>
+
+
+
+
+
+      <li class="BreadcrumbNav-li active">
+        <a class="BreadcrumbNav-link" href="https://go.dev/solutions/paypal/">
+
+            PayPal
+
+        </a>
+      </li>
+
+
+    </ol>
+
+  </div>
+          <h1>PayPal Taps Go to Modernize and Scale</h1>
+
+
+            <div class="Article-date">1 June 2020</div>
+
+        </div>
+
+            <div class="WhoUsesSubPage-heroImg">
+              <img src="/images/go_paypal_case_study_logo.png" alt="PayPal">
+            </div>
+
+        </div>
+      </div>
+
+  </div>
+  <article class="Article Article--solutions">
+
+      <div class="CaseStudy-content">
+        <div class="CaseStudy-contentBody">
+
+
+<div class="PullQuote">
+  <div class="PullQuote-quoteHeader">
+    <img class="PullQuote-image" src="/images/quote.svg" alt="Quotation mark.">
+  </div>
+  <p class="PullQuote-body">
+    Since our NoSQL and DB proxy used quite a bit of system details in a multi-threaded mode, the code got complex managing the different conditions, given that Go provides channels and routines to deal with complexity, we were able to structure the code to meet our requirements.
+  </p>
+  <div class="PullQuote-author">
+    <span>
+      &mdash; Bala Natarajan</span>
+    ,&nbsp;
+      <span class="PullQuote-title"><span class="NoWrapSpan">Sr. Director of Engineering,</span>&nbsp;<span class="NoWrapSpan">Developer Experience</span></span>
+    <span class="PullQuote-title">&nbsp;at PayPal</span>
+    </div>
+  </div>
+
+<h2 id="new-code-infrastructure-built-on-go">New code infrastructure built on Go</h2>
+
+<p>PayPal was created to democratize financial services and empower people and businesses to join and thrive in the global economy. Central to this effort is PayPal’s Payments Platform, which uses a combination of proprietary and third-party technologies to efficiently and securely facilitate transactions between millions of merchants and consumers worldwide. As the Payments Platform grew larger and more complicated, PayPal sought to modernize its systems and reduce time-to-market for new applications.</p>
+
+<p>Go’s value in producing clean, efficient code that readily scales as software deployment scales made the language a strong fit to support PayPal’s goals.</p>
+
+<p>Central to the Payment Processing Platform is a proprietary NoSQL database that PayPal had developed in C++. The complexity of the code, however, was substantially decreasing its developers’ ability to evolve the platform. Go’s simple code layouts, goroutines (lightweight threads of execution) and channels (which serve as the pipes that connect concurrent goroutines), made Go a natural choice for the NoSQL development team to simplify and modernize the platform.</p>
+
+<p>As a proof of concept, a development team spent six months learning Go and reimplementing the NoSQL system from the ground up in Go, during which they also provided insights on how Go could be implemented more broadly at PayPal. As of today, thirty percent of the clusters have been migrated to use the new NoSQL database.</p>
+
+<h2 id="using-go-to-simplify-for-scale">Using Go to simplify for scale</h2>
+
+<p>As PayPal’s platform becomes more intricate, Go provides a way to readily simplify the complexity of creating and running software at scale. The language provides PayPal with great libraries and fast tools, plus concurrency, garbage collection, and type safety.</p>
+
+<p>With Go, PayPal enables its developers to spend more time looking at code and thinking strategically, by freeing them from the noise of C++ and Java development.</p>
+
+<p>After the success of this newly re-written NoSQL system, more platform and content teams within PayPal began adopting Go. Natarajan’s current team is responsible for PayPal’s build, test, and release pipelines—all built in Go. The company has a large build and test farm which is completely managed using Go infrastructure to support builds-as-a-service (and tests-as-a-service) for developers across the company.</p>
+
+
+
+  <img
+    loading="lazy"
+    width="607"
+    height="289"
+    class=""
+    alt="Go gopher factory"
+    src="/images/gophers/factory.png">
+
+
+<h2 id="modernizing-paypal-systems-with-go">Modernizing PayPal systems with Go</h2>
+
+<p>With the distributed computing capabilities required by PayPal, Go was the right language to refresh their systems. PayPal needed programming that is concurrent and parallel, compiled for high performance and highly portable, and that brings developers the benefits of a modular, composable open-source architecture—Go has delivered all that and more to help PayPal modernize its systems.</p>
+
+<p>Security and supportability are key matters at PayPal, and the company’s operational pipelines are increasingly dominated by Go because the language’s cleanliness and modularity help them achieve these goals. PayPal’s deployment of Go engenders a platform of creativity for developers, allowing them to produce simple, efficient, and reliable software at scale for PayPal’s worldwide markets.</p>
+
+<p>As PayPal continues to modernize their software-defined networking (SDN) infrastructure with Go, they are seeing performance benefits in addition to more maintainable code. For example, Go now powers routers, load balances, and an increasing number of production systems.</p>
+
+<div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “In our tightly managed environments where we run Go code, we have seen a CPU reduction of approximately ten percent with cleaner and maintainable code.”
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Bala Natarajan</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">Sr. Director of Engineering</span>
+      </div>
+    </div>
+
+
+<h2 id="go-increases-developer-productivity">Go increases developer productivity</h2>
+
+<p>As a global operation, PayPal needs its development teams to be effective at managing two kinds of scale: production scale, especially concurrent systems interacting with many other servers (such as cloud services); and development scale, especially large codebases developed by many programmers in coordination (such as open-source development)</p>
+
+<p>PayPal leverages Go to address these issues of scale. The company’s developers benefit from Go’s ability to combine the ease of programming of an interpreted, dynamically typed language with the efficiency and safety of a statically typed, compiled language. As PayPal modernizes its system, support for networked and multicore computing is critical. Go not only delivers such support but delivers quickly—it takes at most a few seconds to compile a large executable on a single computer.</p>
+
+<p>There are currently over 100 Go developers at PayPal, and future developers who choose to adopt Go will have an easier time getting the language approved thanks to the many successful implementations already in production at the company.</p>
+
+<p>Most importantly, PayPal developers have increased their productivity with Go. Go’s concurrency mechanisms have made it easy to write programs that get the most out of PayPal’s multicore and networked machines. Developers using Go also benefit from the fact that it compiles quickly to machine code and their apps gain the convenience of garbage collection and the power of run-time reflection.</p>
+
+<h2 id="speeding-paypal-s-time-to-market">Speeding PayPal’s time to market</h2>
+
+<p>The first-class languages at PayPal today are Java and Node, with Go primarily used as an infrastructure language. While Go may never replace Node.js for certain applications, Natarajan is pushing to make Go a first-class language at PayPal.</p>
+
+<p>Through his efforts, PayPal is also evaluating moving to the Google Kubernetes Engine (GKE) to speed their new products’ time-to-market. The GKE is a managed, production-ready environment for deploying containerized applications, and brings Google&rsquo;s latest innovations in developer productivity, automated operations, and open source flexibility.</p>
+
+<p>For PayPal, deploying to GKE would enable rapid development and iteration by making it easier for PayPal to deploy, update, and manage its applications and services. Plus PayPal will find it easier to run Machine Learning, General Purpose GPU, High-Performance Computing, and other workloads that benefit from specialized hardware accelerators supported by the GKE.</p>
+
+<p>Most importantly for PayPal, the combination of Go development and the GKE allows the company to scale effortless to meet demand, as Kubernetes autoscaling will allow PayPal to handle increased user demand for services—keeping them available when it matters most, then scale back in the quiet periods to save money.</p>
+
+<h2 id="getting-your-enterprise-started-with-go">Getting your enterprise started with Go</h2>
+
+<p>PayPal’s story is not unique; dozens of other large enterprises are discovering how Go can help them ship reliable software faster. There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as <a href="https://go.dev/solutions/americanexpress" rel="noreferrer" target="_blank">American Express</a>, <a href="https://go.dev/solutions/mercadolibre" rel="noreferrer" target="_blank">Mercado Libre</a>, Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.</p>
+
+<p>To learn more about how Go can help your enterprise build reliable, scalable software as it does at PayPal, visit <a href="https://go.dev" rel="noreferrer" target="_blank">go.dev</a> today.</p>
+
+        </div>
+        <div class="CaseStudy-contentAside">
+          <div class="CaseStudy-aboutBlock">
+
+            <img src="/images/logos/paypal.svg" class="CaseStudy-aboutBlockImg" alt="PayPal">
+            <h3 class="CaseStudy-aboutBlockTitle">
+              About PayPal
+            </h3>
+
+              <p class="CaseStudy-aboutBlockBody">Go’s value in producing clean, efficient code that readily scales as software deployment scales made the language a strong fit to support PayPal’s goals.</p>
+
+          </div>
+        </div>
+      </div>
+
+  </article>
+</div>
+</main>
+<footer class="Site-footer">
+  <div class="Footer">
+    <div class="Container">
+      <div class="Footer-links">
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/solutions" class="Footer-link Footer-link--primary" title="Why Go" data-identifier="solutions">
+  Why Go
+</a>
+
+
+<a href="https://go.dev/solutions#use-cases" class="Footer-link" title="Use Cases" data-identifier="usecases">
+  Use Cases
+</a>
+
+
+
+<a href="https://go.dev/solutions#case-studies" class="Footer-link" title="Case Studies" data-identifier="casestudies">
+  Case Studies
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/learn" class="Footer-link Footer-link--primary" title="Getting Started" data-identifier="learn">
+  Getting Started
+</a>
+
+
+<a href="https://play.golang.org" class="Footer-link" title="" data-identifier="">
+  Playground
+</a>
+
+
+
+<a href="https://tour.golang.org" class="Footer-link" title="" data-identifier="">
+  Tour
+</a>
+
+
+
+<a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="Footer-link" title="" data-identifier="">
+  Stack Overflow
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://pkg.go.dev" class="Footer-link Footer-link--primary" title="Discover Packages" data-identifier="explore">
+  Discover Packages
+</a>
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/about" class="Footer-link Footer-link--primary" title="About" data-identifier="about">
+  About
+</a>
+
+
+<a href="https://golang.org/dl/" class="Footer-link" title="" data-identifier="">
+  Download
+</a>
+
+
+
+<a href="https://blog.golang.org" class="Footer-link" title="" data-identifier="">
+  Blog
+</a>
+
+
+
+<a href="https://github.com/golang/go/issues" class="Footer-link" title="" data-identifier="">
+  Issue Tracker
+</a>
+
+
+
+<a href="https://golang.org/doc/devel/release.html" class="Footer-link" title="" data-identifier="">
+  Release Notes
+</a>
+
+
+
+<a href="https://blog.golang.org/go-brand" class="Footer-link" title="" data-identifier="">
+  Brand Guidelines
+</a>
+
+
+
+<a href="https://golang.org/conduct" class="Footer-link" title="" data-identifier="">
+  Code of Conduct
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://www.twitter.com/golang" class="Footer-link Footer-link--primary" title="Connect" data-identifier="connect">
+  Connect
+</a>
+
+
+<a href="https://www.twitter.com/golang" class="Footer-link" title="" data-identifier="">
+  Twitter
+</a>
+
+
+
+<a href="https://github.com/golang" class="Footer-link" title="" data-identifier="">
+  Github
+</a>
+
+
+
+<a href="https://invite.slack.golangbridge.org/" class="Footer-link" title="" data-identifier="">
+  Slack
+</a>
+
+
+
+<a href="https://reddit.com/r/golang" class="Footer-link" title="" data-identifier="">
+  r/golang
+</a>
+
+
+
+<a href="https://www.meetup.com/pro/go" class="Footer-link" title="" data-identifier="">
+  Meetup
+</a>
+
+
+
+<a href="https://golangweekly.com/" class="Footer-link" title="" data-identifier="">
+  Golang Weekly
+</a>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="Footer">
+    <div class="Container Container--fullBleed">
+      <div class="Footer-bottom">
+        <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
+        <ul class="Footer-listRow">
+          <li class="Footer-listItem">
+            <a href="/copyright">Copyright</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="/tos">Terms of Service</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="http://www.google.com/intl/en/policies/privacy/"
+              target="_blank"
+              rel="noopener">
+              Privacy Policy
+            </a>
+            </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org/s/discovery-feedback"
+              target="_blank"
+              rel="noopener"
+              >
+              Report an Issue
+            </a>
+          </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org"
+              target="_blank"
+              rel="noopener"
+              >golang.org
+            </a>
+          </li>
+        </ul>
+        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener">
+          <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="/js/carousels.js"></script>
+  <script src="/js/searchBox.js"></script>
+  <script src="/js/misc.js"></script>
+  <script src="/js/hats.js"></script>
+</footer>
+</body>
+</html>

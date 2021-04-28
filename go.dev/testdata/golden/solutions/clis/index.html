@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
+<link rel="stylesheet" href="/css/styles.73fb2ccdcaa5280aaf4dffb96bf0f7621d090f417ecd7883100b759d4dc23c5d.css" integrity="sha256-c/sszcqlKAqvTf&#43;5a/D3Yh0JD0F&#43;zXiDEAt1nU3CPF0=">
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<script src="/js/site.js"></script>
+<title>Command-line Interfaces (CLIs) - go.dev</title>
+</head>
+<body class="Site">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="Site-header js-siteHeader">
+  <div class="Banner">
+    <div class="Banner-inner">
+      <div class="Banner-message">Black Lives Matter</div>
+      <a class="Banner-action"
+         href="https://support.eji.org/give/153413/#!/donation/checkout"
+         target="_blank"
+         rel="noopener">
+         Support the Equal Justice Initiative
+      </a>
+    </div>
+  </div>
+  <div class="Header Header--dark">
+    <nav class="Header-nav">
+      <a href="https://go.dev/">
+        <img
+          class="js-headerLogo Header-logo"
+          src="/images/go-logo-white.svg"
+          alt="Go">
+      </a>
+      <div class="Header-rightContent">
+
+<form
+  class="js-searchForm SearchForm" action="https://pkg.go.dev/search" role="search">
+  <button
+    class="js-searchFormSubmit SearchForm-submit"
+    aria-label="Search for a package">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z">
+      </svg>
+  </button>
+  <input class="SearchForm-input" aria-label="Search for a package" type="text" name="q" size="1"
+         placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
+         spellcheck="false" title="Search for a package">
+        </input>
+</form>
+
+        <ul class="Header-menu">
+          <li class="Header-menuItem ">
+            <a href="https://go.dev/solutions" title="Why Go">Why Go</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://learn.go.dev" title="Getting Started">Getting Started</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://pkg.go.dev" title="Discover Packages">Discover Packages</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://go.dev/about" title="About">About</a>
+          </li>
+        </ul>
+        <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
+        </button>
+      </div>
+    </nav>
+
+    <div class="UseCaseSubNav js-useCaseSubnav">
+      <button class="UseCaseSubNav-menuHeader js-useCaseSubnavHeader">
+        Jump to
+        <img
+          class="UseCaseSubNav-menuIcon js-useCaseSubnavMenuIcon"
+          alt="Open menu icon" src="/images/icons/chevron-down.svg">
+      </button>
+      <div class="UseCaseSubNav-menu js-useCaseSubnavMenu">
+        <div class="UseCaseSubNav-anchorLinks js-useCaseSubnavLinks">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+<aside class="NavigationDrawer js-header">
+  <nav class="NavigationDrawer-nav">
+    <div class="NavigationDrawer-header">
+      <a href="https://go.dev/">
+        <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
+      </a>
+    </div>
+    <ul class="NavigationDrawer-list">
+        <li class="NavigationDrawer-listItem  NavigationDrawer-listItem--active">
+          <a href="https://go.dev/solutions" title="Why Go">Why Go</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://learn.go.dev" title="Getting Started">Getting Started</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://pkg.go.dev" title="Discover Packages">Discover Packages</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://go.dev/about" title="About">About</a>
+        </li>
+    </ul>
+  </nav>
+</aside>
+<div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
+<main class="SiteContent SiteContent--default">
+<div>
+  <div class="WhoUsesSubPage-hero--useCase">
+    <div class="WhoUsesSubPage-heroInner--useCase">
+      <div class="WhoUsesSubPage-heroContent--useCase">
+        <div class="WhoUsesSubPage-heroText--useCase">
+
+  <div class="BreadcrumbNav">
+    <ol class="BreadcrumbNav-inner">
+
+
+
+
+
+
+
+
+
+
+
+
+      <li class="BreadcrumbNav-li ">
+        <a class="BreadcrumbNav-link" href="https://go.dev/solutions/">
+
+            Why Go
+
+        </a>
+      </li>
+
+
+
+
+
+      <li class="BreadcrumbNav-li active">
+        <a class="BreadcrumbNav-link" href="https://go.dev/solutions/clis/">
+
+            Command-line Interfaces (CLIs)
+
+        </a>
+      </li>
+
+
+    </ol>
+
+  </div>
+          <h1>Command-line Interfaces (CLIs)</h1>
+
+
+            <div class="Article-date">4 October 2019</div>
+
+        </div>
+
+        </div>
+      </div>
+
+  </div>
+  <article class="Article Article--solutions">
+
+      <div class="UseCase-content">
+        <div class="UseCase-contentAside">
+          <div
+            class="js-useCaseStickyNav UseCaseSubNav-anchorLinks">
+          </div>
+        </div>
+        <div class="UseCase-contentBody js-useCaseContentBody">
+
+
+
+
+<h2 id="overview" class="sectionHeading">Overview</h2>
+
+<h3 id="cli-developers-prefer-go-for-portability-performance-and-ease-of-creation">CLI developers prefer Go for portability, performance, and ease of creation</h3>
+
+<p>Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), are text-only. Cloud and infrastructure applications are primarily CLI-based due to their easy automation and remote capabilities.</p>
+
+<h2 id="key-benefits" class="sectionHeading">Key benefits</h2>
+
+<h3 id="leverage-fast-compile-times-to-build-programs-that-start-quickly-and-run-on-any-system">Leverage fast compile times to build programs that start quickly and run on any system</h3>
+
+<p>Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. From a single Windows or Mac laptop, developers can build a Go program for every one of the dozens of architectures and operating systems Go supports in a matter of seconds, no complicated build farms are needed. No other compiled language can be built as portably or quickly. Go applications are built into a single self contained binary making installing Go applications trivial.</p>
+
+<p>Specifically, <strong>programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies</strong>. And <strong>programs written in Go have an immediate startup time</strong>—similar to C or C++ but unobtainable with other programming languages.</p>
+
+<h2 id="use-case" class="sectionHeading">Use Case</h2>
+
+<h3 id="use-go-for-building-elegant-clis">Use Go for building elegant CLIs</h3>
+
+
+<a href="https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056" target="_blank" rel="noopener"><div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!”
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Steve Domino</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">senior engineer and architect at Strala</span>
+      </div>
+    </div>
+
+</a>
+
+
+
+<a href="https://www.youtube.com/watch?v=WvWPGVKLvR4" target="_blank" rel="noopener"><div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “Cobra is a great product to write small tools or even large ones. It’s more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between.””
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Francesc Campoy</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">VP of product at DGraph Labs and producer of Just For Func videos</span>
+      </div>
+    </div>
+
+</a>
+
+
+<p>When developing CLIs in Go, two tools are widely used: Cobra &amp; Viper.</p>
+
+<p>
+<a href="https://pkg.go.dev/github.com/spf13/cobra?tab=overview">Cobra</a> is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers most of the popular Go applications including CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and <a href="https://pkg.go.dev/github.com/spf13/cobra?tab=importedby" rel="noreferrer" target="_blank">many more</a>. With integrated command help, autocomplete and documentation “[it] makes documenting each command really simple,” says <a href="https://blog.alexellis.io/5-keys-to-a-killer-go-cli/" rel="noreferrer" target="_blank">Alex Ellis</a>, founder of OpenFaaS.</p>
+
+<p>
+<a href="https://pkg.go.dev/github.com/spf13/viper?tab=overview">Viper</a> is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper are designed to work together.</p>
+
+<p>Viper <a href="https://scene-si.org/2017/04/20/managing-configuration-with-viper/" rel="noreferrer" target="_blank">supports nested structures</a> in the configuration, allowing CLI developers to manage the configuration for multiple parts of a large application. Viper also provides all of the tooling need to easily build twelve factor apps.</p>
+
+<p>&ldquo;If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables. To do this, you can use Viper,&rdquo; <a href="https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html" rel="noreferrer" target="_blank">suggests Geudens</a>.</p>
+
+
+<div class="FeaturedUsers">
+
+<h2 id="featured-users" class="sectionHeading">Featured users</h2>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th class="FeaturedUsers--hiddenMobile">Customer</th>
+      <th>Brief introduction</th>
+      <th>Projects using go</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/comcast.svg" alt="Comcast" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/comcast.svg" alt="Comcast" />
+        Comcast uses Go for a CLI client used to publish and subscribe to it’s high-traffic sites. The company also supports an open source client library which is written in Go - designed for working with Apache Pulsar.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://github.com/Comcast/pulsar-client-go">Client library for Apache Pulsar</a></li>
+
+          <li><a href="https://github.com/Comcast/pulsar-client-go/blob/master/cli/main.go">Pulsar CLI Client</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/github.svg" alt="GitHub" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/github.svg" alt="GitHub" />
+        GitHub uses Go for a command-line tool that makes it easier to work with GitHub, wrapping git in order to extend it with extra features and commands.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://github.com/github/hub">GitHub command-line tool</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/hugo.svg" alt="Hugo" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/hugo.svg" alt="Hugo" />
+        Hugo is one of the most popular Go CLI applications powering thousands of sites, including this one. One reason for it’s popularity is it’s ease of install thanks to Go. Hugo author Bjørn Erik Pedersen writes “The single binary takes most of the pain out of installation and upgrades.”
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://gohugo.io/">Hugo Website</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/kubernetes.svg" alt="Kubernetes" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/kubernetes.svg" alt="Kubernetes" />
+        Kubernetes is one of the most popular Go CLI applications. Kubernetes Creator, Joe Beda, said that for writing Kubernetes, “Go was the only logical choice”. Calling Go “the sweet spot” between low level languages like C&#43;&#43; and high level languages like Python.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://blog.gopheracademy.com/birthday-bash-2014/kubernetes-go-crazy-delicious/">Kubernetes &#43; Go</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/mongodb.svg" alt="MongoDB" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/mongodb.svg" alt="MongoDB" />
+        MongoDB chose to implement their Backup CLI Tool in Go citing Go’s “C-like syntax, strong standard library, the resolution of concurrency problems via goroutines, and painless multi-platform distribution” as reasons.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://www.mongodb.com/blog/post/go-agent-go">MongoDB Backup Service</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/netflix.svg" alt="Netflix" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/netflix.svg" alt="Netflix" />
+        Netflix uses Go to build the CLI application ChaosMonkey, an application responsible for randomly terminating instances in production to ensure that engineers implement their services to be resilient to instance failures.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://medium.com/netflix-techblog/application-data-caching-using-ssds-5bf25df851ef">Netflix Techblog Article</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/stripe.svg" alt="Stripe" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/stripe.svg" alt="Stripe" />
+        Stripe uses Go for the Stripe CLI aimed to help build, test, and manage a Stripe integration right from the terminal.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://github.com/stripe/stripe-cli">Stripe CLI</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/uber.svg" alt="Uber" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/uber.svg" alt="Uber" />
+        Uber uses Go for several CLI tools, including the CLI API for Jaeger, a distributed tracing system used for monitoring microservice distributed systems.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://www.jaegertracing.io/docs/1.14/cli/">CLI API for Jaeger</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<button
+  class="js-moreProjectsBtn FeaturedUsers-moreProjectsBtn"
+  type="button">
+ More projects
+</button>
+
+
+
+</div>
+
+<h2 id="get-started" class="sectionHeading">Get Started</h2>
+
+<h3 id="go-books-for-creating-clis">Go books for creating CLIs</h3>
+
+<p>
+
+<ul class="Learn-tileList">
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/Powerful-Command-Line-Applications-Go-Maintainable/dp/168050696X">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Powerful Command-Line Applications in Go thumbnail." src="/images/books/powerful-command-line-applications-in-go.jpg">
+
+            <span class="Learn-tileTitle">
+                Powerful Command-Line Applications in Go
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Go in Action thumbnail." src="/images/books/go-in-action.jpg">
+
+            <span class="Learn-tileTitle">
+                Go in Action
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://www.gopl.io/">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="The Go Programming Language thumbnail." src="/images/learn/go-programming-language-book.png">
+
+            <span class="Learn-tileTitle">
+                The Go Programming Language
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://github.com/matryer/goblueprints">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Go Programming Blueprints thumbnail." src="/images/learn/go-programming-blueprints.png">
+
+            <span class="Learn-tileTitle">
+                Go Programming Blueprints
+            </span>
+        </a>
+    </li>
+
+</ul>
+
+
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>CLI Libraries</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/spf13/cobra?tab=overview">spf13/cobra</a>
+      <p>A library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/spf13/viper?tab=overview">spf13/viper</a>
+      <p>A complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/urfave/cli?tab=overview">urfave/cli</a>
+      <p>A minimal framework for creating and organizing command line Go applications</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/go-delve/delve?tab=overview">delve</a>
+      <p>A simple and powerful tool built for programmers used to using a source-level debugger in a compiled language</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/chzyer/readline?tab=overview">chzyer/readline</a>
+      <p>A pure Golang implementation that provides most features in GNU Readline (under MIT license)</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/dixonwille/wmenu?tab=overview">dixonwille/wmenu</a>
+      <p>An easy-to-use menu structure for CLI applications that prompts users to make choices</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/spf13/pflag?tab=overview">spf13/pflag</a>
+      <p>A drop-in replacement for Go’s flag package, implementing POSIX/GNU-style flags</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/golang/glog?tab=overview">golang/glog</a>
+      <p>Leveled execution logs for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/c-bata/go-prompt?tab=overview">go-prompt</a>
+      <p>A library for building powerful interactive prompts, making it easier to build cross-platform command line tools using Go.</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=command%20line%20OR%20CLI">View More</a>
+</div>
+</p>
+
+        </div>
+      </div>
+
+  </article>
+</div>
+</main>
+<footer class="Site-footer">
+  <div class="Footer">
+    <div class="Container">
+      <div class="Footer-links">
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/solutions" class="Footer-link Footer-link--primary" title="Why Go" data-identifier="solutions">
+  Why Go
+</a>
+
+
+<a href="https://go.dev/solutions#use-cases" class="Footer-link" title="Use Cases" data-identifier="usecases">
+  Use Cases
+</a>
+
+
+
+<a href="https://go.dev/solutions#case-studies" class="Footer-link" title="Case Studies" data-identifier="casestudies">
+  Case Studies
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/learn" class="Footer-link Footer-link--primary" title="Getting Started" data-identifier="learn">
+  Getting Started
+</a>
+
+
+<a href="https://play.golang.org" class="Footer-link" title="" data-identifier="">
+  Playground
+</a>
+
+
+
+<a href="https://tour.golang.org" class="Footer-link" title="" data-identifier="">
+  Tour
+</a>
+
+
+
+<a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="Footer-link" title="" data-identifier="">
+  Stack Overflow
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://pkg.go.dev" class="Footer-link Footer-link--primary" title="Discover Packages" data-identifier="explore">
+  Discover Packages
+</a>
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://go.dev/about" class="Footer-link Footer-link--primary" title="About" data-identifier="about">
+  About
+</a>
+
+
+<a href="https://golang.org/dl/" class="Footer-link" title="" data-identifier="">
+  Download
+</a>
+
+
+
+<a href="https://blog.golang.org" class="Footer-link" title="" data-identifier="">
+  Blog
+</a>
+
+
+
+<a href="https://github.com/golang/go/issues" class="Footer-link" title="" data-identifier="">
+  Issue Tracker
+</a>
+
+
+
+<a href="https://golang.org/doc/devel/release.html" class="Footer-link" title="" data-identifier="">
+  Release Notes
+</a>
+
+
+
+<a href="https://blog.golang.org/go-brand" class="Footer-link" title="" data-identifier="">
+  Brand Guidelines
+</a>
+
+
+
+<a href="https://golang.org/conduct" class="Footer-link" title="" data-identifier="">
+  Code of Conduct
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://www.twitter.com/golang" class="Footer-link Footer-link--primary" title="Connect" data-identifier="connect">
+  Connect
+</a>
+
+
+<a href="https://www.twitter.com/golang" class="Footer-link" title="" data-identifier="">
+  Twitter
+</a>
+
+
+
+<a href="https://github.com/golang" class="Footer-link" title="" data-identifier="">
+  Github
+</a>
+
+
+
+<a href="https://invite.slack.golangbridge.org/" class="Footer-link" title="" data-identifier="">
+  Slack
+</a>
+
+
+
+<a href="https://reddit.com/r/golang" class="Footer-link" title="" data-identifier="">
+  r/golang
+</a>
+
+
+
+<a href="https://www.meetup.com/pro/go" class="Footer-link" title="" data-identifier="">
+  Meetup
+</a>
+
+
+
+<a href="https://golangweekly.com/" class="Footer-link" title="" data-identifier="">
+  Golang Weekly
+</a>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="Footer">
+    <div class="Container Container--fullBleed">
+      <div class="Footer-bottom">
+        <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
+        <ul class="Footer-listRow">
+          <li class="Footer-listItem">
+            <a href="/copyright">Copyright</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="/tos">Terms of Service</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="http://www.google.com/intl/en/policies/privacy/"
+              target="_blank"
+              rel="noopener">
+              Privacy Policy
+            </a>
+            </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org/s/discovery-feedback"
+              target="_blank"
+              rel="noopener"
+              >
+              Report an Issue
+            </a>
+          </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org"
+              target="_blank"
+              rel="noopener"
+              >golang.org
+            </a>
+          </li>
+        </ul>
+        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener">
+          <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="/js/carousels.js"></script>
+  <script src="/js/searchBox.js"></script>
+  <script src="/js/misc.js"></script>
+  <script src="/js/hats.js"></script>
+</footer>
+</body>
+</html>

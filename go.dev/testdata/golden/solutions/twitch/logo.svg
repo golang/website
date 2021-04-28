@@ -1,0 +1,19 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="1000"
+  height="332.6"
+  viewBox="0 0 264.6 88"
+>
+  <g fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel">
+    <path
+      d="M260 63h-19V39h-4v24h-19V5h19v16h14l9 9v33m-46-24h-19v5h19v19h-28l-10-10V30l10-9h28v18m-42 0h-17v5h17v19h-26l-9-10V5h18v16h17v18m-40-23h-18V5h18v11m0 47h-18V21h18v42m-23 0H53l-9-10V21h19v23h4V21h19v23h5V21h18v42M39 39H23v5h16v19H14L5 53V5h18v16h16v18m214-23h-12V0h-25l-12 16h-21l-7 7v-7h-16V0h-51v16H37L26 0H0v56l32 32h33v-9l9 9h63v-9l9 9h30v-9l10 9h58l21-21V28l-12-12"
+      fill-rule="nonzero"
+      fill="#9147fe"
+    />
+    <path
+      d="M218 63h19V39h4v24h19V30l-9-9h-14V5h-19v58m-81-10l9 10h26V44h-17v-5h17V21h-17V5h-18v48m39 0l10 10h28V44h-19v-5h19V21h-28l-10 9v23M114 5h18v11h-18V5M39 21H23V5H5v48l9 10h25V44H23v-5h16V21m5 32l9 10h56V21H91v23h-5V21H67v23h-4V21H44v32m70-32h18v42h-18V21"
+      fill-rule="nonzero"
+      fill="#fff"
+    />
+  </g>
+</svg>
