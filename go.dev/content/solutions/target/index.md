@@ -1,6 +1,5 @@
 ---
 linkTitle: "Target - Recommending Go"
-description: ""
 company: Target
 logoSrc: target.svg
 series: Case Studies
