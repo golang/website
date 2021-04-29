@@ -5,6 +5,7 @@ description: At GRAIL, we use the Go programming language for most of our bioinf
   newcomers to learn; its transparent runtime semantics makes it easy to reason
   about performance; and its ability to control data layout and allocation makes
   it possible to write highly performant data processing code.
+layout: solution
 company: GRAIL
 logoSrc: grail.png
 series: Case Studies

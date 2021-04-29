@@ -1,6 +1,7 @@
 ---
 linkTitle: "How Armut Labs use Go "
 description: "Learn about how Armut Labs reduced resource consumption and API response time after moving from C# and .net core to Go."
+layout: solution
 company: Armut
 logoSrc: armut.png
 series: Case Studies

@@ -1,5 +1,6 @@
 ---
 title: "Copyright"
+layout: article
 date: 2019-11-05T15:50:08-05:00
 ---
 

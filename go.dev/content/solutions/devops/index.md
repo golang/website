@@ -3,6 +3,7 @@ title: "Development Operations & Site reliability Engineering"
 linkTitle: "Development Operations & Site reliability Engineering"
 description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
 date: 2019-10-03T17:16:43-04:00
+layout: solution
 series: Use Cases
 books:
 resources:

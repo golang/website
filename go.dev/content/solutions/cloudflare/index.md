@@ -4,6 +4,7 @@ description: Cloudflare speeds up and protects millions of websites, APIs, SaaS 
   and other properties connected to the Internet. “Go is at the heart of CloudFlare’s
   services including handling compression for high-latency HTTP connections, our
   entire DNS infrastructure, SSL, load testing and more.”
+layout: solution
 company: Cloudflare
 series: Case Studies
 logoSrc: cloudflare.svg

@@ -1,5 +1,6 @@
 ---
 title: "How the Firebase Hosting Team Scaled With Go"
+layout: solution
 company: Firebase
 logoSrc: firebase.svg
 heroImgSrc: go_firebase_case_study.png

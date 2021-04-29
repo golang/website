@@ -1,13 +1,13 @@
 ---
 title: 'Using Go at Google'
 date: 2020-08-27
+layout: solution
 company: Google
 logoSrc: google.svg
 heroImgSrc: go_core_data_case_study.png
 carouselImgSrc: go_google_case_study_carousel.png
 series: Case Studies
 type: solutions
-layout: single
 description: |-
   Google is a technology company whose mission is to organize the world’s
   information and make it universally accessible and useful.

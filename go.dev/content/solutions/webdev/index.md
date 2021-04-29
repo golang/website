@@ -3,6 +3,7 @@ title: "Go for Web Development"
 linkTitle: "Web Development"
 description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
 date: 2019-10-04T15:26:31-04:00
+layout: solution
 series: Use Cases
 books:
 resources:

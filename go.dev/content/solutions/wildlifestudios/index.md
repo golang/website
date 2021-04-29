@@ -6,6 +6,7 @@ description: Wildlife is a Brazilian native global company focused on mobile
   language for our core platform, given its features to scale our backend
   services.
 logoSrc: wildlife.svg
+layout: solution
 company: Wildlife Studios
 series: Case Studies
 link:

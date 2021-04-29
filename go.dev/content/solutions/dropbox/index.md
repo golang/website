@@ -1,6 +1,7 @@
 ---
 title: "Dropbox - Open sourcing our Go libraries"
 description: "About a year ago, we decided to migrate our performance-critical backends from Python to Go to leverage better concurrency support and faster execution speed. ... At this point, we have successfully moved major parts of our infrastructure to Go."
+layout: solution
 company: Dropbox
 logoSrc: dropbox.png
 series: Case Studies

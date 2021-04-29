@@ -1,5 +1,6 @@
 ---
 title: "MercadoLibre Grows with Go"
+layout: solution
 company: MercadoLibre
 logoSrc: mercado-libre.png
 heroImgSrc: go_mercadolibre_case_study_logo.png

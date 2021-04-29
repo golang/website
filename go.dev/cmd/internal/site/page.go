@@ -36,6 +36,7 @@ type Page struct {
 	Date         anyTime
 	Description  string `yaml:"description"`
 	IsHome       bool
+	Layout       string `yaml:"layout"`
 	LinkTitle    string `yaml:"linkTitle"`
 	Pages        []*Page
 	Params       map[string]interface{}
@@ -157,7 +158,10 @@ func (p *Page) renderHTML() error {
 	// Load page-specific layout template.
 	// There are general rules in Hugo, but we don't need to reproduce them here
 	// since this will go away.
-	layout := "layouts/_default/single.html"
+	layout := "layouts/default.tmpl"
+	if p.Layout != "" {
+		layout = "layouts/" + p.Layout + ".tmpl"
+	}
 	switch p.id {
 	case "":
 		layout = "layouts/index.html"
@@ -165,9 +169,6 @@ func (p *Page) renderHTML() error {
 		layout = "layouts/learn/section.html"
 	case "solutions":
 		layout = "layouts/solutions/section.html"
-	}
-	if strings.HasPrefix(p.id, "solutions/") {
-		layout = "layouts/solutions/single.html"
 	}
 	data, err := ioutil.ReadFile(p.Site.file(layout))
 	if err != nil {

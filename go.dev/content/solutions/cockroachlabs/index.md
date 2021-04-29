@@ -2,6 +2,7 @@
 linkTitle: Cockroach Labs - Why We Chose to Build Our Database with Go
 description: Go's performance benefits, garbage collection, and low barrier to entry
   made it a great fit for CockroachDB.
+layout: solution
 company: Cockroach Labs
 logoSrc: cockroach.svg
 series: Case Studies
