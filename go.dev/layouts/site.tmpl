@@ -213,7 +213,7 @@
 {{- if not .Site.IsServer}}
   {{- $url = $url | absURL}}
 {{- end}}
-<a href="{{$url}}" class="Footer-link{{if not .menuItem.Parent}} Footer-link--primary{{end}}" title="{{.menuItem.Title}}" data-identifier="{{ .menuItem.Identifier }}">
+<a href="{{$url}}" class="Footer-link{{if not .menuItem.Parent}} Footer-link--primary{{end}}" title="{{.menuItem.Title}}">
   {{.menuItem.Name}}
 </a>
 {{end}}
