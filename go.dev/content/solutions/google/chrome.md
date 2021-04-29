@@ -35,10 +35,13 @@ already on the device. Were the Chrome Optimization Guide service to suddenly
 disappear, users might notice a dramatic change in the speed of their page loads
 and the amount of data consumed while browsing the web.
 
-{{% backgroundQuote author="Sophie Chang" title="Software Engineer" %}}
-Given that Go was a success for us, we plan to continue to use
-it where appropriate
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Sophie Chang
+  title: Software Engineer
+  quote: |
+    Given that Go was a success for us, we plan to continue to use
+    it where appropriate
+`}}
 
 When the Chrome engineering team started building the service, only a few
 members had comfort with Go. Most of the team was more familiar with C++, but

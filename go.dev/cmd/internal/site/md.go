@@ -5,11 +5,12 @@
 package site
 
 import (
-	"fmt"
+	"bytes"
 	"strings"
 
 	"github.com/russross/blackfriday"
 	"golang.org/x/go.dev/cmd/internal/html/template"
+	"golang.org/x/go.dev/cmd/internal/tmplfunc"
 )
 
 // markdownToHTML converts markdown to HTML using the renderer and settings that Hugo uses.
@@ -38,42 +39,18 @@ func markdownToHTML(markdown string) template.HTML {
 	return template.HTML(blackfriday.MarkdownOptions([]byte(markdown), renderer, options))
 }
 
-// markdownWithShortCodesToHTML converts markdown to HTML,
-// first expanding Hugo shortcodes in the markdown input.
-// Shortcodes templates are given access to p as .Page.
-func markdownWithShortCodesToHTML(markdown string, p *Page) (template.HTML, error) {
-	// We replace each shortcode invocation in the markdown with
-	// a keyword HUGOREPLACECODE0001 etc and then run the result
-	// through markdown conversion, and then we substitute the actual
-	// shortcode ouptuts for the keywords.
-	var md string         // current markdown chunk
-	var replaces []string // replacements to apply to all at end
-
-	for i, elem := range p.parseCodes(markdown) {
-		switch elem := elem.(type) {
-		default:
-			return "", fmt.Errorf("unexpected elem %T", elem)
-		case string:
-			md += elem
-
-		case *ShortCode:
-			code := elem
-			html, err := code.run()
-			if err != nil {
-				return "", err
-			}
-			// Adjust shortcode output to match Hugo's line breaks.
-			// This is weird but will go away when we retire shortcodes.
-			if code.Inner != "" {
-				html = "\n\n" + html
-			} else if code.Kind == "%" {
-				html = template.HTML(strings.TrimLeft(string(html), " \n"))
-			}
-			key := fmt.Sprintf("HUGOREPLACECODE%04d", i)
-			md += key
-			replaces = append(replaces, key, string(html), "<p>"+key+"</p>", string(html))
-		}
+// markdownTemplateToHTML converts a markdown template to HTML,
+// first applying the template execution engine and then interpreting
+// the result as markdown to be converted to HTML.
+// This is the same logic used by the Go web site.
+func markdownTemplateToHTML(markdown string, p *Page) (template.HTML, error) {
+	t := p.Site.clone().New(p.file)
+	if err := tmplfunc.Parse(t, string(p.data)); err != nil {
+		return "", err
 	}
-	html := markdownToHTML(md)
-	return template.HTML(strings.NewReplacer(replaces...).Replace(string(html))), nil
+	var buf bytes.Buffer
+	if err := t.Execute(&buf, p); err != nil {
+		return "", err
+	}
+	return markdownToHTML(buf.String()), nil
 }

@@ -159,16 +159,11 @@ Every site reliability engineer has written “one-time use” scripts that turn
 ### Scale and maintain larger applications with Go’s low memory footprint and doc generator
 Go’s garbage collector means DevOps/SRE teams don’t have to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting–lowering maintenance overhead and establishing best practices from the get-go.
 
-{{< rawhtml >}}<div class="FeaturedUsers">{{< /rawhtml >}}
-
-## Featured users {#featured-users .sectionHeading}
-{{< featuredProjects >}}
-
-{{< rawhtml >}}</div>{{< /rawhtml >}}
+{{projects $}}
 
 ## Get Started {#get-started .sectionHeading}
 
 ### Go books on DevOps & SRE
 
-{{< books >}}
-{{< goLibraries >}}
+{{books $}}
+{{libraries $}}

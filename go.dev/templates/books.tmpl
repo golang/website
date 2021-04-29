@@ -1,4 +1,5 @@
-{{$books := .Page.Param "books"}}
+{{define "books"}}
+{{$books := .Param "books"}}
 
 <ul class="Learn-tileList">
     {{range $books}}
@@ -16,3 +17,4 @@
     </li>
     {{end}}
 </ul>
+{{end}}

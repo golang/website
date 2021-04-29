@@ -55,10 +55,13 @@ learn when each route is best, how to determine when a problem is a concurrency
 problem, how to debug–but that comes out of the fact that you actually can write
 these patterns in Go code.”
 
-{{% backgroundQuote author="Robert Rossney" title="Software Engineer" %}}
-Generally speaking, there’s not a time on the team where we’re feeling
-frustrated with Go, it just kind of gets out of the way and lets you do work.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Robert Rossney
+  title: Software Engineer
+  quote: |
+    Generally speaking, there’s not a time on the team where we’re feeling
+    frustrated with Go, it just kind of gets out of the way and lets you do work.
+`}}
 
 Hundreds of thousands of customers host their websites with Firebase Hosting,
 which means Go code is used to serve billions of requests per day. “Our customer

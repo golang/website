@@ -139,7 +139,7 @@ func (site *Site) loadPage(file string) (*Page, error) {
 // renderHTML renders the HTML for the page, leaving it in p.html.
 func (p *Page) renderHTML() error {
 	var err error
-	p.Content, err = markdownWithShortCodesToHTML(string(p.data), p)
+	p.Content, err = markdownTemplateToHTML(string(p.data), p)
 	if err != nil {
 		return err
 	}

@@ -9,9 +9,13 @@ series: Case Studies
 quote: Go’s value in producing clean, efficient code that readily scales as software deployment scales made the language a strong fit to support PayPal’s goals.
 ---
 
-{{% pullquote author="Bala Natarajan" title="<span class=\"NoWrapSpan\">Sr. Director of Engineering,</span>&nbsp;<span class=\"NoWrapSpan\">Developer Experience</span>" company="PayPal" %}}
-Since our NoSQL and DB proxy used quite a bit of system details in a multi-threaded mode, the code got complex managing the different conditions, given that Go provides channels and routines to deal with complexity, we were able to structure the code to meet our requirements.
-{{% /pullquote %}}
+{{pullquote `
+  author: Bala Natarajan
+  title: <span class="NoWrapSpan">Sr. Director of Engineering,</span>&nbsp;<span class="NoWrapSpan">Developer Experience</span>
+  company: PayPal
+  quote: |
+    Since our NoSQL and DB proxy used quite a bit of system details in a multi-threaded mode, the code got complex managing the different conditions, given that Go provides channels and routines to deal with complexity, we were able to structure the code to meet our requirements.
+`}}
 
 ## New code infrastructure built on Go
 
@@ -32,7 +36,6 @@ With Go, PayPal enables its developers to spend more time looking at code and th
 
 After the success of this newly re-written NoSQL system, more platform and content teams within PayPal began adopting Go. Natarajan’s current team is responsible for PayPal’s build, test, and release pipelines—all built in Go. The company has a large build and test farm which is completely managed using Go infrastructure to support builds-as-a-service (and tests-as-a-service) for developers across the company.
 
-{{< rawhtml >}}
   <img
     loading="lazy"
     width="607"
@@ -40,7 +43,6 @@ After the success of this newly re-written NoSQL system, more platform and conte
     class=""
     alt="Go gopher factory"
     src="/images/gophers/factory.png">
-{{< /rawhtml >}}
 
 ## Modernizing PayPal systems with Go
 
@@ -50,9 +52,12 @@ Security and supportability are key matters at PayPal, and the company’s opera
 
 As PayPal continues to modernize their software-defined networking (SDN) infrastructure with Go, they are seeing performance benefits in addition to more maintainable code. For example, Go now powers routers, load balances, and an increasing number of production systems.
 
-{{% backgroundQuote author="Bala Natarajan" title="Sr. Director of Engineering" %}}
-In our tightly managed environments where we run Go code, we have seen a CPU reduction of approximately ten percent with cleaner and maintainable code.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Bala Natarajan
+  title: Sr. Director of Engineering
+  quote: |
+    In our tightly managed environments where we run Go code, we have seen a CPU reduction of approximately ten percent with cleaner and maintainable code.
+`}}
 
 ## Go increases developer productivity
 

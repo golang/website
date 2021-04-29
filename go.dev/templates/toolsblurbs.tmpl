@@ -1,17 +1,20 @@
-{{$toolsBlurbs := .Page.Param "toolsBlurbs"}}
+{{define "toolsblurbs"}}
+{{$toolsBlurbs := .Param "toolsBlurbs"}}
 
 <div class="ToolsBlurbs">
-  {{range $toolsBlurbs}}
+  {{- range $toolsBlurbs}}
   <div class="ToolsBlurbs-blurb">
     <a class="ToolsBlurbs-blurbHeader" href="{{.url}}">
       <img class="ToolsBlurbs-blurbIcon" src="{{.iconSrc}}" alt="{{.title}}">
       <span>{{.title}}</span>
     </a>
-    {{range .paragraphs}}
+    {{- range .paragraphs}}
       <p class="ToolsBlurbs-blurbBody">
-        {{ . }}
+        {{.}}
       </p>
-    {{end}}
+    {{- end}}
   </div>
-  {{end}}
+  {{- end}}
 </div>
+
+{{end}}

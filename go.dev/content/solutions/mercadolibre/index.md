@@ -9,9 +9,13 @@ series: Case Studies
 quote: Go provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer productivity by allowing their engineers to serve their ever-increasing audience while writing less code.
 ---
 
-{{% pullquote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
-I think that **the tour of Go is by far the best introduction to a language that I’ve seen**, It’s really simple and it gives you a fair overview of probably 80 percent of the language. When we want to get developers to learn Go, and to get to production fast, we tell them to start with the tour of Go.
-{{% /pullquote %}}
+{{pullquote `
+  author: Eric Kohan
+  title: Software Engineering Manager
+  company: MercadoLibre
+  quote: |
+    I think that **the tour of Go is by far the best introduction to a language that I’ve seen**, It’s really simple and it gives you a fair overview of probably 80 percent of the language. When we want to get developers to learn Go, and to get to production fast, we tell them to start with the tour of Go.
+`}}
 
 ## Go helps integrated ecosystem attract developers and scale eCommerce
 
@@ -57,10 +61,14 @@ Converting that legacy architecture to Go as a new, very thin framework for buil
 layers and yielded great performance benefits. For example, one large Go service is now able to **run 70,000 requests
 per machine with just 20 MB of RAM.**
 
-{{% backgroundQuote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
-Go was just marvelous for us. It’s very powerful
-and very easy to learn, and with backend infrastructure, has been great for us in terms of scalability.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Eric Kohan
+  title: Software Engineering Manager
+  company: MercadoLibre
+  quote: |
+    Go was just marvelous for us. It’s very powerful
+    and very easy to learn, and with backend infrastructure, has been great for us in terms of scalability.
+`}}
 
 Using **Go allowed MercadoLibre to cut the number of servers** they use for this service to one-eighth the original
 number (from 32 servers down to four), plus each server can operate with less power (originally four CPU cores, now down
@@ -97,9 +105,13 @@ companies using Go in Argentina, and is perhaps the largest in Latin America usi
 Headquartered in Buenos Aires, with many start-ups and emerging technology companies nearby, MercadoLibre's adoption of
 Go has shaped the market for developers across the Pampas.
 
-{{% backgroundQuote author="Eric Kohan" title="Software Engineering Manager" company="MercadoLibre" %}}
-We really see eye-to-eye with the larger philosophy of the language. We love Go's simplicity, and we find that having its very explicit error handling has been a gain for developers because it results in safer, more stable code in production.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Eric Kohan
+  title: Software Engineering Manager
+  company: MercadoLibre
+  quote: |
+    We really see eye-to-eye with the larger philosophy of the language. We love Go's simplicity, and we find that having its very explicit error handling has been a gain for developers because it results in safer, more stable code in production.
+`}}
 
 Buenos Aires is today a very competitive market for programmers, offering computer programmers many employment options,
 and the high demand for technology in the region drives great salaries, great benefits, and the ability to be selective
@@ -118,9 +130,13 @@ Go](https://golang.org/doc/effective_go.html) to educate new programmers, and sh
 written in Go to speed understanding and proficiency. MercadoLibre developers get the resources they need to embrace the
 language, then leverage their own skills and enthusiasm to start programming.
 
-{{% backgroundQuote author="Federico Martin Roasio" title="Technical Project Lead" company="MercadoLibre" %}}
-Go has been great for writing business logic, and we are the team that writes those APIs.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Federico Martin Roasio
+  title: Technical Project Lead
+  company: MercadoLibre
+  quote: |
+    Go has been great for writing business logic, and we are the team that writes those APIs.
+`}}
 
 MercadoLibre leverages Go’s expressive and clean syntax to make it easier for developers to write programs that run
 efficiently on modern cloud platforms. And while speed in development yields cost efficiency for the company, developers

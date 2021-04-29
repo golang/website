@@ -1,4 +1,9 @@
-{{$featuredProjects := .Page.Param "featuredProjects"}}
+{{define "projects"}}
+{{$featuredProjects := .Param "featuredProjects"}}
+
+<div class="FeaturedUsers">
+
+<h2 id="featured-users" class="sectionHeading">Featured users</h2>
 
 <table>
   <thead>
@@ -8,12 +13,12 @@
       <th>Projects using go</th>
     </tr>
   </thead>
-
   <tbody>
-    {{range $index, $project := $featuredProjects}}
+    {{- range $index, $project := $featuredProjects}}
     <tr
       class="js-featuredUsersRow FeaturedUsers-row"
-      {{ if (gt $index 2) }} hidden {{end}}
+      {{- if (gt $index 2) }}
+      hidden {{end}}
     >
       <td class="FeaturedUsers--hiddenMobile">
         <img src="/images/logos/{{.logoSrc}}" alt="{{.company}}" />
@@ -26,13 +31,13 @@
       </td>
       <td>
         <ul>
-          {{range .ctas}}
+          {{- range .ctas}}
           <li><a href="{{.url}}">{{.text}}</a></li>
-          {{end}}
+          {{- end}}
         </ul>
       </td>
     </tr>
-    {{end}}
+    {{- end}}
   </tbody>
 </table>
 
@@ -41,3 +46,6 @@
   type="button">
  More projects
 </button>
+
+</div>
+{{end}}

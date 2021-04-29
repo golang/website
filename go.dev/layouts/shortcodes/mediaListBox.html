@@ -1,9 +1,0 @@
-<li class="MediaList-itemBox">
-  <div class="MediaList-itemBoxHeader{{if eq (.Get "align") "top"}}-top{{end}}">
-    {{with .Get "img-link"}}<a href="{{.}}" target="_blank" rel="noopener">{{end -}}
-    <img class="MediaList-itemBoxImage" src="{{.Get "img-src"}}" alt="{{.Get "img-alt"}}">
-    {{- with .Get "img-link"}}</a>{{end}}
-    <p class="MediaList-itemBoxTitle">{{.Get "title"}}</p>
-  </div>
-  <p class="MediaList-itemBoxBody{{if eq (.Get "align") "top"}}-top{{end}}">{{.Inner | markdownify -}}</p>
-</li>

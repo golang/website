@@ -30,10 +30,11 @@ behind all of Google’s public services with an ever-watchful eye on their
 availability, latency, performance, and capacity.”
 - [Site Reliability Engineering (SRE)](https://sre.google/).
 
-{{% backgroundQuote %}}
-Go promised a sweet spot between performance and readability that neither of
-the other languages [Python and C++] were able to offer.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  quote: |
+    Go promised a sweet spot between performance and readability that neither of
+    the other languages [Python and C++] were able to offer.
+`}}
 
 In 2013-2014, Google’s SRE team realized that our approach to production
 management was not cutting it anymore in many ways. We had advanced far beyond
@@ -54,10 +55,11 @@ themselves at the core. We were happy with Go—its simplicity grew on us, the
 performance was there, and concurrency primitives would have been hard to
 replace.
 
-{{% backgroundQuote %}}
-Now the majority of Google production is managed and maintained by our systems
-written in Go.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  quote: |
+    Now the majority of Google production is managed and maintained by our systems
+    written in Go.
+`}}
 
 At no point was there ever a mandate or requirement to use Go, but we had no
 desire to return to Python or C++. Go grew organically in Annealing and
@@ -71,11 +73,12 @@ ability to enforce in the code that some complex structure should not be
 mutated. But for each one of those cases, there have undoubtedly been tens or
 hundred of cases where the simplicity helped.
 
-{{% backgroundQuote %}}
-Go’s simplicity means that the code is easy to follow, whether it is to spot
-bugs during review or when trying to determine exactly what happened during a
-service disruption.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  quote: |
+    Go’s simplicity means that the code is easy to follow, whether it is to spot
+    bugs during review or when trying to determine exactly what happened during a
+    service disruption.
+`}}
 
 For example, Annealing impacts a wide variety of teams and services meaning
 that we relied heavily on contributions across the company. The simplicity of

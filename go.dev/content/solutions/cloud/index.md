@@ -192,18 +192,18 @@ toolsBlurbs:
 
 ## Overview {#overview .sectionHeading}
 
-{{< rawhtml >}}
-  <div class="UseCase-halfColumn">
+<div class="UseCase-halfColumn">
     <h3>Go helps enterprises build and scale cloud computing systems</h3>
-
     <p>As applications and processing move to the cloud, concurrency becomes a very big issue. Cloud computing systems, by their very nature, share and scale resources. Coordinating access to shared resources is an issue that impacts every application processing in the cloud, and requires programming languages “explicitly geared to develop highly reliable concurrent applications.”</p>
-
   </div>
-{{< /rawhtml >}}
 
-{{< quote author="Ruchi Malik" title="developer at Choozle" link="https://builtin.com/software-engineering-perspectives/golang-advantages" >}}
-Go makes it very easy to scale as a company. This is very important because, as our engineering team grows, each service can be managed by a different unit.
-{{< /quote >}}
+{{quote `
+  author: Ruchi Malik
+  title: developer at Choozle
+  link: https://builtin.com/software-engineering-perspectives/golang-advantages
+  quote: |
+    Go makes it very easy to scale as a company. This is very important because, as our engineering team grows, each service can be managed by a different unit.
+`}}
 
 ## Key Benefits {#key-benefits .sectionHeading}
 
@@ -229,19 +229,13 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
 
 ### Go tools for Cloud Computing
 
-{{< toolsBlurbs >}}
+{{toolsblurbs $}}
 
-{{< rawhtml >}}<div class="FeaturedUsers">{{< /rawhtml >}}
-
-## Featured users {#featured-users .sectionHeading}
-{{< featuredProjects >}}
-
-{{< rawhtml >}}</div>{{< /rawhtml >}}
-
+{{projects $}}
 
 ## Get Started {#get-started .sectionHeading}
 
 ### Go books for cloud computing
 
-{{< books >}}
-{{< goLibraries >}}
+{{books $}}
+{{libraries $}}

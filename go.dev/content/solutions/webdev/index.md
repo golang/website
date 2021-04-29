@@ -191,24 +191,20 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
 -   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
 
 
-{{< rawhtml >}}<div class="FeaturedUsers">{{< /rawhtml >}}
-
-## Featured users {#featured-users .sectionHeading}
-{{< featuredProjects >}}
-
-{{< rawhtml >}}</div>{{< /rawhtml >}}
+{{projects $}}
 
 ## Get Started {#get-started .sectionHeading}
 
 ### Go books on web development
-{{< books >}}
-{{< goLibraries >}}
+
+{{books $}}
+{{libraries $}}
 
 ### Courses
 * [Learn to Create Web Applications using Go](https://www.usegolang.com), a paid online course
 
 ### Projects
-*   {{< pkg "github.com/gopherjs/gopherjs" gopherjs >}}, a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
+*   {{pkg "github.com/gopherjs/gopherjs" "gopherjs"}}, a compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
 *   [Hugo](https://gohugo.io/), The world’s fastest framework for building websites
 *   [Mattermost](https://mattermost.com/), a flexible, open source messaging platform
 that enables secure team collaboration

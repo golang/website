@@ -136,35 +136,38 @@ Specifically, **programs written in Go run on any system without requiring any e
 
 ### Use Go for building elegant CLIs
 
-{{< backgroundQuote author="Steve Domino" title="senior engineer and architect at Strala" link="https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056" >}}
-I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!
-{{< /backgroundQuote >}}
+{{backgroundquote `
+  author: Steve Domino
+  title: senior engineer and architect at Strala
+  link: https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056
+  quote: |
+    I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!
+`}}
 
-{{< backgroundQuote author="Francesc Campoy" title="VP of product at DGraph Labs and producer of Just For Func videos" link="https://www.youtube.com/watch?v=WvWPGVKLvR4" >}}
-Cobra is a great product to write small tools or even large ones. It’s more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between.”
-{{< /backgroundQuote >}}
+{{backgroundquote `
+  author: Francesc Campoy
+  title: VP of product at DGraph Labs and producer of Just For Func videos
+  link: https://www.youtube.com/watch?v=WvWPGVKLvR4
+  quote: |
+    Cobra is a great product to write small tools or even large ones. It’s more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between.”
+`}}
 
 When developing CLIs in Go, two tools are widely used: Cobra & Viper.
 
- {{< pkg "github.com/spf13/cobra" Cobra >}} is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers most of the popular Go applications including CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and [many more](https://pkg.go.dev/github.com/spf13/cobra?tab=importedby). With integrated command help, autocomplete and documentation “[it] makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
+{{pkg "github.com/spf13/cobra" "Cobra"}} is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers most of the popular Go applications including CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and [many more](https://pkg.go.dev/github.com/spf13/cobra?tab=importedby). With integrated command help, autocomplete and documentation “[it] makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
 
 
- {{< pkg "github.com/spf13/viper" Viper >}} is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper are designed to work together.
+{{pkg "github.com/spf13/viper" "Viper"}} is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper are designed to work together.
 
 Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-configuration-with-viper/) in the configuration, allowing CLI developers to manage the configuration for multiple parts of a large application. Viper also provides all of the tooling need to easily build twelve factor apps.
 
 "If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables. To do this, you can use Viper," [suggests Geudens](https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html).
 
-{{< rawhtml >}}<div class="FeaturedUsers">{{< /rawhtml >}}
-
-## Featured users {#featured-users .sectionHeading}
-{{< featuredProjects >}}
-
-{{< rawhtml >}}</div>{{< /rawhtml >}}
+{{projects $}}
 
 ## Get Started {#get-started .sectionHeading}
 
 ### Go books for creating CLIs
 
-{{< books >}}
-{{< goLibraries >}}
+{{books $}}
+{{libraries $}}

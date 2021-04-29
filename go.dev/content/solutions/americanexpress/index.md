@@ -9,11 +9,15 @@ series: Case Studies
 quote: Go provides American Express with the speed and scalability it needs for both its payment and rewards networks.
 ---
 
-{{% pullquote author="Glen Balliet" title="Engineering Director of loyalty platforms" company="American Express" %}}
-What makes Go different from other programming languages is cognitive load. You can do more with less code, which makes it easier to reason about and understand the code that you do end up writing.
+{{pullquote `
+  author: Glen Balliet
+  title: Engineering Director of loyalty platforms
+  company: American Express
+  quote: |
+    What makes Go different from other programming languages is cognitive load. You can do more with less code, which makes it easier to reason about and understand the code that you do end up writing.
 
-The majority of Go code ends up looking quite similar, so, even if you’re working with a completely new codebase, you can get up and running pretty quickly.
-{{% /pullquote %}}
+    The majority of Go code ends up looking quite similar, so, even if you’re working with a completely new codebase, you can get up and running pretty quickly.
+`}}
 
 ## Go Improves Microservices and Speeds Productivity
 
@@ -55,9 +59,13 @@ Today, scores of developers are programming with Go at American Express, with mo
 
 "Tooling has always been a critical area of need for our legacy code base," says Cane. "We have found that Go has excellent tooling, plus built-in testing, benchmarking, and profiling frameworks. It is easy to write efficient and resilient applications."
 
-{{% backgroundQuote author="Benjamin Cane" title="Vice President and Principal Engineer" company="American Express" %}}
-After working on Go, most of our developers don't want to go back to other languages.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Benjamin Cane
+  title: Vice President and Principal Engineer
+  company: American Express
+  quote: |
+    After working on Go, most of our developers don't want to go back to other languages.
+`}}
 
 American Express is just beginning to see the benefits of Go. For example, Go was designed from the ground up with concurrency in mind – using lightweight “goroutines” rather than heavier-weight operating system threads – making it practical to create hundreds of thousands of goroutines in the same address space. Using goroutines, American Express has seen improved performance numbers in its real-time transaction processing.
 

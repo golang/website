@@ -1,4 +1,5 @@
-{{$goLibraries := .Page.Param "goLibraries"}}
+{{define "libraries"}}
+{{$goLibraries := .Param "goLibraries"}}
 
 {{range $goLibraries}}
 <div class="WhoUsesCaseStudy-librariesWrapper">
@@ -15,4 +16,5 @@
   </ul>
   <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="{{.viewMoreUrl}}">View More</a>
 </div>
+{{end}}
 {{end}}

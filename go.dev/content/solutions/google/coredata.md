@@ -30,10 +30,13 @@ stack from a single monolithic binary written in C++ to multiple components in a
 microservices architecture. We decided to rewrite many indexing services in Go,
 which we now use to power the majority of our architecture.
 
-{{% backgroundQuote author="Minjae Hwang" title="Software Engineer" %}}
-Go’s built-in concurrency is a natural fit because engineers on the team are
-encouraged to use concurrency and parallel algorithms.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Minjae Hwang
+  title: Software Engineer
+  quote: |
+    Go’s built-in concurrency is a natural fit because engineers on the team are
+    encouraged to use concurrency and parallel algorithms.
+`}}
 
 When choosing a language, our team found that several of Go’s features made it
 particularly suitable. For instance, Go’s built-in concurrency is a natural fit
@@ -62,10 +65,13 @@ good job of static type checking and that certain Go fundamentals, such as the
 godoc command, have helped the team build a more disciplined culture around
 writing documentation.
 
-{{% backgroundQuote author="Prasanna Meda" title="Software Engineer" %}}
-...Google’s web indexing was re-architected within a year. More impressively,
-most developers on the team were rewriting in Go while also learning it.
-{{% /backgroundQuote %}}
+{{backgroundquote `
+  author: Prasanna Meda
+  title: Software Engineer
+  quote: |
+    ...Google’s web indexing was re-architected within a year. More impressively,
+    most developers on the team were rewriting in Go while also learning it.
+`}}
 
 Working on a product used so heavily around the world is no small task and our
 team’s decision to use Go wasn’t a simple one, but doing so helped us move
