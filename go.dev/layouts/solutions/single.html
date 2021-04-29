@@ -4,7 +4,7 @@
     <div class="WhoUsesSubPage-heroInner{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
       <div class="WhoUsesSubPage-heroContent{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
         <div class="WhoUsesSubPage-heroText{{if (eq .Params.Series "Case Studies")}}--caseStudy{{else}}--useCase{{end}}">
-          {{ partial "breadcrumbs.html" . }}
+          {{breadcrumbs .}}
           <h1>{{.Title}}</h1>
           {{range .Params.authors}}
             <div class="Article-author">{{.}}</div>

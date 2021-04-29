@@ -3,7 +3,7 @@
   <div class="Container">
     <div class="Learn-heroInner">
       <div class="Learn-heroContent">
-        {{ partial "breadcrumbs.html" . }}
+        {{breadcrumbs .}}
         <h1>Install the latest version of Go</h1>
         <p>
           Install the latest version of Go. For instructions to download and install
@@ -29,7 +29,7 @@
           </div>
         </div>
         <p>
-          Download packages for 
+          Download packages for
           <a class="js-downloadWin">Windows 64-bit</a>,
           <a class="js-downloadMac">macOS</a>,
           <a class="js-downloadLinux">Linux</a>, and
@@ -44,7 +44,7 @@
       <ul class="Learn-quickstarts Learn-cardList">
         {{ range first 3 $.Site.Data.learn.quickstart.links }}
           <li class="Learn-quickstart Learn-card">
-            {{ partial "learn/card.html" . }}
+            {{template "learn-card" .}}
           </li>
         {{end}}
       </ul>
@@ -65,7 +65,7 @@
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.guidedLearning.links }}
           <li class="Learn-card">
-            {{ partial "learn/card.html" . }}
+            {{template "learn-card" .}}
           </li>
         {{ end }}
       </ul>
@@ -82,7 +82,7 @@
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.courses.links }}
           <li class="Learn-card">
-            {{ partial "learn/card.html" . }}
+            {{template "learn-card" .}}
           </li>
         {{ end }}
       </ul>
@@ -99,7 +99,7 @@
       <ul class="Learn-cardList">
         {{ range first 4 $.Site.Data.learn.cloud.links }}
           <li class="Learn-card">
-            {{ partial "learn/selfPacedCard.html" . }}
+            {{template "learn-self-paced-card" .}}
           </li>
           </li>
         {{ end }}
@@ -117,7 +117,7 @@
       <ul class="Learn-cardList Learn-bookList">
         {{ range first 5 $.Site.Data.learn.books.links }}
           <li class="Learn-card Learn-book">
-            {{ partial "learn/book.html" . }}
+            {{template "learn-book" .}}
           </li>
         {{ end }}
       </ul>
@@ -190,4 +190,102 @@
     </ul>
   </div>
 </section>
+{{end}}
+
+{{define "learn-card"}}
+<div class="Card">
+  <div class="Card-inner">
+    {{if .thumbnail}}
+    <div
+      class="Card-thumbnail"
+      style="background-image: url('{{.thumbnail}}')"
+    ></div>
+    {{end}}
+    <div class="Card-content">
+      <div class="Card-contentTitle">{{.title}}</div>
+      <p class="Card-contentBody">{{.content | safeHTML}}</p>
+      <div class="Card-contentCta">
+        <a href="{{.url}}" target="_blank">
+          <span>{{.cta}}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#007D9C"
+              fill-rule="evenodd"
+              d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2h7v2H5zm9 0V3h7v7h-2V6.4l-9.8 9.8-1.4-1.4L17.6 5H14z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
+
+{{define "learn-self-paced-card"}}
+<div class="Card">
+  <a href="{{.url}}" target="_blank" rel="noopener">
+    <div class="Card-inner">
+      {{if .thumbnail}}
+      <div
+        class="Card-thumbnail"
+        style="background-image: url('{{.thumbnail}}')"
+      ></div>
+      {{end}}
+      <div class="Card-content">
+        <div class="Card-contentTitle">{{.title}}</div>
+        <div class="Card-selfPacedFooter">
+          <div class="Card-selfPacedCredits">
+            <span>{{ .length }}</span> •
+            <span>{{.credits}} Credits</span>
+          </div>
+          <div class="Card-selfPacedRating">
+            <div class="Card-starRating" style="width: {{ .rating }}rem"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+{{end}}
+
+{{define "learn-book"}}
+<div class="Book">
+  <a href="{{.url}}" target="_blank" rel="noopener">
+    <div class="Book-inner">
+      {{if .thumbnail}}
+      <div class="Book-thumbnail">
+        <img alt="{{.title}} thumbnail." src="{{.thumbnail}}" />
+      </div>
+      {{end}}
+      <div class="Book-content">
+        <p class="Book-title">{{.title}}</p>
+        <p class="Book-description">{{.description}}</p>
+        <div class="Book-cta">
+          <span>{{.cta}}</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="#007D9C"
+              fill-rule="evenodd"
+              d="M5 5v14h14v-7h2v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5c0-1.1.9-2 2-2h7v2H5zm9 0V3h7v7h-2V6.4l-9.8 9.8-1.4-1.4L17.6 5H14z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
 {{end}}

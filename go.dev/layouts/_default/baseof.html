@@ -60,7 +60,7 @@
           alt="Go">
       </a>
       <div class="Header-rightContent">
-        {{ partial "searchForm.html" . }}
+        {{template "search-form" .}}
         <ul class="Header-menu">
           {{- $currentPage := .}}
           {{- range .Site.Menus.main}}
@@ -129,9 +129,9 @@
       <div class="Footer-links">
         {{- range .Site.Menus.footer}}
           <div class="Footer-linkColumn">
-            {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
+            {{template "footer-link" (dict "menuItem" . "Site" $currentPage.Site)}}
             {{- range .Children}}
-              {{partial "footer/link.html" (dict "menuItem" . "Site" $currentPage.Site)}}
+              {{template "footer-link" (dict "menuItem" . "Site" $currentPage.Site)}}
             {{end}}
           </div>
         {{- end}}
@@ -187,3 +187,33 @@
 </footer>
 </body>
 </html>
+
+{{define "search-form"}}
+<form
+  class="js-searchForm SearchForm" action="https://pkg.go.dev/search" role="search">
+  <button
+    class="js-searchFormSubmit SearchForm-submit"
+    aria-label="Search for a package">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z">
+      </svg>
+  </button>
+  <input class="SearchForm-input" aria-label="Search for a package" type="text" name="q" size="1"
+         placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
+         spellcheck="false" title="Search for a package">
+        </input>
+</form>
+{{end}}
+
+{{define "footer-link"}}
+{{- $url := .menuItem.URL}}
+{{- if and (not .Site.IsServer) (eq .Identifier "learn")}}
+  {{- $url = "https://learn.go.dev"}}
+{{- end}}
+{{- if not .Site.IsServer}}
+  {{- $url = $url | absURL}}
+{{- end}}
+<a href="{{$url}}" class="Footer-link{{if not .menuItem.Parent}} Footer-link--primary{{end}}" title="{{.menuItem.Title}}" data-identifier="{{ .menuItem.Identifier }}">
+  {{.menuItem.Name}}
+</a>
+{{end}}

@@ -5,12 +5,10 @@
 package site
 
 import (
-	"bytes"
 	"crypto/sha256"
 	"encoding/base64"
 	"encoding/hex"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path"
 	"path/filepath"
@@ -34,7 +32,6 @@ func (site *Site) initTemplate() error {
 		"isset":       isset,
 		"list":        list,
 		"markdownify": markdownify,
-		"partial":     site.partial,
 		"path":        pathFn,
 		"replace":     replace,
 		"replaceRE":   replaceRE,
@@ -58,22 +55,6 @@ func (site *Site) clone() *template.Template {
 		panic(err)
 	}
 	return t
-}
-
-func (site *Site) runTemplate(name string, arg interface{}) (template.HTML, error) {
-	data, err := ioutil.ReadFile(site.file(name))
-	if err != nil {
-		return "", err
-	}
-	t := site.clone().New(name)
-	if err := tmplfunc.Parse(t, string(data)); err != nil {
-		return "", err
-	}
-	var buf bytes.Buffer
-	if err := t.Execute(&buf, arg); err != nil {
-		return "", err
-	}
-	return template.HTML(buf.String()), nil
 }
 
 func toString(x interface{}) string {
@@ -159,10 +140,6 @@ func markdownify(data interface{}) template.HTML {
 		h = template.HTML(strings.TrimSpace(s[len("<p>") : len(s)-len("</p>")]))
 	}
 	return h
-}
-
-func (site *Site) partial(name string, data interface{}) (template.HTML, error) {
-	return site.runTemplate("layouts/partials/"+name, data)
 }
 
 func pathFn() pathPkg { return pathPkg{} }
