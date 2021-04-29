@@ -1,26 +1,37 @@
+// Copyright 2019 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
-	"fmt"
+	"net/http"
 	"sort"
 	"strings"
 )
 
-func main() {
-	var ks []string
-	for k := range csp {
-		ks = append(ks, k)
-	}
-	sort.Strings(ks)
+// addCSP returns a handler that adds the appropriate Content-Security-Policy header
+// to the response and then invokes h.
+func addCSP(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var ks []string
+		for k := range csp {
+			ks = append(ks, k)
+		}
+		sort.Strings(ks)
 
-	var sb strings.Builder
-	for _, k := range ks {
-		sb.WriteString(k)
-		sb.WriteString(" ")
-		sb.WriteString(strings.Join(csp[k], " "))
-		sb.WriteString("; ")
-	}
-	fmt.Println(sb.String())
+		var sb strings.Builder
+		for _, k := range ks {
+			sb.WriteString(k)
+			sb.WriteString(" ")
+			sb.WriteString(strings.Join(csp[k], " "))
+			sb.WriteString("; ")
+		}
+
+		w.Header().Set("Content-Security-Policy", sb.String())
+
+		h.ServeHTTP(w, r)
+	})
 }
 
 const (

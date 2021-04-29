@@ -181,12 +181,7 @@ func (p *Page) renderHTML() error {
 	if err := t.Execute(&buf, p); err != nil {
 		return err
 	}
-	html := buf.Bytes()
-	if p.IsHome {
-		// Match Hugo <meta> for now.
-		html = bytes.Replace(html, []byte("<head>"), []byte("<head>\n\t<meta name=\"generator\" content=\"Hugo 0.59.1\" />"), 1)
-	}
-	p.html = html
+	p.html = buf.Bytes()
 	return nil
 }
 

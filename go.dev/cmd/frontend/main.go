@@ -1,3 +1,7 @@
+// Copyright 2019 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
@@ -6,6 +10,8 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+
+	"golang.org/x/go.dev/cmd/internal/site"
 )
 
 var discoveryHosts = map[string]string{
@@ -15,15 +21,26 @@ var discoveryHosts = map[string]string{
 }
 
 func main() {
-	fs := http.FileServer(http.Dir("public/"))
-	http.Handle("/", fs)
+	dir := "../.."
+	if _, err := os.Stat("content"); err == nil {
+		// Running in repo root.
+		dir = "."
+	}
+	godev, err := site.Load(dir)
+	if err != nil {
+		log.Fatal(err)
+	}
+	http.Handle("/", addCSP(http.FileServer(godev)))
 	http.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
 	http.Handle("/learn/", http.StripPrefix("/learn/", redirectHosts(map[string]string{"": "learn.go.dev"})))
 
-	p := listenPort()
-	l, err := net.Listen("tcp", ":"+p)
+	addr := ":" + listenPort()
+	if addr == ":0" {
+		addr = "localhost:0"
+	}
+	l, err := net.Listen("tcp", addr)
 	if err != nil {
-		log.Fatalf("net.Listen(%q, %q) = _, %v", "tcp", p, err)
+		log.Fatalf("net.Listen(%q, %q) = _, %v", "tcp", addr, err)
 	}
 	defer l.Close()
 	log.Printf("Listening on http://%v/\n", l.Addr().String())

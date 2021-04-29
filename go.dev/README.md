@@ -18,19 +18,9 @@ git clone sso://partner-code/go.dev && (cd go.dev && f=`git rev-parse --git-dir`
 
 ## Installation/Usage
 
-Go.dev uses Hugo to serve the frontend client.
+To serve the go.dev pages, run
 
-To build using the _Dockerfile.hugo_ image:
-
-```
-docker build -t hugo -f Dockerfile.hugo .
-```
-
-Then run and serve locally
-
-```
-docker run -v $(pwd):/src -p 1313:1313 -t -i hugo serve --bind 0.0.0.0 -s /src
-```
+	go run ./cmd/frontend
 
 ## Deploying
 
@@ -43,7 +33,7 @@ https://partner-code.git.corp.google.com/go.dev
 
 ## Commands
 
-- Running the server: `hugo server -D`
+- Running the server: `go run ./cmd/frontend`
 - Pushing to staging: `git push -f origin HEAD:staging`
 
 ## Where things live

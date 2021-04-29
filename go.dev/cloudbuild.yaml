@@ -4,9 +4,6 @@ steps:
     args:
       - -c
       - go run ./cmd/events/ > ./data/events.yaml
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-f', 'Dockerfile.hugo', '-t', 'gcr.io/$PROJECT_ID/hugo', '.']
-  - name: 'gcr.io/$PROJECT_ID/hugo'
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy"]
   - name: "gcr.io/cloud-builders/gcloud"
@@ -15,5 +12,3 @@ steps:
     args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=go-dev", "--dry_run=false"]
   - name: 'mirror.gcr.io/library/golang'
     args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=learn-go-dev", "--dry_run=false"]
-images:
-  - 'gcr.io/$PROJECT_ID/hugo'
