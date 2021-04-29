@@ -5,18 +5,6 @@ description: "With fast build times, lean syntax, an automatic formatter and doc
 date: 2019-10-03T17:16:43-04:00
 series: Use Cases
 books:
-  - title: Go Programming for Network Operations
-    url: https://www.amazon.com/Go-Programming-Network-Operations-Automation-ebook/dp/B07JKKN34L/ref=sr_1_16
-    thumbnail: /images/books/go-programming-for-network-operations.jpg
-  - title: Go Programming Blueprints
-    url: https://github.com/matryer/goblueprints
-    thumbnail: /images/learn/go-programming-blueprints.png
-  - title: Go in Action
-    url: https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781
-    thumbnail: /images/books/go-in-action.jpg
-  - title: The Go Programming Language
-    url: https://www.gopl.io/
-    thumbnail: /images/learn/go-programming-language-book.png
 resources:
 - name: icon
   src: ops-green.svg
@@ -26,7 +14,41 @@ resources:
   src: ops-white.svg
   params:
     alt: ops icon
-featuredProjects:
+---
+
+## Overview {#overview .sectionHeading}
+
+### Go helps enterprises automate and scale
+
+Development Operations (DevOps) teams help engineering organizations automate tasks and improve their continuous
+integration and continuous delivery and deployment (CI/CD) process. DevOps can topple developmental silos and implement
+tooling and automation to enhance software development, deployment, and support.
+
+Site Reliability Engineering (SRE) was born at Google to make the company’s “large-scale sites more reliable, efficient,
+and scalable,”[ writes Silvia Fressard](https://opensource.com/article/18/10/what-site-reliability-engineer), an
+independent DevOps consultant. “And the practices they developed responded so well to Google’s needs that other big tech
+companies, such as Amazon and Netflix, also adopted them.” SRE requires a mix of development and operations skills, and
+“[empowers software developers](https://stackify.com/site-reliability-engineering/) to own the ongoing daily operation
+of their applications in production.”
+
+Go serves both siblings, DevOps and SRE, from its fast build times and lean syntax to its security and reliability support. Go's concurrency and networking features also make it ideal for tools that manage cloud deployment—readily supporting automation while
+scaling for speed and code maintainability as development infrastructure grows over time.
+
+DevOps/SRE teams write software ranging from small scripts, to command-line interfaces (CLI), to complex automation and services, and Go’s feature set has benefits for every situation.
+
+## Key Benefits {#key-benefits .sectionHeading}
+
+### Easily build small scripts with Go’s robust standard library and static typing
+Go’s fast build and startup times. Go’s extensive standard library—including packages for
+common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go’s static type system and explicit error handling make even small scripts more robust.
+
+### Quickly deploy CLIs with Go’s fast build times
+Every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. Starting with Go puts you in a great position to be successful when that happens.
+
+### Scale and maintain larger applications with Go’s low memory footprint and doc generator
+Go’s garbage collector means DevOps/SRE teams don’t have to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting–lowering maintenance overhead and establishing best practices from the get-go.
+
+{{projects `
   - company: Docker
     url: https://docker.com/
     logoSrc: docker.svg
@@ -92,7 +114,28 @@ featuredProjects:
     ctas:
       - text: Vitess
         url: https://github.com/vitessio/vitess
-goLibraries:
+`}}
+
+## Get Started {#get-started .sectionHeading}
+
+### Go books on DevOps & SRE
+
+{{books `
+  - title: Go Programming for Network Operations
+    url: https://www.amazon.com/Go-Programming-Network-Operations-Automation-ebook/dp/B07JKKN34L/ref=sr_1_16
+    thumbnail: /images/books/go-programming-for-network-operations.jpg
+  - title: Go Programming Blueprints
+    url: https://github.com/matryer/goblueprints
+    thumbnail: /images/learn/go-programming-blueprints.png
+  - title: Go in Action
+    url: https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781
+    thumbnail: /images/books/go-in-action.jpg
+  - title: The Go Programming Language
+    url: https://www.gopl.io/
+    thumbnail: /images/learn/go-programming-language-book.png
+`}}
+
+{{libraries `
   - title: Monitoring and tracing
     viewMoreUrl: https://pkg.go.dev/search?q=tracing
     items:
@@ -125,45 +168,4 @@ goLibraries:
       - text: golang-migrate/migrate
         url: https://pkg.go.dev/github.com/golang-migrate/migrate?tab=overview
         desc: A database migration tool written in Go
----
-
-## Overview {#overview .sectionHeading}
-
-### Go helps enterprises automate and scale
-
-Development Operations (DevOps) teams help engineering organizations automate tasks and improve their continuous
-integration and continuous delivery and deployment (CI/CD) process. DevOps can topple developmental silos and implement
-tooling and automation to enhance software development, deployment, and support.
-
-Site Reliability Engineering (SRE) was born at Google to make the company’s “large-scale sites more reliable, efficient,
-and scalable,”[ writes Silvia Fressard](https://opensource.com/article/18/10/what-site-reliability-engineer), an
-independent DevOps consultant. “And the practices they developed responded so well to Google’s needs that other big tech
-companies, such as Amazon and Netflix, also adopted them.” SRE requires a mix of development and operations skills, and
-“[empowers software developers](https://stackify.com/site-reliability-engineering/) to own the ongoing daily operation
-of their applications in production.”
-
-Go serves both siblings, DevOps and SRE, from its fast build times and lean syntax to its security and reliability support. Go's concurrency and networking features also make it ideal for tools that manage cloud deployment—readily supporting automation while
-scaling for speed and code maintainability as development infrastructure grows over time.
-
-DevOps/SRE teams write software ranging from small scripts, to command-line interfaces (CLI), to complex automation and services, and Go’s feature set has benefits for every situation.
-
-## Key Benefits {#key-benefits .sectionHeading}
-
-### Easily build small scripts with Go’s robust standard library and static typing
-Go’s fast build and startup times. Go’s extensive standard library—including packages for
-common needs like HTTP, file I/O, time, regular expressions, exec, and JSON/CSV formats—lets DevOps/SREs get right into their business logic. Plus, Go’s static type system and explicit error handling make even small scripts more robust.
-
-### Quickly deploy CLIs with Go’s fast build times
-Every site reliability engineer has written “one-time use” scripts that turned into CLIs used by dozens of other engineers every day. And small deployment automation scripts turn into rollout management services. With Go, DevOps/SREs are in a great position to be successful when software scope inevitably creeps. Starting with Go puts you in a great position to be successful when that happens.
-
-### Scale and maintain larger applications with Go’s low memory footprint and doc generator
-Go’s garbage collector means DevOps/SRE teams don’t have to worry about memory management. And Go’s automatic documentation generator (godoc) makes code self-documenting–lowering maintenance overhead and establishing best practices from the get-go.
-
-{{projects $}}
-
-## Get Started {#get-started .sectionHeading}
-
-### Go books on DevOps & SRE
-
-{{books $}}
-{{libraries $}}
+`}}

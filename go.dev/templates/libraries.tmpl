@@ -1,7 +1,5 @@
 {{define "libraries"}}
-{{$goLibraries := .Param "goLibraries"}}
-
-{{range $goLibraries}}
+{{range (yaml .)}}
 <div class="WhoUsesCaseStudy-librariesWrapper">
   <div class="headerWithLink">
     <h3>{{.title}}</h3>

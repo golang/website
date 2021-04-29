@@ -1,8 +1,6 @@
 {{define "toolsblurbs"}}
-{{$toolsBlurbs := .Param "toolsBlurbs"}}
-
 <div class="ToolsBlurbs">
-  {{- range $toolsBlurbs}}
+  {{- range (yaml .)}}
   <div class="ToolsBlurbs-blurb">
     <a class="ToolsBlurbs-blurbHeader" href="{{.url}}">
       <img class="ToolsBlurbs-blurbIcon" src="{{.iconSrc}}" alt="{{.title}}">

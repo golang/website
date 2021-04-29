@@ -1,6 +1,4 @@
 {{define "projects"}}
-{{$featuredProjects := .Param "featuredProjects"}}
-
 <div class="FeaturedUsers">
 
 <h2 id="featured-users" class="sectionHeading">Featured users</h2>
@@ -14,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    {{- range $index, $project := $featuredProjects}}
+    {{- range $index, $project := (yaml .)}}
     <tr
       class="js-featuredUsersRow FeaturedUsers-row"
       {{- if (gt $index 2) }}

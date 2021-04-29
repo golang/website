@@ -4,19 +4,6 @@ linkTitle: "Command-line Interfaces (CLIs)"
 description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
 date: 2019-10-04T15:26:31-04:00
 series: Use Cases
-books:
-  - title: Powerful Command-Line Applications in Go
-    url: https://www.amazon.com/Powerful-Command-Line-Applications-Go-Maintainable/dp/168050696X
-    thumbnail: /images/books/powerful-command-line-applications-in-go.jpg
-  - title: Go in Action
-    url: https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781
-    thumbnail: /images/books/go-in-action.jpg
-  - title: The Go Programming Language
-    url: https://www.gopl.io/
-    thumbnail: /images/learn/go-programming-language-book.png
-  - title: Go Programming Blueprints
-    url: https://github.com/matryer/goblueprints
-    thumbnail: /images/learn/go-programming-blueprints.png
 resources:
 - name: icon
   src: CLI-green.svg
@@ -26,7 +13,54 @@ resources:
   src: cli-white.svg
   params:
     alt: CLI icon
-featuredProjects:
+---
+
+## Overview {#overview .sectionHeading}
+
+### CLI developers prefer Go for portability, performance, and ease of creation
+
+Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), are text-only. Cloud and infrastructure applications are primarily CLI-based due to their easy automation and remote capabilities.
+
+## Key benefits {#key-benefits .sectionHeading}
+
+### Leverage fast compile times to build programs that start quickly and run on any system
+
+Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. From a single Windows or Mac laptop, developers can build a Go program for every one of the dozens of architectures and operating systems Go supports in a matter of seconds, no complicated build farms are needed. No other compiled language can be built as portably or quickly. Go applications are built into a single self contained binary making installing Go applications trivial.
+
+Specifically, **programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies**. And **programs written in Go have an immediate startup time**—similar to C or C++ but unobtainable with other programming languages.
+
+## Use Case {#use-case .sectionHeading}
+
+### Use Go for building elegant CLIs
+
+{{backgroundquote `
+  author: Steve Domino
+  title: senior engineer and architect at Strala
+  link: https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056
+  quote: |
+    I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!
+`}}
+
+{{backgroundquote `
+  author: Francesc Campoy
+  title: VP of product at DGraph Labs and producer of Just For Func videos
+  link: https://www.youtube.com/watch?v=WvWPGVKLvR4
+  quote: |
+    Cobra is a great product to write small tools or even large ones. It’s more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between.”
+`}}
+
+When developing CLIs in Go, two tools are widely used: Cobra & Viper.
+
+{{pkg "github.com/spf13/cobra" "Cobra"}} is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers most of the popular Go applications including CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and [many more](https://pkg.go.dev/github.com/spf13/cobra?tab=importedby). With integrated command help, autocomplete and documentation “[it] makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
+
+
+{{pkg "github.com/spf13/viper" "Viper"}} is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper are designed to work together.
+
+Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-configuration-with-viper/) in the configuration, allowing CLI developers to manage the configuration for multiple parts of a large application. Viper also provides all of the tooling need to easily build twelve factor apps.
+
+"If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables. To do this, you can use Viper," [suggests Geudens](https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html).
+
+{{projects `
   - company: Comcast
     url: https://xfinity.com/
     logoSrc: comcast.svg
@@ -85,7 +119,28 @@ featuredProjects:
     ctas:
       - text: CLI API for Jaeger
         url: https://www.jaegertracing.io/docs/1.14/cli/
-goLibraries:
+`}}
+
+## Get Started {#get-started .sectionHeading}
+
+### Go books for creating CLIs
+
+{{books `
+  - title: Powerful Command-Line Applications in Go
+    url: https://www.amazon.com/Powerful-Command-Line-Applications-Go-Maintainable/dp/168050696X
+    thumbnail: /images/books/powerful-command-line-applications-in-go.jpg
+  - title: Go in Action
+    url: https://www.amazon.com/Go-Action-William-Kennedy/dp/1617291781
+    thumbnail: /images/books/go-in-action.jpg
+  - title: The Go Programming Language
+    url: https://www.gopl.io/
+    thumbnail: /images/learn/go-programming-language-book.png
+  - title: Go Programming Blueprints
+    url: https://github.com/matryer/goblueprints
+    thumbnail: /images/learn/go-programming-blueprints.png
+`}}
+
+{{libraries `
   - title: CLI Libraries
     viewMoreUrl: https://pkg.go.dev/search?q=command%20line%20OR%20CLI
     items:
@@ -116,58 +171,4 @@ goLibraries:
       - text: go-prompt
         url: https://pkg.go.dev/github.com/c-bata/go-prompt?tab=overview
         desc: A library for building powerful interactive prompts, making it easier to build cross-platform command line tools using Go.
----
-
-## Overview {#overview .sectionHeading}
-
-### CLI developers prefer Go for portability, performance, and ease of creation
-
-Command line interfaces (CLIs), unlike graphical user interfaces (GUIs), are text-only. Cloud and infrastructure applications are primarily CLI-based due to their easy automation and remote capabilities.
-
-## Key benefits {#key-benefits .sectionHeading}
-
-### Leverage fast compile times to build programs that start quickly and run on any system
-
-Developers of CLIs find Go to be ideal for designing their applications. Go compiles very quickly into a single binary, works across platforms with a consistent style, and brings a strong development community. From a single Windows or Mac laptop, developers can build a Go program for every one of the dozens of architectures and operating systems Go supports in a matter of seconds, no complicated build farms are needed. No other compiled language can be built as portably or quickly. Go applications are built into a single self contained binary making installing Go applications trivial.
-
-Specifically, **programs written in Go run on any system without requiring any existing libraries, runtimes, or dependencies**. And **programs written in Go have an immediate startup time**—similar to C or C++ but unobtainable with other programming languages.
-
-## Use Case {#use-case .sectionHeading}
-
-### Use Go for building elegant CLIs
-
-{{backgroundquote `
-  author: Steve Domino
-  title: senior engineer and architect at Strala
-  link: https://medium.com/@skdomino/writing-better-clis-one-snake-at-a-time-d22e50e60056
-  quote: |
-    I was tasked with building our CLI tool and found two really great projects, Cobra and Viper, which make building CLI’s easy. Individually they are very powerful, very flexible and very good at what they do. But together they will help you show your next CLI who is boss!
 `}}
-
-{{backgroundquote `
-  author: Francesc Campoy
-  title: VP of product at DGraph Labs and producer of Just For Func videos
-  link: https://www.youtube.com/watch?v=WvWPGVKLvR4
-  quote: |
-    Cobra is a great product to write small tools or even large ones. It’s more of a framework than a library, because when you call the binary that would create a skeleton, then you would be adding code in between.”
-`}}
-
-When developing CLIs in Go, two tools are widely used: Cobra & Viper.
-
-{{pkg "github.com/spf13/cobra" "Cobra"}} is both a library for creating powerful modern CLI applications and a program to generate applications and CLI applications in Go. Cobra powers most of the popular Go applications including CoreOS, Delve, Docker, Dropbox, Git Lfs, Hugo, Kubernetes, and [many more](https://pkg.go.dev/github.com/spf13/cobra?tab=importedby). With integrated command help, autocomplete and documentation “[it] makes documenting each command really simple,” says [Alex Ellis](https://blog.alexellis.io/5-keys-to-a-killer-go-cli/), founder of OpenFaaS.
-
-
-{{pkg "github.com/spf13/viper" "Viper"}} is a complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats. Cobra and Viper are designed to work together.
-
-Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-configuration-with-viper/) in the configuration, allowing CLI developers to manage the configuration for multiple parts of a large application. Viper also provides all of the tooling need to easily build twelve factor apps.
-
-"If you don’t want to pollute your command line, or if you’re working with sensitive data which you don’t want to show up in the history, it’s a good idea to work with environment variables. To do this, you can use Viper," [suggests Geudens](https://ordina-jworks.github.io/development/2018/10/20/make-your-own-cli-with-golang-and-cobra.html).
-
-{{projects $}}
-
-## Get Started {#get-started .sectionHeading}
-
-### Go books for creating CLIs
-
-{{books $}}
-{{libraries $}}

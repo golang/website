@@ -5,21 +5,6 @@ description: "With enhanced memory performance and support for several IDEs, Go 
 date: 2019-10-04T15:26:31-04:00
 series: Use Cases
 books:
-  - title: Web Development with Go
-    url: https://www.amazon.com/Web-Development-Go-Building-Scalable-ebook/dp/B01JCOC6Z6
-    thumbnail: /images/books/web-development-with-go.jpg
-  - title: Go Web Programming
-    url: https://www.amazon.com/Web-Programming-Sau-Sheong-Chang/dp/1617292567
-    thumbnail: /images/books/go-web-programming.jpg
-  - title: "Web Development Cookbook: Build full-stack web applications with Go"
-    url: https://www.amazon.com/Web-Development-Cookbook-full-stack-applications-ebook/dp/B077TVQ28W
-    thumbnail: /images/books/go-web-development-cookbook.jpg
-  - title: Building RESTful Web services with Go
-    url: https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1
-    thumbnail: /images/books/building-restful-web-services-with-go.jpg
-  - title: Mastering Go Web Services
-    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6
-    thumbnail: /images/books/mastering-go-web-services.jpg
 resources:
 - name: icon
   src: webdev-green.svg
@@ -29,7 +14,36 @@ resources:
   src: webdev-white.svg
   params:
     alt: web dev icon
-featuredProjects:
+---
+
+## Overview {#overview .sectionHeading}
+
+### Go delivers speed, security, and developer-friendly tools for Web Applications
+
+Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
+
+## Key Benefits {#key-benefits .sectionHeading}
+
+### Deploy across platforms in record speed
+
+For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code compiles to a single, small binary—with zero dependencies—making it very fast.
+
+### Leverage Go’s out-of-the-box performance to scale with ease
+
+Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reasons his company switched to Go:
+
+-   **Compiles into a single binary** — “Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
+
+-   **Static type system** — “Type system is really important for large scale applications.”
+
+-   **Performance** — “Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
+
+-   **No need for a web framework** — “In most of the cases you really don’t need any third-party library.”
+
+-   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
+
+
+{{projects `
   - company: Caddy
     url: https://caddyserver.com/
     logoSrc: caddy.svg
@@ -81,7 +95,31 @@ featuredProjects:
     ctas:
       - text: The Economist's Go microservices
         url: https://www.infoq.com/articles/golang-the-economist/
-goLibraries:
+`}}
+
+## Get Started {#get-started .sectionHeading}
+
+### Go books on web development
+
+{{books `
+  - title: Web Development with Go
+    url: https://www.amazon.com/Web-Development-Go-Building-Scalable-ebook/dp/B01JCOC6Z6
+    thumbnail: /images/books/web-development-with-go.jpg
+  - title: Go Web Programming
+    url: https://www.amazon.com/Web-Programming-Sau-Sheong-Chang/dp/1617292567
+    thumbnail: /images/books/go-web-programming.jpg
+  - title: "Web Development Cookbook: Build full-stack web applications with Go"
+    url: https://www.amazon.com/Web-Development-Cookbook-full-stack-applications-ebook/dp/B077TVQ28W
+    thumbnail: /images/books/go-web-development-cookbook.jpg
+  - title: Building RESTful Web services with Go
+    url: https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1
+    thumbnail: /images/books/building-restful-web-services-with-go.jpg
+  - title: Mastering Go Web Services
+    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6
+    thumbnail: /images/books/mastering-go-web-services.jpg
+`}}
+
+{{libraries `
   - title: Web frameworks
     viewMoreUrl: https://pkg.go.dev/search?q=web+framework
     items:
@@ -162,43 +200,7 @@ goLibraries:
       - text: gopherjs
         url: https://pkg.go.dev/github.com/gopherjs/gopherjs?tab=overview
         desc: A compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.
----
-
-## Overview {#overview .sectionHeading}
-
-### Go delivers speed, security, and developer-friendly tools for Web Applications
-
-Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
-
-## Key Benefits {#key-benefits .sectionHeading}
-
-### Deploy across platforms in record speed
-
-For enterprises, Go is preferred for providing rapid cross-platform deployment. With its goroutines, native compilation, and the URI-based package namespacing, Go code compiles to a single, small binary—with zero dependencies—making it very fast.
-
-### Leverage Go’s out-of-the-box performance to scale with ease
-
-Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reasons his company switched to Go:
-
--   **Compiles into a single binary** — “Using static linking, Go actually combining all dependency libraries and modules into one single binary file based on OS type and architecture.”
-
--   **Static type system** — “Type system is really important for large scale applications.”
-
--   **Performance** — “Go performed better because of its concurrency model and CPU scalability. Whenever we need to process some internal request, we are doing it with separate Goroutines which are 10x cheaper in resources than Python Threads.”
-
--   **No need for a web framework** — “In most of the cases you really don’t need any third-party library.”
-
--   **Great IDE support and debugging** — “After rewriting all projects to Go, we got 64 percent less code than we had earlier.”
-
-
-{{projects $}}
-
-## Get Started {#get-started .sectionHeading}
-
-### Go books on web development
-
-{{books $}}
-{{libraries $}}
+`}}
 
 ### Courses
 * [Learn to Create Web Applications using Go](https://www.usegolang.com), a paid online course

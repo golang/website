@@ -1,8 +1,7 @@
 {{define "books"}}
-{{$books := .Param "books"}}
-
+{{with (yaml .)}}
 <ul class="Learn-tileList">
-    {{range $books}}
+    {{range .}}
     <li class="Learn-tile">
         <a href="{{.url}}">
             {{if .thumbnail}}
@@ -17,4 +16,5 @@
     </li>
     {{end}}
 </ul>
+{{end}}
 {{end}}
