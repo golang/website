@@ -1,4 +1,3 @@
-resources:
   - title: Cloud & Network Services
     description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
     link: /solutions/cloud/

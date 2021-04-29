@@ -22,7 +22,7 @@ var discoveryHosts = map[string]string{
 
 func main() {
 	dir := "../.."
-	if _, err := os.Stat("content"); err == nil {
+	if _, err := os.Stat("_content"); err == nil {
 		// Running in repo root.
 		dir = "."
 	}

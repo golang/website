@@ -9,7 +9,6 @@ package site
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"fmt"
 	"io"
 	"io/ioutil"
@@ -30,7 +29,6 @@ type Site struct {
 	URL   string
 	Title string
 
-	data      map[string]interface{}
 	pages     []*Page
 	pagesByID map[string]*Page
 	dir       string
@@ -54,58 +52,16 @@ func Load(dir string) (*Site, error) {
 	}
 
 	// Read site config.
-	data, err := ioutil.ReadFile(site.file("data/site.yaml"))
+	data, err := ioutil.ReadFile(site.file("_content/site.yaml"))
 	if err != nil {
 		return nil, err
 	}
 	if err := yaml.Unmarshal(data, &site); err != nil {
-		return nil, fmt.Errorf("parsing data/site.yaml: %v", err)
-	}
-
-	// Load site data files.
-	// site.data is a directory tree in which each key points at
-	// either another directory tree (a subdirectory)
-	// or a parsed yaml file.
-	site.data = make(map[string]interface{})
-	root := site.file("data")
-	err = filepath.Walk(root, func(name string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		if name == root {
-			name = "."
-		} else {
-			name = name[len(root)+1:]
-		}
-		if info.IsDir() {
-			site.data[name] = make(map[string]interface{})
-			return nil
-		}
-		if strings.HasSuffix(name, ".yaml") {
-			data, err := ioutil.ReadFile(filepath.Join(root, name))
-			if err != nil {
-				return err
-			}
-			var d interface{}
-			if err := yaml.Unmarshal(data, &d); err != nil {
-				return fmt.Errorf("unmarshaling %v: %v", name, err)
-			}
-
-			elems := strings.Split(name, "/")
-			m := site.data
-			for _, elem := range elems[:len(elems)-1] {
-				m = m[elem].(map[string]interface{})
-			}
-			m[strings.TrimSuffix(elems[len(elems)-1], ".yaml")] = d
-		}
-		return nil
-	})
-	if err != nil {
-		return nil, fmt.Errorf("loading data: %v", err)
+		return nil, fmt.Errorf("parsing _content/site.yaml: %v", err)
 	}
 
 	// Load site pages from md files.
-	err = filepath.Walk(site.file("content"), func(name string, info os.FileInfo, err error) error {
+	err = filepath.Walk(site.file("_content"), func(name string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
@@ -174,32 +130,27 @@ func (site *Site) newPage(short string) *Page {
 	return p
 }
 
+// data parses the named yaml file and returns its structured data.
+func (site *Site) data(name string) (interface{}, error) {
+	data, err := ioutil.ReadFile(site.file("_content/" + name + ".yaml"))
+	if err != nil {
+		return nil, err
+	}
+	var d interface{}
+	if err := yaml.Unmarshal(data, &d); err != nil {
+		return nil, err
+	}
+	return d, nil
+}
+
 // Open returns the content to serve at the given path.
 // This function makes Site an http.FileServer, for easy HTTP serving.
 func (site *Site) Open(name string) (http.File, error) {
 	name = strings.TrimPrefix(name, "/")
 	switch ext := path.Ext(name); ext {
 	case ".css", ".jpeg", ".jpg", ".js", ".png", ".svg", ".txt":
-		if f, err := os.Open(site.file("content/" + name)); err == nil {
+		if f, err := os.Open(site.file("_content/" + name)); err == nil {
 			return f, nil
-		}
-		if f, err := os.Open(site.file("static/" + name)); err == nil {
-			return f, nil
-		}
-
-		// Maybe it is name.hash.ext. Check hash.
-		// We will stop generating these eventually,
-		// so it doesn't matter that this is slow.
-		prefix := name[:len(name)-len(ext)]
-		hash := path.Ext(prefix)
-		prefix = prefix[:len(prefix)-len(hash)]
-		if len(hash) == 1+64 {
-			file := site.file("assets/" + prefix + ext)
-			if data, err := ioutil.ReadFile(file); err == nil && fmt.Sprintf(".%x", sha256.Sum256(data)) == hash {
-				if f, err := os.Open(file); err == nil {
-					return f, nil
-				}
-			}
 		}
 
 	case ".html":

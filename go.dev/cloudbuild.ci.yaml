@@ -8,4 +8,4 @@ steps:
     entrypoint: bash
     args:
       - -c
-      - go run ./cmd/events/ > ./data/events.yaml
+      - go run ./cmd/events/ > ./_content/events.yaml

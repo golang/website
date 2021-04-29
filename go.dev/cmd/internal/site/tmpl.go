@@ -5,9 +5,6 @@
 package site
 
 import (
-	"crypto/sha256"
-	"encoding/base64"
-	"encoding/hex"
 	"fmt"
 	"os"
 	"path"
@@ -24,9 +21,8 @@ import (
 
 func (site *Site) initTemplate() error {
 	funcs := template.FuncMap{
-		"data":        func() interface{} { return site.data },
+		"data":        site.data,
 		"dict":        dict,
-		"fingerprint": fingerprint,
 		"first":       first,
 		"isset":       isset,
 		"list":        list,
@@ -34,7 +30,6 @@ func (site *Site) initTemplate() error {
 		"path":        pathFn,
 		"replace":     replace,
 		"replaceRE":   replaceRE,
-		"resources":   site.resources,
 		"safeHTML":    safeHTML,
 		"sort":        sortFn,
 		"where":       where,
@@ -42,7 +37,7 @@ func (site *Site) initTemplate() error {
 	}
 
 	site.base = template.New("site").Funcs(funcs)
-	if err := tmplfunc.ParseGlob(site.base, site.file("templates/*.tmpl")); err != nil && !strings.Contains(err.Error(), "pattern matches no files") {
+	if err := tmplfunc.ParseGlob(site.base, site.file("_templates/*.tmpl")); err != nil && !strings.Contains(err.Error(), "pattern matches no files") {
 		return err
 	}
 	return nil
@@ -67,23 +62,6 @@ func toString(x interface{}) string {
 	default:
 		panic(fmt.Sprintf("cannot toString %T", x))
 	}
-}
-
-type Fingerprint struct {
-	r    *Resource
-	Data struct {
-		Integrity string
-	}
-	RelPermalink string
-}
-
-func fingerprint(r *Resource) *Fingerprint {
-	f := &Fingerprint{r: r}
-	sum := sha256.Sum256(r.data)
-	ext := path.Ext(r.RelPermalink)
-	f.RelPermalink = "/" + strings.TrimSuffix(r.RelPermalink, ext) + "." + hex.EncodeToString(sum[:]) + ext
-	f.Data.Integrity = "sha256-" + base64.StdEncoding.EncodeToString(sum[:])
-	return f
 }
 
 func first(n int, list reflect.Value) reflect.Value {
@@ -276,7 +254,7 @@ func (r *PageResources) GetMatch(name string) (*Resource, error) {
 	for _, rs := range r.p.TheResources {
 		if name == rs.Name {
 			if rs.data == nil {
-				rs.RelPermalink = strings.TrimPrefix(filepath.ToSlash(filepath.Join(r.p.file, "../"+rs.Src)), "content")
+				rs.RelPermalink = strings.TrimPrefix(filepath.ToSlash(filepath.Join(r.p.file, "../"+rs.Src)), "_content")
 				data, err := os.ReadFile(r.p.site.file(r.p.file + "/../" + rs.Src))
 				if err != nil {
 					return nil, err
@@ -295,18 +273,6 @@ type Resource struct {
 	Name         string
 	Src          string
 	Params       map[string]string
-}
-
-func (site *Site) resources() Resources { return Resources{site} }
-
-type Resources struct{ site *Site }
-
-func (r Resources) Get(name string) (*Resource, error) {
-	data, err := os.ReadFile(r.site.file("assets/" + name))
-	if err != nil {
-		return nil, err
-	}
-	return &Resource{data: data, RelPermalink: name}, nil
 }
 
 func yamlFn(s string) (interface{}, error) {

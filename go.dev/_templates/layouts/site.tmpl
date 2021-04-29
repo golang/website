@@ -14,9 +14,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
-{{$styles := resources.Get "css/styles.css" -}}
-{{$stylesFP := $styles | fingerprint -}}
-<link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
+<link rel="stylesheet" href="/css/styles.css">
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -35,6 +33,8 @@
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
+
+{{$menus := data "menus"}}
 <header class="Site-header js-siteHeader">
   <div class="Banner">
     <div class="Banner-inner">
@@ -59,7 +59,7 @@
         {{template "search-form" .}}
         <ul class="Header-menu">
           {{- $currentPage := .}}
-          {{- range data.menus.main}}
+          {{- range $menus.main}}
           <li class="Header-menuItem {{if eq $currentPage.Title .name}} Header-menuItem--active{{end}}">
             <a href="{{.url}}">{{.name}}</a>
           </li>
@@ -93,7 +93,7 @@
       </a>
     </div>
     <ul class="NavigationDrawer-list">
-      {{- range data.menus.main}}
+      {{- range $menus.main}}
         <li class="NavigationDrawer-listItem {{if eq $currentPage.CurrentSection.Title .name}} NavigationDrawer-listItem--active{{end}}">
           <a href="{{.url}}">{{.name}}</a>
         </li>
@@ -102,14 +102,14 @@
   </nav>
 </aside>
 <div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
-<main class="SiteContent{{if data.messaging.messaging.HeaderMessagingBar }} SiteContent--lower{{else}} SiteContent--default{{end}}">
+<main class="SiteContent SiteContent--default">
   {{- block "layout" . -}}{{- end -}}
 </main>
 <footer class="Site-footer">
   <div class="Footer">
     <div class="Container">
       <div class="Footer-links">
-        {{- range data.menus.footer}}
+        {{- range $menus.footer}}
           <div class="Footer-linkColumn">
             <a href="{{.url}}" class="Footer-link Footer-link--primary">
               {{.name}}

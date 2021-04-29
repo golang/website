@@ -17,7 +17,7 @@ title: "Getting Started"
         </p>
         <div class="Learn-heroAction">
           <div
-            data-version="{{data.global.latestVersion}}"
+            data-version=""
             class="js-latestGoVersion"
           >
             <a
@@ -45,7 +45,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-quickstarts Learn-cardList">
-        {{ range first 3 data.learn.quickstart.links }}
+        {{range first 3 (data "learn/quickstart")}}
           <li class="Learn-quickstart Learn-card">
             {{template "learn-card" .}}
           </li>
@@ -66,7 +66,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{ range first 4 data.learn.guidedLearning.links }}
+        {{range first 4 (data "learn/guided")}}
           <li class="Learn-card">
             {{template "learn-card" .}}
           </li>
@@ -83,7 +83,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{ range first 4 data.learn.courses.links }}
+        {{range first 4 (data "learn/courses") }}
           <li class="Learn-card">
             {{template "learn-card" .}}
           </li>
@@ -100,7 +100,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{ range first 4 data.learn.cloud.links }}
+        {{ range first 4 (data "learn/cloud") }}
           <li class="Learn-card">
             {{template "learn-self-paced-card" .}}
           </li>
@@ -118,7 +118,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList Learn-bookList">
-        {{ range first 5 data.learn.books.links }}
+        {{ range first 5 (data "learn/books") }}
           <li class="Learn-card Learn-book">
             {{template "learn-book" .}}
           </li>
@@ -135,7 +135,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-inPersonList">
-        {{range first 4 data.learn.inPerson.links}}
+        {{range first 4 (data "learn/training")}}
         <li class="Learn-inPerson">
           <p class="Learn-inPersonTitle">
             <a href="{{.url}}">{{.title}} </a>
@@ -157,7 +157,7 @@ title: "Getting Started"
       </p>
     </div>
     <ul class="Learn-events">
-      {{range first 3 data.events.all}}
+      {{range first 3 (data "events").all}}
       <li class="Learn-eventItem">
         <div
           class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"

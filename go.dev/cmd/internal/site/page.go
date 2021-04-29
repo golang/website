@@ -48,7 +48,7 @@ type Page struct {
 // loadPage loads the site's page from the given file.
 // It returns the page but also adds the page to site.pages and site.pagesByID.
 func (site *Site) loadPage(file string) (*Page, error) {
-	id := strings.TrimPrefix(file, "content/")
+	id := strings.TrimPrefix(file, "_content/")
 	if strings.HasSuffix(id, "/_index.md") {
 		id = strings.TrimSuffix(id, "/_index.md")
 	} else if strings.HasSuffix(id, "/index.md") {
@@ -56,7 +56,7 @@ func (site *Site) loadPage(file string) (*Page, error) {
 	} else {
 		id = strings.TrimSuffix(id, ".md")
 	}
-	if file == "content/index.md" {
+	if file == "_content/index.md" {
 		id = ""
 	}
 
@@ -68,7 +68,7 @@ func (site *Site) loadPage(file string) (*Page, error) {
 	// Determine section.
 	for dir := path.Dir(file); dir != "."; dir = path.Dir(dir) {
 		if _, err := os.Stat(site.file(dir + "/_index.md")); err == nil {
-			p.section = strings.TrimPrefix(dir, "content/")
+			p.section = strings.TrimPrefix(dir, "_content/")
 			break
 		}
 	}
@@ -77,9 +77,9 @@ func (site *Site) loadPage(file string) (*Page, error) {
 	p.parent = p.section
 	if p.parent == p.id {
 		p.parent = ""
-		for dir := path.Dir("content/" + p.id); dir != "."; dir = path.Dir(dir) {
+		for dir := path.Dir("_content/" + p.id); dir != "."; dir = path.Dir(dir) {
 			if _, err := os.Stat(site.file(dir + "/_index.md")); err == nil {
-				p.parent = strings.TrimPrefix(dir, "content/")
+				p.parent = strings.TrimPrefix(dir, "_content/")
 				break
 			}
 		}
@@ -148,11 +148,11 @@ func (p *Page) renderHTML() error {
 	}
 
 	// Load base template.
-	base, err := ioutil.ReadFile(p.site.file("layouts/site.tmpl"))
+	base, err := ioutil.ReadFile(p.site.file("_templates/layouts/site.tmpl"))
 	if err != nil {
 		return err
 	}
-	t := p.site.clone().New("layouts/site.tmpl")
+	t := p.site.clone().New("_templates/layouts/site.tmpl")
 	if err := tmplfunc.Parse(t, string(base)); err != nil {
 		return err
 	}
@@ -162,7 +162,7 @@ func (p *Page) renderHTML() error {
 	if layout == "" {
 		layout = "default"
 	}
-	data, err := ioutil.ReadFile(p.site.file("layouts/" + layout + ".tmpl"))
+	data, err := ioutil.ReadFile(p.site.file("_templates/layouts/" + layout + ".tmpl"))
 	if err != nil {
 		return err
 	}
