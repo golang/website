@@ -35,7 +35,6 @@ type Page struct {
 	Content      template.HTML
 	Date         anyTime
 	Description  string `yaml:"description"`
-	IsHome       bool
 	Layout       string `yaml:"layout"`
 	LinkTitle    string `yaml:"linkTitle"`
 	Pages        []*Page
@@ -56,6 +55,9 @@ func (site *Site) loadPage(file string) (*Page, error) {
 		id = strings.TrimSuffix(id, "/index.md")
 	} else {
 		id = strings.TrimSuffix(id, ".md")
+	}
+	if file == "content/index.md" {
+		id = ""
 	}
 
 	p := site.newPage(id)
@@ -146,31 +148,21 @@ func (p *Page) renderHTML() error {
 	}
 
 	// Load base template.
-	base, err := ioutil.ReadFile(p.Site.file("layouts/_default/baseof.html"))
+	base, err := ioutil.ReadFile(p.Site.file("layouts/site.tmpl"))
 	if err != nil {
 		return err
 	}
-	t := p.Site.clone().New("layouts/_default/baseof.html")
+	t := p.Site.clone().New("layouts/site.tmpl")
 	if err := tmplfunc.Parse(t, string(base)); err != nil {
 		return err
 	}
 
 	// Load page-specific layout template.
-	// There are general rules in Hugo, but we don't need to reproduce them here
-	// since this will go away.
-	layout := "layouts/default.tmpl"
-	if p.Layout != "" {
-		layout = "layouts/" + p.Layout + ".tmpl"
+	layout := p.Layout
+	if layout == "" {
+		layout = "default"
 	}
-	switch p.id {
-	case "":
-		layout = "layouts/index.html"
-	case "learn":
-		layout = "layouts/learn/section.html"
-	case "solutions":
-		layout = "layouts/solutions/section.html"
-	}
-	data, err := ioutil.ReadFile(p.Site.file(layout))
+	data, err := ioutil.ReadFile(p.Site.file("layouts/" + layout + ".tmpl"))
 	if err != nil {
 		return err
 	}

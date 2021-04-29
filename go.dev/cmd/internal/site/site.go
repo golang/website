@@ -137,12 +137,6 @@ func Load(dir string) (*Site, error) {
 		return nil, fmt.Errorf("loading data: %v", err)
 	}
 
-	// Implicit home page.
-	home := site.newPage("")
-	home.Params["Series"] = ""
-	home.IsHome = true
-	home.Title = site.Title
-
 	// Load site pages from md files.
 	err = filepath.Walk(site.file("content"), func(name string, info os.FileInfo, err error) error {
 		if err != nil {

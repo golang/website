@@ -250,6 +250,8 @@ func (d *Page) HasMenuCurrent(x string, y *MenuItem) bool {
 	return false
 }
 
+func (p *Page) IsHome() bool { return p.id == "" }
+
 func (d *Page) IsMenuCurrent(x string, y *MenuItem) bool {
 	return d.Permalink() == y.URL
 }
@@ -257,7 +259,7 @@ func (d *Page) IsMenuCurrent(x string, y *MenuItem) bool {
 func (p *Page) Param(key string) interface{} { return p.Params[key] }
 
 func (p *Page) Parent() *Page {
-	if p.IsHome {
+	if p.IsHome() {
 		return nil
 	}
 	return p.Site.pagesByID[p.parent]

@@ -1,4 +1,7 @@
-{{define "layout"}}
+---
+title: go.dev
+---
+
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
@@ -324,4 +327,3 @@
     </div>
   </div>
 </section>
-{{end}}
