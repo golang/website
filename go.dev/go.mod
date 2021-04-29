@@ -3,7 +3,6 @@ module golang.org/x/go.dev
 go 1.13
 
 require (
-	github.com/BurntSushi/toml v0.3.1
 	github.com/google/go-cmp v0.3.1
 	github.com/microcosm-cc/bluemonday v1.0.2
 	github.com/russross/blackfriday v1.6.0

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{or $.Site.LanguageCode "en"}}">
+<html lang="en">
 <head>
 <!-- Google Tag Manager -->
 <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -15,12 +15,8 @@
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
 {{$styles := resources.Get "css/styles.css" -}}
-{{if .Site.IsServer -}}
-  <link rel="stylesheet" href="{{$styles.RelPermalink}}">
-{{else -}}
-  {{$stylesFP := $styles | fingerprint -}}
-  <link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
-{{end -}}
+{{$stylesFP := $styles | fingerprint -}}
+<link rel="stylesheet" href="{{$stylesFP.RelPermalink}}" integrity="{{$stylesFP.Data.Integrity}}">
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -29,7 +25,7 @@
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
-<title>{{.Title}}{{if not .IsHome}} - {{.Site.Title}}{{end}}</title>
+<title>{{.Title}}{{if not .IsHome}} - go.dev{{end}}</title>
 {{if (isset .Params "link") -}}
 <meta http-equiv="refresh" content="0; url={{.Params.link}}">
 {{end -}}
@@ -53,7 +49,7 @@
   </div>
   <div class="Header Header--dark">
     <nav class="Header-nav">
-      <a href="{{.Site.BaseURL}}">
+      <a href="https://go.dev/">
         <img
           class="js-headerLogo Header-logo"
           src="/images/go-logo-white.svg"
@@ -63,16 +59,9 @@
         {{template "search-form" .}}
         <ul class="Header-menu">
           {{- $currentPage := .}}
-          {{- range .Site.Menus.main}}
-          {{- $url := .URL}}
-          {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
-            {{- $url = "https://learn.go.dev"}}
-          {{- end}}
-          {{- if not $currentPage.Site.IsServer}}
-            {{- $url = $url | absURL}}
-          {{- end}}
-          <li class="Header-menuItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.Title .Name)}} Header-menuItem--active{{end}}">
-            <a href="{{$url}}">{{.Name}}</a>
+          {{- range data.menus.main}}
+          <li class="Header-menuItem {{if eq $currentPage.Title .name}} Header-menuItem--active{{end}}">
+            <a href="{{.url}}">{{.name}}</a>
           </li>
           {{- end}}
         </ul>
@@ -99,40 +88,37 @@
 <aside class="NavigationDrawer js-header">
   <nav class="NavigationDrawer-nav">
     <div class="NavigationDrawer-header">
-      <a href="{{.Site.BaseURL}}">
+      <a href="https://go.dev/">
         <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
       </a>
     </div>
     <ul class="NavigationDrawer-list">
-      {{- range .Site.Menus.main}}
-        {{- $url := .URL}}
-        {{- if and (not $currentPage.Site.IsServer) (eq .Identifier "learn")}}
-          {{- $url = "https://learn.go.dev"}}
-        {{- end}}
-        {{- if not $currentPage.Site.IsServer}}
-          {{- $url = $url | absURL}}
-        {{- end}}
-        <li class="NavigationDrawer-listItem {{if or ($currentPage.IsMenuCurrent "main" .) ($currentPage.HasMenuCurrent "main" .) (eq $currentPage.CurrentSection.Title .Name)}} NavigationDrawer-listItem--active{{end}}">
-          <a href="{{$url}}">{{.Name}}</a>
+      {{- range data.menus.main}}
+        <li class="NavigationDrawer-listItem {{if eq $currentPage.CurrentSection.Title .name}} NavigationDrawer-listItem--active{{end}}">
+          <a href="{{.url}}">{{.name}}</a>
         </li>
       {{- end}}
     </ul>
   </nav>
 </aside>
 <div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
-<main class="SiteContent{{if $.Site.Data.messaging.messaging.HeaderMessagingBar }} SiteContent--lower{{else}} SiteContent--default{{end}}">
+<main class="SiteContent{{if data.messaging.messaging.HeaderMessagingBar }} SiteContent--lower{{else}} SiteContent--default{{end}}">
   {{- block "layout" . -}}{{- end -}}
 </main>
 <footer class="Site-footer">
   <div class="Footer">
     <div class="Container">
       <div class="Footer-links">
-        {{- range .Site.Menus.footer}}
+        {{- range data.menus.footer}}
           <div class="Footer-linkColumn">
-            {{template "footer-link" (dict "menuItem" . "Site" $currentPage.Site)}}
-            {{- range .Children}}
-              {{template "footer-link" (dict "menuItem" . "Site" $currentPage.Site)}}
-            {{end}}
+            <a href="{{.url}}" class="Footer-link Footer-link--primary">
+              {{.name}}
+            </a>
+            {{- range .children}}
+              <a href="{{.url}}" class="Footer-link">
+                {{.name}}
+              </a>
+            {{- end}}
           </div>
         {{- end}}
       </div>
@@ -203,17 +189,4 @@
          spellcheck="false" title="Search for a package">
         </input>
 </form>
-{{end}}
-
-{{define "footer-link"}}
-{{- $url := .menuItem.URL}}
-{{- if and (not .Site.IsServer) (eq .Identifier "learn")}}
-  {{- $url = "https://learn.go.dev"}}
-{{- end}}
-{{- if not .Site.IsServer}}
-  {{- $url = $url | absURL}}
-{{- end}}
-<a href="{{$url}}" class="Footer-link{{if not .menuItem.Parent}} Footer-link--primary{{end}}">
-  {{.menuItem.Name}}
-</a>
 {{end}}

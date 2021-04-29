@@ -24,8 +24,7 @@ import (
 
 func (site *Site) initTemplate() error {
 	funcs := template.FuncMap{
-		"absURL":      absURL,
-		"default":     defaultFn,
+		"data":        func() interface{} { return site.data },
 		"dict":        dict,
 		"fingerprint": fingerprint,
 		"first":       first,
@@ -68,15 +67,6 @@ func toString(x interface{}) string {
 	default:
 		panic(fmt.Sprintf("cannot toString %T", x))
 	}
-}
-
-func absURL(u string) string { return u }
-
-func defaultFn(x, y string) string {
-	if y != "" {
-		return y
-	}
-	return x
 }
 
 type Fingerprint struct {
@@ -243,18 +233,10 @@ func eval(elem reflect.Value, key string) (string, bool) {
 }
 
 func (p *Page) CurrentSection() *Page {
-	return p.Site.pagesByID[p.section]
-}
-
-func (d *Page) HasMenuCurrent(x string, y *MenuItem) bool {
-	return false
+	return p.site.pagesByID[p.section]
 }
 
 func (p *Page) IsHome() bool { return p.id == "" }
-
-func (d *Page) IsMenuCurrent(x string, y *MenuItem) bool {
-	return d.Permalink() == y.URL
-}
 
 func (p *Page) Param(key string) interface{} { return p.Params[key] }
 
@@ -262,11 +244,11 @@ func (p *Page) Parent() *Page {
 	if p.IsHome() {
 		return nil
 	}
-	return p.Site.pagesByID[p.parent]
+	return p.site.pagesByID[p.parent]
 }
 
 func (p *Page) Permalink() string {
-	return strings.TrimRight(p.Site.BaseURL, "/") + p.RelPermalink()
+	return strings.TrimRight(p.site.URL, "/") + p.RelPermalink()
 }
 
 func (p *Page) RelPermalink() string {
@@ -295,7 +277,7 @@ func (r *PageResources) GetMatch(name string) (*Resource, error) {
 		if name == rs.Name {
 			if rs.data == nil {
 				rs.RelPermalink = strings.TrimPrefix(filepath.ToSlash(filepath.Join(r.p.file, "../"+rs.Src)), "content")
-				data, err := os.ReadFile(r.p.Site.file(r.p.file + "/../" + rs.Src))
+				data, err := os.ReadFile(r.p.site.file(r.p.file + "/../" + rs.Src))
 				if err != nil {
 					return nil, err
 				}

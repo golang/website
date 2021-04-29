@@ -21,35 +21,21 @@ import (
 	"strings"
 	"time"
 
-	"github.com/BurntSushi/toml"
 	"golang.org/x/go.dev/cmd/internal/html/template"
 	"gopkg.in/yaml.v3"
 )
 
 // A Site holds metadata about the entire site.
 type Site struct {
-	BaseURL      string
-	LanguageCode string
-	Title        string
-	Menus        map[string][]*MenuItem `toml:"menu"`
-	IsServer     bool
-	Data         map[string]interface{}
-	pages        []*Page
-	pagesByID    map[string]*Page
-	dir          string
-	redirects    map[string]string
-	base         *template.Template
-}
+	URL   string
+	Title string
 
-// A MenuItem is a single entry in a menu.
-type MenuItem struct {
-	Identifier string
-	Name       string
-	Title      string
-	URL        string
-	Parent     string
-	Weight     int
-	Children   []*MenuItem
+	data      map[string]interface{}
+	pages     []*Page
+	pagesByID map[string]*Page
+	dir       string
+	redirects map[string]string
+	base      *template.Template
 }
 
 // Load loads and returns the site in the directory rooted at dir.
@@ -67,39 +53,20 @@ func Load(dir string) (*Site, error) {
 		return nil, err
 	}
 
-	// Read site config from config.toml.
-	if _, err := toml.DecodeFile(site.file("config.toml"), &site); err != nil {
-		return nil, fmt.Errorf("parsing site config.toml: %v", err)
+	// Read site config.
+	data, err := ioutil.ReadFile(site.file("data/site.yaml"))
+	if err != nil {
+		return nil, err
 	}
-
-	// Group and sort menus.
-	for name, list := range site.Menus {
-		// Collect top-level items and assign children.
-		topsByID := make(map[string]*MenuItem)
-		var tops []*MenuItem
-		for _, item := range list {
-			if p := topsByID[item.Parent]; p != nil {
-				p.Children = append(p.Children, item)
-				continue
-			}
-			tops = append(tops, item)
-			if item.Identifier != "" {
-				topsByID[item.Identifier] = item
-			}
-		}
-		// Sort each top-level item's child list.
-		for _, item := range tops {
-			c := item.Children
-			sort.Slice(c, func(i, j int) bool { return c[i].Weight < c[j].Weight })
-		}
-		site.Menus[name] = tops
+	if err := yaml.Unmarshal(data, &site); err != nil {
+		return nil, fmt.Errorf("parsing data/site.yaml: %v", err)
 	}
 
 	// Load site data files.
-	// site.Data is a directory tree in which each key points at
+	// site.data is a directory tree in which each key points at
 	// either another directory tree (a subdirectory)
 	// or a parsed yaml file.
-	site.Data = make(map[string]interface{})
+	site.data = make(map[string]interface{})
 	root := site.file("data")
 	err = filepath.Walk(root, func(name string, info os.FileInfo, err error) error {
 		if err != nil {
@@ -111,7 +78,7 @@ func Load(dir string) (*Site, error) {
 			name = name[len(root)+1:]
 		}
 		if info.IsDir() {
-			site.Data[name] = make(map[string]interface{})
+			site.data[name] = make(map[string]interface{})
 			return nil
 		}
 		if strings.HasSuffix(name, ".yaml") {
@@ -125,7 +92,7 @@ func Load(dir string) (*Site, error) {
 			}
 
 			elems := strings.Split(name, "/")
-			m := site.Data
+			m := site.data
 			for _, elem := range elems[:len(elems)-1] {
 				m = m[elem].(map[string]interface{})
 			}
@@ -198,7 +165,7 @@ func (site *Site) file(name string) string { return filepath.Join(site.dir, name
 // newPage returns a new page belonging to site.
 func (site *Site) newPage(short string) *Page {
 	p := &Page{
-		Site:   site,
+		site:   site,
 		id:     short,
 		Params: make(map[string]interface{}),
 	}

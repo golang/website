@@ -39,7 +39,7 @@ type Page struct {
 	LinkTitle    string `yaml:"linkTitle"`
 	Pages        []*Page
 	Params       map[string]interface{}
-	Site         *Site
+	site         *Site
 	TheResources []*Resource `yaml:"resources"`
 	Title        string
 	Weight       int
@@ -148,11 +148,11 @@ func (p *Page) renderHTML() error {
 	}
 
 	// Load base template.
-	base, err := ioutil.ReadFile(p.Site.file("layouts/site.tmpl"))
+	base, err := ioutil.ReadFile(p.site.file("layouts/site.tmpl"))
 	if err != nil {
 		return err
 	}
-	t := p.Site.clone().New("layouts/site.tmpl")
+	t := p.site.clone().New("layouts/site.tmpl")
 	if err := tmplfunc.Parse(t, string(base)); err != nil {
 		return err
 	}
@@ -162,7 +162,7 @@ func (p *Page) renderHTML() error {
 	if layout == "" {
 		layout = "default"
 	}
-	data, err := ioutil.ReadFile(p.Site.file("layouts/" + layout + ".tmpl"))
+	data, err := ioutil.ReadFile(p.site.file("layouts/" + layout + ".tmpl"))
 	if err != nil {
 		return err
 	}

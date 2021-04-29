@@ -44,7 +44,7 @@ func markdownToHTML(markdown string) template.HTML {
 // the result as markdown to be converted to HTML.
 // This is the same logic used by the Go web site.
 func markdownTemplateToHTML(markdown string, p *Page) (template.HTML, error) {
-	t := p.Site.clone().New(p.file)
+	t := p.site.clone().New(p.file)
 	if err := tmplfunc.Parse(t, string(p.data)); err != nil {
 		return "", err
 	}
