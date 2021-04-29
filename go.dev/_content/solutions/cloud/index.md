@@ -5,15 +5,12 @@ description: "With a strong ecosystem of tools and APIs on major cloud providers
 date: 2019-10-04T15:26:31-04:00
 layout: solution
 series: Use Cases
-resources:
-  - name: icon
-    src: cloud-green.svg
-    params:
-      alt: cloud icon
-  - name: icon-white
-    src: cloud-white.svg
-    params:
-      alt: cloud icon
+icon:
+  file: cloud-green.svg
+  alt: cloud icon
+icon-white:
+  file: cloud-white.svg
+  alt: cloud icon
 ---
 
 ## Overview {#overview .sectionHeading}

@@ -6,15 +6,12 @@ date: 2019-10-03T17:16:43-04:00
 layout: solution
 series: Use Cases
 books:
-resources:
-- name: icon
-  src: ops-green.svg
-  params:
-    alt: ops icon
-- name: icon-white
-  src: ops-white.svg
-  params:
-    alt: ops icon
+icon:
+  file: ops-green.svg
+  alt: ops icon
+icon-white:
+  file: ops-white.svg
+  alt: ops icon
 ---
 
 ## Overview {#overview .sectionHeading}

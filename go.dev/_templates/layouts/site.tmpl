@@ -24,7 +24,7 @@
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
 <title>{{.Title}}{{if not .IsHome}} - go.dev{{end}}</title>
-{{if (isset .Params "link") -}}
+{{if .Params.link -}}
 <meta http-equiv="refresh" content="0; url={{.Params.link}}">
 {{end -}}
 </head>

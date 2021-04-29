@@ -5,15 +5,12 @@ description: "With popular open source packages and a robust standard library, u
 date: 2019-10-04T15:26:31-04:00
 layout: solution
 series: Use Cases
-resources:
-- name: icon
-  src: CLI-green.svg
-  params:
-    alt: CLI icon
-- name: icon-white
-  src: cli-white.svg
-  params:
-    alt: CLI icon
+icon:
+  file: CLI-green.svg
+  alt: CLI icon
+icon-white:
+  file: cli-white.svg
+  alt: CLI icon
 ---
 
 ## Overview {#overview .sectionHeading}

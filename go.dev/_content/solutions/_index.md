@@ -22,7 +22,7 @@ title: Why Go
               </h2>
               <p class="Solutions-headlineBody">
                 {{with .Params.quote}}{{.}}{{end}}
-                <a href="{{.RelPermalink}}"
+                <a href="{{.Path}}"
                   >Learn more
                   <i class="material-icons Solutions-forwardArrowIcon"
                     >arrow_forward</i
@@ -82,7 +82,7 @@ title: Why Go
       {{$solutions := where .Pages "Params.series" "Case Studies"}}
       {{range sort $solutions "Params.company" "asc"}}
       <li class="Solutions-card">
-        {{if isset .Params "link" }}
+        {{if .Params.link}}
         <a
           href="{{.Params.link}}"
           target="_blank"
@@ -110,7 +110,7 @@ title: Why Go
           </p>
         </a>
         {{else}}
-        <a href="{{.RelPermalink}}" class="Solutions-useCaseLink">
+        <a href="{{.Path}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             <img
               loading="lazy"
@@ -141,13 +141,13 @@ title: Why Go
     >
       {{range where .Pages "Params.series" "Use Cases"}}
       <li class="Solutions-card">
-        <a href="{{.RelPermalink}}" class="Solutions-useCaseLink">
+        <a href="{{.Path}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
-            {{$icon := .Resources.GetMatch "icon"}} {{if $icon}}
+            {{$icon := .Params.icon}}{{if $icon}}
             <img
               loading="lazy"
-              alt="{{$icon.Params.alt}}"
-              src="{{$icon.RelPermalink}}"
+              alt="{{$icon.alt}}"
+              src="{{.Dir}}/{{$icon.file}}"
             />
             {{end}}
           </div>

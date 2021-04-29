@@ -6,11 +6,8 @@ package site
 
 import (
 	"fmt"
-	"os"
-	"path"
 	"path/filepath"
 	"reflect"
-	"regexp"
 	"sort"
 	"strings"
 
@@ -21,19 +18,16 @@ import (
 
 func (site *Site) initTemplate() error {
 	funcs := template.FuncMap{
-		"data":        site.data,
-		"dict":        dict,
-		"first":       first,
-		"isset":       isset,
-		"list":        list,
-		"markdownify": markdownify,
-		"path":        pathFn,
-		"replace":     replace,
-		"replaceRE":   replaceRE,
-		"safeHTML":    safeHTML,
-		"sort":        sortFn,
-		"where":       where,
-		"yaml":        yamlFn,
+		"data":     site.data,
+		"dict":     dict,
+		"first":    first,
+		"list":     list,
+		"markdown": markdown,
+		"replace":  replace,
+		"rawhtml":  rawhtml,
+		"sort":     sortFn,
+		"where":    where,
+		"yaml":     yamlFn,
 	}
 
 	site.base = template.New("site").Funcs(funcs)
@@ -82,11 +76,6 @@ func first(n int, list reflect.Value) reflect.Value {
 	return out
 }
 
-func isset(m map[string]interface{}, name string) bool {
-	_, ok := m[name]
-	return ok
-}
-
 func dict(args ...interface{}) map[string]interface{} {
 	m := make(map[string]interface{})
 	for i := 0; i < len(args); i += 2 {
@@ -100,8 +89,8 @@ func list(args ...interface{}) []interface{} {
 	return args
 }
 
-// markdownify is the function provided to templates.
-func markdownify(data interface{}) template.HTML {
+// markdown is the function provided to templates.
+func markdown(data interface{}) template.HTML {
 	h := markdownToHTML(toString(data))
 	s := strings.TrimSpace(string(h))
 	if strings.HasPrefix(s, "<p>") && strings.HasSuffix(s, "</p>") && strings.Count(s, "<p>") == 1 {
@@ -110,30 +99,13 @@ func markdownify(data interface{}) template.HTML {
 	return h
 }
 
-func pathFn() pathPkg { return pathPkg{} }
-
-type pathPkg struct{}
-
-func (pathPkg) Base(s interface{}) string { return path.Base(toString(s)) }
-func (pathPkg) Dir(s interface{}) string  { return path.Dir(toString(s)) }
-func (pathPkg) Join(args ...interface{}) string {
-	var elem []string
-	for _, a := range args {
-		elem = append(elem, toString(a))
-	}
-	return path.Join(elem...)
-}
-
 func replace(input, x, y interface{}) string {
 	return strings.ReplaceAll(toString(input), toString(x), toString(y))
 }
 
-func replaceRE(pattern, repl, input interface{}) string {
-	re := regexp.MustCompile(toString(pattern))
-	return re.ReplaceAllString(toString(input), toString(repl))
+func rawhtml(s interface{}) template.HTML {
+	return template.HTML(toString(s))
 }
-
-func safeHTML(s interface{}) template.HTML { return template.HTML(toString(s)) }
 
 func sortFn(list reflect.Value, key, asc string) (reflect.Value, error) {
 	out := reflect.Zero(list.Type())
@@ -216,8 +188,6 @@ func (p *Page) CurrentSection() *Page {
 
 func (p *Page) IsHome() bool { return p.id == "" }
 
-func (p *Page) Param(key string) interface{} { return p.Params[key] }
-
 func (p *Page) Parent() *Page {
 	if p.IsHome() {
 		return nil
@@ -225,19 +195,15 @@ func (p *Page) Parent() *Page {
 	return p.site.pagesByID[p.parent]
 }
 
-func (p *Page) Permalink() string {
-	return strings.TrimRight(p.site.URL, "/") + p.RelPermalink()
+func (p *Page) URL() string {
+	return strings.TrimRight(p.site.URL, "/") + p.Path()
 }
 
-func (p *Page) RelPermalink() string {
+func (p *Page) Path() string {
 	if p.id == "" {
 		return "/"
 	}
 	return "/" + p.id + "/"
-}
-
-func (p *Page) Resources() *PageResources {
-	return &PageResources{p}
 }
 
 func (p *Page) Section() string {
@@ -248,37 +214,14 @@ func (p *Page) Section() string {
 	return p.section[:i]
 }
 
-type PageResources struct{ p *Page }
-
-func (r *PageResources) GetMatch(name string) (*Resource, error) {
-	for _, rs := range r.p.TheResources {
-		if name == rs.Name {
-			if rs.data == nil {
-				rs.RelPermalink = strings.TrimPrefix(filepath.ToSlash(filepath.Join(r.p.file, "../"+rs.Src)), "_content")
-				data, err := os.ReadFile(r.p.site.file(r.p.file + "/../" + rs.Src))
-				if err != nil {
-					return nil, err
-				}
-				rs.data = data
-			}
-			return rs, nil
-		}
-	}
-	return nil, nil
-}
-
-type Resource struct {
-	data         []byte
-	RelPermalink string
-	Name         string
-	Src          string
-	Params       map[string]string
-}
-
 func yamlFn(s string) (interface{}, error) {
 	var d interface{}
 	if err := yaml.Unmarshal([]byte(s), &d); err != nil {
 		return nil, err
 	}
 	return d, nil
+}
+
+func (p *Page) Dir() string {
+	return strings.TrimPrefix(filepath.ToSlash(filepath.Dir(p.file)), "_content")
 }

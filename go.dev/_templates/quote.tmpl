@@ -2,7 +2,7 @@
 {{- with (yaml .info)}}
 <div class="QuoteBlock">
   <p class="QuoteBlock-body">
-    {{.quote | markdownify}}
+    {{markdown .quote}}
   </p>
   {{- if .author}}
     <div class="QuoteBlock-author">

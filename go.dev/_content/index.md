@@ -84,7 +84,6 @@ title: go.dev
       {{if .Params.link }}
         {{if .Params.inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
-            {{$logo := .Resources.GetMatch "logo"}}
             <a href="{{.Params.link}}" target="_blank" rel="noopener"
               class="WhoUsesCaseStudyList-caseStudyLink">
               <img
@@ -99,7 +98,7 @@ title: go.dev
         {{end}}
       {{else}}
         <li class="WhoUsesCaseStudyList-caseStudy">
-          <a href="{{.RelPermalink}}" class="WhoUsesCaseStudyList-caseStudyLink">
+          <a href="{{.Path}}" class="WhoUsesCaseStudyList-caseStudyLink">
             <img
               loading="lazy"
               height="48"
@@ -124,7 +123,7 @@ title: go.dev
             <li class="TestimonialsGo-quoteGroup GoCarousel-slide" id="quote_slide{{$index}}">
               <div class="TestimonialsGo-quoteSingleItem">
                 <div class="TestimonialsGo-quoteSection">
-                  <p class="TestimonialsGo-quote">{{.quote | safeHTML}}</p>
+                  <p class="TestimonialsGo-quote">{{rawhtml .quote}}</p>
                   <div class="TestimonialsGo-author">— {{.name}},
                     <span class="NoWrapSpan">{{.title}}</span>
                     <span class="NoWrapSpan"> at {{.company}}</span>

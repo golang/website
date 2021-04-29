@@ -29,20 +29,20 @@ type Page struct {
 	parent  string // parent page ID
 	data    []byte // page data (markdown)
 	html    []byte // rendered page (HTML)
+	site    *Site
 
-	// yaml metadata and data available to templates
-	Aliases      []string
-	Content      template.HTML
-	Date         anyTime
-	Description  string `yaml:"description"`
-	Layout       string `yaml:"layout"`
-	LinkTitle    string `yaml:"linkTitle"`
-	Pages        []*Page
-	Params       map[string]interface{}
-	site         *Site
-	TheResources []*Resource `yaml:"resources"`
-	Title        string
-	Weight       int
+	// loaded from page metadata, available to templates
+	Aliases     []string
+	Date        anyTime
+	Description string `yaml:"description"`
+	Layout      string `yaml:"layout"`
+	LinkTitle   string `yaml:"linkTitle"`
+	Title       string
+
+	// provided to templates
+	Content template.HTML          `yaml:"-"`
+	Pages   []*Page                `yaml:"-"`
+	Params  map[string]interface{} `yaml:"-"`
 }
 
 // loadPage loads the site's page from the given file.
@@ -133,7 +133,7 @@ func (site *Site) loadPage(file string) (*Page, error) {
 
 	// Register aliases.
 	for _, alias := range p.Aliases {
-		site.redirects[strings.Trim(alias, "/")] = p.Permalink()
+		site.redirects[strings.Trim(alias, "/")] = p.URL()
 	}
 
 	return p, nil

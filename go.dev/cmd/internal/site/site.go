@@ -92,9 +92,6 @@ func Load(dir string) (*Site, error) {
 			if !pi.Date.Equal(pj.Date.Time) {
 				return pi.Date.After(pj.Date.Time)
 			}
-			if pi.Weight != pj.Weight {
-				return pi.Weight > pj.Weight
-			}
 			ti := pi.LinkTitle
 			tj := pj.LinkTitle
 			if ti != tj {

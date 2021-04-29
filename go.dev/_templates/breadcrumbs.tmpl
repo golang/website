@@ -4,8 +4,8 @@
 {{- end}}
 {{- if not (eq .p1.Title "go.dev")}}
       <li class="BreadcrumbNav-li {{if eq .p1 .p2}}active{{end}}">
-        <a class="BreadcrumbNav-link" href="{{.p1.RelPermalink}}">
-          {{- if isset .p1.Params "company"}}
+        <a class="BreadcrumbNav-link" href="{{.p1.Path}}">
+          {{- if .p1.Params.company}}
             {{.p1.Params.company}}
           {{- else}}
             {{.p1.Title}}

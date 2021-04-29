@@ -6,15 +6,12 @@ date: 2019-10-04T15:26:31-04:00
 layout: solution
 series: Use Cases
 books:
-resources:
-- name: icon
-  src: webdev-green.svg
-  params:
-    alt: web dev icon
-- name: icon-white
-  src: webdev-white.svg
-  params:
-    alt: web dev icon
+icon:
+  file: webdev-green.svg
+  alt: web dev icon
+icon-white:
+  file: webdev-white.svg
+  alt: web dev icon
 ---
 
 ## Overview {#overview .sectionHeading}

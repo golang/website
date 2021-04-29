@@ -9,11 +9,11 @@
           {{range .Params.authors}}
             <div class="Article-author">{{.}}</div>
           {{end}}
-          {{if isset .Params "date"}}
+          {{if .Params.date}}
             <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
           {{end}}
         </div>
-          {{if isset .Params "company"}}
+          {{if .Params.company}}
             <div class="WhoUsesSubPage-heroImg">
               <img src="/images/{{ .Params.heroImgSrc }}" alt="{{.Params.company }}">
             </div>
@@ -30,15 +30,14 @@
         </div>
         <div class="CaseStudy-contentAside">
           <div class="CaseStudy-aboutBlock">
-            {{$logo := .Resources.GetMatch "logo"}}
             <img src="/images/logos/{{.Params.logoSrc}}" class="CaseStudy-aboutBlockImg" alt="{{.Params.company}}">
             <h3 class="CaseStudy-aboutBlockTitle">
               About {{.Params.company}}
             </h3>
-            {{if isset .Params "description"}}
-              <p class="CaseStudy-aboutBlockBody">{{- .Params.description | markdownify -}}</p>
+            {{if .Params.description}}
+              <p class="CaseStudy-aboutBlockBody">{{markdown .Params.description}}</p>
             {{ else }}
-              <p class="CaseStudy-aboutBlockBody">{{- .Params.quote | markdownify -}}</p>
+              <p class="CaseStudy-aboutBlockBody">{{markdown .Params.quote}}</p>
             {{end}}
           </div>
         </div>
@@ -74,7 +73,7 @@
               </span>
             </div>
           {{ end }}
-          {{.Content | replaceRE " .sectionHeading" "\" class=\"sectionHeading" | safeHTML}}
+          {{rawhtml (replace .Content ` .sectionHeading">` `" class="sectionHeading">`)}}
         </div>
       </div>
     {{end}}
