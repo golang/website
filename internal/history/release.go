@@ -31,6 +31,26 @@ type Release struct {
 // It contains entries for releases of Go 1.9 and newer.
 // Older releases are listed in doc/devel/release.html.
 var Releases = map[GoVer]Release{
+	{1, 16, 4}: {
+		Date: Date{2021, 5, 6},
+
+		CustomSummary: `includes a security fix to the
+<code>net/http</code> package, as well as bug fixes to the runtime,
+the compiler, and the <code>archive/zip</code>, <code>time</code>,
+and <code>syscall</code> packages. See the
+<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.4+label%3ACherryPickApproved">Go
+1.16.4 milestone</a> on our issue tracker for details.`,
+	},
+	{1, 15, 12}: {
+		Date: Date{2021, 5, 6},
+
+		CustomSummary: `includes a security fix to the
+<code>net/http</code> package, as well as bug fixes to the runtime and
+the <code>time</code> package. See the
+<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.12+label%3ACherryPickApproved">Go
+1.15.12 milestone</a> on our issue tracker for details.`,
+	},
+
 	{1, 16, 3}: {
 		Date: Date{2021, 4, 1},
 
