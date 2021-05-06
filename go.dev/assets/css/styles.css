@@ -65,13 +65,13 @@ a:hover {
   z-index: 10;
 }
 .CaseStudy-aboutBlock {
-  border: 0.0625rem solid #dcdcdc;
+  border: 0.0625rem solid #dcdee0;
   border-radius: 0.25rem;
   box-sizing: border-box;
   padding: 3.75rem 2rem 3.75rem;
 }
 .CaseStudy-aboutBlockTitle {
-  color: #000;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 3rem;
@@ -93,7 +93,7 @@ a:hover {
  * text never wraps or gets cut off.
  */
 .Banner {
-  background-color: #000;
+  background-color: #202224;
   display: none;
 }
 .Banner-inner {
@@ -128,7 +128,7 @@ a:hover {
   }
 }
 .UseCase-halfColumn {
-  color: #3c4043;
+  color: #3e4042;
   display: inline-block;
   font-size: 1rem;
   letter-spacing: 0.0063rem;
@@ -397,7 +397,7 @@ h6 {
   padding: 0.5rem;
 }
 .NavigationDrawer-listItem--active {
-  background-color: #d5eef5;
+  background-color: #bfeaf4;
   border-radius: 0.4rem;
 }
 .NavigationDrawer-scrim {
@@ -436,7 +436,7 @@ h6 {
 .Article h4,
 .Article h5,
 .Article h6 {
-  color: #000;
+  color: #202224;
 }
 .Article h1 {
   font-size: 2.25rem;
@@ -462,7 +462,7 @@ h6 {
 .Article p,
 .Article ul,
 .Article ol {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
@@ -473,7 +473,7 @@ h6 {
   margin-bottom: 0;
 }
 .Article ol .Article pre {
-  background-color: #f8f9f9;
+  background-color: #fafafa;
   border: 0.0625rem solid #dcdee0;
   border-radius: 0.375rem;
   color: #3e4042;
@@ -520,7 +520,7 @@ h6 {
   white-space: nowrap;
 }
 a.BreadcrumbNav-link {
-  color: #000;
+  color: #202224;
   font-size: 0.875rem;
   text-decoration: none;
 }
@@ -585,7 +585,7 @@ a.BreadcrumbNav-link {
 }
 .LearnGo,
 .UseCases {
-  background-color: #f6f8fa;
+  background-color: #fafafa;
 }
 .WhoUses-header,
 .WhyGo-header,
@@ -617,7 +617,7 @@ a.BreadcrumbNav-link {
   }
 }
 .GoCarousel {
-  background-color: #f8f9fa;
+  background-color: #fafafa;
   display: flex;
   justify-items: center;
   overflow-x: hidden;
@@ -641,11 +641,11 @@ a.BreadcrumbNav-link {
 .GoCarousel-controlPrev,
 .GoCarousel-controlNext {
   background-color: #fff;
-  border-width: 0;
   border-radius: 1.25rem;
+  border-width: 0;
   box-shadow: 0 0.0625rem 0.1875rem rgba(60, 64, 67, 0.15),
     0 0.0625rem 0.125rem rgba(60, 64, 67, 0.3);
-  color: #777;
+  color: #848688;
   display: inline-block;
   font-size: 2.5rem;
   height: 2rem;
@@ -659,9 +659,9 @@ a.BreadcrumbNav-link {
 }
 .GoCarousel-controlPrev:focus,
 .GoCarousel-controlNext:focus {
-  color: #555;
   box-shadow: 0 0.0625rem 0.5rem rgba(60, 64, 67, 0.25),
     0 0.0625rem 0.25rem rgba(60, 64, 67, 0.4);
+  color: #555759;
 }
 .GoCarousel-controlPrev[hidden],
 .GoCarousel-controlNext[hidden] {
@@ -721,13 +721,13 @@ a.BreadcrumbNav-link {
 }
 @media only screen and (min-width: 57.7rem) {
   .GettingStartedGo-header {
-    border-right: 0.0133rem solid #efefef;
+    border-right: 0.0133rem solid #f0f1f2;
     margin-bottom: 0;
     padding-right: 3.375rem;
   }
 }
 .GettingStartedGo-headerDesc {
-  color: #3c4043;
+  color: #3e4042;
   letter-spacing: 0.0063rem;
   line-height: 1.5rem;
 }
@@ -771,7 +771,7 @@ a.GettingStartedGo-primaryCta {
   }
 }
 .GettingStartedGo-resourcesHeader {
-  color: #5f6368;
+  color: #555759;
   font-size: 0.6875rem;
   letter-spacing: 0.0625rem;
   margin-bottom: 1rem;
@@ -781,12 +781,12 @@ a.GettingStartedGo-primaryCta {
   margin-bottom: 1rem;
 }
 a.GettingStartedGo-resourceItemTitle {
-  color: #202124;
+  color: #202224;
   font-weight: 500;
   line-height: 1.5rem;
 }
 .GettingStartedGo-resourceItemDescription {
-  color: #5f6368;
+  color: #555759;
   font-size: 0.8125rem;
   line-height: 1.5rem;
 }
@@ -794,7 +794,7 @@ a.GettingStartedGo-resourceItemTitle {
 .WhyGo-headerH4,
 .LearnGo-header h4,
 .WhoUses-subheader {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: normal;
@@ -897,8 +897,8 @@ a.GettingStartedGo-resourceItemTitle {
 }
 .Hero-gopherLadder {
   bottom: 0;
-  max-width: 8rem;
   height: 15rem;
+  max-width: 8rem;
   object-fit: cover;
   object-position: 100% 0;
   right: 0;
@@ -1033,10 +1033,10 @@ a.GettingStartedGo-resourceItemTitle {
   }
 }
 .WhoUsesHero {
-  background-color: #f6f8f8;
+  background-color: #fafafa;
 }
 .WhoUses-subheader {
-  color: #3c4043;
+  color: #3e4042;
   margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
@@ -1075,7 +1075,7 @@ a.GettingStartedGo-resourceItemTitle {
   margin: 1.375rem 0;
 }
 .WhoUses-heroInnerLeft p {
-  color: #5f5f5f;
+  color: #6e7072;
   font-size: 0.875rem;
   margin-bottom: 1.188rem;
 }
@@ -1137,7 +1137,7 @@ a.GettingStartedGo-resourceItemTitle {
 .WhoUsesCaseStudyList-caseStudyLink:link,
 .WhoUsesCaseStudyList-caseStudyLink:visited {
   border-radius: 0.25rem;
-  box-shadow: #e8eaed 0 0.0625rem 0.25rem;
+  box-shadow: #f0f1f2 0 0.0625rem 0.25rem;
   display: flex;
   height: 100%;
   padding: 0 0.3rem;
@@ -1195,10 +1195,10 @@ a.GettingStartedGo-resourceItemTitle {
   margin-bottom: 1.5rem;
 }
 .FeaturedUsers table thead {
-  background-color: #f8f9f9;
+  background-color: #fafafa;
 }
 .FeaturedUsers table thead th {
-  color: #535353;
+  color: #555759;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -1243,7 +1243,7 @@ a.GettingStartedGo-resourceItemTitle {
   line-height: 1.5rem;
 }
 .FeaturedUsers table thead {
-  color: #535353;
+  color: #555759;
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -1260,7 +1260,7 @@ a.GettingStartedGo-resourceItemTitle {
 .FeaturedUsers-moreProjectsBtn {
   background: transparent;
   border: none;
-  color: #12b5cb;
+  color: #5dc9e2;
   cursor: pointer;
   font-size: 0.875rem;
   padding: 0.5rem 0;
@@ -1321,7 +1321,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 0 0 1.5rem;
 }
 .WhoUsesCaseStudy-library p {
-  color: #484a4c;
+  color: #3e4042;
   font-size: 1rem;
   letter-spacing: 0.0111rem;
   line-height: 1.1875rem;
@@ -1331,7 +1331,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-bottom: 2.5rem;
 }
 .WhoUsesCaseStudy-view-more a {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
@@ -1407,7 +1407,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   }
 }
 .WhyGo-reason {
-  border: 0.063rem solid #dcdcdc;
+  border: 0.063rem solid #dcdee0;
   border-radius: 0.25rem;
   display: flex;
   flex: 0 30%;
@@ -1443,7 +1443,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   text-decoration: none;
 }
 .WhyGo-reasonPackages {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 0.875rem;
   letter-spacing: 0.055rem;
 }
@@ -1463,10 +1463,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding: 0;
 }
 .WhyGo-reasonPackage {
-  border: 0.063rem solid #dbdce0;
+  border: 0.063rem solid #bfeaf4;
   border-radius: 0.125rem;
   box-sizing: border-box;
-  color: #4aa2b7;
+  color: #007d9c;
   font-size: 0.688rem;
   letter-spacing: 0.0129rem;
   line-height: 0.813rem;
@@ -1478,7 +1478,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .WhyGo-reasonShowMoreImgWrapper {
   align-items: center;
-  background-color: #f6f8f8;
+  background-color: #fafafa;
   border-radius: 50%;
   display: flex;
   height: 14.313rem;
@@ -1495,7 +1495,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   text-align: center;
 }
 .WhyGo-reasonShowMoreLink a {
-  border: 0.063rem solid #dbdce0;
+  border: 0.063rem solid #bfeaf4;
   border-radius: 0.125rem;
   box-sizing: border-box;
   display: inline-block;
@@ -1507,14 +1507,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   vertical-align: middle;
 }
 .WhyGo-reasonText p {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.006rem;
   line-height: 1.5rem;
 }
 .WhyGo-reasonTitle {
-  color: #202124;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -1634,7 +1634,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .GoCarousel-eventThumbnail {
   background-color: #fff;
-  border: 0.0625rem solid #e5e5e5;
+  border: 0.0625rem solid #dcdee0;
   border-radius: 0.5rem;
   display: flex;
   height: 100%;
@@ -1662,14 +1662,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   justify-content: space-between;
 }
 .GoCarousel-eventDate p {
-  color: #5f6368;
+  color: #555759;
   font-size: 0.8125rem;
   font-style: normal;
   line-height: 1rem;
   margin: 0 0 1.5rem 0;
 }
 .GoCarousel-eventHeader {
-  color: #5f6368;
+  color: #555759;
   font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.0625rem;
@@ -1683,7 +1683,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .GoCarousel-eventName a {
   -webkit-box-orient: vertical;
-  color: #202124;
+  color: #202224;
   display: -webkit-box;
   font-weight: 500;
   -webkit-line-clamp: 2;
@@ -1743,11 +1743,11 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-hero {
-  background-color: #f6f8f8;
+  background-color: #fafafa;
   background-image: radial-gradient(
     60.0625rem 60.0625rem,
-    #beeaf5 50%,
-    #f6f8f8 50%
+    #bfeaf4 50%,
+    #fafafa 50%
   );
   background-position: top -50rem left -9rem;
   background-repeat: no-repeat;
@@ -1756,9 +1756,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-hero .Container {
-  z-index: 1;
-  position: relative;
   max-width: 68.125rem;
+  position: relative;
+  z-index: 1;
 }
 
 .Learn-heroInner {
@@ -1793,7 +1793,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-heroContent p {
-  color: #5f5f5f;
+  color: #6e7072;
   font-size: 0.875rem;
   line-height: 1.5rem;
   max-width: 27.1875rem;
@@ -1963,8 +1963,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-learningResources h2 {
-  font-weight: 500;
   font-size: 2rem;
+  font-weight: 500;
   letter-spacing: 0.1875rem;
   line-height: 2.3125rem;
 }
@@ -1975,8 +1975,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-learningResourcesHeader h3 {
-  font-weight: bold;
   font-size: 1.5rem;
+  font-weight: bold;
   letter-spacing: normal;
   line-height: 2.25rem;
 }
@@ -2051,7 +2051,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 
 .Learn-inPerson {
-  border-bottom: 0.0625rem solid #e0e0e0;
+  border-bottom: 0.0625rem solid #dcdee0;
   flex: 1 1 31.25rem;
   margin: 0 0 0 1rem; /* Gutter between grid cells. */
   max-width: 31rem;
@@ -2060,7 +2060,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
 .Learn-inPerson:nth-child(1),
 .Learn-inPerson:nth-child(2) {
-  border-top: 0.0625rem solid #e0e0e0;
+  border-top: 0.0625rem solid #dcdee0;
 }
 .Learn-inPersonTitle {
   font-size: 1.25rem;
@@ -2083,7 +2083,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding: 1.875rem 0 0.175rem 0;
 }
 .Learn-eventItem + .Learn-eventItem {
-  border-top: 0.0625rem solid #e0e0e0;
+  border-top: 0.0625rem solid #dcdee0;
 }
 
 .Learn-eventThumbnail {
@@ -2097,25 +2097,25 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   background-color: #fff;
 }
 .Learn-eventThumbnail img {
-  width: 100%;
   height: auto;
 
   object-fit: cover;
+  width: 100%;
 }
 .Learn-eventAttendees {
   display: flex;
 }
 .Learn-eventAttendeesItem img {
-  width: 2rem;
-  height: 2rem;
   border-radius: 100%;
+  height: 2rem;
+  width: 2rem;
 }
 .Learn-eventBody {
   display: flex;
   flex: 1;
   flex-direction: column;
-  min-width: 0;
   max-width: 100%;
+  min-width: 0;
 }
 .Learn-eventDate {
   display: flex;
@@ -2129,27 +2129,27 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 0;
 }
 .Learn-eventName {
-  color: #000;
+  color: #202224;
   font-size: 1.25rem;
   font-weight: 500;
   margin: 0;
+
+  margin-bottom: 1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-
-  margin-bottom: 1rem;
 }
 .Learn-eventName a {
+  color: #202224;
   text-decoration: none;
-  color: #000;
 }
 .Learn-eventDescription {
   -webkit-box-orient: vertical; /* See webkit-line-clamp */
   display: -webkit-box; /* See webkit-line-clamp */
   -webkit-line-clamp: 4; /* Elide flex text. webkit-line-clamp is broadly compatible with browsers. */
+  line-height: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 24px;
 }
 .Learn-eventText {
   margin-bottom: 0.5rem;
@@ -2178,14 +2178,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   }
   .Learn-eventThumbnail {
     height: 8rem;
-    min-width: 8rem;
-    margin-right: 1rem;
     margin-bottom: 0;
+    margin-right: 1rem;
+    min-width: 8rem;
   }
   .Learn-eventThumbnail img {
     height: 8rem;
-    width: 8rem;
     object-fit: contain;
+    width: 8rem;
   }
   .Learn-eventDate {
     flex: 0;
@@ -2242,7 +2242,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   justify-content: center;
 }
 .Learn-tile a {
-  color: #3c4043;
+  color: #3e4042;
 }
 .Learn-tileTitle {
   display: block;
@@ -2358,7 +2358,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   text-align: center;
 }
 .Solutions-title h3 {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.0063rem;
@@ -2380,7 +2380,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-headlineBody {
   align-items: flex-start;
-  color: #5f5f5f;
+  color: #6e7072;
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;
@@ -2407,7 +2407,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   transform: translateX(0.2rem);
 }
 .Solutions-headlineNotification {
-  color: #71757b;
+  color: #6e7072;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
@@ -2415,10 +2415,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 1.5rem 0;
 }
 .Solutions-headline {
-  background-color: #f6f8f8;
+  background-color: #fafafa;
 }
 .Solutions-headline h2 {
-  color: #000;
+  color: #202224;
   font-size: 1.5rem;
   font-style: normal;
   font-weight: normal;
@@ -2452,13 +2452,13 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   width: 100%;
 }
 .SolutionsTabs-tabList hr {
-  border: 0.0625rem solid #cfcfcf;
+  border: 0.0625rem solid #c6c8ca;
   margin: -0.0625rem 0 2rem;
 }
 .SolutionsTabs-tab {
   background-color: #fff;
   border-style: none;
-  color: #000;
+  color: #202224;
   cursor: pointer;
   font-size: 1rem;
   font-weight: 500;
@@ -2468,13 +2468,13 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding: 0.375rem 0;
 }
 .SolutionsTabs-tab:focus {
-  border-bottom: 0.25rem solid #cfcfcf;
+  border-bottom: 0.25rem solid #c6c8ca;
 }
 .SolutionsTabs-tab:last-of-type {
   margin-right: 0;
 }
 .SolutionsTabs-tab[aria-selected='true'] {
-  border-bottom: 0.25rem solid #007f9f;
+  border-bottom: 0.25rem solid #007d9c;
 }
 @media only screen and (min-width: 48rem) {
   .SolutionsTabs-tab {
@@ -2502,7 +2502,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-card {
   background: #fff;
-  border: 0.0625rem solid #cfcfcf;
+  border: 0.0625rem solid #c6c8ca;
   border-radius: 0.625rem;
   box-sizing: border-box;
   flex: 0 100%;
@@ -2538,13 +2538,13 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-card a:link,
 .Solutions-card a:visited {
-  color: #000;
+  color: #202224;
   display: block;
   text-decoration: none;
 }
 .Solutions-useCaseAction {
   bottom: 1rem;
-  color: #007f9f;
+  color: #007d9c;
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.0063rem;
@@ -2559,7 +2559,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-left: 0.5rem;
 }
 .Solutions-useCaseDescription {
-  color: #71757b;
+  color: #6e7072;
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
@@ -2567,7 +2567,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   line-height: 1.5rem;
 }
 .Solutions-useCaseTitle {
-  color: #000;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -2599,7 +2599,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 2rem 0 2.875rem;
 }
 .Solutions-footer p {
-  color: #000;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: normal;
   letter-spacing: 0.007rem;
@@ -2640,14 +2640,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   justify-content: space-between;
 }
 .TestimonialsGo-quoteSection p {
-  color: #000;
+  color: #202224;
   font-size: 0.875rem;
   letter-spacing: 0.0082rem;
   line-height: 1.5rem;
   text-align: center;
 }
 .TestimonialsGo-author {
-  color: #3c4043;
+  color: #3e4042;
   font-size: 0.8rem;
   font-style: normal;
   font-weight: normal;
@@ -2678,7 +2678,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   }
 }
 .PullQuote {
-  color: #5f5f5f;
+  color: #6e7072;
   margin-bottom: 2rem;
 }
 .PullQuote-body {
@@ -2703,7 +2703,7 @@ p.BackgroundQuote-body {
   font-size: 0.875rem;
 }
 .BackgroundQuote {
-  background-color: #007f9f;
+  background-color: #007d9c;
   color: #fff;
   margin: 1.5rem auto;
   padding: 2rem 1.5rem;
@@ -2713,8 +2713,8 @@ p.BackgroundQuote-body {
   line-height: 2.25rem;
 }
 .QuoteBlock {
-  border-bottom: 0.25rem solid #007f9f;
-  border-top: 0.25rem solid #007f9f;
+  border-bottom: 0.25rem solid #007d9c;
+  border-top: 0.25rem solid #007d9c;
   display: block;
   float: none;
   margin-bottom: 1.5rem;
@@ -2746,20 +2746,20 @@ p.BackgroundQuote-body {
   }
 }
 .QuoteBlock-body {
-  color: #3f4346;
+  color: #3e4042;
   font-size: 1.125rem;
   letter-spacing: 0.007rem;
   line-height: 2rem;
 }
 .QuoteBlock-author {
-  color: #3f4346;
+  color: #3e4042;
   font-size: 1rem;
   font-style: normal;
   font-weight: 500;
   line-height: 3rem;
 }
 .QuoteBlock-link {
-  color: #5f5f5f;
+  color: #6e7072;
 }
 .LargeMedia {
   align-items: flex-start;
@@ -2767,7 +2767,7 @@ p.BackgroundQuote-body {
   padding: 2.125rem 0.5rem;
 }
 .LargeMedia + .LargeMedia {
-  border-top: 0.0625rem solid #e0e0e0;
+  border-top: 0.0625rem solid #dcdee0;
 }
 .LargeMedia-image {
   height: 5rem;
@@ -2961,7 +2961,7 @@ p.BackgroundQuote-body {
   fill: #fff;
 }
 .SearchForm--open svg {
-  fill: #5f6368;
+  fill: #555759;
   margin-right: 0.5rem;
 }
 .SearchForm-input {
@@ -2979,7 +2979,7 @@ p.BackgroundQuote-body {
   width: 100%;
 }
 .SearchForm-input::placeholder {
-  color: #80868b;
+  color: #848688;
 }
 .SearchForm-input {
   background-color: transparent;
@@ -3019,7 +3019,7 @@ p.BackgroundQuote-body {
     width: 100%;
   }
   .SearchForm svg {
-    fill: #5f6368;
+    fill: #555759;
     margin-right: 0.5rem;
   }
 }
@@ -3036,7 +3036,7 @@ p.BackgroundQuote-body {
   padding: 1.25rem 0;
 }
 .Series-listItem + .Series-listItem {
-  border-top: 0.0625rem solid #e0e0e0;
+  border-top: 0.0625rem solid #dcdee0;
 }
 .Series-listItemIcon {
   margin-right: 1rem;
@@ -3053,7 +3053,7 @@ p.BackgroundQuote-body {
   margin: 0;
 }
 .Series-listItemSecondary {
-  color: #000;
+  color: #202224;
   display: inline-block;
   margin-bottom: 0;
   text-decoration: none;
@@ -3118,7 +3118,7 @@ p.BackgroundQuote-body {
   width: 100%;
 }
 .CaseStudy-contentBody hr {
-  border: 0.0625rem solid #cfcfcf;
+  border: 0.0625rem solid #c6c8ca;
   margin: 2rem 0 2rem;
 }
 .CaseStudy-contentAside {
@@ -3182,7 +3182,7 @@ p.BackgroundQuote-body {
 a.UseCase-anchorLink {
   background: transparent;
   border: none;
-  color: #1f2224;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 400;
   line-height: 1.5rem;
@@ -3197,7 +3197,7 @@ a.UseCase-anchorLink.selected {
   font-weight: 500;
 }
 a.UseCase-anchorLink.selected::before {
-  background-color: #007f9f;
+  background-color: #007d9c;
   border-radius: 1rem;
   content: ' ';
   display: inline-block;
@@ -3219,7 +3219,7 @@ a.UseCase-anchorLink.selected::before {
   position: relative;
 }
 .WhoUsesSubPage-heroInner--useCase {
-  background-color: #f6f8f8;
+  background-color: #fafafa;
   padding-bottom: 2.5rem;
   padding-top: 3.5rem;
 }
@@ -3252,7 +3252,7 @@ a.UseCase-anchorLink.selected::before {
   padding: 0 1.5rem;
 }
 .WhoUsesSubPage-heroImg {
-  background: -webkit-linear-gradient(0deg, #f6f8f8 50vw, #beeaf5 50vw);
+  background: -webkit-linear-gradient(0deg, #fafafa 50vw, #bfeaf4 50vw);
   display: flex;
   max-width: 75.75rem;
   padding-left: 1.5rem;
@@ -3274,7 +3274,7 @@ a.UseCase-anchorLink.selected::before {
     line-height: 3rem;
   }
   .WhoUsesSubPage-heroImg {
-    background: -webkit-linear-gradient(0deg, #f6f8f8 40vw, #beeaf5 40vw);
+    background: -webkit-linear-gradient(0deg, #fafafa 40vw, #bfeaf4 40vw);
   }
   .WhoUsesSubPage-heroImg img {
     max-height: 15.625rem;
@@ -3286,7 +3286,7 @@ a.UseCase-anchorLink.selected::before {
     margin-top: 0;
   }
   .WhoUsesSubPage-heroInner--caseStudy {
-    background: -webkit-linear-gradient(0deg, #f6f8f8 70vw, #beeaf5 70vw);
+    background: -webkit-linear-gradient(0deg, #fafafa 70vw, #bfeaf4 70vw);
     flex-direction: row;
   }
   .WhoUsesSubPage-heroContent--caseStudy {
@@ -3319,7 +3319,7 @@ a.UseCase-anchorLink.selected::before {
 }
 .ToolsBlurbs-blurb {
   background-color: #fff;
-  border: 0.0625rem solid #dcdcdc;
+  border: 0.0625rem solid #dcdee0;
   border-radius: 0.25rem;
   padding: 1.5rem 1rem;
 }
@@ -3342,10 +3342,10 @@ img.PullQuote-image {
 }
 
 .Card {
-  border: 0.0625rem solid #cfcfcf;
+  background-color: #fff;
+  border: 0.0625rem solid #c6c8ca;
   border-radius: 0.25rem;
   height: 100%;
-  background-color: #fff;
 }
 
 .Card a,
@@ -3361,8 +3361,8 @@ img.PullQuote-image {
 }
 
 .Card-thumbnail {
-  background-size: cover;
   background-position: center;
+  background-size: cover;
   height: 9.5625rem;
 }
 
@@ -3379,16 +3379,16 @@ img.PullQuote-image {
 }
 
 .Card-contentTitle {
-  color: #000;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
 }
 
 .Card-contentBody {
-  color: #5f5f5f;
+  color: #6e7072;
+  flex: auto;
   font-size: 0.875rem;
   margin-top: 1rem;
-  flex: auto;
 }
 
 .Card-contentCta {
@@ -3405,7 +3405,7 @@ img.PullQuote-image {
 }
 
 .Card-selfPacedCredits {
-  color: #5f5f5f;
+  color: #6e7072;
   flex: 1;
   font-size: 0.75rem;
 }
@@ -3447,7 +3447,7 @@ img.PullQuote-image {
 }
 
 .Book-title {
-  color: #000;
+  color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
   line-height: 1.5rem;
@@ -3455,7 +3455,7 @@ img.PullQuote-image {
 }
 
 .Book-description {
-  color: #5f5f5f;
+  color: #6e7072;
   font-size: 0.875rem;
   line-height: 1.5rem;
 }
