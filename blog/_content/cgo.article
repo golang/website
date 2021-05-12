@@ -136,8 +136,8 @@ as in this rewrite of `Print`:
 
 ## Building cgo packages
 
-To build cgo packages, just use [`go build`](https://golang.org/cmd/go/#Compile_packages_and_dependencies)
-or [`go install`](https://golang.org/cmd/go/#Compile_and_install_packages_and_dependencies) as usual.
+To build cgo packages, just use [`go build`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies)
+or [`go install`](https://golang.org/cmd/go/#hdr-Compile_and_install_packages_and_dependencies) as usual.
 The go tool recognizes the special `"C"` import and automatically uses cgo for those files.
 
 ## More cgo resources
