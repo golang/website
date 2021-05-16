@@ -34,6 +34,44 @@ module path joined with the subdirectory containing the package (relative to the
 module root). For example, the module `"golang.org/x/net"` contains a package in
 the directory `"html"`. That package's path is `"golang.org/x/net/html"`.
 
+### Continuous integration {#continuous-integration}
+
+A modules state is concisely defined by its [version
+number](https://golang.org/doc/modules/version-numbers), a snapshot of the
+module at a precise moment in time that affords an insurance to its calleers
+that the module will remain in that same state.  This mechanism permits the
+ongoing development of a module whilst maintaining stability to any code that
+already depends upon it.
+
+When first working with modules, it is important to be aware that the default
+mode is public, unless otherwise explicitly set to
+[private](https://golang.org/ref/mod#private-modules). As such, each version
+that is tagged becomes a permanent public record. A record that cannot be later
+altered without error or the need of an eventual workaround, such as being
+explicitly tagged as
+[retracted](https://golang.org/ref/mod#go-mod-file-retract).
+
+The go modules public versioning system makes use of proxy cache to maintain its
+repository of version.  A process by which the update of the version can incur a
+slight delay, before packages are recognised as having been modified whilst the
+cache are being updated. 
+
+To negate delays, a local version of the remote module can be used in place of
+it remote public original, such that it remain current whilst being worked upon
+without need of repetitive updates, by applying the
+[replace](https://golang.org/ref/mod#go-mod-file-replace) directive to the
+module.  However, when a program is deployed remotely this may not be a
+possibility, particularly when using
+[vendoring](https://golang.org/ref/mod#vendoring) as the modules method of
+deployment.
+
+Should this be the case, then the module and any calling packages can be
+simultaneously worked upon by <dfn>revving</dfn> the version, that is to say;
+Explicitly augmenting the version number, along with that of any dependencies
+upon the module, as an 
+[in development](https://golang.org/doc/modules/version-numbers#in-development)
+versioning strategy, effectively pushing the update of the cache.
+
 ### Module paths {#module-path}
 
 A <dfn>module path</dfn> is the canonical name for a module, declared with the
