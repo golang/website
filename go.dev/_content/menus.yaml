@@ -1,24 +1,24 @@
 main:
   - name: Why Go
-    url: https://go.dev/solutions
+    url: /solutions
   - name: Getting Started
-    url: https://learn.go.dev
+    url: /learn
   - name: Discover Packages
     url: https://pkg.go.dev
   - name: About
-    url: https://go.dev/about
+    url: /about
 
 footer:
   - name: Why Go
-    url: https://go.dev/solutions
+    url: /solutions
     children:
     - name: Use Cases
-      url: https://go.dev/solutions#use-cases
+      url: /solutions#use-cases
     - name: Case Studies
-      url: https://go.dev/solutions#case-studies
+      url: /solutions#case-studies
 
   - name: Getting Started
-    url: https://go.dev/learn
+    url: /learn
     children:
     - name: Playground
       url: https://play.golang.org
@@ -31,7 +31,7 @@ footer:
     url: https://pkg.go.dev
 
   - name: About
-    url: https://go.dev/about
+    url: /about
     children:
     - name: Download
       url: https://golang.org/dl/

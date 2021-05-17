@@ -37,7 +37,7 @@ title: go.dev
       <div
         data-version=""
         class="js-latestGoVersion">
-        <a class="Primary" href="https://learn.go.dev/">Get Started</a>
+        <a class="Primary" href="/learn">Get Started</a>
         <a class="Secondary js-downloadBtn"
           href="https://golang.org/dl"
           target="_blank" rel="noopener"
@@ -267,7 +267,7 @@ title: go.dev
         Explore a wealth of learning resources, including guided journeys, courses, books, and more.
       </p>
       <div class="GettingStartedGo-ctas">
-        <a class="GettingStartedGo-primaryCta" href="http://learn.go.dev">Get Started</a>
+        <a class="GettingStartedGo-primaryCta" href="/learn">Get Started</a>
         <a href="https://golang.org/dl" target="_blank" rel="noopener">Download Go</a>
       </div>
     </div>
