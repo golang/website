@@ -7,10 +7,10 @@ layout: solution
 series: Use Cases
 books:
 icon:
-  file: ops-green.svg
+  file: devops-green.svg
   alt: ops icon
 icon-white:
-  file: ops-white.svg
+  file: devops-white.svg
   alt: ops icon
 ---
 

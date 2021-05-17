@@ -8,7 +8,6 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
-	"os"
 	"path"
 	"strings"
 	"time"
@@ -48,42 +47,32 @@ type Page struct {
 // loadPage loads the site's page from the given file.
 // It returns the page but also adds the page to site.pages and site.pagesByID.
 func (site *Site) loadPage(file string) (*Page, error) {
+	var section string
 	id := strings.TrimPrefix(file, "_content/")
-	if strings.HasSuffix(id, "/_index.md") {
-		id = strings.TrimSuffix(id, "/_index.md")
+	if id == "index.md" {
+		id = ""
+		section = ""
 	} else if strings.HasSuffix(id, "/index.md") {
 		id = strings.TrimSuffix(id, "/index.md")
+		section = id
 	} else {
 		id = strings.TrimSuffix(id, ".md")
+		section = path.Dir(id)
+		if section == "." {
+			section = ""
+		}
 	}
-	if file == "_content/index.md" {
-		id = ""
+	parent := path.Dir(id)
+	if parent == "." {
+		parent = ""
 	}
 
 	p := site.newPage(id)
 	p.file = file
+	p.section = section
+	p.parent = parent
 	p.Params["Series"] = ""
 	p.Params["series"] = ""
-
-	// Determine section.
-	for dir := path.Dir(file); dir != "."; dir = path.Dir(dir) {
-		if _, err := os.Stat(site.file(dir + "/_index.md")); err == nil {
-			p.section = strings.TrimPrefix(dir, "_content/")
-			break
-		}
-	}
-
-	// Determine parent.
-	p.parent = p.section
-	if p.parent == p.id {
-		p.parent = ""
-		for dir := path.Dir("_content/" + p.id); dir != "."; dir = path.Dir(dir) {
-			if _, err := os.Stat(site.file(dir + "/_index.md")); err == nil {
-				p.parent = strings.TrimPrefix(dir, "_content/")
-				break
-			}
-		}
-	}
 
 	// Load content, including leading yaml.
 	data, err := ioutil.ReadFile(site.file(file))

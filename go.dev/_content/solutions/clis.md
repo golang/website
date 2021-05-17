@@ -6,10 +6,10 @@ date: 2019-10-04T15:26:31-04:00
 layout: solution
 series: Use Cases
 icon:
-  file: CLI-green.svg
+  file: clis-green.svg
   alt: CLI icon
 icon-white:
-  file: cli-white.svg
+  file: clis-white.svg
   alt: CLI icon
 ---
 
