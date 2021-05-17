@@ -37,7 +37,7 @@ title: go.dev
       <div
         data-version=""
         class="js-latestGoVersion">
-        <a class="Primary" href="/learn">Get Started</a>
+        <a class="Primary" href="/learn/">Get Started</a>
         <a class="Secondary js-downloadBtn"
           href="https://golang.org/dl"
           target="_blank" rel="noopener"
@@ -73,7 +73,7 @@ title: go.dev
     <div class="WhoUses-header">
       <h2 class="WhoUses-headerH2">Companies using Go</h2>
       <p class="WhoUses-subheader">Organizations in every industry use Go to power their software and services
-        <a href="/solutions" class="WhoUsesCaseStudyList-seeAll">
+        <a href="/solutions/" class="WhoUsesCaseStudyList-seeAll">
         View all stories
        </a>
      </p>
@@ -266,7 +266,7 @@ title: go.dev
         Explore a wealth of learning resources, including guided journeys, courses, books, and more.
       </p>
       <div class="GettingStartedGo-ctas">
-        <a class="GettingStartedGo-primaryCta" href="/learn">Get Started</a>
+        <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
         <a href="https://golang.org/dl" target="_blank" rel="noopener">Download Go</a>
       </div>
     </div>

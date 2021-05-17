@@ -1,8 +1,8 @@
 main:
   - name: Why Go
-    url: /solutions
+    url: /solutions/
   - name: Getting Started
-    url: /learn
+    url: /learn/
   - name: Discover Packages
     url: https://pkg.go.dev
   - name: About
@@ -10,15 +10,15 @@ main:
 
 footer:
   - name: Why Go
-    url: /solutions
+    url: /solutions/
     children:
     - name: Use Cases
-      url: /solutions#use-cases
+      url: /solutions/#use-cases
     - name: Case Studies
-      url: /solutions#case-studies
+      url: /solutions/#case-studies
 
   - name: Getting Started
-    url: /learn
+    url: /learn/
     children:
     - name: Playground
       url: https://play.golang.org

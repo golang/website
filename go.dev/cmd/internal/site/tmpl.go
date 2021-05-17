@@ -203,7 +203,10 @@ func (p *Page) Path() string {
 	if p.id == "" {
 		return "/"
 	}
-	return "/" + p.id + "/"
+	if strings.HasSuffix(p.file, "/index.md") {
+		return "/" + p.id + "/"
+	}
+	return "/" + p.id
 }
 
 func (p *Page) Section() string {
