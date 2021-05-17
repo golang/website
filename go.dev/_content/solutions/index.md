@@ -2,36 +2,43 @@
 title: Why Go
 ---
 
+{{$solutions := pages "solutions/*"}}
 <section class="Solutions-headline">
   <div class="GoCarousel" id="SolutionsHeroCarousel-carousel">
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-wrapper SolutionsHeroCarousel-wrapper">
         <ul class="js-solutionsHeroCarouselSlides SolutionsHeroCarousel-slides">
-          {{range where .Pages "Params.series" "Case Studies" | first 3}}
-          <li class="SolutionsHeroCarousel-slide">
-            <div class="Solutions-headlineImg">
-              <img
-                src="/images/{{.Params.carouselImgSrc}}"
-                alt="{{.LinkTitle}}"
-              />
-            </div>
-            <div class="Solutions-headlineText">
-              <p class="Solutions-headlineNotification">RECENTLY UPDATED</p>
-              <h2>
-                {{.LinkTitle}}
-              </h2>
-              <p class="Solutions-headlineBody">
-                {{with .Params.quote}}{{.}}{{end}}
-                <a href="{{.Path}}"
-                  >Learn more
-                  <i class="material-icons Solutions-forwardArrowIcon"
-                    >arrow_forward</i
-                  >
-                </a>
-              </p>
-            </div>
-          </li>
-          {{end}}
+          {{- $n := 0}}
+          {{- range newest $solutions}}
+            {{- if eq .series "Case Studies"}}
+              {{- $n = add $n 1}}
+              {{- if le $n 3}}
+              <li class="SolutionsHeroCarousel-slide">
+                <div class="Solutions-headlineImg">
+                  <img
+                    src="/images/{{.carouselImgSrc}}"
+                    alt="{{.linkTitle}}"
+                  />
+                </div>
+                <div class="Solutions-headlineText">
+                  <p class="Solutions-headlineNotification">RECENTLY UPDATED</p>
+                  <h2>
+                    {{.linkTitle}}
+                  </h2>
+                  <p class="Solutions-headlineBody">
+                    {{with .quote}}{{.}}{{end}}
+                    <a href="{{.Path}}"
+                      >Learn more
+                      <i class="material-icons Solutions-forwardArrowIcon"
+                        >arrow_forward</i
+                      >
+                    </a>
+                  </p>
+                </div>
+              </li>
+              {{- end}}
+            {{- end}}
+          {{- end}}
         </ul>
       </div>
       <button
@@ -79,29 +86,28 @@ title: Why Go
       role="tabpanel"
       tabindex="0"
     >
-      {{$solutions := where .Pages "Params.series" "Case Studies"}}
-      {{range sort $solutions "Params.company" "asc"}}
+      {{range $solutions}}{{if eq .series "Case Studies"}}
       <li class="Solutions-card">
-        {{if .Params.link}}
+        {{if .link}}
         <a
-          href="{{.Params.link}}"
+          href="{{.link}}"
           target="_blank"
           rel="noopener"
           class="Solutions-useCaseLink"
         >
           <div
-            class="Solutions-useCaseLogo Solutions-useCaseLogo--{{.Params.company}}"
+            class="Solutions-useCaseLogo Solutions-useCaseLogo--{{.company}}"
           >
             <img
               loading="lazy"
-              alt="{{.Params.company}}"
-              src="/images/logos/{{.Params.logoSrc}}"
+              alt="{{.company}}"
+              src="/images/logos/{{.logoSrc}}"
             />
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
             <p class="Solutions-useCaseDescription">
-              {{.Description}}
+              {{.description}}
             </p>
           </div>
           <p class="Solutions-useCaseAction">
@@ -114,21 +120,21 @@ title: Why Go
           <div class="Solutions-useCaseLogo">
             <img
               loading="lazy"
-              alt="{{.Params.company}}"
-              src="/images/logos/{{.Params.logoSrc}}"
+              alt="{{.company}}"
+              src="/images/logos/{{.logoSrc}}"
             />
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
             <p class="Solutions-useCaseDescription">
-              {{with .Params.quote}}{{.}}{{end}}
+              {{with .quote}}{{.}}{{end}}
             </p>
           </div>
           <p class="Solutions-useCaseAction">View case study</p>
         </a>
         {{end}}
       </li>
-      {{ end }}
+      {{end}}{{end}}
     </ul>
     <ul
       class="js-solutionsList Solutions-cardList"
@@ -139,11 +145,11 @@ title: Why Go
       tabindex="0"
       hidden
     >
-      {{range where .Pages "Params.series" "Use Cases"}}
+      {{range newest $solutions}}{{if eq .series "Use Cases"}}
       <li class="Solutions-card">
         <a href="{{.Path}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
-            {{$icon := .Params.icon}}{{if $icon}}
+            {{$icon := .icon}}{{if $icon}}
             <img
               loading="lazy"
               alt="{{$icon.alt}}"
@@ -152,9 +158,9 @@ title: Why Go
             {{end}}
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.LinkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
             <p class="Solutions-useCaseDescription">
-              {{.Description}}
+              {{.description}}
             </p>
           </div>
           <p class="Solutions-useCaseAction">
@@ -162,7 +168,7 @@ title: Why Go
           </p>
         </a>
       </li>
-      {{end}}
+      {{end}}{{end}}
     </ul>
     <div class="Solutions-footer">
       <p>

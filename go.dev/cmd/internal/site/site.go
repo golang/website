@@ -29,8 +29,7 @@ type Site struct {
 	URL   string
 	Title string
 
-	pages     []*Page
-	pagesByID map[string]*Page
+	pagesByID map[string]*page
 	dir       string
 	redirects map[string]string
 	base      *template.Template
@@ -45,7 +44,7 @@ func Load(dir string) (*Site, error) {
 	site := &Site{
 		dir:       dir,
 		redirects: make(map[string]string),
-		pagesByID: make(map[string]*Page),
+		pagesByID: make(map[string]*page),
 	}
 	if err := site.initTemplate(); err != nil {
 		return nil, err
@@ -75,36 +74,10 @@ func Load(dir string) (*Site, error) {
 		return nil, fmt.Errorf("loading pages: %v", err)
 	}
 
-	// Assign pages to sections and sort section lists.
-	for _, p := range site.pages {
-		p.Pages = append(p.Pages, p)
-	}
-	for _, p := range site.pages {
-		if parent := site.pagesByID[p.parent]; parent != nil {
-			parent.Pages = append(parent.Pages, p)
-		}
-	}
-	for _, p := range site.pages {
-		pages := p.Pages[1:]
-		sort.Slice(pages, func(i, j int) bool {
-			pi := pages[i]
-			pj := pages[j]
-			if !pi.Date.Equal(pj.Date.Time) {
-				return pi.Date.After(pj.Date.Time)
-			}
-			ti := pi.LinkTitle
-			tj := pj.LinkTitle
-			if ti != tj {
-				return ti < tj
-			}
-			return false
-		})
-	}
-
 	// Now that all pages are loaded and set up, can render all.
 	// (Pages can refer to other pages.)
-	for _, p := range site.pages {
-		if err := p.renderHTML(); err != nil {
+	for _, p := range site.pagesByID {
+		if err := site.renderHTML(p); err != nil {
 			return nil, err
 		}
 	}
@@ -116,13 +89,11 @@ func Load(dir string) (*Site, error) {
 func (site *Site) file(name string) string { return filepath.Join(site.dir, name) }
 
 // newPage returns a new page belonging to site.
-func (site *Site) newPage(short string) *Page {
-	p := &Page{
-		site:   site,
+func (site *Site) newPage(short string) *page {
+	p := &page{
 		id:     short,
-		Params: make(map[string]interface{}),
+		params: make(tPage),
 	}
-	site.pages = append(site.pages, p)
 	site.pagesByID[p.id] = p
 	return p
 }
@@ -138,6 +109,59 @@ func (site *Site) data(name string) (interface{}, error) {
 		return nil, err
 	}
 	return d, nil
+}
+
+// pageByID returns the page with a given path.
+func (site *Site) pageByPath(path string) (tPage, error) {
+	p := site.pagesByID[strings.Trim(path, "/")]
+	if p == nil {
+		return nil, fmt.Errorf("no such page with path %q", path)
+	}
+	return p.params, nil
+}
+
+// pagesGlob returns the pages with IDs matching glob.
+func (site *Site) pagesGlob(glob string) ([]tPage, error) {
+	_, err := path.Match(glob, "")
+	if err != nil {
+		return nil, err
+	}
+	glob = strings.Trim(glob, "/")
+	var out []tPage
+	for _, p := range site.pagesByID {
+		if ok, _ := path.Match(glob, p.id); ok {
+			out = append(out, p.params)
+		}
+	}
+
+	sort.Slice(out, func(i, j int) bool {
+		return out[i]["Path"].(string) < out[j]["Path"].(string)
+	})
+	return out, nil
+}
+
+// newest returns the pages sorted newest first,
+// breaking ties by .linkTitle or else .title.
+func newest(pages []tPage) []tPage {
+	out := make([]tPage, len(pages))
+	copy(out, pages)
+
+	sort.Slice(out, func(i, j int) bool {
+		pi := out[i]
+		pj := out[j]
+		di, _ := pi["Date"].(time.Time)
+		dj, _ := pj["Date"].(time.Time)
+		if !di.Equal(dj) {
+			return di.After(dj)
+		}
+		ti, _ := pi["linkTitle"].(string)
+		tj, _ := pj["linkTitle"].(string)
+		if ti != tj {
+			return ti < tj
+		}
+		return false
+	})
+	return out
 }
 
 // Open returns the content to serve at the given path.

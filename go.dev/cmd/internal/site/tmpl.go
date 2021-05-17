@@ -6,9 +6,7 @@ package site
 
 import (
 	"fmt"
-	"path/filepath"
 	"reflect"
-	"sort"
 	"strings"
 
 	"golang.org/x/go.dev/cmd/internal/html/template"
@@ -18,15 +16,17 @@ import (
 
 func (site *Site) initTemplate() error {
 	funcs := template.FuncMap{
+		"add":      func(i, j int) int { return i + j },
 		"data":     site.data,
 		"dict":     dict,
 		"first":    first,
-		"list":     list,
 		"markdown": markdown,
+		"newest":   newest,
+		"page":     site.pageByPath,
+		"pages":    site.pagesGlob,
 		"replace":  replace,
 		"rawhtml":  rawhtml,
-		"sort":     sortFn,
-		"where":    where,
+		"trim":     strings.Trim,
 		"yaml":     yamlFn,
 	}
 
@@ -68,12 +68,11 @@ func first(n int, list reflect.Value) reflect.Value {
 		}
 		list = list.Elem()
 	}
-	out := reflect.Zero(list.Type())
 
-	for i := 0; i < list.Len() && i < n; i++ {
-		out = reflect.Append(out, list.Index(i))
+	if list.Len() < n {
+		return list
 	}
-	return out
+	return list.Slice(0, n)
 }
 
 func dict(args ...interface{}) map[string]interface{} {
@@ -107,124 +106,10 @@ func rawhtml(s interface{}) template.HTML {
 	return template.HTML(toString(s))
 }
 
-func sortFn(list reflect.Value, key, asc string) (reflect.Value, error) {
-	out := reflect.Zero(list.Type())
-	var keys []string
-	var perm []int
-	for i := 0; i < list.Len(); i++ {
-		elem := list.Index(i)
-		v, ok := eval(elem, key)
-		if !ok {
-			return reflect.Value{}, fmt.Errorf("no key %s", key)
-		}
-		keys = append(keys, strings.ToLower(v))
-		perm = append(perm, i)
-	}
-	sort.Slice(perm, func(i, j int) bool {
-		return keys[perm[i]] < keys[perm[j]]
-	})
-	for _, i := range perm {
-		out = reflect.Append(out, list.Index(i))
-	}
-	return out, nil
-}
-
-func where(list reflect.Value, key, val string) reflect.Value {
-	out := reflect.Zero(list.Type())
-	for i := 0; i < list.Len(); i++ {
-		elem := list.Index(i)
-		v, ok := eval(elem, key)
-		if ok && v == val {
-			out = reflect.Append(out, elem)
-		}
-	}
-	return out
-}
-
-func eval(elem reflect.Value, key string) (string, bool) {
-	for _, k := range strings.Split(key, ".") {
-		if !elem.IsValid() {
-			return "", false
-		}
-		m := elem.MethodByName(k)
-		if m.IsValid() {
-			elem = m.Call(nil)[0]
-			continue
-		}
-		if elem.Kind() == reflect.Interface || elem.Kind() == reflect.Ptr {
-			if elem.IsNil() {
-				return "", false
-			}
-			elem = elem.Elem()
-		}
-		switch elem.Kind() {
-		case reflect.Struct:
-			elem = elem.FieldByName(k)
-			continue
-		case reflect.Map:
-			elem = elem.MapIndex(reflect.ValueOf(k))
-			continue
-		}
-		return "", false
-	}
-	if !elem.IsValid() {
-		return "", false
-	}
-	if elem.Kind() == reflect.Interface || elem.Kind() == reflect.Ptr {
-		if elem.IsNil() {
-			return "", false
-		}
-		elem = elem.Elem()
-	}
-	if elem.Kind() != reflect.String {
-		return "", false
-	}
-	return elem.String(), true
-}
-
-func (p *Page) CurrentSection() *Page {
-	return p.site.pagesByID[p.Section()]
-}
-
-func (p *Page) IsHome() bool { return p.id == "" }
-
-func (p *Page) Parent() *Page {
-	if p.IsHome() {
-		return nil
-	}
-	return p.site.pagesByID[p.parent]
-}
-
-func (p *Page) URL() string {
-	return strings.TrimRight(p.site.URL, "/") + p.Path()
-}
-
-func (p *Page) Path() string {
-	if p.id == "" {
-		return "/"
-	}
-	if strings.HasSuffix(p.file, "/index.md") {
-		return "/" + p.id + "/"
-	}
-	return "/" + p.id
-}
-
-func (p *Page) Section() string {
-	i := strings.Index(p.section, "/")
-	if i < 0 {
-		return p.section
-	}
-	return p.section[:i]
-}
-
 func yamlFn(s string) (interface{}, error) {
 	var d interface{}
 	if err := yaml.Unmarshal([]byte(s), &d); err != nil {
 		return nil, err
 	}
 	return d, nil
-}
-
-func (p *Page) Dir() string {
-	return strings.TrimPrefix(filepath.ToSlash(filepath.Dir(p.file)), "_content")
 }

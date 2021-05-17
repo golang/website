@@ -68,7 +68,6 @@ title: go.dev
   </div>
 </section>
 <section class="WhoUses">
-  {{$solutions := index (where .Pages "Section" "solutions") 0}}
   <div class="WhoUses-gridContainer">
     <div class="WhoUses-header">
       <h2 class="WhoUses-headerH2">Companies using Go</h2>
@@ -80,17 +79,17 @@ title: go.dev
     </div>
   <div class="WhoUsesCaseStudyList">
     <ul class="WhoUsesCaseStudyList-gridContainer">
-    {{range where $solutions.Pages "Params.series" "Case Studies"}}
-      {{if .Params.link }}
-        {{if .Params.inLandingPageGrid }}
+    {{range newest (pages "solutions/*")}}{{if eq .series "Case Studies"}}
+      {{if .link }}
+        {{if .inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
-            <a href="{{.Params.link}}" target="_blank" rel="noopener"
+            <a href="{{.link}}" target="_blank" rel="noopener"
               class="WhoUsesCaseStudyList-caseStudyLink">
               <img
                 loading="lazy"
                 height="48"
                 width="30%"
-                src="/images/logos/{{.Params.logoSrc}}"
+                src="/images/logos/{{.logoSrc}}"
                 class="WhoUsesCaseStudyList-logo"
                 alt="">
             </a>
@@ -103,14 +102,14 @@ title: go.dev
               loading="lazy"
               height="48"
               width="30%"
-              src="/images/logos/{{.Params.logoSrc}}"
+              src="/images/logos/{{.logoSrc}}"
               class="WhoUsesCaseStudyList-logo"
               alt="">
             <p>View case study</p>
           </a>
         </li>
       {{end}}
-    {{end}}
+    {{end}}{{end}}
     </ul>
   </div>
 </section>

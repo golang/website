@@ -23,9 +23,9 @@
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
-<title>{{.Title}}{{if not .IsHome}} - go.dev{{end}}</title>
-{{if .Params.link -}}
-<meta http-equiv="refresh" content="0; url={{.Params.link}}">
+<title>{{.title}}{{if .Parent}} - go.dev{{end}}</title>
+{{if .link -}}
+<meta http-equiv="refresh" content="0; url={{.link}}">
 {{end -}}
 </head>
 <body class="Site">
@@ -60,7 +60,7 @@
         <ul class="Header-menu">
           {{- $currentPage := .}}
           {{- range $menus.main}}
-          <li class="Header-menuItem {{if eq $currentPage.Title .name}} Header-menuItem--active{{end}}">
+          <li class="Header-menuItem {{if eq $currentPage.title .name}} Header-menuItem--active{{end}}">
             <a href="{{.url}}">{{.name}}</a>
           </li>
           {{- end}}
@@ -69,7 +69,7 @@
         </button>
       </div>
     </nav>
-    {{ if (eq .Params.Series "Use Cases") }}
+    {{ if (eq .series "Use Cases") }}
     <div class="UseCaseSubNav js-useCaseSubnav">
       <button class="UseCaseSubNav-menuHeader js-useCaseSubnavHeader">
         Jump to
@@ -94,7 +94,7 @@
     </div>
     <ul class="NavigationDrawer-list">
       {{- range $menus.main}}
-        <li class="NavigationDrawer-listItem {{if eq $currentPage.CurrentSection.Title .name}} NavigationDrawer-listItem--active{{end}}">
+        <li class="NavigationDrawer-listItem {{if eq .url $currentPage.Section}} NavigationDrawer-listItem--active{{end}}">
           <a href="{{.url}}">{{.name}}</a>
         </li>
       {{- end}}

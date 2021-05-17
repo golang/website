@@ -12,67 +12,37 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/go.dev/cmd/internal/html/template"
 	"golang.org/x/go.dev/cmd/internal/tmplfunc"
 	"gopkg.in/yaml.v3"
 )
 
-// A Page is a single web page.
+// A page is a single web page.
 // It corresponds to some .md file in the content tree.
-// Although page is not exported for use by other Go code,
-// its exported fields and methods are available to templates.
-type Page struct {
-	id      string // page ID (url path excluding site.BaseURL and trailing slash)
-	file    string // .md file for page
-	section string // page section ID
-	parent  string // parent page ID
-	data    []byte // page data (markdown)
-	html    []byte // rendered page (HTML)
-	site    *Site
-
-	// loaded from page metadata, available to templates
-	Aliases     []string
-	Date        anyTime
-	Description string `yaml:"description"`
-	Layout      string `yaml:"layout"`
-	LinkTitle   string `yaml:"linkTitle"`
-	Title       string
-
-	// provided to templates
-	Content template.HTML          `yaml:"-"`
-	Pages   []*Page                `yaml:"-"`
-	Params  map[string]interface{} `yaml:"-"`
+type page struct {
+	id     string // page ID (url path excluding site.BaseURL and trailing slash)
+	file   string // .md file for page
+	data   []byte // page data (markdown)
+	html   []byte // rendered page (HTML)
+	params tPage  // parameters passed to templates
 }
+
+// A tPage is the template form of the page, the data passed to rendering templates.
+type tPage map[string]interface{}
 
 // loadPage loads the site's page from the given file.
 // It returns the page but also adds the page to site.pages and site.pagesByID.
-func (site *Site) loadPage(file string) (*Page, error) {
-	var section string
+func (site *Site) loadPage(file string) (*page, error) {
 	id := strings.TrimPrefix(file, "_content/")
 	if id == "index.md" {
 		id = ""
-		section = ""
 	} else if strings.HasSuffix(id, "/index.md") {
 		id = strings.TrimSuffix(id, "/index.md")
-		section = id
 	} else {
 		id = strings.TrimSuffix(id, ".md")
-		section = path.Dir(id)
-		if section == "." {
-			section = ""
-		}
-	}
-	parent := path.Dir(id)
-	if parent == "." {
-		parent = ""
 	}
 
 	p := site.newPage(id)
 	p.file = file
-	p.section = section
-	p.parent = parent
-	p.Params["Series"] = ""
-	p.Params["series"] = ""
 
 	// Load content, including leading yaml.
 	data, err := ioutil.ReadFile(site.file(file))
@@ -88,11 +58,7 @@ func (site *Site) loadPage(file string) (*Page, error) {
 		}
 		if i >= 0 {
 			meta := data[4 : i+1]
-			err := yaml.Unmarshal(meta, p.Params)
-			if err != nil {
-				return nil, fmt.Errorf("load %s: %v", file, err)
-			}
-			err = yaml.Unmarshal(meta, p)
+			err := yaml.Unmarshal(meta, p.params)
 			if err != nil {
 				return nil, fmt.Errorf("load %s: %v", file, err)
 			}
@@ -114,44 +80,85 @@ func (site *Site) loadPage(file string) (*Page, error) {
 	}
 	p.data = data
 
-	// Set a few defaults.
-	p.Params["Series"] = p.Params["series"]
-	if p.LinkTitle == "" {
-		p.LinkTitle = p.Title
+	// Default linkTitle to title
+	if _, ok := p.params["linkTitle"]; !ok {
+		p.params["linkTitle"] = p.params["title"]
 	}
 
-	// Register aliases.
-	for _, alias := range p.Aliases {
-		site.redirects[strings.Trim(alias, "/")] = p.URL()
+	// Parse date to Date.
+	// Note that YAML parser may have done it for us (!)
+	p.params["Date"] = time.Time{}
+	if d, ok := p.params["date"].(string); ok {
+		t, err := parseDate(d)
+		if err != nil {
+			return nil, err
+		}
+		p.params["Date"] = t
+	} else if d, ok := p.params["date"].(time.Time); ok {
+		p.params["Date"] = d
 	}
 
+	// Path, Dir, URL
+	urlPath := "/" + p.id
+	if strings.HasSuffix(p.file, "/index.md") && p.id != "" {
+		urlPath += "/"
+	}
+	p.params["Path"] = urlPath
+	p.params["Dir"] = path.Dir(urlPath)
+	p.params["URL"] = strings.TrimRight(site.URL, "/") + urlPath
+
+	// Parent
+	if p.id != "" {
+		parent := path.Dir("/" + p.id)
+		if parent != "/" {
+			parent += "/"
+		}
+		p.params["Parent"] = parent
+	}
+
+	// Section
+	section := "/"
+	if i := strings.Index(p.id, "/"); i >= 0 {
+		section = "/" + p.id[:i+1]
+	} else if strings.HasSuffix(p.file, "/index.md") {
+		section = "/" + p.id + "/"
+	}
+	p.params["Section"] = section
+
+	// Register aliases. Needs URL.
+	aliases, _ := p.params["aliases"].([]interface{})
+	for _, alias := range aliases {
+		if a, ok := alias.(string); ok {
+			site.redirects[strings.Trim(a, "/")] = p.params["URL"].(string)
+		}
+	}
 	return p, nil
 }
 
 // renderHTML renders the HTML for the page, leaving it in p.html.
-func (p *Page) renderHTML() error {
-	var err error
-	p.Content, err = markdownTemplateToHTML(string(p.data), p)
+func (site *Site) renderHTML(p *page) error {
+	content, err := site.markdownTemplateToHTML(string(p.data), p)
 	if err != nil {
 		return err
 	}
+	p.params["Content"] = content
 
 	// Load base template.
-	base, err := ioutil.ReadFile(p.site.file("_templates/layouts/site.tmpl"))
+	base, err := ioutil.ReadFile(site.file("_templates/layouts/site.tmpl"))
 	if err != nil {
 		return err
 	}
-	t := p.site.clone().New("_templates/layouts/site.tmpl")
+	t := site.clone().New("_templates/layouts/site.tmpl")
 	if err := tmplfunc.Parse(t, string(base)); err != nil {
 		return err
 	}
 
 	// Load page-specific layout template.
-	layout := p.Layout
+	layout, _ := p.params["layout"].(string)
 	if layout == "" {
 		layout = "default"
 	}
-	data, err := ioutil.ReadFile(p.site.file("_templates/layouts/" + layout + ".tmpl"))
+	data, err := ioutil.ReadFile(site.file("_templates/layouts/" + layout + ".tmpl"))
 	if err != nil {
 		return err
 	}
@@ -160,29 +167,23 @@ func (p *Page) renderHTML() error {
 	}
 
 	var buf bytes.Buffer
-	if err := t.Execute(&buf, p); err != nil {
+	if err := t.Execute(&buf, p.params); err != nil {
 		return err
 	}
 	p.html = buf.Bytes()
 	return nil
 }
 
-// An anyTime is a time.Time that accepts any of the anyTimeFormats when unmarshaling.
-type anyTime struct {
-	time.Time
-}
-
-var anyTimeFormats = []string{
+var dateFormats = []string{
 	"2006-01-02",
 	time.RFC3339,
 }
 
-func (t *anyTime) UnmarshalText(data []byte) error {
-	for _, f := range anyTimeFormats {
-		if tt, err := time.Parse(f, string(data)); err == nil {
-			t.Time = tt
-			return nil
+func parseDate(d string) (time.Time, error) {
+	for _, f := range dateFormats {
+		if tt, err := time.Parse(f, d); err == nil {
+			return tt, nil
 		}
 	}
-	return fmt.Errorf("invalid time: %s", data)
+	return time.Time{}, fmt.Errorf("invalid date: %s", d)
 }
