@@ -211,7 +211,7 @@ func eval(elem reflect.Value, key string) (string, bool) {
 }
 
 func (p *Page) CurrentSection() *Page {
-	return p.site.pagesByID[p.section]
+	return p.site.pagesByID[p.Section()]
 }
 
 func (p *Page) IsHome() bool { return p.id == "" }
