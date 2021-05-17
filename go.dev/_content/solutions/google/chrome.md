@@ -12,8 +12,6 @@ quote: |
   In this case study, the Chrome Optimization Guide
   team shared how they experimented with Go, ramped up quickly, and their plans to
   use Go going forward.
-aliases:
-    - /solutions/chrome
 ---
 
 When the product Chrome comes to mind, you probably think solely of the

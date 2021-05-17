@@ -44,6 +44,11 @@ func (site *Site) loadPage(file string) (*page, error) {
 	p := site.newPage(id)
 	p.file = file
 
+	urlPath := "/" + p.id
+	if strings.HasSuffix(p.file, "/index.md") && p.id != "" {
+		urlPath += "/"
+	}
+
 	// Load content, including leading yaml.
 	data, err := ioutil.ReadFile(site.file(file))
 	if err != nil {
@@ -99,10 +104,6 @@ func (site *Site) loadPage(file string) (*page, error) {
 	}
 
 	// Path, Dir, URL
-	urlPath := "/" + p.id
-	if strings.HasSuffix(p.file, "/index.md") && p.id != "" {
-		urlPath += "/"
-	}
 	p.params["Path"] = urlPath
 	p.params["Dir"] = path.Dir(urlPath)
 	p.params["URL"] = strings.TrimRight(site.URL, "/") + urlPath
@@ -125,13 +126,6 @@ func (site *Site) loadPage(file string) (*page, error) {
 	}
 	p.params["Section"] = section
 
-	// Register aliases. Needs URL.
-	aliases, _ := p.params["aliases"].([]interface{})
-	for _, alias := range aliases {
-		if a, ok := alias.(string); ok {
-			site.redirects[strings.Trim(a, "/")] = p.params["URL"].(string)
-		}
-	}
 	return p, nil
 }
 

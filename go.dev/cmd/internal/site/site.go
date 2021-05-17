@@ -31,7 +31,6 @@ type Site struct {
 
 	pagesByID map[string]*page
 	dir       string
-	redirects map[string]string
 	base      *template.Template
 }
 
@@ -43,7 +42,6 @@ func Load(dir string) (*Site, error) {
 	}
 	site := &Site{
 		dir:       dir,
-		redirects: make(map[string]string),
 		pagesByID: make(map[string]*page),
 	}
 	if err := site.initTemplate(); err != nil {
@@ -179,11 +177,11 @@ func (site *Site) Open(name string) (http.File, error) {
 		if name == "index.html" {
 			id = ""
 		}
-		if target := site.redirects[id]; target != "" {
-			s := fmt.Sprintf(redirectFmt, target)
-			return &httpFile{strings.NewReader(s), int64(len(s))}, nil
-		}
 		if p := site.pagesByID[id]; p != nil {
+			if redir, ok := p.params["redirect"].(string); ok {
+				s := fmt.Sprintf(redirectFmt, redir)
+				return &httpFile{strings.NewReader(s), int64(len(s))}, nil
+			}
 			return &httpFile{bytes.NewReader(p.html), int64(len(p.html))}, nil
 		}
 	}

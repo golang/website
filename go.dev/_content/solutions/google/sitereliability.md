@@ -11,8 +11,6 @@ quote: |
   They shared their experience building core production management systems with Go, coming from experience with Python and C++.
 authors:
   - Pierre Palatin, Site Reliability Engineer
-aliases:
-    - /solutions/sitereliability
 ---
 
 Google runs a small number of very large services. Those services are powered

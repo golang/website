@@ -12,8 +12,6 @@ quote: |
   The Firebase Hosting team shared their journey with Go, including their
   backend migration from Node.js, the ease of onboarding new Go developers, and
   how Go has helped them scale.
-aliases:
-    - /solutions/firebase
 ---
 
 The Firebase Hosting team provides static web hosting services for Google Cloud
