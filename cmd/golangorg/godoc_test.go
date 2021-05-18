@@ -10,18 +10,17 @@ package main_test
 import (
 	"bytes"
 	"fmt"
-	"go/build"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
-	"regexp"
 	"runtime"
-	"strings"
 	"testing"
 	"time"
+
+	"golang.org/x/website/internal/webtest"
 )
 
 // buildGodoc builds the godoc executable.
@@ -75,24 +74,12 @@ func waitForServerReady(t *testing.T, addr string) {
 	waitForServer(t,
 		fmt.Sprintf("http://%v/", addr),
 		"The Go Programming Language",
-		15*time.Second,
-		false)
-}
-
-func waitUntilScanComplete(t *testing.T, addr string) {
-	waitForServer(t,
-		fmt.Sprintf("http://%v/pkg", addr),
-		"Scan is not yet complete",
-		2*time.Minute,
-		true,
-	)
-	// setting reverse as true, which means this waits
-	// until the string is not returned in the response anymore
+		15*time.Second)
 }
 
 const pollInterval = 200 * time.Millisecond
 
-func waitForServer(t *testing.T, url, match string, timeout time.Duration, reverse bool) {
+func waitForServer(t *testing.T, url, match string, timeout time.Duration) {
 	// "health check" duplicated from x/tools/cmd/tipgodoc/tip.go
 	deadline := time.Now().Add(timeout)
 	for time.Now().Before(deadline) {
@@ -104,26 +91,12 @@ func waitForServer(t *testing.T, url, match string, timeout time.Duration, rever
 		rbody, err := ioutil.ReadAll(res.Body)
 		res.Body.Close()
 		if err == nil && res.StatusCode == http.StatusOK {
-			if bytes.Contains(rbody, []byte(match)) && !reverse {
-				return
-			}
-			if !bytes.Contains(rbody, []byte(match)) && reverse {
+			if bytes.Contains(rbody, []byte(match)) {
 				return
 			}
 		}
 	}
 	t.Fatalf("Server failed to respond in %v", timeout)
-}
-
-// hasTag checks whether a given release tag is contained in the current version
-// of the go binary.
-func hasTag(t string) bool {
-	for _, v := range build.Default.ReleaseTags {
-		if t == v {
-			return true
-		}
-	}
-	return false
 }
 
 func killAndWait(cmd *exec.Cmd) {
@@ -165,246 +138,6 @@ func testWeb(t *testing.T) {
 	defer killAndWait(cmd)
 
 	waitForServerReady(t, addr)
-	waitUntilScanComplete(t, addr)
 
-	tests := []struct {
-		path        string
-		contains    []string // substring
-		match       []string // regexp
-		notContains []string
-		redirect    string
-		releaseTag  string // optional release tag that must be in go/build.ReleaseTags
-	}{
-		{
-			path: "/",
-			contains: []string{
-				"Go is an open source programming language",
-				"Binary distributions available for",
-			},
-		},
-		{
-			path:     "/conduct",
-			contains: []string{"Project Stewards"},
-		},
-		{
-			path:     "/doc/asm",
-			contains: []string{"Quick Guide", "Assembler"},
-		},
-		{
-			path:     "/doc/gdb",
-			contains: []string{"Debugging Go Code"},
-		},
-		{
-			path:     "/doc/debugging_with_gdb.html",
-			redirect: "/doc/gdb",
-		},
-		{
-			path:     "/ref/spec",
-			contains: []string{"Go Programming Language Specification"},
-		},
-		{
-			path:     "/doc/go_spec",
-			redirect: "/ref/spec",
-		},
-		{
-			path:     "/doc/go_spec.html",
-			redirect: "/ref/spec",
-		},
-		{
-			path:     "/doc/go_spec.md",
-			redirect: "/ref/spec",
-		},
-		{
-			path:     "/ref/mem",
-			contains: []string{"Memory Model"},
-		},
-		{
-			path:     "/doc/go_mem.html",
-			redirect: "/ref/mem",
-		},
-		{
-			path:     "/doc/go_mem.md",
-			redirect: "/ref/mem",
-		},
-		{
-			path:     "/doc/help.html",
-			redirect: "/help",
-		},
-		{
-			path:     "/help/",
-			redirect: "/help",
-		},
-		{
-			path:     "/help",
-			contains: []string{"Get help"},
-		},
-		{
-			path:     "/pkg/fmt/",
-			contains: []string{"Package fmt implements formatted I/O"},
-		},
-		{
-			path:     "/src/fmt/",
-			contains: []string{"scan_test.go"},
-		},
-		{
-			path:     "/src/fmt/print.go",
-			contains: []string{"// Println formats using"},
-		},
-		{
-			path:     "/pkg",
-			redirect: "/pkg/",
-		},
-		{
-			path: "/pkg/",
-			contains: []string{
-				"Standard library",
-				"Package fmt implements formatted I/O",
-			},
-			notContains: []string{
-				"internal/syscall",
-				"cmd/gc",
-			},
-		},
-		{
-			path: "/pkg/?m=all",
-			contains: []string{
-				"Standard library",
-				"Package fmt implements formatted I/O",
-				"internal/syscall/?m=all",
-			},
-			notContains: []string{
-				"cmd/gc",
-			},
-		},
-		{
-			path: "/pkg/strings/",
-			contains: []string{
-				`href="/src/strings/strings.go"`,
-			},
-		},
-		{
-			path: "/cmd/compile/internal/amd64/",
-			contains: []string{
-				`href="/src/cmd/compile/internal/amd64/ssa.go"`,
-			},
-		},
-		{
-			path: "/pkg/math/bits/",
-			contains: []string{
-				`Added in Go 1.9`,
-			},
-		},
-		{
-			path: "/pkg/net/",
-			contains: []string{
-				`// IPv6 scoped addressing zone; added in Go 1.1`,
-			},
-		},
-		{
-			path: "/pkg/net/http/httptrace/",
-			match: []string{
-				`Got1xxResponse.*// Go 1\.11`,
-			},
-			releaseTag: "go1.11",
-		},
-		// Verify we don't add version info to a struct field added the same time
-		// as the struct itself:
-		{
-			path: "/pkg/net/http/httptrace/",
-			match: []string{
-				`(?m)GotFirstResponseByte func\(\)\s*$`,
-			},
-		},
-		// Remove trailing periods before adding semicolons:
-		{
-			path: "/pkg/database/sql/",
-			contains: []string{
-				"The number of connections currently in use; added in Go 1.11",
-				"The number of idle connections; added in Go 1.11",
-			},
-			releaseTag: "go1.11",
-		},
-		{
-			path: "/project",
-			contains: []string{
-				`<li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>`,
-				`<li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>`,
-			},
-		},
-		{
-			path:     "/doc/go1.16.html",
-			redirect: "/doc/go1.16",
-		},
-		{
-			path:     "/doc/go1.16",
-			contains: []string{"Go 1.16"},
-		},
-	}
-	for _, test := range tests {
-		url := fmt.Sprintf("http://%s%s", addr, test.path)
-		var redirect string
-		client := &http.Client{
-			CheckRedirect: func(req *http.Request, via []*http.Request) error {
-				redirect = strings.TrimPrefix(req.URL.String(), "http://"+addr)
-				return fmt.Errorf("not following redirects")
-			},
-		}
-		resp, err := client.Get(url)
-		if redirect != "" {
-			resp.Body.Close()
-			if test.redirect == "" {
-				t.Errorf("GET %s: unexpected redirect -> %s", url, redirect)
-				continue
-			}
-			if test.redirect != redirect {
-				t.Errorf("GET %s: redirect -> %s, want %s", url, redirect, test.redirect)
-				continue
-			}
-			continue
-		}
-		if err != nil {
-			t.Errorf("GET %s failed: %s", url, err)
-			continue
-		}
-		body, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close()
-		if err != nil {
-			t.Errorf("GET %s: failed to read body: %s (response: %v)", url, err, resp)
-		}
-		if test.redirect != "" {
-			t.Errorf("GET %s: have direct response, want redirect -> %s", url, test.redirect)
-		}
-		strBody := string(body)
-		isErr := false
-		for _, substr := range test.contains {
-			if test.releaseTag != "" && !hasTag(test.releaseTag) {
-				continue
-			}
-			if !bytes.Contains(body, []byte(substr)) {
-				t.Errorf("GET %s: wanted substring %q in body", url, substr)
-				isErr = true
-			}
-		}
-		for _, re := range test.match {
-			if test.releaseTag != "" && !hasTag(test.releaseTag) {
-				continue
-			}
-			if ok, err := regexp.MatchString(re, strBody); !ok || err != nil {
-				if err != nil {
-					t.Fatalf("Bad regexp %q: %v", re, err)
-				}
-				t.Errorf("GET %s: wanted to match %s in body", url, re)
-				isErr = true
-			}
-		}
-		for _, substr := range test.notContains {
-			if bytes.Contains(body, []byte(substr)) {
-				t.Errorf("GET %s: didn't want substring %q in body", url, substr)
-				isErr = true
-			}
-		}
-		if isErr {
-			t.Errorf("GET %s: got:\n%s", url, body)
-		}
-	}
+	webtest.TestServer(t, "testdata/web.txt", addr)
 }

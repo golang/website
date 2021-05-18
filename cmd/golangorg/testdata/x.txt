@@ -1,0 +1,25 @@
+GET /x/net
+code == 200
+body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
+body contains http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/net">
+
+GET /x/net/suffix
+code == 200
+body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
+body contains http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/net/suffix">
+
+GET /x/pkgsite
+code == 200
+body contains <meta name="go-import" content="golang.org/x/pkgsite git https://go.googlesource.com/pkgsite">
+body contains <a href="https://pkg.go.dev/golang.org/x/pkgsite">Redirecting to documentation...</a>
+body contains http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/pkgsite">
+
+GET /x/notexist
+code == 404
+
+GET /x/
+code == 307
+header location == https://pkg.go.dev/search?q=golang.org/x
+
+GET /x/In%20Valid,X
+code == 404

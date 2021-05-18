@@ -1,0 +1,99 @@
+GET /
+body contains Go is an open source programming language
+body contains Binary distributions available for
+
+GET /conduct
+body contains Project Stewards
+
+GET /doc/asm
+body ~ Quick Guide.*Assembler
+
+GET /doc/gdb
+body contains Debugging Go Code
+
+GET /doc/debugging_with_gdb.html
+redirect == /doc/gdb
+
+GET /ref/spec
+body contains Go Programming Language Specification
+
+GET /doc/go_spec
+redirect == /ref/spec
+
+GET /doc/go_spec.html
+redirect == /ref/spec
+
+GET /doc/go_spec.md
+redirect == /ref/spec
+
+GET /ref/mem
+body contains Memory Model
+
+GET /doc/go_mem.html
+redirect == /ref/mem
+
+GET /doc/go_mem.md
+redirect == /ref/mem
+
+GET /doc/help.html
+redirect == /help
+
+GET /help/
+redirect == /help
+
+GET /help
+body contains Get help
+
+GET /pkg/fmt/
+body contains Package fmt implements formatted I/O
+
+GET /src/fmt/
+body contains scan_test.go
+
+GET /src/fmt/print.go
+body contains // Println formats using
+
+GET /pkg
+redirect == /pkg/
+
+GET /pkg/
+body contains Standard library
+body contains Package fmt implements formatted I/O
+body !contains internal/syscall
+body !contains cmd/gc
+
+GET /pkg/?m=all
+body contains Standard library
+body contains Package fmt implements formatted I/O
+body contains internal/syscall/?m=all
+body !contains cmd/gc
+
+GET /pkg/strings/
+body contains href="/src/strings/strings.go"
+
+GET /cmd/compile/internal/amd64/
+body contains href="/src/cmd/compile/internal/amd64/ssa.go"
+
+GET /pkg/math/bits/
+body contains Added in Go 1.9
+
+GET /pkg/net/
+body contains // IPv6 scoped addressing zone; added in Go 1.1
+
+GET /pkg/net/http/httptrace/
+body ~ Got1xxResponse.*// Go 1\.11
+body ~ GotFirstResponseByte func\(\)\s*$
+
+GET /pkg/database/sql/
+body contains The number of connections currently in use; added in Go 1.11
+body contains The number of idle connections; added in Go 1.11
+
+GET /project
+body contains <li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>
+body contains <li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>
+
+GET /doc/go1.16.html
+redirect == /doc/go1.16
+
+GET /doc/go1.16
+body contains Go 1.16
