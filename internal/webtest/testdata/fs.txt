@@ -1,0 +1,31 @@
+GET /hello.html
+body contains <!DOCTYPE html>
+code == 200
+code != 404
+header content-type == text/html; charset=utf-8
+body ~ hello, +world
+body != hello, world
+body ==
+	<!DOCTYPE html>
+	hello, world
+body !~ \A\z
+
+HEAD https://example.com/hello.html
+code == 200
+body !~ .
+
+# check failed test
+GET /hello.html
+hint header content-type = "text/html; charset=utf-8", want "text/html"
+header content-type == text/html
+
+# check failed test
+GET /hello.html
+hint body matches `.` (but should not)
+body !~ .
+
+# check failed test
+GET /hello.html
+hint body contains `hello` (but should not)
+body !contains hello
+

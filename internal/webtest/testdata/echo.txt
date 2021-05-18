@@ -1,0 +1,14 @@
+GET http://example.com/echo
+body contains no query
+
+GET http://example.com/echo?q=x+y
+body contains "q": ["x y"]
+
+POST http://example.com/echo
+postbody q=x+y
+body contains "q": ["x y"]
+
+POST http://example.com/echo
+postquery
+	q=x y
+body contains "q": ["x y"]
