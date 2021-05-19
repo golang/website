@@ -63,10 +63,27 @@ To build your code with the race detector enabled, just add the
 	$ go build -race mycmd   // build the command
 	$ go install -race mypkg // install the package
 
-To try out the race detector for yourself, fetch and run this example program:
+To try out the race detector for yourself, copy this example program into `racy.go`:
 
-	$ go get -race golang.org/x/blog/support/racy
-	$ racy
+	package main
+
+	import "fmt"
+
+	func main() {
+		done := make(chan bool)
+		m := make(map[string]string)
+		m["name"] = "world"
+		go func() {
+			m["name"] = "data race"
+			done <- true
+		}()
+		fmt.Println("Hello,", m["name"])
+		<-done
+	}
+
+Then run it with the race detector enabled:
+
+	$ go run -race racy.go
 
 ## Examples
 
