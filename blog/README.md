@@ -43,18 +43,27 @@ subject line, so it is easy to find.
 
 ## Deploying
 
-1.	To deploy blog.golang.org, run:
+The Google Cloud project triggers a fresh deploy of the blog on each submit
+but that deployment is published to a temporary URL.
 
-	```
-	GO111MODULE=on gcloud --project=golang-org app deploy --no-promote app.yaml
-	```
+To publish the blog to blog.golang.org, you need access to the
+Cloud Console for the golang-org project.
+Then:
 
-	This will create a new version, which can be viewed within the
-	[golang-org GCP project](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=blog).
+1. Visit the
+   [builds list](https://console.cloud.google.com/cloud-build/builds?project=golang-org&query=trigger_id%3D%22c99674d3-32c1-4aec-ade4-ae2d5a844369%22.)
+   and click on the build hash for the most recent build
+   with trigger name “Redeploy-blog-on-blog-commit”.
 
-2.	Check that the deployed version looks OK (click the version link in GCP).
+   Scrolling to the bottom of the build log, you will find a URL in a log message like
 
-3.	If all is well, click "Migrate Traffic" to move 100% of the blog.golang.org
-	traffic to the new version.
+       Deployed service [blog] to [https://TEMPORARYURL.appspot.com]
 
-4.	You're done.
+2. Copy that URL and load it in your browser. Check that it looks OK.
+
+3. Assuming it does, visit the
+   [AppEngine versions list](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=blog).
+   Click “Migrate Traffic” on the new entry to move 100% of the blog.golang.org
+   traffic to the new version.
+
+4. You're done.
