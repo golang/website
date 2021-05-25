@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	htmltemplate "html/template"
-	texttemplate "text/template"
+	htmltemplate "golang.org/x/go.dev/cmd/internal/html/template"
+	texttemplate "golang.org/x/go.dev/cmd/internal/text/template"
 )
 
 var tests = []struct {

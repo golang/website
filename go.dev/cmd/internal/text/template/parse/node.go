@@ -53,8 +53,10 @@ const (
 	NodeText       NodeType = iota // Plain text.
 	NodeAction                     // A non-control action such as a field evaluation.
 	NodeBool                       // A boolean constant.
+	NodeBreak                      // A break action.
 	NodeChain                      // A sequence of field accesses.
 	NodeCommand                    // An element of a pipeline.
+	NodeContinue                   // A continue action.
 	NodeDot                        // The cursor, dot.
 	nodeElse                       // An else action. Not added to tree.
 	nodeEnd                        // An end action. Not added to tree.
@@ -906,6 +908,40 @@ func (t *Tree) newIf(pos Pos, line int, pipe *PipeNode, list, elseList *ListNode
 func (i *IfNode) Copy() Node {
 	return i.tr.newIf(i.Pos, i.Line, i.Pipe.CopyPipe(), i.List.CopyList(), i.ElseList.CopyList())
 }
+
+// BreakNode represents a {{break}} action.
+type BreakNode struct {
+	tr *Tree
+	NodeType
+	Pos
+	Line int
+}
+
+func (t *Tree) newBreak(pos Pos, line int) *BreakNode {
+	return &BreakNode{tr: t, NodeType: NodeBreak, Pos: pos, Line: line}
+}
+
+func (b *BreakNode) Copy() Node                  { return b.tr.newBreak(b.Pos, b.Line) }
+func (b *BreakNode) String() string              { return "{{break}}" }
+func (b *BreakNode) tree() *Tree                 { return b.tr }
+func (b *BreakNode) writeTo(sb *strings.Builder) { sb.WriteString("{{break}}") }
+
+// ContinueNode represents a {{continue}} action.
+type ContinueNode struct {
+	tr *Tree
+	NodeType
+	Pos
+	Line int
+}
+
+func (t *Tree) newContinue(pos Pos, line int) *ContinueNode {
+	return &ContinueNode{tr: t, NodeType: NodeContinue, Pos: pos, Line: line}
+}
+
+func (c *ContinueNode) Copy() Node                  { return c.tr.newContinue(c.Pos, c.Line) }
+func (c *ContinueNode) String() string              { return "{{continue}}" }
+func (c *ContinueNode) tree() *Tree                 { return c.tr }
+func (c *ContinueNode) writeTo(sb *strings.Builder) { sb.WriteString("{{continue}}") }
 
 // RangeNode represents a {{range}} action and its commands.
 type RangeNode struct {
