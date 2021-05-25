@@ -2453,6 +2453,43 @@ entirely. See [Authenticating modules](#authenticating) for more
 information. Note that version lists and version metadata returned for `.info`
 requests are not authenticated and may change over time.
 
+### Serving modules directly from a proxy {#serving-from-proxy}
+
+Most modules are developed and served from a version control repository. In
+[direct mode](#glos-direct-mode), the `go` command downloads such a module with
+a version control tool (see [Version control systems](#vcs)). It's also possible
+to serve a module directly from a module proxy. This is useful for organizations
+that want to serve modules without exposing their version control servers and
+for organizations that use version control tools the `go` command does not
+support.
+
+When the `go` command downloads a module in direct mode, it first looks up the
+module server's URL with an HTTP GET request based on the module path. It looks
+for a `<meta>` tag with the name `go-import` in the HTML response. The tag's
+content must contain the [repository root
+path](#glos-repository-root-path), the version control system, and the URL,
+separated by spaces. See [Finding a repository for a module path](#vcs-find) for
+details.
+
+If the version control system is `mod`, the `go` command downloads the module
+from the given URL using the [`GOPROXY` protocol](#goproxy-protocol).
+
+For example, suppose the `go` command is attempting to download the module
+`example.com/gopher` at version `v1.0.0`. It sends a request to
+`https://example.com/gopher?go-get=1`. The server responds with an HTML document
+containing the tag:
+
+```
+<meta name="go-import" content="example.com/gopher mod https://modproxy.example.com">
+```
+
+Based on this response, the `go` command downloads the module by sending
+requests for `https://modproxy.example.com/example.com/gopher/@v/v1.0.0.info`,
+`v1.0.0.mod`, and `v1.0.0.zip`.
+
+Note that modules served directly from a proxy cannot be downloaded with
+`go get` in GOPATH mode.
+
 ## Version control systems {#vcs}
 
 The `go` command may download module source code and metadata directly from a
@@ -2516,7 +2553,8 @@ is made for the prefix to verify the `<meta>` tags match.
 `hg`, `svn`, `mod`. The `mod` scheme instructs the `go` command to download the
 module from the given URL using the [`GOPROXY`
 protocol](#goproxy-protocol). This allows developers to distribute modules
-without exposing source repositories.
+without exposing source repositories. See [Serving modules directly from a
+proxy](#serving-from-proxy) for details.
 
 `repo-url` is the repository's URL. If the URL does not include a scheme (either
 because the module path has a VCS qualifier or because the `<meta>` tag lacks a
@@ -3797,6 +3835,13 @@ is a canonical version, but `v1.2.3+meta` is not.
 A deprecated module is marked with a [deprecation
 comment](#go-mod-file-module-deprecation) in the latest version of its
 [`go.mod` file](#glos-go-mod-file).
+
+<a id="glos-direct-mode"></a>
+**direct mode:** A setting of [environment variables](#environment-variables)
+that causes the `go` command to download a module directly from a [version
+control system](#vcs), as opposed to a [module proxy](#glos-module-proxy).
+`GOPROXY=direct` does this for all modules. `GOPRIVATE` and `GONOPROXY` do this
+for modules matching a list of patterns.
 
 <a id="glos-go-mod-file"></a>
 **`go.mod` file:** The file that defines a module's path, requirements, and
