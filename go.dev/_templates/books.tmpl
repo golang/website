@@ -1,20 +1,20 @@
 {{define "books"}}
-{{with (yaml .)}}
+{{- with (yaml .)}}
 <ul class="Learn-tileList">
-    {{range .}}
+    {{- range .}}
     <li class="Learn-tile">
         <a href="{{.url}}">
-            {{if .thumbnail}}
+            {{- if .thumbnail}}
               <img
               class="Learn-tileThumbnail Learn-tileThumbnail--book"
               alt="{{.title}} thumbnail." src="{{.thumbnail}}">
-            {{end}}
+            {{- end}}
             <span class="Learn-tileTitle">
                 {{.title}}
             </span>
         </a>
     </li>
-    {{end}}
+    {{- end}}
 </ul>
-{{end}}
-{{end}}
+{{- end}}
+{{- end}}

@@ -79,9 +79,9 @@ title: go.dev
     </div>
   <div class="WhoUsesCaseStudyList">
     <ul class="WhoUsesCaseStudyList-gridContainer">
-    {{range newest (pages "solutions/*")}}{{if eq .series "Case Studies"}}
-      {{if .link }}
-        {{if .inLandingPageGrid }}
+    {{- range newest (pages "solutions/*")}}{{if eq .series "Case Studies"}}
+      {{- if .link }}
+        {{- if .inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
             <a href="{{.link}}" target="_blank" rel="noopener"
               class="WhoUsesCaseStudyList-caseStudyLink">
@@ -94,8 +94,8 @@ title: go.dev
                 alt="">
             </a>
           </li>
-        {{end}}
-      {{else}}
+        {{- end}}
+      {{- else}}
         <li class="WhoUsesCaseStudyList-caseStudy">
           <a href="{{.Path}}" class="WhoUsesCaseStudyList-caseStudyLink">
             <img
@@ -108,8 +108,9 @@ title: go.dev
             <p>View case study</p>
           </a>
         </li>
-      {{end}}
-    {{end}}{{end}}
+      {{- end}}
+    {{- end}}
+    {{- end}}
     </ul>
   </div>
 </section>
@@ -118,7 +119,7 @@ title: go.dev
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-wrapper">
         <ul class="js-testimonialsGoQuotes TestimonialsGo-quotes">
-          {{ range $index, $element := data "testimonials" }}
+          {{- range $index, $element := data "testimonials"}}
             <li class="TestimonialsGo-quoteGroup GoCarousel-slide" id="quote_slide{{$index}}">
               <div class="TestimonialsGo-quoteSingleItem">
                 <div class="TestimonialsGo-quoteSection">
@@ -130,7 +131,7 @@ title: go.dev
                 </div>
               </div>
             </li>
-          {{end}}
+          {{- end}}
         </ul>
       </div>
     <button class="js-testimonialsPrev GoCarousel-controlPrev" hidden>
@@ -152,7 +153,7 @@ title: go.dev
       </h4>
     </div>
     <ul class="WhyGo-reasons">
-      {{ range first 4 (data "resources") }}
+      {{- range first 4 (data "resources")}}
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonDetails">
             <div class="WhyGo-reasonIcon" role="presentation">
@@ -172,13 +173,13 @@ title: go.dev
                 Popular Packages:
               </div>
               <ul class="WhyGo-reasonPackagesList">
-                {{range .packages }}
+                {{- range .packages }}
                   <li class="WhyGo-reasonPackage">
                     <a href="{{.url}}" target="_blank" rel="noopener">
                       {{.title}}
                     </a>
                   </li>
-                  {{end}}
+                  {{- end}}
               </ul>
             </div>
             <div class="WhyGo-reasonLearnMoreLink">
@@ -186,8 +187,8 @@ title: go.dev
             </div>
           </div>
         </li>
-      {{end}}
-      {{if gt (len (data "resources")) 3}}
+      {{- end}}
+      {{- if gt (len (data "resources")) 3}}
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonShowMore">
             <div class="WhyGo-reasonShowMoreImgWrapper">
@@ -206,7 +207,7 @@ title: go.dev
             </div>
           </div>
         </li>
-      {{end}}
+      {{- end}}
     </ul>
   </div>
 </section>
@@ -215,22 +216,22 @@ title: go.dev
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-eventsWrapper">
         <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
-          {{ range $index, $element := (data "events").all }}
+          {{- range $index, $element := (data "events").all}}
             <li
             class="GoCarousel-eventGroup"
             id="event_slide{{$index}}">
               <div class="GoCarousel-eventThumbnail">
-                {{if .thumbnailurl}}
+                {{- if .thumbnailurl}}
                   <img
                     loading="lazy"
                     src="{{.thumbnailurl}}"
                     alt="{{.name}} group photo">
-                {{else}}
+                {{- else}}
                   <img
                     loading="lazy"
                     src="/images/meetup.svg"
                     alt="meetup logo">
-                {{end}}
+                {{- end}}
               </div>
               <div class="GoCarousel-eventBody">
                 <div class="GoCarousel-eventText">
@@ -245,7 +246,7 @@ title: go.dev
                 </div>
               </div>
             </li>
-          {{end}}
+          {{- end}}
         </ul>
       </div>
       <button class="js-eventsCarouselPrev GoCarousel-controlPrev" hidden>
@@ -311,7 +312,7 @@ title: go.dev
         <li class="GettingStartedGo-resourcesHeader">
           In-Person Trainings
         </li>
-        {{range first 4 (data "learn/training")}}
+        {{- range first 4 (data "learn/training")}}
           <li class="GettingStartedGo-resourceItem">
             <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle">
               {{.title}}
@@ -320,7 +321,7 @@ title: go.dev
               {{.blurb}}
             </div>
           </li>
-        {{end}}
+        {{- end}}
       </ul>
     </div>
   </div>

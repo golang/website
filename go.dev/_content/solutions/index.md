@@ -86,9 +86,10 @@ title: Why Go
       role="tabpanel"
       tabindex="0"
     >
-      {{range $solutions}}{{if eq .series "Case Studies"}}
+      {{- range $solutions}}
+      {{- if eq .series "Case Studies"}}
       <li class="Solutions-card">
-        {{if .link}}
+        {{- if .link}}
         <a
           href="{{.link}}"
           target="_blank"
@@ -115,7 +116,7 @@ title: Why Go
             <i class="material-icons Solutions-forwardArrowIcon">open_in_new</i>
           </p>
         </a>
-        {{else}}
+        {{- else}}
         <a href="{{.Path}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             <img
@@ -132,9 +133,10 @@ title: Why Go
           </div>
           <p class="Solutions-useCaseAction">View case study</p>
         </a>
-        {{end}}
+        {{- end}}
       </li>
-      {{end}}{{end}}
+      {{- end}}
+      {{- end}}
     </ul>
     <ul
       class="js-solutionsList Solutions-cardList"
@@ -145,17 +147,18 @@ title: Why Go
       tabindex="0"
       hidden
     >
-      {{range newest $solutions}}{{if eq .series "Use Cases"}}
+      {{- range newest $solutions}}{{if eq .series "Use Cases"}}
       <li class="Solutions-card">
         <a href="{{.Path}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
-            {{$icon := .icon}}{{if $icon}}
+            {{- $icon := .icon}}
+            {{- if $icon}}
             <img
               loading="lazy"
               alt="{{$icon.alt}}"
               src="{{.Dir}}/{{$icon.file}}"
             />
-            {{end}}
+            {{- end}}
           </div>
           <div class="Solutions-useCaseBody">
             <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
@@ -168,7 +171,8 @@ title: Why Go
           </p>
         </a>
       </li>
-      {{end}}{{end}}
+      {{- end}}
+      {{- end}}
     </ul>
     <div class="Solutions-footer">
       <p>

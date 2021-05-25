@@ -3,17 +3,13 @@
   {{- template "breadcrumbnav" (dict "p1" (page .p1.Parent) "p2" .p2 )}}
 {{- end}}
 {{- if not (eq .p1.title "go.dev")}}
-      <li class="BreadcrumbNav-li {{if eq .p1.Path .p2.Path}}active{{end}}">
-        <a class="BreadcrumbNav-link" href="{{.p1.Path}}">
-          {{- if .p1.company}}
-            {{.p1.company}}
-          {{- else}}
-            {{.p1.title}}
-          {{- end}}
-        </a>
-      </li>
+<li class="BreadcrumbNav-li {{if eq .p1.Path .p2.Path}}active{{end}}">
+  <a class="BreadcrumbNav-link" href="{{.p1.Path}}">
+  {{or .p1.company .p1.title}}
+  </a>
+</li>
 {{- end}}
-{{end}}
+{{- end}}
 
 {{define "breadcrumbs"}}
 <div class="BreadcrumbNav">
@@ -21,4 +17,4 @@
       {{template "breadcrumbnav" (dict "p1" . "p2" .)}}
     </ol>
 </div>
-{{end}}
+{{- end}}

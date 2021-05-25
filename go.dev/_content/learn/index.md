@@ -45,11 +45,11 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-quickstarts Learn-cardList">
-        {{range first 3 (data "learn/quickstart")}}
+        {{- range first 3 (data "learn/quickstart")}}
           <li class="Learn-quickstart Learn-card">
-            {{template "learn-card" .}}
+            {{- template "learn-card" .}}
           </li>
-        {{end}}
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -66,11 +66,11 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{range first 4 (data "learn/guided")}}
+        {{- range first 4 (data "learn/guided")}}
           <li class="Learn-card">
-            {{template "learn-card" .}}
+            {{- template "learn-card" .}}
           </li>
-        {{ end }}
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -83,11 +83,11 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{range first 4 (data "learn/courses") }}
+        {{- range first 4 (data "learn/courses") }}
           <li class="Learn-card">
-            {{template "learn-card" .}}
+            {{- template "learn-card" .}}
           </li>
-        {{ end }}
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -100,12 +100,12 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{ range first 4 (data "learn/cloud") }}
-          <li class="Learn-card">
-            {{template "learn-self-paced-card" .}}
-          </li>
-          </li>
-        {{ end }}
+        {{- range first 4 (data "learn/cloud")}}
+        <li class="Learn-card">
+          {{- template "learn-self-paced-card" .}}
+        </li>
+        </li>
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -118,11 +118,11 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList Learn-bookList">
-        {{ range first 5 (data "learn/books") }}
+        {{- range first 5 (data "learn/books")}}
           <li class="Learn-card Learn-book">
             {{template "learn-book" .}}
           </li>
-        {{ end }}
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -135,14 +135,14 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-inPersonList">
-        {{range first 4 (data "learn/training")}}
+        {{- range first 4 (data "learn/training")}}
         <li class="Learn-inPerson">
           <p class="Learn-inPersonTitle">
             <a href="{{.url}}">{{.title}} </a>
           </p>
           <p class="Learn-inPersonBlurb">{{.blurb}}</p>
         </li>
-        {{end}}
+        {{- end}}
       </ul>
     </div>
   </div>
@@ -157,16 +157,16 @@ title: "Getting Started"
       </p>
     </div>
     <ul class="Learn-events">
-      {{range first 3 (data "events").all}}
+      {{- range first 3 (data "events").all}}
       <li class="Learn-eventItem">
         <div
           class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"
         >
-          {{if .photourl}}
+          {{- if .photourl}}
           <img alt="{{.name}} group photo" src="{{.photourl}}" />
-          {{else}}
+          {{- else}}
           <img src="/images/meetup.svg" alt="meetup logo" />
-          {{end}}
+          {{- end}}
         </div>
         <div class="Learn-eventBody">
           <div class="Learn-eventDate">
@@ -179,17 +179,17 @@ title: "Getting Started"
             <p class="Learn-eventDescription">{{rawhtml .description}}</p>
           </div>
           <div class="Learn-eventAttendees">
-            {{ with .attendees }}
-              {{range first 5 .}}
+            {{- with .attendees }}
+              {{- range first 5 .}}
               <div class="Learn-eventAttendeesItem">
                 <img src="{{.thumb_link}}" alt="{{.name}}"/>
               </div>
-              {{end}}
-            {{end}}
+              {{- end}}
+            {{- end}}
           </div>
         </div>
       </li>
-      {{end}}
+      {{- end}}
     </ul>
   </div>
 </section>
@@ -197,12 +197,12 @@ title: "Getting Started"
 {{define "learn-card"}}
 <div class="Card">
   <div class="Card-inner">
-    {{if .thumbnail}}
+    {{- if .thumbnail}}
     <div
       class="Card-thumbnail"
       style="background-image: url('{{.thumbnail}}')"
     ></div>
-    {{end}}
+    {{- end}}
     <div class="Card-content">
       <div class="Card-contentTitle">{{.title}}</div>
       <p class="Card-contentBody">{{rawhtml .content}}</p>
@@ -228,18 +228,18 @@ title: "Getting Started"
     </div>
   </div>
 </div>
-{{end}}
+{{- end}}
 
 {{define "learn-self-paced-card"}}
 <div class="Card">
   <a href="{{.url}}" target="_blank" rel="noopener">
     <div class="Card-inner">
-      {{if .thumbnail}}
+      {{- if .thumbnail}}
       <div
         class="Card-thumbnail"
         style="background-image: url('{{.thumbnail}}')"
       ></div>
-      {{end}}
+      {{- end}}
       <div class="Card-content">
         <div class="Card-contentTitle">{{.title}}</div>
         <div class="Card-selfPacedFooter">
@@ -255,17 +255,17 @@ title: "Getting Started"
     </div>
   </a>
 </div>
-{{end}}
+{{- end}}
 
 {{define "learn-book"}}
 <div class="Book">
   <a href="{{.url}}" target="_blank" rel="noopener">
     <div class="Book-inner">
-      {{if .thumbnail}}
+      {{- if .thumbnail}}
       <div class="Book-thumbnail">
         <img alt="{{.title}} thumbnail." src="{{.thumbnail}}" />
       </div>
-      {{end}}
+      {{- end}}
       <div class="Book-content">
         <p class="Book-title">{{.title}}</p>
         <p class="Book-description">{{.description}}</p>
@@ -290,4 +290,4 @@ title: "Getting Started"
     </div>
   </a>
 </div>
-{{end}}
+{{- end}}
