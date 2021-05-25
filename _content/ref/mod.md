@@ -675,6 +675,12 @@ must match the module path it replaces.
 and are ignored in other modules. See [Minimal version
 selection](#minimal-version-selection) for details.
 
+Note that a `replace` directive alone does not add a module to the [module
+graph](#glos-module-graph). A [`require` directive](#go-mod-file-require) that
+refers to a replaced module version is also needed, either in the main module's
+`go.mod` file or a dependency's `go.mod` file. A `replace` directive has no
+effect if the module version on the left side is not required.
+
 ```
 ReplaceDirective = "replace" ( ReplaceSpec | "(" newline { ReplaceSpec } ")" newline ) .
 ReplaceSpec = ModulePath [ Version ] "=>" FilePath newline

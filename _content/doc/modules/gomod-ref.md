@@ -334,6 +334,20 @@ The `replace` directive can be useful in situations such as the following:
 * You've identified an issue with a dependency, have cloned the dependency's
   repository, and you're testing a fix with the local repository.
 
+Note that a `replace` directive alone does not does not add a module to the
+[module graph](/ref/mod#glos-module-graph). A [`require` directive](#require)
+that refers to a replaced module version is also needed, either in the main
+module's `go.mod` file or a dependency's `go.mod` file. If you don't have a
+specific version to replace, you can use a fake version, as in the example
+below. Note that this will break modules that depend on your module, since
+`replace` directives are only applied in the main module.
+
+```
+require example.com/mod v0.0.0-replace
+
+replace example.com/mod v0.0.0-replace => ./mod
+```
+
 For more on replacing a required module, including using Go tools to make the
 change, see:
 
