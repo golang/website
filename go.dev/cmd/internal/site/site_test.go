@@ -10,6 +10,7 @@ import (
 	"os"
 	"path"
 	"path/filepath"
+	"regexp"
 	"testing"
 	"time"
 
@@ -102,6 +103,11 @@ func TestGolden(t *testing.T) {
 // to match Hugo's whitespace heuristics exactly or where we are
 // refactoring templates a little which changes spacing in inconsequential ways.
 func canonicalize(data []byte) []byte {
+	data = bytes.ReplaceAll(data, []byte("<li>"), []byte("<li>\n"))
+	data = bytes.ReplaceAll(data, []byte("</p>"), []byte("</p>\n"))
+	data = bytes.ReplaceAll(data, []byte("</ul>"), []byte("</ul>\n"))
+	data = regexp.MustCompile(`(<(img|hr)([^<>]*[^ <>])?) */>`).ReplaceAll(data, []byte("$1>")) // <img/> to <img>
+
 	lines := bytes.Split(data, []byte("\n"))
 	for i, line := range lines {
 		lines[i] = bytes.Trim(line, " \t")

@@ -89,13 +89,16 @@ func list(args ...interface{}) []interface{} {
 }
 
 // markdown is the function provided to templates.
-func markdown(data interface{}) template.HTML {
-	h := markdownToHTML(toString(data))
+func markdown(data interface{}) (template.HTML, error) {
+	h, err := markdownToHTML(toString(data))
+	if err != nil {
+		return "", err
+	}
 	s := strings.TrimSpace(string(h))
 	if strings.HasPrefix(s, "<p>") && strings.HasSuffix(s, "</p>") && strings.Count(s, "<p>") == 1 {
 		h = template.HTML(strings.TrimSpace(s[len("<p>") : len(s)-len("</p>")]))
 	}
-	return h
+	return h, nil
 }
 
 func replace(input, x, y interface{}) string {
