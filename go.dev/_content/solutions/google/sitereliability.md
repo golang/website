@@ -27,7 +27,7 @@ Reliability Engineering (SRE), a role that many other companies have since adopt
 Our mission is to protect, provide for, and progress the software and systems
 behind all of Google’s public services with an ever-watchful eye on their
 availability, latency, performance, and capacity.”
-- [Site Reliability Engineering (SRE)](https://sre.google/).
+— [Site Reliability Engineering (SRE)](https://sre.google/).
 
 {{backgroundquote `
   quote: |

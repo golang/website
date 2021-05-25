@@ -28,7 +28,7 @@ American Express’ payment processing systems have been developed over its long
 
 ### Modernizing American Express systems
 
-American Express understands that the programming language landscape is changing drastically. The company's existing systems were purpose-built for high concurrency and low latency, but knowing that those systems would be re-platformed in the near future. The payments platform team decided to take the time to identify what languages were ideal for American Express' evolving needs.
+American Express understands that the programming language landscape is changing drastically. The company's existing systems were purpose-built for high concurrency and low latency, but knowing that those systems would be re-platformed in the near future. The payments platform team decided to take the time to identify what languages were ideal for American Express's evolving needs.
 
 The payments and rewards platform teams at American Express were among the first to start evaluating Go. These teams were focused on microservices, transaction routing, and load-balancing use cases, and they needed to modernize their architecture. Many American Express developers were familiar with the language’s capabilities and wanted to pilot Go for their high concurrency and low latency applications (such as custom transactional load balancers). With this goal in mind, the teams began lobbying senior leadership to deploy Go on the American Express payment platform.
 
@@ -38,7 +38,7 @@ The payments and rewards platform teams at American Express were among the first
 
 For their assessment, Cane's team chose to build a microservice in four different programming languages. They then compared the four languages for speed/performance, tooling, testing, and ease of development.
 
-For the service, they decided on an ISO8583 to JSON converter. ISO8583 is an international standard for financial transactions, and it’s commonly used within American Express' payment network. For the programming languages, they chose to compare C++, Go, Java and Node.js. With the exception of Go, all of these languages were already in use within American Express.
+For the service, they decided on an ISO8583 to JSON converter. ISO8583 is an international standard for financial transactions, and it’s commonly used within American Express's payment network. For the programming languages, they chose to compare C++, Go, Java and Node.js. With the exception of Go, all of these languages were already in use within American Express.
 
 From a speed perspective, Go achieved the second-best performance at 140,000 requests per second. Go showed that it excels when used for backend microservices.
 
@@ -72,7 +72,7 @@ American Express is just beginning to see the benefits of Go. For example, Go wa
 
 Go’s garbage collection is also a major improvement over other languages, both in terms of performance and ease of development. “We saw far better results of garbage collection in Go than we did in other languages, and garbage collection for real time transaction processing is a big deal.” says Cane. “Tuning garbage collection in other languages can be very complicated. With Go you don’t tune anything.”
 
-To learn more, read ["Choosing Go at American Express"](https://americanexpress.io/choosing-go/) which goes into more depth about American Express' Go adoption.
+To learn more, read ["Choosing Go at American Express"](https://americanexpress.io/choosing-go/) which goes into more depth about American Express's Go adoption.
 
 ### Getting your enterprise started with Go
 
