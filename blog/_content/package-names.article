@@ -74,7 +74,7 @@ A package name and its contents' names are coupled, since client code uses them
 together.
 When designing a package, take the client's point of view.
 
-**Avoid stutter.**
+**Avoid repetition.**
 Since client code uses the package name as a prefix when referring to the
 package contents, the names for those contents need not repeat the package name.
 The HTTP server provided by the `http` package is called `Server`, not
