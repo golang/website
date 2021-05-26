@@ -1,0 +1,66 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="12.80em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">If it were not for the following reasons I would use Go more: <tspan class="paren">(ordered choice, up to 3)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="2.37em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="9.62em" y="2.10em" width="1.39em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="11.01em" y="2.10em" width="0.37em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">1,485 (<tspan fill="#0000ff">24</tspan>, <tspan fill="#4444ff">14</tspan>, <tspan fill="#8888ff">4</tspan>%)</tspan></text>
+<text x="11.88em" y="2.70em"><tspan class="size">I work on an existing project written in another language</tspan></text>
+<rect x="7.25em" y="3.30em" width="1.58em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="8.83em" y="3.30em" width="1.24em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="10.07em" y="3.30em" width="0.41em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">1,160 (<tspan fill="#0000ff">16</tspan>, <tspan fill="#4444ff">12</tspan>, <tspan fill="#8888ff">4</tspan>%)</tspan></text>
+<text x="10.98em" y="3.90em"><tspan class="size">My project / team / TL prefers another language</tspan></text>
+<rect x="7.25em" y="4.50em" width="1.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="8.32em" y="4.50em" width="0.78em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="9.10em" y="4.50em" width="0.49em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">841 (<tspan fill="#0000ff">11</tspan>, <tspan fill="#4444ff">8</tspan>, <tspan fill="#8888ff">5</tspan>%)</tspan></text>
+<text x="10.09em" y="5.10em"><tspan class="size">Go isn’t an appropriate fit for what I’m working on (eg. iOS, JS)</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.63em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="7.88em" y="5.70em" width="0.61em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="8.49em" y="5.70em" width="0.42em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">596 (<tspan fill="#0000ff">6</tspan>, <tspan fill="#4444ff">6</tspan>, <tspan fill="#8888ff">4</tspan>%)</tspan></text>
+<text x="9.41em" y="6.30em"><tspan class="size">Go lacks critical libraries</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.58em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="7.83em" y="6.90em" width="0.33em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="8.16em" y="6.90em" width="0.23em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">412 (<tspan fill="#0000ff">6</tspan>, <tspan fill="#4444ff">3</tspan>, <tspan fill="#8888ff">2</tspan>%)</tspan></text>
+<text x="8.90em" y="7.50em"><tspan class="size">Go lacks critical features</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.31em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="7.56em" y="8.10em" width="0.33em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="7.89em" y="8.10em" width="0.25em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">319 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#4444ff">3</tspan>, <tspan fill="#8888ff">3</tspan>%)</tspan></text>
+<text x="8.64em" y="8.70em"><tspan class="size">Not enough education or support resources for Go</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="7.39em" y="9.30em" width="0.12em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="7.51em" y="9.30em" width="0.08em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">121 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#4444ff">1</tspan>, <tspan fill="#8888ff">1</tspan>%)</tspan></text>
+<text x="8.09em" y="9.90em"><tspan class="size">Go lacks critical performance</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.43em" height="0.60em" stroke="#777777" fill="#777777"/>
+<rect x="7.68em" y="10.50em" width="0.33em" height="0.60em" stroke="#939393" fill="#939393"/>
+<rect x="8.01em" y="10.50em" width="0.28em" height="0.60em" stroke="#afafaf" fill="#afafaf"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">374 (<tspan fill="#777777">4</tspan>, <tspan fill="#939393">3</tspan>, <tspan fill="#afafaf">3</tspan>%)</tspan></text>
+<text x="8.79em" y="11.10em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="11.70em" width="2.90em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">1,042 (29%)</tspan></text>
+<text x="10.65em" y="12.30em"><tspan class="size">No response</tspan></text>
+</svg>

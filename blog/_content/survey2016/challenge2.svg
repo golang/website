@@ -1,0 +1,95 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="16.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">What is the biggest challenge facing the Go project today?</tspan></text>
+<rect x="7.25em" y="2.10em" width="0.20em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">71 (2.0%)</tspan></text>
+<text x="7.95em" y="2.70em"><tspan class="size">community</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.19em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">68 (1.9%)</tspan></text>
+<text x="7.94em" y="3.90em"><tspan class="size">google</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.18em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">63 (1.8%)</tspan></text>
+<text x="7.93em" y="5.10em"><tspan class="size">generics</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.17em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">62 (1.7%)</tspan></text>
+<text x="7.92em" y="6.30em"><tspan class="size">management</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">49 (1.4%)</tspan></text>
+<text x="7.89em" y="7.50em"><tspan class="size">adoption</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.13em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">45 (1.3%)</tspan></text>
+<text x="7.88em" y="8.70em"><tspan class="size">lack</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.12em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">43 (1.2%)</tspan></text>
+<text x="7.87em" y="9.90em"><tspan class="size">features</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.12em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">43 (1.2%)</tspan></text>
+<text x="7.87em" y="11.10em"><tspan class="size">people</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.11em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">40 (1.1%)</tspan></text>
+<text x="7.86em" y="12.30em"><tspan class="size">dependency management</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.10em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">37 (1.0%)</tspan></text>
+<text x="7.85em" y="13.50em"><tspan class="size">java</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">32 (0.9%)</tspan></text>
+<text x="7.84em" y="14.70em"><tspan class="size">languages</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">31 (0.9%)</tspan></text>
+<text x="7.84em" y="15.90em"><tspan class="size">keeping</tspan></text>
+<rect x="22.25em" y="2.10em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="2.70em" text-anchor="end"><tspan class="size">29 (0.8%)</tspan></text>
+<text x="22.83em" y="2.70em"><tspan class="size">c</tspan></text>
+<rect x="22.25em" y="3.30em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="3.90em" text-anchor="end"><tspan class="size">27 (0.8%)</tspan></text>
+<text x="22.83em" y="3.90em"><tspan class="size">developers</tspan></text>
+<rect x="22.25em" y="4.50em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="5.10em" text-anchor="end"><tspan class="size">27 (0.8%)</tspan></text>
+<text x="22.83em" y="5.10em"><tspan class="size">leadership</tspan></text>
+<rect x="22.25em" y="5.70em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="6.30em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="22.82em" y="6.30em"><tspan class="size">good</tspan></text>
+<rect x="22.25em" y="6.90em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="7.50em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="22.82em" y="7.50em"><tspan class="size">libraries</tspan></text>
+<rect x="22.25em" y="8.10em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="8.70em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="22.82em" y="8.70em"><tspan class="size">package</tspan></text>
+<rect x="22.25em" y="9.30em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="9.90em" text-anchor="end"><tspan class="size">23 (0.6%)</tspan></text>
+<text x="22.81em" y="9.90em"><tspan class="size">simple</tspan></text>
+<rect x="22.25em" y="10.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="11.10em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="22.81em" y="11.10em"><tspan class="size">core</tspan></text>
+<rect x="22.25em" y="11.70em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="12.30em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="22.81em" y="12.30em"><tspan class="size">feature</tspan></text>
+<rect x="22.25em" y="12.90em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="13.50em" text-anchor="end"><tspan class="size">20 (0.6%)</tspan></text>
+<text x="22.81em" y="13.50em"><tspan class="size">programming</tspan></text>
+<rect x="22.25em" y="14.10em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="14.70em" text-anchor="end"><tspan class="size">20 (0.6%)</tspan></text>
+<text x="22.81em" y="14.70em"><tspan class="size">team</tspan></text>
+<rect x="22.25em" y="15.30em" width="7.71em" height="0.60em" stroke="black" fill="white"/>
+<text x="21.75em" y="15.90em" text-anchor="end"><tspan class="size">2,771 (77.1%)</tspan></text>
+<text x="30.46em" y="15.90em"><tspan class="size">No response</tspan></text>
+</svg>

@@ -1,0 +1,60 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="8.00em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">To what extent do you agree or disagree with the following statements: </tspan></text>
+<text x="0.00em" y="2.40em"><tspan class="size">(<tspan fill="#CE3262">strongly disagree</tspan>, <tspan fill="#D77A95">disagree</tspan>, <tspan fill="#E6B1C1">somewhat disagree</tspan>, <tspan fill="#cccccc">neither agree nor disagree</tspan>, <tspan fill="#77CCE9">somewhat agree</tspan>, <tspan fill="#50BFE2">agree</tspan>, <tspan fill="#00ACD7">strongly agree</tspan>)</tspan></text>
+<rect x="14.00em" y="3.30em" width="0.08em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.08em" y="3.30em" width="0.21em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.29em" y="3.30em" width="0.55em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.84em" y="3.30em" width="0.62em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="15.46em" y="3.30em" width="2.13em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="17.59em" y="3.30em" width="3.71em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="21.30em" y="3.30em" width="1.45em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="3.90em" text-anchor="end"><tspan class="size">5,446 (<tspan fill="#CE3262">0.8</tspan>, <tspan fill="#D77A95">2</tspan>, <tspan fill="#E6B1C1">6</tspan>, <tspan fill="#cccccc">6</tspan>, <tspan fill="#77CCE9">21</tspan>, <tspan fill="#50BFE2">37</tspan>, <tspan fill="#00ACD7">14</tspan>%)</tspan></text>
+<text x="23.25em" y="3.90em"><tspan class="size">I am able to effectively diagnose bugs in my Go programs (8.7:1) [12:1]</tspan></text>
+<rect x="14.00em" y="4.50em" width="0.07em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.07em" y="4.50em" width="0.22em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.29em" y="4.50em" width="0.58em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.87em" y="4.50em" width="1.25em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="16.12em" y="4.50em" width="2.20em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="18.33em" y="4.50em" width="2.72em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="21.05em" y="4.50em" width="0.93em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="5.10em" text-anchor="end"><tspan class="size">4,968 (<tspan fill="#CE3262">0.7</tspan>, <tspan fill="#D77A95">2</tspan>, <tspan fill="#E6B1C1">6</tspan>, <tspan fill="#cccccc">13</tspan>, <tspan fill="#77CCE9">22</tspan>, <tspan fill="#50BFE2">27</tspan>, <tspan fill="#00ACD7">9</tspan>%)</tspan></text>
+<text x="22.48em" y="5.10em"><tspan class="size">I am able to effectively diagnose performance issues in Go programs (6.7:1) [8.7:1]</tspan></text>
+<rect x="14.00em" y="5.70em" width="0.07em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.07em" y="5.70em" width="0.15em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.22em" y="5.70em" width="0.30em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="14.52em" y="5.70em" width="0.61em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="15.13em" y="5.70em" width="1.55em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="16.68em" y="5.70em" width="3.50em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="20.18em" y="5.70em" width="2.36em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="6.30em" text-anchor="end"><tspan class="size">5,319 (<tspan fill="#CE3262">0.7</tspan>, <tspan fill="#D77A95">2</tspan>, <tspan fill="#E6B1C1">3</tspan>, <tspan fill="#cccccc">6</tspan>, <tspan fill="#77CCE9">16</tspan>, <tspan fill="#50BFE2">35</tspan>, <tspan fill="#00ACD7">24</tspan>%)</tspan></text>
+<text x="23.04em" y="6.30em"><tspan class="size">I am able to effectively use Go’s concurrency features (goroutines, channels, select) (14:1) [21:1]</tspan></text>
+<rect x="14.00em" y="6.90em" width="0.17em" height="0.60em" stroke="#CE3262" fill="#CE3262"/>
+<rect x="14.17em" y="6.90em" width="0.46em" height="0.60em" stroke="#D77A95" fill="#D77A95"/>
+<rect x="14.63em" y="6.90em" width="0.82em" height="0.60em" stroke="#E6B1C1" fill="#E6B1C1"/>
+<rect x="15.45em" y="6.90em" width="1.49em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="16.94em" y="6.90em" width="2.45em" height="0.60em" stroke="#77CCE9" fill="#77CCE9"/>
+<rect x="19.39em" y="6.90em" width="2.13em" height="0.60em" stroke="#50BFE2" fill="#50BFE2"/>
+<rect x="21.52em" y="6.90em" width="0.67em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="13.50em" y="7.50em" text-anchor="end"><tspan class="size">5,096 (<tspan fill="#CE3262">2</tspan>, <tspan fill="#D77A95">5</tspan>, <tspan fill="#E6B1C1">8</tspan>, <tspan fill="#cccccc">15</tspan>, <tspan fill="#77CCE9">24</tspan>, <tspan fill="#50BFE2">21</tspan>, <tspan fill="#00ACD7">7</tspan>%)</tspan></text>
+<text x="22.69em" y="7.50em"><tspan class="size">I am able to effectively debug uses of  Go’s concurrency features (goroutines, channels, select) (3.6:1) [3.9:1]</tspan></text>
+</svg>

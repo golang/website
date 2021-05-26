@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='327.73,605.07 327.73,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='404.93,605.07 404.93,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='482.13,605.07 482.13,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='559.33,605.07 559.33,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='636.53,605.07 636.53,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='327.73' y='333.86' width='23.39' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='137.34' width='61.41' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='569.69' width='77.49' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='294.56' width='30.70' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='215.95' width='35.09' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='176.64' width='42.40' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='451.78' width='8.77' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='373.17' width='20.47' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='98.03' width='81.88' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='530.39' width='5.85' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='412.47' width='17.55' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='255.25' width='33.63' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='327.73' y='491.08' width='7.31' height='23.58' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='356.02' y='350.74' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='395.62' y='154.22' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='411.70' y='586.57' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>20 %</text>
+<text x='363.33' y='311.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>8 %</text>
+<text x='367.72' y='232.83' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>9 %</text>
+<text x='376.61' y='193.52' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>11 %</text>
+<text x='341.40' y='468.66' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='353.10' y='390.05' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>5 %</text>
+<text x='416.09' y='114.91' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>21 %</text>
+<text x='338.48' y='547.26' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='350.17' y='429.35' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>5 %</text>
+<text x='366.26' y='272.13' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>9 %</text>
+<text x='339.94' y='507.96' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='272.34' y='586.49' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='186.74' y='547.19' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='120.61px' lengthAdjust='spacingAndGlyphs'>Provide mentorship</text>
+<text x='175.86' y='507.88' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='131.50px' lengthAdjust='spacingAndGlyphs'>Improve Go websites</text>
+<text x='140.84' y='468.58' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='166.51px' lengthAdjust='spacingAndGlyphs'>Increase Go team diversity</text>
+<text x='162.63' y='429.27' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='144.72px' lengthAdjust='spacingAndGlyphs'>Community moderation</text>
+<text x='168.84' y='389.97' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='138.52px' lengthAdjust='spacingAndGlyphs'>Increase transparancy</text>
+<text x='94.15' y='350.66' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='213.21px' lengthAdjust='spacingAndGlyphs'>Increase community input / control</text>
+<text x='112.06' y='303.80' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='195.30px' lengthAdjust='spacingAndGlyphs'>Increase visibility / social media</text>
+<text x='196.84' y='318.92' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='110.51px' lengthAdjust='spacingAndGlyphs'>presense / events</text>
+<text x='45.91' y='272.05' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='261.44px' lengthAdjust='spacingAndGlyphs'>Nothing / community is already welcoming</text>
+<text x='81.68' y='232.75' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='225.67px' lengthAdjust='spacingAndGlyphs'>Language / ecosystem improvement</text>
+<text x='185.18' y='193.44' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='122.18px' lengthAdjust='spacingAndGlyphs'>Maintainer attitudes</text>
+<text x='114.37' y='154.14' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='192.99px' lengthAdjust='spacingAndGlyphs'>Improve contributor experience</text>
+<text x='146.27' y='114.83' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='161.09px' lengthAdjust='spacingAndGlyphs'>Learning resources / docs</text>
+<text x='317.61' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='390.92' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='468.12' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='545.32' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='622.52' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='419.87' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='312.29' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='58.27px' lengthAdjust='spacingAndGlyphs'>n =  275</text>
+<text x='312.29' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='363.71px' lengthAdjust='spacingAndGlyphs'>What could we do to make the Go community more</text>
+<text x='312.29' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='84.48px' lengthAdjust='spacingAndGlyphs'>welcoming?</text>
+</svg>

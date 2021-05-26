@@ -1,0 +1,53 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="14.00em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">I write the following in Go: <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="6.25em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">2,247 (63%)</tspan></text>
+<text x="14.00em" y="2.70em"><tspan class="size">A runnable/interactive program (CLI)</tspan></text>
+<rect x="7.25em" y="3.30em" width="6.05em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">2,174 (60%)</tspan></text>
+<text x="13.80em" y="3.90em"><tspan class="size">API/RPC services (returning non-HTML)</tspan></text>
+<rect x="7.25em" y="4.50em" width="5.25em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">1,886 (52%)</tspan></text>
+<text x="13.00em" y="5.10em"><tspan class="size">Web services (returning HTML)</tspan></text>
+<rect x="7.25em" y="5.70em" width="4.40em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">1,583 (44%)</tspan></text>
+<text x="12.15em" y="6.30em"><tspan class="size">Agents and daemons (e.g, monitoring)</tspan></text>
+<rect x="7.25em" y="6.90em" width="3.94em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">1,417 (39%)</tspan></text>
+<text x="11.69em" y="7.50em"><tspan class="size">Libraries or Frameworks</tspan></text>
+<rect x="7.25em" y="8.10em" width="3.36em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">1,209 (34%)</tspan></text>
+<text x="11.11em" y="8.70em"><tspan class="size">Data processing (pipeline, aggregation)</tspan></text>
+<rect x="7.25em" y="9.30em" width="3.12em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">1,120 (31%)</tspan></text>
+<text x="10.87em" y="9.90em"><tspan class="size">Automation/scripts (e.g, deployment, configuration management)</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.30em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">107  (3%)</tspan></text>
+<text x="8.05em" y="11.10em"><tspan class="size">I don&#39;t write in Go</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.38em" height="0.60em" stroke="#777777" fill="#777777"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">137  (4%)</tspan></text>
+<text x="8.13em" y="12.30em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.13em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">45  (1%)</tspan></text>
+<text x="7.88em" y="13.50em"><tspan class="size">No response</tspan></text>
+</svg>

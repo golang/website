@@ -1,0 +1,119 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="15.20em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">What Go libraries do you need that aren&#39;t available today?</tspan></text>
+<rect x="7.25em" y="2.10em" width="0.58em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">208 (5.8%)</tspan></text>
+<text x="8.33em" y="2.70em"><tspan class="size">gui</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.40em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">144 (4.0%)</tspan></text>
+<text x="8.15em" y="3.90em"><tspan class="size">library</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.34em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">121 (3.4%)</tspan></text>
+<text x="8.09em" y="5.10em"><tspan class="size">libraries</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.18em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">63 (1.8%)</tspan></text>
+<text x="7.93em" y="6.30em"><tspan class="size">native</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.17em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">60 (1.7%)</tspan></text>
+<text x="7.92em" y="7.50em"><tspan class="size">ui</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.15em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">53 (1.5%)</tspan></text>
+<text x="7.90em" y="8.70em"><tspan class="size">good</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">33 (0.9%)</tspan></text>
+<text x="7.84em" y="9.90em"><tspan class="size">orm</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">33 (0.9%)</tspan></text>
+<text x="7.84em" y="11.10em"><tspan class="size">standard</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">33 (0.9%)</tspan></text>
+<text x="7.84em" y="12.30em"><tspan class="size">web</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">32 (0.9%)</tspan></text>
+<text x="7.84em" y="13.50em"><tspan class="size">framework</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">32 (0.9%)</tspan></text>
+<text x="7.84em" y="14.70em"><tspan class="size">gui library</tspan></text>
+<rect x="22.25em" y="2.10em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="2.70em" text-anchor="end"><tspan class="size">31 (0.9%)</tspan></text>
+<text x="22.84em" y="2.70em"><tspan class="size">mobile</tspan></text>
+<rect x="22.25em" y="3.30em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="3.90em" text-anchor="end"><tspan class="size">28 (0.8%)</tspan></text>
+<text x="22.83em" y="3.90em"><tspan class="size">android</tspan></text>
+<rect x="22.25em" y="4.50em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="5.10em" text-anchor="end"><tspan class="size">28 (0.8%)</tspan></text>
+<text x="22.83em" y="5.10em"><tspan class="size">database</tspan></text>
+<rect x="22.25em" y="5.70em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="6.30em" text-anchor="end"><tspan class="size">28 (0.8%)</tspan></text>
+<text x="22.83em" y="6.30em"><tspan class="size">desktop</tspan></text>
+<rect x="22.25em" y="6.90em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="7.50em" text-anchor="end"><tspan class="size">28 (0.8%)</tspan></text>
+<text x="22.83em" y="7.50em"><tspan class="size">libs</tspan></text>
+<rect x="22.25em" y="8.10em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="8.70em" text-anchor="end"><tspan class="size">28 (0.8%)</tspan></text>
+<text x="22.83em" y="8.70em"><tspan class="size">sql</tspan></text>
+<rect x="22.25em" y="9.30em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="9.90em" text-anchor="end"><tspan class="size">26 (0.7%)</tspan></text>
+<text x="22.82em" y="9.90em"><tspan class="size">cross platform</tspan></text>
+<rect x="22.25em" y="10.50em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="11.10em" text-anchor="end"><tspan class="size">25 (0.7%)</tspan></text>
+<text x="22.82em" y="11.10em"><tspan class="size">processing</tspan></text>
+<rect x="22.25em" y="11.70em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="12.30em" text-anchor="end"><tspan class="size">25 (0.7%)</tspan></text>
+<text x="22.82em" y="12.30em"><tspan class="size">xml</tspan></text>
+<rect x="22.25em" y="12.90em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="13.50em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="22.82em" y="13.50em"><tspan class="size">api</tspan></text>
+<rect x="22.25em" y="14.10em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="14.70em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="22.82em" y="14.70em"><tspan class="size">machine learning</tspan></text>
+<rect x="37.25em" y="2.10em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="2.70em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="37.82em" y="2.70em"><tspan class="size">official</tspan></text>
+<rect x="37.25em" y="3.30em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="3.90em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="37.82em" y="3.90em"><tspan class="size">windows</tspan></text>
+<rect x="37.25em" y="4.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="5.10em" text-anchor="end"><tspan class="size">23 (0.6%)</tspan></text>
+<text x="37.81em" y="5.10em"><tspan class="size">soap</tspan></text>
+<rect x="37.25em" y="5.70em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="6.30em" text-anchor="end"><tspan class="size">22 (0.6%)</tspan></text>
+<text x="37.81em" y="6.30em"><tspan class="size">toolkit</tspan></text>
+<rect x="37.25em" y="6.90em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="7.50em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="37.81em" y="7.50em"><tspan class="size">pdf</tspan></text>
+<rect x="37.25em" y="8.10em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="8.70em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="37.81em" y="8.70em"><tspan class="size">python</tspan></text>
+<rect x="37.25em" y="9.30em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="9.90em" text-anchor="end"><tspan class="size">20 (0.6%)</tspan></text>
+<text x="37.81em" y="9.90em"><tspan class="size">bindings</tspan></text>
+<rect x="37.25em" y="10.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="11.10em" text-anchor="end"><tspan class="size">20 (0.6%)</tspan></text>
+<text x="37.81em" y="11.10em"><tspan class="size">graphics</tspan></text>
+<rect x="37.25em" y="11.70em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="36.75em" y="12.30em" text-anchor="end"><tspan class="size">20 (0.6%)</tspan></text>
+<text x="37.81em" y="12.30em"><tspan class="size">package</tspan></text>
+<rect x="37.25em" y="12.90em" width="6.95em" height="0.60em" stroke="black" fill="white"/>
+<text x="36.75em" y="13.50em" text-anchor="end"><tspan class="size">2,498 (69.5%)</tspan></text>
+<text x="44.70em" y="13.50em"><tspan class="size">No response</tspan></text>
+</svg>

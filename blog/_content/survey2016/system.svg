@@ -1,0 +1,38 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="8.00em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">I primarily develop Go on: <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="6.29em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">2,263 (63%)</tspan></text>
+<text x="14.04em" y="2.70em"><tspan class="size">Linux</tspan></text>
+<rect x="7.25em" y="3.30em" width="4.43em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">1,592 (44%)</tspan></text>
+<text x="12.18em" y="3.90em"><tspan class="size">MacOS</tspan></text>
+<rect x="7.25em" y="4.50em" width="1.90em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">682 (19%)</tspan></text>
+<text x="9.65em" y="5.10em"><tspan class="size">Windows</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.23em" height="0.60em" stroke="#777777" fill="#777777"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">82  (2%)</tspan></text>
+<text x="7.98em" y="6.30em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="6.90em" width="1.21em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">434 (12%)</tspan></text>
+<text x="8.96em" y="7.50em"><tspan class="size">No response</tspan></text>
+</svg>

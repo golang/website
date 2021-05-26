@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='311.40,605.07 311.40,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='392.49,605.07 392.49,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='473.58,605.07 473.58,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='554.66,605.07 554.66,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='635.75,605.07 635.75,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='311.40' y='579.41' width='110.30' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='294.34' width='26.83' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='465.38' width='11.92' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='351.36' width='15.90' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='265.83' width='27.82' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='94.79' width='73.54' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='379.86' width='13.91' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='436.88' width='11.92' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='522.40' width='10.93' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='151.81' width='53.66' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='208.82' width='33.79' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='180.31' width='42.73' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='123.30' width='53.66' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='550.90' width='9.94' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='493.89' width='10.93' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='237.33' width='29.81' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='408.37' width='11.92' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='311.40' y='322.85' width='25.84' height='17.10' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='428.19' y='593.05' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>27 %</text>
+<text x='343.13' y='307.98' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='328.23' y='479.02' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='332.20' y='364.99' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='344.12' y='279.47' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='391.42' y='108.43' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='330.21' y='393.50' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='328.23' y='450.51' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='327.23' y='536.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='371.54' y='165.45' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>13 %</text>
+<text x='350.09' y='222.46' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>8 %</text>
+<text x='360.61' y='193.95' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>11 %</text>
+<text x='371.54' y='136.94' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>13 %</text>
+<text x='326.24' y='564.54' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='327.23' y='507.53' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='346.11' y='250.97' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='328.23' y='422.01' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='342.14' y='336.49' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='255.24' y='592.97' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='210.11' y='564.46' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='80.14px' lengthAdjust='spacingAndGlyphs'>Performance</text>
+<text x='62.27' y='528.40' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='227.99px' lengthAdjust='spacingAndGlyphs'>Differences from familiar languages /</text>
+<text x='216.34' y='543.52' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='73.91px' lengthAdjust='spacingAndGlyphs'>ecosystems</text>
+<text x='185.99' y='507.45' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='104.26px' lengthAdjust='spacingAndGlyphs'>Project Structure</text>
+<text x='210.89' y='478.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='79.37px' lengthAdjust='spacingAndGlyphs'>Concurrency</text>
+<text x='198.42' y='450.44' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='91.83px' lengthAdjust='spacingAndGlyphs'>Interoperability</text>
+<text x='208.56' y='421.93' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='81.69px' lengthAdjust='spacingAndGlyphs'>Type System</text>
+<text x='181.31' y='393.42' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='108.94px' lengthAdjust='spacingAndGlyphs'>GUI development</text>
+<text x='222.53' y='364.92' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='67.72px' lengthAdjust='spacingAndGlyphs'>Debugging</text>
+<text x='108.93' y='336.41' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='181.32px' lengthAdjust='spacingAndGlyphs'>Code verbosity / organization</text>
+<text x='117.47' y='307.90' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='172.78px' lengthAdjust='spacingAndGlyphs'>Business adoption / support</text>
+<text x='202.31' y='279.39' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='87.94px' lengthAdjust='spacingAndGlyphs'>Error handling</text>
+<text x='175.86' y='250.89' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='114.39px' lengthAdjust='spacingAndGlyphs'>Issues with tooling</text>
+<text x='95.73' y='222.38' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='194.52px' lengthAdjust='spacingAndGlyphs'>Convincing co-workers to use it</text>
+<text x='111.32' y='193.87' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='178.93px' lengthAdjust='spacingAndGlyphs'>Missing or immature libraries</text>
+<text x='58.36' y='165.37' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='231.90px' lengthAdjust='spacingAndGlyphs'>Learning curve / best practices / docs</text>
+<text x='45.91' y='129.30' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='244.34px' lengthAdjust='spacingAndGlyphs'>Working with modules / vendoring / pkg</text>
+<text x='255.25' y='144.42' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.00px' lengthAdjust='spacingAndGlyphs'>mgmt</text>
+<text x='189.88' y='108.35' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='100.37px' lengthAdjust='spacingAndGlyphs'>lack of Generics</text>
+<text x='301.28' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='378.48' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='459.57' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='540.65' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='621.74' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='411.31' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='295.18' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  1243</text>
+<text x='295.18' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='351.32px' lengthAdjust='spacingAndGlyphs'>What is the biggest challenge you personally face</text>
+<text x='295.18' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='116.52px' lengthAdjust='spacingAndGlyphs'>using Go today?</text>
+</svg>

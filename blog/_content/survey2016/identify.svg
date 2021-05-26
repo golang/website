@@ -1,0 +1,54 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="15.20em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">We want the Go community to be inclusive; we want to see how we&#39;re doing and how to improve.</tspan></text>
+<text x="0.00em" y="2.40em" class="head"><tspan class="size">Please select the groups you identify with: <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="3.30em" width="4.17em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">1,499 (42%)</tspan></text>
+<text x="11.92em" y="3.90em"><tspan class="size">I do not identify as part of an underrepresented group</tspan></text>
+<rect x="7.25em" y="4.50em" width="1.22em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">438 (12%)</tspan></text>
+<text x="8.97em" y="5.10em"><tspan class="size">I prefer not to answer</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.28em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">101  (3%)</tspan></text>
+<text x="8.03em" y="6.30em"><tspan class="size">I identify as LGBTQIA</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.26em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">95  (3%)</tspan></text>
+<text x="8.01em" y="7.50em"><tspan class="size">I identify as ethnically or racially underrepresented</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.21em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">77  (2%)</tspan></text>
+<text x="7.96em" y="8.70em"><tspan class="size">I identify as neurodiverse or as having a disability</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">49  (1%)</tspan></text>
+<text x="7.89em" y="9.90em"><tspan class="size">I identify as a woman</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.13em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">47  (1%)</tspan></text>
+<text x="7.88em" y="11.10em"><tspan class="size">Write-in: objection to the question.</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.11em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">38  (1%)</tspan></text>
+<text x="7.86em" y="12.30em"><tspan class="size">I identify as part of an underrepresented group, but I prefer not to specify</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">34  (1%)</tspan></text>
+<text x="7.84em" y="13.50em"><tspan class="size">I identify with an underrepresented group not listed.</tspan></text>
+<rect x="7.25em" y="14.10em" width="3.71em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">1,332 (37%)</tspan></text>
+<text x="11.46em" y="14.70em"><tspan class="size">No response</tspan></text>
+</svg>

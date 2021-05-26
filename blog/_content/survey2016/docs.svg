@@ -1,0 +1,92 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="16.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">What changes would most improve the Go documentation?</tspan></text>
+<rect x="7.25em" y="2.10em" width="1.42em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">512 (14%)</tspan></text>
+<text x="9.17em" y="2.70em"><tspan class="size">examples</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.83em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">300  (8%)</tspan></text>
+<text x="8.58em" y="3.90em"><tspan class="size">more examples</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.37em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">134  (4%)</tspan></text>
+<text x="8.12em" y="5.10em"><tspan class="size">documentation</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.19em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">69  (2%)</tspan></text>
+<text x="7.94em" y="6.30em"><tspan class="size">example</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.17em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">62  (2%)</tspan></text>
+<text x="7.92em" y="7.50em"><tspan class="size">docs</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">49  (1%)</tspan></text>
+<text x="7.89em" y="8.70em"><tspan class="size">godoc</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">34  (1%)</tspan></text>
+<text x="7.84em" y="9.90em"><tspan class="size">usage</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">32  (1%)</tspan></text>
+<text x="7.84em" y="11.10em"><tspan class="size">functions</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">32  (1%)</tspan></text>
+<text x="7.84em" y="12.30em"><tspan class="size">package</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">31  (1%)</tspan></text>
+<text x="7.84em" y="13.50em"><tspan class="size">good</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">29  (1%)</tspan></text>
+<text x="7.83em" y="14.70em"><tspan class="size">function</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">29  (1%)</tspan></text>
+<text x="7.83em" y="15.90em"><tspan class="size">great</tspan></text>
+<rect x="22.25em" y="2.10em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="2.70em" text-anchor="end"><tspan class="size">29  (1%)</tspan></text>
+<text x="22.83em" y="2.70em"><tspan class="size">packages</tspan></text>
+<rect x="22.25em" y="3.30em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="3.90em" text-anchor="end"><tspan class="size">29  (1%)</tspan></text>
+<text x="22.83em" y="3.90em"><tspan class="size">search</tspan></text>
+<rect x="22.25em" y="4.50em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="5.10em" text-anchor="end"><tspan class="size">28  (1%)</tspan></text>
+<text x="22.83em" y="5.10em"><tspan class="size">cases</tspan></text>
+<rect x="22.25em" y="5.70em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="6.30em" text-anchor="end"><tspan class="size">26  (1%)</tspan></text>
+<text x="22.82em" y="6.30em"><tspan class="size">best practices</tspan></text>
+<rect x="22.25em" y="6.90em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="7.50em" text-anchor="end"><tspan class="size">26  (1%)</tspan></text>
+<text x="22.82em" y="7.50em"><tspan class="size">libraries</tspan></text>
+<rect x="22.25em" y="8.10em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="8.70em" text-anchor="end"><tspan class="size">23  (1%)</tspan></text>
+<text x="22.81em" y="8.70em"><tspan class="size">doc</tspan></text>
+<rect x="22.25em" y="9.30em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="9.90em" text-anchor="end"><tspan class="size">23  (1%)</tspan></text>
+<text x="22.81em" y="9.90em"><tspan class="size">more example</tspan></text>
+<rect x="22.25em" y="10.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="11.10em" text-anchor="end"><tspan class="size">22  (1%)</tspan></text>
+<text x="22.81em" y="11.10em"><tspan class="size">code examples</tspan></text>
+<rect x="22.25em" y="11.70em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="12.30em" text-anchor="end"><tspan class="size">21  (1%)</tspan></text>
+<text x="22.81em" y="12.30em"><tspan class="size">syntax</tspan></text>
+<rect x="22.25em" y="12.90em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="21.75em" y="13.50em" text-anchor="end"><tspan class="size">20  (1%)</tspan></text>
+<text x="22.81em" y="13.50em"><tspan class="size">interface</tspan></text>
+<rect x="22.25em" y="14.10em" width="7.04em" height="0.60em" stroke="black" fill="white"/>
+<text x="21.75em" y="14.70em" text-anchor="end"><tspan class="size">2,532 (70%)</tspan></text>
+<text x="29.79em" y="14.70em"><tspan class="size">No response</tspan></text>
+</svg>

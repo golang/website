@@ -1,0 +1,41 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="70.00em" height="9.20em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">I contribute to open source projects written in Go:  <tspan class="paren">(single choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="0.61em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">382 (6.1%)</tspan></text>
+<text x="8.36em" y="2.70em"><tspan class="size">As part of my daily routine</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.74em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">463 (7.4%)</tspan></text>
+<text x="8.49em" y="3.90em"><tspan class="size">Weekly</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.97em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">603 (9.7%)</tspan></text>
+<text x="8.72em" y="5.10em"><tspan class="size">Monthly</tspan></text>
+<rect x="7.25em" y="5.70em" width="3.50em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">2,180 (35.0%)</tspan></text>
+<text x="11.25em" y="6.30em"><tspan class="size">Infrequently</tspan></text>
+<rect x="7.25em" y="6.90em" width="2.88em" height="0.60em" stroke="#00ACD7" fill="#00ACD7"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">1,792 (28.8%)</tspan></text>
+<text x="10.63em" y="7.50em"><tspan class="size">Never</tspan></text>
+<rect x="7.25em" y="8.10em" width="1.29em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">806 (12.9%)</tspan></text>
+<text x="9.04em" y="8.70em"><tspan class="size">No response</tspan></text>
+</svg>

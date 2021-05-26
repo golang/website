@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="4.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">To what extent do you agree or disagree with the following statements:</tspan></text>
+<text x="0.00em" y="2.40em"><tspan class="size">(<tspan fill="#ff0000">strongly disagree</tspan>, <tspan fill="#ff4444">disagree</tspan>, <tspan fill="#ff8888">somewhat disagree</tspan>, <tspan fill="#cccccc">neutral</tspan>, <tspan fill="#8888ff">somewhat agree</tspan>, <tspan fill="#4444ff">agree</tspan>, <tspan fill="#0000ff">strongly agree</tspan>)</tspan></text>
+<rect x="12.00em" y="3.30em" width="0.08em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.08em" y="3.30em" width="0.13em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.20em" y="3.30em" width="0.21em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.41em" y="3.30em" width="1.09em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="13.50em" y="3.30em" width="1.01em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="14.51em" y="3.30em" width="3.14em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="17.65em" y="3.30em" width="1.86em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="3.90em" text-anchor="end"><tspan class="size">2,701 (<tspan fill="#ff0000">1</tspan>, <tspan fill="#ff4444">1</tspan>, <tspan fill="#ff8888">2</tspan>, <tspan fill="#cccccc">11</tspan>, <tspan fill="#8888ff">10</tspan>, <tspan fill="#4444ff">31</tspan>, <tspan fill="#0000ff">19</tspan>%)</tspan></text>
+<text x="20.01em" y="3.90em"><tspan class="size">I feel welcome in the Go community. (15:1)</tspan></text>
+</svg>

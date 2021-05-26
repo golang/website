@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.1//EN'  'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'>
+<svg width="355.46" height="208" version="1.1" viewBox="55.075 95.5 355.4621 208" xmlns="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/">
+<defs>
+<marker id="a" color="#ff2600" overflow="visible" stroke-miterlimit="10" markerHeight="8" markerWidth="10" orient="auto" viewBox="-1 -4 10 8">
+<path d="m8 0l-8-3v6z" fill="currentColor" stroke="currentColor"/>
+</marker>
+</defs>
+<metadata>Produced by OmniGraffle 7.10.1
+<dc:date>2019-03-21 19:47:24 +0000</dc:date>
+</metadata>
+<g fill="none">
+<title>Canvas 1</title>
+<g>
+<title>Layer 1</title>
+<text transform="translate(64.5 130.5)" fill="black" font-family="Go, sans-serif" font-size="12" font-weight="400">
+<tspan x="28" y="11">l := line{point{1 + zero, 2 + zero}, point{3 + zero, 4 + zero}}</tspan>
+<tspan x="28" y="25">tinycall()</tspan>
+<tspan x="28" y="39">hist := make([]int, 7)</tspan>
+<tspan x="28" y="53">var reader io.Reader = strings.NewReader(cannedInput)</tspan>
+<tspan x="28" y="67">scanner := bufio.NewScanner(reader)</tspan>
+<tspan x="28" y="81">for scanner.Scan() {</tspan>
+<tspan x="56" y="95">s := scanner.Text()</tspan>
+<tspan x="56" y="109">i, err := strconv.ParseInt(s, 10, 64)</tspan>
+<tspan x="56" y="123">if err != nil { ... }</tspan>
+<tspan x="56" y="137">hist = ensure(int(i), hist)</tspan>
+<tspan x="56" y="151">hist[int(i)]++</tspan>
+<tspan x="28" y="165">}</tspan>
+</text>
+<text transform="translate(204.34 100.5)" fill="black">
+<tspan x="0" y="15" fill="black" font-family="Go, sans-serif" font-size="16" font-weight="400">Go 1.10</tspan>
+</text>
+<path d="m71.8 130.7l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m71.8 130.7l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m100.6 243.3l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m100.6 243.3l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m100.6 229.5l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m100.6 229.5l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m71.8 200.74l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m71.8 200.74l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m71.8 172.72l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m71.8 172.72l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m71.8 158.72l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m71.8 158.72l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m55.2 145.4l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m55.2 145.4l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m100.6 270.9l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m100.6 270.9l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m100.6 257.1l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m100.6 257.1l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m55.2 130.7l14 6-14 6z" fill="blue" fill-opacity=".3309"/>
+<path d="m55.2 130.7l14 6-14 6z" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".25"/>
+<path d="m61.66 147.95v-2.9031l1.6541-0.99387" marker-end="url(#a)" stroke="#ff2600" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="79.06" x2="79.06" y1="139.52" y2="152.45" marker-end="url(#a)" stroke="#ff2600" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="79.06" x2="94.381" y1="209.4" y2="228.38" marker-end="url(#a)" stroke="#ff2600" stroke-linecap="round" stroke-linejoin="round"/>
+<line x1="79.06" x2="79.115" y1="182.66" y2="194.76" marker-end="url(#a)" stroke="#ff2600" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</svg>

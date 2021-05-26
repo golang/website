@@ -1,0 +1,166 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="27.20em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">Rank the following languages in terms of your preference: <tspan class="paren">(ordered choice, up to 5)</tspan></tspan></text>
+<rect x="12.00em" y="2.10em" width="6.21em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="18.21em" y="2.10em" width="1.89em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="20.11em" y="2.10em" width="0.61em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="20.72em" y="2.10em" width="0.19em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="20.90em" y="2.10em" width="0.13em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="2.70em" text-anchor="end"><tspan class="size">3,248 (<tspan fill="#0000ff">62</tspan>, <tspan fill="#2828ff">19</tspan>, <tspan fill="#5151ff">6</tspan>, <tspan fill="#7a7aff">2</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="21.53em" y="2.70em"><tspan class="size">Go</tspan></text>
+<rect x="12.00em" y="3.30em" width="0.74em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.74em" y="3.30em" width="1.70em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="14.44em" y="3.30em" width="1.22em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="15.66em" y="3.30em" width="0.86em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="16.52em" y="3.30em" width="0.48em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="3.90em" text-anchor="end"><tspan class="size">1,796 (<tspan fill="#0000ff">7</tspan>, <tspan fill="#2828ff">17</tspan>, <tspan fill="#5151ff">12</tspan>, <tspan fill="#7a7aff">9</tspan>, <tspan fill="#a3a3ff">5</tspan>%)</tspan></text>
+<text x="17.50em" y="3.90em"><tspan class="size">Python</tspan></text>
+<rect x="12.00em" y="4.50em" width="0.27em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.27em" y="4.50em" width="0.85em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="13.12em" y="4.50em" width="1.27em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="14.39em" y="4.50em" width="0.98em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="15.37em" y="4.50em" width="0.75em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="5.10em" text-anchor="end"><tspan class="size">1,482 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">9</tspan>, <tspan fill="#5151ff">13</tspan>, <tspan fill="#7a7aff">10</tspan>, <tspan fill="#a3a3ff">8</tspan>%)</tspan></text>
+<text x="16.62em" y="5.10em"><tspan class="size">JavaScript</tspan></text>
+<rect x="12.00em" y="5.70em" width="0.20em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.20em" y="5.70em" width="0.82em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="13.03em" y="5.70em" width="0.92em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.94em" y="5.70em" width="0.87em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="14.81em" y="5.70em" width="0.62em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="6.30em" text-anchor="end"><tspan class="size">1,235 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">8</tspan>, <tspan fill="#5151ff">9</tspan>, <tspan fill="#7a7aff">9</tspan>, <tspan fill="#a3a3ff">6</tspan>%)</tspan></text>
+<text x="15.94em" y="6.30em"><tspan class="size">C</tspan></text>
+<rect x="12.00em" y="6.90em" width="0.32em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.32em" y="6.90em" width="0.72em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="13.05em" y="6.90em" width="0.76em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.81em" y="6.90em" width="0.72em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="14.53em" y="6.90em" width="0.71em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="7.50em" text-anchor="end"><tspan class="size">1,167 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">7</tspan>, <tspan fill="#5151ff">8</tspan>, <tspan fill="#7a7aff">7</tspan>, <tspan fill="#a3a3ff">7</tspan>%)</tspan></text>
+<text x="15.75em" y="7.50em"><tspan class="size">Java</tspan></text>
+<rect x="12.00em" y="8.10em" width="0.18em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.18em" y="8.10em" width="0.39em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.57em" y="8.10em" width="0.60em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.17em" y="8.10em" width="0.60em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.77em" y="8.10em" width="0.48em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="8.70em" text-anchor="end"><tspan class="size">809 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">4</tspan>, <tspan fill="#5151ff">6</tspan>, <tspan fill="#7a7aff">6</tspan>, <tspan fill="#a3a3ff">5</tspan>%)</tspan></text>
+<text x="14.75em" y="8.70em"><tspan class="size">C++</tspan></text>
+<rect x="12.00em" y="9.30em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.06em" y="9.30em" width="0.31em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.37em" y="9.30em" width="0.49em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.86em" y="9.30em" width="0.49em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.34em" y="9.30em" width="0.46em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="9.90em" text-anchor="end"><tspan class="size">647 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">3</tspan>, <tspan fill="#5151ff">5</tspan>, <tspan fill="#7a7aff">5</tspan>, <tspan fill="#a3a3ff">5</tspan>%)</tspan></text>
+<text x="14.30em" y="9.90em"><tspan class="size">Bash</tspan></text>
+<rect x="12.00em" y="10.50em" width="0.28em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.28em" y="10.50em" width="0.46em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.74em" y="10.50em" width="0.40em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.14em" y="10.50em" width="0.25em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.39em" y="10.50em" width="0.17em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="11.10em" text-anchor="end"><tspan class="size">563 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">5</tspan>, <tspan fill="#5151ff">4</tspan>, <tspan fill="#7a7aff">3</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="14.07em" y="11.10em"><tspan class="size">Ruby</tspan></text>
+<rect x="12.00em" y="11.70em" width="0.23em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.23em" y="11.70em" width="0.45em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.68em" y="11.70em" width="0.37em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.05em" y="11.70em" width="0.29em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.34em" y="11.70em" width="0.21em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="12.30em" text-anchor="end"><tspan class="size">557 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">4</tspan>, <tspan fill="#5151ff">4</tspan>, <tspan fill="#7a7aff">3</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="14.05em" y="12.30em"><tspan class="size">C#</tspan></text>
+<rect x="12.00em" y="12.90em" width="0.21em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.21em" y="12.90em" width="0.38em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.59em" y="12.90em" width="0.30em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.88em" y="12.90em" width="0.25em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.13em" y="12.90em" width="0.19em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="13.50em" text-anchor="end"><tspan class="size">475 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">4</tspan>, <tspan fill="#5151ff">3</tspan>, <tspan fill="#7a7aff">3</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="13.82em" y="13.50em"><tspan class="size">Rust</tspan></text>
+<rect x="12.00em" y="14.10em" width="0.11em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.11em" y="14.10em" width="0.25em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.36em" y="14.10em" width="0.29em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.65em" y="14.10em" width="0.27em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.91em" y="14.10em" width="0.34em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="14.70em" text-anchor="end"><tspan class="size">449 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">2</tspan>, <tspan fill="#5151ff">3</tspan>, <tspan fill="#7a7aff">3</tspan>, <tspan fill="#a3a3ff">3</tspan>%)</tspan></text>
+<text x="13.75em" y="14.70em"><tspan class="size">PHP</tspan></text>
+<rect x="12.00em" y="15.30em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.14em" y="15.30em" width="0.16em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.29em" y="15.30em" width="0.20em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.50em" y="15.30em" width="0.17em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.67em" y="15.30em" width="0.11em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="15.90em" text-anchor="end"><tspan class="size">278 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">2</tspan>, <tspan fill="#5151ff">2</tspan>, <tspan fill="#7a7aff">2</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="13.27em" y="15.90em"><tspan class="size">Haskell</tspan></text>
+<rect x="12.00em" y="16.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.06em" y="16.50em" width="0.14em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.21em" y="16.50em" width="0.13em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.34em" y="16.50em" width="0.12em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.46em" y="16.50em" width="0.14em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="17.10em" text-anchor="end"><tspan class="size">215 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="13.10em" y="17.10em"><tspan class="size">Perl</tspan></text>
+<rect x="12.00em" y="17.70em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.09em" y="17.70em" width="0.14em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.23em" y="17.70em" width="0.14em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.37em" y="17.70em" width="0.12em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.49em" y="17.70em" width="0.11em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="18.30em" text-anchor="end"><tspan class="size">214 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="13.10em" y="18.30em"><tspan class="size">Scala</tspan></text>
+<rect x="12.00em" y="18.90em" width="0.01em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.01em" y="18.90em" width="0.05em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.06em" y="18.90em" width="0.16em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.23em" y="18.90em" width="0.16em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.39em" y="18.90em" width="0.11em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="19.50em" text-anchor="end"><tspan class="size">178 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">2</tspan>, <tspan fill="#7a7aff">2</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="13.00em" y="19.50em"><tspan class="size">Lua</tspan></text>
+<rect x="12.00em" y="20.10em" width="0.04em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.04em" y="20.10em" width="0.09em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.14em" y="20.10em" width="0.09em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.23em" y="20.10em" width="0.13em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.35em" y="20.10em" width="0.11em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="20.70em" text-anchor="end"><tspan class="size">168 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="12.97em" y="20.70em"><tspan class="size">Erlang</tspan></text>
+<rect x="12.00em" y="21.30em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.07em" y="21.30em" width="0.08em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.15em" y="21.30em" width="0.12em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.26em" y="21.30em" width="0.10em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.37em" y="21.30em" width="0.07em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="21.90em" text-anchor="end"><tspan class="size">156 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="12.93em" y="21.90em"><tspan class="size">Clojure</tspan></text>
+<rect x="12.00em" y="22.50em" width="0.03em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.03em" y="22.50em" width="0.04em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.06em" y="22.50em" width="0.04em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.10em" y="22.50em" width="0.06em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.16em" y="22.50em" width="0.06em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="23.10em" text-anchor="end"><tspan class="size">79 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">0</tspan>, <tspan fill="#5151ff">0</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="12.72em" y="23.10em"><tspan class="size">R</tspan></text>
+<rect x="12.00em" y="23.70em" width="0.01em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.01em" y="23.70em" width="0.03em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.03em" y="23.70em" width="0.04em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.07em" y="23.70em" width="0.04em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.11em" y="23.70em" width="0.01em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="24.30em" text-anchor="end"><tspan class="size">43 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">0</tspan>, <tspan fill="#5151ff">0</tspan>, <tspan fill="#7a7aff">0</tspan>, <tspan fill="#a3a3ff">0</tspan>%)</tspan></text>
+<text x="12.62em" y="24.30em"><tspan class="size">Julia</tspan></text>
+<rect x="12.00em" y="24.90em" width="0.26em" height="0.60em" stroke="#777777" fill="#777777"/>
+<rect x="12.26em" y="24.90em" width="0.36em" height="0.60em" stroke="#888888" fill="#888888"/>
+<rect x="12.63em" y="24.90em" width="0.40em" height="0.60em" stroke="#999999" fill="#999999"/>
+<rect x="13.03em" y="24.90em" width="0.25em" height="0.60em" stroke="#aaaaaa" fill="#aaaaaa"/>
+<rect x="13.28em" y="24.90em" width="0.13em" height="0.60em" stroke="#bbbbbb" fill="#bbbbbb"/>
+<text x="11.50em" y="25.50em" text-anchor="end"><tspan class="size">507 (<tspan fill="#777777">3</tspan>, <tspan fill="#888888">4</tspan>, <tspan fill="#999999">4</tspan>, <tspan fill="#aaaaaa">2</tspan>, <tspan fill="#bbbbbb">1</tspan>%)</tspan></text>
+<text x="13.91em" y="25.50em"><tspan class="size">Other</tspan></text>
+<rect x="12.00em" y="26.10em" width="0.46em" height="0.60em" stroke="black" fill="white"/>
+<text x="11.50em" y="26.70em" text-anchor="end"><tspan class="size">166 (4.6%)</tspan></text>
+<text x="12.96em" y="26.70em"><tspan class="size">No response</tspan></text>
+</svg>

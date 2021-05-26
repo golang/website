@@ -1,0 +1,107 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="35.60em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">My team deploys Go/non-Go programs to: <tspan class="paren">(multiple choice)</tspan></tspan></text>
+<rect x="7.25em" y="2.10em" width="4.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">1,489 (41%)</tspan></text>
+<text x="11.89em" y="2.70em"><tspan class="size">Self/Company Owned Servers (Go)</tspan></text>
+<rect x="7.25em" y="3.30em" width="4.77em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">1,714 (48%)</tspan></text>
+<text x="12.52em" y="3.90em"><tspan class="size">(non-Go)</tspan></text>
+<rect x="7.25em" y="4.50em" width="2.58em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">928 (26%)</tspan></text>
+<text x="10.33em" y="5.10em"><tspan class="size">AWS EC2</tspan></text>
+<rect x="7.25em" y="5.70em" width="3.12em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">1,122 (31%)</tspan></text>
+<text x="10.87em" y="6.30em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="6.90em" width="1.40em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">503 (14%)</tspan></text>
+<text x="9.15em" y="7.50em"><tspan class="size">None</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.69em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">249  (7%)</tspan></text>
+<text x="8.44em" y="8.70em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="9.30em" width="1.15em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">412 (11%)</tspan></text>
+<text x="8.90em" y="9.90em"><tspan class="size">Digital Ocean</tspan></text>
+<rect x="7.25em" y="10.50em" width="1.00em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">360 (10%)</tspan></text>
+<text x="8.75em" y="11.10em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="11.70em" width="0.81em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">292  (8%)</tspan></text>
+<text x="8.56em" y="12.30em"><tspan class="size">AWS Container</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.95em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">343 (10%)</tspan></text>
+<text x="8.70em" y="13.50em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="14.10em" width="0.61em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">221  (6%)</tspan></text>
+<text x="8.36em" y="14.70em"><tspan class="size">Google Compute Engine</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.52em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">186  (5%)</tspan></text>
+<text x="8.27em" y="15.90em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="16.50em" width="0.52em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="17.10em" text-anchor="end"><tspan class="size">188  (5%)</tspan></text>
+<text x="8.27em" y="17.10em"><tspan class="size">Google App Engine</tspan></text>
+<rect x="7.25em" y="17.70em" width="0.26em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="18.30em" text-anchor="end"><tspan class="size">94  (3%)</tspan></text>
+<text x="8.01em" y="18.30em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="18.90em" width="0.45em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="19.50em" text-anchor="end"><tspan class="size">161  (4%)</tspan></text>
+<text x="8.20em" y="19.50em"><tspan class="size">Google Container Engine (GKE)</tspan></text>
+<rect x="7.25em" y="20.10em" width="0.32em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="20.70em" text-anchor="end"><tspan class="size">115  (3%)</tspan></text>
+<text x="8.07em" y="20.70em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="21.30em" width="0.34em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="21.90em" text-anchor="end"><tspan class="size">121  (3%)</tspan></text>
+<text x="8.09em" y="21.90em"><tspan class="size">Heroku</tspan></text>
+<rect x="7.25em" y="22.50em" width="0.51em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="23.10em" text-anchor="end"><tspan class="size">185  (5%)</tspan></text>
+<text x="8.26em" y="23.10em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="23.70em" width="0.32em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="24.30em" text-anchor="end"><tspan class="size">114  (3%)</tspan></text>
+<text x="8.07em" y="24.30em"><tspan class="size">Microsoft Azure</tspan></text>
+<rect x="7.25em" y="24.90em" width="0.58em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="25.50em" text-anchor="end"><tspan class="size">210  (6%)</tspan></text>
+<text x="8.33em" y="25.50em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="26.10em" width="0.29em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="26.70em" text-anchor="end"><tspan class="size">104  (3%)</tspan></text>
+<text x="8.04em" y="26.70em"><tspan class="size">Linode</tspan></text>
+<rect x="7.25em" y="27.30em" width="0.28em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="27.90em" text-anchor="end"><tspan class="size">100  (3%)</tspan></text>
+<text x="8.03em" y="27.90em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="28.50em" width="0.26em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="29.10em" text-anchor="end"><tspan class="size">94  (3%)</tspan></text>
+<text x="8.01em" y="29.10em"><tspan class="size">AWS Lambda</tspan></text>
+<rect x="7.25em" y="29.70em" width="0.65em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="30.30em" text-anchor="end"><tspan class="size">233  (6%)</tspan></text>
+<text x="8.40em" y="30.30em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="30.90em" width="0.84em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="31.50em" text-anchor="end"><tspan class="size">301  (8%)</tspan></text>
+<text x="8.59em" y="31.50em"><tspan class="size">Other</tspan></text>
+<rect x="7.25em" y="32.10em" width="0.83em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<text x="6.75em" y="32.70em" text-anchor="end"><tspan class="size">297  (8%)</tspan></text>
+<text x="8.58em" y="32.70em"><tspan class="size"></tspan></text>
+<rect x="7.25em" y="33.30em" width="1.78em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="33.90em" text-anchor="end"><tspan class="size">639 (18%)</tspan></text>
+<text x="9.53em" y="33.90em"><tspan class="size">No response</tspan></text>
+<rect x="7.25em" y="34.50em" width="1.84em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="35.10em" text-anchor="end"><tspan class="size">660 (18%)</tspan></text>
+<text x="9.59em" y="35.10em"><tspan class="size"></tspan></text>
+</svg>

@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="10.40em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">To what extent do you agree or disagree with the following statements:</tspan></text>
+<text x="0.00em" y="2.40em"><tspan class="size">(<tspan fill="#ff0000">strongly disagree</tspan>, <tspan fill="#ff4444">disagree</tspan>, <tspan fill="#ff8888">somewhat disagree</tspan>, <tspan fill="#cccccc">neutral</tspan>, <tspan fill="#8888ff">somewhat agree</tspan>, <tspan fill="#4444ff">agree</tspan>, <tspan fill="#0000ff">strongly agree</tspan>)</tspan></text>
+<rect x="12.00em" y="3.30em" width="0.08em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.08em" y="3.30em" width="0.21em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.30em" y="3.30em" width="0.46em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.75em" y="3.30em" width="0.63em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="13.39em" y="3.30em" width="2.73em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="16.12em" y="3.30em" width="3.25em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="19.36em" y="3.30em" width="1.24em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="3.90em" text-anchor="end"><tspan class="size">3,094 (<tspan fill="#ff0000">1</tspan>, <tspan fill="#ff4444">2</tspan>, <tspan fill="#ff8888">5</tspan>, <tspan fill="#cccccc">6</tspan>, <tspan fill="#8888ff">27</tspan>, <tspan fill="#4444ff">32</tspan>, <tspan fill="#0000ff">12</tspan>%)</tspan></text>
+<text x="21.11em" y="3.90em"><tspan class="size">I have a good understanding of Go best practices. (9.6:1)</tspan></text>
+<rect x="12.00em" y="4.50em" width="0.04em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.04em" y="4.50em" width="0.09em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.14em" y="4.50em" width="0.26em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.40em" y="4.50em" width="0.36em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="12.76em" y="4.50em" width="1.71em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="14.47em" y="4.50em" width="4.10em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="18.56em" y="4.50em" width="2.01em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="5.10em" text-anchor="end"><tspan class="size">3,083 (<tspan fill="#ff0000">0</tspan>, <tspan fill="#ff4444">1</tspan>, <tspan fill="#ff8888">3</tspan>, <tspan fill="#cccccc">4</tspan>, <tspan fill="#8888ff">17</tspan>, <tspan fill="#4444ff">41</tspan>, <tspan fill="#0000ff">20</tspan>%)</tspan></text>
+<text x="21.08em" y="5.10em"><tspan class="size">I am able to quickly find answers to my questions. (20:1)</tspan></text>
+<rect x="12.00em" y="5.70em" width="0.03em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.03em" y="5.70em" width="0.03em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.06em" y="5.70em" width="0.09em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.14em" y="5.70em" width="0.21em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="12.35em" y="5.70em" width="0.70em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="13.06em" y="5.70em" width="3.24em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="16.29em" y="5.70em" width="4.20em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="6.30em" text-anchor="end"><tspan class="size">3,053 (<tspan fill="#ff0000">0</tspan>, <tspan fill="#ff4444">0</tspan>, <tspan fill="#ff8888">1</tspan>, <tspan fill="#cccccc">2</tspan>, <tspan fill="#8888ff">7</tspan>, <tspan fill="#4444ff">32</tspan>, <tspan fill="#0000ff">42</tspan>%)</tspan></text>
+<text x="20.99em" y="6.30em"><tspan class="size">Go&#39;s performance meets my needs. (57:1)</tspan></text>
+<rect x="12.00em" y="6.90em" width="0.08em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.08em" y="6.90em" width="0.28em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.36em" y="6.90em" width="0.45em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.81em" y="6.90em" width="1.39em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="14.19em" y="6.90em" width="1.48em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="15.68em" y="6.90em" width="2.56em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="18.23em" y="6.90em" width="0.78em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="7.50em" text-anchor="end"><tspan class="size">2,523 (<tspan fill="#ff0000">1</tspan>, <tspan fill="#ff4444">3</tspan>, <tspan fill="#ff8888">5</tspan>, <tspan fill="#cccccc">14</tspan>, <tspan fill="#8888ff">15</tspan>, <tspan fill="#4444ff">26</tspan>, <tspan fill="#0000ff">8</tspan>%)</tspan></text>
+<text x="19.52em" y="7.50em"><tspan class="size">Go&#39;s support for language interoperability meets my needs. (6.0:1)</tspan></text>
+<rect x="12.00em" y="8.10em" width="0.05em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.05em" y="8.10em" width="0.24em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.29em" y="8.10em" width="0.63em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.92em" y="8.10em" width="0.67em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="13.59em" y="8.10em" width="2.39em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="15.97em" y="8.10em" width="3.36em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="19.34em" y="8.10em" width="1.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="8.70em" text-anchor="end"><tspan class="size">3,049 (<tspan fill="#ff0000">1</tspan>, <tspan fill="#ff4444">2</tspan>, <tspan fill="#ff8888">6</tspan>, <tspan fill="#cccccc">7</tspan>, <tspan fill="#8888ff">24</tspan>, <tspan fill="#4444ff">34</tspan>, <tspan fill="#0000ff">11</tspan>%)</tspan></text>
+<text x="20.98em" y="8.70em"><tspan class="size">I am able to quickly find libraries that I need. (7.5:1)</tspan></text>
+<rect x="12.00em" y="9.30em" width="0.07em" height="0.60em" stroke="#ff0000" fill="#ff0000"/>
+<rect x="12.07em" y="9.30em" width="0.18em" height="0.60em" stroke="#ff4444" fill="#ff4444"/>
+<rect x="12.25em" y="9.30em" width="0.43em" height="0.60em" stroke="#ff8888" fill="#ff8888"/>
+<rect x="12.68em" y="9.30em" width="0.45em" height="0.60em" stroke="#cccccc" fill="#cccccc"/>
+<rect x="13.13em" y="9.30em" width="1.77em" height="0.60em" stroke="#8888ff" fill="#8888ff"/>
+<rect x="14.90em" y="9.30em" width="3.69em" height="0.60em" stroke="#4444ff" fill="#4444ff"/>
+<rect x="18.59em" y="9.30em" width="1.99em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="11.50em" y="9.90em" text-anchor="end"><tspan class="size">3,083 (<tspan fill="#ff0000">1</tspan>, <tspan fill="#ff4444">2</tspan>, <tspan fill="#ff8888">4</tspan>, <tspan fill="#cccccc">5</tspan>, <tspan fill="#8888ff">18</tspan>, <tspan fill="#4444ff">37</tspan>, <tspan fill="#0000ff">20</tspan>%)</tspan></text>
+<text x="21.08em" y="9.90em"><tspan class="size">Go language, library, and tool documentation meet my needs. (11:1)</tspan></text>
+</svg>

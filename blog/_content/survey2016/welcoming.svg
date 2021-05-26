@@ -1,0 +1,62 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="17.60em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">What changes would make the Go community more welcoming?</tspan></text>
+<rect x="7.25em" y="2.10em" width="0.32em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="2.70em" text-anchor="end"><tspan class="size">115 (3.2%)</tspan></text>
+<text x="8.07em" y="2.70em"><tspan class="size">community</tspan></text>
+<rect x="7.25em" y="3.30em" width="0.14em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="3.90em" text-anchor="end"><tspan class="size">52 (1.4%)</tspan></text>
+<text x="7.89em" y="3.90em"><tspan class="size">people</tspan></text>
+<rect x="7.25em" y="4.50em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="5.10em" text-anchor="end"><tspan class="size">32 (0.9%)</tspan></text>
+<text x="7.84em" y="5.10em"><tspan class="size">r/golang</tspan></text>
+<rect x="7.25em" y="5.70em" width="0.09em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="6.30em" text-anchor="end"><tspan class="size">31 (0.9%)</tspan></text>
+<text x="7.84em" y="6.30em"><tspan class="size">go community</tspan></text>
+<rect x="7.25em" y="6.90em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="7.50em" text-anchor="end"><tspan class="size">30 (0.8%)</tspan></text>
+<text x="7.83em" y="7.50em"><tspan class="size">google</tspan></text>
+<rect x="7.25em" y="8.10em" width="0.08em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="8.70em" text-anchor="end"><tspan class="size">30 (0.8%)</tspan></text>
+<text x="7.83em" y="8.70em"><tspan class="size">reddit</tspan></text>
+<rect x="7.25em" y="9.30em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="9.90em" text-anchor="end"><tspan class="size">24 (0.7%)</tspan></text>
+<text x="7.82em" y="9.90em"><tspan class="size">welcoming</tspan></text>
+<rect x="7.25em" y="10.50em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="11.10em" text-anchor="end"><tspan class="size">23 (0.6%)</tspan></text>
+<text x="7.81em" y="11.10em"><tspan class="size">official</tspan></text>
+<rect x="7.25em" y="11.70em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="12.30em" text-anchor="end"><tspan class="size">23 (0.6%)</tspan></text>
+<text x="7.81em" y="12.30em"><tspan class="size">open</tspan></text>
+<rect x="7.25em" y="12.90em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="13.50em" text-anchor="end"><tspan class="size">22 (0.6%)</tspan></text>
+<text x="7.81em" y="13.50em"><tspan class="size">code of conduct</tspan></text>
+<rect x="7.25em" y="14.10em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="14.70em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="7.81em" y="14.70em"><tspan class="size">golang</tspan></text>
+<rect x="7.25em" y="15.30em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<text x="6.75em" y="15.90em" text-anchor="end"><tspan class="size">21 (0.6%)</tspan></text>
+<text x="7.81em" y="15.90em"><tspan class="size">team</tspan></text>
+<rect x="7.25em" y="16.50em" width="8.39em" height="0.60em" stroke="black" fill="white"/>
+<text x="6.75em" y="17.10em" text-anchor="end"><tspan class="size">3,017 (83.9%)</tspan></text>
+<text x="16.14em" y="17.10em"><tspan class="size">No response</tspan></text>
+</svg>

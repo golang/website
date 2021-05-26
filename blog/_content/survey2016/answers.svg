@@ -1,0 +1,117 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" 
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="60.00em" height="18.80em" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      svg {
+        font-family: "Helvetica Neue", Arial, sans-serif; /* Helvetica on Mac aka sans-serif has broken U+2007 */
+      }
+      tspan.size {
+        font-size: 0.80em;
+      }
+      tspan.head {
+        font-weight: bold;
+      }
+      tspan.paren {
+        font-weight: normal !important;
+      }
+    ]]></style>
+  </defs>
+<text x="0.00em" y="1.20em" class="head"><tspan class="size">Rank the following in terms of where you get Go answers from: <tspan class="paren">(ordered choice, up to 5)</tspan></tspan></text>
+<rect x="12.00em" y="2.10em" width="2.27em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="14.27em" y="2.10em" width="1.76em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="16.03em" y="2.10em" width="1.20em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="17.24em" y="2.10em" width="0.65em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="17.89em" y="2.10em" width="0.30em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="2.70em" text-anchor="end"><tspan class="size">2,226 (<tspan fill="#0000ff">23</tspan>, <tspan fill="#2828ff">18</tspan>, <tspan fill="#5151ff">12</tspan>, <tspan fill="#7a7aff">7</tspan>, <tspan fill="#a3a3ff">3</tspan>%)</tspan></text>
+<text x="18.69em" y="2.70em"><tspan class="size">Stack Overflow</tspan></text>
+<rect x="12.00em" y="3.30em" width="3.03em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="15.03em" y="3.30em" width="1.54em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="16.57em" y="3.30em" width="0.78em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="17.35em" y="3.30em" width="0.35em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="17.71em" y="3.30em" width="0.14em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="3.90em" text-anchor="end"><tspan class="size">2,101 (<tspan fill="#0000ff">30</tspan>, <tspan fill="#2828ff">15</tspan>, <tspan fill="#5151ff">8</tspan>, <tspan fill="#7a7aff">4</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="18.34em" y="3.90em"><tspan class="size">golang.org</tspan></text>
+<rect x="12.00em" y="4.50em" width="1.25em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="13.25em" y="4.50em" width="1.65em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="14.91em" y="4.50em" width="1.22em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="16.13em" y="4.50em" width="0.70em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="16.83em" y="4.50em" width="0.22em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="5.10em" text-anchor="end"><tspan class="size">1,814 (<tspan fill="#0000ff">13</tspan>, <tspan fill="#2828ff">17</tspan>, <tspan fill="#5151ff">12</tspan>, <tspan fill="#7a7aff">7</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="17.55em" y="5.10em"><tspan class="size">Reading source code (e.g., standard library, open-source packages)</tspan></text>
+<rect x="12.00em" y="5.70em" width="0.27em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.27em" y="5.70em" width="0.80em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="13.07em" y="5.70em" width="1.17em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="14.23em" y="5.70em" width="0.74em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="14.98em" y="5.70em" width="0.36em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="6.30em" text-anchor="end"><tspan class="size">1,200 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">8</tspan>, <tspan fill="#5151ff">12</tspan>, <tspan fill="#7a7aff">7</tspan>, <tspan fill="#a3a3ff">4</tspan>%)</tspan></text>
+<text x="15.84em" y="6.30em"><tspan class="size">GitHub</tspan></text>
+<rect x="12.00em" y="6.90em" width="0.25em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.25em" y="6.90em" width="0.65em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.90em" y="6.90em" width="0.70em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.60em" y="6.90em" width="0.48em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="14.09em" y="6.90em" width="0.29em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="7.50em" text-anchor="end"><tspan class="size">854 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">7</tspan>, <tspan fill="#5151ff">7</tspan>, <tspan fill="#7a7aff">5</tspan>, <tspan fill="#a3a3ff">3</tspan>%)</tspan></text>
+<text x="14.88em" y="7.50em"><tspan class="size">golang-nuts mailing list (groups.google.com/d/forum/golang-nuts)</tspan></text>
+<rect x="12.00em" y="8.10em" width="0.18em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.18em" y="8.10em" width="0.34em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.52em" y="8.10em" width="0.53em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.05em" y="8.10em" width="0.53em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.58em" y="8.10em" width="0.32em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="8.70em" text-anchor="end"><tspan class="size">682 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">3</tspan>, <tspan fill="#5151ff">5</tspan>, <tspan fill="#7a7aff">5</tspan>, <tspan fill="#a3a3ff">3</tspan>%)</tspan></text>
+<text x="14.40em" y="8.70em"><tspan class="size">Reddit (r/golang)</tspan></text>
+<rect x="12.00em" y="9.30em" width="0.33em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.33em" y="9.30em" width="0.42em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.74em" y="9.30em" width="0.52em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="13.27em" y="9.30em" width="0.32em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="13.58em" y="9.30em" width="0.17em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="9.90em" text-anchor="end"><tspan class="size">630 (<tspan fill="#0000ff">3</tspan>, <tspan fill="#2828ff">4</tspan>, <tspan fill="#5151ff">5</tspan>, <tspan fill="#7a7aff">3</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="14.25em" y="9.90em"><tspan class="size">Coworkers</tspan></text>
+<rect x="12.00em" y="10.50em" width="0.19em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.19em" y="10.50em" width="0.18em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.37em" y="10.50em" width="0.21em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.58em" y="10.50em" width="0.20em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.78em" y="10.50em" width="0.15em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="11.10em" text-anchor="end"><tspan class="size">334 (<tspan fill="#0000ff">2</tspan>, <tspan fill="#2828ff">2</tspan>, <tspan fill="#5151ff">2</tspan>, <tspan fill="#7a7aff">2</tspan>, <tspan fill="#a3a3ff">2</tspan>%)</tspan></text>
+<text x="13.43em" y="11.10em"><tspan class="size">Gopher Slack (invite.slack.golangbridge.org)</tspan></text>
+<rect x="12.00em" y="11.70em" width="0.07em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.07em" y="11.70em" width="0.14em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.21em" y="11.70em" width="0.18em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.39em" y="11.70em" width="0.12em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.51em" y="11.70em" width="0.08em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="12.30em" text-anchor="end"><tspan class="size">214 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">2</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="13.10em" y="12.30em"><tspan class="size">Friends</tspan></text>
+<rect x="12.00em" y="12.90em" width="0.04em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.04em" y="12.90em" width="0.05em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.09em" y="12.90em" width="0.14em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.22em" y="12.90em" width="0.12em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.34em" y="12.90em" width="0.11em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="13.50em" text-anchor="end"><tspan class="size">161 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">0</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="12.95em" y="13.50em"><tspan class="size">Twitter</tspan></text>
+<rect x="12.00em" y="14.10em" width="0.06em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.06em" y="14.10em" width="0.11em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.18em" y="14.10em" width="0.10em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.28em" y="14.10em" width="0.11em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.39em" y="14.10em" width="0.04em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="14.70em" text-anchor="end"><tspan class="size">156 (<tspan fill="#0000ff">1</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">0</tspan>%)</tspan></text>
+<text x="12.93em" y="14.70em"><tspan class="size">IRC</tspan></text>
+<rect x="12.00em" y="15.30em" width="0.03em" height="0.60em" stroke="#0000ff" fill="#0000ff"/>
+<rect x="12.03em" y="15.30em" width="0.08em" height="0.60em" stroke="#2828ff" fill="#2828ff"/>
+<rect x="12.11em" y="15.30em" width="0.08em" height="0.60em" stroke="#5151ff" fill="#5151ff"/>
+<rect x="12.18em" y="15.30em" width="0.10em" height="0.60em" stroke="#7a7aff" fill="#7a7aff"/>
+<rect x="12.28em" y="15.30em" width="0.07em" height="0.60em" stroke="#a3a3ff" fill="#a3a3ff"/>
+<text x="11.50em" y="15.90em" text-anchor="end"><tspan class="size">126 (<tspan fill="#0000ff">0</tspan>, <tspan fill="#2828ff">1</tspan>, <tspan fill="#5151ff">1</tspan>, <tspan fill="#7a7aff">1</tspan>, <tspan fill="#a3a3ff">1</tspan>%)</tspan></text>
+<text x="12.85em" y="15.90em"><tspan class="size">Go Forum (forum.golangbridge.org)</tspan></text>
+<rect x="12.00em" y="16.50em" width="0.24em" height="0.60em" stroke="#777777" fill="#777777"/>
+<rect x="12.24em" y="16.50em" width="0.20em" height="0.60em" stroke="#888888" fill="#888888"/>
+<rect x="12.43em" y="16.50em" width="0.14em" height="0.60em" stroke="#999999" fill="#999999"/>
+<rect x="12.58em" y="16.50em" width="0.08em" height="0.60em" stroke="#aaaaaa" fill="#aaaaaa"/>
+<rect x="12.66em" y="16.50em" width="0.07em" height="0.60em" stroke="#bbbbbb" fill="#bbbbbb"/>
+<text x="11.50em" y="17.10em" text-anchor="end"><tspan class="size">262 (<tspan fill="#777777">2</tspan>, <tspan fill="#888888">2</tspan>, <tspan fill="#999999">1</tspan>, <tspan fill="#aaaaaa">1</tspan>, <tspan fill="#bbbbbb">1</tspan>%)</tspan></text>
+<text x="13.23em" y="17.10em"><tspan class="size">Other</tspan></text>
+<rect x="12.00em" y="17.70em" width="1.79em" height="0.60em" stroke="black" fill="white"/>
+<text x="11.50em" y="18.30em" text-anchor="end"><tspan class="size">643 (18%)</tspan></text>
+<text x="14.29em" y="18.30em"><tspan class="size">No response</tspan></text>
+</svg>

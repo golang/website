@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="8 8 295 215" width="295pt" height="215pt" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <metadata> Produced by OmniGraffle 7.3.1 
+    <dc:date>2017-07-05 01:29:08 +0000</dc:date>
+  </metadata>
+  <defs>
+    <font-face font-family="Go" font-size="14" panose-1="2 11 6 0 0 0 0 0 0 0" units-per-em="1000" underline-position="-61.035156" underline-thickness="24.414062" slope="0" x-height="541.9922" cap-height="740.7227" ascent="944.8242" descent="-210.9375" font-weight="500">
+      <font-face-src>
+        <font-face-name name="Go"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" viewBox="-1 -4 10 8" markerWidth="10" markerHeight="8" color="#a5a5a5">
+      <g>
+        <path d="M 8 0 L 0 -3 L 0 3 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <g stroke="none" stroke-opacity="1" stroke-dasharray="none" fill="none" fill-opacity="1">
+    <title>Canvas 1</title>
+    <g>
+      <title>Layer 1</title>
+      <text transform="translate(41.710765 16.765267)" fill="#a5a5a5">
+        <tspan font-family="Go" font-size="14" font-weight="500" fill="#a5a5a5" x="0" y="13" textLength="231.66992">1  Use Go. (Accumulate experience.)</tspan>
+      </text>
+      <text transform="translate(41.710765 62.25763)" fill="#a5a5a5">
+        <tspan font-family="Go" font-size="14" font-weight="500" fill="#a5a5a5" x="0" y="13" textLength="210.49902">2  Identify and explain a problem.</tspan>
+      </text>
+      <text transform="translate(41.710765 107.75)" fill="black">
+        <tspan font-family="Go" font-size="14" font-weight="500" fill="black" x="0" y="13" textLength="215.16797">3  Propose and discuss a solution.</tspan>
+      </text>
+      <text transform="translate(41.710765 153.24237)" fill="black">
+        <tspan font-family="Go" font-size="14" font-weight="500" fill="black" x="0" y="13" textLength="246.5791">4  Implement, evaluate, refine solution.</tspan>
+      </text>
+      <text transform="translate(41.710765 198.73473)" fill="#a5a5a5">
+        <tspan font-family="Go" font-size="14" font-weight="500" fill="#a5a5a5" x="0" y="13" textLength="218.31934">5  Ship production implementation.</tspan>
+      </text>
+      <line x1="169.48058" y1="36.530534" x2="169.48058" y2="48.592366" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="169.48058" y1="82.0229" x2="169.48058" y2="94.08473" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="169.48058" y1="127.51527" x2="169.48058" y2="139.5771" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <line x1="169.48058" y1="173.00763" x2="169.48058" y2="185.06947" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path d="M 36.710765 207.3049 C 2.4758262 196.83234 -.5999691 182.11648 27.48338 169.71778" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/>
+      <path d="M 36.710765 157.59032 C 2.512559 145.95047 -.5933328 130.93862 27.39309 119.39949" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/>
+      <path d="M 36.710765 109.78739 C 2.5492918 99.4431 -.5866248 88.88256 27.303016 78.64154" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/>
+      <path d="M 36.710765 64.74398 C 2.5419452 54.19985 -.5879721 42.899223 27.321013 32.4273" marker-end="url(#FilledArrow_Marker)" stroke="#a5a5a5" stroke-linecap="round" stroke-linejoin="round" stroke-width="1" stroke-dasharray="1,4"/>
+    </g>
+  </g>
+</svg>
