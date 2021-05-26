@@ -1,4 +1,4 @@
-runtime: go113
+runtime: go115
 service: staging-go-dev
 main: ./cmd/frontend
 

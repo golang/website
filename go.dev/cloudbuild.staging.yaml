@@ -4,11 +4,21 @@ steps:
     args:
       - -c
       - go run ./cmd/events/ > ./_content/events.yaml
+    dir: go.dev
+  - name: 'mirror.gcr.io/library/golang'
+    args:
+      - test
+      - ./...
+    dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "app.staging.yaml"]
+    dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "app.staging.learn.yaml"]
+    dir: go.dev
   - name: 'mirror.gcr.io/library/golang'
     args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=staging-go-dev", "--dry_run=false"]
+    dir: go.dev
   - name: 'mirror.gcr.io/library/golang'
     args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=staging-learn-go-dev", "--dry_run=false"]
+    dir: go.dev

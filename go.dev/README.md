@@ -1,16 +1,5 @@
 # go.dev
 
-## Contributing
-
-```
-git clone sso://partner-code/go.dev && (cd go.dev && f=`git rev-parse --git-dir`/hooks/commit-msg ; mkdir -p $(dirname $f) ; curl -Lo $f https://gerrit-review.googlesource.com/tools/hooks/commit-msg ; chmod +x $f)
-```
-
-- `data/learn` contains links for the Learn pages, as all content is currently external.
-- `content/solutions` contains Use Cases and Case Studies.
-  - Please include relevant resources using the same `name` attribute for images.
-- `themes/default` contains the site layout.
-
 ### Style Guides
 
 - [CSS](https://golang.org/wiki/CSSStyleGuide)
@@ -24,25 +13,13 @@ To serve the go.dev pages, run
 
 ## Deploying
 
-All commits targeting `master` will trigger a CI test defined in `cloudbuild.ci.yaml`.
-All commits pushed to `master` will be automatically deployed to https://dev.go.dev.
+All commits pushed to `master` will be automatically deployed to https://go.dev.
 
-## Code repo
-
-https://partner-code.git.corp.google.com/go.dev
+For now moment, the deployment is not automatic. Instead, after submitting,
+visit the [Cloud Build triggers list](https://console.cloud.google.com/cloud-build/triggers?project=go-discovery),
+find the one named “Redeploy-go-dev-on-website-commit”, which should say “Disabled” in the status column,
+and then click “RUN”.
 
 ## Commands
 
 - Running the server: `go run ./cmd/frontend`
-- Pushing to staging: `git push -f origin HEAD:staging`
-
-## Where things live
-
-- Javascript:
-- Carousels: /static/js/carousels.js
-- Tab navigation, filtering, listeners: /static/js/site.js
-- Solutions page template: /layouts/solutions/single.html
-- Home page template: /layouts/index.html
-- Site wide styles: /assets/css/styles.css
-- Site configuration: /config.toml
-- Promotional components (modal, snackbar, etc) are in this branch: `messaging-components`
