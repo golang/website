@@ -1,0 +1,20 @@
+  - title: Ardan Labs
+    url: https://www.ardanlabs.com/
+    thumbnail:
+    blurb: Offering customized on-site live training classes.
+  - title: Gopher Guides
+    url: https://www.gopherguides.com/
+    thumbnail:
+    blurb: Customized In-person, remote, and online training classes. Training for Developers by Developers.
+  - title: Boss Sauce Creative
+    url: https://bosssauce.it/services/training
+    thumbnail:
+    blurb: Personalized or track-based Go training for teams.
+  - title: Shiju Varghese
+    url: https://github.com/shijuvar/gokit/tree/master/training
+    thumbnail:
+    blurb: On-site classroom training on Go and consulting on distributed systems architectures, in India.
+  - title: kkoehler
+    url: https://golang.kkoehler.com/
+    thumbnail:
+    blurb: In-Person class trainings for Go in Germany, Austria and Switzerland.

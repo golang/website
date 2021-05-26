@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
+<link rel="stylesheet" href="/css/styles.css">
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<script src="/js/site.js"></script>
+<title>Go for Cloud &amp; Network Services - go.dev</title>
+</head>
+<body class="Site">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="Site-header js-siteHeader">
+  <div class="Banner">
+    <div class="Banner-inner">
+      <div class="Banner-message">Black Lives Matter</div>
+      <a class="Banner-action"
+         href="https://support.eji.org/give/153413/#!/donation/checkout"
+         target="_blank"
+         rel="noopener">
+         Support the Equal Justice Initiative
+      </a>
+    </div>
+  </div>
+  <div class="Header Header--dark">
+    <nav class="Header-nav">
+      <a href="https://go.dev/">
+        <img
+          class="js-headerLogo Header-logo"
+          src="/images/go-logo-white.svg"
+          alt="Go">
+      </a>
+      <div class="Header-rightContent">
+
+<form
+  class="js-searchForm SearchForm" action="https://pkg.go.dev/search" role="search">
+  <button
+    class="js-searchFormSubmit SearchForm-submit"
+    aria-label="Search for a package">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z">
+      </svg>
+  </button>
+  <input class="SearchForm-input" aria-label="Search for a package" type="text" name="q" size="1"
+         placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
+         spellcheck="false" title="Search for a package">
+        </input>
+</form>
+
+        <ul class="Header-menu">
+          <li class="Header-menuItem ">
+            <a href="/solutions/">Why Go</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="/learn/">Getting Started</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://pkg.go.dev">Discover Packages</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="/about">About</a>
+          </li>
+        </ul>
+        <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
+        </button>
+      </div>
+    </nav>
+
+    <div class="UseCaseSubNav js-useCaseSubnav">
+      <button class="UseCaseSubNav-menuHeader js-useCaseSubnavHeader">
+        Jump to
+        <img
+          class="UseCaseSubNav-menuIcon js-useCaseSubnavMenuIcon"
+          alt="Open menu icon" src="/images/icons/chevron-down.svg">
+      </button>
+      <div class="UseCaseSubNav-menu js-useCaseSubnavMenu">
+        <div class="UseCaseSubNav-anchorLinks js-useCaseSubnavLinks">
+        </div>
+      </div>
+    </div>
+
+  </div>
+</header>
+<aside class="NavigationDrawer js-header">
+  <nav class="NavigationDrawer-nav">
+    <div class="NavigationDrawer-header">
+      <a href="https://go.dev/">
+        <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
+      </a>
+    </div>
+    <ul class="NavigationDrawer-list">
+        <li class="NavigationDrawer-listItem  NavigationDrawer-listItem--active">
+          <a href="/solutions/">Why Go</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="/learn/">Getting Started</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://pkg.go.dev">Discover Packages</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="/about">About</a>
+        </li>
+    </ul>
+  </nav>
+</aside>
+<div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
+<main class="SiteContent SiteContent--default">
+<div>
+  <div class="WhoUsesSubPage-hero--useCase">
+    <div class="WhoUsesSubPage-heroInner--useCase">
+      <div class="WhoUsesSubPage-heroContent--useCase">
+        <div class="WhoUsesSubPage-heroText--useCase">
+
+  <div class="BreadcrumbNav">
+    <ol class="BreadcrumbNav-inner">
+
+
+
+
+
+
+
+
+
+
+
+
+      <li class="BreadcrumbNav-li ">
+        <a class="BreadcrumbNav-link" href="/solutions/">
+
+            Why Go
+
+        </a>
+      </li>
+
+
+
+
+
+      <li class="BreadcrumbNav-li active">
+        <a class="BreadcrumbNav-link" href="/solutions/cloud">
+
+            Go for Cloud &amp; Network Services
+
+        </a>
+      </li>
+
+
+    </ol>
+
+  </div>
+          <h1>Go for Cloud &amp; Network Services</h1>
+
+
+            <div class="Article-date">4 October 2019</div>
+
+        </div>
+
+        </div>
+      </div>
+
+  </div>
+  <article class="Article Article--solutions">
+
+      <div class="UseCase-content">
+        <div class="UseCase-contentAside">
+          <div
+            class="js-useCaseStickyNav UseCaseSubNav-anchorLinks">
+          </div>
+        </div>
+        <div class="UseCase-contentBody js-useCaseContentBody">
+
+
+
+
+<h2 id="overview" class="sectionHeading">Overview</h2>
+
+
+
+  <div class="UseCase-halfColumn">
+    <h3>Go helps enterprises build and scale cloud computing systems</h3>
+
+    <p>As applications and processing move to the cloud, concurrency becomes a very big issue. Cloud computing systems, by their very nature, share and scale resources. Coordinating access to shared resources is an issue that impacts every application processing in the cloud, and requires programming languages “explicitly geared to develop highly reliable concurrent applications.”</p>
+
+  </div>
+
+
+<div class="QuoteBlock">
+  <p class="QuoteBlock-body">
+    Go makes it very easy to scale as a company. This is very important because, as our engineering team grows, each service can be managed by a different unit.
+  </p>
+  <div class="QuoteBlock-author">
+
+        <a class="QuoteBlock-link" href="https://builtin.com/software-engineering-perspectives/golang-advantages" target="_blank" rel="noopener">
+      &mdash; Ruchi Malik,&nbsp;<span>developer at Choozle</span>
+      </a></div>
+  </div>
+
+
+<h2 id="key-benefits" class="sectionHeading">Key Benefits</h2>
+
+<h3 id="address-tradeoff-between-development-cycle-time-and-server-performance">Address tradeoff between development cycle time and server performance</h3>
+
+<p>Go was created to address exactly these concurrency needs for scaled applications, microservices, and cloud development. In fact, over 75 percent of projects in the Cloud Native Computing Foundation are written in Go.</p>
+
+<p>Go helps reduce the need to make this tradeoff, with its fast build times that enable iterative development, lower memory and CPU utilization. Servers built with Go experience instant start up times and are cheaper to run in pay-as-you-go and serverless deployments.</p>
+
+<h3 id="address-challenges-with-the-modern-cloud-delivering-standard-idiomatic-apis">Address challenges with the modern cloud, delivering standard idiomatic APIs</h3>
+
+<p>Go addresses many challenges developers face with the modern cloud, delivering standard idiomatic APIs, and built in concurrency to take advantage of multicore processors. Go’s low-latency and “no knob” tuning make Go a great balance between performance and productivity - granting engineering teams the power to choose and the power to move.</p>
+
+<h2 id="use-case" class="sectionHeading">Use Case</h2>
+
+<h3 id="use-go-for-cloud-computing">Use Go for Cloud Computing</h3>
+
+<p>Go&rsquo;s strengths shine when it comes to building services. Its speed and built-in support for concurrency results in fast and efficient services, while static typing, robust tooling, and emphasis on simplicity and readability help build reliable and maintainable code.</p>
+
+<p>Go has a strong ecosystem supporting service development. The <a href="https://golang.org/pkg/" rel="noreferrer" target="_blank">standard library</a> includes packages for common needs like HTTP servers and clients, JSON/XML parsing, SQL databases, and a range of security/encryption functionality, while the Go runtime includes tools for <a href="https://golang.org/doc/articles/race_detector.html" rel="noreferrer" target="_blank">race detection</a>, <a href="https://golang.org/pkg/testing/#hdr-Benchmarks" rel="noreferrer" target="_blank">benchmarking</a>/profiling, code generation, and static code analysis.</p>
+
+<p>The major Cloud providers (<a href="https://cloud.google.com/go/home" rel="noreferrer" target="_blank">GCP</a>, <a href="https://aws.amazon.com/sdk-for-go/" rel="noreferrer" target="_blank">AWS</a>, <a href="https://docs.microsoft.com/en-us/azure/go/" rel="noreferrer" target="_blank">Azure</a>) have Go APIs for their services, and popular open source libraries provide support for API tooling (<a href="https://github.com/go-swagger/go-swagger" rel="noreferrer" target="_blank">Swagger</a>), transport (<a href="https://github.com/golang/protobuf" rel="noreferrer" target="_blank">protocol buffers</a>, <a href="https://grpc.io/docs/quickstart/go/" rel="noreferrer" target="_blank">gRPC</a>), monitoring (<a href="https://godoc.org/go.opencensus.io" rel="noreferrer" target="_blank">OpenCensus</a>), Object-Relational Mapping (<a href="https://gorm.io/" rel="noreferrer" target="_blank">gORM</a>), and authentication (<a href="https://github.com/dgrijalva/jwt-go" rel="noreferrer" target="_blank">JWT</a>). The open source community has also provided several service frameworks, including <a href="https://gokit.io/" rel="noreferrer" target="_blank">Go Kit</a>, <a href="https://micro.mu/docs/go-micro.html" rel="noreferrer" target="_blank">Go Micro</a>, and <a href="https://github.com/nytimes/gizmo" rel="noreferrer" target="_blank">Gizmo</a>, which can be a great way to get started quickly.</p>
+
+<h3 id="go-tools-for-cloud-computing">Go tools for Cloud Computing</h3>
+
+
+
+<div class="ToolsBlurbs">
+
+  <div class="ToolsBlurbs-blurb">
+    <a class="ToolsBlurbs-blurbHeader" href="https://www.docker.com/">
+      <img class="ToolsBlurbs-blurbIcon" src="/images/logos/docker.svg" alt="Docker">
+      <span>Docker</span>
+    </a>
+
+      <p class="ToolsBlurbs-blurbBody">
+        Docker is a platform-as-a-service that delivers software in containers. Containers bundle software, libraries, and config files, are hosted by a Docker Engine, and are run by a single operating-system kernel (utilizing less system resources than virtual machines).
+      </p>
+
+      <p class="ToolsBlurbs-blurbBody">
+        Cloud developers use Docker to manage their Go code and support multiple platforms, as Docker supports the development workflow and deployment process.
+      </p>
+
+  </div>
+
+  <div class="ToolsBlurbs-blurb">
+    <a class="ToolsBlurbs-blurbHeader" href="https://kubernetes.io/">
+      <img class="ToolsBlurbs-blurbIcon" src="/images/logos/kubernetes.svg" alt="Kubernetes">
+      <span>Kubernetes</span>
+    </a>
+
+      <p class="ToolsBlurbs-blurbBody">
+        Kubernetes is an open-source container-orchestration system, written in Go, for automating web app deployment. Web apps are often built using containers (as noted above) packaged with their dependencies and configurations. Kubernetes helps deploying and managing those containers at scale. Cloud programmers use Kubernetes to build, deliver, and scale containerized apps quickly—managing the growing complexity via APIs that controls how the containers will run.
+      </p>
+
+  </div>
+
+</div>
+
+
+<div class="FeaturedUsers">
+
+<h2 id="featured-users" class="sectionHeading">Featured users</h2>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th class="FeaturedUsers--hiddenMobile">Customer</th>
+      <th>Brief introduction</th>
+      <th>Projects using go</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/google-cloud.svg" alt="Google" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/google-cloud.svg" alt="Google" />
+        Google Cloud uses Go across its ecosystem of products and tools, including Kubernetes, gVisor, Knative, Istio, and Anthos. Go is fully supported on Google Cloud across all APIs and runtimes.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="http://cloud.google.com/go">Go on Google Cloud Platform</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/capital-one.svg" alt="Capital One" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/capital-one.svg" alt="Capital One" />
+        Capital One uses Go to power the Credit Offers API, a critical service. The engineering team is also building their serverless architecture with Go, citing Go’s speed and simplicity, and mentioning that “[they] didn’t want to go serverless without Go.”
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://medium.com/capital-one-tech/a-serverless-and-go-journey-credit-offers-api-74ef1f9fde7f">Credit Offers API</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/dropbox.svg" alt="Dropbox" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/dropbox.svg" alt="Dropbox" />
+        Dropbox was built on Python, but in 2013 decided to migrate their performance-critical packends to Go. Today, most of the company’s infrastructure is written in Go.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/">Dropbox libraries</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/mercadoLibre.svg" alt="Mercado Libre" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/mercadoLibre.svg" alt="Mercado Libre" />
+        MercadoLibre uses Go to scale its eCommerce platform. Go produces efficient code that readily scales as MercadoLibre’s online commerce grows. Go improves their productivity while streamlining and expanding MercadoLibre services.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="http://go.dev/solutions/mercadolibre">MercadoLibre &amp; Go</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/the-new-york-times-icon.svg" alt="The New York Times" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/the-new-york-times-icon.svg" alt="The New York Times" />
+        The New York Times adopted Go “to build better back-end services”. As the usage of Go expanded with in the company they felt the need to create a toolkit to “to help developers quickly configure and build microservice APIs and pubsub daemons”, which they have open sourced.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://open.nytimes.com/introducing-gizmo-aa7ea463b208">NYTimes - Gizmo</a></li>
+
+          <li><a href="https://github.com/nytimes/gizmo">Gizmo Github</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/twitch.svg" alt="Twitch" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/twitch.svg" alt="Twitch" />
+        Twitch uses Go to power many of its busiest systems that serve live video and chat to millions of users.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/">Go’s march to low-latency GC</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+       hidden
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/uber.svg" alt="Uber" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/uber.svg" alt="Uber" />
+        Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their real-time analytics engine, AresDB, to their microservice for Geo-querying, Geofence, and their resource scheduler, Peloton.
+      </td>
+      <td>
+        <ul>
+
+          <li><a href="https://eng.uber.com/aresdb/">AresDB</a></li>
+
+          <li><a href="https://eng.uber.com/go-geofence/">Geofence</a></li>
+
+          <li><a href="https://eng.uber.com/open-sourcing-peloton/">Peloton</a></li>
+
+        </ul>
+      </td>
+    </tr>
+
+  </tbody>
+</table>
+
+<button
+  class="js-moreProjectsBtn FeaturedUsers-moreProjectsBtn"
+  type="button">
+ More projects
+</button>
+
+
+
+</div>
+
+<h2 id="get-started" class="sectionHeading">Get Started</h2>
+
+<h3 id="go-books-for-cloud-computing">Go books for cloud computing</h3>
+
+<ul class="Learn-tileList">
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/Building-Microservices-Go-efficient-microservices/dp/1786468662/">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Building Microservices with Go thumbnail." src="/images/books/building-microservices-with-go.jpg">
+
+            <span class="Learn-tileTitle">
+                Building Microservices with Go
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/dp/1788622596/ref=cm_sw_r_tw_dp_U_x_-aZWDbS8PD7R4">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Hands-On Software Architecture with Golang thumbnail." src="/images/books/hands-on-software-architecture-with-golang.jpg">
+
+            <span class="Learn-tileTitle">
+                Hands-On Software Architecture with Golang
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Building RESTful Web services with Go thumbnail." src="/images/books/building-restful-web-services-with-go.jpg">
+
+            <span class="Learn-tileTitle">
+                Building RESTful Web services with Go
+            </span>
+        </a>
+    </li>
+
+    <li class="Learn-tile">
+        <a href="https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6">
+
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="Mastering Go Web Services thumbnail." src="/images/books/mastering-go-web-services.jpg">
+
+            <span class="Learn-tileTitle">
+                Mastering Go Web Services
+            </span>
+        </a>
+    </li>
+
+</ul>
+
+
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Web frameworks</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://gobuffalo.io/en/">Buffalo</a>
+      <p>A framework for rapid web development in Go, curating Go and JS libraries together.</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://echo.labstack.com/">Echo</a>
+      <p>A high performance, extensible, and minimalist Go web framework</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://www.flamingo.me/">Flamingo</a>
+      <p>A fast open-source framework based on Go with clean and scalable architecture</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://gin-gonic.com/">Gin</a>
+      <p>A web framework written in Go, with a martini-like API.</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="http://www.gorillatoolkit.org/">Gorilla</a>
+      <p>A web toolkit for the Go programming language.</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=web&#43;framework">View More</a>
+</div>
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Routers</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/julienschmidt/httprouter?tab=overview">julienschmidt/httprouter</a>
+      <p>A lightweight high performance HTTP request router</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/gorilla/mux?tab=overview">gorilla/mux</a>
+      <p>A powerful HTTP router and URL matcher for building Go web servers with 🦍</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/go-chi/chi?tab=overview">Chi</a>
+      <p>A lightweight, idiomatic and composable router for building Go HTTP services.</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/net/http">net/http</a>
+      <p>A standard library HTTP package</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=http%20router">View More</a>
+</div>
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Template Engines</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/html/template">html/template</a>
+      <p>A standard library HTML template engine</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/flosch/pongo2?tab=overview">flosch/pongo2</a>
+      <p>A Django-syntax like templating-language</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=templates">View More</a>
+</div>
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Databases &amp; Drivers</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/database/sql">database/sql</a>
+      <p>A standard library interface with driver support for MySQL, Postgres, Oracle, MS SQL, BigQuery and most SQL databases</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview">mongo-driver/mongo</a>
+      <p>The MongoDB supported driver for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/olivere/elastic?tab=overview">olivere/elastic</a>
+      <p>A Elasticsearch client for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://gorm.io/">GORM</a>
+      <p>An ORM library for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="http://blevesearch.com/">Bleve</a>
+      <p>Full-text search and indexing for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://www.cockroachlabs.com/">CockroachDB</a>
+      <p>An evolution of the database—architected for the cloud to deliver resilient, consistent, distributed SQL at scale</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=database%20OR%20sql">View More</a>
+</div>
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Web Libraries</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/markbates/goth?tab=overview">markbates/goth</a>
+      <p>Authentication for web apps</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/jinzhu/gorm?tab=overview">jinzhu/gorm</a>
+      <p>An ORM library for Go</p>
+    </li>
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/dgrijalva/jwt-go?tab=overview">dgrijalva/jwt-go</a>
+      <p>A Go implementation of json web tokens</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="https://pkg.go.dev/search?q=web">View More</a>
+</div>
+
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>Other Projects</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="https://pkg.go.dev/github.com/gopherjs/gopherjs?tab=overview">gopherjs</a>
+      <p>A compiler from Go to JavaScript allowing developers to write front-end code in Go which will run in all browsers.</p>
+    </li>
+
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="">View More</a>
+</div>
+
+        </div>
+      </div>
+
+  </article>
+</div>
+</main>
+<footer class="Site-footer">
+  <div class="Footer">
+    <div class="Container">
+      <div class="Footer-links">
+          <div class="Footer-linkColumn">
+
+<a href="/solutions/" class="Footer-link Footer-link--primary">
+  Why Go
+</a>
+
+
+<a href="/solutions/#use-cases" class="Footer-link">
+  Use Cases
+</a>
+
+
+
+<a href="/solutions/#case-studies" class="Footer-link">
+  Case Studies
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="/learn/" class="Footer-link Footer-link--primary">
+  Getting Started
+</a>
+
+
+<a href="https://play.golang.org" class="Footer-link">
+  Playground
+</a>
+
+
+
+<a href="https://tour.golang.org" class="Footer-link">
+  Tour
+</a>
+
+
+
+<a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="Footer-link">
+  Stack Overflow
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://pkg.go.dev" class="Footer-link Footer-link--primary">
+  Discover Packages
+</a>
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="/about" class="Footer-link Footer-link--primary">
+  About
+</a>
+
+
+<a href="https://golang.org/dl/" class="Footer-link">
+  Download
+</a>
+
+
+
+<a href="https://blog.golang.org" class="Footer-link">
+  Blog
+</a>
+
+
+
+<a href="https://github.com/golang/go/issues" class="Footer-link">
+  Issue Tracker
+</a>
+
+
+
+<a href="https://golang.org/doc/devel/release.html" class="Footer-link">
+  Release Notes
+</a>
+
+
+
+<a href="https://blog.golang.org/go-brand" class="Footer-link">
+  Brand Guidelines
+</a>
+
+
+
+<a href="https://golang.org/conduct" class="Footer-link">
+  Code of Conduct
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://www.twitter.com/golang" class="Footer-link Footer-link--primary">
+  Connect
+</a>
+
+
+<a href="https://www.twitter.com/golang" class="Footer-link">
+  Twitter
+</a>
+
+
+
+<a href="https://github.com/golang" class="Footer-link">
+  Github
+</a>
+
+
+
+<a href="https://invite.slack.golangbridge.org/" class="Footer-link">
+  Slack
+</a>
+
+
+
+<a href="https://reddit.com/r/golang" class="Footer-link">
+  r/golang
+</a>
+
+
+
+<a href="https://www.meetup.com/pro/go" class="Footer-link">
+  Meetup
+</a>
+
+
+
+<a href="https://golangweekly.com/" class="Footer-link">
+  Golang Weekly
+</a>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="Footer">
+    <div class="Container Container--fullBleed">
+      <div class="Footer-bottom">
+        <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
+        <ul class="Footer-listRow">
+          <li class="Footer-listItem">
+            <a href="/copyright">Copyright</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="/tos">Terms of Service</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="http://www.google.com/intl/en/policies/privacy/"
+              target="_blank"
+              rel="noopener">
+              Privacy Policy
+            </a>
+            </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org/s/discovery-feedback"
+              target="_blank"
+              rel="noopener"
+              >
+              Report an Issue
+            </a>
+          </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org"
+              target="_blank"
+              rel="noopener"
+              >golang.org
+            </a>
+          </li>
+        </ul>
+        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener">
+          <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="/js/carousels.js"></script>
+  <script src="/js/searchBox.js"></script>
+  <script src="/js/misc.js"></script>
+  <script src="/js/hats.js"></script>
+</footer>
+</body>
+</html>

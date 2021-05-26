@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<link rel="preconnect" href="https://www.googletagmanager.com">
+<script >(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<meta charset="utf-8">
+<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#00add8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
+<link rel="stylesheet" href="/css/styles.css">
+
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
+
+<script src="/js/site.js"></script>
+<title>MercadoLibre Grows with Go - go.dev</title>
+</head>
+<body class="Site">
+
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W8MVQXG"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="Site-header js-siteHeader">
+  <div class="Banner">
+    <div class="Banner-inner">
+      <div class="Banner-message">Black Lives Matter</div>
+      <a class="Banner-action"
+         href="https://support.eji.org/give/153413/#!/donation/checkout"
+         target="_blank"
+         rel="noopener">
+         Support the Equal Justice Initiative
+      </a>
+    </div>
+  </div>
+  <div class="Header Header--dark">
+    <nav class="Header-nav">
+      <a href="https://go.dev/">
+        <img
+          class="js-headerLogo Header-logo"
+          src="/images/go-logo-white.svg"
+          alt="Go">
+      </a>
+      <div class="Header-rightContent">
+
+<form
+  class="js-searchForm SearchForm" action="https://pkg.go.dev/search" role="search">
+  <button
+    class="js-searchFormSubmit SearchForm-submit"
+    aria-label="Search for a package">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.76 10.27L17.49 16L16 17.49L10.27 11.76C9.2 12.53 7.91 13 6.5 13C2.91 13 0 10.09 0 6.5C0 2.91 2.91 0 6.5 0C10.09 0 13 2.91 13 6.5C13 7.91 12.53 9.2 11.76 10.27ZM6.5 2C4.01 2 2 4.01 2 6.5C2 8.99 4.01 11 6.5 11C8.99 11 11 8.99 11 6.5C11 4.01 8.99 2 6.5 2Z">
+      </svg>
+  </button>
+  <input class="SearchForm-input" aria-label="Search for a package" type="text" name="q" size="1"
+         placeholder="Search for a package" autocapitalize="off" autocomplete="off" autocorrect="off"
+         spellcheck="false" title="Search for a package">
+        </input>
+</form>
+
+        <ul class="Header-menu">
+          <li class="Header-menuItem ">
+            <a href="/solutions/">Why Go</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="/learn/">Getting Started</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="https://pkg.go.dev">Discover Packages</a>
+          </li>
+          <li class="Header-menuItem ">
+            <a href="/about">About</a>
+          </li>
+        </ul>
+        <button class="Header-navOpen js-headerMenuButton Header-navOpen--white" aria-label="Open navigation.">
+        </button>
+      </div>
+    </nav>
+
+  </div>
+</header>
+<aside class="NavigationDrawer js-header">
+  <nav class="NavigationDrawer-nav">
+    <div class="NavigationDrawer-header">
+      <a href="https://go.dev/">
+        <img class="NavigationDrawer-logo" src="/images/go-logo-blue.svg" alt="Go.">
+      </a>
+    </div>
+    <ul class="NavigationDrawer-list">
+        <li class="NavigationDrawer-listItem  NavigationDrawer-listItem--active">
+          <a href="/solutions/">Why Go</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="/learn/">Getting Started</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="https://pkg.go.dev">Discover Packages</a>
+        </li>
+        <li class="NavigationDrawer-listItem ">
+          <a href="/about">About</a>
+        </li>
+    </ul>
+  </nav>
+</aside>
+<div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
+<main class="SiteContent SiteContent--default">
+<div>
+  <div class="WhoUsesSubPage-hero--caseStudy">
+    <div class="WhoUsesSubPage-heroInner--caseStudy">
+      <div class="WhoUsesSubPage-heroContent--caseStudy">
+        <div class="WhoUsesSubPage-heroText--caseStudy">
+
+  <div class="BreadcrumbNav">
+    <ol class="BreadcrumbNav-inner">
+
+
+
+
+
+
+
+
+
+
+
+
+      <li class="BreadcrumbNav-li ">
+        <a class="BreadcrumbNav-link" href="/solutions/">
+
+            Why Go
+
+        </a>
+      </li>
+
+
+
+
+
+      <li class="BreadcrumbNav-li active">
+        <a class="BreadcrumbNav-link" href="/solutions/mercadolibre">
+
+            MercadoLibre
+
+        </a>
+      </li>
+
+
+    </ol>
+
+  </div>
+          <h1>MercadoLibre Grows with Go</h1>
+
+
+            <div class="Article-date">10 November 2019</div>
+
+        </div>
+
+            <div class="WhoUsesSubPage-heroImg">
+              <img src="/images/go_mercadolibre_case_study_logo.png" alt="MercadoLibre">
+            </div>
+
+        </div>
+      </div>
+
+  </div>
+  <article class="Article Article--solutions">
+
+      <div class="CaseStudy-content">
+        <div class="CaseStudy-contentBody">
+
+
+<div class="PullQuote">
+  <div class="PullQuote-quoteHeader">
+    <img class="PullQuote-image" src="/images/quote.svg" alt="Quotation mark.">
+  </div>
+  <p class="PullQuote-body">
+    I think that <strong>the tour of Go is by far the best introduction to a language that I’ve seen</strong>, It’s really simple and it gives you a fair overview of probably 80 percent of the language. When we want to get developers to learn Go, and to get to production fast, we tell them to start with the tour of Go.
+  </p>
+  <div class="PullQuote-author">
+    <span>
+      &mdash; Eric Kohan</span>
+    ,&nbsp;
+      <span class="PullQuote-title">Software Engineering Manager</span>
+    <span class="PullQuote-title">&nbsp;at MercadoLibre</span>
+    </div>
+  </div>
+
+<h2 id="go-helps-integrated-ecosystem-attract-developers-and-scale-ecommerce">Go helps integrated ecosystem attract developers and scale eCommerce</h2>
+
+<p>MercadoLibre, Inc. hosts the largest online commerce ecosystem in Latin America and is present in 18 countries. Founded
+in 1999 and headquartered in Argentina, the company has turned to Go to help it scale and modernize its ecosystem. Go
+provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer
+productivity by allowing their engineers to serve their ever-increasing audience while writing less code.</p>
+
+<h3 id="mercadolibre-taps-go-for-scale">MercadoLibre taps Go for scale</h3>
+
+<p>Back in 2015, there was a growing sense within MercadoLibre that their existing API framework, on Groovy and Grails, was
+reaching its limits and the company needed a different platform to continue scaling. MercadoLibre’s platform was (and
+continues) to expand exponentially, which created a lot of extra work for its developers: Both Groovy and Grails require
+a lot of decisions from developers and Groovy is a dynamic programming language. This was not a good combination for
+quickly scaling growth, as MercadoLibre needed very experienced developers in this very resource intensive environment
+to develop and tune to achieve desired performance. Test execution times were slow, and build and deploy times were
+slow. Thus, the need for code efficiency and scalability became as important as the need for speed in code development.</p>
+
+<h3 id="go-improves-system-efficiency">Go improves system efficiency</h3>
+
+<p>As one example of Go’s contributions to network efficiency, the core API team builds and maintains the largest APIs at
+the center of the company’s microservices solutions. This team creates user APIs, which in turn are used by the
+MercadoLibre Marketplace, by the MercadoPago FinTech platform, by MercadoLibre’s shipping and logistics solutions, and
+other hosted solutions. With the high service levels demanded by these solutions—the average user API has between eight
+and ten million requests per minute—the team employs Go to serve them at less than ten milliseconds per request.</p>
+
+<p>The API team also deploys Docker containers—a software-as-a-service (SaaS) product, also written in Go—to virtualize
+their development and readily deploy their microservices via the Docker Engine. This system supports larger,
+mission-critical APIs that handle <strong>more than 20 million requests per minute in Go.</strong></p>
+
+<p>One API made important use of Go’s concurrency primitives to efficiently multiplex IDs from several services. The team
+was able to accomplish this with just a few lines of Go code, and the success of this API convinced the core API team to
+migrate more and more microservices to Go. The end result for MercadoLibre has been improved cost-efficiencies and
+system response times.</p>
+
+<h3 id="go-for-scalability">Go for scalability</h3>
+
+<p>Historically, much of the company’s stack was based on Grails and Groovy backed by relational  databases. However this
+big framework with multiple layers was soon found encountering scalability issues.</p>
+
+<p>Converting that legacy architecture to Go as a new, very thin framework for building APIs streamlined those intermediate
+layers and yielded great performance benefits. For example, one large Go service is now able to <strong>run 70,000 requests
+per machine with just 20 MB of RAM.</strong></p>
+
+<div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “Go was just marvelous for us. It’s very powerful
+and very easy to learn, and with backend infrastructure, has been great for us in terms of scalability.”
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Eric Kohan</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">Software Engineering Manager</span>
+      <span class="BackgroundQuote-title">&nbsp;at MercadoLibre</span>
+      </div>
+    </div>
+
+
+<p>Using <strong>Go allowed MercadoLibre to cut the number of servers</strong> they use for this service to one-eighth the original
+number (from 32 servers down to four), plus each server can operate with less power (originally four CPU cores, now down
+to two CPU cores). With Go, the company <strong>obviated 88 percent of their servers and cut CPU on the remaining ones in
+half</strong>—producing a tremendous cost-savings.</p>
+
+<p>Sitting between developers and the cloud providers, MercadoLibre uses a platform called Fury—a platform-as-a-service
+tool for building, deploying, monitoring, and managing services in a cloud-agnostic way. As a result, any team that
+wants to create a new service in Go has access to proven templates for a variety of service types, and can quickly spin
+up a repository in GitHub with starter code, a Docker image for the service, and a deployment pipeline. The end result
+is a system that allows engineers to focus on building innovative services while avoiding the tedious stages of setting
+up a new project—all while effectively standardizing the build and deployment pipelines.</p>
+
+<p>Today, <strong>roughly half of Mercadolibre&rsquo;s traffic is handled by Go applications.</strong></p>
+
+<h3 id="mercadolibre-uses-go-for-developers">MercadoLibre uses Go for developers</h3>
+
+<p>The programming <em>lingua francas</em> for MercadoLibre’s infrastructure are currently Go and Java. Every app, every program,
+every microservice is hosted on its own GitHub repository, plus the company uses an additional GitHub repository of
+toolkits to solve new problems and allow clients to interact with its services.</p>
+
+<p>These extensive and well-curated Go and Java toolkits allow programmers to develop new apps quickly and with great
+support. Plus, in a community of more than 2,800 developers, MercadoLibre has multiple internal groups available for
+chat and guidance on deploying Go, whether across different development centers or different countries. The company also
+fosters internal working groups to provide training sessions for new MercadoLibre Go developers, and hosts Go meetups
+for external developers to help build a broader community of Latin American Go developers.</p>
+
+<h3 id="go-as-a-recruiting-tool">Go as a recruiting tool</h3>
+
+<p>MercadoLibre’s Go advocacy has also become a strong recruiting tool for the company. MercadoLibre was among the first
+companies using Go in Argentina, and is perhaps the largest in Latin America using the language so widely in production.
+Headquartered in Buenos Aires, with many start-ups and emerging technology companies nearby, MercadoLibre&rsquo;s adoption of
+Go has shaped the market for developers across the Pampas.</p>
+
+<div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “We really see eye-to-eye with the larger philosophy of the language. We love Go&rsquo;s simplicity, and we find that having its very explicit error handling has been a gain for developers because it results in safer, more stable code in production.”
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Eric Kohan</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">Software Engineering Manager</span>
+      <span class="BackgroundQuote-title">&nbsp;at MercadoLibre</span>
+      </div>
+    </div>
+
+
+<p>Buenos Aires is today a very competitive market for programmers, offering computer programmers many employment options,
+and the high demand for technology in the region drives great salaries, great benefits, and the ability to be selective
+when choosing an employer. As such, MercadoLibre—like all employers of engineers and programmers in the region—strives
+to provide an exciting workplace and strong career path. Go has proven to be a key differentiator for MercadoLibre: the
+company organizes Go workshops for external developers so they can come and learn Go, and when they enjoy what they are
+doing and the people they talk to, they quickly recognize MercadoLibre as an enticing place to work.</p>
+
+<h3 id="go-enabling-developers">Go enabling developers</h3>
+
+<p>MercadoLibre employs Go for its simplicity with systems at scale, but that simplicity is also why the company&rsquo;s
+developers love Go.</p>
+
+<p>The company also uses web pages like<a href="https://gobyexample.com/" rel="noreferrer" target="_blank"> Go by Example</a> and<a href="https://golang.org/doc/effective_go.html" rel="noreferrer" target="_blank"> Effective
+Go</a> to educate new programmers, and shares representative internal APIs
+written in Go to speed understanding and proficiency. MercadoLibre developers get the resources they need to embrace the
+language, then leverage their own skills and enthusiasm to start programming.</p>
+
+<div class="BackgroundQuote">
+    <p class="BackgroundQuote-body">
+      “Go has been great for writing business logic, and we are the team that writes those APIs.”
+    </p>
+    <div class="BackgroundQuote-author">
+      <span>&mdash; Federico Martin Roasio</span>
+      ,&nbsp;
+      <span class="BackgroundQuote-title">Technical Project Lead</span>
+      <span class="BackgroundQuote-title">&nbsp;at MercadoLibre</span>
+      </div>
+    </div>
+
+
+<p>MercadoLibre leverages Go’s expressive and clean syntax to make it easier for developers to write programs that run
+efficiently on modern cloud platforms. And while speed in development yields cost efficiency for the company, developers
+individually benefit from the swift learning curve Go delivers. Not only are MercadoLibre&rsquo;s experienced engineers able
+to build highly critical applications very quickly with Go, but even entry-level engineers have been able to write
+services that, in other languages, MercadoLibre would only trust to more senior developers. For example, a key set of
+user APIs—handling almost ten million requests per minute—were developed by entry-level software engineers, many of whom
+only knew about programming from recent courses at university. Similarly, MercadoLibre has seen developers already
+proficient with other programming languages (such as Java or .NET or Ruby) learn Go fast enough start writing production
+services in just a few weeks.</p>
+
+<p>With Go, MercadoLibre’s <strong>build times are three times (3x) faster</strong> and their <strong>test suite runs an amazing 24 times
+faster</strong>. This means the company’s developers can make a change, then build and test that change much faster than they
+could before.</p>
+
+<p>And dropping MercadoLibre’s test suite runtimes from 90-seconds to <strong>just 3-seconds with Go</strong> was a huge boon for its
+developers—allowing them to keep focus (and context) while the much faster tests complete.</p>
+
+<p>Leveraging this success, MercadoLibre is committed not only to ongoing education for its programmers, but ongoing Go
+education. The company sends key engineering leaders to GopherCon and other Go events each year, MercadoLibre’s
+infrastructure and security teams encourage all the development teams to keep Go versions up to date, and the company
+has a team developing a <em>Go-meli-toolkit</em>: A complete Go library to interface all the services provided by Fury.</p>
+
+<h3 id="getting-your-enterprise-started-with-go">Getting your enterprise started with Go</h3>
+
+<p>Just as MercadoLibre started with a proof-of-concept project to implement Go, dozens of other large enterprises are
+adopting Go as well.</p>
+
+<p>There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as <a href="https://go.dev/solutions/americanexpress" rel="noreferrer" target="_blank">American Express</a>, <a href="https://go.dev/solutions/paypal" rel="noreferrer" target="_blank">PayPal</a>, Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.</p>
+
+<p>To learn more about how Go can help your enterprise build reliable, scalable software as it does at MercadoLibre, visit <a href="https://go.dev" rel="noreferrer" target="_blank">go.dev</a> today.</p>
+
+        </div>
+        <div class="CaseStudy-contentAside">
+          <div class="CaseStudy-aboutBlock">
+
+            <img src="/images/logos/mercado-libre.png" class="CaseStudy-aboutBlockImg" alt="MercadoLibre">
+            <h3 class="CaseStudy-aboutBlockTitle">
+              About MercadoLibre
+            </h3>
+
+              <p class="CaseStudy-aboutBlockBody">Go provides clean, efficient code that readily scales as MercadoLibre’s online commerce grows, and increases developer productivity by allowing their engineers to serve their ever-increasing audience while writing less code.</p>
+
+          </div>
+        </div>
+      </div>
+
+  </article>
+</div>
+</main>
+<footer class="Site-footer">
+  <div class="Footer">
+    <div class="Container">
+      <div class="Footer-links">
+          <div class="Footer-linkColumn">
+
+<a href="/solutions/" class="Footer-link Footer-link--primary">
+  Why Go
+</a>
+
+
+<a href="/solutions/#use-cases" class="Footer-link">
+  Use Cases
+</a>
+
+
+
+<a href="/solutions/#case-studies" class="Footer-link">
+  Case Studies
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="/learn/" class="Footer-link Footer-link--primary">
+  Getting Started
+</a>
+
+
+<a href="https://play.golang.org" class="Footer-link">
+  Playground
+</a>
+
+
+
+<a href="https://tour.golang.org" class="Footer-link">
+  Tour
+</a>
+
+
+
+<a href="https://stackoverflow.com/questions/tagged/go?tab=Newest" class="Footer-link">
+  Stack Overflow
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://pkg.go.dev" class="Footer-link Footer-link--primary">
+  Discover Packages
+</a>
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="/about" class="Footer-link Footer-link--primary">
+  About
+</a>
+
+
+<a href="https://golang.org/dl/" class="Footer-link">
+  Download
+</a>
+
+
+
+<a href="https://blog.golang.org" class="Footer-link">
+  Blog
+</a>
+
+
+
+<a href="https://github.com/golang/go/issues" class="Footer-link">
+  Issue Tracker
+</a>
+
+
+
+<a href="https://golang.org/doc/devel/release.html" class="Footer-link">
+  Release Notes
+</a>
+
+
+
+<a href="https://blog.golang.org/go-brand" class="Footer-link">
+  Brand Guidelines
+</a>
+
+
+
+<a href="https://golang.org/conduct" class="Footer-link">
+  Code of Conduct
+</a>
+
+
+          </div>
+          <div class="Footer-linkColumn">
+
+<a href="https://www.twitter.com/golang" class="Footer-link Footer-link--primary">
+  Connect
+</a>
+
+
+<a href="https://www.twitter.com/golang" class="Footer-link">
+  Twitter
+</a>
+
+
+
+<a href="https://github.com/golang" class="Footer-link">
+  Github
+</a>
+
+
+
+<a href="https://invite.slack.golangbridge.org/" class="Footer-link">
+  Slack
+</a>
+
+
+
+<a href="https://reddit.com/r/golang" class="Footer-link">
+  r/golang
+</a>
+
+
+
+<a href="https://www.meetup.com/pro/go" class="Footer-link">
+  Meetup
+</a>
+
+
+
+<a href="https://golangweekly.com/" class="Footer-link">
+  Golang Weekly
+</a>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+  <div class="Footer">
+    <div class="Container Container--fullBleed">
+      <div class="Footer-bottom">
+        <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
+        <ul class="Footer-listRow">
+          <li class="Footer-listItem">
+            <a href="/copyright">Copyright</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="/tos">Terms of Service</a>
+          </li>
+          <li class="Footer-listItem">
+            <a href="http://www.google.com/intl/en/policies/privacy/"
+              target="_blank"
+              rel="noopener">
+              Privacy Policy
+            </a>
+            </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org/s/discovery-feedback"
+              target="_blank"
+              rel="noopener"
+              >
+              Report an Issue
+            </a>
+          </li>
+          <li class="Footer-listItem">
+            <a
+              href="https://golang.org"
+              target="_blank"
+              rel="noopener"
+              >golang.org
+            </a>
+          </li>
+        </ul>
+        <a class="Footer-googleLogo" target="_blank" href="https://google.com" rel="noopener">
+          <img class="Footer-googleLogoImg" src="/images/google-white.png" alt="Google logo">
+        </a>
+      </div>
+    </div>
+  </div>
+  <script src="/js/carousels.js"></script>
+  <script src="/js/searchBox.js"></script>
+  <script src="/js/misc.js"></script>
+  <script src="/js/hats.js"></script>
+</footer>
+</body>
+</html>

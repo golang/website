@@ -1,0 +1,8 @@
+runtime: go113
+service: learn-go-dev
+main: ./cmd/frontend
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto

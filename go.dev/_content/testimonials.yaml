@@ -1,0 +1,54 @@
+- name: Jaime Enrique Garcia Lopez
+  title: Senior Software Development Manager
+  company: Capital One
+  quote: |-
+    “At the time, no single team member knew Go, but
+    <strong>within a month, everyone was writing in Go</strong> and we were
+    building out the endpoints. It was the flexibility, how easy it was to use,
+    and the really cool concept behind Go (how Go handles native concurrency,
+    garbage collection, and of course safety+speed.) that helped engage us
+    during the build. Also, who can beat that cute mascot!”
+- name: Clayton Coleman
+  title: Lead Engineer, Open Shift
+  company: RedHat
+  quote: |-
+    "<strong>A small language that compiles fast makes for a happy developer.</strong>
+    The Go language is small, compiles really fast, and as a result it lets your
+    mind focus on the actual problem and less on the tool you are using to solve
+    it. Code, test, debug cycles are so quick that you forget you are not
+    working with an interpreted language. Looking at our code, you see
+    <strong>less boilerplate and more business logic.</strong>"
+- name: Matt Boyle
+  title: Lead Software Engineer
+  company: Curve
+  quote: |-
+    “<strong>Go has excellent characteristics for scalability and services
+    written using it typically have very small memory footprints.</strong>
+    Because code is compiled into a single static binary, services can also be
+    containerised with ease, making it much simpler to build and deploy. These
+    attributes make <strong>Go an ideal choice for companies building
+    microservices</strong>, as you can easily deploy into a highly available and
+    scalable environment such as Kubernetes.”
+- name: Bala Natarajan
+  title: Sr. Director of Engineering, Developer Experience
+  company: PayPal
+  quote: |-
+    "In our tightly managed environments where we run Go code,
+    <strong>we have seen a CPU reduction of approximately 10%</strong>
+    with cleaner and maintainable code."
+- name: Benjamin Cane
+  title: Vice President and Principal Engineer
+  company: American Express
+  quote: |-
+    "Tooling has always been a problem with our legacy code base... but we have
+     found that Go has excellent tooling, plus built-in testing, benchmarking,
+     and profiling frameworks. It is easy to write efficient and resilient
+     applications. <strong>After working on Go, most of our developers don't want
+     to go back to other languages.</strong>"
+- name: John Biggs and Ben Popper
+  title:
+  company: Stack Overflow
+  quote: |-
+    "...when a programming language is designed for exactly the environment most
+     of us use right now—scalable, cloud-based servers that are optimized for
+      performance—a lot can go right."

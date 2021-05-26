@@ -1,0 +1,14 @@
+steps:
+  - name: 'mirror.gcr.io/library/golang'
+    entrypoint: bash
+    args:
+      - -c
+      - go run ./cmd/events/ > ./_content/events.yaml
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "app.staging.yaml"]
+  - name: "gcr.io/cloud-builders/gcloud"
+    args: ["app", "deploy", "app.staging.learn.yaml"]
+  - name: 'mirror.gcr.io/library/golang'
+    args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=staging-go-dev", "--dry_run=false"]
+  - name: 'mirror.gcr.io/library/golang'
+    args: ["go", "run", "./cmd/versionprune", "--project=$PROJECT_ID", "--service=staging-learn-go-dev", "--dry_run=false"]

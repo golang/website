@@ -1,0 +1,11 @@
+steps:
+  - name: 'mirror.gcr.io/library/golang'
+    entrypoint: bash
+    args:
+      - -c
+      - go test ./...
+  - name: 'mirror.gcr.io/library/golang'
+    entrypoint: bash
+    args:
+      - -c
+      - go run ./cmd/events/ > ./_content/events.yaml

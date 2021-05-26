@@ -1,0 +1,63 @@
+main:
+  - name: Why Go
+    url: /solutions/
+  - name: Getting Started
+    url: /learn/
+  - name: Discover Packages
+    url: https://pkg.go.dev
+  - name: About
+    url: /about
+
+footer:
+  - name: Why Go
+    url: /solutions/
+    children:
+    - name: Use Cases
+      url: /solutions/#use-cases
+    - name: Case Studies
+      url: /solutions/#case-studies
+
+  - name: Getting Started
+    url: /learn/
+    children:
+    - name: Playground
+      url: https://play.golang.org
+    - name: Tour
+      url: https://tour.golang.org
+    - name: Stack Overflow
+      url: https://stackoverflow.com/questions/tagged/go?tab=Newest
+
+  - name: Discover Packages
+    url: https://pkg.go.dev
+
+  - name: About
+    url: /about
+    children:
+    - name: Download
+      url: https://golang.org/dl/
+    - name: Blog
+      url: https://blog.golang.org
+    - name: Issue Tracker
+      url: https://github.com/golang/go/issues
+    - name: Release Notes
+      url: https://golang.org/doc/devel/release.html
+    - name: Brand Guidelines
+      url: https://blog.golang.org/go-brand
+    - name: Code of Conduct
+      url: https://golang.org/conduct
+
+  - name: Connect
+    url: https://www.twitter.com/golang
+    children:
+    - name: Twitter
+      url: https://www.twitter.com/golang
+    - name: Github
+      url: https://github.com/golang
+    - name: Slack
+      url: https://invite.slack.golangbridge.org/
+    - name: r/golang
+      url: https://reddit.com/r/golang
+    - name: Meetup
+      url: https://www.meetup.com/pro/go
+    - name: Golang Weekly
+      url: https://golangweekly.com/
