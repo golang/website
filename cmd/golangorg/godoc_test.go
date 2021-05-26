@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main_test
+package main
 
 import (
 	"bytes"
@@ -12,48 +12,11 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
-	"path/filepath"
-	"runtime"
 	"testing"
 	"time"
 
 	"golang.org/x/website/internal/webtest"
 )
-
-// buildGodoc builds the godoc executable.
-// It returns its path, and a cleanup function.
-//
-// TODO(adonovan): opt: do this at most once, and do the cleanup
-// exactly once.  How though?  There's no atexit.
-func buildGodoc(t *testing.T) (bin string, cleanup func()) {
-	if runtime.GOARCH == "arm" {
-		t.Skip("skipping test on arm platforms; too slow")
-	}
-	if _, err := exec.LookPath("go"); err != nil {
-		t.Skipf("skipping test because 'go' command unavailable: %v", err)
-	}
-
-	tmp, err := ioutil.TempDir("", "godoc-regtest-")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer func() {
-		if cleanup == nil { // probably, go build failed.
-			os.RemoveAll(tmp)
-		}
-	}()
-
-	bin = filepath.Join(tmp, "godoc")
-	if runtime.GOOS == "windows" {
-		bin += ".exe"
-	}
-	cmd := exec.Command("go", "build", "-o", bin)
-	if err := cmd.Run(); err != nil {
-		t.Fatalf("Building godoc: %v", err)
-	}
-
-	return bin, func() { os.RemoveAll(tmp) }
-}
 
 func serverAddress(t *testing.T) string {
 	ln, err := net.Listen("tcp", "127.0.0.1:0")
@@ -101,21 +64,21 @@ func killAndWait(cmd *exec.Cmd) {
 	cmd.Wait()
 }
 
-// Basic integration test for godoc HTTP interface.
-func TestWeb(t *testing.T) {
-	testWeb(t)
+func init() {
+	// TestWeb reinvokes the test binary (us) with -be-main
+	// to simulate running the actual golangorg binary.
+	if len(os.Args) >= 2 && os.Args[1] == "-be-main" {
+		os.Args = os.Args[1:]
+		os.Args[0] = "(golangorg)"
+		main()
+		os.Exit(0)
+	}
 }
 
 // Basic integration test for godoc HTTP interface.
-func testWeb(t *testing.T) {
-	if runtime.GOOS == "plan9" {
-		t.Skip("skipping on plan9; fails to start up quickly enough")
-	}
-	bin, cleanup := buildGodoc(t)
-	defer cleanup()
+func TestWeb(t *testing.T) {
 	addr := serverAddress(t)
-	args := []string{fmt.Sprintf("-http=%s", addr)}
-	cmd := exec.Command(bin, args...)
+	cmd := exec.Command(os.Args[0], "-be-main", "-http="+addr)
 	cmd.Stdout = os.Stderr
 	cmd.Stderr = os.Stderr
 	cmd.Args[0] = "godoc"

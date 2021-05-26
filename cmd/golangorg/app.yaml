@@ -1,0 +1,23 @@
+# This app is deployed via Cloud Build as directed by cloudbuild.yaml.
+# Do not deploy directly.
+
+service: default
+runtime: go115
+main: ./cmd/golangorg
+
+env_variables:
+  GOLANGORG_CHECK_COUNTRY: true
+  GOLANGORG_REQUIRE_DL_SECRET_KEY: true
+  GOLANGORG_ENFORCE_HOSTS: true
+  GOLANGORG_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"
+  GOLANGORG_ANALYTICS: UA-11222381-2
+  DATASTORE_PROJECT_ID: golang-org
+
+# For access to our Redis instance.
+vpc_access_connector:
+  name: projects/golang-org/locations/us-central1/connectors/golang-vpc-connector
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always

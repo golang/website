@@ -42,8 +42,8 @@ const expires = 7 * 24 * time.Hour // 1 week
 var cacheControlHeader = fmt.Sprintf("public, max-age=%d", int(expires.Seconds()))
 
 func RegisterHandlers(mux *http.ServeMux) {
-	mux.HandleFunc("/compile", compile)
-	mux.HandleFunc("/share", share)
+	mux.HandleFunc("golang.org/compile", compile)
+	mux.HandleFunc("golang.org/share", share)
 }
 
 func compile(w http.ResponseWriter, r *http.Request) {

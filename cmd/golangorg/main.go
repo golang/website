@@ -18,24 +18,42 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 	"runtime"
+	"strings"
 
+	"cloud.google.com/go/datastore"
 	"golang.org/x/website"
+	"golang.org/x/website/internal/backport/archive/zip"
 	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/backport/osfs"
+	"golang.org/x/website/internal/dl"
+	"golang.org/x/website/internal/memcache"
+	"golang.org/x/website/internal/proxy"
+	"golang.org/x/website/internal/redirect"
+	"golang.org/x/website/internal/short"
 	"golang.org/x/website/internal/web"
+
+	// Registers "/compile" handler that redirects to play.golang.org/compile.
+	// If we are in prod we will register "golang.org/compile" separately,
+	// which will get used instead.
+	_ "golang.org/x/tools/playground"
 )
 
 var (
-	httpAddr    = flag.String("http", "localhost:6060", "HTTP service address")
-	verbose     = flag.Bool("v", false, "verbose mode")
-	goroot      = flag.String("goroot", runtime.GOROOT(), "Go root directory")
-	templateDir = flag.String("templates", "", "load templates/JS/CSS from disk in this directory (usually /path-to-website/content)")
+	httpAddr   = flag.String("http", "localhost:6060", "HTTP service address")
+	verbose    = flag.Bool("v", false, "verbose mode")
+	goroot     = flag.String("goroot", runtime.GOROOT(), "Go root directory")
+	contentDir = flag.String("content", "", "path to _content directory")
+
+	runningOnAppEngine = os.Getenv("PORT") != ""
 )
 
 func usage() {
@@ -52,7 +70,25 @@ func loggingHandler(h http.Handler) http.Handler {
 }
 
 func main() {
-	earlySetup()
+	repoRoot := "../.."
+	if _, err := os.Stat("_content"); err == nil {
+		repoRoot = "."
+	}
+
+	if runningOnAppEngine {
+		log.Print("golang.org server starting")
+		*goroot = "_goroot.zip"
+		log.SetFlags(log.Lshortfile | log.LstdFlags)
+		port := "8080"
+		if p := os.Getenv("PORT"); p != "" {
+			port = p
+		}
+		*httpAddr = ":" + port
+	} else {
+		if *contentDir == "" {
+			*contentDir = filepath.Join(repoRoot, "_content")
+		}
+	}
 
 	flag.Usage = usage
 	flag.Parse()
@@ -69,22 +105,48 @@ func main() {
 
 	// Serve files from _content, falling back to GOROOT.
 	var content fs.FS
-	if *templateDir != "" {
-		content = osfs.DirFS(*templateDir)
+	if *contentDir != "" {
+		content = osfs.DirFS(*contentDir)
 	} else {
 		content = website.Content
 	}
-	fsys = unionFS{content, osfs.DirFS(*goroot)}
+
+	var gorootFS fs.FS
+	if strings.HasSuffix(*goroot, ".zip") {
+		z, err := zip.OpenReader(*goroot)
+		if err != nil {
+			log.Fatal(err)
+		}
+		defer z.Close()
+		gorootFS = z
+	} else {
+		gorootFS = osfs.DirFS(*goroot)
+	}
+	fsys = unionFS{content, gorootFS}
 
 	var err error
 	site, err = web.NewSite(fsys)
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("NewSite: %v", err)
 	}
 	site.GoogleCN = googleCN
 
 	mux := registerHandlers(site)
-	lateSetup(mux)
+
+	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
+		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
+	})
+
+	if err := redirect.LoadChangeMap(filepath.Join(repoRoot, "cmd/golangorg/hg-git-mapping.bin")); err != nil {
+		log.Fatalf("LoadChangeMap: %v", err)
+	}
+
+	if runningOnAppEngine {
+		appEngineSetup(mux)
+	} else {
+		// Register a redirect handler for /dl/ to the golang.org download page.
+		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
+	}
 
 	var handler http.Handler = http.DefaultServeMux
 	if *verbose {
@@ -162,4 +224,34 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 		return all, nil
 	}
 	return nil, errOut
+}
+
+func appEngineSetup(mux *http.ServeMux) {
+	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
+
+	ctx := context.Background()
+
+	datastoreClient, err := datastore.NewClient(ctx, "")
+	if err != nil {
+		if strings.Contains(err.Error(), "missing project") {
+			log.Fatalf("Missing datastore project. Set the DATASTORE_PROJECT_ID env variable. Use `gcloud beta emulators datastore` to start a local datastore.")
+		}
+		log.Fatalf("datastore.NewClient: %v.", err)
+	}
+
+	redisAddr := os.Getenv("GOLANGORG_REDIS_ADDR")
+	if redisAddr == "" {
+		log.Fatalf("Missing redis server for golangorg in production mode. set GOLANGORG_REDIS_ADDR environment variable.")
+	}
+	memcacheClient := memcache.New(redisAddr)
+
+	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
+	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
+
+	// Register /compile and /share handlers against the default serve mux
+	// so that other app modules can make plain HTTP requests to those
+	// hosts. (For reasons, HTTPS communication between modules is broken.)
+	proxy.RegisterHandlers(http.DefaultServeMux)
+
+	log.Println("AppEngine initialization complete")
 }

@@ -39,5 +39,4 @@ version=$(
 	git log -n1 --date='format:%Y-%m-%d-%H%M%S' --pretty='format:%cd-%h'
 )
 
-gcloud app deploy $promote -v $version
-
+gcloud app deploy $promote -v $version "$@"
