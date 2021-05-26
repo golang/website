@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // This file caches information about which standard library types, methods,
 // and functions appeared in what version of Go
 
@@ -12,13 +9,14 @@ package api
 
 import (
 	"bufio"
-	"io/fs"
 	"path"
 	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
 	"unicode"
+
+	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // DB is a map of packages to information about those packages'

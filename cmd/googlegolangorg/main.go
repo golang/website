@@ -3,10 +3,11 @@ package main
 
 import (
 	"fmt"
-	"html/template"
 	"net/http"
 	"os"
 	"strings"
+
+	"golang.org/x/website/internal/backport/html/template"
 )
 
 var repoMap = map[string]*repoImport{

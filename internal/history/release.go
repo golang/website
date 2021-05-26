@@ -5,7 +5,7 @@
 // Package history stores historical data for the Go project.
 package history
 
-import "html/template"
+import "golang.org/x/website/internal/backport/html/template"
 
 // Releases summarizes the changes between official stable releases of Go.
 // It contains entries for all releases of Go, but releases older than Go 1.9

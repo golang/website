@@ -2,21 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
 	"bytes"
 	"fmt"
-	"html/template"
-	"io/fs"
 	"log"
 	"path"
 	"regexp"
 	"strings"
 
+	"golang.org/x/website/internal/backport/html/template"
+	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/texthtml"
 )

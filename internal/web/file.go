@@ -2,18 +2,16 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
 	"bytes"
 	"encoding/json"
-	"io/fs"
 	"log"
 	"path"
 	"strings"
+
+	"golang.org/x/website/internal/backport/io/fs"
 )
 
 type file struct {
@@ -45,7 +43,9 @@ func open(fsys fs.FS, relpath string) *file {
 		relpath = strings.TrimSuffix(relpath, "/")
 	}
 
-	files := []string{relpath + ".html", relpath + ".md", path.Join(relpath, "index.html"), path.Join(relpath, "index.md")}
+	// Check md before html to work correctly when x/website is layered atop Go 1.15 goroot during Go 1.15 tests.
+	// Want to find x/website's debugging_with_gdb.md not Go 1.15's debuging_with_gdb.html.
+	files := []string{relpath + ".md", relpath + ".html", path.Join(relpath, "index.md"), path.Join(relpath, "index.html")}
 	var filePath string
 	var b []byte
 	var err error

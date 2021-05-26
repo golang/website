@@ -2,16 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
-	"io/fs"
 	"path"
 	"strings"
 	"unicode/utf8"
+
+	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // isText reports whether a significant prefix of s looks like correct UTF-8;

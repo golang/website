@@ -15,21 +15,19 @@
 //				https://golang.org/pkg/compress/zlib)
 //
 
-//go:build go1.16
-// +build go1.16
-
 package main
 
 import (
 	"flag"
 	"fmt"
-	"io/fs"
 	"log"
 	"net/http"
 	"os"
 	"runtime"
 
 	"golang.org/x/website"
+	"golang.org/x/website/internal/backport/io/fs"
+	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/web"
 )
 
@@ -72,11 +70,11 @@ func main() {
 	// Serve files from _content, falling back to GOROOT.
 	var content fs.FS
 	if *templateDir != "" {
-		content = os.DirFS(*templateDir)
+		content = osfs.DirFS(*templateDir)
 	} else {
 		content = website.Content
 	}
-	fsys = unionFS{content, os.DirFS(*goroot)}
+	fsys = unionFS{content, osfs.DirFS(*goroot)}
 
 	var err error
 	site, err = web.NewSite(fsys)

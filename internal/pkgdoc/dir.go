@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // This file contains the code dealing with package directory trees.
 
 package pkgdoc
@@ -15,11 +12,12 @@ import (
 	"go/doc"
 	"go/parser"
 	"go/token"
-	"io/fs"
 	"log"
 	"path"
 	"sort"
 	"strings"
+
+	"golang.org/x/website/internal/backport/io/fs"
 )
 
 type Dir struct {

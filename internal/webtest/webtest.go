@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // Package webtest implements script-based testing for web servers.
 //
 // The scripts, described below, can be run against http.Handler
@@ -155,10 +152,10 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
-	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -192,7 +189,7 @@ func check(glob string, do func(*case_) error) error {
 	}
 	var buf bytes.Buffer
 	for _, file := range files {
-		data, err := os.ReadFile(file)
+		data, err := ioutil.ReadFile(file)
 		if err != nil {
 			fmt.Fprintf(&buf, "# %s\n%v\n", file, err)
 			continue
@@ -244,7 +241,7 @@ func test(t *testing.T, glob string, do func(*case_) error) {
 	}
 	for _, file := range files {
 		t.Run(filepath.Base(file), func(t *testing.T) {
-			data, err := os.ReadFile(file)
+			data, err := ioutil.ReadFile(file)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -345,7 +342,7 @@ func (c *case_) runServer(addr string) error {
 	if err != nil {
 		return fmt.Errorf("%s:%d: %s %s: %s", c.file, c.line, c.method, c.url, err)
 	}
-	body, err := io.ReadAll(resp.Body)
+	body, err := ioutil.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
 		return fmt.Errorf("%s:%d: %s %s: reading body: %s", c.file, c.line, c.method, c.url, err)

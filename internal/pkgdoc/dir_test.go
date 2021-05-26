@@ -2,22 +2,20 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package pkgdoc
 
 import (
 	"go/token"
-	"os"
 	"runtime"
 	"sort"
 	"testing"
-	"testing/fstest"
+
+	"golang.org/x/website/internal/backport/osfs"
+	"golang.org/x/website/internal/backport/testing/fstest"
 )
 
 func TestNewDirTree(t *testing.T) {
-	dir := newDir(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
+	dir := newDir(osfs.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
 	processDir(t, dir)
 }
 
@@ -57,7 +55,7 @@ func BenchmarkNewDirectory(b *testing.B) {
 		b.Skip("not running tests requiring large file scan in short mode")
 	}
 
-	fs := os.DirFS(runtime.GOROOT())
+	fs := osfs.DirFS(runtime.GOROOT())
 
 	b.ResetTimer()
 	b.ReportAllocs()

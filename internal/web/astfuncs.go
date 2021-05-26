@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
@@ -14,12 +11,12 @@ import (
 	"go/doc"
 	"go/printer"
 	"go/token"
-	"html/template"
 	"io"
 	"log"
 	"unicode"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/texthtml"
 )

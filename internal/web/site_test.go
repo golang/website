@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
@@ -13,7 +10,8 @@ import (
 	"net/url"
 	"strings"
 	"testing"
-	"testing/fstest"
+
+	"golang.org/x/website/internal/backport/testing/fstest"
 )
 
 func testServeBody(t *testing.T, p *Site, path, body string) {

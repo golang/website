@@ -2,18 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
 	"bytes"
 	"fmt"
 	"html"
-	"html/template"
 	"io"
-	"io/fs"
 	"log"
 	"net/http"
 	"path"
@@ -23,6 +18,9 @@ import (
 	"strings"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/backport/html/template"
+	"golang.org/x/website/internal/backport/httpfs"
+	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
@@ -59,7 +57,7 @@ func NewSite(fsys fs.FS) (*Site, error) {
 		fs:         fsys,
 		api:        apiDB,
 		mux:        http.NewServeMux(),
-		fileServer: http.FileServer(http.FS(fsys)),
+		fileServer: http.FileServer(httpfs.FS(fsys)),
 	}
 	docs := &docServer{
 		p: p,

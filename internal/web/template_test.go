@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package web
 
 import (
@@ -12,10 +9,10 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
-	"html/template"
 	"strings"
 	"testing"
 
+	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/pkgdoc"
 )
 

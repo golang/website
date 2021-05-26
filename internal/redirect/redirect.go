@@ -10,7 +10,6 @@ package redirect // import "golang.org/x/website/internal/redirect"
 import (
 	"context"
 	"fmt"
-	"html/template"
 	"net/http"
 	"os"
 	"regexp"
@@ -20,6 +19,7 @@ import (
 	"time"
 
 	"golang.org/x/net/context/ctxhttp"
+	"golang.org/x/website/internal/backport/html/template"
 )
 
 // Register registers HTTP handlers that redirect old godoc paths to their new

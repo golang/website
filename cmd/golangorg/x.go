@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // This file contains the handlers that serve go-import redirects for Go
 // sub-repositories. It specifies the mapping from import paths like
 // "golang.org/x/tools" to the actual repository locations.
@@ -12,12 +9,12 @@
 package main
 
 import (
-	"html/template"
 	"log"
 	"net/http"
 	"strings"
 
 	"golang.org/x/build/repos"
+	"golang.org/x/website/internal/backport/html/template"
 )
 
 func xHandler(w http.ResponseWriter, r *http.Request) {

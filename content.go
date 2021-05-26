@@ -2,22 +2,35 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // Package website exports the static content as an embed.FS.
 package website
 
 import (
-	"embed"
-	"io/fs"
+	"os"
+
+	"golang.org/x/website/internal/backport/io/fs"
+	"golang.org/x/website/internal/backport/osfs"
 )
 
 // Content is the website's static content.
-var Content = subdir(embedded, "_content")
+var Content = findContent()
 
-//go:embed _content
-var embedded embed.FS
+// TODO: Use with Go 1.16 in place of findContent call above.
+// var Content = subdir(embedded, "_content")
+// //go:embed _content
+// var embedded embed.FS
+
+func findContent() fs.FS {
+	// Walk parent directories looking for _content.
+	dir := "_content"
+	for i := 0; i < 10; i++ {
+		if _, err := os.Stat(dir + "/lib/godoc/godocs.js"); err == nil {
+			return osfs.DirFS(dir)
+		}
+		dir = "../" + dir
+	}
+	panic("cannot find _content")
+}
 
 func subdir(fsys fs.FS, path string) fs.FS {
 	s, err := fs.Sub(fsys, path)

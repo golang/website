@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 // The /doc/codewalk/ tree is synthesized from codewalk descriptions,
 // files named _content/doc/codewalk/*.xml.
 // For an example and a description of the format, see
@@ -19,9 +16,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
-	"html/template"
 	"io"
-	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -32,6 +27,8 @@ import (
 	"strings"
 	"unicode/utf8"
 
+	"golang.org/x/website/internal/backport/html/template"
+	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/web"
 )
 

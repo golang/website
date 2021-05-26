@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build go1.16
-// +build go1.16
-
 package pkgdoc
 
 import (
@@ -14,7 +11,6 @@ import (
 	"go/doc"
 	"go/token"
 	"io"
-	"io/fs"
 	"io/ioutil"
 	"log"
 	"os"
@@ -24,6 +20,8 @@ import (
 	"strings"
 	"unicode"
 	"unicode/utf8"
+
+	"golang.org/x/website/internal/backport/io/fs"
 )
 
 type Docs struct {
