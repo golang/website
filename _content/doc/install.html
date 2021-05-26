@@ -1,23 +1,21 @@
 <!--{
-    "Title": "Download and install"
+    "Title": "下载和安装"
 }-->
 <p>
-  Download and install Go quickly with the steps described here.
+  根据这里的描述快速的下载和安装 Go。
 </p>
-<p>For other content on installing, you might be interested in:</p>
+<p>您可能会感兴趣的其他有关安装的内容：</p>
 <ul>
   <li>
-    <a href="/doc/manage-install.html">Managing Go installations</a> -- How to
-    install multiple versions and uninstall.
+    <a href="/doc/manage-install.html">管理 Go 的安装</a> -- 如何安装和卸载多个版本。
   </li>
   <li>
-    <a href="/doc/install-source.html">Installing Go from source</a> -- How to
-    check out the sources, build them on your own machine, and run them.
+    <a href="/doc/install-source.html">从源代码安装Go</a> -- 如何获取源代码，并且在您自己的计算机上编译并运行它们。
   </li>
 </ul>
-<h2 id="download">1. Go download.</h2>
+<h2 id="download">1. Go 下载</h2>
 <p>
-  Click the button below to download the Go installer.
+  点击下方的按钮下载 Go 安装程序。
 </p>
 <p>
   <a href="/dl/" id="start" class="download js-download">
@@ -26,18 +24,15 @@
   </a>
 </p>
 <p>
-  Don't see your operating system here? Try one of the
-  <a href="https://golang.org/dl/">other downloads</a>.
+  没有您使用的操作系统? 请尝试
+  <a href="https://golang.org/dl/">其他下载内容</a>.
 </p>
 <aside class="Note">
-  <strong>Note:</strong> By default, the <code>go</code> command downloads and
-  authenticates modules using the Go module mirror and Go checksum database
-  run by Google. <a href="https://golang.org/dl">Learn more.</a>
+  <strong>请注意：</strong> 默认情况下，<code>go</code> 命令的下载和校验模块使用谷歌提供的 Go 模块镜像和数据校验服务。<a href="https://golang.org/dl">了解更多。</a>
 </aside>
-<h2 id="install">2. Go install.</h2>
+<h2 id="install">2. Go 安装</h2>
 <p>
-  Select the tab for your computer's operating system below, then follow its
-  installation instructions.
+  在下方选择您使用的操作系统选项卡，然后按照说明进行安装操作。
 </p>
 <div id="os-install-tabs" class="TabSection js-tabSection">
   <div id="os-install-tablist" class="TabSection-tabList" role="tablist">
@@ -80,15 +75,9 @@
   >
     <ol>
       <li>
-        Extract the archive you downloaded into /usr/local, creating a Go tree
-        in /usr/local/go.
+        从你下载的归档文件中提取文件到 /usr/local 目录，以在 /usr/local/go 目录中创建 Go 目录树。
         <p>
-          <strong>Important:</strong> This step will remove a previous
-          installation at /usr/local/go, if any, prior to extracting.
-          Please back up any data before proceeding.
-        </p>
-        <p>
-          For example, run the following as root or through <code>sudo</code>:
+          例如，以 root 身份或者 <code>sudo</code> 方式运行以下命令:
         </p>
         <pre>
 rm -rf /usr/local/go && tar -C /usr/local -xzf <span id="linux-filename">go1.14.3.linux-amd64.tar.gz</span>
@@ -96,32 +85,26 @@ rm -rf /usr/local/go && tar -C /usr/local -xzf <span id="linux-filename">go1.14.
         >
       </li>
       <li>
-        Add /usr/local/go/bin to the <code>PATH</code> environment variable.
+        将 /usr/local/go/bin 目录添加至 <code>PATH</code> 环境变量。
         <p>
-          You can do this by adding the following line to your $HOME/.profile or
-          /etc/profile (for a system-wide installation):
+          您可以将下方的命令添加至 $HOME/.profile 或 /etc/profile (给所有系统用户) 来完成环境变量的添加：
         </p>
         <pre>
 export PATH=$PATH:/usr/local/go/bin
-</pre
-        >
+</pre>
         <p>
-          <strong>Note:</strong> Changes made to a profile file may not apply
-          until the next time you log into your computer. To apply the changes
-          immediately, just run the shell commands directly or execute them from
-          the profile using a command such as
-          <code>source $HOME/.profile</code>.
+          <strong>请注意：</strong> 对配置文件的修改可能需要在下一次登录时生效。
+        <br>如果需要立即使修改生效，只需要执行 <code>source $HOME/.profile</code> 之类的命令即可。
         </p>
       </li>
       <li>
-        Verify that you've installed Go by opening a command prompt and typing
-        the following command:
+        通过在命令行输入以下命令来验证是否已经安装 Go：
         <pre>
 $ go version
 </pre
         >
       </li>
-      <li>Confirm that the command prints the installed version of Go.</li>
+      <li>查看并确认该命令打印的 Go 版本信息。</li>
     </ol>
   </div>
   <div
@@ -133,24 +116,19 @@ $ go version
   >
     <ol>
       <li>
-        Open the package file you downloaded and follow the prompts to install
-        Go.
+        打开您下载的软件包文件，然后按照提示安装 Go。
         <p>
-          The package installs the Go distribution to /usr/local/go. The package
-          should put the /usr/local/go/bin directory in your
-          <code>PATH</code> environment variable. You may need to restart any
-          open Terminal sessions for the change to take effect.
+          该软件包会将Go安装到 /usr/local/go 目录。 该安装包会将 /usr/local/go/bin 添加到您的 <code>PATH</code> 环境变量中。
+          您可能需要重新启动您所有打开的终端程序来使其生效。
         </p>
       </li>
       <li>
-        Verify that you've installed Go by opening a command prompt and typing
-        the following command:
+        通过在命令行输入以下命令来验证是否已经安装Go：
         <pre>
 $ go version
-</pre
-        >
+</pre>
       </li>
-      <li>Confirm that the command prints the installed version of Go.</li>
+      <li>查看并确认该命令打印的 Go 版本信息。</li>
     </ol>
   </div>
   <div
@@ -162,44 +140,39 @@ $ go version
   >
     <ol>
       <li>
-        Open the MSI file you downloaded and follow the prompts to install Go.
+        打开您下载的 MSI 文件，然后按照提示安装 Go。
         <p>
-          By default, the installer will install Go to <code>Program Files</code>
-          or <code>Program Files (x86)</code>. You can change the
-          location as needed. After installing, you will need to close and
-          reopen any open command prompts so that changes to the environment
-          made by the installer are reflected at the command prompt.
+          默认情况下，安装程序会将 Go 安装到 <code>Program Files</code>
+          或 <code>Program Files (x86)</code>。您可以根据需要更改位置。安装后，您需要关闭并重新打开任何打开的命令提示符，以便使安装程序对环境的修改在命令提示符程序中生效。
         </p>
       </li>
       <li>
-        Verify that you've installed Go.
+        确认您已经安装 Go。
         <ol>
           <li>
-            In <strong>Windows</strong>, click the <strong>Start</strong> menu.
+            在 <strong>Windows</strong> 中，点击 <strong>"开始"</strong> 菜单.
           </li>
           <li>
-            In the menu's search box, type <code>cmd</code>, then press the
-            <strong>Enter</strong> key.
+            在搜索框中输入 <code>cmd</code>，然后按下
+            <strong>回车</strong> 键。
           </li>
           <li>
-            In the Command Prompt window that appears, type the following
-            command:
+            在打开的"命令提示符"窗口中，输入以下命令：
             <pre>
 $ go version
-</pre
-            >
+</pre>
           </li>
-          <li>Confirm that the command prints the installed version of Go.</li>
+          <li>查看并确认该命令打印的 Go 版本信息。</li>
         </ol>
       </li>
     </ol>
   </div>
 </div>
-<h2 id="code">3. Go code.</h2>
+<h2 id="code">3. Go 代码</h2>
 <p>
-  You're set up! Visit the
-  <a href="tutorial/getting-started.html">Getting Started tutorial</a> to write
-  some simple Go code. It takes about 10 minutes to complete.
+  您已经正确设置好了！访问
+  <a href="tutorial/getting-started.html">入门教程</a> 去编写一些简单的 Go 代码。
+  这大概需要十分钟的时间就可以完成。
 </p>
 
 <script async src="/doc/download.js"></script>

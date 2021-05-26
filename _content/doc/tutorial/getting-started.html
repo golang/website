@@ -1,62 +1,55 @@
 <!--{
-    "Title": "Tutorial: Get started with Go"
+    "Title": "教程：Go 入门"
 }-->
 
 <p>
-  In this tutorial, you'll get a brief introduction to Go programming. Along the
-  way, you will:
+  在本教程中，你会简要了解 Go 编程。跟随教程，你将：
 </p>
 
 <ul>
-  <li>Install Go (if you haven't already).</li>
-  <li>Write some simple "Hello, world" code.</li>
-  <li>Use the <code>go</code> command to run your code.</li>
+  <li>安装 Go（如果你还没有安装）。</li>
+  <li>编写简单的 "Hello, world" 代码。</li>
+  <li>使用 <code>go</code> 命令执行你的代码。</li>
   <li>
-    Use the Go package discovery tool to find packages you can use in your own
-    code.
+    使用 Go 包（Go Package）发现工具去查找可以在你自己代码中使用的包。
   </li>
-  <li>Call functions of an external module.</li>
+  <li>调用外部模块提供的函数（function）。</li>
 </ul>
 
 <aside class="Note">
-  <strong>Note:</strong> For other tutorials, see
-  <a href="/doc/tutorial/index.html">Tutorials</a>.
+  <strong>提示：</strong> 想了解其他教程，请查看
+  <a href="/doc/tutorial/index.html">教程</a>.
 </aside>
 
-<h2 id="prerequisites">Prerequisites</h2>
+<h2 id="prerequisites">前提</h2>
 
 <ul>
   <li>
-    <strong>Some programming experience.</strong> The code here is pretty
-    simple, but it helps to know something about functions.
+    <strong>一些编程经验。</strong> 这里的代码很简单，但有助于了解一些功能。
   </li>
   <li>
-    <strong>A tool to edit your code.</strong> Any text editor you have will
-    work fine. Most text editors have good support for Go. The most popular are
-    VSCode (free), GoLand (paid), and Vim (free).
+    <strong>一个编辑代码的工具。</strong> 任何文本编辑器都可以。大多数文本编辑器对 Go 都有很好的支持。最受欢迎的是 VSCode(免费)、GoLand（付费）和 Vim（免费）。
   </li>
   <li>
-    <strong>A command terminal.</strong> Go works well using any terminal on
-    Linux and Mac, and on PowerShell or cmd in Windows.
+    <strong>命令行终端。</strong> Go可以在任何终端上正常运行，如 Linux 和 Mac ，以及在 PowerShell 或者 Windows 的 cmd。
   </li>
 </ul>
 
-<h2 id="install">Install Go</h2>
+<h2 id="install">安装 Go</h2>
 
-<p>Just use the <a href="/doc/install">Download and install</a> steps.</p>
+<p>只需使用 <a href="/doc/install">下载和安装</a> 步骤。</p>
 
-<h2 id="code">Write some code</h2>
+<h2 id="code">写一些代码</h2>
 
 <p>
-  Get started with Hello, World.
+  从 Hello, World 开始。
 </p>
 
 <ol>
   <li>
-    Open a command prompt and cd to your home directory.
-
+    打开命令行并 cd 到你的主目录。
     <p>
-      On Linux or Mac:
+      在 Linux 或 Mac 系统上：
     </p>
 
     <pre>
@@ -65,7 +58,7 @@ cd
     >
 
     <p>
-      On Windows:
+      在 Windows 系统上:
     </p>
 
     <pre>
@@ -75,10 +68,9 @@ cd %HOMEPATH%
   </li>
 
   <li>
-    Create a hello directory for your first Go source code.
-
+    为你的第一个 Go 代码创建一个 hello 目录。
     <p>
-      For example, use the following commands:
+      例如：使用下面的命令
     </p>
 
     <pre>
@@ -123,12 +115,11 @@ go: creating new go.mod: module example.com/hello
   </li>
 
   <li>
-    In your text editor, create a file hello.go in which to write your code.
+    在你的文本编辑器中，创建一个文件 hello.go，在其中编写你的代码。
   </li>
 
   <li>
-    Paste the following code into your hello.go file and save the file.
-
+    将以下代码粘贴到 hello.go 文件中，然后保存文件。
     <pre>
 package main
 
@@ -141,32 +132,27 @@ func main() {
     >
 
     <p>
-      This is your Go code. In this code, you:
+      这是你的 Go 代码，在这个代码中：
     </p>
 
     <ul>
       <li>
-        Declare a <code>main</code> package (a package is a way to group
-        functions, and it's made up of all the files in the same directory).
+        声明一个 <code>main</code> 包（包是一种管理功能的方法，它由同一目录中的所有文件组成）。
       </li>
       <li>
-        Import the popular
-        <a href="https://pkg.go.dev/fmt/"><code>fmt</code> package</a>,
-        which contains functions for formatting text, including printing to the
-        console. This package is one of the
-        <a href="https://pkg.go.dev/std">standard library</a> packages you got
-        when you installed Go.
+        引用流行的
+        <a href="http://docscn.studygolang.com/pkg/fmt/"><code>fmt</code> 包</a>,
+        其中包含格式化文本的功能，包括打印到控制台。这个包是
+        <a href="http://docscn.studygolang.com/pkg">标准库</a>，安装 Go 时就内置了。
       </li>
       <li>
-        Implement a <code>main</code> function to print a message to the
-        console. A <code>main</code> function executes by default when you run
-        the <code>main</code> package.
+        实现 <code>main</code> 函数打印信息到控制台。当你运行 main 包时，<code>main</code> 函数是默认执行的。
       </li>
     </ul>
   </li>
 
   <li>
-    Run your code to see the greeting.
+    运行你的代码可以查看结果。
 
     <pre>
 $ go run .
@@ -175,12 +161,9 @@ Hello, World!
     >
 
     <p>
-      The
-      <a href="/cmd/go/#hdr-Compile_and_run_Go_program"
-        ><code>go run</code> command</a
-      >
-      is one of many <code>go</code> commands you'll use to get things done with
-      Go. Use the following command to get a list of the others:
+      这个
+      <a href="/cmd/go/#hdr-Compile_and_run_Go_program"><code>go run</code> 命令</a>
+      是许多用于使用 Go 完成操作的 <code>go</code> 命令之一。使用下面的命令获取其他的列表：
     </p>
 
     <pre>
@@ -190,57 +173,45 @@ $ go help
   </li>
 </ol>
 
-<h2 id="call">Call code in an external package</h2>
+<h2 id="call">使用外部包的代码</h2>
 
 <p>
-  When you need your code to do something that might have been implemented by
-  someone else, you can look for a package that has functions you can use in
-  your code.
+  当你的代码需要引用其他代码的时候，你可以在其他的包中找到你想用在自己代码中的功能（function）。
 </p>
 
 <ol>
   <li>
-    Make your printed message a little more interesting with a function from an
-    external module.
-
+    通过使用其他模块中的功能使你的打印信息更加有趣。
     <ol>
       <li>
-        Visit pkg.go.dev and
+        访问 pkg.go.dev 并且
         <a href="https://pkg.go.dev/search?q=quote"
-          >search for a "quote" package</a
+          >查找 "quote" 包</a
         >.
       </li>
       <li>
-        Locate and click the <code>rsc.io/quote</code> package in search results
-        (if you see <code>rsc.io/quote/v3</code>, ignore it for now).
+        在搜索结果中找到并点击 <code>rsc.io/quote</code> 包（
+        当你看到  <code>rsc.io/quote/v3</code> 包时请暂时忽略）。
       </li>
       <li>
-        In the <strong>Documentation</strong> section, under <strong>Index</strong>, note the
-        list of functions you can call from your code. You'll use the
-        <code>Go</code> function.
+        在左侧 <strong>Documentation</strong> 标签页面的 <strong>Index</strong> 下面的清单里列举的是你可以调用的函数（function）。你将使用的 <code>Go语言</code> 函数。
       </li>
       <li>
-        At the top of this page, note that package <code>quote</code> is
-        included in the <code>rsc.io/quote</code> module.
+        在页面的顶部，注意 <code>quote</code> 包是包含在 <code>rsc.io/quote</code>  模块中的。
       </li>
     </ol>
 
     <p>
-      You can use the pkg.go.dev site to find published modules whose packages
-      have functions you can use in your own code. Packages are published in
-      modules -- like <code>rsc.io/quote</code> -- where others can use them.
-      Modules are improved with new versions over time, and you can upgrade your
-      code to use the improved versions.
+      你可以使用 pkg.go.dev 网站去查找已发布的模块，你可以在你的代码里面使用它。包发布在模块中 -- 就像
+      <code>rsc.io/quote</code> -- 其他人可以使用它门。随着新版本对模块的改进，你可以升级代码去使用改进的版本。
     </p>
   </li>
 
   <li>
-    In your Go code, import the <code>rsc.io/quote</code> package and add a call
-    to its <code>Go</code> function.
+    在你的代码里面，引用 <code>rsc.io/quote</code> 包并调用它的 Go 函数。
 
     <p>
-      After adding the highlighted lines, your code should include the
-      following:
+      添加下面高亮的行后，你的代码需要包含以下内容：
     </p>
 
     <pre>
@@ -257,13 +228,11 @@ func main() {
   </li>
 
   <li>
-    Add new module requirements and sums.
+    添加新的模块必须依赖和 sum。
 
     <p>
-      Go will add the <code>quote</code> module as a requirement, as well as a
-      go.sum file for use in authenticating the module. For more, see
-      <a href="/ref/mod#authenticating">Authenticating modules</a> in the Go
-      Modules Reference.
+      Go 将添加 <code>quote</code> 模块作为必须（依赖），以及一个 go.sum 文件用于验证模块。
+      更多内容查看 Go 模块参考中的 <a href="/ref/mod#authenticating">验证模块</a>。
     </p>
     <pre>
 $ go mod tidy
@@ -274,8 +243,7 @@ go: found rsc.io/quote in rsc.io/quote v1.5.2
   </li>
 
   <li>
-    Run your code to see the message generated by the function you're calling.
-
+执行你的代码去查看你调用函数所产生的信息。
     <pre>
 $ go run .
 Don't communicate by sharing memory, share memory by communicating.
@@ -283,22 +251,18 @@ Don't communicate by sharing memory, share memory by communicating.
     >
 
     <p>
-      Notice that your code calls the <code>Go</code> function, printing a
-      clever message about communication.
+      注意，你的代码调用了 <code>Go</code> 的函数，打印出了关于执行的明确信息。
     </p>
 
     <p>
-      When you ran <code>go mod tidy</code>, it located and downloaded the
-      <code>rsc.io/quote</code> module that contains the package you imported.
-      By default, it downloaded the latest version -- v1.5.2.
+      当你运行 <code>go mod tidy</code>，它会查找并下载 <code>rsc.io/quote</code> 模块中包含你要引用的包。
+      默认情况下，它会下载最新的版本 -- v1.5.2。
     </p>
   </li>
 </ol>
 
-<h2 id="write-more">Write more code</h2>
+<h2 id="write-more">写更多代码</h2>
 
 <p>
-  With this quick introduction, you got Go installed and learned some of the
-  basics. To write some more code with another tutorial, take a look at
-  <a href="/doc/tutorial/create-module.html">Create a Go module</a>.
+  通过这个快速教程，您已安装好了 Go 并学会了一些基础知识。想要学习其他教程已编写更多代码，请查看<a href="/doc/tutorial/create-module.html">创建一个 Go 模块</a>。
 </p>

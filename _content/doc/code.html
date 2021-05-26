@@ -1,79 +1,65 @@
 <!--{
-	"Title": "How to Write Go Code",
+	"Title": "如何编写 go 代码",
 	"Template": true
 }-->
 
-<h2 id="Introduction">Introduction</h2>
+
+<h2 id="Introduction">入门</h2>
+<p>
+    此文档演示了如何在模块中开发一个简单的 Go 包，并介绍了用于获取、构建和安装 Go 模块、包和命令的标准方法 <a href="/cmd/go/">go tool</a>。
+</p>
+
 
 <p>
-This document demonstrates the development of a simple Go package inside a
-module and introduces the <a href="/cmd/go/">go tool</a>, the standard way to
-fetch, build, and install Go modules, packages, and commands.
+    注: 本文需要 Go 1.13 或更高的版本，并且未对
+    <code>GO111MODULE</code> 进行设置。 如果您在寻找此文档的旧版本，请点击
+    <a href="gopath_code.html">这里</a>进行查看。
+</p>
+
+<h2 id="Organization">代码结构</h2>
+
+<p>
+    Go 程序通过包进行组织。<dfn>包</dfn>是同一目录中一起编译的源文件的集合。
+    在一个源文件中定义的函数、类型、变量和常量对于同一个包中其他源文件可见。
+</p>
+
+
+<p>
+    一个代码仓库(repository)包含一个或多个模块。而<dfn>模块</dfn>是一起发布的相关 Go 包的集合。
+    一个 Go 代码仓库通常只包含一个位于项目根目录的模块。在根目录文件 <code>go.mod</code> 中声明了
+    模块内所有软件包的导入路径前缀。而该模块包含了 <code>go.mod</code> 文件中和位于该模块根目录到下一个包含 <code>go.mod</code> 文件（如果有）子目录中的包。
 </p>
 
 <p>
-Note: This document assumes that you are using Go 1.13 or later and the
-<code>GO111MODULE</code> environment variable is not set. If you are looking for
-the older, pre-modules version of this document, it is archived
-<a href="gopath_code.html">here</a>.
-</p>
-
-<h2 id="Organization">Code organization</h2>
-
-<p>
-Go programs are organized into packages. A <dfn>package</dfn> is a collection
-of source files in the same directory that are compiled together. Functions,
-types, variables, and constants defined in one source file are visible to all
-other source files within the same package.
+    注：你不需要在构建代码之前将代码发布到远程代码仓库中。模块可以在本地定义，不需要依赖代码仓库。
+    但是，将代码结构标准化是一个好的习惯。
 </p>
 
 <p>
-A repository contains one or more modules. A <dfn>module</dfn> is a collection
-of related Go packages that are released together. A Go repository typically
-contains only one module, located at the root of the repository. A file named
-<code>go.mod</code> there declares the <dfn>module path</dfn>: the import path
-prefix for all packages within the module. The module contains the packages in
-the directory containing its <code>go.mod</code> file as well as subdirectories
-of that directory, up to the next subdirectory containing another
-<code>go.mod</code> file (if any).
+    每个模块的路径不仅仅是其充当软件包时的导入路径前缀，还指示 <code>go</code> 命令下载它的地址。
+    例如，为了下载模块 <code>golang.org/x/tools</code>,
+    <code>go</code> 命令将会查询 <code>https://golang.org/x/tools</code> 所指示的存储仓库（详细说明请查看 <a
+            href="https://golang.org/cmd/go/#hdr-Relative_import_paths">这里</a>）。
 </p>
 
 <p>
-Note that you don't need to publish your code to a remote repository before you
-can build it. A module can be defined locally without belonging to a repository.
-However, it's a good habit to organize your code as if you will publish it
-someday.
+    <dfn>导入路径</dfn>用于导入软件包。包的导入路径是其模块路径前缀加上其在模块中的子目录路径。
+    例如，模块 <code>github.com/google/go-cmp</code> 子目录中包含 <code>cmp/</code> 包，
+    那么，cmp 包的导入路径是 <code>github.com/google/go-cmp/cmp</code>。但是，标准库中的软件包没有模块路径前缀。
 </p>
 
-<p>
-Each module's path not only serves as an import path prefix for its packages,
-but also indicates where the <code>go</code> command should look to download it.
-For example, in order to download the module <code>golang.org/x/tools</code>,
-the <code>go</code> command would consult the repository indicated by
-<code>https://golang.org/x/tools</code> (described more <a href="https://golang.org/cmd/go/#hdr-Relative_import_paths">here</a>).
-</p>
+<h2 id="Command">第一个程序</h2>
+
 
 <p>
-An <dfn>import path</dfn> is a string used to import a package. A package's
-import path is its module path joined with its subdirectory within the module.
-For example, the module <code>github.com/google/go-cmp</code> contains a package
-in the directory <code>cmp/</code>. That package's import path is
-<code>github.com/google/go-cmp/cmp</code>. Packages in the standard library do
-not have a module path prefix.
-</p>
-
-<h2 id="Command">Your first program</h2>
-
-<p>
-To compile and run a simple program, first choose a module path (we'll use
-<code>example.com/user/hello</code>) and create a <code>go.mod</code> file that
-declares it:
+    为了编译并运行一个简单的程序，首先需要选择一个模块路径（我们将使用 <code>example.com/user/hello</code>）,
+    然后创建一个声明该路径的 <code>go.mod</code> 文件：
 </p>
 
 <pre>
-$ mkdir hello # Alternatively, clone it if it already exists in version control.
+$ mkdir hello # 或者从已有的远程仓库中git clone
 $ cd hello
-$ <b>go mod init example.com/user/hello</b>
+$ <b>go mod init example.com/user/hello</b> # 译者：创建 go.mod 文件并初始化模块 example.com/user/hello
 go: creating new go.mod: module example.com/user/hello
 $ cat go.mod
 module example.com/user/hello
@@ -83,14 +69,13 @@ $
 </pre>
 
 <p>
-The first statement in a Go source file must be
-<code>package <dfn>name</dfn></code>. Executable commands must always use
-<code>package main</code>.
+    Go 源文件中的第一条必须是
+    <code>package <dfn>name</dfn></code>。可执行方法必须位于
+    <code>package main</code> 下。
 </p>
 
 <p>
-Next, create a file named <code>hello.go</code> inside that directory containing
-the following Go code:
+    接下来，创建一个名为 <code>hello.go</code> 的文件，其中包含如下内容：
 </p>
 
 <pre>
@@ -104,7 +89,7 @@ func main() {
 </pre>
 
 <p>
-Now you can build and install that program with the <code>go</code> tool:
+    现在你可以使用 <code>go</code> tool 去构建和安装该程序：
 </p>
 
 <pre>
@@ -113,25 +98,21 @@ $
 </pre>
 
 <p>
-This command builds the <code>hello</code> command, producing an executable
-binary. It then installs that binary as <code>$HOME/go/bin/hello</code> (or,
-under Windows, <code>%USERPROFILE%\go\bin\hello.exe</code>).
+    通过此命令构建了 <code>hello</code> 命令。它生成可执行的二进制文件，
+    并将该二进制文件安装为 <code>$HOME/go/bin/hello</code>（在windows中为 <code>%USERPROFILE%\go\bin\hello.exe</code>）。
 </p>
 
 <p>
-The install directory is controlled by the <code>GOPATH</code>
-and <code>GOBIN</code> <a href="/cmd/go/#hdr-Environment_variables">environment
-variables</a>. If <code>GOBIN</code> is set, binaries are installed to that
-directory. If <code>GOPATH</code> is set, binaries are installed to
-the <code>bin</code> subdirectory of the first directory in
-the <code>GOPATH</code> list. Otherwise, binaries are installed to
-the <code>bin</code> subdirectory of the default <code>GOPATH</code>
-(<code>$HOME/go</code> or <code>%USERPROFILE%\go</code>).
+    Go的<a href="/cmd/go/#hdr-Environment_variables">环境变量</a> <code>GOPATH</code> 和 <code>GOBIN</code> 可以控制安装目录。
+    如果设置了 <code>GOBIN</code>，那么二进制文件将会安装在设置的 <code>GOBIN</code> 目录下。
+    如果设置了 <code>GOPATH</code>，那么二进制文件将会安装在 <code>GOPATG</code> 根目录的 <code>bin</code> 文件夹下。
+    如果均为设置，那么二进制文件会被安装在默认 <code>GOPATH</code> 根目录（<code>$HOME/go</code> 或 <code>%USERPROFILE\go</code>）的
+    <code>bin</code> 文件夹下。
+
 </p>
 
 <p>
-You can use the <code>go env</code> command to portably set the default value
-for an environment variable for future <code>go</code> commands:
+    你可以使用 <code>go env</code> 命令修改 <code>go</code> 默认的环境变量：
 </p>
 
 <pre>
@@ -140,7 +121,7 @@ $
 </pre>
 
 <p>
-To unset a variable previously set by <code>go env -w</code>, use <code>go env -u</code>:
+    可使用 <code>go env -u</code> 命令来还原由 <code>go env -w</code> 设置的变量：
 </p>
 
 <pre>
@@ -148,17 +129,17 @@ $ go env -u GOBIN
 $
 </pre>
 
-<p>
-Commands like <code>go install</code> apply within the context of the module
-containing the current working directory. If the working directory is not within
-the <code>example.com/user/hello</code> module, <code>go install</code> may fail.
-</p>
 
 <p>
-For convenience, <code>go</code> commands accept paths relative
-to the working directory, and default to the package in the
-current working directory if no other path is given.
-So in our working directory, the following commands are all equivalent:
+    如 <code>go install</code> 需要在对应模块及其子目录中应用。如果工作目录不在 <code>example.com/user/hello</code> 模块内，
+    那么 <code>go install</code>会失败。
+
+</p>
+
+
+<p>
+    <code>go</code> 命令接受相对工作目录的路径，但如果未输入路径，则默认会使用当前目录的软件包作为输入。
+    因此，在我们的工作目录中，下面的命令是等价的：
 </p>
 
 <pre>
@@ -173,16 +154,14 @@ $ go install .
 $ go install
 </pre>
 
+
 <p>
-Next, let's run the program to ensure it works. For added convenience, we'll
-add the install directory to our <code>PATH</code> to make running binaries
-easy:
+    接下来，让我们运行程序来确认它能正确运行。为了方便调用，我们将二进制的安装文件添加到 <code>PATH</code> 中：
 </p>
 
 <!-- Note: we can't use $(go env GOBIN) here until https://golang.org/issue/23439 is addressed. -->
 <pre>
-# Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
-# for setting %PATH%.
+# Windows 系统下设置 %PATH% 可参考 https://github.com/golang/go/wiki/SettingGOPATH
 $ <b>export PATH=$PATH:$(dirname $(go list -f '{{"{{"}}.Target{{"}}"}}' .))</b>
 $ <b>hello</b>
 Hello, world.
@@ -190,9 +169,7 @@ $
 </pre>
 
 <p>
-If you're using a source control system, now would be a good time to initialize
-a repository, add the files, and commit your first change. Again, this step is
-optional: you do not need to use source control to write Go code.
+    如果您使用了代码版本控制系统，那么现在就是初始化仓库、添加文件并提交更改的好时机。同样，这个步骤是可选的：您可以不使用代码版本控制系统编写 Go 代码。
 </p>
 
 <pre>
@@ -207,28 +184,25 @@ $
 </pre>
 
 <p>
-The <code>go</code> command locates the repository containing a given module path by requesting a corresponding HTTPS URL and reading metadata embedded in the HTML response (see
-<code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>).
-Many hosting services already provide that metadata for repositories containing
-Go code, so the easiest way to make your module available for others to use is
-usually to make its module path match the URL for the repository.
+    <code>go</code> 命令通过请求相应的HTTPS URL并读取HTML响应中嵌入的元数据来查找包含给定模块路径的存储库。
+    (详情见 <code><a href="/cmd/go/#hdr-Remote_import_paths">go help importpath</a></code>).
+    许多托管服务已经为包含Go代码的存储库提供了该元数据，因此使您的模块可供其他人使用的最简单方法通常是使其模块路径与存储库的URL相匹配。
 </p>
 
-<h3 id="ImportingLocal">Importing packages from your module</h3>
+<h3 id="ImportingLocal">从模块中导入包</h3>
 
 <p>
-Let's write a <code>morestrings</code> package and use it from the <code>hello</code> program.
-First, create a directory for the package named
-<code>$HOME/hello/morestrings</code>, and then a file named
-<code>reverse.go</code> in that directory with the following contents:
+
+    让我们编写一个 <code>morestrings</code> 包，并在 <code>hello</code> 程序中使用它。
+    首先，创建目录 <code>$HOME/hello/morestrings</code>，
+    然后在该目录中添加文件 <code>reverse.go</code> ，其中包含以下内容：
 </p>
 
 <pre>
-// Package morestrings implements additional functions to manipulate UTF-8
-// encoded strings, beyond what is provided in the standard "strings" package.
+//  包 morestrings 实现了一些标准库 "strings" 中没有的函数来操纵UTF-8编码的字符串。
 package morestrings
 
-// ReverseRunes returns its argument string reversed rune-wise left to right.
+// ReverseRunes 返回翻转后的字符串
 func ReverseRunes(s string) string {
 	r := []rune(s)
 	for i, j := 0, len(r)-1; i &lt; len(r)/2; i, j = i+1, j-1 {
@@ -239,14 +213,13 @@ func ReverseRunes(s string) string {
 </pre>
 
 <p>
-Because our <code>ReverseRunes</code> function begins with an upper-case
-letter, it is <a href="/ref/spec#Exported_identifiers"><dfn>exported</dfn></a>,
-and can be used in other packages that import our <code>morestrings</code>
-package.
+    因为我们的ReverseRunes函数以大写字母开头，所以它是 <a href="/ref/spec#Exported_identifiers"><dfn>exported</dfn></a>，
+    即可以在导入 <code>morestrings</code> 包的其他包中使用。
+
 </p>
 
 <p>
-Let's test that the package compiles with <code>go build</code>:
+    让我们测试一下该软件包是否可以通过 <code>go build</code> 编译：
 </p>
 
 <pre>
@@ -256,14 +229,12 @@ $
 </pre>
 
 <p>
-This won't produce an output file. Instead it saves the compiled package in the
-local build cache.
+    这不会产生输出文件，而是将已编译的程序包保存在本地构建缓存中。
 </p>
 
 <p>
-After confirming that the <code>morestrings</code> package builds, let's use it
-from the <code>hello</code> program. To do so, modify your original
-<code>$HOME/hello/hello.go</code> to use the morestrings package:
+    确认 <code>morestrings</code> 软件包已生成后，我们在 <code>hello</code> 程序中使用它。
+    因此，我们需要修改原先的 <code>$HOME/hello/hello.go</code> 去使用 <code>morestrings</code> 包：
 </p>
 
 <pre>
@@ -281,7 +252,7 @@ func main() {
 </pre>
 
 <p>
-Install the <code>hello</code> program:
+    安装 <code>hello</code> 程序:
 </p>
 
 <pre>
@@ -289,7 +260,7 @@ $ <b>go install example.com/user/hello</b>
 </pre>
 
 <p>
-Running the new version of the program, you should see a new, reversed message:
+    运行新版本的程序，您应该看到一条被翻转的字符串：
 </p>
 
 <pre>
@@ -297,13 +268,11 @@ $ <b>hello</b>
 Hello, Go!
 </pre>
 
-<h3 id="ImportingRemote">Importing packages from remote modules</h3>
+<h3 id="ImportingRemote">导入远程模块的包</h3>
 
 <p>
-An import path can describe how to obtain the package source code using a
-revision control system such as Git or Mercurial. The <code>go</code> tool uses
-this property to automatically fetch packages from remote repositories.
-For instance, to use <code>github.com/google/go-cmp/cmp</code> in your program:
+    导入路径可以描述如何使用版本控制系统（例如Git或Mercurial）获取软件包源代码。
+    <code>go</code> 工具使用此属性来自动从远程存储库中获取软件包。 例如，要在程序中使用 <code>github.com/google/go-cmp/cmp</code>：
 </p>
 
 <pre>
@@ -323,10 +292,8 @@ func main() {
 </pre>
 
 <p>
-Now that you have a dependency on an external module, you need to download that
-module and record its version in your <code>go.mod</code> file. The <code>go
-mod tidy</code> command adds missing module requirements for imported packages
-and removes requirements on modules that aren't used anymore.
+    现在你依赖了一个外部模块，你需要下载该模块，同时在 <code>go.mod</code> 文件中记录它的版本号。
+    <code>go mod tidy</code> 命令会自动添加缺失的必须依赖，同时移除没有使用的依赖。
 </p>
 
 <pre>
@@ -350,13 +317,10 @@ $
 </pre>
 
 <p>
-Module dependencies are automatically downloaded to the <code>pkg/mod</code>
-subdirectory of the directory indicated by the <code>GOPATH</code> environment
-variable. The downloaded contents for a given version of a module are shared
-among all other modules that <code>require</code> that version, so
-the <code>go</code> command marks those files and directories as read-only. To
-remove all downloaded modules, you can pass the <code>-modcache</code> flag
-to <code>go clean</code>:
+
+    模块依赖将自动下载到 <code>GOPATH</code> 环境变量指示的目录的 <code>pkg/mod</code> 子目录中。
+    给定版本的模块的下载内容在需要该版本的所有其他模块之间共享，因此 <code>go</code> 命令将这些文件和目录标记为只读。
+    要移除所有下载的模块，可以在 <code>go clean</code>命令中使用 <code>-modcache</code> 参数：
 </p>
 
 <pre>
@@ -364,26 +328,22 @@ $ go clean -modcache
 $
 </pre>
 
-<h2 id="Testing">Testing</h2>
+<h2 id="Testing">测试</h2>
 
 <p>
-Go has a lightweight test framework composed of the <code>go test</code>
-command and the <code>testing</code> package.
+    Go有一个轻量级的测试框架，由 <code>go test</code> 命令和 <code>testing</code> 包组成。
 </p>
 
 <p>
-You write a test by creating a file with a name ending in <code>_test.go</code>
-that contains functions named <code>TestXXX</code> with signature
-<code>func (t *testing.T)</code>.
-The test framework runs each such function;
-if the function calls a failure function such as <code>t.Error</code> or
-<code>t.Fail</code>, the test is considered to have failed.
+
+
+    你可以通过创建一个以 <code>_test.go</code> 结尾的文件来编写测试，里面包含命名类似为 <code>TestXXX</code> 的函数，签名为 <code>func (t *testing.T)</code>。
+    测试框架通过运行每个函数，如果该函数运行过程中调用了如 <code>t.Error</code> 或 <code>t.Fail</code> 等失败函数，则认定为函数测试失败。
 </p>
 
 <p>
-Add a test to the <code>morestrings</code> package by creating the file
-<code>$HOME/hello/morestrings/reverse_test.go</code> containing
-the following Go code.
+
+    通过在 <code>morestrings</code> 包中创建包含下列代码的 <code>$HOME/hello/morestrings/reverse_test.go</code> 文件来进行函数测试：
 </p>
 
 <pre>
@@ -409,7 +369,7 @@ func TestReverseRunes(t *testing.T) {
 </pre>
 
 <p>
-Then run the test with <code>go test</code>:
+    运行 <code>go test</code> 命令进行测试：
 </p>
 
 <pre>
@@ -420,51 +380,48 @@ $
 </pre>
 
 <p>
-Run <code><a href="/cmd/go/#hdr-Test_packages">go help test</a></code> and see the
-<a href="/pkg/testing/">testing package documentation</a> for more detail.
+
+    可以通过运行 <code><a href="/cmd/go/#hdr-Test_packages">go help test</a></code> 和查阅 <a href="/pkg/testing/">testing
+        包文档</a>获取命令更多细节。
 </p>
 
-<h2 id="next">What's next</h2>
+<h2 id="next">下一步</h2>
 
 <p>
-Subscribe to the
-<a href="//groups.google.com/group/golang-announce">golang-announce</a>
-mailing list to be notified when a new stable version of Go is released.
-</p>
 
-<p>
-See <a href="/doc/effective_go.html">Effective Go</a> for tips on writing
-clear, idiomatic Go code.
+    通过订阅 <a href="//groups.google.com/group/golang-announce">golang-announce</a> 可以在 <code>Go</code> 发布新的稳定版时获取通知。
 </p>
 
 <p>
-Take {{if $.GoogleCN}}
-A Tour of Go
+
+    可以通过学习 <a href="/doc/effective_go.html">Effective Go</a> 了解如何编写清晰、符合习惯的代码。
+</p>
+
+<p>
+    打开{{if $.GoogleCN}}
+    Go 学习之旅
 {{else}}
-<a href="//tour.golang.org/">A Tour of Go</a>
-{{end}} to learn the language
-proper.
+    <a href="//tour.golang.org/">Go 学习之旅</a>
+{{end}}系统学习 Go
 </p>
 
 <p>
-Visit the <a href="/doc/#articles">documentation page</a> for a set of in-depth
-articles about the Go language and its libraries and tools.
+    通过 <a href="/doc/#articles">文档</a> 深入了解关于 Go 语言及其库和工具。
 </p>
 
-<h2 id="help">Getting help</h2>
+<h2 id="help">获取帮助</h2>
 
 <p>
-For real-time help, ask the helpful gophers in the community-run
-<a href="https://gophers.slack.com/messages/general/">gophers Slack server</a>
-(grab an invite <a href="https://invite.slack.golangbridge.org/">here</a>).
-</p>
-
-<p>
-The official mailing list for discussion of the Go language is
-<a href="//groups.google.com/group/golang-nuts">Go Nuts</a>.
+    通过在 <a href="https://gophers.slack.com/messages/general/">gophers Slack server</a> 中发帖获取实时的帮助。
+    （邀请链接点击 <a href="https://invite.slack.golangbridge.org/">这里</a>）
 </p>
 
 <p>
-Report bugs using the
-<a href="//golang.org/issue">Go issue tracker</a>.
+    讨论Go语言的官方邮件列表是
+    <a href="//groups.google.com/group/golang-nuts">Go Nuts</a>。
+</p>
+
+<p>
+    通过
+    <a href="//golang.org/issue">Go issue tracker</a> 提交bug。
 </p>
