@@ -51,7 +51,7 @@ Cloud Console for the golang-org project.
 Then:
 
 1. Visit the
-   [builds list](https://console.cloud.google.com/cloud-build/builds?project=golang-org&query=trigger_id%3D%22c99674d3-32c1-4aec-ade4-ae2d5a844369%22.)
+   [builds list](https://console.cloud.google.com/cloud-build/builds?project=golang-org&query=trigger_id%3D%22c99674d3-32c1-4aec-ade4-ae2d5a844369%22)
    and click on the build hash for the most recent build
    with trigger name “Redeploy-blog-on-blog-commit”.
 
