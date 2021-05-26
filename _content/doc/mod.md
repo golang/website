@@ -876,7 +876,7 @@ require C 1.3 and C 1.4, respectively. C 1.3 and C 1.4 both require D 1.2.
 
 MVS visits and loads the `go.mod` file for each of the module versions
 highlighted in blue. At the end of the graph traversal, MVS returns a build list
-containing the bolded versions: A 1.2, B 1.2, C 1.4, and D 1.2. Note that higher
+containing the boldface versions: A 1.2, B 1.2, C 1.4, and D 1.2. Note that higher
 versions of B and D are available but MVS does not select them, since nothing
 requires them.
 
@@ -1418,7 +1418,7 @@ $ go list -m -json example.com/m@latest
 
 The `-m` flag causes `go list` to list modules instead of packages. In this
 mode, the arguments to `go list` may be modules, module patterns (containing the
-`...` wildcard), [version queries](#version-queries), or the special pattern
+`...` wild card), [version queries](#version-queries), or the special pattern
 `all`, which matches all modules in the [build list](#glos-build-list). If no
 arguments are specified, the [main module](#glos-main-module) is listed.
 
