@@ -16,8 +16,8 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
-	"golang.org/x/website/go.dev/cmd/internal/html/template"
 	"golang.org/x/website/go.dev/cmd/internal/tmplfunc"
+	"golang.org/x/website/internal/backport/html/template"
 )
 
 // markdownToHTML converts markdown to HTML using the renderer and settings that Hugo uses.

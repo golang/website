@@ -84,8 +84,8 @@ import (
 	"io/ioutil"
 	"path/filepath"
 
-	htmltemplate "golang.org/x/website/go.dev/cmd/internal/html/template"
-	texttemplate "golang.org/x/website/go.dev/cmd/internal/text/template"
+	htmltemplate "golang.org/x/website/internal/backport/html/template"
+	texttemplate "golang.org/x/website/internal/backport/text/template"
 )
 
 // A Template is a *template.Template, where template refers to either
