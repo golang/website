@@ -1,4 +1,4 @@
-module golang.org/x/blog
+module golang.org/x/website/blog
 
 go 1.11
 

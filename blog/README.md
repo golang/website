@@ -1,13 +1,13 @@
 # Go Blog
 
-[![Go Reference](https://pkg.go.dev/badge/golang.org/x/blog.svg)](https://pkg.go.dev/golang.org/x/blog)
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/website/blog.svg)](https://pkg.go.dev/golang.org/x/website/blog)
 
-This repository holds the Go Blog server code and content.
+This directory holds the Go Blog server code and content.
 
 ## Download/Install
 
-The easiest way to install is to run `go get -u golang.org/x/blog`. You can also
-manually git clone the repository to \$GOPATH/src/golang.org/x/blog.
+The easiest way to install is to run `go get -u golang.org/x/website/blog`. You can also
+manually git clone the repository to \$GOPATH/src/golang.org/x/website.
 
 ## Running Locally
 
@@ -38,7 +38,7 @@ This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://golang.org/doc/contribute.html.
 
 The main issue tracker for the blog is located at
-https://github.com/golang/go/issues. Prefix your issue with "x/blog:" in the
+https://github.com/golang/go/issues. Prefix your issue with "x/website/blog:" in the
 subject line, so it is easy to find.
 
 ## Deploying
