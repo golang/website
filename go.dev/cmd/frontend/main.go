@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"strings"
 
 	"golang.org/x/go.dev/cmd/internal/site"
 )
@@ -32,7 +33,7 @@ func main() {
 	}
 	http.Handle("/", addCSP(http.FileServer(godev)))
 	http.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
-	http.Handle("/learn/", http.StripPrefix("/learn/", redirectHosts(map[string]string{"": "learn.go.dev"})))
+	http.Handle("learn.go.dev/", http.HandlerFunc(redirectLearn))
 
 	addr := ":" + listenPort()
 	if addr == ":0" {
@@ -45,6 +46,10 @@ func main() {
 	defer l.Close()
 	log.Printf("Listening on http://%v/\n", l.Addr().String())
 	log.Print(http.Serve(l, nil))
+}
+
+func redirectLearn(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://go.dev/learn/"+strings.TrimPrefix(r.URL.Path, "/"), http.StatusMovedPermanently)
 }
 
 func listenPort() string {
