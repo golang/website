@@ -8,8 +8,7 @@ steps:
     dir: blog
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
-    args: ["../go-app-deploy.sh", "app.yaml"]
-    dir: blog
+    args: ["./go-app-deploy.sh", "blog/app.yaml"]
   - name: mirror.gcr.io/library/golang
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",

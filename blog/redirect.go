@@ -4,19 +4,7 @@
 
 package main
 
-import "net/http"
-
-// Register HTTP handlers that redirect old blog paths to their new locations.
-func init() {
-	for p := range urlMap {
-		dest := "/" + urlMap[p]
-		http.HandleFunc(p, func(w http.ResponseWriter, r *http.Request) {
-			http.Redirect(w, r, dest, http.StatusMovedPermanently)
-		})
-	}
-}
-
-var urlMap = map[string]string{
+var redirects = map[string]string{
 	"/2010/03/go-whats-new-in-march-2010.html":               "go-whats-new-in-march-2010",
 	"/2010/04/json-rpc-tale-of-interfaces.html":              "json-rpc-tale-of-interfaces",
 	"/2010/04/third-party-libraries-goprotobuf-and.html":     "third-party-libraries-goprotobuf-and",

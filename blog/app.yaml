@@ -1,5 +1,14 @@
+# This app is deployed via Cloud Build as directed by cloudbuild.yaml.
+# Do not deploy directly.
+
 service: blog
-runtime: go114
+runtime: go115
+main: ./blog
+
+handlers:
+- url: /.*
+  script: auto
+  secure: always
 
 env_variables:
   BLOG_ANALYTICS: |
@@ -11,29 +20,3 @@ env_variables:
     gtag("config", "UA-11222381-3");
     gtag("config", "UA-49880327-6");
     </script>
-
-default_expiration: "7d"
-
-handlers:
-
-# Keep these static file handlers in sync with blog.go.
-# They're here for improved latency across global regions.
-- url: /favicon.ico
-  static_files: static/favicon.ico
-  upload: static/favicon.ico
-  secure: always
-- url: /fonts.css
-  static_files: static/fonts.css
-  upload: static/fonts.css
-  secure: always
-- url: /fonts
-  static_dir: static/fonts
-  http_headers:
-    Content-Type: application/font-woff
-  secure: always
-
-# This is here to redirect all HTTP traffic to an HTTPS URL
-# with the same path.
-- url: /.*
-  script: auto
-  secure: always
