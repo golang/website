@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-// Regression tests to run against a production instance of godoc.
+// Regression tests to run against a production instance of golangorg.
 
 package main_test
 
@@ -123,12 +123,12 @@ func TestLiveServer(t *testing.T) {
 		},
 		{
 			Message: "release history page has an entry for Go 1.14.2",
-			Path:    "/doc/devel/release.html",
-			Regexp:  `go1\.14\.2\s+\(released 2020/04/08\)\s+includes\s+fixes to cgo, the go command, the runtime,`,
+			Path:    "/doc/devel/release",
+			Regexp:  `go1\.14\.2\s+\(released 2020-04-08\)\s+includes\s+fixes to cgo, the go command, the runtime,`,
 		},
 		{
 			Message:   "Go project page has an entry for Go 1.14",
-			Path:      "/project/",
+			Path:      "/project",
 			Substring: `<li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>`,
 		},
 		{
