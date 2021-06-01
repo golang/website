@@ -140,7 +140,6 @@ func main() {
 // registerStatic registers handlers to serve static content
 // from the directory root.
 func registerStatic(root string) {
-	// Keep these static file handlers in sync with app.yaml.
 	http.Handle("/favicon.ico", http.FileServer(http.Dir(filepath.Join(root, "static", "img"))))
 	static := http.FileServer(http.Dir(root))
 	http.Handle("/content/img/", static)

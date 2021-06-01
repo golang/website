@@ -8,10 +8,11 @@ require (
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.5.5
 	github.com/microcosm-cc/bluemonday v1.0.2
-	github.com/yuin/goldmark v1.2.1
+	github.com/yuin/goldmark v1.3.5
 	golang.org/x/build v0.0.0-20210422214718-6469a76194d9
-	golang.org/x/net v0.0.0-20201110031124-69a78807bb2b
-	golang.org/x/tools v0.1.1-0.20210215123931-123adc86bcb6
+	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4
+	golang.org/x/tools v0.1.3-0.20210525215409-a3eb095d6aee
+	golang.org/x/tour v0.0.0-20210526031051-3891a3eb15c0
 	google.golang.org/api v0.27.0
 	google.golang.org/genproto v0.0.0-20200617032506-f1bdc9086088 // indirect
 	gopkg.in/yaml.v2 v2.3.0
