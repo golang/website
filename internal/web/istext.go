@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"io/fs"
@@ -14,9 +14,9 @@ import (
 	"unicode/utf8"
 )
 
-// IsText reports whether a significant prefix of s looks like correct UTF-8;
+// isText reports whether a significant prefix of s looks like correct UTF-8;
 // that is, if it is likely that s is human-readable text.
-func IsText(s []byte) bool {
+func isText(s []byte) bool {
 	const max = 1024 // at least utf8.UTFMax
 	if len(s) > max {
 		s = s[0:max]
@@ -62,5 +62,5 @@ func isTextFile(fsys fs.FS, filename string) bool {
 		return false
 	}
 
-	return IsText(buf[0:n])
+	return isText(buf[0:n])
 }

@@ -30,7 +30,7 @@ import (
 	"runtime"
 
 	"golang.org/x/website"
-	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/web"
 )
 
 var (
@@ -79,13 +79,13 @@ func main() {
 	fsys = unionFS{content, os.DirFS(*goroot)}
 
 	var err error
-	pres, err = godoc.NewPresentation(fsys)
+	site, err = web.NewSite(fsys)
 	if err != nil {
 		log.Fatal(err)
 	}
-	pres.GoogleCN = googleCN
+	site.GoogleCN = googleCN
 
-	mux := registerHandlers(pres)
+	mux := registerHandlers(site)
 	lateSetup(mux)
 
 	var handler http.Handler = http.DefaultServeMux

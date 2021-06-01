@@ -14,7 +14,7 @@ import (
 	"testing"
 
 	"golang.org/x/website"
-	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/web"
 )
 
 // Test that the release history page includes expected entries.
@@ -24,15 +24,15 @@ import (
 // It can be relaxed whenever the presentation of the release history
 // page needs to be changed.
 func TestReleaseHistory(t *testing.T) {
-	origFS, origPres := fsys, pres
-	defer func() { fsys, pres = origFS, origPres }()
+	origFS, origPres := fsys, site
+	defer func() { fsys, site = origFS, origPres }()
 	fsys = website.Content
 	var err error
-	pres, err = godoc.NewPresentation(fsys)
+	site, err = web.NewSite(fsys)
 	if err != nil {
 		t.Fatal(err)
 	}
-	mux := registerHandlers(pres)
+	mux := registerHandlers(site)
 
 	req := httptest.NewRequest(http.MethodGet, "/doc/devel/release", nil)
 	rr := httptest.NewRecorder()

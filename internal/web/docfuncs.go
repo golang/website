@@ -1,38 +1,11 @@
-// Copyright 2011 The Go Authors. All rights reserved.
+// Copyright 2013 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
 //go:build go1.16
 // +build go1.16
 
-// Template support for writing HTML documents.
-// Documents that include Template: true in their
-// metadata are executed as input to text/template.
-//
-// This file defines functions for those templates to invoke.
-
-// The template uses the function "code" to inject program
-// source into the output by extracting code from files and
-// injecting them as HTML-escaped <pre> blocks.
-//
-// The syntax is simple: 1, 2, or 3 space-separated arguments:
-//
-// Whole file:
-//	{{code "foo.go"}}
-// One line (here the signature of main):
-//	{{code "foo.go" `/^func.main/`}}
-// Block of text, determined by start and end (here the body of main):
-//	{{code "foo.go" `/^func.main/` `/^}/`
-//
-// Patterns can be `/regular expression/`, a decimal number, or "$"
-// to signify the end of the file. In multi-line matches,
-// lines that end with the four characters
-//	OMIT
-// are omitted from the output, making it easy to provide marker
-// lines in the input that will not appear in the output but are easy
-// to identify by pattern.
-
-package godoc
+package web
 
 import (
 	"bytes"
@@ -43,16 +16,58 @@ import (
 	"regexp"
 	"strings"
 
+	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/texthtml"
 )
+
+func (s *Site) initDocFuncs() {
+	s.docFuncs = template.FuncMap{
+		"code":     s.code,
+		"releases": func() []*history.Major { return history.Majors },
+	}
+}
+
+func (s *Site) code(file string, arg ...interface{}) (_ template.HTML, err error) {
+	defer func() {
+		if r := recover(); r != nil {
+			err = fmt.Errorf("%v", r)
+		}
+	}()
+
+	text := s.contents(file)
+	var command string
+	switch len(arg) {
+	case 0:
+		// text is already whole file.
+		command = fmt.Sprintf("code %q", file)
+	case 1:
+		command = fmt.Sprintf("code %q %s", file, stringFor(arg[0]))
+		text = s.oneLine(file, text, arg[0])
+	case 2:
+		command = fmt.Sprintf("code %q %s %s", file, stringFor(arg[0]), stringFor(arg[1]))
+		text = s.multipleLines(file, text, arg[0], arg[1])
+	default:
+		return "", fmt.Errorf("incorrect code invocation: code %q [%v, ...] (%d arguments)", file, arg[0], len(arg))
+	}
+	// Trim spaces from output.
+	text = strings.Trim(text, "\n")
+	// Replace tabs by spaces, which work better in HTML.
+	text = strings.Replace(text, "\t", "    ", -1)
+	var buf bytes.Buffer
+	// HTML-escape text and syntax-color comments like elsewhere.
+	buf.Write(texthtml.Format([]byte(text), texthtml.Config{GoComments: true}))
+	// Include the command as a comment.
+	text = fmt.Sprintf("<pre><!--{{%s}}\n-->%s</pre>", command, buf.Bytes())
+	return template.HTML(text), nil
+}
 
 // Functions in this file panic on error, but the panic is recovered
 // to an error by 'code'.
 
 // contents reads and returns the content of the named file
 // (from the virtual file system, so for example /doc refers to $GOROOT/doc).
-func (p *Presentation) contents(name string) string {
-	file, err := fs.ReadFile(p.fs, toFS(name))
+func (s *Site) contents(name string) string {
+	file, err := fs.ReadFile(s.fs, toFS(name))
 	if err != nil {
 		log.Panic(err)
 	}
@@ -75,58 +90,9 @@ func stringFor(arg interface{}) string {
 	return ""
 }
 
-func (p *Presentation) code(file string, arg ...interface{}) (_ template.HTML, err error) {
-	defer func() {
-		if r := recover(); r != nil {
-			err = fmt.Errorf("%v", r)
-		}
-	}()
-
-	text := p.contents(file)
-	var command string
-	switch len(arg) {
-	case 0:
-		// text is already whole file.
-		command = fmt.Sprintf("code %q", file)
-	case 1:
-		command = fmt.Sprintf("code %q %s", file, stringFor(arg[0]))
-		text = p.oneLine(file, text, arg[0])
-	case 2:
-		command = fmt.Sprintf("code %q %s %s", file, stringFor(arg[0]), stringFor(arg[1]))
-		text = p.multipleLines(file, text, arg[0], arg[1])
-	default:
-		return "", fmt.Errorf("incorrect code invocation: code %q [%v, ...] (%d arguments)", file, arg[0], len(arg))
-	}
-	// Trim spaces from output.
-	text = strings.Trim(text, "\n")
-	// Replace tabs by spaces, which work better in HTML.
-	text = strings.Replace(text, "\t", "    ", -1)
-	var buf bytes.Buffer
-	// HTML-escape text and syntax-color comments like elsewhere.
-	buf.Write(texthtml.Format([]byte(text), texthtml.Config{GoComments: true}))
-	// Include the command as a comment.
-	text = fmt.Sprintf("<pre><!--{{%s}}\n-->%s</pre>", command, buf.Bytes())
-	return template.HTML(text), nil
-}
-
-// parseArg returns the integer or string value of the argument and tells which it is.
-func parseArg(arg interface{}, file string, max int) (ival int, sval string, isInt bool) {
-	switch n := arg.(type) {
-	case int:
-		if n <= 0 || n > max {
-			log.Panicf("%q:%d is out of range", file, n)
-		}
-		return n, "", true
-	case string:
-		return 0, n, false
-	}
-	log.Panicf("unrecognized argument %v type %T", arg, arg)
-	return
-}
-
 // oneLine returns the single line generated by a two-argument code invocation.
-func (p *Presentation) oneLine(file, text string, arg interface{}) string {
-	lines := strings.SplitAfter(p.contents(file), "\n")
+func (s *Site) oneLine(file, text string, arg interface{}) string {
+	lines := strings.SplitAfter(s.contents(file), "\n")
 	line, pattern, isInt := parseArg(arg, file, len(lines))
 	if isInt {
 		return lines[line-1]
@@ -135,8 +101,8 @@ func (p *Presentation) oneLine(file, text string, arg interface{}) string {
 }
 
 // multipleLines returns the text generated by a three-argument code invocation.
-func (p *Presentation) multipleLines(file, text string, arg1, arg2 interface{}) string {
-	lines := strings.SplitAfter(p.contents(file), "\n")
+func (s *Site) multipleLines(file, text string, arg1, arg2 interface{}) string {
+	lines := strings.SplitAfter(s.contents(file), "\n")
 	line1, pattern1, isInt1 := parseArg(arg1, file, len(lines))
 	line2, pattern2, isInt2 := parseArg(arg2, file, len(lines))
 	if !isInt1 {
@@ -153,6 +119,21 @@ func (p *Presentation) multipleLines(file, text string, arg1, arg2 interface{}) 
 		}
 	}
 	return strings.Join(lines[line1-1:line2], "")
+}
+
+// parseArg returns the integer or string value of the argument and tells which it is.
+func parseArg(arg interface{}, file string, max int) (ival int, sval string, isInt bool) {
+	switch n := arg.(type) {
+	case int:
+		if n <= 0 || n > max {
+			log.Panicf("%q:%d is out of range", file, n)
+		}
+		return n, "", true
+	case string:
+		return 0, n, false
+	}
+	log.Panicf("unrecognized argument %v type %T", arg, arg)
+	return
 }
 
 // match identifies the input line that matches the pattern in a code invocation.

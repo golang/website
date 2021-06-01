@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"bytes"
@@ -45,7 +45,7 @@ func (p *Page) Example(funcName string) template.HTML {
 			// remove surrounding braces
 			code = code[1 : n-1]
 			// unindent
-			code = replaceLeadingIndentation(code, strings.Repeat(" ", TabWidth), "")
+			code = replaceLeadingIndentation(code, strings.Repeat(" ", tabWidth), "")
 			// remove output comment
 			if loc := exampleOutputRx.FindStringIndex(code); loc != nil {
 				code = strings.TrimSpace(code[:loc[0]])
@@ -70,7 +70,7 @@ func (p *Page) Example(funcName string) template.HTML {
 			out = ""
 		}
 
-		t := p.pres.Templates.Lookup("example.html")
+		t := p.site.Templates.Lookup("example.html")
 		if t == nil {
 			return ""
 		}
@@ -193,24 +193,4 @@ func filterOutBuildAnnotations(cg []*ast.CommentGroup) []*ast.CommentGroup {
 
 	// There weren't any non-build tags, return an empty slice.
 	return []*ast.CommentGroup{}
-}
-
-// example_nameFunc takes an example function name and returns its display
-// name. For example, "Foo_Bar_quux" becomes "Foo.Bar (Quux)".
-func example_nameFunc(s string) string {
-	name, suffix := pkgdoc.SplitExampleName(s)
-	// replace _ with . for method names
-	name = strings.Replace(name, "_", ".", 1)
-	// use "Package" if no name provided
-	if name == "" {
-		name = "Package"
-	}
-	return name + suffix
-}
-
-// example_suffixFunc takes an example function name and returns its suffix in
-// parenthesized form. For example, "Foo_Bar_quux" becomes " (Quux)".
-func example_suffixFunc(name string) string {
-	_, suffix := pkgdoc.SplitExampleName(name)
-	return suffix
 }

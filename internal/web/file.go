@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"bytes"
@@ -14,11 +14,6 @@ import (
 	"log"
 	"path"
 	"strings"
-)
-
-var (
-	jsonStart = []byte("<!--{")
-	jsonEnd   = []byte("}-->")
 )
 
 type file struct {
@@ -32,31 +27,11 @@ type file struct {
 	Body     []byte // content after metadata
 }
 
-type metaJSON struct {
+type fileJSON struct {
 	Title    string
 	Subtitle string
 	Template bool
 	Redirect string // if set, redirect to other URL
-}
-
-// extractMetadata extracts the metaJSON from a byte slice.
-// It returns the metadata and the remaining text.
-// If no metadata is present, it returns an empty metaJSON and the original text.
-func extractMetadata(b []byte) (meta metaJSON, tail []byte, err error) {
-	tail = b
-	if !bytes.HasPrefix(b, jsonStart) {
-		return
-	}
-	end := bytes.Index(b, jsonEnd)
-	if end < 0 {
-		return
-	}
-	b = b[len(jsonStart)-1 : end+1] // drop leading <!-- and include trailing }
-	if err = json.Unmarshal(b, &meta); err != nil {
-		return
-	}
-	tail = tail[end+len(jsonEnd):]
-	return
 }
 
 var join = path.Join
@@ -112,7 +87,7 @@ func open(fsys fs.FS, path string) *file {
 		path = filePath[:strings.LastIndex(filePath, "/")+1]
 	}
 
-	js, body, err := extractMetadata(b)
+	js, body, err := parseFile(b)
 	if err != nil {
 		log.Printf("extractMetadata %s: %v", path, err)
 		return nil
@@ -132,4 +107,29 @@ func open(fsys fs.FS, path string) *file {
 	}
 
 	return f
+}
+
+var (
+	jsonStart = []byte("<!--{")
+	jsonEnd   = []byte("}-->")
+)
+
+// parseFile extracts the metaJSON from a byte slice.
+// It returns the metadata and the remaining text.
+// If no metadata is present, it returns an empty metaJSON and the original text.
+func parseFile(b []byte) (meta fileJSON, tail []byte, err error) {
+	tail = b
+	if !bytes.HasPrefix(b, jsonStart) {
+		return
+	}
+	end := bytes.Index(b, jsonEnd)
+	if end < 0 {
+		return
+	}
+	b = b[len(jsonStart)-1 : end+1] // drop leading <!-- and include trailing }
+	if err = json.Unmarshal(b, &meta); err != nil {
+		return
+	}
+	tail = tail[end+len(jsonEnd):]
+	return
 }

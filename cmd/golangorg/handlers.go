@@ -16,12 +16,12 @@ import (
 	"strings"
 
 	"golang.org/x/website/internal/env"
-	"golang.org/x/website/internal/godoc"
 	"golang.org/x/website/internal/redirect"
+	"golang.org/x/website/internal/web"
 )
 
 var (
-	pres *godoc.Presentation
+	site *web.Site
 	fsys fs.FS
 )
 
@@ -76,7 +76,7 @@ func (h hostEnforcerHandler) validHost(host string) bool {
 	return false
 }
 
-func registerHandlers(pres *godoc.Presentation) *http.ServeMux {
+func registerHandlers(pres *web.Site) *http.ServeMux {
 	if pres == nil {
 		panic("nil Presentation")
 	}

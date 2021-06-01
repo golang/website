@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"bytes"
@@ -53,7 +53,7 @@ func TestSrcPosLinkFunc(t *testing.T) {
 		{"fmt/print.go", 0, 0, 0, "/src/fmt/print.go"},
 		{"fmt/print.go", 0, 1, 5, "/src/fmt/print.go?s=1:5#L1"},
 	} {
-		if got := srcPosLinkFunc(tc.src, tc.line, tc.low, tc.high); got != tc.want {
+		if got := srcPosLink(tc.src, tc.line, tc.low, tc.high); got != tc.want {
 			t.Errorf("srcPosLink(%v, %v, %v, %v) = %v; want %v", tc.src, tc.line, tc.low, tc.high, got, tc.want)
 		}
 	}
@@ -185,7 +185,7 @@ func (h Header) Get(key string) string`))
 }
 
 func linkifySource(t *testing.T, src []byte) string {
-	p := &Presentation{}
+	p := &Site{}
 	fset := token.NewFileSet()
 	af, err := parser.ParseFile(fset, "foo.go", src, parser.ParseComments)
 	if err != nil {
@@ -196,7 +196,7 @@ func linkifySource(t *testing.T, src []byte) string {
 		FSet: fset,
 	}
 	pg := &Page{
-		pres: p,
+		site: p,
 		Data: pi,
 	}
 	sep := ""

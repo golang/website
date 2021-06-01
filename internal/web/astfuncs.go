@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"bufio"
@@ -32,7 +32,7 @@ var slashSlash = []byte("//")
 func (p *Page) Node(node interface{}) template.HTML {
 	info := p.Data.(*pkgdoc.Page)
 	var buf1 bytes.Buffer
-	p.pres.writeNode(&buf1, info, info.FSet, node)
+	p.site.writeNode(&buf1, info, info.FSet, node)
 
 	var buf2 bytes.Buffer
 	n, _ := node.(ast.Node)
@@ -48,7 +48,7 @@ func (p *Page) Node(node interface{}) template.HTML {
 func (p *Page) NodeTOC(node interface{}) template.HTML {
 	info := p.Data.(*pkgdoc.Page)
 	var buf1 bytes.Buffer
-	p.pres.writeNode(&buf1, info, info.FSet, node)
+	p.site.writeNode(&buf1, info, info.FSet, node)
 
 	var buf2 bytes.Buffer
 	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
@@ -58,14 +58,14 @@ func (p *Page) NodeTOC(node interface{}) template.HTML {
 	return sanitize(template.HTML(buf2.String()))
 }
 
-const TabWidth = 4
+const tabWidth = 4
 
 // writeNode writes the AST node x to w.
 //
 // The provided fset must be non-nil. The pageInfo is optional. If
 // present, the pageInfo is used to add comments to struct fields to
 // say which version of Go introduced them.
-func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token.FileSet, x interface{}) {
+func (s *Site) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token.FileSet, x interface{}) {
 	// convert trailing tabs into spaces using a tconv filter
 	// to ensure a good outcome in most browsers (there may still
 	// be tabs in comments and strings, but converting those into
@@ -85,7 +85,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token
 				structName = ts.Name.Name
 			}
 		}
-		apiInfo = p.api[pkgName]
+		apiInfo = s.api[pkgName]
 	}
 
 	var out = w
@@ -95,7 +95,7 @@ func (p *Presentation) writeNode(w io.Writer, pageInfo *pkgdoc.Page, fset *token
 	}
 
 	mode := printer.TabIndent | printer.UseSpaces
-	err := (&printer.Config{Mode: mode, Tabwidth: TabWidth}).Fprint(TabSpacer(out, TabWidth), fset, x)
+	err := (&printer.Config{Mode: mode, Tabwidth: tabWidth}).Fprint(tabSpacer(out, tabWidth), fset, x)
 	if err != nil {
 		log.Print(err)
 	}
@@ -209,5 +209,5 @@ func sanitize(src template.HTML) template.HTML {
 // The current package is deduced from p.Data, which must be a *pkgdoc.Page.
 func (p *Page) Since(kind, receiver, name string) string {
 	pkg := p.Data.(*pkgdoc.Page).PDoc.ImportPath
-	return p.pres.api.Func(pkg, kind, receiver, name)
+	return p.site.api.Func(pkg, kind, receiver, name)
 }

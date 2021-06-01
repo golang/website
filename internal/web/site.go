@@ -1,0 +1,431 @@
+// Copyright 2013 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+//go:build go1.16
+// +build go1.16
+
+package web
+
+import (
+	"bytes"
+	"fmt"
+	"html"
+	"html/template"
+	"io"
+	"io/fs"
+	"log"
+	"net/http"
+	"path"
+	"regexp"
+	"runtime"
+	"strconv"
+	"strings"
+
+	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/pkgdoc"
+	"golang.org/x/website/internal/spec"
+	"golang.org/x/website/internal/texthtml"
+)
+
+// toFS returns the io/fs name for path (no leading slash).
+func toFS(name string) string {
+	if name == "/" {
+		return "."
+	}
+	return path.Clean(strings.TrimPrefix(name, "/"))
+}
+
+// Site is a website served from a file system.
+type Site struct {
+	fs  fs.FS
+	api api.DB
+
+	mux        *http.ServeMux
+	fileServer http.Handler
+
+	Templates *template.Template
+
+	// GoogleCN reports whether this request should be marked GoogleCN.
+	// If the function is nil, no requests are marked GoogleCN.
+	GoogleCN func(*http.Request) bool
+
+	// GoogleAnalytics optionally adds Google Analytics via the provided
+	// tracking ID to each page.
+	GoogleAnalytics string
+
+	docFuncs template.FuncMap
+}
+
+// NewSite returns a new Presentation from a file system.
+func NewSite(fsys fs.FS) (*Site, error) {
+	apiDB, err := api.Load(fsys)
+	if err != nil {
+		return nil, err
+	}
+	p := &Site{
+		fs:         fsys,
+		api:        apiDB,
+		mux:        http.NewServeMux(),
+		fileServer: http.FileServer(http.FS(fsys)),
+	}
+	docs := &docServer{
+		p: p,
+		d: pkgdoc.NewDocs(fsys),
+	}
+	p.mux.Handle("/cmd/", docs)
+	p.mux.Handle("/pkg/", docs)
+	p.mux.HandleFunc("/", p.serveFile)
+	p.initDocFuncs()
+
+	t, err := template.New("").Funcs(siteFuncs).ParseFS(fsys, "lib/godoc/*.html")
+	if err != nil {
+		return nil, err
+	}
+	p.Templates = t
+
+	return p, nil
+}
+
+// ServeError responds to the request with the given error.
+func (s *Site) ServeError(w http.ResponseWriter, r *http.Request, err error) {
+	w.WriteHeader(http.StatusNotFound)
+	s.ServePage(w, r, Page{
+		Title:    r.URL.Path,
+		Template: "error.html",
+		Data:     err,
+	})
+}
+
+// ServeHTTP implements http.Handler, dispatching the request appropriately.
+func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	s.mux.ServeHTTP(w, r)
+}
+
+// ServePage responds to the request with the content described by page.
+func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, page Page) {
+	page = s.fullPage(r, page)
+	applyTemplateToResponseWriter(w, s.Templates.Lookup("site.html"), &page)
+}
+
+// A Page describes the contents of a webpage to be served.
+//
+// A Page's Methods are for use by the templates rendering the page.
+type Page struct {
+	Title    string // <h1>
+	TabTitle string // prefix in <title>; defaults to Title
+	Subtitle string // subtitle (date for spec, memory model)
+	SrcPath  string // path to file in /src for text view
+
+	// Template and Data describe the data to be
+	// rendered into the overall site frame template.
+	// If Template is empty, then Data should be a template.HTML
+	// holding raw HTML to render into the site frame.
+	// Otherwise, Template should be the name of a template file
+	// in _content/lib/godoc (for example, "package.html"),
+	// and that template will be executed
+	// (with the *Page as its data argument) to produce HTML.
+	//
+	// The overall site template site.html is also invoked with
+	// the *Page as its data argument. It is what arranges to call Template.
+	Template string      // template to apply to data (empty string when Data is raw template.HTML)
+	Data     interface{} // data to be rendered into page frame
+
+	// Filled in automatically by ServePage
+	GoogleCN        bool   // page is being served from golang.google.cn
+	GoogleAnalytics string // Google Analytics tag
+	Version         string // current Go version
+
+	site *Site
+}
+
+// fullPage returns a copy of page with the “automatic” fields filled in.
+func (s *Site) fullPage(r *http.Request, page Page) Page {
+	if page.TabTitle == "" {
+		page.TabTitle = page.Title
+	}
+	page.Version = runtime.Version()
+	page.GoogleCN = s.googleCN(r)
+	page.GoogleAnalytics = s.GoogleAnalytics
+	page.site = s
+	return page
+}
+
+// Invoke invokes the template with the given name on
+// a copy of p with .Data set to data, returning the resulting HTML.
+func (p *Page) Invoke(name string, data interface{}) template.HTML {
+	t := p.site.Templates.Lookup(name)
+	var buf bytes.Buffer
+	p1 := *p
+	p1.Data = data
+	if err := t.Execute(&buf, &p1); err != nil {
+		log.Printf("%s.Execute: %s", t.Name(), err)
+	}
+	return template.HTML(buf.String())
+}
+
+type writeErrorSaver struct {
+	w   io.Writer
+	err error
+}
+
+func (w *writeErrorSaver) Write(p []byte) (int, error) {
+	n, err := w.w.Write(p)
+	if err != nil {
+		w.err = err
+	}
+	return n, err
+}
+
+// applyTemplateToResponseWriter uses an http.ResponseWriter as the io.Writer
+// for the call to template.Execute.  It uses an io.Writer wrapper to capture
+// errors from the underlying http.ResponseWriter.  Errors are logged only when
+// they come from the template processing and not the Writer; this avoid
+// polluting log files with error messages due to networking issues, such as
+// client disconnects and http HEAD protocol violations.
+func applyTemplateToResponseWriter(rw http.ResponseWriter, t *template.Template, data interface{}) {
+	w := &writeErrorSaver{w: rw}
+	err := t.Execute(w, data)
+	// There are some cases where template.Execute does not return an error when
+	// rw returns an error, and some where it does.  So check w.err first.
+	if w.err == nil && err != nil {
+		// Log template errors.
+		log.Printf("%s.Execute: %s", t.Name(), err)
+	}
+}
+
+func (s *Site) serveFile(w http.ResponseWriter, r *http.Request) {
+	if strings.HasSuffix(r.URL.Path, "/index.html") {
+		// We'll show index.html for the directory.
+		// Use the dir/ version as canonical instead of dir/index.html.
+		http.Redirect(w, r, r.URL.Path[0:len(r.URL.Path)-len("index.html")], http.StatusMovedPermanently)
+		return
+	}
+
+	// Check to see if we need to redirect or serve another file.
+	abspath := r.URL.Path
+	if f := open(s.fs, abspath); f != nil {
+		if f.Path != abspath {
+			// Redirect to canonical path.
+			http.Redirect(w, r, f.Path, http.StatusMovedPermanently)
+			return
+		}
+		// Serve from the actual filesystem path.
+		s.serveHTML(w, r, f)
+		return
+	}
+
+	relpath := abspath[1:] // strip leading slash
+
+	dir, err := fs.Stat(s.fs, toFS(abspath))
+	if err != nil {
+		// Check for spurious trailing slash.
+		if strings.HasSuffix(abspath, "/") {
+			trimmed := abspath[:len(abspath)-1]
+			if _, err := fs.Stat(s.fs, toFS(trimmed)); err == nil ||
+				open(s.fs, trimmed) != nil {
+				http.Redirect(w, r, trimmed, http.StatusMovedPermanently)
+				return
+			}
+		}
+		s.ServeError(w, r, err)
+		return
+	}
+
+	fsPath := toFS(abspath)
+	if dir != nil && dir.IsDir() {
+		if maybeRedirect(w, r) {
+			return
+		}
+		s.serveDir(w, r, abspath, relpath)
+		return
+	}
+
+	if isTextFile(s.fs, fsPath) {
+		if maybeRedirectFile(w, r) {
+			return
+		}
+		s.serveText(w, r, abspath, relpath)
+		return
+	}
+
+	s.fileServer.ServeHTTP(w, r)
+}
+
+func maybeRedirect(w http.ResponseWriter, r *http.Request) (redirected bool) {
+	canonical := path.Clean(r.URL.Path)
+	if !strings.HasSuffix(canonical, "/") {
+		canonical += "/"
+	}
+	if r.URL.Path != canonical {
+		url := *r.URL
+		url.Path = canonical
+		http.Redirect(w, r, url.String(), http.StatusMovedPermanently)
+		redirected = true
+	}
+	return
+}
+
+func maybeRedirectFile(w http.ResponseWriter, r *http.Request) (redirected bool) {
+	c := path.Clean(r.URL.Path)
+	c = strings.TrimRight(c, "/")
+	if r.URL.Path != c {
+		url := *r.URL
+		url.Path = c
+		http.Redirect(w, r, url.String(), http.StatusMovedPermanently)
+		redirected = true
+	}
+	return
+}
+
+var doctype = []byte("<!DOCTYPE ")
+
+func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, f *file) {
+	src := f.Body
+	isMarkdown := strings.HasSuffix(f.FilePath, ".md")
+
+	// if it begins with "<!DOCTYPE " assume it is standalone
+	// html that doesn't need the template wrapping.
+	if bytes.HasPrefix(src, doctype) {
+		w.Write(src)
+		return
+	}
+
+	page := Page{
+		Title:    f.Title,
+		Subtitle: f.Subtitle,
+	}
+
+	// evaluate as template if indicated
+	if f.Template {
+		page = s.fullPage(r, page)
+		tmpl, err := template.New("main").Funcs(s.docFuncs).Parse(string(src))
+		if err != nil {
+			log.Printf("parsing template %s: %v", f.Path, err)
+			s.ServeError(w, r, err)
+			return
+		}
+		var buf bytes.Buffer
+		if err := tmpl.Execute(&buf, page); err != nil {
+			log.Printf("executing template %s: %v", f.Path, err)
+			s.ServeError(w, r, err)
+			return
+		}
+		src = buf.Bytes()
+	}
+
+	// Apply markdown as indicated.
+	// (Note template applies before Markdown.)
+	if isMarkdown {
+		html, err := renderMarkdown(src)
+		if err != nil {
+			log.Printf("executing markdown %s: %v", f.Path, err)
+			s.ServeError(w, r, err)
+			return
+		}
+		src = html
+	}
+
+	// if it's the language spec, add tags to EBNF productions
+	if strings.HasSuffix(f.FilePath, "go_spec.html") {
+		var buf bytes.Buffer
+		spec.Linkify(&buf, src)
+		src = buf.Bytes()
+	}
+
+	page.Data = template.HTML(src)
+	s.ServePage(w, r, page)
+}
+
+func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
+	if maybeRedirect(w, r) {
+		return
+	}
+
+	list, err := fs.ReadDir(s.fs, toFS(abspath))
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+
+	var info []fs.FileInfo
+	for _, d := range list {
+		i, err := d.Info()
+		if err == nil {
+			info = append(info, i)
+		}
+	}
+
+	s.ServePage(w, r, Page{
+		Title:    "Directory",
+		SrcPath:  relpath,
+		TabTitle: relpath,
+		Template: "dirlist.html",
+		Data:     info,
+	})
+}
+
+func (s *Site) serveText(w http.ResponseWriter, r *http.Request, abspath, relpath string) {
+	src, err := fs.ReadFile(s.fs, toFS(abspath))
+	if err != nil {
+		log.Printf("ReadFile: %s", err)
+		s.ServeError(w, r, err)
+		return
+	}
+
+	if r.FormValue("m") == "text" {
+		s.serveRawText(w, src)
+		return
+	}
+
+	cfg := texthtml.Config{
+		GoComments: path.Ext(abspath) == ".go",
+		Highlight:  r.FormValue("h"),
+		Selection:  rangeSelection(r.FormValue("s")),
+		Line:       1,
+	}
+
+	var buf bytes.Buffer
+	buf.WriteString("<pre>")
+	buf.Write(texthtml.Format(src, cfg))
+	buf.WriteString("</pre>")
+
+	fmt.Fprintf(&buf, `<p><a href="/%s?m=text">View as plain text</a></p>`, html.EscapeString(relpath))
+
+	title := "Text file"
+	if strings.HasSuffix(relpath, ".go") {
+		title = "Source file"
+	}
+	s.ServePage(w, r, Page{
+		Title:    title,
+		SrcPath:  relpath,
+		TabTitle: relpath,
+		Data:     template.HTML(buf.String()),
+	})
+}
+
+var selRx = regexp.MustCompile(`^([0-9]+):([0-9]+)`)
+
+// rangeSelection computes the Selection for a text range described
+// by the argument str, of the form Start:End, where Start and End
+// are decimal byte offsets.
+func rangeSelection(str string) texthtml.Selection {
+	m := selRx.FindStringSubmatch(str)
+	if len(m) >= 2 {
+		from, _ := strconv.Atoi(m[1])
+		to, _ := strconv.Atoi(m[2])
+		if from < to {
+			return texthtml.Spans(texthtml.Span{Start: from, End: to})
+		}
+	}
+	return nil
+}
+
+func (s *Site) serveRawText(w http.ResponseWriter, text []byte) {
+	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
+	w.Write(text)
+}
+
+func (s *Site) googleCN(r *http.Request) bool {
+	return s.GoogleCN != nil && s.GoogleCN(r)
+}

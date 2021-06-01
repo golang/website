@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"bytes"
@@ -18,27 +18,39 @@ import (
 	"path"
 	"strings"
 
-	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/pkgdoc"
 )
-
-func (p *Presentation) initFuncMap() {
-	p.docFuncs = template.FuncMap{
-		"code":     p.code,
-		"releases": func() []*history.Major { return history.Majors },
-	}
-}
 
 var siteFuncs = template.FuncMap{
 	// various helpers
 	"basename": path.Base,
 
 	// formatting of Examples
-	"example_name":   example_nameFunc,
-	"example_suffix": example_suffixFunc,
+	"example_name":   example_name,
+	"example_suffix": example_suffix,
 
 	// Number operation
 	"multiply": func(a, b int) int { return a * b },
+}
+
+// example_name takes an example function name and returns its display
+// name. For example, "Foo_Bar_quux" becomes "Foo.Bar (Quux)".
+func example_name(s string) string {
+	name, suffix := pkgdoc.SplitExampleName(s)
+	// replace _ with . for method names
+	name = strings.Replace(name, "_", ".", 1)
+	// use "Package" if no name provided
+	if name == "" {
+		name = "Package"
+	}
+	return name + suffix
+}
+
+// example_suffix takes an example function name and returns its suffix in
+// parenthesized form. For example, "Foo_Bar_quux" becomes " (Quux)".
+func example_suffix(name string) string {
+	_, suffix := pkgdoc.SplitExampleName(name)
+	return suffix
 }
 
 func srcToPkg(path string) string {
@@ -125,10 +137,10 @@ func (p *Page) SrcPosLink(n interface{}) template.HTML {
 		high = info.FSet.Position(end).Offset
 	}
 
-	return srcPosLinkFunc(relpath, line, low, high)
+	return srcPosLink(relpath, line, low, high)
 }
 
-func srcPosLinkFunc(s string, line, low, high int) template.HTML {
+func srcPosLink(s string, line, low, high int) template.HTML {
 	s = path.Clean("/" + s)
 	if !strings.HasPrefix(s, "/src/") {
 		s = "/src" + s

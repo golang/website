@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import (
 	"net/http"
@@ -16,7 +16,7 @@ import (
 	"testing/fstest"
 )
 
-func testServeBody(t *testing.T, p *Presentation, path, body string) {
+func testServeBody(t *testing.T, p *Site, path, body string) {
 	t.Helper()
 	r := &http.Request{URL: &url.URL{Path: path}}
 	rw := httptest.NewRecorder()
@@ -32,7 +32,7 @@ func TestRedirectAndMetadata(t *testing.T) {
 		"doc/x/index.html":    {Data: []byte("Hello, x.")},
 		"lib/godoc/site.html": {Data: []byte(`{{.Data}}`)},
 	}
-	p, err := NewPresentation(fsys)
+	p, err := NewSite(fsys)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -53,7 +53,7 @@ func TestRedirectAndMetadata(t *testing.T) {
 }
 
 func TestMarkdown(t *testing.T) {
-	p, err := NewPresentation(fstest.MapFS{
+	p, err := NewSite(fstest.MapFS{
 		"doc/test.md":         {Data: []byte("**bold**")},
 		"doc/test2.md":        {Data: []byte(`{{"*template*"}}`)},
 		"lib/godoc/site.html": {Data: []byte(`{{.Data}}`)},

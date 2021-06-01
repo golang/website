@@ -5,7 +5,7 @@
 //go:build go1.16
 // +build go1.16
 
-package godoc
+package web
 
 import "io"
 
@@ -16,9 +16,9 @@ const (
 	collecting
 )
 
-// TabSpacer returns a writer that passes writes through to w,
+// tabSpacer returns a writer that passes writes through to w,
 // expanding tabs to one or more spaces ending at a width-spaces-aligned boundary.
-func TabSpacer(w io.Writer, width int) io.Writer {
+func tabSpacer(w io.Writer, width int) io.Writer {
 	return &tconv{output: w, tabWidth: width}
 }
 

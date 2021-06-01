@@ -32,7 +32,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"golang.org/x/website/internal/godoc"
+	"golang.org/x/website/internal/web"
 )
 
 // Handler for /doc/codewalk/ and below.
@@ -55,7 +55,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 
 	// If file exists, serve using standard file server.
 	if err == nil {
-		pres.ServeHTTP(w, r)
+		site.ServeHTTP(w, r)
 		return
 	}
 
@@ -66,7 +66,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 	cw, err := loadCodewalk(abspath + ".xml")
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, err)
+		site.ServeError(w, r, err)
 		return
 	}
 
@@ -75,7 +75,7 @@ func codewalk(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	pres.ServePage(w, r, godoc.Page{
+	site.ServePage(w, r, web.Page{
 		Title:    "Codewalk: " + cw.Title,
 		TabTitle: cw.Title,
 		Template: "codewalk.html",
@@ -211,7 +211,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 	dir, err := fs.ReadDir(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, err)
+		site.ServeError(w, r, err)
 		return
 	}
 	var v []interface{}
@@ -228,7 +228,7 @@ func codewalkDir(w http.ResponseWriter, r *http.Request, relpath, abspath string
 		}
 	}
 
-	pres.ServePage(w, r, godoc.Page{
+	site.ServePage(w, r, web.Page{
 		Title:    "Codewalks",
 		Template: "codewalkdir.html",
 		Data:     v,
@@ -246,7 +246,7 @@ func codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
 	data, err := fs.ReadFile(fsys, toFS(abspath))
 	if err != nil {
 		log.Print(err)
-		pres.ServeError(w, r, err)
+		site.ServeError(w, r, err)
 		return
 	}
 	lo, _ := strconv.Atoi(r.FormValue("lo"))
