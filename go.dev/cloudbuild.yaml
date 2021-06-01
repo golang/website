@@ -12,8 +12,7 @@ steps:
     dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: bash
-    args: ["../go-app-deploy.sh", "app.yaml"]
-    dir: go.dev
+    args: ["./go-app-deploy.sh", "go.dev/app.yaml"]
   - name: 'mirror.gcr.io/library/golang'
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",

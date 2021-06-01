@@ -1,8 +1,0 @@
-runtime: go115
-service: staging-learn-go-dev
-main: ./cmd/frontend
-
-handlers:
-  - url: /.*
-    secure: always
-    script: auto

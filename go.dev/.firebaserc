@@ -1,6 +1,0 @@
-{
-  "projects": {
-    "staging": "go-dev-staging",
-    "prod": "go-dev-prod"
-  }
-}
