@@ -9,6 +9,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"path"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -32,6 +33,7 @@ type tPage map[string]interface{}
 // loadPage loads the site's page from the given file.
 // It returns the page but also adds the page to site.pages and site.pagesByID.
 func (site *Site) loadPage(file string) (*page, error) {
+	file = filepath.ToSlash(file)
 	id := strings.TrimPrefix(file, "_content/")
 	if id == "index.md" {
 		id = ""
