@@ -2558,11 +2558,10 @@ corresponds to the repository's root directory. It must be a prefix or an exact
 match of the requested module path. If it's not an exact match, another request
 is made for the prefix to verify the `<meta>` tags match.
 
-`vcs` is the version control system. It must be one of `bzr`, `fossil`, `git`,
-`hg`, `svn`, `mod`. The `mod` scheme instructs the `go` command to download the
-module from the given URL using the [`GOPROXY`
-protocol](#goproxy-protocol). This allows developers to distribute modules
-without exposing source repositories. See [Serving modules directly from a
+`vcs` is the version control system. It must be one of the tools listed in the
+table below or the keyword `mod`, which instructs the `go` command to download
+the module from the given URL using the [`GOPROXY`
+protocol](#goproxy-protocol). See [Serving modules directly from a
 proxy](#serving-from-proxy) for details.
 
 `repo-url` is the repository's URL. If the URL does not include a scheme (either
@@ -2571,6 +2570,49 @@ scheme), the `go` command will try each protocol supported by the version
 control system. For example, with Git, the `go` command will try `https://` then
 `git+ssh://`. Insecure protocols (like `http://` and `git://`) may only be used
 if the module path is matched by the `GOINSECURE` environment variable.
+
+<table id="vcs-support" class="ModTable">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Command</th>
+      <th>GOVCS default</th>
+      <th>Secure schemes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Bazaar</td>
+      <td><code>bzr</code></td>
+      <td>Private only</td>
+      <td><code>https</code>, <code>bzr+ssh</code></td>
+    </tr>
+    <tr>
+      <td>Fossil</td>
+      <td><code>fossil</code></td>
+      <td>Private only</td>
+      <td><code>https</code></td>
+    </tr>
+    <tr>
+      <td>Git</td>
+      <td><code>git</code></td>
+      <td>Public and private</td>
+      <td><code>https</code>, <code>git+ssh</code>, <code>ssh</code></td>
+    </tr>
+    <tr>
+      <td>Mercurial</td>
+      <td><code>hg</code></td>
+      <td>Public and private</td>
+      <td><code>https</code>, <code>ssh</code></td>
+    </tr>
+    <tr>
+      <td>Subversion</td>
+      <td><code>svn</code></td>
+      <td>Private only</td>
+      <td><code>https</code>, <code>svn+ssh</code></td>
+    </tr>
+  </tbody>
+</table>
 
 As an example, consider `golang.org/x/mod` again. The `go` command sends
 a request to `https://golang.org/x/mod?go-get=1`. The server responds
@@ -2739,13 +2781,13 @@ to run unintended code.
 
 To balance the functionality and security concerns, the `go` command by default
 will only use `git` and `hg` to download code from public servers. It will use
-any known version control system (`bzr`, `fossil`, `git`, `hg`, `svn`) to
-download code from private servers, defined as those hosting packages matching
-the `GOPRIVATE` [environment variable](#environment-variables). The rationale
-behind allowing only Git and Mercurial is that these two systems have had the
-most attention to issues of being run as clients of untrusted servers. In
-contrast, Bazaar, Fossil, and Subversion have primarily been used in trusted,
-authenticated environments and are not as well scrutinized as attack surfaces.
+any [known version control system](#vcs-support) to download code from private
+servers, defined as those hosting packages matching the `GOPRIVATE` [environment
+variable](#environment-variables). The rationale behind allowing only Git and
+Mercurial is that these two systems have had the most attention to issues of
+being run as clients of untrusted servers. In contrast, Bazaar, Fossil, and
+Subversion have primarily been used in trusted, authenticated environments and
+are not as well scrutinized as attack surfaces.
 
 The version control command restrictions only apply when using direct version
 control access to download code. When downloading modules from a proxy, the `go`
