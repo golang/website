@@ -12,7 +12,7 @@ import (
 	"os"
 	"strings"
 
-	"golang.org/x/go.dev/cmd/internal/site"
+	"golang.org/x/website/go.dev/cmd/internal/site"
 )
 
 var discoveryHosts = map[string]string{

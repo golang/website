@@ -12,7 +12,7 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/go.dev/cmd/internal/tmplfunc"
+	"golang.org/x/website/go.dev/cmd/internal/tmplfunc"
 	"gopkg.in/yaml.v3"
 )
 

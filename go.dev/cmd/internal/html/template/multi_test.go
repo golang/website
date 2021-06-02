@@ -10,7 +10,7 @@ import (
 	"bytes"
 	"testing"
 
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 var multiExecTests = []execTest{

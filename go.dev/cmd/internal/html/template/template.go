@@ -11,11 +11,11 @@ import (
 	"path/filepath"
 	"sync"
 
-	"golang.org/x/go.dev/cmd/internal/text/template"
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
-// Template is a specialized Template from "golang.org/x/go.dev/cmd/internal/text/template" that produces a safe
+// Template is a specialized Template from "golang.org/x/website/go.dev/cmd/internal/text/template" that produces a safe
 // HTML document fragment.
 type Template struct {
 	// Sticky error if escaping fails, or escapeOK if succeeded.
@@ -86,7 +86,7 @@ func (t *Template) checkCanParse() error {
 	t.nameSpace.mu.Lock()
 	defer t.nameSpace.mu.Unlock()
 	if t.nameSpace.escaped {
-		return fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: cannot Parse after Execute")
+		return fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: cannot Parse after Execute")
 	}
 	return nil
 }
@@ -147,16 +147,16 @@ func (t *Template) lookupAndEscapeTemplate(name string) (tmpl *Template, err err
 	t.nameSpace.escaped = true
 	tmpl = t.set[name]
 	if tmpl == nil {
-		return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: %q is undefined", name)
+		return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: %q is undefined", name)
 	}
 	if tmpl.escapeErr != nil && tmpl.escapeErr != escapeOK {
 		return nil, tmpl.escapeErr
 	}
 	if tmpl.text.Tree == nil || tmpl.text.Root == nil {
-		return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: %q is an incomplete template", name)
+		return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: %q is an incomplete template", name)
 	}
 	if t.text.Lookup(name) == nil {
-		panic("golang.org/x/go.dev/cmd/internal/html/template internal error: template escaping out of sync")
+		panic("golang.org/x/website/go.dev/cmd/internal/html/template internal error: template escaping out of sync")
 	}
 	if tmpl.escapeErr == nil {
 		err = escapeTemplate(tmpl, tmpl.text.Root, name)
@@ -246,7 +246,7 @@ func (t *Template) Clone() (*Template, error) {
 	t.nameSpace.mu.Lock()
 	defer t.nameSpace.mu.Unlock()
 	if t.escapeErr != nil {
-		return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: cannot Clone %q after it has executed", t.Name())
+		return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: cannot Clone %q after it has executed", t.Name())
 	}
 	textClone, err := t.text.Clone()
 	if err != nil {
@@ -265,7 +265,7 @@ func (t *Template) Clone() (*Template, error) {
 		name := x.Name()
 		src := t.set[name]
 		if src == nil || src.escapeErr != nil {
-			return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: cannot Clone %q after it has executed", t.Name())
+			return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: cannot Clone %q after it has executed", t.Name())
 		}
 		x.Tree = x.Tree.Copy()
 		ret.set[name] = &Template{
@@ -332,8 +332,8 @@ func (t *Template) Name() string {
 // return values of which the second has type error. In that case, if the
 // second (error) argument evaluates to non-nil during execution, execution
 // terminates and Execute returns that error. FuncMap has the same base type
-// as FuncMap in "golang.org/x/go.dev/cmd/internal/text/template", copied here so clients need not import
-// "golang.org/x/go.dev/cmd/internal/text/template".
+// as FuncMap in "golang.org/x/website/go.dev/cmd/internal/text/template", copied here so clients need not import
+// "golang.org/x/website/go.dev/cmd/internal/text/template".
 type FuncMap map[string]interface{}
 
 // Funcs adds the elements of the argument map to the template's function map.
@@ -409,7 +409,7 @@ func parseFiles(t *Template, readFile func(string) (string, []byte, error), file
 
 	if len(filenames) == 0 {
 		// Not really a problem, but be consistent.
-		return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: no files named in call to ParseFiles")
+		return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: no files named in call to ParseFiles")
 	}
 	for _, filename := range filenames {
 		name, b, err := readFile(filename)
@@ -477,7 +477,7 @@ func parseGlob(t *Template, pattern string) (*Template, error) {
 		return nil, err
 	}
 	if len(filenames) == 0 {
-		return nil, fmt.Errorf("golang.org/x/go.dev/cmd/internal/html/template: pattern matches no files: %#q", pattern)
+		return nil, fmt.Errorf("golang.org/x/website/go.dev/cmd/internal/html/template: pattern matches no files: %#q", pattern)
 	}
 	return parseFiles(t, readFileOS, filenames...)
 }

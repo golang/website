@@ -11,7 +11,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"golang.org/x/go.dev/cmd/internal/text/template"
+	"golang.org/x/website/go.dev/cmd/internal/text/template"
 )
 
 // templateFile defines the contents of a template to be stored in a file, for testing.

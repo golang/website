@@ -1,4 +1,4 @@
-module golang.org/x/go.dev
+module golang.org/x/website/go.dev
 
 go 1.13
 

@@ -7,7 +7,7 @@ package template
 import (
 	"fmt"
 
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 // Error describes a problem encountered during template Escaping.
@@ -218,13 +218,13 @@ func (e *Error) Error() string {
 	switch {
 	case e.Node != nil:
 		loc, _ := (*parse.Tree)(nil).ErrorContext(e.Node)
-		return fmt.Sprintf("golang.org/x/go.dev/cmd/internal/html/template:%s: %s", loc, e.Description)
+		return fmt.Sprintf("golang.org/x/website/go.dev/cmd/internal/html/template:%s: %s", loc, e.Description)
 	case e.Line != 0:
-		return fmt.Sprintf("golang.org/x/go.dev/cmd/internal/html/template:%s:%d: %s", e.Name, e.Line, e.Description)
+		return fmt.Sprintf("golang.org/x/website/go.dev/cmd/internal/html/template:%s:%d: %s", e.Name, e.Line, e.Description)
 	case e.Name != "":
-		return fmt.Sprintf("golang.org/x/go.dev/cmd/internal/html/template:%s: %s", e.Name, e.Description)
+		return fmt.Sprintf("golang.org/x/website/go.dev/cmd/internal/html/template:%s: %s", e.Name, e.Description)
 	}
-	return "golang.org/x/go.dev/cmd/internal/html/template: " + e.Description
+	return "golang.org/x/website/go.dev/cmd/internal/html/template: " + e.Description
 }
 
 // errorf creates an error given a format string f and args.

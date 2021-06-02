@@ -8,7 +8,7 @@ import (
 	"reflect"
 	"sync"
 
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 // common holds the information shared by related templates.

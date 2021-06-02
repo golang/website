@@ -34,7 +34,7 @@ provided below.
 
 Example
 
-  import "golang.org/x/go.dev/cmd/internal/text/template"
+  import "golang.org/x/website/go.dev/cmd/internal/text/template"
   ...
   t, err := template.New("foo").Parse(`{{define "T"}}Hello, {{.}}!{{end}}`)
   err = t.ExecuteTemplate(out, "T", "<script>alert('you have been pwned')</script>")
@@ -45,7 +45,7 @@ produces
 
 but the contextual autoescaping in html/template
 
-  import "golang.org/x/go.dev/cmd/internal/html/template"
+  import "golang.org/x/website/go.dev/cmd/internal/html/template"
   ...
   t, err := template.New("foo").Parse(`{{define "T"}}Hello, {{.}}!{{end}}`)
   err = t.ExecuteTemplate(out, "T", "<script>alert('you have been pwned')</script>")

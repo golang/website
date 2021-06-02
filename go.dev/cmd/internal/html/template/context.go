@@ -7,7 +7,7 @@ package template
 import (
 	"fmt"
 
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 // context describes the state an HTML parser must be in when it reaches the

@@ -10,7 +10,7 @@ import (
 	"os"
 	"strings"
 
-	"golang.org/x/go.dev/cmd/internal/html/template"
+	"golang.org/x/website/go.dev/cmd/internal/html/template"
 )
 
 func Example() {

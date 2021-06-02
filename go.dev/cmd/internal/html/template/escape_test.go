@@ -12,8 +12,8 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/go.dev/cmd/internal/text/template"
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 type badMarshaler struct{}
@@ -1047,7 +1047,7 @@ func TestErrors(t *testing.T) {
 		},
 		{
 			"<a class=`foo>",
-			"golang.org/x/go.dev/cmd/internal/html/template:z: \"`\" in unquoted attr: \"`foo\"",
+			"golang.org/x/website/go.dev/cmd/internal/html/template:z: \"`\" in unquoted attr: \"`foo\"",
 		},
 		{
 			`<a style=font:'Arial'>`,
@@ -1505,7 +1505,7 @@ func TestEscapeText(t *testing.T) {
 			context{state: stateText},
 		},
 		{
-			`<script type="golang.org/x/go.dev/cmd/internal/text/template">`,
+			`<script type="golang.org/x/website/go.dev/cmd/internal/text/template">`,
 			context{state: stateText},
 		},
 		// covering issue 19968
@@ -1515,7 +1515,7 @@ func TestEscapeText(t *testing.T) {
 		},
 		// covering issue 19965
 		{
-			`<script TYPE="golang.org/x/go.dev/cmd/internal/text/template">`,
+			`<script TYPE="golang.org/x/website/go.dev/cmd/internal/text/template">`,
 			context{state: stateText},
 		},
 		{

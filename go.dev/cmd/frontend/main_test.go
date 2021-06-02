@@ -11,7 +11,7 @@ import (
 	"strings"
 	"testing"
 
-	"golang.org/x/go.dev/cmd/internal/site"
+	"golang.org/x/website/go.dev/cmd/internal/site"
 )
 
 var testHosts = map[string]string{

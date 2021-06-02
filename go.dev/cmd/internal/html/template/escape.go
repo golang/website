@@ -10,8 +10,8 @@ import (
 	"html"
 	"io"
 
-	"golang.org/x/go.dev/cmd/internal/text/template"
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	"golang.org/x/website/go.dev/cmd/internal/text/template"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 // escapeTemplate rewrites the named template, which must be

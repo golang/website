@@ -216,7 +216,7 @@ func TestTypedContent(t *testing.T) {
 		},
 		{
 			// Not treated as JS. The output is same as for <div>{{.}}</div>
-			`<script type="golang.org/x/go.dev/cmd/internal/text/template">{{.}}</script>`,
+			`<script type="golang.org/x/website/go.dev/cmd/internal/text/template">{{.}}</script>`,
 			[]string{
 				`&lt;b&gt; &#34;foo%&#34; O&#39;Reilly &amp;bar;`,
 				`a[href =~ &#34;//example.com&#34;]#foo`,

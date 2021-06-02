@@ -10,8 +10,8 @@ import (
 	"strings"
 	"testing"
 
-	. "golang.org/x/go.dev/cmd/internal/html/template"
-	"golang.org/x/go.dev/cmd/internal/text/template/parse"
+	. "golang.org/x/website/go.dev/cmd/internal/html/template"
+	"golang.org/x/website/go.dev/cmd/internal/text/template/parse"
 )
 
 func TestTemplateClone(t *testing.T) {

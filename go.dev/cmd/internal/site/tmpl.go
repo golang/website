@@ -9,8 +9,8 @@ import (
 	"reflect"
 	"strings"
 
-	"golang.org/x/go.dev/cmd/internal/html/template"
-	"golang.org/x/go.dev/cmd/internal/tmplfunc"
+	"golang.org/x/website/go.dev/cmd/internal/html/template"
+	"golang.org/x/website/go.dev/cmd/internal/tmplfunc"
 	"gopkg.in/yaml.v3"
 )
 

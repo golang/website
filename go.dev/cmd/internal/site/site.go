@@ -20,7 +20,7 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/go.dev/cmd/internal/html/template"
+	"golang.org/x/website/go.dev/cmd/internal/html/template"
 	"gopkg.in/yaml.v3"
 )
 
