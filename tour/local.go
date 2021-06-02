@@ -23,11 +23,6 @@ import (
 	"time"
 
 	"golang.org/x/tools/playground/socket"
-
-	// Imports so that go build/install automatically installs them.
-	_ "golang.org/x/tour/pic"
-	_ "golang.org/x/tour/tree"
-	_ "golang.org/x/tour/wc"
 )
 
 const (
@@ -58,20 +53,20 @@ func isRoot(path string) bool {
 //
 // TODO: Delete after Go 1.17 is out and we can just use embed; see CL 291849.
 func findRoot() (string, bool) {
-	// Try finding the golang.org/x/tour package in the
+	// Try finding the golang.org/x/website/tour package in the
 	// legacy GOPATH mode workspace or in build list.
-	p, err := build.Import("golang.org/x/tour", "", build.FindOnly)
+	p, err := build.Import("golang.org/x/website/tour", "", build.FindOnly)
 	if err == nil && isRoot(p.Dir) {
 		return p.Dir, true
 	}
 	// If that didn't work, perhaps we're not inside any module
 	// and the binary was built in module mode (e.g., 'go install
-	// golang.org/x/tour@latest' or 'go get golang.org/x/tour'
+	// golang.org/x/website/tour@latest' or 'go get golang.org/x/website/tour'
 	// outside a module).
 	// In that's the case, find out what version it is,
 	// and access its content from the module cache.
 	if info, ok := debug.ReadBuildInfo(); ok &&
-		info.Main.Path == "golang.org/x/tour" &&
+		info.Main.Path == "golang.org/x/website/tour" &&
 		info.Main.Replace == nil &&
 		info.Main.Version != "(devel)" {
 		// Make some assumptions for brevity:
@@ -80,7 +75,7 @@ func findRoot() (string, bool) {
 		// • the version isn't "(devel)"
 		// They should hold for the use cases we care about, until this
 		// entire mechanism is obsoleted by file embedding.
-		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/tour@"+info.Main.Version).Output()
+		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/website/tour@"+info.Main.Version).Output()
 		var tourRoot struct{ Dir string }
 		jsonError := json.Unmarshal(out, &tourRoot)
 		if execError == nil && jsonError == nil && isRoot(tourRoot.Dir) {

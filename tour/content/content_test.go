@@ -14,6 +14,9 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	// Keep golang.org/x/tour in our go.mod require list for use during test.
+	_ "golang.org/x/tour/wc"
 )
 
 // Test that all the .go files inside the content file build
@@ -38,9 +41,12 @@ func TestContent(t *testing.T) {
 		if filepath.Base(path) == "content_test.go" {
 			return nil
 		}
-		if err := testSnippet(t, path, scratch); err != nil {
-			t.Errorf("%v: %v", path, err)
-		}
+		t.Run(path, func(t *testing.T) {
+			t.Parallel()
+			if err := testSnippet(t, path, scratch); err != nil {
+				t.Errorf("%v: %v", path, err)
+			}
+		})
 		return nil
 	})
 	if err != nil {
