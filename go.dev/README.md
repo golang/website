@@ -13,12 +13,12 @@ To serve the go.dev pages, run
 
 ## Deploying
 
-All commits pushed to `master` will be automatically deployed to https://go.dev.
+Each time a CL is reviewed and submitted, the web site is automatically redeployed to
+https://go.dev/.
 
-For now moment, the deployment is not automatic. Instead, after submitting,
-visit the [Cloud Build triggers list](https://console.cloud.google.com/cloud-build/triggers?project=go-discovery),
-find the one named “Redeploy-go-dev-on-website-commit”, which should say “Disabled” in the status column,
-and then click “RUN”.
+If the automatic redeploy is not working, or to check on the status of a redeploy,
+see the “website-redeploy-go-dev” trigger in the
+[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org).
 
 ## Commands
 

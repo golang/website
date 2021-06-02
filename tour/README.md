@@ -43,21 +43,13 @@ at https://github.com/golang/tour/issues.
 
 ## Deploying
 
-1.	To deploy tour.golang.org, run:
+Each time a CL is reviewed and submitted, the tour is automatically redeployed to
+https://tour.golang.org/.
 
-	```
-	GO111MODULE=on gcloud --project=golang-org app deploy --no-promote app.yaml
-	```
+If the automatic redeploy is not working, or to check on the status of a redeploy,
+see the “website-redeploy-tour” trigger in the
+[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org).
 
-	This will create a new version, which can be viewed within the
-	[golang-org GCP project](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=tour).
-
-2.	Check that the deployed version looks OK (click the version link in GCP).
-
-3.	If all is well, click "Migrate Traffic" to move 100% of the tour.golang.org
-	traffic to the new version.
-
-4.	You're done.
 
 ## License
 
