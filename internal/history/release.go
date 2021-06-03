@@ -15,6 +15,26 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2021, 6, 3}, Version: Version{1, 16, 5},
+		CustomSummary: `includes security fixes to the
+<code>archive/zip</code>, <code>math/big</code>,
+<code>net</code>, and <code>net/http/httputil</code> packages,
+as well as bug fixes to the linker, the <code>go</code> command,
+and the <code>net/http</code> package. See the
+<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.5+label%3ACherryPickApproved">Go
+1.16.5 milestone</a> on our issue tracker for details.`,
+	},
+	{
+		Date: Date{2021, 6, 3}, Version: Version{1, 15, 13},
+		CustomSummary: `includes security fixes to the
+<code>archive/zip</code>, <code>math/big</code>,
+<code>net</code>, and <code>net/http/httputil</code> packages,
+as well as bug fixes to the linker, the <code>go</code> command,
+and the <code>math/big</code> and <code>net/http</code> packages. See the
+<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.13+label%3ACherryPickApproved">Go
+1.15.13 milestone</a> on our issue tracker for details.`,
+	},
+	{
 		Date: Date{2021, 5, 6}, Version: Version{1, 16, 4},
 		CustomSummary: `includes a security fix to the
 <code>net/http</code> package, as well as bug fixes to the runtime,
@@ -29,8 +49,8 @@ and <code>syscall</code> packages. See the
 <code>net/http</code> package, as well as bug fixes to the runtime,
 the compiler, and the <code>archive/zip</code>, <code>time</code>,
 and <code>syscall</code> packages. See the
-<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.4+label%3ACherryPickApproved">Go
-1.16.4 milestone</a> on our issue tracker for details.`,
+<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.12+label%3ACherryPickApproved">Go
+1.15.12 milestone</a> on our issue tracker for details.`,
 	},
 	{
 		Date: Date{2021, 4, 1}, Version: Version{1, 16, 3},
