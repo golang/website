@@ -4,20 +4,16 @@
 
 steps:
   - name: 'mirror.gcr.io/library/golang'
-    entrypoint: bash
-    args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
-    dir: go.dev
-  - name: 'mirror.gcr.io/library/golang'
     args: ["go", "test", "./..."]
-    dir: go.dev
-  - name: "gcr.io/cloud-builders/gcloud"
+    dir: tour
+  - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["../go-app-deploy.sh", "app.yaml"]
-    dir: go.dev
+    dir: tour
   - name: 'mirror.gcr.io/library/golang'
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",
-      "--project=$PROJECT_ID", "--service=go-dev",
+      "--project=$PROJECT_ID", "--service=tour",
     ]
     dir: go.dev
 

@@ -13,12 +13,15 @@ To serve the go.dev pages, run
 
 ## Deploying
 
-Each time a CL is reviewed and submitted, the web site is automatically redeployed to
-https://go.dev/.
+Each time a CL is reviewed and submitted, the blog is automatically deployed to App Engine.
+If the CL is submitted with a Website-Publish +1 vote,
+the new deployment automatically becomes https://go.dev/.
+Otherwise, the new deployment can be found in the
+[App Engine versions list](https://console.cloud.google.com/appengine/versions?project=go-discovery&serviceId=go-dev) and verified and manually promoted.
 
-If the automatic redeploy is not working, or to check on the status of a redeploy,
+If the automatic deployment is not working, or to check on the status of a pending deployment,
 see the “website-redeploy-go-dev” trigger in the
-[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org).
+[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=go-discovery).
 
 ## Commands
 
