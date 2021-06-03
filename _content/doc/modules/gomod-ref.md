@@ -334,7 +334,7 @@ The `replace` directive can be useful in situations such as the following:
 * You've identified an issue with a dependency, have cloned the dependency's
   repository, and you're testing a fix with the local repository.
 
-Note that a `replace` directive alone does not does not add a module to the
+Note that a `replace` directive alone does not add a module to the
 [module graph](/ref/mod#glos-module-graph). A [`require` directive](#require)
 that refers to a replaced module version is also needed, either in the main
 module's `go.mod` file or a dependency's `go.mod` file. If you don't have a
