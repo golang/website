@@ -4,11 +4,11 @@
 
 steps:
   - name: 'mirror.gcr.io/library/golang'
-    entrypoint: bash
-    args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
+    args: ["go", "test", "./..."]
     dir: go.dev
   - name: 'mirror.gcr.io/library/golang'
-    args: ["go", "test", "./..."]
+    entrypoint: bash
+    args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
     dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: bash
