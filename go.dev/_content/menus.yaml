@@ -51,7 +51,7 @@ footer:
     children:
     - name: Twitter
       url: https://www.twitter.com/golang
-    - name: Github
+    - name: GitHub
       url: https://github.com/golang
     - name: Slack
       url: https://invite.slack.golangbridge.org/

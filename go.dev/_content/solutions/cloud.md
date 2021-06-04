@@ -102,7 +102,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
     ctas:
       - text: NYTimes - Gizmo
         url: https://open.nytimes.com/introducing-gizmo-aa7ea463b208
-      - text: Gizmo Github
+      - text: Gizmo GitHub
         url: https://github.com/nytimes/gizmo
   - company: Twitch
     url: https://www.twitch.tv/
