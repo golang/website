@@ -123,7 +123,7 @@ helpful feedback about the design in preparation for a merge to master.
 
 If you experience any problems or have an idea for a feature request, please
 [file an
-issue](https://github.com/golang/go/issues/new/?&labels=fuzz&title=%5Bdev%2Efuzz%5D&milestone=backlog&body=).
+issue](https://github.com/golang/go/issues/new/?&labels=fuzz&title=%5Bdev%2Efuzz%5D&milestone=backlog).
 
 For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in
