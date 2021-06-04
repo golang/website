@@ -10,7 +10,7 @@
     thumbnail: /images/learn/get-programming-with-go.jpeg
   - title: Go Programming Blueprints
     description: This is the official source code repository for the book.
-    cta: View on Github
+    cta: View on GitHub
     url: https://github.com/matryer/goblueprints
     thumbnail: /images/learn/go-programming-blueprints.png
   - title: Introducing Go
