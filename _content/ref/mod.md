@@ -380,7 +380,7 @@ or semantic versions.
 
 *Strings* are quoted sequences of characters. There are two kinds of strings:
 interpreted strings beginning and ending with quotation marks (`"`, U+0022) and
-raw strings beginning and ending with grave accents (<code>&#60;</code>,
+raw strings beginning and ending with grave accents (<code>&#x60;</code>,
 U+0060). Interpreted strings may contain escape sequences consisting of a
 backslash (`\`, U+005C) followed by another character. An escaped quotation
 mark (`\"`) does not terminate an interpreted string. The unquoted value
