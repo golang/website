@@ -337,7 +337,7 @@ func parseVersion(v string) (maj, min int, tail string) {
 // Go release binaries via the /dl/upload endpoint.
 func validUser(user string) bool {
 	switch user {
-	case "amedee", "cherryyz", "dmitshur", "drchase", "katiehockman", "mknyszek", "rakoczy", "valsorda":
+	case "amedee", "cherryyz", "dmitshur", "drchase", "heschi", "katiehockman", "mknyszek", "rakoczy", "valsorda":
 		return true
 	}
 	return false
