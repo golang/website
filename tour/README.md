@@ -1,6 +1,6 @@
 # Go Tour
 
-[![Go Reference](https://pkg.go.dev/badge/golang.org/x/tour.svg)](https://pkg.go.dev/golang.org/x/tour)
+[![Go Reference](https://pkg.go.dev/badge/golang.org/x/website/tour.svg)](https://pkg.go.dev/golang.org/x/website/tour)
 
 A Tour of Go is an introduction to the Go programming language. Visit
 https://tour.golang.org to start the tour.
@@ -10,10 +10,10 @@ https://tour.golang.org to start the tour.
 To install the tour from source, first
 [install Go](https://golang.org/doc/install) and then run:
 
-	$ go get golang.org/x/tour
+	$ go install golang.org/x/website/tour@latest
 
 This will place a `tour` binary in your
-[workspace](https://golang.org/doc/code.html#Workspaces)'s `bin` directory.
+[GOPATH](https://golang.org/cmd/go/#hdr-GOPATH_and_Modules)'s `bin` directory.
 The tour program can be run offline.
 
 ## Contributing
@@ -36,7 +36,7 @@ This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://golang.org/doc/contribute.html.
 
 The issue tracker for the tour's code is located at https://github.com/golang/go/issues.
-Prefix your issue with "x/tour:" in the subject line, so it is easy to find.
+Prefix your issue with "x/website/tour:" in the subject line, so it is easy to find.
 
 Issues with the tour's content itself should be reported in the issue tracker
 at https://github.com/golang/tour/issues.

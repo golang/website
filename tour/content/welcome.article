@@ -70,10 +70,10 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 #appengine: To run the tour locally, you'll need to first
 #appengine: [[https://golang.org/doc/install][install Go]] and then run:
 #appengine:
-#appengine:   go get golang.org/x/tour
+#appengine:   go install golang.org/x/website/tour@latest
 #appengine:
 #appengine: This will place a `tour` binary in your
-#appengine: [[https://golang.org/doc/code.html#Workspaces][workspace]]'s `bin` directory.
+#appengine: [[https://golang.org/cmd/go/#hdr-GOPATH_and_Modules][GOPATH]]'s `bin` directory.
 #appengine: When you run the tour program, it will open a web browser displaying
 #appengine: your local version of the tour.
 #appengine:
