@@ -18,6 +18,9 @@ body contains bdb10cf
 body !contains UA-
 
 GET https://golang.org/cmd/compile/internal/amd64/
+redirect == https://pkg.go.dev/cmd/compile/internal/amd64
+
+GET https://golang.org/cmd/compile/internal/amd64/?m=old
 body contains href="/src/cmd/compile/internal/amd64/ssa.go"
 
 GET https://golang.org/conduct
@@ -74,57 +77,94 @@ redirect == /help
 GET https://golang.org/help
 body contains Get help
 
-GET https://golang.org/pkg/fmt/
-body contains Package fmt implements formatted I/O
-
 GET https://golang.org/src/fmt/
 body contains scan_test.go
 
 GET https://golang.org/src/fmt/print.go
 body contains // Println formats using
 
+GET https://golang.org/pkg/fmt/
+redirect == https://pkg.go.dev/fmt
+
+GET https://golang.org/pkg/fmt/?m=old
+body contains Package fmt implements formatted I/O
+
+GET https://golang.google.cn/pkg/fmt/
+body contains Package fmt implements formatted I/O
+
 GET https://golang.org/pkg
 redirect == /pkg/
 
 GET https://golang.org/pkg/
+redirect == https://pkg.go.dev/std
+
+GET https://tip.golang.org/pkg/
+redirect == https://pkg.go.dev/std@master
+
+GET https://golang.org/pkg?m=old
+redirect == /pkg/?m=old
+
+GET https://golang.org/pkg/?m=old
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body !contains internal/syscall
 body !contains cmd/gc
 
-GET https://golang.org/pkg/?m=all
+GET https://golang.org/pkg/?m=old,all
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body contains internal/syscall/?m=all
 body !contains cmd/gc
 
 GET https://golang.org/pkg/bufio/
-body contains href="/pkg/io/#Writer
+redirect == https://pkg.go.dev/bufio
+
+GET https://golang.org/pkg/bufio/?GOOS=windows&GOARCH=amd64
+redirect == https://pkg.go.dev/bufio?GOOS=windows&GOARCH=amd64
+
+GET https://tip.golang.org/pkg/bufio/
+redirect == https://pkg.go.dev/bufio@master
+
+GET https://golang.org/pkg/bufio/?m=old
+body contains href="/pkg/io/?m=old#Writer
+body !contains href="/pkg/io/#Writer
 
 GET https://golang.org/pkg/database/sql/
+redirect == https://pkg.go.dev/database/sql
+
+GET https://golang.org/pkg/database/sql/?m=old
 body contains The number of connections currently in use; added in Go 1.11
 body contains The number of idle connections; added in Go 1.11
 
-GET https://golang.org/cmd/compile/internal/amd64/
-body contains href="/src/cmd/compile/internal/amd64/ssa.go"
-
 GET https://golang.org/pkg/math/bits/
+redirect == https://pkg.go.dev/math/bits
+
+GET https://golang.org/pkg/math/bits/?m=old
 body contains Added in Go 1.9
 
 GET https://golang.org/pkg/net/
+redirect == https://pkg.go.dev/net
+
+GET https://golang.org/pkg/net/?m=old
 body contains // IPv6 scoped addressing zone; added in Go 1.1
 
-GET https://golang.org/pkg/net/http/
+GET https://golang.org/pkg/net/http/?m=old
 body contains title="Added in Go 1.11"
 
 GET https://golang.org/pkg/net/http/httptrace/
+redirect == https://pkg.go.dev/net/http/httptrace
+
+GET https://golang.org/pkg/net/http/httptrace/?m=old
 body ~ Got1xxResponse.*// Go 1\.11
 body ~ GotFirstResponseByte func\(\)\s*$
 
-GET https://golang.org/pkg/os/
+GET https://golang.org/pkg/os/?m=old
 body contains func Open
 
 GET https://golang.org/pkg/strings/
+redirect == https://pkg.go.dev/strings
+
+GET https://golang.org/pkg/strings/?m=old
 body contains href="/src/strings/strings.go"
 
 GET https://golang.org/project

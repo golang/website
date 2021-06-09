@@ -117,6 +117,9 @@ type Page struct {
 	Template string      // template to apply to data (empty string when Data is raw template.HTML)
 	Data     interface{} // data to be rendered into page frame
 
+	// Filled in for document rendering
+	OldDocs bool // use ?m=old in doc links
+
 	// Filled in automatically by ServePage
 	GoogleCN        bool   // served on golang.google.cn
 	GoogleAnalytics string // Google Analytics tag

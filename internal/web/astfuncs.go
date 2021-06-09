@@ -36,6 +36,7 @@ func (p *Page) Node(node interface{}) template.HTML {
 	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
 		AST:        n,
 		GoComments: true,
+		OldDocs:    p.OldDocs,
 	}))
 	return template.HTML(buf2.String())
 }
@@ -50,6 +51,7 @@ func (p *Page) NodeTOC(node interface{}) template.HTML {
 	var buf2 bytes.Buffer
 	buf2.Write(texthtml.Format(buf1.Bytes(), texthtml.Config{
 		GoComments: true,
+		OldDocs:    p.OldDocs,
 	}))
 
 	return sanitize(template.HTML(buf2.String()))

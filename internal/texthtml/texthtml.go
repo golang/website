@@ -37,6 +37,7 @@ type Config struct {
 	Highlight  string    // highlight matches for this regexp with <span class="highlight">
 	Selection  Selection // mark selected spans with <span class="selection">
 	AST        ast.Node  // link uses to declarations, assuming text is formatting of AST
+	OldDocs    bool      // emit links to ?m=old docs
 }
 
 // Format formats text to HTML according to the configuration cfg.
@@ -55,6 +56,11 @@ func Format(text []byte, cfg Config) (html []byte) {
 	if cfg.AST != nil {
 		idents = tokenSelection(text, token.IDENT)
 		goLinks = goLinksFor(cfg.AST)
+		if cfg.OldDocs {
+			for i := range goLinks {
+				goLinks[i].oldDocs = true
+			}
+		}
 	}
 
 	formatSelections(&buf, text, goLinks, comments, highlights, cfg.Selection, idents)

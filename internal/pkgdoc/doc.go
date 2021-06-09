@@ -70,6 +70,7 @@ const (
 	ModeAll     Mode = 1 << iota // do not filter exports
 	ModeFlat                     // show directory in a flat (non-indented) manner
 	ModeMethods                  // show all embedded methods
+	ModeOld                      // do not redirect to pkg.go.dev
 	ModeBuiltin                  // don't associate consts, vars, and factory functions with types (not exposed via ?m= query parameter, used for package builtin, see issue 6645)
 )
 
@@ -79,6 +80,7 @@ var modeNames = []string{
 	"all",
 	"flat",
 	"methods",
+	"old",
 }
 
 // generate a query string for persisting PageInfoMode between pages.

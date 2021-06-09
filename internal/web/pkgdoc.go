@@ -7,6 +7,7 @@ package web
 import (
 	"log"
 	"net/http"
+	"net/url"
 	"path"
 	"strings"
 
@@ -29,6 +30,36 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	relpath = strings.TrimPrefix(relpath, "/")
 
 	mode := pkgdoc.ParseMode(r.FormValue("m"))
+
+	// Redirect to pkg.go.dev.
+	// We provide two overrides for the redirect.
+	// First, the request can set ?m=old to get the old pages.
+	// Second, the request can come from China:
+	// since pkg.go.dev is not available in China, we serve the docs directly.
+	if mode&pkgdoc.ModeOld == 0 && !GoogleCN(r) {
+		if relpath == "" {
+			relpath = "std"
+		}
+		suffix := ""
+		if r.Host == "tip.golang.org" {
+			suffix = "@master"
+		}
+		if goos, goarch := r.FormValue("GOOS"), r.FormValue("GOARCH"); goos != "" || goarch != "" {
+			suffix += "?"
+			if goos != "" {
+				suffix += "GOOS=" + url.QueryEscape(goos)
+			}
+			if goarch != "" {
+				if goos != "" {
+					suffix += "&"
+				}
+				suffix += "GOARCH=" + url.QueryEscape(goarch)
+			}
+		}
+		http.Redirect(w, r, "https://pkg.go.dev/"+relpath+suffix, http.StatusTemporaryRedirect)
+		return
+	}
+
 	if relpath == "builtin" {
 		// The fake built-in package contains unexported identifiers,
 		// but we want to show them. Also, disable type association,
@@ -81,6 +112,7 @@ func (h *docServer) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		Subtitle: subtitle,
 		Template: name,
 		Data:     info,
+		OldDocs:  mode&pkgdoc.ModeOld != 0,
 	})
 }
 

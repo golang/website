@@ -20,16 +20,17 @@ import (
 type goLink struct {
 	path, name string // package path, identifier name
 	isVal      bool   // identifier is defined in a const or var declaration
+	oldDocs    bool   // link to ?m=old docs
 }
 
 func (l *goLink) tags() (start, end string) {
 	switch {
 	case l.path != "" && l.name == "":
 		// package path
-		return `<a href="/pkg/` + l.path + `/">`, `</a>`
+		return `<a href="/pkg/` + l.path + `/` + l.docSuffix() + `">`, `</a>`
 	case l.path != "" && l.name != "":
 		// qualified identifier
-		return `<a href="/pkg/` + l.path + `/#` + l.name + `">`, `</a>`
+		return `<a href="/pkg/` + l.path + `/` + l.docSuffix() + `#` + l.name + `">`, `</a>`
 	case l.path == "" && l.name != "":
 		// local identifier
 		if l.isVal {
@@ -40,6 +41,13 @@ func (l *goLink) tags() (start, end string) {
 		}
 	}
 	return "", ""
+}
+
+func (l *goLink) docSuffix() string {
+	if l.oldDocs {
+		return "?m=old"
+	}
+	return ""
 }
 
 // goLinksFor returns the list of links for the identifiers used
