@@ -148,9 +148,11 @@ Go.dev provides:</p>
 
 <h2 id="removing-a-package">Removing a package</h2>
 
-<p>If you are the author of a package and would like to have it removed from pkg.go.dev, please <a href="https://golang.org/s/pkgsite-feedback" rel="noreferrer" target="_blank">file an issue</a> on the Go Issue Tracker with the path that you want to remove.</p>
-
-<p>Note that we can only remove a module entirely from the site. We cannot remove it just for specific versions.</p>
+<p>If you would like to hide versions of a module on pkg.go.dev, as well as from
+the <code>go</code> command, you should retract them. Retracting a module version involves
+adding a <code>retract</code> directive to your <code>go.mod</code> file and publishing a new version.
+See the <a href="https://golang.org/ref/mod#go-mod-file-retract" rel="noreferrer" target="_blank">modules reference</a> for
+details.</p>
 
 <h2 id="documentation">Documentation</h2>
 

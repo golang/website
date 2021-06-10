@@ -28,9 +28,11 @@ Data for the site is downloaded from [proxy.golang.org](https://proxy.golang.org
 *  Downloading the package via the [go command](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them). For example:  <br /> GOPROXY=https://<span></span>proxy.golang.org GO111MODULE=on go get example.com/my/module@v1.0.0
 
 ## Removing a package
-If you are the author of a package and would like to have it removed from pkg.go.dev, please [file an issue](https://golang.org/s/pkgsite-feedback) on the Go Issue Tracker with the path that you want to remove.
-
-Note that we can only remove a module entirely from the site. We cannot remove it just for specific versions.
+If you would like to hide versions of a module on pkg.go.dev, as well as from
+the `go` command, you should retract them. Retracting a module version involves
+adding a `retract` directive to your `go.mod` file and publishing a new version.
+See the [modules reference](https://golang.org/ref/mod#go-mod-file-retract) for
+details.
 
 ## Documentation
 
