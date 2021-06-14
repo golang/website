@@ -122,16 +122,15 @@ func main() {
 	} else {
 		gorootFS = osfs.DirFS(*goroot)
 	}
-	fsys = unionFS{content, gorootFS}
+	fsys := unionFS{content, gorootFS}
 
-	var err error
-	site, err = web.NewSite(fsys)
+	site, err := web.NewSite(fsys)
 	if err != nil {
 		log.Fatalf("NewSite: %v", err)
 	}
 	site.GoogleCN = googleCN
 
-	mux := registerHandlers(site)
+	mux := registerHandlers(fsys, site)
 
 	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
@@ -142,7 +141,7 @@ func main() {
 	}
 
 	if runningOnAppEngine {
-		appEngineSetup(mux)
+		appEngineSetup(site, mux)
 	} else {
 		// Register a redirect handler for /dl/ to the golang.org download page.
 		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
@@ -226,7 +225,7 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 	return nil, errOut
 }
 
-func appEngineSetup(mux *http.ServeMux) {
+func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	ctx := context.Background()

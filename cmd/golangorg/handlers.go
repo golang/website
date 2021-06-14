@@ -17,15 +17,8 @@ import (
 	"golang.org/x/website/internal/web"
 )
 
-var (
-	site *web.Site
-	fsys fs.FS
-)
-
-// hostEnforcerHandler redirects requests to "http://foo.golang.org/bar"
-// to "https://golang.org/bar".
-// It permits requests to the host "godoc-test.golang.org" for testing and
-// golang.google.cn for Chinese users.
+// hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
+// It permits golang.google.cn for China and *-dot-golang-org.appspot.com for testing.
 type hostEnforcerHandler struct {
 	h http.Handler
 }
@@ -65,7 +58,7 @@ func (h hostEnforcerHandler) validHost(host string) bool {
 	return false
 }
 
-func registerHandlers(site *web.Site) *http.ServeMux {
+func registerHandlers(fsys fs.FS, site *web.Site) *http.ServeMux {
 	if site == nil {
 		panic("nil Site")
 	}

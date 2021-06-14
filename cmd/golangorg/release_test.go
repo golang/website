@@ -19,15 +19,12 @@ import (
 // It can be relaxed whenever the presentation of the release history
 // page needs to be changed.
 func TestReleaseHistory(t *testing.T) {
-	origFS, origPres := fsys, site
-	defer func() { fsys, site = origFS, origPres }()
-	fsys = website.Content
-	var err error
-	site, err = web.NewSite(fsys)
+	fsys := website.Content
+	site, err := web.NewSite(fsys)
 	if err != nil {
 		t.Fatal(err)
 	}
-	mux := registerHandlers(site)
+	mux := registerHandlers(fsys, site)
 
 	webtest.TestHandler(t, "testdata/release.txt", mux)
 }
