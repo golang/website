@@ -887,8 +887,10 @@ div.play .input textarea {
   border: none;
   outline: none;
   resize: none;
+  white-space: pre;
+  overflow-x: auto;
 
-  overflow: hidden;
+  overflow-y: hidden;
 }
 div#playground .input textarea {
   overflow: auto;
