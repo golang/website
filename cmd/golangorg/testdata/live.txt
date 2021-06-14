@@ -1,36 +1,5 @@
-GET /doc/
-body contains an introduction to using modules in a simple project
-
-GET /conduct
-body contains Project Stewards
-
-GET /doc/devel/release
-body ~ go1\.14\.2\s+\(released 2020-04-08\)\s+includes\s+fixes to cgo, the go command, the runtime,
-
-GET /doc/devel/release.html
-redirect == /doc/devel/release
-
-GET /doc/faq
-body contains What is the purpose of the project
-
-GET /pkg/
-body contains Package tar
-
-GET /pkg/os/
-body contains func Open
-
-GET /pkg/net/http/
-body contains title="Added in Go 1.11"
-
-GET /robots.txt
-body contains Disallow: /search
-body !contains UA-
-
-GET /change/75944e2e3a63
-code == 302
-redirect contains bdb10cf
-body contains bdb10cf
-body !contains UA-
+# Tests that can only run against the live server,
+# because they depend on production resources.
 
 GET /dl/
 body contains href="/dl/go1.11.windows-amd64.msi"
@@ -65,17 +34,3 @@ POST /share
 postbody
 	package main
 body !contains UA-
-
-GET /x/net
-code == 200
-body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
-body !contains UA-
-
-GET /project
-body contains <li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>
-
-GET /project/
-redirect == /project
-
-GET /project/notexist
-code == 404

@@ -100,4 +100,5 @@ func TestWeb(t *testing.T) {
 	waitForServerReady(t, addr)
 
 	webtest.TestServer(t, "testdata/web.txt", addr)
+	webtest.TestServer(t, "testdata/release.txt", addr)
 }

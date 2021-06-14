@@ -24,6 +24,7 @@
 // Scripts
 //
 // A script is a text file containing a sequence of cases, separated by blank lines.
+// Lines beginning with # characters are ignored as comments.
 // A case is a sequence of lines describing a request, along with checks to be
 // applied to the response. For example, here is a trivial script:
 //

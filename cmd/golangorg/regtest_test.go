@@ -22,5 +22,5 @@ func TestLiveServer(t *testing.T) {
 		t.Skip("regtest.host flag missing.")
 	}
 
-	webtest.TestServer(t, "testdata/live.txt", *host)
+	webtest.TestServer(t, "testdata/*.txt", *host)
 }
