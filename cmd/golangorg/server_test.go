@@ -6,12 +6,14 @@ package main
 
 import (
 	"bytes"
+	"flag"
 	"fmt"
 	"io/ioutil"
 	"net"
 	"net/http"
 	"os"
 	"os/exec"
+	"strings"
 	"testing"
 	"time"
 
@@ -101,4 +103,18 @@ func TestWeb(t *testing.T) {
 
 	webtest.TestServer(t, "testdata/web.txt", addr)
 	webtest.TestServer(t, "testdata/release.txt", addr)
+	webtest.TestServer(t, "testdata/x.txt", addr)
+}
+
+// Regression tests to run against a production instance of golangorg.
+
+var host = flag.String("regtest.host", "", "host to run regression test against")
+
+func TestLiveServer(t *testing.T) {
+	*host = strings.TrimSuffix(*host, "/")
+	if *host == "" {
+		t.Skip("regtest.host flag missing.")
+	}
+
+	webtest.TestServer(t, "testdata/*.txt", *host)
 }

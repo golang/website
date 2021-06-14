@@ -19,8 +19,10 @@ package main
 
 import (
 	"context"
+	"encoding/json"
 	"flag"
 	"fmt"
+	"go/format"
 	"io"
 	"log"
 	"net/http"
@@ -30,11 +32,15 @@ import (
 	"strings"
 
 	"cloud.google.com/go/datastore"
+	"golang.org/x/build/repos"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/backport/archive/zip"
+	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/backport/osfs"
+	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
+	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/memcache"
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
@@ -60,13 +66,6 @@ func usage() {
 	fmt.Fprintf(os.Stderr, "usage: golangorg\n")
 	flag.PrintDefaults()
 	os.Exit(2)
-}
-
-func loggingHandler(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		log.Printf("%s\t%s", req.RemoteAddr, req.URL)
-		h.ServeHTTP(w, req)
-	})
 }
 
 func main() {
@@ -130,7 +129,13 @@ func main() {
 	}
 	site.GoogleCN = googleCN
 
-	mux := registerHandlers(fsys, site)
+	mux := http.NewServeMux()
+	mux.Handle("/", site)
+	mux.Handle("/doc/codewalk/", codewalk.NewServer(fsys, site))
+	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
+	mux.Handle("/x/", http.HandlerFunc(xHandler))
+	redirect.Register(mux)
+	http.Handle("/", hostEnforcerHandler{mux})
 
 	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
@@ -162,6 +167,169 @@ func main() {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
 	}
 }
+
+func appEngineSetup(site *web.Site, mux *http.ServeMux) {
+	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
+
+	ctx := context.Background()
+
+	datastoreClient, err := datastore.NewClient(ctx, "")
+	if err != nil {
+		if strings.Contains(err.Error(), "missing project") {
+			log.Fatalf("Missing datastore project. Set the DATASTORE_PROJECT_ID env variable. Use `gcloud beta emulators datastore` to start a local datastore.")
+		}
+		log.Fatalf("datastore.NewClient: %v.", err)
+	}
+
+	redisAddr := os.Getenv("GOLANGORG_REDIS_ADDR")
+	if redisAddr == "" {
+		log.Fatalf("Missing redis server for golangorg in production mode. set GOLANGORG_REDIS_ADDR environment variable.")
+	}
+	memcacheClient := memcache.New(redisAddr)
+
+	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
+	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
+
+	// Register /compile and /share handlers against the default serve mux
+	// so that other app modules can make plain HTTP requests to those
+	// hosts. (For reasons, HTTPS communication between modules is broken.)
+	proxy.RegisterHandlers(http.DefaultServeMux)
+
+	log.Println("AppEngine initialization complete")
+}
+
+// googleCN reports whether request r is considered
+// to be served from golang.google.cn.
+// TODO: This is duplicated within internal/proxy. Move to a common location.
+func googleCN(r *http.Request) bool {
+	if r.FormValue("googlecn") != "" {
+		return true
+	}
+	if strings.HasSuffix(r.Host, ".cn") {
+		return true
+	}
+	if !env.CheckCountry() {
+		return false
+	}
+	switch r.Header.Get("X-Appengine-Country") {
+	case "", "ZZ", "CN":
+		return true
+	}
+	return false
+}
+
+func blogHandler(w http.ResponseWriter, r *http.Request) {
+	http.Redirect(w, r, "https://blog.golang.org"+strings.TrimPrefix(r.URL.Path, "/blog"), http.StatusFound)
+}
+
+type fmtResponse struct {
+	Body  string
+	Error string
+}
+
+// fmtHandler takes a Go program in its "body" form value, formats it with
+// standard gofmt formatting, and writes a fmtResponse as a JSON object.
+func fmtHandler(w http.ResponseWriter, r *http.Request) {
+	resp := new(fmtResponse)
+	body, err := format.Source([]byte(r.FormValue("body")))
+	if err != nil {
+		resp.Error = err.Error()
+	} else {
+		resp.Body = string(body)
+	}
+	w.Header().Set("Content-type", "application/json; charset=utf-8")
+	json.NewEncoder(w).Encode(resp)
+}
+
+// hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
+// It permits golang.google.cn for China and *-dot-golang-org.appspot.com for testing.
+type hostEnforcerHandler struct {
+	h http.Handler
+}
+
+func (h hostEnforcerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	if !env.EnforceHosts() {
+		h.h.ServeHTTP(w, r)
+		return
+	}
+	if !h.isHTTPS(r) || !h.validHost(r.Host) {
+		r.URL.Scheme = "https"
+		if h.validHost(r.Host) {
+			r.URL.Host = r.Host
+		} else {
+			r.URL.Host = "golang.org"
+		}
+		http.Redirect(w, r, r.URL.String(), http.StatusFound)
+		return
+	}
+	w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+	h.h.ServeHTTP(w, r)
+}
+
+func (h hostEnforcerHandler) isHTTPS(r *http.Request) bool {
+	return r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https"
+}
+
+func (h hostEnforcerHandler) validHost(host string) bool {
+	switch strings.ToLower(host) {
+	case "golang.org", "golang.google.cn":
+		return true
+	}
+	if strings.HasSuffix(host, "-dot-golang-org.appspot.com") {
+		// staging/test
+		return true
+	}
+	return false
+}
+
+func loggingHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		log.Printf("%s\t%s", req.RemoteAddr, req.URL)
+		h.ServeHTTP(w, req)
+	})
+}
+
+func xHandler(w http.ResponseWriter, r *http.Request) {
+	if !strings.HasPrefix(r.URL.Path, "/x/") {
+		// Shouldn't happen if handler is registered correctly.
+		http.Redirect(w, r, "https://pkg.go.dev/search?q=golang.org/x", http.StatusTemporaryRedirect)
+		return
+	}
+	proj, suffix := strings.TrimPrefix(r.URL.Path, "/x/"), ""
+	if i := strings.Index(proj, "/"); i != -1 {
+		proj, suffix = proj[:i], proj[i:]
+	}
+	if proj == "" {
+		http.Redirect(w, r, "https://pkg.go.dev/search?q=golang.org/x", http.StatusTemporaryRedirect)
+		return
+	}
+	repo, ok := repos.ByGerritProject[proj]
+	if !ok || !strings.HasPrefix(repo.ImportPath, "golang.org/x/") {
+		http.NotFound(w, r)
+		return
+	}
+	data := struct {
+		Proj   string // Gerrit project ("net", "sys", etc)
+		Suffix string // optional "/path" for requests like /x/PROJ/path
+	}{proj, suffix}
+	if err := xTemplate.Execute(w, data); err != nil {
+		log.Println("xHandler:", err)
+	}
+}
+
+var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="go-import" content="golang.org/x/{{.Proj}} git https://go.googlesource.com/{{.Proj}}">
+<meta name="go-source" content="golang.org/x/{{.Proj}} https://github.com/golang/{{.Proj}}/ https://github.com/golang/{{.Proj}}/tree/master{/dir} https://github.com/golang/{{.Proj}}/blob/master{/dir}/{file}#L{line}">
+<meta http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">
+</head>
+<body>
+<a href="https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">Redirecting to documentation...</a>
+</body>
+</html>
+`))
 
 var _ fs.ReadDirFS = unionFS{}
 
@@ -223,34 +391,4 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 		return all, nil
 	}
 	return nil, errOut
-}
-
-func appEngineSetup(site *web.Site, mux *http.ServeMux) {
-	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
-
-	ctx := context.Background()
-
-	datastoreClient, err := datastore.NewClient(ctx, "")
-	if err != nil {
-		if strings.Contains(err.Error(), "missing project") {
-			log.Fatalf("Missing datastore project. Set the DATASTORE_PROJECT_ID env variable. Use `gcloud beta emulators datastore` to start a local datastore.")
-		}
-		log.Fatalf("datastore.NewClient: %v.", err)
-	}
-
-	redisAddr := os.Getenv("GOLANGORG_REDIS_ADDR")
-	if redisAddr == "" {
-		log.Fatalf("Missing redis server for golangorg in production mode. set GOLANGORG_REDIS_ADDR environment variable.")
-	}
-	memcacheClient := memcache.New(redisAddr)
-
-	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
-	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
-
-	// Register /compile and /share handlers against the default serve mux
-	// so that other app modules can make plain HTTP requests to those
-	// hosts. (For reasons, HTTPS communication between modules is broken.)
-	proxy.RegisterHandlers(http.DefaultServeMux)
-
-	log.Println("AppEngine initialization complete")
 }
