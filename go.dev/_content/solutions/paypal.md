@@ -1,7 +1,6 @@
 ---
 title: PayPal Taps Go to Modernize and Scale
 date: 2020-06-01
-layout: solution
 company: PayPal
 logoSrc: paypal.svg
 heroImgSrc: go_paypal_case_study_logo.png

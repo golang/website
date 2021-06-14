@@ -3,7 +3,6 @@ title: "Command-line Interfaces (CLIs)"
 linkTitle: "Command-line Interfaces (CLIs)"
 description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
 date: 2019-10-04T15:26:31-04:00
-layout: solution
 series: Use Cases
 icon:
   file: clis-green.svg

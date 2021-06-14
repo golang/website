@@ -5,7 +5,6 @@ description: Go’s combination of a great ecosystem, easy onboarding for new de
   environment make it a great choice.
   It allowed a small development team at Stream to power
   feeds and chat for over 500 million end users.
-layout: solution
 company: Stream
 logoSrc: stream.png
 series: Case Studies

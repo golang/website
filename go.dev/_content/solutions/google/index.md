@@ -1,7 +1,6 @@
 ---
 title: 'Using Go at Google'
 date: 2020-08-27
-layout: solution
 company: Google
 logoSrc: google.svg
 heroImgSrc: go_core_data_case_study.png

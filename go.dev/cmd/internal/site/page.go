@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"os"
 	"path"
 	"path/filepath"
 	"strings"
@@ -140,11 +141,11 @@ func (site *Site) renderHTML(p *page) error {
 	p.params["Content"] = content
 
 	// Load base template.
-	base, err := ioutil.ReadFile(site.file("_templates/layouts/site.tmpl"))
+	base, err := ioutil.ReadFile(site.file("_content/site.tmpl"))
 	if err != nil {
 		return err
 	}
-	t := site.clone().New("_templates/layouts/site.tmpl")
+	t := site.clone().New("_content/site.tmpl")
 	if err := tmplfunc.Parse(t, string(base)); err != nil {
 		return err
 	}
@@ -152,9 +153,35 @@ func (site *Site) renderHTML(p *page) error {
 	// Load page-specific layout template.
 	layout, _ := p.params["layout"].(string)
 	if layout == "" {
-		layout = "default"
+		// Determine nearest default.tmpl in current or parent directory.
+		// In the case of index.md, the current directory's default.tmpl
+		// is ignored, under the assumption that it's for the other pages
+		// in the directory but not the index page.
+		dir := path.Dir(p.file)
+		rel := ""
+		if strings.HasSuffix(p.file, "/index.md") && p.id != "" {
+			dir = path.Dir(dir)
+			rel = "../"
+		}
+		for {
+			name := site.file(path.Join(dir, "default.tmpl"))
+			if _, err := os.Stat(name); err == nil {
+				layout = rel + "default"
+				break
+			}
+			if dir == "." {
+				break
+			}
+			dir = path.Dir(dir)
+			rel += "../"
+		}
+		if layout == "" {
+			return fmt.Errorf("%s: cannot find default template", p.id)
+		}
 	}
-	data, err := ioutil.ReadFile(site.file("_templates/layouts/" + layout + ".tmpl"))
+
+	layout = path.Join(path.Dir(p.file), layout+".tmpl")
+	data, err := ioutil.ReadFile(site.file(layout))
 	if err != nil {
 		return err
 	}

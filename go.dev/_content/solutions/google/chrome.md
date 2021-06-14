@@ -1,6 +1,5 @@
 ---
 title: "Chrome Content Optimization Service Runs on Go"
-layout: solution
 company: Chrome
 logoSrc: chrome.svg
 heroImgSrc: go_chrome_case_study.png

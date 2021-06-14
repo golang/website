@@ -1,6 +1,5 @@
 ---
 title: "American Express Uses Go for Payments & Rewards"
-layout: solution
 company: American Express
 logoSrc: american-express.svg
 heroImgSrc: go_amex_case_study_logo.png
