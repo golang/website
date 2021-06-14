@@ -31,8 +31,9 @@ Data for the site is downloaded from [proxy.golang.org](https://proxy.golang.org
 If you would like to hide versions of a module on pkg.go.dev, as well as from
 the `go` command, you should retract them. Retracting a module version involves
 adding a `retract` directive to your `go.mod` file and publishing a new version.
-See the [modules reference](https://golang.org/ref/mod#go-mod-file-retract) for
-details.
+See the Go blog post [New module changes in Go
+1.16](https://blog.golang.org/go116-module-changes#TOC_5.) and the [modules
+reference](https://golang.org/ref/mod#go-mod-file-retract) for details.
 
 ## Documentation
 
