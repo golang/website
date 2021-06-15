@@ -160,7 +160,13 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		// Register a redirect handler for /dl/ to the golang.org download page.
 		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 	}
-	return hostEnforcerHandler{mux}
+
+	var h http.Handler = mux
+	if env.EnforceHosts() {
+		h = hostEnforcerHandler(h)
+	}
+	h = hostPathHandler(h)
+	return h
 }
 
 func appEngineSetup(site *web.Site, mux *http.ServeMux) {
@@ -232,51 +238,109 @@ func fmtHandler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(resp)
 }
 
+var validHosts = map[string]bool{
+	"golang.org":       true,
+	"golang.google.cn": true,
+}
+
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
-// It permits golang.google.cn for China and *-dot-golang-org.appspot.com for testing.
-type hostEnforcerHandler struct {
-	h http.Handler
-}
+// It permits golang.google.cn as an alias for golang.org, for use in China.
+func hostEnforcerHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		isHTTPS := r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" || r.URL.Scheme == "https"
+		isValidHost := validHosts[strings.ToLower(r.Host)]
 
-func (h hostEnforcerHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	if !env.EnforceHosts() {
-		h.h.ServeHTTP(w, r)
-		return
-	}
-	if !h.isHTTPS(r) || !h.validHost(r.Host) {
-		r.URL.Scheme = "https"
-		if h.validHost(r.Host) {
-			r.URL.Host = r.Host
-		} else {
-			r.URL.Host = "golang.org"
+		if !isHTTPS || !isValidHost {
+			r.URL.Scheme = "https"
+			if isValidHost {
+				r.URL.Host = r.Host
+			} else {
+				r.URL.Host = "golang.org"
+			}
+			http.Redirect(w, r, r.URL.String(), http.StatusFound)
+			return
 		}
-		http.Redirect(w, r, r.URL.String(), http.StatusFound)
-		return
-	}
-	w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
-	h.h.ServeHTTP(w, r)
+		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
+		h.ServeHTTP(w, r)
+	})
 }
 
-func (h hostEnforcerHandler) isHTTPS(r *http.Request) bool {
-	return r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https"
+// hostPathHandler infers the host from the first element of the URL path
+// when the actual host is a testing domain (localhost or *.appspot.com).
+// It also rewrites the output HTML in that case to link back to URLs on
+// the test site.
+func hostPathHandler(h http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.Host != "localhost" && !strings.HasPrefix(r.Host, "localhost:") && !strings.HasSuffix(r.Host, ".appspot.com") {
+			h.ServeHTTP(w, r)
+			return
+		}
+
+		elem, rest := strings.TrimPrefix(r.URL.Path, "/"), ""
+		if i := strings.Index(elem, "/"); i >= 0 {
+			elem, rest = elem[:i], elem[i+1:]
+		}
+		if !validHosts[elem] {
+			u := "/golang.org" + r.URL.EscapedPath()
+			if r.URL.RawQuery != "" {
+				u += "?" + r.URL.RawQuery
+			}
+			http.Redirect(w, r, u, http.StatusTemporaryRedirect)
+			return
+		}
+
+		r.Host = elem
+		r.URL.Scheme = "https"
+		r.URL.Host = elem
+		r.URL.Path = "/" + rest
+		lw := &linkRewriter{ResponseWriter: w, host: r.Host}
+		h.ServeHTTP(lw, r)
+		lw.Flush()
+	})
 }
 
-func (h hostEnforcerHandler) validHost(host string) bool {
-	switch strings.ToLower(host) {
-	case "golang.org", "golang.google.cn":
-		return true
+// A linkRewriter is a ResponseWriter that rewrites links in HTML output.
+// It rewrites relative links /foo to be /host/foo, and it rewrites any link
+// https://h/foo, where h is in validHosts, to be /h/foo. This corrects the
+// links to have the right form for the test server.
+type linkRewriter struct {
+	http.ResponseWriter
+	host string
+	buf  []byte
+	ct   string // content-type
+}
+
+func (r *linkRewriter) Write(data []byte) (int, error) {
+	if r.ct == "" {
+		ct := r.Header().Get("Content-Type")
+		if ct == "" {
+			// Note: should use first 512 bytes, but first write is fine for our purposes.
+			ct = http.DetectContentType(data)
+		}
+		r.ct = ct
 	}
-	if strings.HasSuffix(host, "-dot-golang-org.appspot.com") {
-		// staging/test
-		return true
+	if !strings.HasPrefix(r.ct, "text/html") {
+		return r.ResponseWriter.Write(data)
 	}
-	return false
+	r.buf = append(r.buf, data...)
+	return len(data), nil
+}
+
+func (r *linkRewriter) Flush() {
+	repl := []string{
+		`href="/`, `href="/` + r.host + `/`,
+	}
+	for host := range validHosts {
+		repl = append(repl, `href="https://`+host, `href="/`+host)
+	}
+	strings.NewReplacer(repl...).WriteString(r.ResponseWriter, string(r.buf))
+	r.buf = nil
 }
 
 func loggingHandler(h http.Handler) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
-		log.Printf("%s\t%s", req.RemoteAddr, req.URL)
-		h.ServeHTTP(w, req)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		log.Printf("%s\t%s", r.RemoteAddr, r.URL)
+		h.ServeHTTP(w, r)
 	})
 }
 

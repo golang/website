@@ -2,6 +2,15 @@ GET /
 body contains Go is an open source programming language
 body contains Binary distributions available for
 
+GET http://localhost:6060/
+redirect == /golang.org/
+
+GET http://localhost:6060/golang.org/
+body contains Go is an open source programming language
+body contains Binary distributions available for
+body contains href="/golang.org/doc
+body !contains href="/doc
+
 GET /change/75944e2e3a63
 code == 302
 redirect contains bdb10cf
