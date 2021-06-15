@@ -63,6 +63,9 @@ func funcs(t Template, names, texts []string) error {
 	return nil
 }
 
+// Funcs installs functions for all the templates in the set containing t.
+// After using t.Clone it is necessary to call Funcs on the result to arrange
+// for the functions to invoke the cloned templates and not the originals.
 func Funcs(t Template) error {
 	funcs := make(map[string]interface{})
 	switch t := t.(type) {

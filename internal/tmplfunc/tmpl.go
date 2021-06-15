@@ -82,7 +82,10 @@ package tmplfunc
 import (
 	"fmt"
 	"io/ioutil"
+	"path"
 	"path/filepath"
+
+	"golang.org/x/website/internal/backport/io/fs"
 
 	htmltemplate "golang.org/x/website/internal/backport/html/template"
 	texttemplate "golang.org/x/website/internal/backport/text/template"
@@ -116,6 +119,30 @@ func Parse(t Template, text string) error {
 // ParseFiles is like t.ParseFiles(filenames...), adding functions for the parsed templates.
 func ParseFiles(t Template, filenames ...string) error {
 	return parseFiles(t, readFileOS, filenames...)
+}
+
+// ParseFS is like ParseFiles or ParseGlob but reads from the file system fs
+// instead of the host operating system's file system.
+// It accepts a list of glob patterns.
+// (Note that most file names serve as glob patterns matching only themselves.)
+// It of course adds functions for the parsed templates.
+func ParseFS(t Template, fs fs.FS, patterns ...string) error {
+	return parseFS(t, fs, patterns)
+}
+
+func parseFS(t Template, fsys fs.FS, patterns []string) error {
+	var filenames []string
+	for _, pattern := range patterns {
+		list, err := fs.Glob(fsys, pattern)
+		if err != nil {
+			return err
+		}
+		if len(list) == 0 {
+			return fmt.Errorf("template: pattern matches no files: %#q", pattern)
+		}
+		filenames = append(filenames, list...)
+	}
+	return parseFiles(t, readFileFS(fsys), filenames...)
 }
 
 // parseFiles is the helper for the method and function. If the argument
@@ -210,4 +237,12 @@ func readFileOS(file string) (name string, b []byte, err error) {
 	name = filepath.Base(file)
 	b, err = ioutil.ReadFile(file)
 	return
+}
+
+func readFileFS(fsys fs.FS) func(string) (string, []byte, error) {
+	return func(file string) (name string, b []byte, err error) {
+		name = path.Base(file)
+		b, err = fs.ReadFile(fsys, file)
+		return
+	}
 }
