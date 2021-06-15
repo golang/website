@@ -7,10 +7,11 @@ https://tour.golang.org to start the tour.
 
 ## Download/Install
 
-To install the tour from source, first
-[install Go](https://golang.org/doc/install) and then run:
+To run the tour locally, you'll first need to install
+[Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) and
+[Go](https://golang.org/doc/install) and then run:
 
-	$ go get golang.org/x/tour
+	$ go get golang.org/x/website/tour
 
 This will place a `tour` binary in your
 [workspace](https://golang.org/doc/code.html#Workspaces)'s `bin` directory.
