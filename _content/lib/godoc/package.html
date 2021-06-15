@@ -13,7 +13,7 @@
 {{with $pkg.PDoc}}
 	{{if $pkg.IsMain}}
 		{{/* command documentation */}}
-		{{$.Comment .Doc}}
+		{{$pkg.Comment .Doc}}
 	{{else}}
 		{{/* package documentation */}}
 		<div id="short-nav">
@@ -38,8 +38,8 @@
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
-				{{$.Comment .Doc}}
-				{{$.Example ""}}
+				{{$pkg.Comment .Doc}}
+				{{range $pkg.FmtExamples ""}}{{$.Invoke "example.html" .}}{{end}}
 			</div>
 		</div>
 
@@ -60,16 +60,16 @@
 				<dd><a href="#pkg-variables">Variables</a></dd>
 			{{end}}
 			{{range .Funcs}}
-				<dd><a href="#{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
+				<dd><a href="#{{.Name}}">{{$pkg.NodeTOC .Decl}}</a></dd>
 			{{end}}
 			{{range .Types}}
 				{{$typeName := .Name}}
 				<dd><a href="#{{.Name}}">type {{.Name}}</a></dd>
 				{{range .Funcs}}
-					<dd>&nbsp; &nbsp; <a href="#{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#{{.Name}}">{{$pkg.NodeTOC .Decl}}</a></dd>
 				{{end}}
 				{{range .Methods}}
-					<dd>&nbsp; &nbsp; <a href="#{{$typeName}}.{{.Name}}">{{$.NodeTOC .Decl}}</a></dd>
+					<dd>&nbsp; &nbsp; <a href="#{{$typeName}}.{{.Name}}">{{$pkg.NodeTOC .Decl}}</a></dd>
 				{{end}}
 			{{end}}
 			{{if $pkg.Bugs}}
@@ -84,7 +84,7 @@
 			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
 			<dl>
 			{{range $pkg.Examples}}
-			<dd><a class="exampleLink" href="#example_{{.Name}}">{{example_name .Name}}</a></dd>
+			<dd><a class="exampleLink" href="#example_{{.Name}}">{{$pkg.ExampleName .Name}}</a></dd>
 			{{end}}
 			</dl>
 		</div>
@@ -106,70 +106,70 @@
 		{{with .Consts}}
 			<h2 id="pkg-constants">Constants</h2>
 			{{range .}}
-				{{$.Comment .Doc}}
-				<pre>{{$.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 		{{end}}
 		{{with .Vars}}
 			<h2 id="pkg-variables">Variables</h2>
 			{{range .}}
-				{{$.Comment .Doc}}
-				<pre>{{$.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 		{{end}}
 		{{range .Funcs}}
 			{{/* Name is a string - no need for FSet */}}
-			<h2 id="{{.Name}}">func <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+			<h2 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
 				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
-				{{$since := $.Since "func" "" .Name}}
+				{{$since := $pkg.Since "func" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
-			<pre>{{$.Node .Decl}}</pre>
-			{{$.Comment .Doc}}
-			{{$.Example .Name}}
+			<pre>{{$pkg.Node .Decl}}</pre>
+			{{$pkg.Comment .Doc}}
+			{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
 		{{end}}
 		{{range .Types}}
 			{{$typeName := .Name}}
-			<h2 id="{{.Name}}">type <a href="{{$.SrcPosLink .Decl}}">{{$typeName}}</a>
+			<h2 id="{{.Name}}">type <a href="{{$pkg.SrcPosLink .Decl}}">{{$typeName}}</a>
 				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
-				{{$since := $.Since "type" "" .Name}}
+				{{$since := $pkg.Since "type" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
-			{{$.Comment .Doc}}
-			<pre>{{$.Node .Decl}}</pre>
+			{{$pkg.Comment .Doc}}
+			<pre>{{$pkg.Node .Decl}}</pre>
 
 			{{range .Consts}}
-				{{$.Comment .Doc}}
-				<pre>{{$.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 
 			{{range .Vars}}
-				{{$.Comment .Doc}}
-				<pre>{{$.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 
-			{{$.Example .Name}}
+			{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
 
 			{{range .Funcs}}
-				<h3 id="{{.Name}}">func <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+				<h3 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
 					<a class="permalink" href="#{{.Name}}">&#xb6;</a>
-					{{$since := $.Since "func" "" .Name}}
+					{{$since := $pkg.Since "func" "" .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
-				<pre>{{$.Node .Decl}}</pre>
-				{{$.Comment .Doc}}
-				{{$.Example .Name}}
+				<pre>{{$pkg.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
 			{{end}}
 
 			{{range .Methods}}
-				<h3 id="{{$typeName}}.{{.Name}}">func ({{html .Recv}}) <a href="{{$.SrcPosLink .Decl}}">{{.Name}}</a>
+				<h3 id="{{$typeName}}.{{.Name}}">func ({{html .Recv}}) <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
 					<a class="permalink" href="#{{$typeName}}.{{.Name}}">&#xb6;</a>
-					{{$since := $.Since "method" .Recv .Name}}
+					{{$since := $pkg.Since "method" .Recv .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
-				<pre>{{$.Node .Decl}}</pre>
-				{{$.Comment .Doc}}
-				{{$.Example (printf "%s_%s" $typeName .Name)}}
+				<pre>{{$pkg.Node .Decl}}</pre>
+				{{$pkg.Comment .Doc}}
+				{{range $pkg.FmtExamples (printf "%s_%s" $typeName .Name)}}{{$.Invoke "example.html" .}}{{end}}
 			{{end}}
 		{{end}}
 	{{end}}
@@ -178,7 +178,7 @@
 		<h2 id="pkg-note-BUG">Bugs</h2>
 		<ul style="list-style: none; padding: 0;">
 		{{range .}}
-		<li><a href="{{$.SrcPosLink .}}" style="float: left;">&#x261e;</a> {{$.Comment .Body}}</li>
+		<li><a href="{{$pkg.SrcPosLink .}}" style="float: left;">&#x261e;</a> {{$pkg.Comment .Body}}</li>
 		{{end}}
 		</ul>
 	{{end}}
@@ -202,17 +202,17 @@
 			</tr>
 			{{end}}
 
-			{{range .List}}
+			{{range .}}
 				<tr>
 				{{if $pkg.DirFlat}}
 					{{if .HasPkg}}
 						<td class="pkg-name">
-							<a href="{{.Path}}/{{$.ModeQuery}}">{{.Path}}</a>
+							<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Path}}</a>
 						</td>
 					{{end}}
 				{{else}}
 					<td class="pkg-name" style="padding-left: {{multiply .Depth 20}}px;">
-						<a href="{{.Path}}/{{$.ModeQuery}}">{{.Name}}</a>
+						<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Name}}</a>
 					</td>
 				{{end}}
 					<td class="pkg-synopsis">

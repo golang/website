@@ -23,6 +23,7 @@ import (
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/build/repos"
+	"golang.org/x/tools/playground"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/backport/archive/zip"
 	"golang.org/x/website/internal/backport/html/template"
@@ -32,16 +33,12 @@ import (
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/memcache"
+	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
 	"golang.org/x/website/internal/web"
 	"golang.org/x/website/internal/webtest"
-
-	// Registers "/compile" handler that redirects to play.golang.org/compile.
-	// If we are in prod we will register "golang.org/compile" separately,
-	// which will get used instead.
-	_ "golang.org/x/tools/playground"
 )
 
 var (
@@ -144,6 +141,15 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	mux := http.NewServeMux()
 	mux.Handle("/", site)
+
+	docs, err := pkgdoc.NewServer(fsys, site)
+	if err != nil {
+		log.Fatal(err)
+	}
+	mux.Handle("/cmd/", docs)
+	mux.Handle("/pkg/", docs)
+
+	mux.Handle("/compile", playground.Proxy())
 	mux.Handle("/doc/codewalk/", codewalk.NewServer(fsys, site))
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/x/", http.HandlerFunc(xHandler))

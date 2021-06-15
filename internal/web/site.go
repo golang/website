@@ -17,19 +17,16 @@ import (
 	"strconv"
 	"strings"
 
-	"golang.org/x/website/internal/api"
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/backport/httpfs"
 	"golang.org/x/website/internal/backport/io/fs"
-	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
 )
 
 // Site is a website served from a file system.
 type Site struct {
-	fs  fs.FS
-	api api.DB
+	fs fs.FS
 
 	mux        *http.ServeMux
 	fileServer http.Handler
@@ -45,22 +42,11 @@ type Site struct {
 
 // NewSite returns a new Presentation from a file system.
 func NewSite(fsys fs.FS) (*Site, error) {
-	apiDB, err := api.Load(fsys)
-	if err != nil {
-		return nil, err
-	}
 	p := &Site{
 		fs:         fsys,
-		api:        apiDB,
 		mux:        http.NewServeMux(),
 		fileServer: http.FileServer(httpfs.FS(fsys)),
 	}
-	docs := &docServer{
-		p: p,
-		d: pkgdoc.NewDocs(fsys),
-	}
-	p.mux.Handle("/cmd/", docs)
-	p.mux.Handle("/pkg/", docs)
 	p.mux.HandleFunc("/", p.serveFile)
 	p.initDocFuncs()
 
@@ -91,6 +77,9 @@ func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 // ServePage responds to the request with the content described by page.
 func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, page Page) {
 	page = s.fullPage(r, page)
+	if d, ok := page.Data.(interface{ SetWebPage(*Page) }); ok {
+		d.SetWebPage(&page)
+	}
 	applyTemplateToResponseWriter(w, s.Templates.Lookup("site.html"), &page)
 }
 
@@ -117,15 +106,11 @@ type Page struct {
 	Template string      // template to apply to data (empty string when Data is raw template.HTML)
 	Data     interface{} // data to be rendered into page frame
 
-	// Filled in for document rendering
-	OldDocs bool // use ?m=old in doc links
-
 	// Filled in automatically by ServePage
 	GoogleCN        bool   // served on golang.google.cn
 	GoogleAnalytics string // Google Analytics tag
-	Version         string // current Go version
-
-	site *Site
+	Version         string
+	Site            *Site
 }
 
 // fullPage returns a copy of page with the “automatic” fields filled in.
@@ -136,14 +121,14 @@ func (s *Site) fullPage(r *http.Request, page Page) Page {
 	page.Version = runtime.Version()
 	page.GoogleCN = GoogleCN(r)
 	page.GoogleAnalytics = s.GoogleAnalytics
-	page.site = s
+	page.Site = s
 	return page
 }
 
 // Invoke invokes the template with the given name on
 // a copy of p with .Data set to data, returning the resulting HTML.
 func (p *Page) Invoke(name string, data interface{}) template.HTML {
-	t := p.site.Templates.Lookup(name)
+	t := p.Site.Templates.Lookup(name)
 	var buf bytes.Buffer
 	p1 := *p
 	p1.Data = data

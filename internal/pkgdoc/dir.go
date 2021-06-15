@@ -31,10 +31,6 @@ func (d *Dir) Name() string {
 	return path.Base(d.Path)
 }
 
-type DirList struct {
-	List []DirEntry
-}
-
 // DirEntry describes a directory entry.
 // The Depth gives the directory depth relative to the overall list,
 // for use in presenting a hierarchical directory entry.
@@ -49,19 +45,18 @@ func (d *DirEntry) Name() string {
 	return path.Base(d.Path)
 }
 
-// Lookup looks for the *Directory for a given named path, relative to dir.
-func (dir *Dir) Lookup(name string) *Dir {
-	name = path.Join(dir.Path, name)
-	if name == dir.Path {
-		return dir
+// lookup looks for the *Dir for a given named path, relative to d.
+func (d *Dir) lookup(name string) *Dir {
+	name = path.Join(d.Path, name)
+	if name == d.Path {
+		return d
 	}
-	if dir.Path != "." {
-		if !strings.HasPrefix(name, dir.Path) || name[len(dir.Path)] != '/' {
+	if d.Path != "." {
+		if !strings.HasPrefix(name, d.Path) || name[len(d.Path)] != '/' {
 			return nil
 		}
-		name = name[len(dir.Path)+1:]
+		name = name[len(d.Path)+1:]
 	}
-	d := dir
 Walk:
 	for i := 0; i <= len(name); i++ {
 		if i == len(name) || name[i] == '/' {
@@ -78,25 +73,24 @@ Walk:
 	return d
 }
 
-// List creates a (linear) directory List from a directory tree.
-// If skipRoot is set, the root directory itself is excluded from the list.
+// list creates a (linear) directory list from a directory tree.
 // If filter is set, only the directory entries whose paths match the filter
 // are included.
-//
-func (dir *Dir) List(filter func(string) bool) *DirList {
-	if dir == nil {
+func (d *Dir) list(filter func(string) bool) []DirEntry {
+	if d == nil {
 		return nil
 	}
 
+	root := d
 	var list []DirEntry
-	dir.walk(func(d *Dir, depth int) {
+	root.walk(func(d *Dir, depth int) {
 		if depth == 0 || filter != nil && !filter(d.Path) {
 			return
 		}
 		// the path is relative to root.Path - remove the root.Path
 		// prefix (the prefix should always be present but avoid
 		// crashes and check)
-		path := strings.TrimPrefix(d.Path, dir.Path)
+		path := strings.TrimPrefix(d.Path, root.Path)
 		// remove leading separator if any - path must be relative
 		path = strings.TrimPrefix(path, "/")
 		list = append(list, DirEntry{
@@ -110,7 +104,7 @@ func (dir *Dir) List(filter func(string) bool) *DirList {
 	if len(list) == 0 {
 		return nil
 	}
-	return &DirList{list}
+	return list
 }
 
 func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
@@ -129,16 +123,16 @@ func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
 	var dirchs []chan *Dir
 	var dirs []*Dir
 
-	for _, d := range list {
-		filename := path.Join(dirpath, d.Name())
+	for _, de := range list {
+		filename := path.Join(dirpath, de.Name())
 		switch {
-		case isPkgDir(d):
-			dir := newDir(fsys, fset, filename)
-			if dir != nil {
-				dirs = append(dirs, dir)
+		case isPkgDir(de):
+			d := newDir(fsys, fset, filename)
+			if d != nil {
+				dirs = append(dirs, d)
 			}
 
-		case !haveSummary && isPkgFile(d):
+		case !haveSummary && isPkgFile(de):
 			// looks like a package file, but may just be a file ending in ".go";
 			// don't just count it yet (otherwise we may end up with hasPkgFiles even
 			// though the directory doesn't contain any real package files - was bug)
@@ -219,11 +213,11 @@ func isPkgDir(fi fs.DirEntry) bool {
 		len(name) > 0 && name[0] != '_' && name[0] != '.' // ignore _files and .files
 }
 
-// walk calls f(d, depth) for each directory d in the tree rooted at dir, including dir itself.
-// The depth argument specifies the depth of d in the tree.
-// The depth of dir itself is 0.
-func (dir *Dir) walk(f func(d *Dir, depth int)) {
-	walkDirs(f, dir, 0)
+// walk calls f for each directory in the tree rooted at d, including d itself.
+// The depth argument specifies the depth of the directory in the tree.
+// The depth of d itself is 0.
+func (d *Dir) walk(f func(d *Dir, depth int)) {
+	walkDirs(f, d, 0)
 }
 
 func walkDirs(f func(d *Dir, depth int), d *Dir, depth int) {

@@ -1,10 +1,10 @@
 {{with .Data}}
 <div id="example_{{.Name}}" class="toggle">
   <div class="collapsed">
-    <p class="exampleHeading toggleButton">▹ <span class="text">Example{{example_suffix .Name}}</span></p>
+    <p class="exampleHeading toggleButton">▹ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
   </div>
   <div class="expanded">
-    <p class="exampleHeading toggleButton">▾ <span class="text">Example{{example_suffix .Name}}</span></p>
+    <p class="exampleHeading toggleButton">▾ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
     {{with .Doc}}<p>{{.}}</p>{{end}}
     {{$output := .Output}}
     {{with .Play}}

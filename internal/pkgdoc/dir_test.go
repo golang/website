@@ -15,16 +15,16 @@ import (
 )
 
 func TestNewDirTree(t *testing.T) {
-	dir := newDir(osfs.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
-	processDir(t, dir)
+	d := newDir(osfs.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
+	processDir(t, d)
 }
 
-func processDir(t *testing.T, dir *Dir) {
+func processDir(t *testing.T, d *Dir) {
 	var list []string
-	for _, d := range dir.Dirs {
-		list = append(list, d.Name())
+	for _, child := range d.Dirs {
+		list = append(list, child.Name())
 		// recursively process the lower level
-		processDir(t, d)
+		processDir(t, child)
 	}
 
 	if sort.StringsAreSorted(list) == false {
@@ -44,9 +44,9 @@ package suffixarray
 `)},
 	}
 
-	dir := newDir(fs, token.NewFileSet(), "src/index/suffixarray")
-	if got, want := dir.Synopsis, "P0: directory name matches package name"; got != want {
-		t.Errorf("dir.Synopsis = %q; want %q", got, want)
+	d := newDir(fs, token.NewFileSet(), "src/index/suffixarray")
+	if got, want := d.Synopsis, "P0: directory name matches package name"; got != want {
+		t.Errorf("d.Synopsis = %q; want %q", got, want)
 	}
 }
 

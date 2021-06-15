@@ -39,17 +39,17 @@
 							<th class="pkg-synopsis">Synopsis</th>
 						</tr>
 
-						{{range .List}}
+						{{range .}}
 							<tr>
 							{{if $pkg.DirFlat}}
 								{{if .HasPkg}}
 										<td class="pkg-name">
-											<a href="{{.Path}}/{{$.ModeQuery}}">{{.Path}}</a>
+											<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Path}}</a>
 										</td>
 								{{end}}
 							{{else}}
 									<td class="pkg-name" style="padding-left: {{multiply .Depth 20}}px;">
-										<a href="{{.Path}}/{{$.ModeQuery}}">{{.Name}}</a>
+										<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Name}}</a>
 									</td>
 							{{end}}
 							<td class="pkg-synopsis">

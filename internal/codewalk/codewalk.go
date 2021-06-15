@@ -2,14 +2,14 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package codewalk implements support for codewalk documents.
+//
 // The /doc/codewalk/ tree is synthesized from codewalk descriptions,
 // files named _content/doc/codewalk/*.xml.
 // For an example and a description of the format, see
-// http://golang.org/doc/codewalk/codewalk or run godoc -http=:6060
-// and see http://localhost:6060/doc/codewalk/codewalk .
+// https://golang.org/doc/codewalk/codewalk.
 // That page is itself a codewalk; the source code for it is
 // _content/doc/codewalk/codewalk.xml.
-
 package codewalk
 
 import (
@@ -32,17 +32,18 @@ import (
 	"golang.org/x/website/internal/web"
 )
 
-type Server struct {
+type server struct {
 	fsys fs.FS
 	site *web.Site
 }
 
-func NewServer(fsys fs.FS, site *web.Site) *Server {
-	return &Server{fsys, site}
+// NewServer returns a new server handling codewalk documents.
+func NewServer(fsys fs.FS, site *web.Site) http.Handler {
+	return &server{fsys, site}
 }
 
 // Handler for /doc/codewalk/ and below.
-func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	relpath := path.Clean(r.URL.Path[1:])
 
 	r.ParseForm()
@@ -143,7 +144,7 @@ func (st *codestep) String() string {
 }
 
 // loadCodewalk reads a codewalk from the named XML file.
-func (s *Server) loadCodewalk(filename string) (*codewalk, error) {
+func (s *server) loadCodewalk(filename string) (*codewalk, error) {
 	f, err := s.fsys.Open(filename)
 	if err != nil {
 		return nil, err
@@ -206,7 +207,7 @@ func (s *Server) loadCodewalk(filename string) (*codewalk, error) {
 // codewalkDir serves the codewalk directory listing.
 // It scans the directory for subdirectories or files named *.xml
 // and prepares a table.
-func (s *Server) codewalkDir(w http.ResponseWriter, r *http.Request, relpath string) {
+func (s *server) codewalkDir(w http.ResponseWriter, r *http.Request, relpath string) {
 	type elem struct {
 		Name  string
 		Title string
@@ -245,7 +246,7 @@ func (s *Server) codewalkDir(w http.ResponseWriter, r *http.Request, relpath str
 // in the response.  This format is used for the middle window pane
 // of the codewalk pages.  It is a separate iframe and does not get
 // the usual godoc HTML wrapper.
-func (s *Server) codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
+func (s *server) codewalkFileprint(w http.ResponseWriter, r *http.Request, f string) {
 	relpath := strings.Trim(path.Clean(f), "/")
 	data, err := fs.ReadFile(s.fsys, relpath)
 	if err != nil {

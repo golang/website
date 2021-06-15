@@ -8,6 +8,7 @@ import (
 	"testing"
 
 	"golang.org/x/website/internal/backport/testing/fstest"
+	"golang.org/x/website/internal/web"
 )
 
 // TestIgnoredGoFiles tests the scenario where a folder has no .go or .c files,
@@ -17,13 +18,22 @@ func TestIgnoredGoFiles(t *testing.T) {
 	packageComment := "main is documented in an ignored .go file"
 
 	fs := fstest.MapFS{
+		"lib/godoc/x.html": {},
 		"src/" + packagePath + "/ignored.go": {Data: []byte(`// +build ignore
 
 // ` + packageComment + `
 package main`)},
 	}
-	d := NewDocs(fs)
-	pInfo := Doc(d, "src/"+packagePath, ModeAll, "linux", "amd64")
+	site, err := web.NewSite(fs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	h, err := NewServer(fs, site)
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := h.(*docs)
+	pInfo := d.open("src/"+packagePath, modeAll, "linux", "amd64")
 
 	if pInfo.PDoc == nil {
 		t.Error("pInfo.PDoc = nil; want non-nil.")
@@ -38,14 +48,15 @@ package main`)},
 			t.Errorf("pInfo.PDoc.ImportPath = %q; want %q.", got, want)
 		}
 	}
-	if pInfo.FSet == nil {
-		t.Error("pInfo.FSet = nil; want non-nil.")
+	if pInfo.fset == nil {
+		t.Error("pInfo.fset = nil; want non-nil.")
 	}
 }
 
 func TestIssue5247(t *testing.T) {
 	const packagePath = "example.com/p"
 	fs := fstest.MapFS{
+		"lib/godoc/x.html": {},
 		"src/" + packagePath + "/p.go": {Data: []byte(`package p
 
 //line notgen.go:3
@@ -55,8 +66,17 @@ func F()
 //line foo.go:100`)}, // No newline at end to check corner cases.
 	}
 
-	d := NewDocs(fs)
-	pInfo := Doc(d, "src/"+packagePath, 0, "linux", "amd64")
+	site, err := web.NewSite(fs)
+	if err != nil {
+		t.Fatal(err)
+	}
+	h, err := NewServer(fs, site)
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := h.(*docs)
+
+	pInfo := d.open("src/"+packagePath, 0, "linux", "amd64")
 	if got, want := pInfo.PDoc.Funcs[0].Doc, "F doc //line 1 should appear\nline 2 should appear\n"; got != want {
 		t.Errorf("pInfo.PDoc.Funcs[0].Doc = %q; want %q", got, want)
 	}
