@@ -2,19 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// golangorg: The Go Website (golang.org)
-
-// Web server tree:
-//
-//	https://golang.org/			main landing page
-//	https://golang.org/doc/	serve from content/doc, then $GOROOT/doc. spec, mem, etc.
-//	https://golang.org/src/	serve files from $GOROOT/src; .go gets pretty-printed
-//	https://golang.org/cmd/	serve documentation about commands
-//	https://golang.org/pkg/	serve documentation about packages
-//				(idea is if you say import "compress/zlib", you go to
-//				https://golang.org/pkg/compress/zlib)
-//
-
+// Golangorg serves the golang.org web sites.
 package main
 
 import (
@@ -102,24 +90,46 @@ func main() {
 		usage()
 	}
 
+	handler := NewHandler(*contentDir, *goroot)
+
+	if *verbose {
+		log.Printf("golang.org server:")
+		log.Printf("\tversion = %s", runtime.Version())
+		log.Printf("\taddress = %s", *httpAddr)
+		log.Printf("\tgoroot = %s", *goroot)
+		handler = loggingHandler(handler)
+	}
+
+	// Start http server.
+	fmt.Fprintf(os.Stderr, "serving http://%s\n", *httpAddr)
+	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
+		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
+	}
+}
+
+// NewHandler returns the http.Handler for the web site,
+// given the directory where the content can be found
+// (can be "", in which case an internal copy is used)
+// and the directory or zip file of the GOROOT.
+func NewHandler(contentDir, goroot string) http.Handler {
 	// Serve files from _content, falling back to GOROOT.
 	var content fs.FS
-	if *contentDir != "" {
-		content = osfs.DirFS(*contentDir)
+	if contentDir != "" {
+		content = osfs.DirFS(contentDir)
 	} else {
 		content = website.Content
 	}
 
 	var gorootFS fs.FS
-	if strings.HasSuffix(*goroot, ".zip") {
-		z, err := zip.OpenReader(*goroot)
+	if strings.HasSuffix(goroot, ".zip") {
+		z, err := zip.OpenReader(goroot)
 		if err != nil {
 			log.Fatal(err)
 		}
 		defer z.Close()
 		gorootFS = z
 	} else {
-		gorootFS = osfs.DirFS(*goroot)
+		gorootFS = osfs.DirFS(goroot)
 	}
 	fsys := unionFS{content, gorootFS}
 
@@ -135,13 +145,12 @@ func main() {
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)
-	http.Handle("/", hostEnforcerHandler{mux})
 
-	http.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
+	mux.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
 		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
 	})
 
-	if err := redirect.LoadChangeMap(filepath.Join(repoRoot, "cmd/golangorg/hg-git-mapping.bin")); err != nil {
+	if err := redirect.LoadChangeMap(filepath.Join(contentDir, "../cmd/golangorg/hg-git-mapping.bin")); err != nil {
 		log.Fatalf("LoadChangeMap: %v", err)
 	}
 
@@ -151,21 +160,7 @@ func main() {
 		// Register a redirect handler for /dl/ to the golang.org download page.
 		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 	}
-
-	var handler http.Handler = http.DefaultServeMux
-	if *verbose {
-		log.Printf("golang.org server:")
-		log.Printf("\tversion = %s", runtime.Version())
-		log.Printf("\taddress = %s", *httpAddr)
-		log.Printf("\tgoroot = %s", *goroot)
-		handler = loggingHandler(handler)
-	}
-
-	// Start http server.
-	fmt.Fprintf(os.Stderr, "serving http://%s\n", *httpAddr)
-	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
-		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
-	}
+	return hostEnforcerHandler{mux}
 }
 
 func appEngineSetup(site *web.Site, mux *http.ServeMux) {
@@ -193,7 +188,7 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	// Register /compile and /share handlers against the default serve mux
 	// so that other app modules can make plain HTTP requests to those
 	// hosts. (For reasons, HTTPS communication between modules is broken.)
-	proxy.RegisterHandlers(http.DefaultServeMux)
+	proxy.RegisterHandlers(mux)
 
 	log.Println("AppEngine initialization complete")
 }

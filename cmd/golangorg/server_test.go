@@ -13,6 +13,8 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"path/filepath"
+	"runtime"
 	"strings"
 	"testing"
 	"time"
@@ -77,33 +79,17 @@ func init() {
 	}
 }
 
-// Basic integration test for godoc HTTP interface.
 func TestWeb(t *testing.T) {
-	addr := serverAddress(t)
-	cmd := exec.Command(os.Args[0], "-be-main", "-http="+addr)
-	cmd.Stdout = os.Stderr
-	cmd.Stderr = os.Stderr
-	cmd.Args[0] = "godoc"
-
-	// Set GOPATH variable to non-existing path
-	// and GOPROXY=off to disable module fetches.
-	// We cannot just unset GOPATH variable because godoc would default it to ~/go.
-	// (We don't want the server looking at the local workspace during tests.)
-	cmd.Env = append(os.Environ(),
-		"GOPATH=does_not_exist",
-		"GOPROXY=off",
-		"GO111MODULE=off")
-
-	if err := cmd.Start(); err != nil {
-		t.Fatalf("failed to start godoc: %s", err)
+	h := NewHandler("../../_content", runtime.GOROOT())
+	files, err := filepath.Glob("testdata/*.txt")
+	if err != nil {
+		t.Fatal(err)
 	}
-	defer killAndWait(cmd)
-
-	waitForServerReady(t, addr)
-
-	webtest.TestServer(t, "testdata/web.txt", addr)
-	webtest.TestServer(t, "testdata/release.txt", addr)
-	webtest.TestServer(t, "testdata/x.txt", addr)
+	for _, file := range files {
+		if filepath.ToSlash(file) != "testdata/live.txt" {
+			webtest.TestHandler(t, file, h)
+		}
+	}
 }
 
 // Regression tests to run against a production instance of golangorg.

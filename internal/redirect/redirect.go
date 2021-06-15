@@ -24,11 +24,8 @@ import (
 
 // Register registers HTTP handlers that redirect old godoc paths to their new
 // equivalents and assist in accessing the issue tracker, wiki, code review
-// system, etc. If mux is nil it uses http.DefaultServeMux.
+// system, etc.
 func Register(mux *http.ServeMux) {
-	if mux == nil {
-		mux = http.DefaultServeMux
-	}
 	handlePathRedirects(mux, pkgRedirects, "/pkg/")
 	handlePathRedirects(mux, cmdRedirects, "/cmd/")
 	for prefix, redirect := range prefixHelpers {
