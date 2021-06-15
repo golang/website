@@ -40,6 +40,22 @@ type Site struct {
 	docFuncs template.FuncMap
 }
 
+var siteFuncs = template.FuncMap{
+	"add": func(a, b int) int { return a + b },
+	"sub": func(a, b int) int { return a - b },
+	"mul": func(a, b int) int { return a * b },
+	"div": func(a, b int) int { return a / b },
+
+	"basename": path.Base,
+
+	"split":      strings.Split,
+	"join":       strings.Join,
+	"hasPrefix":  strings.HasPrefix,
+	"hasSuffix":  strings.HasSuffix,
+	"trimPrefix": strings.TrimPrefix,
+	"trimSuffix": strings.TrimSuffix,
+}
+
 // NewSite returns a new Presentation from a file system.
 func NewSite(fsys fs.FS) (*Site, error) {
 	p := &Site{
@@ -80,6 +96,18 @@ func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, page Page) {
 	if d, ok := page.Data.(interface{ SetWebPage(*Page) }); ok {
 		d.SetWebPage(&page)
 	}
+
+	if page.Template != "" {
+		t := s.Templates.Lookup(page.Template)
+		var buf bytes.Buffer
+		if err := t.Execute(&buf, &page); err != nil {
+			log.Printf("%s.Execute: %s", t.Name(), err)
+		}
+		page.HTML = template.HTML(buf.String())
+	} else {
+		page.HTML = page.Data.(template.HTML)
+	}
+
 	applyTemplateToResponseWriter(w, s.Templates.Lookup("site.html"), &page)
 }
 
@@ -106,6 +134,8 @@ type Page struct {
 	Template string      // template to apply to data (empty string when Data is raw template.HTML)
 	Data     interface{} // data to be rendered into page frame
 
+	HTML template.HTML
+
 	// Filled in automatically by ServePage
 	GoogleCN        bool   // served on golang.google.cn
 	GoogleAnalytics string // Google Analytics tag
@@ -123,19 +153,6 @@ func (s *Site) fullPage(r *http.Request, page Page) Page {
 	page.GoogleAnalytics = s.GoogleAnalytics
 	page.Site = s
 	return page
-}
-
-// Invoke invokes the template with the given name on
-// a copy of p with .Data set to data, returning the resulting HTML.
-func (p *Page) Invoke(name string, data interface{}) template.HTML {
-	t := p.Site.Templates.Lookup(name)
-	var buf bytes.Buffer
-	p1 := *p
-	p1.Data = data
-	if err := t.Execute(&buf, &p1); err != nil {
-		log.Printf("%s.Execute: %s", t.Name(), err)
-	}
-	return template.HTML(buf.String())
 }
 
 type writeErrorSaver struct {
@@ -328,10 +345,11 @@ func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, relpath string) 
 		}
 	}
 
+	dirpath := strings.TrimSuffix(relpath, "/") + "/"
 	s.ServePage(w, r, Page{
 		Title:    "Directory",
-		SrcPath:  relpath,
-		TabTitle: relpath,
+		SrcPath:  dirpath,
+		TabTitle: dirpath,
 		Template: "dirlist.html",
 		Data:     info,
 	})

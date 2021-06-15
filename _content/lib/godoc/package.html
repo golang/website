@@ -39,7 +39,7 @@
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples ""}}{{$.Invoke "example.html" .}}{{end}}
+				{{range $pkg.FmtExamples ""}}{{template "example" .}}{{end}}
 			</div>
 		</div>
 
@@ -126,7 +126,7 @@
 			</h2>
 			<pre>{{$pkg.Node .Decl}}</pre>
 			{{$pkg.Comment .Doc}}
-			{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
+			{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
 		{{end}}
 		{{range .Types}}
 			{{$typeName := .Name}}
@@ -148,7 +148,7 @@
 				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 
-			{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
+			{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
 
 			{{range .Funcs}}
 				<h3 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
@@ -158,7 +158,7 @@
 				</h3>
 				<pre>{{$pkg.Node .Decl}}</pre>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples .Name}}{{$.Invoke "example.html" .}}{{end}}
+				{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
 			{{end}}
 
 			{{range .Methods}}
@@ -169,7 +169,7 @@
 				</h3>
 				<pre>{{$pkg.Node .Decl}}</pre>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples (printf "%s_%s" $typeName .Name)}}{{$.Invoke "example.html" .}}{{end}}
+				{{range $pkg.FmtExamples (printf "%s_%s" $typeName .Name)}}{{template "example" .}}{{end}}
 			{{end}}
 		{{end}}
 	{{end}}
@@ -211,7 +211,7 @@
 						</td>
 					{{end}}
 				{{else}}
-					<td class="pkg-name" style="padding-left: {{multiply .Depth 20}}px;">
+					<td class="pkg-name" style="padding-left: {{mul .Depth 20}}px;">
 						<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Name}}</a>
 					</td>
 				{{end}}
@@ -222,4 +222,37 @@
 			{{end}}
 		</table>
 	</div>
+{{end}}
+
+{{define "example"}}
+<div id="example_{{.Name}}" class="toggle">
+  <div class="collapsed">
+    <p class="exampleHeading toggleButton">▹ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
+  </div>
+  <div class="expanded">
+    <p class="exampleHeading toggleButton">▾ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
+    {{with .Doc}}<p>{{.}}</p>{{end}}
+    {{$output := .Output}}
+    {{with .Play}}
+      <div class="play">
+        <div class="input"><textarea class="code" spellcheck="false">{{.}}</textarea></div>
+        <div class="output"><pre>{{html $output}}</pre></div>
+        <div class="buttons">
+          <button class="Button Button--primary run" title="Run this code [shift-enter]">Run</button>
+          <button class="Button fmt" title="Format this code">Format</button>
+          {{if not $.Page.Web.GoogleCN}}
+            <button class="Button share" title="Share this code">Share</button>
+          {{end}}
+        </div>
+      </div>
+    {{else}}
+      <p>Code:</p>
+      <pre class="code">{{.Code}}</pre>
+      {{with .Output}}
+        <p>Output:</p>
+        <pre class="output">{{.}}</pre>
+      {{end}}
+    {{end}}
+  </div>
+</div>
 {{end}}
