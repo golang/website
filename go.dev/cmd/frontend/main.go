@@ -23,9 +23,9 @@ var discoveryHosts = map[string]string{
 
 func main() {
 	dir := "../.."
-	if _, err := os.Stat("_content"); err == nil {
+	if _, err := os.Stat("go.dev/_content/events.yaml"); err == nil {
 		// Running in repo root.
-		dir = "."
+		dir = "go.dev"
 	}
 	godev, err := site.Load(dir)
 	if err != nil {
