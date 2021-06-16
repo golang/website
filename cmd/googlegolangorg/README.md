@@ -14,5 +14,5 @@ See `go help importpath` for the mechanics.
 To update the public site, run:
 
 ```
-gcloud app --account=username@domain.com --project=golang-org deploy --no-promote -v google app.yaml
+gcloud app --project=golang-org deploy --promote app.yaml
 ```
