@@ -12,11 +12,11 @@ steps:
     dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: bash
-    args: ["./go-app-deploy.sh", "go.dev/app.yaml"]
+    args: ["./go-app-deploy.sh", "--project=go-discovery", "go.dev/app.yaml"]
   - name: 'mirror.gcr.io/library/golang'
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",
-      "--project=$PROJECT_ID", "--service=go-dev",
+      "--project=go-discovery", "--service=go-dev",
     ]
     dir: go.dev
 
