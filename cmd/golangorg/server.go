@@ -57,9 +57,12 @@ func usage() {
 }
 
 func main() {
-	repoRoot := "../.."
-	if _, err := os.Stat("_content"); err == nil {
-		repoRoot = "."
+	if *contentDir == "" {
+		repoRoot := "../.."
+		if _, err := os.Stat("_content"); err == nil {
+			repoRoot = "."
+		}
+		*contentDir = filepath.Join(repoRoot, "_content")
 	}
 
 	if runningOnAppEngine {
@@ -71,10 +74,6 @@ func main() {
 			port = p
 		}
 		*httpAddr = ":" + port
-	} else {
-		if *contentDir == "" {
-			*contentDir = filepath.Join(repoRoot, "_content")
-		}
 	}
 
 	flag.Usage = usage
@@ -184,10 +183,6 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 
 	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
-
-	// Register /compile and /share handlers against the default serve mux
-	// so that other app modules can make plain HTTP requests to those
-	// hosts. (For reasons, HTTPS communication between modules is broken.)
 	proxy.RegisterHandlers(mux)
 
 	log.Println("AppEngine initialization complete")
