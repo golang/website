@@ -6,12 +6,14 @@
 package main
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"go/format"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -125,8 +127,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		if err != nil {
 			log.Fatal(err)
 		}
-		defer z.Close()
-		gorootFS = z
+		gorootFS = &seekableFS{z}
 	} else {
 		gorootFS = osfs.DirFS(goroot)
 	}
@@ -381,4 +382,48 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 		return all, nil
 	}
 	return nil, errOut
+}
+
+// A seekableFS is an FS wrapper that makes every file seekable
+// by reading it entirely into memory when it is opened and then
+// serving read operations (including seek) from the memory copy.
+type seekableFS struct {
+	fs fs.FS
+}
+
+func (s *seekableFS) Open(name string) (fs.File, error) {
+	f, err := s.fs.Open(name)
+	if err != nil {
+		return nil, err
+	}
+	info, err := f.Stat()
+	if err != nil {
+		f.Close()
+		return nil, err
+	}
+	if info.IsDir() {
+		return f, nil
+	}
+	data, err := ioutil.ReadAll(f)
+	if err != nil {
+		f.Close()
+		return nil, err
+	}
+	var sf seekableFile
+	sf.File = f
+	sf.Reset(data)
+	return &sf, nil
+}
+
+// A seekableFile is a fs.File augmented by an in-memory copy of the file data to allow use of Seek.
+type seekableFile struct {
+	bytes.Reader
+	fs.File
+}
+
+// Read calls f.Reader.Read.
+// Both f.Reader and f.File have Read methods - a conflict - so f inherits neither.
+// This method calls the one we want.
+func (f *seekableFile) Read(b []byte) (int, error) {
+	return f.Reader.Read(b)
 }
