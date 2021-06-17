@@ -11,6 +11,7 @@ import (
 	"fmt"
 	hashpkg "hash"
 	"io"
+	"runtime/debug"
 	"time"
 
 	"golang.org/x/website/internal/backport/io/fs"
@@ -225,7 +226,14 @@ type treeFS struct {
 }
 
 // Open opens the given file or directory, implementing the fs.FS Open method.
-func (t *treeFS) Open(name string) (fs.File, error) {
+func (t *treeFS) Open(name string) (f fs.File, err error) {
+	defer func() {
+		if e := recover(); e != nil {
+			f = nil
+			err = fmt.Errorf("gitfs panic: %v\n%s", e, debug.Stack())
+		}
+	}()
+
 	// Process each element in the slash-separated path, producing hash identified by name.
 	h := t.tree
 	start := 0 // index of start of final path element in name
@@ -318,8 +326,14 @@ func (f *dirFile) Seek(offset int64, whence int) (int64, error) {
 	return 0, f.info.err("seek", fs.ErrInvalid)
 }
 
-func (f *dirFile) ReadDir(n int) ([]fs.DirEntry, error) {
-	var list []fs.DirEntry
+func (f *dirFile) ReadDir(n int) (list []fs.DirEntry, err error) {
+	defer func() {
+		if e := recover(); e != nil {
+			list = nil
+			err = fmt.Errorf("gitfs panic: %v\n%s", e, debug.Stack())
+		}
+	}()
+
 	for (n <= 0 || len(list) < n) && f.off < len(f.data) {
 		e, size := parseDirEntry(f.data[f.off:])
 		if size == 0 {

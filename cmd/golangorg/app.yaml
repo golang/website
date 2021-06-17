@@ -20,3 +20,10 @@ handlers:
 - url: /.*
   script: auto
   secure: always
+
+# We need ~200 megabytes of RAM for tip.golang.org's GOROOT (including GC overhead).
+# Use F4 instance for 1GB RAM (4X the default size, 4X the default price).
+# Accept 4X the default maximum concurrent requests to balance out.
+instance_class: F4
+automatic_scaling:
+  max_concurrent_requests: 40

@@ -14,7 +14,6 @@ import (
 	"go/token"
 	"log"
 	"path"
-	"sort"
 	"strings"
 
 	"golang.org/x/website/internal/backport/io/fs"
@@ -107,6 +106,10 @@ func (d *Dir) list(filter func(string) bool) []DirEntry {
 	return list
 }
 
+// newDir returns a Dir describing dirpath in fsys.
+// When Go files need to be parsed, newDir uses fset.
+// If there are no package files and no subdirectories containing packages,
+// newDir returns nil.
 func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
 	var synopses [3]string // prioritized package documentation (0 == highest priority)
 
@@ -120,7 +123,6 @@ func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
 	}
 
 	// determine number of subdirectories and if there are package files
-	var dirchs []chan *Dir
 	var dirs []*Dir
 
 	for _, de := range list {
@@ -163,19 +165,6 @@ func newDir(fsys fs.FS, fset *token.FileSet, dirpath string) *Dir {
 			haveSummary = synopses[0] != ""
 		}
 	}
-
-	// create subdirectory tree
-	for _, ch := range dirchs {
-		if d := <-ch; d != nil {
-			dirs = append(dirs, d)
-		}
-	}
-
-	// We need to sort the dirs slice because
-	// it is appended again after reading from dirchs.
-	sort.Slice(dirs, func(i, j int) bool {
-		return dirs[i].Path < dirs[j].Path
-	})
 
 	// if there are no package files and no subdirectories
 	// containing package files, ignore the directory

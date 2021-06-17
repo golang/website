@@ -48,10 +48,13 @@ func NewServer(fsys fs.FS, site *web.Site) (http.Handler, error) {
 	if err != nil {
 		return nil, err
 	}
-	src := newDir(fsys, token.NewFileSet(), "src")
+	var dirs []*Dir
+	if src := newDir(fsys, token.NewFileSet(), "src"); src != nil {
+		dirs = []*Dir{src}
+	}
 	root := &Dir{
 		Path: ".",
-		Dirs: []*Dir{src},
+		Dirs: dirs,
 	}
 	docs := &docs{
 		fs:   fsys,

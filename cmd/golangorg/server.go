@@ -19,7 +19,10 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
+	"runtime/debug"
 	"strings"
+	"sync/atomic"
+	"time"
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/build/repos"
@@ -32,6 +35,7 @@ import (
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/gitfs"
 	"golang.org/x/website/internal/memcache"
 	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/proxy"
@@ -114,6 +118,8 @@ func main() {
 // (can be "", in which case an internal copy is used)
 // and the directory or zip file of the GOROOT.
 func NewHandler(contentDir, goroot string) http.Handler {
+	mux := http.NewServeMux()
+
 	// Serve files from _content, falling back to GOROOT.
 	var content fs.FS
 	if contentDir != "" {
@@ -132,25 +138,35 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	} else {
 		gorootFS = osfs.DirFS(goroot)
 	}
-	fsys := unionFS{content, gorootFS}
 
-	site, err := web.NewSite(fsys)
+	site, err := newSite(mux, "", content, gorootFS)
 	if err != nil {
-		log.Fatalf("NewSite: %v", err)
+		log.Fatalf("newSite: %v", err)
 	}
 
-	mux := http.NewServeMux()
-	mux.Handle("/", site)
+	// When we are ready to start serving tip.golang.org
+	// from the default golang-org app instead of a separate app,
+	// we can set serveTip = true.
+	const serveTip = false
 
-	docs, err := pkgdoc.NewServer(fsys, site)
-	if err != nil {
-		log.Fatal(err)
+	if serveTip {
+		// tip.golang.org serves content from the very latest Git commit
+		// of the main Go repo, instead of the one the app is bundled with.
+		var tipGoroot atomicFS
+		if _, err := newSite(mux, "tip.golang.org", content, &tipGoroot); err != nil {
+			log.Fatalf("loading tip site: %v", err)
+		}
+
+		// TODO(rsc): Replace with redirect to tip
+		// once tip is being served by this app.
+		if _, err := newSite(mux, "beta.golang.org", content, &tipGoroot); err != nil {
+			log.Fatalf("loading beta site: %v", err)
+		}
+
+		go watchTip(&tipGoroot)
 	}
-	mux.Handle("/cmd/", docs)
-	mux.Handle("/pkg/", docs)
 
 	mux.Handle("/compile", playground.Proxy())
-	mux.Handle("/doc/codewalk/", codewalk.NewServer(fsys, site))
 	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
 	mux.Handle("/x/", http.HandlerFunc(xHandler))
 	redirect.Register(mux)
@@ -176,6 +192,93 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	}
 	h = hostPathHandler(h)
 	return h
+}
+
+// newSite creates a new site for a given content and goroot file system pair
+// and registers it in mux to handle requests for host.
+// If host is the empty string, the registrations are for the wildcard host.
+func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site, error) {
+	fsys := unionFS{content, goroot}
+	site, err := web.NewSite(fsys)
+	if err != nil {
+		return nil, err
+	}
+	docs, err := pkgdoc.NewServer(fsys, site)
+	if err != nil {
+		return nil, err
+	}
+
+	mux.Handle(host+"/", site)
+	mux.Handle(host+"/cmd/", docs)
+	mux.Handle(host+"/pkg/", docs)
+	mux.Handle(host+"/doc/codewalk/", codewalk.NewServer(fsys, site))
+	return site, nil
+}
+
+// watchTip is a background goroutine that watches the main Go repo for updates.
+// When a new commit is available, watchTip downloads the new tree and calls
+// tipGoroot.Set to install the new file system.
+func watchTip(tipGoroot *atomicFS) {
+	for {
+		// watchTip1 runs until it panics (hopefully never).
+		// If that happens, sleep 5 minutes and try again.
+		watchTip1(tipGoroot)
+		time.Sleep(5 * time.Minute)
+	}
+}
+
+// watchTip1 does the actual work of watchTip and recovers from panics.
+func watchTip1(tipGoroot *atomicFS) {
+	defer func() {
+		if e := recover(); e != nil {
+			log.Printf("watchTip panic: %v\n%s", e, debug.Stack())
+		}
+	}()
+
+	var r *gitfs.Repo
+	for {
+		var err error
+		r, err = gitfs.NewRepo("https://go.googlesource.com/go")
+		if err != nil {
+			log.Printf("tip: %v", err)
+			time.Sleep(1 * time.Minute)
+			continue
+		}
+		break
+	}
+
+	var h gitfs.Hash
+	for {
+		var fsys fs.FS
+		var err error
+		h, fsys, err = r.Clone("HEAD")
+		if err != nil {
+			log.Printf("tip: %v", err)
+			time.Sleep(1 * time.Minute)
+			continue
+		}
+		tipGoroot.Set(fsys)
+		break
+	}
+
+	for {
+		time.Sleep(5 * time.Minute)
+		h2, err := r.Resolve("HEAD")
+		if err != nil {
+			log.Printf("tip: %v", err)
+			continue
+		}
+		if h2 != h {
+			fsys, err := r.CloneHash(h2)
+			if err != nil {
+				log.Printf("tip: %v", err)
+				time.Sleep(1 * time.Minute)
+				continue
+			}
+			tipGoroot.Set(fsys)
+			h = h2
+		}
+	}
 }
 
 func appEngineSetup(site *web.Site, mux *http.ServeMux) {
@@ -231,6 +334,7 @@ var validHosts = map[string]bool{
 	"golang.org":       true,
 	"golang.google.cn": true,
 	"tip.golang.org":   true,
+	"beta.golang.org":  true,
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
@@ -480,4 +584,25 @@ type seekableFile struct {
 // This method calls the one we want.
 func (f *seekableFile) Read(b []byte) (int, error) {
 	return f.Reader.Read(b)
+}
+
+// An atomicFS is an fs.FS value safe for reading from multiple goroutines
+// as well as updating (assigning a different fs.FS to use in future read requests).
+type atomicFS struct {
+	v atomic.Value
+}
+
+// Set sets the file system used by future calls to Open.
+func (a *atomicFS) Set(fsys fs.FS) {
+	a.v.Store(&fsys)
+}
+
+// Open returns fsys.Open(name) where fsys is the file system passed to the most recent call to Set.
+// If there has been no call to Set, Open returns an error with text “no file system”.
+func (a *atomicFS) Open(name string) (fs.File, error) {
+	fsys, _ := a.v.Load().(*fs.FS)
+	if fsys == nil {
+		return nil, &fs.PathError{Path: name, Op: "open", Err: fmt.Errorf("no file system")}
+	}
+	return (*fsys).Open(name)
 }
