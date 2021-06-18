@@ -124,7 +124,7 @@ compatibility within that major version.
 
 The version referenced in a `go.mod` may be an explicit release tagged in the
 repository (for example, `v1.5.2`), or it may be a
-[pseudo-version](https://golang.org/cmd/go/#hdr-Pseudo_versions) based on a
+[pseudo-version](https://golang.org/ref/mod#pseudo-versions) based on a
 specific commit (for example, `v0.0.0-20170915032832-14c0d48ead0c`).
 Pseudo-versions are a special type of pre-release version. Pseudo-versions are
 useful when a user needs to depend on a project that has not published any
