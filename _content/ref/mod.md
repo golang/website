@@ -1314,7 +1314,9 @@ the `GOBIN` environment variable, which defaults to `$GOPATH/bin` or
 `go get` supports the following flags:
 
 * The `-d` flag tells `go get` not to build or install packages. When `-d` is
-  used, `go get` will only manage dependencies in `go.mod`.
+  used, `go get` will only manage dependencies in `go.mod`. Using `go get`
+  without `-d` to build and install packages is deprecated (as of Go 1.17).
+  In Go 1.18, `-d` will always be enabled.
 * The `-u` flag tells `go get` to upgrade modules providing packages
   imported directly or indirectly by packages named on the command line.
   Each module selected by `-u` will be upgraded to its latest version unless
@@ -1338,7 +1340,7 @@ ignoring the `go.mod` file in the current directory or any parent directory,
 if there is one.
 
 `go get` is more focused on managing requirements in `go.mod`. The `-d` flag
-is deprecated, and in a future release, it will always be enabled.
+is deprecated, and in Go 1.18, it will always be enabled.
 
 ### `go install` {#go-install}
 
