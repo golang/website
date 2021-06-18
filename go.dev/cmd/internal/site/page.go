@@ -134,12 +134,6 @@ func (site *Site) loadPage(file string) (*page, error) {
 
 // renderHTML renders the HTML for the page, leaving it in p.html.
 func (site *Site) renderHTML(p *page) error {
-	content, err := site.markdownTemplateToHTML(string(p.data), p)
-	if err != nil {
-		return err
-	}
-	p.params["Content"] = content
-
 	// Load base template.
 	base, err := ioutil.ReadFile(site.file("_content/site.tmpl"))
 	if err != nil {
@@ -189,7 +183,22 @@ func (site *Site) renderHTML(p *page) error {
 		return err
 	}
 
+	// Load actual Markdown content (also a template).
+	tf := t.New(p.file)
+	if err := tmplfunc.Parse(tf, string(p.data)); err != nil {
+		return err
+	}
 	var buf bytes.Buffer
+	if err := tf.Execute(&buf, p.params); err != nil {
+		return err
+	}
+	html, err := markdownToHTML(buf.String())
+	if err != nil {
+		return err
+	}
+	p.params["Content"] = html
+
+	buf.Reset()
 	if err := t.Execute(&buf, p.params); err != nil {
 		return err
 	}

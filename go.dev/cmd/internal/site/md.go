@@ -16,7 +16,6 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
-	"golang.org/x/website/go.dev/cmd/internal/tmplfunc"
 	"golang.org/x/website/internal/backport/html/template"
 )
 
@@ -77,20 +76,4 @@ func mdLinkWalk(n ast.Node) {
 	for child := n.FirstChild(); child != nil; child = child.NextSibling() {
 		mdLinkWalk(child)
 	}
-}
-
-// markdownTemplateToHTML converts a markdown template to HTML,
-// first applying the template execution engine and then interpreting
-// the result as markdown to be converted to HTML.
-// This is the same logic used by the Go web site.
-func (site *Site) markdownTemplateToHTML(markdown string, p *page) (template.HTML, error) {
-	t := site.clone().New(p.file)
-	if err := tmplfunc.Parse(t, string(p.data)); err != nil {
-		return "", err
-	}
-	var buf bytes.Buffer
-	if err := t.Execute(&buf, p.params); err != nil {
-		return "", err
-	}
-	return markdownToHTML(buf.String())
 }

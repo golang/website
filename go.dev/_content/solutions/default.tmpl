@@ -80,3 +80,190 @@
   </article>
 </div>
 {{end}}
+
+{{define "backgroundquote info" -}}
+{{- with (yaml .info)}}
+<div class="BackgroundQuote">
+{{- with .link}}
+<a href="{{.}}" target="_blank" rel="noopener">
+{{- end}}
+    <p class="BackgroundQuote-body">
+      “{{markdown .quote}}”
+    </p>
+    {{- if .author}}
+    <div class="BackgroundQuote-author">
+      <span>&mdash; {{.author}}</span>
+      {{if .title}},&nbsp;
+      <span class="BackgroundQuote-title">{{rawhtml .title}}</span>
+      {{- end}}
+      {{- if .company}}
+      <span class="BackgroundQuote-title">&nbsp;at {{.company}}</span>
+      {{- end}}
+    </div>
+    {{- end}}
+{{- if .link}}
+</a>
+{{- end}}
+</div>
+{{- end}}
+{{end}}
+
+{{define "books"}}
+{{- with (yaml .)}}
+<ul class="Learn-tileList">
+    {{- range .}}
+    <li class="Learn-tile">
+        <a href="{{.url}}">
+            {{- if .thumbnail}}
+              <img
+              class="Learn-tileThumbnail Learn-tileThumbnail--book"
+              alt="{{.title}} thumbnail." src="{{.thumbnail}}">
+            {{- end}}
+            <span class="Learn-tileTitle">
+                {{.title}}
+            </span>
+        </a>
+    </li>
+    {{- end}}
+</ul>
+{{- end}}
+{{- end}}
+
+{{define "libraries"}}
+{{- range (yaml .)}}
+<div class="WhoUsesCaseStudy-librariesWrapper">
+  <div class="headerWithLink">
+    <h3>{{.title}}</h3>
+  </div>
+  <ul class="WhoUsesCaseStudy-librariesList">
+    {{- range .items}}
+    <li class="WhoUsesCaseStudy-library">
+      <a class="WhoUsesCaseStudy-libraryTitle" href="{{.url}}">{{.text}}</a>
+      <p>{{.desc}}</p>
+    </li>
+    {{- end}}
+  </ul>
+  <a class="WhoUsesCaseStudy-librariesViewMoreLink" href="{{.viewMoreUrl}}">View More</a>
+</div>
+{{- end}}
+{{- end}}
+
+{{define "projects"}}
+<div class="FeaturedUsers">
+<h2 id="featured-users" class="sectionHeading">Featured users</h2>
+<table>
+  <thead>
+    <tr>
+      <th class="FeaturedUsers--hiddenMobile">Customer</th>
+      <th>Brief introduction</th>
+      <th>Projects using go</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{- range $index, $project := (yaml .)}}
+    <tr
+      class="js-featuredUsersRow FeaturedUsers-row"
+      {{- if (gt $index 2) }}
+      hidden {{end}}
+    >
+      <td class="FeaturedUsers--hiddenMobile">
+        <img src="/images/logos/{{.logoSrc}}" alt="{{.company}}" />
+      </td>
+      <td>
+        <img
+          class="FeaturedUsers--hiddenDesktop"
+          src="/images/logos/{{.logoSrc}}" alt="{{.company}}" />
+        {{.desc}}
+      </td>
+      <td>
+        <ul>
+          {{- range .ctas}}
+          <li><a href="{{.url}}">{{.text}}</a></li>
+          {{- end}}
+        </ul>
+      </td>
+    </tr>
+    {{- end}}
+  </tbody>
+</table>
+<button
+  class="js-moreProjectsBtn FeaturedUsers-moreProjectsBtn"
+  type="button">
+ More projects
+</button>
+</div>
+{{end}}
+
+{{define "pullquote info" -}}
+{{- with (yaml .info)}}
+<div class="PullQuote">
+  <div class="PullQuote-quoteHeader">
+    <img class="PullQuote-image" src="/images/quote.svg" alt="Quotation mark.">
+  </div>
+  <p class="PullQuote-body">
+    {{markdown .quote}}
+  </p>
+  {{- if .author}}
+  <div class="PullQuote-author">
+    {{- with .link}}
+    <a
+      class="PullQuote-link"
+      href="{{.}}"
+      target="_blank"
+      rel="noopener">
+    {{- end}}
+    <span>
+      &mdash; {{.author -}}
+    </span>
+    {{if .title}},&nbsp;
+      <span class="PullQuote-title">{{rawhtml .title}}</span>
+    {{- end}}
+    {{- if .company}}
+      <span class="PullQuote-title">&nbsp;at {{.company -}}</span>
+    {{- end}}
+    {{- with .link}}</a>{{end}}
+  </div>
+  {{- end}}
+</div>
+{{- end}}
+{{end}}
+
+{{define "quote info" -}}
+{{- with (yaml .info)}}
+<div class="QuoteBlock">
+  <p class="QuoteBlock-body">
+    {{markdown .quote}}
+  </p>
+  {{- if .author}}
+    <div class="QuoteBlock-author">
+      {{- with .link}}
+        <a class="QuoteBlock-link" href="{{.}}" target="_blank" rel="noopener">
+      {{- end}}
+      &mdash; {{.author}}
+      {{- if .title}},&nbsp;<span>{{.title}}</span>{{end}}
+      {{- with .link}}
+      </a>
+      {{- end -}}
+    </div>
+  {{- end}}
+</div>
+{{- end}}
+{{end}}
+
+{{define "toolsblurbs"}}
+<div class="ToolsBlurbs">
+  {{- range (yaml .)}}
+  <div class="ToolsBlurbs-blurb">
+    <a class="ToolsBlurbs-blurbHeader" href="{{.url}}">
+      <img class="ToolsBlurbs-blurbIcon" src="{{.iconSrc}}" alt="{{.title}}">
+      <span>{{.title}}</span>
+    </a>
+    {{- range .paragraphs}}
+      <p class="ToolsBlurbs-blurbBody">
+        {{.}}
+      </p>
+    {{- end}}
+  </div>
+  {{- end}}
+</div>
+{{end}}
