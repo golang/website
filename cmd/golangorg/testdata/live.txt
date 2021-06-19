@@ -1,36 +1,36 @@
 # Tests that can only run against the live server,
 # because they depend on production resources.
 
-GET /dl/
+GET https://golang.org/dl/
 body contains href="/dl/go1.11.windows-amd64.msi"
 
-GET /dl/?mode=json
+GET https://golang.org/dl/?mode=json
 body contains .windows-amd64.msi
 body !contains UA-
 
-GET /s/go2design
+GET https://golang.org/s/go2design
 code == 302
 body ~ proposal.*Found
 body !contains UA-
 
-POST /compile
+POST https://golang.org/compile
 postquery
 	body=package main; func main() { print(6*7); }
 body == {"compile_errors":"","output":"42"}
 
-POST /compile
+POST https://golang.org/compile
 postquery
 	body=//empty
 body contains expected 'package', found 'EOF'
 body !contains UA-
 
-POST /compile
+POST https://golang.org/compile
 postquery
 	version=2
 	body=package main; import ("fmt"; "time"); func main() {fmt.Print("A"); time.Sleep(time.Second); fmt.Print("B")}
 body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}]}
 
-POST /share
+POST https://golang.org/share
 postbody
 	package main
 body !contains UA-

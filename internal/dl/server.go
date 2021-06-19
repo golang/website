@@ -115,26 +115,6 @@ func serveJSON(w http.ResponseWriter, r *http.Request, d listTemplateData) {
 	}
 }
 
-// googleCN reports whether request r is considered
-// to be served from golang.google.cn.
-// TODO: This is duplicated within internal/proxy. Move to a common location.
-func googleCN(r *http.Request) bool {
-	if r.FormValue("googlecn") != "" {
-		return true
-	}
-	if strings.HasSuffix(r.Host, ".cn") {
-		return true
-	}
-	if !env.CheckCountry() {
-		return false
-	}
-	switch r.Header.Get("X-Appengine-Country") {
-	case "", "ZZ", "CN":
-		return true
-	}
-	return false
-}
-
 func (h server) uploadHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)

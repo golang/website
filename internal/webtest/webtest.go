@@ -164,6 +164,26 @@ import (
 	"unicode/utf8"
 )
 
+// HandlerWithCheck returns an http.Handler that responds to each request
+// by running the test script files mached by glob against the handler h.
+// If the tests pass, the returned http.Handler responds with status code 200.
+// If they fail, it prints the details and responds with status code 503
+// (service unavailable).
+func HandlerWithCheck(h http.Handler, path, glob string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path == path {
+			err := CheckHandler(glob, h)
+			if err != nil {
+				http.Error(w, "webtest.CheckHandler failed:\n"+err.Error()+"\n", http.StatusInternalServerError)
+			} else {
+				fmt.Fprintf(w, "ok\n")
+			}
+			return
+		}
+		h.ServeHTTP(w, r)
+	})
+}
+
 // CheckHandler runs the test script files matched by glob
 // against the handler h. If any errors are encountered,
 // CheckHandler returns an error listing the problems.

@@ -10,9 +10,11 @@ import (
 	"net/http"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"golang.org/x/website/go.dev/cmd/internal/site"
+	"golang.org/x/website/internal/webtest"
 )
 
 var discoveryHosts = map[string]string{
@@ -27,13 +29,14 @@ func main() {
 		// Running in repo root.
 		dir = "go.dev"
 	}
-	godev, err := site.Load(dir)
+
+	h, err := NewHandler(dir)
 	if err != nil {
 		log.Fatal(err)
 	}
-	http.Handle("/", addCSP(http.FileServer(godev)))
-	http.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
-	http.Handle("learn.go.dev/", http.HandlerFunc(redirectLearn))
+
+	h = webtest.HandlerWithCheck(h, "/_readycheck",
+		filepath.Join(dir, "cmd/frontend/testdata/*.txt"))
 
 	addr := ":" + listenPort()
 	if addr == ":0" {
@@ -45,7 +48,19 @@ func main() {
 	}
 	defer l.Close()
 	log.Printf("Listening on http://%v/\n", l.Addr().String())
-	log.Print(http.Serve(l, nil))
+	log.Print(http.Serve(l, h))
+}
+
+func NewHandler(dir string) (http.Handler, error) {
+	godev, err := site.Load(dir)
+	if err != nil {
+		return nil, err
+	}
+	mux := http.NewServeMux()
+	mux.Handle("/", addCSP(http.FileServer(godev)))
+	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
+	mux.Handle("learn.go.dev/", http.HandlerFunc(redirectLearn))
+	return mux, nil
 }
 
 func redirectLearn(w http.ResponseWriter, r *http.Request) {

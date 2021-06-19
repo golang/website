@@ -12,8 +12,10 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path/filepath"
 
 	_ "golang.org/x/tools/playground"
+	"golang.org/x/website/internal/webtest"
 )
 
 func gaeMain() {
@@ -36,7 +38,11 @@ func gaeMain() {
 	if port == "" {
 		port = "8080"
 	}
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+
+	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
+		filepath.Join(root, "testdata/*.txt"))
+
+	log.Fatal(http.ListenAndServe(":"+port, h))
 }
 
 // gaePrepContent returns a Reader that produces the content from the given

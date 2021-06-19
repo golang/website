@@ -13,7 +13,6 @@ import (
 )
 
 var (
-	checkCountry       = boolEnv("GOLANGORG_CHECK_COUNTRY")
 	enforceHosts       = boolEnv("GOLANGORG_ENFORCE_HOSTS")
 	requireDLSecretKey = boolEnv("GOLANGORG_REQUIRE_DL_SECRET_KEY")
 )
@@ -23,11 +22,6 @@ var (
 // on missing key instead of creating a new one.
 func RequireDLSecretKey() bool {
 	return requireDLSecretKey
-}
-
-// CheckCountry reports whether country restrictions should be enforced.
-func CheckCountry() bool {
-	return checkCountry
 }
 
 // EnforceHosts reports whether host filtering should be enforced.

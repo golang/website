@@ -1,4 +1,4 @@
-GET /
+GET https://golang.org/
 body contains Go is an open source programming language
 body contains Binary distributions available for
 
@@ -11,143 +11,143 @@ body contains Binary distributions available for
 body contains href="/golang.org/doc
 body !contains href="/doc
 
-GET /change/75944e2e3a63
+GET https://golang.org/change/75944e2e3a63
 code == 302
 redirect contains bdb10cf
 body contains bdb10cf
 body !contains UA-
 
-GET /cmd/compile/internal/amd64/
+GET https://golang.org/cmd/compile/internal/amd64/
 body contains href="/src/cmd/compile/internal/amd64/ssa.go"
 
-GET /conduct
+GET https://golang.org/conduct
 body contains Project Stewards
 
-GET /doc/
+GET https://golang.org/doc/
 body contains an introduction to using modules in a simple project
 
-GET /doc/asm
+GET https://golang.org/doc/asm
 body ~ Quick Guide.*Assembler
 
-GET /doc/debugging_with_gdb.html
+GET https://golang.org/doc/debugging_with_gdb.html
 redirect == /doc/gdb
 
-GET /doc/devel/release
+GET https://golang.org/doc/devel/release
 body ~ go1\.14\.2\s+\(released 2020-04-08\)\s+includes\s+fixes to cgo, the go command, the runtime,
 
-GET /doc/devel/release.html
+GET https://golang.org/doc/devel/release.html
 redirect == /doc/devel/release
 
-GET /doc/faq
+GET https://golang.org/doc/faq
 body contains What is the purpose of the project
 
-GET /doc/gdb
+GET https://golang.org/doc/gdb
 body contains Debugging Go Code
 
-GET /doc/go1.16.html
+GET https://golang.org/doc/go1.16.html
 redirect == /doc/go1.16
 
-GET /doc/go1.16
+GET https://golang.org/doc/go1.16
 body contains Go 1.16
 
-GET /doc/go_spec
+GET https://golang.org/doc/go_spec
 redirect == /ref/spec
 
-GET /doc/go_spec.html
+GET https://golang.org/doc/go_spec.html
 redirect == /ref/spec
 
-GET /doc/go_spec.md
+GET https://golang.org/doc/go_spec.md
 redirect == /ref/spec
 
-GET /doc/go_mem.html
+GET https://golang.org/doc/go_mem.html
 redirect == /ref/mem
 
-GET /doc/go_mem.md
+GET https://golang.org/doc/go_mem.md
 redirect == /ref/mem
 
-GET /doc/help.html
+GET https://golang.org/doc/help.html
 redirect == /help
 
-GET /help/
+GET https://golang.org/help/
 redirect == /help
 
-GET /help
+GET https://golang.org/help
 body contains Get help
 
-GET /pkg/fmt/
+GET https://golang.org/pkg/fmt/
 body contains Package fmt implements formatted I/O
 
-GET /src/fmt/
+GET https://golang.org/src/fmt/
 body contains scan_test.go
 
-GET /src/fmt/print.go
+GET https://golang.org/src/fmt/print.go
 body contains // Println formats using
 
-GET /pkg
+GET https://golang.org/pkg
 redirect == /pkg/
 
-GET /pkg/
+GET https://golang.org/pkg/
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body !contains internal/syscall
 body !contains cmd/gc
 
-GET /pkg/?m=all
+GET https://golang.org/pkg/?m=all
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body contains internal/syscall/?m=all
 body !contains cmd/gc
 
-GET /pkg/bufio/
+GET https://golang.org/pkg/bufio/
 body contains href="/pkg/io/#Writer
 
-GET /pkg/database/sql/
+GET https://golang.org/pkg/database/sql/
 body contains The number of connections currently in use; added in Go 1.11
 body contains The number of idle connections; added in Go 1.11
 
-GET /cmd/compile/internal/amd64/
+GET https://golang.org/cmd/compile/internal/amd64/
 body contains href="/src/cmd/compile/internal/amd64/ssa.go"
 
-GET /pkg/math/bits/
+GET https://golang.org/pkg/math/bits/
 body contains Added in Go 1.9
 
-GET /pkg/net/
+GET https://golang.org/pkg/net/
 body contains // IPv6 scoped addressing zone; added in Go 1.1
 
-GET /pkg/net/http/
+GET https://golang.org/pkg/net/http/
 body contains title="Added in Go 1.11"
 
-GET /pkg/net/http/httptrace/
+GET https://golang.org/pkg/net/http/httptrace/
 body ~ Got1xxResponse.*// Go 1\.11
 body ~ GotFirstResponseByte func\(\)\s*$
 
-GET /pkg/os/
+GET https://golang.org/pkg/os/
 body contains func Open
 
-GET /pkg/strings/
+GET https://golang.org/pkg/strings/
 body contains href="/src/strings/strings.go"
 
-GET /project
+GET https://golang.org/project
 body contains <li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>
 body contains <li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>
 
-GET /project/
+GET https://golang.org/project/
 redirect == /project
 
-GET /project/notexist
+GET https://golang.org/project/notexist
 code == 404
 
-GET /ref/mem
+GET https://golang.org/ref/mem
 body contains Memory Model
 
-GET /ref/spec
+GET https://golang.org/ref/spec
 body contains Go Programming Language Specification
 
-GET /robots.txt
+GET https://golang.org/robots.txt
 body contains Disallow: /search
 body !contains UA-
 
-GET /x/net
+GET https://golang.org/x/net
 code == 200
 body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
 body !contains UA-

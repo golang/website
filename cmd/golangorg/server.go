@@ -36,6 +36,7 @@ import (
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
 	"golang.org/x/website/internal/web"
+	"golang.org/x/website/internal/webtest"
 
 	// Registers "/compile" handler that redirects to play.golang.org/compile.
 	// If we are in prod we will register "golang.org/compile" separately,
@@ -93,6 +94,9 @@ func main() {
 
 	handler := NewHandler(*contentDir, *goroot)
 
+	handler = webtest.HandlerWithCheck(handler, "/_readycheck",
+		filepath.Join(*contentDir, "../cmd/golangorg/testdata/*.txt"))
+
 	if *verbose {
 		log.Printf("golang.org server:")
 		log.Printf("\tversion = %s", runtime.Version())
@@ -137,7 +141,6 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("NewSite: %v", err)
 	}
-	site.GoogleCN = googleCN
 
 	mux := http.NewServeMux()
 	mux.Handle("/", site)
@@ -193,26 +196,6 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	proxy.RegisterHandlers(mux)
 
 	log.Println("AppEngine initialization complete")
-}
-
-// googleCN reports whether request r is considered
-// to be served from golang.google.cn.
-// TODO: This is duplicated within internal/proxy. Move to a common location.
-func googleCN(r *http.Request) bool {
-	if r.FormValue("googlecn") != "" {
-		return true
-	}
-	if strings.HasSuffix(r.Host, ".cn") {
-		return true
-	}
-	if !env.CheckCountry() {
-		return false
-	}
-	switch r.Header.Get("X-Appengine-Country") {
-	case "", "ZZ", "CN":
-		return true
-	}
-	return false
 }
 
 func blogHandler(w http.ResponseWriter, r *http.Request) {

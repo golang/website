@@ -20,6 +20,7 @@ import (
 	_ "golang.org/x/tools/playground"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/backport/httpfs"
+	"golang.org/x/website/internal/webtest"
 )
 
 var (
@@ -66,6 +67,10 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	h = webtest.HandlerWithCheck(h, "/_readycheck",
+		filepath.Join(blogRoot, "testdata/*.txt"))
+
 	http.Handle("/", h)
 
 	ln, err := net.Listen("tcp", *httpAddr)

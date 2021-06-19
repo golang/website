@@ -1,0 +1,5 @@
+GET https://go.dev/
+body contains <h2 class="WhoUses-headerH2">Companies using Go</h2>
+
+GET https://go.dev/solutions/google/
+body ~ it\s+has\s+powered\s+many\s+projects\s+at\s+Google.

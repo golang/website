@@ -15,10 +15,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"strings"
 	"time"
 
-	"golang.org/x/website/internal/env"
+	"golang.org/x/website/internal/web"
 )
 
 const playgroundURL = "https://play.golang.org"
@@ -124,7 +123,7 @@ func flatten(seq []Event) string {
 }
 
 func share(w http.ResponseWriter, r *http.Request) {
-	if googleCN(r) {
+	if web.GoogleCN(r) {
 		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
 		return
 	}
@@ -150,23 +149,4 @@ func share(w http.ResponseWriter, r *http.Request) {
 	defer resp.Body.Close()
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
-}
-
-// googleCN reports whether request r is considered
-// to be served from golang.google.cn.
-func googleCN(r *http.Request) bool {
-	if r.FormValue("googlecn") != "" {
-		return true
-	}
-	if strings.HasSuffix(r.Host, ".cn") {
-		return true
-	}
-	if !env.CheckCountry() {
-		return false
-	}
-	switch r.Header.Get("X-Appengine-Country") {
-	case "", "ZZ", "CN":
-		return true
-	}
-	return false
 }

@@ -36,10 +36,6 @@ type Site struct {
 
 	Templates *template.Template
 
-	// GoogleCN reports whether this request should be marked GoogleCN.
-	// If the function is nil, no requests are marked GoogleCN.
-	GoogleCN func(*http.Request) bool
-
 	// GoogleAnalytics optionally adds Google Analytics via the provided
 	// tracking ID to each page.
 	GoogleAnalytics string
@@ -122,7 +118,7 @@ type Page struct {
 	Data     interface{} // data to be rendered into page frame
 
 	// Filled in automatically by ServePage
-	GoogleCN        bool   // page is being served from golang.google.cn
+	GoogleCN        bool   // served on golang.google.cn
 	GoogleAnalytics string // Google Analytics tag
 	Version         string // current Go version
 
@@ -135,7 +131,7 @@ func (s *Site) fullPage(r *http.Request, page Page) Page {
 		page.TabTitle = page.Title
 	}
 	page.Version = runtime.Version()
-	page.GoogleCN = s.googleCN(r)
+	page.GoogleCN = GoogleCN(r)
 	page.GoogleAnalytics = s.GoogleAnalytics
 	page.site = s
 	return page
@@ -412,8 +408,4 @@ func rangeSelection(str string) texthtml.Selection {
 func (s *Site) serveRawText(w http.ResponseWriter, text []byte) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write(text)
-}
-
-func (s *Site) googleCN(r *http.Request) bool {
-	return s.GoogleCN != nil && s.GoogleCN(r)
 }

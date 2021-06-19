@@ -23,6 +23,7 @@ import (
 	"time"
 
 	"golang.org/x/tools/playground/socket"
+	"golang.org/x/website/internal/webtest"
 )
 
 const (
@@ -126,6 +127,9 @@ func main() {
 
 	registerStatic(root)
 
+	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
+		filepath.Join(root, "testdata/*.txt"))
+
 	go func() {
 		url := "http://" + httpAddr
 		if waitServer(url) && *openBrowser && startBrowser(url) {
@@ -134,7 +138,7 @@ func main() {
 			log.Printf("Please open your web browser and visit %s", url)
 		}
 	}()
-	log.Fatal(http.ListenAndServe(httpAddr, nil))
+	log.Fatal(http.ListenAndServe(httpAddr, h))
 }
 
 // registerStatic registers handlers to serve static content

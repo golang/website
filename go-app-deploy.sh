@@ -6,7 +6,7 @@
 # This script is meant to be run from Cloud Build as a substitute
 # for "gcloud app deploy", as in:
 #
-#	go-app-deploy.sh app.yaml
+#	go-app-deploy.sh [--project=name] app.yaml
 #
 # It should not be run by hand and is therefore not marked executable.
 #
@@ -25,18 +25,68 @@
 
 set -e
 
+project=golang-org
+case "$1" in
+--project=*)
+	project=$(echo $1 | sed 's/--project=//')
+	shift
+esac
+
+yaml=app.yaml
+case "$1" in
+*.yaml)
+	yaml=$1
+	shift
+esac
+
+if [ $# != 0 ]; then
+	echo 'usage: go-app-deploy.sh [--project=name] path/to/app.yaml' >&2
+	exit 2
+fi
+
 promote=$(
 	git cat-file -p 'HEAD' |
 	awk '
-		BEGIN { flag = "--no-promote" }
-		/^Reviewed-on:/ { flag = "--no-promote" }
-		/^Website-Publish:/ { flag = "--promote" }
+		BEGIN { flag = "false" }
+		/^Reviewed-on:/ { flag = "false" }
+		/^Website-Publish:/ { flag = "true" }
 		END {print flag}
 	'
 )
 
-version=$(
-	git log -n1 --date='format:%Y-%m-%d-%H%M%S' --pretty='format:%cd-%h'
-)
+version=$(git log -n1 --date='format:%Y-%m-%d-%H%M%S' --pretty='format:%cd-%h')
 
-gcloud app deploy $promote -v $version "$@"
+service=$(awk '$1=="service:" {print $2}' $yaml)
+
+servicedot="-$service-dot"
+if [ "$service" = default ]; then
+	servicedot=""
+fi
+host="$version-dot$servicedot-$project.appspot.com"
+
+echo "### deploying to https://$host"
+gcloud -q --project=$project app deploy -v $version --no-promote $yaml
+
+curl --version
+
+for i in 1 2 3 4 5; do
+	if curl -s --fail --show-error "https://$host/_readycheck"; then
+		echo '### site is up!'
+		if $promote; then
+			serving=$(gcloud app services describe --project=$project $service | grep ': 1.0')
+			if [ "$serving" '>' "$version" ]; then
+				echo "### serving version $serving is newer than our $version; not promoting"
+				exit 1
+			fi
+			echo '### promoting'
+			gcloud -q --project=$project app services set-traffic $service --splits=$version=1
+		fi
+		exit 0
+	fi
+	echo '### not healthy'
+	curl "https://$host/_readycheck" # show response body
+done
+
+echo "### failed to become healthy; giving up"
+exit 1
+
