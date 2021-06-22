@@ -24,7 +24,7 @@
       After you create this directory, you should have both a hello and a
       greetings directory at the same level in the hierarchy, like so:
     </p>
-      <pre>&lt;home&gt;/
+    <pre>&lt;home&gt;/
  |-- greetings/
  |-- hello/</pre>
 
@@ -37,8 +37,7 @@
 cd ..
 mkdir hello
 cd hello
-</pre
-    >
+</pre>
   </li>
 
   <li>
@@ -46,14 +45,13 @@ cd hello
 
     <p>
       To enable dependency tracking for your code, run the
-      <a
-        href="/ref/mod#go-mod-init"
-        ><code>go mod init</code> command</a>, giving it the name of the module
-        your code will be in.</p>
+      <a href="/ref/mod#go-mod-init"><code>go mod init</code> command</a>, giving it the name of the module
+      your code will be in.
+    </p>
 
     <p>
-        For the purposes of this tutorial, use <code>example.com/hello</code>
-        for the module path.
+      For the purposes of this tutorial, use <code>example.com/hello</code>
+      for the module path.
     </p>
 
     <pre>
@@ -142,31 +140,31 @@ func main() {
         From the command prompt in the hello directory, run the following
         command:
 
-    <pre>
-$ go mod edit -replace=example.com/greetings=../greetings
-</pre>
+        <pre>
+          $ go mod edit -replace example.com/greetings=../greetings
+        </pre>
 
-    <p>
-      The command specifies that <code>example.com/greetings</code> should be
-      replaced with <code>../greetings</code> for the purpose of locating the
-      dependency. After you run the command, the go.mod file in the hello
-      directory should include a <a href="/doc/modules/gomod-ref#replace">
-        <code>replace</code> directive</a>:
-    </p>
+        <p>
+          The command specifies that <code>example.com/greetings</code> should be
+          replaced with <code>../greetings</code> for the purpose of locating the
+          dependency. After you run the command, the go.mod file in the hello
+          directory should include a <a href="/doc/modules/gomod-ref#replace">
+            <code>replace</code> directive</a>:
+        </p>
 
         <pre>
-module example.com/hello
+          module example.com/hello
 
-go 1.16
+          go 1.16
 
-<ins>replace example.com/greetings => ../greetings</ins>
-</pre>
+          <ins>replace example.com/greetings => ../greetings</ins>
+        </pre>
       </li>
 
       <li>
         From the command prompt in the hello directory, run the
         <a href="/ref/mod#go-mod-tidy">
-        <code>go mod tidy</code> command</a> to synchronize the
+          <code>go mod tidy</code> command</a> to synchronize the
         <code>example.com/hello</code> module's dependencies, adding those
         required by the code, but not yet tracked in the module.
 
@@ -174,8 +172,8 @@ go 1.16
 go: found example.com/greetings in example.com/greetings v0.0.0-00010101000000-000000000000
 </pre>
         <p>
-         After the command completes, the <code>example.com/hello</code>
-         module's go.mod file should look like this:
+          After the command completes, the <code>example.com/hello</code>
+          module's go.mod file should look like this:
         </p>
 
         <pre>module example.com/hello
@@ -189,7 +187,7 @@ replace example.com/greetings => ../greetings
         <p>
           The command found the local code in the greetings directory, then
           added a <a href="/doc/modules/gomod-ref#require"><code>require</code>
-          directive</a> to specify that <code>example.com/hello</code>
+            directive</a> to specify that <code>example.com/hello</code>
           requires <code>example.com/greetings</code>. You created this
           dependency when you imported the <code>greetings</code> package in
           hello.go.
@@ -208,7 +206,8 @@ replace example.com/greetings => ../greetings
         <pre>require example.com/greetings v1.1.0</pre>
 
         <p>For more on version numbers, see
-          <a href="/doc/modules/version-numbers">Module version numbering</a>.</p>
+          <a href="/doc/modules/version-numbers">Module version numbering</a>.
+        </p>
       </li>
     </ol>
   <li>
@@ -231,10 +230,6 @@ Hi, Gladys. Welcome!
 </p>
 
 <p class="Navigation">
-  <a class="Navigation-prev" href="/doc/tutorial/create-module.html"
-    >&lt; Create a Go module</a
-  >
-  <a class="Navigation-next" href="/doc/tutorial/handle-errors.html"
-    >Return and handle an error &gt;</a
-  >
+  <a class="Navigation-prev" href="/doc/tutorial/create-module.html">&lt; Create a Go module</a>
+  <a class="Navigation-next" href="/doc/tutorial/handle-errors.html">Return and handle an error &gt;</a>
 </p>
