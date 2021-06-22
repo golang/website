@@ -360,7 +360,7 @@ the required module with the fork:
 ```
 $ go list -m example.com/theirmodule
 example.com/theirmodule v1.2.3
-$ go mod edit -replace=example.com/theirmodule@v1.2.3=example.com/myfork/theirmodule v1.2.3-fixed
+$ go mod edit -replace=example.com/theirmodule@v1.2.3=example.com/myfork/theirmodule@v1.2.3-fixed
 ```
 
 **Note:** When you use the `replace` directive, Go tools don't authenticate
