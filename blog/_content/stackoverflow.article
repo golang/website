@@ -13,9 +13,9 @@ For the past five years, the [Go user survey](https://blog.golang.org/survey2020
 has consistently identified Stack Overflow as
 the #1 place users go to find answers to their Go questions.
 
-We are excited to share that we have partnered with Stack Overflow
-to be the very first open source project in their latest product offering,
-Collectives™ on Stack Overflow, which launched today.
+We are excited to share [the Go Collective](https://stackoverflow.com/collectives/go),
+the very first open source project in Collectives™ on Stack Overflow,
+which came as a result of a partnership between Go & Stack Overflow.
 
 <img src="stackoverflow/stackoverflow.png" alt="Go Collective on Stack Overflow web page" width="700" height="547"/>
 
