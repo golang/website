@@ -98,6 +98,72 @@ Summarizes tools and methodologies to diagnose problems in Go programs.
 When your code uses external packages, those packages (distributed as modules) become dependencies.
 </p>
 
+<h3 id="data-access">Accessing databases</h3>
+
+<h4 id="data-access-tutorial"><a href="/doc/tutorial/database-access">Tutorial: Accessing a relational database</a></h4>
+<p>
+Introduces the basics of accessing a relational database using Go and the
+<code>database/sql</code> package in the standard library.
+</p>
+
+<h4 id="accessing-databases"><a href="/doc/database/index">Accessing relational databases</a></h4>
+<p>
+An overview of Go's data access features.
+</p>
+
+<h4 id="open-handle"><a href="/doc/database/open-handle">Opening a database handle</a></h4>
+<p>
+You use the Go database handle to execute database operations. Once you open a
+handle with database connection properties, the handle represents a connection
+pool it manages on your behalf.
+</p>
+
+<h4 id="change-data"><a href="/doc/database/change-data">Executing SQL statements that don't return data</a></h4>
+<p>
+For SQL operations that might change the database, including SQL
+<code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>, you use
+<code>Exec</code> methods.
+</p>
+
+<h4 id="querying"><a href="/doc/database/querying">Querying for data</a></h4>
+<p>
+For <code>SELECT</code> statements that return data from a query, using the
+<code>Query</code> or <code>QueryRow</code> method.
+</p>
+
+<h4 id="prepared-statements"><a href="/doc/database/prepared-statements">Using prepared statements</a></h4>
+<p>
+Defining a prepared statement for repeated use can help your code run a bit
+faster by avoiding the overhead of re-creating the statement each time your
+code performs the database operation.
+</p>
+
+<h4 id="execute-transactions"><a href="/doc/database/execute-transactions">Executing transactions</a></h4>
+<p>
+<code>sql.Tx</code> exports methods representing transaction-specific semantics,
+including <code>Commit</code> and <code>Rollback</code>, as well as methods you
+use to perform common database operations.
+</p>
+
+<h4 id="cancel-operations"><a href="/doc/database/cancel-operations">Cancelling in-progress database operations</a></h4>
+<p>
+Using <a href="https://pkg.go.dev/context#Context">context.Context</a>, you can
+have your application's function calls and services stop working early and
+return an error when their processing is no longer needed.
+</p>
+
+<h4 id="manage-connections"><a href="/doc/database/manage-connections">Managing connections</a></h4>
+<p>
+For some advanced programs, you might need to tune connection pool parameters
+or work with connections explicitly.
+</p>
+
+<h4 id="sql-injection"><a href="/doc/database/sql-injection">Avoiding SQL injection risk</a></h4>
+<p>
+You can avoid an SQL injection risk by providing SQL parameter values as
+<code>sql</code> package function arguments
+</p>
+
 <h3 id="developing-modules">Developing modules</h3>
 
 <h4 id="modules-develop-publish"><a href="/doc/modules/developing">Developing and publishing modules</a></h4>
