@@ -17,7 +17,7 @@ This topic describes what module version numbers mean.
 **See also**
 
 * When you're using external packages in your code, you can manage those
-  dependencies with Go tools. For more, see [Managingdependencies](managing-dependencies).
+  dependencies with Go tools. For more, see [Managing dependencies](managing-dependencies).
 * If you're developing modules for others to use, you apply a version number
   when you publish the module, tagging the module in its repository. For more,
   see [Publishing a module](publishing).
