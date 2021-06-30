@@ -356,6 +356,13 @@ edit`](#go-mod-edit) can perform low-level edits.  The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
+A `go.mod` file is required for the [main module](#glos-main-module), and for
+any [replacement module](#go-mod-file-replace) specified with a local file path.
+However, a module that lacks an explicit `go.mod` file may still be
+[required](#go-mod-file-require) as a dependency, or used as a replacement
+specified with a module path and version; see [Compatibility with non-module
+repositories](#non-module-compat).
+
 ### Lexical elements {#go-mod-file-lexical}
 
 When a `go.mod` file is parsed, its content is broken into a sequence of tokens.
