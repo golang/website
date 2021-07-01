@@ -7,7 +7,7 @@ When you perform database actions that don't return data, use an `Exec` or
 execute this way include `INSERT`, `DELETE`, and `UPDATE`.
 
 When your query might return rows, use a `Query` or `QueryContext` method
-instead. For more, see [Querying a database](/doc/database/query).
+instead. For more, see [Querying a database](/doc/database/querying).
 
 An `ExecContext` method works as an `Exec` method does, but with an additional
 `context.Context` argument, as described in
