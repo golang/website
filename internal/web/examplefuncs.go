@@ -74,9 +74,10 @@ func (p *Page) Example(funcName string) template.HTML {
 
 		newPage := *p
 		newPage.Data = struct {
-			Name, Doc, Code, Play, Output string
+			Name, Doc, Play, Output string
+			Code                    template.HTML
 		}{
-			eg.Name, eg.Doc, code, play, out,
+			eg.Name, eg.Doc, play, out, template.HTML(code),
 		}
 		err := t.Execute(&buf, &newPage)
 		if err != nil {
