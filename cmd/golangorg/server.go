@@ -224,6 +224,7 @@ func fmtHandler(w http.ResponseWriter, r *http.Request) {
 var validHosts = map[string]bool{
 	"golang.org":       true,
 	"golang.google.cn": true,
+	"tip.golang.org":   true,
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.

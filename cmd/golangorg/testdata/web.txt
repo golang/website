@@ -98,6 +98,9 @@ redirect == /pkg/
 GET https://golang.org/pkg/
 redirect == https://pkg.go.dev/std
 
+GET https://tip.golang.org/pkg/
+redirect == https://pkg.go.dev/std@master
+
 GET https://golang.org/pkg?m=old
 redirect == /pkg/?m=old
 
@@ -118,6 +121,9 @@ redirect == https://pkg.go.dev/bufio
 
 GET https://golang.org/pkg/bufio/?GOOS=windows&GOARCH=amd64
 redirect == https://pkg.go.dev/bufio?GOOS=windows&GOARCH=amd64
+
+GET https://tip.golang.org/pkg/bufio/
+redirect == https://pkg.go.dev/bufio@master
 
 GET https://golang.org/pkg/bufio/?m=old
 body contains href="/pkg/io/?m=old#Writer
