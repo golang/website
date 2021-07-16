@@ -564,13 +564,22 @@ specified by the `go` directive. This has the following effects:
   [`go mod vendor`](#go-mod-vendor) since modules were introduced. In lower
   versions, `all` also includes tests of packages imported by packages in
   the main module, tests of those packages, and so on.
-* At `go 1.17` or higher, the `go.mod` file includes an explicit [`require`
-  directive](#go-mod-file-require) for each module that provides any package
-  transitively imported by a package or test in the main module. (At `go 1.16`
-  and lower, an [indirect dependency](#glos-direct-dependency) is included only
-  if [minimal version selection](#minimal-version-selection) would otherwise
-  select a different version.) This extra information enables [lazy
-  loading](#lazy-loading) and [module graph pruning](#graph-pruning).
+* At `go 1.17` or higher:
+   * The `go.mod` file includes an explicit [`require`
+     directive](#go-mod-file-require) for each module that provides any package
+     transitively imported by a package or test in the main module. (At `go
+     1.16` and lower, an [indirect dependency](#glos-direct-dependency) is
+     included only if [minimal version selection](#minimal-version-selection)
+     would otherwise select a different version.) This extra information enables
+     [lazy loading](#lazy-loading) and [module graph pruning](#graph-pruning).
+   * Because there may be many more `// indirect` dependencies than in previous
+     `go` versions, indirect dependencies are recorded in a separate block
+     within the `go.mod` file.
+   * `go mod vendor` omits `go.mod` and `go.sum` files for vendored
+     dependencies. (That allows invocations of the `go` command within
+     subdirectories of `vendor` to identify the correct main module.)
+   * `go mod vendor` records the `go` version from each dependency's `go.mod`
+     file in `vendor/modules.txt`.
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
