@@ -580,6 +580,7 @@ specified by the `go` directive. This has the following effects:
      subdirectories of `vendor` to identify the correct main module.)
    * `go mod vendor` records the `go` version from each dependency's `go.mod`
      file in `vendor/modules.txt`.
+<!-- If you update this list, also update /doc/modules/gomod-ref#go. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.

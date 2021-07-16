@@ -70,6 +70,9 @@ Declares the module's module path, which is the module's unique identifier
 (when combined with the module version number). This becomes the import prefix
 for all packages the module contains.
 
+For more, see [`module` directive](/ref/mod#go-mod-file-module) in the
+Go Modules Reference.
+
 ### Syntax {#module-syntax}
 
 <pre>module <var>module-path</var></pre>
@@ -125,6 +128,9 @@ go mod init example.com/stringtools
 Indicates that the module was written assuming the semantics of the Go version
 specified by the directive.
 
+For more, see [`go` directive](/ref/mod#go-mod-file-go) in the
+Go Modules Reference.
+
 ### Syntax {#go-syntax}
 
 <pre>go <var>minimum-go-version</var></pre>
@@ -171,14 +177,35 @@ specified by the `go` directive. This has the following effects:
   by [`go mod vendor`](/ref/mod#go-mod-vendor) since modules were introduced. In
   lower versions, `all` also includes tests of packages imported by packages in
   the main module, tests of those packages, and so on.
+* At `go 1.17` or higher:
+   * The `go.mod` file includes an explicit [`require`
+     directive](/ref/mod#go-mod-file-require) for each module that provides any
+     package transitively imported by a package or test in the main module. (At
+     `go 1.16` and lower, an indirect dependency is included only if [minimal
+     version selection](/ref/mod#minimal-version-selection) would otherwise
+     select a different version.) This extra information enables [lazy
+     loading](/ref/mod#lazy-loading) and [module graph
+     pruning](/ref/mod#graph-pruning).
+   * Because there may be many more `// indirect` dependencies than in previous
+     `go` versions, indirect dependencies are recorded in a separate block
+     within the `go.mod` file.
+   * `go mod vendor` omits `go.mod` and `go.sum` files for vendored
+     dependencies. (That allows invocations of the `go` command within
+     subdirectories of `vendor` to identify the correct main module.)
+   * `go mod vendor` records the `go` version from each dependency's `go.mod`
+     file in `vendor/modules.txt`.
+<!-- If you update this list, also update /ref/mod#go-mod-file-go. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
 
 ## require {#require}
 
-Declares a module as dependency required by the current module, specifying the
+Declares a module as a dependency of the current module, specifying the
 minimum version of the module required.
+
+For more, see [`require` directive](/ref/mod#go-mod-file-require) in the
+Go Modules Reference.
 
 ### Syntax {#require-syntax}
 
@@ -232,6 +259,9 @@ For more about managing dependencies, see the following:
 Replaces the content of a module at a specific version (or all versions) with
 another module version or with a local directory. Go tools will use the
 replacement path when resolving the dependency.
+
+For more, see [`replace` directive](/ref/mod#go-mod-file-replace) in the
+Go Modules Reference.
 
 ### Syntax {#replace-syntax}
 
@@ -363,6 +393,9 @@ numbering](/doc/modules/version-numbers).
 
 Specifies a module or module version to exclude from the current module's
 dependency graph.
+
+For more, see [`exclude` directive](/ref/mod#go-mod-file-exclude) in the
+Go Modules Reference.
 
 ### Syntax {#exclude-syntax}
 
