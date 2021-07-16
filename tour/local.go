@@ -64,10 +64,10 @@ func findRoot() (string, bool) {
 	// and the binary was built in module mode (e.g., 'go install
 	// golang.org/x/website/tour@latest' or 'go get golang.org/x/website/tour'
 	// outside a module).
-	// In that's the case, find out what version it is,
+	// If that's the case, find out what version it is,
 	// and access its content from the module cache.
 	if info, ok := debug.ReadBuildInfo(); ok &&
-		info.Main.Path == "golang.org/x/website/tour" &&
+		info.Main.Path == "golang.org/x/website" &&
 		info.Main.Replace == nil &&
 		info.Main.Version != "(devel)" {
 		// Make some assumptions for brevity:
@@ -76,11 +76,12 @@ func findRoot() (string, bool) {
 		// • the version isn't "(devel)"
 		// They should hold for the use cases we care about, until this
 		// entire mechanism is obsoleted by file embedding.
-		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/website/tour@"+info.Main.Version).Output()
-		var tourRoot struct{ Dir string }
-		jsonError := json.Unmarshal(out, &tourRoot)
-		if execError == nil && jsonError == nil && isRoot(tourRoot.Dir) {
-			return tourRoot.Dir, true
+		out, execError := exec.Command("go", "mod", "download", "-json", "--", "golang.org/x/website@"+info.Main.Version).Output()
+		var websiteRoot struct{ Dir string }
+		jsonError := json.Unmarshal(out, &websiteRoot)
+		tourDir := filepath.Join(websiteRoot.Dir, "tour")
+		if execError == nil && jsonError == nil && isRoot(tourDir) {
+			return tourDir, true
 		}
 	}
 	return "", false
