@@ -113,6 +113,8 @@ func main() {
 	}
 }
 
+var isTestBinary = false
+
 // NewHandler returns the http.Handler for the web site,
 // given the directory where the content can be found
 // (can be "", in which case an internal copy is used)
@@ -144,25 +146,20 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("newSite: %v", err)
 	}
 
-	// When we are ready to start serving tip.golang.org
-	// from the default golang-org app instead of a separate app,
-	// we can set serveTip = true.
-	const serveTip = false
+	// tip.golang.org serves content from the very latest Git commit
+	// of the main Go repo, instead of the one the app is bundled with.
+	var tipGoroot atomicFS
+	if _, err := newSite(mux, "tip.golang.org", content, &tipGoroot); err != nil {
+		log.Fatalf("loading tip site: %v", err)
+	}
 
-	if serveTip {
-		// tip.golang.org serves content from the very latest Git commit
-		// of the main Go repo, instead of the one the app is bundled with.
-		var tipGoroot atomicFS
-		if _, err := newSite(mux, "tip.golang.org", content, &tipGoroot); err != nil {
-			log.Fatalf("loading tip site: %v", err)
-		}
+	// TODO(rsc): Replace with redirect to tip
+	// once tip is being served by this app.
+	if _, err := newSite(mux, "beta.golang.org", content, &tipGoroot); err != nil {
+		log.Fatalf("loading beta site: %v", err)
+	}
 
-		// TODO(rsc): Replace with redirect to tip
-		// once tip is being served by this app.
-		if _, err := newSite(mux, "beta.golang.org", content, &tipGoroot); err != nil {
-			log.Fatalf("loading beta site: %v", err)
-		}
-
+	if !isTestBinary {
 		go watchTip(&tipGoroot)
 	}
 

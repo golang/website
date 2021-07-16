@@ -12,6 +12,10 @@ import (
 	"golang.org/x/website/internal/webtest"
 )
 
+func init() {
+	isTestBinary = true
+}
+
 func TestWeb(t *testing.T) {
 	h := NewHandler("../../_content", runtime.GOROOT())
 	files, err := filepath.Glob("testdata/*.txt")
