@@ -191,3 +191,9 @@ GET https://golang.org/x/net
 code == 200
 body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
 body !contains UA-
+
+GET https://golang.org/pkg/crypto/rsa/?m=old
+body contains []byte(&#34;orders&#34;)
+body !contains []byte(&amp;#34;orders&amp;#34;)
+body contains <span class="comment">
+body !contains &lt;span class=&#34;comment&#34;&gt;
