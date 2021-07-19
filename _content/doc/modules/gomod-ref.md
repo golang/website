@@ -434,3 +434,93 @@ go mod edit -exclude=example.com/theirmodule@v1.3.0
 ```
 
 For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
+
+## retract {#retract}
+
+Indicates that a version or range of versions of the module defined by `go.mod`
+should not be depended upon. A `retract` directive is useful when a version was
+published prematurely or a severe problem was discovered after the version was
+published.
+
+### Syntax {#retract-syntax}
+
+<pre>
+retract <var>version</var> // <var>rationale</var>
+retract [<var>version-low</var>,<var>version-high</var>] // <var>rationale</var>
+</pre>
+
+<dl>
+  <dt>version</dt>
+  <dd>A single version to retract.</dd>
+  <dt>version-low</dt>
+  <dd>Lower bound of a range of versions to retract.</dd>
+  <dt>version-high</dt>
+  <dd>
+    Upper bound of a range of versions to retract. Both <var>version-low</var>
+    and <var>version-high</var> are included in the range.
+  </dd>
+  <dt>rationale</dt>
+  <dd>
+    Optional comment explaining the retraction. May be shown in messages to
+    the user.
+  </dd>
+</dl>
+
+### Example {#retract-example}
+
+* Retracting a single version
+
+  ```
+  retract v1.1.0 // Published accidentally.
+  ```
+
+* Retracting a range of versions
+
+  ```
+  retract [v1.0.0,v1.0.5] // Build broken on some platforms.
+  ```
+
+### Notes {#retract-notes}
+
+Use the `retract` directive to indicate that a previous version of your module
+should not be used. Users will not automatically upgrade to a retracted version
+with `go get`, `go mod tidy`, or other commands. Users will not see a retracted
+version as an available update with `go list -m -u`.
+
+Retracted versions should remain available so users that already depend on them
+are able to build their packages. Even if a retracted version is deleted from
+the source repository, it may remain available on mirrors such as
+[proxy.golang.org](https://proxy.golang.org). Users that depend on retracted
+versions may be notified when they run `go get` or `go list -m -u` on
+related modules.
+
+The `go` command discovers retracted versions by reading `retract` directives
+in the `go.mod` file in the latest version of a module. The latest version is,
+in order of precedence:
+
+1. Its highest release version, if any
+2. Its highest pre-release version, if any
+3. A pseudo-version for the tip of the repository's default branch.
+
+When you add a retraction, you almost always need to tag a new, higher version
+so the command will see it in the latest version of the module.
+
+You can publish a version whose sole purpose is to signal retractions. In this
+case, the new version may also retract itself.
+
+For example, if you accidentally tag `v1.0.0`, you can tag `v1.0.1` with the
+following directives:
+
+```
+retract v1.0.0 // Published accidentally.
+retract v1.0.1 // Contains retraction only.
+```
+
+Unfortunately, once a version is published, it cannot be changed. If you later
+tag `v1.0.0` at a different commit, the `go` command may detect a
+mismatched sum in `go.sum` or in the [checksum
+database](/ref/mod#checksum-database).
+
+Retracted versions of a module do not normally appear in the output of
+`go list -m -versions`, but you can use the `-retracted` to show them.
+For more, see [`go list -m`](/ref/mod#go-list-m) in the Go Modules Reference.
