@@ -61,4 +61,37 @@
     showSearchBox();
     input.focus();
   }
+
+  /**
+   * Focus search input if '/' key is pressed.
+   */
+  document.addEventListener('keypress', e => {
+    const t = e.target
+    if (
+      !handler.target &&
+      (t?.tagName === 'INPUT' || t?.tagName === 'SELECT' || t?.tagName === 'TEXTAREA')
+    ) {
+      return;
+    }
+    if (t?.isContentEditable) {
+      return;
+    }
+    if (
+      (handler.withMeta && !(e.ctrlKey || e.metaKey)) ||
+      (!handler.withMeta && (e.ctrlKey || e.metaKey))
+    ) {
+      return;
+    }
+    if (e.key === '/') {
+      const searchInput = Array.from(
+        document.querySelectorAll('.js-searchForm input')
+      ).pop();
+      // Favoring the Firefox quick find feature over search input
+      // focus. See: https://github.com/golang/go/issues/41093.
+      if (searchInput && !window.navigator.userAgent.includes('Firefox')) {
+        e.preventDefault();
+        searchInput.focus();
+      }
+    }
+  })
 })();
