@@ -174,17 +174,5 @@ title: Why Go
       {{- end}}
       {{- end}}
     </ul>
-    <div class="Solutions-footer">
-      <p>
-        Interested in sharing your stories?
-        <a
-          target="_blank"
-          rel="noopener"
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdRomKkA2zWQF4UTIYWLVYfjKvOHGA32RjnfavVhqY06yrZTQ/viewform"
-        >
-          Start here.
-        </a>
-      </p>
-    </div>
   </div>
 </section>
