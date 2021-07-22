@@ -20,6 +20,10 @@ statement.
 
 The loop will stop iterating once the boolean condition evaluates to `false`.
 
+Additionally, the operator `+=` i.e `addition-assignment` has also been introduced in the given example.
+Operator `+=` adds the value on its right to the variable on its left, and assigns the result to the variable on its left.
+`sum+=i` in the example is equivalent to `sum=sum+i`.
+
 *Note:* Unlike other languages like C, Java, or JavaScript there are no parentheses
 surrounding the three components of the `for` statement and the braces `{`}` are
 always required.
