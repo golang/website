@@ -226,6 +226,43 @@ func TestFilesToFeatured(t *testing.T) {
 	}
 }
 
+func TestFileRe(t *testing.T) {
+	cases := []struct {
+		File  string
+		Match bool
+	}{
+		{
+			File:  "go1.15.2.linux-amd64.pkg",
+			Match: true,
+		},
+		{
+			File:  "go1.15.2.linux-amd64.tar.gz",
+			Match: true,
+		},
+		{
+			File:  "go1.15.2.linux-amd64.tar.gz.sha256",
+			Match: true,
+		},
+		{
+			File:  "go1.15.2.linux-amd64.sha256",
+			Match: false,
+		},
+		{
+			File:  "go1.15.2.linux-amd64.tar.gz.unknown",
+			Match: false,
+		},
+	}
+
+	for _, c := range cases {
+		t.Run("matching "+c.File, func(t *testing.T) {
+			if want, got := c.Match, fileRe.MatchString(c.File); want != got {
+				t.Errorf("want=%t got=%t", want, got)
+			}
+		})
+	}
+
+}
+
 // list returns a version list string for the given releases.
 func list(rs []Release) string {
 	var s string
