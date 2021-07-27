@@ -16,10 +16,35 @@
   - title: Introducing Go
     description: Caleb Doxsey
     cta: View on O’Reilly.com
-    url: http://shop.oreilly.com/product/0636920046516.do
+    url: https://shop.oreilly.com/product/0636920046516.do
     thumbnail: /images/learn/introducing-go-book.png
   - title: Concurrency in Go
     description: Katherine Cox-Buday
     cta: View on O’Reilly.com
     url: https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/
     thumbnail: /images/learn/concurrency-in-go.png
+  - title: Go语言高级编程
+    description: Chai Shushan Cao Chunhui
+    cta: View on epubit.com
+    url: https://www.epubit.com/bookDetails?id=N40090
+    thumbnail: /images/learn/zh-advanced-go-programming.jpg
+  - title: Le langage Go - les fondamentaux du langage
+    description: Frédéric G. Marand
+    cta: View on book site
+    url: https://osinet.fr/go/
+    thumbnail: /images/learn/fr-le-langage-go-les-fondamentaux.png
+  - title: "Programando em Go: crie aplicações com a linguagem do Google"
+    description: Caio Filipini
+    cta: View on Casa do Código
+    url: https://www.casadocodigo.com.br/products/livro-google-go
+    thumbnail: /images/learn/pt-google-go-featured_large.png
+  - title: Nichtsequentielle und Verteilte Programmierung mit Go
+    description: Christian Maurer
+    cta: View on Springer.com
+    url: https://www.springer.com/de/book/9783658262891
+    thumbnail: /images/learn/de-nichtsequentielle-und-verteilte-programmierung-mit-go.jpg
+  - title: 디스커버리 Go 언어
+    description: Jaehyun Yeom
+    cta: View on Hanbit.co.kr
+    url: https://www.hanbit.co.kr/store/books/look.php?p_code=B5279497767
+    thumbnail: /images/learn/kr-discovery-go.jpg
