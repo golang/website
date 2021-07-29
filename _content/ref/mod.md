@@ -1487,7 +1487,7 @@ on the command line. Executables (`main` packages) are installed to the
 directory named by the `GOBIN` environment variable, which defaults to
 `$GOPATH/bin` or `$HOME/go/bin` if the `GOPATH` environment variable is not set.
 Executables in `$GOROOT` are installed in `$GOROOT/bin` or `$GOTOOLDIR` instead
-of `$GOBIN`.
+of `$GOBIN`. Non-executable packages are built and cached but not installed.
 
 Since Go 1.16, if the arguments have version suffixes (like `@latest` or
 `@v1.0.0`), `go install` builds packages in module-aware mode, ignoring the
