@@ -10,7 +10,7 @@
             <div class="Article-author">{{.}}</div>
           {{end}}
           {{if .date}}
-            <div class="Article-date">{{.Date.Format "2 January 2006"}}</div>
+            <div class="Article-date">{{.date.Format "2 January 2006"}}</div>
           {{end}}
         </div>
           {{if .company}}
@@ -22,7 +22,7 @@
       </div>
 
   </div>
-  <article class="Article {{if ne .Section "/"}}Article--{{trim .Section "/"}}{{end -}}">
+  <article class="Article {{if ne (section .) "/"}}Article--{{strings.Trim (section .) "/"}}{{end -}}">
     {{if (eq .series "Case Studies") }}
       <div class="CaseStudy-content">
         <div class="CaseStudy-contentBody">
@@ -73,7 +73,7 @@
               </span>
             </div>
           {{ end }}
-          {{rawhtml (replace .Content ` .sectionHeading">` `" class="sectionHeading">`)}}
+          {{.Content}}
         </div>
       </div>
     {{end}}

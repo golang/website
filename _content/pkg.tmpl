@@ -9,7 +9,9 @@
 	them to conflict with generated attributes (some of which
 	correspond to Go identifiers).
 -->
-{{$pkg := .Data}}
+{{define "layout"}}
+{{$canShare := not googleCN}}
+{{$pkg := .pkg}}
 {{with $pkg.PDoc}}
 	{{if $pkg.IsMain}}
 		{{/* command documentation */}}
@@ -39,7 +41,7 @@
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples ""}}{{template "example" .}}{{end}}
+				{{range $pkg.FmtExamples ""}}{{example . $canShare}}{{end}}
 			</div>
 		</div>
 
@@ -95,7 +97,7 @@
 			<p>
 			<span style="font-size:90%">
 			{{range .}}
-				<a href="/{{.}}">{{basename .}}</a>
+				<a href="/{{.}}">{{path.Base .}}</a>
 			{{end}}
 			</span>
 			</p>
@@ -126,7 +128,7 @@
 			</h2>
 			<pre>{{$pkg.Node .Decl}}</pre>
 			{{$pkg.Comment .Doc}}
-			{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
+			{{range $pkg.FmtExamples .Name}}{{example . $canShare}}{{end}}
 		{{end}}
 		{{range .Types}}
 			{{$typeName := .Name}}
@@ -148,7 +150,7 @@
 				<pre>{{$pkg.Node .Decl}}</pre>
 			{{end}}
 
-			{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
+			{{range $pkg.FmtExamples .Name}}{{example . $canShare}}{{end}}
 
 			{{range .Funcs}}
 				<h3 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
@@ -158,7 +160,7 @@
 				</h3>
 				<pre>{{$pkg.Node .Decl}}</pre>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples .Name}}{{template "example" .}}{{end}}
+				{{range $pkg.FmtExamples .Name}}{{example . $canShare}}{{end}}
 			{{end}}
 
 			{{range .Methods}}
@@ -169,7 +171,7 @@
 				</h3>
 				<pre>{{$pkg.Node .Decl}}</pre>
 				{{$pkg.Comment .Doc}}
-				{{range $pkg.FmtExamples (printf "%s_%s" $typeName .Name)}}{{template "example" .}}{{end}}
+				{{range $pkg.FmtExamples (printf "%s_%s" $typeName .Name)}}{{example . $canShare}}{{end}}
 			{{end}}
 		{{end}}
 	{{end}}
@@ -223,8 +225,11 @@
 		</table>
 	</div>
 {{end}}
+{{end}}
 
-{{define "example"}}
+{{define "example ex canShare"}}
+{{$canShare := .canShare}}
+{{with .ex}}
 <div id="example_{{.Name}}" class="toggle">
   <div class="collapsed">
     <p class="exampleHeading toggleButton">▹ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
@@ -240,7 +245,7 @@
         <div class="buttons">
           <button class="Button Button--primary run" title="Run this code [shift-enter]">Run</button>
           <button class="Button fmt" title="Format this code">Format</button>
-          {{if not $.Page.Web.GoogleCN}}
+          {{if $canShare}}
             <button class="Button share" title="Share this code">Share</button>
           {{end}}
         </div>
@@ -255,4 +260,5 @@
     {{end}}
   </div>
 </div>
+{{end}}
 {{end}}

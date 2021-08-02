@@ -2,11 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package site
+package main
 
 import (
 	"bytes"
 	"io/ioutil"
+	"net/http/httptest"
 	"os"
 	"path"
 	"path/filepath"
@@ -19,14 +20,14 @@ import (
 
 func TestGolden(t *testing.T) {
 	start := time.Now()
-	site, err := Load("../../..")
+	h, err := NewHandler("../../_content")
 	if err != nil {
 		t.Fatal(err)
 	}
 	total := time.Since(start)
 	t.Logf("Load %v\n", total)
 
-	root := "../../../testdata/golden"
+	root := "../../testdata/golden"
 	err = filepath.Walk(root, func(name string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
@@ -55,20 +56,29 @@ func TestGolden(t *testing.T) {
 			return nil
 		}
 
-		want, err := ioutil.ReadFile(site.file("testdata/golden/" + name))
+		want, err := ioutil.ReadFile(filepath.Join(root, name))
 		if err != nil {
 			t.Fatal(err)
 		}
 
 		start := time.Now()
-		f, err := site.Open(name)
-		if err != nil {
-			t.Fatal(err)
+		r := httptest.NewRequest("GET", "/"+name, nil)
+		resp := httptest.NewRecorder()
+		resp.Body = new(bytes.Buffer)
+		h.ServeHTTP(resp, r)
+		for nredir := 0; resp.Code/10 == 30; nredir++ {
+			if nredir > 10 {
+				t.Fatalf("%s <- redirect loop!", name)
+			}
+			r.URL.Path = resp.Result().Header.Get("Location")
+			resp = httptest.NewRecorder()
+			resp.Body = new(bytes.Buffer)
+			h.ServeHTTP(resp, r)
 		}
-		have, err := ioutil.ReadAll(f)
-		if err != nil {
-			t.Fatalf("%v: %v", name, err)
+		if resp.Code != 200 {
+			t.Fatalf("GET %s <- %d, want 200", r.URL, resp.Code)
 		}
+		have := resp.Body.Bytes()
 		total += time.Since(start)
 
 		if path.Ext(name) == ".html" {

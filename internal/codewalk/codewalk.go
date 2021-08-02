@@ -81,10 +81,10 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	s.site.ServePage(w, r, web.Page{
-		Title:    "Codewalk: " + cw.Title,
-		TabTitle: cw.Title,
-		Template: "codewalk.html",
-		Data:     cw,
+		"title":    "Codewalk: " + cw.Title,
+		"tabTitle": cw.Title,
+		"layout":   "codewalk",
+		"codewalk": cw,
 	})
 }
 
@@ -234,9 +234,9 @@ func (s *server) codewalkDir(w http.ResponseWriter, r *http.Request, relpath str
 	}
 
 	s.site.ServePage(w, r, web.Page{
-		Title:    "Codewalks",
-		Template: "codewalkdir.html",
-		Data:     v,
+		"title":  "Codewalks",
+		"layout": "codewalkdir",
+		"dirs":   v,
 	})
 }
 

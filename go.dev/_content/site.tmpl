@@ -23,7 +23,7 @@
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
-<title>{{.title}}{{if .Parent}} - go.dev{{end}}</title>
+<title>{{.title}}{{if ne .URL "/"}} - go.dev{{end}}</title>
 {{if .link -}}
 <meta http-equiv="refresh" content="0; url={{.link}}">
 {{end -}}
@@ -34,7 +34,7 @@
   height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <!-- End Google Tag Manager (noscript) -->
 
-{{$menus := data "menus"}}
+{{$menus := data "/menus.yaml"}}
 <header class="Site-header js-siteHeader">
   <div class="Banner">
     <div class="Banner-inner">
@@ -93,7 +93,7 @@
     </div>
     <ul class="NavigationDrawer-list">
       {{- range $menus.main}}
-        <li class="NavigationDrawer-listItem {{if eq .url $currentPage.Section}} NavigationDrawer-listItem--active{{end}}">
+        <li class="NavigationDrawer-listItem {{if eq .url (section $currentPage)}} NavigationDrawer-listItem--active{{end}}">
           <a href="{{.url}}">{{.name}}</a>
         </li>
       {{- end}}
@@ -102,7 +102,7 @@
 </aside>
 <div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
 <main class="SiteContent SiteContent--default">
-  {{- block "layout" . -}}{{- end -}}
+  {{block "layout" .}}{{.Content}}{{end}}
 </main>
 <footer class="Site-footer">
   <div class="Footer">
@@ -173,13 +173,13 @@
 </body>
 </html>
 
-{{define "breadcrumbnav"}}
-{{- if .p1.Parent}}
-  {{- template "breadcrumbnav" (dict "p1" (page .p1.Parent) "p2" .p2 )}}
+{{define "breadcrumbnav p1 p2"}}
+{{- if ne .p1.URL "/"}}
+  {{- breadcrumbnav (page (path.Dir (strings.TrimRight .p1.URL "/"))) .p2}}
 {{- end}}
 {{- if not (eq .p1.title "go.dev")}}
-<li class="BreadcrumbNav-li {{if eq .p1.Path .p2.Path}}active{{end}}">
-  <a class="BreadcrumbNav-link" href="{{.p1.Path}}">
+<li class="BreadcrumbNav-li {{if eq .p1.URL .p2.URL}}active{{end}}">
+  <a class="BreadcrumbNav-link" href="{{.p1.URL}}">
   {{or .p1.company .p1.title}}
   </a>
 </li>
@@ -189,7 +189,7 @@
 {{define "breadcrumbs"}}
 <div class="BreadcrumbNav">
     <ol class="BreadcrumbNav-inner">
-      {{template "breadcrumbnav" (dict "p1" . "p2" .)}}
+      {{breadcrumbnav . .}}
     </ol>
 </div>
 {{- end}}

@@ -16,8 +16,6 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"golang.org/x/website/internal/web"
 )
 
 const playgroundURL = "https://play.golang.org"
@@ -40,9 +38,13 @@ type Event struct {
 const expires = 7 * 24 * time.Hour // 1 week
 var cacheControlHeader = fmt.Sprintf("public, max-age=%d", int(expires.Seconds()))
 
-func RegisterHandlers(mux *http.ServeMux) {
+// RegisterHandlers registers handlers
+// for golang.org/compile and golang.org/share on mux.
+// If disallow is non-nil, then the share handler disallows requests
+// for which disallowShare returns true.
+func RegisterHandlers(mux *http.ServeMux, disallowShare func(*http.Request) bool) {
 	mux.HandleFunc("golang.org/compile", compile)
-	mux.HandleFunc("golang.org/share", share)
+	mux.HandleFunc("golang.org/share", share(disallowShare))
 }
 
 func compile(w http.ResponseWriter, r *http.Request) {
@@ -122,31 +124,33 @@ func flatten(seq []Event) string {
 	return buf.String()
 }
 
-func share(w http.ResponseWriter, r *http.Request) {
-	if web.GoogleCN(r) {
-		http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-		return
-	}
-
-	// HACK(cbro): use a simple proxy rather than httputil.ReverseProxy because of Issue #28168.
-	// TODO: investigate using ReverseProxy with a Director, unsetting whatever's necessary to make that work.
-	req, _ := http.NewRequest("POST", playgroundURL+"/share", r.Body)
-	req.Header.Set("Content-Type", r.Header.Get("Content-Type"))
-	req = req.WithContext(r.Context())
-	resp, err := http.DefaultClient.Do(req)
-	if err != nil {
-		log.Printf("ERROR share error: %v", err)
-		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-		return
-	}
-	copyHeader := func(k string) {
-		if v := resp.Header.Get(k); v != "" {
-			w.Header().Set(k, v)
+func share(disallow func(*http.Request) bool) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if disallow != nil && disallow(r) {
+			http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
+			return
 		}
+
+		// HACK(cbro): use a simple proxy rather than httputil.ReverseProxy because of Issue #28168.
+		// TODO: investigate using ReverseProxy with a Director, unsetting whatever's necessary to make that work.
+		req, _ := http.NewRequest("POST", playgroundURL+"/share", r.Body)
+		req.Header.Set("Content-Type", r.Header.Get("Content-Type"))
+		req = req.WithContext(r.Context())
+		resp, err := http.DefaultClient.Do(req)
+		if err != nil {
+			log.Printf("ERROR share error: %v", err)
+			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+			return
+		}
+		copyHeader := func(k string) {
+			if v := resp.Header.Get(k); v != "" {
+				w.Header().Set(k, v)
+			}
+		}
+		copyHeader("Content-Type")
+		copyHeader("Content-Length")
+		defer resp.Body.Close()
+		w.WriteHeader(resp.StatusCode)
+		io.Copy(w, resp.Body)
 	}
-	copyHeader("Content-Type")
-	copyHeader("Content-Length")
-	defer resp.Body.Close()
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
 }

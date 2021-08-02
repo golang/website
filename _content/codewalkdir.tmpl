@@ -4,8 +4,9 @@
 	license that can be found in the LICENSE file.
 -->
 
+{{define "layout"}}
 <table class="layout">
-{{range .Data}}
+{{range .dirs}}
 <tr>
 	<td><a href="{{.Name}}">{{.Name}}</a></td>
 	<td width="25">&nbsp;</td>
@@ -13,3 +14,4 @@
 </tr>
 {{end}}
 </table>
+{{end}}

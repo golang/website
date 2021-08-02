@@ -8,32 +8,21 @@ import (
 	"bytes"
 	"fmt"
 	"log"
-	"path"
 	"regexp"
 	"strings"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/io/fs"
-	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/texthtml"
 )
 
-func (s *Site) initDocFuncs() {
-	s.docFuncs = template.FuncMap{
-		"code":     s.code,
-		"releases": func() []*history.Major { return history.Majors },
-	}
-}
-
-func (s *Site) code(file string, arg ...interface{}) (_ template.HTML, err error) {
+func (s *siteDir) code(file string, arg ...interface{}) (_ template.HTML, err error) {
 	defer func() {
 		if r := recover(); r != nil {
 			err = fmt.Errorf("%v", r)
 		}
 	}()
 
-	file = path.Clean(strings.TrimPrefix(file, "/"))
-	btext, err := fs.ReadFile(s.fs, file)
+	btext, err := s.readFile(s.dir, file)
 	if err != nil {
 		return "", err
 	}

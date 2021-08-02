@@ -10,8 +10,6 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
-
-	"golang.org/x/website/go.dev/cmd/internal/site"
 )
 
 var testHosts = map[string]string{
@@ -79,11 +77,11 @@ var siteTests = []struct {
 }{
 	{"/", []string{"Go is an open source programming language supported by Google"}},
 	{"/solutions/", []string{"Using Go at Google"}},
-	{"/solutions/dropbox/", []string{"About Dropbox"}},
+	{"/solutions/dropbox", []string{"About Dropbox"}},
 }
 
 func TestSite(t *testing.T) {
-	godev, err := site.Load("../..")
+	h, err := NewHandler("../../_content")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -93,7 +91,7 @@ func TestSite(t *testing.T) {
 			r := httptest.NewRequest("GET", tt.target, nil)
 			resp := httptest.NewRecorder()
 			resp.Body = new(bytes.Buffer)
-			http.FileServer(godev).ServeHTTP(resp, r)
+			h.ServeHTTP(resp, r)
 			if resp.Code != 200 {
 				t.Fatalf("Code = %d, want 200", resp.Code)
 			}

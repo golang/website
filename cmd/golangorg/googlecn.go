@@ -2,18 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package web
+package main
 
 import (
 	"net/http"
 	"strings"
 )
 
-// GoogleCN reports whether request r is considered to be arriving from China.
+// googleCN reports whether request r is considered to be arriving from China.
 // Typically that means the request is for host golang.google.cn,
 // but we also report true for requests that set googlecn=1 as a query parameter
-// and requests that App Engine geolocates in China or in “unknown country.”
-func GoogleCN(r *http.Request) bool {
+// and for requests that App Engine geolocates in China.
+func googleCN(r *http.Request) bool {
 	if r.FormValue("googlecn") != "" {
 		return true
 	}
@@ -21,7 +21,7 @@ func GoogleCN(r *http.Request) bool {
 		return true
 	}
 	switch r.Header.Get("X-Appengine-Country") {
-	case "ZZ", "CN":
+	case "CN":
 		return true
 	}
 	return false

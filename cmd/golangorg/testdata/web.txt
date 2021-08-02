@@ -88,9 +88,11 @@ redirect == https://pkg.go.dev/fmt
 
 GET https://golang.org/pkg/fmt/?m=old
 body contains Package fmt implements formatted I/O
+body contains Share this code
 
 GET https://golang.google.cn/pkg/fmt/
 body contains Package fmt implements formatted I/O
+body !contains Share this code
 
 GET https://golang.org/pkg
 redirect == /pkg/
@@ -203,3 +205,18 @@ redirect == https://mail.google.com/a/golang.org/
 
 GET https://m.golang.org/anything
 redirect == https://mail.google.com/a/golang.org/
+
+GET https://golang.org/doc/effective_go
+body contains KB ByteSize
+
+GET https://golang.org/doc/codewalk/codewalk/
+body contains Codewalk: How to Write a Codewalk
+body contains A codewalk is a guided tour
+
+GET https://golang.org/doc/codewalk/
+body contains Codewalks
+body contains <td>How to Write a Codewalk</td>
+
+GET https://golang.org/asdf
+code == 404
+body ~ <span class="alert" style="font-size:120%">open ../../_content/asdf: (.*)</span>

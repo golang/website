@@ -1,8 +1,9 @@
 ---
 title: Why Go
+layout: none
 ---
 
-{{$solutions := pages "solutions/*"}}
+{{$solutions := pages "/solutions/*"}}
 <section class="Solutions-headline">
   <div class="GoCarousel" id="SolutionsHeroCarousel-carousel">
     <div class="GoCarousel-controlsContainer">
@@ -17,17 +18,17 @@ title: Why Go
                 <div class="Solutions-headlineImg">
                   <img
                     src="/images/{{.carouselImgSrc}}"
-                    alt="{{.linkTitle}}"
+                    alt="{{(or .linkTitle .title)}}"
                   />
                 </div>
                 <div class="Solutions-headlineText">
                   <p class="Solutions-headlineNotification">RECENTLY UPDATED</p>
                   <h2>
-                    {{.linkTitle}}
+                    {{(or .linkTitle .title)}}
                   </h2>
                   <p class="Solutions-headlineBody">
                     {{with .quote}}{{.}}{{end}}
-                    <a href="{{.Path}}"
+                    <a href="{{.URL}}"
                       >Learn more
                       <i class="material-icons Solutions-forwardArrowIcon"
                         >arrow_forward</i
@@ -106,7 +107,7 @@ title: Why Go
             />
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{or .linkTitle .title}}</h3>
             <p class="Solutions-useCaseDescription">
               {{.description}}
             </p>
@@ -117,7 +118,7 @@ title: Why Go
           </p>
         </a>
         {{- else}}
-        <a href="{{.Path}}" class="Solutions-useCaseLink">
+        <a href="{{.URL}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             <img
               loading="lazy"
@@ -126,7 +127,7 @@ title: Why Go
             />
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{or .linkTitle .title}}</h3>
             <p class="Solutions-useCaseDescription">
               {{with .quote}}{{.}}{{end}}
             </p>
@@ -149,19 +150,19 @@ title: Why Go
     >
       {{- range newest $solutions}}{{if eq .series "Use Cases"}}
       <li class="Solutions-card">
-        <a href="{{.Path}}" class="Solutions-useCaseLink">
+        <a href="{{.URL}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             {{- $icon := .icon}}
             {{- if $icon}}
             <img
               loading="lazy"
               alt="{{$icon.alt}}"
-              src="{{.Dir}}/{{$icon.file}}"
+              src="{{path.Dir .URL}}/{{$icon.file}}"
             />
             {{- end}}
           </div>
           <div class="Solutions-useCaseBody">
-            <h3 class="Solutions-useCaseTitle">{{.linkTitle}}</h3>
+            <h3 class="Solutions-useCaseTitle">{{or .linkTitle .title}}</h3>
             <p class="Solutions-useCaseDescription">
               {{.description}}
             </p>

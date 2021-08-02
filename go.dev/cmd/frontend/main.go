@@ -11,9 +11,13 @@ import (
 	"net/url"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
+	"time"
 
-	"golang.org/x/website/go.dev/cmd/internal/site"
+	"golang.org/x/website/internal/backport/html/template"
+	"golang.org/x/website/internal/backport/osfs"
+	"golang.org/x/website/internal/web"
 	"golang.org/x/website/internal/webtest"
 )
 
@@ -24,10 +28,10 @@ var discoveryHosts = map[string]string{
 }
 
 func main() {
-	dir := "../.."
+	dir := "../../_content"
 	if _, err := os.Stat("go.dev/_content/events.yaml"); err == nil {
 		// Running in repo root.
-		dir = "go.dev"
+		dir = "go.dev/_content"
 	}
 
 	h, err := NewHandler(dir)
@@ -52,15 +56,61 @@ func main() {
 }
 
 func NewHandler(dir string) (http.Handler, error) {
-	godev, err := site.Load(dir)
-	if err != nil {
-		return nil, err
-	}
+	godev := web.NewSite(osfs.DirFS(dir))
+	godev.Funcs(template.FuncMap{
+		"newest":  newest,
+		"section": section,
+	})
 	mux := http.NewServeMux()
-	mux.Handle("/", addCSP(http.FileServer(godev)))
+	mux.Handle("/", addCSP(godev))
 	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
 	mux.Handle("learn.go.dev/", http.HandlerFunc(redirectLearn))
 	return mux, nil
+}
+
+// newest returns the pages sorted newest first,
+// breaking ties by .linkTitle or else .title.
+func newest(pages []web.Page) []web.Page {
+	out := make([]web.Page, len(pages))
+	copy(out, pages)
+
+	sort.Slice(out, func(i, j int) bool {
+		pi := out[i]
+		pj := out[j]
+		di, _ := pi["date"].(time.Time)
+		dj, _ := pj["date"].(time.Time)
+		if !di.Equal(dj) {
+			return di.After(dj)
+		}
+		ti, _ := pi["linkTitle"].(string)
+		if ti == "" {
+			ti, _ = pi["title"].(string)
+		}
+		tj, _ := pj["linkTitle"].(string)
+		if tj == "" {
+			tj, _ = pj["title"].(string)
+		}
+		if ti != tj {
+			return ti < tj
+		}
+		return false
+	})
+	return out
+}
+
+// section returns the site section for the given Page,
+// defined as the first path element, or else an empty string.
+// For example if p's URL is /x/y/z then section is "x".
+func section(p web.Page) string {
+	u, _ := p["URL"].(string)
+	if !strings.HasPrefix(u, "/") {
+		return ""
+	}
+	i := strings.Index(u[1:], "/")
+	if i < 0 {
+		return ""
+	}
+	return u[:1+i+1]
 }
 
 func redirectLearn(w http.ResponseWriter, r *http.Request) {

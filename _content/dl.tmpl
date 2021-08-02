@@ -1,4 +1,5 @@
-{{with .Data}}
+{{define "layout"}}
+{{with .dl}}
 <p>
 After downloading a binary release suitable for your system,
 please follow the <a href="/doc/install">installation instructions</a>.
@@ -156,4 +157,5 @@ go get golang.org/dl/{{.Version}}
   {{if .Size}}<span class="size">({{.PrettySize}})</span>{{end}}
 </div>
 </a>
+{{end}}
 {{end}}

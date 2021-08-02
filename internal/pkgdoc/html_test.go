@@ -13,7 +13,6 @@ import (
 	"testing"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/web"
 )
 
 func TestSrcPosLink(t *testing.T) {
@@ -164,7 +163,6 @@ func (h Header) Get(key string) string`))
 }
 
 func linkifySource(t *testing.T, src []byte) string {
-	site := &web.Site{}
 	fset := token.NewFileSet()
 	af, err := parser.ParseFile(fset, "foo.go", src, parser.ParseComments)
 	if err != nil {
@@ -174,11 +172,6 @@ func linkifySource(t *testing.T, src []byte) string {
 	pi := &Page{
 		fset: fset,
 	}
-	pg := &web.Page{
-		Data: pi,
-		Site: site,
-	}
-	pi.SetWebPage(pg)
 	sep := ""
 	for _, decl := range af.Decls {
 		buf.WriteString(sep)

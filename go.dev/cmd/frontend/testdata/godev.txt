@@ -3,3 +3,19 @@ body contains <h2 class="WhoUses-headerH2">Companies using Go</h2>
 
 GET https://go.dev/solutions/google/
 body ~ it\s+has\s+powered\s+many\s+projects\s+at\s+Google.
+
+GET /solutions/chrome
+redirect == /solutions/google/chrome
+
+GET /solutions/coredata
+redirect == /solutions/google/coredata
+
+GET /solutions/firebase
+redirect == /solutions/google/firebase
+
+GET /solutions/sitereliability
+redirect == /solutions/google/sitereliability
+
+GET /solutions/americanexpress
+body contains <div class="Article-date">19 December 2019</div>
+

@@ -4,8 +4,8 @@
 	license that can be found in the LICENSE file.
 -->
 
-{{with .Data}}
+{{define "layout"}}
 <p>
-<span class="alert" style="font-size:120%">{{.}}</span>
+<span class="alert" style="font-size:120%">{{.error}}</span>
 </p>
 {{end}}

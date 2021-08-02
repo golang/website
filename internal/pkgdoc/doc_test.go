@@ -24,11 +24,8 @@ func TestIgnoredGoFiles(t *testing.T) {
 // ` + packageComment + `
 package main`)},
 	}
-	site, err := web.NewSite(fs)
-	if err != nil {
-		t.Fatal(err)
-	}
-	h, err := NewServer(fs, site)
+	site := web.NewSite(fs)
+	h, err := NewServer(fs, site, nil)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -66,11 +63,8 @@ func F()
 //line foo.go:100`)}, // No newline at end to check corner cases.
 	}
 
-	site, err := web.NewSite(fs)
-	if err != nil {
-		t.Fatal(err)
-	}
-	h, err := NewServer(fs, site)
+	site := web.NewSite(fs)
+	h, err := NewServer(fs, site, nil)
 	if err != nil {
 		t.Fatal(err)
 	}

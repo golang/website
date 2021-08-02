@@ -34,16 +34,20 @@ import (
 )
 
 type docs struct {
-	fs   fs.FS
-	api  api.DB
-	site *web.Site
-	root *Dir
+	fs       fs.FS
+	api      api.DB
+	site     *web.Site
+	root     *Dir
+	forceOld func(*http.Request) bool
 }
 
 // NewServer returns an HTTP handler serving package docs
 // for packages loaded from fsys (a tree in GOROOT layout),
 // styled according to site.
-func NewServer(fsys fs.FS, site *web.Site) (http.Handler, error) {
+// If forceOld is not nil and returns true for a given request,
+// NewServer will serve docs itself instead of redirecting to pkg.go.dev
+// (forcing the ?m=old behavior).
+func NewServer(fsys fs.FS, site *web.Site, forceOld func(*http.Request) bool) (http.Handler, error) {
 	apiDB, err := api.Load(fsys)
 	if err != nil {
 		return nil, err
@@ -57,18 +61,17 @@ func NewServer(fsys fs.FS, site *web.Site) (http.Handler, error) {
 		Dirs: dirs,
 	}
 	docs := &docs{
-		fs:   fsys,
-		api:  apiDB,
-		site: site,
-		root: root,
+		fs:       fsys,
+		api:      apiDB,
+		site:     site,
+		root:     root,
+		forceOld: forceOld,
 	}
 	return docs, nil
 }
 
 type Page struct {
 	docs *docs // outer doc collection
-
-	Web *web.Page // filled in by caller
 
 	OldDocs bool // use ?m=old in doc links
 
@@ -88,10 +91,6 @@ type Page struct {
 	// directory info
 	Dirs    []DirEntry // nil if no directory information
 	DirFlat bool       // if set, show directory in a flat (non-indented) manner
-}
-
-func (p *Page) SetWebPage(w *web.Page) {
-	p.Web = w
 }
 
 type mode uint
@@ -433,7 +432,7 @@ func (d *docs) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	// First, the request can set ?m=old to get the old pages.
 	// Second, the request can come from China:
 	// since pkg.go.dev is not available in China, we serve the docs directly.
-	if mode&modeOld == 0 && !web.GoogleCN(r) {
+	if mode&modeOld == 0 && (d.forceOld == nil || !d.forceOld(r)) {
 		if relpath == "" {
 			relpath = "std"
 		}
@@ -500,16 +499,16 @@ func (d *docs) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		tabtitle = "Commands"
 	}
 
-	name := "package.html"
+	layout := "pkg"
 	if info.Dirname == "src" {
-		name = "packageroot.html"
+		layout = "pkgroot"
 	}
 	d.site.ServePage(w, r, web.Page{
-		Title:    title,
-		TabTitle: tabtitle,
-		Subtitle: subtitle,
-		Template: name,
-		Data:     info,
+		"title":    title,
+		"tabTitle": tabtitle,
+		"subtitle": subtitle,
+		"layout":   layout,
+		"pkg":      info,
 	})
 }
 

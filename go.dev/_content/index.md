@@ -79,7 +79,7 @@ title: go.dev
     </div>
   <div class="WhoUsesCaseStudyList">
     <ul class="WhoUsesCaseStudyList-gridContainer">
-    {{- range newest (pages "solutions/*")}}{{if eq .series "Case Studies"}}
+    {{- range newest (pages "/solutions/*")}}{{if eq .series "Case Studies"}}
       {{- if .link }}
         {{- if .inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
@@ -97,7 +97,7 @@ title: go.dev
         {{- end}}
       {{- else}}
         <li class="WhoUsesCaseStudyList-caseStudy">
-          <a href="{{.Path}}" class="WhoUsesCaseStudyList-caseStudyLink">
+          <a href="{{.URL}}" class="WhoUsesCaseStudyList-caseStudyLink">
             <img
               loading="lazy"
               height="48"
@@ -119,7 +119,7 @@ title: go.dev
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-wrapper">
         <ul class="js-testimonialsGoQuotes TestimonialsGo-quotes">
-          {{- range $index, $element := data "testimonials"}}
+          {{- range $index, $element := data "/testimonials.yaml"}}
             <li class="TestimonialsGo-quoteGroup GoCarousel-slide" id="quote_slide{{$index}}">
               <div class="TestimonialsGo-quoteSingleItem">
                 <div class="TestimonialsGo-quoteSection">
@@ -153,7 +153,7 @@ title: go.dev
       </h4>
     </div>
     <ul class="WhyGo-reasons">
-      {{- range first 4 (data "resources")}}
+      {{- range first 4 (data "/resources.yaml")}}
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonDetails">
             <div class="WhyGo-reasonIcon" role="presentation">
@@ -188,7 +188,7 @@ title: go.dev
           </div>
         </li>
       {{- end}}
-      {{- if gt (len (data "resources")) 3}}
+      {{- if gt (len (data "resources.yaml")) 3}}
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonShowMore">
             <div class="WhyGo-reasonShowMoreImgWrapper">
@@ -216,7 +216,7 @@ title: go.dev
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-eventsWrapper">
         <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
-          {{- range $index, $element := (data "events").all}}
+          {{- range $index, $element := (data "/events.yaml").all}}
             <li
             class="GoCarousel-eventGroup"
             id="event_slide{{$index}}">
@@ -312,7 +312,7 @@ title: go.dev
         <li class="GettingStartedGo-resourcesHeader">
           In-Person Trainings
         </li>
-        {{- range first 4 (data "learn/training")}}
+        {{- range first 4 (data "/learn/training.yaml")}}
           <li class="GettingStartedGo-resourceItem">
             <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle">
               {{.title}}

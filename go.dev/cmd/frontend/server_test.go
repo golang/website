@@ -11,7 +11,7 @@ import (
 )
 
 func TestWeb(t *testing.T) {
-	h, err := NewHandler("../..")
+	h, err := NewHandler("../../_content")
 	if err != nil {
 		t.Fatal(err)
 	}

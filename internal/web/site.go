@@ -2,20 +2,310 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Package web implements a basic web site serving framework.
+// The two fundamental types in this package are Site and Page.
+//
+// Sites
+//
+// A Site is an http.Handler that serves requests from a file system.
+// Use NewSite(fsys) to create a new Site.
+//
+// The Site is defined primarily by the content of its file system fsys,
+// which holds files to be served as well as templates for
+// converting Markdown or HTML fragments into full HTML pages.
+//
+// Pages
+//
+// A Page, which is a map[string]interface{}, is the raw data that a Site renders into a web page.
+// Typically a Page is loaded from a *.html or *.md file in the file system fsys, although
+// dynamic pages can be computed and passed to ServePage as well,
+// as described in “Serving Dynamic Pages” below.
+//
+// For a Page loaded from the file system, the key-value pairs in the map
+// are initialized from the YAML or JSON metadata block at the top of a Markdown or HTML file,
+// which looks like (YAML):
+//
+//	---
+//	key: value
+//	...
+//	---
+//
+// or (JSON):
+//
+//	<!--{
+//		"Key": "value",
+//		...
+//	}-->
+//
+// By convention, key-value pairs loaded from a metadata block use lower-case keys.
+// For historical reasons, keys in JSON metadata are converted to lower-case when read,
+// so that the two headers above both refer to a key with a lower-case k.
+//
+// A few keys have special meanings:
+//
+// The key-value pair “status: n” sets the HTTP response status to the integer code n.
+//
+// The key-value pair “redirect: url” causes requests for this page redirect to the given
+// relative or absolute URL.
+//
+// The key-value pair “layout: name” selects the page layout template with the given name.
+// See the next section, “Page Rendering”, for details about layout and rendering.
+//
+// In addition to these explicit key-value pairs, pages loaded from the file system
+// have a few implicit key-value pairs added by the page loading process:
+//
+//	- File: the path in fsys to the file containing the page
+//	- FileData: the file body, with the key-value metadata stripped
+//	- URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
+//
+// The key “Content” is added during during the rendering process.
+// See “Page Rendering” for details.
+//
+// Page Rendering
+//
+// A Page's content is rendered in two steps: conversion to content, and framing of content.
+//
+// To convert a page to content, the page's file body (its FileData key, a []byte) is parsed
+// and executed as an HTML template, with the page itself passed as the template input data.
+// The template output is then interpreted as Markdown (perhaps with embedded HTML),
+// and converted to HTML. The result is stored in the page under the key “Content”,
+// with type template.HTML.
+//
+// A page's conversion to content can be skipped entirely in dynamically-generated pages
+// by setting the “Content” key before passing the page to ServePage.
+//
+// The second step is framing the content in the overall site HTML, which is done by
+// executing the site template, again using the Page itself as the template input data.
+//
+// The site template is constructed from two files in the file system.
+// The first file is the fsys's “site.tmpl”, which provides the overall HTML frame for the site.
+// The second file is a layout-specific template file, selected by the Page's
+// “layout: name” key-value pair.
+// The renderer searches for “name.tmpl” in the directory containing the page's file,
+// then in the parent of that directory, and so on up to the root.
+// If no such template is found, the rendering fails and reports that error.
+// As a special case, “layout: none” skips the second file entirely.
+//
+// If there is no “layout: name” key-value pair, then the renderer tries using an
+// implicit “layout: default”, but if no such “default.tmpl” template file can be found,
+// the renderer uses an implicit “layout: none” instead.
+//
+// By convention, the site template and the layout-specific template are connected as follows.
+// The site template, at the point where the content should be rendered, executes:
+//
+//	{{block "layout" .}}{{.Content}}{{end}}
+//
+// The layout-specific template overrides this block by defining its own template named “layout”.
+// For example:
+//
+//	{{define "layout"}}
+//	Here's some <blink>great</blink> content: {{.Content}}
+//	{{end}}
+//
+// The use of the “block” template construct ensures that
+// if there is no layout-specific template,
+// the content will still be rendered.
+//
+// Page Template Functions
+//
+// In this web server, templates can themselves be invoked as functions.
+// See https://pkg.go.dev/rsc.io/tmplfunc for more details about that feature.
+//
+// During page rendering, both when rendering a page to content and when framing the content,
+// the following template functions are available (in addition to those provided by the
+// template package itself and the per-template functions just mentioned).
+//
+// In all functions taking a file path f, if the path begins with a slash,
+// it is interpreted relative to the fsys root.
+// Otherwise, it is interpreted relative to the directory of the current page's URL.
+//
+// The “{{add x y}}”, “{{sub x y}}”, “{{mul x y}}”, and “{{div x y}}” functions
+// provide basic math on arguments of type int.
+//
+// The “{{code f [start [end]]}}” function returns a template.HTML of a formatted display
+// of code lines from the file f.
+// If both start and end are omitted, then the display shows the entire file.
+// If only the start line is specified, then the display shows that single line.
+// If both start and end are specified, then the display shows a range of lines
+// starting at start up to and including end.
+// The arguments start and end can take two forms: a number indicates a specific line number,
+// and a string is taken to be a regular expresion indicating the earliest matching line
+// in the file (or, for end, the earliest matching line after the start line).
+// Any lines ending in “OMIT” are elided from the display.
+//
+// For example:
+//
+//	{{code "hello.go" `^func main` `^}`}}
+//
+// The “{{data f}}” function reads the file f,
+// decodes it as YAML, and then returns the resulting data,
+// typically a map[string]interface{}.
+// It is effectively shorthand for “{{yaml (file f)}}”.
+//
+// The “{{file f}}” function reads the file f and returns its content as a string.
+//
+// The “{{first n slice}}” function returns a slice of the first n elements of slice,
+// or else slice itself when slice has fewer than n elements.
+//
+// The “{{markdown text}}” function interprets text (a string) as Markdown
+// and returns the equivalent HTML as a template.HTML.
+//
+// The “{{page f}}” function returns the page data (a Page)
+// for the static page contained in the file f.
+// The lookup ignores trailing slashes in f as well as the presence or absence
+// of extensions like .md, .html, /index.md, and /index.html,
+// making it possible for f to be a relative or absolute URL path instead of a file path.
+//
+// The “{{pages glob}}” function returns a slice of page data (a []Page)
+// for all pages loaded from files or directories
+// in fsys matching the given glob (a string),
+// according to the usual file path rules (if the glob starts with slash,
+// it is interpreted relative to the fsys root, and otherwise
+// relative to the directory of the page's URL).
+// If the glob pattern matches a directory,
+// the page for the directory's index.md or index.html is used.
+//
+// For example:
+//
+//	Here are all the articles:
+//	{{range (pages "/articles/*")}}
+//	- [{{.title}}]({{.URL}})
+//	{{end}}
+//
+// The “{{rawhtml s}}” function converts s (a string) to type template.HTML without any escaping,
+// to allow using s as raw HTML in the final output.
+//
+// The “{{yaml s}}” function decodes s (a string) as YAML and returns the resulting data.
+// It is most useful for defining templates that accept YAML-structured data as a literal argument.
+// For example:
+//
+//	{{define "quote info"}}
+//	{{with (yaml .info)}}
+//	.text
+//	— .name{{if .title}}, .title{{end}}
+//	{{end}}
+//
+//	{{quote `
+//	  text: If a program is too slow, it must have a loop.
+//	  name: Ken Thompson
+//	`}}
+//
+// The “path” and “strings” functions return package objects with methods for every top-level
+// function in these packages (except path.Split, which has more than one non-error result
+// and would not be invokable). For example, “{{strings.ToUpper "abc"}}”.
+//
+// Serving Requests
+//
+// A Site is an http.Handler that serves requests by consulting the underlying
+// file system and constructing and rendering pages, as well as serving binary
+// and text files.
+//
+// To serve a request for URL path /p, if fsys has a file
+// p/index.md, p/index.html, p.md, or p.html
+// (in that order of preference), then the Site opens that file,
+// parses it into a Page, renders the page as described
+// in the “Page Rendering” section above,
+// and responds to the request with the generated HTML.
+// If the request URL does not match the parsed page's URL,
+// then the Site responds with a redirect to the canonical URL.
+//
+// Otherwise, if fsys has a directory p and the Site
+// can find a template “dir.tmpl” in that directory or a parent,
+// then the Site responds with the rendering of
+//
+//	Page{
+//		"URL": "/p/",
+//		"File": "p",
+//		"layout": "dir",
+//		"dir": []fs.FileInfo(dir),
+//	}
+//
+// where dir is the directory contents.
+//
+// Otherwise, if fsys has a file p containing valid UTF-8 text
+// (at least up to the first kilobyte of the file) and the Site
+// can find a template “text.tmpl” in that file's directory or a parent,
+// and the file is not named robots.txt,
+// and the file does not have a .css, .js, or .svg extension,
+// then the Site responds with the rendering of
+//
+//	Page{
+//		"URL": "/p",
+//		"File": "p",
+//		"layout": "texthtml",
+//		"texthtml": template.HTML(texthtml),
+//	}
+//
+// where texthtml is the text file as rendered by the
+// golang.org/x/website/internal/texthtml package.
+// In the texthtml.Config, GoComments is set to true for
+// file names ending in .go;
+// the h URL query parameter, if present, is passed as Highlight,
+// and the s URL query parameter, if set to lo:hi, is passed as a
+// single-range Selection.
+//
+// If the request has the URL query parameter m=text,
+// then the text file content is not rendered or framed and is instead
+// served directly as a plain text response.
+//
+// Otherwise, if none of those cases apply but the request path p
+// does exist in the file system, then the Site passes the
+// request to an http.FileServer serving from fsys.
+// This last case handles binary static content as well as
+// textual static content excluded from the text file case above.
+//
+// Otherwise, the Site responds with the rendering of
+//
+//	Page{
+//		"URL": r.URL.Path,
+//		"status": 404,
+//		"layout": "error",
+//		"error": err,
+//	}
+//
+// where err is the “not exist” error returned by fs.Stat(fsys, p).
+// (See also the “Serving Errors” section below.)
+//
+// Serving Dynamic Requests
+//
+// Of course, a web site may wish to serve more than static content.
+// To allow dynamically generated web pages to make use of page
+// rendering and site templates, the Site.ServePage method can be
+// called with a dynamically generated Page value, which will then
+// be rendered and served as the result of the request.
+//
+// Serving Errors
+//
+// If an error occurs while serving a request r,
+// the Site responds with the rendering of
+//
+//	Page{
+//		"URL": r.URL.Path,
+//		"status": 500,
+//		"layout": "error",
+//		"error": err,
+//	}
+//
+// If that rendering itself fails, the Site responds with status 500
+// and the cryptic page text “error rendering error”.
+//
+// The Site.ServeError and Site.ServeErrorStatus methods provide a way
+// for dynamic servers to generate similar responses.
+//
 package web
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"html"
-	"io"
 	"log"
 	"net/http"
 	"path"
 	"regexp"
-	"runtime"
 	"strconv"
 	"strings"
+	"sync"
 
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/backport/httpfs"
@@ -24,220 +314,164 @@ import (
 	"golang.org/x/website/internal/texthtml"
 )
 
-// Site is a website served from a file system.
+// A Site is an http.Handler that serves requests from a file system.
+// See the package doc comment for details.
 type Site struct {
-	fs fs.FS
-
-	mux        *http.ServeMux
-	fileServer http.Handler
-
-	Templates *template.Template
-
-	// GoogleAnalytics optionally adds Google Analytics via the provided
-	// tracking ID to each page.
-	GoogleAnalytics string
-
-	docFuncs template.FuncMap
+	fs         fs.FS            // from NewSite
+	fileServer http.Handler     // http.FileServer(http.FS(fs))
+	funcs      template.FuncMap // accumulated from s.Funcs
+	cache      sync.Map         // canonical file path -> *pageFile, for site.openPage
 }
 
-var siteFuncs = template.FuncMap{
-	"add": func(a, b int) int { return a + b },
-	"sub": func(a, b int) int { return a - b },
-	"mul": func(a, b int) int { return a * b },
-	"div": func(a, b int) int { return a / b },
-
-	"basename": path.Base,
-
-	"split":      strings.Split,
-	"join":       strings.Join,
-	"hasPrefix":  strings.HasPrefix,
-	"hasSuffix":  strings.HasSuffix,
-	"trimPrefix": strings.TrimPrefix,
-	"trimSuffix": strings.TrimSuffix,
-}
-
-// NewSite returns a new Presentation from a file system.
-func NewSite(fsys fs.FS) (*Site, error) {
-	p := &Site{
+// NewSite returns a new Site for serving pages from the file system fsys.
+func NewSite(fsys fs.FS) *Site {
+	return &Site{
 		fs:         fsys,
-		mux:        http.NewServeMux(),
 		fileServer: http.FileServer(httpfs.FS(fsys)),
 	}
-	p.mux.HandleFunc("/", p.serveFile)
-	p.initDocFuncs()
+}
 
-	t, err := template.New("").Funcs(siteFuncs).ParseFS(fsys, "lib/godoc/*.html")
-	if err != nil {
-		return nil, err
+// Funcs adds the functions in m to the set of functions available to templates.
+// Funcs must not be called concurrently with any page rendering.
+func (s *Site) Funcs(m template.FuncMap) {
+	if s.funcs == nil {
+		s.funcs = make(template.FuncMap)
 	}
-	p.Templates = t
-
-	return p, nil
-}
-
-// ServeError responds to the request with the given error.
-func (s *Site) ServeError(w http.ResponseWriter, r *http.Request, err error) {
-	w.WriteHeader(http.StatusNotFound)
-	s.ServePage(w, r, Page{
-		Title:    r.URL.Path,
-		Template: "error.html",
-		Data:     err,
-	})
-}
-
-// ServeHTTP implements http.Handler, dispatching the request appropriately.
-func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	s.mux.ServeHTTP(w, r)
-}
-
-// ServePage responds to the request with the content described by page.
-func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, page Page) {
-	page = s.fullPage(r, page)
-	if d, ok := page.Data.(interface{ SetWebPage(*Page) }); ok {
-		d.SetWebPage(&page)
+	for k, v := range m {
+		s.funcs[k] = v
 	}
+}
 
-	if page.Template != "" {
-		t := s.Templates.Lookup(page.Template)
-		var buf bytes.Buffer
-		if err := t.Execute(&buf, &page); err != nil {
-			log.Printf("%s.Execute: %s", t.Name(), err)
-		}
-		page.HTML = template.HTML(buf.String())
+// readFile returns the content of the named file in the site's file system.
+// If file begins with a slash, it is interpreted relative to the root of the file system.
+// Otherwise, it is interpreted relative to dir.
+func (site *Site) readFile(dir, file string) ([]byte, error) {
+	if strings.HasPrefix(file, "/") {
+		file = path.Clean(file)
 	} else {
-		page.HTML = page.Data.(template.HTML)
+		file = path.Join(dir, file)
 	}
-
-	applyTemplateToResponseWriter(w, s.Templates.Lookup("site.html"), &page)
+	file = strings.Trim(file, "/")
+	if file == "" {
+		file = "."
+	}
+	return fs.ReadFile(site.fs, file)
 }
 
-// A Page describes the contents of a webpage to be served.
+// ServeError is ServeErrorStatus with HTTP status code 500 (internal server error).
+func (s *Site) ServeError(w http.ResponseWriter, r *http.Request, err error) {
+	s.ServeErrorStatus(w, r, err, http.StatusInternalServerError)
+}
+
+// ServeErrorStatus responds to the request
+// with the given error and HTTP status.
+// It is equivalent to calling ServePage(w, r, p) where p is:
 //
-// A Page's Methods are for use by the templates rendering the page.
-type Page struct {
-	Title    string // <h1>
-	TabTitle string // prefix in <title>; defaults to Title
-	Subtitle string // subtitle (date for spec, memory model)
-	SrcPath  string // path to file in /src for text view
-
-	// Template and Data describe the data to be
-	// rendered into the overall site frame template.
-	// If Template is empty, then Data should be a template.HTML
-	// holding raw HTML to render into the site frame.
-	// Otherwise, Template should be the name of a template file
-	// in _content/lib/godoc (for example, "package.html"),
-	// and that template will be executed
-	// (with the *Page as its data argument) to produce HTML.
-	//
-	// The overall site template site.html is also invoked with
-	// the *Page as its data argument. It is what arranges to call Template.
-	Template string      // template to apply to data (empty string when Data is raw template.HTML)
-	Data     interface{} // data to be rendered into page frame
-
-	HTML template.HTML
-
-	// Filled in automatically by ServePage
-	GoogleCN        bool   // served on golang.google.cn
-	GoogleAnalytics string // Google Analytics tag
-	Version         string
-	Site            *Site
+//	Page{
+//		"URL": r.URL.Path,
+//		"status": status,
+//		"layout": error,
+//		"error": err,
+//	}
+//
+func (s *Site) ServeErrorStatus(w http.ResponseWriter, r *http.Request, err error, status int) {
+	s.serveErrorStatus(w, r, err, status, false)
 }
 
-// fullPage returns a copy of page with the “automatic” fields filled in.
-func (s *Site) fullPage(r *http.Request, page Page) Page {
-	if page.TabTitle == "" {
-		page.TabTitle = page.Title
-	}
-	page.Version = runtime.Version()
-	page.GoogleCN = GoogleCN(r)
-	page.GoogleAnalytics = s.GoogleAnalytics
-	page.Site = s
-	return page
-}
+func (s *Site) serveErrorStatus(w http.ResponseWriter, r *http.Request, err error, status int, renderingError bool) {
 
-type writeErrorSaver struct {
-	w   io.Writer
-	err error
-}
-
-func (w *writeErrorSaver) Write(p []byte) (int, error) {
-	n, err := w.w.Write(p)
-	if err != nil {
-		w.err = err
-	}
-	return n, err
-}
-
-// applyTemplateToResponseWriter uses an http.ResponseWriter as the io.Writer
-// for the call to template.Execute.  It uses an io.Writer wrapper to capture
-// errors from the underlying http.ResponseWriter.  Errors are logged only when
-// they come from the template processing and not the Writer; this avoid
-// polluting log files with error messages due to networking issues, such as
-// client disconnects and http HEAD protocol violations.
-func applyTemplateToResponseWriter(rw http.ResponseWriter, t *template.Template, data interface{}) {
-	w := &writeErrorSaver{w: rw}
-	err := t.Execute(w, data)
-	// There are some cases where template.Execute does not return an error when
-	// rw returns an error, and some where it does.  So check w.err first.
-	if w.err == nil && err != nil {
-		// Log template errors.
-		log.Printf("%s.Execute: %s", t.Name(), err)
-	}
-}
-
-func (s *Site) serveFile(w http.ResponseWriter, r *http.Request) {
-	if strings.HasSuffix(r.URL.Path, "/index.html") {
-		// We'll show index.html for the directory.
-		// Use the dir/ version as canonical instead of dir/index.html.
-		http.Redirect(w, r, r.URL.Path[0:len(r.URL.Path)-len("index.html")], http.StatusMovedPermanently)
+	if renderingError {
+		log.Printf("error rendering error: %v", err)
+		w.WriteHeader(status)
+		w.Write([]byte("error rendering error"))
 		return
 	}
 
-	// Check to see if we need to redirect or serve another file.
+	p := Page{
+		"URL":    r.URL.Path,
+		"status": status,
+		"layout": "error",
+		"error":  err,
+	}
+	s.servePage(w, r, p, true)
+}
+
+// ServePage renders the page p to HTML and writes that HTML to w.
+// See the package doc comment for details about page rendering.
+//
+// So that all templates can assume the presence of p["URL"],
+// if p["URL"] is unset or does not have type string, then ServePage
+// sets p["URL"] to r.URL.Path in a clone of p before rendering the page.
+func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, p Page) {
+	s.servePage(w, r, p, false)
+}
+
+func (s *Site) servePage(w http.ResponseWriter, r *http.Request, p Page, renderingError bool) {
+	html, err := s.renderHTML(p, r)
+	if err != nil {
+		s.serveErrorStatus(w, r, fmt.Errorf("template execution: %v", err), http.StatusInternalServerError, renderingError)
+		return
+	}
+	if code, ok := p["status"].(int); ok {
+		w.WriteHeader(code)
+	}
+	w.Write(html)
+}
+
+// ServeHTTP implements http.Handler, serving from a file in the site.
+// See the Site type documentation for details about how requests are handled.
+func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	abspath := r.URL.Path
 	relpath := path.Clean(strings.TrimPrefix(abspath, "/"))
-	if f := open(s.fs, relpath); f != nil {
-		if f.Path != abspath {
+
+	// Is it a page we can generate?
+	if p, err := s.openPage(relpath); err == nil {
+		if p.url != abspath {
 			// Redirect to canonical path.
-			http.Redirect(w, r, f.Path, http.StatusMovedPermanently)
+			status := http.StatusMovedPermanently
+			if i, ok := p.page["status"].(int); ok {
+				status = i
+			}
+			http.Redirect(w, r, p.url, status)
 			return
 		}
 		// Serve from the actual filesystem path.
-		s.serveHTML(w, r, f)
+		s.serveHTML(w, r, p)
 		return
 	}
 
-	dir, err := fs.Stat(s.fs, relpath)
+	// Is it a directory or file we can serve?
+	info, err := fs.Stat(s.fs, relpath)
 	if err != nil {
-		// Check for spurious trailing slash.
-		if strings.HasSuffix(abspath, "/") {
-			trimmed := relpath[:len(relpath)-1]
-			if _, err := fs.Stat(s.fs, trimmed); err == nil ||
-				open(s.fs, trimmed) != nil {
-				http.Redirect(w, r, "/"+trimmed, http.StatusMovedPermanently)
-				return
+		status := http.StatusInternalServerError
+		if errors.Is(err, fs.ErrNotExist) {
+			status = http.StatusNotFound
+		}
+		s.ServeErrorStatus(w, r, err, status)
+		return
+	}
+
+	// Serve directory.
+	if info != nil && info.IsDir() {
+		if _, ok := s.findLayout(relpath, "dir"); ok {
+			if !maybeRedirect(w, r) {
+				s.serveDir(w, r, relpath)
 			}
-		}
-		s.ServeError(w, r, err)
-		return
-	}
-
-	if dir != nil && dir.IsDir() {
-		if maybeRedirect(w, r) {
 			return
 		}
-		s.serveDir(w, r, relpath)
-		return
 	}
 
+	// Serve text file.
 	if isTextFile(s.fs, relpath) {
-		if maybeRedirectFile(w, r) {
+		if _, ok := s.findLayout(path.Dir(relpath), "text"); ok {
+			if !maybeRedirectFile(w, r) {
+				s.serveText(w, r, relpath)
+			}
 			return
 		}
-		s.serveText(w, r, relpath)
-		return
 	}
 
+	// Serve raw bytes.
 	s.fileServer.ServeHTTP(w, r)
 }
 
@@ -267,63 +501,32 @@ func maybeRedirectFile(w http.ResponseWriter, r *http.Request) (redirected bool)
 	return
 }
 
-var doctype = []byte("<!DOCTYPE ")
-
-func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, f *file) {
-	src := f.Body
-	isMarkdown := strings.HasSuffix(f.FilePath, ".md")
+func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, p *pageFile) {
+	src, _ := p.page["FileData"].(string)
+	filePath, _ := p.page["File"].(string)
+	isMarkdown := strings.HasSuffix(filePath, ".md")
 
 	// if it begins with "<!DOCTYPE " assume it is standalone
 	// html that doesn't need the template wrapping.
-	if bytes.HasPrefix(src, doctype) {
-		w.Write(src)
+	if strings.HasPrefix(src, "<!DOCTYPE ") {
+		w.Write([]byte(src))
 		return
 	}
 
-	page := Page{
-		Title:    f.Title,
-		Subtitle: f.Subtitle,
-	}
-
-	// evaluate as template if indicated
-	if f.Template {
-		page = s.fullPage(r, page)
-		tmpl, err := template.New("main").Funcs(s.docFuncs).Parse(string(src))
-		if err != nil {
-			log.Printf("parsing template %s: %v", f.Path, err)
-			s.ServeError(w, r, err)
-			return
-		}
-		var buf bytes.Buffer
-		if err := tmpl.Execute(&buf, page); err != nil {
-			log.Printf("executing template %s: %v", f.Path, err)
-			s.ServeError(w, r, err)
-			return
-		}
-		src = buf.Bytes()
-	}
-
-	// Apply markdown as indicated.
-	// (Note template applies before Markdown.)
-	if isMarkdown {
-		html, err := renderMarkdown(src)
-		if err != nil {
-			log.Printf("executing markdown %s: %v", f.Path, err)
-			s.ServeError(w, r, err)
-			return
-		}
-		src = html
-	}
-
 	// if it's the language spec, add tags to EBNF productions
-	if strings.HasSuffix(f.FilePath, "go_spec.html") {
+	if strings.HasSuffix(filePath, "go_spec.html") {
 		var buf bytes.Buffer
-		spec.Linkify(&buf, src)
-		src = buf.Bytes()
+		spec.Linkify(&buf, []byte(src))
+		src = buf.String()
 	}
 
-	page.Data = template.HTML(src)
-	s.ServePage(w, r, page)
+	// Template is enabled always in Markdown.
+	// It can only be disabled for HTML files.
+	isTemplate, _ := p.page["template"].(bool)
+	if !isTemplate && !isMarkdown {
+		p.page["Content"] = template.HTML(src)
+	}
+	s.ServePage(w, r, p.page)
 }
 
 func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, relpath string) {
@@ -345,13 +548,11 @@ func (s *Site) serveDir(w http.ResponseWriter, r *http.Request, relpath string) 
 		}
 	}
 
-	dirpath := strings.TrimSuffix(relpath, "/") + "/"
 	s.ServePage(w, r, Page{
-		Title:    "Directory",
-		SrcPath:  dirpath,
-		TabTitle: dirpath,
-		Template: "dirlist.html",
-		Data:     info,
+		"URL":    r.URL.Path,
+		"File":   relpath,
+		"layout": "dir",
+		"dir":    info,
 	})
 }
 
@@ -382,15 +583,11 @@ func (s *Site) serveText(w http.ResponseWriter, r *http.Request, relpath string)
 
 	fmt.Fprintf(&buf, `<p><a href="/%s?m=text">View as plain text</a></p>`, html.EscapeString(relpath))
 
-	title := "Text file"
-	if strings.HasSuffix(relpath, ".go") {
-		title = "Source file"
-	}
 	s.ServePage(w, r, Page{
-		Title:    title,
-		SrcPath:  relpath,
-		TabTitle: relpath,
-		Data:     template.HTML(buf.String()),
+		"URL":      r.URL.Path,
+		"File":     relpath,
+		"layout":   "texthtml",
+		"texthtml": template.HTML(buf.String()),
 	})
 }
 

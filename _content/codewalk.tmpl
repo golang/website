@@ -4,7 +4,8 @@
 	license that can be found in the LICENSE file.
 -->
 
-{{with .Data}}
+{{define "layout"}}
+{{with .codewalk}}
 <style type='text/css'>@import "/doc/codewalk/codewalk.css";</style>
 <script type="text/javascript" src="/doc/codewalk/codewalk.js"></script>
 
@@ -55,4 +56,5 @@
     </div>
   </div>
 </div>
+{{end}}
 {{end}}

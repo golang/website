@@ -4,7 +4,7 @@
 <meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00ADD8">
-{{with .TabTitle}}
+{{with (or .tabTitle .title (strings.Trim .URL "/"))}}
   <title>{{.}} - The Go Programming Language</title>
 {{else}}
   <title>The Go Programming Language</title>
@@ -13,7 +13,7 @@
 <link href="https://fonts.googleapis.com/css?family=Product+Sans&text=Supported%20by%20Google&display=swap" rel="stylesheet">
 <link type="text/css" rel="stylesheet" href="/lib/godoc/style.css">
 <script>window.initFuncs = [];</script>
-{{with .GoogleAnalytics}}
+{{with googleAnalytics}}
 <script>
 var _gaq = _gaq || [];
 _gaq.push(["_setAccount", "{{.}}"]);
@@ -29,7 +29,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 <script src="/lib/godoc/jquery.js" defer></script>
 
 <script src="/lib/godoc/playground.js" defer></script>
-{{with .Version}}<script>var goVersion = {{printf "%q" .}};</script>{{end}}
+{{with version}}<script>var goVersion = {{printf "%q" .}};</script>{{end}}
 <script src="/lib/godoc/godocs.js" defer></script>
 
 <body class="Site">
@@ -40,7 +40,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
        target="_blank"
        rel="noopener">Support the Equal Justice Initiative.</a>
   </div>
-  <nav class="Header-nav {{if .Title}}Header-nav--wide{{end}}">
+  <nav class="Header-nav {{if .title}}Header-nav--wide{{end}}">
     <a href="/"><img class="Header-logo" src="/lib/godoc/images/go-logo-blue.svg" alt="Go"></a>
     <button class="Header-menuButton js-headerMenuButton" aria-label="Main menu" aria-expanded="false">
       <div class="Header-menuButtonInner"></div>
@@ -50,7 +50,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
       <li class="Header-menuItem"><a href="/pkg/">Packages</a></li>
       <li class="Header-menuItem"><a href="/project/">The Project</a></li>
       <li class="Header-menuItem"><a href="/help/">Help</a></li>
-      {{if not .GoogleCN}}
+      {{if not googleCN}}
         <li class="Header-menuItem"><a href="/blog/">Blog</a></li>
         <li class="Header-menuItem"><a href="https://play.golang.org/">Play</a></li>
       {{end}}
@@ -58,38 +58,42 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
   </nav>
 </header>
 
-<main id="page" class="Site-content{{if .Title}} wide{{end}}">
+<main id="page" class="Site-content{{if .title}} wide{{end}}">
 <div class="container">
 
-{{define "srcBreadcrumb"}}
-	{{$elems := split . "/"}}
-	{{$prefix := slice $elems 0 (sub (len $elems) 1)}}
-	{{if hasSuffix . "/"}}
-		{{$prefix = slice $elems 0 (sub (len $elems) 2)}}
-	{{end}}
-	{{range $i, $elem := $prefix -}}
-		<a href="/{{join (slice $prefix 0 (add $i 1)) "/"}}">{{$elem}}</a>/
-	{{- end -}}
-	<span class="text-muted">{{join (slice $elems (len $prefix) (len $elems)) "/"}} {{len $prefix}} {{len $elems}}</span>
+{{define "breadcrumb"}}
+  {{$elems := strings.Split (strings.Trim . "/") "/"}}
+  {{$prefix := slice $elems 0 (sub (len $elems) 1)}}
+  {{if strings.HasSuffix . "/"}}
+    {{$prefix = slice $elems 0 (sub (len $elems) 2)}}
+  {{end}}
+  {{range $i, $elem := $prefix -}}
+    <a href="/{{strings.Join (slice $prefix 0 (add $i 1)) "/"}}">{{$elem}}</a>/
+  {{- end -}}
+  <span class="text-muted">{{strings.Join (slice $elems (len $prefix) (len $elems)) "/"}}</span>
 {{end}}
 
-{{if or .Title .SrcPath}}
-  <h1>
-    {{.Title}}
-    {{template "srcBreadcrumb" .SrcPath}}
-  </h1>
+{{if .title}}
+  <h1>{{.title}}</h1>
+{{else if eq .layout "error"}}
+  <h1>Error</h1>
+{{else if eq .layout "dir"}}
+  <h1>Directory {{breadcrumb .URL}}</h1>
+{{else if and (eq .layout "texthtml") (strings.HasSuffix .URL ".go")}}
+  <h1>Source file {{breadcrumb .URL}}</h1>
+{{else if eq .layout "texthtml"}}
+  <h1>Text file {{breadcrumb .URL}}</h1>
 {{end}}
 
-{{with .Subtitle}}
+{{with .subtitle}}
   <h2>{{.}}</h2>
 {{end}}
 
-{{if hasPrefix .SrcPath "src/"}}
+{{if strings.HasPrefix .URL "/src/"}}
   <h2>
     Documentation:
-    {{$path := trimPrefix .SrcPath "src/"}}
-    {{if $path}}
-      <a href="/pkg/{{$path}}">{{$path}}</a>
+    {{with strings.TrimPrefix .URL "/src/"}}
+      <a href="/pkg/{{.}}">{{.}}</a>
     {{else}}
       <a href="/pkg">Index</a>
     {{end}}
@@ -100,12 +104,12 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
      Do not delete this <div>. */}}
 <div id="nav"></div>
 
-{{.HTML}}
+{{block "layout" .}}{{.Content}}{{end}}
 
 </div><!-- .container -->
 </main><!-- #page -->
 <footer>
-  <div class="Footer {{if .Title}}Footer--wide{{end}}">
+  <div class="Footer {{if .title}}Footer--wide{{end}}">
     <img class="Footer-gopher" src="/lib/godoc/images/footer-gopher.jpg" alt="The Go Gopher">
     <ul class="Footer-links">
       <li class="Footer-link"><a href="/doc/copyright.html">Copyright</a></li>
@@ -116,7 +120,7 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
     <a class="Footer-supportedBy" href="https://google.com">Supported by Google</a>
   </div>
 </footer>
-{{if .GoogleAnalytics}}
+{{if googleAnalytics}}
 <script>
 (function() {
   var ga = document.createElement("script"); ga.type = "text/javascript"; ga.async = true;

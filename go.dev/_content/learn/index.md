@@ -45,7 +45,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-quickstarts Learn-cardList">
-        {{- range first 3 (data "learn/quickstart")}}
+        {{- range first 3 (data "quickstart.yaml")}}
           <li class="Learn-quickstart Learn-card">
             {{- template "learn-card" .}}
           </li>
@@ -66,7 +66,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{- range first 4 (data "learn/guided")}}
+        {{- range first 4 (data "guided.yaml")}}
           <li class="Learn-card">
             {{- template "learn-card" .}}
           </li>
@@ -83,7 +83,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{- range first 4 (data "learn/courses") }}
+        {{- range first 4 (data "courses.yaml") }}
           <li class="Learn-card">
             {{- template "learn-card" .}}
           </li>
@@ -100,7 +100,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList">
-        {{- range first 4 (data "learn/cloud")}}
+        {{- range first 4 (data "cloud.yaml")}}
         <li class="Learn-card">
           {{- template "learn-self-paced-card" .}}
         </li>
@@ -118,7 +118,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-cardList Learn-bookList">
-        {{- range first 5 (data "learn/books")}}
+        {{- range first 5 (data "books.yaml")}}
           <li class="Learn-card Learn-book">
             {{template "learn-book" .}}
           </li>
@@ -135,7 +135,7 @@ title: "Getting Started"
     </div>
     <div class="LearnGo-gridContainer">
       <ul class="Learn-inPersonList">
-        {{- range first 4 (data "learn/training")}}
+        {{- range first 4 (data "training.yaml")}}
         <li class="Learn-inPerson">
           <p class="Learn-inPersonTitle">
             <a href="{{.url}}">{{.title}} </a>
@@ -157,7 +157,7 @@ title: "Getting Started"
       </p>
     </div>
     <ul class="Learn-events">
-      {{- range first 3 (data "events").all}}
+      {{- range first 3 (data "/events.yaml").all}}
       <li class="Learn-eventItem">
         <div
           class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"

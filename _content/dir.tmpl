@@ -4,7 +4,7 @@
 	license that can be found in the LICENSE file.
 -->
 
-{{with .Data}}
+{{define "layout"}}
 <p>
 <table class="layout">
 <tr>
@@ -15,10 +15,11 @@
 <tr>
 	<td><a href="../">../</a></td>
 </tr>
-{{range .}}{{if .IsDir}}
+
+{{range .dir}}{{if .IsDir}}
 	<tr><td align="left"><a href="{{.Name}}/">{{.Name}}/</a><td></tr>
 {{end}}{{end}}
-{{range .}}{{if not .IsDir}}
+{{range .dir}}{{if not .IsDir}}
 	<tr><td align="left"><a href="{{.Name}}">{{.Name}}</a><td align="right">{{.Size}}</tr>
 {{end}}{{end}}
 

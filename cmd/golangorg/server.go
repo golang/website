@@ -17,6 +17,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
@@ -36,6 +37,7 @@ import (
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/gitfs"
+	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/memcache"
 	"golang.org/x/website/internal/pkgdoc"
 	"golang.org/x/website/internal/proxy"
@@ -52,6 +54,8 @@ var (
 	contentDir = flag.String("content", "", "path to _content directory")
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
+
+	googleAnalytics string
 )
 
 func usage() {
@@ -145,6 +149,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("newSite: %v", err)
 	}
+	if _, err := newSite(mux, "golang.google.cn", content, gorootFS); err != nil {
+		log.Fatalf("newSite: %v", err)
+	}
 
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
@@ -198,12 +205,15 @@ func NewHandler(contentDir, goroot string) http.Handler {
 // and registers it in mux to handle requests for host.
 // If host is the empty string, the registrations are for the wildcard host.
 func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site, error) {
-	fsys := unionFS{content, goroot}
-	site, err := web.NewSite(fsys)
-	if err != nil {
-		return nil, err
-	}
-	docs, err := pkgdoc.NewServer(fsys, site)
+	fsys := unionFS{content, &fixSpecsFS{goroot}}
+	site := web.NewSite(fsys)
+	site.Funcs(template.FuncMap{
+		"googleAnalytics": func() string { return googleAnalytics },
+		"googleCN":        func() bool { return host == "golang.google.cn" },
+		"releases":        func() []*history.Major { return history.Majors },
+		"version":         func() string { return runtime.Version() },
+	})
+	docs, err := pkgdoc.NewServer(fsys, site, googleCN)
 	if err != nil {
 		return nil, err
 	}
@@ -282,7 +292,7 @@ func watchTip1(tipGoroot *atomicFS) {
 }
 
 func appEngineSetup(site *web.Site, mux *http.ServeMux) {
-	site.GoogleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
+	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	ctx := context.Background()
 
@@ -302,7 +312,7 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 
 	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
-	proxy.RegisterHandlers(mux)
+	proxy.RegisterHandlers(mux, googleCN)
 
 	log.Println("AppEngine initialization complete")
 }
@@ -339,22 +349,30 @@ var validHosts = map[string]bool{
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
-// It permits golang.google.cn as an alias for golang.org, for use in China.
+// It also forces all requests coming from China to use golang.google.cn.
 func hostEnforcerHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		isHTTPS := r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" || r.URL.Scheme == "https"
+		defaultHost := "golang.org"
 		isValidHost := validHosts[strings.ToLower(r.Host)]
+
+		if googleCN(r) {
+			// golang.google.cn is the only web site in China.
+			defaultHost = "golang.google.cn"
+			isValidHost = strings.ToLower(r.Host) == defaultHost
+		}
 
 		if !isHTTPS || !isValidHost {
 			r.URL.Scheme = "https"
 			if isValidHost {
 				r.URL.Host = r.Host
 			} else {
-				r.URL.Host = "golang.org"
+				r.URL.Host = defaultHost
 			}
 			http.Redirect(w, r, r.URL.String(), http.StatusFound)
 			return
 		}
+
 		w.Header().Set("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload")
 		h.ServeHTTP(w, r)
 	})
@@ -543,6 +561,33 @@ func (fsys unionFS) ReadDir(name string) ([]fs.DirEntry, error) {
 	return nil, errOut
 }
 
+// A fixSpecsFS is an FS mapping /ref/mem.html and /ref/spec.html to
+// /doc/go_mem.html and /doc/go_spec.html.
+var _ fs.FS = &fixSpecsFS{}
+
+type fixSpecsFS struct {
+	fs fs.FS
+}
+
+func (fsys fixSpecsFS) Open(name string) (fs.File, error) {
+	switch name {
+	case "ref/mem.html", "ref/spec.html":
+		if f, err := fsys.fs.Open(name); err == nil {
+			// Let Go distribution win if they move.
+			return f, nil
+		}
+		// Otherwise fall back to doc/go_*.html
+		name = "doc/go_" + strings.TrimPrefix(name, "ref/")
+		return fsys.fs.Open(name)
+
+	case "doc/go_mem.html", "doc/go_spec.html":
+		data := []byte("<!--{\n\t\"Redirect\": \"/ref/" + strings.TrimPrefix(strings.TrimSuffix(name, ".html"), "doc/go_") + "\"\n}-->\n")
+		return &memFile{path.Base(name), bytes.NewReader(data)}, nil
+	}
+
+	return fsys.fs.Open(name)
+}
+
 // A seekableFS is an FS wrapper that makes every file seekable
 // by reading it entirely into memory when it is opened and then
 // serving read operations (including seek) from the memory copy.
@@ -586,6 +631,20 @@ type seekableFile struct {
 func (f *seekableFile) Read(b []byte) (int, error) {
 	return f.Reader.Read(b)
 }
+
+// A memFile is an fs.File implementation backed by in-memory data.
+type memFile struct {
+	name string
+	*bytes.Reader
+}
+
+func (f *memFile) Stat() (fs.FileInfo, error) { return f, nil }
+func (f *memFile) Name() string               { return f.name }
+func (*memFile) Mode() fs.FileMode            { return 0444 }
+func (*memFile) ModTime() time.Time           { return time.Time{} }
+func (*memFile) IsDir() bool                  { return false }
+func (*memFile) Sys() interface{}             { return nil }
+func (*memFile) Close() error                 { return nil }
 
 // An atomicFS is an fs.FS value safe for reading from multiple goroutines
 // as well as updating (assigning a different fs.FS to use in future read requests).

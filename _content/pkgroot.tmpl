@@ -9,7 +9,8 @@
 	them to conflict with generated attributes (some of which
 	correspond to Go identifiers).
 -->
-{{$pkg := .Data}}
+{{define "layout"}}
+{{$pkg := .pkg}}
 
 {{with $pkg.Dirs}}
 	{{/* DirList entries are numbers and strings - no need for FSet */}}
@@ -98,4 +99,5 @@
 		<li><a href="//pkg.go.dev">Pkg.go.dev</a> - the Go package discovery site.</li>
 		<li><a href="/wiki/Projects">Projects at the Go Wiki</a> - a curated list of Go projects.</li>
 	</ul>
+{{end}}
 {{end}}
