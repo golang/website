@@ -5,12 +5,8 @@
 package main
 
 import (
-	"log"
-	"net"
 	"net/http"
 	"net/url"
-	"os"
-	"path/filepath"
 	"sort"
 	"strings"
 	"time"
@@ -18,7 +14,6 @@ import (
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/web"
-	"golang.org/x/website/internal/webtest"
 )
 
 var discoveryHosts = map[string]string{
@@ -27,35 +22,7 @@ var discoveryHosts = map[string]string{
 	"staging.go.dev": "staging-pkg.go.dev",
 }
 
-func main() {
-	dir := "../../_content"
-	if _, err := os.Stat("go.dev/_content/events.yaml"); err == nil {
-		// Running in repo root.
-		dir = "go.dev/_content"
-	}
-
-	h, err := NewHandler(dir)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	h = webtest.HandlerWithCheck(h, "/_readycheck",
-		filepath.Join(dir, "cmd/frontend/testdata/*.txt"))
-
-	addr := ":" + listenPort()
-	if addr == ":0" {
-		addr = "localhost:0"
-	}
-	l, err := net.Listen("tcp", addr)
-	if err != nil {
-		log.Fatalf("net.Listen(%q, %q) = _, %v", "tcp", addr, err)
-	}
-	defer l.Close()
-	log.Printf("Listening on http://%v/\n", l.Addr().String())
-	log.Print(http.Serve(l, h))
-}
-
-func NewHandler(dir string) (http.Handler, error) {
+func godevHandler(dir string) (http.Handler, error) {
 	godev := web.NewSite(osfs.DirFS(dir))
 	godev.Funcs(template.FuncMap{
 		"newest":  newest,
@@ -115,13 +82,6 @@ func section(p web.Page) string {
 
 func redirectLearn(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "https://go.dev/learn/"+strings.TrimPrefix(r.URL.Path, "/"), http.StatusMovedPermanently)
-}
-
-func listenPort() string {
-	if p := os.Getenv("PORT"); p != "" {
-		return p
-	}
-	return "0"
 }
 
 type redirectHosts map[string]string

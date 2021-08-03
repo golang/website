@@ -81,7 +81,7 @@ var siteTests = []struct {
 }
 
 func TestSite(t *testing.T) {
-	h, err := NewHandler("../../_content")
+	h, err := godevHandler("../../go.dev/_content")
 	if err != nil {
 		t.Fatal(err)
 	}

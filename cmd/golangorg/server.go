@@ -193,6 +193,13 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 	}
 
+	godev, err := godevHandler(filepath.Join(contentDir, "../go.dev/_content"))
+	if err != nil {
+		log.Fatalf("godevHandler: %v", err)
+	}
+	mux.Handle("go.dev/", godev)
+	mux.Handle("learn.go.dev/", godev)
+
 	var h http.Handler = mux
 	if env.EnforceHosts() {
 		h = hostEnforcerHandler(h)
@@ -317,10 +324,6 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	log.Println("AppEngine initialization complete")
 }
 
-func blogHandler(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://blog.golang.org"+strings.TrimPrefix(r.URL.Path, "/blog"), http.StatusFound)
-}
-
 type fmtResponse struct {
 	Body  string
 	Error string
@@ -341,6 +344,8 @@ func fmtHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var validHosts = map[string]bool{
+	"go.dev":           true,
+	"learn.go.dev":     true,
 	"golang.org":       true,
 	"golang.google.cn": true,
 	"m.golang.org":     true,
@@ -442,9 +447,11 @@ func (r *linkRewriter) Write(data []byte) (int, error) {
 func (r *linkRewriter) Flush() {
 	repl := []string{
 		`href="/`, `href="/` + r.host + `/`,
+		`src="/`, `src="/` + r.host + `/`,
 	}
 	for host := range validHosts {
 		repl = append(repl, `href="https://`+host, `href="/`+host)
+		repl = append(repl, `src="https://`+host, `src="/`+host)
 	}
 	strings.NewReplacer(repl...).WriteString(r.ResponseWriter, string(r.buf))
 	r.buf = nil

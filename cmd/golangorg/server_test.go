@@ -18,6 +18,7 @@ func init() {
 
 func TestWeb(t *testing.T) {
 	h := NewHandler("../../_content", runtime.GOROOT())
+
 	files, err := filepath.Glob("testdata/*.txt")
 	if err != nil {
 		t.Fatal(err)

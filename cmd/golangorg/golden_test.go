@@ -20,14 +20,14 @@ import (
 
 func TestGolden(t *testing.T) {
 	start := time.Now()
-	h, err := NewHandler("../../_content")
+	h, err := godevHandler("../../go.dev/_content")
 	if err != nil {
 		t.Fatal(err)
 	}
 	total := time.Since(start)
 	t.Logf("Load %v\n", total)
 
-	root := "../../testdata/golden"
+	root := "../../go.dev/testdata/golden"
 	err = filepath.Walk(root, func(name string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err

@@ -1,0 +1,8 @@
+runtime: go115
+service: go-dev
+main: ./cmd/golangorg
+
+handlers:
+  - url: /.*
+    secure: always
+    script: auto
