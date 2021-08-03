@@ -158,14 +158,14 @@ func main() {
     <ins>// A slice of names.
     names := []string{"Gladys", "Samantha", "Darrin"}</ins>
 
-    // Request greeting messages for the names.
-    messages, err := greetings.Hellos(names)
+    <ins>// Request greeting messages for the names.
+    messages, err := greetings.Hellos(names)</ins>
     if err != nil {
         log.Fatal(err)
     }
     // If no error was returned, print the returned map of
     // messages to the console.
-    fmt.Println(messages)
+    fmt.Println(<ins>messages</ins>)
 }
 </pre>
 
