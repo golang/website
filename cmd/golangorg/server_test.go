@@ -16,10 +16,6 @@ import (
 	"golang.org/x/website/internal/webtest"
 )
 
-func init() {
-	isTestBinary = true
-}
-
 func TestWeb(t *testing.T) {
 	h := NewHandler("../../_content", runtime.GOROOT())
 
@@ -32,6 +28,15 @@ func TestWeb(t *testing.T) {
 			webtest.TestHandler(t, file, h)
 		}
 	}
+}
+
+var bad = []string{
+	"&amp;lt;",
+	"&amp;gt;",
+	"&amp;amp;",
+	" < ",
+	"<-",
+	"& ",
 }
 
 func TestAll(t *testing.T) {
@@ -53,6 +58,15 @@ func TestAll(t *testing.T) {
 				h.ServeHTTP(rec, httptest.NewRequest("GET", url, nil))
 				if rec.Code != 200 && rec.Code != 301 {
 					t.Errorf("GET %s: %d, want 200\n%s", url, rec.Code, rec.Body.String())
+					return nil
+				}
+
+				s := rec.Body.String()
+				for _, b := range bad {
+					if strings.Contains(s, b) {
+						t.Errorf("GET %s: contains %s\n%s", url, b, s)
+						break
+					}
 				}
 			}
 			return nil

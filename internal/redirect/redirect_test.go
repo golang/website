@@ -27,9 +27,9 @@ func TestRedirects(t *testing.T) {
 		"/doc/spec":    {301, "/ref/spec"},
 		"/tour":        {301, "https://tour.golang.org"},
 		"/foo":         errorResult(404),
-		"/blog":        {301, "https://blog.golang.org"},
+		"/blog":        {301, "https://go.dev/blog"},
 		"/blog/":       {302, "/blog"},
-		"/blog/go1.16": {302, "https://blog.golang.org/go1.16"},
+		"/blog/go1.16": {302, "https://go.dev/blog/go1.16"},
 
 		"/pkg/asn1":           {301, "/pkg/encoding/asn1/"},
 		"/pkg/template/parse": {301, "/pkg/text/template/parse/"},

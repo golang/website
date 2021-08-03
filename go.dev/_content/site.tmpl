@@ -15,6 +15,9 @@
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Google+Sans:400,500,600|Work+Sans:400,500,600|Roboto:400,500,700|Open+Sans:Source+Code+Pro|Material+Icons">
 <link rel="stylesheet" href="/css/styles.css">
+{{if strings.HasPrefix .URL "/blog/"}}
+<link rel="stylesheet" href="/css/blogfonts.css">
+{{end}}
   <!-- Google Tag Manager -->
   <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],

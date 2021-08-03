@@ -35,6 +35,9 @@ func Register(mux *http.ServeMux) {
 	for path, redirect := range redirects {
 		mux.Handle(path, Handler(redirect))
 	}
+	for path, redirect := range blogRedirects {
+		mux.Handle("go.dev/blog"+path, Handler("/blog/"+redirect))
+	}
 	// NB: /src/pkg (sans trailing slash) is the index of packages.
 	mux.HandleFunc("/src/pkg/", srcPkgHandler)
 	mux.HandleFunc("/cl/", clHandler)
@@ -92,7 +95,7 @@ var cmdRedirects = map[string]string{
 }
 
 var redirects = map[string]string{
-	"/blog":       "https://blog.golang.org",
+	"/blog":       "https://go.dev/blog",
 	"/build":      "https://build.golang.org",
 	"/change":     "https://go.googlesource.com/go",
 	"/cl":         "https://go-review.googlesource.com",
@@ -142,7 +145,7 @@ var prefixHelpers = map[string]string{
 	"play":   "https://play.golang.org/",
 	"talks":  "https://talks.golang.org/",
 	"wiki":   "https://github.com/golang/go/wiki/",
-	"blog":   "https://blog.golang.org/",
+	"blog":   "https://go.dev/blog/",
 }
 
 func Handler(target string) http.Handler {

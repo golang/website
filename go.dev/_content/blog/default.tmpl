@@ -1,0 +1,71 @@
+{{define "layout"}}
+<div id="blog"><div id="content">
+  <div id="content">
+
+    <div class="Article" data-slug="{{.URL}}">
+    {{if ne .URL "/blog/"}}
+    <h1 class="small"><a href="/blog/">The Go Blog</a></h1>
+    {{end}}
+
+    <h1>{{.title}}</h1>
+      {{if or .by .date}}
+      <p class="author">
+      {{with .by}}{{by .}}<br>{{end}}
+      {{.date.Format "2 January 2006"}}
+      </p>
+      {{end}}
+      {{.Content}}
+    </div>
+
+    {{if and (ne .URL "/blog/") (ne .URL "/blog/all")}}
+    <div class="Article prevnext">
+    {{$list := newest (pages "/blog/*.md")}}
+    {{range $i, $p := $list}}
+      {{if eq $p.URL $.URL}}
+        <p>
+        {{if and (gt $i 0) (index $list (sub $i 1)).date}}
+          {{with index $list (sub $i 1)}}
+            <b>Next article: </b><a href="{{.URL}}">{{.title}}</a><br>
+          {{end}}
+        {{end}}
+        {{if and (lt (add $i 1) (len $list)) (index $list (add $i 1)).date}}
+          {{with index $list (add $i 1)}}
+            <b>Previous article: </b><a href="{{.URL}}">{{.title}}</a><br>
+          {{end}}
+        {{end}}
+        <b><a href="/blog/all">Blog Index</a></b>
+      {{end}}
+    {{end}}
+    </div>
+    {{end}}
+
+  </div><!-- #content -->
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/playground.js"></script>
+<script src="/js/play.js"></script>
+<script src="/js/godocs.js"></script>
+{{end}}
+
+{{define "by list" -}}
+  {{if eq (len .list) 1 -}}
+  {{index .list 0 -}}
+  {{else if eq (len .list) 2 -}}
+  {{index .list 0}} and {{index .list 1 -}}
+  {{else -}}
+  {{range first (sub (len .list) 1) .list}}{{.}}, {{end}} and {{index .list (sub (len .list) 1) -}}
+  {{end -}}
+{{end}}
+
+{{define "image url width? height? alt?"}}
+<div class="image">
+  <img src="{{.url}}"{{with .width}} width="{{.}}"{{end}}{{with .height}} height="{{.}}"{{end}} alt="{{.alt}}">
+</div>
+{{end}}
+
+{{define "video url width? height?"}}
+<div class="iframe">
+  <iframe src="{{.url}}" width="{{or .width 560}}" height="{{or .height 315}}" frameborder="0" allowfullscreen mozallowfullscreen webkitallowfullscreen></iframe>
+</div>
+{{end}}

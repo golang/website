@@ -55,6 +55,8 @@ var (
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
 
+	tipFlag = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+
 	googleAnalytics string
 )
 
@@ -123,8 +125,6 @@ func main() {
 	}
 }
 
-var isTestBinary = false
-
 // NewHandler returns the http.Handler for the web site,
 // given the directory where the content can be found
 // (can be "", in which case an internal copy is used)
@@ -176,7 +176,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// which broke the redirect.
 	mux.Handle("m.golang.org/", http.RedirectHandler("https://mail.google.com/a/golang.org/", http.StatusMovedPermanently))
 
-	if !isTestBinary {
+	if *tipFlag {
 		go watchTip(&tipGoroot)
 	}
 
@@ -206,7 +206,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("godevHandler: %v", err)
 	}
 	mux.Handle("go.dev/", godev)
-	mux.Handle("learn.go.dev/", godev)
+
+	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
+	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
 
 	var h http.Handler = mux
 	if env.EnforceHosts() {

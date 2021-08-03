@@ -6,21 +6,15 @@ package main
 
 import (
 	"net/http"
-	"net/url"
 	"sort"
 	"strings"
 	"time"
 
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/backport/osfs"
+	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/web"
 )
-
-var discoveryHosts = map[string]string{
-	"":               "pkg.go.dev",
-	"dev.go.dev":     "dev-pkg.go.dev",
-	"staging.go.dev": "staging-pkg.go.dev",
-}
 
 func godevHandler(dir string) (http.Handler, error) {
 	godev := web.NewSite(osfs.DirFS(dir))
@@ -30,8 +24,12 @@ func godevHandler(dir string) (http.Handler, error) {
 	})
 	mux := http.NewServeMux()
 	mux.Handle("/", addCSP(godev))
-	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectHosts(discoveryHosts)))
-	mux.Handle("learn.go.dev/", http.HandlerFunc(redirectLearn))
+	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
+
+	if err := blog.RegisterFeeds(mux, "", godev); err != nil {
+		return nil, err
+	}
+
 	return mux, nil
 }
 
@@ -78,23 +76,4 @@ func section(p web.Page) string {
 		return ""
 	}
 	return u[:1+i+1]
-}
-
-func redirectLearn(w http.ResponseWriter, r *http.Request) {
-	http.Redirect(w, r, "https://go.dev/learn/"+strings.TrimPrefix(r.URL.Path, "/"), http.StatusMovedPermanently)
-}
-
-type redirectHosts map[string]string
-
-func (rh redirectHosts) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	u := &url.URL{Scheme: "https", Path: r.URL.Path, RawQuery: r.URL.RawQuery}
-	if h, ok := rh[r.Host]; ok {
-		u.Host = h
-	} else if h, ok := rh[""]; ok {
-		u.Host = h
-	} else {
-		http.NotFound(w, r)
-		return
-	}
-	http.Redirect(w, r, u.String(), http.StatusFound)
 }

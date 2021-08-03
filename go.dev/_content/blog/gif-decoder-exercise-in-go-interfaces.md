@@ -1,0 +1,3 @@
+---
+redirect: /blog/gif-decoder
+---

@@ -123,7 +123,7 @@ title: go.dev
             <li class="TestimonialsGo-quoteGroup GoCarousel-slide" id="quote_slide{{$index}}">
               <div class="TestimonialsGo-quoteSingleItem">
                 <div class="TestimonialsGo-quoteSection">
-                  <p class="TestimonialsGo-quote">{{rawhtml .quote}}</p>
+                  <p class="TestimonialsGo-quote">{{raw .quote}}</p>
                   <div class="TestimonialsGo-author">— {{.name}},
                     <span class="NoWrapSpan">{{.title}}</span>
                     <span class="NoWrapSpan"> at {{.company}}</span>

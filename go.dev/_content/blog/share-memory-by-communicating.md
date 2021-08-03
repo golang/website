@@ -1,0 +1,3 @@
+---
+redirect: /blog/codelab-share
+---

@@ -1573,7 +1573,7 @@ rsc.io/pdf v0.1.1
 ```
 
 The `Module` struct has a `String` method that formats this line of output, so
-that the default format is equivalent to {{rawhtml "`-f '{{.String}}'`"}}.
+that the default format is equivalent to {{raw "`-f '{{.String}}'`"}}.
 
 Note that when a module has been replaced, its `Replace` field describes the
 replacement module module, and its `Dir` field is set to the replacement
@@ -2192,9 +2192,9 @@ A version query may be one of the following:
   specific version. See [Versions](#versions) for syntax.
 * A semantic version prefix, such as `v1` or `v1.2`, which selects the highest
   available version with that prefix.
-* A semantic version comparison, such as {{rawhtml "`<v1.2.3` or `>=v1.5.6`"}}, which selects
+* A semantic version comparison, such as {{raw "`<v1.2.3` or `>=v1.5.6`"}}, which selects
   the nearest available version to the comparison target (the lowest version
-  for `>` and `>=`, and the highest version for {{rawhtml "`<` and `<=`"}}).
+  for `>` and `>=`, and the highest version for {{raw "`<` and `<=`"}}).
 * A revision identifier for the underlying source repository, such as a commit
   hash prefix, revision tag, or branch name. If the revision is tagged with a
   semantic version, this query selects that version. Otherwise, this query
@@ -2228,7 +2228,7 @@ loading `retract` directives.
 [Release versions](#glos-release-version) are preferred over pre-release
 versions. For example, if versions `v1.2.2` and `v1.2.3-pre` are available, the
 `latest` query will select `v1.2.2`, even though `v1.2.3-pre` is higher. The
-{{rawhtml "`<v1.2.4`"}} query would also select `v1.2.2`, even though `v1.2.3-pre` is closer
+{{raw "`<v1.2.4`"}} query would also select `v1.2.2`, even though `v1.2.3-pre` is closer
 to `v1.2.4`. If no release or pre-release version is available, the `latest`,
 `upgrade`, and `patch` queries will select a pseudo-version for the commit
 at the tip of the repository's default branch. Other queries will report

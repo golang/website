@@ -1,6 +1,0 @@
-GET /
-body contains The Go Programming Language Blog
-header Content-Type == text/html; charset=utf-8
-
-GET /2010/08/defer-panic-and-recover.html
-redirect == /defer-panic-and-recover

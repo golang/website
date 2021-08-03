@@ -1,0 +1,3 @@
+---
+redirect: /blog/vscode-go
+---

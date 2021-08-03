@@ -2,17 +2,18 @@
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/website.svg)](https://pkg.go.dev/golang.org/x/website)
 
-This repo holds content and serving programs for the golang.org web site.
+This repo holds content and serving programs for the golang.org and go.dev web sites.
 
-Content is in _content/. Server code is in cmd/ and internal/.
+Content is in _content/ (golang.org), go.dev/_content/ (go.dev), and tour/ (tour.golang.org).
+Server code is in cmd/ and internal/.
 
-To run the server to preview local content changes, use:
+To run the combined golang.org+go.dev server to preview local content changes, use:
 
 	go run ./cmd/golangorg
 
 The supporting programs cmd/admingolangorg and cmd/googlegolangorg
 are the servers for admin.golang.org and google.golang.org.
-(They do not use the _content/ directory.)
+(They do not use the _content/ directories.)
 
 Each command directory has its own README.md explaining deployment.
 

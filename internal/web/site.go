@@ -172,8 +172,8 @@
 //	- [{{.title}}]({{.URL}})
 //	{{end}}
 //
-// The “{{rawhtml s}}” function converts s (a string) to type template.HTML without any escaping,
-// to allow using s as raw HTML in the final output.
+// The “{{raw s}}” function converts s (a string) to type template.HTML without any escaping,
+// to allow using s as raw Markdown or HTML in the final output.
 //
 // The “{{yaml s}}” function decodes s (a string) as YAML and returns the resulting data.
 // It is most useful for defining templates that accept YAML-structured data as a literal argument.
@@ -407,7 +407,7 @@ func (s *Site) ServePage(w http.ResponseWriter, r *http.Request, p Page) {
 }
 
 func (s *Site) servePage(w http.ResponseWriter, r *http.Request, p Page, renderingError bool) {
-	html, err := s.renderHTML(p, r)
+	html, err := s.renderHTML(p, "site.tmpl", r)
 	if err != nil {
 		s.serveErrorStatus(w, r, fmt.Errorf("template execution: %v", err), http.StatusInternalServerError, renderingError)
 		return

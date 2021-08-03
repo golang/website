@@ -96,6 +96,11 @@ func (site *siteDir) page(u string) (Page, error) {
 	return p.page, nil
 }
 
+// Pages returns the pages found in files matching glob.
+func (site *Site) Pages(glob string) ([]Page, error) {
+	return (&siteDir{site, "."}).pages(glob)
+}
+
 // pages returns the page params for pages with urls matching glob.
 func (site *siteDir) pages(glob string) ([]Page, error) {
 	if !path.IsAbs(glob) {
@@ -128,7 +133,7 @@ func (site *siteDir) pages(glob string) ([]Page, error) {
 		}
 		p, err := site.openPage(file)
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("%s: %v", file, err)
 		}
 		out = append(out, p.page)
 	}
@@ -148,7 +153,7 @@ func (site *siteDir) file(name string) (string, error) {
 	return string(data), nil
 }
 
-func rawhtml(s interface{}) template.HTML {
+func raw(s interface{}) template.HTML {
 	return template.HTML(toString(s))
 }
 

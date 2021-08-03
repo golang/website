@@ -176,7 +176,7 @@ title: "Get Started"
             <h4 class="Learn-eventName">
               <a href="{{.url}}">{{.name}}</a>
             </h4>
-            <p class="Learn-eventDescription">{{rawhtml .description}}</p>
+            <p class="Learn-eventDescription">{{raw .description}}</p>
           </div>
           <div class="Learn-eventAttendees">
             {{- with .attendees }}
@@ -205,7 +205,7 @@ title: "Get Started"
     {{- end}}
     <div class="Card-content">
       <div class="Card-contentTitle">{{.title}}</div>
-      <p class="Card-contentBody">{{rawhtml .content}}</p>
+      <p class="Card-contentBody">{{raw .content}}</p>
       <div class="Card-contentCta">
         <a href="{{.url}}" target="_blank">
           <span>{{.cta}}</span>

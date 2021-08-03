@@ -1,0 +1,3 @@
+---
+redirect: /blog/declaration-syntax
+---

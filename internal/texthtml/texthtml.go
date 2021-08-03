@@ -34,7 +34,9 @@ type Selection func() Span
 type Config struct {
 	Line       int       // if >= 1, number lines beginning with number Line, with <span class="ln">
 	GoComments bool      // mark comments in Go text with <span class="comment">
+	Playground bool      // format for playground sample
 	Highlight  string    // highlight matches for this regexp with <span class="highlight">
+	HL         string    // highlight lines that end with // HL (x/tools/present convention)
 	Selection  Selection // mark selected spans with <span class="selection">
 	AST        ast.Node  // link uses to declarations, assuming text is formatting of AST
 	OldDocs    bool      // emit links to ?m=old docs
@@ -48,6 +50,9 @@ func Format(text []byte, cfg Config) (html []byte) {
 	}
 	if cfg.Highlight != "" {
 		highlights = regexpSelection(text, cfg.Highlight)
+	}
+	if cfg.HL != "" {
+		highlights = hlSelection(text, cfg.HL)
 	}
 
 	var buf bytes.Buffer
@@ -68,6 +73,8 @@ func Format(text []byte, cfg Config) (html []byte) {
 	if cfg.AST != nil {
 		postFormatAST(&buf, cfg.AST)
 	}
+
+	trimSpaces(&buf)
 
 	if cfg.Line > 0 {
 		// Add line numbers in a separate pass.
@@ -92,7 +99,11 @@ func Format(text []byte, cfg Config) (html []byte) {
 			// https://github.com/webcompat/web-bugs/issues/17530#issuecomment-402675091
 			// for a fuller explanation. The solution is to add a CSS class to
 			// explicitly declare the width to be 8 characters.
-			fmt.Fprintf(&buf, `<span id="L%d" class="ln">%6d&nbsp;&nbsp;</span>`, n, n)
+			if cfg.Playground {
+				fmt.Fprintf(&buf, `<span class="number">%2d&nbsp;&nbsp;</span>`, n)
+			} else {
+				fmt.Fprintf(&buf, `<span id="L%d" class="ln">%6d&nbsp;&nbsp;</span>`, n, n)
+			}
 			n++
 			buf.Write(line)
 			buf.WriteByte('\n')
@@ -314,6 +325,28 @@ func Spans(spans ...Span) Selection {
 	}
 }
 
+var hlRE = regexp.MustCompile(`(?m)\s*(.+)(\s+// (HL[a-zA-Z0-9_]*))$`)
+
+// hlSelection returns the Selection for lines ending in // hl in text,
+// also removing any // HLxxx from the text (overwriting with spaces)
+func hlSelection(text []byte, hl string) Selection {
+	lines := bytes.SplitAfter(text, []byte("\n"))
+	off := 0
+	var spans []Span
+	for _, line := range lines {
+		if m := hlRE.FindSubmatchIndex(line); m != nil {
+			if string(line[m[6]:m[7]]) == hl {
+				spans = append(spans, Span{off + m[2], off + m[3]})
+			}
+			for i := m[4]; i < m[5]; i++ {
+				line[i] = ' '
+			}
+		}
+		off += len(line)
+	}
+	return Spans(spans...)
+}
+
 // regexpSelection computes the Selection for the regular expression expr in text.
 func regexpSelection(text []byte, expr string) Selection {
 	var matches [][]int
@@ -358,4 +391,27 @@ func selectionTag(w io.Writer, text []byte, selections int) {
 		}
 	}
 	template.HTMLEscape(w, text)
+}
+
+// trimSpaces removes trailing spaces at the end of each line in buf.
+func trimSpaces(buf *bytes.Buffer) {
+	data := buf.Bytes()
+	out := data[:0]
+	for len(data) > 0 {
+		j := bytes.IndexByte(data, '\n')
+		if j < 0 {
+			j = len(data)
+		}
+		var line []byte
+		line, data = data[:j], data[j:]
+		for len(line) > 0 && (line[len(line)-1] == ' ' || line[len(line)-1] == '\t') {
+			line = line[:len(line)-1]
+		}
+		out = append(out, line...)
+		if len(data) > 0 {
+			out = append(out, '\n')
+			data = data[1:]
+		}
+	}
+	buf.Truncate(len(out))
 }

@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
+	"net/url"
 	"path"
 	"regexp"
 	"strings"
@@ -25,8 +26,18 @@ import (
 	"golang.org/x/website/internal/tmplfunc"
 )
 
-// renderHTML renders and returns the HTML for the page.
-func (site *Site) renderHTML(p Page, r *http.Request) ([]byte, error) {
+// RenderContent returns the HTML rendering for the page using the named base template
+// (the standard base template is "site.tmpl").
+func (site *Site) RenderContent(p Page, tmpl string) (template.HTML, error) {
+	html, err := site.renderHTML(p, tmpl, &http.Request{URL: &url.URL{Path: "/missingurl"}})
+	if err != nil {
+		return "", err
+	}
+	return template.HTML(html), nil
+}
+
+// renderHTML renders and returns the Content and framed HTML for the page.
+func (site *Site) renderHTML(p Page, tmpl string, r *http.Request) ([]byte, error) {
 	// Clone p, because we are going to set its Content key-value pair.
 	p2 := make(Page)
 	for k, v := range p {
@@ -43,7 +54,7 @@ func (site *Site) renderHTML(p Page, r *http.Request) ([]byte, error) {
 	data, _ := p["FileData"].(string)
 
 	// Load base template.
-	base, err := site.readFile(".", "site.tmpl")
+	base, err := site.readFile(".", tmpl)
 	if err != nil {
 		return nil, err
 	}
@@ -63,13 +74,14 @@ func (site *Site) renderHTML(p Page, r *http.Request) ([]byte, error) {
 		"data":     sd.data,
 		"page":     sd.page,
 		"pages":    sd.pages,
+		"play":     sd.play,
 		"request":  func() *http.Request { return r },
 		"path":     func() pkgPath { return pkgPath{} },
 		"strings":  func() pkgStrings { return pkgStrings{} },
+		"file":     sd.file,
 		"first":    first,
 		"markdown": markdown,
-		"rawhtml":  rawhtml,
-		"readfile": sd.readfile,
+		"raw":      raw,
 		"yaml":     yamlFn,
 	})
 	t.Funcs(site.funcs)

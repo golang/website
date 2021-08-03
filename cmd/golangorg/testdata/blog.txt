@@ -1,0 +1,53 @@
+GET https://go.dev/blog/
+body contains The Go Blog
+header Content-Type == text/html; charset=utf-8
+
+GET https://go.dev/blog/2010/08/defer-panic-and-recover.html
+redirect == /blog/defer-panic-and-recover
+
+GET https://go.dev/blog/upcoming-google-io-go-events
+redirect == /blog/io2010-preview
+
+GET https://go.dev/blog/strings
+body contains produces this mess
+body contains <div class="playground"
+body contains <pre contenteditable="true" spellcheck="false">package main
+
+GET https://go.dev/blog/race-detector
+body contains <span class="number">11&nbsp;&nbsp;</span>    start := time.Now()
+
+GET https://go.dev/blog/go2draft
+body contains <iframe
+
+GET https://go.dev/blog/gouk15
+body contains <img
+
+GET https://golang.org/blog/
+redirect == /blog
+
+GET https://golang.org/blog
+redirect == https://go.dev/blog
+
+GET https://go.dev/blog
+redirect == /blog/
+
+GET https://blog.golang.org/
+redirect == https://go.dev/blog/
+
+GET https://go.dev/blog/
+body contains The Go Blog
+
+GET https://blog.golang.org/x
+redirect == /x/
+
+GET https://blog.golang.org/x/
+redirect == https://go.dev/blog/x/
+
+GET https://go.dev/blog/x/
+code == 404
+
+GET https://blog.golang.org/go1.16
+redirect == https://go.dev/blog/go1.16
+
+GET https://go.dev/blog/go1.16
+body contains Go 1.16
