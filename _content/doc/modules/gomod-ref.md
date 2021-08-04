@@ -183,9 +183,9 @@ specified by the `go` directive. This has the following effects:
      package transitively imported by a package or test in the main module. (At
      `go 1.16` and lower, an indirect dependency is included only if [minimal
      version selection](/ref/mod#minimal-version-selection) would otherwise
-     select a different version.) This extra information enables [lazy
-     loading](/ref/mod#lazy-loading) and [module graph
-     pruning](/ref/mod#graph-pruning).
+     select a different version.) This extra information enables [module graph
+     pruning](/ref/mod#graph-pruning) and [lazy module
+     loading](/ref/mod#lazy-loading).
    * Because there may be many more `// indirect` dependencies than in previous
      `go` versions, indirect dependencies are recorded in a separate block
      within the `go.mod` file.

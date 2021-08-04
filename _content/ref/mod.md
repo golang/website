@@ -571,7 +571,8 @@ specified by the `go` directive. This has the following effects:
      1.16` and lower, an [indirect dependency](#glos-direct-dependency) is
      included only if [minimal version selection](#minimal-version-selection)
      would otherwise select a different version.) This extra information enables
-     [lazy loading](#lazy-loading) and [module graph pruning](#graph-pruning).
+     [module graph pruning](#graph-pruning) and [lazy module
+     loading](#lazy-loading).
    * Because there may be many more `// indirect` dependencies than in previous
      `go` versions, indirect dependencies are recorded in a separate block
      within the `go.mod` file.
@@ -580,7 +581,7 @@ specified by the `go` directive. This has the following effects:
      subdirectories of `vendor` to identify the correct main module.)
    * `go mod vendor` records the `go` version from each dependency's `go.mod`
      file in `vendor/modules.txt`.
-<!-- If you update this list, also update /doc/modules/gomod-ref#go. -->
+<!-- If you update this list, also update /doc/modules/gomod-ref#go-notes. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
@@ -620,9 +621,11 @@ requirement in its own `go.mod` file (such as a dependency that lacks a `go.mod`
 file altogether).
 
 At `go 1.17` and above, the `go` command adds an indirect requirement for each
-module that provides a package transitively imported by any package or test in
-the main module. These extra requirements enable [lazy loading](#lazy-loading)
-and [module graph pruning](#graph-pruning).
+module that provides any package imported (even
+[indirectly](#glos-indirect-dependency)) by a package or test in the main module
+or passed as an argument to `go get`. These more comprehensive requirements
+enable [module graph pruning](#graph-pruning) and [lazy module
+loading](#lazy-loading).
 
 ```
 RequireDirective = "require" ( RequireSpec | "(" newline { RequireSpec } ")" newline ) .
@@ -835,6 +838,8 @@ For example, consider this `go.mod` file:
 ```
 module example.com/M
 
+go 1.16
+
 require (
     example.com/A v1
     example.com/B v1.0.0
@@ -989,62 +994,25 @@ is changed to 1.1.
 suffix after an argument. This works similarly to a downgrade. All versions
 of the named module are removed from the module graph.
 
-## Module graph redundancy {#graph-redundancy}
-
-In a module with a [`go` directive](#go-mod-file-go) at `go 1.17` or higher, the
-`go.mod` file is expected to include an explicit [`require`
-directive](#go-mod-file-require) to the `go.mod` file for the [selected
-version](#glos-selected-version) of every module that provides any package
-imported (even [indirectly](#glos-indirect-dependency)) by a package or test in
-the [main module](#glos-main-module).
-
-When the `go` command loads packages it makes a best effort to check and
-maintain this property: [`go mod tidy`](#go-mod-tidy) adds indirect requirements
-for all packages imported by the main module, and [`go get`](#go-get) adds
-indirect requirements for the packages imported by those named on the command
-line.
-
-A module that _does not_ provide any imported package cannot affect the compiled
-artifacts produced by `go build` and `go test`, so this added redundancy allows
-packages in the main module to be built and tested using only the requirements
-listed in the its own `go.mod` file. The `go` command takes advantage of that
-property to substantially reduce the size of the overall module graph.
-
-(At `go 1.16` and below, the `go.mod` file includes only [direct
-dependencies](#glos-direct-dependency), so a much larger graph must be loaded to
-ensure that all indirect dependencies are included.)
-
-See [the design document](/design/36460-lazy-module-loading) for more detail.
-
-### Lazy loading {#lazy-loading}
-
-If the main module is at `go 1.17` or higher, the `go` command avoids loading
-the complete module graph until (and unless) it is needed. Instead, it loads
-only the main module's `go.mod` file, then attempts to load the packages to be
-built using only those requirements. If a package to be imported (for example, a
-dependency of a test for a package outside the main module) is not found among
-those requirements, then the rest of the module graph is loaded on demand.
-
-If all packages can be found without loading the full module graph, the `go`
-command then loads the `go.mod` files for _only_ the modules containing those
-packages, and their requirements are checked against the requirements of the
-main module to ensure that they are locally consistent. (Inconsistencies can
-arise due to version-control merges, hand-edits, and changes in modules that
-have been [replaced](#go-mod-file-replace) using local filesystem paths.)
-
-### Module graph pruning {#graph-pruning}
+## Module graph pruning {#graph-pruning}
 
 If the main module is at `go 1.17` or higher, the [module
 graph](#glos-module-graph) used for [minimal version
-selection](#minimal-version-selection) includes only the _immediate_ (not
-transitive) requirements for each module dependency that specifies `go 1.17` or
-higher in its own `go.mod` file, unless that version of the module is also
-(transitively) required by some _other_ dependency at `go 1.16` or below.
+selection](#minimal-version-selection) includes only the _immediate_
+requirements for each module dependency that specifies `go 1.17` or higher in
+its own `go.mod` file, unless that version of the module is also (transitively)
+required by some _other_ dependency at `go 1.16` or below. (The _transitive_
+dependencies of `go 1.17` dependencies are _pruned out_ of the module graph.)
 
-Since a `go 1.17` `go.mod` file includes every dependency needed to build any
-package or test in that module, the pruned module graph includes every
-dependency needed to `go build` or `go test` the packages in every dependency
-explicitly [required](#go-mod-file-require) by the main module.
+Since a `go 1.17` `go.mod` file includes a [require
+directive](#go-mod-file-require) for every dependency needed to build any
+package or test in that module, the pruned module graph includes all of the
+dependencies needed to `go build` or `go test` the packages in any dependency
+explicitly required by the [main module](#glos-main-module). A module that is
+_not_ needed to build any package or test in a given module cannot affect the
+run-time behavior of its packages, so the dependencies that are pruned out of
+the module graph would only cause interference between otherwise-unrelated
+modules.
 
 Modules whose requirements have been pruned out still appear in the module graph
 and are still reported by `go list -m all`: their [selected
@@ -1058,10 +1026,11 @@ named package to an explicit dependency, allowing `go build` or `go test` to be
 invoked on that package.
 
 Because Go 1.16 and earlier did not support module graph pruning, the full
-transitive closure of dependencies — including transitive `go 1.17` dependencies
-— is still included for each module that specifies `go 1.16` or lower. (The
-`go.mod` file for a `go 1.16` or lower module does not necessarily include the
-requirements needed to build the packages and tests in that module.)
+transitive closure of dependencies — including transitive `go 1.17`
+dependencies — is still included for each module that specifies `go 1.16` or
+lower. (At `go 1.16` and below, the `go.mod` file includes only
+[direct dependencies](#glos-direct-dependency), so a much larger graph must be
+loaded to ensure that all indirect dependencies are included.)
 
 The [`go.sum` file](#go-sum-files) recorded by [`go mod tidy`](#go-mod-tidy) for
 a module by default includes checksums needed by the Go version _one below_ the
@@ -1071,6 +1040,26 @@ but a `go 1.18` module will include only the checksums needed for the pruned
 module graph loaded by Go 1.17. The `-compat` flag can be used to override the
 default version (for example, to prune the `go.sum` file more aggressively in a
 `go 1.17` module).
+
+See [the design document](/design/36460-lazy-module-loading) for more detail.
+
+### Lazy module loading {#lazy-loading}
+
+The more comprehensive requirements added for module graph pruning also enable
+another optimization when working within a module. If the main module is at
+`go 1.17` or higher, the `go` command avoids loading the complete module graph
+until (and unless) it is needed. Instead, it loads only the main module's
+`go.mod` file, then attempts to load the packages to be built using only those
+requirements. If a package to be imported (for example, a dependency of a test
+for a package outside the main module) is not found among those requirements,
+then the rest of the module graph is loaded on demand.
+
+If all imported packages can be found without loading the module graph, the
+`go` command then loads the `go.mod` files for _only_ the modules containing
+those packages, and their requirements are checked against the requirements of
+the main module to ensure that they are locally consistent. (Inconsistencies can
+arise due to version-control merges, hand-edits, and changes in modules that
+have been [replaced](#go-mod-file-replace) using local filesystem paths.)
 
 ## Compatibility with non-module repositories {#non-module-compat}
 
@@ -1927,12 +1916,12 @@ imported by other packages.
 
 Once `go mod tidy` has loaded this set of packages, it ensures that each module
 that provides one or more packages has a `require` directive in the main
-module's `go.mod` file or, if the main module is at `go 1.16` or below (see
-[Module graph redundancy](#graph-redundancy)), is required by another required
-module. `go mod tidy` will add a requirement on the latest version on each
-missing module (see [Version queries](#version-queries) for the definition of
-the `latest` version). `go mod tidy` will remove `require` directives for
-modules that don't provide any packages in the set described above.
+module's `go.mod` file or — if the main module is at `go 1.16` or below — is
+required by another required module. `go mod tidy` will add a requirement on the
+latest version of each missing module (see [Version queries](#version-queries)
+for the definition of the `latest` version). `go mod tidy` will remove `require`
+directives for modules that don't provide any packages in the set described
+above.
 
 `go mod tidy` may also add or remove `// indirect` comments on `require`
 directives. An `// indirect` comment denotes a module that does not provide a
@@ -1942,8 +1931,9 @@ dependencies and comments are added.)
 
 If the `-go` flag is set, `go mod tidy` will update the [`go`
 directive](#go-mod-file-go) to the indicated version, enabling or disabling
-[lazy loading](#lazy-loading) and [module graph pruning](#graph-pruning) (and
-adding or removing indirect requirements as needed) according to that version.
+[module graph pruning](#graph-pruning) and [lazy module loading](#lazy-loading)
+(and adding or removing indirect requirements as needed) according to that
+version.
 
 By default, `go mod tidy` will check that the [selected
 versions](#glos-selected-version) of modules do not change when the module graph
@@ -4062,6 +4052,11 @@ or a module that appears in the [module graph](#glos-module-graph) but does not
 provide any package directly imported by the main module.
 (Compare [direct dependency](#glos-direct-dependency).)
 
+<a id="glos-lazy-module-loading"></a>
+**lazy module loading:** A change in Go 1.17 that avoids loading the [module
+graph](#glos-module-graph) for commands that do not need it in modules that
+specify `go 1.17` or higher. See [Lazy module loading](#lazy-loading).
+
 <a id="glos-main-module"></a>
 **main module:** The module in which the `go` command is invoked. The main
 module is defined by a [`go.mod` file](#glos-go-mod-file) in the current
@@ -4112,6 +4107,11 @@ distributed together.
 module](#glos-main-module). Each vertex in the graph is a module; each edge is a
 version from a `require` statement in a `go.mod` file (subject to `replace` and
 `exclude` statements in the main module's `go.mod` file.
+
+<a id="glos-module-graph-pruning"></a>
+**module graph pruning:** A change in Go 1.17 that reduces the size of the
+module graph by omitting transitive dependencies of modules that specify `go
+1.17` or higher. See [Module graph pruning](#graph-pruning).
 
 <a id="glos-module-path"></a>
 **module path:** A path that identifies a module and acts as a prefix for
