@@ -2893,6 +2893,28 @@ the `.zip` file are [authenticated](#authenticating) before extraction into the
 module cache the same way they would be if the `.zip` file were downloaded from
 a proxy.
 
+### Special case for LICENSE files {#vcs-license}
+
+When the `go` command creates a `.zip` file for a module that is not in the
+repository root directory, if the module does not have a file named `LICENSE`
+in its root directory (alongside `go.mod`), the `go` command will copy the
+file named `LICENSE` from the repository root directory if it is present in
+the same revision.
+
+This special case allows the same `LICENSE` file to apply to all modules within
+a repository. This only applies to files named `LICENSE` specifically, without
+extensions like `.txt`. Unfortunately, this cannot be extended without breaking
+cryptographic sums of exesting modules; see [Authenticating
+modules](#authenticating). Other tools and websites like
+[pkg.go.dev](https://pkg.go.dev) may recognize files with other names.
+
+Note also that the `go` command does not include symbolic links when creating
+module `.zip` files; see [File path and size
+constraints](#zip-path-size-constraints). Consequently, if a repository does not
+have a `LICENSE` file in its root directory, authors may instead create copies
+of their license files in modules defined in subdirectories to ensure those
+files are included in module `.zip` files.
+
 ### Controlling version control tools with `GOVCS` {#vcs-govcs}
 
 The `go` command's ability to download modules with version control commands
