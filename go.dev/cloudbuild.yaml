@@ -3,17 +3,17 @@
 # Do not run directly.
 
 steps:
-  - name: 'mirror.gcr.io/library/golang'
+  - name: 'golang'
     args: ["go", "test", "./..."]
     dir: go.dev
-  - name: 'mirror.gcr.io/library/golang'
+  - name: 'golang'
     entrypoint: bash
     args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
     dir: go.dev
   - name: "gcr.io/cloud-builders/gcloud"
     entrypoint: bash
     args: ["./go-app-deploy.sh", "--project=go-discovery", "go.dev/app.yaml"]
-  - name: 'mirror.gcr.io/library/golang'
+  - name: 'golang'
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=go-discovery", "--service=go-dev",

@@ -3,13 +3,13 @@
 # Do not run directly.
 
 steps:
-  - name: 'mirror.gcr.io/library/golang'
+  - name: 'golang'
     args: ["go", "test", "./..."]
     dir: tour
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "tour/app.yaml"]
-  - name: 'mirror.gcr.io/library/golang'
+  - name: 'golang'
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=$PROJECT_ID", "--service=tour",

@@ -13,14 +13,14 @@ steps:
     args: [
       "archive", "--format=zip", "--output=../_goroot.zip", "HEAD",
     ]
-  - name: mirror.gcr.io/library/golang
+  - name: golang
     args: ["rm", "-rf", "_gotmp"]
-  - name: mirror.gcr.io/library/golang
+  - name: golang
     args: ["go", "test", "./..."]
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]
-  - name: mirror.gcr.io/library/golang
+  - name: golang
     args: [
       "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=$PROJECT_ID", "--service=default",
