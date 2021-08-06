@@ -1277,13 +1277,13 @@ packages from those downloaded copies. <dfn>Vendoring</dfn> may be used to allow
 interoperation with older versions of Go, or to ensure that all files used for a
 build are stored in a single file tree.
 
-The `go mod vendor` command constructs a directory named `vendor` in the [main
-module's](#glos-main-module) root directory containing copies of all packages
-needed to build and test packages in the main module. Packages that are only
-imported by tests of packages outside the main module are not included. As with
-[`go mod tidy`](#go-mod-tidy) and other module commands, [build
-constraints](#glos-build-constraint) except for `ignore` are not considered when
-constructing the `vendor` directory.
+The [`go mod vendor`](#go-mod-vendor) command constructs a directory named
+`vendor` in the [main module's](#glos-main-module) root directory containing
+copies of all packages needed to build and test packages in the main module.
+Packages that are only imported by tests of packages outside the main module are
+not included. As with [`go mod tidy`](#go-mod-tidy) and other module commands,
+[build constraints](#glos-build-constraint) except for `ignore` are not
+considered when constructing the `vendor` directory.
 
 `go mod vendor` also creates the file `vendor/modules.txt` that contains a list
 of vendored packages and the module versions they were copied from. When
@@ -1309,9 +1309,13 @@ work differently when vendoring is enabled and will still download modules and
 access the module cache. [`go get`](#go-get) also does not work differently when
 vendoring is enabled.
 
-Unlike [vendoring in `GOPATH`](https://golang.org/s/go15vendor), the `go`
+Unlike [vendoring in `GOPATH` mode](https://golang.org/s/go15vendor), the `go`
 command ignores vendor directories in locations other than the main module's
-root directory.
+root directory. Additionally, since vendor directories in other modules are not
+used, the `go` command does not include vendor directories when building [module
+zip files](#zip-files) (but see known bugs
+[#31562](https://golang.org/issue/31562) and
+[#37397](https://golang.org/issue/37397)).
 
 ### `go get` {#go-get}
 
@@ -3036,6 +3040,8 @@ a wide range of platforms.
 * Symbolic links and other irregular files are ignored when creating zip files,
   since they aren't portable across operating systems and file systems, and
   there's no portable way to represent them in the zip file format.
+* Files within directories named `vendor` are ignored when creating zip files,
+  since `vendor` directories outside the main module are never used.
 * No two files within a zip file may have paths equal under Unicode case-folding
   (see [`strings.EqualFold`](https://pkg.go.dev/strings?tab=doc#EqualFold)).
   This ensures that zip files can be extracted on case-insensitive file systems
