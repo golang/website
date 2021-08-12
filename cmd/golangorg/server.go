@@ -159,6 +159,12 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("loading beta site: %v", err)
 	}
 
+	// m.golang.org is an old shortcut for golang.org mail.
+	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
+	// Golang.org's HSTS header tells browsers to use HTTPS for all subdomains,
+	// which broke the redirect.
+	mux.Handle("m.golang.org/", redirectAll("https://mail.google.com/a/golang.org/"))
+
 	if !isTestBinary {
 		go watchTip(&tipGoroot)
 	}
@@ -602,4 +608,10 @@ func (a *atomicFS) Open(name string) (fs.File, error) {
 		return nil, &fs.PathError{Path: name, Op: "open", Err: fmt.Errorf("no file system")}
 	}
 	return (*fsys).Open(name)
+}
+
+func redirectAll(url string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, url, http.StatusMovedPermanently)
+	})
 }

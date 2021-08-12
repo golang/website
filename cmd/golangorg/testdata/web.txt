@@ -197,3 +197,9 @@ body contains []byte(&#34;orders&#34;)
 body !contains []byte(&amp;#34;orders&amp;#34;)
 body contains <span class="comment">
 body !contains &lt;span class=&#34;comment&#34;&gt;
+
+GET https://m.golang.org/
+redirect == https://mail.google.com/a/golang.org/
+
+GET https://m.golang.org/anything
+redirect == https://mail.google.com/a/golang.org/
