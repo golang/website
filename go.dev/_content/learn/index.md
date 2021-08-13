@@ -1,5 +1,5 @@
 ---
-title: "Getting Started"
+title: "Get Started"
 ---
 
 <section class="Learn-hero">

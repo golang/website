@@ -444,6 +444,14 @@ type linkRewriter struct {
 	ct   string // content-type
 }
 
+func (r *linkRewriter) WriteHeader(code int) {
+	loc := r.Header().Get("Location")
+	if strings.HasPrefix(loc, "/") {
+		r.Header().Set("Location", "/"+r.host+loc)
+	}
+	r.ResponseWriter.WriteHeader(code)
+}
+
 func (r *linkRewriter) Write(data []byte) (int, error) {
 	if r.ct == "" {
 		ct := r.Header().Get("Content-Type")

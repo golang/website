@@ -1,12 +1,16 @@
 main:
   - name: Why Go
     url: /solutions/
-  - name: Getting Started
+  - name: Get Started
     url: /learn/
-  - name: Discover Packages
+  - name: Docs
+    url: https://golang.org/doc/
+  - name: Packages
     url: https://pkg.go.dev
-  - name: About
-    url: /about
+  - name: Play
+    url: https://play.golang.org/
+  - name: Blog
+    url: /blog/
 
 footer:
   - name: Why Go
@@ -17,7 +21,7 @@ footer:
     - name: Case Studies
       url: /solutions/#case-studies
 
-  - name: Getting Started
+  - name: Get Started
     url: /learn/
     children:
     - name: Playground
@@ -27,7 +31,7 @@ footer:
     - name: Stack Overflow
       url: https://stackoverflow.com/questions/tagged/go?tab=Newest
 
-  - name: Discover Packages
+  - name: Packages
     url: https://pkg.go.dev
 
   - name: About
@@ -36,7 +40,7 @@ footer:
     - name: Download
       url: https://golang.org/dl/
     - name: Blog
-      url: https://blog.golang.org
+      url: /blog/
     - name: Issue Tracker
       url: https://github.com/golang/go/issues
     - name: Release Notes

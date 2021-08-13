@@ -59,7 +59,7 @@
         <ul class="Header-menu">
           {{- $currentPage := .}}
           {{- range $menus.main}}
-          <li class="Header-menuItem {{if eq $currentPage.title .name}} Header-menuItem--active{{end}}">
+          <li class="Header-menuItem {{if strings.HasPrefix $currentPage.URL .url}} Header-menuItem--active{{end}}">
             <a href="{{.url}}">{{.name}}</a>
           </li>
           {{- end}}
@@ -93,7 +93,7 @@
     </div>
     <ul class="NavigationDrawer-list">
       {{- range $menus.main}}
-        <li class="NavigationDrawer-listItem {{if eq .url (section $currentPage)}} NavigationDrawer-listItem--active{{end}}">
+        <li class="NavigationDrawer-listItem {{if strings.HasPrefix $currentPage.URL .url}} NavigationDrawer-listItem--active{{end}}">
           <a href="{{.url}}">{{.name}}</a>
         </li>
       {{- end}}
@@ -143,7 +143,7 @@
             </li>
           <li class="Footer-listItem">
             <a
-              href="https://golang.org/s/discovery-feedback"
+              href="https://golang.org/s/website-issue"
               target="_blank"
               rel="noopener"
               >
