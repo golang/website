@@ -2881,11 +2881,22 @@ may have problems though.
 
 Once the `go` command has found the module root directory, it creates a `.zip`
 file of the contents of the directory, then extracts the `.zip` file into the
-module cache. See [File path and size constraints](#zip-path-size-constraints))
+module cache. See [File path and size constraints](#zip-path-size-constraints)
 for details on what files may be included in the `.zip` file. The contents of
 the `.zip` file are [authenticated](#authenticating) before extraction into the
 module cache the same way they would be if the `.zip` file were downloaded from
 a proxy.
+
+Module zip files do not include the contents of `vendor` directories or any
+nested modules (subdirectories that contain `go.mod` files). This means a module
+must take care not to refer to files outside its directory or in other modules.
+For example, [`//go:embed`](https://pkg.go.dev/embed#hdr-Directives) patterns
+must not match files in nested modules. This behavior may serve as a useful
+workaround in situations where files should not be included in a module.
+For example, if a repository has large files checked into a `testdata`
+directory, the module author could add an empty `go.mod` file in `testdata`
+so their users don't need to download those files. Of course, this may reduce
+coverage for users testing their dependencies.
 
 ### Special case for LICENSE files {#vcs-license}
 
@@ -3042,6 +3053,10 @@ a wide range of platforms.
   there's no portable way to represent them in the zip file format.
 * Files within directories named `vendor` are ignored when creating zip files,
   since `vendor` directories outside the main module are never used.
+* Files within directories containing `go.mod` files, other than the module
+  root directory, are ignored when creating zip files, since they are not part
+  of the module. The `go` command ignores subdirectories containing `go.mod`
+  files when extracting zip files.
 * No two files within a zip file may have paths equal under Unicode case-folding
   (see [`strings.EqualFold`](https://pkg.go.dev/strings?tab=doc#EqualFold)).
   This ensures that zip files can be extracted on case-insensitive file systems
