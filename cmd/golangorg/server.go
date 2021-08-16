@@ -153,11 +153,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("loading tip site: %v", err)
 	}
 
-	// TODO(rsc): Replace with redirect to tip
-	// once tip is being served by this app.
-	if _, err := newSite(mux, "beta.golang.org", content, &tipGoroot); err != nil {
-		log.Fatalf("loading beta site: %v", err)
-	}
+	// beta.golang.org is an old name for tip.
+	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -613,5 +610,11 @@ func (a *atomicFS) Open(name string) (fs.File, error) {
 func redirectAll(url string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, url, http.StatusMovedPermanently)
+	})
+}
+
+func redirectPrefix(prefix string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, strings.TrimSuffix(prefix, "/")+"/"+strings.TrimPrefix(r.URL.Path, "/"), http.StatusMovedPermanently)
 	})
 }
