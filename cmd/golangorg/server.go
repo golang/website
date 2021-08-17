@@ -99,8 +99,14 @@ func main() {
 
 	handler := NewHandler(*contentDir, *goroot)
 
-	handler = webtest.HandlerWithCheck(handler, "/_readycheck",
-		filepath.Join(*contentDir, "../cmd/golangorg/testdata/*.txt"))
+	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
+		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
+		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
+			filepath.Join(*contentDir, "../cmd/golangorg/testdata/godev.txt"))
+	} else {
+		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
+			filepath.Join(*contentDir, "../cmd/golangorg/testdata/*.txt"))
+	}
 
 	if *verbose {
 		log.Printf("golang.org server:")
@@ -300,6 +306,12 @@ func watchTip1(tipGoroot *atomicFS) {
 
 func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
+
+	log.Printf("GODEV_IN_GO_DISCOVERY %q PROJECT %q", os.Getenv("GODEV_IN_GO_DISCOVERY"), os.Getenv("PROJECT_ID"))
+	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
+		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
+		return
+	}
 
 	ctx := context.Background()
 
