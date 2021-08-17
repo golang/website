@@ -155,7 +155,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("newSite: %v", err)
 	}
-	if _, err := newSite(mux, "golang.google.cn", content, gorootFS); err != nil {
+	chinaSite, err := newSite(mux, "golang.google.cn", content, gorootFS)
+	if err != nil {
 		log.Fatalf("newSite: %v", err)
 	}
 
@@ -193,11 +194,12 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	}
 
 	if runningOnAppEngine {
-		appEngineSetup(site, mux)
-	} else {
-		// Register a redirect handler for /dl/ to the golang.org download page.
-		mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
+		appEngineSetup(site, chinaSite, mux)
 	}
+
+	// Register a redirect handler for /dl/ to the golang.org download page.
+	// (golang.org/dl and golang.google.cn/dl are registered separately.)
+	mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 
 	godev, err := godevHandler(filepath.Join(contentDir, "../go.dev/_content"))
 	if err != nil {
@@ -304,7 +306,7 @@ func watchTip1(tipGoroot *atomicFS) {
 	}
 }
 
-func appEngineSetup(site *web.Site, mux *http.ServeMux) {
+func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	log.Printf("GODEV_IN_GO_DISCOVERY %q PROJECT %q", os.Getenv("GODEV_IN_GO_DISCOVERY"), os.Getenv("PROJECT_ID"))
@@ -329,7 +331,9 @@ func appEngineSetup(site *web.Site, mux *http.ServeMux) {
 	}
 	memcacheClient := memcache.New(redisAddr)
 
-	dl.RegisterHandlers(mux, site, datastoreClient, memcacheClient)
+	dl.RegisterHandlers(mux, site, "golang.org", datastoreClient, memcacheClient)
+	dl.RegisterHandlers(mux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
+
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
 	proxy.RegisterHandlers(mux, googleCN)
 

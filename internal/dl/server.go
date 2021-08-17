@@ -30,11 +30,11 @@ type server struct {
 	memcache  *memcache.CodecClient
 }
 
-func RegisterHandlers(mux *http.ServeMux, site *web.Site, dc *datastore.Client, mc *memcache.Client) {
+func RegisterHandlers(mux *http.ServeMux, site *web.Site, host string, dc *datastore.Client, mc *memcache.Client) {
 	s := server{site, dc, mc.WithCodec(memcache.Gob)}
-	mux.HandleFunc("/dl", s.getHandler)
-	mux.HandleFunc("/dl/", s.getHandler) // also serves listHandler
-	mux.HandleFunc("/dl/upload", s.uploadHandler)
+	mux.HandleFunc(host+"/dl", s.getHandler)
+	mux.HandleFunc(host+"/dl/", s.getHandler) // also serves listHandler
+	mux.HandleFunc(host+"/dl/upload", s.uploadHandler)
 
 	// NOTE(cbro): this only needs to be run once per project,
 	// and should be behind an admin login.
