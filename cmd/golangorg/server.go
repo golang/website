@@ -160,7 +160,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
 	// Golang.org's HSTS header tells browsers to use HTTPS for all subdomains,
 	// which broke the redirect.
-	mux.Handle("m.golang.org/", redirectAll("https://mail.google.com/a/golang.org/"))
+	mux.Handle("m.golang.org/", http.RedirectHandler("https://mail.google.com/a/golang.org/", http.StatusMovedPermanently))
 
 	if !isTestBinary {
 		go watchTip(&tipGoroot)
@@ -333,6 +333,7 @@ func fmtHandler(w http.ResponseWriter, r *http.Request) {
 var validHosts = map[string]bool{
 	"golang.org":       true,
 	"golang.google.cn": true,
+	"m.golang.org":     true,
 	"tip.golang.org":   true,
 	"beta.golang.org":  true,
 }
@@ -605,12 +606,6 @@ func (a *atomicFS) Open(name string) (fs.File, error) {
 		return nil, &fs.PathError{Path: name, Op: "open", Err: fmt.Errorf("no file system")}
 	}
 	return (*fsys).Open(name)
-}
-
-func redirectAll(url string) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, url, http.StatusMovedPermanently)
-	})
 }
 
 func redirectPrefix(prefix string) http.Handler {
