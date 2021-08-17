@@ -64,11 +64,8 @@ window.trackEvent = function(category, action, opt_label, opt_value, opt_noninte
 {{define "breadcrumb"}}
   {{$elems := strings.Split (strings.Trim . "/") "/"}}
   {{$prefix := slice $elems 0 (sub (len $elems) 1)}}
-  {{if strings.HasSuffix . "/"}}
-    {{$prefix = slice $elems 0 (sub (len $elems) 2)}}
-  {{end}}
   {{range $i, $elem := $prefix -}}
-    <a href="/{{strings.Join (slice $prefix 0 (add $i 1)) "/"}}">{{$elem}}</a>/
+    <a href="/{{strings.Join (slice $prefix 0 (add $i 1)) "/"}}/">{{$elem}}</a>/
   {{- end -}}
   <span class="text-muted">{{strings.Join (slice $elems (len $prefix) (len $elems)) "/"}}</span>
 {{end}}
