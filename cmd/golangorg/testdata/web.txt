@@ -219,4 +219,4 @@ body contains <td>How to Write a Codewalk</td>
 
 GET https://golang.org/asdf
 code == 404
-body ~ <span class="alert" style="font-size:120%">open ../../_content/asdf: (.*)</span>
+body ~ <span class="alert" style="font-size:120%">open (../../)?_content/asdf: (.*)</span>

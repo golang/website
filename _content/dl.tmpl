@@ -89,6 +89,7 @@ $(document).ready(function() {
 });
 </script>
 {{end}}
+{{end}}
 
 {{define "download-releases"}}
 {{range .}}
@@ -157,5 +158,4 @@ go get golang.org/dl/{{.Version}}
   {{if .Size}}<span class="size">({{.PrettySize}})</span>{{end}}
 </div>
 </a>
-{{end}}
 {{end}}
