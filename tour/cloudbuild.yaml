@@ -14,7 +14,6 @@ steps:
       "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=$PROJECT_ID", "--service=tour",
     ]
-    dir: go.dev
 
 options:
   machineType: E2_HIGHCPU_8

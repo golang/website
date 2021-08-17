@@ -19,7 +19,7 @@ steps:
     args: ["go", "test", "./..."]
   - name: golang
     entrypoint: bash
-    args: ["-c", "go run ./go.dev/cmd/events/ > ./go.dev/_content/events.yaml"]
+    args: ["-c", "go run ./cmd/events/ > ./go.dev/_content/events.yaml"]
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]
@@ -28,12 +28,12 @@ steps:
     args: ["./go-app-deploy.sh", "--project=go-discovery", "cmd/golangorg/godevapp.yaml"]
   - name: golang
     args: [
-      "go", "run", "./go.dev/cmd/versionprune", "--dry_run=false",
+      "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=$PROJECT_ID", "--service=default",
     ]
   - name: golang
     args: [
-      "go", "run", "./go.dev/cmd/versionprune", "--dry_run=false",
+      "go", "run", "./cmd/versionprune", "--dry_run=false",
       "--project=go-discovery", "--service=go-dev",
     ]
 
