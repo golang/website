@@ -483,7 +483,7 @@ All these constants have numeric value 1:
 	1.0+3i-3.0i
 
 Therefore, although they have different implicit default types,
-written as untyped constants they can be assigned to a variable of any integer type:
+written as untyped constants they can be assigned to a variable of any numeric type:
 
 .play -edit constants/numbers1.go /START/,/STOP/
 
