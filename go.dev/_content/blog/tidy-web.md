@@ -6,7 +6,7 @@ by:
 summary: Consolidating our web sites onto go.dev.
 ---
 
-In 2019, which seems like a decade ago, we [launched go.dev](/go.dev),
+In 2019, which seems like a decade ago, we [launched go.dev](/blog/go.dev),
 a new hub for Go developers, along with the [companion site pkg.go.dev](https://pkg.go.dev/),
 providing information about Go packages and modules.
 
