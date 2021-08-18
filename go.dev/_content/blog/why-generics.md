@@ -607,7 +607,7 @@ types the function is expected to be used with.
 It lets the caller of the generic function clearly see whether the
 function is applicable for the types being used.
 
-In practice this contract would probably go into the standard library.
+In practice this contract would probably go into the standard library,
 and so really the Min function (which will probably also be in the
 standard library somewhere) will look like this.  Here we're just
 referring to the contract Ordered defined in the package contracts.
