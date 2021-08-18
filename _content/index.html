@@ -142,7 +142,7 @@ func main() {
     window.initFuncs.push(function() {
       // Load blog feed.
       $("<script/>")
-        .attr("src", "//blog.golang.org/.json?jsonp=feedLoaded")
+        .attr("src", "https://go.dev/blog/.json?jsonp=feedLoaded")
         .appendTo("body");
 
       // Set the video at random.

@@ -183,7 +183,8 @@ func RegisterFeeds(mux *http.ServeMux, host string, site *web.Site) error {
 	jsonHandler := func(w http.ResponseWriter, r *http.Request) {
 		if p := r.FormValue("jsonp"); validJSONPFunc.MatchString(p) {
 			w.Header().Set("Content-type", "application/javascript; charset=utf-8")
-			io.WriteString(w, p)
+			io.WriteString(w, p+"(")
+			defer io.WriteString(w, ")")
 		} else {
 			w.Header().Set("Content-type", "application/json; charset=utf-8")
 		}
