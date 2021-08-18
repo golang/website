@@ -35,7 +35,6 @@ import (
 	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
-	"golang.org/x/website/internal/env"
 	"golang.org/x/website/internal/gitfs"
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/memcache"
@@ -211,9 +210,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
 
 	var h http.Handler = mux
-	if env.EnforceHosts() {
-		h = hostEnforcerHandler(h)
-	}
+	h = hostEnforcerHandler(h)
 	h = hostPathHandler(h)
 	return h
 }
@@ -362,13 +359,15 @@ func fmtHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var validHosts = map[string]bool{
-	"go.dev":           true,
-	"learn.go.dev":     true,
 	"golang.org":       true,
 	"golang.google.cn": true,
+	"beta.golang.org":  true,
+	"blog.golang.org":  true,
 	"m.golang.org":     true,
 	"tip.golang.org":   true,
-	"beta.golang.org":  true,
+
+	"go.dev":       true,
+	"learn.go.dev": true,
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.

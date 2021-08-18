@@ -12,21 +12,13 @@ import (
 	"strconv"
 )
 
-var (
-	enforceHosts       = boolEnv("GOLANGORG_ENFORCE_HOSTS")
-	requireDLSecretKey = boolEnv("GOLANGORG_REQUIRE_DL_SECRET_KEY")
-)
+var requireDLSecretKey = boolEnv("GOLANGORG_REQUIRE_DL_SECRET_KEY")
 
 // RequireDLSecretKey reports whether the download server secret key
 // is expected to already exist, and the download server should panic
 // on missing key instead of creating a new one.
 func RequireDLSecretKey() bool {
 	return requireDLSecretKey
-}
-
-// EnforceHosts reports whether host filtering should be enforced.
-func EnforceHosts() bool {
-	return enforceHosts
 }
 
 func boolEnv(key string) bool {
