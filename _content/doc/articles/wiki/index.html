@@ -74,7 +74,7 @@ Here, we define <code>Page</code> as a struct with two fields representing
 the title and body.
 </p>
 
-{{code "doc/articles/wiki/part1.go" `/^type Page/` `/}/`}}
+{{code "part1.go" `/^type Page/` `/}/`}}
 
 <p>
 The type <code>[]byte</code> means "a <code>byte</code> slice".
@@ -91,7 +91,7 @@ But what about persistent storage? We can address that by creating a
 <code>save</code> method on <code>Page</code>:
 </p>
 
-{{code "doc/articles/wiki/part1.go" `/^func.*Page.*save/` `/}/`}}
+{{code "part1.go" `/^func.*Page.*save/` `/}/`}}
 
 <p>
 This method's signature reads: "This is a method named <code>save</code> that
@@ -125,7 +125,7 @@ read-write permissions for the current user only. (See the Unix man page
 In addition to saving pages, we will want to load pages, too:
 </p>
 
-{{code "doc/articles/wiki/part1-noerror.go" `/^func loadPage/` `/^}/`}}
+{{code "part1-noerror.go" `/^func loadPage/` `/^}/`}}
 
 <p>
 The function <code>loadPage</code> constructs the file name from the title
@@ -148,7 +148,7 @@ the file might not exist. We should not ignore such errors.  Let's modify the
 function to return <code>*Page</code> and <code>error</code>.
 </p>
 
-{{code "doc/articles/wiki/part1.go" `/^func loadPage/` `/^}/`}}
+{{code "part1.go" `/^func loadPage/` `/^}/`}}
 
 <p>
 Callers of this function can now check the second parameter; if it is
@@ -163,7 +163,7 @@ load from a file. Let's write a <code>main</code> function to test what we've
 written:
 </p>
 
-{{code "doc/articles/wiki/part1.go" `/^func main/` `/^}/`}}
+{{code "part1.go" `/^func main/` `/^}/`}}
 
 <p>
 After compiling and executing this code, a file named <code>TestPage.txt</code>
@@ -197,7 +197,7 @@ This is a sample Page.
 Here's a full working example of a simple web server:
 </p>
 
-{{code "doc/articles/wiki/http-sample.go"}}
+{{code "http-sample.go"}}
 
 <p>
 The <code>main</code> function begins with a call to
@@ -267,7 +267,7 @@ Let's create a handler, <code>viewHandler</code> that will allow users to
 view a wiki page. It will handle URLs prefixed with "/view/".
 </p>
 
-{{code "doc/articles/wiki/part2.go" `/^func viewHandler/` `/^}/`}}
+{{code "part2.go" `/^func viewHandler/` `/^}/`}}
 
 <p>
 Again, note the use of <code>_</code> to ignore the <code>error</code>
@@ -295,7 +295,7 @@ initialize <code>http</code> using the <code>viewHandler</code> to handle
 any requests under the path <code>/view/</code>.
 </p>
 
-{{code "doc/articles/wiki/part2.go" `/^func main/` `/^}/`}}
+{{code "part2.go" `/^func main/` `/^}/`}}
 
 <p>
 <a href="part2.go">Click here to view the code we've written so far.</a>
@@ -340,7 +340,7 @@ form.
 First, we add them to <code>main()</code>:
 </p>
 
-{{code "doc/articles/wiki/final-noclosure.go" `/^func main/` `/^}/`}}
+{{code "final-noclosure.go" `/^func main/` `/^}/`}}
 
 <p>
 The function <code>editHandler</code> loads the page
@@ -348,7 +348,7 @@ The function <code>editHandler</code> loads the page
 and displays an HTML form.
 </p>
 
-{{code "doc/articles/wiki/notemplate.go" `/^func editHandler/` `/^}/`}}
+{{code "notemplate.go" `/^func editHandler/` `/^}/`}}
 
 <p>
 This function will work fine, but all that hard-coded HTML is ugly.
@@ -382,14 +382,14 @@ Let's create a template file containing the HTML form.
 Open a new file named <code>edit.html</code>, and add the following lines:
 </p>
 
-{{code "doc/articles/wiki/edit.html"}}
+{{code "edit.html"}}
 
 <p>
 Modify <code>editHandler</code> to use the template, instead of the hard-coded
 HTML:
 </p>
 
-{{code "doc/articles/wiki/final-noerror.go" `/^func editHandler/` `/^}/`}}
+{{code "final-noerror.go" `/^func editHandler/` `/^}/`}}
 
 <p>
 The function <code>template.ParseFiles</code> will read the contents of
@@ -420,13 +420,13 @@ Since we're working with templates now, let's create a template for our
 <code>viewHandler</code> called <code>view.html</code>:
 </p>
 
-{{code "doc/articles/wiki/view.html"}}
+{{code "view.html"}}
 
 <p>
 Modify <code>viewHandler</code> accordingly:
 </p>
 
-{{code "doc/articles/wiki/final-noerror.go" `/^func viewHandler/` `/^}/`}}
+{{code "final-noerror.go" `/^func viewHandler/` `/^}/`}}
 
 <p>
 Notice that we've used almost exactly the same templating code in both
@@ -434,14 +434,14 @@ handlers. Let's remove this duplication by moving the templating code
 to its own function:
 </p>
 
-{{code "doc/articles/wiki/final-template.go" `/^func renderTemplate/` `/^}/`}}
+{{code "final-template.go" `/^func renderTemplate/` `/^}/`}}
 
 <p>
 And modify the handlers to use that function:
 </p>
 
-{{code "doc/articles/wiki/final-template.go" `/^func viewHandler/` `/^}/`}}
-{{code "doc/articles/wiki/final-template.go" `/^func editHandler/` `/^}/`}}
+{{code "final-template.go" `/^func viewHandler/` `/^}/`}}
+{{code "final-template.go" `/^func editHandler/` `/^}/`}}
 
 <p>
 If we comment out the registration of our unimplemented save handler in
@@ -460,7 +460,7 @@ with no data. Instead, if the requested Page doesn't exist, it should
 redirect the client to the edit Page so the content may be created:
 </p>
 
-{{code "doc/articles/wiki/part3-errorhandling.go" `/^func viewHandler/` `/^}/`}}
+{{code "part3-errorhandling.go" `/^func viewHandler/` `/^}/`}}
 
 <p>
 The <code>http.Redirect</code> function adds an HTTP status code of
@@ -476,7 +476,7 @@ located on the edit pages. After uncommenting the related line in
 <code>main</code>, let's implement the handler:
 </p>
 
-{{code "doc/articles/wiki/final-template.go" `/^func saveHandler/` `/^}/`}}
+{{code "final-template.go" `/^func saveHandler/` `/^}/`}}
 
 <p>
 The page title (provided in the URL) and the form's only field,
@@ -506,7 +506,7 @@ will function exactly how we want and the user can be notified.
 First, let's handle the errors in <code>renderTemplate</code>:
 </p>
 
-{{code "doc/articles/wiki/final-parsetemplate.go" `/^func renderTemplate/` `/^}/`}}
+{{code "final-parsetemplate.go" `/^func renderTemplate/` `/^}/`}}
 
 <p>
 The <code>http.Error</code> function sends a specified HTTP response code
@@ -518,7 +518,7 @@ Already the decision to put this in a separate function is paying off.
 Now let's fix up <code>saveHandler</code>:
 </p>
 
-{{code "doc/articles/wiki/part3-errorhandling.go" `/^func saveHandler/` `/^}/`}}
+{{code "part3-errorhandling.go" `/^func saveHandler/` `/^}/`}}
 
 <p>
 Any errors that occur during <code>p.save()</code> will be reported
@@ -542,7 +542,7 @@ First we create a global variable named <code>templates</code>, and initialize
 it with <code>ParseFiles</code>.
 </p>
 
-{{code "doc/articles/wiki/final.go" `/var templates/`}}
+{{code "final.go" `/var templates/`}}
 
 <p>
 The function <code>template.Must</code> is a convenience wrapper that panics
@@ -565,7 +565,7 @@ We then modify the <code>renderTemplate</code> function to call the
 template:
 </p>
 
-{{code "doc/articles/wiki/final.go" `/func renderTemplate/` `/^}/`}}
+{{code "final.go" `/func renderTemplate/` `/^}/`}}
 
 <p>
 Note that the template name is the template file name, so we must
@@ -586,7 +586,7 @@ Then we can create a global variable to store our validation
 expression:
 </p>
 
-{{code "doc/articles/wiki/final-noclosure.go" `/^var validPath/`}}
+{{code "final-noclosure.go" `/^var validPath/`}}
 
 <p>
 The function <code>regexp.MustCompile</code> will parse and compile the
@@ -601,7 +601,7 @@ Now, let's write a function that uses the <code>validPath</code>
 expression to validate path and extract the page title:
 </p>
 
-{{code "doc/articles/wiki/final-noclosure.go" `/func getTitle/` `/^}/`}}
+{{code "final-noclosure.go" `/func getTitle/` `/^}/`}}
 
 <p>
 If the title is valid, it will be returned along with a <code>nil</code>
@@ -615,9 +615,9 @@ package.
 Let's put a call to <code>getTitle</code> in each of the handlers:
 </p>
 
-{{code "doc/articles/wiki/final-noclosure.go" `/^func viewHandler/` `/^}/`}}
-{{code "doc/articles/wiki/final-noclosure.go" `/^func editHandler/` `/^}/`}}
-{{code "doc/articles/wiki/final-noclosure.go" `/^func saveHandler/` `/^}/`}}
+{{code "final-noclosure.go" `/^func viewHandler/` `/^}/`}}
+{{code "final-noclosure.go" `/^func editHandler/` `/^}/`}}
+{{code "final-noclosure.go" `/^func saveHandler/` `/^}/`}}
 
 <h2>Introducing Function Literals and Closures</h2>
 
@@ -668,7 +668,7 @@ Now we can take the code from <code>getTitle</code> and use it here
 (with some minor modifications):
 </p>
 
-{{code "doc/articles/wiki/final.go" `/func makeHandler/` `/^}/`}}
+{{code "final.go" `/func makeHandler/` `/^}/`}}
 
 <p>
 The closure returned by <code>makeHandler</code> is a function that takes
@@ -689,16 +689,16 @@ Now we can wrap the handler functions with <code>makeHandler</code> in
 package:
 </p>
 
-{{code "doc/articles/wiki/final.go" `/func main/` `/^}/`}}
+{{code "final.go" `/func main/` `/^}/`}}
 
 <p>
 Finally we remove the calls to <code>getTitle</code> from the handler functions,
 making them much simpler:
 </p>
 
-{{code "doc/articles/wiki/final.go" `/^func viewHandler/` `/^}/`}}
-{{code "doc/articles/wiki/final.go" `/^func editHandler/` `/^}/`}}
-{{code "doc/articles/wiki/final.go" `/^func saveHandler/` `/^}/`}}
+{{code "final.go" `/^func viewHandler/` `/^}/`}}
+{{code "final.go" `/^func editHandler/` `/^}/`}}
+{{code "final.go" `/^func saveHandler/` `/^}/`}}
 
 <h2>Try it out!</h2>
 

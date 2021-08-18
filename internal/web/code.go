@@ -131,7 +131,7 @@ func match(file string, start int, lines []string, pattern string) int {
 	}
 	// /regexp/ matches the line that matches the regexp.
 	if len(pattern) > 2 && pattern[0] == '/' && pattern[len(pattern)-1] == '/' {
-		re, err := regexp.Compile(pattern[1 : len(pattern)-1])
+		re, err := regexp.Compile("(?m)" + pattern[1:len(pattern)-1])
 		if err != nil {
 			log.Panic(err)
 		}
