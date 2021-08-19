@@ -16,8 +16,8 @@
   var headerEl = document.querySelector('.js-header');
   var menuButtonEl = document.querySelector('.js-headerMenuButton');
 
-  const path = window.location.pathname
-  if (!path.includes("/blog/") && path.includes("/doc/")) {
+  const path = window.location.pathname;
+  if (path.indexOf("/blog/") == -1 && path.indexOf("/doc/") != -1) {
     menuButtonEl.addEventListener('click', function(e) {
       e.preventDefault();
       headerEl.classList.toggle('is-active');
