@@ -1051,11 +1051,18 @@ func Foo() bool {
     </p>
 
     <p><!-- CL 301652 -->
-      Checking the <a href="/pkg/reflect/#Type"><code>Type.ConvertibleTo</code></a> method
+      Checking the <a href="/pkg/reflect/#Type.ConvertibleTo"><code>Type.ConvertibleTo</code></a> method
       is no longer sufficient to guarantee that a call to
       <a href="/pkg/reflect/#Value.Convert"><code>Value.Convert</code></a> will not panic.
       It may panic when converting `[]T` to `*[N]T` if the slice's length is less than N.
       See the <a href="#language">language changes</a> section above.
+    </p>
+
+    <p><!-- CL 309729 -->
+      The <a href="/pkg/reflect/#Value.Convert"><code>Value.Convert</code></a> and
+      <a href="/pkg/reflect/#Type.ConvertibleTo"><code>Type.ConvertibleTo</code></a> methods
+      have been fixed to not treat types in different packages with the same name
+      as identical, to match what the language allows.
     </p>
   </dd>
 </dl><!-- reflect -->
