@@ -78,8 +78,11 @@ Your initial commit should include files listed in the following table:
         <a href="gomod-ref">go.mod reference</a>.</p>
       <p>The module path will be given in a module directive, such as:</p>
       <pre>module example.com/mymodule</pre>
-      <p>Though you can edit this file, much of it is maintained for you by go
-      commands.</p>
+      <p>For more about choosing a module path, see
+          <a href="/doc/modules/managing-dependencies#naming_module">Managing
+          dependencies</a>.</p>
+      <p>Though you can edit the go.mod file, you'll find it more reliable to
+          make changes through <code>go</code> commands.</p>
       </td>
     </tr>
     <tr class="DocTable-row">
@@ -90,7 +93,7 @@ Your initial commit should include files listed in the following table:
         authentic. Where this confirmation fails, Go will display a security error.<p>
       <p>The file will be empty or not present when there are no dependencies.
         You shouldn't edit this file except by using the <code>go mod tidy</code>
-      command, which removes unneeded entries.</p>
+        command, which removes unneeded entries.</p>
       </td>
     </tr>
     <tr class="DocTable-row">

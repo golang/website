@@ -104,20 +104,24 @@ cd hello
       the
       <a href="/ref/mod#go-mod-init"><code>go mod init</code> command</a>,
         giving it the name of the module your code will be in. The name is the
-        module's module path. In most cases, this will be the repository
-        location where your source code will be kept, such as
-        <code>github.com/mymodule</code>. If you plan to publish your module
-        for others to use, the module path <em>must</em> be a location from
-        which Go tools can download your module.
+        module's module path.</p>
+    <p>In actual development, the module path will typically be the repository
+        location where your source code will be kept. For example, the module
+        path might be <code>github.com/mymodule</code>. If you plan to publish
+        your module for others to use, the module path <em>must</em> be a
+        location from which Go tools can download your module. For more about
+        naming a module with a module path, see
+        <a href="/doc/modules/managing-dependencies#naming_module">Managing
+            dependencies</a>.
     </p>
 
       <p>For the purposes of this tutorial, just use
-        <code>example.com/hello</code>.
+          <code>example/hello</code>.
     </p>
 
     <pre>
-$ go mod init example.com/hello
-go: creating new go.mod: module example.com/hello
+$ go mod init example/hello
+go: creating new go.mod: module example/hello
 </pre
     >
   </li>

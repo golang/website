@@ -98,13 +98,13 @@ To begin, create a project for the code you'll write.
     will be in.
 
     ```
-    $ go mod init example.com/web-service-gin
-    go: creating new go.mod: module example.com/web-service-gin
+    $ go mod init example/web-service-gin
+    go: creating new go.mod: module example/web-service-gin
     ```
 
     This command creates a go.mod file in which dependencies you add will be
-    listed for tracking. For more, be sure to see
-    [Managing dependencies](/doc/modules/managing-dependencies).
+    listed for tracking. For more about naming a module with a module path, see
+    [Managing dependencies](/doc/modules/managing-dependencies#naming_module).
 
 Next, you'll design data structures for handling data.
 

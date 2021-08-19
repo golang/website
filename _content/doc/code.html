@@ -66,17 +66,17 @@ not have a module path prefix.
 
 <p>
 To compile and run a simple program, first choose a module path (we'll use
-<code>example.com/user/hello</code>) and create a <code>go.mod</code> file that
+<code>example/user/hello</code>) and create a <code>go.mod</code> file that
 declares it:
 </p>
 
 <pre>
 $ mkdir hello # Alternatively, clone it if it already exists in version control.
 $ cd hello
-$ <b>go mod init example.com/user/hello</b>
-go: creating new go.mod: module example.com/user/hello
+$ <b>go mod init example/user/hello</b>
+go: creating new go.mod: module example/user/hello
 $ cat go.mod
-module example.com/user/hello
+module example/user/hello
 
 go 1.16
 $
@@ -108,7 +108,7 @@ Now you can build and install that program with the <code>go</code> tool:
 </p>
 
 <pre>
-$ <b>go install example.com/user/hello</b>
+$ <b>go install example/user/hello</b>
 $
 </pre>
 
@@ -151,7 +151,7 @@ $
 <p>
 Commands like <code>go install</code> apply within the context of the module
 containing the current working directory. If the working directory is not within
-the <code>example.com/user/hello</code> module, <code>go install</code> may fail.
+the <code>example/user/hello</code> module, <code>go install</code> may fail.
 </p>
 
 <p>
@@ -162,7 +162,7 @@ So in our working directory, the following commands are all equivalent:
 </p>
 
 <pre>
-$ go install example.com/user/hello
+$ go install example/user/hello
 </pre>
 
 <pre>
@@ -272,7 +272,7 @@ package main
 import (
 	"fmt"
 
-	<b>"example.com/user/hello/morestrings"</b>
+	<b>"example/user/hello/morestrings"</b>
 )
 
 func main() {
@@ -285,7 +285,7 @@ Install the <code>hello</code> program:
 </p>
 
 <pre>
-$ <b>go install example.com/user/hello</b>
+$ <b>go install example/user/hello</b>
 </pre>
 
 <p>
@@ -312,7 +312,7 @@ package main
 import (
 	"fmt"
 
-	"example.com/user/hello/morestrings"
+	"example/user/hello/morestrings"
 	"github.com/google/go-cmp/cmp"
 )
 
@@ -333,7 +333,7 @@ and removes requirements on modules that aren't used anymore.
 $ go mod tidy
 go: finding module for package github.com/google/go-cmp/cmp
 go: found github.com/google/go-cmp/cmp in github.com/google/go-cmp v0.5.4
-$ go install example.com/user/hello
+$ go install example/user/hello
 $ hello
 Hello, Go!
   string(
@@ -341,7 +341,7 @@ Hello, Go!
 + 	"Hello Go",
   )
 $ cat go.mod
-module example.com/user/hello
+module example/user/hello
 
 go 1.16
 
@@ -415,7 +415,7 @@ Then run the test with <code>go test</code>:
 <pre>
 $ <b>go test</b>
 PASS
-ok  	example.com/user/morestrings 0.165s
+ok  	example/user/hello/morestrings 0.165s
 $
 </pre>
 

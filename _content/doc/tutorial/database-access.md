@@ -78,13 +78,17 @@ To begin, create a folder for the code you'll write.
     Run the `go mod init` command, giving it your new code's module path.
 
     ```
-    $ go mod init example.com/data-access
-    go: creating new go.mod: module example.com/data-access
+    $ go mod init example/data-access
+    go: creating new go.mod: module example/data-access
     ```
 
     This command creates a go.mod file in which dependencies you add will be
     listed for tracking. For more, be sure to see
     [Managing dependencies](/doc/modules/managing-dependencies).
+
+    **Note:** In actual development, you'd specify a module path that's
+    more specific to your own needs. For more, see
+    [Managing dependencies](/doc/modules/managing-dependencies#naming_module).
 
 Next, you'll create a database.
 

@@ -21,10 +21,10 @@ all packages in the module. For more about how Go locates the module, see the
 
 Go generates a go.mod file when you run the [`go mod init`
 command](/ref/mod#go-mod-init). The following example creates a go.mod file,
-setting the module's module path to example.com/mymodule:
+setting the module's module path to example/mymodule:
 
 ```
-$ go mod init example.com/mymodule
+$ go mod init example/mymodule
 ```
 
 Use `go` commands to manage dependencies. The commands ensure that the
@@ -46,8 +46,8 @@ with `go help mod tidy`.
 
 ## Example {#example}
 
-A go.mod file includes directives shown in the following example. These are
-described in this topic.
+A go.mod file includes directives as shown in the following example. These are
+described elsewhere in this topic.
 
 ```
 module example.com/mymodule
@@ -67,8 +67,8 @@ exclude example.com/thismodule v1.3.0
 ## module {#module}
 
 Declares the module's module path, which is the module's unique identifier
-(when combined with the module version number). This becomes the import prefix
-for all packages the module contains.
+(when combined with the module version number). The module path becomes the
+import prefix for all packages the module contains.
 
 For more, see [`module` directive](/ref/mod#go-mod-file-module) in the
 Go Modules Reference.
@@ -101,9 +101,16 @@ which the module could be downloaded.
 
 ### Notes {#module-notes}
 
-The module path should be a path from which Go tools can download the module
-source. In practice, this is typically the module source's repository domain
-and path to the module code within the repository. The <code>go</code> command
+The module path must uniquely identify your module. For most modules, the path
+is a URL where the `go` command can find the code (or a redirect to the code).
+For modules that won't ever be downloaded directly, the module path
+can be just some name you control that will ensure uniqueness. The prefix
+`example/` is also reserved for use in examples like these.
+
+For more details, see [Managing dependencies](/doc/modules/managing-dependencies#naming_module).
+
+In practice, the module path is typically the module source's repository domain
+and path to the module code within the repository. The `go` command
 relies on this form when downloading module versions to resolve dependencies
 on the module user's behalf.
 
@@ -113,14 +120,16 @@ you avoid having to rename the module if you publish it later.
 
 If at first you don't know the module's eventual repository location, consider
 temporarily using a safe substitute, such as the name of a domain you own or
-`example.com`, along with a path following from the module's name or source
-directory.
+a name you control (such as your company name), along with a path following
+from the module's name or source directory. For more, see
+[Managing dependencies](/doc/modules/managing-dependencies#naming_module).
 
 For example, if you're developing in a `stringtools` directory, your temporary
-module path might be `example.com/stringtools`, as in the following example:
+module path might be `<company-name>/stringtools`, as in the following example,
+where _company-name_ is your company's name:
 
 ```
-go mod init example.com/stringtools
+go mod init <company-name>/stringtools
 ```
 
 ## go {#go}
@@ -433,7 +442,8 @@ to exclude a module, as in the following example.
 go mod edit -exclude=example.com/theirmodule@v1.3.0
 ```
 
-For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
+For more about version numbers, see
+[Module version numbering](/doc/modules/version-numbers).
 
 ## retract {#retract}
 
@@ -441,6 +451,9 @@ Indicates that a version or range of versions of the module defined by `go.mod`
 should not be depended upon. A `retract` directive is useful when a version was
 published prematurely or a severe problem was discovered after the version was
 published.
+
+For more, see [`retract` directive](/ref/mod#go-mod-file-retract) in the
+Go Modules Reference.
 
 ### Syntax {#retract-syntax}
 
