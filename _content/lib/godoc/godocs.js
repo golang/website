@@ -15,14 +15,18 @@
 
   var headerEl = document.querySelector('.js-header');
   var menuButtonEl = document.querySelector('.js-headerMenuButton');
-  menuButtonEl.addEventListener('click', function(e) {
-    e.preventDefault();
-    headerEl.classList.toggle('is-active');
-    menuButtonEl.setAttribute(
-      'aria-expanded',
-      headerEl.classList.contains('is-active')
-    );
-  });
+  
+  const path = window.location.pathname;
+  if (path.indexOf("/blog/") == -1 && path.indexOf("/doc/") != -1) {
+    menuButtonEl.addEventListener('click', function(e) {
+      e.preventDefault();
+      headerEl.classList.toggle('is-active');
+      menuButtonEl.setAttribute(
+        'aria-expanded',
+        headerEl.classList.contains('is-active')
+      );
+    });
+  }
 
   /* Generates a table of contents: looks for h2 and h3 elements and generates
    * links. "Decorates" the element with id=="nav" with this table of contents.
