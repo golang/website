@@ -10,11 +10,10 @@ import (
 	"encoding/hex"
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"net/http"
 	"strings"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // A Repo is a connection to a remote repository served over HTTP or HTTPS.

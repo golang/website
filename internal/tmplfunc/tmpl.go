@@ -81,11 +81,10 @@ package tmplfunc
 
 import (
 	"fmt"
+	"io/fs"
 	"io/ioutil"
 	"path"
 	"path/filepath"
-
-	"golang.org/x/website/internal/backport/io/fs"
 
 	htmltemplate "golang.org/x/website/internal/backport/html/template"
 	texttemplate "golang.org/x/website/internal/backport/text/template"

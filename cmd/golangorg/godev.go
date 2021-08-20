@@ -6,18 +6,18 @@ package main
 
 import (
 	"net/http"
+	"os"
 	"sort"
 	"strings"
 	"time"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/web"
 )
 
 func godevHandler(dir string) (http.Handler, error) {
-	godev := web.NewSite(osfs.DirFS(dir))
+	godev := web.NewSite(os.DirFS(dir))
 	godev.Funcs(template.FuncMap{
 		"newest":  newest,
 		"section": section,

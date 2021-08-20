@@ -9,14 +9,13 @@ package api
 
 import (
 	"bufio"
+	"io/fs"
 	"path"
 	"path/filepath"
 	"sort"
 	"strconv"
 	"strings"
 	"unicode"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // DB is a map of packages to information about those packages'

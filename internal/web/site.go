@@ -299,6 +299,7 @@ import (
 	"errors"
 	"fmt"
 	"html"
+	"io/fs"
 	"log"
 	"net/http"
 	"path"
@@ -308,8 +309,6 @@ import (
 	"sync"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/httpfs"
-	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
 )
@@ -327,7 +326,7 @@ type Site struct {
 func NewSite(fsys fs.FS) *Site {
 	return &Site{
 		fs:         fsys,
-		fileServer: http.FileServer(httpfs.FS(fsys)),
+		fileServer: http.FileServer(http.FS(fsys)),
 	}
 }
 

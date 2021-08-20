@@ -6,10 +6,8 @@
 package website
 
 import (
+	"io/fs"
 	"os"
-
-	"golang.org/x/website/internal/backport/io/fs"
-	"golang.org/x/website/internal/backport/osfs"
 )
 
 // Content is the website's static content.
@@ -25,7 +23,7 @@ func findContent() fs.FS {
 	dir := "_content"
 	for i := 0; i < 10; i++ {
 		if _, err := os.Stat(dir + "/lib/godoc/godocs.js"); err == nil {
-			return osfs.DirFS(dir)
+			return os.DirFS(dir)
 		}
 		dir = "../" + dir
 	}

@@ -9,9 +9,9 @@ package template
 import (
 	"bytes"
 	"fmt"
+	"os"
 	"testing"
 
-	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/backport/text/template/parse"
 )
 
@@ -156,7 +156,7 @@ func TestParseGlob(t *testing.T) {
 }
 
 func TestParseFS(t *testing.T) {
-	fs := osfs.DirFS("testdata")
+	fs := os.DirFS("testdata")
 
 	{
 		_, err := ParseFS(fs, "DOES NOT EXIST")

@@ -5,11 +5,10 @@
 package web
 
 import (
+	"io/fs"
 	"path"
 	"strings"
 	"unicode/utf8"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // isText reports whether a significant prefix of s looks like correct UTF-8;

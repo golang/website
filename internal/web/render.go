@@ -7,6 +7,7 @@ package web
 import (
 	"bytes"
 	"fmt"
+	"io/fs"
 	"net/http"
 	"net/url"
 	"path"
@@ -22,7 +23,6 @@ import (
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/tmplfunc"
 )
 

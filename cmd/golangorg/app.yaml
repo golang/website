@@ -2,7 +2,7 @@
 # Do not deploy directly.
 
 service: default
-runtime: go115
+runtime: go116
 main: ./cmd/golangorg
 
 env_variables:

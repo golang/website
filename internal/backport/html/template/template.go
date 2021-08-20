@@ -7,13 +7,12 @@ package template
 import (
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
+	"path"
 	"path/filepath"
 	"sync"
 
-	"golang.org/x/website/internal/backport/path"
-
-	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/backport/text/template"
 	"golang.org/x/website/internal/backport/text/template/parse"
 )

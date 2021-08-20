@@ -16,6 +16,7 @@ import (
 	"go/doc"
 	"go/token"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -29,7 +30,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
-	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/web"
 )
 

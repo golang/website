@@ -8,12 +8,10 @@ package template
 
 import (
 	"fmt"
+	"io/fs"
 	"io/ioutil"
+	"path"
 	"path/filepath"
-
-	"golang.org/x/website/internal/backport/path"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // Functions and methods to parse templates.

@@ -5,10 +5,9 @@
 package gitfs
 
 import (
+	"io/fs"
 	"io/ioutil"
 	"testing"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 func TestGerrit(t *testing.T) {

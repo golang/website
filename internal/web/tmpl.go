@@ -6,13 +6,13 @@ package web
 
 import (
 	"fmt"
+	"io/fs"
 	"path"
 	"reflect"
 	"sort"
 	"strings"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/io/fs"
 	"gopkg.in/yaml.v3"
 )
 

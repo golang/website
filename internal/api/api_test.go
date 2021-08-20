@@ -6,10 +6,9 @@ package api
 
 import (
 	"go/build"
+	"os"
 	"runtime"
 	"testing"
-
-	"golang.org/x/website/internal/backport/osfs"
 )
 
 func TestParseVersionRow(t *testing.T) {
@@ -91,7 +90,7 @@ func hasTag(t string) bool {
 }
 
 func TestAPIVersion(t *testing.T) {
-	av, err := Load(osfs.DirFS(runtime.GOROOT()))
+	av, err := Load(os.DirFS(runtime.GOROOT()))
 	if err != nil {
 		t.Fatal(err)
 	}

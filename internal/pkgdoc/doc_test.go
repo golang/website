@@ -6,8 +6,8 @@ package pkgdoc
 
 import (
 	"testing"
+	"testing/fstest"
 
-	"golang.org/x/website/internal/backport/testing/fstest"
 	"golang.org/x/website/internal/web"
 )
 

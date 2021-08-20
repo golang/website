@@ -6,16 +6,15 @@ package pkgdoc
 
 import (
 	"go/token"
+	"os"
 	"runtime"
 	"sort"
 	"testing"
-
-	"golang.org/x/website/internal/backport/osfs"
-	"golang.org/x/website/internal/backport/testing/fstest"
+	"testing/fstest"
 )
 
 func TestNewDirTree(t *testing.T) {
-	d := newDir(osfs.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
+	d := newDir(os.DirFS(runtime.GOROOT()), token.NewFileSet(), "src")
 	processDir(t, d)
 }
 
@@ -55,7 +54,7 @@ func BenchmarkNewDirectory(b *testing.B) {
 		b.Skip("not running tests requiring large file scan in short mode")
 	}
 
-	fs := osfs.DirFS(runtime.GOROOT())
+	fs := os.DirFS(runtime.GOROOT())
 
 	b.ResetTimer()
 	b.ReportAllocs()

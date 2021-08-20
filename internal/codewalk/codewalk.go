@@ -17,6 +17,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"log"
 	"net/http"
 	"os"
@@ -28,7 +29,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/io/fs"
 	"golang.org/x/website/internal/web"
 )
 

@@ -7,12 +7,12 @@ package web
 import (
 	"bytes"
 	"encoding/json"
+	"io/fs"
 	"path"
 	"strings"
 	"sync/atomic"
 	"time"
 
-	"golang.org/x/website/internal/backport/io/fs"
 	"gopkg.in/yaml.v3"
 )
 

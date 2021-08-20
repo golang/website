@@ -12,11 +12,10 @@ import (
 	"go/doc"
 	"go/parser"
 	"go/token"
+	"io/fs"
 	"log"
 	"path"
 	"strings"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 type Dir struct {

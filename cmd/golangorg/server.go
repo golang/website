@@ -6,6 +6,7 @@
 package main
 
 import (
+	"archive/zip"
 	"bytes"
 	"context"
 	"encoding/json"
@@ -13,6 +14,7 @@ import (
 	"fmt"
 	"go/format"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -29,10 +31,7 @@ import (
 	"golang.org/x/build/repos"
 	"golang.org/x/tools/playground"
 	"golang.org/x/website"
-	"golang.org/x/website/internal/backport/archive/zip"
 	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/backport/io/fs"
-	"golang.org/x/website/internal/backport/osfs"
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/gitfs"
@@ -134,7 +133,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Serve files from _content, falling back to GOROOT.
 	var content fs.FS
 	if contentDir != "" {
-		content = osfs.DirFS(contentDir)
+		content = os.DirFS(contentDir)
 	} else {
 		content = website.Content
 	}
@@ -147,7 +146,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		}
 		gorootFS = &seekableFS{z}
 	} else {
-		gorootFS = osfs.DirFS(goroot)
+		gorootFS = os.DirFS(goroot)
 	}
 
 	site, err := newSite(mux, "", content, gorootFS)

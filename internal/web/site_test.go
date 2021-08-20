@@ -10,8 +10,7 @@ import (
 	"net/url"
 	"strings"
 	"testing"
-
-	"golang.org/x/website/internal/backport/testing/fstest"
+	"testing/fstest"
 )
 
 func testServeBody(t *testing.T, p *Site, path, body string) {

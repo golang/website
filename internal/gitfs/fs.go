@@ -11,10 +11,9 @@ import (
 	"fmt"
 	hashpkg "hash"
 	"io"
+	"io/fs"
 	"runtime/debug"
 	"time"
-
-	"golang.org/x/website/internal/backport/io/fs"
 )
 
 // A Hash is a SHA-1 Hash identifying a particular Git object.
