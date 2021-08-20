@@ -9,9 +9,9 @@ package redirect // import "golang.org/x/website/internal/redirect"
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"net/http"
-	"os"
 	"regexp"
 	"strconv"
 	"strings"
@@ -277,26 +277,10 @@ var gerritCLCache = struct {
 	exist map[int]bool // exist is a set of Gerrit CL IDs that are known to exist.
 }{exist: make(map[int]bool)}
 
-var changeMap *hashMap
+//go:embed hg-git-mapping.bin
+var hgGitMappingBin []byte
 
-// LoadChangeMap loads the specified map of Mercurial to Git revisions,
-// which is used by the /change/ handler to intelligently map old hg
-// revisions to their new git equivalents.
-// It should be called before calling Register.
-// The file should remain open as long as the process is running.
-// See the implementation of this package for details.
-func LoadChangeMap(filename string) error {
-	f, err := os.Open(filename)
-	if err != nil {
-		return err
-	}
-	m, err := newHashMap(f)
-	if err != nil {
-		return err
-	}
-	changeMap = m
-	return nil
-}
+var changeMap = hashMap(hgGitMappingBin)
 
 func changeHandler(w http.ResponseWriter, r *http.Request) {
 	const prefix = "/change/"

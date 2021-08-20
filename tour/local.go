@@ -70,7 +70,7 @@ func main() {
 	registerStatic()
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
-		"tour/testdata/*.txt")
+		os.DirFS("."), "tour/testdata/*.txt")
 
 	go func() {
 		url := "http://" + httpAddr

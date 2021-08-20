@@ -8,7 +8,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"net/http/httptest"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -35,13 +34,6 @@ func echo(w http.ResponseWriter, r *http.Request) {
 
 func TestEchoHandler(t *testing.T) {
 	TestHandler(t, "testdata/echo.txt", http.HandlerFunc(echo))
-}
-
-func TestEchoServer(t *testing.T) {
-	srv := httptest.NewServer(http.HandlerFunc(echo))
-	defer srv.Close()
-	addr := strings.TrimPrefix(srv.URL, "http://")
-	TestServer(t, "testdata/echo.txt", addr)
 }
 
 func testWebtest(t *testing.T, glob string, do func(*case_) error) {

@@ -5,8 +5,8 @@
 package main
 
 import (
+	"io/fs"
 	"net/http"
-	"os"
 	"sort"
 	"strings"
 	"time"
@@ -16,8 +16,8 @@ import (
 	"golang.org/x/website/internal/web"
 )
 
-func godevHandler(dir string) (http.Handler, error) {
-	godev := web.NewSite(os.DirFS(dir))
+func godevHandler(fsys fs.FS) (http.Handler, error) {
+	godev := web.NewSite(fsys)
 	godev.Funcs(template.FuncMap{
 		"newest":  newest,
 		"section": section,

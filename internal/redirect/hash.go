@@ -10,35 +10,20 @@ package redirect
 import (
 	"encoding/binary"
 	"fmt"
-	"io"
-	"os"
 	"sort"
 	"strconv"
 	"strings"
 )
 
-// hashMap is a map of Mercurial hashes to Git hashes.
-type hashMap struct {
-	file    *os.File
-	entries int
-}
-
-// newHashMap takes a file handle that contains a map of Mercurial to Git
-// hashes. The file should be a sequence of pairs of little-endian encoded
-// uint32s, representing a hgHash and a gitHash respectively.
-// The sequence must be sorted by hgHash.
-// The file must remain open for as long as the returned hashMap is used.
-func newHashMap(f *os.File) (*hashMap, error) {
-	fi, err := f.Stat()
-	if err != nil {
-		return nil, err
-	}
-	return &hashMap{file: f, entries: int(fi.Size() / 8)}, nil
-}
+// hashMap is an encoded map of Mercurial hashes to Git hashes.
+// It is a sequence of 8-byte entries, each of which is two little-endian uint32s
+// giving a Mercurial, Git hash prefix pair.
+// The map is sorted by Mercurial hash to allow binary search.
+type hashMap []byte
 
 // Lookup finds an hgHash in the map that matches the given prefix, and returns
 // its corresponding gitHash. The prefix must be at least 8 characters long.
-func (m *hashMap) Lookup(s string) gitHash {
+func (m hashMap) Lookup(s string) gitHash {
 	if m == nil {
 		return 0
 	}
@@ -47,18 +32,11 @@ func (m *hashMap) Lookup(s string) gitHash {
 		return 0
 	}
 	var git gitHash
-	b := make([]byte, 8)
-	sort.Search(m.entries, func(i int) bool {
-		n, err := m.file.ReadAt(b, int64(i*8))
-		if err != nil {
-			panic(err)
-		}
-		if n != 8 {
-			panic(io.ErrUnexpectedEOF)
-		}
-		v := hgHash(binary.LittleEndian.Uint32(b[:4]))
+	sort.Search(len(m)/8, func(i int) bool {
+		entry := m[i*8 : (i+1)*8]
+		v := hgHash(binary.LittleEndian.Uint32(entry[:4]))
 		if v == hg {
-			git = gitHash(binary.LittleEndian.Uint32(b[4:]))
+			git = gitHash(binary.LittleEndian.Uint32(entry[4:]))
 		}
 		return v >= hg
 	})

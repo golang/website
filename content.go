@@ -6,29 +6,18 @@
 package website
 
 import (
+	"embed"
 	"io/fs"
-	"os"
 )
 
-// Content is the website's static content.
-var Content = findContent()
+// Golang is the golang.org website's static content.
+var Golang fs.FS = subdir(embedded, "_content")
 
-// TODO: Use with Go 1.16 in place of findContent call above.
-// var Content = subdir(embedded, "_content")
-// //go:embed _content
-// var embedded embed.FS
+// Godev is the go.dev website's static content.
+var Godev fs.FS = subdir(embedded, "go.dev/_content")
 
-func findContent() fs.FS {
-	// Walk parent directories looking for _content.
-	dir := "_content"
-	for i := 0; i < 10; i++ {
-		if _, err := os.Stat(dir + "/lib/godoc/godocs.js"); err == nil {
-			return os.DirFS(dir)
-		}
-		dir = "../" + dir
-	}
-	panic("cannot find _content")
-}
+//go:embed _content go.dev/_content
+var embedded embed.FS
 
 func subdir(fsys fs.FS, path string) fs.FS {
 	s, err := fs.Sub(fsys, path)

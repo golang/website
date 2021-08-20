@@ -37,7 +37,7 @@ func gaeMain() {
 	}
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
-		"tour/testdata/*.txt")
+		os.DirFS("."), "tour/testdata/*.txt")
 
 	log.Fatal(http.ListenAndServe(":"+port, h))
 }

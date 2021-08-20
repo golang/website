@@ -153,6 +153,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"io/fs"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
@@ -169,10 +170,10 @@ import (
 // If the tests pass, the returned http.Handler responds with status code 200.
 // If they fail, it prints the details and responds with status code 503
 // (service unavailable).
-func HandlerWithCheck(h http.Handler, path, glob string) http.Handler {
+func HandlerWithCheck(h http.Handler, path string, fsys fs.FS, glob string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.URL.Path == path {
-			err := CheckHandler(glob, h)
+			err := CheckHandler(fsys, glob, h)
 			if err != nil {
 				http.Error(w, "webtest.CheckHandler failed:\n"+err.Error()+"\n", http.StatusInternalServerError)
 			} else {
@@ -184,24 +185,15 @@ func HandlerWithCheck(h http.Handler, path, glob string) http.Handler {
 	})
 }
 
-// CheckHandler runs the test script files matched by glob
+// CheckHandler runs the test script files in fsys matched by glob
 // against the handler h. If any errors are encountered,
 // CheckHandler returns an error listing the problems.
-func CheckHandler(glob string, h http.Handler) error {
-	return check(glob, func(c *case_) error { return c.runHandler(h) })
+func CheckHandler(fsys fs.FS, glob string, h http.Handler) error {
+	return check(fsys, glob, func(c *case_) error { return c.runHandler(h) })
 }
 
-// CheckServer runs the test script files matched by glob
-// against the server at addr, which may be either the network address
-// of an HTTP proxy (host:port) or a base URL to be inserted at the start
-// of each path-only URL in the script. If any errors are encountered,
-// CheckServer returns an error listing the problems.
-func CheckServer(glob string, addr string) error {
-	return check(glob, func(c *case_) error { return c.runServer(addr) })
-}
-
-func check(glob string, do func(*case_) error) error {
-	files, err := filepath.Glob(glob)
+func check(fsys fs.FS, glob string, do func(*case_) error) error {
+	files, err := fs.Glob(fsys, glob)
 	if err != nil {
 		return err
 	}
@@ -210,7 +202,7 @@ func check(glob string, do func(*case_) error) error {
 	}
 	var buf bytes.Buffer
 	for _, file := range files {
-		data, err := ioutil.ReadFile(file)
+		data, err := fs.ReadFile(fsys, file)
 		if err != nil {
 			fmt.Fprintf(&buf, "# %s\n%v\n", file, err)
 			continue
@@ -242,14 +234,6 @@ func check(glob string, do func(*case_) error) error {
 // against the handler h.
 func TestHandler(t *testing.T, glob string, h http.Handler) {
 	test(t, glob, func(c *case_) error { return c.runHandler(h) })
-}
-
-// TestServer runs the test script files matched by glob
-// against the server at addr, which may be either the network address
-// of an HTTP proxy (host:port) or a base URL to be inserted at the start
-// of each path-only URL in the script.
-func TestServer(t *testing.T, glob, addr string) {
-	test(t, glob, func(c *case_) error { return c.runServer(addr) })
 }
 
 func test(t *testing.T, glob string, do func(*case_) error) {

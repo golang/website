@@ -9,6 +9,7 @@ import (
 	"archive/zip"
 	"bytes"
 	"context"
+	"embed"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -65,7 +66,11 @@ func usage() {
 }
 
 func main() {
-	if *contentDir == "" {
+	// Running locally, find the local _content directory,
+	// so that updates to those files appear on the local dev instance without restarting.
+	// On App Engine, leave contentDir empty, so we use the embedded copy,
+	// which is much faster to access than the simulated file system.
+	if *contentDir == "" && !runningOnAppEngine {
 		repoRoot := "../.."
 		if _, err := os.Stat("_content"); err == nil {
 			repoRoot = "."
@@ -102,10 +107,10 @@ func main() {
 	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
 		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
 		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
-			filepath.Join(*contentDir, "../cmd/golangorg/testdata/godev.txt"))
+			testdataFS, "testdata/godev.txt")
 	} else {
 		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
-			filepath.Join(*contentDir, "../cmd/golangorg/testdata/*.txt"))
+			testdataFS, "testdata/*.txt")
 	}
 
 	if *verbose {
@@ -123,6 +128,9 @@ func main() {
 	}
 }
 
+//go:embed testdata
+var testdataFS embed.FS
+
 // NewHandler returns the http.Handler for the web site,
 // given the directory where the content can be found
 // (can be "", in which case an internal copy is used)
@@ -131,11 +139,15 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux := http.NewServeMux()
 
 	// Serve files from _content, falling back to GOROOT.
-	var content fs.FS
+
+	// Use explicit contentDir if specified, otherwise embedded copy.
+	var golangFS, godevFS fs.FS
 	if contentDir != "" {
-		content = os.DirFS(contentDir)
+		golangFS = os.DirFS(contentDir)
+		godevFS = os.DirFS(filepath.Join(contentDir, "../go.dev/_content"))
 	} else {
-		content = website.Content
+		golangFS = website.Golang
+		godevFS = website.Godev
 	}
 
 	var gorootFS fs.FS
@@ -149,11 +161,11 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		gorootFS = os.DirFS(goroot)
 	}
 
-	site, err := newSite(mux, "", content, gorootFS)
+	site, err := newSite(mux, "", golangFS, gorootFS)
 	if err != nil {
 		log.Fatalf("newSite: %v", err)
 	}
-	chinaSite, err := newSite(mux, "golang.google.cn", content, gorootFS)
+	chinaSite, err := newSite(mux, "golang.google.cn", golangFS, gorootFS)
 	if err != nil {
 		log.Fatalf("newSite: %v", err)
 	}
@@ -161,7 +173,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
 	var tipGoroot atomicFS
-	if _, err := newSite(mux, "tip.golang.org", content, &tipGoroot); err != nil {
+	if _, err := newSite(mux, "tip.golang.org", golangFS, &tipGoroot); err != nil {
 		log.Fatalf("loading tip site: %v", err)
 	}
 
@@ -187,10 +199,6 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
 	})
 
-	if err := redirect.LoadChangeMap(filepath.Join(contentDir, "../cmd/golangorg/hg-git-mapping.bin")); err != nil {
-		log.Fatalf("LoadChangeMap: %v", err)
-	}
-
 	if runningOnAppEngine {
 		appEngineSetup(site, chinaSite, mux)
 	}
@@ -199,7 +207,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// (golang.org/dl and golang.google.cn/dl are registered separately.)
 	mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 
-	godev, err := godevHandler(filepath.Join(contentDir, "../go.dev/_content"))
+	godev, err := godevHandler(godevFS)
 	if err != nil {
 		log.Fatalf("godevHandler: %v", err)
 	}

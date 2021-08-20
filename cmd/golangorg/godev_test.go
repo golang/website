@@ -9,6 +9,8 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+
+	"golang.org/x/website"
 )
 
 var siteTests = []struct {
@@ -21,7 +23,7 @@ var siteTests = []struct {
 }
 
 func TestSite(t *testing.T) {
-	h, err := godevHandler("../../go.dev/_content")
+	h, err := godevHandler(website.Godev)
 	if err != nil {
 		t.Fatal(err)
 	}
