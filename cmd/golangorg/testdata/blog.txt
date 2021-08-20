@@ -51,3 +51,10 @@ redirect == https://go.dev/blog/go1.16
 
 GET https://go.dev/blog/go1.16
 body contains Go 1.16
+
+GET https://blog.golang.org/?googlecn=1
+redirect == https://golang.google.cn/?googlecn=1
+
+# Do not China-redirect go.dev links, because they will break.
+GET https://go.dev/blog/?googlecn=1
+body contains The Go Blog

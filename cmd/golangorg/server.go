@@ -377,14 +377,15 @@ var validHosts = map[string]bool{
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
-// It also forces all requests coming from China to use golang.google.cn.
+// It also forces all requests coming from China for golang.org to use golang.google.cn.
 func hostEnforcerHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		isHTTPS := r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" || r.URL.Scheme == "https"
 		defaultHost := "golang.org"
-		isValidHost := validHosts[strings.ToLower(r.Host)]
+		host := strings.ToLower(r.Host)
+		isValidHost := validHosts[host]
 
-		if googleCN(r) {
+		if googleCN(r) && strings.HasSuffix(host, "golang.org") {
 			// golang.google.cn is the only web site in China.
 			defaultHost = "golang.google.cn"
 			isValidHost = strings.ToLower(r.Host) == defaultHost
