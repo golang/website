@@ -9,3 +9,8 @@ handlers:
   - url: /.*
     secure: always
     script: auto
+
+# Same performance as app.yaml for golang.org (eventually we will run there).
+instance_class: F4
+automatic_scaling:
+  max_concurrent_requests: 40
