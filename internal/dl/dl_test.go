@@ -101,17 +101,19 @@ func TestFilesToReleases(t *testing.T) {
 
 func TestHighlightedFiles(t *testing.T) {
 	fs := []File{
-		{Filename: "go1.16beta1.src.tar.gz", Version: "go1.16beta1", OS: "", Arch: "", Kind: "source"},
-		{Filename: "go1.16beta1.linux-386.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "386", Kind: "archive"},
-		{Filename: "go1.16beta1.linux-amd64.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.16beta1.darwin-amd64.tar.gz", Version: "go1.16beta1", OS: "darwin", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.16beta1.darwin-amd64.pkg", Version: "go1.16beta1", OS: "darwin", Arch: "amd64", Kind: "installer"},
-		{Filename: "go1.16beta1.darwin-arm64.tar.gz", Version: "go1.16beta1", OS: "darwin", Arch: "arm64", Kind: "archive"},
-		{Filename: "go1.16beta1.darwin-arm64.pkg", Version: "go1.16beta1", OS: "darwin", Arch: "arm64", Kind: "installer"},
-		{Filename: "go1.16beta1.windows-386.zip", Version: "go1.16beta1", OS: "windows", Arch: "386", Kind: "archive"},
-		{Filename: "go1.16beta1.windows-386.msi", Version: "go1.16beta1", OS: "windows", Arch: "386", Kind: "installer"},
-		{Filename: "go1.16beta1.windows-amd64.zip", Version: "go1.16beta1", OS: "windows", Arch: "amd64", Kind: "archive"},
-		{Filename: "go1.16beta1.windows-amd64.msi", Version: "go1.16beta1", OS: "windows", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.17.src.tar.gz", Version: "go1.17", OS: "", Arch: "", Kind: "source"},
+		{Filename: "go1.17.linux-386.tar.gz", Version: "go1.17", OS: "linux", Arch: "386", Kind: "archive"},
+		{Filename: "go1.17.linux-amd64.tar.gz", Version: "go1.17", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.17.darwin-amd64.tar.gz", Version: "go1.17", OS: "darwin", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.17.darwin-amd64.pkg", Version: "go1.17", OS: "darwin", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.17.darwin-arm64.tar.gz", Version: "go1.17", OS: "darwin", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.17.darwin-arm64.pkg", Version: "go1.17", OS: "darwin", Arch: "arm64", Kind: "installer"},
+		{Filename: "go1.17.windows-386.zip", Version: "go1.17", OS: "windows", Arch: "386", Kind: "archive"},
+		{Filename: "go1.17.windows-386.msi", Version: "go1.17", OS: "windows", Arch: "386", Kind: "installer"},
+		{Filename: "go1.17.windows-amd64.zip", Version: "go1.17", OS: "windows", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.17.windows-amd64.msi", Version: "go1.17", OS: "windows", Arch: "amd64", Kind: "installer"},
+		{Filename: "go1.17.windows-arm64.zip", Version: "go1.17", OS: "windows", Arch: "arm64", Kind: "archive"},
+		{Filename: "go1.17.windows-arm64.msi", Version: "go1.17", OS: "windows", Arch: "arm64", Kind: "installer"},
 	}
 	sort.Sort(fileOrder(fs))
 	var highlighted []string
@@ -123,11 +125,12 @@ func TestHighlightedFiles(t *testing.T) {
 	}
 	got := strings.Join(highlighted, "\n")
 	want := strings.Join([]string{
-		"go1.16beta1.src.tar.gz",
-		"go1.16beta1.darwin-amd64.pkg",
-		"go1.16beta1.darwin-arm64.pkg",
-		"go1.16beta1.linux-amd64.tar.gz",
-		"go1.16beta1.windows-amd64.msi",
+		"go1.17.src.tar.gz",
+		"go1.17.darwin-amd64.pkg",
+		"go1.17.darwin-arm64.pkg",
+		"go1.17.linux-amd64.tar.gz",
+		"go1.17.windows-amd64.msi",
+		"go1.17.windows-arm64.msi",
 	}, "\n")
 	if got != want {
 		t.Errorf("highlighted files:\n%s\nwant:\n%s", got, want)

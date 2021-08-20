@@ -117,7 +117,7 @@ func (f File) Highlight() bool {
 		return true
 	case f.OS == "linux" && f.Arch == "amd64":
 		return true
-	case f.OS == "windows" && f.Kind == "installer" && f.Arch == "amd64":
+	case f.OS == "windows" && f.Kind == "installer" && (f.Arch == "amd64" || f.Arch == "arm64"):
 		return true
 	case f.OS == "darwin" && f.Kind == "installer" && !strings.Contains(f.Filename, "osx10.6"):
 		return true
