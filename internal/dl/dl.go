@@ -362,7 +362,7 @@ var prettyStrings = map[string]string{
 	"386":    "x86",
 	"amd64":  "x86-64",
 	"armv6l": "ARMv6",
-	"arm64":  "ARMv8",
+	"arm64":  "ARM64",
 
 	"archive":   "Archive",
 	"installer": "Installer",
