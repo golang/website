@@ -24,7 +24,7 @@ kernel of the Go community.
 
 {{image "5years/gophers5th.jpg" 850}}
 
-[_Gopher_](/gopher) _illustration by_ [_Renee French_](http://reneefrench.blogspot.com.au/)
+[_Gopher_](/blog/gopher) _illustration by_ [_Renee French_](http://reneefrench.blogspot.com.au/)
 
 After the initial release, it took us a while to properly communicate the
 goals and design ethos behind Go. Rob Pike did so eloquently in his 2012 essay

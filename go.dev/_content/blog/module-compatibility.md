@@ -14,16 +14,16 @@ summary: How to keep your modules compatible with prior minor/patch versions.
 
 This post is part 5 in a series.
 
-- Part 1 — [Using Go Modules](/using-go-modules)
-- Part 2 — [Migrating To Go Modules](/migrating-to-go-modules)
-- Part 3 — [Publishing Go Modules](/publishing-go-modules)
-- Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
+- Part 1 — [Using Go Modules](/blog/using-go-modules)
+- Part 2 — [Migrating To Go Modules](/blog/migrating-to-go-modules)
+- Part 3 — [Publishing Go Modules](/blog/publishing-go-modules)
+- Part 4 — [Go Modules: v2 and Beyond](/blog/v2-go-modules)
 - **Part 5 — Keeping Your Modules Compatible** (this post)
 
 **Note:** For documentation on developing modules, see
 [Developing and publishing modules](https://golang.org/doc/modules/developing).
 
-Your modules will evolve over time as you add new features, change behaviors, and reconsider parts of the module's public surface. As discussed in [Go Modules: v2 and Beyond](/v2-go-modules), breaking changes to a v1+ module must happen as part of a major version bump (or by adopting a new module path).
+Your modules will evolve over time as you add new features, change behaviors, and reconsider parts of the module's public surface. As discussed in [Go Modules: v2 and Beyond](/blog/v2-go-modules), breaking changes to a v1+ module must happen as part of a major version bump (or by adopting a new module path).
 
 However, releasing a new major version is hard on your users. They have to find the new version, learn a new API, and change their code. And some users may never update, meaning you have to maintain two versions for your code forever. So it is usually better to change your existing package in a compatible way.
 

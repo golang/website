@@ -44,7 +44,7 @@ The `Done` method returns a channel that acts as a cancelation signal to
 functions running on behalf of the `Context`: when the channel is closed, the
 functions should abandon their work and return.
 The `Err` method returns an error indicating why the `Context` was canceled.
-The [Pipelines and Cancelation](/pipelines) article discusses the `Done`
+The [Pipelines and Cancelation](/blog/pipelines) article discusses the `Done`
 channel idiom in more detail.
 
 A `Context` does _not_ have a `Cancel` method for the same reason the `Done`

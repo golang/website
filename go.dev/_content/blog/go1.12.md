@@ -12,7 +12,7 @@ You can get it from the [download page](https://golang.org/dl/).
 
 For details about the changes in Go 1.12, see the [**Go 1.12 release notes**](https://golang.org/doc/go1.12).
 
-Some of the highlights include [opt-in support for TLS 1.3](https://golang.org/doc/go1.12#tls_1_3), [improved modules support](https://golang.org/doc/go1.12#modules) (in preparation [for being the default in Go 1.13](/modules2019)), support for `windows/arm`, and [improved macOS & iOS forwards compatibility.](https://golang.org/doc/go1.12#darwin)
+Some of the highlights include [opt-in support for TLS 1.3](https://golang.org/doc/go1.12#tls_1_3), [improved modules support](https://golang.org/doc/go1.12#modules) (in preparation [for being the default in Go 1.13](/blog/modules2019)), support for `windows/arm`, and [improved macOS & iOS forwards compatibility.](https://golang.org/doc/go1.12#darwin)
 
 As always, we also want to thank everyone who contributed to this release by writing code, filing bugs, providing feedback, and/or testing the betas and release candidates.
 Your contributions and diligence helped to ensure that Go 1.12 is as stable as possible.

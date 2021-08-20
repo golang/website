@@ -15,10 +15,10 @@ summary: An introduction to the basic operations needed to get started with Go m
 This post is part 1 in a series.
 
   - **Part 1 — Using Go Modules** (this post)
-  - Part 2 — [Migrating To Go Modules](/migrating-to-go-modules)
-  - Part 3 — [Publishing Go Modules](/publishing-go-modules)
-  - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
-  - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
+  - Part 2 — [Migrating To Go Modules](/blog/migrating-to-go-modules)
+  - Part 3 — [Publishing Go Modules](/blog/publishing-go-modules)
+  - Part 4 — [Go Modules: v2 and Beyond](/blog/v2-go-modules)
+  - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on managing dependencies with modules, see
 [Managing dependencies](https://golang.org/doc/modules/managing-dependencies).

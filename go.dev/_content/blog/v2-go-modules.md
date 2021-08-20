@@ -14,11 +14,11 @@ summary: How to release major version 2 of your module.
 
 This post is part 4 in a series.
 
-  - Part 1 — [Using Go Modules](/using-go-modules)
-  - Part 2 — [Migrating To Go Modules](/migrating-to-go-modules)
-  - Part 3 — [Publishing Go Modules](/publishing-go-modules)
+  - Part 1 — [Using Go Modules](/blog/using-go-modules)
+  - Part 2 — [Migrating To Go Modules](/blog/migrating-to-go-modules)
+  - Part 3 — [Publishing Go Modules](/blog/publishing-go-modules)
   - **Part 4 — Go Modules: v2 and Beyond** (this post)
-  - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
+  - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on developing modules, see
 [Developing and publishing modules](https://golang.org/doc/modules/developing).

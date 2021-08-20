@@ -14,11 +14,11 @@ summary: How to use Go modules to manage your program's dependencies.
 
 This post is part 2 in a series.
 
-  - Part 1 — [Using Go Modules](/using-go-modules)
+  - Part 1 — [Using Go Modules](/blog/using-go-modules)
   - **Part 2 — Migrating To Go Modules** (this post)
-  - Part 3 — [Publishing Go Modules](/publishing-go-modules)
-  - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
-  - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
+  - Part 3 — [Publishing Go Modules](/blog/publishing-go-modules)
+  - Part 4 — [Go Modules: v2 and Beyond](/blog/v2-go-modules)
+  - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation, see
 [Managing dependencies](https://golang.org/doc/modules/managing-dependencies)
@@ -280,7 +280,7 @@ import path, and your dependencies haven't made breaking changes, then adding
 the `go.mod` file is backwards-compatible — but it's a significant change, and
 may expose existing problems. If you have existing version tags, you should
 increment the [minor version](https://semver.org/#spec-item-7). See
-[Publishing Go Modules](/publishing-go-modules) to learn how to increment and
+[Publishing Go Modules](/blog/publishing-go-modules) to learn how to increment and
 publish versions.
 
 ## Imports and canonical module paths
@@ -320,7 +320,7 @@ and will need to update the import path to include the `/v2` suffix.
 Converting to Go modules should be a straightforward process for most users.
 Occasional issues may arise due to non-canonical import paths or breaking
 changes within a dependency.
-Future posts will explore [publishing new versions](/publishing-go-modules),
+Future posts will explore [publishing new versions](/blog/publishing-go-modules),
 v2 and beyond, and ways to debug strange situations.
 
 To provide feedback and help shape the future of dependency management in Go,

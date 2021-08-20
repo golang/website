@@ -13,11 +13,11 @@ summary: How to write and publish modules for use as dependencies.
 
 This post is part 3 in a series.
 
-  - Part 1 — [Using Go Modules](/using-go-modules)
-  - Part 2 — [Migrating To Go Modules](/migrating-to-go-modules)
+  - Part 1 — [Using Go Modules](/blog/using-go-modules)
+  - Part 2 — [Migrating To Go Modules](/blog/migrating-to-go-modules)
   - **Part 3 — Publishing Go Modules** (this post)
-  - Part 4 — [Go Modules: v2 and Beyond](/v2-go-modules)
-  - Part 5 — [Keeping Your Modules Compatible](/module-compatibility)
+  - Part 4 — [Go Modules: v2 and Beyond](/blog/v2-go-modules)
+  - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on developing modules, see
 [Developing and publishing modules](https://golang.org/doc/modules/developing).
@@ -26,7 +26,7 @@ This post discusses how to write and publish modules so other modules can depend
 on them.
 
 Please note: this post covers development up to and including `v1`. If you are
-interested in `v2`, please see [Go Modules: v2 and Beyond](/v2-go-modules).
+interested in `v2`, please see [Go Modules: v2 and Beyond](/blog/v2-go-modules).
 
 This post uses [Git](https://git-scm.com/) in examples.
 [Mercurial](https://www.mercurial-scm.org/),
