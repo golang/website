@@ -104,15 +104,8 @@ func main() {
 	}
 
 	handler := NewHandler(*contentDir, *goroot)
-
-	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
-		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
-		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
-			testdataFS, "testdata/godev.txt")
-	} else {
-		handler = webtest.HandlerWithCheck(handler, "/_readycheck",
-			testdataFS, "testdata/*.txt")
-	}
+	handler = webtest.HandlerWithCheck(handler, "/_readycheck",
+		testdataFS, "testdata/*.txt")
 
 	if *verbose {
 		log.Printf("golang.org server:")
@@ -252,12 +245,6 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 // When a new commit is available, watchTip downloads the new tree and calls
 // tipGoroot.Set to install the new file system.
 func watchTip(tipGoroot *atomicFS) {
-	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
-		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
-		log.Printf("watchTip: not serving tip.golang.org in go-discovery since it's not needed nor are there enough resources for it")
-		return
-	}
-
 	for {
 		// watchTip1 runs until it panics (hopefully never).
 		// If that happens, sleep 5 minutes and try again.
@@ -322,12 +309,6 @@ func watchTip1(tipGoroot *atomicFS) {
 
 func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
-
-	log.Printf("GODEV_IN_GO_DISCOVERY %q PROJECT %q", os.Getenv("GODEV_IN_GO_DISCOVERY"), os.Getenv("PROJECT_ID"))
-	if os.Getenv("GODEV_IN_GO_DISCOVERY") != "" {
-		// Running in go-discovery for a little longer, do not expect the golang-org prod setup.
-		return
-	}
 
 	ctx := context.Background()
 
