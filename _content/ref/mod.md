@@ -414,6 +414,8 @@ A module path must satisfy the following requirements:
 * A path element may not begin or end with a dot (`.`, U+002E).
 * The element prefix up to the first dot must not be a reserved file name on
   Windows, regardless of case (`CON`, `com1`, `NuL`, and so on).
+* The element prefix up to the first dot must not end with a tilde followed by
+  one or more digits (like `EXAMPL~1.COM`).
 
 If the module path appears in a `require` directive and is not replaced, or
 if the module paths appears on the right side of a `replace` directive,
