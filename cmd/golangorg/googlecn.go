@@ -11,18 +11,7 @@ import (
 
 // googleCN reports whether request r is considered to be arriving from China.
 // Typically that means the request is for host golang.google.cn,
-// but we also report true for requests that set googlecn=1 as a query parameter
-// and for requests that App Engine geolocates in China.
+// but we also report true for requests that set googlecn=1 as a query parameter.
 func googleCN(r *http.Request) bool {
-	if r.FormValue("googlecn") != "" {
-		return true
-	}
-	if strings.HasSuffix(r.Host, ".cn") {
-		return true
-	}
-	switch r.Header.Get("X-Appengine-Country") {
-	case "CN":
-		return true
-	}
-	return false
+	return r.FormValue("googlecn") != "" || strings.HasSuffix(r.Host, ".cn")
 }
