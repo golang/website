@@ -81,7 +81,7 @@ Go support is in the most recent [SWIG](http://www.swig.org/) release,
 version 2.0.1, making it easier to link against C and C++ code,
 and our [cgo](https://golang.org/cmd/cgo/) tool has seen many fixes and improvements.
 
-[Gccgo](https://golang.org/doc/gccgo_install.html),
+[Gccgo](https://golang.org/doc/install/gccgo),
 the Go front end for the GNU C Compiler, has kept pace with the gc compiler
 as a parallel Go implementation.
 It now has a working garbage collector, and has been accepted into the GCC core.
