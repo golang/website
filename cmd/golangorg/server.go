@@ -255,6 +255,7 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 		"releases":        func() []*history.Major { return history.Majors },
 		"section":         section,
 		"version":         func() string { return runtime.Version() },
+		"now":             func() time.Time { return time.Now() },
 	})
 	docs, err := pkgdoc.NewServer(fsys, site, googleCN)
 	if err != nil {

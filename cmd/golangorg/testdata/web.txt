@@ -390,6 +390,9 @@ GET https://go.dev/doc/codewalk/
 body contains Codewalks
 body contains <td>How to Write a Codewalk</td>
 
+GET https://go.dev/doc/contribute
+body ~ ^// Copyright \d{4,} The Go Authors\. All rights reserved\.$
+
 GET https://golang.org/ref/mod
 redirect == https://go.dev/ref/mod
 
