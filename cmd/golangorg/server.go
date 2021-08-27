@@ -206,6 +206,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Register a redirect handler for /dl/ to the golang.org download page.
 	// (golang.org/dl and golang.google.cn/dl are registered separately.)
 	mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
+	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 
 	godev, err := godevHandler(godevFS)
 	if err != nil {

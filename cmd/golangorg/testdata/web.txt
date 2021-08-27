@@ -103,6 +103,9 @@ redirect == https://pkg.go.dev/std
 GET https://tip.golang.org/pkg/
 redirect == https://pkg.go.dev/std@master
 
+GET https://tip.golang.org/dl/
+redirect == https://golang.org/dl/
+
 GET https://golang.org/pkg?m=old
 redirect == /pkg/?m=old
 
