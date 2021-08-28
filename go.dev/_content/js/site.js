@@ -157,7 +157,7 @@
    * Retrieves list of Go versions & returns the latest
    */
   async function getLatestVersion() {
-    let version = 'go1.15'; // fallback version if fetch fails
+    let version = 'go1.17'; // fallback version if fetch fails
     try {
       const versionData = await (
         await fetch('https://golang.org/dl/?mode=json')
