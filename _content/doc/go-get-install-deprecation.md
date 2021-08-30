@@ -42,7 +42,7 @@ version. If that module has a `go.mod` file, it must not contain directives like
 `replace` or `exclude` that would cause it to be interpreted differently if it
 were the main module.
 
-See [`go install`](#/ref/mod#go-install) for details.
+See [`go install`](/ref/mod#go-install) for details.
 
 ## Why this is happening
 
