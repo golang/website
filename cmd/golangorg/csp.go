@@ -44,6 +44,7 @@ var csp = map[string][]string{
 	"connect-src": {
 		"'self'",
 		"https://golang.org",
+		"https://play.golang.org", // For running playground snippets on the blog.
 		"www.google-analytics.com",
 		"stats.g.doubleclick.net",
 	},
