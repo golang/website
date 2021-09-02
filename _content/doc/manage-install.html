@@ -23,11 +23,11 @@ You can install multiple Go versions on the same machine. For example, you might
 </p>
 
 <p>
-To install additional Go versions, run the <a href="/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them"><code>go get</code> command</a>, specifying the download location of the version you want to install. The following example illustrates with version 1.10.7:
+To install additional Go versions, run the <a href="/cmd/go/#hdr-Compile_and_install_packages_and_dependencies"><code>go install</code> command</a>, specifying the download location of the version you want to install. The following example illustrates with version 1.10.7:
 </p>
 
 <pre>
-$ go get golang.org/dl/go1.10.7
+$ go install golang.org/dl/go1.10.7@latest
 $ go1.10.7 download
 </pre>
 
