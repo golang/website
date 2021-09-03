@@ -71,6 +71,7 @@ var csp = map[string][]string{
 		"feedback.googleusercontent.com",
 		"www.googletagmanager.com",
 		"scone-pa.clients6.google.com",
+		"https://www.youtube.com",
 	},
 	"img-src": {
 		self,
