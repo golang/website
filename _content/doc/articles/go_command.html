@@ -77,19 +77,18 @@ well-established conventions.</p>
 <p>First, the import path is derived in a known way from the URL of the
 source code.  For Bitbucket, GitHub, Google Code, and Launchpad, the
 root directory of the repository is identified by the repository's
-main URL, without the <code>http://</code> prefix.  Subdirectories are named by
+main URL, without the <code>https://</code> prefix.  Subdirectories are named by
 adding to that path.
-For example, the Go example programs are obtained by running</p>
+For example, the source code of the Google logging package <code>glog</code>
+is obtained by running</p>
 
 <pre>
-git clone https://github.com/golang/example
+git clone https://github.com/golang/glog
 </pre>
 
-<p>and thus the import path for the root directory of that repository is
-"<code>github.com/golang/example</code>".
-The <a href="https://godoc.org/github.com/golang/example/stringutil">stringutil</a>
-package is stored in a subdirectory, so its import path is
-"<code>github.com/golang/example/stringutil</code>".</p>
+and thus the import path of the
+<a href="https://pkg.dev.go/github.com/golang/glog">glog</a>
+package is "<code>github.com/golang/glog</code>".</p>
 
 <p>These paths are on the long side, but in exchange we get an
 automatically managed name space for import paths and the ability for

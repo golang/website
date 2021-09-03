@@ -76,7 +76,7 @@ bin/
     hello                          # command executable
     outyet                         # command executable
 src/
-    <a href="https://github.com/golang/example/">github.com/golang/example/</a>
+    <a href="https://golang.org/x/example">golang.org/x/example/</a>
         .git/                      # Git repository metadata
 	hello/
 	    hello.go               # command source
@@ -538,13 +538,13 @@ revision control system such as Git or Mercurial. The <code>go</code> tool uses
 this property to automatically fetch packages from remote repositories.
 For instance, the examples described in this document are also kept in a
 Git repository hosted at GitHub
-<code><a href="https://github.com/golang/example">github.com/golang/example</a></code>.
+<code><a href="https://golang.org/x/example">golang.org/x/example</a></code>.
 If you include the repository URL in the package's import path,
 <code>go get</code> will fetch, build, and install it automatically:
 </p>
 
 <pre>
-$ <b>go get github.com/golang/example/hello</b>
+$ <b>go get golang.org/x/example/hello</b>
 $ <b>$GOPATH/bin/hello</b>
 Hello, Go examples!
 </pre>
@@ -565,7 +565,7 @@ tree should now look like this:
 bin/
     hello                           # command executable
 src/
-    github.com/golang/example/
+    golang.org/x/example/
 	.git/                       # Git repository metadata
         hello/
             hello.go                # command source
@@ -589,7 +589,7 @@ package, too.
 </p>
 
 <pre>
-import "github.com/golang/example/stringutil"
+import "golang.org/x/example/stringutil"
 </pre>
 
 <p>

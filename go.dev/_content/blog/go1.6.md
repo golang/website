@@ -29,7 +29,7 @@ with support for [trimming spaces around template actions](https://golang.org/pk
 to produce cleaner template output,
 and the introduction of the {{raw "[`{{block}}` action]"}}(https://golang.org/pkg/text/template/#hdr-Actions)
 that can be used to create templates that build on other templates.
-A [new template example program](https://github.com/golang/example/tree/master#template-godoc) demonstrates these new features.
+A [new template example program](https://cs.opensource.google/go/x/example/+/master:template) demonstrates these new features.
 
 Go 1.5 introduced [experimental support](https://golang.org/s/go15vendor)
 for a “vendor” directory that was enabled by an environment variable.

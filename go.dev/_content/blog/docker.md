@@ -21,8 +21,8 @@ before reading on.
 ## The demo app
 
 For our demonstration we will use the
-[outyet](https://godoc.org/github.com/golang/example/outyet) program from the
-[Go examples repository](https://github.com/golang/example),
+[outyet](https://pkg.go.dev/golang.org/x/example/outyet) program from the
+[Go examples repository](https://cs.opensource.google/go/x/example),
 a simple web server that reports whether the next version of Go has been released
 (designed to power sites like [isgo1point4.outyet.org](http://isgo1point4.outyet.org/)).
 It has no dependencies outside the standard library and requires no additional
@@ -31,7 +31,7 @@ data files at run time; for a web server, it's about as simple as it gets.
 Use "go get" to fetch and install outyet in your
 [workspace](https://golang.org/doc/code.html#Workspaces):
 
-	$ go get github.com/golang/example/outyet
+	$ go get golang.org/x/example/outyet
 
 ## Write a Dockerfile
 
@@ -42,12 +42,12 @@ Replace a file named `Dockerfile` in the `outyet` directory with the following c
 	FROM golang
 
 	# Copy the local package files to the container's workspace.
-	ADD . /go/src/github.com/golang/example/outyet
+	ADD . /go/src/golang.org/x/example/outyet
 
 	# Build the outyet command inside the container.
 	# (You may fetch or manage dependencies here,
 	# either manually or with a tool like "godep".)
-	RUN go install github.com/golang/example/outyet
+	RUN go install golang.org/x/example/outyet
 
 	# Run the outyet command by default when the container starts.
 	ENTRYPOINT /go/bin/outyet
@@ -114,7 +114,7 @@ pulled the `golang` image earlier, offers a feature called
 [Automated Builds](http://docs.docker.com/docker-hub/builds/) that builds
 images from a GitHub or BitBucket repository.
 
-By committing [the Dockerfile](https://github.com/golang/example/blob/master/outyet/Dockerfile)
+By committing [the Dockerfile](https://go.googlesource.com/example/+/refs/heads/master/outyet/)
 to the repository and creating an
 [automated build](https://registry.hub.docker.com/u/adg1/outyet/)
 for it, anyone with Docker installed can download and run our image with a

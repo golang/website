@@ -36,8 +36,8 @@ As with typical tests, examples are functions that reside in a package's
 Unlike normal test functions, though, example functions take no arguments
 and begin with the word `Example` instead of `Test`.
 
-The [`stringutil` package](https://godoc.org/github.com/golang/example/stringutil/)
-is part of the [Go example repository](https://github.com/golang/example).
+The [`stringutil` package](https://pkg.go.dev/golang.org/x/example/stringutil/)
+is part of the [Go example repository](https://cs.opensource.google/go/x/example).
 Here's an example that demonstrates its `Reverse` function:
 
 	package stringutil_test
@@ -45,7 +45,7 @@ Here's an example that demonstrates its `Reverse` function:
 	import (
 		"fmt"
 
-		"github.com/golang/example/stringutil"
+		"golang.org/x/example/stringutil"
 	)
 
 	func ExampleReverse() {
@@ -68,7 +68,7 @@ with no further arrangement from us:
 	=== RUN: ExampleReverse
 	--- PASS: ExampleReverse (0.00s)
 	PASS
-	ok  	github.com/golang/example/stringutil	0.009s
+	ok  	golang.org/x/example/stringutil	0.009s
 
 ## Output comments
 
@@ -109,7 +109,7 @@ then the example function is compiled but not executed:
 	=== RUN TestReverse
 	--- PASS: TestReverse (0.00s)
 	PASS
-	ok  	github.com/golang/example/stringutil	0.009s
+	ok  	golang.org/x/example/stringutil	0.009s
 
 Examples without output comments are useful for demonstrating code that cannot
 run as unit tests, such as that which accesses the network,
