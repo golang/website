@@ -8,7 +8,7 @@ package main
 
 import (
 	"html/template"
-	"io/ioutil"
+	"os"
 	"log"
 	"net/http"
 	"regexp"
@@ -21,12 +21,12 @@ type Page struct {
 
 func (p *Page) save() error {
 	filename := p.Title + ".txt"
-	return ioutil.WriteFile(filename, p.Body, 0600)
+	return os.WriteFile(filename, p.Body, 0600)
 }
 
 func loadPage(title string) (*Page, error) {
 	filename := title + ".txt"
-	body, err := ioutil.ReadFile(filename)
+	body, err := os.ReadFile(filename)
 	if err != nil {
 		return nil, err
 	}
