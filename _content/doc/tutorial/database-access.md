@@ -506,7 +506,7 @@ For SQL statements you know will return at most a single row, you can use
     	var alb Album
 
     	row := db.QueryRow("SELECT * FROM album WHERE id = ?", id)
-    if err := row.Scan(&alb.ID, &alb.Title, &alb.Artist, &alb.Price); err != nil {
+    	if err := row.Scan(&alb.ID, &alb.Title, &alb.Artist, &alb.Price); err != nil {
     		if err == sql.ErrNoRows {
     			return alb, fmt.Errorf("albumsById %d: no such album", id)
     		}
