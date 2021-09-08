@@ -27,7 +27,7 @@ Waza conference entitled
 [_Concurrency is not parallelism_](https://blog.heroku.com/concurrency_is_not_parallelism),
 and a video recording of the talk was released a few months ago.
 
-{{video "https://www.youtube.com/watch?v=oV9rvDllKEg" 500 281}}
+{{video "https://www.youtube.com/embed/oV9rvDllKEg" 500 281}}
 
 The slides are available at [talks.golang.org](https://talks.golang.org/2012/waza.slide)
 (use the left and right arrow keys to navigate).

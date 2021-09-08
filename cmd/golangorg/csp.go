@@ -73,6 +73,7 @@ var csp = map[string][]string{
 		"www.googletagmanager.com",
 		"scone-pa.clients6.google.com",
 		"www.youtube.com",
+		"player.vimeo.com",
 	},
 	"img-src": {
 		self,
