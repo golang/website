@@ -519,3 +519,18 @@ with either a comma or a pipe.
     ```
     GOPROXY="https://proxy.example.com|https://proxy2.example.com"
     ```
+
+
+Go modules are frequently developed and distributed on version control servers
+and module proxies that aren’t available on the public internet. You can set the
+`GOPRIVATE` environment variables. You can set the `GOPRIVATE` environment variable
+to configure the `go` command to download and build modules from private sources.
+Then the go command can download and build modules from private sources.
+
+The `GOPRIVATE` or `GONOPROXY` environment variables may be set to lists of glob
+patterns matching module prefixes that are private and should not be requested
+from any proxy. For example:
+
+```
+GOPRIVATE=*.corp.example.com,*.research.example.com
+```
