@@ -1499,13 +1499,16 @@ arguments must satisfy the following constraints:
 * All arguments must have the same version suffix. Different queries are not
   allowed, even if they refer to the same version.
 * All arguments must refer to packages in the same module at the same version.
-* No module is considered the [main module](#glos-main-module). If the module
-  containing packages named on the command line has a `go.mod` file, it must not
-  contain directives (`replace` and `exclude`) that would cause it to be
-  interpreted differently than if it were the main module. The module must not
-  require a higher version of itself.
 * Package path arguments must refer to `main` packages. Pattern arguments
   will only match `main` packages.
+* No module is considered the [main module](#glos-main-module).
+  * If the module containing packages named on the command line has a `go.mod`
+    file, it must not contain directives (`replace` and `exclude`) that would
+    cause it to be interpreted differently if it were the main module.
+  * The module must not require a higher version of itself.
+  * Vendor directories are not used in any module. (Vendor directories are not
+    included in [module zip files](#zip-files), so `go install` does not
+    download them.)
 
 See [Version queries](#version-queries) for supported version query syntax.
 Go 1.15 and lower did not support using version queries with `go install`.
