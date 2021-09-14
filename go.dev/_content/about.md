@@ -35,6 +35,10 @@ See the Go blog post [New module changes in Go
 1.16](https://blog.golang.org/go116-module-changes#TOC_5.) and the [modules
 reference](https://golang.org/ref/mod#go-mod-file-retract) for details.
 
+If you cannot retract your module, you can
+[file a request](https://golang.org/s/pkgsite-package-removal) for the pkgsite
+team to remove your package.
+
 ## Documentation
 
 Documentation is generated based on Go source code downloaded from the Go Module Mirror at `proxy.golang.org/<module>/@v/<version>.zip`. New module versions are fetched from index.golang.org and added to pkg.go.dev site every few minutes.
