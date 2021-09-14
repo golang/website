@@ -3,6 +3,8 @@
 ## Local Development
 
 For local development, simply build and run. It serves on localhost:6060.
+You can specify the domain name as the first path element, such as
+http://localhost:6060/go.dev/blog.
 
 	go run .
 

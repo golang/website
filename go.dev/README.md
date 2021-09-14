@@ -9,7 +9,9 @@
 
 To serve the go.dev pages, run
 
-	go run ./cmd/frontend
+	go run ./cmd/golangorg
+
+and load http://localhost:6060/go.dev/
 
 ## Deploying
 
@@ -22,7 +24,3 @@ Otherwise, the new deployment can be found in the
 If the automatic deployment is not working, or to check on the status of a pending deployment,
 see the “website-redeploy-go-dev” trigger in the
 [Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=go-discovery).
-
-## Commands
-
-- Running the server: `go run ./cmd/frontend`

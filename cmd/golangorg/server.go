@@ -19,6 +19,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"net/url"
 	"os"
 	"path"
 	"path/filepath"
@@ -417,8 +418,8 @@ func hostEnforcerHandler(h http.Handler) http.Handler {
 
 // hostPathHandler infers the host from the first element of the URL path
 // when the actual host is a testing domain (localhost or *.appspot.com).
-// It also rewrites the output HTML in that case to link back to URLs on
-// the test site.
+// It also rewrites the output HTML and Location headers in that case to
+// link back to URLs on the test site.
 func hostPathHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if r.Host != "localhost" && !strings.HasPrefix(r.Host, "localhost:") && !strings.HasSuffix(r.Host, ".appspot.com") {
@@ -464,6 +465,8 @@ func (r *linkRewriter) WriteHeader(code int) {
 	loc := r.Header().Get("Location")
 	if strings.HasPrefix(loc, "/") {
 		r.Header().Set("Location", "/"+r.host+loc)
+	} else if u, _ := url.Parse(loc); u != nil && validHosts[u.Host] {
+		r.Header().Set("Location", "/"+u.Host+"/"+u.Path+u.RawQuery)
 	}
 	r.ResponseWriter.WriteHeader(code)
 }
