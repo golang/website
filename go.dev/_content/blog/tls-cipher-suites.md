@@ -105,7 +105,7 @@ software deployments,
 but ten years ago it was not standard practice.
 Changing configuration was seen as a much more rapid option to respond to
 vulnerable cipher suites,
-so the operator, though configuration, was put fully in charge of them.
+so the operator, through configuration, was put fully in charge of them.
 We now have the opposite problem: there are fully patched and updated servers
 that still behave weirdly,
 suboptimally, or insecurely, because their configurations haven't been touched in years.
