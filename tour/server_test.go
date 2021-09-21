@@ -13,10 +13,10 @@ import (
 )
 
 func TestWeb(t *testing.T) {
-	if err := initTour("SocketTransport"); err != nil {
+	if err := initTour(); err != nil {
 		log.Fatal(err)
 	}
-	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/", rootHandler("SocketTransport"))
 	http.HandleFunc("/lesson/", lessonHandler)
 	registerStatic()
 

@@ -16,6 +16,7 @@ import (
 	"net/http"
 	"path"
 	"path/filepath"
+	"strconv"
 	"strings"
 	"time"
 
@@ -24,8 +25,8 @@ import (
 )
 
 var (
-	uiContent      []byte
-	lessons        = make(map[string][]byte)
+	uiTmpl         *template.Template
+	lessons        = make(map[string]*Lesson)
 	lessonNotFound = fmt.Errorf("lesson not found")
 )
 
@@ -35,7 +36,7 @@ var (
 )
 
 // initTour loads tour.article and the relevant HTML templates from root.
-func initTour(transport string) error {
+func initTour() error {
 	// Make sure playground is enabled before rendering.
 	present.PlayEnabled = true
 
@@ -51,22 +52,10 @@ func initTour(transport string) error {
 	}
 
 	// Init UI.
-	ui, err := template.ParseFS(root, "template/index.tmpl")
+	uiTmpl, err = template.ParseFS(root, "template/index.tmpl")
 	if err != nil {
 		return fmt.Errorf("parse index.tmpl: %v", err)
 	}
-	buf := new(bytes.Buffer)
-
-	data := struct {
-		AnalyticsHTML template.HTML
-		SocketAddr    string
-		Transport     template.JS
-	}{analyticsHTML, socketAddr(), template.JS(transport)}
-
-	if err := ui.Execute(buf, data); err != nil {
-		return fmt.Errorf("render UI: %v", err)
-	}
-	uiContent = buf.Bytes()
 
 	return initScript()
 }
@@ -82,12 +71,12 @@ func initLessons(tmpl *template.Template) error {
 		if path.Ext(f.Name()) != ".article" {
 			continue
 		}
-		content, err := parseLesson(path.Join("content", f.Name()), tmpl)
+		lesson, err := parseLesson(path.Join("content", f.Name()), tmpl)
 		if err != nil {
 			return fmt.Errorf("parsing %v: %v", f.Name(), err)
 		}
 		name := strings.TrimSuffix(f.Name(), ".article")
-		lessons[name] = content
+		lessons[name] = lesson
 	}
 	return nil
 }
@@ -111,11 +100,12 @@ type Lesson struct {
 	Title       string
 	Description string
 	Pages       []Page
+	JSON        []byte `json:"-"`
 }
 
 // parseLesson parses and returns a lesson content given its path
 // relative to root ('/'-separated) and the template to render it.
-func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
+func parseLesson(path string, tmpl *template.Template) (*Lesson, error) {
 	f, err := root.Open(path)
 	if err != nil {
 		return nil, err
@@ -131,10 +121,10 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 		return nil, err
 	}
 
-	lesson := Lesson{
-		doc.Title,
-		doc.Subtitle,
-		make([]Page, len(doc.Sections)),
+	lesson := &Lesson{
+		Title:       doc.Title,
+		Description: doc.Subtitle,
+		Pages:       make([]Page, len(doc.Sections)),
 	}
 
 	for i, sec := range doc.Sections {
@@ -160,7 +150,8 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 	if err := json.NewEncoder(w).Encode(lesson); err != nil {
 		return nil, fmt.Errorf("encode lesson: %v", err)
 	}
-	return w.Bytes(), nil
+	lesson.JSON = w.Bytes()
+	return lesson, nil
 }
 
 // findPlayCode returns a slide with all the Code elements in the given
@@ -182,7 +173,7 @@ func findPlayCode(e present.Elem) []*present.Code {
 
 // writeLesson writes the tour content to the provided Writer.
 func writeLesson(name string, w io.Writer) error {
-	if uiContent == nil {
+	if uiTmpl == nil {
 		panic("writeLesson called before successful initTour")
 	}
 	if len(name) == 0 {
@@ -192,7 +183,7 @@ func writeLesson(name string, w io.Writer) error {
 	if !ok {
 		return lessonNotFound
 	}
-	_, err := w.Write(l)
+	_, err := w.Write(l.JSON)
 	return err
 }
 
@@ -202,7 +193,7 @@ func writeAllLessons(w io.Writer) error {
 	}
 	nLessons := len(lessons)
 	for k, v := range lessons {
-		if _, err := fmt.Fprintf(w, "%q:%s", k, v); err != nil {
+		if _, err := fmt.Fprintf(w, "%q:%s", k, v.JSON); err != nil {
 			return err
 		}
 		nLessons--
@@ -217,12 +208,43 @@ func writeAllLessons(w io.Writer) error {
 }
 
 // renderUI writes the tour UI to the provided Writer.
-func renderUI(w io.Writer) error {
-	if uiContent == nil {
+func renderUI(transport, urlPath string, w io.Writer) error {
+	if uiTmpl == nil {
 		panic("renderUI called before successful initTour")
 	}
-	_, err := w.Write(uiContent)
-	return err
+
+	var title string
+	var description string
+	parts := strings.Split(urlPath, "/")
+	if lesson, ok := lessons[parts[0]]; ok {
+		title = lesson.Title
+		description = lesson.Description
+		if len(parts) > 1 {
+			idx, err := strconv.Atoi(parts[1])
+			if err != nil {
+				return err
+			}
+			if len(lesson.Pages) >= idx {
+				title = lesson.Pages[idx-1].Title
+			}
+		}
+	}
+
+	data := struct {
+		Title         string
+		Description   string
+		AnalyticsHTML template.HTML
+		SocketAddr    string
+		Transport     template.JS
+	}{
+		Title:         title,
+		Description:   description,
+		AnalyticsHTML: analyticsHTML,
+		SocketAddr:    socketAddr(),
+		Transport:     template.JS(transport),
+	}
+
+	return uiTmpl.Execute(w, data)
 }
 
 // initScript concatenates all the javascript files needed to render

@@ -57,11 +57,11 @@ func main() {
 	}
 	httpAddr = host + ":" + port
 
-	if err := initTour("SocketTransport"); err != nil {
+	if err := initTour(); err != nil {
 		log.Fatal(err)
 	}
 
-	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/", rootHandler("SocketTransport"))
 	http.HandleFunc("/lesson/", lessonHandler)
 
 	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
@@ -100,9 +100,11 @@ func must(fsys fs.FS, err error) fs.FS {
 }
 
 // rootHandler returns a handler for all the requests except the ones for lessons.
-func rootHandler(w http.ResponseWriter, r *http.Request) {
-	if err := renderUI(w); err != nil {
-		log.Println(err)
+func rootHandler(transport string) http.HandlerFunc {
+	return func(w http.ResponseWriter, r *http.Request) {
+		if err := renderUI(transport, strings.TrimPrefix(r.URL.Path, "/"), w); err != nil {
+			log.Println(err)
+		}
 	}
 }
 

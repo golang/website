@@ -22,11 +22,11 @@ func gaeMain() {
 	socketAddr = gaeSocketAddr
 	analyticsHTML = template.HTML(os.Getenv("TOUR_ANALYTICS"))
 
-	if err := initTour("HTTPTransport"); err != nil {
+	if err := initTour(); err != nil {
 		log.Fatal(err)
 	}
 
-	http.Handle("/", hstsHandler(rootHandler))
+	http.Handle("/", hstsHandler(rootHandler("HTTPTransport")))
 	http.Handle("/lesson/", hstsHandler(lessonHandler))
 
 	registerStatic()
