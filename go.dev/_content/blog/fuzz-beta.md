@@ -7,12 +7,11 @@ by:
 tags:
 - fuzz
 - testing
-summary: Native Go fuzzing is now ready for beta testing in the dev.fuzz development branch.
+summary: Native Go fuzzing is now ready for beta testing on tip.
 ---
 
 
-We are excited to announce that native fuzzing is ready for beta testing in its
-development branch, [dev.fuzz](https://github.com/golang/go/tree/dev.fuzz)!
+We are excited to announce that native fuzzing is ready for beta testing on tip!
 
 Fuzzing is a type of automated testing which continuously manipulates inputs to
 a program to find issues such as panics or bugs. These semi-random data
@@ -31,26 +30,13 @@ for more details about this feature.
 To get started, you may run the following
 
 	$ go get golang.org/dl/gotip
-	$ gotip download dev.fuzz
+	$ gotip download
 
-This builds the Go toolchain from the dev.fuzz development branch, and won’t be
-needed once the code is merged to the master branch in the future. After running
-this, `gotip` can act as a drop-in replacement for the `go` command. You can now
-run commands like
+This builds the Go toolchain from the master branch. After running this, `gotip`
+can act as a drop-in replacement for the `go` command. You can now run commands
+like
 
-	$ gotip test -fuzz=FuzzFoo
-
-There will be ongoing development and bug fixes in the dev.fuzz branch, so you
-should regularly run `gotip download dev.fuzz` to use the latest code.
-
-For compatibility with released versions of Go, use the gofuzzbeta build tag
-when committing source files containing fuzz targets to your repository. This
-tag is enabled by default at build-time in the dev.fuzz branch. See the [go
-command documentation about build
-tags](https://golang.org/cmd/go/#hdr-Build_constraints) if you have questions
-about how to use them.
-
-	// +build gofuzzbeta
+	$ gotip test -fuzz=Fuzz
 
 ## Writing a fuzz target
 
@@ -89,16 +75,13 @@ package](https://pkg.go.dev/net/url#ParseQuery).
 		})
 	}
 
-You can read more about the fuzzing APIs with go doc
-
-	gotip doc testing
-	gotip doc testing.F
-	gotip doc testing.F.Add
-	gotip doc testing.F.Fuzz
+You can read more about fuzzing at pkg.go.dev, including [an overview
+of fuzzing with Go](https://pkg.go.dev/testing@master#hdr-Fuzzing) and the
+[godoc for the new `testing.F` type](https://pkg.go.dev/testing@master#F).
 
 ## Expectations
 
-This is a beta release in a development branch, so you should expect some bugs
+This is a new feature that's still in beta, so you should expect some bugs
 and an incomplete feature set. Check the [issue tracker for issues labelled
 “fuzz”](https://github.com/golang/go/issues?q=is%3Aopen+is%3Aissue+label%3Afuzz)
 to stay up-to-date on existing bugs and missing features.
@@ -118,14 +101,10 @@ clear the fuzz cache by running `gotip clean -fuzzcache`.
 
 ## What’s next?
 
-This feature will not be available in the upcoming Go release (1.17), but there
-are plans to land this in a future Go release. We hope that this working
-prototype will allow Go developers to start writing fuzz targets and provide
-helpful feedback about the design in preparation for a merge to master.
+This feature will become available starting in Go 1.18.
 
-If you experience any problems or have an idea for a feature request, please
-[file an
-issue](https://github.com/golang/go/issues/new/?&labels=fuzz&title=%5Bdev%2Efuzz%5D&milestone=backlog).
+If you experience any problems or have an idea for a feature, please [file an
+issue](https://github.com/golang/go/issues/new/?&labels=fuzz).
 
 For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in
