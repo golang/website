@@ -544,6 +544,7 @@ a.BreadcrumbNav-link {
 }
 .SubHero-gridContainer,
 .WhoUses-gridContainer,
+.Playground-gridContainer,
 .WhoUsesHero-gridContainer,
 .WhoUsesCaseStudyList-gridContainer,
 .WhyGo-gridContainer,
@@ -557,6 +558,7 @@ a.BreadcrumbNav-link {
 }
 .SubHero-gridContainer,
 .WhoUses-gridContainer,
+.Playground-gridContainer,
 .WhoUsesHero-gridContainer,
 .WhyGo-gridContainer,
 .UseCases-gridContainer,
@@ -597,6 +599,7 @@ a.BreadcrumbNav-link {
 .WhoUses-headerH2,
 .WhyGo-headerH2,
 .GettingStartedGo-headerH2,
+.HomeSection-header,
 .LearnGo-header h2 {
   font-size: 1.25rem;
   font-style: normal;
@@ -611,6 +614,7 @@ a.BreadcrumbNav-link {
   .WhoUses-headerH2,
   .WhyGo-headerH2,
   .GettingStartedGo-headerH2,
+  .HomeSection-header,
   .LearnGo-header h2 {
     font-size: 2.25rem;
     line-height: 2.625rem;
@@ -3633,3 +3637,128 @@ a.error {
   border-radius: 0.3125rem;
 }
 
+.Playground-headerContainer {
+  text-align: center;
+}
+.Playground-popout {
+  background: url('/lib/godoc/images/play-link.svg') no-repeat;
+  background-position: right center;
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  padding: 0 1.688rem;
+}
+.Playground-input,
+.Playground-output {
+  padding: 0;
+  margin: 0;
+  font-family: Menlo, monospace;
+  font-size: 0.875rem;
+}
+.Playground-inputContainer {
+  border-top-left-radius: 0.3125rem;
+  border-top-right-radius: 0.3125rem;
+  overflow: hidden;
+}
+.Playground-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  padding: 0.625rem;
+  min-height: 11rem;
+  resize: none;
+}
+.Playground-outputContainer {
+  border-bottom-right-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem;
+  border-top: none !important;
+  padding: 0.625rem;
+  height: 5rem;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+.Playground-output {
+  padding: 0;
+  border-radius: 0;
+}
+.Playground-inputContainer,
+.Playground-input,
+.Playground-outputContainer,
+.Playground-output {
+  background: #f7f9fa;
+  color: #202224;
+}
+.Playground-inputContainer,
+.Playground-outputContainer {
+  border: 0.0625rem solid #c0c2c3;
+  resize: vertical;
+}
+.Playground-controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+.Playground-buttons {
+  display: flex;
+  flex: 1;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+.Playground-selectExample {
+  background-color: white;
+  border-radius: 3px;
+  border: 0.0625rem solid #979797;
+  color: inherit;
+  font-family: inherit;
+  font-size: 16px;
+  /* Prevents automatic zoom on mobile devices */
+  height: 2.375rem;
+  margin: 0 0 0.5rem 0;
+  width: 100%;
+}
+.Playground-secondaryButtons {
+  white-space: nowrap;
+}
+.Playground-secondaryButtons .Button:not(:first-child) {
+  margin-left: 0.4375rem;
+}
+@media only screen and (min-width: 27.8125rem) {
+  .Playground-outputContainer {
+    margin-bottom: 1.688rem;
+  }
+  .Playground-controls {
+    flex-wrap: nowrap;
+  }
+  .Playground-selectExample {
+    margin: 0 0.4375rem 0 0;
+    width: auto;
+  }
+}
+.Button,
+.Button:link,
+.Button:visited {
+  align-items: center;
+  background-color: #f7f9fa;
+  border: none;
+  border-radius: 0.1875rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  color: #007d9c;
+  cursor: pointer;
+  display: inline-flex;
+  font: bold 0.875rem Roboto, sans-serif;
+  height: 2.375rem;
+  padding: 0 0.625rem;
+  justify-content: center;
+  min-width: 4.063rem;
+  text-decoration: none;
+}
+.Button:active {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+.Button--primary,
+.Button--primary:link,
+.Button--primary:visited {
+  border: 0.0625rem solid #00add8;
+}

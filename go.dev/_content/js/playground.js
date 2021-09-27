@@ -146,7 +146,7 @@ function HTTPTransport(enableVet) {
             return;
           }
 
-          $.ajax('/vet', {
+          $.ajax('https://play.golang.org/vet', {
             data: { body: body },
             type: 'POST',
             dataType: 'json',
@@ -474,7 +474,7 @@ function PlaygroundOutput(el) {
       if ($(opts.fmtImportEl).is(':checked')) {
         data['imports'] = 'true';
       }
-      $.ajax('/fmt', {
+      $.ajax('https://play.golang.org/fmt', {
         data: data,
         type: 'POST',
         dataType: 'json',
@@ -499,7 +499,7 @@ function PlaygroundOutput(el) {
       sharing = true;
 
       var sharingData = body();
-      $.ajax('/share', {
+      $.ajax('https://play.golang.org/share', {
         processData: false,
         data: sharingData,
         type: 'POST',
@@ -565,6 +565,7 @@ function PlaygroundOutput(el) {
               return;
             }
             setBody(xhr.responseText);
+            run();
           },
         });
       });

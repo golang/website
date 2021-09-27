@@ -143,7 +143,45 @@ title: go.dev
   </div>
   </div>
 </section>
-
+<section class="Playground">
+  <div class="Playground-gridContainer">
+    <div class="Playground-headerContainer">
+      <h2 class="HomeSection-header">Try Go</h2>
+    </div>
+    <div class="Playground-inputContainer">
+      <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go">// You can edit this code!
+// Click here and start typing.
+package main
+import "fmt"
+func main() {
+  fmt.Println("Hello, 世界")
+}
+      </textarea>
+    </div>
+    <div class="Playground-outputContainer js-playgroundOutputEl">
+      <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>
+    </div>
+    <div class="Playground-controls">
+      <select class="Playground-selectExample js-playgroundToysEl" aria-label="Code examples">
+      <option value="hello.go">Hello, World!</option>
+      <option value="life.go">Conway's Game of Life</option>
+      <option value="fib.go">Fibonacci Closure</option>
+      <option value="peano.go">Peano Integers</option>
+      <option value="pi.go">Concurrent pi</option>
+      <option value="sieve.go">Concurrent Prime Sieve</option>
+      <option value="solitaire.go">Peg Solitaire Solver</option>
+      <option value="tree.go">Tree Comparison</option>
+      </select>
+      <div class="Playground-buttons">
+      <button class="Button Button--primary js-playgroundRunEl" title="Run this code [shift-enter]">Run</button>
+      <div class="Playground-secondaryButtons">
+        <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
+        <a class="Button tour" href="https://tour.golang.org/" title="Playground Go from your browser">Tour</a>
+      </div>
+      </div>
+    </div>
+  </div>
+</section>
 <section class="WhyGo">
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
@@ -326,3 +364,4 @@ title: go.dev
     </div>
   </div>
 </section>
+<script src="/js/index.js" defer></script>
