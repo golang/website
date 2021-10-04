@@ -114,7 +114,7 @@ func CreateOrder(ctx context.Context, albumID, quantity, custID int) (orderID in
 
 	// Create a helper function for preparing failure results.
 	fail := func(err error) (int64, error) {
-		return fmt.Errorf("CreateOrder: %v", err)
+		return 0, fmt.Errorf("CreateOrder: %v", err)
 	}
 
 	// Get a Tx for making transaction requests.
@@ -152,7 +152,7 @@ func CreateOrder(ctx context.Context, albumID, quantity, custID int) (orderID in
 		return fail(err)
 	}
 	// Get the ID of the order item just created.
-	orderID, err := result.LastInsertId()
+	orderID, err = result.LastInsertId()
 	if err != nil {
 		return fail(err)
 	}
