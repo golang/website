@@ -29,7 +29,7 @@ for more details about this feature.
 
 To get started, you may run the following
 
-	$ go get golang.org/dl/gotip
+	$ go install golang.org/dl/gotip@latest
 	$ gotip download
 
 This builds the Go toolchain from the master branch. After running this, `gotip`
@@ -47,7 +47,8 @@ argument is passed to a `TestXxx` function.
 Below is an example of a fuzz target that’s testing the behavior of the [net/url
 package](https://pkg.go.dev/net/url#ParseQuery).
 
-	// +build gofuzzbeta
+	//go:build go1.18
+	// +build go1.18
 
 	package fuzz
 
