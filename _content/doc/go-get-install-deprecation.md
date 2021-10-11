@@ -8,9 +8,9 @@
 Starting in Go 1.17, installing executables with `go get` is deprecated.
 `go install` may be used instead.
 
-In a future Go release, `go get` will no longer build packages; it will only
+In Go 1.18, `go get` will no longer build packages; it will only
 be used to add, update, or remove dependencies in `go.mod`. Specifically,
-`go get` will act as if the `-d` flag were enabled.
+`go get` will always act as if the `-d` flag were enabled.
 
 ## What to use instead
 
@@ -40,7 +40,7 @@ In order to avoid ambiguity, when `go install` is used with a version suffix,
 all arguments must refer to `main` packages in the same module at the same
 version. If that module has a `go.mod` file, it must not contain directives like
 `replace` or `exclude` that would cause it to be interpreted differently if it
-were the main module.
+were the main module. The module's `vendor` directory is not used.
 
 See [`go install`](/ref/mod#go-install) for details.
 

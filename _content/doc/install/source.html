@@ -398,18 +398,8 @@ To install one of the tools (<code>godoc</code> in this case):
 </p>
 
 <pre>
-$ go get golang.org/x/tools/cmd/godoc
+$ go install golang.org/x/tools/cmd/godoc@latest
 </pre>
-
-<p>
-To install these tools, the <code>go</code> <code>get</code> command requires
-that <a href="#git">Git</a> be installed locally.
-</p>
-
-<p>
-You must also have a workspace (<code>GOPATH</code>) set up;
-see <a href="/doc/code.html">How to Write Go Code</a> for the details.
-</p>
 
 <h2 id="community">Community resources</h2>
 
@@ -504,8 +494,8 @@ you must set <code>GOPATH</code> to another location to avoid conflicts.
 <p>
 The directory where executables outside the Go distribution are installed
 using the <a href="/cmd/go">go command</a>. For example,
-<code>go get golang.org/x/tools/cmd/godoc</code> downloads, builds, and
-installs <code>$GOBIN/godoc</code>. By default, <code>$GOBIN</code> is
+<code>go install golang.org/x/tools/cmd/godoc@latest</code> downloads, builds,
+and installs <code>$GOBIN/godoc</code>. By default, <code>$GOBIN</code> is
 <code>$GOPATH/bin</code> (or <code>$HOME/go/bin</code> if <code>GOPATH</code>
 is not set). After installing, you will want to add this directory to
 your <code>$PATH</code> so you can use installed tools.
