@@ -2914,7 +2914,7 @@ the same revision.
 This special case allows the same `LICENSE` file to apply to all modules within
 a repository. This only applies to files named `LICENSE` specifically, without
 extensions like `.txt`. Unfortunately, this cannot be extended without breaking
-cryptographic sums of exesting modules; see [Authenticating
+cryptographic sums of existing modules; see [Authenticating
 modules](#authenticating). Other tools and websites like
 [pkg.go.dev](https://pkg.go.dev) may recognize files with other names.
 
