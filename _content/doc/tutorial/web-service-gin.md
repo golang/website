@@ -407,6 +407,8 @@ To do this, you'll write the following:
         --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
     ```
 
+    (If you are using the command prompt in Windows, you must change `'` to `"` and `"` to `/"`.)
+
     The command should display headers and JSON for the added album.
 
     ```
