@@ -491,7 +491,7 @@ func loggingHandler(h http.Handler) http.Handler {
 func xHandler(w http.ResponseWriter, r *http.Request) {
 	if !strings.HasPrefix(r.URL.Path, "/x/") {
 		// Shouldn't happen if handler is registered correctly.
-		http.Redirect(w, r, "https://pkg.go.dev/search?q=golang.org/x", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, "https://pkg.go.dev/golang.org/x", http.StatusTemporaryRedirect)
 		return
 	}
 	proj, suffix := strings.TrimPrefix(r.URL.Path, "/x/"), ""
@@ -499,7 +499,7 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 		proj, suffix = proj[:i], proj[i:]
 	}
 	if proj == "" {
-		http.Redirect(w, r, "https://pkg.go.dev/search?q=golang.org/x", http.StatusTemporaryRedirect)
+		http.Redirect(w, r, "https://pkg.go.dev/golang.org/x", http.StatusTemporaryRedirect)
 		return
 	}
 	repo, ok := repos.ByGerritProject[proj]

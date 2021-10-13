@@ -19,7 +19,7 @@ code == 404
 
 GET https://golang.org/x/
 code == 307
-header location == https://pkg.go.dev/search?q=golang.org/x
+header location == https://pkg.go.dev/golang.org/x
 
 GET https://golang.org/x/In%20Valid,X
 code == 404
