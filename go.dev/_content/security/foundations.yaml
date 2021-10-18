@@ -1,0 +1,35 @@
+  - title: Secure by design
+    content:
+    contentList:
+      - title: Memory safety and garbage collection prevent most common vulnerabilities
+      - title: Safe by default APIs in the standard library
+      - title: Use safe libraries from Google like
+        url: https://github.com/google/safehtml
+    url: https://github.com/google/safehtml
+    icon: /images/icons/secure.svg
+    cta: Learn more
+  - title: Enterprise crypto
+    content:
+    contentList:
+      - title: Included in the std library
+      - title: Maintained by the Go team
+    url: https://www.google.com
+    icon: /images/icons/crypto.svg
+    cta: Learn more
+  - title: Supply chain security
+    content:
+    contentList:
+      - title: Ecosystem of 3rd party modules with a culture of limited dependencies
+      - title: Tamper detection via the Go checksum database
+      - title: Availability via the Go module proxy
+    url: https://www.google.com
+    icon: /images/icons/supply_chain_security.svg
+    cta: Learn more
+  - title: Swiftly handle security issues
+    content:
+    contentList:
+      - title: Report bugs directly to the Go team
+      - title: Leverage community resources like Snyk and Nancy
+    url: https://www.google.com
+    icon: /images/icons/swift_issues.svg
+    cta: Learn more
