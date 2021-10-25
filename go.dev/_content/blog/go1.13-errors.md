@@ -237,9 +237,10 @@ information to preserve an abstraction layer.
 ## Customizing error tests with Is and As methods
 
 The `errors.Is` function examines each error in a chain for a match with a
-target value. By default, an error matches the target if the two are equal. In
-addition, an error in the chain may declare that it matches a target by
-implementing an `Is` _method_.
+target value. By default, an error matches the target if the two are
+[equal](https://golang.org/ref/spec#Comparison_operators). In addition, an
+error in the chain may declare that it matches a target by implementing an `Is`
+_method_.
 
 As an example, consider this error inspired by the
 [Upspin error package](https://commandcenter.blogspot.com/2017/12/error-handling-in-upspin.html)
