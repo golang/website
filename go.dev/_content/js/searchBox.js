@@ -3,8 +3,10 @@
   const BREAKPOINT = 512;
   const logo = document.querySelector('.js-headerLogo');
   const form = document.querySelector('.js-searchForm');
+  if (!form) return;
   const button = document.querySelector('.js-searchFormSubmit');
   const input = form.querySelector('input');
+
 
   renderForm();
 
