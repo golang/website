@@ -72,6 +72,16 @@ so that the `go` command can find and download the module. There are also
 several [lexical restrictions](#go-mod-file-ident) on characters allowed in
 module paths.
 
+A module that will never be fetched as a dependency of any other module may use
+any valid package path for its module path, but must take care not to collide
+with paths that may be used by the module's dependencies or the Go standard
+library. The Go standard library uses package paths that do not contain a dot in
+the first path element, and the `go` command does not attempt to resolve such
+paths from network servers. The paths `example` and `test` are reserved for
+users: they will not be used in the standard library and are suitable for use in
+self-contained modules, such as those defined in tutorials or example code or
+created and manipulated as part of a test.
+
 ### Versions {#versions}
 
 A <dfn>version</dfn> identifies an immutable snapshot of a module, which may be
