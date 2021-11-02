@@ -67,7 +67,7 @@ function requestHaTs(cookieName, triggerId, bucketSample, promptSample) {
     if (el) {
       el.addEventListener('click', () => {
         // HaTS - Core Go distribution
-        requestHaTs('HaTS_BKT_DIST', 'dz6fkRxyz0njVvnD1rP0QxCXzhSX', 0.1, 1);
+        requestHaTs('HaTS_BKT_DIST', 'dz6fkRxyz0njVvnD1rP0QxCXzhSX', 0.2, 1);
       });
     }
   });
