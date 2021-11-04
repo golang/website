@@ -82,6 +82,7 @@ body contains scan_test.go
 
 GET https://golang.org/src/fmt/print.go
 body contains // Println formats using
+body contains <!DOCTYPE html>
 
 GET https://golang.org/pkg/fmt/
 redirect == https://pkg.go.dev/fmt

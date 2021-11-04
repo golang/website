@@ -462,7 +462,7 @@ func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	// Serve text file.
 	if isTextFile(s.fs, relpath) {
-		if _, ok := s.findLayout(path.Dir(relpath), "text"); ok {
+		if _, ok := s.findLayout(path.Dir(relpath), "texthtml"); ok {
 			if !maybeRedirectFile(w, r) {
 				s.serveText(w, r, relpath)
 			}
