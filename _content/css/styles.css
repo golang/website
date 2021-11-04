@@ -142,37 +142,6 @@ a:hover {
   color: #464a4d;
   font-size: 1rem;
 }
-/**
- * Only show on wide viewports so the
- * text never wraps or gets cut off.
- */
-.Banner {
-  background-color: #202224;
-  display: none;
-}
-.Banner-inner {
-  align-items: center;
-  display: flex;
-  justify-content: space-between;
-  margin: 0 auto;
-  min-height: 2.5rem;
-  padding: 0.5rem 1.5rem;
-}
-.Banner-message {
-  color: #fff;
-  margin-right: 1.25rem;
-}
-.Banner-action:link,
-.Banner-action:visited {
-  color: #fff;
-  text-decoration: underline;
-  white-space: nowrap;
-}
-@media only screen and (min-width: 48rem) {
-  .Banner {
-    display: block;
-  }
-}
 .UseCase-halfColumn {
   color: #202224;
   display: inline-block;
