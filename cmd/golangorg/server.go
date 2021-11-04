@@ -507,6 +507,15 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
+	if suffix == "/info/refs" && strings.HasPrefix(r.URL.Query().Get("service"), "git-") && repo.GoGerritProject != "" {
+		// Someone is running 'git clone https://golang.org/x/repo'.
+		// We want the eventual git checkout to have the right origin (go.googlesource.com)
+		// and not just keep hitting golang.org all the time.
+		// A redirect would work for this git command but not record the result.
+		// Instead, print a useful error for the user.
+		http.Error(w, fmt.Sprintf("Use 'git clone https://go.googlesource.com/%s' instead.", repo.GoGerritProject), http.StatusNotFound)
+		return
+	}
 	data := struct {
 		Proj   string // Gerrit project ("net", "sys", etc)
 		Suffix string // optional "/path" for requests like /x/PROJ/path

@@ -23,3 +23,7 @@ header location == https://pkg.go.dev/search?q=golang.org/x
 
 GET https://golang.org/x/In%20Valid,X
 code == 404
+
+GET https://golang.org/x/website/info/refs?service=git-upload-pack
+code == 404
+body contains Use 'git clone https://go.googlesource.com/website' instead.
