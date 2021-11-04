@@ -9,7 +9,7 @@ title: "Security"
         {{breadcrumbs .}}
         <h1>Build secure applications with Go</h1>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Gopherum quis custodiet?
         </p>
       </div>
       <div class="Security-heroGopher">
@@ -99,7 +99,7 @@ title: "Security"
   <div class="Card-inner">
     {{- if .icon}}
     <div class="Card-icon">
-      <img src="{{.icon}}"/> 
+      <img src="{{.icon}}"/>
     </div>
     {{- end}}
     <div class="Card-content">
