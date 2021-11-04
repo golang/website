@@ -13,14 +13,14 @@
 	<th align="right">Bytes</th>
 </tr>
 <tr>
-	<td><a href="../">../</a></td>
+	<td><a href="../">../</a><td><td>
 </tr>
 
 {{range .dir}}{{if .IsDir}}
-	<tr><td align="left"><a href="{{.Name}}/">{{.Name}}/</a><td></tr>
+	<tr><td align="left"><a href="{{.Name}}/">{{.Name}}/</a><td><td></tr>
 {{end}}{{end}}
 {{range .dir}}{{if not .IsDir}}
-	<tr><td align="left"><a href="{{.Name}}">{{.Name}}</a><td align="right">{{.Size}}</tr>
+	<tr><td align="left"><a href="{{.Name}}">{{.Name}}</a><td><td align="right">{{.Size}}</tr>
 {{end}}{{end}}
 
 </table>
