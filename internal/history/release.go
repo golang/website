@@ -15,6 +15,18 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2021, 11, 4}, Version: Version{1, 17, 3},
+		CustomSummary: `includes security fixes to the <code>archive/zip</code> and <code>debug/macho</code> packages,
+as well as bug fixes to the compiler, linker, runtime, the <code>go</code> command, the <code>misc/wasm</code> directory, and to the <code>net/http</code> and <code>syscall</code> packages.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.3+label%3ACherryPickApproved">Go 1.17.3 milestone</a> on our issue tracker for details.`,
+	},
+	{
+		Date: Date{2021, 11, 4}, Version: Version{1, 16, 10},
+		CustomSummary: `includes security fixes to the <code>archive/zip</code> and <code>debug/macho</code> packages,
+as well as bug fixes to the compiler, linker, runtime, the <code>misc/wasm</code> directory, and to the <code>net/http</code> package.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.10+label%3ACherryPickApproved">Go 1.16.10 milestone</a> on our issue tracker for details.`,
+	},
+	{
 		Date: Date{2021, 10, 7}, Version: Version{1, 17, 2},
 		CustomSummary: `includes a security fix to the linker and <code>misc/wasm</code> directory,
 as well as bug fixes to the compiler, the runtime, the <code>go</code> command, and to the <code>time</code> and <code>text/template</code> packages.
