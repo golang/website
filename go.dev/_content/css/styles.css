@@ -7,6 +7,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif,
   'Apple Color Emoji', 'Segoe UI Emoji';
   max-height: 100%;
+  line-height: 1.4;
 }
 button,
 input,
@@ -17,6 +18,13 @@ textarea {
 code,
 pre {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
+}
+/* Trim spaces to be more like plain text spaces in text like "Use <code>go get</code> to ...", but not in <pre> blocks. */
+code {
+  word-spacing: -0.5ch;
+}
+pre code {
+  word-spacing: 0 !important;
 }
 html,
 .Site {
@@ -86,8 +94,6 @@ a:hover {
 .CaseStudy-aboutBlockBody {
   color: #464a4d;
   font-size: 1rem;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
 }
 /**
  * Only show on wide viewports so the
@@ -129,11 +135,9 @@ a:hover {
   }
 }
 .UseCase-halfColumn {
-  color: #3e4042;
+  color: #202224;
   display: inline-block;
   font-size: 1rem;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
   width: 100%;
 }
 @media only screen and (min-width: 48rem) {
@@ -283,26 +287,6 @@ a.Footer-link--primary {
   padding: 0;
 }
 
-h1,
-h2 {
-  font-weight: 600;
-  letter-spacing: 0.03rem;
-}
-
-h3 {
-  font-size: 1.125rem;
-}
-
-h3,
-h4 {
-  letter-spacing: 0.08rem;
-}
-h5,
-h6 {
-  font-weight: 500;
-  letter-spacing: 0.08rem;
-}
-
 @media only screen and (min-width: 57.7rem) {
   .Header {
     padding: 0 1.5rem;
@@ -324,7 +308,7 @@ h6 {
   align-items: center;
   border-bottom: 0.1875rem solid transparent;
   border-top: 0.1875rem solid transparent; /* To ensure the text remains centered. */
-  color: #3e4042;
+  color: #202224;
   display: inline-flex;
   margin: 0 0.3125rem;
   padding: 0 0.9375rem;
@@ -343,7 +327,7 @@ h6 {
 }
 .Header-menuItem a:hover {
   border-bottom-color: #fff;
-  color: #3e4042;
+  color: #202224;
 }
 .Header-navOpen {
   background: no-repeat center/2rem url('/images/menu-24px.svg');
@@ -417,16 +401,15 @@ h6 {
 .Article {
   color: #202224;
   margin: 0 auto 1.875rem;
-  max-width: 45rem;
+  max-width: 75.75rem;
   padding: 0 1.5rem;
 }
-.Article--solutions {
-  max-width: 75.75rem;
+.Doc h1 {
+  padding-top: 1rem;
 }
 .Article-author,
 .Article-date {
   font-size: 0.875rem;
-  line-height: 1.375rem;
 }
 .Article-date {
   color: #6e7072;
@@ -441,19 +424,16 @@ h6 {
 }
 .Article h1 {
   font-size: 2.25rem;
-  font-weight: 400;
   line-height: 3rem;
   margin: 1rem 0 1rem;
 }
 .Article h2 {
   font-size: 1.4rem;
-  font-weight: normal;
   line-height: 2rem;
   margin-top: 2.25rem;
 }
 .Article h3 {
   font-size: 1.125rem;
-  font-weight: 500;
 }
 .Article h4,
 .Article h5,
@@ -463,12 +443,10 @@ h6 {
 .Article p,
 .Article ul,
 .Article ol {
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
-  letter-spacing: 0.0063rem;
-  line-height: 1.75rem;
 }
 .Article p:last-of-type {
   margin-bottom: 0;
@@ -477,15 +455,14 @@ h6 {
   background-color: #fafafa;
   border: 0.0625rem solid #dcdee0;
   border-radius: 0.375rem;
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
-  line-height: 1.45;
   overflow-x: auto;
   padding: 1.5rem;
 }
 .Article pre,
 .Article code {
-  color: #3e4042;
+  color: #202224;
 }
 @media only screen and (min-width: 57.7rem) {
   .Article h1,
@@ -503,7 +480,6 @@ h6 {
   }
   .Article h2 {
     font-size: 1.5rem;
-    font-weight: 500;
     line-height: 2.25rem;
   }
 }
@@ -607,7 +583,6 @@ a.BreadcrumbNav-link {
   font-size: 1.25rem;
   font-style: normal;
   font-weight: 500;
-  letter-spacing: 0.188rem;
   line-height: 1.75rem;
   margin-bottom: 1.5rem;
   margin-bottom: 0.5rem;
@@ -735,15 +710,11 @@ a.BreadcrumbNav-link {
   }
 }
 .GettingStartedGo-headerDesc {
-  color: #3e4042;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
+  color: #202224;
 }
 .GettingStartedGo-ctas {
   font-size: 0.875rem;
   font-weight: normal;
-  letter-spacing: 0.0164rem;
-  line-height: 1rem;
   margin-top: 1rem;
 }
 a.GettingStartedGo-primaryCta {
@@ -781,7 +752,6 @@ a.GettingStartedGo-primaryCta {
 .GettingStartedGo-resourcesHeader {
   color: #555759;
   font-size: 0.6875rem;
-  letter-spacing: 0.0625rem;
   margin-bottom: 1rem;
   text-transform: uppercase;
 }
@@ -791,23 +761,19 @@ a.GettingStartedGo-primaryCta {
 a.GettingStartedGo-resourceItemTitle {
   color: #202224;
   font-weight: 500;
-  line-height: 1.5rem;
 }
 .GettingStartedGo-resourceItemDescription {
   color: #555759;
   font-size: 0.8125rem;
-  line-height: 1.5rem;
 }
 .WhoUses-header h4,
 .WhyGo-headerH4,
 .LearnGo-header h4,
 .WhoUses-subheader {
-  color: #3e4042;
+  color: #202224;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: normal;
-  letter-spacing: 0.006rem;
-  line-height: 1.125rem;
   margin-bottom: 1.5rem;
   margin-top: 0;
 }
@@ -817,7 +783,6 @@ a.GettingStartedGo-resourceItemTitle {
   .LearnGo-header h4,
   .WhoUses-subheader {
     font-size: 1rem;
-    line-height: 1.5rem;
   }
 }
 .Hero {
@@ -826,13 +791,11 @@ a.GettingStartedGo-resourceItemTitle {
 .Hero h1 {
   font-size: 2.625rem;
   font-weight: 500;
-  letter-spacing: 0.3rem;
   margin: 1rem 0;
 }
 .Hero h2 {
   font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: 0.011rem;
+  font-weight: normal;
   max-width: 40rem;
 }
 .Hero-gridContainer {
@@ -919,7 +882,6 @@ a.GettingStartedGo-resourceItemTitle {
 .Hero-blurb h1 {
   font-size: 1.375rem;
   font-weight: 500;
-  letter-spacing: 0.0019rem;
   margin-top: 0;
 }
 .Hero-blurbList {
@@ -944,7 +906,6 @@ a.GettingStartedGo-resourceItemTitle {
 .Hero-footnote {
   flex-direction: column;
   font-size: 0.8125rem;
-  letter-spacing: 0.007rem;
   margin: 0.5rem 0 1.5rem;
 }
 .Hero-footnote p {
@@ -1044,7 +1005,7 @@ a.GettingStartedGo-resourceItemTitle {
   background-color: #fafafa;
 }
 .WhoUses-subheader {
-  color: #3e4042;
+  color: #202224;
   margin-bottom: 0;
   margin-left: auto;
   margin-right: auto;
@@ -1060,7 +1021,6 @@ a.GettingStartedGo-resourceItemTitle {
   width: 100%;
 }
 .WhoUses-heroInnerLeft {
-  line-height: 1.5rem;
   margin-bottom: 2rem;
   margin-right: 0;
   max-width: 19.625rem;
@@ -1209,7 +1169,6 @@ a.GettingStartedGo-resourceItemTitle {
   color: #555759;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.5rem;
   padding: 0.75rem 0;
 }
 .FeaturedUsers table thead th:not(:nth-child(1)) {
@@ -1235,10 +1194,8 @@ a.GettingStartedGo-resourceItemTitle {
   width: 40%;
 }
 .FeaturedUsers table td {
-  color: #3e4042;
+  color: #202224;
   font-size: 0.875rem;
-  letter-spacing: 0.0117rem;
-  line-height: 1.5rem;
   vertical-align: top;
 }
 .FeaturedUsers table td ul {
@@ -1247,14 +1204,11 @@ a.GettingStartedGo-resourceItemTitle {
 }
 .FeaturedUsers table td ul li {
   font-size: 0.875rem;
-  letter-spacing: 0.0117rem;
-  line-height: 1.5rem;
 }
 .FeaturedUsers table thead {
   color: #555759;
   font-size: 1rem;
   font-weight: 500;
-  line-height: 1.5rem;
 }
 .FeaturedUsers table tbody tr {
   border-bottom: 0.0625rem solid #dcdee0;
@@ -1312,7 +1266,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   font-size: 0.875rem;
 }
 .WhoUsesCaseStudy-libraryTitle {
-  font-weight: 400;
+  font-weight: normal;
 }
 .WhoUsesCaseStudy-librariesList {
   column-gap: 7.375rem;
@@ -1329,9 +1283,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin: 0 0 1.5rem;
 }
 .WhoUsesCaseStudy-library p {
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
-  letter-spacing: 0.0111rem;
   line-height: 1.1875rem;
   margin: 0.5rem 0 0;
 }
@@ -1339,12 +1292,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   margin-bottom: 2.5rem;
 }
 .WhoUsesCaseStudy-view-more a {
-  color: #3e4042;
+  color: #202224;
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 500;
-  letter-spacing: 0.0156rem;
-  line-height: 1rem;
   margin-bottom: 2.5rem;
   text-align: center;
 }
@@ -1447,13 +1398,11 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   align-items: center;
   display: flex;
   font-size: 0.875rem;
-  letter-spacing: 0.016rem;
   text-decoration: none;
 }
 .WhyGo-reasonPackages {
-  color: #3e4042;
+  color: #202224;
   font-size: 0.875rem;
-  letter-spacing: 0.055rem;
 }
 .WhyGo-reasonPackagesHeader {
   margin-bottom: 0.688rem;
@@ -1476,7 +1425,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   box-sizing: border-box;
   color: #007d9c;
   font-size: 0.688rem;
-  letter-spacing: 0.0129rem;
   line-height: 0.813rem;
   list-style: none;
   margin: 0.125rem 0.5rem 0.5rem 0;
@@ -1499,7 +1447,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .WhyGo-reasonShowMoreLink {
   font-size: 0.875rem;
-  letter-spacing: 0.0164rem;
   text-align: center;
 }
 .WhyGo-reasonShowMoreLink a {
@@ -1515,17 +1462,14 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   vertical-align: middle;
 }
 .WhyGo-reasonText p {
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
   font-weight: normal;
-  letter-spacing: 0.006rem;
-  line-height: 1.5rem;
 }
 .WhyGo-reasonTitle {
   color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
-  line-height: 1.5rem;
 }
 .WhyGo-gopher {
   flex: 1;
@@ -1585,7 +1529,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding: 1rem 0 0 1rem; /* Gutter between grid cells. */
 }
 .LearnGo-courseItem a {
-  color: #3e4042;
+  color: #202224;
 }
 .LearnGo-courseTitle {
   text-align: center;
@@ -1673,15 +1617,12 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   color: #555759;
   font-size: 0.8125rem;
   font-style: normal;
-  line-height: 1rem;
   margin: 0 0 1.5rem 0;
 }
 .GoCarousel-eventHeader {
   color: #555759;
   font-size: 0.6875rem;
   font-weight: 500;
-  letter-spacing: 0.0625rem;
-  line-height: 1rem;
   margin: 0 0 0.875rem;
   text-transform: uppercase;
 }
@@ -1695,7 +1636,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   display: -webkit-box;
   font-weight: 500;
   -webkit-line-clamp: 2;
-  line-height: 1.5rem;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -1707,8 +1647,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .GoCarousel-viewMore {
   bottom: 0;
   font-size: 0.875rem;
-  letter-spacing: 0.026rem;
-  line-height: 1rem;
   margin: 0;
   min-width: 6.25rem;
   position: absolute;
@@ -1810,7 +1748,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Security-heroContent p {
   color: #6e7072;
   font-size: 0.875rem;
-  line-height: 1.5rem;
   max-width: 27.1875rem;
 }
 
@@ -1834,7 +1771,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   color: #ffffff;
   font-size: 0.875rem;
   font-weight: 500;
-  line-height: 1rem;
   text-decoration: none;
 }
 
@@ -1960,7 +1896,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   .Security-heroAction a:hover,
   .Security-heroAction a:visited {
     font-size: 1.5rem;
-    line-height: 1.75rem;
   }
 
   .Learn-heroAction span,
@@ -2002,7 +1937,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-learningResources h2 {
   font-size: 2rem;
   font-weight: 500;
-  letter-spacing: 0.1875rem;
   line-height: 2.3125rem;
 }
 
@@ -2015,7 +1949,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Learn-learningResourcesHeader h3 {
   font-size: 1.5rem;
   font-weight: bold;
-  letter-spacing: normal;
   line-height: 2.25rem;
 }
 
@@ -2281,14 +2214,13 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   justify-content: center;
 }
 .Learn-tile a {
-  color: #3e4042;
+  color: #202224;
 }
 .Learn-tileTitle {
   display: block;
   font-size: 0.75rem;
   font-style: normal;
   font-weight: normal;
-  letter-spacing: 0.01rem;
   line-height: 0.875rem;
   margin: 1.5rem auto 0;
   overflow-wrap: break-word;
@@ -2397,11 +2329,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   text-align: center;
 }
 .Solutions-title h3 {
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
   font-weight: normal;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
   margin-bottom: 0;
   text-align: center;
 }
@@ -2424,7 +2354,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   flex-direction: column;
   font-size: 0.875rem;
   font-weight: normal;
-  line-height: 1.5rem;
   margin-bottom: 1.5rem;
 }
 .Solutions-headlineBody a {
@@ -2523,7 +2452,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-useCasesHeader h2,
 .Solutions-caseStudiesHeader h2 {
-  letter-spacing: 0.125rem;
 }
 .Solutions-cardList,
 .Solutions-caseStudyList {
@@ -2586,8 +2514,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   color: #007d9c;
   font-size: 1rem;
   font-weight: normal;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
   position: absolute;
 }
 .Solutions-useCaseAction {
@@ -2602,14 +2528,11 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
-  letter-spacing: 0.0063rem;
-  line-height: 1.5rem;
 }
 .Solutions-useCaseTitle {
   color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
-  line-height: 1.5rem;
 }
 .Solutions-useCaseBody {
   flex: 1;
@@ -2641,8 +2564,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   color: #202224;
   font-size: 1.125rem;
   font-weight: normal;
-  letter-spacing: 0.007rem;
-  line-height: 1.5rem;
 }
 .TestimonialsGo-quotes {
   display: flex;
@@ -2681,16 +2602,13 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .TestimonialsGo-quoteSection p {
   color: #202224;
   font-size: 0.875rem;
-  letter-spacing: 0.0082rem;
-  line-height: 1.5rem;
   text-align: center;
 }
 .TestimonialsGo-author {
-  color: #3e4042;
+  color: #202224;
   font-size: 0.8rem;
   font-style: normal;
   font-weight: normal;
-  line-height: 1.5rem;
   text-align: right;
   width: 100%;
 }
@@ -2712,7 +2630,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   }
   .TestimonialsGo-quoteSection p {
     font-size: 1.3125rem;
-    letter-spacing: 0.0082rem;
     line-height: 2.25rem;
   }
 }
@@ -2783,13 +2700,12 @@ p.BackgroundQuote-body {
   }
 }
 .QuoteBlock-body {
-  color: #3e4042;
+  color: #202224;
   font-size: 1.125rem;
-  letter-spacing: 0.007rem;
   line-height: 2rem;
 }
 .QuoteBlock-author {
-  color: #3e4042;
+  color: #202224;
   font-size: 1rem;
   font-style: normal;
   font-weight: 500;
@@ -3221,8 +3137,7 @@ a.UseCase-anchorLink {
   border: none;
   color: #202224;
   font-size: 1.125rem;
-  font-weight: 400;
-  line-height: 1.5rem;
+  font-weight: normal;
   margin-top: 1rem;
   padding-left: 0.5rem;
   position: relative;
@@ -3410,11 +3325,6 @@ img.PullQuote-image {
   padding: 1.5rem;
 }
 
-.Card-contentTitle,
-.Card-contentBody {
-  line-height: 1.5rem;
-}
-
 .Card-contentTitle {
   color: #202224;
   font-size: 1.125rem;
@@ -3487,14 +3397,12 @@ img.PullQuote-image {
   color: #202224;
   font-size: 1.125rem;
   font-weight: 500;
-  line-height: 1.5rem;
   margin: 0 0 0.5rem;
 }
 
 .Book-description {
   color: #6e7072;
   font-size: 0.875rem;
-  line-height: 1.5rem;
 }
 
 .Book-cta {
@@ -3566,10 +3474,6 @@ img.PullQuote-image {
 }
 #blog pre, #blog code {
   font-family: monospace;
-}
-#blog p,
-#blogindex p {
-  line-height: 1.4em;
 }
 #blogindex p.blogtitle a {
   font-weight: bold;
@@ -3710,11 +3614,9 @@ a.error {
   justify-content: center;
 }
 .Security-comingSoonTitle h3 {
-  font-family: 'Work Sans', sans-serif;
   color: #71757B;
-  font-weight: 400;
+  font-weight: normal;
   font-size: 1.5rem;
-  line-height: 0;
 }
 .Security-comingSoonContent ul {
   padding-left: 1rem;
@@ -3787,7 +3689,7 @@ a.error {
   color: #fff;
   font-size: 2.25rem;
   line-height: 2.925rem;
-  font-weight: 400;
+  font-weight: normal;
 }
 .Security-secondary-cta-image {
   font-size: 0;
