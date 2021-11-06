@@ -540,7 +540,7 @@ integer followed by a dot and a non-negative integer (for example, `1.9`,
 
 The `go` directive was originally intended to support backward incompatible
 changes to the Go language (see [Go 2
-transition](/design/28221-go2-transitions)). There have been no incompatible
+transition](https://go.googlesource.com/proposal/+/master/design/28221-go2-transitions.md)). There have been no incompatible
 language changes since modules were introduced, but the `go` directive still
 affects use of new language features:
 
@@ -1052,7 +1052,7 @@ module graph loaded by Go 1.17. The `-compat` flag can be used to override the
 default version (for example, to prune the `go.sum` file more aggressively in a
 `go 1.17` module).
 
-See [the design document](/design/36460-lazy-module-loading) for more detail.
+See [the design document](https://go.googlesource.com/proposal/+/master/design/36460-lazy-module-loading.md) for more detail.
 
 ### Lazy module loading {#lazy-loading}
 
