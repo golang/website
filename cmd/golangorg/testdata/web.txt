@@ -227,3 +227,10 @@ body contains Controls the set of version control tools
 GET https://golang.org/asdf
 code == 404
 body ~ <span class="alert" style="font-size:120%">open (../../_content/)?asdf: (.*)</span>
+
+GET https://golang.org/dl/
+body contains href="/dl/go1.11.windows-amd64.msi"
+
+GET https://golang.org/dl/?mode=json
+body contains .windows-amd64.msi
+body !contains UA-

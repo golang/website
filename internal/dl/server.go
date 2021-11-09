@@ -5,9 +5,12 @@
 package dl
 
 import (
+	"bytes"
 	"context"
 	"crypto/hmac"
 	"crypto/md5"
+	_ "embed"
+	"encoding/gob"
 	"encoding/json"
 	"fmt"
 	"html"
@@ -31,7 +34,11 @@ type server struct {
 }
 
 func RegisterHandlers(mux *http.ServeMux, site *web.Site, host string, dc *datastore.Client, mc *memcache.Client) {
-	s := server{site, dc, mc.WithCodec(memcache.Gob)}
+	var gob *memcache.CodecClient
+	if mc != nil {
+		gob = mc.WithCodec(memcache.Gob)
+	}
+	s := server{site, dc, gob}
 	mux.HandleFunc(host+"/dl", s.getHandler)
 	mux.HandleFunc(host+"/dl/", s.getHandler) // also serves listHandler
 	mux.HandleFunc(host+"/dl/upload", s.uploadHandler)
@@ -50,31 +57,12 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
 		return
 	}
-	ctx := r.Context()
-	d := listTemplateData{}
 
-	if err := h.memcache.Get(ctx, cacheKey, &d); err != nil {
-		if err != memcache.ErrCacheMiss {
-			log.Printf("ERROR cache get error: %v", err)
-			// NOTE(cbro): continue to hit datastore if the memcache is down.
-		}
-
-		var fs []File
-		q := datastore.NewQuery("File").Ancestor(rootKey)
-		if _, err := h.datastore.GetAll(ctx, q, &fs); err != nil {
-			log.Printf("ERROR error listing: %v", err)
-			http.Error(w, "Could not get download page. Try again in a few minutes.", 500)
-			return
-		}
-		d.Stable, d.Unstable, d.Archive = filesToReleases(fs)
-		if len(d.Stable) > 0 {
-			d.Featured = filesToFeatured(d.Stable[0].Files)
-		}
-
-		item := &memcache.Item{Key: cacheKey, Object: &d, Expiration: cacheDuration}
-		if err := h.memcache.Set(ctx, item); err != nil {
-			log.Printf("ERROR cache set error: %v", err)
-		}
+	d, err := h.listData(r.Context())
+	if err != nil {
+		log.Printf("ERROR listing downloads: %v", err)
+		http.Error(w, "Could not get download page. Try again in a few minutes.", 500)
+		return
 	}
 
 	if r.URL.Query().Get("mode") == "json" {
@@ -89,10 +77,53 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// dl.gob was generated 2021-11-08 from the live server data, for offline testing.
+//go:embed dl.gob
+var dlGob []byte
+
+func (h server) listData(ctx context.Context) (*listTemplateData, error) {
+	var d listTemplateData
+	if h.datastore == nil {
+		// Use fake embedded data.
+		err := gob.NewDecoder(bytes.NewReader(dlGob)).Decode(&d)
+		if err != nil {
+			return nil, err
+		}
+		return &d, nil
+	}
+
+	err := h.memcache.Get(ctx, cacheKey, &d)
+	if err == nil {
+		return &d, nil
+	}
+	if err != memcache.ErrCacheMiss {
+		log.Printf("ERROR cache get error: %v", err)
+		// NOTE(cbro): continue to hit datastore if the memcache is down.
+	}
+
+	var fs []File
+	q := datastore.NewQuery("File").Ancestor(rootKey)
+	if _, err := h.datastore.GetAll(ctx, q, &fs); err != nil {
+		return nil, err
+	}
+
+	d.Stable, d.Unstable, d.Archive = filesToReleases(fs)
+	if len(d.Stable) > 0 {
+		d.Featured = filesToFeatured(d.Stable[0].Files)
+	}
+
+	item := &memcache.Item{Key: cacheKey, Object: &d, Expiration: cacheDuration}
+	if err := h.memcache.Set(ctx, item); err != nil {
+		log.Printf("ERROR cache set error: %v", err)
+	}
+
+	return &d, nil
+}
+
 // serveJSON serves a JSON representation of d. It assumes that requests are
 // limited to GET and OPTIONS, the latter used for CORS requests, which this
 // endpoint supports.
-func serveJSON(w http.ResponseWriter, r *http.Request, d listTemplateData) {
+func serveJSON(w http.ResponseWriter, r *http.Request, d *listTemplateData) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
 	if r.Method == "OPTIONS" {

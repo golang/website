@@ -49,7 +49,7 @@ func TestServeJSON(t *testing.T) {
 		t.Run(tc.desc, func(t *testing.T) {
 			r := httptest.NewRequest(tc.method, tc.target, nil)
 			w := httptest.NewRecorder()
-			serveJSON(w, r, data)
+			serveJSON(w, r, &data)
 
 			resp := w.Result()
 			defer resp.Body.Close()

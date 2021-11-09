@@ -1,13 +1,6 @@
 # Tests that can only run against the live server,
 # because they depend on production resources.
 
-GET https://golang.org/dl/
-body contains href="/dl/go1.11.windows-amd64.msi"
-
-GET https://golang.org/dl/?mode=json
-body contains .windows-amd64.msi
-body !contains UA-
-
 GET https://golang.org/s/go2design
 code == 302
 body ~ proposal.*Found

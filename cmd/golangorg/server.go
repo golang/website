@@ -193,13 +193,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
 	})
 
-	if runningOnAppEngine {
-		appEngineSetup(site, chinaSite, mux)
-	}
-
-	// Register a redirect handler for /dl/ to the golang.org download page.
+	// Register a redirect handler for tip.golang.org/dl/ to the golang.org download page.
 	// (golang.org/dl and golang.google.cn/dl are registered separately.)
-	mux.Handle("/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 
 	godev, err := godevHandler(godevFS)
@@ -210,6 +205,12 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
+
+	if runningOnAppEngine {
+		appEngineSetup(site, chinaSite, mux)
+	}
+	dl.RegisterHandlers(mux, site, "golang.org", datastoreClient, memcacheClient)
+	dl.RegisterHandlers(mux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 
 	var h http.Handler = mux
 	h = hostEnforcerHandler(h)
@@ -307,12 +308,16 @@ func watchTip1(tipGoroot *atomicFS) {
 	}
 }
 
+var datastoreClient *datastore.Client
+var memcacheClient *memcache.Client
+
 func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	ctx := context.Background()
 
-	datastoreClient, err := datastore.NewClient(ctx, "")
+	var err error
+	datastoreClient, err = datastore.NewClient(ctx, "")
 	if err != nil {
 		if strings.Contains(err.Error(), "missing project") {
 			log.Fatalf("Missing datastore project. Set the DATASTORE_PROJECT_ID env variable. Use `gcloud beta emulators datastore` to start a local datastore.")
@@ -324,10 +329,7 @@ func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	if redisAddr == "" {
 		log.Fatalf("Missing redis server for golangorg in production mode. set GOLANGORG_REDIS_ADDR environment variable.")
 	}
-	memcacheClient := memcache.New(redisAddr)
-
-	dl.RegisterHandlers(mux, site, "golang.org", datastoreClient, memcacheClient)
-	dl.RegisterHandlers(mux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
+	memcacheClient = memcache.New(redisAddr)
 
 	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
 	proxy.RegisterHandlers(mux, googleCN)
