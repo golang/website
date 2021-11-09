@@ -48,9 +48,9 @@ func newServer(dc *datastore.Client, mc *memcache.Client) *server {
 	}
 }
 
-func RegisterHandlers(mux *http.ServeMux, dc *datastore.Client, mc *memcache.Client) {
+func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc *memcache.Client) {
 	s := newServer(dc, mc)
-	mux.HandleFunc(prefix+"/", s.linkHandler)
+	mux.HandleFunc(host+prefix+"/", s.linkHandler)
 }
 
 // linkHandler services requests to short URLs.

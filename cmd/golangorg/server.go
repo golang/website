@@ -331,7 +331,7 @@ func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	}
 	memcacheClient = memcache.New(redisAddr)
 
-	short.RegisterHandlers(mux, datastoreClient, memcacheClient)
+	short.RegisterHandlers(mux, "golang.org", datastoreClient, memcacheClient)
 	proxy.RegisterHandlers(mux, googleCN)
 
 	log.Println("AppEngine initialization complete")
