@@ -5,6 +5,8 @@
 /**
  * A bit of navigation related code for handling dismissible elements.
  */
+window.initFuncs = [];
+
 (() => {
   'use strict';
 
