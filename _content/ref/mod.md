@@ -1955,7 +1955,7 @@ explicitly via the `-compat` flag.
 Usage:
 
 ```
-go mod vendor [-e] [-v]
+go mod vendor [-e] [-v] [-o]
 ```
 
 The `go mod vendor` command constructs a directory named `vendor` in the [main
@@ -1990,6 +1990,10 @@ despite errors encountered while loading packages.
 
 The `-v` flag causes `go mod vendor` to print the names of vendored modules
 and packages to standard error.
+
+The `-o` flag (added in Go 1.18) causes `go mod vendor` to output the vendor
+tree at the specified directory instead of `vendor`. The argument can be either
+an absolute path or a path relative to the module root.
 
 ### `go mod verify` {#go-mod-verify}
 
