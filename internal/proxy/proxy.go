@@ -15,6 +15,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"regexp"
+	"strings"
 	"time"
 )
 
@@ -38,13 +40,17 @@ type Event struct {
 const expires = 7 * 24 * time.Hour // 1 week
 var cacheControlHeader = fmt.Sprintf("public, max-age=%d", int(expires.Seconds()))
 
-// RegisterHandlers registers handlers
-// for golang.org/compile and golang.org/share on mux.
-// If disallow is non-nil, then the share handler disallows requests
-// for which disallowShare returns true.
-func RegisterHandlers(mux *http.ServeMux, disallowShare func(*http.Request) bool) {
-	mux.HandleFunc("golang.org/compile", compile)
-	mux.HandleFunc("golang.org/share", share(disallowShare))
+// RegisterHandlers registers handlers for the playground endpoints,
+// proxying to the actual play.golang.org, so that we avoid cross-site requests
+// in the browser.
+func RegisterHandlers(mux *http.ServeMux) {
+	for _, host := range []string{"golang.org", "go.dev/_", "golang.google.cn"} {
+		mux.HandleFunc(host+"/compile", compile)
+		if host != "golang.google.cn" {
+			mux.HandleFunc(host+"/share", share)
+		}
+		mux.HandleFunc(host+"/fmt", fmtHandler)
+	}
 }
 
 func compile(w http.ResponseWriter, r *http.Request) {
@@ -87,7 +93,7 @@ func compile(w http.ResponseWriter, r *http.Request) {
 	w.Write(b)
 }
 
-// makePlaygroundRequest sends the given Request to the playground compile
+// makeCompileRequest sends the given Request to the playground compile
 // endpoint and stores the response in the given Response.
 func makeCompileRequest(ctx context.Context, req *Request, res *Response) error {
 	reqJ, err := json.Marshal(req)
@@ -124,33 +130,44 @@ func flatten(seq []Event) string {
 	return buf.String()
 }
 
-func share(disallow func(*http.Request) bool) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		if disallow != nil && disallow(r) {
-			http.Error(w, http.StatusText(http.StatusForbidden), http.StatusForbidden)
-			return
-		}
+var validID = regexp.MustCompile(`^[A-Za-z0-9_\-]+$`)
 
-		// HACK(cbro): use a simple proxy rather than httputil.ReverseProxy because of Issue #28168.
-		// TODO: investigate using ReverseProxy with a Director, unsetting whatever's necessary to make that work.
-		req, _ := http.NewRequest("POST", playgroundURL+"/share", r.Body)
-		req.Header.Set("Content-Type", r.Header.Get("Content-Type"))
-		req = req.WithContext(r.Context())
-		resp, err := http.DefaultClient.Do(req)
-		if err != nil {
-			log.Printf("ERROR share error: %v", err)
-			http.Error(w, "Internal Server Error", http.StatusInternalServerError)
-			return
-		}
-		copyHeader := func(k string) {
-			if v := resp.Header.Get(k); v != "" {
-				w.Header().Set(k, v)
-			}
-		}
-		copyHeader("Content-Type")
-		copyHeader("Content-Length")
-		defer resp.Body.Close()
-		w.WriteHeader(resp.StatusCode)
-		io.Copy(w, resp.Body)
+func share(w http.ResponseWriter, r *http.Request) {
+	if id := r.FormValue("id"); r.Method == "GET" && validID.MatchString(id) {
+		simpleProxy(w, r, playgroundURL+"/p/"+id+".go")
+		return
 	}
+
+	simpleProxy(w, r, playgroundURL+"/share")
+}
+
+func fmtHandler(w http.ResponseWriter, r *http.Request) {
+	simpleProxy(w, r, playgroundURL+"/fmt")
+}
+
+func simpleProxy(w http.ResponseWriter, r *http.Request, url string) {
+	if r.Method == "GET" {
+		r.Body = nil
+	} else if len(r.Form) > 0 {
+		r.Body = io.NopCloser(strings.NewReader(r.Form.Encode()))
+	}
+	req, _ := http.NewRequest(r.Method, url, r.Body)
+	req.Header.Set("Content-Type", r.Header.Get("Content-Type"))
+	req = req.WithContext(r.Context())
+	resp, err := http.DefaultClient.Do(req)
+	if err != nil {
+		log.Printf("ERROR share error: %v", err)
+		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+	copyHeader := func(k string) {
+		if v := resp.Header.Get(k); v != "" {
+			w.Header().Set(k, v)
+		}
+	}
+	copyHeader("Content-Type")
+	copyHeader("Content-Length")
+	defer resp.Body.Close()
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
 }

@@ -174,7 +174,7 @@ func main() {
       <option value="tree.go">Tree Comparison</option>
       </select>
       <div class="Playground-buttons">
-      <button class="Button Button--primary js-playgroundRunEl" title="Run this code [shift-enter]">Run</button>
+      <button class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
       <div class="Playground-secondaryButtons">
         {{- if $canShare}}
         <button class="Button js-playgroundShareEl" title="Share this code">Share</button>

@@ -1,0 +1,120 @@
+{{define "layout"}}
+
+ {{$canShare := not googleCN}}
+
+<div class="PlayPage">
+  <div class="Playground-controls">
+    <h1 class="Playground-title">The Go Playground</h1>
+    <div class="Playground-buttons">
+    <button id="run" class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
+    <div class="Playground-secondaryButtons">
+      <button id="fmt" class="Button js-playgroundFmtEl" title="Format this code">Format</button>
+      {{- if $canShare}}
+      <button id="share" class="Button js-playgroundShareEl" title="Share this code">Share</button>
+      {{- end}}
+    </div>
+    <select class="Playground-selectExample js-playgroundToysEl" aria-label="Code examples">
+    <option value="hello.go">Hello, World!</option>
+    <option value="life.go">Conway's Game of Life</option>
+    <option value="fib.go">Fibonacci Closure</option>
+    <option value="peano.go">Peano Integers</option>
+    <option value="pi.go">Concurrent pi</option>
+    <option value="sieve.go">Concurrent Prime Sieve</option>
+    <option value="solitaire.go">Peg Solitaire Solver</option>
+    <option value="tree.go">Tree Comparison</option>
+    </select>
+    </div>
+  </div>
+  <div class="Playground-inputContainer">
+    <div id="wrap">
+    <textarea id="code" name="code" class="Playground-input js-playgroundCodeEl" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Try Go">{{if strings.Contains .URL "/play/p/"}}Loading share...
+{{else}}// You can edit this code!
+// Click here and start typing.
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("Hello, 世界")
+}
+{{end}}      </textarea>
+    </div>
+  </div>
+  <div class="Playground-outputContainer js-playgroundOutputEl">
+    <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>
+  </div>
+
+<div class="PlayAbout">
+<p><b>About the Playground</b></p>
+
+<p>
+The Go Playground is a web service that runs on
+<a href="https://go.dev/">go.dev</a>'s servers.
+The service receives a Go program, <a href="/cmd/vet/">vets</a>, compiles, links, and
+runs the program inside a sandbox, then returns the output.
+</p>
+
+<p>
+If the program contains <a href="/pkg/testing">tests or examples</a>
+and no main function, the service runs the tests.
+Benchmarks will likely not be supported since the program runs in a sandboxed
+environment with limited resources.
+</p>
+
+<p>
+There are limitations to the programs that can be run in the playground:
+</p>
+
+<ul>
+
+<li>
+The playground can use most of the standard library, with some exceptions.
+The only communication a playground program has to the outside world
+is by writing to standard output and standard error.
+</li>
+
+<li>
+In the playground the time begins at 2009-11-10 23:00:00 UTC
+(determining the significance of this date is an exercise for the reader).
+This makes it easier to cache programs by giving them deterministic output.
+</li>
+
+<li>
+There are also limits on execution time and on CPU and memory usage.
+</li>
+
+</ul>
+
+<p>
+The article "<a href="/playground" target="_blank" rel="noopener">Inside
+the Go Playground</a>" describes how the playground is implemented.
+The source code is available at <a href="https://go.googlesource.com/playground" target="_blank" rel="noopener">https://go.googlesource.com/playground</a>.
+</p>
+
+<p>
+The playground uses the <a href="/play/p/Ztyu2FJaajl">latest stable release of Go</a>.
+</p>
+
+<p>
+The playground service is used by more than just the official Go project
+(<a href="https://gobyexample.com/">Go by Example</a> is one other instance)
+and we are happy for you to use it on your own site.
+All we ask is that you
+<a href="mailto:golang-dev@googlegroups.com">contact us first (note this is a public mailing list)</a>,
+that you use a unique user agent in your requests (so we can identify you),
+and that your service is of benefit to the Go community.
+</p>
+
+<p>
+Any requests for content removal should be directed to
+<a href="mailto:security@golang.org">security@golang.org</a>.
+Please include the URL and the reason for the request.
+</p>
+</div>
+</div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-11222381-7"></script>
+<script src="/js/jquery-linedtextarea.js" defer></script>
+<script src="/js/playsite.js" defer></script>
+
+{{end}}

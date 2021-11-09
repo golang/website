@@ -123,9 +123,9 @@ function HTTPTransport(enableVet) {
       seq++;
       var cur = seq;
       var playing;
-      $.ajax('https://play.golang.org/compile', {
+      $.ajax('/_/compile', {
         type: 'POST',
-        data: { version: 2, body: body },
+        data: { version: 2, body: body, withVet: enableVet },
         dataType: 'json',
         success: function(data) {
           if (seq != cur) return;
@@ -140,39 +140,7 @@ function HTTPTransport(enableVet) {
             }
             return;
           }
-
-          if (!enableVet) {
-            playing = playback(output, data);
-            return;
-          }
-
-          $.ajax('https://play.golang.org/vet', {
-            data: { body: body },
-            type: 'POST',
-            dataType: 'json',
-            success: function(dataVet) {
-              if (dataVet.Errors) {
-                if (!data.Events) {
-                  data.Events = [];
-                }
-                // inject errors from the vet as the first events in the output
-                data.Events.unshift({
-                  Message: 'Go vet exited.\n\n',
-                  Kind: 'system',
-                  Delay: 0,
-                });
-                data.Events.unshift({
-                  Message: dataVet.Errors,
-                  Kind: 'stderr',
-                  Delay: 0,
-                });
-              }
-              playing = playback(output, data);
-            },
-            error: function() {
-              playing = playback(output, data);
-            },
-          });
+          playing = playback(output, data);
         },
         error: function() {
           error(output, 'Error communicating with remote server.');
@@ -417,14 +385,16 @@ function PlaygroundOutput(el) {
         .join('/');
     }
 
-    var pushedEmpty = window.location.pathname == '/';
+    var pushedPlay = window.location.pathname == '/play';
     function inputChanged() {
-      if (pushedEmpty) {
+      if (pushedPlay) {
         return;
       }
-      pushedEmpty = true;
+      pushedPlay = true;
       $(opts.shareURLEl).hide();
-      window.history.pushState(null, '', '/');
+      var path = window.location.pathname;
+      var i = path.indexOf('/play');
+      window.history.pushState(null, '', path.substr(0, i+5));
     }
     function popState(e) {
       if (e === null) {
@@ -460,7 +430,7 @@ function PlaygroundOutput(el) {
       if (running) running.Kill();
       output.removeClass('error').text('Waiting for remote server...');
     }
-    function run() {
+    function runOnly() {
       loading();
       running = transport.Run(
         body(),
@@ -468,13 +438,11 @@ function PlaygroundOutput(el) {
       );
     }
 
-    function fmt() {
+    function fmtAnd(run) {
       loading();
       var data = { body: body() };
-      if ($(opts.fmtImportEl).is(':checked')) {
-        data['imports'] = 'true';
-      }
-      $.ajax('https://play.golang.org/fmt', {
+      data['imports'] = 'true';
+      $.ajax('/_/fmt', {
         data: data,
         type: 'POST',
         dataType: 'json',
@@ -485,8 +453,31 @@ function PlaygroundOutput(el) {
             setBody(data.Body);
             setError('');
           }
+          run();
         },
       });
+    }
+
+    function loadShare(id) {
+      $.ajax('/_/share?id='+id, {
+        processData: false,
+        type: 'GET',
+        complete: function(xhr) {
+          if(xhr.status != 200) {
+            setBody('Cannot load shared snippet; try again.');
+            return;
+          }
+          setBody(xhr.responseText);
+        },
+      })
+    }
+
+    function fmt() {
+      fmtAnd(function(){});
+    }
+
+    function run() {
+      fmtAnd(runOnly);
     }
 
     var shareURL; // jQuery element to show the shared URL.
@@ -499,7 +490,7 @@ function PlaygroundOutput(el) {
       sharing = true;
 
       var sharingData = body();
-      $.ajax('https://play.golang.org/share', {
+      $.ajax('/_/share', {
         processData: false,
         data: sharingData,
         type: 'POST',
@@ -513,7 +504,7 @@ function PlaygroundOutput(el) {
           if (opts.shareRedirect) {
             window.location = opts.shareRedirect + xhr.responseText;
           }
-          var path = '/p/' + xhr.responseText;
+          var path = '/play/p/' + xhr.responseText;
           var url = origin(window.location) + path;
 
           for (var i = 0; i < shareCallbacks.length; i++) {
@@ -553,8 +544,24 @@ function PlaygroundOutput(el) {
       });
     }
 
+    var path = window.location.pathname;
+    var toyDisable = false;
+    if (path.startsWith('/go.dev/')) {
+      path = path.slice(7);
+    }
+    if (path.startsWith('/play/p/')) {
+      var id = path.slice(8);
+      id = id.replace(/\.go$/, "");
+      loadShare(id);
+      toyDisable = true;
+    }
+
     if (opts.toysEl !== null) {
       $(opts.toysEl).bind('change', function() {
+        if (toyDisable) {
+          toyDisable = false;
+          return;
+        }
         var toy = $(this).val();
         $.ajax('/doc/play/' + toy, {
           processData: false,

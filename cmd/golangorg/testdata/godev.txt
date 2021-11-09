@@ -26,3 +26,7 @@ redirect == /solutions/google/sitereliability
 GET https://go.dev/solutions/americanexpress
 body contains <div class="Article-date">19 December 2019</div>
 
+GET https://go.dev/play
+body contains The Go Playground
+body contains About the Playground
+body contains Hello, 世界

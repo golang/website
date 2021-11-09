@@ -12,4 +12,4 @@
     content: The Playground allows anyone with a web browser to write Go code
       that we immediately compile, link, and run on our servers.
     cta: Go to playground
-    url: https://play.golang.org
+    url: /play

@@ -207,6 +207,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err := blog.RegisterFeeds(godevMux, "", godevSite); err != nil {
 		log.Fatalf("blog: %v", err)
 	}
+	mux.Handle("go.dev/play", playHandler(godevSite))
+	mux.Handle("go.dev/play/p/", playHandler(godevSite))
 	mux.Handle("go.dev/", addCSP(godevMux))
 
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
@@ -215,6 +217,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if runningOnAppEngine {
 		appEngineSetup(site, chinaSite, mux)
 	}
+	proxy.RegisterHandlers(mux)
 	dl.RegisterHandlers(mux, site, "golang.org", datastoreClient, memcacheClient)
 	dl.RegisterHandlers(mux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 
@@ -222,6 +225,16 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	h = hostEnforcerHandler(h)
 	h = hostPathHandler(h)
 	return h
+}
+
+func playHandler(godevSite *web.Site) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		godevSite.ServePage(w, r, web.Page{
+			"URL":    r.URL.Path,
+			"layout": "play",
+			"title":  "Go Playground",
+		})
+	})
 }
 
 // newSite creates a new site for a given content and goroot file system pair
@@ -340,7 +353,6 @@ func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	memcacheClient = memcache.New(redisAddr)
 
 	short.RegisterHandlers(mux, "golang.org", datastoreClient, memcacheClient)
-	proxy.RegisterHandlers(mux, googleCN)
 
 	log.Println("AppEngine initialization complete")
 }

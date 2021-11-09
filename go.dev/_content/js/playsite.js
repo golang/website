@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// for /play; play.js is for embedded play widgets
+
 window.addEventListener('DOMContentLoaded', () => {
   // Set up playground if enabled.
   if (window.playground) {
@@ -12,13 +14,18 @@ window.addEventListener('DOMContentLoaded', () => {
       "fmtEl":         ".js-playgroundFmtEl",
       "shareEl":       ".js-playgroundShareEl",
       "shareRedirect": "/play/p/",
-      "toysEl":        ".js-playgroundToysEl"
+      "toysEl":        ".js-playgroundToysEl",
+      'enableHistory': true,
+      'enableShortcuts': true,
+      'enableVet': true
     });
 
     // The pre matched below is added by the code above. Style it appropriately.
     document.querySelector(".js-playgroundOutputEl pre").classList.add("Playground-output");
     $('.js-playgroundToysEl').val("hello.go").trigger("change")
-  } else {
-    $(".Playground").hide();
+
+    $('#code').linedtextarea();
+    $('#code').attr('wrap', 'off');
+    $('#code').resize(function() { $('#code').linedtextarea(); });
   }
 });
