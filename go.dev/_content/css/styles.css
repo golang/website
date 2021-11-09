@@ -71,7 +71,6 @@ html,
 .Site {
   max-height: 100%;
   min-height: 100vh;
-  scroll-behavior: smooth;
   scroll-padding-top: 4.6875rem;
 }
 a,
@@ -87,6 +86,10 @@ a:hover {
   display: flex;
   flex-direction: column;
   margin: 0;
+}
+@media print {
+  /* display: flex makes the printer slice text lines in half */
+  .Site { display: block; }
 }
 .bluebg {
   background: #007d9c;
@@ -189,6 +192,9 @@ a:hover {
 }
 .UseCase-halfColumn > h2 {
   line-height: 1.55;
+}
+@media print {
+  .Site-header { display: none; }
 }
 .Header,
 .Container {
@@ -445,8 +451,12 @@ a.Footer-link--primary {
   max-width: 75.75rem;
   padding: 0 1.5rem;
 }
-.Doc h1 {
+.Dir h1, .Doc h1, .Error h1, .Pkg h1, .Texthtml h1 {
   padding-top: 1rem;
+}
+h2.subtitle {
+  font-size: 1.2rem !important;
+  padding-left: 1.5rem;
 }
 .Article-author,
 .Article-date {
@@ -462,16 +472,16 @@ a.Footer-link--primary {
 .Article h5,
 .Article h6 {
   color: #202224;
+  margin: initial;
 }
 .Article h1 {
   font-size: 2.25rem;
   line-height: 3rem;
-  margin: 1rem 0 1rem;
 }
 .Article h2 {
   font-size: 1.4rem;
   line-height: 2rem;
-  margin-top: 2.25rem;
+  margin-top: 1rem;
 }
 .Article h3 {
   font-size: 1.125rem;
@@ -505,24 +515,8 @@ a.Footer-link--primary {
 .Article code {
   color: #202224;
 }
-@media only screen and (min-width: 57.7rem) {
-  .Article h1,
-  .Article h2,
-  .Article h4,
-  .Article h5,
-  .Article h6 {
-    margin: initial;
-  }
-  .Article h2 + h3 {
-    margin-top: 1.5rem;
-  }
-  .Article h3 {
-    margin-top: 1.875rem;
-  }
-  .Article h2 {
-    font-size: 1.5rem;
-    line-height: 2.25rem;
-  }
+.Article pre {
+  margin-left: 1.5rem;
 }
 .BreadcrumbNav-inner {
   display: flex;
