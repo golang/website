@@ -19,12 +19,53 @@ code,
 pre {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
 }
-/* Trim spaces to be more like plain text spaces in text like "Use <code>go get</code> to ...", but not in <pre> blocks. */
+pre {
+  font-size: 0.83em;
+  overflow-x: auto;
+}
+/* Trim spaces to be more like plain text spaces in text like "Use <code>go get</code> to ...", but not in Markdown <pre> blocks. */
 code {
   word-spacing: -0.5ch;
 }
 pre code {
   word-spacing: 0 !important;
+}
+pre {
+  line-height: 1.4;
+  overflow-x: auto;
+}
+pre .comment {
+  color: #007d9c;
+}
+pre .highlight,
+pre .highlight-comment,
+pre .selection-highlight,
+pre .selection-highlight-comment {
+  background: #ffff00;
+}
+pre .selection,
+pre .selection-comment {
+  background: #ff9632;
+}
+pre .ln { /* line number */
+  color: #999;
+}
+pre ins {
+  /* For styling highlighted code in examples. */
+  color: rgb(0, 125, 156);
+  font-weight: bold;
+  text-decoration: none;
+}
+.ln {
+  user-select: none;
+
+  /* Ensure 8 characters in the document - which due to floating
+   * point rendering issues, might have a width of less than 1 each - are 8
+   * characters wide, so a tab in the 9th position indents properly. See
+   * https://github.com/webcompat/web-bugs/issues/17530#issuecomment-402675091
+   * for more information. */
+  display: inline-block;
+  width: 8ch;
 }
 html,
 .Site {
@@ -3865,4 +3906,317 @@ a.error {
 .Button--primary:link,
 .Button--primary:visited {
   border: 0.0625rem solid #00add8;
+}
+/* Auto-generated table of contents */
+.TOC table td {
+  vertical-align: top;
+}
+.TOC dl {
+  margin: 1.25rem;
+  max-width: 50rem;
+  font-size: 0.875rem;
+}
+.TOC dd {
+  margin: 0 0 0 1.25rem;
+  font-size: 0.875rem;
+}
+.expandAll {
+  cursor: pointer;
+  float: left;
+  margin: 1.25rem 0;
+}
+.toggleButton {
+  cursor: pointer;
+}
+.toggle > .collapsed {
+  display: block;
+}
+.toggle > .expanded {
+  display: none;
+}
+.toggleVisible > .collapsed {
+  display: none;
+}
+.toggleVisible > .expanded {
+  display: block;
+}
+/* for doc/go1.html */
+table.codetable {
+  margin-left: auto;
+  margin-right: auto;
+  border-style: none;
+}
+table.codetable td {
+  padding-right: 0.625rem;
+}
+/* for various doc pages */
+img.gopher {
+  float: right;
+  margin-left: 0.625rem;
+  margin-bottom: 0.625rem;
+  z-index: -1;
+}
+/* for pkg.tmpl */
+div.play {
+  padding: 0 1.25rem 2.5rem 1.25rem;
+}
+div.play pre,
+div.play textarea,
+div.play .lines {
+  padding: 0;
+  margin: 0;
+  font-family: Menlo, monospace;
+  font-size: 0.875rem;
+}
+div.play .input {
+  padding: 0.625rem;
+  margin-top: 0.625rem;
+
+  border-top-left-radius: 0.3125rem;
+  border-top-right-radius: 0.3125rem;
+
+  overflow: hidden;
+}
+div.play .input textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  resize: none;
+
+  overflow: hidden;
+}
+div#playground .input textarea {
+  overflow: auto;
+  resize: auto;
+}
+div.play .output {
+  border-top: none !important;
+
+  padding: 0.625rem;
+  max-height: 12.5rem;
+  overflow: auto;
+
+  border-bottom-right-radius: 0.3125rem;
+  border-bottom-left-radius: 0.3125rem;
+}
+div.play .output pre {
+  padding: 0;
+  border-radius: 0;
+}
+div.play .input,
+div.play .input textarea,
+div.play .output,
+div.play .output pre {
+  background: #f7f9fa;
+  color: #202224;
+}
+div.play .input,
+div.play .output {
+  border: 0.0625rem solid #c0c2c3;
+}
+div.play .buttons {
+  float: right;
+  padding: 0.625rem 0;
+  text-align: right;
+}
+div.play .buttons .Button {
+  margin-left: 0.3125rem;
+}
+.output .stderr {
+  color: #933;
+}
+.output .system {
+  color: #999;
+}
+.permalink {
+  display: none;
+}
+:hover > .permalink {
+  display: inline;
+}
+#pkg-index h3 {
+  font-size: 1rem;
+}
+.pkg-dir {
+  padding: 0 0.625rem;
+}
+.pkg-dir table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.pkg-name {
+  margin-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+th.pkg-name {
+  text-align: left;
+}
+/* for docs */
+.Note {
+  /* For styling "Note" sections. */
+  background-color: rgb(224, 235, 245);
+  font-size: 0.875rem;
+  margin: 1.25rem;
+  max-width: 50rem;
+  padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+}
+/* Tabs */
+.TabSection {
+  background: #fff;
+  border: 0.0625rem solid #dadce0;
+  border-radius: 0.3125rem;
+  box-shadow: none;
+  max-width: 50rem;
+}
+.TabSection-tabList {
+  flex-shrink: 0;
+  position: relative;
+  border-bottom: 0.0625rem solid #dadce0;
+}
+.TabSection-tab {
+  background: #fff;
+  border: none;
+  line-height: 3rem;
+  padding: 0 1.125rem;
+  position: relative;
+}
+.TabSection-tab[aria-selected='true'] {
+  outline: 0;
+  background-color: #e0ebf5;
+}
+.TabSection-tab:focus {
+  outline: 0;
+  background-color: #e0ebf5;
+}
+.TabSection-tabPanel {
+  font-size: 0.875rem;
+}
+/* Tutorial previous and next links */
+.Navigation {
+  font-size: 0.875rem;
+}
+.Navigation-prev {
+  float: left;
+  font-weight: bold;
+}
+.Navigation-next {
+  float: right;
+  font-weight: bold;
+}
+/* Table in doc topics. */
+.DocTable {
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin: 1.25rem;
+  max-width: 50rem;
+}
+.DocTable-row {
+  border-bottom: 0.0625rem solid #dadce0;
+  height: 3rem;
+  vertical-align: top;
+}
+.DocTable-head {
+  background: #e8eaed;
+  border-bottom: 0.0625rem solid #dadce0;
+  border-top: 0.0625rem solid #dadce0;
+  height: 3rem;
+}
+.DocTable-cell {
+  padding: 0.4375rem;
+}
+.DocTable-cell pre {
+  font-size: 0.775rem;
+}
+.DocTable-cell p,
+.DocTable-cell pre {
+  margin:  0rem 0rem 0.875rem;
+}
+.DocTable-row--highlighted {
+  background: #f0f0f0;
+  border-bottom: 0.0625rem solid #dadce0;
+  height: 3rem;
+}
+/* for doc/install */
+a#start {
+  background: #e0ebf5;
+  border: 0.0625rem solid #375eab;
+  border-radius: 0.3125rem;
+  color: #222;
+  display: block;
+  padding: 0.625rem;
+  text-align: center;
+  text-decoration: none;
+}
+a#start .big {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+a#start .desc {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-top: 0.3125rem;
+}
+.download {
+  width: 17.5rem;
+}
+table.downloadtable {
+  margin-left: 20px;
+  margin-right: 20px;
+  border-collapse: collapse;
+}
+table.downloadtable tr {
+  background-color: #f0f0f0;
+}
+table.downloadtable tr:nth-child(2n), table.downloadtable tr.first {
+  background-color: white;
+}
+table.downloadtable td, table.downloadtable th {
+  white-space: nowrap;
+  padding: 6px 10px;
+}
+table.downloadtable tt {
+  font-size: xx-small;
+}
+table.downloadtable tr.highlight td {
+  font-weight: bold;
+}
+a.downloadBox {
+  display: block;
+  color: #222;
+  border: 1px solid #375EAB;
+  border-radius: 5px;
+  background: #E0EBF5;
+  width: 280px;
+  float: left;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+a.downloadBox:hover {
+  text-decoration: none;
+}
+.downloadBox .platform {
+  font-size: large;
+}
+.downloadBox .filename {
+  color: #007d9c;
+  font-weight: bold;
+  line-height: 1.5em;
+}
+a.downloadBox:hover .filename {
+  text-decoration: underline;
+}
+.downloadBox .size {
+  font-size: small;
+  font-weight: normal;
+}
+.downloadBox .reqs {
+  font-size: small;
+  font-style: italic;
+}
+.downloadBox .checksum {
+  font-size: 5pt;
 }
