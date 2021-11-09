@@ -15,6 +15,14 @@ select,
 textarea {
   font: inherit;
 }
+h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+table {
+  -webkit-border-horizontal-spacing: 0;
+  -webkit-border-vertical-spacing: 0;
+}
 code,
 pre {
   font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
@@ -454,9 +462,10 @@ a.Footer-link--primary {
 .Dir h1, .Doc h1, .Error h1, .Pkg h1, .Texthtml h1 {
   padding-top: 1rem;
 }
-h2.subtitle {
+h1 + h2.subtitle {
+  margin-top: -1rem;
   font-size: 1.2rem !important;
-  padding-left: 1.5rem;
+  margin-left: 1.25rem; /* note: matches TOC dl */
 }
 .Article-author,
 .Article-date {
@@ -472,16 +481,12 @@ h2.subtitle {
 .Article h5,
 .Article h6 {
   color: #202224;
-  margin: initial;
 }
 .Article h1 {
   font-size: 2.25rem;
-  line-height: 3rem;
 }
 .Article h2 {
   font-size: 1.4rem;
-  line-height: 2rem;
-  margin-top: 1rem;
 }
 .Article h3 {
   font-size: 1.125rem;
@@ -498,9 +503,6 @@ h2.subtitle {
   font-size: 1rem;
   font-style: normal;
   font-weight: normal;
-}
-.Article p:last-of-type {
-  margin-bottom: 0;
 }
 .Article ol .Article pre {
   background-color: #fafafa;
@@ -3902,13 +3904,25 @@ a.error {
   border: 0.0625rem solid #00add8;
 }
 /* Auto-generated table of contents */
+.TOC table {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+}
 .TOC table td {
   vertical-align: top;
 }
+.TOC th {
+  padding-left: 1.25rem;
+  max-width: 50rem;
+  text-align: left;
+  font-weight: normal;
+}
 .TOC dl {
-  margin: 1.25rem;
+  margin-left: 1.25rem;
   max-width: 50rem;
   font-size: 0.875rem;
+  margin-block-end: 0;
+  margin-block-start: 0;
 }
 .TOC dd {
   margin: 0 0 0 1.25rem;

@@ -83,6 +83,9 @@
 
     var tocTable = $('<table class="unruled"/>').appendTo(nav);
     var tocBody = $('<tbody/>').appendTo(tocTable);
+    var tocHeader = $('<tr/>').appendTo(tocBody);
+    $('<th colspan="2">Table of Contents</th>').appendTo(tocHeader);
+
     var tocRow = $('<tr/>').appendTo(tocBody);
 
     // 1st column
