@@ -55,7 +55,7 @@ function requestHaTs(cookieName, triggerId, bucketSample, promptSample) {
 
 (function () {
   // HaTS - go.dev
-  requestHaTs('HaTS_BKT', 'RLVVv5Lf10njVvnD1rP0QUpmtosS', 0.4, 0.5);
+  requestHaTs('HaTS_BKT', 'RLVVv5Lf10njVvnD1rP0QUpmtosS', 0.1, 0.5);
 
   // All download links on the go.dev homepage may trigger a survey.
   [
