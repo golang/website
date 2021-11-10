@@ -103,6 +103,6 @@ var csp = map[string][]string{
 		"tagmanager.google.com",
 	},
 	"frame-ancestors": {
-		none,
+		self,
 	},
 }
