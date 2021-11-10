@@ -399,11 +399,11 @@ var validHosts = map[string]bool{
 func hostEnforcerHandler(h http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		isHTTPS := r.TLS != nil || r.Header.Get("X-Forwarded-Proto") == "https" || r.URL.Scheme == "https"
-		defaultHost := "golang.org"
+		defaultHost := "go.dev"
 		host := strings.ToLower(r.Host)
 		isValidHost := validHosts[host]
 
-		if googleCN(r) && strings.HasSuffix(host, "golang.org") {
+		if googleCN(r) && !strings.HasSuffix(host, "google.cn") {
 			// golang.google.cn is the only web site in China.
 			defaultHost = "golang.google.cn"
 			isValidHost = strings.ToLower(r.Host) == defaultHost
@@ -441,7 +441,7 @@ func hostPathHandler(h http.Handler) http.Handler {
 			elem, rest = elem[:i], elem[i+1:]
 		}
 		if !validHosts[elem] {
-			u := "/golang.org" + r.URL.EscapedPath()
+			u := "/go.dev" + r.URL.EscapedPath()
 			if r.URL.RawQuery != "" {
 				u += "?" + r.URL.RawQuery
 			}

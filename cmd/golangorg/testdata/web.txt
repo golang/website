@@ -3,7 +3,7 @@ code == 301
 redirect == https://go.dev/
 
 GET http://localhost:6060/
-redirect == /golang.org/
+redirect == /go.dev/
 
 GET http://localhost:6060/go.dev/
 body contains Go is an open source programming language
