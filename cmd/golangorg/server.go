@@ -34,6 +34,7 @@ import (
 	"golang.org/x/tools/playground"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/backport/html/template"
+	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
 	"golang.org/x/website/internal/gitfs"
@@ -197,11 +198,16 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// (golang.org/dl and golang.google.cn/dl are registered separately.)
 	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
 
-	godev, err := godevHandler(godevFS)
+	godevMux := http.NewServeMux()
+	godevSite, err := newSite(godevMux, "go.dev", godevFS, gorootFS)
 	if err != nil {
-		log.Fatalf("godevHandler: %v", err)
+		log.Fatalf("newSite go.dev: %v", err)
 	}
-	mux.Handle("go.dev/", godev)
+	godevMux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
+	if err := blog.RegisterFeeds(godevMux, "", godevSite); err != nil {
+		log.Fatalf("blog: %v", err)
+	}
+	mux.Handle("go.dev/", addCSP(godevMux))
 
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
@@ -227,7 +233,9 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	site.Funcs(template.FuncMap{
 		"googleAnalytics": func() string { return googleAnalytics },
 		"googleCN":        func() bool { return host == "golang.google.cn" },
+		"newest":          newest,
 		"releases":        func() []*history.Major { return history.Majors },
+		"section":         section,
 		"version":         func() string { return runtime.Version() },
 	})
 	docs, err := pkgdoc.NewServer(fsys, site, googleCN)

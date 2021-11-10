@@ -5,33 +5,12 @@
 package main
 
 import (
-	"io/fs"
-	"net/http"
 	"sort"
 	"strings"
 	"time"
 
-	"golang.org/x/website/internal/backport/html/template"
-	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/web"
 )
-
-func godevHandler(fsys fs.FS) (http.Handler, error) {
-	godev := web.NewSite(fsys)
-	godev.Funcs(template.FuncMap{
-		"newest":  newest,
-		"section": section,
-	})
-	mux := http.NewServeMux()
-	mux.Handle("/", addCSP(godev))
-	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
-
-	if err := blog.RegisterFeeds(mux, "", godev); err != nil {
-		return nil, err
-	}
-
-	return mux, nil
-}
 
 // newest returns the pages sorted newest first,
 // breaking ties by .linkTitle or else .title.
