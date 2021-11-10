@@ -2,6 +2,7 @@
 title: go.dev
 ---
 
+{{$canShare := not googleCN}}
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
@@ -175,8 +176,10 @@ func main() {
       <div class="Playground-buttons">
       <button class="Button Button--primary js-playgroundRunEl" title="Run this code [shift-enter]">Run</button>
       <div class="Playground-secondaryButtons">
+        {{- if $canShare}}
         <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
         <a class="Button tour" href="https://tour.golang.org/" title="Playground Go from your browser">Tour</a>
+        {{- end}}
       </div>
       </div>
     </div>
