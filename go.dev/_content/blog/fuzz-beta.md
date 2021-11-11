@@ -38,13 +38,13 @@ like
 
 	$ gotip test -fuzz=Fuzz
 
-## Writing a fuzz target
+## Writing a fuzz test
 
-A fuzz target must be in a \*\_test.go file as a function in the form `FuzzXxx`.
+A fuzz test must be in a \*\_test.go file as a function in the form `FuzzXxx`.
 This function must be passed a` *testing.F` argument, much like a `*testing.T`
 argument is passed to a `TestXxx` function.
 
-Below is an example of a fuzz target that’s testing the behavior of the [net/url
+Below is an example of a fuzz test that’s testing the behavior of the [net/url
 package](https://pkg.go.dev/net/url#ParseQuery).
 
 	//go:build go1.18
