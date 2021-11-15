@@ -2,13 +2,13 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// +build ignore
+//go:build ignore
 
 package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 )
 
 type Page struct {
@@ -18,12 +18,12 @@ type Page struct {
 
 func (p *Page) save() error {
 	filename := p.Title + ".txt"
-	return ioutil.WriteFile(filename, p.Body, 0600)
+	return os.WriteFile(filename, p.Body, 0600)
 }
 
 func loadPage(title string) *Page {
 	filename := title + ".txt"
-	body, _ := ioutil.ReadFile(filename)
+	body, _ := os.ReadFile(filename)
 	return &Page{Title: title, Body: body}
 }
 

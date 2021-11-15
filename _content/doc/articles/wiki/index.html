@@ -55,12 +55,12 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 )
 </pre>
 
 <p>
-We import the <code>fmt</code> and <code>ioutil</code> packages from the Go
+We import the <code>fmt</code> and <code>os</code> packages from the Go
 standard library. Later, as we implement additional functionality, we will
 add more packages to this <code>import</code> declaration.
 </p>
@@ -136,7 +136,7 @@ title and body values.
 
 <p>
 Functions can return multiple values. The standard library function
-<code>io.ReadFile</code> returns <code>[]byte</code> and <code>error</code>.
+<code>os.ReadFile</code> returns <code>[]byte</code> and <code>error</code>.
 In <code>loadPage</code>, error isn't being handled yet; the "blank identifier"
 represented by the underscore (<code>_</code>) symbol is used to throw away the
 error return value (in essence, assigning the value to nothing).
@@ -256,7 +256,7 @@ To use the <code>net/http</code> package, it must be imported:
 <pre>
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"log"
 	<b>"net/http"</b>
 )
@@ -372,7 +372,7 @@ also won't be using <code>fmt</code> anymore, so we have to remove that.
 <pre>
 import (
 	<b>"html/template"</b>
-	"io/ioutil"
+	"os"
 	"net/http"
 )
 </pre>

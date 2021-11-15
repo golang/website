@@ -7,7 +7,7 @@ package main_test
 import (
 	"bytes"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"os/exec"
@@ -51,7 +51,7 @@ func TestWikiServer(t *testing.T) {
 		}
 	}
 
-	dir, err := ioutil.TempDir("", t.Name())
+	dir, err := os.MkdirTemp("", t.Name())
 	must(err)
 	defer os.RemoveAll(dir)
 
@@ -63,14 +63,14 @@ func TestWikiServer(t *testing.T) {
 	// function that writes the server's address to stdout
 	// so that we can read it and know where to send the test requests.
 
-	finalGo, err := ioutil.ReadFile("final.go")
+	finalGo, err := os.ReadFile("final.go")
 	must(err)
 	const patchOld = `log.Fatal(http.ListenAndServe(":8080", nil))`
 	patched := bytes.ReplaceAll(finalGo, []byte(patchOld), []byte(`log.Fatal(serve())`))
 	if bytes.Equal(patched, finalGo) {
 		t.Fatalf("Can't patch final.go: %q not found.", patchOld)
 	}
-	must(ioutil.WriteFile(filepath.Join(dir, "final_patched.go"), patched, 0644))
+	must(os.WriteFile(filepath.Join(dir, "final_patched.go"), patched, 0644))
 
 	// Build the server binary from the patched sources.
 	// The 'go' command requires that they all be in the same directory.
@@ -124,9 +124,9 @@ func TestWikiServer(t *testing.T) {
 	must(err)
 	responseMustMatchFile(t, r, "test_view.good")
 
-	gotTxt, err := ioutil.ReadFile(filepath.Join(dir, "Test.txt"))
+	gotTxt, err := os.ReadFile(filepath.Join(dir, "Test.txt"))
 	must(err)
-	wantTxt, err := ioutil.ReadFile("test_Test.txt.good")
+	wantTxt, err := os.ReadFile("test_Test.txt.good")
 	must(err)
 	if !bytes.Equal(wantTxt, gotTxt) {
 		t.Fatalf("Test.txt differs from expected after posting to /save.\ngot:\n%s\nwant:\n%s", gotTxt, wantTxt)
@@ -141,12 +141,12 @@ func responseMustMatchFile(t *testing.T, r *http.Response, filename string) {
 	t.Helper()
 
 	defer r.Body.Close()
-	body, err := ioutil.ReadAll(r.Body)
+	body, err := io.ReadAll(r.Body)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	wantBody, err := ioutil.ReadFile(filename)
+	wantBody, err := os.ReadFile(filename)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -157,9 +157,9 @@ func responseMustMatchFile(t *testing.T, r *http.Response, filename string) {
 }
 
 func copyFile(dst, src string) error {
-	buf, err := ioutil.ReadFile(src)
+	buf, err := os.ReadFile(src)
 	if err != nil {
 		return err
 	}
-	return ioutil.WriteFile(dst, buf, 0644)
+	return os.WriteFile(dst, buf, 0644)
 }
