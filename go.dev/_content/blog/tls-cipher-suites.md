@@ -209,7 +209,7 @@ follows the following rules:
 
     3DES has 64-bit blocks, which makes it fundamentally vulnerable to
     [birthday attacks](https://sweet32.info) given enough traffic.
-    3DES is listed under [`InsecureCipherSuites`](pkg.go.dev/crypto/tls#InsecureCipherSuites),
+    3DES is listed under [`InsecureCipherSuites`](https://pkg.go.dev/crypto/tls#InsecureCipherSuites),
     but it’s enabled by default for compatibility.
     (An additional benefit of controlling preference orders is that
     we can afford to keep less secure cipher suites enabled by default

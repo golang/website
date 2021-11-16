@@ -61,7 +61,7 @@ the runtime:
 
 Finally, set your machine up with a Google Cloud Platform account:
 
-  - Create an account with [https://cloud.google.com](GCP).
+  - Create an account with [GCP](https://cloud.google.com).
   - [Create a project](https://cloud.google.com/resource-manager/docs/creating-managing-projects).
   - Install the [Cloud SDK](https://cloud.google.com/sdk/) on your system.
 
