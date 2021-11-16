@@ -40,7 +40,7 @@ func atomFeed(site *web.Site) ([]byte, error) {
 		Updated: atom.Time(updated),
 		Link: []atom.Link{{
 			Rel:  "self",
-			Href: baseURL + "/feed.atom",
+			Href: baseURL + "/blog/feed.atom",
 		}},
 	}
 
