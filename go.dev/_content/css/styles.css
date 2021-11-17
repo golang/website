@@ -160,7 +160,6 @@ a:hover {
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
-  max-width: 75.75rem;
   min-height: 2.5rem;
   padding: 0.5rem 1.5rem;
 }
@@ -207,6 +206,8 @@ a:hover {
 .Header,
 .Container {
   margin: 0 auto;
+}
+.Container {
   max-width: 75.75rem;
 }
 .Container--padded {
