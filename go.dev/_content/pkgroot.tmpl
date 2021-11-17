@@ -10,6 +10,11 @@
 	correspond to Go identifiers).
 -->
 {{define "layout"}}
+
+<article class="Pkg Article">
+
+<h1>{{.title}}</h1>
+
 {{$pkg := .pkg}}
 
 {{with $pkg.Dirs}}
@@ -28,7 +33,7 @@
 
 		<div id="stdlib" class="toggleVisible">
 			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Standard library section">Standard library ▹</h2>
+				<h2 class="toggleButton" title="Click to show Standard library section">Standard library ▸</h2>
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Standard library section">Standard library ▾</h2>
@@ -49,7 +54,7 @@
 										</td>
 								{{end}}
 							{{else}}
-									<td class="pkg-name" style="padding-left: {{mul .Depth 20}}px;">
+									<td class="pkg-name" style="padding-left: {{mul (sub .Depth 1) 20}}px;">
 										<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Name}}</a>
 									</td>
 							{{end}}
@@ -100,4 +105,7 @@
 		<li><a href="/wiki/Projects">Projects at the Go Wiki</a> - a curated list of Go projects.</li>
 	</ul>
 {{end}}
+
+</article>
+
 {{end}}

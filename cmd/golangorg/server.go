@@ -11,10 +11,10 @@ import (
 	"context"
 	"embed"
 	"encoding/json"
+	"errors"
 	"flag"
 	"fmt"
 	"go/format"
-	"io"
 	"io/fs"
 	"io/ioutil"
 	"log"
@@ -31,7 +31,6 @@ import (
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/build/repos"
-	"golang.org/x/tools/playground"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/blog"
@@ -156,24 +155,25 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		gorootFS = os.DirFS(goroot)
 	}
 
-	site, err := newSite(mux, "", golangFS, gorootFS)
-	if err != nil {
-		log.Fatalf("newSite: %v", err)
-	}
-	chinaSite, err := newSite(mux, "golang.google.cn", golangFS, gorootFS)
-	if err != nil {
-		log.Fatalf("newSite: %v", err)
-	}
-
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
+	// TODO(rsc): The unionFS is a hack until we move the files in a followup CL.
 	var tipGoroot atomicFS
-	if _, err := newSite(mux, "tip.golang.org", golangFS, &tipGoroot); err != nil {
+	if _, err := newSite(mux, "tip.golang.org", unionFS{godevFS, golangFS}, &tipGoroot); err != nil {
 		log.Fatalf("loading tip site: %v", err)
+	}
+	if *tipFlag {
+		go watchTip(&tipGoroot)
 	}
 
 	// beta.golang.org is an old name for tip.
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
+
+	// By default, golang.org/foo redirects to go.dev/foo.
+	// There are some exceptions below, like for golang.org/x and golang.org/fmt.
+	mux.Handle("golang.org/", redirectPrefix("https://go.dev/"))
+	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
+	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -181,55 +181,61 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// which broke the redirect.
 	mux.Handle("m.golang.org/", http.RedirectHandler("https://mail.google.com/a/golang.org/", http.StatusMovedPermanently))
 
-	if *tipFlag {
-		go watchTip(&tipGoroot)
-	}
-
-	mux.Handle("/compile", playground.Proxy())
-	mux.Handle("/fmt", http.HandlerFunc(fmtHandler))
-	mux.Handle("/x/", http.HandlerFunc(xHandler))
-	redirect.Register(mux)
-
-	mux.HandleFunc("/robots.txt", func(w http.ResponseWriter, r *http.Request) {
-		io.WriteString(w, "User-agent: *\nDisallow: /search\n")
-	})
-
 	// Register a redirect handler for tip.golang.org/dl/ to the golang.org download page.
 	// (golang.org/dl and golang.google.cn/dl are registered separately.)
-	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://golang.org/dl/", http.StatusFound))
+	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://go.dev/dl/", http.StatusFound))
 
-	godevMux := http.NewServeMux()
-	godevSite, err := newSite(godevMux, "go.dev", godevFS, gorootFS)
+	// TODO(rsc): The unionFS is a hack until we move the files in a followup CL.
+	siteMux := http.NewServeMux()
+	godevSite, err := newSite(siteMux, "", unionFS{godevFS, golangFS}, gorootFS)
 	if err != nil {
 		log.Fatalf("newSite go.dev: %v", err)
 	}
-	godevMux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
-	if err := blog.RegisterFeeds(godevMux, "", godevSite); err != nil {
+	chinaSite, err := newSite(siteMux, "golang.google.cn", unionFS{godevFS, golangFS}, gorootFS)
+	if err != nil {
+		log.Fatalf("newSite golang.google.cn: %v", err)
+	}
+	siteMux.Handle("/play/", playHandler(godevSite))
+	siteMux.Handle("golang.google.cn/play/", playHandler(chinaSite))
+	dl.RegisterHandlers(siteMux, godevSite, "", datastoreClient, memcacheClient)
+	dl.RegisterHandlers(siteMux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
+	mux.Handle("/", siteMux)
+
+	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
+	if err := blog.RegisterFeeds(mux, "", godevSite); err != nil {
 		log.Fatalf("blog: %v", err)
 	}
-	mux.Handle("go.dev/play", playHandler(godevSite))
-	mux.Handle("go.dev/play/p/", playHandler(godevSite))
-	mux.Handle("go.dev/", addCSP(godevMux))
 
-	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
-	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
+	// Note: Only golang.org/x/, no go.dev/x/.
+	mux.Handle("golang.org/x/", http.HandlerFunc(xHandler))
+
+	redirect.Register(mux)
 
 	if runningOnAppEngine {
-		appEngineSetup(site, chinaSite, mux)
+		appEngineSetup(mux)
 	}
+
+	// Note: Registers for golang.org, go.dev/_, and golang.google.cn.
 	proxy.RegisterHandlers(mux)
-	dl.RegisterHandlers(mux, site, "golang.org", datastoreClient, memcacheClient)
-	dl.RegisterHandlers(mux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 
 	var h http.Handler = mux
+	h = addCSP(mux)
 	h = hostEnforcerHandler(h)
 	h = hostPathHandler(h)
 	return h
 }
 
-func playHandler(godevSite *web.Site) http.Handler {
+func playHandler(site *web.Site) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		godevSite.ServePage(w, r, web.Page{
+		if r.URL.Path == "/play/p" || r.URL.Path == "/play/p/" {
+			http.Redirect(w, r, "/play/", http.StatusFound)
+			return
+		}
+		if r.Host == "golang.google.cn" && strings.HasPrefix(r.URL.Path, "/play/p/") {
+			site.ServeError(w, r, errors.New("Sorry, but shared playground snippets are not visible in China."))
+			return
+		}
+		site.ServePage(w, r, web.Page{
 			"URL":    r.URL.Path,
 			"layout": "play",
 			"title":  "Go Playground",
@@ -332,7 +338,7 @@ func watchTip1(tipGoroot *atomicFS) {
 var datastoreClient *datastore.Client
 var memcacheClient *memcache.Client
 
-func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
+func appEngineSetup(mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
 
 	ctx := context.Background()
@@ -352,7 +358,7 @@ func appEngineSetup(site, chinaSite *web.Site, mux *http.ServeMux) {
 	}
 	memcacheClient = memcache.New(redisAddr)
 
-	short.RegisterHandlers(mux, "golang.org", datastoreClient, memcacheClient)
+	short.RegisterHandlers(mux, "", datastoreClient, memcacheClient)
 
 	log.Println("AppEngine initialization complete")
 }
@@ -469,7 +475,7 @@ func (r *linkRewriter) WriteHeader(code int) {
 	if strings.HasPrefix(loc, "/") {
 		r.Header().Set("Location", "/"+r.host+loc)
 	} else if u, _ := url.Parse(loc); u != nil && validHosts[u.Host] {
-		r.Header().Set("Location", "/"+u.Host+"/"+u.Path+u.RawQuery)
+		r.Header().Set("Location", "/"+u.Host+"/"+strings.TrimPrefix(u.Path, "/")+u.RawQuery)
 	}
 	r.ResponseWriter.WriteHeader(code)
 }
@@ -731,6 +737,10 @@ func (a *atomicFS) Open(name string) (fs.File, error) {
 
 func redirectPrefix(prefix string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, strings.TrimSuffix(prefix, "/")+"/"+strings.TrimPrefix(r.URL.Path, "/"), http.StatusMovedPermanently)
+		url := strings.TrimSuffix(prefix, "/") + "/" + strings.TrimPrefix(r.URL.Path, "/")
+		if r.URL.RawQuery != "" {
+			url += "?" + r.URL.RawQuery
+		}
+		http.Redirect(w, r, url, http.StatusMovedPermanently)
 	})
 }

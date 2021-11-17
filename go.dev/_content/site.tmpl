@@ -317,3 +317,45 @@
 {{define "pkg path name?" -}}
 <a href="https://pkg.go.dev/{{.path}}?tab=overview">{{or .name .path}}</a>
 {{- end}}
+
+
+{{define "breadcrumb"}}
+{{$elems := strings.Split (strings.Trim . "/") "/"}}
+{{$prefix := slice $elems 0 (sub (len $elems) 1)}}
+{{range $i, $elem := $prefix -}}
+<a href="/{{strings.Join (slice $prefix 0 (add $i 1)) "/"}}/">{{$elem}}</a>/
+{{- end -}}
+<span class="text-muted">{{strings.Join (slice $elems (len $prefix) (len $elems)) "/"}}</span>
+{{end}}
+
+{{define "doclayout"}}
+{{/* used from various subdirectory default.tmpl */}}
+<article class="Doc Article">
+
+{{if .title}}
+<h1>{{.title}}</h1>
+{{else if eq .layout "error"}}
+<h1>Error</h1>
+{{else if eq .layout "dir"}}
+<h1>Directory {{breadcrumb .URL}}</h1>
+{{else if and (eq .layout "texthtml") (strings.HasSuffix .URL ".go")}}
+<h1>Source file {{breadcrumb .URL}}</h1>
+{{else if eq .layout "texthtml"}}
+<h1>Text file {{breadcrumb .URL}}</h1>
+{{end}}
+
+{{with .subtitle}}
+<h2 class="subtitle">{{.}}</h2>
+{{end}}
+
+{{/* The Table of Contents is automatically inserted in this <div>.
+     Do not delete this <div>. */}}
+{{if not .hidetoc}}
+<div id="nav" class="TOC"></div>
+{{end}}
+
+{{.Content}}
+
+</article>
+
+{{end}}

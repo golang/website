@@ -21,15 +21,13 @@ func errorResult(status int) redirectResult {
 
 func TestRedirects(t *testing.T) {
 	var tests = map[string]redirectResult{
-		"/build":       {301, "https://build.golang.org"},
-		"/ref":         {301, "/doc/#references"},
-		"/doc/mem":     {301, "/ref/mem"},
-		"/doc/spec":    {301, "/ref/spec"},
-		"/tour":        {301, "https://tour.golang.org"},
-		"/foo":         errorResult(404),
-		"/blog":        {301, "https://go.dev/blog"},
-		"/blog/":       {302, "/blog"},
-		"/blog/go1.16": {302, "https://go.dev/blog/go1.16"},
+		"/build":                         {301, "https://build.golang.org"},
+		"/ref":                           {301, "/doc/#references"},
+		"/doc/mem":                       {301, "/ref/mem"},
+		"/doc/spec":                      {301, "/ref/spec"},
+		"/tour":                          {301, "https://tour.golang.org"},
+		"/foo":                           errorResult(404),
+		"/blog/2011/01/json-and-go.html": {301, "/blog/json-and-go"},
 
 		"/pkg/asn1":           {301, "/pkg/encoding/asn1/"},
 		"/pkg/template/parse": {301, "/pkg/text/template/parse/"},

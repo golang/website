@@ -1,0 +1,14 @@
+{{define "layout"}}
+
+<article class="Texthtml Article">
+
+{{if strings.HasSuffix .URL ".go"}}
+<h1>Source file {{breadcrumb .URL}}</h1>
+{{else}}
+<h1>Text file {{breadcrumb .URL}}</h1>
+{{end}}
+
+{{.texthtml}}
+
+</article>
+{{end}}

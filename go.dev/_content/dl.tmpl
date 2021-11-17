@@ -1,4 +1,9 @@
 {{define "layout"}}
+
+<article class="Downloads Article">
+
+<h1>{{.title}}</h1>
+
 {{with .dl}}
 <p>
 After downloading a binary release suitable for your system,
@@ -26,7 +31,7 @@ information about Go releases.
 </p>
 
 {{with .Featured}}
-<h3 id="featured">Featured downloads</h3>
+<h2 id="featured">Featured downloads</h2>
 {{range .}}
 {{template "download" .}}
 {{end}}
@@ -35,22 +40,22 @@ information about Go releases.
 <div style="clear: both;"></div>
 
 {{with .Stable}}
-<h3 id="stable">Stable versions</h3>
+<h2 id="stable">Stable versions</h2>
 {{template "download-releases" .}}
 {{end}}
 
 {{with .Unstable}}
-<h3 id="unstable">Unstable version</h3>
+<h2 id="unstable">Unstable version</h2>
 {{template "download-releases" .}}
 {{end}}
 
 {{with .Archive}}
 <div class="toggle" id="archive">
   <div class="collapsed">
-    <h3 class="toggleButton" title="Click to show versions">Archived versions ▹</h3>
+    <h2 class="toggleButton" title="Click to show versions">Archived versions ▸</h2>
   </div>
   <div class="expanded">
-    <h3 class="toggleButton" title="Click to hide versions">Archived versions ▾</h3>
+    <h2 class="toggleButton" title="Click to hide versions">Archived versions ▾</h2>
     {{template "download-releases" .}}
   </div>
 </div>
@@ -89,16 +94,19 @@ $(document).ready(function() {
 });
 </script>
 {{end}}
+
+</article>
+
 {{end}}
 
 {{define "download-releases"}}
 {{range .}}
 <div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
 	<div class="collapsed">
-		<h2 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▹</h2>
+		<h3 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▸</h3>
 	</div>
 	<div class="expanded">
-		<h2 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h2>
+		<h3 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h3>
 		{{if .Stable}}{{else}}
 			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
 			<p>If you already have Go installed, you can install this version by running:</p>

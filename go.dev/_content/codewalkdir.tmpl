@@ -5,6 +5,11 @@
 -->
 
 {{define "layout"}}
+
+<article class="Codewalk Article">
+
+<h1>{{.title}}</h1>
+
 <table class="layout">
 {{range .dirs}}
 <tr>
@@ -14,4 +19,7 @@
 </tr>
 {{end}}
 </table>
+
+</article>
+
 {{end}}

@@ -224,7 +224,7 @@ func (h server) getHandler(w http.ResponseWriter, r *http.Request) {
 	case name == "gotip":
 		redirectURL = "https://pkg.go.dev/golang.org/dl/gotip"
 	case goGetRe.MatchString(name):
-		redirectURL = "https://golang.org/dl/#" + name
+		redirectURL = "/dl/#" + name
 	default:
 		http.NotFound(w, r)
 		return
@@ -240,7 +240,7 @@ func (h server) getHandler(w http.ResponseWriter, r *http.Request) {
 <meta http-equiv="refresh" content="0; url=%s">
 </head>
 <body>
-Nothing to see here; <a href="%s">move along</a>.
+<a href="%s">Redirecting to documentation...</a>.
 </body>
 </html>
 `, html.EscapeString(redirectURL), html.EscapeString(redirectURL))

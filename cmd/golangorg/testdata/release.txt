@@ -1,4 +1,4 @@
-GET https://golang.org/doc/devel/release
+GET https://go.dev/doc/devel/release
 header content-type == text/html; charset=utf-8
 trimbody contains
 	<h2 id="go1.14">go1.14 (released 2020-02-25)</h2>

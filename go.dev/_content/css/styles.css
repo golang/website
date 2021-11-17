@@ -462,9 +462,6 @@ a.Footer-link--primary {
   max-width: 75.75rem;
   padding: 0 1.5rem;
 }
-.Dir h1, .Doc h1, .Error h1, .Pkg h1, .Texthtml h1 {
-  padding-top: 1rem;
-}
 h1 + h2.subtitle {
   margin-top: -1rem;
   font-size: 1.2rem !important;
@@ -3999,8 +3996,9 @@ h2.Playground-about {
 }
 .expandAll {
   cursor: pointer;
-  float: left;
   margin: 1.25rem 0;
+  font-weight: normal;
+  font-size: 0.8em;
 }
 .toggleButton {
   cursor: pointer;
@@ -4134,7 +4132,8 @@ th.pkg-name {
   /* For styling "Note" sections. */
   background-color: rgb(224, 235, 245);
   font-size: 0.875rem;
-  margin: 1.25rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
   max-width: 50rem;
   padding: 0.5rem 0.5rem 0.5rem 0.625rem;
 }
@@ -4296,4 +4295,14 @@ a.downloadBox:hover .filename {
 }
 .downloadBox .checksum {
   font-size: 5pt;
+}
+#manual-nav dl, #pkg-examples dl{
+  margin-left: 1.25rem;
+  font-size: 0.875rem;
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
+#manual-nav dd, #pkg-examples dd {
+  margin: 0 0 0 1.25rem;
+  font-size: 0.875rem;
 }

@@ -26,7 +26,23 @@ redirect == /solutions/google/sitereliability
 GET https://go.dev/solutions/americanexpress
 body contains <div class="Article-date">19 December 2019</div>
 
-GET https://go.dev/play
+GET https://go.dev/play/
 body contains The Go Playground
 body contains About the Playground
 body contains Hello, 世界
+
+GET https://golang.google.cn/play/
+body contains The Go Playground
+body contains About the Playground
+body contains Hello, 世界
+
+GET https://go.dev/play/p/asdfasdf
+body contains The Go Playground
+body contains About the Playground
+
+GET https://golang.google.cn/play/p/asdfasdf
+code == 500
+body contains Sorry, but shared playground snippets are not visible in China.
+body !contains The Go Playground
+body !contains About the Playground
+

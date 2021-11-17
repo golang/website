@@ -4,11 +4,11 @@ main:
   - name: Get Started
     url: /learn/
   - name: Docs
-    url: https://golang.org/doc/
+    url: /doc/
   - name: Packages
     url: https://pkg.go.dev
   - name: Play
-    url: /play
+    url: /play/
   - name: Blog
     url: /blog/
 

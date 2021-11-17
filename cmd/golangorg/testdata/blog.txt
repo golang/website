@@ -2,7 +2,14 @@ GET https://go.dev/blog/
 body contains The Go Blog
 header Content-Type == text/html; charset=utf-8
 
+GET https://golang.google.cn/blog/
+body contains The Go Blog
+header Content-Type == text/html; charset=utf-8
+
 GET https://go.dev/blog/2010/08/defer-panic-and-recover.html
+redirect == /blog/defer-panic-and-recover
+
+GET https://golang.google.cn/blog/2010/08/defer-panic-and-recover.html
 redirect == /blog/defer-panic-and-recover
 
 GET https://go.dev/blog/upcoming-google-io-go-events
@@ -23,7 +30,7 @@ GET https://go.dev/blog/gouk15
 body contains <img
 
 GET https://golang.org/blog/
-redirect == /blog
+redirect == https://go.dev/blog/
 
 GET https://golang.org/blog
 redirect == https://go.dev/blog
@@ -31,14 +38,27 @@ redirect == https://go.dev/blog
 GET https://go.dev/blog
 redirect == /blog/
 
+GET https://go.dev/blog/feed.atom
+header Content-Type == application/atom+xml; charset=utf-8
+body contains <feed xmlns="http://www.w3.org/2005/Atom"><title>The Go Blog</title>
+
+GET https://go.dev/blog/.json
+header Content-Type == application/json; charset=utf-8
+body contains [{"
+
+GET https://golang.google.cn/blog/feed.atom
+header Content-Type == application/atom+xml; charset=utf-8
+body contains <feed xmlns="http://www.w3.org/2005/Atom"><title>The Go Blog</title>
+
+GET https://golang.google.cn/blog/.json
+header Content-Type == application/json; charset=utf-8
+body contains [{"
+
 GET https://blog.golang.org/
 redirect == https://go.dev/blog/
 
-GET https://go.dev/blog/
-body contains The Go Blog
-
 GET https://blog.golang.org/x
-redirect == /x/
+redirect == https://go.dev/blog/x
 
 GET https://blog.golang.org/x/
 redirect == https://go.dev/blog/x/
@@ -54,7 +74,3 @@ body contains Go 1.16
 
 GET https://blog.golang.org/?googlecn=1
 redirect == https://golang.google.cn/?googlecn=1
-
-# Do not China-redirect go.dev links, because they will break.
-GET https://go.dev/blog/?googlecn=1
-body contains The Go Blog

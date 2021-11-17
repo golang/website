@@ -10,6 +10,11 @@
 	correspond to Go identifiers).
 -->
 {{define "layout"}}
+
+<article class="Pkg Article">
+
+<h1>{{.title}}</h1>
+
 {{$canShare := not googleCN}}
 {{$pkg := .pkg}}
 {{with $pkg.PDoc}}
@@ -36,7 +41,7 @@
 		<!-- The package's Name is printed as title by the top-level template -->
 		<div id="pkg-overview" class="toggleVisible">
 			<div class="collapsed">
-				<h2 class="toggleButton" title="Click to show Overview section">Overview ▹</h2>
+				<h2 class="toggleButton" title="Click to show Overview section">Overview ▸</h2>
 			</div>
 			<div class="expanded">
 				<h2 class="toggleButton" title="Click to hide Overview section">Overview ▾</h2>
@@ -47,7 +52,7 @@
 
 		<div id="pkg-index" class="toggleVisible">
 		<div class="collapsed">
-			<h2 class="toggleButton" title="Click to show Index section">Index ▹</h2>
+			<h2 class="toggleButton" title="Click to show Index section">Index ▸</h2>
 		</div>
 		<div class="expanded">
 			<h2 class="toggleButton" title="Click to hide Index section">Index ▾</h2>
@@ -82,8 +87,9 @@
 
 		{{if $pkg.Examples}}
 		<div id="pkg-examples">
-			<h3>Examples</h3>
-			<div class="js-expandAll expandAll collapsed">(Expand All)</div>
+			<h3>Examples
+			<span class="js-expandAll expandAll collapsed">(Expand All)</span>
+			</h3>
 			<dl>
 			{{range $pkg.Examples}}
 			<dd><a class="exampleLink" href="#example_{{.Name}}">{{$pkg.ExampleName .Name}}</a></dd>
@@ -200,7 +206,8 @@
 
 			{{if not (or (eq $pkg.Dirname "/src/cmd") $pkg.DirFlat)}}
 			<tr>
-				<td colspan="2"><a href="..">..</a></td>
+				<td class="pkg-name"><a href="..">..</a></td>
+				<td class="pkg-synopsis"></td>
 			</tr>
 			{{end}}
 
@@ -213,7 +220,7 @@
 						</td>
 					{{end}}
 				{{else}}
-					<td class="pkg-name" style="padding-left: {{mul .Depth 20}}px;">
+					<td class="pkg-name" style="padding-left: {{mul (sub .Depth 1) 20}}px;">
 						<a href="{{.Path}}/{{$pkg.ModeQuery}}">{{.Name}}</a>
 					</td>
 				{{end}}
@@ -225,6 +232,9 @@
 		</table>
 	</div>
 {{end}}
+
+</article>
+
 {{end}}
 
 {{define "example ex canShare"}}
@@ -232,7 +242,7 @@
 {{with .ex}}
 <div id="example_{{.Name}}" class="toggle">
   <div class="collapsed">
-    <p class="exampleHeading toggleButton">▹ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
+    <p class="exampleHeading toggleButton">▸ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>
   </div>
   <div class="expanded">
     <p class="exampleHeading toggleButton">▾ <span class="text">Example{{.Page.ExampleSuffix .Name}}</span></p>

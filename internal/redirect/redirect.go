@@ -36,7 +36,7 @@ func Register(mux *http.ServeMux) {
 		mux.Handle(path, Handler(redirect))
 	}
 	for path, redirect := range blogRedirects {
-		mux.Handle("go.dev/blog"+path, Handler("/blog/"+redirect))
+		mux.Handle("/blog"+path, Handler("/blog/"+redirect))
 	}
 	// NB: /src/pkg (sans trailing slash) is the index of packages.
 	mux.HandleFunc("/src/pkg/", srcPkgHandler)
@@ -95,7 +95,6 @@ var cmdRedirects = map[string]string{
 }
 
 var redirects = map[string]string{
-	"/blog":       "https://go.dev/blog",
 	"/build":      "https://build.golang.org",
 	"/change":     "https://go.googlesource.com/go",
 	"/cl":         "https://go-review.googlesource.com",
@@ -104,7 +103,6 @@ var redirects = map[string]string{
 	"/issue/new":  "https://github.com/golang/go/issues/new",
 	"/issues":     "https://github.com/golang/go/issues",
 	"/issues/new": "https://github.com/golang/go/issues/new",
-	"/play":       "https://play.golang.org",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
 
 	// In Go 1.2 the references page is part of /doc/.
@@ -142,10 +140,8 @@ var redirects = map[string]string{
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
-	"play":   "https://play.golang.org/",
 	"talks":  "https://talks.golang.org/",
 	"wiki":   "https://github.com/golang/go/wiki/",
-	"blog":   "https://go.dev/blog/",
 }
 
 func Handler(target string) http.Handler {

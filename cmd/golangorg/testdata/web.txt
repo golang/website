@@ -1,93 +1,168 @@
 GET https://golang.org/
-body contains Go is an open source programming language
-body contains Binary distributions available for
+code == 301
+redirect == https://go.dev/
 
 GET http://localhost:6060/
 redirect == /golang.org/
 
-GET http://localhost:6060/golang.org/
+GET http://localhost:6060/go.dev/
 body contains Go is an open source programming language
-body contains Binary distributions available for
-body contains href="/golang.org/doc
+body contains Download packages for
+body contains href="/go.dev/doc
 body !contains href="/doc
 
 GET https://golang.org/change/75944e2e3a63
+redirect == https://go.dev/change/75944e2e3a63
+
+GET https://go.dev/change/75944e2e3a63
 code == 302
 redirect contains bdb10cf
 body contains bdb10cf
 body !contains UA-
 
 GET https://golang.org/cmd/compile/internal/amd64/
+redirect == https://go.dev/cmd/compile/internal/amd64/
+
+GET https://go.dev/cmd/compile/internal/amd64/
 redirect == https://pkg.go.dev/cmd/compile/internal/amd64
 
 GET https://golang.org/cmd/compile/internal/amd64/?m=old
+redirect == https://go.dev/cmd/compile/internal/amd64/?m=old
+
+GET https://go.dev/cmd/compile/internal/amd64/?m=old
 body contains href="/src/cmd/compile/internal/amd64/ssa.go"
 
 GET https://golang.org/conduct
+redirect == https://go.dev/conduct
+
+GET https://go.dev/conduct
 body contains Project Stewards
 
 GET https://golang.org/doc/
+redirect == https://go.dev/doc/
+
+GET https://go.dev/doc/
 body contains an introduction to using modules in a simple project
 
 GET https://golang.org/doc/asm
+redirect == https://go.dev/doc/asm
+
+GET https://go.dev/doc/asm
 body ~ Quick Guide.*Assembler
 
 GET https://golang.org/doc/debugging_with_gdb.html
+redirect == https://go.dev/doc/debugging_with_gdb.html
+
+GET https://go.dev/doc/debugging_with_gdb.html
 redirect == /doc/gdb
 
 GET https://golang.org/doc/devel/release
+redirect == https://go.dev/doc/devel/release
+
+GET https://go.dev/doc/devel/release
 body ~ go1\.14\.2\s+\(released 2020-04-08\)\s+includes\s+fixes to cgo, the go command, the runtime,
 
 GET https://golang.org/doc/devel/release.html
+redirect == https://go.dev/doc/devel/release.html
+
+GET https://go.dev/doc/devel/release.html
 redirect == /doc/devel/release
 
 GET https://golang.org/doc/faq
+redirect == https://go.dev/doc/faq
+
+GET https://go.dev/doc/faq
 body contains What is the purpose of the project
 
 GET https://golang.org/doc/gdb
+redirect == https://go.dev/doc/gdb
+
+GET https://go.dev/doc/gdb
 body contains Debugging Go Code
 
 GET https://golang.org/doc/go1.16.html
+redirect == https://go.dev/doc/go1.16.html
+
+GET https://go.dev/doc/go1.16.html
 redirect == /doc/go1.16
 
 GET https://golang.org/doc/go1.16
+redirect == https://go.dev/doc/go1.16
+
+GET https://go.dev/doc/go1.16
 body contains Go 1.16
 
 GET https://golang.org/doc/go_spec
+redirect == https://go.dev/doc/go_spec
+
+GET https://go.dev/doc/go_spec
 redirect == /ref/spec
 
 GET https://golang.org/doc/go_spec.html
+redirect == https://go.dev/doc/go_spec.html
+
+GET https://go.dev/doc/go_spec.html
 redirect == /ref/spec
 
 GET https://golang.org/doc/go_spec.md
+redirect == https://go.dev/doc/go_spec.md
+
+GET https://go.dev/doc/go_spec.md
 redirect == /ref/spec
 
 GET https://golang.org/doc/go_mem.html
+redirect == https://go.dev/doc/go_mem.html
+
+GET https://go.dev/doc/go_mem.html
 redirect == /ref/mem
 
 GET https://golang.org/doc/go_mem.md
+redirect == https://go.dev/doc/go_mem.md
+
+GET https://go.dev/doc/go_mem.md
 redirect == /ref/mem
 
 GET https://golang.org/doc/help.html
+redirect == https://go.dev/doc/help.html
+
+GET https://go.dev/doc/help.html
 redirect == /help
 
 GET https://golang.org/help/
+redirect == https://go.dev/help/
+
+GET https://go.dev/help/
 redirect == /help
 
 GET https://golang.org/help
+redirect == https://go.dev/help
+
+GET https://go.dev/help
 body contains Get help
 
 GET https://golang.org/src/fmt/
+redirect == https://go.dev/src/fmt/
+
+GET https://go.dev/src/fmt/
 body contains scan_test.go
 
 GET https://golang.org/src/fmt/print.go
+redirect == https://go.dev/src/fmt/print.go
+
+GET https://go.dev/src/fmt/print.go
 body contains // Println formats using
 body contains <!DOCTYPE html>
 
 GET https://golang.org/pkg/fmt/
+redirect == https://go.dev/pkg/fmt/
+
+GET https://go.dev/pkg/fmt/
 redirect == https://pkg.go.dev/fmt
 
 GET https://golang.org/pkg/fmt/?m=old
+redirect == https://go.dev/pkg/fmt/?m=old
+
+GET https://go.dev/pkg/fmt/?m=old
 body contains Package fmt implements formatted I/O
 body contains Share this code
 
@@ -96,109 +171,194 @@ body contains Package fmt implements formatted I/O
 body !contains Share this code
 
 GET https://golang.org/pkg
+redirect == https://go.dev/pkg
+
+GET https://go.dev/pkg
 redirect == /pkg/
 
 GET https://golang.org/pkg/
+redirect == https://go.dev/pkg/
+
+GET https://go.dev/pkg/
 redirect == https://pkg.go.dev/std
 
 GET https://tip.golang.org/pkg/
 redirect == https://pkg.go.dev/std@master
 
 GET https://tip.golang.org/dl/
-redirect == https://golang.org/dl/
+redirect == https://go.dev/dl/
 
 GET https://golang.org/pkg?m=old
+redirect == https://go.dev/pkg?m=old
+
+GET https://go.dev/pkg?m=old
 redirect == /pkg/?m=old
 
 GET https://golang.org/pkg/?m=old
+redirect == https://go.dev/pkg/?m=old
+
+GET https://go.dev/pkg/?m=old
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body !contains internal/syscall
 body !contains cmd/gc
 
 GET https://golang.org/pkg/?m=old,all
+redirect == https://go.dev/pkg/?m=old,all
+
+GET https://go.dev/pkg/?m=old,all
 body contains Standard library
 body contains Package fmt implements formatted I/O
 body contains internal/syscall/?m=all
 body !contains cmd/gc
 
 GET https://golang.org/pkg/bufio/
+redirect == https://go.dev/pkg/bufio/
+
+GET https://go.dev/pkg/bufio/
 redirect == https://pkg.go.dev/bufio
 
 GET https://golang.org/pkg/bufio/?GOOS=windows&GOARCH=amd64
+redirect == https://go.dev/pkg/bufio/?GOOS=windows&GOARCH=amd64
+
+GET https://go.dev/pkg/bufio/?GOOS=windows&GOARCH=amd64
 redirect == https://pkg.go.dev/bufio?GOOS=windows&GOARCH=amd64
 
 GET https://tip.golang.org/pkg/bufio/
 redirect == https://pkg.go.dev/bufio@master
 
 GET https://golang.org/pkg/bufio/?m=old
+redirect == https://go.dev/pkg/bufio/?m=old
+
+GET https://go.dev/pkg/bufio/?m=old
 body contains href="/pkg/io/?m=old#Writer
 body !contains href="/pkg/io/#Writer
 
 GET https://golang.org/pkg/database/sql/
+redirect == https://go.dev/pkg/database/sql/
+
+GET https://go.dev/pkg/database/sql/
 redirect == https://pkg.go.dev/database/sql
 
 GET https://golang.org/pkg/database/sql/?m=old
+redirect == https://go.dev/pkg/database/sql/?m=old
+
+GET https://go.dev/pkg/database/sql/?m=old
 body contains The number of connections currently in use; added in Go 1.11
 body contains The number of idle connections; added in Go 1.11
 
 GET https://golang.org/pkg/math/bits/
+redirect == https://go.dev/pkg/math/bits/
+
+GET https://go.dev/pkg/math/bits/
 redirect == https://pkg.go.dev/math/bits
 
 GET https://golang.org/pkg/math/bits/?m=old
+redirect == https://go.dev/pkg/math/bits/?m=old
+
+GET https://go.dev/pkg/math/bits/?m=old
 body contains Added in Go 1.9
 
 GET https://golang.org/pkg/net/
+redirect == https://go.dev/pkg/net/
+
+GET https://go.dev/pkg/net/
 redirect == https://pkg.go.dev/net
 
 GET https://golang.org/pkg/net/?m=old
+redirect == https://go.dev/pkg/net/?m=old
+
+GET https://go.dev/pkg/net/?m=old
 body contains // IPv6 scoped addressing zone; added in Go 1.1
 
 GET https://golang.org/pkg/net/http/?m=old
+redirect == https://go.dev/pkg/net/http/?m=old
+
+GET https://go.dev/pkg/net/http/?m=old
 body contains title="Added in Go 1.11"
 
 GET https://golang.org/pkg/net/http/httptrace/
+redirect == https://go.dev/pkg/net/http/httptrace/
+
+GET https://go.dev/pkg/net/http/httptrace/
 redirect == https://pkg.go.dev/net/http/httptrace
 
 GET https://golang.org/pkg/net/http/httptrace/?m=old
+redirect == https://go.dev/pkg/net/http/httptrace/?m=old
+
+GET https://go.dev/pkg/net/http/httptrace/?m=old
 body ~ Got1xxResponse.*// Go 1\.11
 body ~ GotFirstResponseByte func\(\)\s*$
 
 GET https://golang.org/pkg/os/?m=old
+redirect == https://go.dev/pkg/os/?m=old
+
+GET https://go.dev/pkg/os/?m=old
 body contains func Open
 
 GET https://golang.org/pkg/strings/
+redirect == https://go.dev/pkg/strings/
+
+GET https://go.dev/pkg/strings/
 redirect == https://pkg.go.dev/strings
 
 GET https://golang.org/pkg/strings/?m=old
+redirect == https://go.dev/pkg/strings/?m=old
+
+GET https://go.dev/pkg/strings/?m=old
 body contains href="/src/strings/strings.go"
 
 GET https://golang.org/project
+redirect == https://go.dev/project
+
+GET https://go.dev/project
 body contains <li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>
 body contains <li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>
 
 GET https://golang.org/project/
+redirect == https://go.dev/project/
+
+GET https://go.dev/project/
 redirect == /project
 
 GET https://golang.org/project/notexist
+redirect == https://go.dev/project/notexist
+
+GET https://go.dev/project/notexist
 code == 404
 
 GET https://golang.org/ref/mem
+redirect == https://go.dev/ref/mem
+
+GET https://go.dev/ref/mem
 body contains Memory Model
 
 GET https://golang.org/ref/spec
+redirect == https://go.dev/ref/spec
+
+GET https://go.dev/ref/spec
 body contains Go Programming Language Specification
 
 GET https://golang.org/robots.txt
-body contains Disallow: /search
+redirect == https://go.dev/robots.txt
+
+GET https://go.dev/robots.txt
+body contains User-agent: *
 body !contains UA-
+body !contains <body>
 
 GET https://golang.org/x/net
 code == 200
 body contains <meta name="go-import" content="golang.org/x/net git https://go.googlesource.com/net">
 body !contains UA-
 
+GET https://go.dev/x/net
+code == 404
+
 GET https://golang.org/pkg/crypto/rsa/?m=old
+redirect == https://go.dev/pkg/crypto/rsa/?m=old
+
+GET https://go.dev/pkg/crypto/rsa/?m=old
 body contains []byte(&#34;orders&#34;)
 body !contains []byte(&amp;#34;orders&amp;#34;)
 body contains <span class="comment">
@@ -211,26 +371,48 @@ GET https://m.golang.org/anything
 redirect == https://mail.google.com/a/golang.org/
 
 GET https://golang.org/doc/effective_go
+redirect == https://go.dev/doc/effective_go
+
+GET https://go.dev/doc/effective_go
 body contains KB ByteSize
 
 GET https://golang.org/doc/codewalk/codewalk/
+redirect == https://go.dev/doc/codewalk/codewalk/
+
+GET https://go.dev/doc/codewalk/codewalk/
 body contains Codewalk: How to Write a Codewalk
 body contains A codewalk is a guided tour
 
 GET https://golang.org/doc/codewalk/
+redirect == https://go.dev/doc/codewalk/
+
+GET https://go.dev/doc/codewalk/
 body contains Codewalks
 body contains <td>How to Write a Codewalk</td>
 
 GET https://golang.org/ref/mod
+redirect == https://go.dev/ref/mod
+
+GET https://go.dev/ref/mod
 body contains Controls the set of version control tools
 
 GET https://golang.org/asdf
+redirect == https://go.dev/asdf
+
+GET https://go.dev/asdf
 code == 404
-body ~ <span class="alert" style="font-size:120%">open (../../_content/)?asdf: (.*)</span>
+body contains to, err := human()
+body ~ <span class="alert" style="font-size:120%">open (..[\\/]..[\\/](go.dev[\\/])?_content[\\/])?asdf: (.*)</span>
 
 GET https://golang.org/dl/
+redirect == https://go.dev/dl/
+
+GET https://go.dev/dl/
 body contains href="/dl/go1.11.windows-amd64.msi"
 
 GET https://golang.org/dl/?mode=json
+redirect == https://go.dev/dl/?mode=json
+
+GET https://go.dev/dl/?mode=json
 body contains .windows-amd64.msi
 body !contains UA-
