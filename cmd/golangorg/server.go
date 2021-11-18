@@ -244,7 +244,7 @@ func playHandler(site *web.Site) http.Handler {
 // and registers it in mux to handle requests for host.
 // If host is the empty string, the registrations are for the wildcard host.
 func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site, error) {
-	fsys := unionFS{content, &fixSpecsFS{goroot}}
+	fsys := unionFS{content, &hideRootMDFS{&fixSpecsFS{goroot}}}
 	site := web.NewSite(fsys)
 	site.Funcs(template.FuncMap{
 		"googleAnalytics": func() string { return googleAnalytics },
@@ -650,6 +650,22 @@ func (fsys fixSpecsFS) Open(name string) (fs.File, error) {
 		return &memFile{path.Base(name), bytes.NewReader(data)}, nil
 	}
 
+	return fsys.fs.Open(name)
+}
+
+// A hideRootMDFS is an FS that hides *.md files in the root directory.
+// We use this to hide the Go repository's CONTRIBUTING.md,
+// README.md, and SECURITY.md. The last is particularly problematic
+// when running locally on a Mac, because it can be opened as
+// security.md, which takes priority over _content/security.html.
+type hideRootMDFS struct {
+	fs fs.FS
+}
+
+func (fsys hideRootMDFS) Open(name string) (fs.File, error) {
+	if !strings.Contains(name, "/") && strings.HasSuffix(name, ".md") {
+		return nil, errors.New(".md file not available")
+	}
 	return fsys.fs.Open(name)
 }
 

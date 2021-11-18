@@ -46,3 +46,14 @@ body contains Sorry, but shared playground snippets are not visible in China.
 body !contains The Go Playground
 body !contains About the Playground
 
+# These $GOROOT/*.md files should not serve.
+GET https://go.dev/CONTRIBUTING
+code == 404
+
+GET https://go.dev/README
+code == 404
+
+# $GOROOT/SECURITY.md should not serve either,
+# but on a case-insensitive file system,
+# https://go.dev/SECURITY is served from _content/security.html,
+# so we can't assert a 404.
