@@ -29,7 +29,7 @@ which eventually became the
 [go command](/cmd/go/).
 We also added
 [support for Go on App Engine](https://blog.golang.org/2011/07/go-for-app-engine-is-now-generally.html).
-Over the past year we've also given [many talks](/doc/#talks), created an [interactive introductory tour](http://tour.golang.org/)
+Over the past year we've also given [many talks](/doc/#talks), created an [interactive introductory tour](/tour/)
 and recently we added support for [executable examples in package documentation](/pkg/strings/#pkg-examples).
 
 Perhaps the most important development in the past year

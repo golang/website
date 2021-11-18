@@ -111,7 +111,7 @@ but most DBMSes have their own CLI with similar features.
     $ mysql -u root -p
     Enter password:
 
-    mysql> 
+    mysql>
     ```
 
 3. At the `mysql` command prompt, create a database.
@@ -141,9 +141,9 @@ but most DBMSes have their own CLI with similar features.
       PRIMARY KEY (`id`)
     );
 
-    INSERT INTO album 
-      (title, artist, price) 
-    VALUES 
+    INSERT INTO album
+      (title, artist, price)
+    VALUES
       ('Blue Train', 'John Coltrane', 56.99),
       ('Giant Steps', 'John Coltrane', 63.99),
       ('Jeru', 'Gerry Mulligan', 17.99),
@@ -155,10 +155,10 @@ but most DBMSes have their own CLI with similar features.
     *   Delete (drop) a table called `album`. Executing this command first makes
         it easier for you to re-run the script later if you want to start over
         with the table.
-    
+
     *   Create an `album` table with four columns: `title`, `artist`, and `price`.
         Each row's `id` value is created automatically by the DBMS.
-    
+
     *   Add three rows with values.
 
 7. From the `mysql` command prompt, run the script you just created.
@@ -228,7 +228,7 @@ With the driver imported, you'll start writing code to access the database.
 Now write some Go code that gives you database access with a database handle.
 
 You'll use a pointer to an `sql.DB` struct, which represents access to a
-specific database. 
+specific database.
 
 #### Write the code
 
@@ -271,7 +271,7 @@ specific database.
         production, you'd avoid the global variable, such as by passing the
         variable to functions that need it or by wrapping it in a struct.
 
-    *   Use the MySQL driver's [`Config`](https://pkg.go.dev/github.com/go-sql-driver/mysql#Config) 
+    *   Use the MySQL driver's [`Config`](https://pkg.go.dev/github.com/go-sql-driver/mysql#Config)
         -- and the type's [`FormatDSN`](https://pkg.go.dev/github.com/go-sql-driver/mysql#Config.FormatDSN)
         -– to collect connection properties and format them into a DSN for a connection string.
 
@@ -294,7 +294,7 @@ specific database.
         `sql.Open` might not immediately connect, depending on the
         driver. You're using `Ping` here to confirm that the
         `database/sql` package can connect when it needs to.
-        
+
     *   Check for an error from `Ping`, in case the connection failed.
 
     *   Print a message if `Ping` connects successfully.
@@ -473,7 +473,7 @@ learn how to query for a single row later, in the section
 
     *   Call the `albumsByArtist` function you added, assigning its return value to
         a new `albums` variable.
-        
+
     *   Print the result.
 
 #### Run the code
@@ -520,7 +520,7 @@ For SQL statements you know will return at most a single row, you can use
 
     *   Use [`DB.QueryRow`](https://pkg.go.dev/database/sql#DB.QueryRow)
         to execute a `SELECT` statement to query for an album with the
-        specified ID. 
+        specified ID.
 
         It returns an `sql.Row`. To simplify the calling code
         (your code!), `QueryRow` doesn't return an error. Instead,
@@ -659,7 +659,7 @@ Suggested next topics:
 *   If you're new to Go, you'll find useful best practices described in
     [Effective Go](/doc/effective_go) and [How to write Go code](/doc/code).
 
-*   The [Go Tour](https://tour.golang.org/welcome/1) is a great step-by-step
+*   The [Go Tour](/tour/) is a great step-by-step
     introduction to Go fundamentals.
 
 ## Completed code {#completed_code}

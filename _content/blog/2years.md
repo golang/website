@@ -35,7 +35,7 @@ garbage collector, and core libraries have increased the performance of Go progr
 and native support for [profiling](https://blog.golang.org/2011/06/profiling-go-programs.html)
 and [debugging](http://blog.golang.org/2011/10/debugging-go-programs-with-gnu-debugger.html)
 makes it easier to detect and remove performance issues in user code.
-Go is also now easier to learn with [A Tour of Go](http://tour.golang.org/),
+Go is also now easier to learn with [A Tour of Go](/tour/),
 an interactive tutorial you can take from the comfort of your web browser.
 
 This year we introduced the experimental [Go runtime](http://code.google.com/appengine/docs/go/)

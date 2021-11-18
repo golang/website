@@ -178,7 +178,7 @@ func main() {
       <div class="Playground-secondaryButtons">
         {{- if $canShare}}
         <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
-        <a class="Button tour" href="https://tour.golang.org/" title="Playground Go from your browser">Tour</a>
+        <a class="Button tour" href="/tour/" title="Playground – Go from your browser">Tour</a>
         {{- end}}
       </div>
       </div>

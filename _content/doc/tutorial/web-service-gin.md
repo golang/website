@@ -156,14 +156,14 @@ time you stop the server, then recreated when you start it.
     	{ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
     	{ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
     }
-    ``` 
+    ```
 
 Next, you'll write code to implement your first endpoint.
 
 ## Write a handler to return all items {#all_items}
 
 When the client makes a request at `GET /albums`, you want to return all the
-albums as JSON. 
+albums as JSON.
 
 To do this, you'll write the following:
 
@@ -193,7 +193,7 @@ adding dependencies first, then the code that depends on them.
     *   Write a `getAlbums` function that takes a
         [`gin.Context`](https://pkg.go.dev/github.com/gin-gonic/gin#Context)
         parameter. Note that you could have given this function any name – neither
-        Gin nor Go require a particular function name format. 
+        Gin nor Go require a particular function name format.
 
         `gin.Context` is the most important part of Gin. It carries request
         details, validates and serializes JSON, and more. (Despite the similar
@@ -293,7 +293,7 @@ adding dependencies first, then the code that depends on them.
     $ curl http://localhost:8080/albums
     ```
 
-    The command should display the data you seeded the service with. 
+    The command should display the data you seeded the service with.
 
     ```
     [
@@ -432,7 +432,7 @@ To do this, you'll write the following:
         --request "GET"
     ```
 
-    The command should display the album list. 
+    The command should display the album list.
 
     ```
     [
@@ -577,7 +577,7 @@ Suggested next topics:
 *   If you're new to Go, you'll find useful best practices described in
     [Effective Go](/doc/effective_go) and
     [How to write Go code](/doc/code).
-*   The [Go Tour](https://tour.golang.org/welcome/1) is a great step-by-step
+*   The [Go Tour](/tour/) is a great step-by-step
     introduction to Go fundamentals.
 *   For more about Gin, see the [Gin Web Framework package documentation](https://pkg.go.dev/github.com/gin-gonic/gin)
     or the [Gin Web Framework docs](https://gin-gonic.com/docs/).

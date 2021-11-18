@@ -27,7 +27,7 @@ footer:
     - name: Playground
       url: /play
     - name: Tour
-      url: https://tour.golang.org
+      url: /tour/
     - name: Stack Overflow
       url: https://stackoverflow.com/questions/tagged/go?tab=Newest
 

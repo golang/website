@@ -17,8 +17,8 @@ a web service that compiles and executes arbitrary Go code and returns the
 program output.
 
 If you're a Go programmer then you have probably already used the playground
-by using the [Go Playground](https://play.golang.org) directly,
-taking the [Go Tour](https://tour.golang.org),
+by using the [Go Playground](/play/) directly,
+taking the [Go Tour](/tour/),
 or running [executable examples](/pkg/strings/#pkg-examples)
 from the Go documentation.
 
@@ -327,7 +327,7 @@ package does this proxying.
 
 ## Playing offline
 
-Both the [Go Tour](https://tour.golang.org) and the
+Both the [Go Tour](/tour/) and the
 [Present Tool](https://godoc.org/golang.org/x/tools/present) can be
 run offline. This is great for people with limited internet connectivity
 or presenters at conferences who cannot (and _should_ not) rely on a working

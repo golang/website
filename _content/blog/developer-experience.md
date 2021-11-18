@@ -20,7 +20,7 @@ For the next three months, this group will work together on delivering:
   - better guidelines to help new users
   - guides on tooling and developer environments (editors and IDEs)
   - running user studies to systematically analyze and measure friction points
-  - improvements to the [Go Tour](https://tour.golang.org/) and [Go Playground](https://play.golang.org/)
+  - improvements to the [Go Tour](/tour/) and [Go Playground](/play/)
 
 A secondary goal of the working group is to better understand how to
 involve the Go community in charting Go’s future. We hope that working

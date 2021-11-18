@@ -296,7 +296,7 @@ programming language, and as such a certain basic familiarity with programming c
 
 This is evident in the official documentation at [golang.org/doc](/doc/).
 It jumps right into how to install the language before passing the user on to the
-[tour](https://tour.golang.org/), which is geared towards programmers
+[tour](/tour/), which is geared towards programmers
 who are already familiar with a C-like language.
 From there, they are taken to [How to Write Go Code](/doc/code.html),
 which provides a very basic introduction to the classic non-module Go workspace,
