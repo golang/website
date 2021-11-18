@@ -2,44 +2,27 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package tour
 
 import (
 	"bufio"
 	"bytes"
 	"html/template"
 	"io"
-	"log"
 	"net/http"
 	"os"
-
-	_ "golang.org/x/tools/playground"
-	"golang.org/x/website/internal/webtest"
 )
 
-func gaeMain() {
+func RegisterHandlers(mux *http.ServeMux) error {
 	prepContent = gaePrepContent
 	socketAddr = gaeSocketAddr
 	analyticsHTML = template.HTML(os.Getenv("TOUR_ANALYTICS"))
 
-	if err := initTour("HTTPTransport"); err != nil {
-		log.Fatal(err)
+	if err := initTour(mux, "HTTPTransport"); err != nil {
+		return err
 	}
 
-	http.Handle("/", hstsHandler(rootHandler))
-	http.Handle("/lesson/", hstsHandler(lessonHandler))
-
-	registerStatic()
-
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
-	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
-		os.DirFS("."), "tour/testdata/*.txt")
-
-	log.Fatal(http.ListenAndServe(":"+port, h))
+	return nil
 }
 
 // gaePrepContent returns a Reader that produces the content from the given
@@ -85,11 +68,3 @@ func gaePrepContent(in io.Reader) io.Reader {
 // gaeSocketAddr returns the WebSocket handler address.
 // The App Engine version does not provide a WebSocket handler.
 func gaeSocketAddr() string { return "" }
-
-// hstsHandler wraps an http.HandlerFunc such that it sets the HSTS header.
-func hstsHandler(fn http.HandlerFunc) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Strict-Transport-Security", "max-age=31536000; preload")
-		fn(w, r)
-	})
-}

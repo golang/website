@@ -2,17 +2,17 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package tour
 
 import (
 	"bytes"
 	"crypto/sha1"
-	"embed"
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
+	"io/fs"
 	"net/http"
 	"path"
 	"path/filepath"
@@ -21,6 +21,7 @@ import (
 
 	"golang.org/x/tools/godoc/static"
 	"golang.org/x/tools/present"
+	"golang.org/x/website"
 )
 
 var (
@@ -29,18 +30,15 @@ var (
 	lessonNotFound = fmt.Errorf("lesson not found")
 )
 
-var (
-	//go:embed content static template
-	root embed.FS
-)
+var contentTour = website.TourOnly()
 
 // initTour loads tour.article and the relevant HTML templates from root.
-func initTour(transport string) error {
+func initTour(mux *http.ServeMux, transport string) error {
 	// Make sure playground is enabled before rendering.
 	present.PlayEnabled = true
 
 	// Set up templates.
-	tmpl, err := present.Template().ParseFS(root, "template/action.tmpl")
+	tmpl, err := present.Template().ParseFS(contentTour, "tour/template/action.tmpl")
 	if err != nil {
 		return fmt.Errorf("parse templates: %v", err)
 	}
@@ -51,7 +49,7 @@ func initTour(transport string) error {
 	}
 
 	// Init UI.
-	ui, err := template.ParseFS(root, "template/index.tmpl")
+	ui, err := template.ParseFS(contentTour, "tour/template/index.tmpl")
 	if err != nil {
 		return fmt.Errorf("parse index.tmpl: %v", err)
 	}
@@ -59,22 +57,24 @@ func initTour(transport string) error {
 
 	data := struct {
 		AnalyticsHTML template.HTML
-		SocketAddr    string
-		Transport     template.JS
-	}{analyticsHTML, socketAddr(), template.JS(transport)}
+	}{analyticsHTML}
 
 	if err := ui.Execute(buf, data); err != nil {
 		return fmt.Errorf("render UI: %v", err)
 	}
 	uiContent = buf.Bytes()
 
-	return initScript()
+	mux.HandleFunc("/tour/", rootHandler)
+	mux.HandleFunc("/tour/lesson/", lessonHandler)
+	mux.Handle("/tour/static/", http.FileServer(http.FS(contentTour)))
+
+	return initScript(mux, socketAddr(), transport)
 }
 
 // initLessonss finds all the lessons in the content directory, renders them,
 // using the given template and saves the content in the lessons map.
 func initLessons(tmpl *template.Template) error {
-	files, err := root.ReadDir("content")
+	files, err := fs.ReadDir(contentTour, "tour")
 	if err != nil {
 		return err
 	}
@@ -82,7 +82,7 @@ func initLessons(tmpl *template.Template) error {
 		if path.Ext(f.Name()) != ".article" {
 			continue
 		}
-		content, err := parseLesson(path.Join("content", f.Name()), tmpl)
+		content, err := parseLesson(f.Name(), tmpl)
 		if err != nil {
 			return fmt.Errorf("parsing %v: %v", f.Name(), err)
 		}
@@ -92,49 +92,49 @@ func initLessons(tmpl *template.Template) error {
 	return nil
 }
 
-// File defines the JSON form of a code file in a page.
-type File struct {
+// file defines the JSON form of a code file in a page.
+type file struct {
 	Name    string
 	Content string
 	Hash    string
 }
 
-// Page defines the JSON form of a tour lesson page.
-type Page struct {
+// page defines the JSON form of a tour lesson page.
+type page struct {
 	Title   string
 	Content string
-	Files   []File
+	Files   []file
 }
 
-// Lesson defines the JSON form of a tour lesson.
-type Lesson struct {
+// lesson defines the JSON form of a tour lesson.
+type lesson struct {
 	Title       string
 	Description string
-	Pages       []Page
+	Pages       []page
 }
 
 // parseLesson parses and returns a lesson content given its path
 // relative to root ('/'-separated) and the template to render it.
 func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
-	f, err := root.Open(path)
+	f, err := contentTour.Open("tour/" + path)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
 	ctx := &present.Context{
 		ReadFile: func(filename string) ([]byte, error) {
-			return root.ReadFile(filepath.ToSlash(filename))
+			return fs.ReadFile(contentTour, "tour/"+filepath.ToSlash(filename))
 		},
 	}
-	doc, err := ctx.Parse(prepContent(f), filepath.FromSlash(path), 0)
+	doc, err := ctx.Parse(prepContent(f), path, 0)
 	if err != nil {
 		return nil, err
 	}
 
-	lesson := Lesson{
+	lesson := lesson{
 		doc.Title,
 		doc.Subtitle,
-		make([]Page, len(doc.Sections)),
+		make([]page, len(doc.Sections)),
 	}
 
 	for i, sec := range doc.Sections {
@@ -146,7 +146,7 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 		p.Title = sec.Title
 		p.Content = w.String()
 		codes := findPlayCode(sec)
-		p.Files = make([]File, len(codes))
+		p.Files = make([]file, len(codes))
 		for i, c := range codes {
 			f := &p.Files[i]
 			f.Name = c.FileName
@@ -227,7 +227,7 @@ func renderUI(w io.Writer) error {
 
 // initScript concatenates all the javascript files needed to render
 // the tour UI and serves the result on /script.js.
-func initScript() error {
+func initScript(mux *http.ServeMux, socketAddr, transport string) error {
 	modTime := time.Now()
 	b := new(bytes.Buffer)
 
@@ -253,17 +253,23 @@ func initScript() error {
 	}
 
 	for _, file := range files {
-		f, err := root.ReadFile(file)
+		f, err := fs.ReadFile(contentTour, "tour/"+file)
 		if err != nil {
-			return fmt.Errorf("couldn't read %v: %v", file, err)
+			return err
 		}
-		_, err = b.Write(f)
-		if err != nil {
-			return fmt.Errorf("error concatenating %v: %v", file, err)
-		}
+		b.Write(f)
 	}
 
-	http.HandleFunc("/script.js", func(w http.ResponseWriter, r *http.Request) {
+	f, err := fs.ReadFile(contentTour, "tour/static/js/page.js")
+	if err != nil {
+		return err
+	}
+	s := string(f)
+	s = strings.ReplaceAll(s, "{{.SocketAddr}}", socketAddr)
+	s = strings.ReplaceAll(s, "{{.Transport}}", transport)
+	b.WriteString(s)
+
+	mux.HandleFunc("/tour/script.js", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-type", "application/javascript")
 		// Set expiration time in one week.
 		w.Header().Set("Cache-control", "max-age=604800")

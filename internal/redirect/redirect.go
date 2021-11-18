@@ -117,7 +117,6 @@ var redirects = map[string]string{
 	"/doc/spec": "/ref/spec",
 
 	"/talks": "https://talks.golang.org",
-	"/tour":  "https://tour.golang.org",
 	"/wiki":  "https://github.com/golang/go/wiki",
 
 	"/doc/articles/c_go_cgo.html":                    "/blog/c-go-cgo",
@@ -134,7 +133,7 @@ var redirects = map[string]string{
 	"/doc/articles/laws_of_reflection.html":          "/blog/laws-of-reflection",
 	"/doc/articles/slices_usage_and_internals.html":  "/blog/go-slices-usage-and-internals",
 	"/doc/go_for_cpp_programmers.html":               "/wiki/GoForCPPProgrammers",
-	"/doc/go_tutorial.html":                          "https://tour.golang.org/",
+	"/doc/go_tutorial.html":                          "/tour",
 }
 
 var prefixHelpers = map[string]string{

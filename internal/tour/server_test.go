@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package tour
 
 import (
 	"log"
@@ -13,12 +13,9 @@ import (
 )
 
 func TestWeb(t *testing.T) {
-	if err := initTour("SocketTransport"); err != nil {
+	if err := initTour(http.DefaultServeMux, "SocketTransport"); err != nil {
 		log.Fatal(err)
 	}
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/lesson/", lessonHandler)
-	registerStatic()
-
 	webtest.TestHandler(t, "testdata/*.txt", http.DefaultServeMux)
 }

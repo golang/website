@@ -1,7 +1,7 @@
 Translating the Tour
 
 A Tour of Go is a Go program that runs as a stand-alone web server or
-an App Engine app. The version available at tour.golang.org is run from
+an App Engine app. The version available at go.dev/tour/ is run from
 App Engine. There are several localized versions of the tour, such as
 this Chinese translation, also running on App Engine:
 

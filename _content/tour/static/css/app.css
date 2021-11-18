@@ -19,6 +19,11 @@ a {
     color: #375eab;
     text-decoration: none;
 }
+.gopherlogo {
+  height: 2rem;
+  margin-right: 2.25rem;
+  width: 5.125rem
+}
 a.logo, .toc a {
     color: inherit;
 }
@@ -107,9 +112,14 @@ ul {
     z-index: 1000;
     font-size: 1.4em;
     padding: 8px 24px;
-    line-height: 32px;
-    color: #222;
-    background: #E0EBF5;
+    text-align: center;
+    color: #fff;
+    background: #007d9c;
+    height: 2rem;
+}
+.top-bar a {
+    vertical-align: middle;
+    font-weight: bold;
 }
 .nav {
     float: right;
@@ -118,10 +128,7 @@ ul {
     width: 25px;
     margin-left: 10px;
     cursor: pointer;
-    fill: #375eab;
-}
-.nav:hover {
-    fill: #ffffff;
+    fill: #fff;
 }
 /* Module list */
 .page-header {
@@ -304,7 +311,7 @@ a#run, a#kill {
         overflow: hidden;
     }
     .output {
-        background-image: url(/static/img/gopher.png);
+        background-image: url(/tour/static/img/gopher.png);
         background-repeat: no-repeat;
         background-position: bottom;
         background-color: #fff;

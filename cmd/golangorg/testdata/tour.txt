@@ -1,0 +1,8 @@
+GET https://tour.golang.org/
+redirect == https://go.dev/tour/
+
+GET https://go.dev/tour/
+body contains >A Tour of Go<
+
+GET https://golang.google.cn/tour/
+body contains >A Tour of Go<

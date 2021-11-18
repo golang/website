@@ -54,12 +54,12 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
             } else {
                 l = (page < 1) ? toc.prevLesson(l) : toc.nextLesson(l);
                 if (l === '') { // If there's not previous or next
-                    $location.path('/list');
+                    $location.path('/tour/list');
                     return;
                 }
                 page = (page < 1) ? lessons[l].Pages.length : 1;
             }
-            $location.path('/' + l + '/' + page);
+            $location.path('/tour/' + l + '/' + page);
             $scope.openFile($scope.curFile);
             analytics.trackView();
         };

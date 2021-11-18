@@ -10,26 +10,39 @@ import (
 	"strings"
 )
 
+// buildCSP builds the CSP header.
+func buildCSP(kind string) string {
+	var ks []string
+	for k := range csp {
+		ks = append(ks, k)
+	}
+	sort.Strings(ks)
+	if kind == "tour" {
+		csp["script-src"] = append(csp["script-src"], unsafeEval)
+	}
+
+	var sb strings.Builder
+	for _, k := range ks {
+		sb.WriteString(k)
+		sb.WriteString(" ")
+		sb.WriteString(strings.Join(csp[k], " "))
+		sb.WriteString("; ")
+	}
+	return sb.String()
+}
+
 // addCSP returns a handler that adds the appropriate Content-Security-Policy header
 // to the response and then invokes h.
 func addCSP(h http.Handler) http.Handler {
+	std := buildCSP("")
+	tour := buildCSP("tour")
+
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		var ks []string
-		for k := range csp {
-			ks = append(ks, k)
+		csp := std
+		if strings.HasPrefix(r.URL.Path, "/tour/") {
+			csp = tour
 		}
-		sort.Strings(ks)
-
-		var sb strings.Builder
-		for _, k := range ks {
-			sb.WriteString(k)
-			sb.WriteString(" ")
-			sb.WriteString(strings.Join(csp[k], " "))
-			sb.WriteString("; ")
-		}
-
-		w.Header().Set("Content-Security-Policy", sb.String())
-
+		w.Header().Set("Content-Security-Policy", csp)
 		h.ServeHTTP(w, r)
 	})
 }
@@ -38,6 +51,7 @@ const (
 	self         = "'self'"
 	none         = "'none'"
 	unsafeInline = "'unsafe-inline'"
+	unsafeEval   = "'unsafe-eval'"
 )
 
 var csp = map[string][]string{

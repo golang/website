@@ -7,7 +7,7 @@
                     <span ng-click="toggleLesson(l)">{{m.lesson[l].Title}}</span>
                     <ul>
                         <li ng-repeat="p in m.lesson[l].Pages" class="toc-page" ng-class="{active: l==params.lessonId && $index+1==params.pageNumber}">
-                            <a href="/{{l}}/{{$index+1}}" ng-click="hideTOC(true)">{{p.Title}}</a>
+                            <a href="/tour/{{l}}/{{$index+1}}" ng-click="hideTOC(true)">{{p.Title}}</a>
                         </li>
                     </ul>
                 </li>

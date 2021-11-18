@@ -25,7 +25,6 @@ func TestRedirects(t *testing.T) {
 		"/ref":                           {301, "/doc/#references"},
 		"/doc/mem":                       {301, "/ref/mem"},
 		"/doc/spec":                      {301, "/ref/spec"},
-		"/tour":                          {301, "https://tour.golang.org"},
 		"/foo":                           errorResult(404),
 		"/blog/2011/01/json-and-go.html": {301, "/blog/json-and-go"},
 

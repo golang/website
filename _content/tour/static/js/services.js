@@ -201,7 +201,7 @@ factory('toc', ['$http', '$q', '$log', 'tableOfContents', 'storage',
             return mod.lessons[0];
         };
 
-        $http.get('/lesson/').then(
+        $http.get('/tour/lesson/').then(
             function(data) {
                 lessons = data.data;
                 for (var m = 0; m < modules.length; m++) {

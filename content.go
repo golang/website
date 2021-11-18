@@ -10,11 +10,21 @@ import (
 	"io/fs"
 )
 
-// Content is the go.dev website's static content.
-var Content fs.FS = subdir(embedded, "_content")
+// Content returns the go.dev website's static content.
+func Content() fs.FS {
+	return subdir(embedded, "_content")
+}
+
+// TourOnly returns the content needed only for the standalone tour.
+func TourOnly() fs.FS {
+	return subdir(tourOnly, "_content")
+}
 
 //go:embed _content
 var embedded embed.FS
+
+//go:embed _content/tour _content/favicon.ico _content/images/go-logo-white.svg
+var tourOnly embed.FS
 
 func subdir(fsys fs.FS, path string) fs.FS {
 	s, err := fs.Sub(fsys, path)

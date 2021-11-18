@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package tour
 
 import (
 	"flag"
@@ -28,22 +28,16 @@ const (
 )
 
 var (
-	httpListen  = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
+	httpListen  *string
+	openBrowser *bool
+	httpAddr    string
+)
+
+func Main() {
+	httpListen = flag.String("http", "127.0.0.1:3999", "host:port to listen on")
 	openBrowser = flag.Bool("openbrowser", true, "open browser automatically")
-)
 
-var (
-	httpAddr string
-)
-
-func main() {
 	flag.Parse()
-
-	if os.Getenv("GAE_ENV") == "standard" {
-		log.Println("running in App Engine Standard mode")
-		gaeMain()
-		return
-	}
 
 	host, port, err := net.SplitHostPort(*httpListen)
 	if err != nil {
@@ -57,17 +51,18 @@ func main() {
 	}
 	httpAddr = host + ":" + port
 
-	if err := initTour("SocketTransport"); err != nil {
+	if err := initTour(http.DefaultServeMux, "SocketTransport"); err != nil {
 		log.Fatal(err)
 	}
 
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/lesson/", lessonHandler)
+	http.HandleFunc("/fmt", fmtHandler)
+	fs := http.FileServer(http.FS(contentTour))
+	http.Handle("/favicon.ico", fs)
+	http.Handle("/images/", fs)
 
 	origin := &url.URL{Scheme: "http", Host: host + ":" + port}
 	http.Handle(socketPath, socket.NewHandler(origin))
-
-	registerStatic()
 
 	h := webtest.HandlerWithCheck(http.DefaultServeMux, "/_readycheck",
 		os.DirFS("."), "tour/testdata/*.txt")
@@ -80,16 +75,17 @@ func main() {
 			log.Printf("Please open your web browser and visit %s", url)
 		}
 	}()
-	log.Fatal(http.ListenAndServe(httpAddr, h))
+
+	log.Fatal(http.ListenAndServe(httpAddr, &logging{h}))
 }
 
-// registerStatic registers handlers to serve static content
-// from the directory root.
-func registerStatic() {
-	http.Handle("/favicon.ico", http.FileServer(http.FS(must(fs.Sub(root, "static/img")))))
-	static := http.FileServer(http.FS(root))
-	http.Handle("/content/img/", static)
-	http.Handle("/static/", static)
+type logging struct {
+	h http.Handler
+}
+
+func (l *logging) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	println(r.URL.Path)
+	l.h.ServeHTTP(w, r)
 }
 
 func must(fsys fs.FS, err error) fs.FS {
@@ -101,6 +97,10 @@ func must(fsys fs.FS, err error) fs.FS {
 
 // rootHandler returns a handler for all the requests except the ones for lessons.
 func rootHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path == "/" {
+		http.Redirect(w, r, "/tour/", http.StatusFound)
+		return
+	}
 	if err := renderUI(w); err != nil {
 		log.Println(err)
 	}
@@ -108,7 +108,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 // lessonHandler handler the HTTP requests for lessons.
 func lessonHandler(w http.ResponseWriter, r *http.Request) {
-	lesson := strings.TrimPrefix(r.URL.Path, "/lesson/")
+	lesson := strings.TrimPrefix(r.URL.Path, "/tour/lesson/")
 	if err := writeLesson(lesson, w); err != nil {
 		if err == lessonNotFound {
 			http.NotFound(w, r)

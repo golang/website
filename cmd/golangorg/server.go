@@ -43,6 +43,7 @@ import (
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
+	"golang.org/x/website/internal/tour"
 	"golang.org/x/website/internal/web"
 	"golang.org/x/website/internal/webtest"
 )
@@ -139,7 +140,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if contentDir != "" {
 		contentFS = os.DirFS(contentDir)
 	} else {
-		contentFS = website.Content
+		contentFS = website.Content()
 	}
 
 	var gorootFS fs.FS
@@ -171,6 +172,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("golang.org/", redirectPrefix("https://go.dev/"))
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
+	mux.Handle("tour.golang.org/", redirectPrefix("https://go.dev/tour/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -214,6 +216,10 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	// Note: Registers for golang.org, go.dev/_, and golang.google.cn.
 	proxy.RegisterHandlers(mux)
+
+	if err := tour.RegisterHandlers(mux); err != nil {
+		log.Fatalf("tour: %v", err)
+	}
 
 	var h http.Handler = mux
 	h = addCSP(mux)
@@ -386,6 +392,7 @@ var validHosts = map[string]bool{
 	"blog.golang.org":  true,
 	"m.golang.org":     true,
 	"tip.golang.org":   true,
+	"tour.golang.org":  true,
 
 	"go.dev":       true,
 	"learn.go.dev": true,
@@ -469,6 +476,7 @@ type linkRewriter struct {
 
 func (r *linkRewriter) WriteHeader(code int) {
 	loc := r.Header().Get("Location")
+	delete(r.Header(), "Content-Length") // we might change the content
 	if strings.HasPrefix(loc, "/") {
 		r.Header().Set("Location", "/"+r.host+loc)
 	} else if u, _ := url.Parse(loc); u != nil && validHosts[u.Host] {

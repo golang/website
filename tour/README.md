@@ -3,7 +3,7 @@
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/website/tour.svg)](https://pkg.go.dev/golang.org/x/website/tour)
 
 A Tour of Go is an introduction to the Go programming language. Visit
-https://tour.golang.org to start the tour.
+https://go.dev/tour/ to start the tour.
 
 ## Download/Install
 
@@ -43,15 +43,8 @@ at https://github.com/golang/tour/issues.
 
 ## Deploying
 
-Each time a CL is reviewed and submitted, the tour is automatically deployed to App Engine.
-If the CL is submitted with a Website-Publish +1 vote,
-the new deployment automatically becomes https://tour.golang.org/.
-Otherwise, the new deployment can be found in the
-[App Engine versions list](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=tour) and verified and manually promoted.
-
-If the automatic deployment is not working, or to check on the status of a pending deployment,
-see the “website-redeploy-tour” trigger in the
-[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org).
+Each time a CL is reviewed and submitted, the tour is automatically deployed to App Engine
+as part of the main go.dev web site. See [../README.md](../README.md) for details.
 
 ## License
 

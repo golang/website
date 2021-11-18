@@ -43,7 +43,7 @@ func TestContent(t *testing.T) {
 		}
 		t.Run(path, func(t *testing.T) {
 			t.Parallel()
-			if err := testSnippet(t, path, scratch); err != nil {
+			if err := testSnippet(t, filepath.ToSlash(path), scratch); err != nil {
 				t.Errorf("%v: %v", path, err)
 			}
 		})

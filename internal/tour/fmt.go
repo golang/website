@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package main
+package tour
 
 import (
 	"bytes"
@@ -15,10 +15,6 @@ import (
 
 	"golang.org/x/tools/imports"
 )
-
-func init() {
-	http.HandleFunc("/fmt", fmtHandler)
-}
 
 type fmtResponse struct {
 	Body  string
