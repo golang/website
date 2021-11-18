@@ -3782,7 +3782,7 @@ a.error {
   text-align: center;
 }
 .Playground-popout {
-  background: url('/lib/godoc/images/play-link.svg') no-repeat;
+  background: url('/images/play-link.svg') no-repeat;
   background-position: right center;
   cursor: pointer;
   display: block;
