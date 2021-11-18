@@ -10,13 +10,10 @@ import (
 	"io/fs"
 )
 
-// Golang is the golang.org website's static content.
-var Golang fs.FS = subdir(embedded, "_content")
+// Content is the go.dev website's static content.
+var Content fs.FS = subdir(embedded, "_content")
 
-// Godev is the go.dev website's static content.
-var Godev fs.FS = subdir(embedded, "go.dev/_content")
-
-//go:embed _content go.dev/_content
+//go:embed _content
 var embedded embed.FS
 
 func subdir(fsys fs.FS, path string) fs.FS {

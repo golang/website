@@ -19,7 +19,7 @@ steps:
     args: ["go", "test", "./..."]
   - name: golang
     entrypoint: bash
-    args: ["-c", "go run ./cmd/events/ > ./go.dev/_content/events.yaml"]
+    args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]

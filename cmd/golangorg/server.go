@@ -135,13 +135,11 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Serve files from _content, falling back to GOROOT.
 
 	// Use explicit contentDir if specified, otherwise embedded copy.
-	var golangFS, godevFS fs.FS
+	var contentFS fs.FS
 	if contentDir != "" {
-		golangFS = os.DirFS(contentDir)
-		godevFS = os.DirFS(filepath.Join(contentDir, "../go.dev/_content"))
+		contentFS = os.DirFS(contentDir)
 	} else {
-		golangFS = website.Golang
-		godevFS = website.Godev
+		contentFS = website.Content
 	}
 
 	var gorootFS fs.FS
@@ -157,9 +155,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
-	// TODO(rsc): The unionFS is a hack until we move the files in a followup CL.
 	var tipGoroot atomicFS
-	if _, err := newSite(mux, "tip.golang.org", unionFS{godevFS, golangFS}, &tipGoroot); err != nil {
+	if _, err := newSite(mux, "tip.golang.org", contentFS, &tipGoroot); err != nil {
 		log.Fatalf("loading tip site: %v", err)
 	}
 	if *tipFlag {
@@ -187,11 +184,11 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	// TODO(rsc): The unionFS is a hack until we move the files in a followup CL.
 	siteMux := http.NewServeMux()
-	godevSite, err := newSite(siteMux, "", unionFS{godevFS, golangFS}, gorootFS)
+	godevSite, err := newSite(siteMux, "", contentFS, gorootFS)
 	if err != nil {
 		log.Fatalf("newSite go.dev: %v", err)
 	}
-	chinaSite, err := newSite(siteMux, "golang.google.cn", unionFS{godevFS, golangFS}, gorootFS)
+	chinaSite, err := newSite(siteMux, "golang.google.cn", contentFS, gorootFS)
 	if err != nil {
 		log.Fatalf("newSite golang.google.cn: %v", err)
 	}

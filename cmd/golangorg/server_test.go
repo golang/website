@@ -73,6 +73,5 @@ func TestAll(t *testing.T) {
 		})
 	}
 
-	testTree("../../_content", "https://golang.org")
-	testTree("../../go.dev/_content", "https://go.dev")
+	testTree("../../_content", "https://go.dev")
 }

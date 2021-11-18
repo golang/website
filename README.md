@@ -4,7 +4,7 @@
 
 This repo holds content and serving programs for the golang.org and go.dev web sites.
 
-Content is in _content/ (golang.org), go.dev/_content/ (go.dev), and tour/ (tour.golang.org).
+Content is in _content/ (go.dev) and tour/ (tour.golang.org).
 Server code is in cmd/ and internal/.
 
 To run the combined golang.org+go.dev server to preview local content changes, use:
@@ -21,10 +21,27 @@ Each command directory has its own README.md explaining deployment.
 
 This repository uses [prettier](https://prettier.io/) to format JS and CSS files.
 
+See also:
+
+- [CSS](https://golang.org/wiki/CSSStyleGuide)
+- [JavaScript](https://google.github.io/styleguide/jsguide.html)
+
 The version of `prettier` used is 1.18.2.
 
 It is encouraged that all JS and CSS code be run through this before submitting
 a change. However, it is not a strict requirement enforced by CI.
+
+## Deploying
+
+Each time a CL is reviewed and submitted, the blog is automatically deployed to App Engine.
+If the CL is submitted with a Website-Publish +1 vote,
+the new deployment automatically becomes https://go.dev/.
+Otherwise, the new deployment can be found in the
+[App Engine versions list](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default) and verified and manually promoted.
+
+If the automatic deployment is not working, or to check on the status of a pending deployment,
+see the “website-redeploy-go-dev” trigger in the
+[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org).
 
 ## Report Issues / Send Patches
 
