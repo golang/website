@@ -1,22 +1,21 @@
-{/* This is the slide template. It defines how presentations are formatted. */}
-
-{{define "root"}}
+{{define "entirepage" -}}
+{{with .doc -}}
 <!DOCTYPE html>
 <html>
   <head>
     <title>{{.Title}}</title>
     <meta charset='utf-8'>
     <script>
-      var notesEnabled = {{.NotesEnabled}};
+      var notesEnabled = {{$.NotesEnabled}};
     </script>
-    <script src='/static/slides.js'></script>
+    <script src='/talks/static/slides.js'></script>
 
-    {{if .NotesEnabled}}
+    {{if $.NotesEnabled}}
     <script>
       var sections = {{.Sections}};
       var titleNotes = {{.TitleNotes}}
     </script>
-    <script src='/static/notes.js'></script>
+    <script src='/talks/static/notes.js'></script>
     {{end}}
 
     <script>
@@ -48,7 +47,7 @@
         {{if not .Time.IsZero}}<h3>{{.Time.Format "2 January 2006"}}</h3>{{end}}
         {{range .Authors}}
           <div class="presenter">
-            {{range .TextElem}}{{elem $.Template .}}{{end}}
+            {{range .TextElem}}{{fmt .}}{{end}}
           </div>
         {{end}}
       </article>
@@ -58,7 +57,7 @@
       <article {{$s.HTMLAttributes}}>
       {{if $s.Elem}}
         <h3>{{$s.Title}}</h3>
-        {{range $s.Elem}}{{elem $.Template .}}{{end}}
+        {{range $s.Elem}}{{fmt .}}{{end}}
       {{else}}
         <h2>{{$s.Title}}</h2>
       {{end}}
@@ -71,7 +70,7 @@
         <h3>Thank you</h3>
         {{range .Authors}}
           <div class="presenter">
-            {{range .Elem}}{{elem $.Template .}}{{end}}
+            {{range .Elem}}{{fmt .}}{{end}}
           </div>
         {{end}}
       </article>
@@ -84,8 +83,8 @@
       (Press 'H' or navigate to hide this message.)
     </div>
 
-    {{if .PlayEnabled}}
-    <script src='/play.js'></script>
+    {{if $.PlayEnabled}}
+    <script src='/talks/static/play.js'></script>
     {{end}}
 
     <script>
@@ -101,7 +100,97 @@
   </body>
 </html>
 {{end}}
+{{end}}
 
 {{define "newline"}}
 <br>
 {{end}}
+
+{{define "pagenum s offset" -}}
+  {{if len .s.Number -}}
+    {{add (index .s.Number 0) .offset -}}
+  {{else -}}
+    {{.offset -}}
+  {{end -}}
+{{end}}
+
+{{define "fmt" -}}
+  {{$kind := .TemplateName -}}
+  {{if eq $kind "section"}}{{section . -}}
+  {{else if eq $kind "list"}}{{list . -}}
+  {{else if eq $kind "text"}}{{text . -}}
+  {{else if eq $kind "code"}}{{code . -}}
+  {{else if eq $kind "image"}}{{image . -}}
+  {{else if eq $kind "video"}}{{video . -}}
+  {{else if eq $kind "background"}}{{background . -}}
+  {{else if eq $kind "iframe"}}{{iframe . -}}
+  {{else if eq $kind "link"}}{{link . -}}
+  {{else if eq $kind "html"}}{{html . -}}
+  {{else if eq $kind "caption"}}{{caption . -}}
+  {{else}}???{{$kind}}???
+  {{- end -}}
+{{end}}
+
+{{define "section"}}
+  <h{{len .Number}} id="TOC_{{.FormattedNumber}}">{{.FormattedNumber}} {{.Title}}</h{{len .Number}}>
+  {{range .Elem}}{{fmt .}}{{end}}
+{{end}}
+
+{{define "list"}}
+  <ul>
+  {{range .Bullet}}
+    <li>{{style .}}</li>
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "text"}}
+  {{if .Pre}}
+  <div class="code"><pre>{{range .Lines}}{{.}}{{end}}</pre></div>
+  {{else}}
+  <p>
+    {{range $i, $l := .Lines}}{{if $i}}{{template "newline"}}
+    {{end}}{{style $l}}{{end}}
+  </p>
+  {{end}}
+{{end}}
+
+{{define "code"}}
+  <div class="code{{if eq .Ext ".go"}} playground{{end}}" {{if .Edit}}contenteditable="true" spellcheck="false"{{end}}>{{raw .Text}}</div>
+{{end}}
+
+{{define "image"}}
+<div class="image">
+  <img src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}>
+</div>
+{{end}}
+
+{{define "video"}}
+<div class="video">
+  <video {{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}} controls>
+    <source src="{{.URL}}" type="{{.SourceType}}">
+  </video>
+</div>
+{{end}}
+
+{{define "background"}}
+<div class="background">
+  <img src="{{.URL}}">
+</div>
+{{end}}
+
+{{define "iframe"}}
+<iframe src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}></iframe>
+{{end}}
+
+{{define "link"}}<p class="link"><a href="{{.URL}}" target="_blank">{{style .Label}}</a></p>{{end}}
+
+{{define "html"}}{{.HTML}}{{end}}
+
+{{define "caption"}}<figcaption>{{style .Text}}</figcaption>{{end}}
+
+{{define "style" -}}
+{{presentStyle . -}}
+{{end}}
+
+{{define "presentStyle"}}{{.}}{{end}}

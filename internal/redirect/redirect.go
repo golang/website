@@ -116,8 +116,7 @@ var redirects = map[string]string{
 	"/doc/mem":  "/ref/mem",
 	"/doc/spec": "/ref/spec",
 
-	"/talks": "https://talks.golang.org",
-	"/wiki":  "https://github.com/golang/go/wiki",
+	"/wiki": "https://github.com/golang/go/wiki",
 
 	"/doc/articles/c_go_cgo.html":                    "/blog/c-go-cgo",
 	"/doc/articles/concurrency_patterns.html":        "/blog/go-concurrency-patterns-timing-out-and",
@@ -139,7 +138,6 @@ var redirects = map[string]string{
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
-	"talks":  "https://talks.golang.org/",
 	"wiki":   "https://github.com/golang/go/wiki/",
 }
 

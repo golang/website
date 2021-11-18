@@ -43,6 +43,7 @@ import (
 	"golang.org/x/website/internal/proxy"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
+	"golang.org/x/website/internal/talks"
 	"golang.org/x/website/internal/tour"
 	"golang.org/x/website/internal/web"
 	"golang.org/x/website/internal/webtest"
@@ -172,6 +173,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("golang.org/", redirectPrefix("https://go.dev/"))
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
+	mux.Handle("talks.golang.org/", redirectPrefix("https://go.dev/talks/"))
 	mux.Handle("tour.golang.org/", redirectPrefix("https://go.dev/tour/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
@@ -217,6 +219,11 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Note: Registers for golang.org, go.dev/_, and golang.google.cn.
 	proxy.RegisterHandlers(mux)
 
+	// Note: Using godevSite (non-China) for global mux registration because there's no sharing in talks.
+	// Don't need the hassle of two separate registrations for different domains in siteMux.
+	if err := talks.RegisterHandlers(mux, godevSite, contentFS); err != nil {
+		log.Fatalf("talks: %v", err)
+	}
 	if err := tour.RegisterHandlers(mux); err != nil {
 		log.Fatalf("tour: %v", err)
 	}
@@ -391,6 +398,7 @@ var validHosts = map[string]bool{
 	"beta.golang.org":  true,
 	"blog.golang.org":  true,
 	"m.golang.org":     true,
+	"talks.golang.org": true,
 	"tip.golang.org":   true,
 	"tour.golang.org":  true,
 

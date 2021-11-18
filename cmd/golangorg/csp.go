@@ -17,15 +17,20 @@ func buildCSP(kind string) string {
 		ks = append(ks, k)
 	}
 	sort.Strings(ks)
-	if kind == "tour" {
-		csp["script-src"] = append(csp["script-src"], unsafeEval)
-	}
 
 	var sb strings.Builder
 	for _, k := range ks {
 		sb.WriteString(k)
 		sb.WriteString(" ")
 		sb.WriteString(strings.Join(csp[k], " "))
+		if kind == "tour" && k == "script-src" {
+			sb.WriteString(" ")
+			sb.WriteString(unsafeEval)
+		}
+		if kind == "talks" && k == "script-src" {
+			sb.WriteString(" ")
+			sb.WriteString(unsafeInline)
+		}
 		sb.WriteString("; ")
 	}
 	return sb.String()
@@ -36,11 +41,15 @@ func buildCSP(kind string) string {
 func addCSP(h http.Handler) http.Handler {
 	std := buildCSP("")
 	tour := buildCSP("tour")
+	talks := buildCSP("talks")
 
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		csp := std
 		if strings.HasPrefix(r.URL.Path, "/tour/") {
 			csp = tour
+		}
+		if strings.HasPrefix(r.URL.Path, "/talks/") {
+			csp = talks
 		}
 		w.Header().Set("Content-Security-Policy", csp)
 		h.ServeHTTP(w, r)

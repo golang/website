@@ -1,0 +1,12 @@
+GET https://talks.golang.org/
+redirect == https://go.dev/talks/
+
+GET https://talks.golang.org/any/thing
+redirect == https://go.dev/talks/any/thing
+
+GET https://go.dev/talks/
+body contains <a href="/talks/2009">2009</a>
+
+GET https://go.dev/talks/2013/bestpractices.slide
+body contains <h1>Twelve Go Best Practices</h1>
+body contains <script src='/talks/static/slides.js'></script>

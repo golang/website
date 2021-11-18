@@ -1,46 +1,46 @@
-// Copyright 2012 The Go Authors. All rights reserved.
+// Copyright 2021 The Go Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-//go:build ignore
-// +build ignore
-
-package main
+package talks
 
 import (
-	"html/template"
-	"io"
+	"io/fs"
 	"log"
 	"net"
 	"net/http"
-	"os"
+	"path"
 	"path/filepath"
 	"sort"
 	"strings"
 
 	"golang.org/x/tools/present"
+	"golang.org/x/website/internal/web"
 )
 
-func init() {
-	http.HandleFunc("/", dirHandler)
+func RegisterHandlers(mux *http.ServeMux, site *web.Site, content fs.FS) error {
+	h := &handler{content: content, site: site}
+	mux.Handle("/talks/", h)
+	return nil
 }
 
-// dirHandler serves a directory listing for the requested path, rooted at *contentPath.
-func dirHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path == "/favicon.ico" {
-		http.NotFound(w, r)
-		return
-	}
-	name := filepath.Join(*contentPath, r.URL.Path)
-	if isDoc(name) {
-		err := renderDoc(w, name)
+type handler struct {
+	content fs.FS
+	site    *web.Site
+}
+
+func (h *handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	name := r.URL.Path
+	if h.isDoc(name) {
+		err := h.renderDoc(w, r, strings.Trim(name, "/"))
 		if err != nil {
 			log.Println(err)
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 		return
 	}
-	if isDir, err := dirList(w, name); err != nil {
+	handled, err := h.dirList(w, r)
+	if err != nil {
 		addr, _, e := net.SplitHostPort(r.RemoteAddr)
 		if e != nil {
 			addr = r.RemoteAddr
@@ -48,129 +48,106 @@ func dirHandler(w http.ResponseWriter, r *http.Request) {
 		log.Printf("request from %s: %s", addr, err)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
-	} else if isDir {
-		return
 	}
-	http.FileServer(http.Dir(*contentPath)).ServeHTTP(w, r)
+	if !handled {
+		http.FileServer(http.FS(h.content)).ServeHTTP(w, r)
+	}
 }
 
-func isDoc(path string) bool {
-	_, ok := contentTemplate[filepath.Ext(path)]
-	return ok
+func (h *handler) isDoc(name string) bool {
+	switch path.Ext(name) {
+	case ".slide", ".article":
+		return true
+	}
+	return false
 }
 
-var (
-	// dirListTemplate holds the front page template.
-	dirListTemplate *template.Template
-
-	// contentTemplate maps the presentable file extensions to the
-	// template to be executed.
-	contentTemplate map[string]*template.Template
-)
-
-func initTemplates(base string) error {
-	// Locate the template file.
-	actionTmpl := filepath.Join(base, "templates/action.tmpl")
-
-	contentTemplate = make(map[string]*template.Template)
-
-	for ext, contentTmpl := range map[string]string{
-		".slide":   "slides.tmpl",
-		".article": "article.tmpl",
-	} {
-		contentTmpl = filepath.Join(base, "templates", contentTmpl)
-
-		// Read and parse the input.
-		tmpl := present.Template()
-		tmpl = tmpl.Funcs(template.FuncMap{"playable": playable})
-		if _, err := tmpl.ParseFiles(actionTmpl, contentTmpl); err != nil {
-			return err
-		}
-		contentTemplate[ext] = tmpl
-	}
-
-	var err error
-	dirListTemplate, err = template.ParseFiles(filepath.Join(base, "templates/dir.tmpl"))
-	return err
+func playable(c present.Code) bool {
+	// Restrict playable files to only Go source files when using play.golang.org,
+	// since there is no method to execute shell scripts there.
+	return c.Ext == ".go"
 }
 
 // renderDoc reads the present file, gets its template representation,
 // and executes the template, sending output to w.
-func renderDoc(w io.Writer, docFile string) error {
+func (h *handler) renderDoc(w http.ResponseWriter, r *http.Request, docFile string) error {
 	// Read the input and build the doc structure.
-	doc, err := parse(docFile, 0)
+	doc, err := h.parse(docFile, 0)
 	if err != nil {
+		println("PARSE", err.Error())
 		return err
 	}
 
-	// Find which template should be executed.
-	tmpl := contentTemplate[filepath.Ext(docFile)]
-
-	// Execute the template.
-	return doc.Render(w, tmpl)
+	ext := strings.TrimPrefix(path.Ext(r.URL.Path), ".")
+	h.site.ServePage(w, r, web.Page{
+		"layout": "/talks/" + ext,
+		"doc":    doc,
+		"title":  doc.Title,
+	})
+	return nil
 }
 
-func parse(name string, mode present.ParseMode) (*present.Doc, error) {
-	f, err := os.Open(name)
+func (h *handler) readFile(name string) ([]byte, error) {
+	return fs.ReadFile(h.content, filepath.ToSlash(name))
+}
+
+func (h *handler) parse(name string, mode present.ParseMode) (*present.Doc, error) {
+	ctx := &present.Context{ReadFile: h.readFile}
+	f, err := h.content.Open(name)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-	return present.Parse(f, name, mode)
+	return ctx.Parse(f, name, mode)
 }
 
 // dirList scans the given path and writes a directory listing to w.
 // It parses the first part of each .slide file it encounters to display the
 // presentation title in the listing.
-// If the given path is not a directory, it returns (isDir == false, err == nil)
+// If the given path is not a directory, it returns (handled == false, err == nil)
 // and writes nothing to w.
-func dirList(w io.Writer, name string) (isDir bool, err error) {
-	f, err := os.Open(name)
+func (h *handler) dirList(w http.ResponseWriter, r *http.Request) (handled bool, err error) {
+	name := strings.Trim(r.URL.Path, "/")
+	info, err := fs.Stat(h.content, name)
+	if err != nil || !info.IsDir() {
+		return false, err
+	}
+	if !strings.HasSuffix(r.URL.Path, "/") {
+		http.Redirect(w, r, r.URL.Path+"/", http.StatusFound)
+		return
+	}
+	files, err := fs.ReadDir(h.content, name)
 	if err != nil {
 		return false, err
 	}
-	defer f.Close()
-	fi, err := f.Stat()
-	if err != nil {
-		return false, err
-	}
-	if isDir = fi.IsDir(); !isDir {
-		return false, nil
-	}
-	fis, err := f.Readdir(0)
-	if err != nil {
-		return false, err
-	}
-	strippedPath := strings.TrimPrefix(name, filepath.Clean(*contentPath))
-	strippedPath = strings.TrimPrefix(strippedPath, "/")
-	d := &dirListData{Path: strippedPath}
-	for _, fi := range fis {
+	d := &dirListData{Path: name}
+	for _, fi := range files {
 		// skip the golang.org directory
 		if name == "." && fi.Name() == "golang.org" {
 			continue
 		}
 		e := dirEntry{
 			Name: fi.Name(),
-			Path: filepath.ToSlash(filepath.Join(strippedPath, fi.Name())),
+			Path: path.Join(name, fi.Name()),
 		}
-		if fi.IsDir() && showDir(e.Name) {
+		if fi.IsDir() && h.showDir(e.Name) {
 			d.Dirs = append(d.Dirs, e)
 			continue
 		}
-		if isDoc(e.Name) {
-			fn := filepath.ToSlash(filepath.Join(name, fi.Name()))
-			if p, err := parse(fn, present.TitlesOnly); err != nil {
+		if h.isDoc(e.Name) {
+			fn := path.Join(name, fi.Name())
+			if p, err := h.parse(fn, present.TitlesOnly); err != nil {
 				log.Printf("parse(%q, present.TitlesOnly): %v", fn, err)
 			} else {
 				e.Title = p.Title
 			}
-			switch filepath.Ext(e.Path) {
+			switch path.Ext(e.Path) {
 			case ".article":
 				d.Articles = append(d.Articles, e)
 			case ".slide":
 				d.Slides = append(d.Slides, e)
 			}
-		} else if showFile(e.Name) {
+		} else if h.showFile(e.Name) {
 			d.Other = append(d.Other, e)
 		}
 	}
@@ -181,23 +158,29 @@ func dirList(w io.Writer, name string) (isDir bool, err error) {
 	sort.Sort(d.Slides)
 	sort.Sort(d.Articles)
 	sort.Sort(d.Other)
-	return true, dirListTemplate.Execute(w, d)
+
+	h.site.ServePage(w, r, web.Page{
+		"layout": "/talks/dir",
+		"title":  d.Path,
+		"dir":    d,
+	})
+	return true, nil
 }
 
 // showFile reports whether the given file should be displayed in the list.
-func showFile(n string) bool {
-	switch filepath.Ext(n) {
+func (h *handler) showFile(n string) bool {
+	switch path.Ext(n) {
 	case ".pdf":
 	case ".html":
 	case ".go":
 	default:
-		return isDoc(n)
+		return h.isDoc(n)
 	}
 	return true
 }
 
 // showDir reports whether the given directory should be displayed in the list.
-func showDir(n string) bool {
+func (h *handler) showDir(n string) bool {
 	if len(n) > 0 && (n[0] == '.' || n[0] == '_') || n == "present" {
 		return false
 	}

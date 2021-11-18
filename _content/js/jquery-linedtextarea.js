@@ -30,7 +30,6 @@
 			var linesDiv = textarea.parent().find(".lines");
 
 			var scroll = function(tn) {
-				console.log('scroll');
 				var domTextArea = $(this)[0];
 				var scrollTop = domTextArea.scrollTop;
 				var clientHeight = domTextArea.clientHeight;

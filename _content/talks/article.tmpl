@@ -1,0 +1,129 @@
+{/* This is the article template. It defines how articles are formatted. */}
+{{define "layout"}}
+{{with .doc}}
+<article class="Talks Article">
+  <div id="topbar" class="wide">
+    <h1>{{.Title}}</h1>
+    {{with .Subtitle}}
+      <h2 class="subtitle">{{.Subtitle}}</h2>
+    {{end}}
+    {{range .Authors}}
+      <div class="author">
+        {{range .Elem}}{{fmt .}}{{end}}
+      </div>
+    {{end}}
+  </div>
+
+  {{/* The Table of Contents is automatically inserted in this <div>.
+       Do not delete this <div>. */}}
+  <div id="nav" class="TOC"></div>
+
+  {{range .Sections}}
+    {{fmt  .}}
+  {{end}}{{/* of Section block */}}
+
+  <script src='/talks/static/play.js'></script>
+</article>
+{{end}}
+{{end}}
+
+{{define "TOC"}}
+  <ul class="toc-outer">
+  {{range .}}
+    <li><a href="#TOC_{{.FormattedNumber}}">{{.Title}}</a></li>
+    {{with .Sections}}{{template "TOC-Inner" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "TOC-Inner"}}
+  <ul class="toc-inner">
+  {{range .}}
+    <li><a href="#TOC_{{.FormattedNumber}}">{{.Title}}</a></li>
+    {{with .Sections}}{{template "TOC-Inner" .}}{{end}}
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "newline"}}
+{{/* No automatic line break. Paragraphs are free-form. */}}
+{{end}}
+
+{{define "fmt" -}}
+  {{$kind := .TemplateName -}}
+  {{if eq $kind "section"}}{{section . -}}
+  {{else if eq $kind "list"}}{{list . -}}
+  {{else if eq $kind "text"}}{{text . -}}
+  {{else if eq $kind "code"}}{{code . -}}
+  {{else if eq $kind "image"}}{{image . -}}
+  {{else if eq $kind "video"}}{{video . -}}
+  {{else if eq $kind "background"}}{{background . -}}
+  {{else if eq $kind "iframe"}}{{iframe . -}}
+  {{else if eq $kind "link"}}{{link . -}}
+  {{else if eq $kind "html"}}{{html . -}}
+  {{else if eq $kind "caption"}}{{caption . -}}
+  {{else}}???{{$kind}}???
+  {{- end -}}
+{{end}}
+
+{{define "section"}}
+  <h{{add 1 (len .Number)}} id="TOC_{{.FormattedNumber}}">{{.FormattedNumber}} {{.Title}}</h{{add 1 (len .Number)}}>
+  {{range .Elem}}{{fmt .}}{{end}}
+{{end}}
+
+{{define "list"}}
+  <ul>
+  {{range .Bullet}}
+    <li>{{style .}}</li>
+  {{end}}
+  </ul>
+{{end}}
+
+{{define "text"}}
+  {{if .Pre}}
+  <div class="code"><pre>{{range .Lines}}{{.}}{{end}}</pre></div>
+  {{else}}
+  <p>
+    {{range $i, $l := .Lines}}{{if $i}}{{template "newline"}}
+    {{end}}{{presentStyle $l}}{{end}}
+  </p>
+  {{end}}
+{{end}}
+
+{{define "code"}}
+  <div class="code{{if eq .Ext ".go"}} playground{{end}}" {{if .Edit}}contenteditable="true" spellcheck="false"{{end}}>{{raw .Text}}</div>
+{{end}}
+
+{{define "image"}}
+<div class="image">
+  <img src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}>
+</div>
+{{end}}
+
+{{define "video"}}
+<div class="video">
+  <video {{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}} controls>
+    <source src="{{.URL}}" type="{{.SourceType}}">
+  </video>
+</div>
+{{end}}
+
+{{define "background"}}
+<div class="background">
+  <img src="{{.URL}}">
+</div>
+{{end}}
+
+{{define "iframe"}}
+<iframe src="{{.URL}}"{{with .Height}} height="{{.}}"{{end}}{{with .Width}} width="{{.}}"{{end}}></iframe>
+{{end}}
+
+{{define "link"}}<p class="link"><a href="{{.URL}}" target="_blank">{{style .Label}}</a></p>{{end}}
+
+{{define "html"}}{{.HTML}}{{end}}
+
+{{define "caption"}}<figcaption>{{style .Text}}</figcaption>{{end}}
+
+{{define "style" -}}
+{{presentStyle . -}}
+{{end}}

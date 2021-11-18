@@ -467,6 +467,13 @@ h1 + h2.subtitle {
   font-size: 1.2rem !important;
   margin-left: 1.25rem; /* note: matches TOC dl */
 }
+.Talks .author {
+  margin-left: 1.25rem;
+}
+.Talks .author p {
+  margin: 0;
+}
+
 .Article-author,
 .Article-date {
   font-size: 0.875rem;
