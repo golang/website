@@ -2,6 +2,9 @@ GET https://go.dev/
 body contains Go is an open source programming language supported by Google
 body contains <h2 class="WhoUses-headerH2">Companies using Go</h2>
 
+GET https://go.dev/about
+redirect == https://pkg.go.dev/about
+
 GET https://go.dev/solutions/
 body contains Using Go at Google
 
