@@ -27,7 +27,7 @@ a chord with a broad cross-section of the programming community.
 That cross-section grew to become a dedicated community of enthusiastic Go coders.
 Our [mailing list](http://groups.google.com/group/golang-nuts) has over 3,800 members,
 with around 1,500 posts each month.
-The project has over 130 [contributors](https://golang.org/CONTRIBUTORS)
+The project has over 130 [contributors](/CONTRIBUTORS)
 (people who have submitted code or documentation),
 and of the 2,800 commits since launch almost one third were contributed
 by programmers outside the core team.
@@ -45,27 +45,27 @@ The ARM port has also made great progress,
 recently reaching the milestone of passing all tests.
 
 The Go tool set has been expanded and improved.
-The Go documentation tool, [godoc](https://golang.org/cmd/godoc/),
+The Go documentation tool, [godoc](/cmd/godoc/),
 now supports the documentation of other source trees (you can browse and
-search your own code) and provides a ["code walk"](https://golang.org/doc/codewalk/)
+search your own code) and provides a ["code walk"](/doc/codewalk/)
 interface for presenting tutorial materials (among many more improvements).
-[Goinstall](https://golang.org/cmd/goinstall/) ,
+[Goinstall](/cmd/goinstall/) ,
 a new package management tool, allows users to install and update external
 packages with a single command.
-[Gofmt](https://golang.org/cmd/gofmt/),
+[Gofmt](/cmd/gofmt/),
 the Go pretty-printer, now makes syntactic simplifications where possible.
-[Goplay](https://golang.org/misc/goplay/),
+[Goplay](/misc/goplay/),
 a web-based “compile-as-you-type” tool,
 is a convenient way to experiment with Go for those times when you don’t
-have access to the [Go Playground](https://golang.org/doc/play/).
+have access to the [Go Playground](/doc/play/).
 
 The standard library has grown by over 42,000 lines of code and includes
-20 new [packages](https://golang.org/pkg/).
-Among the additions are the [jpeg](https://golang.org/pkg/image/jpeg/),
-[jsonrpc](https://golang.org/pkg/rpc/jsonrpc/),
-[mime](https://golang.org/pkg/mime/), [netchan](https://golang.org/pkg/netchan/),
-and [smtp](https://golang.org/pkg/smtp/) packages,
-as well as a slew of new [cryptography](https://golang.org/pkg/crypto/) packages.
+20 new [packages](/pkg/).
+Among the additions are the [jpeg](/pkg/image/jpeg/),
+[jsonrpc](/pkg/rpc/jsonrpc/),
+[mime](/pkg/mime/), [netchan](/pkg/netchan/),
+and [smtp](/pkg/smtp/) packages,
+as well as a slew of new [cryptography](/pkg/crypto/) packages.
 More generally, the standard library has been continuously refined and revised
 as our understanding of Go’s idioms deepens.
 
@@ -79,9 +79,9 @@ It’s now easier than ever to link against existing libraries written in
 languages other than Go.
 Go support is in the most recent [SWIG](http://www.swig.org/) release,
 version 2.0.1, making it easier to link against C and C++ code,
-and our [cgo](https://golang.org/cmd/cgo/) tool has seen many fixes and improvements.
+and our [cgo](/cmd/cgo/) tool has seen many fixes and improvements.
 
-[Gccgo](https://golang.org/doc/install/gccgo),
+[Gccgo](/doc/install/gccgo),
 the Go front end for the GNU C Compiler, has kept pace with the gc compiler
 as a parallel Go implementation.
 It now has a working garbage collector, and has been accepted into the GCC core.
@@ -108,30 +108,30 @@ feature strikes the right compromise between simplicity and utility.
 Since the launch we have made a number of language changes,
 many of which were driven by feedback from the community.
 
-  - Semicolons are now optional in almost all instances. [spec](https://golang.org/doc/go_spec.html#Semicolons)
+  - Semicolons are now optional in almost all instances. [spec](/doc/go_spec.html#Semicolons)
   - The new built-in functions `copy` and `append` make management of slices
     more efficient and straightforward.
-    [spec](https://golang.org/doc/go_spec.html#Appending_and_copying_slices)
+    [spec](/doc/go_spec.html#Appending_and_copying_slices)
   - The upper and lower bounds may be omitted when making a sub-slice.
     This means that `s[:]` is shorthand for `s[0:len(s)]`.
-    [spec](https://golang.org/doc/go_spec.html#Slices)
+    [spec](/doc/go_spec.html#Slices)
   - The new built-in function `recover` complements `panic` and `defer` as
     an error handling mechanism.
     [blog](https://blog.golang.org/2010/08/defer-panic-and-recover.html),
-    [spec](https://golang.org/doc/go_spec.html#Handling_panics)
+    [spec](/doc/go_spec.html#Handling_panics)
   - The new complex number types (`complex`,
     `complex64`, and `complex128`) simplify certain mathematical operations.
-    [spec](https://golang.org/doc/go_spec.html#Complex_numbers),
-    [spec](https://golang.org/doc/go_spec.html#Imaginary_literals)
+    [spec](/doc/go_spec.html#Complex_numbers),
+    [spec](/doc/go_spec.html#Imaginary_literals)
   - The composite literal syntax permits the omission of redundant type information
     (when specifying two-dimensional arrays, for example).
-    [release.2010-10-27](https://golang.org/doc/devel/release.html#2010-10-27),
-    [spec](https://golang.org/doc/go_spec.html#Composite_literals)
+    [release.2010-10-27](/doc/devel/release.html#2010-10-27),
+    [spec](/doc/go_spec.html#Composite_literals)
   - A general syntax for variable function arguments (`...T`) and their propagation
     (`v...`) is now specified.
-    [spec](https://golang.org/doc/go_spec.html#Function_Types),
-    [ spec](https://golang.org/doc/go_spec.html#Passing_arguments_to_..._parameters),
-    [release.2010-09-29](https://golang.org/doc/devel/release.html#2010-09-29)
+    [spec](/doc/go_spec.html#Function_Types),
+    [ spec](/doc/go_spec.html#Passing_arguments_to_..._parameters),
+    [release.2010-09-29](/doc/devel/release.html#2010-09-29)
 
 Go is certainly ready for production use,
 but there is still room for improvement.
@@ -145,5 +145,5 @@ A lot has happened in a year; it’s been both thrilling and satisfying.
 We hope that this coming year will be even more fruitful than the last.
 
 _If you’ve been meaning to get [back] into Go, now is a great time to do so! Check out the_
-[_Documentation_](https://golang.org/doc/docs.html) _and_ [_Getting Started_](https://golang.org/doc/install.html)
-_pages for more information, or just go nuts in the_ [_Go Playground_](https://golang.org/doc/play/).
+[_Documentation_](/doc/docs.html) _and_ [_Getting Started_](/doc/install.html)
+_pages for more information, or just go nuts in the_ [_Go Playground_](/doc/play/).

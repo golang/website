@@ -161,7 +161,7 @@ the first and last elements of our slice:
 You'll often hear experienced Go programmers talk about the "slice header"
 because that really is what's stored in a slice variable.
 For instance, when you call a function that takes a slice as an argument, such as
-[bytes.IndexRune](https://golang.org/pkg/bytes/#IndexRune), that header is
+[bytes.IndexRune](/pkg/bytes/#IndexRune), that header is
 what gets passed to the function.
 In this call,
 
@@ -477,7 +477,7 @@ how the design of slices makes it possible for this simple call to work correctl
 
 There are lots more examples of `append`, `copy`, and other ways to use slices
 on the community-built
-["Slice Tricks" Wiki page](https://golang.org/wiki/SliceTricks).
+["Slice Tricks" Wiki page](/wiki/SliceTricks).
 
 ## Nil
 
@@ -575,7 +575,7 @@ built-in functions.
 
 There's lots to find around the intertubes about slices in Go.
 As mentioned earlier,
-the ["Slice Tricks" Wiki page](https://golang.org/wiki/SliceTricks)
+the ["Slice Tricks" Wiki page](/wiki/SliceTricks)
 has many examples.
 The [Go Slices](https://blog.golang.org/go-slices-usage-and-internals) blog post
 describes the memory layout details with clear diagrams.

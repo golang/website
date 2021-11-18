@@ -103,7 +103,7 @@ to see elsewhere.
 
 Not being an expert in web services myself, in my presentation I veered off the
 general conference theme a bit by talking about
-[gofmt](https://golang.org/cmd/gofmt/) and how its widespread use has started
+[gofmt](/cmd/gofmt/) and how its widespread use has started
 to shape expectations not just for Go but other languages as well.
 I presented in English but had my slides translated to Mandarin beforehand. Due
 to the significant language barrier I wasn’t expecting too many questions on my

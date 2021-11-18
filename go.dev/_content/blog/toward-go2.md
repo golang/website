@@ -209,7 +209,7 @@ language changes, see Rob Pike and Andrew Gerrand's
 OSCON 2012 talk “[The Path to Go 1](https://blog.golang.org/the-path-to-go-1).”
 For more about the proposal process, see
 Andrew Gerrand's GopherCon 2015 talk “[How Go was Made](https://www.youtube.com/watch?v=0ht89TxZZnk)” and the
-[proposal process documentation](https://golang.org/s/proposal).)
+[proposal process documentation](/s/proposal).)
 
 ## Explaining Problems
 
@@ -311,7 +311,7 @@ than the time-of-day clock, and the time-of-day clock has the added
 benefit of being useful for telling time, so for simplicity Go 1’s
 time APIs expose only the time-of-day clock.
 
-In October 2015, a [bug report](https://golang.org/issue/12914) noted that Go programs could not time
+In October 2015, a [bug report](/issue/12914) noted that Go programs could not time
 events correctly across clock resets, especially a typical leap second.
 The suggested fix was also the original issue title: “add a new API to access a
 monotonic clock source.” I argued that this problem was not
@@ -347,7 +347,7 @@ understand that the problem of accurate timing across leap second
 clock resets was too significant to leave unfixed. Two months after
 that article was published, we had designed and implemented a solution
 that will [ship in Go 1.9](https://beta.golang.org/doc/go1.9#monotonic-time)
-(and in fact we did it with [no new API](https://golang.org/design/12914-monotonic)).
+(and in fact we did it with [no new API](/design/12914-monotonic)).
 
 ### Example: Alias declarations
 
@@ -382,7 +382,7 @@ significant practical problem with Go meeting its goal of scalable
 software development. I hoped this would serve as a model for future
 changes to Go.
 
-Later in the spring, Robert and Rob wrote [a proposal](https://golang.org/design/16339-alias-decls),
+Later in the spring, Robert and Rob wrote [a proposal](/design/16339-alias-decls),
 and Robert presented it in a [Gophercon 2016 lightning talk](https://www.youtube.com/watch?v=t-w6MyI2qlU). The next few months
 did not go smoothly, and they were definitely not a model for future
 changes to Go. One of the many lessons we learned was the importance
@@ -407,8 +407,8 @@ In the fall we started over. I gave a [talk](https://www.youtube.com/watch?v=h6C
 using multiple concrete examples drawn from
 open source codebases, showing how this problem arises everywhere, not
 just inside Google. Now that more people understood the problem and
-could see its significance, we had a [productive discussion](https://golang.org/issue/18130) about what
-kind of solution would be best. The outcome is that [type aliases](https://golang.org/design/18130-type-alias) will
+could see its significance, we had a [productive discussion](/issue/18130) about what
+kind of solution would be best. The outcome is that [type aliases](/design/18130-type-alias) will
 be [included in Go 1.9](https://beta.golang.org/doc/go1.9#language) and will help Go scale to ever-larger codebases.
 
 ### Experience reports
@@ -459,7 +459,7 @@ or write a [Github Gist](https://gist.github.com/) (add a `.md` file extension f
 or write a [Google doc](https://docs.google.com/),
 or use any other publishing mechanism you like.
 After you've posted, please add the post to our new wiki page,
-[golang.org/wiki/ExperienceReports](https://golang.org/wiki/ExperienceReports).
+[golang.org/wiki/ExperienceReports](/wiki/ExperienceReports).
 
 ## Solutions
 
@@ -479,7 +479,7 @@ basic arithmetic. For example, if x and y are, say, uint32 values,
 `lo, hi = x * y`
 would return not only the usual low 32 bits but also the high 32 bits
 of the product. This problem didn't seem particularly significant, so
-we [recorded the potential solution](https://golang.org/issue/6815) but didn't implement it. We waited.
+we [recorded the potential solution](/issue/6815) but didn't implement it. We waited.
 
 More recently, we designed for Go 1.9 a [math/bits package](https://beta.golang.org/doc/go1.9#math-bits) that
 contains various bit manipulation functions:
@@ -527,10 +527,10 @@ problems are best solved in the language.
 
 Finally, how will we ship and deliver Go 2?
 
-I think the best plan would be to ship the [backwards-compatible parts](https://golang.org/doc/go1compat)
+I think the best plan would be to ship the [backwards-compatible parts](/doc/go1compat)
 of Go 2 incrementally, feature by feature, as part of the Go 1 release
 sequence. This has a few important properties. First, it keeps the Go
-1 releases on the [usual schedule](https://golang.org/wiki/Go-Release-Cycle), to continue the timely bug fixes and
+1 releases on the [usual schedule](/wiki/Go-Release-Cycle), to continue the timely bug fixes and
 improvements that users now depend on. Second, it avoids splitting
 development effort between Go 1 and Go 2. Third, it avoids divergence
 between Go 1 and Go 2, to ease everyone's eventual migration. Fourth,
@@ -568,7 +568,7 @@ tracker. Please help us at every step along the way.
 Today, what we need most is experience reports. Please tell us how Go
 is working for you, and more importantly not working for you. Write a
 blog post, include real examples, concrete detail, and real
-experience. And link it on our [wiki page](https://golang.org/wiki/ExperienceReports).
+experience. And link it on our [wiki page](/wiki/ExperienceReports).
 That's how we'll start talking about what we, the Go community,
 might want to change about Go.
 

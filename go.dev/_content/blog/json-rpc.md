@@ -11,11 +11,11 @@ summary: How to use the net/rpc package's interfaces to create a JSON-RPC system
 ---
 
 
-Here we present an example where Go's [interfaces](https://golang.org/doc/effective_go.html#interfaces_and_types)
+Here we present an example where Go's [interfaces](/doc/effective_go.html#interfaces_and_types)
 made it easy to refactor some existing code to make it more flexible and extensible.
-Originally, the standard library's [RPC package](https://golang.org/pkg/net/rpc/)
-used a custom wire format called [gob](https://golang.org/pkg/encoding/gob/).
-For a particular application, we wanted to use [JSON](https://golang.org/pkg/encoding/json/)
+Originally, the standard library's [RPC package](/pkg/net/rpc/)
+used a custom wire format called [gob](/pkg/encoding/gob/).
+For a particular application, we wanted to use [JSON](/pkg/encoding/json/)
 as an alternate wire format.
 
 We first defined a pair of interfaces to describe the functionality of the

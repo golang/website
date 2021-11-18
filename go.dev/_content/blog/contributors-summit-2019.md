@@ -101,7 +101,7 @@ to try and implement some of these ideas.
 
 **New calling convention**.
 Several people were interested in the topic of the
-[ABI changes to provide a register based calling convention](https://golang.org/issue/18597).
+[ABI changes to provide a register based calling convention](/issue/18597).
 The current status was reported with details.
 There was discussion on what remained to be done before it could be used.
 The ABI specification needs to be written first and it was not clear when that would be done.
@@ -167,7 +167,7 @@ compiler opt decisions, debugging, visualization, documentation.
 A lot of people with lots of interest in lots of tools!
 
 The session focused on two areas (all that time allowed): gopls and visualizations.
-[Gopls](https://golang.org/wiki/gopls) (pronounced: “go please”) is an implementation of the
+[Gopls](/wiki/gopls) (pronounced: “go please”) is an implementation of the
 [Language Server Protocol (LSP)](https://langserver.org) server for Go.
 Rebecca Stamber, the gopls lead author, and the rest of the Go tools team were interested
 in hearing people’s experiences with gopls: stability, missing features, integrations in editors working, etc?
@@ -185,7 +185,7 @@ demo-based introduction from Anthony Starks (who, incidentally, gave an excellen
 
 **Conference days**.
 The golang-tools sessions on the main conference days were a continuation of the
-[monthly calls](https://golang.org/wiki/golang-tools) that have been happening since the group’s inception at GopherCon 2018.
+[monthly calls](/wiki/golang-tools) that have been happening since the group’s inception at GopherCon 2018.
 Full notes are available for the
 [day 1](https://docs.google.com/document/d/1-RVyttQ0ncjCpR_sRwizf-Ubedkr0Emwmk2LhnsUOmE/edit) and
 [day 2](https://docs.google.com/document/d/1ZI_WqpLCB8DO6teJ3aBuXTeYD2iZZZlkDptmcY6Ja60/edit#heading=h.x9lkytc2gxmg) sessions.
@@ -224,7 +224,7 @@ how submodules should work, how users can discover new major versions.
 **Build Tags**.
 Conversation then moved to build tag support within gopls.
 This is an area that clearly needs to be better understood
-(use cases are currently being gathered in [issue 33389](https://golang.org/issue/33389)).
+(use cases are currently being gathered in [issue 33389](/issue/33389)).
 In light of this conversation, the session wrapped up with
 Alexander Zolotov from the JetBrains GoLand team suggesting that the gopls and
 GoLand teams should share experience in this and more areas, given GoLand
@@ -233,7 +233,7 @@ has already gained lots of experience.
 **Join Us!**
 We could easily have talked about tools-related topics for days!
 The good news is that the golang-tools calls will continue for the foreseeable future.
-Anyone interested in Go tooling is very much encouraged to join: [the wiki](https://golang.org/wiki/golang-tools) has more details.
+Anyone interested in Go tooling is very much encouraged to join: [the wiki](/wiki/golang-tools) has more details.
 
 ## Enterprise Use (report by Daniel Theophanes)
 
@@ -294,15 +294,15 @@ To me, this guiding ethos is clear: Go is a deliberate response to perceived fla
 in the processes used by experienced engineers, not an attempt to create an ideal
 programming language, and as such a certain basic familiarity with programming concepts is assumed.
 
-This is evident in the official documentation at [golang.org/doc](https://golang.org/doc/).
+This is evident in the official documentation at [golang.org/doc](/doc/).
 It jumps right into how to install the language before passing the user on to the
 [tour](https://tour.golang.org/), which is geared towards programmers
 who are already familiar with a C-like language.
-From there, they are taken to [How to Write Go Code](https://golang.org/doc/code.html),
+From there, they are taken to [How to Write Go Code](/doc/code.html),
 which provides a very basic introduction to the classic non-module Go workspace,
 before moving immediately on to writing libraries and testing.
-Finally, we have [Effective Go](https://golang.org/doc/effective_go.html),
-and a series of references including the [spec](https://golang.org/ref/spec),
+Finally, we have [Effective Go](/doc/effective_go.html),
+and a series of references including the [spec](/ref/spec),
 rounded out by some examples.
 These are all decent resources if you’re already familiar with a C-like language,
 but they still leave a lot to be desired, and there’s nothing to be found

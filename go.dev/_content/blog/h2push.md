@@ -40,11 +40,11 @@ This reduces the time the browser spends waiting on the network.
 
 ## Server Push in net/http
 
-Go 1.8 introduced support for pushing responses from an [`http.Server`](https://golang.org/pkg/net/http/#Server).
+Go 1.8 introduced support for pushing responses from an [`http.Server`](/pkg/net/http/#Server).
 This feature is available if the running server is an HTTP/2 server
 and the incoming connection uses HTTP/2. In any HTTP handler,
 you can assert if the http.ResponseWriter supports server push by checking
-if it implements the new [`http.Pusher`](https://golang.org/pkg/net/http/#Pusher) interface.
+if it implements the new [`http.Pusher`](/pkg/net/http/#Pusher) interface.
 
 For example, if the server knows that `app.js` will be required to
 render the page, the handler can initiate a push if `http.Pusher`

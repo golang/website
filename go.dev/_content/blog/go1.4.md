@@ -13,7 +13,7 @@ It contains a small language change, support for more operating systems
 and processor architectures, and improvements to the tool chain and libraries.
 As always, Go 1.4 keeps the promise of compatibility, and almost everything
 will continue to compile and run without change when moved to 1.4.
-For the full details, see the [Go 1.4 release notes](https://golang.org/doc/go1.4).
+For the full details, see the [Go 1.4 release notes](/doc/go1.4).
 
 The most notable new feature in this release is official support for Android.
 Using the support in the core and the libraries in the
@@ -25,19 +25,19 @@ Early adopters should expect a bumpy ride, but we welcome the community to get i
 The language change is a tweak to the syntax of for-range loops.
 You may now write "for range s {" to loop over each item from s,
 without having to assign the value, loop index, or map key.
-See the [release notes](https://golang.org/doc/go1.4#forrange) for details.
+See the [release notes](/doc/go1.4#forrange) for details.
 
 The go command has a new subcommand, go generate, to automate the running of
 tools to generate source code before compilation.
 For example, it can be used to automate the generation of String methods for
 typed constants using the
 [new stringer tool](https://godoc.org/golang.org/x/tools/cmd/stringer/).
-For more information, see the [design document](https://golang.org/s/go1.4-generate).
+For more information, see the [design document](/s/go1.4-generate).
 
 Most programs will run about the same speed or slightly faster in 1.4 than in
 1.3; some will be slightly slower.
 There are many changes, making it hard to be precise about what to expect.
-See the [release notes](https://golang.org/doc/go1.4#performance) for more discussion.
+See the [release notes](/doc/go1.4#performance) for more discussion.
 
 And, of course, there are many more improvements and bug fixes.
 
@@ -56,7 +56,7 @@ and the issue tracker and wiki at the
 
 While development has already moved over to the new infrastructure,
 for the 1.4 release we still recommend that users who
-[install from source](https://golang.org/doc/install/source)
+[install from source](/doc/install/source)
 use the Mercurial repositories.
 
 For App Engine users, Go 1.4 is now available for beta testing.

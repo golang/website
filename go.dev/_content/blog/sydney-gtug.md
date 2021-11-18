@@ -16,12 +16,12 @@ On Tuesday night Rob Pike and Andrew Gerrand each presented at the [Sydney Googl
 
 Rob's talk, "[Lexical Scanning in Go](http://www.youtube.com/watch?v=HxaD_trXwRE)",
 discusses the design of  a particularly interesting and idiomatic piece of Go code,
-the lexer component of the new [template package.](https://golang.org/pkg/exp/template/)
+the lexer component of the new [template package.](/pkg/exp/template/)
 
 {{video "https://www.youtube.com/embed/HxaD_trXwRE"}}
 
 The slides are [available here](http://cuddle.googlecode.com/hg/talk/lex.html).
-The new template package is available as [exp/template](https://golang.org/pkg/exp/template/) in Go release r59.
+The new template package is available as [exp/template](/pkg/exp/template/) in Go release r59.
 In a future release it will replace the old template package.
 
 Andrew's talk, "[Cuddle: an App Engine Demo](http://www.youtube.com/watch?v=HQtLRqqB-Kk)",

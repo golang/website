@@ -20,7 +20,7 @@ all:
   description: |-
     We are a group of Golang users. Our aim is to meet like minded people, share our experience with others and to promote the use of Go.<br/>
     As Gophers and as Berliners, even if just visiting, we follow the Code of Conduct to make this a pleasant and inclusive environment for everyone: <br><br/>
-    <a href="https://golang.org/conduct" rel="nofollow">https://golang.org/conduct</a> <br><a href="http://berlincodeofconduct.org/" rel="nofollow">http://berlincodeofconduct.org</a><br/>
+    <a href="/conduct" rel="nofollow">https://go.dev/conduct</a> <br><a href="http://berlincodeofconduct.org/" rel="nofollow">http://berlincodeofconduct.org</a><br/>
     Follow us on twitter: <a href="https://twitter.com/gdgberlingolang" rel="nofollow">@GDGBerlinGolang</a><br/>
     You can get our special group swag here: <a href="https://shop.spreadshirt.de/gdg-golang-berlin" rel="nofollow">https://shop.spreadshirt.de/gdg-golang-berlin</a><br>
   id: "279891693"

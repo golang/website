@@ -64,7 +64,7 @@ It runs on the 32-bit Intel architectures (<code>GOARCH=386</code>) and also on 
 There is not yet support for Native Client on ARM.
 Note that this is Native Client (NaCl), not Portable Native Client (PNaCl).
 Details about Native Client are <a href="https://developers.google.com/native-client/dev/">here</a>;
-how to set up the Go version is described <a href="//golang.org/wiki/NativeClient">here</a>.
+how to set up the Go version is described <a href="/wiki/NativeClient">here</a>.
 </p>
 
 <h3 id="netbsd">Support for NetBSD</h3>
@@ -116,7 +116,7 @@ than is available, its stack is transferred to a larger single block of memory.
 The overhead of this transfer operation amortizes well and eliminates the old "hot spot"
 problem when a calculation repeatedly steps across a segment boundary.
 Details including performance numbers are in this
-<a href="//golang.org/s/contigstacks">design document</a>.
+<a href="/s/contigstacks">design document</a>.
 </p>
 
 <h3 id="garbage_collector">Changes to the garbage collector</h3>
@@ -152,7 +152,7 @@ Such code can be identified by <code>go vet</code>.
 
 <p>
 Iterations over small maps no longer happen in a consistent order.
-Go 1 defines that &ldquo;<a href="//golang.org/ref/spec#For_statements">The iteration order over maps
+Go 1 defines that &ldquo;<a href="/ref/spec#For_statements">The iteration order over maps
 is not specified and is not guaranteed to be the same from one iteration to the next.</a>&rdquo;
 To keep code from depending on map iteration order,
 Go 1.0 started each map iteration at a random index in the map.
@@ -173,7 +173,7 @@ Because only small maps are affected, the problem arises most often in tests.
 <h3 id="liblink">The linker</h3>
 
 <p>
-As part of the general <a href="//golang.org/s/go13linker">overhaul</a> to
+As part of the general <a href="/s/go13linker">overhaul</a> to
 the Go linker, the compilers and linkers have been refactored.
 The linker is still a C program, but now the instruction selection phase that
 was part of the linker has been moved to the compiler through the creation of a new

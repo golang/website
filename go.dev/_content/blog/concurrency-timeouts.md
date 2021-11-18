@@ -47,7 +47,7 @@ before the timeout is reached.
 The `timeout` channel will eventually be deallocated by the garbage collector.
 
 (In this example we used `time.Sleep` to demonstrate the mechanics of goroutines and channels.
-In real programs you should use ` [time.After](https://golang.org/pkg/time/#After)`,
+In real programs you should use ` [time.After](/pkg/time/#After)`,
 a function that returns a channel and sends on that channel after the specified duration.)
 
 Let's look at another variation of this pattern.
@@ -84,7 +84,7 @@ the send could fail since no one is ready.
 This problem is a textbook example of what is known as a [race condition](https://en.wikipedia.org/wiki/Race_condition),
 but the fix is trivial.
 We just make sure to buffer the channel `ch` (by adding the buffer length
-as the second argument to [make](https://golang.org/pkg/builtin/#make)),
+as the second argument to [make](/pkg/builtin/#make)),
 guaranteeing that the first send has a place to put the value.
 This ensures the send will always succeed,
 and the first value to arrive will be retrieved regardless of the order of execution.

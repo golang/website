@@ -20,7 +20,7 @@ This post is part 3 in a series.
   - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on developing modules, see
-[Developing and publishing modules](https://golang.org/doc/modules/developing).
+[Developing and publishing modules](/doc/modules/developing).
 
 This post discusses how to write and publish modules so other modules can depend
 on them.
@@ -106,7 +106,7 @@ to use to build the module.
 
 A semantic version has the form `vMAJOR.MINOR.PATCH`.
 
-  - Increment the `MAJOR` version when you make a [backwards incompatible](https://golang.org/doc/go1compat)
+  - Increment the `MAJOR` version when you make a [backwards incompatible](/doc/go1compat)
     change to the public API of your module.
     This should only be done when absolutely necessary.
   - Increment the `MINOR` version when you make a backwards compatible change to the API,
@@ -128,7 +128,7 @@ compatibility within that major version.
 
 The version referenced in a `go.mod` may be an explicit release tagged in the
 repository (for example, `v1.5.2`), or it may be a
-[pseudo-version](https://golang.org/ref/mod#pseudo-versions) based on a
+[pseudo-version](/ref/mod#pseudo-versions) based on a
 specific commit (for example, `v0.0.0-20170915032832-14c0d48ead0c`).
 Pseudo-versions are a special type of pre-release version. Pseudo-versions are
 useful when a user needs to depend on a project that has not published any
@@ -254,7 +254,7 @@ and when to release `v1`. A future post will cover how to maintain and publish
 modules at `v2` and beyond.
 
 To provide feedback and help shape the future of dependency management in Go,
-please send us [bug reports](https://golang.org/issue/new) or
-[experience reports](https://golang.org/wiki/ExperienceReports).
+please send us [bug reports](/issue/new) or
+[experience reports](/wiki/ExperienceReports).
 
 Thanks for all your feedback and help improving Go modules.

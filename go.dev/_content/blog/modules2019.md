@@ -29,7 +29,7 @@ relating to modules in 2019.
 
 ## Releases
 
-Go 1.11, released in August 2018, introduced [preliminary support for modules](https://golang.org/doc/go1.11#modules).
+Go 1.11, released in August 2018, introduced [preliminary support for modules](/doc/go1.11#modules).
 For now, module support is maintained alongside the
 traditional GOPATH-based mechanisms.
 The `go` command defaults to module mode when run
@@ -90,7 +90,7 @@ analysis of Go programs,
 in which an analyzer is invoked for one package at a time.
 In this framework, the analysis of one package can write out facts
 made available to analyses of other packages that import the first.
-For example, `go` `vet`’s analysis of the [log package](https://golang.org/pkg/log/)
+For example, `go` `vet`’s analysis of the [log package](/pkg/log/)
 determines and records the fact that `log.Printf` is a `fmt.Printf` wrapper.
 Then `go` `vet` can check printf-style format strings in other packages
 that call `log.Printf`.

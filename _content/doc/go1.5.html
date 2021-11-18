@@ -26,7 +26,7 @@ once necessary for building the distribution is gone.
 </li>
 
 <li>
-The garbage collector is now <a href="https://golang.org/s/go14gc">concurrent</a> and provides dramatically lower
+The garbage collector is now <a href="/s/go14gc">concurrent</a> and provides dramatically lower
 pause times by running, when possible, in parallel with other goroutines.
 </li>
 
@@ -36,12 +36,12 @@ number of cores available; in prior releases it defaulted to 1.
 </li>
 
 <li>
-Support for <a href="https://golang.org/s/go14internal">internal packages</a>
+Support for <a href="/s/go14internal">internal packages</a>
 is now provided for all repositories, not just the Go core.
 </li>
 
 <li>
-The <code>go</code> command now provides <a href="https://golang.org/s/go15vendor">experimental
+The <code>go</code> command now provides <a href="/s/go15vendor">experimental
 support</a> for "vendoring" external dependencies.
 </li>
 
@@ -67,7 +67,7 @@ The release also contains one small language change involving map literals.
 </p>
 
 <p>
-Finally, the timing of the <a href="https://golang.org/s/releasesched">release</a>
+Finally, the timing of the <a href="/s/releasesched">release</a>
 strays from the usual six-month interval,
 both to provide more time to prepare this major release and to shift the schedule thereafter to
 time the release dates more conveniently.
@@ -116,7 +116,7 @@ There was a C compiler in the tree in 1.4 and earlier.
 It was used to build the runtime; a custom compiler was necessary in part to
 guarantee the C code would work with the stack management of goroutines.
 Since the runtime is in Go now, there is no need for this C compiler and it is gone.
-Details of the process to eliminate C are discussed <a href="https://golang.org/s/go13compiler">elsewhere</a>.
+Details of the process to eliminate C are discussed <a href="/s/go13compiler">elsewhere</a>.
 </p>
 
 <p>
@@ -157,10 +157,10 @@ rather than <code>.8</code>, <code>.6</code>, etc.
 
 <p>
 The garbage collector has been re-engineered for 1.5 as part of the development
-outlined in the <a href="https://golang.org/s/go14gc">design document</a>.
+outlined in the <a href="/s/go14gc">design document</a>.
 Expected latencies are much lower than with the collector
 in prior releases, through a combination of advanced algorithms,
-better <a href="https://golang.org/s/go15gcpacing">scheduling</a> of the collector,
+better <a href="/s/go15gcpacing">scheduling</a> of the collector,
 and running more of the collection in parallel with the user program.
 The "stop the world" phase of the collector
 will almost always be under 10 milliseconds and usually much less.
@@ -199,7 +199,7 @@ break inadvertently.
 They can be updated by removing the restriction or by setting
 <code>GOMAXPROCS</code> explicitly.
 For a more detailed discussion of this change, see
-the <a href="https://golang.org/s/go15gomaxprocs">design document</a>.
+the <a href="/s/go15gomaxprocs">design document</a>.
 </p>
 
 <h3 id="build">Build</h3>
@@ -210,7 +210,7 @@ must be available to compile the distribution from source.
 Thus, to build the Go core, a working Go distribution must already be in place.
 (Go programmers who do not work on the core are unaffected by this change.)
 Any Go 1.4 or later distribution (including <code>gccgo</code>) will serve.
-For details, see the <a href="https://golang.org/s/go15bootstrap">design document</a>.
+For details, see the <a href="/s/go15bootstrap">design document</a>.
 </p>
 
 <h2 id="ports">Ports</h2>
@@ -422,7 +422,7 @@ The most significant is the addition of a <code>-buildmode</code> option that
 expands the style of linking; it now supports
 situations such as building shared libraries and allowing other languages
 to call into Go libraries.
-Some of these were outlined in a <a href="https://golang.org/s/execmodes">design document</a>.
+Some of these were outlined in a <a href="/s/execmodes">design document</a>.
 For a list of the available build modes and their use, run
 </p>
 
@@ -472,7 +472,7 @@ The previous release introduced the idea of a directory internal to a package
 being unimportable through the <code>go</code> command.
 In 1.4, it was tested with the introduction of some internal elements
 in the core repository.
-As suggested in the <a href="https://golang.org/s/go14internal">design document</a>,
+As suggested in the <a href="/s/go14internal">design document</a>,
 that change is now being made available to all repositories.
 The rules are explained in the design document, but in summary any
 package in or under a directory named <code>internal</code> may
@@ -486,7 +486,7 @@ in the last release.
 Another change in how packages are handled is the experimental
 addition of support for "vendoring".
 For details, see the documentation for the <a href="/cmd/go/#hdr-Vendor_Directories"><code>go</code> command</a>
-and the <a href="https://golang.org/s/go15vendor">design document</a>.
+and the <a href="/s/go15vendor">design document</a>.
 </p>
 
 <p>
@@ -762,7 +762,7 @@ A new <code>netcgo</code> build tag forces the use of the <code>cgo</code> resol
 build time.
 To force <code>cgo</code> resolution at run time set
 <code>GODEBUG=netdns=cgo</code> in the environment.
-More debug options are documented <a href="https://golang.org/cl/11584">here</a>.
+More debug options are documented <a href="/cl/11584">here</a>.
 </p>
 
 <p>
@@ -1023,7 +1023,7 @@ function type as an argument to several functions. This is an API change for
 the package, but since it is new to the core, it is not breaking the Go 1 compatibility
 rules since code that uses the package must explicitly ask for it at its new location.
 To update, run
-<a href="https://golang.org/cmd/go/#hdr-Run_go_tool_fix_on_packages"><code>go fix</code></a> on your package.
+<a href="/cmd/go/#hdr-Run_go_tool_fix_on_packages"><code>go fix</code></a> on your package.
 </li>
 
 <li>

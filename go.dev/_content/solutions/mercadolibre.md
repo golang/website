@@ -126,7 +126,7 @@ MercadoLibre employs Go for its simplicity with systems at scale, but that simpl
 developers love Go.
 
 The company also uses web pages like[ Go by Example](https://gobyexample.com/) and[ Effective
-Go](https://golang.org/doc/effective_go.html) to educate new programmers, and shares representative internal APIs
+Go](/doc/effective_go.html) to educate new programmers, and shares representative internal APIs
 written in Go to speed understanding and proficiency. MercadoLibre developers get the resources they need to embrace the
 language, then leverage their own skills and enthusiasm to start programming.
 
@@ -165,6 +165,6 @@ has a team developing a _Go-meli-toolkit_: A complete Go library to interface al
 Just as MercadoLibre started with a proof-of-concept project to implement Go, dozens of other large enterprises are
 adopting Go as well.
 
-There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [American Express](https://go.dev/solutions/americanexpress), [PayPal](https://go.dev/solutions/paypal), Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
+There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [American Express](/solutions/americanexpress), [PayPal](/solutions/paypal), Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
 
-To learn more about how Go can help your enterprise build reliable, scalable software as it does at MercadoLibre, visit [go.dev](https://go.dev) today.
+To learn more about how Go can help your enterprise build reliable, scalable software as it does at MercadoLibre, visit [go.dev](/) today.

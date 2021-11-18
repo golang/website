@@ -72,7 +72,7 @@ and is one of the most popular things in the Go world.
 
 The Go gopher is a character; a unique creation. Not any old gopher, just as Snoopy is not any old cartoon dog.
 
-The [gopher images](https://golang.org/doc/gopher/) are Creative Commons
+The [gopher images](/doc/gopher/) are Creative Commons
 Attribution 3.0 licensed.
 That means you can play with the images but you must give credit to their
 creator (Renee French) wherever they are used.

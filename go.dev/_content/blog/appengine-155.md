@@ -15,11 +15,11 @@ Today we released version 1.5.5 the Go App Engine SDK.
 You can download it from the [App Engine downloads page](http://code.google.com/appengine/downloads.html).
 
 This release includes changes and improvements to the App Engine APIs and
-brings the supporting Go tool chain to [release.r60.2](https://golang.org/doc/devel/release.html#r60)
+brings the supporting Go tool chain to [release.r60.2](/doc/devel/release.html#r60)
 (the current stable release).
-Also included in this release are the [godoc](https://golang.org/cmd/godoc/),
-[gofmt](https://golang.org/cmd/gofmt/),
-and [gofix](https://golang.org/cmd/gofix/) tools from the Go tool chain.
+Also included in this release are the [godoc](/cmd/godoc/),
+[gofmt](/cmd/gofmt/),
+and [gofix](/cmd/gofix/) tools from the Go tool chain.
 They can be found in the root directory of the SDK.
 
 Some changes made in this release are backwards-incompatible,

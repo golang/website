@@ -61,7 +61,7 @@ that share our vision and excitement.
 _More than 1,200 gophers attended GopherCon in Denver and dotGo in Paris._
 
 There are also dozens of community-run
-[Go User Groups](https://golang.org/wiki/GoUserGroups) spread across cities
+[Go User Groups](/wiki/GoUserGroups) spread across cities
 worldwide. If you haven't visited your local group, consider going along. And
 if there isn't a group in your area, maybe you should
 [start one](https://blog.golang.org/getthee-to-go-meetup)?
@@ -80,7 +80,7 @@ lifting.
 
 So, what does the future hold? We think that 2015 will be Go's biggest year yet.
 
-Go 1.4—in addition to its [new features and fixes](https://golang.org/doc/go1.4)—lays
+Go 1.4—in addition to its [new features and fixes](/doc/go1.4)—lays
 the groundwork for a new low-latency garbage collector and support for running
 Go on mobile devices. It is due to be released on December 1st 2014.
 We expect the new GC to be available in Go 1.5, due June 1st 2015, which will

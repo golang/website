@@ -15,7 +15,7 @@ a guided tour of the Go programming language you can run from your browser.
 
 The tour is hands-on, demonstrating the language through code samples that you can modify,
 compile, and run from the tour itself.
-(The technology behind the [Go Playground](https://golang.org/doc/play/) does the work.)
+(The technology behind the [Go Playground](/doc/play/) does the work.)
 
 The tour has three sections. The first section covers basic syntax and data structures;
 the second discusses methods and interfaces;

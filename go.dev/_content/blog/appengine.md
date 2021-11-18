@@ -46,8 +46,8 @@ More APIs will be added as the environment develops.
 The runtime provides the full Go language and almost all the standard libraries,
 except for a few things that don’t make sense in the App Engine environment.
 For instance, there is no `unsafe` package and the `syscall` package is trimmed.
-(The implementation uses an expanded version of the setup in the [Go Playground](https://golang.org/doc/play/)
-on [golang.org](https://golang.org/).)
+(The implementation uses an expanded version of the setup in the [Go Playground](/doc/play/)
+on [golang.org](/).)
 
 Also, although goroutines and channels are present,
 when a Go app runs on App Engine only one thread is run in a given instance.

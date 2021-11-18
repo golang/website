@@ -13,7 +13,7 @@ summary: An introduction to image compositing in Go using the image/draw package
 
 ## Introduction
 
-[Package image/draw](https://golang.org/pkg/image/draw/) defines only one operation:
+[Package image/draw](/pkg/image/draw/) defines only one operation:
 drawing a source image onto a destination image,
 through an optional mask image.
 This one operation is surprisingly versatile and can perform a number of
@@ -66,10 +66,10 @@ respective co-ordinate space.
 
 {{image "image-draw/20.png"}}
 
-The [`DrawMask`](https://golang.org/pkg/image/draw/#DrawMask) function
+The [`DrawMask`](/pkg/image/draw/#DrawMask) function
 takes seven arguments,
 but an explicit mask and mask-point are usually unnecessary,
-so the [`Draw`](https://golang.org/pkg/image/draw/#Draw) function takes five:
+so the [`Draw`](/pkg/image/draw/#Draw) function takes five:
 
 	// Draw calls DrawMask with a nil mask.
 	func Draw(dst Image, r image.Rectangle, src image.Image, sp image.Point, op Op)
@@ -77,7 +77,7 @@ so the [`Draw`](https://golang.org/pkg/image/draw/#Draw) function takes five:
 	 mask image.Image, mp image.Point, op Op)
 
 The destination image must be mutable, so the image/draw package defines
-a [`draw.Image`](https://golang.org/pkg/image/draw/#Image) interface which has a `Set` method.
+a [`draw.Image`](/pkg/image/draw/#Image) interface which has a `Set` method.
 
 	type Image interface {
 	    image.Image

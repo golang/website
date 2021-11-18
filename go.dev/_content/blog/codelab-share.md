@@ -25,7 +25,7 @@ A. R. Hoare's [Communicating Sequential Processes](http://www.usingcsp.com/).)
 Instead of explicitly using locks to mediate access to shared data,
 Go encourages the use of channels to pass references to data between goroutines.
 This approach ensures that only one goroutine has access to the data at a given time.
-The concept is summarized in the document [Effective Go](https://golang.org/doc/effective_go.html)
+The concept is summarized in the document [Effective Go](/doc/effective_go.html)
 (a must-read for any Go programmer):
 
 _Do not communicate by sharing memory; instead, share memory by communicating._
@@ -110,4 +110,4 @@ This should give you an inkling as to the power of these simple language feature
 
 There are many omissions from the above code snippets.
 For a walkthrough of a complete, idiomatic Go program that uses these ideas,
-see the Codewalk [_Share Memory By Communicating_](https://golang.org/doc/codewalk/sharemem/).
+see the Codewalk [_Share Memory By Communicating_](/doc/codewalk/sharemem/).

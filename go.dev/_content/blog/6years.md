@@ -19,18 +19,18 @@ and user groups pop up [around](https://blog.golang.org/gophercon2015)
 
 In August we [released Go 1.5](https://blog.golang.org/go1.5), the most
 significant release since Go 1. It features a completely
-[redesigned garbage collector](https://golang.org/doc/go1.5#gc) that makes
+[redesigned garbage collector](/doc/go1.5#gc) that makes
 the language more suitable for latency-sensitive applications; it marks the
 transition from a C-based compiler tool chain to one
-[written entirely in Go](https://golang.org/doc/go1.5#c); and it includes
-ports to [new architectures](https://golang.org/doc/go1.5#ports), with better
+[written entirely in Go](/doc/go1.5#c); and it includes
+ports to [new architectures](/doc/go1.5#ports), with better
 support for ARM processors (the chips that power most smartphones).
 These improvements make Go better suited to a broader range of tasks, a trend
 that we hope will continue over the coming years.
 
 Improvements to tools continue to boost developer productivity.
-We introduced the [execution tracer](https://golang.org/cmd/trace/) and the
-"[go doc](https://golang.org/cmd/go/#hdr-Show_documentation_for_package_or_symbol)"
+We introduced the [execution tracer](/cmd/trace/) and the
+"[go doc](/cmd/go/#hdr-Show_documentation_for_package_or_symbol)"
 command, as well as more enhancements to our various
 [static analysis tools](https://talks.golang.org/2014/static-analysis.slide).
 We are also working on an
@@ -38,7 +38,7 @@ We are also working on an
 with better support for other editors in the pipeline.
 
 Early next year we will release more improvements in Go 1.6, including
-HTTP/2 support for [net/http](https://golang.org/pkg/net/http/) servers and
+HTTP/2 support for [net/http](/pkg/net/http/) servers and
 clients, an official package vendoring mechanism, support for blocks in text
 and HTML templates, a memory sanitizer that checks both Go and C/C++ code, and
 the usual assortment of other improvements and fixes.

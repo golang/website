@@ -12,7 +12,7 @@ summary: Go 1.16 enables modules by default, provides a new way to install execu
 
 We hope you're enjoying Go 1.16!
 This release has a lot of new features, especially for modules.
-The [release notes](https://golang.org/doc/go1.16) describe these changes briefly, but let's explore a few of them in depth.
+The [release notes](/doc/go1.16) describe these changes briefly, but let's explore a few of them in depth.
 
 ## Modules on by default
 
@@ -48,7 +48,7 @@ In most cases, the error message recommends a command to fix the problem.
     $ go get golang.org/x/net/html
     $ go build
 
-As before, the `go` command may use the `vendor` directory if it's present (see [Vendoring](https://golang.org/ref/mod#vendoring) for details).
+As before, the `go` command may use the `vendor` directory if it's present (see [Vendoring](/ref/mod#vendoring) for details).
 Commands like `go get` and `go mod tidy` still modify `go.mod` and `go.sum`, since their main purpose is to manage dependencies.
 
 ## Installing an executable at a specific version
@@ -66,12 +66,12 @@ And to avoid accidentally modifying `go.mod`, people started suggesting more com
     cd $HOME; GO111MODULE=on go get program@latest
 
 Now we can all use `go install program@latest` instead.
-See [`go install`](https://golang.org/ref/mod#go-install) for details.
+See [`go install`](/ref/mod#go-install) for details.
 
 In order to eliminate ambiguity about which versions are used, there are several restrictions on what directives may be present in the program's `go.mod` file when using this install syntax.
 In particular, `replace` and `exclude` directives are not allowed, at least for now.
 In the long term, once the new `go install program@version` is working well for enough use cases, we plan to make `go get` stop installing command binaries.
-See [issue 43684](https://golang.org/issue/43684) for details.
+See [issue 43684](/issue/43684) for details.
 
 ## Module retraction
 
@@ -105,7 +105,7 @@ The notification message may include text from the comment above the `retract` d
         go get example.com/lib@latest
 
 For an interactive, browser-based guide, check out [Retract Module Versions](https://play-with-go.dev/retract-module-versions_go116_en/) on [play-with-go.dev](https://play-with-go.dev/).
-See the [`retract` directive docs](https://golang.org/ref/mod#go-mod-file-retract) for syntax details.
+See the [`retract` directive docs](/ref/mod#go-mod-file-retract) for syntax details.
 
 ## Controlling version control tools with GOVCS
 
@@ -114,7 +114,7 @@ Direct version control access is important, especially for private modules that 
 
 Go 1.16 introduces a new configuration variable, `GOVCS`, which lets the user specify which modules are allowed to use specific version control tools.
 `GOVCS` accepts a comma-separated list of `pattern:vcslist` rules.
-The `pattern` is a [`path.Match`](https://golang.org/pkg/path#Match) pattern matching one or more leading elements of a module path.
+The `pattern` is a [`path.Match`](/pkg/path#Match) pattern matching one or more leading elements of a module path.
 The special patterns `public` and `private` match public and private modules (`private` is defined as modules matched by patterns in `GOPRIVATE`; `public` is everything else).
 The `vcslist` is a pipe-separated list of allowed version control commands or the keyword `all` or `off`.
 
@@ -131,7 +131,7 @@ That is, the default setting is:
 
     GOVCS=public:git|hg,private:all
 
-See [Controlling version control tools with `GOVCS`](https://golang.org/ref/mod#vcs-govcs) for more details.
+See [Controlling version control tools with `GOVCS`](/ref/mod#vcs-govcs) for more details.
 
 ## What's next?
 

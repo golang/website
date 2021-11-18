@@ -72,7 +72,7 @@ The photos in the slides are all from
 
 Instructions to use slides:
 
-  - Open the [Go Slide Masters](https://golang.org/s/presentation-theme) presentation on Google slides.
+  - Open the [Go Slide Masters](/s/presentation-theme) presentation on Google slides.
   - File > “Make a Copy” (you may need to login first)
   - Create new slides using the layouts provided in the layouts menu.
   - Use the included example slides to help guide the styling and creation of your presentation.
@@ -83,9 +83,9 @@ The brand guide, logo and themes are copyrighted by the Go authors.
 
 The brand guide contains the guidelines for acceptable logo use.
 
-  - [Brand Book (pdf)](https://golang.org/s/brandbook)
-  - [Go Logos (zip)](https://golang.org/s/logos)
-  - [Go Slide Masters (Google Slides)](https://golang.org/s/presentation-theme)
+  - [Brand Book (pdf)](/s/brandbook)
+  - [Go Logos (zip)](/s/logos)
+  - [Go Slide Masters (Google Slides)](/s/presentation-theme)
 
 ## What’s happening next
 

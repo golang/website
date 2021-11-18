@@ -86,26 +86,26 @@ more accessible.
 
 <p>
 r60.1 includes a
-<a href="//golang.org/change/1824581bf62d">linker
+<a href="/change/1824581bf62d">linker
 fix</a>, a pair of
-<a href="//golang.org/change/9ef4429c2c64">goplay</a>
-<a href="//golang.org/change/d42ed8c3098e">fixes</a>,
+<a href="/change/9ef4429c2c64">goplay</a>
+<a href="/change/d42ed8c3098e">fixes</a>,
 and a <code>json</code> package
-<a href="//golang.org/change/d5e97874fe84">fix</a> and
+<a href="/change/d5e97874fe84">fix</a> and
 a new
-<a href="//golang.org/change/4f0e6269213f">struct tag
+<a href="/change/4f0e6269213f">struct tag
 option</a>.
 </p>
 
 <p>
 r60.2
-<a href="//golang.org/change/ff19536042ac">fixes</a>
+<a href="/change/ff19536042ac">fixes</a>
 a memory leak involving maps.
 </p>
 
 <p>
 r60.3 fixes a
-<a href="//golang.org/change/01fa62f5e4e5">reflect bug</a>.
+<a href="/change/01fa62f5e4e5">reflect bug</a>.
 </p>
 
 <h2 id="r59">r59 (released 2011/08/01)</h2>
@@ -127,7 +127,7 @@ This release includes a language change that restricts the use of
 <code>goto</code>.  In essence, a <code>goto</code> statement outside a block
 cannot jump to a label inside that block. Your code may require changes if it
 uses <code>goto</code>.
-See <a href="//golang.org/change/dc6d3cf9279d">this
+See <a href="/change/dc6d3cf9279d">this
 changeset</a> for how the new rule affected the Go tree.
 </p>
 
@@ -231,7 +231,7 @@ For complete information, see the
 <h3 id="r58.lang">Language</h3>
 
 <p>
-This release fixes a <a href="//golang.org/change/b720749486e1">use of uninitialized memory in programs that misuse <code>goto</code></a>.
+This release fixes a <a href="/change/b720749486e1">use of uninitialized memory in programs that misuse <code>goto</code></a>.
 </p>
 
 <h3 id="r58.pkg">Packages</h3>
@@ -290,8 +290,8 @@ the Go tree (and avoid writing Makefiles).
 <h3 id="r58.minor">Minor revisions</h3>
 
 <p>r58.1 adds
-<a href="//golang.org/change/293c25943586">build</a> and
-<a href="//golang.org/change/bf17e96b6582">runtime</a>
+<a href="/change/293c25943586">build</a> and
+<a href="/change/bf17e96b6582">runtime</a>
 changes to make Go run on OS X 10.7 Lion.
 </p>
 
@@ -406,7 +406,7 @@ implements all the possible value methods.
 Instead of a type switch on a Value <code>v</code>, switch on <code>v.Kind()</code>.
 Typeof and NewValue are now called <a href="/pkg/reflect/#Type.TypeOf">TypeOf</a> and <a href="/pkg/reflect/#Value.ValueOf">ValueOf</a>
 To create a writable Value, use <code>New(t).Elem()</code> instead of <code>Zero(t)</code>.
-See <a href="//golang.org/change/843855f3c026">the change description</a>
+See <a href="/change/843855f3c026">the change description</a>
 for the full details.
 The new API allows a more efficient implementation of Value
 that avoids many of the allocations required by the previous API.
@@ -442,8 +442,8 @@ For other uses, see the <a href="/pkg/runtime/pprof/">runtime/pprof</a> document
 
 <h3 id="r57.minor">Minor revisions</h3>
 
-<p>r57.1 fixes a <a href="//golang.org/change/ff2bc62726e7145eb2ecc1e0f076998e4a8f86f0">nil pointer dereference in http.FormFile</a>.</p>
-<p>r57.2 fixes a <a href="//golang.org/change/063b0ff67d8277df03c956208abc068076818dae">use of uninitialized memory in programs that misuse <code>goto</code></a>.</p>
+<p>r57.1 fixes a <a href="/change/ff2bc62726e7145eb2ecc1e0f076998e4a8f86f0">nil pointer dereference in http.FormFile</a>.</p>
+<p>r57.2 fixes a <a href="/change/063b0ff67d8277df03c956208abc068076818dae">use of uninitialized memory in programs that misuse <code>goto</code></a>.</p>
 
 <h2 id="r56">r56 (released 2011/03/16)</h2>
 

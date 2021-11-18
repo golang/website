@@ -385,7 +385,7 @@ func TestFoo(t *testing.T) {
   BP by saving and restoring it. An easy way to preserve BP is to set
   the frame size to a nonzero value, which causes the generated
   prologue and epilogue to preserve the BP register for you.
-  See <a href="https://golang.org/cl/248260">CL 248260</a> for example
+  See <a href="/cl/248260">CL 248260</a> for example
   fixes.
 </p>
 
@@ -460,7 +460,7 @@ func TestFoo(t *testing.T) {
   reducing linker resource usage (both time and memory) and improving
   code robustness/maintainability. These changes form the second half
   of a two-release project to
-  <a href="https://golang.org/s/better-linker">modernize the Go
+  <a href="/s/better-linker">modernize the Go
   linker</a>.
 </p>
 
@@ -592,7 +592,7 @@ func TestFoo(t *testing.T) {
   <dd>
     <p><!-- CL 257939 -->
       The <a href="/pkg/crypto/dsa/"><code>crypto/dsa</code></a> package is now deprecated.
-      See <a href="https://golang.org/issue/40337">issue #40337</a>.
+      See <a href="/issue/40337">issue #40337</a>.
     </p>
   </dd>
 </dl><!-- crypto/dsa -->
@@ -675,7 +675,7 @@ func TestFoo(t *testing.T) {
     <p><!-- CL 257939 -->
       DSA signature verification is no longer supported. Note that DSA signature
       generation was never supported.
-      See <a href="https://golang.org/issue/40337">issue #40337</a>.
+      See <a href="/issue/40337">issue #40337</a>.
     </p>
 
     <p><!-- CL 257257 -->
@@ -800,7 +800,7 @@ func TestFoo(t *testing.T) {
       syntax that will be introduced in Go 1.17.
       This package exists so that tools built with Go 1.16 will be able
       to process Go 1.17 source code.
-      See <a href="https://golang.org/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>
+      See <a href="/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>
       for details about the build constraint syntaxes and the planned
       transition to the <code>//go:build</code> syntax.
       Note that <code>//go:build</code> lines are <b>not</b> supported

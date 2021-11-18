@@ -198,7 +198,7 @@ adding dependencies first, then the code that depends on them.
         `gin.Context` is the most important part of Gin. It carries request
         details, validates and serializes JSON, and more. (Despite the similar
         name, this is different from Go's built-in
-        [`context`](https://golang.org/pkg/context/) package.)
+        [`context`](/pkg/context/) package.)
 
     *   Call [`Context.IndentedJSON`](https://pkg.go.dev/github.com/gin-gonic/gin#Context.IndentedJSON)
         to serialize the struct into JSON and add it to the response.
@@ -263,7 +263,7 @@ adding dependencies first, then the code that depends on them.
 
 1. Begin tracking the Gin module as a dependency.
 
-    At the command line, use [`go get`](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+    At the command line, use [`go get`](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
     to add the github.com/gin-gonic/gin module as a dependency for your module.
     Use a dot argument to mean "get dependencies for code in the current
     directory."

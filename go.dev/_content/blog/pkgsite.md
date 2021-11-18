@@ -24,7 +24,7 @@ If you are interested in contributing to any
 check out our
 [contribution guidelines](https://go.googlesource.com/pkgsite/+/refs/heads/master/CONTRIBUTING.md).
 We also encourage you to continue
-[filing issues](https://golang.org/s/discovery-feedback)
+[filing issues](/s/discovery-feedback)
 if you run into problems or have feedback.
 
 ## What’s Next
@@ -42,12 +42,12 @@ Now that pkg.go.dev is open source, here’s what we’ll be working on next:
 
 - We know that there are features available on godoc.org that users
   want to see on pkg.go.dev. We’ve been keeping track of them on
-  [Go issue #39144](https://golang.org/issue/39144),
+  [Go issue #39144](/issue/39144),
   and will prioritize adding them in the next few months. We also plan to
   continue improving our license detection algorithm based on feedback.
 
 - We’ll be improving our search experience based on feedback in
-  [Go issue #37810](https://golang.org/issue/37810),
+  [Go issue #37810](/issue/37810),
   to make it easier for users to find the dependencies they are looking for and
   make better decisions around which ones to import.
 

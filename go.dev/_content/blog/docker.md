@@ -29,7 +29,7 @@ It has no dependencies outside the standard library and requires no additional
 data files at run time; for a web server, it's about as simple as it gets.
 
 Use "go get" to fetch and install outyet in your
-[workspace](https://golang.org/doc/code.html#Workspaces):
+[workspace](/doc/code.html#Workspaces):
 
 	$ go get golang.org/x/example/outyet
 

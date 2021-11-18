@@ -22,9 +22,9 @@ In February, the [Go 1.14 release](https://blog.golang.org/go1.14)
 delivered the first officially “production-ready” implementation of Go modules,
 along with many performance improvements,
 including
-[faster defers](https://golang.org/design/34481-opencoded-defers)
+[faster defers](/design/34481-opencoded-defers)
 and
-[non-cooperative goroutine preemption](https://golang.org/design/24543/conservative-inner-frame)
+[non-cooperative goroutine preemption](/design/24543/conservative-inner-frame)
 to reduce scheduling
 and garbage collection latency.
 
@@ -63,10 +63,10 @@ Later in June, we
 along with a prototype tool and [generics playground](https://go2goplay.golang.org/).
 
 In July, we published and discussed three new design drafts for future changes:
-[new `//go:build` lines for file selection](https://golang.org/design/draft-gobuild),
-[file system interfaces](https://golang.org/design/draft-iofs),
+[new `//go:build` lines for file selection](/design/draft-gobuild),
+[file system interfaces](/design/draft-iofs),
 and
-[build-time file embedding](https://golang.org/design/draft-embed).
+[build-time file embedding](/design/draft-embed).
 (We’ll see all of those in 2021, as noted below.)
 
 In August, the [Go 1.15 release](https://blog.golang.org/go1.15)
@@ -139,12 +139,12 @@ It will include a new register-based calling convention for x86-64
 which will make programs faster across the board.
 (Other architectures will follow in later releases.)
 One nice feature that will definitely be included is the
-[new `//go:build` lines](https://golang.org/design/draft-gobuild),
+[new `//go:build` lines](/design/draft-gobuild),
 which are far less error-prone than the
-[current `//` `+build` lines](https://golang.org/cmd/go/#hdr-Build_constraints).
+[current `//` `+build` lines](/cmd/go/#hdr-Build_constraints).
 Another highly anticipated feature we hope will be ready for beta testing next year
 is
-[support for fuzzing in the `go test` command](https://golang.org/design/draft-fuzzing).
+[support for fuzzing in the `go test` command](/design/draft-fuzzing).
 
 ## Go Modules
 
@@ -157,7 +157,7 @@ have now adopted Go modules (up from 90% a year ago).
 We will also finally wind down support for GOPATH-based development:
 any programs using dependencies other than the standard library will need a `go.mod`.
 (If you haven’t switched to modules yet, see the
-[GOPATH wiki page](https://golang.org/wiki/GOPATH)
+[GOPATH wiki page](/wiki/GOPATH)
 for details about this final step in the journey from GOPATH to modules.)
 
 From the start, the [goal for Go modules](https://research.swtch.com/vgo-intro)

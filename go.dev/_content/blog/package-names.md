@@ -27,7 +27,7 @@ in the package as it evolves.
 Well-named packages make it easier to find the code you need.
 
 Effective Go provides
-[guidelines](https://golang.org/doc/effective_go.html#names) for naming
+[guidelines](/doc/effective_go.html#names) for naming
 packages, types, functions, and variables.
 This article expands on that discussion and surveys names found in the standard
 library.
@@ -138,7 +138,7 @@ By convention, the last element of the package path is the package name:
 	)
 
 Build tools map package paths onto directories.
-The go tool uses the [GOPATH](https://golang.org/doc/code.html#GOPATH)
+The go tool uses the [GOPATH](/doc/code.html#GOPATH)
 environment variable to find the source files for path `"github.com/user/hello"`
 in directory `$GOPATH/src/github.com/user/hello`.
 (This situation should be familiar, of course, but it's important to be clear
@@ -155,14 +155,14 @@ cycle.
 Just as types in different packages can have the same name without ambiguity,
 packages in different directories can have the same name.
 For example,
-[runtime/pprof](https://golang.org/pkg/runtime/pprof) provides profiling data
+[runtime/pprof](/pkg/runtime/pprof) provides profiling data
 in the format expected by the [pprof](https://github.com/google/pprof)
-profiling tool, while [net/http/pprof](https://golang.org/pkg/net/http/pprof)
+profiling tool, while [net/http/pprof](/pkg/net/http/pprof)
 provides HTTP endpoints to present profiling data in this format.
 Client code uses the package path to import the package, so there is no
 confusion.
 If a source file needs to import both `pprof` packages, it can
-[rename](https://golang.org/ref/spec#Import_declarations) one or both locally.
+[rename](/ref/spec#Import_declarations) one or both locally.
 When renaming an imported package, the local name should follow the same
 guidelines as package names (lower case, no `under_scores` or `mixedCaps`).
 
@@ -250,7 +250,7 @@ grow them gracefully.
 
 ## Further reading
 
-  - [Effective Go](https://golang.org/doc/effective_go.html)
-  - [How to Write Go Code](https://golang.org/doc/code.html)
+  - [Effective Go](/doc/effective_go.html)
+  - [How to Write Go Code](/doc/code.html)
   - [Organizing Go Code (2012 blog post)](https://blog.golang.org/organizing-go-code)
   - [Organizing Go Code (2014 Google I/O talk)](https://talks.golang.org/2014/organizeio.slide)

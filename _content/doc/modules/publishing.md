@@ -61,7 +61,7 @@ Use the following steps to publish a module.
     ```
 
 1.  Make the module available by running the [`go list`
-  command](https://golang.org/cmd/go/#hdr-List_packages_or_modules) to prompt
+  command](/cmd/go/#hdr-List_packages_or_modules) to prompt
   Go to update its index of modules with information about the module you're
   publishing.
 

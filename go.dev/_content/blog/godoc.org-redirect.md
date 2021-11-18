@@ -39,7 +39,7 @@ This will happen in early 2021, once the work tracked at the
 is complete.
 
 During this migration, updates will be posted to
-[Go issue 43178](https://golang.org/issue/43178).
+[Go issue 43178](/issue/43178).
 
 We encourage everyone to begin using pkg.go.dev today. You can do so by
 visiting [godoc.org?redirect=on](https://godoc.org?redirect=on), or clicking
@@ -64,7 +64,7 @@ contributions. However, you will be able to continue forking the repository.
 
 This transition will have no impact on api.godoc.org. Until an API is available
 for pkg.go.dev, api.godoc.org will continue to serve traffic. See
-[Go issue 36785](https://golang.org/issue/36785) for updates on an API for
+[Go issue 36785](/issue/36785) for updates on an API for
 pkg.go.dev.
 
 **Will my godoc.org badges keep working?**
@@ -76,7 +76,7 @@ update your badge link.
 
 ## Feedback
 
-As always, feel free to [file an issue](https://golang.org/s/pkgsite-feedback)
+As always, feel free to [file an issue](/s/pkgsite-feedback)
 on the Go issue tracker for any feedback.
 
 ## Contributing

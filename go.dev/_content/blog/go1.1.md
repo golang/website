@@ -29,21 +29,21 @@ It is likely that your Go code will run noticeably faster when built with Go 1.1
 
 There are some minor changes to the language itself,
 two of which are worth singling out here:
-the [changes to return requirements](https://golang.org/doc/go1.1#return) will
+the [changes to return requirements](/doc/go1.1#return) will
 lead to more succinct and correct programs,
-and the introduction of [method values](https://golang.org/doc/go1.1#method_values) provides
+and the introduction of [method values](/doc/go1.1#method_values) provides
 an expressive way to bind a method to its receiver as a function value.
 
 Concurrent programming is safer in Go 1.1 with the addition of a race
 detector for finding memory synchronization errors in your programs.
 We will discuss the race detector more in an upcoming article,
-but for now [the manual](https://golang.org/doc/articles/race_detector.html) is
+but for now [the manual](/doc/articles/race_detector.html) is
 a great place to get started.
 
 The tools and standard library have been improved and expanded.
-You can read the full story in the [release notes](https://golang.org/doc/go1.1).
+You can read the full story in the [release notes](/doc/go1.1).
 
-As per our [compatibility guidelines](https://golang.org/doc/go1compat.html),
+As per our [compatibility guidelines](/doc/go1compat.html),
 Go 1.1 remains compatible with Go 1.0 and we recommend all Go users upgrade to the new release.
 
 All this would not have been possible without the help of our contributors from
@@ -54,6 +54,6 @@ In particular, we would like to thank Shenghou Ma,
 Rémy Oudompheng, Dave Cheney, Mikio Hara,
 Alex Brainman, Jan Ziak, and Daniel Morsing for their outstanding contributions.
 
-To grab the new release, follow the usual [installation instructions](https://golang.org/doc/install). Happy hacking!
+To grab the new release, follow the usual [installation instructions](/doc/install). Happy hacking!
 
 _Thanks to Renée French for the gopher!_

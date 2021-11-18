@@ -14,13 +14,13 @@ We are excited to share that our module [mirror](https://proxy.golang.org),
 [index](https://index.golang.org), and
 [checksum database](https://sum.golang.org) are now production ready! The `go` command
 will use the module mirror and checksum database by default for
-[Go 1.13 module users](https://golang.org/doc/go1.13#introduction).  See
+[Go 1.13 module users](/doc/go1.13#introduction).  See
 [proxy.golang.org/privacy](https://proxy.golang.org/privacy) for privacy
 information about these services and the
-[go command documentation](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification)
+[go command documentation](/cmd/go/#hdr-Module_downloading_and_verification)
 for configuration details, including how to disable the use of these servers or
 use different ones.  If you depend on non-public modules, see the
-[documentation for configuring your environment](https://golang.org/cmd/go/#hdr-Module_configuration_for_non_public_modules).
+[documentation for configuring your environment](/cmd/go/#hdr-Module_configuration_for_non_public_modules).
 
 This post will describe these services and the benefits of using them, and
 summarizes some of the points from the
@@ -35,8 +35,8 @@ That immutability provides new opportunities for caching and authentication.
 When `go get` runs in module mode, it must fetch the module containing the
 requested packages, as well as any new dependencies introduced by that module,
 updating your
-[go.mod](https://golang.org/cmd/go/#hdr-The_go_mod_file) and
-[go.sum](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification)
+[go.mod](/cmd/go/#hdr-The_go_mod_file) and
+[go.sum](/cmd/go/#hdr-Module_downloading_and_verification)
 files as needed. Fetching modules from version control can be expensive in terms
 of latency and storage in your system: the `go` command may be forced to pull down
 the full commit history of a repository containing a transitive dependency, even

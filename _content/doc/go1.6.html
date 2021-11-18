@@ -133,7 +133,7 @@ for the <code>shared</code> mode on <code>linux/386</code>, <code>linux/arm</cod
 and for the new <code>pie</code> mode (generating position-independent executables) on
 <code>android/386</code>, <code>android/amd64</code>, <code>android/arm</code>, <code>android/arm64</code>, <code>linux/386</code>,
 <code>linux/amd64</code>, <code>linux/arm</code>, <code>linux/arm64</code>, and <code>linux/ppc64le</code>.
-See the <a href="https://golang.org/s/execmodes">design document</a> for details.
+See the <a href="/s/execmodes">design document</a> for details.
 </p>
 
 <p>
@@ -197,7 +197,7 @@ than <code>vendor</code> and update any affected import paths.
 <p>
 For details about vendoring,
 see the documentation for the <a href="/cmd/go/#hdr-Vendor_Directories"><code>go</code> command</a>
-and the <a href="https://golang.org/s/go15vendor">design document</a>.
+and the <a href="/s/go15vendor">design document</a>.
 </p>
 
 <p>
@@ -278,7 +278,7 @@ to a non-nil, empty map.
 
 <p>
 Programs that must adjust HTTP/2 protocol-specific details can import and use
-<a href="https://golang.org/x/net/http2"><code>golang.org/x/net/http2</code></a>,
+<a href="/x/net/http2"><code>golang.org/x/net/http2</code></a>,
 in particular its
 <a href="https://godoc.org/golang.org/x/net/http2/#ConfigureServer">ConfigureServer</a>
 and
@@ -351,7 +351,7 @@ details.
 <p>
 The
 <a href="/pkg/reflect/"><code>reflect</code></a> package has
-<a href="https://golang.org/issue/12367">resolved a long-standing incompatibility</a>
+<a href="/issue/12367">resolved a long-standing incompatibility</a>
 between the gc and gccgo toolchains
 regarding embedded unexported struct types containing exported fields.
 Code that walks data structures using reflection, especially to implement

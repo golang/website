@@ -19,7 +19,7 @@ to the project’s development and,
 ultimately, its longevity.
 
 Since Go's launch we have been making releases approximately once a week.
-Accompanying each release are [notes describing what changed](https://golang.org/doc/devel/release.html),
+Accompanying each release are [notes describing what changed](/doc/devel/release.html),
 with any backwards-incompatible changes signposted.
 Questions I hear often are "Is Go stable? How can I be sure that I won’t
 have to update my Go code every week?" The answer to those questions are

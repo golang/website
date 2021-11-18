@@ -19,7 +19,7 @@ along with the code.
 The easier it is for programmers to produce good documentation,
 the better for everyone.
 
-To that end, we have developed the [godoc](https://golang.org/cmd/godoc/) documentation tool.
+To that end, we have developed the [godoc](/cmd/godoc/) documentation tool.
 This article describes godoc's approach to documentation,
 and explains how you can use our conventions and tools to write good documentation
 for your own projects.
@@ -28,7 +28,7 @@ Godoc parses Go source code - including comments - and produces documentation
 as HTML or plain text.
 The end result is documentation tightly coupled with the code it documents.
 For example, through godoc's web interface you can navigate from a function's
-[documentation](https://golang.org/pkg/strings/#HasPrefix) to its [implementation](https://golang.org/src/strings/strings.go?s=11163:11200#L434) with one click.
+[documentation](/pkg/strings/#HasPrefix) to its [implementation](/src/strings/strings.go?s=11163:11200#L434) with one click.
 
 Godoc is conceptually related to Python's [Docstring](https://www.python.org/dev/peps/pep-0257/)
 and Java's [Javadoc](https://www.oracle.com/java/technologies/javase/javadoc-tool.html)
@@ -43,7 +43,7 @@ variable, constant, function, or even a package,
 write a regular comment directly preceding its declaration,
 with no intervening blank line.
 Godoc will then present that comment as text alongside the item it documents.
-For example, this is the documentation for the `fmt` package's [`Fprint`](https://golang.org/pkg/fmt/#Fprint) function:
+For example, this is the documentation for the `fmt` package's [`Fprint`](/pkg/fmt/#Fprint) function:
 
 	// Fprint formats using the default formats for its operands and writes to w.
 	// Spaces are added between operands when neither is a string.
@@ -58,29 +58,29 @@ and makes it read better when tools truncate it for brevity,
 such as when they extract the first line or sentence.
 
 Comments on package declarations should provide general package documentation.
-These comments can be short, like the [`sort`](https://golang.org/pkg/sort/)
+These comments can be short, like the [`sort`](/pkg/sort/)
 package's brief description:
 
 	// Package sort provides primitives for sorting slices and user-defined
 	// collections.
 	package sort
 
-They can also be detailed like the [gob package](https://golang.org/pkg/encoding/gob/)'s overview.
+They can also be detailed like the [gob package](/pkg/encoding/gob/)'s overview.
 That package uses another convention for packages that need large amounts
 of introductory documentation:
 the package comment is placed in its own file,
-[doc.go](https://golang.org/src/pkg/encoding/gob/doc.go),
+[doc.go](/src/pkg/encoding/gob/doc.go),
 which contains only those comments and a package clause.
 
 When writing package comments of any size,
-keep in mind that their first sentence will appear in godoc's [package list](https://golang.org/pkg/).
+keep in mind that their first sentence will appear in godoc's [package list](/pkg/).
 
 Comments that are not adjacent to a top-level declaration are omitted from godoc's output,
 with one notable exception.
 Top-level comments that begin with the word `"BUG(who)”` are recognized as known bugs,
 and included in the "Bugs” section of the package documentation.
 The "who” part should be the user name of someone who could provide more information.
-For example, this is a known issue from the [bytes package](https://golang.org/pkg/bytes/#pkg-note-BUG):
+For example, this is a known issue from the [bytes package](/pkg/bytes/#pkg-note-BUG):
 
 	// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
 
@@ -97,7 +97,7 @@ There are a few formatting rules that Godoc uses when converting comments to HTM
     you must leave a blank line to separate paragraphs.
 
   - Pre-formatted text must be indented relative to the surrounding comment
-    text (see gob's [doc.go](https://golang.org/src/pkg/encoding/gob/doc.go) for an example).
+    text (see gob's [doc.go](/src/pkg/encoding/gob/doc.go) for an example).
 
   - URLs will be converted to HTML links; no special markup is necessary.
 
@@ -112,4 +112,4 @@ Any Go packages installed inside `$GOROOT/src/pkg` and any `GOPATH` work
 spaces will already be accessible via godoc's command-line and HTTP interfaces,
 and you can specify additional paths for indexing via the `-path` flag or
 just by running `"godoc ."` in the source directory.
-See the [godoc documentation](https://golang.org/cmd/godoc/) for more details.
+See the [godoc documentation](/cmd/godoc/) for more details.

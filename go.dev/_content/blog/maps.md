@@ -22,7 +22,7 @@ A Go map type looks like this:
 
 	map[KeyType]ValueType
 
-where `KeyType` may be any type that is [comparable](https://golang.org/ref/spec#Comparison_operators)
+where `KeyType` may be any type that is [comparable](/ref/spec#Comparison_operators)
 (more on this later),
 and `ValueType` may be any type at all, including another map!
 
@@ -145,7 +145,7 @@ unlikely that may be).
 ## Key types
 
 As mentioned earlier, map keys may be of any type that is comparable.
-The [language spec](https://golang.org/ref/spec#Comparison_operators)
+The [language spec](/ref/spec#Comparison_operators)
 defines this precisely,
 but in short, comparable types are boolean,
 numeric, string, pointer, channel, and interface types,
@@ -200,11 +200,11 @@ And it's similarly straightforward to see how many Swiss people have read the sp
 
 ## Concurrency
 
-[Maps are not safe for concurrent use](https://golang.org/doc/faq#atomic_maps):
+[Maps are not safe for concurrent use](/doc/faq#atomic_maps):
 it's not defined what happens when you read and write to them simultaneously.
 If you need to read from and write to a map from concurrently executing goroutines,
 the accesses must be mediated by some kind of synchronization mechanism.
-One common way to protect maps is with [sync.RWMutex](https://golang.org/pkg/sync/#RWMutex).
+One common way to protect maps is with [sync.RWMutex](/pkg/sync/#RWMutex).
 
 This statement declares a `counter` variable that is an anonymous struct
 containing a map and an embedded `sync.RWMutex`.

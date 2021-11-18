@@ -21,7 +21,7 @@ The team continued to iterate and improve on what they had built,
 and were gradually joined by dozens - and then hundreds - of programmers
 from the open source community.
 The Go Authors went on to produce lots of libraries,
-new tools, and reams of [documentation](https://golang.org/doc/docs.html).
+new tools, and reams of [documentation](/doc/docs.html).
 They celebrated a successful year in the public eye with a [blog post](https://blog.golang.org/2010/11/go-one-year-ago-today.html)
 last November that concluded "Go is certainly ready for production use,
 but there is still room for improvement.
@@ -48,14 +48,14 @@ which includes support for [backends](http://code.google.com/appengine/docs/go/b
 finer control over datastore indexes, and various other improvements.
 Today, the Go runtime is near feature parity with - and is a viable alternative
 to - the Python and Java runtimes.
-In fact, we now serve [golang.org](https://golang.org/) by running a version
-of [godoc](https://golang.org/cmd/godoc/) on the App Engine service.
+In fact, we now serve [golang.org](/) by running a version
+of [godoc](/cmd/godoc/) on the App Engine service.
 
 While 2010 was a year of discovery and experimentation,
 2011 was a year of fine tuning and planning for the future.
-This year we issued several "[release](https://golang.org/doc/devel/release.html)"
+This year we issued several "[release](/doc/devel/release.html)"
 versions of Go that were more reliable and better supported than weekly snapshots.
-We also introduced [gofix](https://golang.org/cmd/gofix/) to take the
+We also introduced [gofix](/cmd/gofix/) to take the
 pain out of migrating to newer releases.
 Furthermore, last month we announced a [plan for Go version 1](https://blog.golang.org/2011/10/preview-of-go-version-1.html) -
 a release that will be supported for years to come.

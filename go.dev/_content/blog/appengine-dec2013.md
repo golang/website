@@ -15,8 +15,8 @@ When we [launched Go for App Engine](https://blog.golang.org/go-and-google-app-
 in May 2011 the SDK was just a modified version of the Python SDK.
 At the time, there was no canonical way to build or organize Go programs, so it
 made sense to take the Python approach. Since then Go 1.0 was released,
-including the [go tool](https://golang.org/cmd/go/) and a
-[convention](https://golang.org/doc/code.html) for organizing Go programs.
+including the [go tool](/cmd/go/) and a
+[convention](/doc/code.html) for organizing Go programs.
 
 In January 2013 we announced
 [better integration](https://blog.golang.org/the-app-engine-sdk-and-workspaces-gopath)
@@ -33,7 +33,7 @@ The Go App Engine SDK now includes the "goapp" tool, an App Engine-specific
 version of the "go" tool. The new name permits users to keep both the regular
 "go" tool and the "goapp" tool in their system PATH.
 
-In addition to the existing "go" tool [commands](https://golang.org/cmd/go/),
+In addition to the existing "go" tool [commands](/cmd/go/),
 the "goapp" tool provides new commands for working with App Engine apps.
 The "[goapp serve](https://developers.google.com/appengine/docs/go/tools/devserver)"
 command starts the local development server and the
@@ -67,7 +67,7 @@ although the Python tools are still available for their less common uses.
 
 The Go App Engine SDK now supports local unit testing, using Go's native
 [testing package](https://developers.google.com/appengine/docs/go/tools/localunittesting)
-and the "[go test](https://golang.org/cmd/go/#hdr-Test_packages)" command
+and the "[go test](/cmd/go/#hdr-Test_packages)" command
 (provided as "goapp test" by the SDK).
 
 Furthermore, you can now write tests that use App Engine services.

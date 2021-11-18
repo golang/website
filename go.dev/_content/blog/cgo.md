@@ -69,7 +69,7 @@ and passes it to the C function `srandom`.
 	}
 
 Note that cgo knows the `unsigned int` type as `C.uint`;
-see the [cgo documentation](https://golang.org/cmd/cgo) for a complete
+see the [cgo documentation](/cmd/cgo) for a complete
 list of these numeric type names.
 
 The one detail of this example we haven't examined yet is the comment above the `import` statement.
@@ -93,7 +93,7 @@ then the C code in the comment may only include declarations (`extern int f();`)
 not definitions (`int f() { return 1; }`).
 You can use `//export` directives to make Go functions accessible to C code.
 
-The `#cgo` and `//export` directives are documented in the [cgo documentation](https://golang.org/cmd/cgo/).
+The `#cgo` and `//export` directives are documented in the [cgo documentation](/cmd/cgo/).
 
 ## Strings and things
 
@@ -124,9 +124,9 @@ When you create a C string with `C.CString` (or any C memory allocation)
 you must remember to free the memory when you're done with it by calling `C.free`.
 
 The call to `C.CString` returns a pointer to the start of the char array,
-so before the function exits we convert it to an [`unsafe.Pointer`](https://golang.org/pkg/unsafe/#Pointer)
+so before the function exits we convert it to an [`unsafe.Pointer`](/pkg/unsafe/#Pointer)
 and release the memory allocation with `C.free`.
-A common idiom in cgo programs is to [`defer`](https://golang.org/doc/articles/defer_panic_recover.html)
+A common idiom in cgo programs is to [`defer`](/doc/articles/defer_panic_recover.html)
 the free immediately after allocating (especially when the code that follows
 is more complex than a single function call),
 as in this rewrite of `Print`:
@@ -139,16 +139,16 @@ as in this rewrite of `Print`:
 
 ## Building cgo packages
 
-To build cgo packages, just use [`go build`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies)
-or [`go install`](https://golang.org/cmd/go/#hdr-Compile_and_install_packages_and_dependencies) as usual.
+To build cgo packages, just use [`go build`](/cmd/go/#hdr-Compile_packages_and_dependencies)
+or [`go install`](/cmd/go/#hdr-Compile_and_install_packages_and_dependencies) as usual.
 The go tool recognizes the special `"C"` import and automatically uses cgo for those files.
 
 ## More cgo resources
 
-The [cgo command](https://golang.org/cmd/cgo/) documentation has more
+The [cgo command](/cmd/cgo/) documentation has more
 detail about the C pseudo-package and the build process.
-The [cgo examples](https://golang.org/misc/cgo/) in the Go tree demonstrate
+The [cgo examples](/misc/cgo/) in the Go tree demonstrate
 more advanced concepts.
 
 Finally, if you're curious as to how all this works internally,
-take a look at the introductory comment of the runtime package's [cgocall.go](https://golang.org/src/runtime/cgocall.go).
+take a look at the introductory comment of the runtime package's [cgocall.go](/src/runtime/cgocall.go).

@@ -25,7 +25,7 @@ and a Go package that implements run-time support for encoding (marshaling),
 decoding (unmarshaling), and accessing protocol buffers.
 
 To use goprotobuf, you first need to have both Go and [protobuf](http://code.google.com/p/protobuf/) installed.
-You can then install the 'proto' package with [goinstall](https://golang.org/cmd/goinstall/):
+You can then install the 'proto' package with [goinstall](/cmd/goinstall/):
 
 	goinstall goprotobuf.googlecode.com/hg/proto
 

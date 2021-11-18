@@ -11,7 +11,7 @@ Modules are how Go manages dependencies.
 
 This document is a detailed reference manual for Go's module system. For an
 introduction to creating Go projects, see [How to Write Go
-Code](https://golang.org/doc/code.html). For information on using modules,
+Code](/doc/code.html). For information on using modules,
 migrating projects to modules, and other topics, see the blog series starting
 with [Using Go Modules](https://blog.golang.org/using-go-modules).
 
@@ -1311,13 +1311,13 @@ work differently when vendoring is enabled and will still download modules and
 access the module cache. [`go get`](#go-get) also does not work differently when
 vendoring is enabled.
 
-Unlike [vendoring in `GOPATH` mode](https://golang.org/s/go15vendor), the `go`
+Unlike [vendoring in `GOPATH` mode](/s/go15vendor), the `go`
 command ignores vendor directories in locations other than the main module's
 root directory. Additionally, since vendor directories in other modules are not
 used, the `go` command does not include vendor directories when building [module
 zip files](#zip-files) (but see known bugs
-[#31562](https://golang.org/issue/31562) and
-[#37397](https://golang.org/issue/37397)).
+[#31562](/issue/31562) and
+[#37397](/issue/37397)).
 
 ### `go get` {#go-get}
 
@@ -2165,11 +2165,11 @@ from unintentionally changing files after they've been
 directories writable.
 
 The `-modcacherw` flag (accepted by [`go
-build`](https://golang.org/cmd/go/#hdr-Compile_packages_and_dependencies) and
+build`](/cmd/go/#hdr-Compile_packages_and_dependencies) and
 other module-aware commands) causes new directories in the module cache to
 be writable. To pass `-modcacherw` to all module-aware commands, add it to the
 `GOFLAGS` variable. `GOFLAGS` may be set in the environment or with [`go env
--w`](https://golang.org/cmd/go/#hdr-Print_Go_environment_information). For
+-w`](/cmd/go/#hdr-Print_Go_environment_information). For
 example, the command below sets it permanently:
 
 ```
@@ -3113,7 +3113,7 @@ information sent to public servers.
 
 These variables may be set in the development environment (for example, in a
 `.profile` file), or they may be set permanently with [`go env
--w`](https://golang.org/cmd/go/#hdr-Print_Go_environment_information).
+-w`](/cmd/go/#hdr-Print_Go_environment_information).
 
 The rest of this section describes common patterns for providing access to
 private module proxies and version control repositories.
@@ -3758,7 +3758,7 @@ for future `go` command invocations.
 Module behavior in the `go` command may be configured using the environment
 variables listed below. This list only includes module-related environment
 variables. See [`go help
-environment`](https://golang.org/cmd/go/#hdr-Environment_variables) for a list
+environment`](/cmd/go/#hdr-Environment_variables) for a list
 of all environment variables recognized by the `go` command.
 
 <table class="ModTable">
@@ -4025,7 +4025,7 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
 used when compiling a package. Build constraints may be expressed with file name
 suffixes (for example, `foo_linux_amd64.go`) or with build constraint comments
 (for example, `// +build linux,amd64`). See [Build
-Constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints).
+Constraints](/pkg/go/build/#hdr-Build_Constraints).
 
 <a id="glos-build-list"></a>
 **build list:** The list of module versions that will be used for a build

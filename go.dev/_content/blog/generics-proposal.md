@@ -13,7 +13,7 @@ summary: Generics is entering the language change proposal process
 ## Generics proposal
 
 We’ve filed [a Go language change
-proposal](https://golang.org/issue/43651) to add support for type
+proposal](/issue/43651) to add support for type
 parameters for types and functions, permitting a form of generic
 programming.
 
@@ -38,13 +38,13 @@ You can read more about why generics are useful in
 Although generics have clear use cases, fitting them cleanly into a
 language like Go is a difficult task.
 One of the [first (flawed) attempts to add generics to
-Go](https://golang.org/design/15292/2010-06-type-functions) dates back
+Go](/design/15292/2010-06-type-functions) dates back
 all the way to 2010.
 There have been several others over the last decade.
 
 For the last couple of years we’ve been working on a series of design
 drafts that have culminated in [a design based on type
-parameters](https://golang.org/design/go2draft-type-parameters).
+parameters](/design/go2draft-type-parameters).
 This design draft has had a lot of input from the Go programming
 community, and many people have experimented with it using the
 [generics playground](https://go2goplay.golang.org) described in [an
@@ -62,13 +62,13 @@ enough, and simple enough, to propose adding it to Go.
 
 ## What happens now?
 
-The [language change proposal process](https://golang.org/s/proposal)
+The [language change proposal process](/s/proposal)
 is how we make changes to the Go language.
-We have now [started this process](https://golang.org/issue/43651)
+We have now [started this process](/issue/43651)
 to add generics to a future version of Go.
 We invite substantive criticisms and comments, but please try to avoid
 repeating earlier comments, and please try to [avoid simple plus-one
-and minus-one comments](https://golang.org/wiki/NoPlusOne).
+and minus-one comments](/wiki/NoPlusOne).
 Instead, add thumbs-up/thumbs-down emoji reactions to comments with
 which you agree or disagree, or to the proposal as a whole.
 

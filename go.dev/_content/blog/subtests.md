@@ -15,8 +15,8 @@ summary: How to use Go 1.7's new subtests and sub-benchmarks.
 ## Introduction
 
 In Go 1.7, the `testing` package introduces a Run method on the
-[`T`](https://golang.org/pkg/testing/#T.Run) and
-[`B`](https://golang.org/pkg/testing/#B.Run) types
+[`T`](/pkg/testing/#T.Run) and
+[`B`](/pkg/testing/#B.Run) types
 that allows for the creation of subtests and sub-benchmarks.
 The introduction of subtests and sub-benchmarks enables better handling of
 failures, fine-grained control of which tests to run from the command line,
@@ -182,7 +182,7 @@ as clarified by the following sections.
 ## Running specific tests or benchmarks
 
 Both subtests and sub-benchmarks can be singled out on the command line using
-the [`-run` or `-bench` flag](https://golang.org/cmd/go/#hdr-Description_of_testing_flags).
+the [`-run` or `-bench` flag](/cmd/go/#hdr-Description_of_testing_flags).
 Both flags take a slash-separated list of regular expressions that match the
 corresponding parts of the full name of the subtest or sub-benchmark.
 

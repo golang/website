@@ -37,7 +37,7 @@ We expect almost all Go programs to continue to compile and run as before.
 The release <a href="#ports">adds a port to IBM LinuxOne</a>;
 <a href="#compiler">updates the x86-64 compiler back end</a> to generate more efficient code;
 includes the <a href="#context">context package</a>, promoted from the
-<a href="https://golang.org/x/net/context">x/net subrepository</a>
+<a href="/x/net/context">x/net subrepository</a>
 and now used in the standard library;
 and <a href="#testing">adds support in the testing package</a> for
 creating hierarchies of tests and benchmarks.
@@ -95,9 +95,9 @@ The OpenBSD port now requires OpenBSD 5.6 or later, for access to the <a href="h
 <p>
 There are some instabilities on FreeBSD that are known but not understood.
 These can lead to program crashes in rare cases.
-See <a href="https://golang.org/issue/16136">issue 16136</a>,
-<a href="https://golang.org/issue/15658">issue 15658</a>,
-and <a href="https://golang.org/issue/16396">issue 16396</a>.
+See <a href="/issue/16136">issue 16136</a>,
+<a href="/issue/15658">issue 15658</a>,
+and <a href="/issue/16396">issue 16396</a>.
 Any help in solving these FreeBSD-specific issues would be appreciated.
 </p>
 
@@ -139,7 +139,7 @@ and
 
 <p>
 This release includes a new code generation back end for 64-bit x86 systems,
-following a <a href="https://golang.org/s/go17ssa">proposal from 2015</a>
+following a <a href="/s/go17ssa">proposal from 2015</a>
 that has been under development since then.
 The new back end, based on
 <a href="https://en.wikipedia.org/wiki/Static_single_assignment_form">SSA</a>,
@@ -147,7 +147,7 @@ generates more compact, more efficient code
 and provides a better platform for optimizations
 such as bounds check elimination.
 The new back end reduces the CPU time required by
-<a href="https://golang.org/test/bench/go1/">our benchmark programs</a> by 5-35%.
+<a href="/test/bench/go1/">our benchmark programs</a> by 5-35%.
 </p>
 
 <p>
@@ -155,7 +155,7 @@ For this release, the new back end can be disabled by passing
 <code>-ssa=0</code> to the compiler.
 If you find that your program compiles or runs successfully
 only with the new back end disabled, please
-<a href="https://golang.org/issue/new">file a bug report</a>.
+<a href="/issue/new">file a bug report</a>.
 </p>
 
 <p>
@@ -170,7 +170,7 @@ For this release, the new export format can be disabled by passing
 <code>-newexport=0</code> to the compiler.
 If you find that your program compiles or runs successfully
 only with the new export format disabled, please
-<a href="https://golang.org/issue/new">file a bug report</a>.
+<a href="/issue/new">file a bug report</a>.
 </p>
 
 <p>
@@ -248,7 +248,7 @@ is unchanged, but there are a number of changes worth noting.
 <p>
 This release removes support for the <code>GO15VENDOREXPERIMENT</code> environment variable,
 as <a href="/doc/go1.6#go_command">announced</a> in the Go 1.6 release.
-<a href="https://golang.org/s/go15vendor">Vendoring support</a>
+<a href="/s/go15vendor">Vendoring support</a>
 is now a standard feature of the <code>go</code> command and toolchain.
 </p>
 

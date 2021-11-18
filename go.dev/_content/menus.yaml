@@ -38,17 +38,17 @@ footer:
     url: /about
     children:
     - name: Download
-      url: https://golang.org/dl/
+      url: /dl/
     - name: Blog
       url: /blog/
     - name: Issue Tracker
       url: https://github.com/golang/go/issues
     - name: Release Notes
-      url: https://golang.org/doc/devel/release.html
+      url: /doc/devel/release
     - name: Brand Guidelines
       url: https://blog.golang.org/go-brand
     - name: Code of Conduct
-      url: https://golang.org/conduct
+      url: /conduct
 
   - name: Connect
     url: https://www.twitter.com/golang

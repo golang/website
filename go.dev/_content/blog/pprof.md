@@ -90,7 +90,7 @@ point of this post is to explore how to use `go tool pprof`, not to reproduce th
 results from the paper.)
 
 To start tuning the Go program, we have to enable profiling.
-If the code used the [Go testing package](https://golang.org/pkg/testing/)'s
+If the code used the [Go testing package](/pkg/testing/)'s
 benchmarking support, we could use gotest's standard `-cpuprofile` and `-memprofile`
 flags.
 In a standalone program like this one, we have to import `runtime/pprof` and add a few
@@ -111,12 +111,12 @@ lines of code:
 	    ...
 
 The new code defines a flag named `cpuprofile`, calls the
-[Go flag library](https://golang.org/pkg/flag/) to parse the command line flags,
+[Go flag library](/pkg/flag/) to parse the command line flags,
 and then, if the `cpuprofile` flag has been set on the command line,
-[starts CPU profiling](https://golang.org/pkg/runtime/pprof/#StartCPUProfile)
+[starts CPU profiling](/pkg/runtime/pprof/#StartCPUProfile)
 redirected to that file.
 The profiler requires a final call to
-[`StopCPUProfile`](https://golang.org/pkg/runtime/pprof/#StopCPUProfile) to
+[`StopCPUProfile`](/pkg/runtime/pprof/#StopCPUProfile) to
 flush any pending writes to the file before the program exits; we use `defer`
 to make sure this happens as `main` returns.
 
@@ -650,9 +650,9 @@ by inner loops.
 The program sources, Linux x86-64 binaries, and profiles used to write this post
 are available in the [benchgraffiti project on GitHub](https://github.com/rsc/benchgraffiti/).
 
-As mentioned above, [`go test`](https://golang.org/cmd/go/#Test_packages) includes
+As mentioned above, [`go test`](/cmd/go/#Test_packages) includes
 these profiling flags already: define a
-[benchmark function](https://golang.org/pkg/testing/) and you're all set.
+[benchmark function](/pkg/testing/) and you're all set.
 There is also a standard HTTP interface to profiling data. In an HTTP server, adding
 
 	import _ "net/http/pprof"

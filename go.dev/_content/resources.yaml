@@ -33,13 +33,13 @@
     iconName: Code
     packages:
     - title: net/http
-      url: https://golang.org/pkg/net/http/
+      url: /pkg/net/http/
     - title: html/template
-      url: https://golang.org/pkg/html/template/
+      url: /pkg/html/template/
     - title: flosch/pongo2
       url: https://github.com/flosch/pongo2
     - title: database/sql
-      url: https://golang.org/pkg/database/sql/
+      url: /pkg/database/sql/
     - title: olivere/elastic
       url: https://github.com/olivere/elastic
   - title: DevOps & Site Reliability

@@ -49,12 +49,12 @@ each with significant incompatible changes.
 We observed significant acceleration in interest and adoption
 immediately after the release of Go 1.
 We believe that the
-[promise of compatibility](https://golang.org/doc/go1compat.html)
+[promise of compatibility](/doc/go1compat.html)
 made developers feel much more comfortable relying on
 Go for production use
 and is a key reason that Go is popular today.
 Since 2013 the
-[Go FAQ](https://golang.org/doc/faq#get_version)
+[Go FAQ](/doc/faq#get_version)
 has encouraged package developers to provide their own
 users with similar expectations of compatibility.
 We call this the _import compatibility rule_:
@@ -251,12 +251,12 @@ and
 enabling work outside `$GOPATH`
 and the elimination of (most) `vendor` directories.
 
-The result of all of this is the [official Go proposal](https://golang.org/design/24301-versioned-go),
+The result of all of this is the [official Go proposal](/design/24301-versioned-go),
 which I filed last week.
 Even though it might look like a complete implementation,
 it’s still just a prototype,
 one that we will all need to work together to complete.
-You can download and try the `vgo` prototype from [golang.org/x/vgo](https://golang.org/x/vgo),
+You can download and try the `vgo` prototype from [golang.org/x/vgo](/x/vgo),
 and you can read the
 [Tour of Versioned Go](https://research.swtch.com/vgo-tour)
 to get a sense of what using `vgo` is like.
@@ -270,11 +270,11 @@ The goal of the proposal feedback process is for us all to work together
 to identify and address the problems in the current proposal,
 to make sure that the final implementation that ships in a future
 Go release works well for as many developers as possible.
-Please point out problems on the [proposal discussion issue](https://golang.org/issue/24301).
+Please point out problems on the [proposal discussion issue](/issue/24301).
 I will keep the
-[discussion summary](https://golang.org/issue/24301#issuecomment-371228742)
+[discussion summary](/issue/24301#issuecomment-371228742)
 and
-[FAQ](https://golang.org/issue/24301#issuecomment-371228664)
+[FAQ](/issue/24301#issuecomment-371228664)
 updated as feedback arrives.
 
 For this proposal to succeed, the Go ecosystem as a

@@ -9,7 +9,7 @@ summary: GCC 4.7.1 adds support for Go 1.
 ---
 
 
-The Go language has always been defined by a [spec](https://golang.org/ref/spec),
+The Go language has always been defined by a [spec](/ref/spec),
 not an implementation.
 The Go team has written two different compilers that implement that spec: gc and gccgo.
 Having two different implementations helps ensure that the spec is complete and correct:

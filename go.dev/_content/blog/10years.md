@@ -87,7 +87,7 @@ with fantastic tooling,
 a production-quality implementation,
 a
 [state-of-the-art garbage collector](https://blog.golang.org/ismmkeynote),
-and [ports to 12 operating systems and 10 architectures](https://golang.org/doc/install/source#introduction).
+and [ports to 12 operating systems and 10 architectures](/doc/install/source#introduction).
 
 Any programming language needs the support of a thriving ecosystem.
 The open source release was the seed for that ecosystem,

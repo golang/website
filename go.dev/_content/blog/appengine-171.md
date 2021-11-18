@@ -29,7 +29,7 @@ now available to Go users.
 The new [appengine/image package](https://developers.google.com/appengine/docs/go/images/reference) supports serving
 images directly from Blobstore and resizing or cropping those images on the fly.
 Note that this is not the full image service as provided by the Python and Java SDKs,
-as much of the equivalent functionality is available in the [standard Go image package](https://golang.org/pkg/image/) and
+as much of the equivalent functionality is available in the [standard Go image package](/pkg/image/) and
 external packages such as [graphics-go](http://code.google.com/p/graphics-go/).
 
 The new [runtime.RunInBackground](https://developers.google.com/appengine/docs/go/backends/runtime#RunInBackground) function

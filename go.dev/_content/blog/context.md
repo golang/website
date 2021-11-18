@@ -27,7 +27,7 @@ At Google, we developed a `context` package that makes it easy to pass
 request-scoped values, cancelation signals, and deadlines across API boundaries
 to all the goroutines involved in handling a request.
 The package is publicly available as
-[context](https://golang.org/pkg/context).
+[context](/pkg/context).
 This article describes how to use the package and provides a complete working
 example.
 
@@ -38,7 +38,7 @@ The core of the `context` package is the `Context` type:
 {{code "context/interface.go" `/A Context/` `/^}/`}}
 
 (This description is condensed; the
-[godoc](https://golang.org/pkg/context) is authoritative.)
+[godoc](/pkg/context) is authoritative.)
 
 The `Done` method returns a channel that acts as a cancelation signal to
 functions running on behalf of the `Context`: when the channel is closed, the

@@ -25,7 +25,7 @@ For those who have been using the Go SDK already,
 please note that the 1.5.2 release introduces `api_version` 2.
 This is because the new SDK is based on Go `release.r58.1` (the current
 stable version of Go) and is not backwards compatible with the previous release.
-Existing apps may require changes as per the [r58 release notes](https://golang.org/doc/devel/release.html#r58).
+Existing apps may require changes as per the [r58 release notes](/doc/devel/release.html#r58).
 Once you've updated your code, you should redeploy your app with the line
 `api_version: 2` in its `app.yaml` file.
 Apps written against `api_version` 1 will stop working after the 18th of August.

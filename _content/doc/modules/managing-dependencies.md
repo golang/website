@@ -501,7 +501,7 @@ GOPROXY="https://proxy.golang.org,direct"
 
 For more about the `GOPROXY` environment variable, including values to support
 other behavior, see the [`go` command
-reference](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification).
+reference](/cmd/go/#hdr-Module_downloading_and_verification).
 
 You can set the variable to URLs for other module proxy servers, separating URLs
 with either a comma or a pipe.

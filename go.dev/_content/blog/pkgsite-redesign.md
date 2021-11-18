@@ -15,7 +15,7 @@ users when navigating the site.
 Today we’re excited to share a redesigned pkg.go.dev,
 which we hope will be clearer and more helpful.
 This blog post presents the highlights. For details,
-see [Go issue 41585](https://golang.org/issue/41585).
+see [Go issue 41585](/issue/41585).
 
 ## Consistent landing page for all paths
 
@@ -55,14 +55,14 @@ to search for identifiers.
   </figcaption>
 </figure>
 
-See [Go issue 41587](https://golang.org/issue/41587) for details on changes in the documentation section.
+See [Go issue 41587](/issue/41587) for details on changes in the documentation section.
 
 ## Metadata on main page
 
 The top bar on each page now shows additional metadata,
 such as each package’s “imports” and “imported by” counts.
 Banners also show information about the latest minor and major versions of a module.
-See [Go issue 41588](https://golang.org/issue/41588) for details.
+See [Go issue 41588](/issue/41588) for details.
 
 <figure class="image">
   <img src="pkgsite-redesign/meta.png" width="800" alt="Header metadata for github.com/russross/blackfriday" style="border: 1px solid black;">

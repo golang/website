@@ -10,7 +10,7 @@ summary: Announcement of VS Code Go’s move to the Go project.
 When the Go project began, “an overarching goal was that Go do more to help the
 working programmer by enabling tooling, automating mundane tasks such as code
 formatting, and removing obstacles to working on large code bases”
-([Go FAQ](https://golang.org/doc/faq#What_is_the_purpose_of_the_project)).
+([Go FAQ](/doc/faq#What_is_the_purpose_of_the_project)).
 Today, more than a decade later, we continue to be guided by that same goal,
 especially as it pertains to the programmer’s most critical tool: their editor.
 
@@ -31,7 +31,7 @@ help the Go extension maintainers. The Go team also began a new initiative to
 improve the tools powering all Go editor extensions, with a focus on supporting
 the
 [Language Server Protocol](https://microsoft.github.io/language-server-protocol/)
-with [`gopls`](https://golang.org/s/gopls) and
+with [`gopls`](/s/gopls) and
 [the Debug Adapter Protocol with Delve](https://github.com/go-delve/delve/issues/1515).
 
 Through this collaborative work between the VS Code and Go teams, we realized
@@ -58,7 +58,7 @@ Please continue to share your thoughts with us by filing
 [issues](https://github.com/golang/vscode-go/issues) and making
 [contributions](https://github.com/golang/vscode-go/blob/master/docs/contributing.md)
 to the project. The process for contributing will now be the same as for the
-[rest of the Go project](https://golang.org/doc/contribute.html). Go team
+[rest of the Go project](/doc/contribute.html). Go team
 members will offer general help in the #vscode channel on
 [Gophers Slack](https://invite.slack.golangbridge.org/), and we’ve also created
 a #vscode-dev channel to discuss issues and brainstorm ideas with contributors.

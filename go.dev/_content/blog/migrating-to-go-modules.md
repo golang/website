@@ -21,11 +21,11 @@ This post is part 2 in a series.
   - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation, see
-[Managing dependencies](https://golang.org/doc/modules/managing-dependencies)
-and [Developing and publishing modules](https://golang.org/doc/modules/developing).
+[Managing dependencies](/doc/modules/managing-dependencies)
+and [Developing and publishing modules](/doc/modules/developing).
 
 Go projects use a wide variety of dependency management strategies.
-[Vendoring](https://golang.org/cmd/go/#hdr-Vendor_Directories) tools such
+[Vendoring](/cmd/go/#hdr-Vendor_Directories) tools such
 as [dep](https://github.com/golang/dep) and [glide](https://github.com/Masterminds/glide) are popular,
 but they have wide differences in behavior and don't always work well together.
 Some projects store their entire GOPATH directory in a single Git repository.
@@ -170,7 +170,7 @@ For a Go project without a dependency management system, start by creating a `go
 Without a configuration file from a previous dependency manager,
 `go mod init` will create a `go.mod` file with only the `module` and `go` directives.
 In this example, we set the module path to `golang.org/x/blog` because that
-is its [custom import path](https://golang.org/cmd/go/#hdr-Remote_import_paths).
+is its [custom import path](/cmd/go/#hdr-Remote_import_paths).
 Users may import packages with this path,
 and we must be careful not to change it.
 
@@ -268,7 +268,7 @@ or set `GO111MODULE=off` explicitly.
 Finally, you should tag and publish a release version for your new module.
 This is optional if you haven't released any versions yet,
 but without an official release, downstream users will depend on specific
-commits using [pseudo-versions](https://golang.org/cmd/go/#hdr-Pseudo_versions),
+commits using [pseudo-versions](/cmd/go/#hdr-Pseudo_versions),
 which may be more difficult to support.
 
 	$ git tag v1.2.0
@@ -289,14 +289,14 @@ Each module declares its module path in its `go.mod` file.
 Each `import` statement that refers to a package within the module must
 have the module path as a prefix of the package path.
 However, the `go` command may encounter a repository containing the module
-through many different [remote import paths](https://golang.org/cmd/go/#hdr-Remote_import_paths).
+through many different [remote import paths](/cmd/go/#hdr-Remote_import_paths).
 For example, both `golang.org/x/lint` and `github.com/golang/lint` resolve
 to repositories containing the code hosted at [go.googlesource.com/lint](https://go.googlesource.com/lint).
 The [`go.mod` file](https://go.googlesource.com/lint/+/refs/heads/master/go.mod)
 contained in that repository declares its path to be `golang.org/x/lint`,
 so only that path corresponds to a valid module.
 
-Go 1.4 provided a mechanism for declaring canonical import paths using [`// import` comments](https://golang.org/cmd/go/#hdr-Import_path_checking),
+Go 1.4 provided a mechanism for declaring canonical import paths using [`// import` comments](/cmd/go/#hdr-Import_path_checking),
 but package authors did not always provide them.
 As a result, code written prior to modules may have used a non-canonical
 import path for a module without surfacing an error for the mismatch.
@@ -324,6 +324,6 @@ Future posts will explore [publishing new versions](/blog/publishing-go-modules)
 v2 and beyond, and ways to debug strange situations.
 
 To provide feedback and help shape the future of dependency management in Go,
-please send us [bug reports](https://golang.org/issue/new) or [experience reports](https://golang.org/wiki/ExperienceReports).
+please send us [bug reports](/issue/new) or [experience reports](/wiki/ExperienceReports).
 
 Thanks for all your feedback and help improving modules.

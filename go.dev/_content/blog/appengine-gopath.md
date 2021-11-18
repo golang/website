@@ -12,16 +12,16 @@ summary: App Engine SDK 1.7.4 adds support for GOPATH-style workspaces.
 
 ## Introduction
 
-When we released Go 1 we introduced the [go tool](https://golang.org/cmd/go/) and,
+When we released Go 1 we introduced the [go tool](/cmd/go/) and,
 with it, the concept of workspaces.
 Workspaces (specified by the GOPATH environment variable) are a convention
 for organizing code that simplifies fetching,
 building, and installing Go packages.
-If you're not familiar with workspaces, please read [this article](https://golang.org/doc/code.html)
+If you're not familiar with workspaces, please read [this article](/doc/code.html)
 or watch [this screencast](http://www.youtube.com/watch?v=XCsL89YtqCs) before reading on.
 
 Until recently, the tools in the App Engine SDK were not aware of workspaces.
-Without workspaces the "[go get](https://golang.org/cmd/go/#hdr-Download_and_install_packages_and_dependencies)"
+Without workspaces the "[go get](/cmd/go/#hdr-Download_and_install_packages_and_dependencies)"
 command cannot function,
 and so app authors had to install and update their app dependencies manually. It was a pain.
 
@@ -52,22 +52,22 @@ the tools will find the oauth package in your workspace. It just works.
 
 ## Hybrid stand-alone/App Engine apps
 
-The Go App Engine SDK builds on Go's standard [net/http](https://golang.org/pkg/net/http/)
+The Go App Engine SDK builds on Go's standard [net/http](/pkg/net/http/)
 package to serve web requests and,
 as a result, many Go web servers can be run on App Engine with only a few changes.
-For example, [godoc](https://golang.org/cmd/godoc/) is included in the
+For example, [godoc](/cmd/godoc/) is included in the
 Go distribution as a stand-alone program,
-but it can also run as an App Engine app (godoc serves [golang.org](https://golang.org/) from App Engine).
+but it can also run as an App Engine app (godoc serves [golang.org](/) from App Engine).
 
 But wouldn't it be nice if you could write a program that is both a stand-alone
-web server and an App Engine app? By using [build constraints](https://golang.org/pkg/go/build/#hdr-Build_Constraints), you can.
+web server and an App Engine app? By using [build constraints](/pkg/go/build/#hdr-Build_Constraints), you can.
 
 Build constraints are line comments that determine whether a file should
 be included in a package.
 They are most often used in code that handles a variety of operating systems
 or processor architectures.
-For instance, the [path/filepath](https://golang.org/pkg/path/filepath/)
-package includes the file [symlink.go](https://golang.org/src/pkg/path/filepath/symlink.go),
+For instance, the [path/filepath](/pkg/path/filepath/)
+package includes the file [symlink.go](/src/pkg/path/filepath/symlink.go),
 which specifies a build constraint to ensure that it is not built on Windows
 systems (which do not have symbolic links):
 
@@ -87,9 +87,9 @@ The [goprotobuf](http://code.google.com/p/goprotobuf/) library uses this
 mechanism to provide two implementations of a key part of its encode/decode machinery:
 [pointer\_unsafe.go](http://code.google.com/p/goprotobuf/source/browse/proto/pointer_unsafe.go)
 is the faster version that cannot be used on App Engine because it uses
-the [unsafe package](https://golang.org/pkg/unsafe/),
+the [unsafe package](/pkg/unsafe/),
 while [pointer\_reflect.go](http://code.google.com/p/goprotobuf/source/browse/proto/pointer_reflect.go)
-is a slower version that avoids unsafe by using the [reflect package](https://golang.org/pkg/reflect/) instead.
+is a slower version that avoids unsafe by using the [reflect package](/pkg/reflect/) instead.
 
 Let's take a simple Go web server and turn it into a hybrid app. This is main.go:
 

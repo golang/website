@@ -92,7 +92,7 @@ the interfaces in the standard library.
 For instance, it would be nice if `io.Reader` accepted a context so that
 blocking read operations could be canceled.
 
-More [experience reports](https://golang.org/wiki/experiencereports) are
+More [experience reports](/wiki/experiencereports) are
 necessary before we can determine what will change in the standard library.
 
 ### Tooling and editors
@@ -133,7 +133,7 @@ These discussions had more specific goals.
 For example, one group worked on identifying the useful parts of an experience
 report and a list of existing literature documenting Go user experiences,
 resulting in the experience report
-[wiki page](https://golang.org/wiki/experiencereports).
+[wiki page](/wiki/experiencereports).
 
 Another group considered the future of errors in Go.
 Many Go users are initially confused by, or don't understand the fact that

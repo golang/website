@@ -44,10 +44,10 @@ Here is the interface's declaration:
 	}
 
 The `error` type, as with all built in types,
-is [predeclared](https://golang.org/doc/go_spec.html#Predeclared_identifiers)
-in the [universe block](https://golang.org/doc/go_spec.html#Blocks).
+is [predeclared](/doc/go_spec.html#Predeclared_identifiers)
+in the [universe block](/doc/go_spec.html#Blocks).
 
-The most commonly-used `error` implementation is the [errors](https://golang.org/pkg/errors/)
+The most commonly-used `error` implementation is the [errors](/pkg/errors/)
 package's unexported `errorString` type.
 
 	// errorString is a trivial implementation of error.
@@ -90,7 +90,7 @@ or by just printing it:
 	    fmt.Println(err)
 	}
 
-The [fmt](https://golang.org/pkg/fmt/) package formats an `error` value by calling its `Error() string` method.
+The [fmt](/pkg/fmt/) package formats an `error` value by calling its `Error() string` method.
 
 It is the error implementation's responsibility to summarize the context.
 The error returned by `os.Open` formats as "open /etc/passwd:
@@ -122,12 +122,12 @@ We can enable that by defining a new error implementation instead of using
 	    return fmt.Sprintf("math: square root of negative number %g", float64(f))
 	}
 
-A sophisticated caller can then use a [type assertion](https://golang.org/doc/go_spec.html#Type_assertions)
+A sophisticated caller can then use a [type assertion](/doc/go_spec.html#Type_assertions)
 to check for a `NegativeSqrtError` and handle it specially,
 while callers that just pass the error to `fmt.Println` or `log.Fatal` will
 see no change in behavior.
 
-As another example, the [json](https://golang.org/pkg/encoding/json/)
+As another example, the [json](/pkg/encoding/json/)
 package specifies a `SyntaxError` type that the `json.Decode` function returns
 when it encounters a syntax error parsing a JSON blob.
 
@@ -154,7 +154,7 @@ from the [Camlistore](http://camlistore.org) project.)
 
 The `error` interface requires only a `Error` method;
 specific error implementations might have additional methods.
-For instance, the [net](https://golang.org/pkg/net/) package returns errors of type `error`,
+For instance, the [net](/pkg/net/) package returns errors of type `error`,
 following the usual convention, but some of the error implementations have
 additional methods defined by the `net.Error` interface:
 
@@ -233,7 +233,7 @@ Then we can change our `viewRecord` function to return errors:
 	}
 
 This is simpler than the original version,
-but the [http](https://golang.org/pkg/net/http/) package doesn't understand
+but the [http](/pkg/net/http/) package doesn't understand
 functions that return `error`.
 To fix this we can implement the `http.Handler` interface's `ServeHTTP`
 method on `appHandler`:
@@ -277,7 +277,7 @@ Next we modify the appHandler type to return `*appError` values:
 	type appHandler func(http.ResponseWriter, *http.Request) *appError
 
 (It's usually a mistake to pass back the concrete type of an error rather than `error`,
-for reasons discussed in [the Go FAQ](https://golang.org/doc/go_faq.html#nil_error),
+for reasons discussed in [the Go FAQ](/doc/go_faq.html#nil_error),
 but it's the right thing to do here because `ServeHTTP` is the only place
 that sees the value and uses its contents.)
 
@@ -325,7 +325,7 @@ It doesn't end there; we can further improve the error handling in our applicati
     logging the error to the console as "Critical," while telling the user "a
     serious error has occurred." This is a nice touch to avoid exposing the
     user to inscrutable error messages caused by programming errors.
-    See the [Defer, Panic, and Recover](https://golang.org/doc/articles/defer_panic_recover.html)
+    See the [Defer, Panic, and Recover](/doc/articles/defer_panic_recover.html)
     article for more details.
 
 ## Conclusion

@@ -199,13 +199,13 @@ This modified program will output:
 	[stack trace omitted]
 
 For a real-world example of **panic** and **recover**,
-see the [json package](https://golang.org/pkg/encoding/json/) from the
+see the [json package](/pkg/encoding/json/) from the
 Go standard library.
 It encodes an interface with a set of recursive functions.
 If an error occurs when traversing the value,
 panic is called to unwind the stack to the top-level function call,
 which recovers from the panic and returns an appropriate error value (see
-the 'error' and 'marshal' methods of the encodeState type in [encode.go](https://golang.org/src/pkg/encoding/json/encode.go)).
+the 'error' and 'marshal' methods of the encodeState type in [encode.go](/src/pkg/encoding/json/encode.go)).
 
 The convention in the Go libraries is that even when a package uses panic internally,
 its external API still presents explicit error return values.

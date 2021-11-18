@@ -46,7 +46,7 @@ renowned for being difficult.
 
 The standard packages in Go were another big win for Doozer.
 The Go team is very pragmatic about what goes into them.
-For instance, a package we quickly found useful was [websocket](https://golang.org/pkg/websocket/).
+For instance, a package we quickly found useful was [websocket](/pkg/websocket/).
 Once we had a working data store, we needed an easy way to introspect it
 and visualize activity.
 Using the websocket package, Keith was able to add the web viewer on his
@@ -54,7 +54,7 @@ train ride home and without requiring external dependencies.
 This is a real testament to how well Go mixes systems and application programming.
 
 One of our favorite productivity gains was provided by Go's source formatter:
-[gofmt](https://golang.org/cmd/gofmt/).
+[gofmt](/cmd/gofmt/).
 We never argued over where to put a curly-brace,
 tabs vs. spaces, or if we should align assignments.
 We simply agreed that the buck stopped at the default output from gofmt.

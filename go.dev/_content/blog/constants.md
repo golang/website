@@ -229,7 +229,7 @@ It does, however, have a default type that is exposed when, and only when, no ot
 
 The default type of an untyped constant is determined by its syntax.
 For string constants, the only possible implicit type is `string`.
-For [numeric constants](https://golang.org/ref/spec#Numeric_types), the implicit type has more variety.
+For [numeric constants](/ref/spec#Numeric_types), the implicit type has more variety.
 Integer constants default to `int`, floating-point constants `float64`,
 rune constants to `rune` (an alias for `int32`),
 and imaginary constants to `complex128`.
@@ -287,7 +287,7 @@ prints `10`, as one would expect.
 
 In a related way, floating-point constants may have very high precision,
 so that arithmetic involving them is more accurate.
-The constants defined in the [math](https://golang.org/pkg/math) package are given with many more digits than are
+The constants defined in the [math](/pkg/math) package are given with many more digits than are
 available in a `float64`. Here is the definition of `math.Pi`:
 
 	Pi	= 3.14159265358979323846264338327950288419716939937510582097494459
@@ -349,7 +349,7 @@ This ability for a constant to "cross" types like this will prove useful.
 ## Integers
 
 At last we come to integers.
-They have more moving parts—[many sizes, signed or unsigned, and more](https://golang.org/ref/spec#Numeric_types)—but
+They have more moving parts—[many sizes, signed or unsigned, and more](/ref/spec#Numeric_types)—but
 they play by the same rules.
 For the last time, here is our familiar example, using just `int` this time:
 
@@ -430,7 +430,7 @@ A conversion won't help either, for the same reason:
 {{play "constants/exercise2.go" `/const/`}}
 
 Even though at run-time a value of -1 can be converted to an unsigned integer, the rules
-for constant [conversions](https://golang.org/ref/spec#Conversions) forbid this kind of coercion at compile time.
+for constant [conversions](/ref/spec#Conversions) forbid this kind of coercion at compile time.
 That is to say, this works:
 
 {{play "constants/exercise3.go" `/START/` `/STOP/`}}

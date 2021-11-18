@@ -40,20 +40,20 @@ with the new process, rather than tackling big issues.
 
 Our
 [original list of proposals](https://blog.golang.org/go2-here-we-come) –
-[general Unicode identifiers](https://golang.org/issue/20706),
-[binary integer literals](https://golang.org/issue/19308),
-[separators for number literals](https://golang.org/issue/28493),
-[signed integer shift counts](https://golang.org/issue/19113) –
+[general Unicode identifiers](/issue/20706),
+[binary integer literals](/issue/19308),
+[separators for number literals](/issue/28493),
+[signed integer shift counts](/issue/19113) –
 got both trimmed and expanded.
 The general Unicode identifiers didn’t make the cut
 as we didn’t have a concrete design document in place in time.
 The proposal for binary integer literals was expanded significantly
 and led to a comprehensive overhaul and modernization of
-[Go’s number literal syntax](https://golang.org/design/19308-number-literals).
+[Go’s number literal syntax](/design/19308-number-literals).
 And we added the Go 2 draft design proposal on
-[error inspection](https://golang.org/design/go2draft-error-inspection),
+[error inspection](/design/go2draft-error-inspection),
 which has been
-[partially accepted](https://golang.org/issue/29934#issuecomment-489682919).
+[partially accepted](/issue/29934#issuecomment-489682919).
 
 With these initial changes in place for Go 1.13,
 it’s now time to look forward to Go 1.14
@@ -72,7 +72,7 @@ With Go module support getting increasingly stronger,
 support for package and version management is being addressed.
 This leaves better error handling support and generics.
 We have been working on both of these and presented
-[draft designs](https://golang.org/design/go2draft)
+[draft designs](/design/go2draft)
 at last year’s GopherCon in Denver.
 Since then we have been iterating those designs.
 For error handling, we have published a concrete,
@@ -87,9 +87,9 @@ We also want to continue with smaller
 improvements to the language.
 For Go 1.14, we have selected the following proposals:
 
-[\#32437](https://golang.org/issue/32437).
+[\#32437](/issue/32437).
 A built-in Go error check function, “try”
-([design doc](https://golang.org/design/32437-try-builtin)).
+([design doc](/design/32437-try-builtin)).
 
 This is our concrete proposal for improved error handling.
 While the proposed, fully backwards-compatible language extension
@@ -97,20 +97,20 @@ is minimal, we expect an outsize impact on error handling code.
 This proposal has already attracted an enormous amount of comments,
 and it’s not easy to follow up.
 We recommend starting with the
-[initial comment](https://golang.org/issue/32437#issue-452239211)
+[initial comment](/issue/32437#issue-452239211)
 for a quick outline and then to read the detailed design doc.
 The initial comment contains a couple of links leading to summaries
 of the feedback so far.
 Please follow the feedback recommendations
 (see the “Next steps” section below) before posting.
 
-[\#6977](https://golang.org/issue/6977).
+[\#6977](/issue/6977).
 Allow embedding overlapping interfaces
-([design doc](https://golang.org/design/6977-overlapping-interfaces)).
+([design doc](/design/6977-overlapping-interfaces)).
 
 This is an old, backwards-compatible proposal for making interface embedding more tolerant.
 
-[\#32479](https://golang.org/issue/32479) Diagnose `string(int)` conversion in `go vet`.
+[\#32479](/issue/32479) Diagnose `string(int)` conversion in `go vet`.
 
 The `string(int)` conversion was introduced early in Go for convenience,
 but it is confusing to newcomers (`string(10)` is `"\n"` not `"10"`)
@@ -119,13 +119,13 @@ in the `unicode/utf8` package.
 Since removing this conversion is not a backwards-compatible change,
 we propose to start with a `vet` error instead.
 
-[\#32466](https://golang.org/issue/32466) Adopt crypto principles
-([design doc](https://golang.org/design/cryptography-principles)).
+[\#32466](/issue/32466) Adopt crypto principles
+([design doc](/design/cryptography-principles)).
 
 This is a request for feedback on a set of design principles for
 cryptographic libraries that we would like to adopt.
 See also the related
-[proposal to remove SSLv3 support](https://golang.org/issue/32716)
+[proposal to remove SSLv3 support](/issue/32716)
 from `crypto/tls`.
 
 ## Next steps
@@ -148,7 +148,7 @@ Unless there are strong reasons to not even proceed into the
 experimental phase with a given proposal,
 we are planning to have all these implemented at the
 start of the
-[Go 1.14 cycle](https://golang.org/wiki/Go-Release-Cycle)
+[Go 1.14 cycle](/wiki/Go-Release-Cycle)
 (beginning of August, 2019)
 so that they can be evaluated in practice.
 Per the

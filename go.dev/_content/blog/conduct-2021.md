@@ -8,8 +8,8 @@ by:
 summary: A small update to, and an update on enforcement of, the Go Code of Conduct
 ---
 
-Although the details of [our Code of Conduct](https://golang.org/conduct) have been
-[adjusted](https://go.dev/blog/conduct-2018) over time, [our goals](https://go.dev/blog/open-source#code-of-conduct) have not.
+Although the details of [our Code of Conduct](/conduct) have been
+[adjusted](/blog/conduct-2018) over time, [our goals](/blog/open-source#code-of-conduct) have not.
 We want the Go community to be as inclusive, welcoming, helpful, and respectful as possible.
 If you want to use or discuss Go, we want you to feel welcome here.
 
@@ -32,7 +32,7 @@ Those behaviors can be reported to the Project Steward,
 who works with a committee from Google’s Open Source Programs Office
 to determine what to do about each report.
 
-Since the [May 2018 revision to the Code of Conduct](https://go.dev/blog/conduct-2018), community members have submitted more than 300 conduct reports,
+Since the [May 2018 revision to the Code of Conduct](/blog/conduct-2018), community members have submitted more than 300 conduct reports,
 an average between one and two a week.
 A typical outcome is to meet with the person whose conduct was reported
 and help them understand how to take responsibility for and correct their actions moving forward.
@@ -86,7 +86,7 @@ We aspire to be far more welcoming than the internet overall.
 To this end, we are adding one more Gopher value to the Code of Conduct:
 “Be responsible.”
 
-The entire “[Gopher Values](https://golang.org/conduct#values)”
+The entire “[Gopher Values](/conduct#values)”
 section of the Code of Conduct now reads:
 
   - **Be friendly and welcoming.**

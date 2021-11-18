@@ -46,7 +46,7 @@ which represent fixed sets of methods.
 An interface variable can store any concrete (non-interface) value as long
 as that value implements the interface's methods.
 A well-known pair of examples is `io.Reader` and `io.Writer`,
-the types `Reader` and `Writer` from the [io package](https://golang.org/pkg/io/):
+the types `Reader` and `Writer` from the [io package](/pkg/io/):
 
 	// Reader is the interface that wraps the basic Read method.
 	type Reader interface {
@@ -153,8 +153,8 @@ Now we're ready to reflect.
 
 At the basic level, reflection is just a mechanism to examine the type and
 value pair stored inside an interface variable.
-To get started, there are two types we need to know about in [package reflect](https://golang.org/pkg/reflect/):
-[Type](https://golang.org/pkg/reflect/#Type) and [Value](https://golang.org/pkg/reflect/#Value).
+To get started, there are two types we need to know about in [package reflect](/pkg/reflect/):
+[Type](/pkg/reflect/#Type) and [Value](/pkg/reflect/#Value).
 Those two types give access to the contents of an interface variable,
 and two simple functions, called `reflect.TypeOf` and `reflect.ValueOf`,
 retrieve `reflect.Type` and `reflect.Value` pieces out of an interface value.
@@ -182,7 +182,7 @@ This program prints
 You might be wondering where the interface is here,
 since the program looks like it's passing the `float64` variable `x`,
 not an interface value, to `reflect.TypeOf`.
-But it's there; as [godoc reports](https://golang.org/pkg/reflect/#TypeOf),
+But it's there; as [godoc reports](/pkg/reflect/#TypeOf),
 the signature of `reflect.TypeOf` includes an empty interface:
 
 	// TypeOf returns the reflection Type of the value in the interface{}.
@@ -435,7 +435,7 @@ Here's a simple example that analyzes a struct value, `t`.
 We create the reflection object with the address of the struct because we'll
 want to modify it later.
 Then we set `typeOfT` to its type and iterate over the fields using straightforward
-method calls (see [package reflect](https://golang.org/pkg/reflect/) for details).
+method calls (see [package reflect](/pkg/reflect/) for details).
 Note that we extract the names of the fields from the struct type,
 but the fields themselves are regular `reflect.Value` objects.
 

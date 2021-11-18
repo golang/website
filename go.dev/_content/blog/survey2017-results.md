@@ -60,10 +60,10 @@ clearly conveyed that lack of dependency management and lack of generics were
 their two biggest issues, consistent with 2016. In 2017 we laid a foundation to
 be able to address these issues. We improved our proposal and development
 process with the addition of
-[Experience Reports](https://golang.org/wiki/ExperienceReports) which is
+[Experience Reports](/wiki/ExperienceReports) which is
 enabling the project to gather and obtain feedback critical to making these
 significant changes. We also made
-[sigificant changes](https://golang.org/doc/go1.10#build) under the hood in
+[sigificant changes](/doc/go1.10#build) under the hood in
 how Go obtains, and builds packages. This is foundational work essential to
 addressing our dependency management needs.
 

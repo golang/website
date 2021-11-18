@@ -19,7 +19,7 @@ program output.
 If you're a Go programmer then you have probably already used the playground
 by using the [Go Playground](https://play.golang.org) directly,
 taking the [Go Tour](https://tour.golang.org),
-or running [executable examples](https://golang.org/pkg/strings/#pkg-examples)
+or running [executable examples](/pkg/strings/#pkg-examples)
 from the Go documentation.
 
 You may also have used it by clicking one of the "Run" buttons in a slide
@@ -62,7 +62,7 @@ x86 programs inside web browsers. The back end uses a special version of the gc
 tool chain that generates NaCl executables.
 
 (This special tool chain was merged into Go 1.3.
-To learn more, read the [design document](https://golang.org/s/go13nacl).)
+To learn more, read the [design document](/s/go13nacl).)
 
 NaCl limits the amount of CPU and RAM a program may consume, and it prevents
 programs from accessing the network or file system.
@@ -98,8 +98,8 @@ predictable and defends us against denial of service attacks.
 But these restrictions become stifling when running code that uses time.
 The [Go Concurrency Patterns](https://talks.golang.org/2012/concurrency.slide)
 talk demonstrates concurrency with examples that use timing functions like
-[`time.Sleep`](https://golang.org/pkg/time/#Sleep) and
-[`time.After`](https://golang.org/pkg/time/#After).
+[`time.Sleep`](/pkg/time/#Sleep) and
+[`time.After`](/pkg/time/#After).
 When run under early versions of the playground, these programs' sleeps would
 have no effect and their behavior would be strange (and sometimes wrong).
 
@@ -127,8 +127,8 @@ earliest timer and then wakes the timer goroutine. Execution continues and the
 program believes that time has passed, when in fact the sleep was nearly
 instantaneous.
 
-These changes to the scheduler can be found in [`proc.c`](https://golang.org/cl/73110043)
-and [`time.goc`](https://golang.org/cl/73110043).
+These changes to the scheduler can be found in [`proc.c`](/cl/73110043)
+and [`time.goc`](/cl/73110043).
 
 Fake time fixes the issue of resource exhaustion on the back end, but what
 about the program output? It would be odd to see a program that sleeps run to
@@ -287,7 +287,7 @@ When the front end receives a compilation request it first checks
 to see if it has cached the results of a previous compilation of that source.
 If found, it returns the cached response.
 The cache prevents popular programs such as those on the
-[Go home page](https://golang.org/) from overloading the back ends.
+[Go home page](/) from overloading the back ends.
 If there is no cached response, the front end makes an RPC request to the back
 end, stores the response in memcache, parses the playback events, and returns
 a JSON object to the client as the HTTP response (as described above).

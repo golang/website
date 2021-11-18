@@ -7,7 +7,7 @@ summary: How to decide if your programs are vulnerable to PATH problems, and wha
 ---
 
 
-Today’s [Go security release](https://golang.org/s/go-security-release-jan-2021)
+Today’s [Go security release](/s/go-security-release-jan-2021)
 fixes an issue involving PATH lookups in untrusted directories
 that can lead to remote execution during the `go` `get` command.
 We expect people to have questions about what exactly this means
@@ -168,7 +168,7 @@ as Windows users.
 (If that describes you, today is a good day to remove dot from your path
 and to start using Go modules.)
 
-(Thanks to [RyotaK](https://twitter.com/ryotkak) for [reporting this issue](https://golang.org/security) to us.)
+(Thanks to [RyotaK](https://twitter.com/ryotkak) for [reporting this issue](/security) to us.)
 
 ## The Fixes
 
@@ -270,7 +270,7 @@ and recompiling.
 ## Securing os/exec by default
 
 We have been discussing on
-[golang.org/issue/38736](https://golang.org/issue/38736)
+[golang.org/issue/38736](/issue/38736)
 whether the Windows behavior of always preferring the current directory
 in PATH lookups (during `exec.Command` and `exec.LookPath`)
 should be changed.
@@ -298,4 +298,4 @@ For programs that do change behavior, this error should make very clear what has
 Programs that intend to run a program from the current directory can use
 `exec.Command("./prog")` instead (that syntax works on all systems, even Windows).
 
-We have filed this idea as a new proposal, [golang.org/issue/43724](https://golang.org/issue/43724).
+We have filed this idea as a new proposal, [golang.org/issue/43724](/issue/43724).

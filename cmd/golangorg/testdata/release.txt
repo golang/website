@@ -68,7 +68,7 @@ trimbody contains
 	fixes to the <code>net/http</code> and <code>syscall</code> packages.
 	It also fixes an issue on macOS 10.15 Catalina
 	where the non-notarized installer and binaries were being
-	<a href="https://golang.org/issue/34986">rejected by Gatekeeper</a>.
+	<a href="/issue/34986">rejected by Gatekeeper</a>.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.4+label%3ACherryPickApproved">Go 1.13.4 milestone</a>
 	on our issue tracker for details.
@@ -167,7 +167,7 @@ trimbody contains
 	(released 2019-04-11)
 	fixes an issue where using the prebuilt binary
 	releases on older versions of GNU/Linux
-	<a href="https://golang.org/issues/31293">led to failures</a>
+	<a href="/issues/31293">led to failures</a>
 	when linking programs that used cgo.
 	Only Linux users who hit this issue need to update.
 	</p>
@@ -251,7 +251,7 @@ trimbody contains
 	(released 2019-10-31)
 	fixes an issue on macOS 10.15 Catalina
 	where the non-notarized installer and binaries were being
-	<a href="https://golang.org/issue/34986">rejected by Gatekeeper</a>.
+	<a href="/issue/34986">rejected by Gatekeeper</a>.
 	Only macOS users who hit this issue need to update.
 	</p>
 	<p>
@@ -381,7 +381,7 @@ trimbody contains
 	(released 2019-04-11)
 	fixes an issue where using the prebuilt binary
 	releases on older versions of GNU/Linux
-	<a href="https://golang.org/issues/31293">led to failures</a>
+	<a href="/issues/31293">led to failures</a>
 	when linking programs that used cgo.
 	Only Linux users who hit this issue need to update.
 	</p>
@@ -737,7 +737,7 @@ trimbody contains
 	<p>
 	go1.5.3 (released 2016-01-13) includes a security fix to the <code>math/big</code> package
 	affecting the <code>crypto/tls</code> package.
-	See the <a href="https://golang.org/s/go153announce">release announcement</a> for details.
+	See the <a href="/s/go153announce">release announcement</a> for details.
 	</p>
 	<p>
 	go1.5.4 (released 2016-04-12) includes two security fixes.
@@ -813,8 +813,8 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/commits/go1.1.2">change history</a> for details.
 	If you use package syscall's <code>Getrlimit</code> and <code>Setrlimit</code>
 	functions under Linux on the ARM or 386 architectures, please note change
-	<a href="//golang.org/cl/11803043">11803043</a>
-	that fixes <a href="//golang.org/issue/5949">issue 5949</a>.
+	<a href="/cl/11803043">11803043</a>
+	that fixes <a href="/issue/5949">issue 5949</a>.
 	</p>
 	<h2 id="go1">go1 (released 2012-03-28)</h2>
 	<p>
@@ -834,16 +834,16 @@ trimbody contains
 	<h3 id="go1.minor">Minor revisions</h3>
 	<p>
 	go1.0.1 (released 2012-04-25) was issued to
-	<a href="//golang.org/cl/6061043">fix</a> an
-	<a href="//golang.org/issue/3545">escape analysis bug</a>
+	<a href="/cl/6061043">fix</a> an
+	<a href="/issue/3545">escape analysis bug</a>
 	that can lead to memory corruption.
 	It also includes several minor code and documentation fixes.
 	</p>
 	<p>
 	go1.0.2 (released 2012-06-13) was issued to fix two bugs in the implementation
 	of maps using struct or array keys:
-	<a href="//golang.org/issue/3695">issue 3695</a> and
-	<a href="//golang.org/issue/3573">issue 3573</a>.
+	<a href="/issue/3695">issue 3695</a> and
+	<a href="/issue/3573">issue 3573</a>.
 	It also includes many minor code and documentation fixes.
 	</p>
 	<p>

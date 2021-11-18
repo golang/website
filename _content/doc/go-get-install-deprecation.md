@@ -61,4 +61,4 @@ will make `go get` faster, since it won't compile or link packages by default.
 `go get` also won't report an error when updating a package that can't be built
 for the current platform.
 
-See proposal [#40276](https://golang.org/issue/40276) for the full discussion.
+See proposal [#40276](/issue/40276) for the full discussion.

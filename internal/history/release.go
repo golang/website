@@ -348,13 +348,13 @@ and <code>syscall</code> packages. See the
 		Packages: []string{"net/http", "syscall"},
 		More: `It also fixes an issue on macOS 10.15 Catalina
 where the non-notarized installer and binaries were being
-<a href="https://golang.org/issue/34986">rejected by Gatekeeper</a>.`,
+<a href="/issue/34986">rejected by Gatekeeper</a>.`,
 	},
 	{
 		Date: Date{2019, 10, 31}, Version: Version{1, 12, 13},
 		CustomSummary: `fixes an issue on macOS 10.15 Catalina
 where the non-notarized installer and binaries were being
-<a href="https://golang.org/issue/34986">rejected by Gatekeeper</a>.
+<a href="/issue/34986">rejected by Gatekeeper</a>.
 Only macOS users who hit this issue need to update.`,
 	},
 	{
@@ -431,7 +431,7 @@ Only macOS users who hit this issue need to update.`,
 		Date: Date{2019, 4, 11}, Version: Version{1, 12, 4},
 		CustomSummary: `fixes an issue where using the prebuilt binary
 releases on older versions of GNU/Linux
-<a href="https://golang.org/issues/31293">led to failures</a>
+<a href="/issues/31293">led to failures</a>
 when linking programs that used cgo.
 Only Linux users who hit this issue need to update.`,
 	},
@@ -439,7 +439,7 @@ Only Linux users who hit this issue need to update.`,
 		Date: Date{2019, 4, 11}, Version: Version{1, 11, 9},
 		CustomSummary: `fixes an issue where using the prebuilt binary
 releases on older versions of GNU/Linux
-<a href="https://golang.org/issues/31293">led to failures</a>
+<a href="/issues/31293">led to failures</a>
 when linking programs that used cgo.
 Only Linux users who hit this issue need to update.`,
 	},

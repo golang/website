@@ -14,7 +14,7 @@ and how Go addresses those problems.
 You can view [a video stream of the talk](https://www.youtube.com/watch?v=7VcArS4Wpqk),
 and [download the slides](http://www.stanford.edu/class/ee380/Abstracts/100428-pike-stanford.pdf).
 
-Last week's release included a code lab, [Writing Web Applications](https://golang.org/doc/codelab/wiki/),
+Last week's release included a code lab, [Writing Web Applications](/doc/codelab/wiki/),
 that details the construction of a simple wiki program.
 It is a practical introduction to some fundamental Go concepts,
 and the first of a series of Go code labs.

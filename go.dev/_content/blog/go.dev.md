@@ -14,14 +14,14 @@ who else is using Go,
 what do they use it for,
 and how can I find useful Go packages?
 
-Today we are launching [go.dev](https://go.dev), a new hub for Go developers,
+Today we are launching [go.dev](/), a new hub for Go developers,
 to help answer those questions.
 There you will find a wealth of learning resources to get started with the language,
 featured use cases, and case studies of companies using Go.
 
 {{image "go.dev/home.png" 850}}
 
-(Note that [golang.org](https://golang.org/) is still the home for the
+(Note that [golang.org](/) is still the home for the
 open source Go project and the Go distribution.
 Go.dev is a companion site to provide these supporting resources.)
 
@@ -33,7 +33,7 @@ about all versions of a package, including
 [all releases of the standard library](https://pkg.go.dev/std?tab=versions)!
 And it detects and displays licenses and has a better search algorithm.
 You can follow
-[Go issue 33654](https://golang.org/issue/33654) for future developments.
+[Go issue 33654](/issue/33654) for future developments.
 
 {{image "go.dev/http.png" 850}}
 

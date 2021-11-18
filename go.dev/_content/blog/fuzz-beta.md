@@ -21,7 +21,7 @@ reach these edge cases, fuzz testing is particularly valuable for finding
 security exploits and vulnerabilities.
 
 See
-[golang.org/s/draft-fuzzing-design](https://golang.org/s/draft-fuzzing-design)
+[golang.org/s/draft-fuzzing-design](/s/draft-fuzzing-design)
 for more details about this feature.
 
 

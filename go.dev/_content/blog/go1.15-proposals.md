@@ -26,7 +26,7 @@ handling support, and generics. Module support is in good shape and getting
 better with each day, and we are also making progress on the generics front
 (more on that later this year). Our attempt seven months ago at providing a
 better error handling mechanism, the
-[`try` proposal](https://golang.org/issue/32437), met good support
+[`try` proposal](/issue/32437), met good support
 but also strong opposition and we decided to abandon it. In its aftermath there
 were many follow-up proposals, but none of them seemed convincing enough,
 clearly superior to the `try` proposal, or less likely to cause similar
@@ -49,7 +49,7 @@ concluded that it is better to hold off with major changes this time. Instead
 we concentrate on a couple of new `vet` checks and a minor adjustment to the
 language. We have selected the following three proposals:
 
-[\#32479](https://golang.org/issue/32479).
+[\#32479](/issue/32479).
 Diagnose `string(int)` conversion in `go vet`.
 
 We were planning to get this done for the upcoming Go 1.14 release but we didn’t
@@ -57,10 +57,10 @@ get around to it, so here it is again. The `string(int)` conversion was introduc
 early in Go for convenience, but it is confusing to newcomers (`string(10)` is
 `"\n"` not `"10"`) and not justified anymore now that the conversion is available
 in the `unicode/utf8` package.
-Since [removing this conversion](https://golang.org/issue/3939) is
+Since [removing this conversion](/issue/3939) is
 not a backwards-compatible change, we propose to start with a `vet` error instead.
 
-[\#4483](https://golang.org/issue/4483).
+[\#4483](/issue/4483).
 Diagnose impossible interface-interface type assertions in `go vet`.
 
 Currently, Go permits any type assertion `x.(T)` (and corresponding type switch case)
@@ -72,7 +72,7 @@ might as well report an error. Reporting a compiler error in this case is not a
 backwards-compatible change, thus we also propose to start with a `vet` error
 instead.
 
-[\#28591](https://golang.org/issue/28591).
+[\#28591](/issue/28591).
 Constant-evaluate index and slice expressions with constant strings and indices.
 
 Currently, indexing or slicing a constant string with a constant index, or indices,
@@ -82,7 +82,7 @@ constant (possibly untyped) result. This is a fully backward-compatible change
 and we propose to make the necessary adjustments to the spec and compilers.
 
 (Correction: We found out after posting that this change is not backward-compatible;
-see [comment](https://golang.org/issue/28591#issuecomment-579993684) for details.)
+see [comment](/issue/28591#issuecomment-579993684) for details.)
 
 ## Timeline
 

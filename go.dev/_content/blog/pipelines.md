@@ -89,7 +89,7 @@ done.
 
 Sends on a closed channel panic, so it's important to ensure all sends
 are done before calling close.  The
-[`sync.WaitGroup`](https://golang.org/pkg/sync/#WaitGroup) type
+[`sync.WaitGroup`](/pkg/sync/#WaitGroup) type
 provides a simple way to arrange this synchronization:
 
 {{code "pipelines/sqfan.go" `/func merge/` `/^}/`}}
@@ -182,7 +182,7 @@ early return.  Keeping track of these counts is tedious and error-prone.
 We need a way to tell an unknown and unbounded number of goroutines to
 stop sending their values downstream.  In Go, we can do this by
 closing a channel, because
-[a receive operation on a closed channel can always proceed immediately, yielding the element type's zero value.](https://golang.org/ref/spec#Receive_operator)
+[a receive operation on a closed channel can always proceed immediately, yielding the element type's zero value.](/ref/spec#Receive_operator)
 
 This means that `main` can unblock all the senders simply by closing
 the `done` channel.  This close is effectively a broadcast signal to

@@ -58,7 +58,7 @@ Half (22) of these contributions were already merged. Many of the others are
 waiting on the codebase to thaw as we are in the middle of a freeze for the
 upcoming 1.9 release. In addition to CLs, many contributed to the project in
 the form of bug reports,
-[gardening tasks](https://golang.org/wiki/Gardening), and other types
+[gardening tasks](/wiki/Gardening), and other types
 of contributions.
 
 The most common type of contribution was an example function to be used in the
@@ -73,20 +73,20 @@ that has a relatively narrow scope.
 
 One of the examples added is that of creating a Stringer, one of the more
 widely used interfaces in Go.
-[CL 49270](https://golang.org/cl/49270/)
+[CL 49270](/cl/49270/)
 
 In addition to examples, many people contributed critical bug fixes including:
 
-  - [CL 48988](https://golang.org/cl/48988/) fixing [issue #21029](https://golang.org/issue/21029)
-  - [CL 49050](https://golang.org/cl/49050/) fixing [issue #20054](https://golang.org/issue/20054)
-  - [CL 49031](https://golang.org/cl/49031/) fixing [issue #20166](https://golang.org/issue/20166)
-  - [CL 49170](https://golang.org/cl/49170/) fixing [issue #20877](https://golang.org/issue/20877)
+  - [CL 48988](/cl/48988/) fixing [issue #21029](/issue/21029)
+  - [CL 49050](/cl/49050/) fixing [issue #20054](/issue/20054)
+  - [CL 49031](/cl/49031/) fixing [issue #20166](/issue/20166)
+  - [CL 49170](/cl/49170/) fixing [issue #20877](/issue/20877)
 
 Some people even surprised us by arriving with a bug in mind that they wanted
 to fix. Nikhita arrived ready to tackle
-[issue #20786](https://golang.org/issue/20786)
+[issue #20786](/issue/20786)
 and she did submitting
-[CL 48871](https://golang.org/cl/48871/),
+[CL 48871](/cl/48871/),
 after which she tweeted:
 
 {{image "contributor-workshop/image19.png"}}
@@ -328,12 +328,12 @@ it a shot.
 After a few months passed, I thought "enough is enough," and decided to
 dedicate an entire day of an upcoming weekend to figuring out the process. I
 set aside all of Saturday for doing one thing: sending my first CL to Go. I
-opened up [the Contribution Guide](https://golang.org/doc/contribute.html)
+opened up [the Contribution Guide](/doc/contribute.html)
 and started following all the steps, from the very top. Within an hour, I was
 done. I had send my first CL. I was both in awe and shock. In awe, because I
 had finally sent a contribution to Go, and it was accepted! In shock, because,
 why did I wait so long to finally do this? Following the steps in
-[the Contribution Guide](https://golang.org/doc/contribute.html) was very
+[the Contribution Guide](/doc/contribute.html) was very
 easy, and the entire process went completely smoothly. If only someone had told
 me that I'd be done within an hour and nothing would go wrong, I would've done
 it much sooner!

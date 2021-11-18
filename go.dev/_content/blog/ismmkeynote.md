@@ -323,7 +323,7 @@ If you are doing a concurrent GC you really owe it to yourself to look at
 this math and see if it's the same as your math.
 If you have any suggestions let us know.
 
-[\*Go 1.5 concurrent garbage collector pacing](https://golang.org/s/go15gcpacing)
+[\*Go 1.5 concurrent garbage collector pacing](/s/go15gcpacing)
 and [Proposal: Separate soft and hard heap size goal](https://github.com/golang/proposal/blob/master/design/14951-soft-heap-limit.md)
 
 {{image "ismmkeynote/image40.png"}}

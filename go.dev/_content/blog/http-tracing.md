@@ -13,7 +13,7 @@ summary: How to use Go 1.7's HTTP tracing to understand your client requests.
 
 In Go 1.7 we introduced HTTP tracing, a facility to gather fine-grained
 information throughout the lifecycle of an HTTP client request.
-Support for HTTP tracing is provided by the [`net/http/httptrace`](https://golang.org/pkg/net/http/httptrace/)
+Support for HTTP tracing is provided by the [`net/http/httptrace`](/pkg/net/http/httptrace/)
 package. The collected information can be used for debugging latency issues,
 service monitoring, writing adaptive systems, and more.
 
@@ -31,9 +31,9 @@ during an HTTP round trip about a variety of events. These events include:
 ## Tracing events
 
 You can enable HTTP tracing by putting an
-[`*httptrace.ClientTrace`](https://golang.org/pkg/net/http/httptrace/#ClientTrace)
-containing hook functions into a request's [`context.Context`](https://golang.org/pkg/context/#Context).
-Various [`http.RoundTripper`](https://golang.org/pkg/net/http/#RoundTripper)
+[`*httptrace.ClientTrace`](/pkg/net/http/httptrace/#ClientTrace)
+containing hook functions into a request's [`context.Context`](/pkg/context/#Context).
+Various [`http.RoundTripper`](/pkg/net/http/#RoundTripper)
 implementations report the internal events by
 looking for context's `*httptrace.ClientTrace` and calling the relevant hook functions.
 

@@ -54,8 +54,8 @@ Go-socket.io bridges the gap between Go servers and rich JavaScript clients
 for a wide range of browsers.
 To get a feel for go-socket.io see the [chat server example](https://github.com/madari/go-socket.io/blob/master/example/example.go).
 
-It's worth mentioning that these packages are [goinstallable](https://golang.org/cmd/goinstall/).
-With an up-to-date Go [installation](https://golang.org/doc/install.html)
+It's worth mentioning that these packages are [goinstallable](/cmd/goinstall/).
+With an up-to-date Go [installation](/doc/install.html)
 you can install them all with a single command:
 
 	goinstall launchpad.net/mgo \
@@ -73,7 +73,7 @@ Once goinstalled, the packages can be imported using those same paths:
 	)
 
 Also, as they are now a part of the local Go system,
-we can inspect their documentation with [godoc](https://golang.org/cmd/godoc/):
+we can inspect their documentation with [godoc](/cmd/godoc/):
 
 	godoc launchpad.net/mgo Database # see docs for Database type
 

@@ -27,7 +27,7 @@ After almost 10 years of exposure, we have
 learned a lot about the language and libraries that we didn’t know in the
 beginning, and that was only possible through feedback from the Go community.
 
-In 2015 we introduced the [proposal process](https://golang.org/s/proposal)
+In 2015 we introduced the [proposal process](/s/proposal)
 to gather a specific kind of feedback: proposals for language and library
 changes. A committee composed of senior Go team members has been reviewing,
 categorizing, and deciding on incoming proposals on a regular basis. That
@@ -45,7 +45,7 @@ At the time of writing, there are around 120
 [open issues labeled Go 2 proposal](https://github.com/golang/go/issues?page=1&q=is%3Aissue+is%3Aopen+label%3Aproposal+label%3AGo2&utf8=%E2%9C%93).
 Each of them proposes a significant library or language change, often one
 that does not satisfy the existing
-[Go 1 compatibility guarantee](https://golang.org/doc/go1compat).
+[Go 1 compatibility guarantee](/doc/go1compat).
 Ian Lance Taylor and I
 have been working through these proposals and categorized them
 ([Go2Cleanup](https://github.com/golang/go/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Aproposal+label%3AGo2+label%3AGo2Cleanup),

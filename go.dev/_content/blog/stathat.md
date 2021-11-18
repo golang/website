@@ -12,7 +12,7 @@ summary: How StatHat uses Go, and why they chose it.
 
 My name is Patrick Crosby and I'm the founder of a company called Numerotron.
 We recently released [StatHat](http://www.stathat.com).
-This post is about why we chose to develop StatHat in [Go](https://golang.org),
+This post is about why we chose to develop StatHat in [Go](/),
 including details about how we are using Go.
 
 [StatHat](http://www.stathat.com) is a tool to track statistics and events in your code.
@@ -98,16 +98,16 @@ The following sections detail how Go meets StatHat's requirements and our experi
 
 ## Runtime
 
-We use the standard Go [http package](https://golang.org/pkg/http/) for
+We use the standard Go [http package](/pkg/http/) for
 our API and web app servers.
 All requests first go through Nginx and any non-file requests are proxied
 to the Go-powered http servers.
-The backend servers are all written in Go and use the [rpc package](https://golang.org/pkg/rpc/)
+The backend servers are all written in Go and use the [rpc package](/pkg/rpc/)
 to communicate with the frontend.
 
 ## Templating
 
-We built a template system using the standard [template package](https://golang.org/pkg/template/).
+We built a template system using the standard [template package](/pkg/template/).
 Our system adds layouts, some common formatting functions,
 and the ability to recompile templates on-the-fly during development.
 We are very pleased with the performance and functionality of the Go templates.
@@ -134,8 +134,8 @@ and the compiler is not a bottleneck.
 
 Since StatHat is a multi-tiered system, we wanted an RPC layer so that all
 communication was standard.
-With Go, we are using the [rpc package](https://golang.org/pkg/rpc/) and
-the [gob package](https://golang.org/pkg/gob/) for encoding Go objects.
+With Go, we are using the [rpc package](/pkg/rpc/) and
+the [gob package](/pkg/gob/) for encoding Go objects.
 In Go, the RPC server just takes any Go object and registers its exported methods.
 There is no need for an intermediary interface description language.
 We've found it very easy to use and many of our core application servers
@@ -219,4 +219,4 @@ We are releasing some of the Go code we've written.
 Go to [www.stathat.com/src](http://www.stathat.com/src) for all of the
 open source StatHat projects.
 
-To learn more about Go, visit [golang.org](https://golang.org/).
+To learn more about Go, visit [golang.org](/).

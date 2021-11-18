@@ -162,7 +162,7 @@ window.initFuncs = [];
     let version = 'go1.17'; // fallback version if fetch fails
     try {
       const versionData = await (
-        await fetch('https://golang.org/dl/?mode=json')
+        await fetch('/dl/?mode=json')
       ).json();
       if (!versionData.length) {
         return version;

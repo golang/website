@@ -8,13 +8,13 @@ summary: Go 1.10 adds automatic caching of build & test results, and more.
 
 
 Happy Friday, happy weekend! Today the Go team is happy to announce the release of Go 1.10.
-You can get it from the [download page](https://golang.org/dl/).
+You can get it from the [download page](/dl/).
 
-See the [Go 1.10 release notes](https://golang.org/doc/go1.10) for all the details.
+See the [Go 1.10 release notes](/doc/go1.10) for all the details.
 
 The most exciting part of this release for many people will probably
 be that the `go` tool now does
-[automatic caching of build & test results](https://golang.org/doc/go1.10#build).
+[automatic caching of build & test results](/doc/go1.10#build).
 Of course, one of the hundreds of smaller changes may be **your** favorite.
 
 To celebrate the release, Go User Groups around the world are holding
@@ -25,11 +25,11 @@ Thanks to everyone who contributed to this release and everyone who
 helped test the Go 1.10 betas and release candidates to ensure a perfect,
 bug-free final release. However, if you do notice any bugs or unexpected
 changes not noted in the release notes, be sure to
-[file a bug](https://golang.org/issues/new).
+[file a bug](/issues/new).
 
 Enjoy the weekend, and enjoy the new release!
 
 P.S. Many of this year's Go conferences are accepting talk proposals
 this month. We always love to see new speakers and encourage you to
 think about proposing a talk. For more information, see
-[golang.org/wiki/NewSpeakers](https://golang.org/wiki/NewSpeakers).
+[golang.org/wiki/NewSpeakers](/wiki/NewSpeakers).

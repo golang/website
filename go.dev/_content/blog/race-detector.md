@@ -20,7 +20,7 @@ they don't prevent race conditions. Care, diligence, and testing are required.
 And tools can help.
 
 We're happy to announce that Go 1.1 includes a
-[race detector](https://golang.org/doc/articles/race_detector.html),
+[race detector](/doc/articles/race_detector.html),
 a new tool for finding race conditions in Go code.
 It is currently available for Linux, OS X, and Windows systems
 with 64-bit x86 processors.
@@ -99,9 +99,9 @@ Here are two examples of real issues caught by the race detector.
 The first example is a simplified version of an actual bug found by the race
 detector. It uses a timer to print a message after a random duration between 0
 and 1 second. It does so repeatedly for five seconds.
-It uses [`time.AfterFunc`](https://golang.org/pkg/time/#AfterFunc) to create a
-[`Timer`](https://golang.org/pkg/time/#Timer) for the first message and then
-uses the [`Reset`](https://golang.org/pkg/time/#Timer.Reset) method to
+It uses [`time.AfterFunc`](/pkg/time/#AfterFunc) to create a
+[`Timer`](/pkg/time/#Timer) for the first message and then
+uses the [`Reset`](/pkg/time/#Timer.Reset) method to
 schedule the next message, re-using the `Timer` each time.
 
 {{play "race-detector/timer.go" `/func main/` `$` 0}}
@@ -162,12 +162,12 @@ A simpler but less efficient approach is to
 The second example is more subtle.
 
 The `ioutil` package's
-[`Discard`](https://golang.org/pkg/io/ioutil/#Discard) object implements
-[`io.Writer`](https://golang.org/pkg/io/#Writer),
+[`Discard`](/pkg/io/ioutil/#Discard) object implements
+[`io.Writer`](/pkg/io/#Writer),
 but discards all the data written to it.
 Think of it like `/dev/null`: a place to send data that you need to read but
 don't want to store.
-It is commonly used with [`io.Copy`](https://golang.org/pkg/io/#Copy)
+It is commonly used with [`io.Copy`](/pkg/io/#Copy)
 to drain a reader, like this:
 
 	io.Copy(ioutil.Discard, reader)
@@ -188,22 +188,22 @@ is delegated to this potentially more efficient call:
 	writer.ReadFrom(reader)
 
 We
-[added a ReadFrom method](https://golang.org/cl/4817041)
+[added a ReadFrom method](/cl/4817041)
 to Discard's underlying type, which has an internal buffer that is shared
 between all its users.
 We knew this was theoretically a race condition, but since all writes to the
 buffer should be thrown away we didn't think it was important.
 
 When the race detector was implemented it immediately
-[flagged this code](https://golang.org/issue/3970) as racy.
+[flagged this code](/issue/3970) as racy.
 Again, we considered that the code might be problematic, but decided that the
 race condition wasn't "real".
 To avoid the "false positive" in our build we implemented
-[a non-racy version](https://golang.org/cl/6624059)
+[a non-racy version](/cl/6624059)
 that is enabled only when the race detector is running.
 
 But a few months later [Brad](https://bradfitz.com/) encountered a
-[frustrating and strange bug](https://golang.org/issue/4589).
+[frustrating and strange bug](/issue/4589).
 After a few days of debugging, he narrowed it down to a real race condition
 caused by `ioutil.Discard`.
 
@@ -255,7 +255,7 @@ No errors or panics occurred, but the hashes were wrong. Nasty!
 	}
 
 The bug was finally
-[fixed](https://golang.org/cl/7011047)
+[fixed](/cl/7011047)
 by giving a unique buffer to each use of `ioutil.Discard`, eliminating the race
 condition on the shared buffer.
 

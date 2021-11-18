@@ -21,7 +21,7 @@ This post is part 4 in a series.
   - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on developing modules, see
-[Developing and publishing modules](https://golang.org/doc/modules/developing).
+[Developing and publishing modules](/doc/modules/developing).
 
 As a successful project matures and new requirements are added, past features
 and design decisions might stop making sense. Developers may want to integrate

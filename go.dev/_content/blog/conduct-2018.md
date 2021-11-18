@@ -36,7 +36,7 @@ to enforce the code
 of conduct place too heavy of a burden on volunteers.
 The initial version of the code of conduct presented the
 working group as disciplinarians. It was soon clear
-that this was too much, so in early 2017 [we changed the group’s role](https://golang.org/cl/37014)
+that this was too much, so in early 2017 [we changed the group’s role](/cl/37014)
 to that of advisors and mediators.
 Still, working group community members
 reported feeling overwhelmed, untrained, and vulnerable.
@@ -57,12 +57,12 @@ our experiences in Go community and our collective experiences in open source.
 This resulted in the Google [code of conduct template](https://opensource.google.com/docs/releasing/template/CODE_OF_CONDUCT/).
 
 Today the Go project is adopting this new code of conduct,
-and we’ve updated [golang.org/conduct](https://golang.org/conduct).
+and we’ve updated [golang.org/conduct](/conduct).
 This revised code of conduct retains much of the intent, structure and
 language of the original Go code of conduct while making two critical
 changes that address the shortcomings identified above.
 
-First, [the new code of conduct makes clear](https://golang.org/conduct/#scope) that people who
+First, [the new code of conduct makes clear](/conduct/#scope) that people who
 participate in any kind of harassment or inappropriate behavior,
 even outside our project spaces, are not welcome in our project spaces.
 This means that the Code of Conduct applies outside
@@ -71,7 +71,7 @@ an individual’s behavior may have a negative
 impact on the project or its community.
 
 Second, in the place of the working group,
-[the new code of conduct introduces a single Project Steward](https://golang.org/conduct/#reporting)
+[the new code of conduct introduces a single Project Steward](/conduct/#reporting)
 who will have explicit training and support for this role.
 The Project Steward will receive reported violations
 and then work with a committee,

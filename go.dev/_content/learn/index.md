@@ -11,7 +11,7 @@ title: "Get Started"
         <p>
           Install the latest version of Go. For instructions to download and install
           the Go compilers, tools, and libraries,
-          <a href="https://golang.org/doc/install" target="_blank" rel="noopener">
+          <a href="/doc/install" target="_blank" rel="noopener">
             view the install documentation.
           </a>
         </p>
@@ -22,7 +22,7 @@ title: "Get Started"
           >
             <a
               class="js-downloadBtn"
-              href="https://golang.org/dl"
+              href="/dl"
               target="_blank"
               rel="noopener"
             >
@@ -36,7 +36,7 @@ title: "Get Started"
           <a class="js-downloadWin">Windows 64-bit</a>,
           <a class="js-downloadMac">macOS</a>,
           <a class="js-downloadLinux">Linux</a>, and
-          <a href="https://golang.org/dl/">more</a>.
+          <a href="/dl/">more</a>.
         </p>
       </div>
       <div class="Learn-heroGopher">

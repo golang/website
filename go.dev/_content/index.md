@@ -40,7 +40,7 @@ title: go.dev
         class="js-latestGoVersion">
         <a class="Primary" href="/learn/">Get Started</a>
         <a class="Secondary js-downloadBtn"
-          href="https://golang.org/dl"
+          href="/dl"
           target="_blank" rel="noopener"
           >Download
           <span
@@ -54,12 +54,12 @@ title: go.dev
           <a class="js-downloadWin">Windows 64-bit</a>,
           <a class="js-downloadMac">macOS</a>,
           <a class="js-downloadLinux">Linux</a>, and
-          <a href="https://golang.org/dl/">more</a>
+          <a href="/dl/">more</a>
         </p>
         <p>
           The <code>go</code> command by default downloads and authenticates
           modules using the Go module mirror and Go checksum database run by
-          Google. <a href="https://golang.org/dl">Learn more.</a>
+          Google. <a href="/dl">Learn more.</a>
         </p>
       </div>
     </div>
@@ -308,7 +308,7 @@ func main() {
       </p>
       <div class="GettingStartedGo-ctas">
         <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="https://golang.org/dl" target="_blank" rel="noopener">Download Go</a>
+        <a href="/dl" target="_blank" rel="noopener">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">

@@ -19,12 +19,12 @@ it must be encoded and then decoded again.
 There are many encodings available, of course:
 [JSON](http://www.json.org/), [XML](http://www.w3.org/XML/),
 Google's [protocol buffers](http://code.google.com/p/protobuf), and more.
-And now there's another, provided by Go's [gob](https://golang.org/pkg/encoding/gob/) package.
+And now there's another, provided by Go's [gob](/pkg/encoding/gob/) package.
 
 Why define a new encoding? It's a lot of work and redundant at that.
 Why not just use one of the existing formats? Well,
 for one thing, we do!
-Go has [packages](https://golang.org/pkg/) supporting all the encodings
+Go has [packages](/pkg/) supporting all the encodings
 just mentioned (the [protocol buffer package](http://github.com/golang/protobuf)
 is in a separate repository but it's one of the most frequently downloaded).
 And for many purposes, including communicating with tools and systems written in other languages,
@@ -175,16 +175,16 @@ of floating-point numbers,
 such as small integers, have a lot of zeros at the low end that we can avoid transmitting.
 
 One nice feature of gobs that Go makes possible is that they allow you to
-define your own encoding by having your type satisfy the [GobEncoder](https://golang.org/pkg/encoding/gob/#GobEncoder)
-and [GobDecoder](https://golang.org/pkg/encoding/gob/#GobDecoder) interfaces,
-in a manner analogous to the [JSON](https://golang.org/pkg/encoding/json/)
-package's [Marshaler](https://golang.org/pkg/encoding/json/#Marshaler)
-and [Unmarshaler](https://golang.org/pkg/encoding/json/#Unmarshaler) and
-also to the [Stringer](https://golang.org/pkg/fmt/#Stringer) interface
-from [package fmt](https://golang.org/pkg/fmt/).
+define your own encoding by having your type satisfy the [GobEncoder](/pkg/encoding/gob/#GobEncoder)
+and [GobDecoder](/pkg/encoding/gob/#GobDecoder) interfaces,
+in a manner analogous to the [JSON](/pkg/encoding/json/)
+package's [Marshaler](/pkg/encoding/json/#Marshaler)
+and [Unmarshaler](/pkg/encoding/json/#Unmarshaler) and
+also to the [Stringer](/pkg/fmt/#Stringer) interface
+from [package fmt](/pkg/fmt/).
 This facility makes it possible to represent special features,
 enforce constraints, or hide secrets when you transmit data.
-See the [documentation](https://golang.org/pkg/encoding/gob/) for details.
+See the [documentation](/pkg/encoding/gob/) for details.
 
 ## Types on the wire
 
@@ -251,7 +251,7 @@ There's a lot going on under the hood, but the result is an efficient,
 easy-to-use encoding system for transmitting data.
 Here's a complete example showing differing encoded and decoded types.
 Note how easy it is to send and receive values;
-all you need to do is present values and variables to the [gob package](https://golang.org/pkg/encoding/gob/)
+all you need to do is present values and variables to the [gob package](/pkg/encoding/gob/)
 and it does all the work.
 
 	package main
@@ -296,14 +296,14 @@ and it does all the work.
 
 You can compile and run this example code in the [Go Playground](http://play.golang.org/p/_-OJV-rwMq).
 
-The [rpc package](https://golang.org/pkg/net/rpc/) builds on gobs to turn
+The [rpc package](/pkg/net/rpc/) builds on gobs to turn
 this encode/decode automation into transport for method calls across the network.
 That's a subject for another article.
 
 ## Details
 
-The [gob package documentation](https://golang.org/pkg/encoding/gob/),
-especially the file [doc.go](https://golang.org/src/pkg/encoding/gob/doc.go),
+The [gob package documentation](/pkg/encoding/gob/),
+especially the file [doc.go](/src/pkg/encoding/gob/doc.go),
 expands on many of the details described here and includes a full worked
 example showing how the encoding represents data.
 If you are interested in the innards of the gob implementation,

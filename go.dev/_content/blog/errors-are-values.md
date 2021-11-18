@@ -45,8 +45,8 @@ and application of some of those other things can make your program better,
 eliminating much of the boilerplate that arises if every error is checked with a rote if statement.
 
 Here's a simple example from the `bufio` package's
-[`Scanner`](https://golang.org/pkg/bufio/#Scanner) type.
-Its [`Scan`](https://golang.org/pkg/bufio/#Scanner.Scan) method performs the underlying I/O,
+[`Scanner`](/pkg/bufio/#Scanner) type.
+Its [`Scan`](/pkg/bufio/#Scanner.Scan) method performs the underlying I/O,
 which can of course lead to an error.
 Yet the `Scan` method does not expose an error at all.
 Instead, it returns a boolean, and a separate method, to be run at the end of the scan,
@@ -88,7 +88,7 @@ Error handling does not obscure the flow of control.
 
 Under the covers what's happening, of course,
 is that as soon as `Scan` encounters an I/O error, it records it and returns `false`.
-A separate method, [`Err`](https://golang.org/pkg/bufio/#Scanner.Err),
+A separate method, [`Err`](/pkg/bufio/#Scanner.Err),
 reports the error value when the client asks.
 Trivial though this is, it's not the same as putting
 
@@ -200,12 +200,12 @@ It could coalesce writes into a single buffer that can then be transmitted atomi
 And much more.
 
 In fact, this pattern appears often in the standard library.
-The [`archive/zip`](https://golang.org/pkg/archive/zip/) and
-[`net/http`](https://golang.org/pkg/net/http/) packages use it.
-More salient to this discussion, the [`bufio` package's `Writer`](https://golang.org/pkg/bufio/)
+The [`archive/zip`](/pkg/archive/zip/) and
+[`net/http`](/pkg/net/http/) packages use it.
+More salient to this discussion, the [`bufio` package's `Writer`](/pkg/bufio/)
 is actually an implementation of the `errWriter` idea.
 Although `bufio.Writer.Write` returns an error,
-that is mostly about honoring the [`io.Writer`](https://golang.org/pkg/io/#Writer) interface.
+that is mostly about honoring the [`io.Writer`](/pkg/io/#Writer) interface.
 The `Write` method of `bufio.Writer` behaves just like our `errWriter.write`
 method above, with `Flush` reporting the error, so our example could be written like this:
 

@@ -12,7 +12,7 @@ summary: How and why to format your Go code using gofmt.
 
 ## Introduction
 
-[Gofmt](https://golang.org/cmd/gofmt/) is a tool that automatically formats Go source code.
+[Gofmt](/cmd/gofmt/) is a tool that automatically formats Go source code.
 
 Gofmt'd code is:
 
@@ -38,7 +38,7 @@ To format your code, you can use the gofmt tool directly:
 
 	gofmt -w yourcode.go
 
-Or you can use the "[go fmt](https://golang.org/cmd/go/#hdr-Gofmt__reformat__package_sources)" command:
+Or you can use the "[go fmt](/cmd/go/#hdr-Gofmt__reformat__package_sources)" command:
 
 	go fmt path/to/your/package
 
@@ -83,23 +83,23 @@ In the pattern, single-character lowercase identifiers serve as wildcards
 matching arbitrary sub-expressions,
 and those expressions are substituted for the same identifiers in the replacement.
 
-For example, this[ recent change](https://golang.org/cl/7038051) to the
-Go core rewrote some uses of [bytes.Compare](https://golang.org/pkg/bytes/#Compare)
-to use the more efficient [bytes.Equal](https://golang.org/pkg/bytes/#Equal).
+For example, this[ recent change](/cl/7038051) to the
+Go core rewrote some uses of [bytes.Compare](/pkg/bytes/#Compare)
+to use the more efficient [bytes.Equal](/pkg/bytes/#Equal).
 The contributor made the change using just two gofmt invocations:
 
 	gofmt -r 'bytes.Compare(a, b) == 0 -> bytes.Equal(a, b)'
 	gofmt -r 'bytes.Compare(a, b) != 0 -> !bytes.Equal(a, b)'
 
-Gofmt also enables [gofix](https://golang.org/cmd/fix/),
+Gofmt also enables [gofix](/cmd/fix/),
 which can make arbitrarily complex source transformations.
 Gofix was an invaluable tool during the early days when we regularly made
 breaking changes to the language and libraries.
 For example, before Go 1 the built-in error interface didn't exist and the
 convention was to use the os.Error type.
-When we [introduced error](https://golang.org/doc/go1.html#errors),
+When we [introduced error](/doc/go1.html#errors),
 we provided a gofix module that rewrote all references to os.Error and its
-associated helper functions to use error and the new [errors package](https://golang.org/pkg/errors/).
+associated helper functions to use error and the new [errors package](/pkg/errors/).
 It would have been daunting to attempt by hand,
 but with the code in a standard format it was relatively easy to prepare,
 execute, and review this change which touched almost all Go code in existence.

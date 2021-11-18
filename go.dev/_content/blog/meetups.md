@@ -23,7 +23,7 @@ statistically, you're not from Sydney.
 Despair not, however, as there are likely some people in your area who either
 run a Go meetup or want to start one.
 
-The Go wiki lists [Go user groups](https://golang.org/wiki/GoUserGroups) around the world,
+The Go wiki lists [Go user groups](/wiki/GoUserGroups) around the world,
 so if there's one nearby you should consider going along to the next event.
 
 If not, why not start your own? To gauge interest,

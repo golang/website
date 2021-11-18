@@ -74,7 +74,7 @@ what we should change about Go to better support
 Last spring, we published a [draft design for Go modules](https://blog.golang.org/versioning-proposal),
 which provide an integrated mechanism for versioning and package distribution.
 The most recent Go release, Go 1.11, included
-[preliminary support for modules](https://golang.org/doc/go1.11#modules).
+[preliminary support for modules](/doc/go1.11#modules).
 
 Last summer we published
 [early draft designs](https://blog.golang.org/go2draft)

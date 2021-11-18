@@ -8,7 +8,7 @@ summary: What the Go team is planning for pkg.go.dev in 2020.
 
 ## Introduction
 
-In 2019, we launched [go.dev](https://go.dev), a new hub for Go
+In 2019, we launched [go.dev](/), a new hub for Go
 developers.
 
 As part of the site, we also launched [pkg.go.dev](https://pkg.go.dev), a
@@ -38,13 +38,13 @@ about what those features are!
 
 You can share your feedback with us on these channels:
 
-  - Post on the [Go issue tracker](https://golang.org/s/discovery-feedback).
+  - Post on the [Go issue tracker](/s/discovery-feedback).
   - Email [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com).
   - Click “Share Feedback” or “Report an Issue” in the go.dev footer.
 
 As part of this transition, we will also be discussing plans for API access to
 [pkg.go.dev](https://pkg.go.dev). We will be posting updates on
-[Go issue 33654](https://golang.org/s/discovery-updates).
+[Go issue 33654](/s/discovery-updates).
 
 ## Frequently asked questions
 
@@ -58,7 +58,7 @@ We monitor the [Go Module Index](https://index.golang.org/index) regularly for
 new packages to add to [pkg.go.dev](https://pkg.go.dev). If you don’t see a
 package on pkg.go.dev, you can add it by fetching the module version from
 [proxy.golang.org](https://proxy.golang.org). See
-[go.dev/about](https://go.dev/about) for instructions.
+[go.dev/about](/about) for instructions.
 
 ### My package has license restrictions. What’s wrong with it?
 
@@ -74,7 +74,7 @@ Since our launch in November, we've made the following improvements:
 
 As always, our license policy is at
 [pkg.go.dev/license-policy](https://pkg.go.dev/license-policy). If you are
-having issues, feel free to [file an issue on the Go issue tracker](https://golang.org/s/discovery-feedback), or email
+having issues, feel free to [file an issue on the Go issue tracker](/s/discovery-feedback), or email
 [go-discovery-feedback@google.com](mailto:go-discovery-feedback@google.com)
 so that we can work with you directly!
 

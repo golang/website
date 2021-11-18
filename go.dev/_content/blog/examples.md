@@ -11,7 +11,7 @@ summary: How to add examples, which double as tests, to your packages.
 
 ## Introduction
 
-Godoc [examples](https://golang.org/pkg/testing/#hdr-Examples) are snippets of
+Godoc [examples](/pkg/testing/#hdr-Examples) are snippets of
 Go code that are displayed as package documentation and that are verified by
 running them as tests.
 They can also be run by a user visiting the godoc web page for the package
@@ -21,7 +21,7 @@ Having executable documentation for a package guarantees that the information
 will not go out of date as the API changes.
 
 The standard library includes many such examples
-(see the [`strings` package](https://golang.org/pkg/strings/#Contains),
+(see the [`strings` package](/pkg/strings/#Contains),
 for instance).
 
 This article explains how to write your own example functions.
@@ -139,7 +139,7 @@ Each of these examples documents the `Reverse` function:
 
 Sometimes we need more than just a function to write a good example.
 
-For instance, to demonstrate the [`sort` package](https://golang.org/pkg/sort/)
+For instance, to demonstrate the [`sort` package](/pkg/sort/)
 we should show an implementation of `sort.Interface`.
 Since methods cannot be declared inside a function body, the example must
 include some context in addition to the example function.
@@ -196,7 +196,7 @@ Here is a whole file example from the `sort` package:
 `}}
 
 A package can contain multiple whole file examples; one example per file.
-Take a look at the [`sort` package's source code](https://golang.org/src/sort/)
+Take a look at the [`sort` package's source code](/src/sort/)
 to see this in practice.
 
 ## Conclusion

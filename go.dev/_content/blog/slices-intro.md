@@ -309,11 +309,11 @@ This is left as an exercise for the reader.
 
 ## Further Reading
 
-[Effective Go](https://golang.org/doc/effective_go.html) contains an in-depth
-treatment of [slices](https://golang.org/doc/effective_go.html#slices)
-and [arrays](https://golang.org/doc/effective_go.html#arrays),
-and the Go [language specification](https://golang.org/doc/go_spec.html)
-defines [slices](https://golang.org/doc/go_spec.html#Slice_types) and
-their [associated](https://golang.org/doc/go_spec.html#Length_and_capacity)
-[helper](https://golang.org/doc/go_spec.html#Making_slices_maps_and_channels)
-[functions](https://golang.org/doc/go_spec.html#Appending_and_copying_slices).
+[Effective Go](/doc/effective_go.html) contains an in-depth
+treatment of [slices](/doc/effective_go.html#slices)
+and [arrays](/doc/effective_go.html#arrays),
+and the Go [language specification](/doc/go_spec.html)
+defines [slices](/doc/go_spec.html#Slice_types) and
+their [associated](/doc/go_spec.html#Length_and_capacity)
+[helper](/doc/go_spec.html#Making_slices_maps_and_channels)
+[functions](/doc/go_spec.html#Appending_and_copying_slices).

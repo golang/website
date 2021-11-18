@@ -42,13 +42,13 @@ Do not send CLs removing the interior tags from such phrases.
 </p>
 
 <p>
-  There are <a href="https://golang.org/issue/25206">known issues</a> with NetBSD on i386 hardware.
+  There are <a href="/issue/25206">known issues</a> with NetBSD on i386 hardware.
 </p>
 
 <p><!-- CL 107935 -->
   The race detector is now supported on <code>linux/ppc64le</code>
   and, to a lesser extent, on <code>netbsd/amd64</code>. The NetBSD race detector support
-  has <a href="https://golang.org/issue/26403">known issues</a>.
+  has <a href="/issue/26403">known issues</a>.
 </p>
 
 <p><!-- CL 109255 -->
@@ -74,7 +74,7 @@ Do not send CLs removing the interior tags from such phrases.
   efficient software floating point interface. This is transparent to
   Go code, but ARM assembly that uses floating-point instructions not
   guarded on GOARM will break and must be ported to
-  the <a href="https://golang.org/cl/107475">new interface</a>.
+  the <a href="/cl/107475">new interface</a>.
 </p>
 
 <p><!-- CL 94076 -->
@@ -110,7 +110,7 @@ Do not send CLs removing the interior tags from such phrases.
 </p>
 <p>
   More information can be found on the
-  <a href="https://golang.org/wiki/WebAssembly">WebAssembly wiki page</a>.
+  <a href="/wiki/WebAssembly">WebAssembly wiki page</a>.
 </p>
 
 <h3 id="riscv">RISC-V GOARCH values reserved</h3>
@@ -143,7 +143,7 @@ Do not send CLs removing the interior tags from such phrases.
   Although the details of module support may change, projects that convert
   to modules using Go 1.11 will continue to work with Go 1.12 and later.
   If you encounter bugs using modules,
-  please <a href="https://golang.org/issue/new">file issues</a>
+  please <a href="/issue/new">file issues</a>
   so we can fix them. For more information, see the
   <a href="/cmd/go#hdr-Modules__module_versions__and_more"><code>go</code> command documentation</a>.
 </p>
@@ -189,7 +189,7 @@ Do not send CLs removing the interior tags from such phrases.
   The module and package loading support described above
   already require that the build cache be enabled.
   If you have disabled the build cache to avoid problems you encountered,
-  please <a href="https://golang.org/issue/new">file an issue</a> to let us know about them.
+  please <a href="/issue/new">file an issue</a> to let us know about them.
 </p>
 
 <h3 id="compiler">Compiler toolchain</h3>
@@ -284,7 +284,7 @@ func f(v interface{}) {
 
   In particular, tests that contain an unused variable inside a
   closure compiled with Go 1.10, because the Go compiler incorrectly
-  accepted them (<a href="https://golang.org/issues/3059">Issue #3059</a>),
+  accepted them (<a href="/issues/3059">Issue #3059</a>),
   but will now fail, since <code>go/types</code> correctly reports an
   "unused variable" error in this case.
 </p>

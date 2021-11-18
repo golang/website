@@ -25,7 +25,7 @@ The names you choose affect how you think about your code,
 so take care when naming your package and its exported identifiers.
 
 A package's name provides context for its contents.
-For instance, the [bytes package](https://golang.org/pkg/bytes/) from
+For instance, the [bytes package](/pkg/bytes/) from
 the standard library exports the `Buffer` type.
 On its own, the name `Buffer` isn't very descriptive,
 but when combined with its package name its meaning becomes clear: `bytes.Buffer`.
@@ -36,7 +36,7 @@ Don't be shy about renaming things as you work.
 As you spend time with your program you will better understand how its pieces fit together and,
 therefore, what their names should be.
 There's no need to lock yourself into early decisions.
-(The [gofmt command](https://golang.org/cmd/gofmt/) has a `-r` flag that
+(The [gofmt command](/cmd/gofmt/) has a `-r` flag that
 provides a syntax-aware search and replace,
 making large-scale refactoring easier.)
 
@@ -111,9 +111,9 @@ rather than just getting the job done.
 
 Look to the Go standard libraries as a guide.
 Some of its packages are large and some are small.
-For instance, the [http package](https://golang.org/pkg/net/http/) comprises
+For instance, the [http package](/pkg/net/http/) comprises
 17 go source files (excluding tests) and exports 109 identifiers,
-and the [hash package](https://golang.org/pkg/hash/) consists of one file
+and the [hash package](/pkg/hash/) consists of one file
 that exports just three declarations.
 There is no hard and fast rule; both approaches are appropriate given their context.
 
@@ -121,10 +121,10 @@ With that said, package main is often larger than other packages.
 Complex commands contain a lot of code that is of little use outside the
 context of the executable,
 and often it's simpler to just keep it all in the one place.
-For instance, the go tool is more than 12000 lines spread across [34 files](https://golang.org/src/cmd/go/).
+For instance, the go tool is more than 12000 lines spread across [34 files](/src/cmd/go/).
 
 ## Document your code
 
 Good documentation is an essential quality of usable and maintainable code.
-Read the [Godoc: documenting Go code](https://golang.org/doc/articles/godoc_documenting_go_code.html)
+Read the [Godoc: documenting Go code](/doc/articles/godoc_documenting_go_code.html)
 article to learn how to write good doc comments.

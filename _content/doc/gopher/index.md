@@ -1,3 +1,3 @@
 ---
-redirect: https://go.dev/blog/gopher
+redirect: /blog/gopher
 ---

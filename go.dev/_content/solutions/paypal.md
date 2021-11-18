@@ -82,6 +82,6 @@ Most importantly for PayPal, the combination of Go development and the GKE allow
 
 ## Getting your enterprise started with Go
 
-PayPal’s story is not unique; dozens of other large enterprises are discovering how Go can help them ship reliable software faster. There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [American Express](https://go.dev/solutions/americanexpress), [Mercado Libre](https://go.dev/solutions/mercadolibre), Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
+PayPal’s story is not unique; dozens of other large enterprises are discovering how Go can help them ship reliable software faster. There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [American Express](/solutions/americanexpress), [Mercado Libre](/solutions/mercadolibre), Capital One, Dropbox, IBM, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
 
-To learn more about how Go can help your enterprise build reliable, scalable software as it does at PayPal, visit [go.dev](https://go.dev) today.
+To learn more about how Go can help your enterprise build reliable, scalable software as it does at PayPal, visit [go.dev](/) today.

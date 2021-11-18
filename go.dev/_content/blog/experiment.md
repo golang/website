@@ -349,7 +349,7 @@ for the host operating system’s defined error numbers.
 In this case, on this system, `ECONNREFUSED` is number 61.
 Code that gets an error from a function
 can test whether the error is `ECONNREFUSED`
-using ordinary [value equality](https://golang.org/ref/spec#Comparison_operators).
+using ordinary [value equality](/ref/spec#Comparison_operators).
 
 Moving up a level,
 in package `os`,
@@ -438,7 +438,7 @@ Here is the code:
 		return err == syscall.EADDRNOTAVAIL
 	}
 
-A [type assertion](https://golang.org/ref/spec#Type_assertions) peels away any `net.OpError` wrapping.
+A [type assertion](/ref/spec#Type_assertions) peels away any `net.OpError` wrapping.
 And then a second type assertion peels away any `os.SyscallError` wrapping.
 And then the function checks the unwrapped error for equality with `EADDRNOTAVAIL`.
 
@@ -622,7 +622,7 @@ and existing uses of `fmt.Errorf` with `%v` still use `%v`, not `%w`.
 
 Along with the design draft for Unwrap,
 we also published a
-[design draft for an optional method for richer error printing](https://golang.org/design/go2draft-error-printing),
+[design draft for an optional method for richer error printing](/design/go2draft-error-printing),
 including stack frame information
 and support for localized, translated errors.
 
@@ -685,7 +685,7 @@ a fact that is easy to miss on a quick skim.
 If you were debugging this code, how long would it take to notice that?
 
 At Gophercon last year we
-[presented a draft design](https://golang.org/design/go2draft-error-handling)
+[presented a draft design](/design/go2draft-error-handling)
 for a new control flow construct marked by the keyword `check`.
 `Check` consumes the error result from a function call or expression.
 If the error is non-nil, the `check` returns that error.
@@ -737,7 +737,7 @@ like in this snippet:
 
 In essence, `check` was a short way to write the `if` statement,
 and `handle` was like
-[`defer`](https://golang.org/ref/spec#Defer_statements) but only for error return paths.
+[`defer`](/ref/spec#Defer_statements) but only for error return paths.
 In contrast to exceptions in other languages,
 this design retained Go’s important property that
 every potential failing call was marked explicitly in the code,
@@ -748,7 +748,7 @@ was that `handle` overlapped too much,
 and in confusing ways, with `defer`.
 
 In May we posted
-[a new design with three simplifications](https://golang.org/design/32437-try-builtin):
+[a new design with three simplifications](/design/32437-try-builtin):
 to avoid the confusion with `defer`, the design dropped `handle` in favor of just using `defer`;
 to match a similar idea in Rust and Swift, the design renamed `check` to `try`;
 and to allow experimentation in a way that existing parsers like `gofmt` would recognize,
@@ -897,7 +897,7 @@ And we encouraged package AUTHORS
 to provide their USERS
 with the same backwards compatibility
 we did for the Go 1 libraries.
-Quoting [the Go FAQ](https://golang.org/doc/faq#get_version):
+Quoting [the Go FAQ](/doc/faq#get_version):
 
 <div style="margin-left: 2em; font-style: italic;">
 
@@ -1246,7 +1246,7 @@ You probably can too.
 And if you can’t,
 please let us know what’s not working for you
 or what’s too complex,
-by [filing a bug report](https://golang.org/issue/new),
+by [filing a bug report](/issue/new),
 and we will experiment and simplify.
 
 ## Tools

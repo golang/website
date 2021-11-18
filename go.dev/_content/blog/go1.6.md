@@ -7,33 +7,33 @@ summary: Go 1.6 adds HTTP/2, template blocks, and more.
 ---
 
 
-Today we release [Go version 1.6](https://golang.org/doc/go1.6),
+Today we release [Go version 1.6](/doc/go1.6),
 the seventh major stable release of Go.
-You can grab it right now from the [download page](https://golang.org/dl/).
+You can grab it right now from the [download page](/dl/).
 Although [the release of Go 1.5](https://blog.golang.org/go1.5) six months ago
 contained dramatic implementation changes,
 this release is more incremental.
 
 The most significant change is support for [HTTP/2](https://http2.github.io/)
-in the [net/http package](https://golang.org/pkg/net/http/).
+in the [net/http package](/pkg/net/http/).
 HTTP/2 is a new protocol, a follow-on to HTTP that has already seen
 widespread adoption by browser vendors and major websites.
-In Go 1.6, support for HTTP/2 is [enabled by default](https://golang.org/doc/go1.6#http2)
+In Go 1.6, support for HTTP/2 is [enabled by default](/doc/go1.6#http2)
 for both servers and clients when using HTTPS,
 bringing [the benefits](https://http2.github.io/faq/) of the new protocol
 to a wide range of Go projects,
 such as the popular [Caddy web server](https://caddyserver.com/download).
 
 The template packages have learned some new tricks,
-with support for [trimming spaces around template actions](https://golang.org/pkg/text/template/#hdr-Text_and_spaces)
+with support for [trimming spaces around template actions](/pkg/text/template/#hdr-Text_and_spaces)
 to produce cleaner template output,
-and the introduction of the {{raw "[`{{block}}` action]"}}(https://golang.org/pkg/text/template/#hdr-Actions)
+and the introduction of the {{raw "[`{{block}}` action]"}}(/pkg/text/template/#hdr-Actions)
 that can be used to create templates that build on other templates.
 A [new template example program](https://cs.opensource.google/go/x/example/+/master:template) demonstrates these new features.
 
-Go 1.5 introduced [experimental support](https://golang.org/s/go15vendor)
+Go 1.5 introduced [experimental support](/s/go15vendor)
 for a “vendor” directory that was enabled by an environment variable.
-In Go 1.6, the feature is now [enabled by default](https://golang.org/doc/go1.6#go_command).
+In Go 1.6, the feature is now [enabled by default](/doc/go1.6#go_command).
 Source trees that contain a directory named “vendor” that is not used in accordance with the new feature
 will require changes to avoid broken builds (the simplest fix is to rename the directory).
 
@@ -47,14 +47,14 @@ which will more reliably identify the race and give more detail.
 The runtime has also changed how it prints program-ending panics.
 It now prints only the stack of the panicking goroutine, rather than all existing goroutines.
 This behavior can be configured using the
-[GOTRACEBACK](https://golang.org/pkg/runtime/#hdr-Environment_Variables) environment variable
-or by calling the [debug.SetTraceback](https://golang.org/pkg/runtime/debug/#SetTraceback) function.
+[GOTRACEBACK](/pkg/runtime/#hdr-Environment_Variables) environment variable
+or by calling the [debug.SetTraceback](/pkg/runtime/debug/#SetTraceback) function.
 
 Users of cgo should be aware of major changes to the rules for sharing pointers between Go and C code.
 The rules are designed to ensure that such C code can coexist with Go's garbage collector
 and are checked during program execution, so code may require changes to avoid crashes.
-See the [release notes](https://golang.org/doc/go1.6#cgo) and
-[cgo documentation](https://golang.org/cmd/cgo/#hdr-Passing_pointers) for the details.
+See the [release notes](/doc/go1.6#cgo) and
+[cgo documentation](/cmd/cgo/#hdr-Passing_pointers) for the details.
 
 The compiler, linker, and go command have a new `-msan` flag
 analogous to `-race` and only available on linux/amd64,
@@ -69,16 +69,16 @@ but this is particularly noticeable for programs using large amounts of memory.
 With regard to the performance of the compiler tool chain,
 build times should be similar to those of Go 1.5.
 
-The algorithm inside [sort.Sort](https://golang.org/pkg/sort/#Sort)
+The algorithm inside [sort.Sort](/pkg/sort/#Sort)
 was improved to run about 10% faster,
 but the change may break programs that expect a specific ordering
 of equal but distinguishable elements.
 Such programs should refine their `Less` methods to indicate the desired ordering
-or use [sort.Stable](https://golang.org/pkg/sort/#Stable)
+or use [sort.Stable](/pkg/sort/#Stable)
 to preserve the input order for equal values.
 
 And, of course, there are many more additions, improvements, and fixes.
-You can find them all in the comprehensive [release notes](https://golang.org/doc/go1.6).
+You can find them all in the comprehensive [release notes](/doc/go1.6).
 
 To celebrate the release,
 [Go User Groups around the world](https://github.com/golang/go/wiki/Go-1.6-release-party)

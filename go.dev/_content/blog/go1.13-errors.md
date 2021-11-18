@@ -30,7 +30,7 @@ widely, from timestamps to filenames to server addresses. Often, that
 information includes another, lower-level error to provide additional context.
 
 The pattern of one error containing another is so pervasive in Go code that,
-after [extensive discussion](https://golang.org/issue/29934), Go 1.13 added
+after [extensive discussion](/issue/29934), Go 1.13 added
 explicit support for it. This post describes the additions to the standard
 library that provide that support: three new functions in the `errors` package,
 and a new formatting verb for `fmt.Errorf`.
@@ -238,7 +238,7 @@ information to preserve an abstraction layer.
 
 The `errors.Is` function examines each error in a chain for a match with a
 target value. By default, an error matches the target if the two are
-[equal](https://golang.org/ref/spec#Comparison_operators). In addition, an
+[equal](/ref/spec#Comparison_operators). In addition, an
 error in the chain may declare that it matches a target by implementing an `Is`
 _method_.
 

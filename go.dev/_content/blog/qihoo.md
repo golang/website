@@ -63,7 +63,7 @@ Here are a few tweaks we made and key take-aways:
     imposed by surges in goroutines due to uninhibited acceptance of external requests,
     as RPC invocations sent to inner servers may block goroutines recently created.
 
-  - Remember to add [read and write deadlines](https://golang.org/pkg/net/#Conn)
+  - Remember to add [read and write deadlines](/pkg/net/#Conn)
     to connections when under a mobile network;
     otherwise, it may lead to goroutine blockage.
     Apply it properly and with caution when under a LAN network,

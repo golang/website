@@ -301,7 +301,7 @@ If a `for` `range` loop isn't sufficient for your purposes,
 chances are the facility you need is provided by a package in the library.
 
 The most important such package is
-[`unicode/utf8`](https://golang.org/pkg/unicode/utf8/),
+[`unicode/utf8`](/pkg/unicode/utf8/),
 which contains
 helper routines to validate, disassemble, and reassemble UTF-8 strings.
 Here is a program equivalent to the `for` `range` example above,
@@ -317,7 +317,7 @@ The `for` `range` loop and `DecodeRuneInString` are defined to produce
 exactly the same iteration sequence.
 
 Look at the
-[documentation](https://golang.org/pkg/unicode/utf8/)
+[documentation](/pkg/unicode/utf8/)
 for the `unicode/utf8` package to see what
 other facilities it provides.
 

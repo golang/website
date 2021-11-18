@@ -718,7 +718,7 @@ It hasn't gone as fast as we'd hoped, but we'll send out more detail
 on these implementations as they become available.
 
 Robert Griesemer has written a
-[preliminary CL](https://golang.org/cl/187317)
+[preliminary CL](/cl/187317)
 that modifies the go/types package.
 This permits testing whether code using generics and contracts can
 type check.

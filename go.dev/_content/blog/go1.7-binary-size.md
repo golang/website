@@ -17,7 +17,7 @@ fast startup time, performance.
 As Go gets used for a wider variety of programs, there are new issues that must be considered.
 One of these is binary size.
 It has been on the radar for a long time
-(issue [\#6853](https://golang.org/issue/6853) was filed over two
+(issue [\#6853](/issue/6853) was filed over two
 years ago), but the growing interest in using Go for
 deploying binaries on smaller devices — such as the Raspberry Pi or
 mobile devices — means it received some attention for the Go 1.7
@@ -43,7 +43,7 @@ Now the compiler discards any unexported methods that do not match an
 interface.
 Similarly the linker can discard other exported methods, those that are only
 accessible through reflection, if the corresponding
-[reflection features](https://golang.org/pkg/reflect/#Value.Call)
+[reflection features](/pkg/reflect/#Value.Call)
 are not used anywhere in the program.
 That change shrinks binaries by 5–20%.
 
@@ -63,7 +63,7 @@ interface data layout, better static data layout, and simplified
 dependencies. For example, the HTTP client no longer links in the entire HTTP
 server.
 The full list of changes can be found in issue
-[\#6853](https://golang.org/issue/6853).
+[\#6853](/issue/6853).
 
 ## Results
 

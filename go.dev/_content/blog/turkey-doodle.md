@@ -272,7 +272,7 @@ making it easier to learn good style and conventions.
 
 In writing this application I used just three resources:
 App Engine's [Hello World Go example](http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html),
-[the Go packages documentation](https://golang.org/pkg/),
+[the Go packages documentation](/pkg/),
 and [a blog post showcasing the Draw package](https://blog.golang.org/2011/09/go-imagedraw-package.html).
 Thanks to the rapid iteration made possible by the development server and
 the language itself,

@@ -21,10 +21,10 @@ This post is part 1 in a series.
   - Part 5 — [Keeping Your Modules Compatible](/blog/module-compatibility)
 
 **Note:** For documentation on managing dependencies with modules, see
-[Managing dependencies](https://golang.org/doc/modules/managing-dependencies).
+[Managing dependencies](/doc/modules/managing-dependencies).
 
 Go 1.11 and 1.12 include preliminary
-[support for modules](https://golang.org/doc/go1.11#modules),
+[support for modules](/doc/go1.11#modules),
 Go’s
 [new dependency management system](https://blog.golang.org/versioning-proposal)
 that makes dependency version information explicit
@@ -33,7 +33,7 @@ This blog post is an introduction to the basic operations needed
 to get started using modules.
 
 A module is a collection of
-[Go packages](https://golang.org/ref/spec#Packages)
+[Go packages](/ref/spec#Packages)
 stored in a file tree with a `go.mod` file at its root.
 The `go.mod` file defines the module’s _module path_,
 which is also the import path used for the root directory,
@@ -49,7 +49,7 @@ provided the directory is _outside_ `$GOPATH/src`.
 (Inside `$GOPATH/src`, for compatibility, the go command
 still runs in the old GOPATH mode, even if a `go.mod` is found.
 See the
-[go command documentation](https://golang.org/cmd/go/#hdr-Preliminary_module_support)
+[go command documentation](/cmd/go/#hdr-Preliminary_module_support)
 for details.)
 Starting in Go 1.13, module mode will be the default for all development.
 
@@ -228,13 +228,13 @@ followed by dependencies sorted by module path.
 
 The `golang.org/x/text` version `v0.0.0-20170915032832-14c0d48ead0c`
 is an example of a
-[pseudo-version](https://golang.org/cmd/go/#hdr-Pseudo_versions),
+[pseudo-version](/cmd/go/#hdr-Pseudo_versions),
 which is the `go` command's version syntax
 for a specific untagged commit.
 
 In addition to `go.mod`, the `go` command
 maintains a file named `go.sum` containing
-the expected [cryptographic hashes](https://golang.org/cmd/go/#hdr-Module_downloading_and_verification) of the content of specific module versions:
+the expected [cryptographic hashes](/cmd/go/#hdr-Module_downloading_and_verification) of the content of specific module versions:
 
 	$ cat go.sum
 	golang.org/x/text v0.0.0-20170915032832-14c0d48ead0c h1:qgOY6WgZO...
@@ -549,6 +549,6 @@ We encourage you to start using modules in your local development
 and to add `go.mod` and `go.sum` files to your projects.
 To provide feedback and help shape the future of dependency management in Go,
 please send us
-[bug reports](https://golang.org/issue/new) or [experience reports](https://golang.org/wiki/ExperienceReports).
+[bug reports](/issue/new) or [experience reports](/wiki/ExperienceReports).
 
 Thanks for all your feedback and help improving modules.

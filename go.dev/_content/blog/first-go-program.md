@@ -10,7 +10,7 @@ summary: Rob Pike dug up the first Go program ever written.
 
 
 Brad Fitzpatrick and I (Andrew Gerrand) recently started restructuring
-[godoc](https://golang.org/cmd/godoc/), and it occurred to me that it is one
+[godoc](/cmd/godoc/), and it occurred to me that it is one
 of the oldest Go programs.
 Robert Griesemer started writing it back in early 2009,
 and we're still using it today.
@@ -54,7 +54,7 @@ The program parses and prints an
 It takes no user input and has no imports, relying only on the built-in
 `print` facility for output.
 It was written literally the first day there was a
-[working but rudimentary compiler](https://golang.org/change/8b8615138da3).
+[working but rudimentary compiler](/change/8b8615138da3).
 Much of the language wasn't implemented and some of it wasn't even specified.
 
 Still, the basic flavor of the language today is recognizable in this program.

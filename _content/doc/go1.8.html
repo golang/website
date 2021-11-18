@@ -87,7 +87,7 @@ On OpenBSD, Go now requires OpenBSD 5.9 or later. <!-- CL 34093 -->
 The Plan 9 port's networking support is now much more complete
 and matches the behavior of Unix and Windows with respect to deadlines
 and cancelation. For Plan 9 kernel requirements, see the
-<a href="https://golang.org/wiki/Plan9">Plan 9 wiki page</a>.
+<a href="/wiki/Plan9">Plan 9 wiki page</a>.
 </p>
 
 <p>
@@ -115,8 +115,8 @@ and cancelation. For Plan 9 kernel requirements, see the
 There are some instabilities on FreeBSD and NetBSD that are known but not understood.
 These can lead to program crashes in rare cases.
 See
-<a href="https://golang.org/issue/15658">issue 15658</a> and
-<a href="https://golang.org/issue/16511">issue 16511</a>.
+<a href="/issue/15658">issue 15658</a> and
+<a href="/issue/16511">issue 16511</a>.
 Any help in solving these issues would be appreciated.
 </p>
 
@@ -293,7 +293,7 @@ generates more compact, more efficient code
 and provides a better platform for optimizations
 such as bounds check elimination.
 The new back end reduces the CPU time required by
-<a href="https://golang.org/test/bench/go1/">our benchmark programs</a> by 20-30%
+<a href="/test/bench/go1/">our benchmark programs</a> by 20-30%
 on 32-bit ARM systems. For 64-bit x86 systems, which already used the SSA back end in
 Go 1.7, the gains are a more modest 0-10%. Other architectures will likely
 see improvements closer to the 32-bit ARM numbers.
@@ -324,7 +324,7 @@ see improvements closer to the 32-bit ARM numbers.
 <p> <!-- CL 31141 -->
 The Go tool now remembers the value of the <code>CGO_ENABLED</code> environment
 variable set during <code>make.bash</code> and applies it to all future compilations
-by default to fix issue <a href="https://golang.org/issue/12808">#12808</a>.
+by default to fix issue <a href="/issue/12808">#12808</a>.
 When doing native compilation, it is rarely necessary to explicitly set
 the <code>CGO_ENABLED</code> environment variable as <code>make.bash</code>
 will detect the correct setting automatically. The main reason to explicitly

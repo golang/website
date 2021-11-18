@@ -19,12 +19,12 @@ but it is used in many other places, too.
 Its home page, [json.org](http://json.org),
 provides a wonderfully clear and concise definition of the standard.
 
-With the [json package](https://golang.org/pkg/encoding/json/) it's a
+With the [json package](/pkg/encoding/json/) it's a
 snap to read and write JSON data from your Go programs.
 
 ## Encoding
 
-To encode JSON data we use the [`Marshal`](https://golang.org/pkg/encoding/json/#Marshal) function.
+To encode JSON data we use the [`Marshal`](/pkg/encoding/json/#Marshal) function.
 
 	func Marshal(v interface{}) ([]byte, error)
 
@@ -66,7 +66,7 @@ Therefore only the the exported fields of a struct will be present in the JSON o
 
 ## Decoding
 
-To decode JSON data we use the [`Unmarshal`](https://golang.org/pkg/encoding/json/#Unmarshal) function.
+To decode JSON data we use the [`Unmarshal`](/pkg/encoding/json/#Unmarshal) function.
 
 	func Unmarshal(data []byte, v interface{}) error
 
@@ -94,7 +94,7 @@ For a given JSON key `"Foo"`,
 `Unmarshal` will look through the destination struct's fields to find (in
 order of preference):
 
-  - An exported field with a tag of `"Foo"` (see the [Go spec](https://golang.org/ref/spec#Struct_types)
+  - An exported field with a tag of `"Foo"` (see the [Go spec](/ref/spec#Struct_types)
     for more on struct tags),
 
   - An exported field named `"Foo"`, or
@@ -262,8 +262,8 @@ either `Cmd` or `Msg` is not `nil`.
 
 The json package provides `Decoder` and `Encoder` types to support the common
 operation of reading and writing streams of JSON data.
-The `NewDecoder` and `NewEncoder` functions wrap the [`io.Reader`](https://golang.org/pkg/io/#Reader)
-and [`io.Writer`](https://golang.org/pkg/io/#Writer) interface types.
+The `NewDecoder` and `NewEncoder` functions wrap the [`io.Reader`](/pkg/io/#Reader)
+and [`io.Writer`](/pkg/io/#Writer) interface types.
 
 	func NewDecoder(r io.Reader) *Decoder
 	func NewEncoder(w io.Writer) *Encoder
@@ -307,5 +307,5 @@ WebSockets, or files.
 
 ## References
 
-For more information see the [json package documentation](https://golang.org/pkg/encoding/json/).
-For an example usage of json see the source files of the [jsonrpc package](https://golang.org/pkg/net/rpc/jsonrpc/).
+For more information see the [json package documentation](/pkg/encoding/json/).
+For an example usage of json see the source files of the [jsonrpc package](/pkg/net/rpc/jsonrpc/).

@@ -25,27 +25,27 @@ reliability of each changeset submitted to the repository.
 We have made syntax changes to make the language more concise,
 regular, and flexible.
 Semicolons have been [almost entirely removed](http://groups.google.com/group/golang-nuts/t/5ee32b588d10f2e9) from the language.
-The [...T syntax](https://golang.org/doc/go_spec.html#Function_types)
+The [...T syntax](/doc/go_spec.html#Function_types)
 makes it simpler to handle an arbitrary number of typed function parameters.
 The syntax x[lo:] is now shorthand for x[lo:len(x)].
 Go also now natively supports complex numbers.
-See the [release notes](https://golang.org/doc/devel/release.html) for more.
+See the [release notes](/doc/devel/release.html) for more.
 
-[Godoc](https://golang.org/cmd/godoc/) now provides better support for
+[Godoc](/cmd/godoc/) now provides better support for
 third-party libraries,
-and a new tool - [goinstall](https://golang.org/cmd/goinstall) - has been
+and a new tool - [goinstall](/cmd/goinstall) - has been
 released to make it easy to install them.
 Additionally, we've started working on a package tracking system to make
 it easier to find what you need.
 You can view the beginnings of this on the [Packages page](http://godashboard.appspot.com/package).
 
-More than 40,000 lines of code have been added to [the standard library](https://golang.org/pkg/),
+More than 40,000 lines of code have been added to [the standard library](/pkg/),
 including many entirely new packages, a sizable portion written by external contributors.
 
 Speaking of third parties, since launch a vibrant community has flourished
 on our [mailing list](http://groups.google.com/group/golang-nuts/) and
 irc channel (#go-nuts on freenode).
-We have officially added [more than 50 people](https://golang.org/CONTRIBUTORS) to the project.
+We have officially added [more than 50 people](/CONTRIBUTORS) to the project.
 Their contributions range from bug fixes and documentation corrections to
 core packages and support for additional operating systems (Go is now supported under FreeBSD,
 and a [Windows port](http://code.google.com/p/go/wiki/WindowsPort) is underway).

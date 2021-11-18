@@ -157,7 +157,7 @@ preference order with [`Config.CipherSuites`](https://pkg.go.dev/crypto/tls#Conf
 Servers prioritize the client’s preference order by default,
 unless [`Config.PreferServerCipherSuites`](https://pkg.go.dev/crypto/tls#Config.PreferServerCipherSuites) is set.
 
-When we implemented TLS 1.3 in Go 1.12, [we didn’t make TLS 1.3 cipher suites configurable](https://golang.org/issue/29349),
+When we implemented TLS 1.3 in Go 1.12, [we didn’t make TLS 1.3 cipher suites configurable](/issue/29349),
 because they are a disjoint set from the TLS 1.0–1.2 ones and most importantly
 they are all secure,
 so there is no need to delegate a choice to the application.
@@ -169,7 +169,7 @@ but explicitly chose to return them in a neutral order (sorted by their ID),
 so that we wouldn’t end up tied to representing our priority logic in
 terms of a static sort order.
 
-In Go 1.16, we started actively [preferring ChaCha20Poly1305 cipher suites over AES-GCM on the server](https://golang.org/cl/262857)
+In Go 1.16, we started actively [preferring ChaCha20Poly1305 cipher suites over AES-GCM on the server](/cl/262857)
 when we detect that either the client or the server lacks hardware support for AES-GCM.
 This is because AES-GCM is hard to implement efficiently and securely without
 dedicated hardware support (such as the AES-NI and CLMUL instruction sets).
@@ -177,7 +177,7 @@ dedicated hardware support (such as the AES-NI and CLMUL instruction sets).
 **Go 1.17, recently released, takes over cipher suite preference ordering for all Go users.**
 While `Config.CipherSuites` still controls which TLS 1.0–1.2 cipher suites are enabled,
 it is not used for ordering, and `Config.PreferServerCipherSuites` is now ignored.
-Instead, `crypto/tls` [makes all ordering decisions](https://golang.org/cl/314609),
+Instead, `crypto/tls` [makes all ordering decisions](/cl/314609),
 based on the available cipher suites, the local hardware,
 and the inferred remote hardware capabilities.
 
@@ -200,7 +200,7 @@ follows the following rules:
 2. AEAD modes are preferred over CBC for encryption.
 
     Even if we do implement partial countermeasures for Lucky13
-    ([my first contribution to the Go standard library, back in 2015!](https://golang.org/cl/18130)),
+    ([my first contribution to the Go standard library, back in 2015!](/cl/18130)),
     the CBC suites are [a nightmare to get right](https://blog.cloudflare.com/yet-another-padding-oracle-in-openssl-cbc-ciphersuites/),
     so all other more important things being equal,
     we pick AES-GCM and ChaCha20Poly1305 instead.
@@ -291,6 +291,6 @@ lets us optimize performance, and it lifts significant complexity from Go develo
 
 This is consistent with our general philosophy of making cryptographic decisions whenever we can,
 instead of delegating them to developers,
-and with our [cryptography principles](https://golang.org/design/cryptography-principles).
+and with our [cryptography principles](/design/cryptography-principles).
 Hopefully other TLS libraries will adopt similar changes,
 making delicate cipher suite configuration a thing of the past.

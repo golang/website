@@ -154,7 +154,7 @@ At least for now, we intend to keep to our timeline for Go 1.15,
 with the understanding that it will probably have fewer new features
 and improvements than we originally planned.
 We continue to do code reviews, issue triage,
-and [proposal review](https://golang.org/s/proposal-minutes).
+and [proposal review](/s/proposal-minutes).
 
 [Gopls](https://go.googlesource.com/tools/+/refs/heads/master/gopls/README.md)
 is the language-aware backend supporting most Go editors today,
@@ -167,7 +167,7 @@ and new features to better help users find and evaluate Go packages.
 We’ve also expanded the set of recognized licenses and improved the
 license detector, with more improvements to come.
 
-Our [Gopher values](https://golang.org/conduct#values)
+Our [Gopher values](/conduct#values)
 are what ground us, now more than ever.
 We are working extra hard to be friendly, welcoming,
 patient, thoughtful, respectful, and charitable.

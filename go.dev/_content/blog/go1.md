@@ -33,7 +33,7 @@ Forward compatibility is part of stability.
 Code that compiles in Go 1 should, with few exceptions,
 continue to compile and run throughout the lifetime of that version,
 even as we issue updates and bug fixes such as Go version 1.1, 1.2, and so on.
-The [Go 1 compatibility document](https://golang.org/doc/go1compat.html)
+The [Go 1 compatibility document](/doc/go1compat.html)
 explains the compatibility guidelines in more detail.
 
 Go 1 is a representation of Go as it is used today,
@@ -44,22 +44,22 @@ There had long been many changes to Go that we had designed and prototyped
 but not released because they were backwards-incompatible.
 Go 1 incorporates these changes, which provide significant improvements
 to the language and libraries but sometimes introduce incompatibilities for old programs.
-Fortunately, the [go fix](https://golang.org/cmd/go/#Run_go_tool_fix_on_packages)
+Fortunately, the [go fix](/cmd/go/#Run_go_tool_fix_on_packages)
 tool can automate much of the work needed to bring programs up to the Go 1 standard.
 
-Go 1 introduces changes to the language (such as new types for [Unicode characters](https://golang.org/doc/go1.html#rune)
-and [errors](https://golang.org/doc/go1.html#errors)) and the standard
-library (such as the new [time package](https://golang.org/doc/go1.html#time)
-and renamings in the [strconv package](https://golang.org/doc/go1.html#strconv)).
+Go 1 introduces changes to the language (such as new types for [Unicode characters](/doc/go1.html#rune)
+and [errors](/doc/go1.html#errors)) and the standard
+library (such as the new [time package](/doc/go1.html#time)
+and renamings in the [strconv package](/doc/go1.html#strconv)).
 Also, the package hierarchy has been rearranged to group related items together,
 such as moving the networking facilities,
-for instance the [rpc package](https://golang.org/pkg/net/rpc/),
+for instance the [rpc package](/pkg/net/rpc/),
 into subdirectories of net.
-A complete list of changes is documented in the [Go 1 release notes](https://golang.org/doc/go1.html).
+A complete list of changes is documented in the [Go 1 release notes](/doc/go1.html).
 That document is an essential reference for programmers migrating code from
 earlier versions of Go.
 
-We also restructured the Go tool suite around the new [go command](https://golang.org/doc/go1.html#cmd_go),
+We also restructured the Go tool suite around the new [go command](/doc/go1.html#cmd_go),
 a program for fetching, building, installing and maintaining Go code.
 The go command eliminates the need for Makefiles to write Go code because
 it uses the Go program source itself to derive the build instructions.
@@ -75,4 +75,4 @@ from the open source community.
 We thank everyone who helped make this happen.
 
 There has never been a better time to be a Go programmer.
-Everything you need to get started is at [golang.org](https://golang.org/).
+Everything you need to get started is at [golang.org](/).

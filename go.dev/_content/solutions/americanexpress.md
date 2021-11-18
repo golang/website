@@ -77,6 +77,6 @@ To learn more, read ["Choosing Go at American Express"](https://americanexpress.
 
 Just as American Express is using Go to modernize its payment and rewards networks, dozens of other large enterprises are adopting Go as well.
 
-There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [PayPal](https://go.dev/solutions/paypal), [Mercado Libre](https://go.dev/solutions/mercadolibre), Capital One, Dropbox, IBM, Mercado Libre, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
+There are over one million developers using Go worldwide—spanning banking and commerce, gaming and media, technology, and other industries, at enterprises as diverse as [PayPal](/solutions/paypal), [Mercado Libre](/solutions/mercadolibre), Capital One, Dropbox, IBM, Mercado Libre, Monzo, New York Times, Salesforce, Square, Target, Twitch, Uber, and of course Google.
 
-To learn more about how Go can help your enterprise build reliable, scalable software as it does at American Express, visit [go.dev](https://go.dev) today.
+To learn more about how Go can help your enterprise build reliable, scalable software as it does at American Express, visit [go.dev](/) today.

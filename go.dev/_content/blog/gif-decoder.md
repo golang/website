@@ -78,7 +78,7 @@ count (0-255) followed by that many bytes:
 To decode GIF pixel data in Go, we can use the LZW decompressor from the
 `compress/lzw` package.
 It has a NewReader function that returns an object that,
-as [the documentation](https://golang.org/pkg/compress/lzw/#NewReader) says,
+as [the documentation](/pkg/compress/lzw/#NewReader) says,
 "satisfies reads by decompressing the data read from r":
 
 	func NewReader(r io.Reader, order Order, litWidth int) io.ReadCloser

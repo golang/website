@@ -21,7 +21,7 @@ This post is part 5 in a series.
 - **Part 5 — Keeping Your Modules Compatible** (this post)
 
 **Note:** For documentation on developing modules, see
-[Developing and publishing modules](https://golang.org/doc/modules/developing).
+[Developing and publishing modules](/doc/modules/developing).
 
 Your modules will evolve over time as you add new features, change behaviors, and reconsider parts of the module's public surface. As discussed in [Go Modules: v2 and Beyond](/blog/v2-go-modules), breaking changes to a v1+ module must happen as part of a major version bump (or by adopting a new module path).
 

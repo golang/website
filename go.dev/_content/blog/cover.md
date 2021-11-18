@@ -15,13 +15,13 @@ summary: Introducing Go 1.12's code coverage tool.
 From the beginning of the project, Go was designed with tools in mind.
 Those tools include some of the most iconic pieces of Go technology such as
 the documentation presentation tool
-[godoc](https://golang.org/cmd/godoc),
+[godoc](/cmd/godoc),
 the code formatting tool
-[gofmt](https://golang.org/cmd/gofmt),
+[gofmt](/cmd/gofmt),
 and the API rewriter
-[gofix](https://golang.org/cmd/fix).
+[gofix](/cmd/fix).
 Perhaps most important of all is the
-[`go` command](https://golang.org/cmd/go),
+[`go` command](/cmd/go),
 the program that automatically installs, builds, and tests Go programs
 using nothing more than the source code as the build specification.
 
@@ -200,7 +200,7 @@ to one of three settings:
 The default is 'set', which we've already seen.
 The `atomic` setting is needed only when accurate counts are required
 when running parallel algorithms. It uses atomic operations from the
-[sync/atomic](https://golang.org/pkg/sync/atomic/) package,
+[sync/atomic](/pkg/sync/atomic/) package,
 which can be quite expensive.
 For most purposes, though, the `count` mode works fine and, like
 the default `set` mode, is very cheap.

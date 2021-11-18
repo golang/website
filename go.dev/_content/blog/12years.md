@@ -17,15 +17,15 @@ Another part of that consolidation was
 [replacing godoc.org with pkg.go.dev](/blog/godoc.org-redirect).
 
 In February, the [Go 1.16 release](/blog/go1.16)
-added [macOS ARM64 support](/blog/ports),
-added [a file system interface](https://golang.org/pkg/io/fs) and [embedded files](https://golang.org/pkg/embed),
+added [macOS ARM64 support](blog/ports),
+added [a file system interface](/pkg/io/fs) and [embedded files](/pkg/embed),
 and [enabled modules by default](/blog/go116-module-changes),
 along with the usual assortment of improvements and optimizations.
 
 In August, the [Go 1.17 release](/blog/go1.17)
 added Windows ARM64 support,
 made [TLS cipher suite decisions easier and more secure](/blog/tls-cipher-suites),
-introduced [pruned module graphs](https://golang.org/doc/go1.17#go-command)
+introduced [pruned module graphs](/doc/go1.17#go-command)
 to make modules even more efficient in large projects,
 and added
 [new, more readable build constraint syntax](https://pkg.go.dev/cmd/go#hdr-Build_constraints).
@@ -33,14 +33,14 @@ Under the hood, Go 1.17 also switched to a register-based calling convention for
 on x86-64, improving performance in CPU-bound applications by 5–15%.
 
 Over the course of the year, we
-published [many new tutorials](https://golang.org/doc/tutorial/),
-a [guide to databases in Go](https://golang.org/doc/database/),
-a [guide to developing modules](https://golang.org/doc/#developing-modules),
-and a [Go modules reference](https://golang.org/ref/mod).
+published [many new tutorials](/doc/tutorial/),
+a [guide to databases in Go](/doc/database/),
+a [guide to developing modules](/doc/#developing-modules),
+and a [Go modules reference](/ref/mod).
 One highlight is the new tutorial
-“[Developing a RESTful API with Go and Gin](https://golang.org/doc/tutorial/web-service-gin)”,
+“[Developing a RESTful API with Go and Gin](/doc/tutorial/web-service-gin)”,
 which is also available in
-[interactive form using Google Cloud Shell](https://golang.org/s/cloud-shell-web-tutorial).
+[interactive form using Google Cloud Shell](/s/cloud-shell-web-tutorial).
 
 We've been busy on the IDE side,
 [enabling gopls by default in VS Code Go](/blog/gopls-vscode-go)

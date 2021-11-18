@@ -79,7 +79,7 @@ at which point the directory holds the full set of Go source files, so we can bu
 Every time `gopher.y` is modified, just rerun `go` `generate` to regenerate the parser.
 
 For more details about how `go` `generate` works, including options, environment variables,
-and so on, see the [design document](https://golang.org/s/go1.4-generate).
+and so on, see the [design document](/s/go1.4-generate).
 
 Go generate does nothing that couldn't be done with Make or some other build mechanism,
 but it comes with the `go` tool—no extra installation required—and fits nicely into the Go ecosystem.

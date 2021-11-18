@@ -65,7 +65,7 @@ supports generic code.
 You can also build and use the tool yourself.
 It is available in a branch of the master Go repo.
 Follow the [instructions on installing Go from
-source](https://golang.org/doc/install/source).
+source](/doc/install/source).
 Where those instructions direct you to check out the latest release
 tag, instead run `git checkout dev.go2go`.
 Then build the Go toolchain as directed.
@@ -94,7 +94,7 @@ We will use the feedback we gather from the Go community to decide how
 to move forward.
 If the draft design is well received and doesn’t need significant
 changes, the next step would be a [formal language change
-proposal](https://golang.org/s/proposal).
+proposal](/s/proposal).
 To set expectations, if everybody is completely happy with the design
 draft and it does not require any further adjustments, the earliest
 that generics could be added to Go would be the Go 1.17 release,
@@ -114,7 +114,7 @@ specific topics.
 
 If you find bugs in the generics type checker or the translation tool,
 they should be filed in the standard Go issue tracker at
-[https://golang.org/issue](https://golang.org/issue).
+[https://golang.org/issue](/issue).
 Please start the issue title with `cmd/go2go:`.
 Note that the issue tracker is not the best place to discuss changes
 to the language, because it does not provide threading and it is not

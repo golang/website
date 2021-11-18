@@ -27,7 +27,7 @@ Do not send CLs removing the interior tags from such phrases.
   and we encourage all users to <a href="https://blog.golang.org/migrating-to-go-modules">migrate to Go
   modules for dependency management</a>. If you are unable to migrate due to a problem in the Go
   toolchain, please ensure that the problem has an
-  <a href="https://golang.org/issue?q=is%3Aissue+is%3Aopen+label%3Amodules">open issue</a>
+  <a href="/issue?q=is%3Aissue+is%3Aopen+label%3Amodules">open issue</a>
   filed. (If the issue is not on the <code>Go1.15</code> milestone, please let us
   know why it prevents you from migrating so that we can prioritize it
   appropriately.)
@@ -176,8 +176,8 @@ Do not send CLs removing the interior tags from such phrases.
 <p><!-- golang.org/issue/32502, golang.org/issue/30345 -->
   The <code>go</code> <code>get</code> command no longer accepts
   the <code>-mod</code> flag. Previously, the flag's setting either
-  <a href="https://golang.org/issue/30345">was ignored</a> or
-  <a href="https://golang.org/issue/32502">caused the build to fail</a>.
+  <a href="/issue/30345">was ignored</a> or
+  <a href="/issue/32502">caused the build to fail</a>.
 </p>
 
 <p><!-- golang.org/issue/33326 -->
@@ -232,7 +232,7 @@ Do not send CLs removing the interior tags from such phrases.
 <p>
   Previously, the <code>go</code> command would resolve each package path
   to the latest version of a module but would not record the module path
-  or version. This resulted in <a href="https://golang.org/issue/32027">slow,
+  or version. This resulted in <a href="/issue/32027">slow,
   non-reproducible builds</a>.
 </p>
 
@@ -404,7 +404,7 @@ Do not send CLs removing the interior tags from such phrases.
 <p><!-- CL 202117 -->
   This release includes experimental support for compiler-inserted
   coverage instrumentation for fuzzing.
-  See <a href="https://golang.org/issue/14565">issue 14565</a> for more
+  See <a href="/issue/14565">issue 14565</a> for more
   details.
   This API may change in future releases.
 </p>
@@ -839,7 +839,7 @@ Do not send CLs removing the interior tags from such phrases.
       On macOS, <code>SIGPIPE</code> is no longer forwarded to signal
       handlers installed before the Go runtime is initialized.
       This is necessary because macOS delivers <code>SIGPIPE</code>
-      <a href="https://golang.org/issue/33384">to the main thread</a>
+      <a href="/issue/33384">to the main thread</a>
       rather than the thread writing to the closed pipe.
     </p>
   </dd>

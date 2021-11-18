@@ -323,7 +323,7 @@ specific database.
 
 1. Begin tracking the MySQL driver module as a dependency.
 
-    Use the [`go get`](https://golang.org/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
+    Use the [`go get`](/cmd/go/#hdr-Add_dependencies_to_current_module_and_install_them)
     to add the github.com/go-sql-driver/mysql module as a dependency for your
     own module. Use a dot argument to mean "get dependencies for code in the
     current directory."
@@ -335,7 +335,7 @@ specific database.
 
     Go downloaded this dependency because you added it to the `import`
     declaration in the previous step. For more about dependency tracking,
-    see [Adding a dependency](https://golang.org/doc/modules/managing-dependencies#adding_dependency).
+    see [Adding a dependency](/doc/modules/managing-dependencies#adding_dependency).
 
 2. From the command prompt, set the `DBUSER` and `DBPASS` environment variables
     for use by the Go program.

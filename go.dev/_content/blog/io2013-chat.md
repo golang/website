@@ -91,7 +91,7 @@ _Where is_ `database/sql` _and its drivers going in the next year?_
 **Brad:** While we could create an official subrepo (“go.db”) for database
 drivers, we fear that would unduly bless certain drivers. At this point we’d
 still rather see healthy competition between different drivers. The
-[SQLDrivers wiki page](https://golang.org/wiki/SQLDrivers)
+[SQLDrivers wiki page](/wiki/SQLDrivers)
 lists some good ones.
 
 The `database/sql` package didn’t get much attention for a while, due to lack of
@@ -123,7 +123,7 @@ we used to call apps). The landscape has changed a lot but I think Go's
 concurrency model has much to offer in the field of interactive graphics.
 
 **Andrew:** There are many
-[bindings for existing graphics libraries](https://golang.org/wiki/Projects#Graphics_and_Audio)
+[bindings for existing graphics libraries](/wiki/Projects#Graphics_and_Audio)
 out there, and a few Go-specific projects. One of the more promising ones is
 [go.uik](https://github.com/skelterjohn/go.uik), but it's still in its early
 days. I think there's a lot of potential for a great Go-specific UI toolkit for

@@ -337,7 +337,7 @@ Do not send CLs removing the interior tags from such phrases.
   migration, <a href="#gofmt"><code>gofmt</code></a> now automatically
   synchronizes the two forms. For more details on the syntax and migration plan,
   see
-  <a href="https://golang.org/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
+  <a href="/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
 </p>
 
 <h4 id="go run"><code>go</code> <code>run</code></h4>
@@ -361,7 +361,7 @@ Do not send CLs removing the interior tags from such phrases.
   location in the file, and matching <code>//go:build</code> lines will be
   added. Otherwise, <code>// +build</code> lines will be overwritten based on
   any existing <code>//go:build</code> lines. For more information, see
-  <a href="https://golang.org/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
+  <a href="/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
 </p>
 
 <h3 id="vet">Vet</h3>
@@ -374,7 +374,7 @@ Do not send CLs removing the interior tags from such phrases.
   synchronized with each other. If they aren't,
   <a href="#gofmt"><code>gofmt</code></a> can be used to fix them. For more
   information, see
-  <a href="https://golang.org/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
+  <a href="/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
 </p>
 
 <h4 id="vet-sigchanyzer">New warning for calling <code>signal.Notify</code> on unbuffered channels</h4>
@@ -547,7 +547,7 @@ func Foo() bool {
   handler wrapper. This will also suppress the <code>ErrorLog</code> warning.
   Note that accepting semicolons as query separators can lead to security issues
   if different systems interpret cache keys differently.
-  See <a href="https://golang.org/issue/25192">issue 25192</a> for more information.
+  See <a href="/issue/25192">issue 25192</a> for more information.
 </p>
 
 <h3 id="ALPN">TLS strict ALPN</h3>
@@ -566,7 +566,7 @@ func Foo() bool {
   As an exception, when the value <code>"h2"</code> is included in the server's
   <code>Config.NextProtos</code>, HTTP/1.1 clients will be allowed to connect as
   if they didn't support ALPN.
-  See <a href="https://golang.org/issue/46310">issue 46310</a> for more information.
+  See <a href="/issue/46310">issue 46310</a> for more information.
 </p>
 
 <h3 id="minor_library_changes">Minor changes to the library</h3>
@@ -841,7 +841,7 @@ func Foo() bool {
       <code>//go:build</code> lines will be added. Otherwise,
       <code>// +build</code> lines will be overwritten based on any existing
       <code>//go:build</code> lines. For more information, see
-      <a href="https://golang.org/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
+      <a href="/design/draft-gobuild">https://golang.org/design/draft-gobuild</a>.
     </p>
   </dd>
 </dl><!-- go/format -->

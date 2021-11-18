@@ -24,7 +24,7 @@ It was modeled after a popular Python framework,
 [web.py](http://webpy.org/), which I had worked with previously.
 While working on web.go I got involved in the Go community,
 submitted a bunch of bug reports, and hacked on some standard library packages
-(mainly [http](https://golang.org/pkg/http/) and [json](https://golang.org/pkg/json/)).
+(mainly [http](/pkg/http/) and [json](/pkg/json/)).
 
 After a few weeks I noticed that web.go was getting attention at Github.
 This was surprising because I'd never really promoted the project.

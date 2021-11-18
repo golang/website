@@ -23,7 +23,7 @@ have been manageable on its own;
 together, however, they represent a significant amount of manual effort
 to update existing code.
 
-[Gofix](https://golang.org/cmd/fix/) is a new tool that reduces the amount
+[Gofix](/cmd/fix/) is a new tool that reduces the amount
 of effort it takes to update existing code.
 It reads a program from a source file, looks for uses of old APIs,
 rewrites them to use the current API, and writes the program back to the file.
@@ -98,8 +98,8 @@ Nearly every line above changed in some small way.
 The changes involved in the rewrite are extensive but nearly entirely mechanical,
 just the kind of thing that computers are great at doing.
 
-Gofix is possible because Go has support in its standard libraries for [parsing Go source files into syntax trees](https://golang.org/pkg/go/parser)
-and also for [printing those syntax trees back to Go source code](https://golang.org/pkg/go/printer).
+Gofix is possible because Go has support in its standard libraries for [parsing Go source files into syntax trees](/pkg/go/parser)
+and also for [printing those syntax trees back to Go source code](/pkg/go/printer).
 Importantly, the Go printing library prints a program in the official format
 (typically enforced via the gofmt tool),
 allowing gofix to make mechanical changes to Go programs without causing

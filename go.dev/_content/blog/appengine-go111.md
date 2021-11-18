@@ -26,8 +26,8 @@ application however you prefer, add an `app.yaml` file, and your app is ready
 to deploy on App Engine.
 [Specifying Dependencies](https://cloud.google.com/appengine/docs/standard/go111/specifying-dependencies)
 describes how the new runtime
-supports [vendoring](https://golang.org/cmd/go/#hdr-Vendor_Directories) and
-[modules](https://golang.org/doc/go1.11#modules) (experimental) for dependency
+supports [vendoring](/cmd/go/#hdr-Vendor_Directories) and
+[modules](/doc/go1.11#modules) (experimental) for dependency
 management.
 
 Along with [Cloud Functions support for Go](https://twitter.com/kelseyhightower/status/1035278586754813952)

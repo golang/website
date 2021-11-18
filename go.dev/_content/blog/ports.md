@@ -66,10 +66,10 @@ both running Go x86 binaries under Rosetta 2 and running native Go ARM64 binarie
 Earlier this week, we released the first Go 1.16 beta,
 which includes native support for Macs using the M1 chip.
 You can download and try the Go 1.16 beta for M1 Macs and all your other
-systems on [the Go download page](https://golang.org/dl/#go1.16beta1).
+systems on [the Go download page](/dl/#go1.16beta1).
 (Of course, this is a beta release and, like all betas,
 it certainly has bugs we don’t know about.
-If you run into any problems, please report them at [golang.org/issue/new](https://golang.org/issue/new).)
+If you run into any problems, please report them at [golang.org/issue/new](/issue/new).)
 
 It’s always nice to use the same CPU architecture for local development as in production,
 to remove one variation between the two environments.

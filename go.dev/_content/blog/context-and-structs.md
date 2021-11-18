@@ -11,9 +11,9 @@ tags:
 
 ## Introduction
 
-In many Go APIs, especially modern ones, the first argument to functions and methods is often [`context.Context`](https://golang.org/pkg/context/). Context provides a means of transmitting deadlines, caller cancellations, and other request-scoped values across API boundaries and between processes. It is often used when a library interacts — directly or transitively — with remote servers, such as databases, APIs, and the like.
+In many Go APIs, especially modern ones, the first argument to functions and methods is often [`context.Context`](/pkg/context/). Context provides a means of transmitting deadlines, caller cancellations, and other request-scoped values across API boundaries and between processes. It is often used when a library interacts — directly or transitively — with remote servers, such as databases, APIs, and the like.
 
-The [documentation for context](https://golang.org/pkg/context/) states:
+The [documentation for context](/pkg/context/) states:
 
 > Contexts should not be stored inside a struct type, but instead passed to each function that needs it.
 
@@ -79,7 +79,7 @@ And, finally, it can be quite dangerous to design a production-grade server whos
 
 ## Exception to the rule: preserving backwards compatibility
 
-When Go 1.7 — which [introduced context.Context](https://golang.org/doc/go1.7) — was released, a large number of APIs had to add context support in backwards compatible ways. For example, [`net/http`'s `Client` methods](https://golang.org/pkg/net/http/), like `Get` and `Do`, were excellent candidates for context. Each external request sent with these methods would benefit from having the deadline, cancellation, and metadata support that came with `context.Context`.
+When Go 1.7 — which [introduced context.Context](/doc/go1.7) — was released, a large number of APIs had to add context support in backwards compatible ways. For example, [`net/http`'s `Client` methods](/pkg/net/http/), like `Get` and `Do`, were excellent candidates for context. Each external request sent with these methods would benefit from having the deadline, cancellation, and metadata support that came with `context.Context`.
 
 There are two approaches for adding support for `context.Context` in backwards compatible ways: including a context in a struct, as we'll see in a moment, and duplicating functions, with duplicates accepting `context.Context` and having `Context` as their function name suffix. The duplicate approach should be preferred over the context-in-struct, and is further discussed in [Keeping your modules compatible](https://blog.golang.org/module-compatibility). However, in some cases it's impractical: for example, if your API exposes a large number of functions, then duplicating them all might be infeasible.
 
@@ -97,7 +97,7 @@ After Go 1.7, `Do` might have looked like the following, if not for the fact tha
 func (c *Client) Do(ctx context.Context, req *Request) (*Response, error)
 ```
 
-But, preserving the backwards compatibility and adhering to the [Go 1 promise of compatibility](https://golang.org/doc/go1compat) is crucial for the standard library. So, instead, the maintainers chose to add a `context.Context` on the `http.Request` struct in order to allow support `context.Context` without breaking backwards compatibility:
+But, preserving the backwards compatibility and adhering to the [Go 1 promise of compatibility](/doc/go1compat) is crucial for the standard library. So, instead, the maintainers chose to add a `context.Context` on the `http.Request` struct in order to allow support `context.Context` without breaking backwards compatibility:
 
 ```
 // A Request represents an HTTP request received by a server or to be sent by a client.

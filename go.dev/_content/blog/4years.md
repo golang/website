@@ -33,7 +33,7 @@ last 2 years.
 But where is the interest coming from?
 
 The open source community has embraced Go,
-with our community wiki listing [hundreds of Go projects](https://golang.org/wiki/Projects). Some popular ones:
+with our community wiki listing [hundreds of Go projects](/wiki/Projects). Some popular ones:
 
   - [Docker](http://docker.io) is a tool for packaging and running applications
     in lightweight containers.
@@ -81,7 +81,7 @@ Prolific Go hacker [Keith Rarick](http://xph.us/software/) put it well:
 "The state of the Go ecosystem after only four years is astounding.
 Compare Go in 2013 to Python in 1995 or Java in 1999. Or C++ in 1987!"
 
-Businesses are enjoying Go, too. The [Go Users wiki page](https://golang.org/wiki/GoUsers)
+Businesses are enjoying Go, too. The [Go Users wiki page](/wiki/GoUsers)
 lists dozens of success stories (and if you use Go,
 please add yourself to it). Some examples:
 
@@ -145,9 +145,9 @@ there are many ways to get started in the Go community:
     Berlin, Gothenburg, London, Moscow, Munich,
     New York City, Paris, San Francisco, Seoul,
     Stockholm, Sydney, Tokyo, and Warsaw;
-    but there are [many more](https://golang.org/wiki/GoUserGroups)!
+    but there are [many more](/wiki/GoUserGroups)!
 
-  - Create or contribute to an open source Go project (or [to Go itself](https://golang.org/doc/contribute.html)).
+  - Create or contribute to an open source Go project (or [to Go itself](/doc/contribute.html)).
     (And if you're building something, we'd love to hear from you on the [Go mailing list](http://groups.google.com/group/golang-nuts).)
 
   - If you're in Europe in February 2014, come along to the [Go Devroom](https://code.google.com/p/go-wiki/wiki/Fosdem2014)

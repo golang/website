@@ -47,7 +47,7 @@ trace. Use tools in isolation to get more precise info.
 
 <p>
 Profiling is useful for identifying expensive or frequently called sections
-of code. The Go runtime provides <a href="https://golang.org/pkg/runtime/pprof/">
+of code. The Go runtime provides <a href="/pkg/runtime/pprof/">
 profiling data</a> in the format expected by the
 <a href="https://github.com/google/pprof/blob/master/doc/README.md">pprof visualization tool</a>.
 The profiling data can be collected during testing
@@ -310,7 +310,7 @@ support for Go’s runtime concepts and built-in types. Delve is
 trying to be a fully featured reliable debugger for Go programs.
 </li>
 <li>
-<a href="https://golang.org/doc/gdb">GDB</a>:
+<a href="/doc/gdb">GDB</a>:
 Go provides GDB support via the standard Go compiler and Gccgo.
 The stack management, threading, and runtime contain aspects that differ
 enough from the execution model GDB expects that they can confuse the
@@ -366,7 +366,7 @@ while it is still running. These two cases make debugging of core
 dumps a good diagnostic aid to postmortem and analyze production
 services. It is possible to obtain core files from Go programs and
 use delve or gdb to debug, see the
-<a href="https://golang.org/wiki/CoreDumpDebugging">core dump debugging</a>
+<a href="/wiki/CoreDumpDebugging">core dump debugging</a>
 page for a step-by-step guide.
 </p>
 
@@ -439,14 +439,14 @@ Use profiling tools instead first to address them.</p>
 fine, and then it became serialized. It suggests that there might
 be lock contention for a shared resource that creates a bottleneck.</p>
 
-<p>See <a href="https://golang.org/cmd/trace/"><code>go</code> <code>tool</code> <code>trace</code></a>
+<p>See <a href="/cmd/trace/"><code>go</code> <code>tool</code> <code>trace</code></a>
 to collect and analyze runtime traces.
 </p>
 
 <h3 id="godebug">GODEBUG</h3>
 
 <p>Runtime also emits events and information if
-<a href="https://golang.org/pkg/runtime/#hdr-Environment_Variables">GODEBUG</a>
+<a href="/pkg/runtime/#hdr-Environment_Variables">GODEBUG</a>
 environmental variable is set accordingly.</p>
 
 <ul>

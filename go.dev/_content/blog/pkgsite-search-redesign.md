@@ -9,7 +9,7 @@ summary: Package search on pkg.go.dev has been updated, and you can now search f
 We are excited to launch a new search experience on [pkg.go.dev](https://pkg.go.dev/).
 
 These changes were motivated by
-[feedback we've received](https://golang.org/issue/47321) about the search
+[feedback we've received](/issue/47321) about the search
 page, and we hope you enjoy them. This blog post provides an overview of
 what you can expect to see on the site.
 
