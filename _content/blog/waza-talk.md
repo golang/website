@@ -29,9 +29,9 @@ and a video recording of the talk was released a few months ago.
 
 {{video "https://www.youtube.com/embed/oV9rvDllKEg" 500 281}}
 
-The slides are available at [talks.golang.org](https://talks.golang.org/2012/waza.slide)
+The slides are available at [go.dev/talks](/talks/2012/waza.slide)
 (use the left and right arrow keys to navigate).
 
 To learn about Go's concurrency primitives,
 watch [Go concurrency patterns](http://www.youtube.com/watch?v=f6kdp27TYZs)
-([slides](https://talks.golang.org/2012/concurrency.slide)).
+([slides](/talks/2012/concurrency.slide)).

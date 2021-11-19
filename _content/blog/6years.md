@@ -32,7 +32,7 @@ Improvements to tools continue to boost developer productivity.
 We introduced the [execution tracer](/cmd/trace/) and the
 "[go doc](/cmd/go/#hdr-Show_documentation_for_package_or_symbol)"
 command, as well as more enhancements to our various
-[static analysis tools](https://talks.golang.org/2014/static-analysis.slide).
+[static analysis tools](/talks/2014/static-analysis.slide).
 We are also working on an
 [official Go plugin for Sublime Text](https://groups.google.com/forum/#!topic/Golang-nuts/8oCSjAiKXUQ),
 with better support for other editors in the pipeline.

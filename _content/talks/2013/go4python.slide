@@ -95,7 +95,7 @@ You should watch [[http://youtu.be/ph374fJqFPE][Mindblowing Python GIL]], by Dav
 
 * Things I like about Python
 
-- The Zen of Python. ([[http://talks.golang.org/2012/zen.slide#1][Go and the Zen of Python]])
+- The Zen of Python. ([[http://go.dev/talks/2012/zen.slide#1][Go and the Zen of Python]])
 
 - Hashes and arrays are part of the language.
 
@@ -209,9 +209,9 @@ all kinds of concurrent systems.
 
 To learn more:
 
-- [[http://talks.golang.org/2012/concurrency.slide#1][Concurrency patterns]], by Rob Pike
+- [[http://go.dev/talks/2012/concurrency.slide#1][Concurrency patterns]], by Rob Pike
 
-- [[http://talks.golang.org/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
+- [[http://go.dev/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
 
 * Object-oriented Go
 

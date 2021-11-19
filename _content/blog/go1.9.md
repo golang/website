@@ -22,7 +22,7 @@ created to support gradual code repair. A type alias declaration has the form:
 This declaration introduces an alias name `T1` for the type `T2`, in the same way that `byte` has
 always been an alias for `uint8`.
 The [type alias design document](/design/18130-type-alias) and
-[an article on refactoring](https://talks.golang.org/2016/refactor.article) cover this addition in more detail.
+[an article on refactoring](/talks/2016/refactor.article) cover this addition in more detail.
 
 The new [math/bits](/pkg/math/bits) package provides bit counting and manipulation functions
 for unsigned integers, implemented by special CPU instructions when possible.

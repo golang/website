@@ -69,7 +69,7 @@ _(Photo by Winter Francia.)_
 
 After five years of experience with Go 1, we’ve started looking at
 what we should change about Go to better support
-[programming at scale](https://talks.golang.org/2012/splash.article).
+[programming at scale](/talks/2012/splash.article).
 
 Last spring, we published a [draft design for Go modules](https://blog.golang.org/versioning-proposal),
 which provide an integrated mechanism for versioning and package distribution.

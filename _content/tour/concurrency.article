@@ -186,17 +186,17 @@ If you need help with the standard library, see the [[https://golang.org/pkg/][p
 
 To further explore Go's concurrency model, watch
 [[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
-([[https://talks.golang.org/2012/concurrency.slide][slides]])
+([[https://go.dev/talks/2012/concurrency.slide][slides]])
 and
 [[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
-([[https://talks.golang.org/2013/advconc.slide][slides]])
+([[https://go.dev/talks/2013/advconc.slide][slides]])
 and read the
 [[https://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
 codewalk.
 
 To get started writing web applications, watch
 [[https://vimeo.com/53221558][A simple programming environment]]
-([[https://talks.golang.org/2012/simple.slide][slides]])
+([[https://go.dev/talks/2012/simple.slide][slides]])
 and read the
 [[https://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
 

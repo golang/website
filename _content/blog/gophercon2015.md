@@ -41,7 +41,7 @@ conference from afar:
   - A Practical Guide to Preventing Deadlocks and Leaks in Go — Richard
     Fliam ([video](https://www.youtube.com/watch?v=3EW1hZ8DVyw))
   - Go GC: Solving the Latency Problem — Rick Hudson ([video](https://www.youtube.com/watch?v=aiv1JOfMjm0))
-    ([slides](https://talks.golang.org/2015/go-gc.pdf))
+    ([slides](/talks/2015/go-gc.pdf))
   - Simplicity and Go — Katherine Cox-Buday ([video](https://www.youtube.com/watch?v=S6mEo_FHZ5Y))
     ([slides](https://github.com/gophercon/2015-talks/blob/master/Katherine%20Cox-Buday:%20Simplicity%20%26%20Go/Simplicity%20%26%20Go.pdf))
   - Rebuilding Parse.com in Go - an opinionated rewrite — Abhishek Kona
@@ -56,13 +56,13 @@ conference from afar:
 [Day 2](http://gophercon.com/schedule/9july/):
 
   - The Evolution of Go — Robert Griesemer ([video](https://www.youtube.com/watch?v=0ReKdcpNyQg))
-    ([slides](https://talks.golang.org/2015/gophercon-goevolution.slide))
+    ([slides](/talks/2015/gophercon-goevolution.slide))
   - Static Code Analysis Using SSA — Ben Johnson ([video](https://www.youtube.com/watch?v=D2-gaMvWfQY))
     ([slides](https://speakerdeck.com/benbjohnson/static-code-analysis-using-ssa))
   - Go on Mobile — Hana Kim ([video](https://www.youtube.com/watch?v=sQ6-HyPxHKg))
-    ([slides](https://talks.golang.org/2015/gophercon-go-on-mobile.slide))
+    ([slides](/talks/2015/gophercon-go-on-mobile.slide))
   - Go Dynamic Tools — Dmitry Vyukov ([video](https://www.youtube.com/watch?v=a9xrxRsIbSU))
-    ([slides](https://talks.golang.org/2015/dynamic-tools.slide))
+    ([slides](/talks/2015/dynamic-tools.slide))
   - Embrace the Interface — Tomás Senart ([video](https://www.youtube.com/watch?v=xyDkyFjzFVc))
     ([slides](https://github.com/gophercon/2015-talks/blob/master/Tom%C3%A1s%20Senart%20-%20Embrace%20the%20Interface/ETI.pdf))
   - Uptime: Building Resilient Services with Go — Blake Caldwell ([video](https://www.youtube.com/watch?v=PyBJQA4clfc))
@@ -74,7 +74,7 @@ conference from afar:
     ([slides](https://github.com/gophercon/2015-talks/blob/master/Sam%20Helman%20%26%20Kyle%20Erf%20-%20The%20Many%20Faces%20of%20Struct%20Tags/StructTags.pdf))
   - Betting the Company on Go and Winning — Kelsey Hightower ([video](https://www.youtube.com/watch?v=wqVbLlHqAeY))
   - How Go Was Made — Andrew Gerrand ([video](https://www.youtube.com/watch?v=0ht89TxZZnk))
-    ([slides](https://talks.golang.org/2015/how-go-was-made.slide))
+    ([slides](/talks/2015/how-go-was-made.slide))
 
 The [hack day](http://gophercon.com/schedule/10july/) was also a ton of fun,
 with hours of [lightning talks](https://www.youtube.com/playlist?list=PL2ntRZ1ySWBeHqlHM8DmvS8axgbrpvF9b)

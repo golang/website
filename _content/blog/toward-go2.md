@@ -103,7 +103,7 @@ Our goal for Go 2 is to fix the most significant ways Go fails to
 scale.
 
 (For more about these goals, see
-Rob Pike's 2012 article “[Go at Google: Language Design in the Service of Software Engineering](https://talks.golang.org/2012/splash.article)”
+Rob Pike's 2012 article “[Go at Google: Language Design in the Service of Software Engineering](/talks/2012/splash.article)”
 and my GopherCon 2015 talk “[Go, Open Source, Community](https://blog.golang.org/open-source).”)
 
 ## Constraints
@@ -403,7 +403,7 @@ convey to the broader Go community the significance of handling
 gradual code migration and repair during large-scale changes.
 
 In the fall we started over. I gave a [talk](https://www.youtube.com/watch?v=h6Cw9iCDVcU) and wrote
-[an article presenting the problem](https://talks.golang.org/2016/refactor.article)
+[an article presenting the problem](/talks/2016/refactor.article)
 using multiple concrete examples drawn from
 open source codebases, showing how this problem arises everywhere, not
 just inside Google. Now that more people understood the problem and
@@ -421,7 +421,7 @@ significance of any problem we want to solve. The clearest way to do
 that is by showing how the problem affects real programs and real
 production systems, like in
 [Cloudflare's blog post](https://blog.cloudflare.com/how-and-why-the-leap-second-affected-cloudflare-dns/) and in
-[my refactoring article](https://talks.golang.org/2016/refactor.article).
+[my refactoring article](/talks/2016/refactor.article).
 
 Experience reports like these turn an abstract problem into a concrete
 one and help us understand its significance. They also serve as test

@@ -161,7 +161,7 @@ Sometimes this means writing out a loop instead of invoking an obscure function.
 For more background on design:
 
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
-- [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
+- [[http://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
 
 * Code examples
 

@@ -33,7 +33,7 @@ scope, and simplicity of the Go programming environment.
 
 {{video "https://player.vimeo.com/video/53221558?badge=0" 500 281}}
 
-See the [slide deck](https://talks.golang.org/2012/simple.slide) (use the left and right arrows to navigate).
+See the [slide deck](/talks/2012/simple.slide) (use the left and right arrows to navigate).
 
 ## Go: code that grows with grace
 
@@ -48,4 +48,4 @@ Go's flexibility preserves the original design as it grows.
 
 {{video "https://player.vimeo.com/video/53221560?badge=0" 500 281}}
 
-See the [slide deck](https://talks.golang.org/2012/chat.slide) (use the left and right arrows to navigate).
+See the [slide deck](/talks/2012/chat.slide) (use the left and right arrows to navigate).

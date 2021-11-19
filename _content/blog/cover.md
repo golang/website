@@ -32,7 +32,7 @@ that builds on the technology laid down by godoc and friends.
 ## Support for tools
 
 First, some background: What does it mean for a
-[language to support good tooling](https://talks.golang.org/2012/splash.article#TOC_17.)?
+[language to support good tooling](/talks/2012/splash.article#TOC_17.)?
 It means that the language makes it easy to write good tools and that its ecosystem
 supports the construction of tools of all flavors.
 

@@ -315,7 +315,7 @@ pipeline and defined guidelines for constructing pipelines correctly.
 
 Further reading:
 
-  - [Go Concurrency Patterns](https://talks.golang.org/2012/concurrency.slide#1)
+  - [Go Concurrency Patterns](/talks/2012/concurrency.slide#1)
     ([video](https://www.youtube.com/watch?v=f6kdp27TYZs)) presents the basics
     of Go's concurrency primitives and several ways to apply them.
   - [Advanced Go Concurrency Patterns](https://blog.golang.org/advanced-go-concurrency-patterns)

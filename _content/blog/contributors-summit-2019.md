@@ -288,7 +288,7 @@ documents they’d written or workshops they’d given to developers of all stri
 Early on, talk turned to whether or not Go makes a good first programming language.
 I wasn’t sure, and advocated against it.
 Go isn’t a good first language, I argued, because it isn’t intended to be.
-As Rob Pike [wrote back in 2012](https://talks.golang.org/2012/splash.article),
+As Rob Pike [wrote back in 2012](/talks/2012/splash.article),
 “the language was designed by and for people who write—and read and debug and maintain—large software systems”.
 To me, this guiding ethos is clear: Go is a deliberate response to perceived flaws
 in the processes used by experienced engineers, not an attempt to create an ideal

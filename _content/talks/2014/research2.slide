@@ -48,7 +48,7 @@ A simple but powerful and fun language.
 For more background on design:
 
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more]]
-- [[http://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]]
+- [[http://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]]
 
 * Research and Go
 

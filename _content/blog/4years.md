@@ -127,7 +127,7 @@ please add yourself to it). Some examples:
     Engineer Matt Welsh recently [shared his experience](http://matt-welsh.blogspot.com.au/2013/08/rewriting-large-production-system-in-go.html)
     rewriting a large production service in Go.
     Other notable public examples include YouTube's [vitess project](https://github.com/youtube/vitess)
-    and [dl.google.com](https://talks.golang.org/2013/oscon-dl.slide).
+    and [dl.google.com](/talks/2013/oscon-dl.slide).
     We hope to share more stories like these soon.
 
 In September 2012, [Apcera](http://apcera.com/) CEO Derek Collison [predicted](https://twitter.com/derekcollison/status/245522124666716160)

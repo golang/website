@@ -32,10 +32,10 @@ where he explained how some object oriented concepts can be implemented in Go.
 
 Finally, [Josh Bleecher Snyder](http://twitter.com/offbymany) talked about his
 experience writing tools to work with Go source code in
-[Gophers with hammers](https://talks.golang.org/2014/hammers.slide#1),
+[Gophers with hammers](/talks/2014/hammers.slide#1),
 and [Francesc Campoy](http://twitter.com/francesc) talked about all the things
 that could have gone wrong and what the Go team did to prevent them
-[Inside the Go playground](https://talks.golang.org/2014/playground.slide).
+[Inside the Go playground](/talks/2014/playground.slide).
 
 ## Workshops
 
@@ -60,7 +60,7 @@ meetup and a
 {{image "osconreport/meetup.png" 800}}
 
 At the meetup Francesc Campoy talked about
-[Go Best Practices](https://talks.golang.org/2013/bestpractices.slide) and
+[Go Best Practices](/talks/2013/bestpractices.slide) and
 [Kelsey Hightower](https://twitter.com/kelseyhightower) gave a great
 introduction to [Kubernetes](https://github.com/GoogleCloudPlatform/kubernetes),
 a container management system for clusters written in Go by Google. If you live

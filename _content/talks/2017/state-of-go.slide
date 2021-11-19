@@ -18,7 +18,7 @@ Go 1.8 was released on February 16th.
 
 * Notes
 
-The slides are available on [[https://talks.golang.org/2017/state-of-go.slide]]
+The slides are available on [[https://go.dev/talks/2017/state-of-go.slide]]
 
 Most of the code examples won't run except locally and using Go 1.8.
 

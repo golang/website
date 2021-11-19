@@ -629,9 +629,9 @@ Ok, I'm just bragging here
 
 And there's lots to learn!
 
-- [[http://talks.golang.org/2012/concurrency.slide#1][Go Concurrency Patterns]], by Rob Pike
-- [[http://talks.golang.org/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
-- [[http://talks.golang.org/2012/waza.slide#1][Concurrency is not Parellelism]], by Rob Pike
+- [[http://go.dev/talks/2012/concurrency.slide#1][Go Concurrency Patterns]], by Rob Pike
+- [[http://go.dev/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
+- [[http://go.dev/talks/2012/waza.slide#1][Concurrency is not Parellelism]], by Rob Pike
 
 .image go4java/img/busy.jpg
 
@@ -664,4 +664,4 @@ Find more about Go on [[http://golang.org][golang.org]]
 
 Join the community at [[https://groups.google.com/forum/#!forum/Golang-nuts][golang-nuts]]
 
-Link to the slides [[http://talks.golang.org/2014/go4java.slide]]
+Link to the slides [[http://go.dev/talks/2014/go4java.slide]]

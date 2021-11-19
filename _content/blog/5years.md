@@ -28,14 +28,14 @@ kernel of the Go community.
 
 After the initial release, it took us a while to properly communicate the
 goals and design ethos behind Go. Rob Pike did so eloquently in his 2012 essay
-[_Go at Google: Language Design in the Service of Software Engineering_](https://talks.golang.org/2012/splash.article) and
+[_Go at Google: Language Design in the Service of Software Engineering_](/talks/2012/splash.article) and
 more personally in his blog post
 [_Less is exponentially more_](https://commandcenter.blogspot.com.au/2012/06/less-is-exponentially-more.html).
 Andrew Gerrand's
 [_Code that grows with grace_](http://vimeo.com/53221560)
-([slides](https://talks.golang.org/2012/chat.slide)) and
+([slides](/talks/2012/chat.slide)) and
 [_Go for Gophers_](https://www.youtube.com/watch?v=dKGmK_Z1Zl0)
-([slides](https://talks.golang.org/2014/go4gophers.slide)) give a
+([slides](/talks/2014/go4gophers.slide)) give a
 more in-depth, technical take on Go's design philosophy.
 
 Over time, the few became many. The turning point for the project was the

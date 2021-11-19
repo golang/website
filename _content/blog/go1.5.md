@@ -14,7 +14,7 @@ This release includes significant changes to the implementation.
 The compiler tool chain was [translated from C to Go](/doc/go1.5#c),
 removing the last vestiges of C code from the Go code base.
 The garbage collector was [completely redesigned](/doc/go1.5#gc),
-yielding a [dramatic reduction](https://talks.golang.org/2015/go-gc.pdf)
+yielding a [dramatic reduction](/talks/2015/go-gc.pdf)
 in garbage collection pause times.
 Related improvements to the scheduler allowed us to change the default
 [GOMAXPROCS](/pkg/runtime/#GOMAXPROCS) value

@@ -91,7 +91,7 @@ When I realized this, the logical necessity surprised me.
 I was also surprised to realize that
 there is a second, independent logical route to
 semantic import versioning:
-[gradual code repair](https://talks.golang.org/2016/refactor.article)
+[gradual code repair](/talks/2016/refactor.article)
 or partial code upgrades.
 In a large program, it’s unrealistic to expect all packages in the program
 to update from v1 to v2 of a particular dependency at the same time.

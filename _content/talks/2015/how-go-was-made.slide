@@ -305,7 +305,7 @@ At first, we did a poor job explaining the project's goals and development proce
 This caused frustration. ("Why don't they accept my suggestions?")
 
 It took us a while to articulate it:
-Rob Pike's [[http://talks.golang.org/2012/splash.article][talk]] in October 2012
+Rob Pike's [[http://go.dev/talks/2012/splash.article][talk]] in October 2012
 "Go at Google: Language Design in the Service of Software Engineering"
 was the first thorough explanation of Go's _raison_d'être_.
 

@@ -20,7 +20,7 @@ some specific libraries and tools.
 
 {{video "https://www.youtube.com/embed/bj9T2c2Xk_s"}}
 
-The slides for the talk are [available here](https://talks.golang.org/2012/go1.slide).
+The slides for the talk are [available here](/talks/2012/go1.slide).
 
 It's almost a year since we cut Go 1.0 and we are now busy preparing Go 1.1.
 The release will include performance improvements to the gc compiler,

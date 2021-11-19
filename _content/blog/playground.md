@@ -23,7 +23,7 @@ or running [executable examples](/pkg/strings/#pkg-examples)
 from the Go documentation.
 
 You may also have used it by clicking one of the "Run" buttons in a slide
-deck on [talks.golang.org](https://talks.golang.org/) or a post on this
+deck on [go.dev/talks](/talks/) or a post on this
 very blog
 (such as the [recent article on Strings](https://blog.golang.org/strings)).
 
@@ -96,7 +96,7 @@ Limiting the run time of each playground program makes our service more
 predictable and defends us against denial of service attacks.
 
 But these restrictions become stifling when running code that uses time.
-The [Go Concurrency Patterns](https://talks.golang.org/2012/concurrency.slide)
+The [Go Concurrency Patterns](/talks/2012/concurrency.slide)
 talk demonstrates concurrency with examples that use timing functions like
 [`time.Sleep`](/pkg/time/#Sleep) and
 [`time.After`](/pkg/time/#After).
@@ -340,7 +340,7 @@ client.
 
 The WebSocket back end implementation can be found in the
 [`golang.org/x/tools/playground/socket`](https://godoc.org/golang.org/x/tools/playground/socket) package.
-The [Inside Present](https://talks.golang.org/2012/insidepresent.slide#1) talk discusses this code in detail.
+The [Inside Present](/talks/2012/insidepresent.slide#1) talk discusses this code in detail.
 
 ## Other clients
 

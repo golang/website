@@ -61,7 +61,7 @@ We made sure that there weren’t unnecessary dependencies
 between packages, both to simplify programs and to make it
 easier to test and refactor them.
 For more detail about these considerations, see Rob Pike’s 2012 article
-“[[https://talks.golang.org/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]].”
+“[[https://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]].”
 
 Over the past few years we’ve come to realize that there’s
 more that can and should be done to make it easier
@@ -153,7 +153,7 @@ allow its use even in low-level contexts like the specification of
 Since the type was named `error`, the package became errors (plural)
 and the constructor `errors.New`.
 Andrew Gerrand’s 2015 talk
-“[[https://talks.golang.org/2015/how-go-was-made.slide#37][How Go was Made]]” has more detail.)
+“[[https://go.dev/talks/2015/how-go-was-made.slide#37][How Go was Made]]” has more detail.)
 
 * Gradual code repair
 

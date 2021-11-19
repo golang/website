@@ -16,7 +16,7 @@ uses of safe and secure languages such as Go.
 
 Go 1.5, the first glimpse of this future, achieves GC latencies well below the
 10 millisecond goal we set a year ago. We presented some impressive numbers
-in [a talk at Gophercon](https://talks.golang.org/2015/go-gc.pdf).
+in [a talk at Gophercon](/talks/2015/go-gc.pdf).
 The latency improvements have generated a lot of attention;
 Robin Verlangen’s blog post
 [_Billions of requests per day meet Go 1.5_](https://medium.com/@robin.verlangen/billions-of-request-per-day-meet-go-1-5-362bfefa0911)
@@ -113,4 +113,4 @@ more powerful the GC will not be an impediment to better, more scalable
 software. It’s a good place to be for the next decade and beyond.
 For more details about the 1.5 GC and how we eliminated latency issues see the
 [Go GC: Latency Problem Solved presentation](https://www.youtube.com/watch?v=aiv1JOfMjm0)
-or [the slides](https://talks.golang.org/2015/go-gc.pdf).
+or [the slides](/talks/2015/go-gc.pdf).

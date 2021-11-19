@@ -175,7 +175,7 @@ RPC servers decode them into a new `Context` for the handler function.
 
 * Replicated Search
 
-Example from [[https://talks.golang.org/2012/concurrency.slide][Go Concurrency Patterns]].
+Example from [[https://go.dev/talks/2012/concurrency.slide][Go Concurrency Patterns]].
 
 .code gotham-context/first.go /START1/,/STOP1/
 

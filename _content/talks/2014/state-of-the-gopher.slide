@@ -298,7 +298,7 @@ Didn't make Go 1.4:
 - unify all `8g`, `5g`, `6g`, `9g`
 - SSA form, new optimizations
 
-See rsc's GopherCon [[http://talks.golang.org/2014/c2go.slide#1][slides]], [[http://gophercon.sourcegraph.com/post/83820197495/russ-cox-porting-the-go-compiler-from-c-to-go][notes]], [[https://www.youtube.com/watch?v=QIE5nV5fDwA][video]].
+See rsc's GopherCon [[http://go.dev/talks/2014/c2go.slide#1][slides]], [[http://gophercon.sourcegraph.com/post/83820197495/russ-cox-porting-the-go-compiler-from-c-to-go][notes]], [[https://www.youtube.com/watch?v=QIE5nV5fDwA][video]].
 
 * Go 1.5 Tracing
 

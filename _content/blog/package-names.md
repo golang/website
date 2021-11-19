@@ -253,4 +253,4 @@ grow them gracefully.
   - [Effective Go](/doc/effective_go.html)
   - [How to Write Go Code](/doc/code.html)
   - [Organizing Go Code (2012 blog post)](https://blog.golang.org/organizing-go-code)
-  - [Organizing Go Code (2014 Google I/O talk)](https://talks.golang.org/2014/organizeio.slide)
+  - [Organizing Go Code (2014 Google I/O talk)](/talks/2014/organizeio.slide)

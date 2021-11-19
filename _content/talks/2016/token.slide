@@ -12,13 +12,13 @@ http://golang.org/
 
 * Background
 
-Spoke at Gophercon this year: [[https://talks.golang.org/2016/asm.slide]]
+Spoke at Gophercon this year: [[https://go.dev/talks/2016/asm.slide]]
 
 That talk was about system design and portability.
 
 Today's talk is about its lexer.
 
-Spoke about lexing before: [[https://talks.golang.org/2011/lex.slide]]
+Spoke about lexing before: [[https://go.dev/talks/2011/lex.slide]]
 
 That talk showed a way to use concurrency to build a lexer.
 
@@ -66,7 +66,7 @@ But.... that is not enough for the assembler because of
 
 * Backwards compatibility
 
-The new Go assembler had to be totally compatible with the ones it replaces, which used YACC and were written in C. (See [[https://talks.golang.org/2015/gogo.slide][]].)
+The new Go assembler had to be totally compatible with the ones it replaces, which used YACC and were written in C. (See [[https://go.dev/talks/2015/gogo.slide][]].)
 
 Each assembler (one per architecture) contained these lines at the end of `lex.c`:
 	

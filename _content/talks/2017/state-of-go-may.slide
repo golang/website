@@ -26,7 +26,7 @@ Go 1.9 will be released early August.
 
 * Notes
 
-The slides are available on [[https://talks.golang.org/2017/state-of-go-may.slide]]
+The slides are available on [[https://go.dev/talks/2017/state-of-go-may.slide]]
 
 Most of the code examples won't run except locally and using tip.
 
@@ -46,7 +46,7 @@ Changes since Go 1.8:
 
 * Codebase Refactoring (with help from Go)
 
-Article written by Russ Cox [[https://talks.golang.org/2016/refactor.article][link]]
+Article written by Russ Cox [[https://go.dev/talks/2016/refactor.article][link]]
 
 .image state-of-go-may/img/atomic.svg _ 300
 
@@ -69,7 +69,7 @@ First: create the new API
 Second: change each usage of `http.StatusOK` by `status.OK`.
 
     if res.StatusCode != http.StatusOK {
-    
+
     if res.StatusCode != status.OK {
 
 Third: remove the old API
@@ -87,7 +87,7 @@ First: create the new API
 Second: change each usage of `http.Get` to `http.DoGetPleaseAndThanks`.
 
     res, err := http.Get("https://golang.org")
-    
+
     res, err := http.DoGetPleaseAndThanks("https://golang.org")
 
 Third: remove the old API

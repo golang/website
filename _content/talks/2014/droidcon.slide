@@ -20,7 +20,7 @@ Born out of frustration with C++ and Java:
 
 Go is fast and simple.
 
-More at: [[https://talks.golang.org/2012/splash.article]]
+More at: [[https://go.dev/talks/2012/splash.article]]
 
 * Five years later
 
@@ -201,4 +201,4 @@ Sprite will be ready for 2D games.
 - focus on functions, simplicity
 - native binaries
 
-More at: [[https://talks.golang.org/2014/go4java.slide]]
+More at: [[https://go.dev/talks/2014/go4java.slide]]

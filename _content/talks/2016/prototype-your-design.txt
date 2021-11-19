@@ -2,7 +2,7 @@ Copyright 2016 The Go Authors. All rights reserved.
 Use of this source code is governed by a BSD-style
 license that can be found in the LICENSE file.
 
-Full talk text for https://talks.golang.org/2016/prototype-your-design.pdf.
+Full talk text for https://go.dev/talks/2016/prototype-your-design.pdf.
 
 Prototype your design!
 Robert Griesemer

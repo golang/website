@@ -13,7 +13,7 @@ providing information about Go packages and modules.
 The go.dev web site contains useful information for people evaluating Go,
 but golang.org continued to serve distribution downloads, documentation,
 and a package reference for the standard library.
-Other sites — blog.golang.org, play.golang.org, talks.golang.org,
+Other sites — blog.golang.org, play.golang.org, go.dev/talks,
 and tour.golang.org — hold additional material.
 It's all a bit fragmented and confusing.
 

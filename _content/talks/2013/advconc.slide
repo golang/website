@@ -35,7 +35,7 @@ Channels are typed values that allow goroutines to synchronize and exchange info
   go func() { c <- 3 }()
   n := <-c
 
-For more on the basics, watch [[http://talks.golang.org/2012/concurrency.slide#1][Go Concurrency Patterns (Pike, 2012)]].
+For more on the basics, watch [[http://go.dev/talks/2012/concurrency.slide#1][Go Concurrency Patterns (Pike, 2012)]].
 
 * Example: ping-pong
 
@@ -363,7 +363,7 @@ Go makes it easier:
 
 Go Concurrency Patterns (2012)
 
-.link http://talks.golang.org/2012/concurrency.slide
+.link http://go.dev/talks/2012/concurrency.slide
 
 Concurrency is not parallelism
 

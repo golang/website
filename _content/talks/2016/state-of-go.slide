@@ -18,7 +18,7 @@ Go 1.6 Candidate Release 1 was released on January 28th
 
 * Notes
 
-The slides are available on [[https://talks.golang.org/2016/state-of-go.slide]]
+The slides are available on [[https://go.dev/talks/2016/state-of-go.slide]]
 
 Most of the code examples won't run except locally and using Go 1.6.
 
