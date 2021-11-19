@@ -110,6 +110,23 @@ title: "Get Started"
   </div>
 </section>
 
+<section id="tutorials" class="Learn-tutorials">
+  <div class="Container">
+    <div class="Learn-learningResourcesHeader">
+      <h3>Tutorials</h3>
+    </div>
+    <div class="LearnGo-gridContainer">
+      <ul class="Learn-cardList">
+        {{- range first 4 (data "tutorials.yaml") }}
+          <li class="Learn-card">
+            {{- template "learn-card" .}}
+          </li>
+        {{- end}}
+      </ul>
+    </div>
+  </div>
+</section>
+
 <section id="featured-books" class="Learn-books">
   <div class="Container">
     <div class="Learn-learningResourcesHeader">

@@ -1,0 +1,20 @@
+- title: Getting started
+  content: In this tutorial, you'll get a brief introduction to Go programming. Along the way, you will install Go, write some simple "Hello, world" code, use the go command to run your code, use the Go package discovery tool, and call functions of an external module.
+  url: /doc/tutorial/getting-started
+  thumbnail:
+  cta: Tutorial
+- title: Create a module
+  content: This is the first part of a tutorial that introduces a few fundamental features of the Go language. In this tutorial you'll create two modules. The first is a library which is intended to be imported by other libraries or applications. The second is a caller application which will use the first.
+  url: /doc/tutorial/create-module
+  thumbnail:
+  cta: Tutorial
+- title: Developing a web service
+  content: This tutorial introduces the basics of writing a RESTful web service API with Go and the Gin Web Framework. In this tutorial, you will build a RESTful API server with two endpoints.
+  url: https://shell.cloud.google.com/?walkthrough_tutorial_url=https%3A%2F%2Fraw.githubusercontent.com%2Fgolang%2Ftour%2Fmaster%2Ftutorial%2Fweb-service-gin.md&pli=1&show=ide&environment_deployment=ide
+  thumbnail:
+  cta: Interactive Tutorial
+- title: Accessing a relational database
+  content: This tutorial introduces the basics of accessing a relational database with Go and the database/sql package in its standard library. In this tutorial, you’ll create a database, then write code to access the database.
+  url: /doc/tutorial/database-access
+  thumbnail:
+  cta: Tutorial
