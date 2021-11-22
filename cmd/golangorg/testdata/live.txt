@@ -1,17 +1,35 @@
 # Tests that can only run against the live server,
 # because they depend on production resources.
 
-GET https://golang.org/s/go2design
+GET https://go.dev/s/go2design
 code == 302
 body ~ proposal.*Found
 body !contains UA-
+
+GET https://golang.org/s/go2design
+code == 301
+redirect == https://go.dev/s/go2design
+
+# playground API endpoints do not redirect from golang.org,
+# in case there are clients that can't handle the redirects.
 
 POST https://golang.org/compile
 postquery
 	body=package main; func main() { print(6*7); }
 body == {"compile_errors":"","output":"42"}
 
+POST https://go.dev/_/compile
+postquery
+	body=package main; func main() { print(6*7); }
+body == {"compile_errors":"","output":"42"}
+
 POST https://golang.org/compile
+postquery
+	body=//empty
+body contains expected 'package', found 'EOF'
+body !contains UA-
+
+POST https://go.dev/_/compile
 postquery
 	body=//empty
 body contains expected 'package', found 'EOF'
@@ -23,7 +41,18 @@ postquery
 	body=package main; import ("fmt"; "time"); func main() {fmt.Print("A"); time.Sleep(time.Second); fmt.Print("B")}
 body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}]}
 
+POST https://go.dev/_/compile
+postquery
+	version=2
+	body=package main; import ("fmt"; "time"); func main() {fmt.Print("A"); time.Sleep(time.Second); fmt.Print("B")}
+body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}]}
+
 POST https://golang.org/share
+postbody
+	package main
+body !contains UA-
+
+POST https://go.dev/_/share
 postbody
 	package main
 body !contains UA-
