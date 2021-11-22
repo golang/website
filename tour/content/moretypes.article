@@ -56,6 +56,10 @@ write just `p.X`, without the explicit dereference.
 
 A struct literal denotes a newly allocated struct value by listing the values of its fields.
 
+Struct Literals are the name of the struct with values in braces, in the order they are defined in the struct.
+In the given example, `v1=Vertex{1,2}` creates a `v1` variable of type `Vertex` and values of
+fields `X` & `Y` being `1` & `2` respectively.
+
 You can list just a subset of fields by using the `Name:` syntax. (And the order of named fields is irrelevant.)
 
 The special prefix `&` returns a pointer to the struct value.
