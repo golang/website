@@ -14,8 +14,9 @@ access by clicking on
 
 You can also view the table of contents at any time by clicking on the [[javascript:highlightAndClick(".nav")][menu]] on the top right of the page.
 
-Throughout the tour you will find a series of slides and exercises for you
-to complete.
+Throughout the tour you will find a series of slides and exercises for you to complete.
+If you get stuck at any point, you can always take a look at the [[https://github.com/golang/website/tree/master/tour/solutions][example solutions]].
+But don't give up too quickly!
 
 You can navigate through them using
 
