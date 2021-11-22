@@ -37,7 +37,7 @@ func main() {
 	Crawl("https://golang.org/", 4, fetcher)
 }
 
-// fakeFetcher is Fetcher that returns canned results.
+// fakeFetcher is Fetcher that returns scanned results.
 type fakeFetcher map[string]*fakeResult
 
 type fakeResult struct {
