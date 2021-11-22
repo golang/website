@@ -31,8 +31,15 @@ Unlike C, Go has no pointer arithmetic.
 
 * Structs
 
-A `struct` is a collection of fields.
+A `struct` is a typed collection of fields. In Go, structs are the way to create user-defined concrete types.
+Syntax to create a struct starts with the keyword `type`, then a name for the struct, followed by the `struct` keyword.
+Inside curly backets, collection of fields are specified with field name and field type.
 
+The `type` keyword is used to define a new type in Go. It is generally referred as [[https://golang.org/ref/spec#Type_definitions][type definition]].
+
+In the given example, a new struct type `Vertex` is created which consist of fields `X` & `Y` of type `int`.
+
+*Note:* Data field in a struct is declared with a known type, which could be a built-in type or a user-defined type.
 .play moretypes/structs.go
 
 * Struct Fields
