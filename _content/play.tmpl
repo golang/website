@@ -6,6 +6,13 @@
   <div class="Playground-controls">
     <h1 class="Playground-title">The Go Playground</h1>
     <div class="Playground-buttons">
+    {{if .playVersions -}}
+    <select class="Playground-selectGoVersion js-playgroundVersionEl" aria-label="Go version">
+    {{range .playVersions -}}
+    <option value="{{.Backend}}">{{.Name}}</option>
+    {{end -}}
+    </select>
+    {{end -}}
     <button id="run" class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
     <div class="Playground-secondaryButtons">
       <button id="fmt" class="Button js-playgroundFmtEl" title="Format this code">Format</button>

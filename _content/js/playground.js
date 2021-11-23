@@ -123,7 +123,7 @@ function HTTPTransport(enableVet) {
       seq++;
       var cur = seq;
       var playing;
-      $.ajax('/_/compile', {
+      $.ajax('/_/compile?backend='+options.backend, {
         type: 'POST',
         data: { version: 2, body: body, withVet: enableVet },
         dataType: 'json',
@@ -402,6 +402,17 @@ function PlaygroundOutput(el) {
       window.addEventListener('popstate', popState);
     }
 
+    function backend() {
+      if (opts.versionEl === null) {
+        return '';
+      }
+      var vers = $(opts.versionEl);
+      if (vers === null) {
+        return '';
+      }
+      return vers.val();
+    }
+
     function setError(error) {
       if (running) running.Kill();
       lineClear();
@@ -420,7 +431,8 @@ function PlaygroundOutput(el) {
       loading();
       running = transport.Run(
         body(),
-        highlightOutput(PlaygroundOutput(output[0]))
+        highlightOutput(PlaygroundOutput(output[0])),
+        {backend: backend()},
       );
     }
 
@@ -428,7 +440,7 @@ function PlaygroundOutput(el) {
       loading();
       var data = { body: body() };
       data['imports'] = 'true';
-      $.ajax('/_/fmt', {
+      $.ajax('/_/fmt?backend='+backend(), {
         data: data,
         type: 'POST',
         dataType: 'json',
@@ -440,6 +452,9 @@ function PlaygroundOutput(el) {
             setError('');
           }
           run();
+        },
+        error: function() {
+          setError('Error communicating with remote server.');
         },
       });
     }
@@ -567,6 +582,18 @@ function PlaygroundOutput(el) {
           },
         });
       });
+    }
+
+    if (opts.versionEl !== null) {
+      var v = (new URL(window.location)).searchParams.get('v');
+      if (v !== null && v != "") {
+      	var select = $(opts.versionEl)
+      	select.val(v);
+        if (select.val() != v) {
+          select.append($('<option>', {value: v, text: 'Backend: ' + v}));
+          select.val(v);
+        }
+      }
     }
   }
 

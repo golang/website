@@ -15,6 +15,7 @@ window.addEventListener('DOMContentLoaded', () => {
       "shareEl":       ".js-playgroundShareEl",
       "shareRedirect": "/play/p/",
       "toysEl":        ".js-playgroundToysEl",
+      "versionEl":     ".js-playgroundVersionEl",
       'enableHistory': true,
       'enableShortcuts': true,
       'enableVet': true

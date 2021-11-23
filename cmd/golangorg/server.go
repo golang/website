@@ -40,7 +40,7 @@ import (
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/memcache"
 	"golang.org/x/website/internal/pkgdoc"
-	"golang.org/x/website/internal/proxy"
+	"golang.org/x/website/internal/play"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
 	"golang.org/x/website/internal/talks"
@@ -206,11 +206,11 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("newSite golang.google.cn: %v", err)
 	}
-	siteMux.Handle("/play/", playHandler(godevSite))
-	siteMux.Handle("golang.google.cn/play/", playHandler(chinaSite))
 	dl.RegisterHandlers(siteMux, godevSite, "", datastoreClient, memcacheClient)
 	dl.RegisterHandlers(siteMux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 	mux.Handle("/", siteMux)
+
+	play.RegisterHandlers(mux, godevSite, chinaSite)
 
 	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
 	if err := blog.RegisterFeeds(mux, "", godevSite); err != nil {
@@ -226,9 +226,6 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		appEngineSetup(mux)
 	}
 
-	// Note: Registers for golang.org, go.dev/_, and golang.google.cn.
-	proxy.RegisterHandlers(mux)
-
 	// Note: Using godevSite (non-China) for global mux registration because there's no sharing in talks.
 	// Don't need the hassle of two separate registrations for different domains in siteMux.
 	if err := talks.RegisterHandlers(mux, godevSite, contentFS); err != nil {
@@ -243,24 +240,6 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	h = hostEnforcerHandler(h)
 	h = hostPathHandler(h)
 	return h
-}
-
-func playHandler(site *web.Site) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/play/p" || r.URL.Path == "/play/p/" {
-			http.Redirect(w, r, "/play/", http.StatusFound)
-			return
-		}
-		if r.Host == "golang.google.cn" && strings.HasPrefix(r.URL.Path, "/play/p/") {
-			site.ServeError(w, r, errors.New("Sorry, but shared playground snippets are not visible in China."))
-			return
-		}
-		site.ServePage(w, r, web.Page{
-			"URL":    r.URL.Path,
-			"layout": "play",
-			"title":  "Go Playground",
-		})
-	})
 }
 
 // newSite creates a new site for a given content and goroot file system pair
@@ -479,6 +458,9 @@ func hostPathHandler(h http.Handler) http.Handler {
 		r.URL.Scheme = "https"
 		r.URL.Host = elem
 		r.URL.Path = "/" + rest
+
+		log.Print(r.URL.String())
+
 		lw := &linkRewriter{ResponseWriter: w, host: r.Host}
 		h.ServeHTTP(lw, r)
 		lw.Flush()

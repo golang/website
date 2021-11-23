@@ -2,9 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package proxy proxies requests to the playground's compile and share handlers.
-// It is designed to run only on the instance of godoc that serves golang.org.
-package proxy
+package play
 
 import (
 	"bytes"
@@ -18,6 +16,8 @@ import (
 	"regexp"
 	"strings"
 	"time"
+
+	"golang.org/x/website/internal/web"
 )
 
 const playgroundURL = "https://play.golang.org"
@@ -40,11 +40,11 @@ type Event struct {
 const expires = 7 * 24 * time.Hour // 1 week
 var cacheControlHeader = fmt.Sprintf("public, max-age=%d", int(expires.Seconds()))
 
-// RegisterHandlers registers handlers for the playground endpoints,
-// proxying to the actual play.golang.org, so that we avoid cross-site requests
-// in the browser.
-func RegisterHandlers(mux *http.ServeMux) {
-	for _, host := range []string{"golang.org", "go.dev/_", "golang.google.cn"} {
+// RegisterHandlers registers handlers for the playground endpoints.
+func RegisterHandlers(mux *http.ServeMux, godevSite, chinaSite *web.Site) {
+	mux.Handle("/play/", playHandler(godevSite))
+	mux.Handle("golang.google.cn/play/", playHandler(chinaSite))
+	for _, host := range []string{"golang.org", "go.dev/_", "golang.google.cn/_"} {
 		mux.HandleFunc(host+"/compile", compile)
 		if host != "golang.google.cn" {
 			mux.HandleFunc(host+"/share", share)
@@ -64,8 +64,8 @@ func compile(w http.ResponseWriter, r *http.Request) {
 	body := r.FormValue("body")
 	res := &Response{}
 	req := &Request{Body: body}
-	if err := makeCompileRequest(ctx, req, res); err != nil {
-		log.Printf("ERROR compile error: %v", err)
+	if err := makeCompileRequest(ctx, backend(r), req, res); err != nil {
+		log.Printf("ERROR compile error %s: %v", backend(r), err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}
@@ -95,12 +95,12 @@ func compile(w http.ResponseWriter, r *http.Request) {
 
 // makeCompileRequest sends the given Request to the playground compile
 // endpoint and stores the response in the given Response.
-func makeCompileRequest(ctx context.Context, req *Request, res *Response) error {
+func makeCompileRequest(ctx context.Context, backend string, req *Request, res *Response) error {
 	reqJ, err := json.Marshal(req)
 	if err != nil {
 		return fmt.Errorf("marshalling request: %v", err)
 	}
-	hReq, _ := http.NewRequest("POST", playgroundURL+"/compile", bytes.NewReader(reqJ))
+	hReq, _ := http.NewRequest("POST", "https://"+backend+"/compile", bytes.NewReader(reqJ))
 	hReq.Header.Set("Content-Type", "application/json")
 	hReq = hReq.WithContext(ctx)
 
@@ -142,7 +142,7 @@ func share(w http.ResponseWriter, r *http.Request) {
 }
 
 func fmtHandler(w http.ResponseWriter, r *http.Request) {
-	simpleProxy(w, r, playgroundURL+"/fmt")
+	simpleProxy(w, r, "https://"+backend(r)+"/fmt")
 }
 
 func simpleProxy(w http.ResponseWriter, r *http.Request, url string) {
@@ -170,4 +170,21 @@ func simpleProxy(w http.ResponseWriter, r *http.Request, url string) {
 	defer resp.Body.Close()
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
+}
+
+func backend(r *http.Request) string {
+	b := r.URL.Query().Get("backend")
+	if !isDomainElem(b) {
+		return "play.golang.org"
+	}
+	return b + "play.golang.org"
+}
+
+func isDomainElem(s string) bool {
+	for i := 0; i < len(s); i++ {
+		if !('a' <= s[i] && s[i] <= 'z' || '0' <= s[i] && s[i] <= '9') {
+			return false
+		}
+	}
+	return s != ""
 }
