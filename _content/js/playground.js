@@ -489,6 +489,10 @@ function PlaygroundOutput(el) {
       if (sharing) return;
       sharing = true;
 
+      var errorMessages = {
+        413: 'Snippet is too large to share.'
+      };
+
       var sharingData = body();
       $.ajax('/_/share', {
         processData: false,
@@ -498,7 +502,8 @@ function PlaygroundOutput(el) {
         complete: function(xhr) {
           sharing = false;
           if (xhr.status != 200) {
-            alert('Server error; try again.');
+            var alertMsg = errorMessages[xhr.status] ? errorMessages[xhr.status] : 'Server error; try again.';
+            alert(alertMsg);
             return;
           }
           if (opts.shareRedirect) {
