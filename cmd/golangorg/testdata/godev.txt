@@ -60,3 +60,26 @@ code == 404
 # but on a case-insensitive file system,
 # https://go.dev/SECURITY is served from _content/security.html,
 # so we can't assert a 404.
+GET https://blog.go.dev/
+redirect == https://go.dev/blog/
+
+GET https://blog.go.dev/any
+redirect == https://go.dev/blog/any
+
+GET https://talks.go.dev/
+redirect == https://go.dev/talks/
+
+GET https://talks.go.dev/any
+redirect == https://go.dev/talks/any
+
+GET https://tour.go.dev/
+redirect == https://go.dev/tour/
+
+GET https://tour.go.dev/any
+redirect == https://go.dev/tour/any
+
+GET https://play.go.dev/
+redirect == https://go.dev/play/
+
+GET https://play.go.dev/any
+redirect == https://go.dev/play/any

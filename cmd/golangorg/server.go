@@ -169,12 +169,22 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
 
 	// By default, golang.org/foo redirects to go.dev/foo.
-	// There are some exceptions below, like for golang.org/x and golang.org/fmt.
+	// All the user-facing golang.org subdomains have moved to go.dev subdirectories.
+	// There are some exceptions below, like for golang.org/x.
 	mux.Handle("golang.org/", redirectPrefix("https://go.dev/"))
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
 	mux.Handle("talks.golang.org/", redirectPrefix("https://go.dev/talks/"))
 	mux.Handle("tour.golang.org/", redirectPrefix("https://go.dev/tour/"))
+
+	// Redirect subdirectory-like domains to the actual subdirectories,
+	// for people whose fingers learn to type go.dev instead of golang.org
+	// but not the rest of the URL schema change.
+	// Note that these domains have to be listed in knownHosts below as well.
+	mux.Handle("blog.go.dev/", redirectPrefix("https://go.dev/blog/"))
+	mux.Handle("play.go.dev/", redirectPrefix("https://go.dev/play/"))
+	mux.Handle("talks.go.dev/", redirectPrefix("https://go.dev/talks/"))
+	mux.Handle("tour.go.dev/", redirectPrefix("https://go.dev/tour/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -403,7 +413,11 @@ var validHosts = map[string]bool{
 	"tour.golang.org":  true,
 
 	"go.dev":       true,
+	"blog.go.dev":  true,
 	"learn.go.dev": true,
+	"play.go.dev":  true,
+	"talks.go.dev": true,
+	"tour.go.dev":  true,
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
