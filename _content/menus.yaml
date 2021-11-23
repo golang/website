@@ -30,12 +30,17 @@ footer:
       url: /tour/
     - name: Stack Overflow
       url: https://stackoverflow.com/questions/tagged/go?tab=Newest
+    - name: Help
+      url: /help/
 
   - name: Packages
     url: https://pkg.go.dev
+    children:
+    - name: Standard Library
+      url: /pkg/
 
   - name: About
-    url: /about
+    url: /project
     children:
     - name: Download
       url: /dl/
