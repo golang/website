@@ -9,7 +9,7 @@ class DownloadsController {
     this.osName = 'Unknown OS';
 
     // URL to JSON containing list of installer downloads.
-    const fileListUrl = 'https://golang.org/dl/?mode=json';
+    const fileListUrl = '/dl/?mode=json';
     this.activeTabIndex = 0;
 
     // Get the install file list, then get names and sizes
@@ -53,7 +53,7 @@ class DownloadsController {
 
   // Set the download button UI for a specific OS.
   setDownloadForOS(osName) {
-    const baseURL = 'https://golang.org/dl/';
+    const baseURL = '/dl/';
     let download;
 
     switch(osName){
