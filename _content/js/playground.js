@@ -293,21 +293,7 @@ function PlaygroundOutput(el) {
 
     // autoindent helpers.
     function insertTabs(n) {
-      // find the selection start and end
-      var start = code[0].selectionStart;
-      var end = code[0].selectionEnd;
-      // split the textarea content into two, and insert n tabs
-      var v = code[0].value;
-      var u = v.substr(0, start);
-      for (var i = 0; i < n; i++) {
-        u += '\t';
-      }
-      u += v.substr(end);
-      // set revised content
-      code[0].value = u;
-      // reset caret position after inserted tabs
-      code[0].selectionStart = start + n;
-      code[0].selectionEnd = start + n;
+      document.execCommand('insertText', false, '\t'.repeat(n));
     }
     function autoindent(el) {
       var curpos = el.selectionStart;
