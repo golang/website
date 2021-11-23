@@ -23,7 +23,10 @@ func TourOnly() fs.FS {
 //go:embed _content
 var embedded embed.FS
 
-//go:embed _content/tour _content/favicon.ico _content/images/go-logo-white.svg
+//go:embed _content/favicon.ico
+//go:embed _content/images/go-logo-white.svg
+//go:embed _content/js/playground.js
+//go:embed _content/tour
 var tourOnly embed.FS
 
 func subdir(fsys fs.FS, path string) fs.FS {

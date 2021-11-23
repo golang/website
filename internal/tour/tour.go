@@ -19,7 +19,6 @@ import (
 	"strings"
 	"time"
 
-	"golang.org/x/tools/godoc/static"
 	"golang.org/x/tools/present"
 	"golang.org/x/website"
 )
@@ -231,14 +230,9 @@ func initScript(mux *http.ServeMux, socketAddr, transport string) error {
 	modTime := time.Now()
 	b := new(bytes.Buffer)
 
-	content, ok := static.Files["playground.js"]
-	if !ok {
-		return fmt.Errorf("playground.js not found in static files")
-	}
-	b.WriteString(content)
-
 	// Keep this list in dependency order
 	files := []string{
+		"../js/playground.js",
 		"static/lib/jquery.min.js",
 		"static/lib/jquery-ui.min.js",
 		"static/lib/angular.min.js",
@@ -253,7 +247,7 @@ func initScript(mux *http.ServeMux, socketAddr, transport string) error {
 	}
 
 	for _, file := range files {
-		f, err := fs.ReadFile(contentTour, "tour/"+file)
+		f, err := fs.ReadFile(contentTour, path.Clean("tour/"+file))
 		if err != nil {
 			return err
 		}
