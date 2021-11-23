@@ -578,6 +578,9 @@ function PlaygroundOutput(el) {
               return;
             }
             setBody(xhr.responseText);
+            if (toy.includes('-dev') && opts.versionEl !== null) {
+              $(opts.versionEl).val('gotip');
+            }
             run();
           },
         });
