@@ -107,12 +107,6 @@ a:hover {
 .SiteContent {
   flex: 1;
 }
-.SiteContent--default {
-  margin-top: 3.5rem;
-}
-.SiteContent--lower {
-  margin-top: calc(3.5rem + 9.75rem);
-}
 .Site-footer {
   border-top: 0.0625rem solid #dcdee0;
   color: #fff;
@@ -122,7 +116,6 @@ a:hover {
   background: #007d9c;
   border-bottom: none;
   box-shadow: 0 0.0625rem 0.125rem rgba(171, 171, 171, 0.3);
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 10;
@@ -178,13 +171,6 @@ a:hover {
 @media only screen and (min-width: 48rem) {
   .Banner {
     display: block;
-  }
-  .SiteContent--default {
-    /* fixed header height + banner height */
-    margin-top: calc(3.5rem + 2.475rem);
-  }
-  .SiteContent--lower {
-    margin-top: calc(3.5rem + 4.875rem);
   }
 }
 .UseCase-halfColumn {
@@ -3064,9 +3050,6 @@ p.BackgroundQuote-body {
 }
 .UseCaseSubNav--default {
   top: 3.5rem;
-}
-.UseCaseSubNav--lower {
-  top: calc(3.5rem + 9.75rem);
 }
 .UseCaseSubNav-menu {
   background-color: #fff;
