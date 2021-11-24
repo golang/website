@@ -133,25 +133,26 @@ window.initFuncs = [];
    * links accordingly
    */
   async function setDownloadLinks() {
-    const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
     const versionElement = document.querySelector('.js-latestGoVersion');
     if (versionElement) {
-      const downloadBtn = document.querySelector('.js-downloadBtn');
-      const goVersionEl = document.querySelector('.js-goVersion');
       const anchorTagWindows = document.querySelector('.js-downloadWin');
       const anchorTagMac = document.querySelector('.js-downloadMac');
       const anchorTagLinux = document.querySelector('.js-downloadLinux');
       const version = await getLatestVersion();
 
-      const macDownloadUrl = `https://dl.google.com/go/${version}.darwin-amd64.pkg`;
-      const windowsDownloadUrl = `https://dl.google.com/go/${version}.windows-amd64.msi`;
-      const linuxDownloadUrl = `https://dl.google.com/go/${version}.linux-amd64.tar.gz`;
-      goVersionEl.textContent = `\u00a0(${version.replace('go', '')})`;
+      const macDownloadUrl = `/dl/${version}.darwin-amd64.pkg`;
+      const windowsDownloadUrl = `/dl/${version}.windows-amd64.msi`;
+      const linuxDownloadUrl = `/dl/${version}.linux-amd64.tar.gz`;
 
       anchorTagWindows.href = windowsDownloadUrl;
       anchorTagMac.href = macDownloadUrl;
       anchorTagLinux.href = linuxDownloadUrl;
-      downloadBtn.href = isMac ? macDownloadUrl : windowsDownloadUrl;
+
+      /*
+       * Note: we do not change .js-downloadBtn anymore
+       * because it is impossible to tell reliably which architecture
+       * the user's browser is running on.
+       */
     }
   }
 

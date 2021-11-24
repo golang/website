@@ -43,9 +43,6 @@ title: go.dev
           href="/dl"
           target="_blank" rel="noopener"
           >Download
-          <span
-            class="js-goVersion DownloadBtn-versionNum">
-          </span>
         </a>
       </div>
       <div class="Hero-footnote">

@@ -27,7 +27,6 @@ title: "Get Started"
               rel="noopener"
             >
               Download
-              <span class="js-goVersion"></span>
             </a>
           </div>
         </div>
