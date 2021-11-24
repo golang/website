@@ -3792,12 +3792,12 @@ a.error {
   overflow: hidden;
 }
 .PlayPage .Playground-inputContainer {
-  height: 20em;
+  height: 30em;
 }
 .PlayPage .Playground-outputContainer {
   height: 20em;
 }
-@media screen and (min-height: 60em) {
+@media screen and (min-height: 50em) {
   .PlayPage .Playground-inputContainer {
     height: 40em;
   }
