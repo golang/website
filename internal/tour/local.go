@@ -56,7 +56,7 @@ func Main() {
 	}
 
 	http.HandleFunc("/", rootHandler)
-	http.HandleFunc("/fmt", fmtHandler)
+	http.HandleFunc("/_/fmt", fmtHandler)
 	fs := http.FileServer(http.FS(contentTour))
 	http.Handle("/favicon.ico", fs)
 	http.Handle("/images/", fs)
