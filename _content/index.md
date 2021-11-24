@@ -153,8 +153,7 @@ package main
 import "fmt"
 func main() {
   fmt.Println("Hello, 世界")
-}
-      </textarea>
+}</textarea>
     </div>
     <div class="Playground-outputContainer js-playgroundOutputEl">
       <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>
@@ -174,9 +173,9 @@ func main() {
       <button class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
       <div class="Playground-secondaryButtons">
         {{- if $canShare}}
-        <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
+        <button class="Button js-playgroundShareEl" title="Share in Go Playground">Share</button>
         {{- end}}
-        <a class="Button tour" href="/tour/" title="Playground – Go from your browser">Tour</a>
+        <a class="Button tour" href="/tour/" title="Tour Go from your browser">Tour</a>
       </div>
       </div>
     </div>

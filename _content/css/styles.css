@@ -3779,8 +3779,8 @@ a.error {
   height: 100%;
   border: none;
   outline: none;
-  padding: 0.625rem;
-  min-height: 12rem;
+  padding: 0.625rem 0.625rem 0 0.625rem;
+  min-height: 13rem;
   resize: none;
 }
 .Playground-inputContainer #wrap {
