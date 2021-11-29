@@ -1,5 +1,5 @@
 ---
-title: go.dev
+title: The Go Programming Language
 ---
 
 {{$canShare := not googleCN}}
