@@ -100,7 +100,7 @@ Next, change the loop condition to stop once the value has stopped
 changing (or only changes by a very small amount).
 See if that's more or fewer than 10 iterations.
 Try other initial guesses for z, like x, or x/2.
-How close are your function's results to the [[https://golang.org/pkg/math/#Sqrt][math.Sqrt]] in the standard library?
+How close are your function's results to the [[/pkg/math/#Sqrt][math.Sqrt]] in the standard library?
 
 (*Note:* If you are interested in the details of the algorithm, the z² − x above
 is how far away z² is from where it needs to be (x), and the division by 2z is the derivative
@@ -167,7 +167,7 @@ Deferred function calls are pushed onto a stack. When a function returns, its
 deferred calls are executed in last-in-first-out order.
 
 To learn more about defer statements read this
-[[https://blog.golang.org/defer-panic-and-recover][blog post]].
+[[/blog/defer-panic-and-recover][blog post]].
 
 .play flowcontrol/defer-multi.go
 
@@ -175,4 +175,4 @@ To learn more about defer statements read this
 
 You finished this lesson!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+You can go back to the list of [[/tour/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

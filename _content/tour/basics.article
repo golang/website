@@ -18,7 +18,7 @@ By convention, the package name is the same as the last element of the import pa
 #appengine: deterministic, so each time you run the example program
 #appengine: `rand.Intn` will return the same number.
 #appengine:
-#appengine: (To see a different number, seed the number generator; see [[https://golang.org/pkg/math/rand/#Seed][`rand.Seed`]].
+#appengine: (To see a different number, seed the number generator; see [[/pkg/math/rand/#Seed][`rand.Seed`]].
 #appengine: Time is constant in the playground, so you will need to use something else as the seed.)
 
 .play basics/packages.go
@@ -232,4 +232,4 @@ Try printing `needInt(Big)` too.
 
 You finished this lesson!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+You can go back to the list of [[/tour/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

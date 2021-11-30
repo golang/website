@@ -22,12 +22,19 @@ func buildCSP(kind string) string {
 	for _, k := range ks {
 		sb.WriteString(k)
 		sb.WriteString(" ")
-		sb.WriteString(strings.Join(csp[k], " "))
+		for _, v := range csp[k] {
+			if (kind == "tour" || kind == "talks") && strings.HasPrefix(v, "'sha256-") {
+				// Must drop sha256 entries to use unsafe-inline.
+				continue
+			}
+			sb.WriteString(v)
+			sb.WriteString(" ")
+		}
 		if kind == "tour" && k == "script-src" {
 			sb.WriteString(" ")
 			sb.WriteString(unsafeEval)
 		}
-		if kind == "talks" && k == "script-src" {
+		if (kind == "talks" || kind == "tour") && k == "script-src" {
 			sb.WriteString(" ")
 			sb.WriteString(unsafeInline)
 		}

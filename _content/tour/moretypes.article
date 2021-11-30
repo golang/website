@@ -214,7 +214,7 @@ Slices can contain any type, including other slices.
 * Appending to a slice
 
 It is common to append new elements to a slice, and so Go provides a built-in
-`append` function. The [[https://golang.org/pkg/builtin/#append][documentation]]
+`append` function. The [[/pkg/builtin/#append][documentation]]
 of the built-in package describes `append`.
 
 	func append(s []T, vs ...T) []T
@@ -229,7 +229,7 @@ If the backing array of `s` is too small to fit all the given values a bigger
 array will be allocated. The returned slice will point to the newly allocated
 array.
 
-(To learn more about slices, read the [[https://blog.golang.org/go-slices-usage-and-internals][Slices: usage and internals]] article.)
+(To learn more about slices, read the [[/blog/go-slices-usage-and-internals][Slices: usage and internals]] article.)
 
 .play moretypes/append.go
 
@@ -324,7 +324,7 @@ If `key` is not in the map, then `elem` is the zero value for the map's element 
 
 Implement `WordCount`.  It should return a map of the counts of each “word” in the string `s`. The `wc.Test` function runs a test suite against the provided function and prints success or failure.
 
-You might find [[https://golang.org/pkg/strings/#Fields][strings.Fields]] helpful.
+You might find [[/pkg/strings/#Fields][strings.Fields]] helpful.
 
 .play moretypes/exercise-maps.go
 
@@ -358,4 +358,4 @@ returns successive [[https://en.wikipedia.org/wiki/Fibonacci_number][fibonacci n
 
 You finished this lesson!
 
-You can go back to the list of [[/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+You can go back to the list of [[/tour/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].

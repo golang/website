@@ -16,7 +16,7 @@ starts a new goroutine running
 
 The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The [[https://golang.org/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+Goroutines run in the same address space, so access to shared memory must be synchronized. The [[/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
 
 .play concurrency/goroutines.go
 
@@ -145,7 +145,7 @@ one goroutine can access a variable at a time to avoid conflicts?
 This concept is called _mutual_exclusion_, and the conventional name for the data structure that provides it is _mutex_.
 
 Go's standard library provides mutual exclusion with
-[[https://golang.org/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
+[[/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
 
 - `Lock`
 - `Unlock`
@@ -171,18 +171,18 @@ safe for concurrent use!
 * Where to Go from here...
 
 #appengine: You can get started by
-#appengine: [[https://golang.org/dl/][installing Go]].
+#appengine: [[/dl/][installing Go]].
 
 #appengine: Once you have Go installed, the
 The
-[[https://golang.org/doc/][Go Documentation]] is a great place to
+[[/doc/][Go Documentation]] is a great place to
 #appengine: continue.
 start.
 It contains references, tutorials, videos, and more.
 
-To learn how to organize and work with Go code, read [[https://golang.org/doc/code][How to Write Go Code]].
+To learn how to organize and work with Go code, read [[/doc/code][How to Write Go Code]].
 
-If you need help with the standard library, see the [[https://golang.org/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[https://golang.org/ref/spec][Language Spec]] is quite readable.
+If you need help with the standard library, see the [[/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[/ref/spec][Language Spec]] is quite readable.
 
 To further explore Go's concurrency model, watch
 [[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
@@ -191,18 +191,18 @@ and
 [[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
 ([[https://go.dev/talks/2013/advconc.slide][slides]])
 and read the
-[[https://golang.org/doc/codewalk/sharemem/][Share Memory by Communicating]]
+[[/doc/codewalk/sharemem/][Share Memory by Communicating]]
 codewalk.
 
 To get started writing web applications, watch
 [[https://vimeo.com/53221558][A simple programming environment]]
 ([[https://go.dev/talks/2012/simple.slide][slides]])
 and read the
-[[https://golang.org/doc/articles/wiki/][Writing Web Applications]] tutorial.
+[[/doc/articles/wiki/][Writing Web Applications]] tutorial.
 
-The [[https://golang.org/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+The [[/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
 
-The [[https://blog.golang.org/][Go Blog]] has a large archive of informative Go articles.
+The [[/blog/][Go Blog]] has a large archive of informative Go articles.
 
-Visit [[https://golang.org][golang.org]] for more.
+Visit [[/][the Go home page]] for more.
 

@@ -443,7 +443,13 @@ func hostPathHandler(h http.Handler) http.Handler {
 
 		elem, rest := strings.TrimPrefix(r.URL.Path, "/"), ""
 		if i := strings.Index(elem, "/"); i >= 0 {
-			elem, rest = elem[:i], elem[i+1:]
+			if elem[:i] == "tour" {
+				// The Angular router serving /tour/ fails badly when it sees /go.dev/tour/.
+				// Just take http://localhost/tour/ as meaning /go.dev/tour/ instead of redirecting.
+				elem, rest = "go.dev", elem
+			} else {
+				elem, rest = elem[:i], elem[i+1:]
+			}
 		}
 		if !validHosts[elem] {
 			u := "/go.dev" + r.URL.EscapedPath()
@@ -461,7 +467,7 @@ func hostPathHandler(h http.Handler) http.Handler {
 
 		log.Print(r.URL.String())
 
-		lw := &linkRewriter{ResponseWriter: w, host: r.Host}
+		lw := &linkRewriter{ResponseWriter: w, host: r.Host, tour: strings.HasPrefix(r.URL.Path, "/tour/")}
 		h.ServeHTTP(lw, r)
 		lw.Flush()
 	})
@@ -474,6 +480,7 @@ func hostPathHandler(h http.Handler) http.Handler {
 type linkRewriter struct {
 	http.ResponseWriter
 	host string
+	tour bool // is this go.dev/tour/?
 	buf  []byte
 	ct   string // content-type
 }
@@ -481,7 +488,7 @@ type linkRewriter struct {
 func (r *linkRewriter) WriteHeader(code int) {
 	loc := r.Header().Get("Location")
 	delete(r.Header(), "Content-Length") // we might change the content
-	if strings.HasPrefix(loc, "/") {
+	if strings.HasPrefix(loc, "/") && !strings.HasPrefix(loc, "/tour/") {
 		r.Header().Set("Location", "/"+r.host+loc)
 	} else if u, _ := url.Parse(loc); u != nil && validHosts[u.Host] {
 		r.Header().Set("Location", "/"+u.Host+"/"+strings.TrimPrefix(u.Path, "/")+u.RawQuery)
@@ -506,9 +513,12 @@ func (r *linkRewriter) Write(data []byte) (int, error) {
 }
 
 func (r *linkRewriter) Flush() {
-	repl := []string{
-		`href="/`, `href="/` + r.host + `/`,
-		`src="/`, `src="/` + r.host + `/`,
+	var repl []string
+	if !r.tour {
+		repl = []string{
+			`href="/`, `href="/` + r.host + `/`,
+			`src="/`, `src="/` + r.host + `/`,
+		}
 	}
 	for host := range validHosts {
 		repl = append(repl, `href="https://`+host, `href="/`+host)
