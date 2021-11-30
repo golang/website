@@ -3832,7 +3832,7 @@ a.error {
   gap: 0.5rem;
   justify-content: flex-end;
 }
-.Playground-selectExample {
+.Playground-selectExample, .Playground-selectGoVersion, .Playground-shareURL {
   background-color: white;
   border-radius: 3px;
   border: 0.0625rem solid #979797;
@@ -3857,7 +3857,7 @@ a.error {
   .Playground-controls {
     flex-wrap: nowrap;
   }
-  .Playground-selectExample {
+  .Playground-selectExample, .Playground-selectGoVersion, .Playground-shareURL {
     margin: 0 0.4375rem 0 0;
     width: auto;
   }

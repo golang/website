@@ -529,6 +529,9 @@ function PlaygroundOutput(el) {
               .focus()
               .select();
 
+            if (opts.toysEl !== null) {
+              $(opts.toysEl).hide();
+            }
             if (rewriteHistory) {
               var historyData = { code: sharingData };
               window.history.pushState(historyData, '', path);

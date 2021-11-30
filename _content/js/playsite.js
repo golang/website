@@ -13,7 +13,7 @@ window.addEventListener('DOMContentLoaded', () => {
       "runEl":         ".js-playgroundRunEl",
       "fmtEl":         ".js-playgroundFmtEl",
       "shareEl":       ".js-playgroundShareEl",
-      "shareRedirect": "/play/p/",
+      "shareURLEl":    ".js-playgroundShareURLEl",
       "toysEl":        ".js-playgroundToysEl",
       "versionEl":     ".js-playgroundVersionEl",
       'enableHistory': true,
