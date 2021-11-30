@@ -30,7 +30,7 @@ pre,
 }
 pre,
 .linedtextarea .lines div {
-  font-size: 0.83em;
+  font-size: 0.83rem;
   overflow-x: auto;
 }
 /* Trim spaces to be more like plain text spaces in text like "Use <code>go get</code> to ...", but not in Markdown <pre> blocks. */
