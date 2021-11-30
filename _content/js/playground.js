@@ -293,7 +293,11 @@ function PlaygroundOutput(el) {
 
     // autoindent helpers.
     function insertTabs(n) {
-      document.execCommand('insertText', false, '\t'.repeat(n));
+      // Without the n > 0 check, Safari cannot type a blank line at the bottom of a playground snippet.
+      // See go.dev/issue/49794.
+      if (n > 0) {
+        document.execCommand('insertText', false, '\t'.repeat(n));
+      }
     }
     function autoindent(el) {
       var curpos = el.selectionStart;
