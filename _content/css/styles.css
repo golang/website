@@ -3889,6 +3889,7 @@ h2.Playground-about {
 .linedtextarea .lines div {
   padding-right: 5px;
   color: lightgray;
+  overflow: hidden;
 }
 .linedtextarea .lineerror {
   color: black !important;
