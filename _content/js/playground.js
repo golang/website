@@ -375,16 +375,24 @@ function PlaygroundOutput(el) {
         .join('/');
     }
 
-    var pushedPlay = window.location.pathname == '/play';
+    var pushedPlay = window.location.pathname == '/play/';
     function inputChanged() {
       if (pushedPlay) {
         return;
       }
       pushedPlay = true;
       $(opts.shareURLEl).hide();
+      $(opts.toysEl).show();
       var path = window.location.pathname;
-      var i = path.indexOf('/play');
-      window.history.pushState(null, '', path.substr(0, i+5));
+      var i = path.indexOf('/play/');
+      var p = path.substr(0, i+6);
+      if (opts.versionEl !== null) {
+        var v = $(opts.versionEl).val();
+        if (v != '') {
+          p += '?v=' + v;
+        }
+      }
+      window.history.pushState(null, '', p);
     }
     function popState(e) {
       if (e === null) {
@@ -515,8 +523,10 @@ function PlaygroundOutput(el) {
             window.location = opts.shareRedirect + xhr.responseText;
           }
           var path = '/play/p/' + xhr.responseText;
+          if (opts.versionEl !== null && $(opts.versionEl).val() != "") {
+            path += "?v=" + $(opts.versionEl).val();
+          }
           var url = origin(window.location) + path;
-
           for (var i = 0; i < shareCallbacks.length; i++) {
             shareCallbacks[i](url);
           }
@@ -529,13 +539,11 @@ function PlaygroundOutput(el) {
               .focus()
               .select();
 
-            if (opts.toysEl !== null) {
-              $(opts.toysEl).hide();
-            }
+            $(opts.toysEl).hide();
             if (rewriteHistory) {
               var historyData = { code: sharingData };
               window.history.pushState(historyData, '', path);
-              pushedEmpty = false;
+              pushedPlay = false;
             }
           }
         },
@@ -595,14 +603,17 @@ function PlaygroundOutput(el) {
     }
 
     if (opts.versionEl !== null) {
+     var select = $(opts.versionEl);
       var v = (new URL(window.location)).searchParams.get('v');
       if (v !== null && v != "") {
-      	var select = $(opts.versionEl)
       	select.val(v);
         if (select.val() != v) {
           select.append($('<option>', {value: v, text: 'Backend: ' + v}));
           select.val(v);
         }
+      }
+      if (opts.enableHistory) {
+        select.bind('change', inputChanged);
       }
     }
   }
