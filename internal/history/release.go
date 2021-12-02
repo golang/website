@@ -15,6 +15,16 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2021, 12, 2}, Version: Version{1, 17, 4},
+		Components: []template.HTML{"the compiler", "linker", "runtime"},
+		Packages:   []string{"go/types", "net/http", "time"},
+	},
+	{
+		Date: Date{2021, 12, 2}, Version: Version{1, 16, 11},
+		Components: []template.HTML{"the compiler", "runtime"},
+		Packages:   []string{"net/http", "net/http/httptest", "time"},
+	},
+	{
 		Date: Date{2021, 11, 4}, Version: Version{1, 17, 3},
 		CustomSummary: `includes security fixes to the <code>archive/zip</code> and <code>debug/macho</code> packages,
 as well as bug fixes to the compiler, linker, runtime, the <code>go</code> command, the <code>misc/wasm</code> directory, and to the <code>net/http</code> and <code>syscall</code> packages.
