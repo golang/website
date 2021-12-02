@@ -27,10 +27,9 @@ on production resources.
 ## Deploying to go.dev and golang.org
 
 Each time a CL is reviewed and submitted, the site is automatically deployed to App Engine.
-If the CL is submitted with a Website-Publish +1 vote,
-the new deployment automatically becomes https://go.dev/.
-Otherwise, the new deployment can be found in the
-[App Engine versions list](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default) and verified and manually promoted.
+If it passes its serving-readiness checks, it will be automatically promoted to handle traffic.
+Whether it passes or not, the new deployment can be found in the
+[App Engine versions list](https://console.cloud.google.com/appengine/versions?project=golang-org&serviceId=default).
 
 If the automatic deployment is not working, or to check on the status of a pending deployment,
 see the “website-redeploy-golang-org” trigger in the
