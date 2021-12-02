@@ -4,30 +4,23 @@
 
 steps:
   - name: gcr.io/cloud-builders/git
-    args: [
-      "clone", "--branch=${_GO_REF}", "--depth=1",
-      "https://go.googlesource.com/go", "_gotmp",
-    ]
+    args: ["clone", "--branch=${_GO_REF}", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
   - name: gcr.io/cloud-builders/git
+    args: ["archive", "--format=zip", "--output=../_goroot.zip", "HEAD"]
     dir: _gotmp
-    args: [
-      "archive", "--format=zip", "--output=../_goroot.zip", "HEAD",
-    ]
   - name: golang
     args: ["rm", "-rf", "_gotmp"]
   - name: golang
     args: ["go", "test", "./..."]
   - name: golang
-    entrypoint: bash
-    args: ["-c", "go run ./cmd/events/ > ./_content/events.yaml"]
+    args: ["bash", "-c", "go run ./cmd/events > ./_content/events.yaml"]
+  - name: golang
+    args: ["go", "run", "./cmd/locktrigger", "--project=$PROJECT_ID", "--build=$BUILD_ID"]
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]
   - name: golang
-    args: [
-      "go", "run", "./cmd/versionprune", "--dry_run=false",
-      "--project=$PROJECT_ID", "--service=default",
-    ]
+    args: ["go", "run", "./cmd/versionprune", "--dry_run=false", "--project=$PROJECT_ID", "--service=default"]
 
 options:
   machineType: N1_HIGHCPU_8
