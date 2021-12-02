@@ -123,7 +123,7 @@ function HTTPTransport(enableVet) {
       seq++;
       var cur = seq;
       var playing;
-      $.ajax('/_/compile?backend='+options.backend, {
+      $.ajax('/_/compile?backend=' + (options.backend || ''), {
         type: 'POST',
         data: { version: 2, body: body, withVet: enableVet },
         dataType: 'json',
