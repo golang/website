@@ -206,6 +206,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("newSite golang.google.cn: %v", err)
 	}
+	if runningOnAppEngine {
+		appEngineSetup(mux)
+	}
 	dl.RegisterHandlers(siteMux, godevSite, "", datastoreClient, memcacheClient)
 	dl.RegisterHandlers(siteMux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 	mux.Handle("/", siteMux)
@@ -221,10 +224,6 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("golang.org/x/", http.HandlerFunc(xHandler))
 
 	redirect.Register(mux)
-
-	if runningOnAppEngine {
-		appEngineSetup(mux)
-	}
 
 	// Note: Using godevSite (non-China) for global mux registration because there's no sharing in talks.
 	// Don't need the hassle of two separate registrations for different domains in siteMux.
