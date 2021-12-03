@@ -38,6 +38,9 @@ func Register(mux *http.ServeMux) {
 	for path, redirect := range blogRedirects {
 		mux.Handle("/blog"+path, Handler("/blog/"+redirect))
 	}
+	for _, path := range newIssueRedirects {
+		mux.Handle(path, newIssueHandler(path))
+	}
 	// NB: /src/pkg (sans trailing slash) is the index of packages.
 	mux.HandleFunc("/src/pkg/", srcPkgHandler)
 	mux.HandleFunc("/cl/", clHandler)
@@ -100,9 +103,7 @@ var redirects = map[string]string{
 	"/cl":         "https://go-review.googlesource.com",
 	"/cmd/godoc/": "https://pkg.go.dev/golang.org/x/tools/cmd/godoc",
 	"/issue":      "https://github.com/golang/go/issues",
-	"/issue/new":  "https://github.com/golang/go/issues/new",
 	"/issues":     "https://github.com/golang/go/issues",
-	"/issues/new": "https://github.com/golang/go/issues/new",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
 
 	// In Go 1.2 the references page is part of /doc/.
@@ -133,6 +134,13 @@ var redirects = map[string]string{
 	"/doc/articles/slices_usage_and_internals.html":  "/blog/go-slices-usage-and-internals",
 	"/doc/go_for_cpp_programmers.html":               "/wiki/GoForCPPProgrammers",
 	"/doc/go_tutorial.html":                          "/tour",
+}
+
+var newIssueRedirects = [...]string{
+	"/issue/new",
+	"/issue/new/",
+	"/issues/new",
+	"/issues/new/",
 }
 
 var prefixHelpers = map[string]string{
@@ -166,6 +174,32 @@ func PrefixHandler(prefix, baseURL string) http.Handler {
 			return
 		}
 		target := baseURL + id
+		http.Redirect(w, r, target, http.StatusFound)
+	})
+}
+
+// newIssueHandler handles /issue/new and similar requests,
+// redirecting to a "New Issue" UI in the main Go issue tracker.
+func newIssueHandler(source string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != source {
+			http.Error(w, "Not found", http.StatusNotFound)
+			return
+		}
+		target := "https://github.com/golang/go/issues/new"
+		if qs := r.URL.RawQuery; qs == "" {
+			// There are many "go.dev/issue/new" links that led to a good experience
+			// of reporting an issue when there was a single issue template.
+			// As of CL 366736 there are many templates, and the same URL results
+			// in an empty new issue UI, which defeats having any templates.
+			//
+			// Handle this case specially and redirect to "/new/choose" instead,
+			// at least until GitHub changes their behavior. See go.dev/issue/29839.
+			target += "/choose"
+		} else {
+			// Query options like ?title=...&body=...&labels=... only work on /new.
+			target += "?" + qs
+		}
 		http.Redirect(w, r, target, http.StatusFound)
 	})
 }
