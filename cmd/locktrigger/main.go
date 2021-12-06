@@ -140,7 +140,7 @@ func main() {
 		// if we are the only build that is running.
 		if shallow {
 			log.Printf("git fetch --unshallow")
-			run("git", "fetch", "--unshallow")
+			run("git", "fetch", "--unshallow", "https://go.googlesource.com/website")
 			shallow = false
 		}
 
