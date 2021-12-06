@@ -51,7 +51,7 @@ footer:
     - name: Release Notes
       url: /doc/devel/release
     - name: Brand Guidelines
-      url: https://blog.golang.org/go-brand
+      url: /blog/go-brand
     - name: Code of Conduct
       url: /conduct
 
