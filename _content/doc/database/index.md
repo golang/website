@@ -70,7 +70,7 @@ propagate a cancellation request through your application to the function
 executing an SQL statement, ensuring that resources are freed up if they're
 no longer needed.
 
-For more, see [Cancelling in-progress operations](/doc/database/cancel-operations).
+For more, see [Canceling in-progress operations](/doc/database/cancel-operations).
 
 ### Managed connection pool {#connection_pool}
 
@@ -78,7 +78,7 @@ When you use the `sql.DB` database handle, you're connecting with a built-in
 connection pool that creates and disposes of connections according to your
 code's needs. A handle through `sql.DB` is the most common way to do
 database access with Go. For more, see
-[Opening a database handle](/doc/database/open-handle). 
+[Opening a database handle](/doc/database/open-handle).
 
 The `database/sql` package manages the connection pool for you. However, for
 more advanced needs, you can set connection pool properties as described in

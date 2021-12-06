@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 // The server program issues Google search requests and demonstrates the use of

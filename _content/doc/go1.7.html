@@ -299,13 +299,13 @@ To avoid confusion with the new <code>-tests</code> check, the old, unadvertised
 <p id="vet_lostcancel">
 The <code>vet</code> command also has a new check,
 <code>-lostcancel</code>, which detects failure to call the
-cancelation function returned by the <code>WithCancel</code>,
+cancellation function returned by the <code>WithCancel</code>,
 <code>WithTimeout</code>, and <code>WithDeadline</code> functions in
 Go 1.7's new <code>context</code> package (see <a
 href='#context'>below</a>).
 Failure to call the function prevents the new <code>Context</code>
-from being reclaimed until its parent is cancelled.
-(The background context is never cancelled.)
+from being reclaimed until its parent is canceled.
+(The background context is never canceled.)
 </p>
 
 <h3 id="cmd_dist">Go tool dist</h3>
@@ -388,7 +388,7 @@ substantial stack size fluctuation, or large package-level variables.
 <p>
 Go 1.7 moves the <code>golang.org/x/net/context</code> package
 into the standard library as <a href="/pkg/context/"><code>context</code></a>.
-This allows the use of contexts for cancelation, timeouts, and passing
+This allows the use of contexts for cancellation, timeouts, and passing
 request-scoped data in other standard library packages,
 including
 <a href="#net">net</a>,

@@ -12,7 +12,7 @@ for a quick introduction.
 
 The [`database/sql`](https://pkg.go.dev/database/sql) package you'll
 be using includes types and functions for connecting to databases, executing
-transactions, cancelling an operation in progress, and more. For more details
+transactions, canceling an operation in progress, and more. For more details
 on using the package, see
 [Accessing databases](/doc/database/index).
 

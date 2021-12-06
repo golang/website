@@ -105,8 +105,8 @@ for an album. Along the way, the code will:
 
 This example uses `Tx` methods that take a `context.Context` argument. This
 makes it possible for the function's execution – including database operations
--- to be cancelled if it runs too long or the client connection closes. For
-more, see [Cancelling in-progress operations](/doc/database/cancel-operations).
+-- to be canceled if it runs too long or the client connection closes. For
+more, see [Canceling in-progress operations](/doc/database/cancel-operations).
 
 ```
 // CreateOrder creates an order for an album and returns the new order ID.

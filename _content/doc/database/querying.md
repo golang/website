@@ -34,7 +34,7 @@ look up data by a unique ID. If multiple rows are returned by the query, the
 `Scan` method discards all but the first.
 
 `QueryRowContext` works like `QueryRow` but with a `context.Context` argument.
-For more, see [Cancelling in-progress operations](/doc/database/cancel-operations).
+For more, see [Canceling in-progress operations](/doc/database/cancel-operations).
 
 The following example uses a query to find out if there's enough inventory to
 support a purchase. The SQL statement returns `true` if there's enough, `false`
@@ -122,7 +122,7 @@ rows using [`Rows.Next`](https://pkg.go.dev/database/sql#Rows.Next). Each
 iteration calls `Scan` to copy column values into variables. 
 
 `QueryContext` works like `Query` but with a `context.Context` argument. For
-more, see [Cancelling in-progress operations](/doc/database/cancel-operations).
+more, see [Canceling in-progress operations](/doc/database/cancel-operations).
 
 The following example executes a query to return the albums by a specified
 artist. The albums are returned in an `sql.Rows`. The code uses

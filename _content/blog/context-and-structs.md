@@ -5,7 +5,6 @@ by:
 - Jean de Klerk, Matt T. Proud
 tags:
 - context
-- cancelation
 - cancellation
 ---
 
@@ -70,7 +69,7 @@ The `(*Worker).Fetch` and `(*Worker).Process` method both use a context stored i
 
 The API is also much more confusing to users compared to the pass-as-argument approach. Users might ask themselves:
 
-- Since `New` takes a `context.Context`, is the constructor doing work that needs cancelation or deadlines?
+- Since `New` takes a `context.Context`, is the constructor doing work that needs cancellation or deadlines?
 - Does the `context.Context` passed in to `New` apply to work in `(*Worker).Fetch` and `(*Worker).Process`? Neither? One but not the other?
 
 The API would need a good deal of documentation to explicitly tell the user exactly what the `context.Context` is used for. The user might also have to read code rather than being able to rely on the structure of the API conveys.
@@ -142,6 +141,6 @@ func (c *Client) CallContext(ctx context.Context) error {
 
 Context makes it easy to propagate important cross-library and cross-API information down a calling stack. But, it must be used consistently and clearly in order to remain comprehensible, easy to debug, and effective.
 
-When passed as the first argument in a method rather than stored in a struct type, users can take full advantage of its extensibility in order to build a powerful tree of cancelation, deadline, and metadata information through the call stack. And, best of all, its scope is clearly understood when it's passed in as an argument, leading to clear comprehension and debuggability up and down the stack.
+When passed as the first argument in a method rather than stored in a struct type, users can take full advantage of its extensibility in order to build a powerful tree of cancellation, deadline, and metadata information through the call stack. And, best of all, its scope is clearly understood when it's passed in as an argument, leading to clear comprehension and debuggability up and down the stack.
 
 When designing an API with context, remember the advice: pass `context.Context` in as an argument; don't store it in structs.

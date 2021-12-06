@@ -98,7 +98,7 @@ func compile(w http.ResponseWriter, r *http.Request) {
 func makeCompileRequest(ctx context.Context, backend string, req *Request, res *Response) error {
 	reqJ, err := json.Marshal(req)
 	if err != nil {
-		return fmt.Errorf("marshalling request: %v", err)
+		return fmt.Errorf("marshaling request: %v", err)
 	}
 	hReq, _ := http.NewRequest("POST", "https://"+backend+"/compile", bytes.NewReader(reqJ))
 	hReq.Header.Set("Content-Type", "application/json")
@@ -116,7 +116,7 @@ func makeCompileRequest(ctx context.Context, backend string, req *Request, res *
 	}
 
 	if err := json.NewDecoder(r.Body).Decode(res); err != nil {
-		return fmt.Errorf("unmarshalling response: %v", err)
+		return fmt.Errorf("unmarshaling response: %v", err)
 	}
 	return nil
 }

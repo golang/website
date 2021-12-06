@@ -64,7 +64,7 @@ Ten languages: *C*, *Java*, *Go*, C++, Node.js, Python, Ruby, Objective-C, PHP, 
 IDL: *Proto3*
 Transport: *HTTP2*
 
-[[http://golang.org/x/net/context][golang.org/x/net/context]] for deadlines, cancelation, and request-scoped values
+[[http://golang.org/x/net/context][golang.org/x/net/context]] for deadlines, cancellation, and request-scoped values
 [[http://golang.org/x/net/trace][golang.org/x/net/trace]] for real-time request traces and connection logging
 
 * gRPC users
@@ -123,7 +123,7 @@ Transport: *HTTP2*
 
 RPCs block but can be canceled using a Context.
 
-gRPC propagates cancelation from client to server.
+gRPC propagates cancellation from client to server.
 
 * Backend code
 
@@ -182,7 +182,7 @@ gRPC cancels the remaining `backend.Search` RPCs by via `ctx`:
 * Demo client --mode=watch
 
 - Active stream traces
-- Cancelation
+- Cancellation
 
 * Client code
 
@@ -216,7 +216,7 @@ gRPC cancels the remaining `backend.Search` RPCs by via `ctx`:
 
 * gRPC extends the Go programming model over the network
 
-Go gRPC works smoothly with goroutines, channels, and cancelation.
+Go gRPC works smoothly with goroutines, channels, and cancellation.
 
 It is an excellent fit for building parallel, distributed, and streaming systems.
 
@@ -228,7 +228,7 @@ It is an excellent fit for building parallel, distributed, and streaming systems
 - [[https://github.com/golang/protobuf][github.com/golang/protobuf]] - Protocol buffers
 - [[http://golang.org/x/net/http2][golang.org/x/net/http2]] - HTTP2
 - [[http://golang.org/x/net/trace][golang.org/x/net/trace]] - Request traces and event logs
-- [[http://golang.org/x/net/context][golang.org/x/net/context]] - Cancelation and request-scoped data
+- [[http://golang.org/x/net/context][golang.org/x/net/context]] - Cancellation and request-scoped data
 - [[http://blog.golang.org/pipelines][blog.golang.org/pipelines]] - Streaming data pipelines
 
 *Thanks*to* Qi Zhao, David Symonds, Brad Fitzpatrick, and the rest.

@@ -33,7 +33,7 @@ and our plans for Go itself.
 The Go community thrives on in-person conferences and meetups.
 We had anticipated 35 conferences this year
 and thousands of meetups, nearly all of which have
-now changed, been postponed, or been cancelled.
+now changed, been postponed, or been canceled.
 We’ll keep the
 [conferences wiki page](https://github.com/golang/go/wiki/Conferences)
 updated as plans change.
@@ -76,7 +76,7 @@ for companies that want help adopting Go.
 That in-person teaching is crucial to bringing
 new gophers into the community;
 we’re incredibly grateful to the trainers for the work they do.
-Unfortunately, on-site training contracts have all been cancelled
+Unfortunately, on-site training contracts have all been canceled
 for the next few months, and the trainers in our community
 have lost their primary (or sole) source of income.
 We encourage companies to consider virtual training

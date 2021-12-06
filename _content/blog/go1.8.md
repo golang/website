@@ -29,7 +29,7 @@ The HTTP server also adds support for [graceful shutdown](/doc/go1.8#http_shutdo
 allowing servers to minimize downtime by shutting down only after serving all requests that are in flight.
 
 [Contexts](/pkg/context/) (added to the standard library in Go 1.7)
-provide a cancelation and timeout mechanism.
+provide a cancellation and timeout mechanism.
 Go 1.8 [adds](/doc/go1.8#more_context) support for contexts in more parts of the standard library,
 including the [`database/sql`](/pkg/database/sql) and [`net`](/pkg/net) packages
 and [`Server.Shutdown`](http://beta.golang.org/pkg/net/http/#Server.Shutdown) in the `net/http` package.

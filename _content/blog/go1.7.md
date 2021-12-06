@@ -38,7 +38,7 @@ Over the past few years, the [golang.org/x/net/context](https://godoc.org/golang
 package has proven to be essential to many Go applications.
 Contexts are used to great effect in applications related to networking, infrastructure, and microservices
 (such as [Kubernetes](http://kubernetes.io/) and [Docker](https://www.docker.com/)).
-They make it easy to enable cancelation, timeouts, and passing request-scoped data.
+They make it easy to enable cancellation, timeouts, and passing request-scoped data.
 To make use of contexts within the standard library and to encourage more extensive use,
 the package has been moved from the [x/net](https://godoc.org/golang.org/x/net/context/) repository
 to the standard library as the [context](/pkg/context/) package.
