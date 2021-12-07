@@ -415,11 +415,11 @@ function PlaygroundOutput(el) {
     }
 
     function backend() {
-      if (opts.versionEl === null) {
+      if (!opts.versionEl) {
         return '';
       }
       var vers = $(opts.versionEl);
-      if (vers === null) {
+      if (!vers) {
         return '';
       }
       return vers.val();
