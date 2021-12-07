@@ -23,6 +23,11 @@ value('tableOfContents', [{
     'description': '<p>Learn how to define methods on types, how to declare interfaces, and how to put everything together.</p>',
     'lessons': ['methods']
 }, {
+    'id': 'generics',
+    'title': 'Generics',
+    'description': '<p>Learn how to use type parameters in Go functions and structs.</p>',
+    'lessons': ['generics']
+}, {
     'id': 'concurrency',
     'title': 'Concurrency',
     'description': '<p>Go provides concurrency features as part of the core language.</p><p>This module goes over goroutines and channels, and how they are used to implement different concurrency patterns.</p>',
