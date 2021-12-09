@@ -15,6 +15,16 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2021, 12, 9}, Version: Version{1, 17, 5},
+		CustomSummary: `includes security fixes to the <code>syscall</code> and <code>net/http</code> packages.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.5+label%3ACherryPickApproved">Go 1.17.5 milestone</a> on our issue tracker for details.`,
+	},
+	{
+		Date: Date{2021, 12, 9}, Version: Version{1, 16, 12},
+		CustomSummary: `includes security fixes to the <code>syscall</code> and <code>net/http</code> packages.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.12+label%3ACherryPickApproved">Go 1.16.12 milestone</a> on our issue tracker for details.`,
+	},
+	{
 		Date: Date{2021, 12, 2}, Version: Version{1, 17, 4},
 		Components: []template.HTML{"the compiler", "linker", "runtime"},
 		Packages:   []string{"go/types", "net/http", "time"},
