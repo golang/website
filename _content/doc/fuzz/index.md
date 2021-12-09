@@ -15,26 +15,34 @@
     more sense as a blog post?)
 -->
 
+Go supports fuzzing in its standard toolchain beginning in Go 1.18.
+
+## Overview
 
 Fuzzing is a type of automated testing which continuously manipulates inputs to
-a program to find bugs. Since fuzzing can reach edge cases which humans often
-miss, fuzz testing can be particularly valuable for finding security exploits
-and vulnerabilities.
+a program to find bugs. Go fuzzing uses coverage guidance to intelligently walk
+through the code being fuzzed to find and report failures to the user. Since it
+can reach edge cases which humans often miss, fuzz testing can be particularly
+valuable for finding security exploits and vulnerabilities.
 
-Go supports fuzzing in its standard toolchain beginning in Go 1.18. It uses
-coverage guidance to intelligently walk through the code being fuzzed to find
-and report failures to the user.
+Below is an example of a fuzz test, highlighting it's main components.
 
-The [`testing`](https://pkg.go.dev//testing#hdr-Fuzzing) package docs describes
-the `testing.F` type which is used when writing fuzz tests, and the
-[`cmd/go`](https://pkg.go.dev/cmd/go) package docs describe the flags associated
-with fuzzing.
+<img alt="Example code showing the overall fuzz test, with a fuzz target within it. Before the fuzz target is a corpus addition with f.Add, and the parameters of the fuzz target are highlighted as the fuzzing arguments." src="/doc/fuzz/example.png" style="display: block; width: 600px; height: auto;"/>
 
-For an introductory tutorial for fuzzing with Go, please see [Blog: Fuzzing is
-Beta Ready](https://go.dev/blog/fuzz-beta).
+## Resources
 
-See the [design draft](https://golang.org/s/draft-fuzzing-design) and
-[proposal](https://golang.org/issue/44551) for additional details.
+- **Tutorial**:
+  - For an introductory tutorial of fuzzing with Go, please see [the blog
+    post](https://go.dev/blog/fuzz-beta).
+  - More to come soon!
+- **Documentation**:
+  - The [`testing`](https://pkg.go.dev//testing#hdr-Fuzzing) package docs
+    describes the `testing.F` type which is used when writing fuzz tests.
+  - The [`cmd/go`](https://pkg.go.dev/cmd/go) package docs describe the flags
+    associated with fuzzing.
+- **Technical details**:
+  - [Design draft](https://golang.org/s/draft-fuzzing-design)
+  - [Proposal](https://golang.org/issue/44551)
 
 ## Glossary {#glossary}
 
@@ -82,7 +90,7 @@ Language Specification.
 <a id="glos-seed-corpus"></a>
 **seed corpus:** A user-provided corpus for a fuzz test which can be used to
 guide the fuzzing engine. It is composed of the corpus entries provided by f.Add
-calls within the fuzz test, and the files in the testdata/fuzz/{FuzzTargetName}
+calls within the fuzz test, and the files in the testdata/fuzz/{FuzzTestName}
 directory within the package.
 
 <a id="glos-test-file"></a>
