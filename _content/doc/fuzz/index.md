@@ -25,9 +25,46 @@ through the code being fuzzed to find and report failures to the user. Since it
 can reach edge cases which humans often miss, fuzz testing can be particularly
 valuable for finding security exploits and vulnerabilities.
 
-Below is an example of a fuzz test, highlighting it's main components.
+Below is an example of a [fuzz test](#glos-fuzz-test), highlighting it's main
+components.
 
 <img alt="Example code showing the overall fuzz test, with a fuzz target within it. Before the fuzz target is a corpus addition with f.Add, and the parameters of the fuzz target are highlighted as the fuzzing arguments." src="/doc/fuzz/example.png" style="display: block; width: 600px; height: auto;"/>
+
+## Writing and running fuzz tests
+
+### Requirements
+Below are rules that fuzz tests must follow.
+  - A fuzz test must be a function named like `FuzzXxx`, which accepts only a
+    `*testing.F`, and has no return value.
+  - Fuzz tests must be in *_test.go files to run.
+  - A [fuzz target](#glos-fuzz-target) must be a method call to
+    <code>[(*testing.F).Fuzz](https://pkg.go.dev/testing#F.Fuzz)</code> which
+    accepts a `*testing.T` as the first parameter, followed by the fuzzing
+    arguments. There is no return value.
+  - There must be exactly one fuzz target per fuzz test.
+  - All [seed corpus](#glos-seed-corpus) entries must have types which are
+    identical to the [fuzzing arguments](#fuzzing-arguments), in the same order.
+    This is true for calls to
+    <code>[(*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code> and any
+    corpus files in the testdata/fuzz directory of the fuzz test.
+  - The fuzzing arguments can only be the following types:
+    - string, []byte
+    - int, int8, int16, int32/rune, int64
+    - uint, uint8/byte, uint16, uint32, uint64
+    - float32, float64
+    - bool
+
+### Suggestions
+Below are suggestions that will help you get the most out of fuzzing.
+  - Fuzzing should be run on a platform that supports coverage instrumentation
+    (currently AMD64 and ARM64) so that the corpus can meaningfully grow as it
+    runs, and more code can be covered while fuzzing.
+  - Fuzz targets should be fast and deterministic so the fuzzing engine can work
+    efficiently, and new failures and code coverage can be easily reproduced.
+  - Since the fuzz target is invoked in parallel across multiple workers and in
+    nondeterministic order, the state of a fuzz target should not persist past
+    the end of each call, and the behavior of a fuzz target should not depend on
+    global state.
 
 ## Resources
 
@@ -70,6 +107,10 @@ which can be used for fuzzing.
 to a program to find issues such as bugs or
 [vulnerabilities](#glos-vulnerability) to which the code may be susceptible.
 
+<a id="glos-fuzzing-arguments"></a>
+**fuzzing arguments:** The types which will be passed to the fuzz target, and
+mutated by the [mutator](#glos-mutator).
+
 <a id="glos-fuzzing-engine"></a>
 **fuzzing engine:** A tool that manages fuzzing, including maintaining the
 corpus, invoking the mutator, identifying new coverage, and reporting failures.
@@ -99,3 +140,12 @@ directory within the package.
 <a id="glos-vulnerability"></a>
 **vulnerability:** A security-sensitive weakness in code which can be exploited
 by an attacker.
+
+## Feedback
+
+If you experience any problems or have an idea for a feature, please [file an
+issue](https://github.com/golang/go/issues/new?&labels=fuzz).
+
+For discussion and general feedback about the feature, you can also participate
+in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in
+Gophers Slack.
