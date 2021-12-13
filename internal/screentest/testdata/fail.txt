@@ -1,0 +1,5 @@
+compare https://go.dev https://pkg.go.dev
+
+test homepage
+pathname /
+capture viewport

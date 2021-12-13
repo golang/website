@@ -1,0 +1,32 @@
+windowsize 1536x960
+compare https://go.dev http://localhost:6060/go.dev
+
+test homepage
+pathname /
+capture fullscreen
+capture fullscreen 540x1080
+
+test why go
+pathname /solutions/
+capture fullscreen
+capture fullscreen 540x1080
+
+test getting started
+pathname /learn/
+capture fullscreen
+capture fullscreen 540x1080
+
+test docs
+pathname /doc/
+capture fullscreen
+capture fullscreen 540x1080
+
+test playground
+pathname /play/
+capture fullscreen
+capture fullscreen 540x1080
+
+test blog
+pathname /blog/
+capture fullscreen
+capture fullscreen 540x1080
