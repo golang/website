@@ -33,38 +33,42 @@ components.
 ## Writing and running fuzz tests
 
 ### Requirements
+
 Below are rules that fuzz tests must follow.
-  - A fuzz test must be a function named like `FuzzXxx`, which accepts only a
-    `*testing.F`, and has no return value.
-  - Fuzz tests must be in *_test.go files to run.
-  - A [fuzz target](#glos-fuzz-target) must be a method call to
-    <code>[(*testing.F).Fuzz](https://pkg.go.dev/testing#F.Fuzz)</code> which
-    accepts a `*testing.T` as the first parameter, followed by the fuzzing
-    arguments. There is no return value.
-  - There must be exactly one fuzz target per fuzz test.
-  - All [seed corpus](#glos-seed-corpus) entries must have types which are
-    identical to the [fuzzing arguments](#fuzzing-arguments), in the same order.
-    This is true for calls to
-    <code>[(*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code> and any
-    corpus files in the testdata/fuzz directory of the fuzz test.
-  - The fuzzing arguments can only be the following types:
-    - string, []byte
-    - int, int8, int16, int32/rune, int64
-    - uint, uint8/byte, uint16, uint32, uint64
-    - float32, float64
-    - bool
+
+- A fuzz test must be a function named like `FuzzXxx`, which accepts only a
+  `*testing.F`, and has no return value.
+- Fuzz tests must be in \*\_test.go files to run.
+- A [fuzz target](#glos-fuzz-target) must be a method call to
+  <code>[(\*testing.F).Fuzz](https://pkg.go.dev/testing#F.Fuzz)</code> which
+  accepts a `*testing.T` as the first parameter, followed by the fuzzing
+  arguments. There is no return value.
+- There must be exactly one fuzz target per fuzz test.
+- All [seed corpus](#glos-seed-corpus) entries must have types which are
+  identical to the [fuzzing arguments](#fuzzing-arguments), in the same order.
+  This is true for calls to
+  <code>[(\*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code> and any
+  corpus files in the testdata/fuzz directory of the fuzz test.
+- The fuzzing arguments can only be the following types:
+  - string, []byte
+  - int, int8, int16, int32/rune, int64
+  - uint, uint8/byte, uint16, uint32, uint64
+  - float32, float64
+  - bool
 
 ### Suggestions
+
 Below are suggestions that will help you get the most out of fuzzing.
-  - Fuzzing should be run on a platform that supports coverage instrumentation
-    (currently AMD64 and ARM64) so that the corpus can meaningfully grow as it
-    runs, and more code can be covered while fuzzing.
-  - Fuzz targets should be fast and deterministic so the fuzzing engine can work
-    efficiently, and new failures and code coverage can be easily reproduced.
-  - Since the fuzz target is invoked in parallel across multiple workers and in
-    nondeterministic order, the state of a fuzz target should not persist past
-    the end of each call, and the behavior of a fuzz target should not depend on
-    global state.
+
+- Fuzzing should be run on a platform that supports coverage instrumentation
+  (currently AMD64 and ARM64) so that the corpus can meaningfully grow as it
+  runs, and more code can be covered while fuzzing.
+- Fuzz targets should be fast and deterministic so the fuzzing engine can work
+  efficiently, and new failures and code coverage can be easily reproduced.
+- Since the fuzz target is invoked in parallel across multiple workers and in
+  nondeterministic order, the state of a fuzz target should not persist past
+  the end of each call, and the behavior of a fuzz target should not depend on
+  global state.
 
 ## Resources
 
@@ -86,7 +90,7 @@ Below are suggestions that will help you get the most out of fuzzing.
 <a id="glos-corpus-entry"></a>
 **corpus entry:** An input in the corpus which can be used while fuzzing. This
 can be a specially-formatted file, or a call to
-<code>[(*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code>.
+<code>[(\*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code>.
 
 <a id="glos-coverage-guidance"></a>
 **coverage guidance:** A method of fuzzing which uses expansions in code
@@ -96,7 +100,7 @@ coverage to determine which corpus entries are worth keeping for future use.
 **fuzz target:** The function of the fuzz test which is executed for corpus
 entries and generated values while fuzzing. It is provided to the fuzz test by
 passing the function to
-<code>[(*testing.F).Fuzz](https://pkg.go.dev/testing#F.Fuzz)</code>.
+<code>[(\*testing.F).Fuzz](https://pkg.go.dev/testing#F.Fuzz)</code>.
 
 <a id="glos-fuzz-test"></a>
 **fuzz test:** A function in a test file of the form `func FuzzXxx(*testing.F)`
