@@ -1,5 +1,5 @@
 ---
-title: Go 1.18 Beta 1 is available
+title: Go 1.18 Beta 1 is available, with generics
 date: 2021-12-14
 by:
 - Russ Cox, for the Go team
