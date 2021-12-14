@@ -67,9 +67,10 @@ the beta, following these steps:
     *   By aliasing the beta name to another name, you can simplify the command:
 
         ```
-        $ alias go1.18beta1=go
+        $ alias go=go1.18beta1
         $ go version
-    ```
+        ```
+
 Commands in this tutorial will assume you have aliased the beta name.
 
 ## Create a folder for your code {#create_folder}
