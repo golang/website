@@ -4,7 +4,7 @@ title: The Go Blog
 
 <div id="blogindex">
 
-{{range first 5 (newest (pages "/blog/*.md")) -}}
+{{range first 10 (newest (pages "/blog/*.md")) -}}
 {{if .date}}
 <p class="blogtitle">
   <a href="{{.URL}}">{{.title}}</a>, <span class="date">{{.date.Format "2 January 2006"}}</span><br>
