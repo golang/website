@@ -18,8 +18,10 @@
 //
 // An additional query param, include=all, when used with the mode=json
 // query param, will serve a full list of available downloads, including
-// stable, unstable, and archived releases in JSON format:
+// unstable, stable, and archived releases, in JSON format:
 //     https://golang.org/dl/?mode=json&include=all
+//
+// Releases returned in JSON modes are sorted by version, newest to oldest.
 package dl
 
 import (
@@ -281,6 +283,10 @@ func (s fileOrder) Swap(i, j int) { s[i], s[j] = s[j], s[i] }
 func (s fileOrder) Less(i, j int) bool {
 	a, b := s[i], s[j]
 	if av, bv := a.Version, b.Version; av != bv {
+		// Put stable releases first.
+		if isStable(av) != isStable(bv) {
+			return isStable(av)
+		}
 		return versionLess(av, bv)
 	}
 	if a.OS != b.OS {
@@ -296,14 +302,15 @@ func (s fileOrder) Less(i, j int) bool {
 }
 
 func versionLess(a, b string) bool {
-	// Put stable releases first.
-	if isStable(a) != isStable(b) {
-		return isStable(a)
-	}
 	maja, mina, ta := parseVersion(a)
 	majb, minb, tb := parseVersion(b)
 	if maja == majb {
 		if mina == minb {
+			if ta == "" {
+				return true
+			} else if tb == "" {
+				return false
+			}
 			return ta >= tb
 		}
 		return mina >= minb

@@ -17,6 +17,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sort"
 	"strings"
 	"sync"
 	"time"
@@ -134,7 +135,10 @@ func serveJSON(w http.ResponseWriter, r *http.Request, d *listTemplateData) {
 	var releases []Release
 	switch r.URL.Query().Get("include") {
 	case "all":
-		releases = append(append(d.Stable, d.Archive...), d.Unstable...)
+		releases = append(append(d.Unstable, d.Stable...), d.Archive...)
+		sort.Slice(releases, func(i, j int) bool {
+			return versionLess(releases[i].Version, releases[j].Version)
+		})
 	default:
 		releases = d.Stable
 	}

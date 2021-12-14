@@ -6,6 +6,8 @@ package dl
 
 import (
 	"encoding/json"
+	"fmt"
+	"math/rand"
 	"net/http/httptest"
 	"sort"
 	"testing"
@@ -88,5 +90,49 @@ func TestServeJSON(t *testing.T) {
 				}
 			}
 		})
+	}
+}
+
+func TestSortedJSON(t *testing.T) {
+	// sortedVersion is populated with versions sorted from newest to oldest.
+	var sortedVersions []File
+	for maj := 30; maj >= 0; maj-- {
+		for min := 30; min >= 0; min-- {
+			minStr := ""
+			if min > 0 {
+				minStr = fmt.Sprintf(".%d", min)
+			}
+			for _, tail := range []string{"", "rc2", "rc1", "beta2", "beta1"} {
+				version := fmt.Sprintf("go1.%d%s%s", maj, minStr, tail)
+				sortedVersions = append(sortedVersions, File{Version: version})
+			}
+		}
+	}
+	shuffledVersions := append([]File{}, sortedVersions...)
+	rand.Shuffle(len(shuffledVersions), func(i, j int) {
+		shuffledVersions[i], shuffledVersions[j] = shuffledVersions[j], shuffledVersions[i]
+	})
+
+	d := listTemplateData{}
+	d.Stable, d.Unstable, d.Archive = filesToReleases(shuffledVersions)
+	r := httptest.NewRequest("GET", "/?mode=json&include=all", nil)
+	w := httptest.NewRecorder()
+	serveJSON(w, r, &d)
+	rsp := w.Result()
+	defer rsp.Body.Close()
+	if rsp.StatusCode != 200 {
+		t.Errorf("response status code = %d; want 200", rsp.StatusCode)
+	}
+	var rs []Release
+	if err := json.NewDecoder(rsp.Body).Decode(&rs); err != nil {
+		t.Fatalf("json.Decode: got unexpected error: %v", err)
+	}
+	if len(rs) != len(sortedVersions) {
+		t.Fatalf("got %d versions; want %d versions", len(rs), len(sortedVersions))
+	}
+	for i := range rs {
+		if rs[i].Version != sortedVersions[i].Version {
+			t.Errorf("unexpected order at index %d of %s; want %s", i, rs[i].Version, sortedVersions[i].Version)
+		}
 	}
 }
