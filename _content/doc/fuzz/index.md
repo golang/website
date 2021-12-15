@@ -28,7 +28,11 @@ valuable for finding security exploits and vulnerabilities.
 Below is an example of a [fuzz test](#glos-fuzz-test), highlighting it's main
 components.
 
-<img alt="Example code showing the overall fuzz test, with a fuzz target within it. Before the fuzz target is a corpus addition with f.Add, and the parameters of the fuzz target are highlighted as the fuzzing arguments." src="/doc/fuzz/example.png" style="display: block; width: 600px; height: auto;"/>
+<img alt="Example code showing the overall fuzz test, with a fuzz target within
+it. Before the fuzz target is a corpus addition with f.Add, and the parameters
+of the fuzz target are highlighted as the fuzzing arguments."
+src="/doc/fuzz/example.png" style="display: block; width: 600px; height:
+auto;"/>
 
 ## Writing and running fuzz tests
 
@@ -50,11 +54,11 @@ Below are rules that fuzz tests must follow.
   <code>[(\*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code> and any
   corpus files in the testdata/fuzz directory of the fuzz test.
 - The fuzzing arguments can only be the following types:
-  - string, []byte
-  - int, int8, int16, int32/rune, int64
-  - uint, uint8/byte, uint16, uint32, uint64
-  - float32, float64
-  - bool
+  - `string`, `[]byte`
+  - `int`, `int8`, `int16`, `int32`/`rune`, `int64`
+  - `uint`, `uint8`/`byte`, `uint16`, `uint32`, `uint64`
+  - `float32`, `float64`
+  - `bool`
 
 ### Suggestions
 
@@ -66,8 +70,8 @@ Below are suggestions that will help you get the most out of fuzzing.
 - Fuzz targets should be fast and deterministic so the fuzzing engine can work
   efficiently, and new failures and code coverage can be easily reproduced.
 - Since the fuzz target is invoked in parallel across multiple workers and in
-  nondeterministic order, the state of a fuzz target should not persist past
-  the end of each call, and the behavior of a fuzz target should not depend on
+  nondeterministic order, the state of a fuzz target should not persist past the
+  end of each call, and the behavior of a fuzz target should not depend on
   global state.
 
 ### Custom settings
@@ -91,6 +95,56 @@ To highlight a few:
   completely disable minimization by setting `-fuzzminimizetime 0` when fuzzing.
 - `-parallel`: the number of fuzzing processes running at once, default
   `$GOMAXPROCS`. Currently, setting -cpu during fuzzing has no effect.
+
+### Corpus file format
+
+Corpus files are encoded in a special format. This is the same format for both
+the [seed corpus](#glos-seed-corpus), and the [generated
+corpus](#glos-generated-corpus).
+
+Below is an example of a corpus file:
+
+```
+go test fuzz v1
+[]byte("hello\\xbd\\xb2=\\xbc ⌘")
+int64(572293)
+```
+
+The first line is used to inform the fuzzing engine of the file's encoding
+version. Although no future versions of the encoding format are currently
+planned, the design must support this possibility.
+
+Each of the lines following are the values that make up the corpus entry, and
+can be copied directly into Go code if desired.
+
+In the example above, we have a `[]byte` followed by an `int64`. These types
+must match the fuzzing arguments exactly, in that order. A fuzz target for these
+types would look like this:
+
+```
+f.Fuzz(func(*testing.T, []byte, int64) {})
+```
+
+The easiest way to specify your own seed corpus values is to use the
+`(*testing.F).Add` method. In the example above, that would look like this:
+
+```
+f.Add([]byte("hello\\xbd\\xb2=\\xbc ⌘"), int64(572293))
+```
+
+However, you may have large binary files that you'd prefer not to copy as code
+into your test, and instead remain as individual seed corpus entries in the
+testdata/fuzz/{FuzzTestName} directory. The
+[`file2fuzz`](https://pkg.go.dev/golang.org/x/tools/cmd/file2fuzz) tool at
+golang.org/x/tools/cmd/file2fuzz can be used to convert these binary files to
+corpus files encoded for `[]byte`.
+
+To use this tool:
+
+```
+$ go install golang.org/x/tools/cmd/file2fuzz@latest
+$ file2fuzz
+```
 
 ## Resources
 
@@ -161,7 +215,8 @@ calls within the fuzz test, and the files in the testdata/fuzz/{FuzzTestName}
 directory within the package.
 
 <a id="glos-test-file"></a>
-**test file:** A file of the format xxx_test.go that may contain tests, benchmarks, examples and fuzz tests.
+**test file:** A file of the format xxx_test.go that may contain tests,
+benchmarks, examples and fuzz tests.
 
 <a id="glos-vulnerability"></a>
 **vulnerability:** A security-sensitive weakness in code which can be exploited
