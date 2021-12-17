@@ -137,11 +137,11 @@ func CheckHandler(glob string) error {
 		for _, test := range tests {
 			if err := runDiff(ctx, test, out); err != nil {
 				if !hdr {
-					fmt.Fprintf(&buf, "%s\n", file)
-					fmt.Fprintf(&buf, "inspect diffs at %s\n", out)
+					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
 				}
 				fmt.Fprintf(&buf, "%v\n", err)
+				fmt.Fprintf(&buf, "inspect diff at %s\n\n", test.outDiff)
 			}
 		}
 	}
@@ -223,15 +223,18 @@ const (
 )
 
 type testcase struct {
-	name              string
-	pathame           string
-	tasks             chromedp.Tasks
-	originA           string
-	originB           string
-	viewportWidth     int
-	viewportHeight    int
-	screenshotType    screenshotType
-	screenshotElement string
+	name                      string
+	tasks                     chromedp.Tasks
+	urlA, urlB                string
+	outImgA, outImgB, outDiff string
+	viewportWidth             int
+	viewportHeight            int
+	screenshotType            screenshotType
+	screenshotElement         string
+}
+
+func (t *testcase) String() string {
+	return t.name
 }
 
 // readTests parses the testcases from a text file.
@@ -315,12 +318,19 @@ func readTests(file string) ([]*testcase, error) {
 			if pathname == "" {
 				return nil, fmt.Errorf("missing pathname for capture on line %d", lineNo)
 			}
+			urlA, err := url.Parse(originA + pathname)
+			if err != nil {
+				return nil, fmt.Errorf("url.Parse(%q): %w", originA+pathname, err)
+			}
+			urlB, err := url.Parse(originB + pathname)
+			if err != nil {
+				return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
+			}
 			test := &testcase{
-				name:    testName,
-				pathame: pathname,
-				tasks:   tasks,
-				originA: originA,
-				originB: originB,
+				name:  testName,
+				tasks: tasks,
+				urlA:  urlA.String(),
+				urlB:  urlB.String(),
 				// Default to viewportScreenshot
 				screenshotType: viewportScreenshot,
 				viewportWidth:  width,
@@ -339,15 +349,23 @@ func readTests(file string) ([]*testcase, error) {
 					if err != nil {
 						return nil, fmt.Errorf("splitDimensions(%q): %w", args, err)
 					}
-					test.name = testName + fmt.Sprintf(" %dx%d", w, h)
+					test.name += fmt.Sprintf(" %dx%d", w, h)
 					test.viewportWidth = w
 					test.viewportHeight = h
 				}
 			case "ELEMENT":
-				test.name = testName + fmt.Sprintf(" %s", args)
+				test.name += fmt.Sprintf(" %s", args)
 				test.screenshotType = elementScreenshot
 				test.screenshotElement = args
 			}
+			out, err := outDir(file)
+			if err != nil {
+				return nil, fmt.Errorf("outDir(%q): %w", file, err)
+			}
+			outfile := filepath.Join(out, sanitized(test.name))
+			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".png"
+			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".png"
+			test.outDiff = outfile + ".diff.png"
 		default:
 			// We should never reach this error.
 			return nil, fmt.Errorf("invalid syntax on line %d: %q", lineNo, line)
@@ -391,27 +409,14 @@ func splitDimensions(text string) (width, height int, err error) {
 // a diff if the screenshots do not match.
 func runDiff(ctx context.Context, test *testcase, out string) error {
 	fmt.Printf("test %s\n", test.name)
-	urlA, err := url.Parse(test.originA + test.pathame)
+	screenA, err := captureScreenshot(ctx, test.urlA, test)
 	if err != nil {
-		return fmt.Errorf("url.Parse(%q): %w", test.originA+test.pathame, err)
+		return fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", test.urlA, test, err)
 	}
-	urlB, err := url.Parse(test.originB + test.pathame)
+	screenB, err := captureScreenshot(ctx, test.urlB, test)
 	if err != nil {
-		return fmt.Errorf("url.Parse(%q): %w", test.originB+test.pathame, err)
+		return fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", test.urlB, test, err)
 	}
-	screenA, err := captureScreenshot(ctx, urlA, test)
-	if err != nil {
-		return fmt.Errorf("fullScreenshot(ctx, %q, %q): %w", urlA, test, err)
-	}
-	screenB, err := captureScreenshot(ctx, urlB, test)
-	if err != nil {
-		return fmt.Errorf("fullScreenshot(ctx, %q, %q): %w", urlB, test, err)
-	}
-	if bytes.Equal(screenA, screenB) {
-		fmt.Printf("%s == %s\n\n", urlA, urlB)
-		return nil
-	}
-	fmt.Printf("%s != %s\n", urlA, urlB)
 	imgA, _, err := image.Decode(bytes.NewReader(screenA))
 	if err != nil {
 		return fmt.Errorf("image.Decode(...): %w", err)
@@ -420,31 +425,35 @@ func runDiff(ctx context.Context, test *testcase, out string) error {
 	if err != nil {
 		return fmt.Errorf("image.Decode(...): %w", err)
 	}
-	outfile := filepath.Join(out, sanitized(test.name))
+	result := imgdiff.Diff(imgA, imgB, &imgdiff.Options{
+		Threshold: 0.1,
+		DiffImage: true,
+	})
+	if result.Equal {
+		fmt.Printf("%s == %s\n\n", test.urlA, test.urlB)
+		return nil
+	}
+	fmt.Printf("%s != %s\n", test.urlA, test.urlB)
 	var errs errgroup.Group
 	errs.Go(func() error {
-		out := imgdiff.Diff(imgA, imgB, &imgdiff.Options{
-			Threshold: 0.1,
-			DiffImage: true,
-		})
-		return writePNG(&out.Image, outfile+".diff")
+		return writePNG(&result.Image, test.outDiff)
 	})
 	errs.Go(func() error {
-		return writePNG(&imgA, outfile+"."+sanitized(urlA.Host))
+		return writePNG(&imgA, test.outImgA)
 	})
 	errs.Go(func() error {
-		return writePNG(&imgB, outfile+"."+sanitized(urlB.Host))
+		return writePNG(&imgB, test.outImgB)
 	})
 	if err := errs.Wait(); err != nil {
 		return fmt.Errorf("writePNG(...): %w", errs.Wait())
 	}
 	fmt.Printf("wrote diff to %s\n\n", out)
-	return fmt.Errorf("%s != %s", urlA, urlB)
+	return fmt.Errorf("%s != %s", test.urlA, test.urlB)
 }
 
 // captureScreenshot runs a series of browser actions and takes a screenshot
 // of the resulting webpage in an instance of headless chrome.
-func captureScreenshot(ctx context.Context, u *url.URL, test *testcase) ([]byte, error) {
+func captureScreenshot(ctx context.Context, url string, test *testcase) ([]byte, error) {
 	var buf []byte
 	ctx, cancel := chromedp.NewContext(ctx)
 	defer cancel()
@@ -452,7 +461,7 @@ func captureScreenshot(ctx context.Context, u *url.URL, test *testcase) ([]byte,
 	defer cancel()
 	tasks := chromedp.Tasks{
 		chromedp.EmulateViewport(int64(test.viewportWidth), int64(test.viewportHeight)),
-		chromedp.Navigate(u.String()),
+		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
 		test.tasks,
 	}
@@ -472,9 +481,9 @@ func captureScreenshot(ctx context.Context, u *url.URL, test *testcase) ([]byte,
 
 // writePNG writes image data to a png file.
 func writePNG(i *image.Image, filename string) error {
-	f, err := os.Create(filename + ".png")
+	f, err := os.Create(filename)
 	if err != nil {
-		return fmt.Errorf("os.Create(%q): %w", filename+".png", err)
+		return fmt.Errorf("os.Create(%q): %w", filename, err)
 	}
 	err = png.Encode(f, *i)
 	if err != nil {

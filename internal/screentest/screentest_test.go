@@ -19,6 +19,11 @@ func TestReadTests(t *testing.T) {
 	type args struct {
 		filename string
 	}
+	d, err := os.UserCacheDir()
+	if err != nil {
+		t.Errorf("os.UserCacheDir(): %v", err)
+	}
+	cache := filepath.Join(d, "screentest")
 	tests := []struct {
 		name    string
 		args    args
@@ -33,64 +38,76 @@ func TestReadTests(t *testing.T) {
 			want: []*testcase{
 				{
 					name:           "go.dev homepage",
-					originA:        "https://go.dev",
-					originB:        "http://localhost:6060/go.dev",
+					urlA:           "https://go.dev/",
+					urlB:           "http://localhost:6060/go.dev/",
+					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.localhost-6060.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.diff.png"),
 					viewportWidth:  1536,
 					viewportHeight: 960,
 					screenshotType: fullScreenshot,
-					pathame:        "/",
 				},
 				{
 					name:           "go.dev homepage 540x1080",
-					originA:        "https://go.dev",
-					originB:        "http://localhost:6060/go.dev",
+					urlA:           "https://go.dev/",
+					urlB:           "http://localhost:6060/go.dev/",
+					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.localhost-6060.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.diff.png"),
 					viewportWidth:  540,
 					viewportHeight: 1080,
 					screenshotType: fullScreenshot,
-					pathame:        "/",
 				},
 				{
 					name:           "about page",
-					originA:        "https://go.dev",
-					originB:        "http://localhost:6060/go.dev",
+					urlA:           "https://go.dev/about",
+					urlB:           "http://localhost:6060/go.dev/about",
+					outImgA:        filepath.Join(cache, "readtests-txt", "about-page.go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "about-page.localhost-6060.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "about-page.diff.png"),
 					screenshotType: fullScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
-					pathame:        "/about",
 				},
 				{
 					name:              "pkg.go.dev homepage .go-Carousel",
-					originA:           "https://pkg.go.dev",
-					originB:           "https://beta.pkg.go.dev",
+					urlA:              "https://pkg.go.dev/",
+					urlB:              "https://beta.pkg.go.dev/",
+					outImgA:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.pkg-go-dev.png"),
+					outImgB:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.beta-pkg-go-dev.png"),
+					outDiff:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.diff.png"),
 					screenshotType:    elementScreenshot,
 					screenshotElement: ".go-Carousel",
 					viewportWidth:     1536,
 					viewportHeight:    960,
-					pathame:           "/",
 					tasks: chromedp.Tasks{
 						chromedp.Click(".go-Carousel-dot"),
 					},
 				},
 				{
 					name:           "net package doc",
-					originA:        "https://pkg.go.dev",
-					originB:        "https://beta.pkg.go.dev",
+					urlA:           "https://pkg.go.dev/net",
+					urlB:           "https://beta.pkg.go.dev/net",
+					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc.pkg-go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc.beta-pkg-go-dev.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "net-package-doc.diff.png"),
 					screenshotType: viewportScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
-					pathame:        "/net",
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
 				},
 				{
 					name:           "net package doc 540x1080",
-					originA:        "https://pkg.go.dev",
-					originB:        "https://beta.pkg.go.dev",
+					urlA:           "https://pkg.go.dev/net",
+					urlB:           "https://beta.pkg.go.dev/net",
+					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.pkg-go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.beta-pkg-go-dev.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.diff.png"),
 					screenshotType: viewportScreenshot,
 					viewportWidth:  540,
 					viewportHeight: 1080,
-					pathame:        "/net",
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
@@ -178,4 +195,13 @@ func TestCheckHandler(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestTestHandler(t *testing.T) {
+	// Skip this test if Google Chrome is not installed.
+	_, err := exec.LookPath("google-chrome")
+	if err != nil {
+		t.Skip()
+	}
+	TestHandler(t, "testdata/pass.txt")
 }
