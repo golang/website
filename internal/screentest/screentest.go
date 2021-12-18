@@ -33,6 +33,15 @@
 //
 //  compare https://go.dev http://localhost:6060
 //
+// Add the ::cache suffix to cache the images from an origin for subsequent
+// test runs.
+//
+//  compare https://go.dev::cache http://localhost:6060
+//
+// Use output DIRECTORY to set the output directory for diffs and cached images.
+//
+//  output testdata/snapshots
+//
 // Use test NAME to create a name for the testcase.
 //
 //  test about page
@@ -62,7 +71,8 @@
 // Chain capture commands to create multiple testcases for a single page.
 //
 //  windowsize 1536x960
-//  compare https://go.dev http://localhost:6060
+//  compare https://go.dev::cache http://localhost:6060
+//  output testdata/snapshots
 //
 //  test homepage
 //  pathname /
@@ -86,6 +96,7 @@ import (
 	"fmt"
 	"image"
 	"image/png"
+	"io/fs"
 	"log"
 	"net/url"
 	"os"
@@ -104,7 +115,7 @@ import (
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
 // encountered, CheckHandler returns an error listing the problems.
-func CheckHandler(glob string) error {
+func CheckHandler(glob string, update bool) error {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -130,12 +141,8 @@ func CheckHandler(glob string) error {
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
-		out, err := outDir(file)
-		if err != nil {
-			return fmt.Errorf("outDir(%q): %w", file, err)
-		}
 		for _, test := range tests {
-			if err := runDiff(ctx, test, out); err != nil {
+			if err := runDiff(ctx, test, update); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
@@ -152,7 +159,7 @@ func CheckHandler(glob string) error {
 }
 
 // TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string) error {
+func TestHandler(t *testing.T, glob string, update bool) error {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -173,13 +180,9 @@ func TestHandler(t *testing.T, glob string) error {
 		}
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(t.Logf))
 		defer cancel()
-		out, err := outDir(file)
-		if err != nil {
-			return fmt.Errorf("outDir(%q): %w", file, err)
-		}
 		for _, test := range tests {
 			t.Run(test.name, func(t *testing.T) {
-				if err := runDiff(ctx, test, out); err != nil {
+				if err := runDiff(ctx, test, update); err != nil {
 					t.Fatal(err)
 				}
 			})
@@ -188,28 +191,10 @@ func TestHandler(t *testing.T, glob string) error {
 	return nil
 }
 
-// outDir prepares a diff output directory for a given testfile.
-// It empties the directory if it already exists.
-func outDir(testfile string) (string, error) {
-	d, err := os.UserCacheDir()
-	if err != nil {
-		return "", fmt.Errorf("os.UserCacheDir(): %w", err)
-	}
-	out := filepath.Join(d, "screentest", sanitized(filepath.Base(testfile)))
-	err = os.RemoveAll(out)
-	if err != nil {
-		return "", fmt.Errorf("os.RemoveAll(%q): %w", out, err)
-	}
-	err = os.MkdirAll(out, os.ModePerm)
-	if err != nil {
-		return "", fmt.Errorf("os.MkdirAll(%q): %w", out, err)
-	}
-	return out, nil
-}
-
 const (
 	browserWidth  = 1536
 	browserHeight = 960
+	cacheSuffix   = "::cache"
 )
 
 var sanitize = regexp.MustCompile("[.*<>?`'|/\\: ]")
@@ -226,6 +211,7 @@ type testcase struct {
 	name                      string
 	tasks                     chromedp.Tasks
 	urlA, urlB                string
+	cacheA, cacheB            bool
 	outImgA, outImgB, outDiff string
 	viewportWidth             int
 	viewportHeight            int
@@ -249,9 +235,19 @@ func readTests(file string) ([]*testcase, error) {
 		testName, pathname string
 		tasks              chromedp.Tasks
 		originA, originB   string
+		cacheA, cacheB     bool
 		width, height      int
 		lineNo             int
 	)
+	cache, err := os.UserCacheDir()
+	if err != nil {
+		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
+	}
+	dir := filepath.Join(cache, "screentest")
+	out, err := outDir(dir, file)
+	if err != nil {
+		return nil, fmt.Errorf("outDir(%q, %q): %w", dir, file, err)
+	}
 	scan := bufio.NewScanner(f)
 	for scan.Scan() {
 		lineNo += 1
@@ -271,11 +267,25 @@ func readTests(file string) ([]*testcase, error) {
 		case "COMPARE":
 			origins := strings.Split(args, " ")
 			originA, originB = origins[0], origins[1]
+			cacheA, cacheB = false, false
+			if strings.HasSuffix(originA, cacheSuffix) {
+				originA = strings.TrimSuffix(originA, cacheSuffix)
+				cacheA = true
+			}
+			if strings.HasSuffix(originB, cacheSuffix) {
+				originB = strings.TrimSuffix(originB, cacheSuffix)
+				cacheB = true
+			}
 			if _, err := url.Parse(originA); err != nil {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originA, err)
 			}
 			if _, err := url.Parse(originB); err != nil {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
+			}
+		case "OUTPUT":
+			out, err = outDir(args, "")
+			if err != nil {
+				return nil, fmt.Errorf("outDir(%q, %q): %w", args, file, err)
 			}
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
@@ -299,7 +309,7 @@ func readTests(file string) ([]*testcase, error) {
 			}
 			pathname = args
 			if testName == "" {
-				testName = pathname
+				testName = pathname[1:]
 			}
 			for _, t := range tests {
 				if t.name == testName {
@@ -335,6 +345,8 @@ func readTests(file string) ([]*testcase, error) {
 				screenshotType: viewportScreenshot,
 				viewportWidth:  width,
 				viewportHeight: height,
+				cacheA:         cacheA,
+				cacheB:         cacheB,
 			}
 			tests = append(tests, test)
 			field, args := splitOneField(args)
@@ -358,10 +370,6 @@ func readTests(file string) ([]*testcase, error) {
 				test.screenshotType = elementScreenshot
 				test.screenshotElement = args
 			}
-			out, err := outDir(file)
-			if err != nil {
-				return nil, fmt.Errorf("outDir(%q): %w", file, err)
-			}
 			outfile := filepath.Join(out, sanitized(test.name))
 			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".png"
 			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".png"
@@ -375,6 +383,17 @@ func readTests(file string) ([]*testcase, error) {
 		return nil, fmt.Errorf("scan.Err(): %v", err)
 	}
 	return tests, nil
+}
+
+// outDir prepares a diff output directory for a given testfile.
+func outDir(dir, testfile string) (string, error) {
+	if testfile != "" {
+		dir = filepath.Join(dir, sanitized(filepath.Base(testfile)))
+	}
+	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+		return "", fmt.Errorf("os.MkdirAll(%q): %w", dir, err)
+	}
+	return dir, nil
 }
 
 // splitOneField splits text at the first space or tab
@@ -407,25 +426,17 @@ func splitDimensions(text string) (width, height int, err error) {
 
 // runDiff generates screenshots for a given test case and
 // a diff if the screenshots do not match.
-func runDiff(ctx context.Context, test *testcase, out string) error {
+func runDiff(ctx context.Context, test *testcase, update bool) error {
 	fmt.Printf("test %s\n", test.name)
-	screenA, err := captureScreenshot(ctx, test.urlA, test)
+	screenA, err := screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update)
 	if err != nil {
-		return fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", test.urlA, test, err)
+		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlA, test.outImgA, test.cacheA, err)
 	}
-	screenB, err := captureScreenshot(ctx, test.urlB, test)
+	screenB, err := screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update)
 	if err != nil {
-		return fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", test.urlB, test, err)
+		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlB, test.outImgB, test.cacheB, err)
 	}
-	imgA, _, err := image.Decode(bytes.NewReader(screenA))
-	if err != nil {
-		return fmt.Errorf("image.Decode(...): %w", err)
-	}
-	imgB, _, err := image.Decode(bytes.NewReader(screenB))
-	if err != nil {
-		return fmt.Errorf("image.Decode(...): %w", err)
-	}
-	result := imgdiff.Diff(imgA, imgB, &imgdiff.Options{
+	result := imgdiff.Diff(*screenA, *screenB, &imgdiff.Options{
 		Threshold: 0.1,
 		DiffImage: true,
 	})
@@ -438,22 +449,65 @@ func runDiff(ctx context.Context, test *testcase, out string) error {
 	errs.Go(func() error {
 		return writePNG(&result.Image, test.outDiff)
 	})
-	errs.Go(func() error {
-		return writePNG(&imgA, test.outImgA)
-	})
-	errs.Go(func() error {
-		return writePNG(&imgB, test.outImgB)
-	})
+	// Only write screenshots if they haven't already been written to the cache.
+	if !test.cacheA {
+		errs.Go(func() error {
+			return writePNG(screenA, test.outImgA)
+		})
+	}
+	if !test.cacheB {
+		errs.Go(func() error {
+			return writePNG(screenB, test.outImgB)
+		})
+	}
 	if err := errs.Wait(); err != nil {
 		return fmt.Errorf("writePNG(...): %w", errs.Wait())
 	}
-	fmt.Printf("wrote diff to %s\n\n", out)
+	fmt.Printf("wrote diff to %s\n\n", test.outDiff)
 	return fmt.Errorf("%s != %s", test.urlA, test.urlB)
+}
+
+// screenshot gets a screenshot for a testcase url. When cache is true it will
+// attempt to read the screenshot from a cache or capture a new screenshot
+// and write it to the cache if it does not exist.
+func screenshot(ctx context.Context, test *testcase, url, file string, cache, update bool) (_ *image.Image, err error) {
+	var data []byte
+	// If cache is enabled, try to read the file from the cache.
+	if cache {
+		data, err = os.ReadFile(file)
+		if errors.Is(err, fs.ErrNotExist) {
+			// If screenshot is not found, this must be the first time the test has run.
+			// Set update to true to capture a new screenshot.
+			update = true
+		} else if err != nil {
+			return nil, fmt.Errorf("os.ReadFile(...): %w", err)
+		}
+	}
+	// If cache is false, this is the first test run, or an update is requested
+	// we capture a new screenshot from a live URL.
+	if !cache || update {
+		data, err = captureScreenshot(ctx, test, url)
+		if err != nil {
+			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, test, err)
+		}
+	}
+	// Write to the cache.
+	if cache && update {
+		if err := os.WriteFile(file, data, os.ModePerm); err != nil {
+			return nil, fmt.Errorf(" os.WriteFile(%q, data, %q): %w", file, os.ModePerm, err)
+		}
+		fmt.Printf("updated %s\n", file)
+	}
+	img, _, err := image.Decode(bytes.NewReader(data))
+	if err != nil {
+		return nil, fmt.Errorf("image.Decode(...): %w", err)
+	}
+	return &img, nil
 }
 
 // captureScreenshot runs a series of browser actions and takes a screenshot
 // of the resulting webpage in an instance of headless chrome.
-func captureScreenshot(ctx context.Context, url string, test *testcase) ([]byte, error) {
+func captureScreenshot(ctx context.Context, test *testcase, url string) ([]byte, error) {
 	var buf []byte
 	ctx, cancel := chromedp.NewContext(ctx)
 	defer cancel()

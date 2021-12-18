@@ -13,11 +13,14 @@ import (
 	"golang.org/x/website/internal/screentest"
 )
 
-var testdata = flag.String("testdata", "cmd/screentest/testdata/*.txt", "directory to look for testdata")
+var (
+	testdata = flag.String("testdata", "cmd/screentest/testdata/*.txt", "directory to look for testdata")
+	update   = flag.Bool("update", false, "use this flag to update cached screenshots")
+)
 
 func main() {
 	flag.Parse()
-	if err := screentest.CheckHandler(*testdata); err != nil {
+	if err := screentest.CheckHandler(*testdata, *update); err != nil {
 		log.Fatal(err)
 	}
 }

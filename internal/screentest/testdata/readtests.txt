@@ -22,3 +22,8 @@ pathname /net
 wait [role="treeitem"][aria-expanded="true"]
 capture viewport
 capture viewport 540x1080
+
+compare https://pkg.go.dev::cache http://localhost:8080
+
+pathname /about
+capture

@@ -112,6 +112,18 @@ func TestReadTests(t *testing.T) {
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
 				},
+				{
+					name:           "about",
+					urlA:           "https://pkg.go.dev/about",
+					cacheA:         true,
+					urlB:           "http://localhost:8080/about",
+					outImgA:        filepath.Join(cache, "readtests-txt", "about.pkg-go-dev.png"),
+					outImgB:        filepath.Join(cache, "readtests-txt", "about.localhost-8080.png"),
+					outDiff:        filepath.Join(cache, "readtests-txt", "about.diff.png"),
+					screenshotType: viewportScreenshot,
+					viewportWidth:  1536,
+					viewportHeight: 960,
+				},
 			},
 			wantErr: false,
 		},
@@ -145,7 +157,8 @@ func TestCheckHandler(t *testing.T) {
 		t.Skip()
 	}
 	type args struct {
-		glob string
+		glob   string
+		output string
 	}
 	d, err := os.UserCacheDir()
 	if err != nil {
@@ -168,7 +181,8 @@ func TestCheckHandler(t *testing.T) {
 		{
 			name: "fail",
 			args: args{
-				glob: "testdata/fail.txt",
+				output: filepath.Join(cache, "fail-txt"),
+				glob:   "testdata/fail.txt",
 			},
 			wantErr: true,
 			wantFiles: []string{
@@ -177,15 +191,25 @@ func TestCheckHandler(t *testing.T) {
 				filepath.Join(cache, "fail-txt", "homepage.pkg-go-dev.png"),
 			},
 		},
+		{
+			name: "cached",
+			args: args{
+				output: "testdata/screenshots",
+				glob:   "testdata/cached.txt",
+			},
+			wantFiles: []string{
+				filepath.Join("testdata", "screenshots", "homepage.go-dev.png"),
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckHandler(tt.args.glob); (err != nil) != tt.wantErr {
+			if err := CheckHandler(tt.args.glob, false); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			if tt.wantErr {
+			if len(tt.wantFiles) != 0 {
 				files, err := filepath.Glob(
-					filepath.Join(cache, sanitized(filepath.Base(tt.args.glob)), "*.png"))
+					filepath.Join(tt.args.output, "*.png"))
 				if err != nil {
 					t.Fatal("error reading diff output")
 				}
@@ -203,5 +227,5 @@ func TestTestHandler(t *testing.T) {
 	if err != nil {
 		t.Skip()
 	}
-	TestHandler(t, "testdata/pass.txt")
+	TestHandler(t, "testdata/pass.txt", false)
 }
