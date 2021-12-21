@@ -119,6 +119,7 @@ func TestReadTests(t *testing.T) {
 					urlA:           "https://pkg.go.dev/about",
 					cacheA:         true,
 					urlB:           "http://localhost:8080/about",
+					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					outImgA:        filepath.Join(cache, "readtests-txt", "about.pkg-go-dev.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "about.localhost-8080.png"),
 					outDiff:        filepath.Join(cache, "readtests-txt", "about.diff.png"),
@@ -131,6 +132,7 @@ func TestReadTests(t *testing.T) {
 					urlA:           "https://pkg.go.dev/eval",
 					cacheA:         true,
 					urlB:           "http://localhost:8080/eval",
+					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					outImgA:        filepath.Join(cache, "readtests-txt", "eval.pkg-go-dev.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "eval.localhost-8080.png"),
 					outDiff:        filepath.Join(cache, "readtests-txt", "eval.diff.png"),
@@ -147,7 +149,7 @@ func TestReadTests(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename)
+			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"})
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -259,6 +261,7 @@ func TestHeaders(t *testing.T) {
 		urlA:              "http://localhost:6061",
 		cacheA:            true,
 		urlB:              "http://localhost:6061",
+		headers:           map[string]interface{}{"Authorization": "Bearer token"},
 		outImgA:           filepath.Join("testdata", "screenshots", "headers", "headers-test.localhost-6061.png"),
 		outImgB:           filepath.Join("testdata", "screenshots", "headers", "headers-test.localhost-6061.png"),
 		outDiff:           filepath.Join("testdata", "screenshots", "headers", "headers-test.diff.png"),
@@ -266,7 +269,7 @@ func TestHeaders(t *testing.T) {
 		viewportHeight:    960,
 		screenshotType:    elementScreenshot,
 		screenshotElement: "#result",
-	}, false, map[string]interface{}{"Authorization": "Bearer token"}); err != nil {
+	}, false); err != nil {
 		t.Fatal(err)
 	}
 }

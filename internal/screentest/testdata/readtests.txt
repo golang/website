@@ -24,6 +24,7 @@ capture viewport
 capture viewport 540x1080
 
 compare https://pkg.go.dev::cache http://localhost:8080
+header Authorization: {{.Authorization}}
 
 pathname /about
 capture
