@@ -322,6 +322,8 @@ func readTests(file string) ([]*testcase, error) {
 			tasks = append(tasks, chromedp.Click(args))
 		case "WAIT":
 			tasks = append(tasks, chromedp.WaitReady(args))
+		case "EVAL":
+			tasks = append(tasks, chromedp.Evaluate(args, nil))
 		case "CAPTURE":
 			if originA == "" || originB == "" {
 				return nil, fmt.Errorf("missing compare for capture on line %d", lineNo)

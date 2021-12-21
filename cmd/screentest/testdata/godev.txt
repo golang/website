@@ -3,6 +3,8 @@ compare https://go.dev http://localhost:6060/go.dev
 
 test homepage
 pathname /
+# The data in _content/events.yaml is stale, hide this section from the screenshots.
+eval document.querySelector('.LearnGo').style.display = 'none';
 capture fullscreen
 capture fullscreen 540x1080
 
@@ -13,6 +15,8 @@ capture fullscreen 540x1080
 
 test getting started
 pathname /learn/
+# The data in _content/events.yaml is stale, hide this section from the screenshots.
+eval document.querySelector('.Learn-meetups').style.display = 'none';
 capture fullscreen
 capture fullscreen 540x1080
 
