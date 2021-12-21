@@ -8,19 +8,41 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
+	"os"
+	"strings"
 
 	"golang.org/x/website/internal/screentest"
 )
 
 var (
-	testdata = flag.String("testdata", "cmd/screentest/testdata/*.txt", "directory to look for testdata")
-	update   = flag.Bool("update", false, "use this flag to update cached screenshots")
+	update  = flag.Bool("update", false, "update cached screenshots")
+	headers = flag.String("H", "", "set request headers")
 )
 
 func main() {
+	flag.Usage = func() {
+		fmt.Printf("Usage: screentest [OPTIONS] glob\n")
+		flag.PrintDefaults()
+	}
 	flag.Parse()
-	if err := screentest.CheckHandler(*testdata, *update); err != nil {
+	args := flag.Args()
+	if len(args) != 1 {
+		flag.Usage()
+		os.Exit(1)
+	}
+	hdr := make(map[string]interface{})
+	if *headers != "" {
+		for _, h := range strings.Split(*headers, ",") {
+			parts := strings.Split(h, ":")
+			if len(parts) != 2 {
+				log.Fatalf("invalid header %s", h)
+			}
+			hdr[parts[0]] = parts[1]
+		}
+	}
+	if err := screentest.CheckHandler(args[0], *update, hdr); err != nil {
 		log.Fatal(err)
 	}
 }

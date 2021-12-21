@@ -107,6 +107,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
 	"github.com/n7olkachev/imgdiff/pkg/imgdiff"
@@ -115,7 +116,7 @@ import (
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
 // encountered, CheckHandler returns an error listing the problems.
-func CheckHandler(glob string, update bool) error {
+func CheckHandler(glob string, update bool, headers map[string]interface{}) error {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -142,7 +143,7 @@ func CheckHandler(glob string, update bool) error {
 		defer cancel()
 		var hdr bool
 		for _, test := range tests {
-			if err := runDiff(ctx, test, update); err != nil {
+			if err := runDiff(ctx, test, update, headers); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
@@ -159,7 +160,7 @@ func CheckHandler(glob string, update bool) error {
 }
 
 // TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string, update bool) error {
+func TestHandler(t *testing.T, glob string, update bool, headers map[string]interface{}) error {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -182,7 +183,7 @@ func TestHandler(t *testing.T, glob string, update bool) error {
 		defer cancel()
 		for _, test := range tests {
 			t.Run(test.name, func(t *testing.T) {
-				if err := runDiff(ctx, test, update); err != nil {
+				if err := runDiff(ctx, test, update, headers); err != nil {
 					t.Fatal(err)
 				}
 			})
@@ -426,13 +427,13 @@ func splitDimensions(text string) (width, height int, err error) {
 
 // runDiff generates screenshots for a given test case and
 // a diff if the screenshots do not match.
-func runDiff(ctx context.Context, test *testcase, update bool) error {
+func runDiff(ctx context.Context, test *testcase, update bool, headers map[string]interface{}) error {
 	fmt.Printf("test %s\n", test.name)
-	screenA, err := screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update)
+	screenA, err := screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update, headers)
 	if err != nil {
 		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlA, test.outImgA, test.cacheA, err)
 	}
-	screenB, err := screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update)
+	screenB, err := screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update, headers)
 	if err != nil {
 		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlB, test.outImgB, test.cacheB, err)
 	}
@@ -470,7 +471,9 @@ func runDiff(ctx context.Context, test *testcase, update bool) error {
 // screenshot gets a screenshot for a testcase url. When cache is true it will
 // attempt to read the screenshot from a cache or capture a new screenshot
 // and write it to the cache if it does not exist.
-func screenshot(ctx context.Context, test *testcase, url, file string, cache, update bool) (_ *image.Image, err error) {
+func screenshot(ctx context.Context, test *testcase,
+	url, file string, cache, update bool, headers map[string]interface{},
+) (_ *image.Image, err error) {
 	var data []byte
 	// If cache is enabled, try to read the file from the cache.
 	if cache {
@@ -486,7 +489,7 @@ func screenshot(ctx context.Context, test *testcase, url, file string, cache, up
 	// If cache is false, this is the first test run, or an update is requested
 	// we capture a new screenshot from a live URL.
 	if !cache || update {
-		data, err = captureScreenshot(ctx, test, url)
+		data, err = captureScreenshot(ctx, test, url, headers)
 		if err != nil {
 			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, test, err)
 		}
@@ -507,18 +510,24 @@ func screenshot(ctx context.Context, test *testcase, url, file string, cache, up
 
 // captureScreenshot runs a series of browser actions and takes a screenshot
 // of the resulting webpage in an instance of headless chrome.
-func captureScreenshot(ctx context.Context, test *testcase, url string) ([]byte, error) {
+func captureScreenshot(ctx context.Context, test *testcase,
+	url string, headers map[string]interface{},
+) ([]byte, error) {
 	var buf []byte
 	ctx, cancel := chromedp.NewContext(ctx)
 	defer cancel()
 	ctx, cancel = context.WithTimeout(ctx, time.Minute)
 	defer cancel()
-	tasks := chromedp.Tasks{
+	var tasks chromedp.Tasks
+	if headers != nil {
+		tasks = append(tasks, network.SetExtraHTTPHeaders(headers))
+	}
+	tasks = append(tasks,
 		chromedp.EmulateViewport(int64(test.viewportWidth), int64(test.viewportHeight)),
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
 		test.tasks,
-	}
+	)
 	switch test.screenshotType {
 	case fullScreenshot:
 		tasks = append(tasks, chromedp.FullScreenshot(&buf, 100))

@@ -5,7 +5,9 @@
 package screentest
 
 import (
+	"context"
 	"fmt"
+	"net/http"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -194,17 +196,17 @@ func TestCheckHandler(t *testing.T) {
 		{
 			name: "cached",
 			args: args{
-				output: "testdata/screenshots",
+				output: "testdata/screenshots/cached",
 				glob:   "testdata/cached.txt",
 			},
 			wantFiles: []string{
-				filepath.Join("testdata", "screenshots", "homepage.go-dev.png"),
+				filepath.Join("testdata", "screenshots", "cached", "homepage.go-dev.png"),
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckHandler(tt.args.glob, false); (err != nil) != tt.wantErr {
+			if err := CheckHandler(tt.args.glob, false, nil); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if len(tt.wantFiles) != 0 {
@@ -227,5 +229,42 @@ func TestTestHandler(t *testing.T) {
 	if err != nil {
 		t.Skip()
 	}
-	TestHandler(t, "testdata/pass.txt", false)
+	TestHandler(t, "testdata/pass.txt", false, nil)
+}
+
+func TestHeaders(t *testing.T) {
+	// Skip this test if Google Chrome is not installed.
+	_, err := exec.LookPath("google-chrome")
+	if err != nil {
+		t.Skip()
+	}
+	go headerServer()
+	if err := runDiff(context.Background(), &testcase{
+		name:              "go.dev homepage",
+		urlA:              "http://localhost:6061",
+		cacheA:            true,
+		urlB:              "http://localhost:6061",
+		outImgA:           filepath.Join("testdata", "screenshots", "headers", "headers-test.localhost-6061.png"),
+		outImgB:           filepath.Join("testdata", "screenshots", "headers", "headers-test.localhost-6061.png"),
+		outDiff:           filepath.Join("testdata", "screenshots", "headers", "headers-test.diff.png"),
+		viewportWidth:     1536,
+		viewportHeight:    960,
+		screenshotType:    elementScreenshot,
+		screenshotElement: "#result",
+	}, false, map[string]interface{}{"Authorization": "Bearer token"}); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func headerServer() error {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", func(res http.ResponseWriter, req *http.Request) {
+		fmt.Fprintf(res, `<!doctype html>
+		<html>
+		<body>
+		  <span id="result">%s</span>
+		</body>
+		</html>`, req.Header.Get("Authorization"))
+	})
+	return http.ListenAndServe(fmt.Sprintf(":%d", 6061), mux)
 }
