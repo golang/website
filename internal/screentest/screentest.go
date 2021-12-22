@@ -122,6 +122,7 @@ import (
 // CheckHandler runs the test scripts matched by glob. If any errors are
 // encountered, CheckHandler returns an error listing the problems.
 func CheckHandler(glob string, update bool, vars map[string]string) error {
+	now := time.Now()
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -158,6 +159,7 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 			}
 		}
 	}
+	fmt.Printf("finished in %s\n\n", time.Since(now).Truncate(time.Millisecond))
 	if buf.Len() > 0 {
 		return errors.New(buf.String())
 	}
@@ -452,42 +454,55 @@ func splitDimensions(text string) (width, height int, err error) {
 
 // runDiff generates screenshots for a given test case and
 // a diff if the screenshots do not match.
-func runDiff(ctx context.Context, test *testcase, update bool) error {
+func runDiff(ctx context.Context, test *testcase, update bool) (err error) {
+	now := time.Now()
 	fmt.Printf("test %s\n", test.name)
-	screenA, err := screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update)
-	if err != nil {
-		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlA, test.outImgA, test.cacheA, err)
-	}
-	screenB, err := screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update)
-	if err != nil {
-		return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlB, test.outImgB, test.cacheB, err)
+	var screenA, screenB *image.Image
+	g, ctx := errgroup.WithContext(ctx)
+	g.Go(func() error {
+		screenA, err = screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update)
+		if err != nil {
+			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlA, test.outImgA, test.cacheA, err)
+		}
+		return nil
+	})
+	g.Go(func() error {
+		screenB, err = screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update)
+		if err != nil {
+			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlB, test.outImgB, test.cacheB, err)
+		}
+		return nil
+	})
+	if err := g.Wait(); err != nil {
+		return err
 	}
 	result := imgdiff.Diff(*screenA, *screenB, &imgdiff.Options{
 		Threshold: 0.1,
 		DiffImage: true,
 	})
+	since := time.Since(now).Truncate(time.Millisecond)
 	if result.Equal {
-		fmt.Printf("%s == %s\n\n", test.urlA, test.urlB)
+		fmt.Printf("%s == %s (%s)\n\n", test.urlA, test.urlB, since)
 		return nil
 	}
-	fmt.Printf("%s != %s\n", test.urlA, test.urlB)
-	var errs errgroup.Group
-	errs.Go(func() error {
+	fmt.Printf("%s != %s (%s)\n", test.urlA, test.urlB, since)
+	g = &errgroup.Group{}
+	g.Go(func() error {
 		return writePNG(&result.Image, test.outDiff)
 	})
 	// Only write screenshots if they haven't already been written to the cache.
 	if !test.cacheA {
-		errs.Go(func() error {
+		g.Go(func() error {
 			return writePNG(screenA, test.outImgA)
 		})
 	}
 	if !test.cacheB {
-		errs.Go(func() error {
+		g.Go(func() error {
 			return writePNG(screenB, test.outImgB)
 		})
 	}
-	if err := errs.Wait(); err != nil {
-		return fmt.Errorf("writePNG(...): %w", errs.Wait())
+	if err := g.Wait(); err != nil {
+		return fmt.Errorf("writePNG(...): %w", err)
 	}
 	fmt.Printf("wrote diff to %s\n\n", test.outDiff)
 	return fmt.Errorf("%s != %s", test.urlA, test.urlB)
@@ -522,7 +537,7 @@ func screenshot(ctx context.Context, test *testcase,
 	// Write to the cache.
 	if cache && update {
 		if err := os.WriteFile(file, data, os.ModePerm); err != nil {
-			return nil, fmt.Errorf(" os.WriteFile(%q, data, %q): %w", file, os.ModePerm, err)
+			return nil, fmt.Errorf("os.WriteFile(...): %w", err)
 		}
 		fmt.Printf("updated %s\n", file)
 	}
