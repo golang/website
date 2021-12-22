@@ -1,5 +1,5 @@
 windowsize 1536x960
-compare https://go.dev http://localhost:6060/go.dev
+compare https://go.dev::cache http://localhost:6060/go.dev
 
 test homepage
 pathname /

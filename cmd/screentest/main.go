@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 
 	"golang.org/x/website/internal/screentest"
@@ -27,9 +28,14 @@ func main() {
 	}
 	flag.Parse()
 	args := flag.Args()
-	if len(args) != 1 {
+	// Require testdata glob when invoked as an installed command.
+	if len(args) != 1 && os.Args[0] == "screentest" {
 		flag.Usage()
 		os.Exit(1)
+	}
+	glob := filepath.Join("cmd", "screentest", "testdata", "*")
+	if len(args) == 1 {
+		glob = args[0]
 	}
 	parsedVars := make(map[string]string)
 	if *vars != "" {
@@ -41,7 +47,7 @@ func main() {
 			parsedVars[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		}
 	}
-	if err := screentest.CheckHandler(args[0], *update, parsedVars); err != nil {
+	if err := screentest.CheckHandler(glob, *update, parsedVars); err != nil {
 		log.Fatal(err)
 	}
 }
