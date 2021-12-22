@@ -443,14 +443,16 @@ they compensate in interesting ways for the lack of <var>X</var>.
 </p>
 
 <h3 id="generics">
-Why does Go not have generic types?</h3>
+When did Go get generic types?</h3>
 <p>
-A <a href="/issue/43651">language proposal
-implementing a form of generic types</a> has been accepted for
-inclusion in the language.
-If all goes well it will be available in the Go 1.18 release.
+The Go 1.18 release added type parameters to the language.
+This permits a form of polymorphic or generic programming.
+See the <a href="/ref/spec">language spec</a> and the
+<a href="/design/43651-type-parameters">proposal</a> for details.
 </p>
 
+<h3 id="beginning_generics">
+Why was Go initially released without generic types?</h3>
 <p>
 Go was intended as a language for writing server programs that would be
 easy to maintain over time.
@@ -459,30 +461,14 @@ article</a> for more background.)
 The design concentrated on things like scalability, readability, and
 concurrency.
 Polymorphic programming did not seem essential to the language's
-goals at the time, and so was left out for simplicity.
+goals at the time, and so was initially left out for simplicity.
 </p>
 
 <p>
-The language is more mature now, and there is scope to consider
-some form of generic programming.
-However, there remain some caveats.
-</p>
-
-<p>
-Generics are convenient but they come at a cost in
-complexity in the type system and run-time.  We haven't yet found a
-design that gives value proportionate to the complexity, although we
-continue to think about it.  Meanwhile, Go's built-in maps and slices,
-plus the ability to use the empty interface to construct containers
-(with explicit unboxing) mean in many cases it is possible to write
-code that does what generics would enable, if less smoothly.
-</p>
-
-<p>
-The topic remains open.
-For a look at several previous unsuccessful attempts to
-design a good generics solution for Go, see
-<a href="/issue/15292">this proposal</a>.
+Generics are convenient but they come at a cost in complexity in the
+type system and run-time.
+It took a while to develop a design that we believe gives value
+proportionate to the complexity.
 </p>
 
 <h3 id="exceptions">
@@ -1918,6 +1904,237 @@ had seen the operation used too often to create impenetrably complex expressions
 The <code>if-else</code> form, although longer,
 is unquestionably clearer.
 A language needs only one conditional control flow construct.
+</p>
+
+<h2 id="Type_Parameters">Type Parameters</h2>
+
+<h3 id="why_generics">
+Why does Go have type parameters?</h3>
+
+<p>
+Type parameters permit what is known as generic programming, in which
+functions and data structures are defined in terms of types that are
+specified later, when those functions and data structures are used.
+For example, they make it possible to write a function that returns
+the minimum of two values of any ordered type, without having to write
+a separate version for each possible type.
+For a more in-depth explanation with examples see the blog post
+<a href="/blog/why-generics">Why Generics?</a>.
+</p>
+
+<h3 id="generics_implementation">
+How are generics implemented in Go?</h3>
+
+<p>
+The compiler can choose whether to compile each instantiation
+separately or whether to compile reasonably similar instantiations as
+a single implementation.
+The single implementation approach is similar to a function with an
+interface parameter.
+Different compilers will make different choices for different cases.
+The standard Go 1.18 compiler ordinarily emits a single instantiation
+for every type argument with the same shape, where the shape is
+determined by properties of the type such as the size and the location
+of pointers that it contains.
+Future releases will experiment with the tradeoff between compile
+time, run-time efficiency, and code size.
+</p>
+
+<h3 id="generics_comparison">
+How do generics in Go compare to generics in other languages?</h3>
+
+<p>
+The basic functionality in all languages is similar: it is possible to
+write types and functions using types that are specified later.
+That said, there are some differences.
+</p>
+
+<dl>
+<dt>Java</dt>
+<dd>
+<p>
+In Java, the compiler checks generic types at compile time but removes
+the types at run time.
+This is known as
+<a href="https://en.wikipedia.org/wiki/Generics_in_Java#Problems_with_type_erasure">
+type erasure</a>.
+For example, a Java type known as <code>List&lt;Integer&gt;</code> at
+compile time will become the non-generic type <code>List</code> at run
+time.
+This means, for example, that when using the Java form of type
+reflection it is impossible to distinguish a value of
+type <code>List&lt;Integer&gt;</code> from a value of
+type <code>List&lt;Float&gt;</code>.
+In Go the reflection information for a generic type includes the full
+compile-time type information.
+</p>
+
+<p>
+Java uses type wildcards such as <code>List&lt;? extends Number&gt;</code>
+or <code>List&lt;? super Number&gt;</code> to implement generic
+covariance and contravariance.
+Go does not have these concepts, which makes generic types in Go much
+simpler.
+</p>
+</dd>
+
+<dt>C++</dt>
+<dd>
+<p>
+Traditionally C++ templates do not enforce any constraints on type
+arguments, although C++20 supports optional constraints via
+<a href="https://en.wikipedia.org/wiki/Concepts_(C%2B%2B)">concepts</a>.
+In Go constraints are mandatory for all type parameters.
+C++20 concepts are expressed as small code fragments that must compile
+with the type arguments.
+Go constraints are interface types that define the set of all
+permitted type arguments.
+</p>
+
+<p>
+C++ supports template metaprogramming; Go does not.
+In practice, all C++ compilers compile each template at the point
+where it is instantiated; as noted above, Go can and does use
+different approaches for different instantiations.
+</p>
+</dd>
+
+<dt>Rust</dt>
+<dd>
+The Rust version of constraints is known as trait bounds.
+In Rust the association between a trait bound and a type must be
+defined explicitly, either in the crate that defines the trait bound
+or the crate that defines the type.
+In Go type arguments implicitly satisfy constraints, just as Go types
+implicitly implement interface types.
+The Rust standard library defines standard traits for operations such as
+comparison or addition; the Go standard library does not, as these can
+be expressed in user code via interface types.
+</dd>
+
+<dt>Python</dt>
+<dd>
+Python is not a statically typed language, so one can reasonably say
+that all Python functions are always generic by default: they can
+always be called with values of any type, and any type errors are
+detected at run time.
+</dd>
+</dl>
+
+<h3 id="generic_brackets">
+Why does Go use square brackets for type parameter lists?</h3>
+
+<p>
+Java and C++ use angle brackets for type parameter lists, as in
+Java <code>List&lt;Integer&gt;</code> and C++
+<code>std::vector&lt;int&gt;</code>.
+However, that option was not available for Go, because it leads to
+a syntactic problem: when parsing code within a function, such
+as <code>v := F&ltT&gt</code>, at the point of seeing
+the <code>&lt;</code> it's ambiguous whether we are seeing an
+instantiation or an expression using the <code>&lt;</code> operator.
+This is very difficult to resolve without type information.
+</p>
+
+<p>
+For example, consider a statement like
+
+<pre>
+    a, b = w &lt; x, y &gt; (z)
+</pre>
+
+Without type information, it is impossible to decide whether the right
+hand side of the assigment is a pair of expressions (<code>w &lt; x</code>
+and <code>y &gt; z</code>), or whether it is a generic function
+instantiation and call that returns two result values
+(<code>(w&lt;x, y&gt;)(z)</code>).
+</p>
+
+<p>
+It is a key design decision of Go that parsing be possible without
+type information, which seems impossible when using angle brackets for
+generics.
+</p>
+
+<p>
+Go is not unique or original in using square brackets; there are other
+languages such as Scala that also use square brackets for generic
+code.
+</p>
+
+<h3 id="generic_methods">
+Why does Go not support methods with type parameters?</h3>
+
+<p>
+Go permits a generic type to have methods, but, other than the
+receiver, the arguments to those methods cannot use parameterized
+types.
+The methods of a type determines the interfaces that the type
+implements, but it is not clear how this would work with parameterized
+arguments for methods of generic types.
+It would require either instantiating functions at run time or
+instantiating every generic function for every possible type
+argument.
+Neither approach seems feasible.
+For more details, including an example, see the
+<a href="/design/43651-type-parameters#no-parameterized-methods">proposal</a>.
+Instead of methods with type parameters, use top-level functions with
+type parameters, or add the type parameters to the receiver type.
+</p>
+
+<h3 id="types_in_method_declaration">
+Why can't I use a more specific type for the receiver of a parameterized type?</h3>
+
+<p>
+The method declarations of a generic type are written with a receiver
+that includes the type parameter names.
+Some people think that a specific type can be used, producing a method
+that only works for certain type arguments:
+</p>
+
+<pre>
+type S[T any] struct { f T }
+
+func (s S[string]) Add(t string) string {
+	return s.f + t
+}
+</pre>
+
+<p>
+This fails with a compiler error like <code>operator + not defined on
+s.f (variable of type string constrained by any)</code>, even though
+the <code>+</code> operator does of course work on the predeclared
+type <code>string</code>.
+</p>
+
+<p>
+This is because the use of <code>string</code> in the declaration of
+the method <code>Add</code> is simply introducing a name for the type
+parameter, and the name is <code>string</code>.
+This is a valid, if strange, thing to do.
+The field <code>s.f</code> has type <code>string</code>, not the usual
+predeclared type <code>string</code>, but rather the type parameter
+of <code>S</code>, which in this method is named <code>string</code>.
+Since the constraint of the type parameter is <code>any</code>,
+the <code>+</code> operator is not permitted.
+</p>
+
+<h3 id="type_inference">
+Why can't the compiler infer the type argument in my program?</h3>
+
+<p>
+There are many cases where a programmer can easily see what the type
+argument for a generic type or function must be, but the language does
+not permit the compiler to infer it.
+Type inference is intentionally limited to ensure that there is never
+any confusion as to which type is inferred.
+Experience with other languages suggests that unexpected type
+inference can lead to considerable confusion when reading and
+debugging a program.
+It is always possible to specify the explicit type argument to be used
+in the call.
+In the future new forms of inference may be supported, as long as the
+rules remain simple and clear.
 </p>
 
 <h2 id="Packages_Testing">Packages and Testing</h2>
