@@ -7,6 +7,7 @@ require (
 	cloud.google.com/go/datastore v1.2.0
 	github.com/chromedp/cdproto v0.0.0-20211205231339-d2673e93eee4
 	github.com/chromedp/chromedp v0.7.6
+	github.com/evanw/esbuild v0.14.7
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.5.6
 	github.com/microcosm-cc/bluemonday v1.0.2
