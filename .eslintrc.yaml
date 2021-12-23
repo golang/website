@@ -1,0 +1,20 @@
+root: true
+extends: google
+parserOptions:
+  ecmaVersion: 6
+rules:
+  require-jsdoc: 'off'
+  indent: 'off'
+  arrow-parens: 'off'
+overrides:
+  - files:
+    - "*.ts"
+    parser: '@typescript-eslint/parser'
+    env:
+      browser: true
+    plugins:
+      - '@typescript-eslint'
+    extends:
+      - eslint:recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:prettier/recommended
