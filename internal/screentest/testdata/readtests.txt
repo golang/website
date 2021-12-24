@@ -33,3 +33,7 @@ test eval
 pathname /eval
 eval console.log('hello, world!')
 capture
+
+output gs://bucket-name
+pathname /gcs-output
+capture

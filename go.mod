@@ -5,6 +5,7 @@ go 1.16
 require (
 	cloud.google.com/go v0.88.0
 	cloud.google.com/go/datastore v1.2.0
+	cloud.google.com/go/storage v1.10.0
 	github.com/chromedp/cdproto v0.0.0-20211205231339-d2673e93eee4
 	github.com/chromedp/chromedp v0.7.6
 	github.com/evanw/esbuild v0.14.7

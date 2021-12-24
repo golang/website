@@ -143,6 +143,20 @@ func TestReadTests(t *testing.T) {
 						chromedp.Evaluate("console.log('Hello, world!')", nil),
 					},
 				},
+				{
+					name:           "gcs-output",
+					urlA:           "https://pkg.go.dev/gcs-output",
+					cacheA:         true,
+					urlB:           "http://localhost:8080/gcs-output",
+					gcsBucket:      true,
+					headers:        map[string]interface{}{"Authorization": "Bearer token"},
+					outImgA:        "gs://bucket-name/gcs-output.pkg-go-dev.png",
+					outImgB:        "gs://bucket-name/gcs-output.localhost-8080.png",
+					outDiff:        "gs://bucket-name/gcs-output.diff.png",
+					screenshotType: viewportScreenshot,
+					viewportWidth:  1536,
+					viewportHeight: 960,
+				},
 			},
 			wantErr: false,
 		},
@@ -285,4 +299,42 @@ func headerServer() error {
 		</html>`, req.Header.Get("Authorization"))
 	})
 	return http.ListenAndServe(fmt.Sprintf(":%d", 6061), mux)
+}
+
+func Test_gcsParts(t *testing.T) {
+	type args struct {
+		filename string
+	}
+	tests := []struct {
+		name       string
+		args       args
+		wantBucket string
+		wantObject string
+	}{
+		{
+			args: args{
+				filename: "gs://bucket-name/object-name",
+			},
+			wantBucket: "bucket-name",
+			wantObject: "object-name",
+		},
+		{
+			args: args{
+				filename: "gs://bucket-name/subdir/object-name",
+			},
+			wantBucket: "bucket-name",
+			wantObject: "subdir/object-name",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			gotBucket, gotObject := gcsParts(tt.args.filename)
+			if gotBucket != tt.wantBucket {
+				t.Errorf("gcsParts() gotBucket = %v, want %v", gotBucket, tt.wantBucket)
+			}
+			if gotObject != tt.wantObject {
+				t.Errorf("gcsParts() gotObject = %v, want %v", gotObject, tt.wantObject)
+			}
+		})
+	}
 }

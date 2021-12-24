@@ -46,6 +46,10 @@
 //
 //  output testdata/snapshots
 //
+// USE output BUCKETNAME for screentest to upload test output to a Cloud Storage bucket.
+//
+//  output gs://bucket-name
+//
 // Use test NAME to create a name for the testcase.
 //
 //  test about page
@@ -100,7 +104,9 @@ import (
 	"fmt"
 	"image"
 	"image/png"
+	"io"
 	"io/fs"
+	"io/ioutil"
 	"log"
 	"net/url"
 	"os"
@@ -112,6 +118,7 @@ import (
 	"text/template"
 	"time"
 
+	"cloud.google.com/go/storage"
 	"github.com/chromedp/cdproto/network"
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
@@ -203,6 +210,7 @@ const (
 	browserWidth  = 1536
 	browserHeight = 960
 	cacheSuffix   = "::cache"
+	gcsScheme     = "gs://"
 )
 
 var sanitize = regexp.MustCompile("[.*<>?`'|/\\: ]")
@@ -221,6 +229,7 @@ type testcase struct {
 	urlA, urlB                string
 	headers                   map[string]interface{}
 	cacheA, cacheB            bool
+	gcsBucket                 bool
 	outImgA, outImgB, outDiff string
 	viewportWidth             int
 	viewportHeight            int
@@ -249,6 +258,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 		originA, originB   string
 		headers            map[string]interface{}
 		cacheA, cacheB     bool
+		gcsBucket          bool
 		width, height      int
 		lineNo             int
 	)
@@ -308,6 +318,9 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			}
 			headers[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		case "OUTPUT":
+			if strings.HasPrefix(args, gcsScheme) {
+				gcsBucket = true
+			}
 			out, err = outDir(args, "")
 			if err != nil {
 				return nil, fmt.Errorf("outDir(%q, %q): %w", args, file, err)
@@ -375,6 +388,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 				viewportHeight: height,
 				cacheA:         cacheA,
 				cacheB:         cacheB,
+				gcsBucket:      gcsBucket,
 			}
 			tests = append(tests, test)
 			field, args := splitOneField(args)
@@ -399,6 +413,9 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 				test.screenshotElement = args
 			}
 			outfile := filepath.Join(out, sanitized(test.name))
+			if gcsBucket {
+				outfile = out + "/" + sanitized(test.name)
+			}
 			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".png"
 			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".png"
 			test.outDiff = outfile + ".diff.png"
@@ -415,6 +432,9 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 
 // outDir prepares a diff output directory for a given testfile.
 func outDir(dir, testfile string) (string, error) {
+	if strings.HasPrefix(dir, gcsScheme) {
+		return dir, nil
+	}
 	if testfile != "" {
 		dir = filepath.Join(dir, sanitized(filepath.Base(testfile)))
 	}
@@ -488,17 +508,17 @@ func runDiff(ctx context.Context, test *testcase, update bool) (err error) {
 	fmt.Printf("%s != %s (%s)\n", test.urlA, test.urlB, since)
 	g = &errgroup.Group{}
 	g.Go(func() error {
-		return writePNG(&result.Image, test.outDiff)
+		return writePNG(test, &result.Image, test.outDiff)
 	})
 	// Only write screenshots if they haven't already been written to the cache.
 	if !test.cacheA {
 		g.Go(func() error {
-			return writePNG(screenA, test.outImgA)
+			return writePNG(test, screenA, test.outImgA)
 		})
 	}
 	if !test.cacheB {
 		g.Go(func() error {
-			return writePNG(screenB, test.outImgB)
+			return writePNG(test, screenB, test.outImgB)
 		})
 	}
 	if err := g.Wait(); err != nil {
@@ -516,34 +536,47 @@ func screenshot(ctx context.Context, test *testcase,
 ) (_ *image.Image, err error) {
 	var data []byte
 	// If cache is enabled, try to read the file from the cache.
-	if cache {
+	if cache && test.gcsBucket {
+		client, err := storage.NewClient(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("storage.NewClient(err): %w", err)
+		}
+		bkt, obj := gcsParts(file)
+		r, err := client.Bucket(bkt).Object(obj).NewReader(ctx)
+		if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
+			return nil, fmt.Errorf("object.NewReader(ctx): %w", err)
+		} else if err == nil {
+			defer r.Close()
+			data, err = ioutil.ReadAll(r)
+			if err != nil {
+				return nil, fmt.Errorf("ioutil.ReadAll(...): %w", err)
+			}
+		}
+	} else if cache {
 		data, err = os.ReadFile(file)
-		if errors.Is(err, fs.ErrNotExist) {
-			// If screenshot is not found, this must be the first time the test has run.
-			// Set update to true to capture a new screenshot.
-			update = true
-		} else if err != nil {
+		if err != nil && !errors.Is(err, fs.ErrNotExist) {
 			return nil, fmt.Errorf("os.ReadFile(...): %w", err)
 		}
 	}
-	// If cache is false, this is the first test run, or an update is requested
+	// If cache is false, an update is requested, or this is the first test run
 	// we capture a new screenshot from a live URL.
-	if !cache || update {
+	if !cache || update || data == nil {
+		update = true
 		data, err = captureScreenshot(ctx, test, url)
 		if err != nil {
 			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, test, err)
 		}
 	}
-	// Write to the cache.
-	if cache && update {
-		if err := os.WriteFile(file, data, os.ModePerm); err != nil {
-			return nil, fmt.Errorf("os.WriteFile(...): %w", err)
-		}
-		fmt.Printf("updated %s\n", file)
-	}
 	img, _, err := image.Decode(bytes.NewReader(data))
 	if err != nil {
 		return nil, fmt.Errorf("image.Decode(...): %w", err)
+	}
+	// Write to the cache.
+	if cache && update {
+		if err := writePNG(test, &img, file); err != nil {
+			return nil, fmt.Errorf("os.WriteFile(...): %w", err)
+		}
+		fmt.Printf("updated %s\n", file)
 	}
 	return &img, nil
 }
@@ -581,10 +614,21 @@ func captureScreenshot(ctx context.Context, test *testcase, url string) ([]byte,
 }
 
 // writePNG writes image data to a png file.
-func writePNG(i *image.Image, filename string) error {
-	f, err := os.Create(filename)
-	if err != nil {
-		return fmt.Errorf("os.Create(%q): %w", filename, err)
+func writePNG(test *testcase, i *image.Image, filename string) (err error) {
+	var f io.WriteCloser
+	if test.gcsBucket {
+		ctx := context.Background()
+		client, err := storage.NewClient(ctx)
+		if err != nil {
+			return fmt.Errorf("storage.NewClient(ctx): %w", err)
+		}
+		bkt, obj := gcsParts(filename)
+		f = client.Bucket(bkt).Object(obj).NewWriter(ctx)
+	} else {
+		f, err = os.Create(filename)
+		if err != nil {
+			return fmt.Errorf("os.Create(%q): %w", filename, err)
+		}
 	}
 	err = png.Encode(f, *i)
 	if err != nil {
@@ -602,6 +646,16 @@ func writePNG(i *image.Image, filename string) error {
 // filename part.
 func sanitized(text string) string {
 	return sanitize.ReplaceAllString(text, "-")
+}
+
+// gcsParts splits a Cloud Storage filename into bucket name and
+// object name parts.
+func gcsParts(filename string) (bucket, object string) {
+	filename = strings.TrimPrefix(filename, gcsScheme)
+	n := strings.Index(filename, "/")
+	bucket = filename[:n]
+	object = filename[n+1:]
+	return bucket, object
 }
 
 // waitForEvent waits for browser lifecycle events. This is useful for
