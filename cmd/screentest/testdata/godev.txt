@@ -1,5 +1,5 @@
 windowsize 1536x960
-compare https://go.dev::cache http://localhost:6060/go.dev
+compare https://go.dev http://localhost:6060/go.dev
 
 test homepage
 pathname /
@@ -8,8 +8,13 @@ eval document.querySelector('.LearnGo').style.display = 'none';
 capture fullscreen
 capture fullscreen 540x1080
 
-test why go
+test why go case studies
 pathname /solutions/
+capture fullscreen
+capture fullscreen 540x1080
+
+test why go use cases
+pathname /solutions/#use-cases
 capture fullscreen
 capture fullscreen 540x1080
 
@@ -32,5 +37,50 @@ capture fullscreen 540x1080
 
 test blog
 pathname /blog/
+capture fullscreen
+capture fullscreen 540x1080
+
+test blog post
+pathname /blog/12years
+capture fullscreen
+capture fullscreen 540x1080
+
+test install
+pathname /doc/install
+capture fullscreen
+capture fullscreen 540x1080
+
+test downloads
+pathname /dl/
+capture fullscreen
+capture fullscreen 540x1080
+
+test help
+pathname /help/
+capture fullscreen
+capture fullscreen 540x1080
+
+test effective go
+pathname /doc/effective_go
+capture fullscreen
+capture fullscreen 540x1080
+
+test release notes
+pathname /doc/devel/release
+capture fullscreen
+capture fullscreen 540x1080
+
+test about
+pathname /project
+capture fullscreen
+capture fullscreen 540x1080
+
+test tour
+pathname /tour/welcome/1
+capture fullscreen
+capture fullscreen 540x1080
+
+test code of conduct
+pathname /conduct
 capture fullscreen
 capture fullscreen 540x1080
