@@ -17,7 +17,7 @@ Another part of that consolidation was
 [replacing godoc.org with pkg.go.dev](/blog/godoc.org-redirect).
 
 In February, the [Go 1.16 release](/blog/go1.16)
-added [macOS ARM64 support](blog/ports),
+added [macOS ARM64 support](/blog/ports),
 added [a file system interface](/pkg/io/fs) and [embedded files](/pkg/embed),
 and [enabled modules by default](/blog/go116-module-changes),
 along with the usual assortment of improvements and optimizations.
