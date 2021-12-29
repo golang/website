@@ -47,6 +47,7 @@
 //  output testdata/snapshots
 //
 // USE output BUCKETNAME for screentest to upload test output to a Cloud Storage bucket.
+// The bucket must already exist prior to running the tests.
 //
 //  output gs://bucket-name
 //
@@ -124,6 +125,7 @@ import (
 	"github.com/chromedp/chromedp"
 	"github.com/n7olkachev/imgdiff/pkg/imgdiff"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/api/iterator"
 )
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
@@ -152,6 +154,9 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 		if len(tests) == 0 {
 			return fmt.Errorf("no tests found in %q", file)
 		}
+		if err := cleanOutput(ctx, tests); err != nil {
+			return fmt.Errorf("cleanOutput(...): %w", err)
+		}
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
@@ -174,14 +179,14 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 }
 
 // TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string, update bool, vars map[string]string) error {
+func TestHandler(t *testing.T, glob string, update bool, vars map[string]string) {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
 		t.Fatal(err)
 	}
 	if len(files) == 0 {
-		return fmt.Errorf("no files match %#q", glob)
+		t.Fatal(fmt.Errorf("no files match %#q", glob))
 	}
 	ctx, cancel := chromedp.NewExecAllocator(ctx, append(
 		chromedp.DefaultExecAllocatorOptions[:],
@@ -191,6 +196,9 @@ func TestHandler(t *testing.T, glob string, update bool, vars map[string]string)
 	for _, file := range files {
 		tests, err := readTests(file, vars)
 		if err != nil {
+			t.Fatal(err)
+		}
+		if err := cleanOutput(ctx, tests); err != nil {
 			t.Fatal(err)
 		}
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(t.Logf))
@@ -203,7 +211,109 @@ func TestHandler(t *testing.T, glob string, update bool, vars map[string]string)
 			})
 		}
 	}
+}
+
+// cleanOutput clears the output locations of images not cached
+// as part of a testcase, including diff output from previous test
+// runs and obsolete screenshots. It ensures local directories exist
+// for test output. GCS buckets must already exist prior to test run.
+func cleanOutput(ctx context.Context, tests []*testcase) error {
+	keepFiles := make(map[string]bool)
+	bkts := make(map[string]bool)
+	dirs := make(map[string]bool)
+	// The extensions of files that are safe to delete
+	safeExts := map[string]bool{
+		"diff.png": true,
+	}
+	for _, t := range tests {
+		if t.cacheA {
+			keepFiles[t.outImgA] = true
+			safeExts[ext(t.outImgA)] = true
+		}
+		if t.cacheB {
+			keepFiles[t.outImgB] = true
+			safeExts[ext(t.outImgB)] = true
+		}
+		if t.gcsBucket {
+			bkt, _ := gcsParts(t.outDiff)
+			bkts[bkt] = true
+		} else {
+			dirs[filepath.Dir(t.outDiff)] = true
+		}
+	}
+	if err := cleanBkts(ctx, bkts, keepFiles, safeExts); err != nil {
+		return fmt.Errorf("cleanBkts(...): %w", err)
+	}
+	if err := cleanDirs(dirs, keepFiles, safeExts); err != nil {
+		return fmt.Errorf("cleanDirs(...): %w", err)
+	}
 	return nil
+}
+
+// cleanBkts clears all the GCS buckets in bkts of all objects not included
+// in the set of keepFiles. Buckets that do not exist will cause an error.
+func cleanBkts(ctx context.Context, bkts, keepFiles, safeExts map[string]bool) error {
+	client, err := storage.NewClient(ctx)
+	if err != nil {
+		return fmt.Errorf("storage.NewClient(ctx): %w", err)
+	}
+	defer client.Close()
+	for bkt := range bkts {
+		it := client.Bucket(bkt).Objects(ctx, nil)
+		for {
+			attrs, err := it.Next()
+			if err == iterator.Done {
+				break
+			}
+			if err != nil {
+				return fmt.Errorf("it.Next(): %w", err)
+			}
+			filename := "gs://" + attrs.Bucket + "/" + attrs.Name
+			if !keepFiles[filename] && safeExts[ext(filename)] {
+				if err := client.Bucket(attrs.Bucket).Object(attrs.Name).Delete(ctx); err != nil &&
+					!errors.Is(err, storage.ErrObjectNotExist) {
+					return fmt.Errorf("Object(%q).Delete: %v", attrs.Name, err)
+				}
+			}
+		}
+	}
+	return client.Close()
+}
+
+// cleanBkts ensures the set of directories in dirs exists and
+// clears dirs of all files not included in the set of keepFiles.
+func cleanDirs(dirs, keepFiles, safeExts map[string]bool) error {
+	for dir := range dirs {
+		if err := os.MkdirAll(dir, os.ModePerm); err != nil {
+			return fmt.Errorf("os.MkdirAll(%q): %w", dir, err)
+		}
+	}
+	for dir := range dirs {
+		files, err := os.ReadDir(dir)
+		if err != nil {
+			return fmt.Errorf("os.ReadDir(%q): %w", dir, err)
+		}
+		for _, f := range files {
+			filename := dir + "/" + f.Name()
+			if !keepFiles[filename] && safeExts[ext(filename)] {
+				if err := os.Remove(filename); err != nil && !errors.Is(err, fs.ErrNotExist) {
+					return fmt.Errorf("os.Remove(%q): %w", filename, err)
+				}
+			}
+		}
+	}
+	return nil
+}
+
+func ext(filename string) string {
+	// If the filename has multiple dots use the first one as
+	// the split for the extension.
+	if strings.Count(filename, ".") > 1 {
+		base := filepath.Base(filename)
+		parts := strings.SplitN(base, ".", 2)
+		return parts[1]
+	}
+	return filepath.Ext(filename)
 }
 
 const (
@@ -267,10 +377,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
 	}
 	dir := filepath.Join(cache, "screentest")
-	out, err := outDir(dir, file)
-	if err != nil {
-		return nil, fmt.Errorf("outDir(%q, %q): %w", dir, file, err)
-	}
+	out := outDir(dir, file)
 	scan := bufio.NewScanner(&tmplout)
 	for scan.Scan() {
 		lineNo += 1
@@ -321,10 +428,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			if strings.HasPrefix(args, gcsScheme) {
 				gcsBucket = true
 			}
-			out, err = outDir(args, "")
-			if err != nil {
-				return nil, fmt.Errorf("outDir(%q, %q): %w", args, file, err)
-			}
+			out = outDir(args, "")
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
 			if err != nil {
@@ -430,18 +534,17 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 	return tests, nil
 }
 
-// outDir prepares a diff output directory for a given testfile.
-func outDir(dir, testfile string) (string, error) {
+// outDir gets a diff output directory for a given testfile.
+// If dir points to a GCS bucket or testfile is empty it just
+// returns dir.
+func outDir(dir, testfile string) string {
 	if strings.HasPrefix(dir, gcsScheme) {
-		return dir, nil
+		return dir
 	}
 	if testfile != "" {
 		dir = filepath.Join(dir, sanitized(filepath.Base(testfile)))
 	}
-	if err := os.MkdirAll(dir, os.ModePerm); err != nil {
-		return "", fmt.Errorf("os.MkdirAll(%q): %w", dir, err)
-	}
-	return dir, nil
+	return filepath.Clean(dir)
 }
 
 // splitOneField splits text at the first space or tab
@@ -541,6 +644,7 @@ func screenshot(ctx context.Context, test *testcase,
 		if err != nil {
 			return nil, fmt.Errorf("storage.NewClient(err): %w", err)
 		}
+		defer client.Close()
 		bkt, obj := gcsParts(file)
 		r, err := client.Bucket(bkt).Object(obj).NewReader(ctx)
 		if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
@@ -622,6 +726,7 @@ func writePNG(test *testcase, i *image.Image, filename string) (err error) {
 		if err != nil {
 			return fmt.Errorf("storage.NewClient(ctx): %w", err)
 		}
+		defer client.Close()
 		bkt, obj := gcsParts(filename)
 		f = client.Bucket(bkt).Object(obj).NewWriter(ctx)
 	} else {

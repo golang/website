@@ -338,3 +338,78 @@ func Test_gcsParts(t *testing.T) {
 		})
 	}
 }
+
+func Test_cleanDirs(t *testing.T) {
+	f, err := os.Create("testdata/screenshots/cached/should-delete.go-dev.png")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := f.Close(); err != nil {
+		t.Fatal(err)
+	}
+	type args struct {
+		dirs      map[string]bool
+		keepFiles map[string]bool
+		safeExts  map[string]bool
+	}
+	tests := []struct {
+		name      string
+		args      args
+		wantFiles map[string]bool
+	}{
+		{
+			name: "keeps files in keepFiles",
+			args: args{
+				dirs: map[string]bool{
+					"testdata/screenshots/cached":  true,
+					"testdata/screenshots/headers": true,
+					"testdata":                     true,
+				},
+				keepFiles: map[string]bool{
+					"testdata/screenshots/cached/homepage.go-dev.png":              true,
+					"testdata/screenshots/headers/headers-test.localhost-6061.png": true,
+				},
+				safeExts: map[string]bool{
+					"go-dev.png":         true,
+					"localhost-6061.png": true,
+				},
+			},
+			wantFiles: map[string]bool{
+				"testdata/screenshots/cached/homepage.go-dev.png":              true,
+				"testdata/screenshots/headers/headers-test.localhost-6061.png": true,
+				"testdata/cached.txt":    true,
+				"testdata/fail.txt":      true,
+				"testdata/readtests.txt": true,
+			},
+		},
+		{
+			name: "keeps files without matching extension",
+			args: args{
+				dirs: map[string]bool{
+					"testdata": true,
+				},
+				safeExts: map[string]bool{
+					"go-dev.png": true,
+				},
+			},
+			wantFiles: map[string]bool{
+				"testdata/cached.txt":    true,
+				"testdata/fail.txt":      true,
+				"testdata/pass.txt":      true,
+				"testdata/readtests.txt": true,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if err := cleanDirs(tt.args.dirs, tt.args.keepFiles, tt.args.safeExts); err != nil {
+				t.Fatal(err)
+			}
+			for file := range tt.wantFiles {
+				if _, err := os.Stat(file); err != nil {
+					t.Errorf("cleanDirs() error = %v, wantErr %v", err, nil)
+				}
+			}
+		})
+	}
+}
