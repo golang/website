@@ -299,6 +299,7 @@ import (
 	"errors"
 	"fmt"
 	"html"
+	"io"
 	"io/fs"
 	"log"
 	"net/http"
@@ -308,6 +309,7 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/evanw/esbuild/pkg/api"
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
@@ -422,6 +424,12 @@ func (s *Site) servePage(w http.ResponseWriter, r *http.Request, p Page, renderi
 func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	abspath := r.URL.Path
 	relpath := path.Clean(strings.TrimPrefix(abspath, "/"))
+
+	// Is it a TypeScript file?
+	if strings.HasSuffix(relpath, ".ts") {
+		s.serveTypeScript(w, r)
+		return
+	}
 
 	// Is it a page we can generate?
 	if p, err := s.openPage(relpath); err == nil {
@@ -610,4 +618,58 @@ func rangeSelection(str string) texthtml.Selection {
 func (s *Site) serveRawText(w http.ResponseWriter, text []byte) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write(text)
+}
+
+const cacheHeader = "X-Go-Dev-Cache-Hit"
+
+type jsout struct {
+	output []byte
+	stat   fs.FileInfo // stat for file when page was loaded
+}
+
+func (s *Site) serveTypeScript(w http.ResponseWriter, r *http.Request) {
+	filename := path.Clean(strings.TrimPrefix(r.URL.Path, "/"))
+	if cjs, ok := s.cache.Load(filename); ok {
+		js := cjs.(*jsout)
+		info, err := fs.Stat(s.fs, filename)
+		if err == nil && info.ModTime().Equal(js.stat.ModTime()) {
+			w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
+			w.Header().Set(cacheHeader, "true")
+			http.ServeContent(w, r, filename, info.ModTime(), bytes.NewReader(js.output))
+			return
+		}
+	}
+	file, err := s.fs.Open(filename)
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	var contents bytes.Buffer
+	_, err = io.Copy(&contents, file)
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	result := api.Transform(contents.String(), api.TransformOptions{
+		Loader: api.LoaderTS,
+	})
+	var buf bytes.Buffer
+	for _, v := range result.Errors {
+		fmt.Fprintln(&buf, v.Text)
+	}
+	if buf.Len() > 0 {
+		s.ServeError(w, r, errors.New(buf.String()))
+		return
+	}
+	info, err := file.Stat()
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
+	http.ServeContent(w, r, filename, info.ModTime(), bytes.NewReader(result.Code))
+	s.cache.Store(filename, &jsout{
+		output: result.Code,
+		stat:   info,
+	})
 }

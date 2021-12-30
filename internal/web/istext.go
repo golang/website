@@ -41,7 +41,7 @@ func isTextFile(fsys fs.FS, filename string) bool {
 		return false
 	}
 	switch path.Ext(filename) {
-	case ".css", ".js", ".svg":
+	case ".css", ".js", ".svg", ".ts":
 		return false
 	}
 

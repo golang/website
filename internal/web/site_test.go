@@ -5,12 +5,17 @@
 package web
 
 import (
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"strings"
+	"syscall"
 	"testing"
 	"testing/fstest"
+
+	"github.com/google/go-cmp/cmp"
 )
 
 func testServeBody(t *testing.T, p *Site, path, body string) {
@@ -57,4 +62,63 @@ func TestMarkdown(t *testing.T) {
 
 	testServeBody(t, site, "/doc/test", "<strong>bold</strong>")
 	testServeBody(t, site, "/doc/test2", "<em>template</em>")
+}
+
+func TestTypeScript(t *testing.T) {
+	exampleOut, err := os.ReadFile("testdata/example.js")
+	if err != nil {
+		t.Fatal(err)
+	}
+	tests := []struct {
+		name            string
+		path            string
+		wantCode        int
+		wantBody        string
+		wantCacheHeader bool
+	}{
+		{
+			name:     "example code",
+			path:     "/example.ts",
+			wantCode: 200,
+			wantBody: string(exampleOut),
+		},
+		{
+			name:            "example code cached",
+			path:            "/example.ts",
+			wantCode:        200,
+			wantBody:        string(exampleOut),
+			wantCacheHeader: true,
+		},
+		{
+			name:     "file not found",
+			path:     "/notfound.ts",
+			wantCode: 500,
+			wantBody: fmt.Sprintf("\n\nopen testdata/notfound.ts: %s\n", syscall.ENOENT),
+		},
+		{
+			name:     "syntax error",
+			path:     "/error.ts",
+			wantCode: 500,
+			wantBody: "\n\nExpected identifier but found &#34;function&#34;\n\n",
+		},
+	}
+	fsys := os.DirFS("testdata")
+	site := NewSite(fsys)
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			req := httptest.NewRequest(http.MethodGet, tt.path, nil)
+			got := httptest.NewRecorder()
+			site.serveTypeScript(got, req)
+			gotHeader := got.Header().Get(cacheHeader) == "true"
+			if got.Code != tt.wantCode {
+				t.Errorf("got status %d but wanted %d", got.Code, http.StatusOK)
+			}
+			if (tt.wantCacheHeader && !gotHeader) || (!tt.wantCacheHeader && gotHeader) {
+				t.Errorf("got cache hit %v but wanted %v", gotHeader, tt.wantCacheHeader)
+			}
+			if diff := cmp.Diff(tt.wantBody, got.Body.String()); diff != "" {
+				t.Errorf("ServeHTTP() mismatch (-want +got):\n%s", diff)
+			}
+		})
+	}
 }

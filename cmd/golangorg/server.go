@@ -36,7 +36,6 @@ import (
 	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
-	"golang.org/x/website/internal/esbuild"
 	"golang.org/x/website/internal/gitfs"
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/memcache"
@@ -266,7 +265,6 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	mux.Handle(host+"/cmd/", docs)
 	mux.Handle(host+"/pkg/", docs)
 	mux.Handle(host+"/doc/codewalk/", codewalk.NewServer(fsys, site))
-	mux.Handle(host+"/ts/", esbuild.NewServer(fsys, site))
 	return site, nil
 }
 
