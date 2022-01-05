@@ -104,7 +104,10 @@ func makeCompileRequest(ctx context.Context, backend string, req *Request, res *
 	hReq.Header.Set("Content-Type", "application/json")
 	hReq = hReq.WithContext(ctx)
 
-	r, err := http.DefaultClient.Do(hReq)
+	client := &http.Client{
+		Timeout: 20 * time.Second,
+	}
+	r, err := client.Do(hReq)
 	if err != nil {
 		return fmt.Errorf("making request: %v", err)
 	}
