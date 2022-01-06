@@ -226,7 +226,7 @@
 // (at least up to the first kilobyte of the file) and the Site
 // can find a template “text.tmpl” in that file's directory or a parent,
 // and the file is not named robots.txt,
-// and the file does not have a .css, .js, or .svg extension,
+// and the file does not have a .css, .js, .svg, or .ts extension,
 // then the Site responds with the rendering of
 //
 //	Page{
@@ -247,6 +247,10 @@
 // If the request has the URL query parameter m=text,
 // then the text file content is not rendered or framed and is instead
 // served directly as a plain text response.
+//
+// If the request is for a file with a .ts extension the file contents
+// are transformed from TypeScript to JavaScript and then served with
+// a Content-Type=text/javascript header.
 //
 // Otherwise, if none of those cases apply but the request path p
 // does exist in the file system, then the Site passes the
