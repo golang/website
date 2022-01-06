@@ -71,6 +71,4 @@ Thanks to everyone who attended our presentations,
 or came to talk with us at Office Hours.
 We hope to see you again at future events.
 
-The video of [Rob and Russ' talk](http://code.google.com/events/io/2010/sessions/go-programming.html)
-will be uploaded to YouTube within the next week,
-and will then be posted on this blog.
+The video of Rob and Russ' talk is [available on YouTube](https://youtu.be/jgVhBThJdXc).
