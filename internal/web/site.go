@@ -652,6 +652,7 @@ func (s *Site) serveTypeScript(w http.ResponseWriter, r *http.Request) {
 	}
 	result := api.Transform(contents.String(), api.TransformOptions{
 		Loader: api.LoaderTS,
+		Target: api.ES2018,
 	})
 	var buf bytes.Buffer
 	for _, v := range result.Errors {

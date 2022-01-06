@@ -18,3 +18,9 @@ overrides:
       - eslint:recommended
       - plugin:@typescript-eslint/recommended
       - plugin:prettier/recommended
+    rules:
+      valid-jsdoc:
+        - error
+        - requireParamType: false
+          requireReturnType: false
+          requireReturn: false
