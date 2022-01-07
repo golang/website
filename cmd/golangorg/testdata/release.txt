@@ -7,7 +7,7 @@ trimbody contains
 	Read the <a href="/doc/go1.17">Go 1.17 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.17.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.17.1">
 	go1.17.1
 	(released 2021-09-09)
 	includes
@@ -20,7 +20,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.1+label%3ACherryPickApproved">Go 1.17.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.2">
 	go1.17.2
 	(released 2021-10-07)
 	includes
@@ -32,7 +32,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.2+label%3ACherryPickApproved">Go 1.17.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.3">
 	go1.17.3
 	(released 2021-11-04)
 	includes
@@ -44,7 +44,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.3+label%3ACherryPickApproved">Go 1.17.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.4">
 	go1.17.4
 	(released 2021-12-02)
 	includes
@@ -53,7 +53,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.4+label%3ACherryPickApproved">Go 1.17.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.5">
 	go1.17.5
 	(released 2021-12-09)
 	includes
@@ -63,7 +63,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.5+label%3ACherryPickApproved">Go 1.17.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.6">
 	go1.17.6
 	(released 2022-01-06)
 	includes
@@ -72,7 +72,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.6+label%3ACherryPickApproved">Go 1.17.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.7">
 	go1.17.7
 	(released 2022-02-10)
 	includes
@@ -84,7 +84,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.7+label%3ACherryPickApproved">Go 1.17.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.17.8">
 	go1.17.8
 	(released 2022-03-03)
 	includes
@@ -104,7 +104,7 @@ trimbody contains
 	Read the <a href="/doc/go1.16">Go 1.16 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.16.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.16.1">
 	go1.16.1
 	(released 2021-03-10)
 	includes
@@ -114,7 +114,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.1+label%3ACherryPickApproved">Go 1.16.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.2">
 	go1.16.2
 	(released 2021-03-11)
 	includes
@@ -123,7 +123,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.2+label%3ACherryPickApproved">Go 1.16.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.3">
 	go1.16.3
 	(released 2021-04-01)
 	includes
@@ -132,7 +132,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.3+label%3ACherryPickApproved">Go 1.16.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.4">
 	go1.16.4
 	(released 2021-05-06)
 	includes
@@ -145,7 +145,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.4+label%3ACherryPickApproved">Go 1.16.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.5">
 	go1.16.5
 	(released 2021-06-03)
 	includes
@@ -157,7 +157,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.5+label%3ACherryPickApproved">Go 1.16.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.6">
 	go1.16.6
 	(released 2021-07-12)
 	includes
@@ -170,7 +170,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.6+label%3ACherryPickApproved">Go 1.16.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.7">
 	go1.16.7
 	(released 2021-08-05)
 	includes
@@ -183,7 +183,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.7+label%3ACherryPickApproved">Go 1.16.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.8">
 	go1.16.8
 	(released 2021-09-09)
 	includes
@@ -196,7 +196,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.8+label%3ACherryPickApproved">Go 1.16.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.9">
 	go1.16.9
 	(released 2021-10-07)
 	includes
@@ -208,7 +208,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.9+label%3ACherryPickApproved">Go 1.16.9 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.10">
 	go1.16.10
 	(released 2021-11-04)
 	includes
@@ -220,7 +220,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.10+label%3ACherryPickApproved">Go 1.16.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.11">
 	go1.16.11
 	(released 2021-12-02)
 	includes
@@ -229,7 +229,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.11+label%3ACherryPickApproved">Go 1.16.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.12">
 	go1.16.12
 	(released 2021-12-09)
 	includes
@@ -239,7 +239,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.12+label%3ACherryPickApproved">Go 1.16.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.13">
 	go1.16.13
 	(released 2022-01-06)
 	includes
@@ -248,7 +248,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.13+label%3ACherryPickApproved">Go 1.16.13 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.14">
 	go1.16.14
 	(released 2022-02-10)
 	includes
@@ -260,7 +260,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.14+label%3ACherryPickApproved">Go 1.16.14 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.16.15">
 	go1.16.15
 	(released 2022-03-03)
 	includes
@@ -279,7 +279,7 @@ trimbody contains
 	Read the <a href="/doc/go1.15">Go 1.15 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.15.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.15.1">
 	go1.15.1
 	(released 2020-09-01)
 	includes
@@ -289,7 +289,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.1+label%3ACherryPickApproved">Go 1.15.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.2">
 	go1.15.2
 	(released 2020-09-09)
 	includes
@@ -298,7 +298,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.2+label%3ACherryPickApproved">Go 1.15.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.3">
 	go1.15.3
 	(released 2020-10-14)
 	includes
@@ -307,7 +307,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.3+label%3ACherryPickApproved">Go 1.15.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.4">
 	go1.15.4
 	(released 2020-11-05)
 	includes
@@ -316,7 +316,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.4+label%3ACherryPickApproved">Go 1.15.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.5">
 	go1.15.5
 	(released 2020-11-12)
 	includes
@@ -326,7 +326,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.5+label%3ACherryPickApproved">Go 1.15.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.6">
 	go1.15.6
 	(released 2020-12-03)
 	includes
@@ -335,7 +335,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.6+label%3ACherryPickApproved">Go 1.15.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.7">
 	go1.15.7
 	(released 2021-01-19)
 	includes
@@ -345,7 +345,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.7+label%3ACherryPickApproved">Go 1.15.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.8">
 	go1.15.8
 	(released 2021-02-04)
 	includes
@@ -354,7 +354,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.8+label%3ACherryPickApproved">Go 1.15.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.9">
 	go1.15.9
 	(released 2021-03-10)
 	includes
@@ -364,7 +364,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.9+label%3ACherryPickApproved">Go 1.15.9 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.10">
 	go1.15.10
 	(released 2021-03-11)
 	includes
@@ -373,7 +373,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.10+label%3ACherryPickApproved">Go 1.15.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.11">
 	go1.15.11
 	(released 2021-04-01)
 	includes
@@ -382,7 +382,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.11+label%3ACherryPickApproved">Go 1.15.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.12">
 	go1.15.12
 	(released 2021-05-06)
 	includes
@@ -395,7 +395,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.12+label%3ACherryPickApproved">Go 1.15.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.13">
 	go1.15.13
 	(released 2021-06-03)
 	includes
@@ -407,7 +407,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.13+label%3ACherryPickApproved">Go 1.15.13 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.14">
 	go1.15.14
 	(released 2021-07-12)
 	includes
@@ -420,7 +420,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.15.14+label%3ACherryPickApproved">Go 1.15.14 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.15.15">
 	go1.15.15
 	(released 2021-08-05)
 	includes
@@ -439,7 +439,7 @@ trimbody contains
 	Read the <a href="/doc/go1.14">Go 1.14 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.14.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.14.1">
 	go1.14.1
 	(released 2020-03-19)
 	includes
@@ -448,7 +448,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.1+label%3ACherryPickApproved">Go 1.14.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.2">
 	go1.14.2
 	(released 2020-04-08)
 	includes
@@ -457,7 +457,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.2+label%3ACherryPickApproved">Go 1.14.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.3">
 	go1.14.3
 	(released 2020-05-14)
 	includes
@@ -466,7 +466,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.3+label%3ACherryPickApproved">Go 1.14.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.4">
 	go1.14.4
 	(released 2020-06-01)
 	includes
@@ -475,7 +475,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.4+label%3ACherryPickApproved">Go 1.14.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.5">
 	go1.14.5
 	(released 2020-07-14)
 	includes
@@ -485,7 +485,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.5+label%3ACherryPickApproved">Go 1.14.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.6">
 	go1.14.6
 	(released 2020-07-16)
 	includes
@@ -494,7 +494,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.6+label%3ACherryPickApproved">Go 1.14.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.7">
 	go1.14.7
 	(released 2020-08-06)
 	includes
@@ -504,7 +504,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.7+label%3ACherryPickApproved">Go 1.14.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.8">
 	go1.14.8
 	(released 2020-09-01)
 	includes
@@ -514,7 +514,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.8+label%3ACherryPickApproved">Go 1.14.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.9">
 	go1.14.9
 	(released 2020-09-09)
 	includes
@@ -523,7 +523,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.9+label%3ACherryPickApproved">Go 1.14.9 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.10">
 	go1.14.10
 	(released 2020-10-14)
 	includes
@@ -532,7 +532,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.10+label%3ACherryPickApproved">Go 1.14.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.11">
 	go1.14.11
 	(released 2020-11-05)
 	includes
@@ -541,7 +541,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.11+label%3ACherryPickApproved">Go 1.14.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.12">
 	go1.14.12
 	(released 2020-11-12)
 	includes
@@ -551,7 +551,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.12+label%3ACherryPickApproved">Go 1.14.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.13">
 	go1.14.13
 	(released 2020-12-03)
 	includes
@@ -560,7 +560,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.13+label%3ACherryPickApproved">Go 1.14.13 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.14">
 	go1.14.14
 	(released 2021-01-19)
 	includes
@@ -570,7 +570,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.14.14+label%3ACherryPickApproved">Go 1.14.14 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.14.15">
 	go1.14.15
 	(released 2021-02-04)
 	includes
@@ -585,7 +585,7 @@ trimbody contains
 	Read the <a href="/doc/go1.13">Go 1.13 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.13.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.13.1">
 	go1.13.1
 	(released 2019-09-25)
 	includes
@@ -595,7 +595,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.1+label%3ACherryPickApproved">Go 1.13.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.2">
 	go1.13.2
 	(released 2019-10-17)
 	includes
@@ -605,7 +605,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.2+label%3ACherryPickApproved">Go 1.13.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.3">
 	go1.13.3
 	(released 2019-10-17)
 	includes
@@ -614,7 +614,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.3+label%3ACherryPickApproved">Go 1.13.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.4">
 	go1.13.4
 	(released 2019-10-31)
 	includes
@@ -626,7 +626,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.4+label%3ACherryPickApproved">Go 1.13.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.5">
 	go1.13.5
 	(released 2019-12-04)
 	includes
@@ -635,7 +635,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.5+label%3ACherryPickApproved">Go 1.13.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.6">
 	go1.13.6
 	(released 2020-01-09)
 	includes
@@ -644,7 +644,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.6+label%3ACherryPickApproved">Go 1.13.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.7">
 	go1.13.7
 	(released 2020-01-28)
 	includes
@@ -655,7 +655,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.7+label%3ACherryPickApproved">Go 1.13.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.8">
 	go1.13.8
 	(released 2020-02-12)
 	includes
@@ -664,7 +664,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.8+label%3ACherryPickApproved">Go 1.13.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.9">
 	go1.13.9
 	(released 2020-03-19)
 	includes
@@ -673,7 +673,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.9+label%3ACherryPickApproved">Go 1.13.9 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.10">
 	go1.13.10
 	(released 2020-04-08)
 	includes
@@ -682,7 +682,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.10+label%3ACherryPickApproved">Go 1.13.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.11">
 	go1.13.11
 	(released 2020-05-14)
 	includes
@@ -691,7 +691,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.11+label%3ACherryPickApproved">Go 1.13.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.12">
 	go1.13.12
 	(released 2020-06-01)
 	includes
@@ -700,7 +700,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.12+label%3ACherryPickApproved">Go 1.13.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.13">
 	go1.13.13
 	(released 2020-07-14)
 	includes
@@ -710,7 +710,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.13+label%3ACherryPickApproved">Go 1.13.13 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.14">
 	go1.13.14
 	(released 2020-07-16)
 	includes
@@ -719,7 +719,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.13.14+label%3ACherryPickApproved">Go 1.13.14 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.13.15">
 	go1.13.15
 	(released 2020-08-06)
 	includes
@@ -735,7 +735,7 @@ trimbody contains
 	Read the <a href="/doc/go1.12">Go 1.12 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.12.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.12.1">
 	go1.12.1
 	(released 2019-03-14)
 	includes
@@ -744,7 +744,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.1+label%3ACherryPickApproved">Go 1.12.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.2">
 	go1.12.2
 	(released 2019-04-05)
 	includes
@@ -753,14 +753,14 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.2+label%3ACherryPickApproved">Go 1.12.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.3">
 	go1.12.3
 	(released 2019-04-08)
 	was accidentally released without its
 	intended fix. It is identical to go1.12.2, except for its version
 	number. The intended fix is in go1.12.4.
 	</p>
-	<p>
+	<p id="go1.12.4">
 	go1.12.4
 	(released 2019-04-11)
 	fixes an issue where using the prebuilt binary
@@ -769,7 +769,7 @@ trimbody contains
 	when linking programs that used cgo.
 	Only Linux users who hit this issue need to update.
 	</p>
-	<p>
+	<p id="go1.12.5">
 	go1.12.5
 	(released 2019-05-06)
 	includes
@@ -778,7 +778,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.5+label%3ACherryPickApproved">Go 1.12.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.6">
 	go1.12.6
 	(released 2019-06-11)
 	includes
@@ -787,7 +787,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.6+label%3ACherryPickApproved">Go 1.12.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.7">
 	go1.12.7
 	(released 2019-07-08)
 	includes
@@ -796,7 +796,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.7+label%3ACherryPickApproved">Go 1.12.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.8">
 	go1.12.8
 	(released 2019-08-13)
 	includes
@@ -806,7 +806,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.8+label%3ACherryPickApproved">Go 1.12.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.9">
 	go1.12.9
 	(released 2019-08-15)
 	includes
@@ -815,7 +815,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.9+label%3ACherryPickApproved">Go 1.12.9 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.10">
 	go1.12.10
 	(released 2019-09-25)
 	includes
@@ -825,7 +825,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.10+label%3ACherryPickApproved">Go 1.12.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.11">
 	go1.12.11
 	(released 2019-10-17)
 	includes
@@ -835,7 +835,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.11+label%3ACherryPickApproved">Go 1.12.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.12">
 	go1.12.12
 	(released 2019-10-17)
 	includes
@@ -844,7 +844,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.12+label%3ACherryPickApproved">Go 1.12.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.13">
 	go1.12.13
 	(released 2019-10-31)
 	fixes an issue on macOS 10.15 Catalina
@@ -852,7 +852,7 @@ trimbody contains
 	<a href="/issue/34986">rejected by Gatekeeper</a>.
 	Only macOS users who hit this issue need to update.
 	</p>
-	<p>
+	<p id="go1.12.14">
 	go1.12.14
 	(released 2019-12-04)
 	includes
@@ -862,7 +862,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.14+label%3ACherryPickApproved">Go 1.12.14 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.15">
 	go1.12.15
 	(released 2020-01-09)
 	includes
@@ -871,7 +871,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.15+label%3ACherryPickApproved">Go 1.12.15 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.16">
 	go1.12.16
 	(released 2020-01-28)
 	includes
@@ -882,7 +882,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.16+label%3ACherryPickApproved">Go 1.12.16 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.12.17">
 	go1.12.17
 	(released 2020-02-12)
 	includes
@@ -898,7 +898,7 @@ trimbody contains
 	Read the <a href="/doc/go1.11">Go 1.11 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.11.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.11.1">
 	go1.11.1
 	(released 2018-10-01)
 	includes
@@ -907,7 +907,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.1+label%3ACherryPickApproved">Go 1.11.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.2">
 	go1.11.2
 	(released 2018-11-02)
 	includes
@@ -916,7 +916,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.2+label%3ACherryPickApproved">Go 1.11.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.3">
 	go1.11.3
 	(released 2018-12-12)
 	includes
@@ -927,7 +927,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.3+label%3ACherryPickApproved">Go 1.11.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.4">
 	go1.11.4
 	(released 2018-12-14)
 	includes
@@ -938,7 +938,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.4+label%3ACherryPickApproved">Go 1.11.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.5">
 	go1.11.5
 	(released 2019-01-23)
 	includes
@@ -949,7 +949,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.5+label%3ACherryPickApproved">Go 1.11.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.6">
 	go1.11.6
 	(released 2019-03-14)
 	includes
@@ -958,7 +958,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.6+label%3ACherryPickApproved">Go 1.11.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.7">
 	go1.11.7
 	(released 2019-04-05)
 	includes
@@ -967,14 +967,14 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.7+label%3ACherryPickApproved">Go 1.11.7 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.8">
 	go1.11.8
 	(released 2019-04-08)
 	was accidentally released without its
 	intended fix. It is identical to go1.11.7, except for its version
 	number. The intended fix is in go1.11.9.
 	</p>
-	<p>
+	<p id="go1.11.9">
 	go1.11.9
 	(released 2019-04-11)
 	fixes an issue where using the prebuilt binary
@@ -983,7 +983,7 @@ trimbody contains
 	when linking programs that used cgo.
 	Only Linux users who hit this issue need to update.
 	</p>
-	<p>
+	<p id="go1.11.10">
 	go1.11.10
 	(released 2019-05-06)
 	includes
@@ -992,7 +992,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.10+label%3ACherryPickApproved">Go 1.11.10 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.11">
 	go1.11.11
 	(released 2019-06-11)
 	includes
@@ -1002,7 +1002,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.11+label%3ACherryPickApproved">Go 1.11.11 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.12">
 	go1.11.12
 	(released 2019-07-08)
 	includes
@@ -1011,7 +1011,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.12+label%3ACherryPickApproved">Go 1.11.12 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.11.13">
 	go1.11.13
 	(released 2019-08-13)
 	includes
@@ -1027,7 +1027,7 @@ trimbody contains
 	Read the <a href="/doc/go1.10">Go 1.10 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.10.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.10.1">
 	go1.10.1
 	(released 2018-03-28)
 	includes
@@ -1036,7 +1036,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.1+label%3ACherryPickApproved">Go 1.10.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.2">
 	go1.10.2
 	(released 2018-05-01)
 	includes
@@ -1045,7 +1045,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.2+label%3ACherryPickApproved">Go 1.10.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.3">
 	go1.10.3
 	(released 2018-06-05)
 	includes
@@ -1056,7 +1056,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.3+label%3ACherryPickApproved">Go 1.10.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.4">
 	go1.10.4
 	(released 2018-08-24)
 	includes
@@ -1065,7 +1065,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.4+label%3ACherryPickApproved">Go 1.10.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.5">
 	go1.10.5
 	(released 2018-11-02)
 	includes
@@ -1074,7 +1074,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.5+label%3ACherryPickApproved">Go 1.10.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.6">
 	go1.10.6
 	(released 2018-12-12)
 	includes
@@ -1086,7 +1086,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.6+label%3ACherryPickApproved">Go 1.10.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.7">
 	go1.10.7
 	(released 2018-12-14)
 	includes a fix to a bug introduced in Go 1.10.6
@@ -1095,7 +1095,7 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.7+label%3ACherryPickApproved">
 	Go 1.10.7 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.10.8">
 	go1.10.8
 	(released 2019-01-23)
 	includes
@@ -1112,7 +1112,7 @@ trimbody contains
 	Read the <a href="/doc/go1.9">Go 1.9 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.9.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.9.1">
 	go1.9.1
 	(released 2017-10-04)
 	includes
@@ -1123,7 +1123,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.1+label%3ACherryPickApproved">Go 1.9.1 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.2">
 	go1.9.2
 	(released 2017-10-25)
 	includes
@@ -1134,7 +1134,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.2+label%3ACherryPickApproved">Go 1.9.2 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.3">
 	go1.9.3
 	(released 2018-01-22)
 	includes
@@ -1143,7 +1143,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.3+label%3ACherryPickApproved">Go 1.9.3 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.4">
 	go1.9.4
 	(released 2018-02-07)
 	includes
@@ -1154,7 +1154,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.4+label%3ACherryPickApproved">Go 1.9.4 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.5">
 	go1.9.5
 	(released 2018-03-28)
 	includes
@@ -1163,7 +1163,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.5+label%3ACherryPickApproved">Go 1.9.5 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.6">
 	go1.9.6
 	(released 2018-05-01)
 	includes
@@ -1172,7 +1172,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.6+label%3ACherryPickApproved">Go 1.9.6 milestone</a>
 	on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.9.7">
 	go1.9.7
 	(released 2018-06-05)
 	includes
@@ -1189,7 +1189,7 @@ trimbody contains
 	Read the <a href="/doc/go1.8">Go 1.8 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.8.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.8.1">
 	go1.8.1 (released 2017-04-07) includes fixes to the compiler, linker, runtime,
 	documentation, <code>go</code> command and the <code>crypto/tls</code>,
 	<code>encoding/xml</code>, <code>image/png</code>, <code>net</code>,
@@ -1198,25 +1198,25 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.1">Go
 	1.8.1 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.2">
 	go1.8.2 (released 2017-05-23) includes a security fix to the
 	<code>crypto/elliptic</code> package.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.2">Go
 	1.8.2 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.3">
 	go1.8.3 (released 2017-05-24) includes fixes to the compiler, runtime,
 	documentation, and the <code>database/sql</code> package.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.3">Go
 	1.8.3 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.4">
 	go1.8.4 (released 2017-10-04) includes two security fixes.
 	It contains the same fixes as Go 1.9.1 and was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.4">Go
 	1.8.4 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.5">
 	go1.8.5 (released 2017-10-25) includes fixes to the compiler, linker, runtime,
 	documentation, <code>go</code> command,
 	and the <code>crypto/x509</code> and <code>net/smtp</code> packages.
@@ -1225,13 +1225,13 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.5">Go
 	1.8.5 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.6">
 	go1.8.6 (released 2018-01-22) includes the same fix in <code>math/big</code>
 	as Go 1.9.3 and was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.6">Go
 	1.8.6 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.8.7">
 	go1.8.7 (released 2018-02-07) includes a security fix to "go get".
 	It contains the same fix as Go 1.9.4 and was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.7">Go
@@ -1243,7 +1243,7 @@ trimbody contains
 	Read the <a href="/doc/go1.7">Go 1.7 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.7.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.7.1">
 	go1.7.1 (released 2016-09-07) includes fixes to the compiler, runtime,
 	documentation, and the <code>compress/flate</code>, <code>hash/crc32</code>,
 	<code>io</code>, <code>net</code>, <code>net/http</code>,
@@ -1252,30 +1252,30 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.7.1">Go
 	1.7.1 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.7.2">
 	go1.7.2 should not be used. It was tagged but not fully released.
 	The release was deferred due to a last minute bug report.
 	Use go1.7.3 instead, and refer to the summary of changes below.
 	</p>
-	<p>
+	<p id="go1.7.3">
 	go1.7.3 (released 2016-10-19) includes fixes to the compiler, runtime,
 	and the <code>crypto/cipher</code>, <code>crypto/tls</code>,
 	<code>net/http</code>, and <code>strings</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.7.3">Go
 	1.7.3 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.7.4">
 	go1.7.4 (released 2016-12-01) includes two security fixes.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.7.4">Go
 	1.7.4 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.7.5">
 	go1.7.5 (released 2017-01-26) includes fixes to the compiler, runtime,
 	and the <code>crypto/x509</code> and <code>time</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.7.5">Go
 	1.7.5 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.7.6">
 	go1.7.6 (released 2017-05-23) includes the same security fix as Go 1.8.2 and
 	was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.8.2">Go
@@ -1287,26 +1287,26 @@ trimbody contains
 	Read the <a href="/doc/go1.6">Go 1.6 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.6.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.6.1">
 	go1.6.1 (released 2016-04-12) includes two security fixes.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.6.1">Go
 	1.6.1 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.6.2">
 	go1.6.2 (released 2016-04-20) includes fixes to the compiler, runtime, tools,
 	documentation, and the <code>mime/multipart</code>, <code>net/http</code>, and
 	<code>sort</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.6.2">Go
 	1.6.2 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.6.3">
 	go1.6.3 (released 2016-07-17) includes security fixes to the
 	<code>net/http/cgi</code> package and <code>net/http</code> package when used in
 	a CGI environment.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.6.3">Go
 	1.6.3 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.6.4">
 	go1.6.4 (released 2016-12-01) includes two security fixes.
 	It contains the same fixes as Go 1.7.4 and was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.7.4">Go
@@ -1318,26 +1318,26 @@ trimbody contains
 	Read the <a href="/doc/go1.5">Go 1.5 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.5.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.5.1">
 	go1.5.1 (released 2015-09-08) includes bug fixes to the compiler, assembler, and
 	the <code>fmt</code>, <code>net/textproto</code>, <code>net/http</code>, and
 	<code>runtime</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.5.1">Go
 	1.5.1 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.5.2">
 	go1.5.2 (released 2015-12-02) includes bug fixes to the compiler, linker, and
 	the <code>mime/multipart</code>, <code>net</code>, and <code>runtime</code>
 	packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.5.2">Go
 	1.5.2 milestone</a> on our issue tracker for details.
 	</p>
-	<p>
+	<p id="go1.5.3">
 	go1.5.3 (released 2016-01-13) includes a security fix to the <code>math/big</code> package
 	affecting the <code>crypto/tls</code> package.
 	See the <a href="/s/go153announce">release announcement</a> for details.
 	</p>
-	<p>
+	<p id="go1.5.4">
 	go1.5.4 (released 2016-04-12) includes two security fixes.
 	It contains the same fixes as Go 1.6.1 and was released at the same time.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.6.1">Go
@@ -1349,15 +1349,15 @@ trimbody contains
 	Read the <a href="/doc/go1.4">Go 1.4 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.4.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.4.1">
 	go1.4.1 (released 2015-01-15) includes bug fixes to the linker and the <code>log</code>, <code>syscall</code>, and <code>runtime</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.4.1">Go 1.4.1 milestone on our issue tracker</a> for details.
 	</p>
-	<p>
+	<p id="go1.4.2">
 	go1.4.2 (released 2015-02-17) includes bug fixes to the <code>go</code> command, the compiler and linker, and the <code>runtime</code>, <code>syscall</code>, <code>reflect</code>, and <code>math/big</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.4.2">Go 1.4.2 milestone on our issue tracker</a> for details.
 	</p>
-	<p>
+	<p id="go1.4.3">
 	go1.4.3 (released 2015-09-22) includes security fixes to the <code>net/http</code> package and bug fixes to the <code>runtime</code> package.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.4.3">Go 1.4.3 milestone on our issue tracker</a> for details.
 	</p>
@@ -1367,15 +1367,15 @@ trimbody contains
 	Read the <a href="/doc/go1.3">Go 1.3 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.3.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.3.1">
 	go1.3.1 (released 2014-08-13) includes bug fixes to the compiler and the <code>runtime</code>, <code>net</code>, and <code>crypto/rsa</code> packages.
 	See the <a href="https://github.com/golang/go/commits/go1.3.1">change history</a> for details.
 	</p>
-	<p>
+	<p id="go1.3.2">
 	go1.3.2 (released 2014-09-25) includes bug fixes to cgo and the crypto/tls packages.
 	See the <a href="https://github.com/golang/go/commits/go1.3.2">change history</a> for details.
 	</p>
-	<p>
+	<p id="go1.3.3">
 	go1.3.3 (released 2014-09-30) includes further bug fixes to cgo, the runtime package, and the nacl port.
 	See the <a href="https://github.com/golang/go/commits/go1.3.3">change history</a> for details.
 	</p>
@@ -1385,11 +1385,11 @@ trimbody contains
 	Read the <a href="/doc/go1.2">Go 1.2 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.2.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.2.1">
 	go1.2.1 (released 2014-03-02) includes bug fixes to the <code>runtime</code>, <code>net</code>, and <code>database/sql</code> packages.
 	See the <a href="https://github.com/golang/go/commits/go1.2.1">change history</a> for details.
 	</p>
-	<p>
+	<p id="go1.2.2">
 	go1.2.2 (released 2014-05-05) includes a
 	<a href="https://github.com/golang/go/commits/go1.2.2">security fix</a>
 	that affects the tour binary included in the binary distributions (thanks to Guillaume T).
@@ -1400,11 +1400,11 @@ trimbody contains
 	Read the <a href="/doc/go1.1">Go 1.1 Release Notes</a> for more information.
 	</p>
 	<h3 id="go1.1.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.1.1">
 	go1.1.1 (released 2013-06-13) includes several compiler and runtime bug fixes.
 	See the <a href="https://github.com/golang/go/commits/go1.1.1">change history</a> for details.
 	</p>
-	<p>
+	<p id="go1.1.2">
 	go1.1.2 (released 2013-08-13) includes fixes to the <code>gc</code> compiler
 	and <code>cgo</code>, and the <code>bufio</code>, <code>runtime</code>,
 	<code>syscall</code>, and <code>time</code> packages.
@@ -1430,21 +1430,21 @@ trimbody contains
 	<code><a href="weekly.html#2012-03-27">weekly.2012-03-27</a></code>.
 	</p>
 	<h3 id="go1.minor">Minor revisions</h3>
-	<p>
+	<p id="go1.0.1">
 	go1.0.1 (released 2012-04-25) was issued to
 	<a href="/cl/6061043">fix</a> an
 	<a href="/issue/3545">escape analysis bug</a>
 	that can lead to memory corruption.
 	It also includes several minor code and documentation fixes.
 	</p>
-	<p>
+	<p id="go1.0.2">
 	go1.0.2 (released 2012-06-13) was issued to fix two bugs in the implementation
 	of maps using struct or array keys:
 	<a href="/issue/3695">issue 3695</a> and
 	<a href="/issue/3573">issue 3573</a>.
 	It also includes many minor code and documentation fixes.
 	</p>
-	<p>
+	<p id="go1.0.3">
 	go1.0.3 (released 2012-09-21) includes minor code and documentation fixes.
 	</p>
 	<p>
