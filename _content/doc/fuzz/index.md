@@ -5,12 +5,8 @@
 <!-- Potential pages:
   - What fuzzing is and is not good for
   - Common gotchas / Strategies for inefficient fuzzing executions
-  - Rules of a fuzz test (one per package, function signature, etc)
-  - Corpus entry file format
   - Commands
     - go clean -fuzzcache
-    - tool for converting corpus entries
-  - Fuzzing customization (links to docs for -fuzzminimizetime, -fuzz, etc)
   - Technical discussion around how the coordinator/worker work (this may make
     more sense as a blog post?)
 -->
@@ -34,7 +30,7 @@ of the fuzz target are highlighted as the fuzzing arguments."
 src="/doc/fuzz/example.png" style="display: block; width: 600px; height:
 auto;"/>
 
-## Writing and running fuzz tests
+## Writing fuzz tests
 
 ### Requirements
 
@@ -64,15 +60,89 @@ Below are rules that fuzz tests must follow.
 
 Below are suggestions that will help you get the most out of fuzzing.
 
-- Fuzzing should be run on a platform that supports coverage instrumentation
-  (currently AMD64 and ARM64) so that the corpus can meaningfully grow as it
-  runs, and more code can be covered while fuzzing.
 - Fuzz targets should be fast and deterministic so the fuzzing engine can work
   efficiently, and new failures and code coverage can be easily reproduced.
 - Since the fuzz target is invoked in parallel across multiple workers and in
   nondeterministic order, the state of a fuzz target should not persist past the
   end of each call, and the behavior of a fuzz target should not depend on
   global state.
+
+## Running fuzz tests
+
+There are two modes of running your fuzz test: as a unit test (default `go test`), or
+with fuzzing (`go test -fuzz=FuzzTestName`).
+
+Fuzz tests are run much like a unit test by default. Each [seed corpus
+entry](#glos-seed-corpus) will be tested against the fuzz target, reporting any
+failures before exiting.
+
+To enable fuzzing, run `go test` with the `-fuzz` flag, providing a regex
+matching a single fuzz test. By default, all other tests in that package will
+run before fuzzing begins. This is to ensure that fuzzing won't report any
+issues that would already be caught by an existing test.
+
+**Note:** Fuzzing should be run on a platform that supports coverage
+instrumentation (currently AMD64 and ARM64) so that the corpus can meaningfully
+grow as it runs, and more code can be covered while fuzzing.
+
+### Command line output
+
+While fuzzing is in progress, the [fuzzing engine](#glos-fuzzing-engine)
+generates new inputs and runs them against the provided fuzz target. By default,
+it continues to run until a [failing input](#glos-failing-input) is found, or
+the user cancels the process (e.g. with Ctrl^C).
+
+The output will look something like this:
+
+```
+~ go test -fuzz FuzzFoo
+fuzz: elapsed: 0s, gathering baseline coverage: 0/192 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 192/192 completed, now fuzzing with 8 workers
+fuzz: elapsed: 3s, execs: 325017 (108336/sec), new interesting: 11 (total: 202)
+fuzz: elapsed: 6s, execs: 680218 (118402/sec), new interesting: 12 (total: 203)
+fuzz: elapsed: 9s, execs: 1039901 (119895/sec), new interesting: 19 (total: 210)
+fuzz: elapsed: 12s, execs: 1386684 (115594/sec), new interesting: 21 (total: 212)
+PASS
+ok      foo 12.692s
+```
+
+The first lines indicate that the "baseline coverage" is gathered before
+fuzzing begins.
+
+To gather baseline coverage, the fuzzing engine executes both the [seed
+corpus](#glos-seed-corpus) and the [generated corpus](#generated-corpus), to
+ensure that no errors occurred and to understand the code coverage the existing
+corpus already provides.
+
+The lines following provide insight into the active fuzzing execution:
+
+  - elapsed: the amount of time that has elapsed since the process began
+  - execs: the total number of inputs that have been run against the fuzz target
+    (with an average execs/sec since the last log line)
+  - new interesting: the total number of "interesting" inputs that have been
+    added to the generated corpus during this fuzzing execution (with the total
+    size of the generated corpus)
+
+For an input to be "interesting", it must expand the code coverage beyond what
+the existing generated corpus can reach. It's typical for the number of new
+interesting inputs to grow quickly at the start and eventually slow down, with
+occasional bursts as new branches are discovered.
+
+If an error occurs while fuzzing, then the error will be logged, and the output
+will look something like this at the end:
+
+```
+    Failing input written to testdata/fuzz/FuzzFoo/a878c3134fe0404d44eb1e662e5d8d4a24beb05c3d68354903670ff65513ff49
+    To re-run:
+    go test -run=FuzzFoo/a878c3134fe0404d44eb1e662e5d8d4a24beb05c3d68354903670ff65513ff49
+FAIL
+exit status 1
+FAIL    foo 0.839s
+```
+
+The fuzzing engine writes this [failing input](#glos-failing-input) to the seed
+corpus for that fuzz test, and it will now be run by default with `go test`,
+serving as a regression test once the bug has been fixed.
 
 ### Custom settings
 
@@ -96,7 +166,7 @@ To highlight a few:
 - `-parallel`: the number of fuzzing processes running at once, default
   `$GOMAXPROCS`. Currently, setting -cpu during fuzzing has no effect.
 
-### Corpus file format
+## Corpus file format
 
 Corpus files are encoded in a special format. This is the same format for both
 the [seed corpus](#glos-seed-corpus), and the [generated
@@ -171,6 +241,10 @@ can be a specially-formatted file, or a call to
 <a id="glos-coverage-guidance"></a>
 **coverage guidance:** A method of fuzzing which uses expansions in code
 coverage to determine which corpus entries are worth keeping for future use.
+
+<a id="glos-failing-input"></a>
+**failing input:** A failing input is a corpus entry that will cause an error
+or panic when run against the [fuzz target](#glos-fuzz-target).
 
 <a id="glos-fuzz-target"></a>
 **fuzz target:** The function of the fuzz test which is executed for corpus
