@@ -227,13 +227,13 @@ func cleanOutput(ctx context.Context, tests []*testcase) error {
 		"diff.png": true,
 	}
 	for _, t := range tests {
+		safeExts[ext(t.outImgA)] = true
+		safeExts[ext(t.outImgB)] = true
 		if t.cacheA {
 			keepFiles[t.outImgA] = true
-			safeExts[ext(t.outImgA)] = true
 		}
 		if t.cacheB {
 			keepFiles[t.outImgB] = true
-			safeExts[ext(t.outImgB)] = true
 		}
 		if t.gcsBucket {
 			bkt, _ := gcsParts(t.outDiff)
