@@ -160,15 +160,16 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
-		for _, test := range tests {
-			if err := runDiff(ctx, test, update); err != nil {
+		for _, tc := range tests {
+			if err := tc.run(ctx, update); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
 				}
 				fmt.Fprintf(&buf, "%v\n", err)
-				fmt.Fprintf(&buf, "inspect diff at %s\n\n", test.outDiff)
+				fmt.Fprintf(&buf, "inspect diff at %s\n\n", tc.outDiff)
 			}
+			fmt.Println(tc.output.String())
 		}
 	}
 	fmt.Printf("finished in %s\n\n", time.Since(now).Truncate(time.Millisecond))
@@ -203,9 +204,9 @@ func TestHandler(t *testing.T, glob string, update bool, vars map[string]string)
 		}
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(t.Logf))
 		defer cancel()
-		for _, test := range tests {
-			t.Run(test.name, func(t *testing.T) {
-				if err := runDiff(ctx, test, update); err != nil {
+		for _, tc := range tests {
+			t.Run(tc.name, func(t *testing.T) {
+				if err := tc.run(ctx, update); err != nil {
 					t.Fatal(err)
 				}
 			})
@@ -345,6 +346,7 @@ type testcase struct {
 	viewportHeight            int
 	screenshotType            screenshotType
 	screenshotElement         string
+	output                    bytes.Buffer
 }
 
 func (t *testcase) String() string {
@@ -575,24 +577,24 @@ func splitDimensions(text string) (width, height int, err error) {
 	return width, height, nil
 }
 
-// runDiff generates screenshots for a given test case and
-// a diff if the screenshots do not match.
-func runDiff(ctx context.Context, test *testcase, update bool) (err error) {
+// run generates screenshots for a given test case and a diff if the
+// screenshots do not match.
+func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	now := time.Now()
-	fmt.Printf("test %s\n", test.name)
+	fmt.Fprintf(&tc.output, "test %s\n", tc.name)
 	var screenA, screenB *image.Image
 	g, ctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		screenA, err = screenshot(ctx, test, test.urlA, test.outImgA, test.cacheA, update)
+		screenA, err = tc.screenshot(ctx, tc.urlA, tc.outImgA, tc.cacheA, update)
 		if err != nil {
-			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlA, test.outImgA, test.cacheA, err)
+			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", tc, tc.urlA, tc.outImgA, tc.cacheA, err)
 		}
 		return nil
 	})
 	g.Go(func() error {
-		screenB, err = screenshot(ctx, test, test.urlB, test.outImgB, test.cacheB, update)
+		screenB, err = tc.screenshot(ctx, tc.urlB, tc.outImgB, tc.cacheB, update)
 		if err != nil {
-			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", test, test.urlB, test.outImgB, test.cacheB, err)
+			return fmt.Errorf("screenshot(ctx, %q, %q, %q, %v): %w", tc, tc.urlB, tc.outImgB, tc.cacheB, err)
 		}
 		return nil
 	})
@@ -605,41 +607,41 @@ func runDiff(ctx context.Context, test *testcase, update bool) (err error) {
 	})
 	since := time.Since(now).Truncate(time.Millisecond)
 	if result.Equal {
-		fmt.Printf("%s == %s (%s)\n\n", test.urlA, test.urlB, since)
+		fmt.Fprintf(&tc.output, "%s == %s (%s)\n", tc.urlA, tc.urlB, since)
 		return nil
 	}
-	fmt.Printf("%s != %s (%s)\n", test.urlA, test.urlB, since)
+	fmt.Fprintf(&tc.output, "%s != %s (%s)\n", tc.urlA, tc.urlB, since)
 	g = &errgroup.Group{}
 	g.Go(func() error {
-		return writePNG(test, &result.Image, test.outDiff)
+		return writePNG(&result.Image, tc.outDiff)
 	})
 	// Only write screenshots if they haven't already been written to the cache.
-	if !test.cacheA {
+	if !tc.cacheA {
 		g.Go(func() error {
-			return writePNG(test, screenA, test.outImgA)
+			return writePNG(screenA, tc.outImgA)
 		})
 	}
-	if !test.cacheB {
+	if !tc.cacheB {
 		g.Go(func() error {
-			return writePNG(test, screenB, test.outImgB)
+			return writePNG(screenB, tc.outImgB)
 		})
 	}
 	if err := g.Wait(); err != nil {
 		return fmt.Errorf("writePNG(...): %w", err)
 	}
-	fmt.Printf("wrote diff to %s\n\n", test.outDiff)
-	return fmt.Errorf("%s != %s", test.urlA, test.urlB)
+	fmt.Fprintf(&tc.output, "wrote diff to %s\n", tc.outDiff)
+	return fmt.Errorf("%s != %s", tc.urlA, tc.urlB)
 }
 
 // screenshot gets a screenshot for a testcase url. When cache is true it will
 // attempt to read the screenshot from a cache or capture a new screenshot
 // and write it to the cache if it does not exist.
-func screenshot(ctx context.Context, test *testcase,
-	url, file string, cache, update bool,
+func (tc *testcase) screenshot(ctx context.Context, url, file string,
+	cache, update bool,
 ) (_ *image.Image, err error) {
 	var data []byte
 	// If cache is enabled, try to read the file from the cache.
-	if cache && test.gcsBucket {
+	if cache && tc.gcsBucket {
 		client, err := storage.NewClient(ctx)
 		if err != nil {
 			return nil, fmt.Errorf("storage.NewClient(err): %w", err)
@@ -666,9 +668,9 @@ func screenshot(ctx context.Context, test *testcase,
 	// we capture a new screenshot from a live URL.
 	if !cache || update || data == nil {
 		update = true
-		data, err = captureScreenshot(ctx, test, url)
+		data, err = tc.captureScreenshot(ctx, url)
 		if err != nil {
-			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, test, err)
+			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, tc, err)
 		}
 	}
 	img, _, err := image.Decode(bytes.NewReader(data))
@@ -677,39 +679,39 @@ func screenshot(ctx context.Context, test *testcase,
 	}
 	// Write to the cache.
 	if cache && update {
-		if err := writePNG(test, &img, file); err != nil {
+		if err := writePNG(&img, file); err != nil {
 			return nil, fmt.Errorf("os.WriteFile(...): %w", err)
 		}
-		fmt.Printf("updated %s\n", file)
+		fmt.Fprintf(&tc.output, "updated %s\n", file)
 	}
 	return &img, nil
 }
 
 // captureScreenshot runs a series of browser actions and takes a screenshot
 // of the resulting webpage in an instance of headless chrome.
-func captureScreenshot(ctx context.Context, test *testcase, url string) ([]byte, error) {
+func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, error) {
 	var buf []byte
 	ctx, cancel := chromedp.NewContext(ctx)
 	defer cancel()
 	ctx, cancel = context.WithTimeout(ctx, time.Minute)
 	defer cancel()
 	var tasks chromedp.Tasks
-	if test.headers != nil {
-		tasks = append(tasks, network.SetExtraHTTPHeaders(test.headers))
+	if tc.headers != nil {
+		tasks = append(tasks, network.SetExtraHTTPHeaders(tc.headers))
 	}
 	tasks = append(tasks,
-		chromedp.EmulateViewport(int64(test.viewportWidth), int64(test.viewportHeight)),
+		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
-		test.tasks,
+		tc.tasks,
 	)
-	switch test.screenshotType {
+	switch tc.screenshotType {
 	case fullScreenshot:
 		tasks = append(tasks, chromedp.FullScreenshot(&buf, 100))
 	case viewportScreenshot:
 		tasks = append(tasks, chromedp.CaptureScreenshot(&buf))
 	case elementScreenshot:
-		tasks = append(tasks, chromedp.Screenshot(test.screenshotElement, &buf))
+		tasks = append(tasks, chromedp.Screenshot(tc.screenshotElement, &buf))
 	}
 	if err := chromedp.Run(ctx, tasks); err != nil {
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
@@ -718,9 +720,9 @@ func captureScreenshot(ctx context.Context, test *testcase, url string) ([]byte,
 }
 
 // writePNG writes image data to a png file.
-func writePNG(test *testcase, i *image.Image, filename string) (err error) {
+func writePNG(i *image.Image, filename string) (err error) {
 	var f io.WriteCloser
-	if test.gcsBucket {
+	if strings.HasPrefix(filename, gcsScheme) {
 		ctx := context.Background()
 		client, err := storage.NewClient(ctx)
 		if err != nil {

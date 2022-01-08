@@ -15,6 +15,7 @@ import (
 
 	"github.com/chromedp/chromedp"
 	"github.com/google/go-cmp/cmp"
+	"github.com/google/go-cmp/cmp/cmpopts"
 )
 
 func TestReadTests(t *testing.T) {
@@ -170,6 +171,7 @@ func TestReadTests(t *testing.T) {
 			}
 			if diff := cmp.Diff(tt.want, got,
 				cmp.AllowUnexported(testcase{}),
+				cmpopts.IgnoreFields(testcase{}, "output"),
 				cmp.Comparer(func(a, b chromedp.ActionFunc) bool {
 					return fmt.Sprint(a) == fmt.Sprint(b)
 				}),
@@ -270,7 +272,7 @@ func TestHeaders(t *testing.T) {
 		t.Skip()
 	}
 	go headerServer()
-	if err := runDiff(context.Background(), &testcase{
+	tc := &testcase{
 		name:              "go.dev homepage",
 		urlA:              "http://localhost:6061",
 		cacheA:            true,
@@ -283,7 +285,8 @@ func TestHeaders(t *testing.T) {
 		viewportHeight:    960,
 		screenshotType:    elementScreenshot,
 		screenshotElement: "#result",
-	}, false); err != nil {
+	}
+	if err := tc.run(context.Background(), false); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -377,9 +380,6 @@ func Test_cleanDirs(t *testing.T) {
 			wantFiles: map[string]bool{
 				"testdata/screenshots/cached/homepage.go-dev.png":              true,
 				"testdata/screenshots/headers/headers-test.localhost-6061.png": true,
-				"testdata/cached.txt":    true,
-				"testdata/fail.txt":      true,
-				"testdata/readtests.txt": true,
 			},
 		},
 		{
