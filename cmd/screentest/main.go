@@ -2,7 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Command screentest runs the screentest check for a set of scripts.
+/*
+Command screentest runs the screentest check for a set of scripts.
+  Usage: screentest [flags] [glob]
+
+The flags are:
+  -u
+    update cached screenshots
+  -v
+    variables provided to script templates as comma separated KEY:VALUE pairs
+  -c
+    number of testcases to run concurrently
+*/
 package main
 
 import (
@@ -11,19 +22,21 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"golang.org/x/website/internal/screentest"
 )
 
 var (
-	update = flag.Bool("update", false, "update cached screenshots")
-	vars   = flag.String("vars", "", "provide variables to the script template as comma separated KEY:VALUE pairs")
+	update      = flag.Bool("u", false, "update cached screenshots")
+	vars        = flag.String("v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
+	concurrency = flag.Int("c", (runtime.NumCPU()+1)/2, "number of testcases to run concurrently")
 )
 
 func main() {
 	flag.Usage = func() {
-		fmt.Printf("Usage: screentest [OPTIONS] glob\n")
+		fmt.Printf("Usage: screentest [flags] [glob]\n")
 		flag.PrintDefaults()
 	}
 	flag.Parse()
@@ -47,7 +60,7 @@ func main() {
 			parsedVars[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		}
 	}
-	if err := screentest.CheckHandler(glob, *update, parsedVars); err != nil {
+	if err := screentest.CheckHandler(glob, *update, *concurrency, parsedVars); err != nil {
 		log.Fatal(err)
 	}
 }

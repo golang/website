@@ -130,7 +130,7 @@ import (
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
 // encountered, CheckHandler returns an error listing the problems.
-func CheckHandler(glob string, update bool, vars map[string]string) error {
+func CheckHandler(glob string, update bool, maxConcurrency int, vars map[string]string) error {
 	now := time.Now()
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
@@ -160,7 +160,8 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
-		for _, tc := range tests {
+		runConcurrently(len(tests), maxConcurrency, func(i int) {
+			tc := tests[i]
 			if err := tc.run(ctx, update); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
@@ -170,7 +171,7 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 				fmt.Fprintf(&buf, "inspect diff at %s\n\n", tc.outDiff)
 			}
 			fmt.Println(tc.output.String())
-		}
+		})
 	}
 	fmt.Printf("finished in %s\n\n", time.Since(now).Truncate(time.Millisecond))
 	if buf.Len() > 0 {
@@ -180,7 +181,7 @@ func CheckHandler(glob string, update bool, vars map[string]string) error {
 }
 
 // TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string, update bool, vars map[string]string) {
+func TestHandler(t *testing.T, glob string, update, parallel bool, vars map[string]string) {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -206,6 +207,9 @@ func TestHandler(t *testing.T, glob string, update bool, vars map[string]string)
 		defer cancel()
 		for _, tc := range tests {
 			t.Run(tc.name, func(t *testing.T) {
+				if parallel {
+					t.Parallel()
+				}
 				if err := tc.run(ctx, update); err != nil {
 					t.Fatal(err)
 				}
@@ -786,5 +790,24 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 		case <-ctx.Done():
 			return ctx.Err()
 		}
+	}
+}
+
+// runConcurrently calls f on each integer from 0 to n-1,
+// with at most max invocations active at once.
+// It waits for all invocations to complete.
+func runConcurrently(n, max int, f func(int)) {
+	tokens := make(chan struct{}, max)
+	for i := 0; i < n; i++ {
+		i := i
+		tokens <- struct{}{} // wait until the number of goroutines is below the limit
+		go func() {
+			f(i)
+			<-tokens // let another goroutine run
+		}()
+	}
+	// Wait for all goroutines to finish.
+	for i := 0; i < cap(tokens); i++ {
+		tokens <- struct{}{}
 	}
 }
