@@ -25,7 +25,7 @@ through the code being fuzzed to find and report failures to the user. Since it
 can reach edge cases which humans often miss, fuzz testing can be particularly
 valuable for finding security exploits and vulnerabilities.
 
-Below is an example of a [fuzz test](#glos-fuzz-test), highlighting it's main
+Below is an example of a [fuzz test](#glos-fuzz-test), highlighting its main
 components.
 
 <img alt="Example code showing the overall fuzz test, with a fuzz target within
