@@ -24,6 +24,16 @@ new versions are being deployed. The `testdata/live.txt` file is special
 and used only when testing a live server, because its test cases depend
 on production resources.
 
+## Screentest
+
+The go.dev web site has a suite of visual checks that can be run with:
+
+	go run ./cmd/screentest
+
+These checks can be run locally and will generate visual diffs of web pages
+from the set of testcases in `cmd/screentest/godev.txt`, comparing screenshots
+of the live server and a locally running instance of cmd/golangorg.
+
 ## Deploying to go.dev and golang.org
 
 Each time a CL is reviewed and submitted, the site is automatically deployed to App Engine.
