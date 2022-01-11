@@ -15,7 +15,8 @@ steps:
   - name: golang
     args: ["bash", "-c", "go run ./cmd/events > ./_content/events.yaml"]
   - name: golang
-    args: ["go", "run", "./cmd/locktrigger", "--project=$PROJECT_ID", "--build=$BUILD_ID"]
+    args: ["go", "run", "./cmd/locktrigger", "--project=$PROJECT_ID",
+    "--build=$BUILD_ID", "--repo=https://go.googlesource.com/website"]
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]

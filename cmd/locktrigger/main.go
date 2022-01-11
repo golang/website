@@ -54,10 +54,11 @@ import (
 var (
 	project = flag.String("project", "", "GCP project `name` (required)")
 	build   = flag.String("build", "", "GCP build `id` (required)")
+	repo    = flag.String("repo", "", "`URL` of repository (required)")
 )
 
 func usage() {
-	fmt.Fprintf(os.Stderr, "usage: locktrigger -project=name -build=id\n")
+	fmt.Fprintf(os.Stderr, "usage: locktrigger -project=name -build=id -repo=URL\n")
 	os.Exit(2)
 }
 
@@ -67,7 +68,7 @@ func main() {
 	log.SetPrefix("locktrigger: ")
 	log.SetFlags(0)
 
-	if *project == "" || *build == "" {
+	if *project == "" || *build == "" || *repo == "" {
 		usage()
 	}
 
@@ -140,7 +141,7 @@ func main() {
 		// if we are the only build that is running.
 		if shallow {
 			log.Printf("git fetch --unshallow")
-			run("git", "fetch", "--unshallow", "https://go.googlesource.com/website")
+			run("git", "fetch", "--unshallow", *repo)
 			shallow = false
 		}
 
