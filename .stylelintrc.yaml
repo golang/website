@@ -12,3 +12,4 @@ rules:
   order/properties-alphabetical-order: true
   unit-disallowed-list:
     - 'px'
+  selector-class-pattern: '^[a-zA-Z\-]+$'
