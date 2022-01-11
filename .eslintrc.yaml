@@ -1,7 +1,7 @@
 root: true
 extends: google
 parserOptions:
-  ecmaVersion: 6
+  ecmaVersion: 2018
 rules:
   require-jsdoc: 'off'
   indent: 'off'

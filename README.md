@@ -53,6 +53,13 @@ Reference .ts files in html templates as module code.
 
   `<script type="module" src="/ts/filename.ts">`
 
+Write unit tests for TypeScript code using the [jest](https://jestjs.io/)
+testing framework.
+
+### Run Jest
+
+    ./npx jest [TestPathPattern]
+
 ## Deploying
 
 Each time a CL is reviewed and submitted, the code is deployed to App Engine.
