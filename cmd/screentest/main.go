@@ -13,6 +13,8 @@ The flags are:
     variables provided to script templates as comma separated KEY:VALUE pairs
   -c
     number of testcases to run concurrently
+	-d
+		chrome debugger url
 */
 package main
 
@@ -32,6 +34,7 @@ var (
 	update      = flag.Bool("u", false, "update cached screenshots")
 	vars        = flag.String("v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	concurrency = flag.Int("c", (runtime.NumCPU()+1)/2, "number of testcases to run concurrently")
+	debuggerURL = flag.String("d", "", "chrome debugger url")
 )
 
 func main() {
@@ -60,7 +63,13 @@ func main() {
 			parsedVars[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		}
 	}
-	if err := screentest.CheckHandler(glob, *update, *concurrency, parsedVars); err != nil {
+	opts := screentest.CheckOptions{
+		Update:         *update,
+		MaxConcurrency: *concurrency,
+		Vars:           parsedVars,
+		DebuggerURL:    *debuggerURL,
+	}
+	if err := screentest.CheckHandler(glob, opts); err != nil {
 		log.Fatal(err)
 	}
 }

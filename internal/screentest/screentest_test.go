@@ -239,7 +239,7 @@ func TestCheckHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckHandler(tt.args.glob, false, 1, nil); (err != nil) != tt.wantErr {
+			if err := CheckHandler(tt.args.glob, CheckOptions{}); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if len(tt.wantFiles) != 0 {
@@ -262,7 +262,7 @@ func TestTestHandler(t *testing.T) {
 	if err != nil {
 		t.Skip()
 	}
-	TestHandler(t, "testdata/pass.txt", false, false, nil)
+	TestHandler(t, "testdata/pass.txt", TestOpts{})
 }
 
 func TestHeaders(t *testing.T) {

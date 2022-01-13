@@ -128,9 +128,28 @@ import (
 	"google.golang.org/api/iterator"
 )
 
+type CheckOptions struct {
+	// Update is true if cached screenshots should be udpated.
+	Update bool
+
+	// MaxConcurrency is the maximum number of testcases to run in parallel.
+	MaxConcurrency int
+
+	// Vars are accessible as values in the test script templates.
+	Vars map[string]string
+
+	// DebuggerURL is the URL to a chrome websocket debugger. If left empty
+	// screentest tries to find the Chrome exectuable on the system and starts
+	// a new instance.
+	DebuggerURL string
+}
+
 // CheckHandler runs the test scripts matched by glob. If any errors are
 // encountered, CheckHandler returns an error listing the problems.
-func CheckHandler(glob string, update bool, maxConcurrency int, vars map[string]string) error {
+func CheckHandler(glob string, opts CheckOptions) error {
+	if opts.MaxConcurrency < 1 {
+		opts.MaxConcurrency = 1
+	}
 	now := time.Now()
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
@@ -140,14 +159,19 @@ func CheckHandler(glob string, update bool, maxConcurrency int, vars map[string]
 	if len(files) == 0 {
 		return fmt.Errorf("no files match %q", glob)
 	}
-	ctx, cancel := chromedp.NewExecAllocator(ctx, append(
-		chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.WindowSize(browserWidth, browserHeight),
-	)...)
+	var cancel context.CancelFunc
+	if opts.DebuggerURL != "" {
+		ctx, cancel = chromedp.NewRemoteAllocator(ctx, opts.DebuggerURL)
+	} else {
+		ctx, cancel = chromedp.NewExecAllocator(ctx, append(
+			chromedp.DefaultExecAllocatorOptions[:],
+			chromedp.WindowSize(browserWidth, browserHeight),
+		)...)
+	}
 	defer cancel()
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, vars)
+		tests, err := readTests(file, opts.Vars)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
@@ -160,9 +184,9 @@ func CheckHandler(glob string, update bool, maxConcurrency int, vars map[string]
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
-		runConcurrently(len(tests), maxConcurrency, func(i int) {
+		runConcurrently(len(tests), opts.MaxConcurrency, func(i int) {
 			tc := tests[i]
-			if err := tc.run(ctx, update); err != nil {
+			if err := tc.run(ctx, opts.Update); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
@@ -180,8 +204,19 @@ func CheckHandler(glob string, update bool, maxConcurrency int, vars map[string]
 	return nil
 }
 
+type TestOpts struct {
+	// Update is true if cached screenshots should be udpated.
+	Update bool
+
+	// Parallel runs t.Parallel for each testcase.
+	Parallel bool
+
+	// Vars are accessible as values in the test script templates.
+	Vars map[string]string
+}
+
 // TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string, update, parallel bool, vars map[string]string) {
+func TestHandler(t *testing.T, glob string, opts TestOpts) {
 	ctx := context.Background()
 	files, err := filepath.Glob(glob)
 	if err != nil {
@@ -196,7 +231,7 @@ func TestHandler(t *testing.T, glob string, update, parallel bool, vars map[stri
 	)...)
 	defer cancel()
 	for _, file := range files {
-		tests, err := readTests(file, vars)
+		tests, err := readTests(file, opts.Vars)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -207,10 +242,10 @@ func TestHandler(t *testing.T, glob string, update, parallel bool, vars map[stri
 		defer cancel()
 		for _, tc := range tests {
 			t.Run(tc.name, func(t *testing.T) {
-				if parallel {
+				if opts.Parallel {
 					t.Parallel()
 				}
-				if err := tc.run(ctx, update); err != nil {
+				if err := tc.run(ctx, opts.Update); err != nil {
 					t.Fatal(err)
 				}
 			})
