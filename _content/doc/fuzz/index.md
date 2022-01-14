@@ -220,7 +220,7 @@ $ file2fuzz
 
 - **Tutorial**:
   - For an introductory tutorial of fuzzing with Go, please see [the blog
-    post](https://go.dev/blog/fuzz-beta).
+    post](/blog/fuzz-beta).
   - More to come soon!
 - **Documentation**:
   - The [`testing`](https://pkg.go.dev//testing#hdr-Fuzzing) package docs

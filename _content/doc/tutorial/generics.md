@@ -22,7 +22,7 @@ You'll progress through the following sections:
 **Note:** For other tutorials, see [Tutorials](/doc/tutorial/index.html).
 
 **Note:** If you prefer, you can use
-[the Go playground in “Go dev branch” mode](https://go.dev/play/?v=gotip)
+[the Go playground in “Go dev branch” mode](/play/?v=gotip)
 to edit and run your program instead.
 
 ## Prerequisites
@@ -484,7 +484,7 @@ Suggested next topics:
 
 <!--TODO: Update text and link after release.-->
 You can run this program in the
-[Go playground](https://go.dev/play/p/apNmfVwogK0?v=gotip). On the
+[Go playground](/play/p/apNmfVwogK0?v=gotip). On the
 playground simply click the **Run** button.
 
 ```

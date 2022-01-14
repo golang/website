@@ -458,7 +458,7 @@ However, characters such as 泃 can require several bytes. Thus, reversing the
 string byte-by-byte will invalidate multi-byte characters.
 
 **Note:** If you’re curious about how Go deals with strings, read the blog post
-[Strings, bytes, runes and characters in Go](https://go.dev/blog/strings) for a
+[Strings, bytes, runes and characters in Go](/blog/strings) for a
 deeper understanding.
 
 With a better understanding of the bug, correct the error in the `Reverse`
@@ -537,7 +537,7 @@ would be a great approach.
 In this tutorial, we will log useful debugging info in the `Reverse` function.
 
 Look closely at the reversed string to spot the error. In Go, [a string is a
-read only slice of bytes](https://go.dev/blog/strings), and can contain bytes
+read only slice of bytes](/blog/strings), and can contain bytes
 that aren’t valid UTF-8. The original string is a byte slice with one byte,
 `'\x91'`. When the input string is set to rune[], Go encodes the byte slice to
 UTF-8, and replaces the byte with the UTF-8 character �. When we compare the
