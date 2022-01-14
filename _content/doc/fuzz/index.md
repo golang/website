@@ -13,6 +13,8 @@
 
 Go supports fuzzing in its standard toolchain beginning in Go 1.18.
 
+**Try out the [tutorial for fuzzing with Go](/doc/tutorial/fuzz).**
+
 ## Overview
 
 Fuzzing is a type of automated testing which continuously manipulates inputs to
@@ -219,9 +221,10 @@ $ file2fuzz
 ## Resources
 
 - **Tutorial**:
-  - For an introductory tutorial of fuzzing with Go, please see [the blog
-    post](/blog/fuzz-beta).
-  - More to come soon!
+  - Try out the [tutorial for fuzzing with Go](/doc/tutorial/fuzz) for a deep
+    dive into the new concepts.
+  - For a shorter, introductory tutorial of fuzzing with Go, please see [the
+    blog post](/blog/fuzz-beta).
 - **Documentation**:
   - The [`testing`](https://pkg.go.dev//testing#hdr-Fuzzing) package docs
     describes the `testing.F` type which is used when writing fuzz tests.
