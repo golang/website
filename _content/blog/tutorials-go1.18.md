@@ -1,6 +1,6 @@
 ---
 title: "Two New Tutorials for 1.18"
-date: 2021-01-14
+date: 2022-01-14
 by:
 - Katie Hockman, for the Go team
 summary: Two new tutorials have been published in preparation for the release of Go 1.18.
