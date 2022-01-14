@@ -561,8 +561,8 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			if gcsBucket {
 				outfile = out + "/" + sanitized(test.name)
 			}
-			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".png"
-			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".png"
+			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".a.png"
+			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".b.png"
 			test.outDiff = outfile + ".diff.png"
 		default:
 			// We should never reach this error.
