@@ -742,6 +742,7 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
+		reduceMotion(),
 		tc.tasks,
 	)
 	switch tc.screenshotType {
@@ -756,6 +757,28 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
 	}
 	return buf, nil
+}
+
+func reduceMotion() chromedp.Action {
+	css := `*, ::before, ::after {
+		animation-delay: -1ms !important;
+		animation-duration: 1ms !important;
+		animation-iteration-count: 1 !important;
+		background-attachment: initial !important;
+		caret-color: transparent;
+		scroll-behavior: auto !important;
+		transition-duration: 0s !important;
+		transition-delay: 0s !important;
+	}`
+	script := `
+	(() => {
+		const style = document.createElement('style');
+		style.type = 'text/css';
+		style.appendChild(document.createTextNode(` + "`" + css + "`" + `));
+		document.head.appendChild(style);
+	})()
+	`
+	return chromedp.Evaluate(script, nil)
 }
 
 // writePNG writes image data to a png file.
