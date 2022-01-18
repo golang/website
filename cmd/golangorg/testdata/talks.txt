@@ -7,6 +7,14 @@ redirect == https://go.dev/talks/any/thing
 GET https://go.dev/talks/
 body contains <a href="/talks/2009">2009</a>
 
+GET https://go.dev/talks/2011/lex.slide#39
+body contains <i>(Note: This restriction was lifted in Go version 1 but the discussion is still interesting.)</i>
+body !contains _(Note:_This_restriction_was_lifted_in_Go_version_1_but_the_discussion_is_still_interesting.)_
+
 GET https://go.dev/talks/2013/bestpractices.slide
 body contains <h1>Twelve Go Best Practices</h1>
 body contains <script src='/talks/static/slides.js'></script>
+
+GET https://go.dev/talks/2017/state-of-go-may.slide#26
+body contains <a href="https://en.wikipedia.org/wiki/DWARF" target="_blank">DWARF</a>
+body !contains [[https://en.wikipedia.org/wiki/DWARF][DWARF]]
