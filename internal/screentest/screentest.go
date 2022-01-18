@@ -638,6 +638,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		return nil
 	})
 	if err := g.Wait(); err != nil {
+		fmt.Fprint(&tc.output, err)
 		return err
 	}
 	result := imgdiff.Diff(*screenA, *screenB, &imgdiff.Options{
