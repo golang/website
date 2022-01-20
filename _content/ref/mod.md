@@ -712,6 +712,11 @@ must match the module path it replaces.
 and are ignored in other modules. See [Minimal version
 selection](#minimal-version-selection) for details.
 
+If there are multiple main modules, all main modules' `go.mod`
+files apply. Conflicting `replace` directives across main
+modules are disallowed, and must be removed or overridden in
+a [replace in the `go.work file`](#go-work-file-replace).
+
 Note that a `replace` directive alone does not add a module to the [module
 graph](#glos-module-graph). A [`require` directive](#go-mod-file-require) that
 refers to a replaced module version is also needed, either in the main module's
@@ -895,13 +900,14 @@ Conceptually, MVS operates on a directed graph of modules, specified with
 [`go.mod` files](#glos-go-mod-file). Each vertex in the graph represents a
 module version. Each edge represents a minimum required version of a dependency,
 specified using a [`require`](#go-mod-file-require)
-directive. [`replace`](#go-mod-file-replace) and [`exclude`](#go-mod-file-exclude)
-directives in the main module's `go.mod` file modify the graph.
+directive. The graph may be modified by [`exclude`](#go-mod-file-exclude)
+and [`replace`](#go-mod-file-replace) directives in the `go.mod` file(s) of the main
+module(s) and by [`replace`](#go-work-file-replace) directives in the `go.work` file.
 
 MVS produces the [build list](#glos-build-list) as output, the list of module
 versions used for a build.
 
-MVS starts at the main module (a special vertex in the graph that has no
+MVS starts at the main modules (special vertices in the graph that have no
 version) and traverses the graph, tracking the highest required version of each
 module. At the end of the traversal, the highest required versions comprise the
 build list: they are the minimum versions that satisfy all requirements.
@@ -927,9 +933,9 @@ requires them.
 ### Replacement {#mvs-replace}
 
 The content of a module (including its `go.mod` file) may be replaced using a
-[`replace` directive](#go-mod-file-replace) in the main module's `go.mod` file.
-A `replace` directive may apply to a specific version of a module or to all
-versions of a module.
+[`replace` directive](#go-mod-file-replace) in a main module's `go.mod` file
+or a workspace's `go.work` file. A `replace` directive may apply to a specific
+version of a module or to all versions of a module.
 
 Replacements change the module graph, since a replacement module may have
 different dependencies than replaced versions.
@@ -1062,6 +1068,173 @@ those packages, and their requirements are checked against the requirements of
 the main module to ensure that they are locally consistent. (Inconsistencies can
 arise due to version-control merges, hand-edits, and changes in modules that
 have been [replaced](#go-mod-file-replace) using local filesystem paths.)
+
+## Workspaces {#workspaces}
+
+A <dfn>workspace</dfn> is a collection of modules on disk that are used as
+the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+
+A workspace can be declared in a [`go.work` file](#go-work-file) that specifies
+relative paths to the module directories of each of the modules in the workspace.
+When no `go.work` file exists, the workspace consists of the single module
+containing the current directory.
+
+Most `go` subcommands that work with modules
+operate on the set of modules determined by the current workspace.
+`go mod init`, `go mod why`, `go mod edit`, `go mod tidy`, `go mod vendor`,
+and `go get` always operate on a single main module.
+
+A command determines whether it is in a workspace context by first examining
+the `-workfile` flag. If `-workfile` is set to `off`, the command will be
+in a single-module context. If it is empty or not provided, the command
+will search the current working directory, and then successive parent directories,
+for a file `go.work`. If a file is found, the command will operate in the
+workspace it defines; otherwise, the workspace will include only the module
+containing the working directory.
+If `-workfile` names a path to an existing file that ends in .work,
+workspace mode will be enabled. Any other value is an error.
+
+### `go.work` files {#go-work-file}
+
+A workspace is defined by a UTF-8 encoded text file named `go.work`. The
+`go.work` file is line oriented. Each line holds a single directive, made up of
+a keyword followed by arguments. For example:
+
+```
+go 1.18
+
+use ./my/first/thing
+use ./my/second/thing
+
+replace example.com/bad/thing v1.4.5 => example.com/good/thing v1.4.5
+```
+
+As in `go.mod` files, a leading keyword can be factored out of adjacent lines
+to create a block.
+
+```
+use (
+    ./my/first/thing
+    ./my/second/thing
+```
+
+The `go` command provides several subcommands for manipulating `go.work` files.
+[`go work init`](#go-work-init) creates new `go.work` files. [`go work use`](#go-work-use) adds module directories to
+the `go.work` file. [`go work edit`](#go-work-edit) performs low-level
+edits. The
+[`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
+package can be used by Go programs to make the same changes programmatically.
+
+### Lexical elements {#go-work-file-lexical}
+
+Lexical elements in `go.work` files are defined in exactly the same way [as for
+`go.mod files`](#go-mod-file-lexical).
+
+### Grammar {#go-work-file-grammar}
+
+`go.work` syntax is specified below using Extended Backus-Naur Form (EBNF).
+See the [Notation section in the Go Language Specification](/ref/spec#Notation)
+for details on EBNF syntax.
+
+```
+GoWork = { Directive } .
+Directive = GoDirective |
+            UseDirective |
+            ReplaceDirective .
+```
+
+Newlines, identifiers, and strings are denoted with `newline`, `ident`, and
+`string`, respectively.
+
+Module paths and versions are denoted with `ModulePath` and `Version`.
+Module paths and versions are specified in exactly the same way [as for
+`go.mod files`](#go-mod-file-lexical).
+
+```
+ModulePath = ident | string . /* see restrictions above */
+Version = ident | string .    /* see restrictions above */
+```
+
+### `go` directive {#go-mod-file-go}
+
+A `go` directive is required in a valid `go.work` file. The version must
+be a valid Go release version: a positive
+integer followed by a dot and a non-negative integer (for example, `1.18`,
+`1.19`).
+
+The `go` directive indicates the  go  toolchain version with which the
+`go.work` file is intended to work. If changes are made to the `go.work`
+file format, future versions of the toolchain will interpret the file
+according to its indicated version.
+
+A `go.work` file may contain at most one `go` directive.
+
+```
+GoDirective = "go" GoVersion newline .
+GoVersion = string | ident .  /* valid release version; see above */
+```
+
+Example:
+
+```
+go 1.18
+```
+
+### `use` directive {#go-work-file-use}
+
+A `use` adds a module on disk to the set of main modules in a workspace.
+Its argument is a relative path to the directory containing the module's
+`go.mod` file. A `use` directive does not add modules contained in
+subdirectories of its argument directory. Those modules may be added by
+the directory containing their `go.mod` file in separate `use` directives.
+
+```
+UseDirective = "use" ( UseSpec | "(" newline { UseSpec } ")" newline ) .
+UseSpec = FilePath newline .
+FilePath = /* platform-specific relative or absolute file path */
+
+```
+
+Example:
+
+```
+use ./mymod  // example.com/mymod
+
+use (
+    ../othermod
+    ./subdir/thirdmod
+)
+```
+
+### `replace` directive {#go-work-file-replace}
+
+Similar to a `replace` directive in a `go.mod` file, a `replace` directive in
+a `go.work` file replaces the contents of a specific version of a module,
+or all versions of a module, with contents found elsewhere. A wildcard replace
+in `go.work` overrides a version-specific `replace` in a `go.mod` file.
+
+`replace` directives in `go.work` files override any replaces of the same
+module or module version in workspace modules.
+
+```
+ReplaceDirective = "replace" ( ReplaceSpec | "(" newline { ReplaceSpec } ")" newline ) .
+ReplaceSpec = ModulePath [ Version ] "=>" FilePath newline
+            | ModulePath [ Version ] "=>" ModulePath Version newline .
+FilePath = /* platform-specific relative or absolute file path */
+```
+
+Example:
+
+```
+replace golang.org/x/net v1.2.3 => example.com/fork/net v1.4.5
+
+replace (
+    golang.org/x/net v1.2.3 => example.com/fork/net v1.4.5
+    golang.org/x/net => example.com/fork/net v1.4.5
+    golang.org/x/net v1.2.3 => ./fork/net
+    golang.org/x/net => ./fork/net
+)
+```
 
 ## Compatibility with non-module repositories {#non-module-compat}
 
@@ -1270,6 +1443,11 @@ commands accept the following flags, common to all module commands.
   `-modfile` is specified, an alternate `go.sum` file is also used: its path is
   derived from the `-modfile` flag by trimming the `.mod` extension and
   appending `.sum`.
+* The `-workfile` flag instructs the `go` command to enter workspace mode using the provided
+  [`go.work` file](#go-work-file) to define the workspace. If `-workfile` is
+  set to `off` workspace mode is disabled. If `-workfile` is not provided the
+  `go` command will search for a `go.work` file as described in the
+  [Workspaces](#workspaces) section.
 
 ### Vendoring {#vendoring}
 
@@ -2324,6 +2502,135 @@ disabling module-aware mode.
     </tr>
   </tbody>
 </table>
+
+### `go work init` {#go-work-init}
+
+Usage:
+
+```
+go work init [moddirs]
+```
+
+Init initializes and writes a new go.work file in the
+current directory, in effect creating a new workspace at the current
+directory.
+
+go work init optionally accepts paths to the workspace modules as
+arguments. If the argument is omitted, an empty workspace with no
+modules will be created.
+
+Each argument path is added to a use directive in the go.work file. The
+current go version will also be listed in the go.work file.
+
+### `go work edit` {#go-work-edit}
+
+Usage:
+
+```
+go work edit [editing flags] [go.work]
+```
+
+The `go work edit` command provides a command-line interface for editing `go.work`,
+for use primarily by tools or scripts. It only reads `go.work`;
+it does not look up information about the modules involved.
+If no file is specified, Edit looks for a `go.work` file in the current
+directory and its parent directories
+
+The editing flags specify a sequence of editing operations.
+* The `-fmt` flag reformats the go.work file without making other changes.
+  This reformatting is also implied by any other modifications that use or
+  rewrite the `go.work` file. The only time this flag is needed is if no other
+  flags are specified, as in 'go work edit `-fmt`'.
+* The `-use=path` and `-dropuse=path` flags
+  add and drop a use directive from the `go.work` file's set of module directories.
+* The `-replace=old[@v]=new[@v]` flag adds a replacement of the given
+  module path and version pair. If the `@v` in `old@v` is omitted, a
+  replacement without a version on the left side is added, which applies
+  to all versions of the old module path. If the `@v` in `new@v` is omitted,
+  the new path should be a local module root directory, not a module
+  path. Note that `-replace` overrides any redundant replacements for `old[@v]`,
+  so omitting `@v` will drop existing replacements for specific versions.
+* The `-dropreplace=old[@v]` flag drops a replacement of the given
+  module path and version pair. If the `@v` is omitted, a replacement without
+  a version on the left side is dropped.
+* The `-go=version` flag sets the expected Go language version.
+
+The editing flags may be repeated. The changes are applied in the order given.
+
+`go work edit` has additional flags that control its output
+
+* The -print flag prints the final go.work in its text format instead of
+  writing it back to go.mod.
+* The -json flag prints the final go.work file in JSON format instead of
+  writing it back to go.mod. The JSON output corresponds to these Go types:
+
+```
+type Module struct {
+    Path    string
+    Version string
+}
+
+type GoWork struct {
+    Go        string
+    Directory []Directory
+    Replace   []Replace
+}
+
+type Use struct {
+    Path       string
+    ModulePath string
+}
+
+type Replace struct {
+    Old Module
+    New Module
+}
+```
+
+### `go work use` {#go-work-use}
+
+Usage:
+
+```
+go work use [-r] [moddirs]
+```
+
+The `go work use` command provides a command-line interface for adding
+directories, optionally recursively, to a `go.work` file.
+
+A [`use` directive](#go-work-file-use) will be added to the `go.work` file for each argument
+directory listed on the command line `go.work` file, if it exists on disk,
+or removed from the `go.work` file if it does not exist on disk.
+
+The `-r` flag searches recursively for modules in the argument
+directories, and the use command operates as if each of the directories
+were specified as arguments: namely, `use` directives will be added for
+directories that exist, and removed for directories that do not exist.
+
+### `go work sync` {#go-work-sync}
+
+Usage:
+
+```
+go work sync
+```
+
+The `go work sync` command syncs the workspace's build list back to the
+workspace's modules.
+
+The workspace's build list is the set of versions of all the
+(transitive) dependency modules used to do builds in the workspace. `go
+work sync` generates that build list using the [Minimal Version Selection
+(MVS)](#glos-minimal-version-selection)
+algorithm, and then syncs those versions back to each of modules
+specified in the workspace (with `use` directives).
+
+Once the workspace build list is computed, the `go.mod` file for each
+module in the workspace is rewritten with the dependencies relevant
+to that module upgraded to match the workspace build list.
+Note that [Minimal Version Selection](#glos-minimal-version-selection)
+guarantees that the build list's version of each module is always
+the same or higher than that in each workspace module.
 
 ## Module proxies {#module-proxy}
 
@@ -4070,6 +4377,11 @@ other metadata. Appears in the [module's root
 directory](#glos-module-root-directory). See the section on [`go.mod`
 files](#go-mod-file).
 
+<a id="glos-go-work-file"></a>
+**`go.work` file** The file that defines the set of modules to be
+used in a [workspace](#workspaces). See the section on
+[`go.work` files](#go-work-file)
+
 <a id="glos-import-path"></a>
 **import path:** A string used to import a package in a Go source file.
 Synonymous with [package path](#glos-package-path).
@@ -4232,3 +4544,8 @@ other modules needed to build packages in the main module. Maintained with
 **version:** An identifier for an immutable snapshot of a module, written as the
 letter `v` followed by a semantic version. See the section on
 [Versions](#versions).
+
+<a id="glos-workspace"></a>
+**workspace:** A collection of modules on disk that are used as
+the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+See the section on [Workspaces](#workspaces)
