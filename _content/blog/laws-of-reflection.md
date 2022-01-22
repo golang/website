@@ -23,6 +23,13 @@ Each language's reflection model is different (and many languages don't support 
 but this article is about Go, so for the rest of this article the word "reflection"
 should be taken to mean "reflection in Go".
 
+Note added January 2022: This blog post was written in 2011 and predates
+parametric polymorphism (a.k.a. generics) in Go.
+Although nothing important in the article has become incorrect as as a result
+of that development in the language,
+it has been tweaked in a few places to avoid
+confusing someone familiar with modern Go.
+
 ## Types and interfaces
 
 Because reflection builds on the type system, let's start with a refresher about types in Go.
@@ -43,6 +50,8 @@ they cannot be assigned to one another without a conversion.
 
 One important category of type is interface types,
 which represent fixed sets of methods.
+(When discussing reflection, we can ignore the use of
+interface definitions as constraints within polymorphic code.)
 An interface variable can store any concrete (non-interface) value as long
 as that value implements the interface's methods.
 A well-known pair of examples is `io.Reader` and `io.Writer`,
@@ -77,7 +86,11 @@ An extremely important example of an interface type is the empty interface:
 
 	interface{}
 
-It represents the empty set of methods and is satisfied by any value at all, since any value has zero or more methods.
+or its equivalent alias,
+
+	any
+
+It represents the empty set of methods and is satisfied by any value at all, since every value has zero or more methods.
 
 Some people say that Go's interfaces are dynamically typed,
 but that is misleading.
@@ -141,7 +154,7 @@ In the example where we moved a value from a `Reader` to a `Writer`,
 we needed to be explicit and use a type assertion because `Writer`'s methods
 are not a subset of `Reader`'s.)
 
-One important detail is that the pair inside an interface always has the form (value,
+One important detail is that the pair inside an interface variable always has the form (value,
 concrete type) and cannot have the form (value, interface type).
 Interfaces do not hold interface values.
 
@@ -158,7 +171,7 @@ To get started, there are two types we need to know about in [package reflect](/
 Those two types give access to the contents of an interface variable,
 and two simple functions, called `reflect.TypeOf` and `reflect.ValueOf`,
 retrieve `reflect.Type` and `reflect.Value` pieces out of an interface value.
-(Also, from the `reflect.Value` it's easy to get to the `reflect.Type`,
+(Also, from a `reflect.Value` it's easy to get to the corresponding `reflect.Type`,
 but let's keep the `Value` and `Type` concepts separate for now.)
 
 Let's start with `TypeOf`:
@@ -260,7 +273,7 @@ If a reflection object contains a value of a user-defined integer type, as in
 
 the `Kind` of `v` is still `reflect.Int`,
 even though the static type of `x` is `MyInt`, not `int`.
-In other words, the `Kind` cannot discriminate an int from a `MyInt` even
+In other words, the `Kind` cannot discriminate an `int` from a `MyInt` even
 though the `Type` can.
 
 ## The second law of reflection
@@ -292,8 +305,16 @@ is to pass the result of the `Interface` method to the formatted print routine:
 
 	fmt.Println(v.Interface())
 
-(Why not `fmt.Println(v)`? Because `v` is a `reflect.Value`;
-we want the concrete value it holds.) Since our value is a `float64`,
+(Since the this article was first written, a change was made to the `fmt`
+package so that it automatically unpacks a `reflect.Value` like this, so
+we could just say
+
+	fmt.Println(v)
+
+for the same result, but for clarity we'll keep the `.Interface()` calls
+here.)
+
+Since our value is a `float64`,
 we can even use a floating-point format if we want:
 
 	fmt.Printf("value is %7.1e\n", v.Interface())
