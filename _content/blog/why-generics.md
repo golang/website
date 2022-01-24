@@ -356,6 +356,12 @@ To finish up this article I’m going to shift from discussing why we
 want generics, and what the requirements on them are, to briefly
 discuss a design for how we think we can add them to the language.
 
+Note added January 2022: This blog post was written in 2019 and does
+not describe the version of generics that was finally adopted.
+For updated information please see [the language
+spec](https://go.dev/ref/spec) and [the generics design document]
+(https://go.dev/design/43651-type-parameters).
+
 At this year's Gophercon Robert Griesemer and I published
 [a design draft](https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md)
 for adding generics to Go.
@@ -608,9 +614,10 @@ It lets the caller of the generic function clearly see whether the
 function is applicable for the types being used.
 
 In practice this contract would probably go into the standard library,
-and so really the Min function (which will probably also be in the
-standard library somewhere) will look like this.  Here we're just
-referring to the contract Ordered defined in the package contracts.
+and so really the `Min` function (which will probably also be in the
+standard library somewhere) will look like this.
+Here we're just referring to the contract `Ordered` defined in the
+contracts package.
 
 {{raw `
 	func Min (type T contracts.Ordered) (a, b T) T {
@@ -686,7 +693,7 @@ This is the code for inserting a new value.
 		return true
 	}
 
-Notice the type argument `E` to the type `node`.
+Notice that the type `node` has a type argument `E`.
 This is what it looks like to write a generic data structure.
 As you can see, it looks like writing ordinary Go code, except that
 some type arguments are sprinkled in here and there.
