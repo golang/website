@@ -42,6 +42,10 @@
 //
 //  compare https://go.dev::cache http://localhost:6060
 //
+// Use block URL ... to set URL patterns to block. Wildcards ('*') are allowed.
+//
+//  block https://codecov.io/* https://travis-ci.com/*
+//
 // Use output DIRECTORY to set the output directory for diffs and cached images.
 //
 //  output testdata/snapshots
@@ -385,6 +389,7 @@ type testcase struct {
 	viewportHeight            int
 	screenshotType            screenshotType
 	screenshotElement         string
+	blockedURLs               []string
 	output                    bytes.Buffer
 }
 
@@ -412,6 +417,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 		gcsBucket          bool
 		width, height      int
 		lineNo             int
+		blockedURLs        []string
 	)
 	cache, err := os.UserCacheDir()
 	if err != nil {
@@ -506,6 +512,8 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			tasks = append(tasks, chromedp.WaitReady(args))
 		case "EVAL":
 			tasks = append(tasks, chromedp.Evaluate(args, nil))
+		case "BLOCK":
+			blockedURLs = append(blockedURLs, strings.Fields(args)...)
 		case "CAPTURE":
 			if originA == "" || originB == "" {
 				return nil, fmt.Errorf("missing compare for capture on line %d", lineNo)
@@ -522,11 +530,12 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
 			}
 			test := &testcase{
-				name:    testName,
-				tasks:   tasks,
-				urlA:    urlA.String(),
-				urlB:    urlB.String(),
-				headers: headers,
+				name:        testName,
+				tasks:       tasks,
+				urlA:        urlA.String(),
+				urlB:        urlB.String(),
+				headers:     headers,
+				blockedURLs: blockedURLs,
 				// Default to viewportScreenshot
 				screenshotType: viewportScreenshot,
 				viewportWidth:  width,
@@ -738,6 +747,9 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	var tasks chromedp.Tasks
 	if tc.headers != nil {
 		tasks = append(tasks, network.SetExtraHTTPHeaders(tc.headers))
+	}
+	if tc.blockedURLs != nil {
+		tasks = append(tasks, network.SetBlockedURLS(tc.blockedURLs))
 	}
 	tasks = append(tasks,
 		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
