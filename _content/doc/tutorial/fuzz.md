@@ -153,6 +153,9 @@ In this step, you’ll add a function to reverse a string.
     }
     ```
 
+    This function will accept a `string`, loop over it a `byte` at a time, and
+    return the reversed string at the end.
+
     _Note:_ This code is based on the `stringutil.Reverse` function within
     golang.org/x/example.
 
@@ -171,8 +174,11 @@ In this step, you’ll add a function to reverse a string.
     }
     ```
 
-5.  Near the top of main.go, just beneath the package declaration, import the
-    package you’ll need to support the code you’ve just written.
+    This function will run a few `Reverse` operations, then print the output to
+    the command line. This can be helpful for seeing the code in action, and
+    potentially for debugging.
+
+5.  The `main` function uses the fmt package, so you will need to import it.
 
     The first lines of code should look like this:
 
@@ -181,8 +187,6 @@ In this step, you’ll add a function to reverse a string.
 
     import "fmt"
     ```
-
-6.  Save main.go.
 
 ### Run the code
 
@@ -194,6 +198,9 @@ original: "The quick brown fox jumped over the lazy dog"
 reversed: "god yzal eht revo depmuj xof nworb kciuq ehT"
 reversed again: "The quick brown fox jumped over the lazy dog"
 ```
+
+You can see the original string, the result of reversing it, then the result of
+reversing it again, which is equivalent to the original.
 
 Now that the code is running, it’s time to test it.
 
@@ -438,6 +445,9 @@ f.Fuzz(func(t *testing.T, orig string) {
 })
 ```
 
+This `t.Logf` line will print to the command line if an error occurs, or if
+executing the test with `-v`, which can help you debug this particular issue.
+
 #### Run the code
 
 Run the test using go test
@@ -482,6 +492,9 @@ func Reverse(s string) string {
     return string(r)
 }
 ```
+
+The key difference is that `Reverse` is now iterating over each `rune` in the
+string, rather than each `byte`.
 
 #### Run the code
 
@@ -539,7 +552,7 @@ In this tutorial, we will log useful debugging info in the `Reverse` function.
 Look closely at the reversed string to spot the error. In Go, [a string is a
 read only slice of bytes](/blog/strings), and can contain bytes
 that aren’t valid UTF-8. The original string is a byte slice with one byte,
-`'\x91'`. When the input string is set to rune[], Go encodes the byte slice to
+`'\x91'`. When the input string is set to `[]rune`, Go encodes the byte slice to
 UTF-8, and replaces the byte with the UTF-8 character �. When we compare the
 replacement UTF-8 character to the input byte slice, they are clearly not equal.
 
@@ -611,27 +624,34 @@ UTF-8.
    }
    ```
 
+   This change will return an error if the input string contains characters
+   which are not valid UTF-8.
+
 1. Since the Reverse function now returns an error, modify the `main` function to
    discard the extra error value. Replace the existing `main` function with the
    following.
 
    ```
    func main() {
-    input := "The quick brown fox jumped over the lazy dog"
-    rev, _ := Reverse(input)
-    doubleRev, _ := Reverse(rev)
-    fmt.Printf("original: %q\n", input)
-    fmt.Printf("reversed: %q\n", rev)
-    fmt.Printf("reversed again: %q\n", doubleRev)
-    }
-    ```
-1. Don't forget to import the new errors package. The first lines of main.go
-   should look like the following.
+       input := "The quick brown fox jumped over the lazy dog"
+       rev, revErr := Reverse(input)
+       doubleRev, doubleRevErr := Reverse(rev)
+       fmt.Printf("original: %q\n", input)
+       fmt.Printf("reversed: %q, err: %v\n", rev, revErr)
+       fmt.Printf("reversed again: %q, err: %v\n", doubleRev, doubleRevErr)
+   }
+   ```
+
+    These calls to `Reverse` should return a nil error, since the input
+    string is valid UTF-8.
+
+1. You will need to import the errors and the unicode/utf8 packages.
+   The import statement in main.go should look like the following.
 
    ```
    import (
-       "fmt"
        "errors"
+       "fmt"
        "unicode/utf8"
    )
    ```
@@ -751,18 +771,18 @@ further reading.
 package main
 
 import (
-    "fmt"
     "errors"
+    "fmt"
     "unicode/utf8"
 )
 
 func main() {
     input := "The quick brown fox jumped over the lazy dog"
-    rev, _ := Reverse(input)
-    doubleRev, _ := Reverse(rev)
+    rev, revErr := Reverse(input)
+    doubleRev, doubleRevErr := Reverse(rev)
     fmt.Printf("original: %q\n", input)
-    fmt.Printf("reversed: %q\n", rev)
-    fmt.Printf("reversed again: %q\n", doubleRev)
+    fmt.Printf("reversed: %q, err: %v\n", rev, revErr)
+    fmt.Printf("reversed again: %q, err: %v\n", doubleRev, doubleRevErr)
 }
 
 func Reverse(s string) (string, error) {
