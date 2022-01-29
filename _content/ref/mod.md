@@ -588,6 +588,9 @@ specified by the `go` directive. This has the following effects:
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
 
+As of the Go 1.17 release, if the `go` directive is missing, `go 1.16`
+is assumed.
+
 ```
 GoDirective = "go" GoVersion newline .
 GoVersion = string | ident .  /* valid release version; see above */
