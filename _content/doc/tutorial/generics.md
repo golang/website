@@ -187,7 +187,7 @@ different types of maps: one that stores `int64` values, and one that stores `fl
 
     fmt.Printf("Non-Generic Sums: %v and %v\n",
     	SumInts(ints),
-    	SumFloats(floats))
+    	SumFloats(floats),
     }
     ```
 
