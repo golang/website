@@ -267,11 +267,11 @@ func cleanOutput(ctx context.Context, tests []*testcase) error {
 	dirs := make(map[string]bool)
 	// The extensions of files that are safe to delete
 	safeExts := map[string]bool{
+		"a.png":    true,
+		"b.png":    true,
 		"diff.png": true,
 	}
 	for _, t := range tests {
-		safeExts[ext(t.outImgA)] = true
-		safeExts[ext(t.outImgB)] = true
 		if t.cacheA {
 			keepFiles[t.outImgA] = true
 		}
@@ -570,8 +570,8 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			if gcsBucket {
 				outfile = out + "/" + sanitized(test.name)
 			}
-			test.outImgA = outfile + "." + sanitized(urlA.Host) + ".a.png"
-			test.outImgB = outfile + "." + sanitized(urlB.Host) + ".b.png"
+			test.outImgA = outfile + ".a.png"
+			test.outImgB = outfile + ".b.png"
 			test.outDiff = outfile + ".diff.png"
 		default:
 			// We should never reach this error.
