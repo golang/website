@@ -50,15 +50,16 @@ If all is well, `err` will be `nil` and `b` will be a `[]byte` containing this J
 
 Only data structures that can be represented as valid JSON will be encoded:
 
-  - JSON objects only support strings as keys;
-    to encode a Go map type it must be of the form `map[string]T` (where `T`
-    is any Go type supported by the json package).
-
   - Channel, complex, and function types cannot be encoded.
 
   - Cyclic data structures are not supported; they will cause `Marshal` to go into an infinite loop.
 
   - Pointers will be encoded as the values they point to (or 'null' if the pointer is `nil`).
+
+  - JSON objects only support strings as keys;
+    to encode a Go map type it must be of the form `map[X]T`, where `X` is either
+    string, int, or an implementator of `encoding.TextMarshaller`, and where `T`
+    is any Go type supported by the json package.
 
 The json package only accesses the exported fields of struct types (those
 that begin with an uppercase letter).
