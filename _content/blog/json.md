@@ -58,7 +58,7 @@ Only data structures that can be represented as valid JSON will be encoded:
 
   - JSON objects only support strings as keys;
     to encode a Go map type it must be of the form `map[X]T`, where `X` is either
-    string, int, or an implementator of `encoding.TextMarshaller`, and where `T`
+    string, an integer type, or an implementator of `encoding.TextMarshaller`, and where `T`
     is any Go type supported by the json package.
 
 The json package only accesses the exported fields of struct types (those
