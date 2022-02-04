@@ -58,7 +58,7 @@ Below are rules that fuzz tests must follow.
   - `float32`, `float64`
   - `bool`
 
-### Suggestions
+### Suggestions {#suggestions}
 
 Below are suggestions that will help you get the most out of fuzzing.
 
@@ -82,6 +82,11 @@ To enable fuzzing, run `go test` with the `-fuzz` flag, providing a regex
 matching a single fuzz test. By default, all other tests in that package will
 run before fuzzing begins. This is to ensure that fuzzing won't report any
 issues that would already be caught by an existing test.
+
+Note that it is up to you to decide how long to run fuzzing. It is very possible
+that an execution of fuzzing could run indefinitely if it doesn't find any errors.
+There will be support to run these fuzz tests continuously using tools like OSS-Fuzz
+in the future, see [Issue #50192](https://github.com/golang/go/issues/50192).
 
 **Note:** Fuzzing should be run on a platform that supports coverage
 instrumentation (currently AMD64 and ARM64) so that the corpus can meaningfully
@@ -123,15 +128,36 @@ The lines following provide insight into the active fuzzing execution:
     (with an average execs/sec since the last log line)
   - new interesting: the total number of "interesting" inputs that have been
     added to the generated corpus during this fuzzing execution (with the total
-    size of the generated corpus)
+    size of the entire corpus)
 
 For an input to be "interesting", it must expand the code coverage beyond what
 the existing generated corpus can reach. It's typical for the number of new
 interesting inputs to grow quickly at the start and eventually slow down, with
 occasional bursts as new branches are discovered.
 
-If an error occurs while fuzzing, then the error will be logged, and the output
-will look something like this at the end:
+You should expect to see the "new intesting" number taper off over time as the
+inputs in the corpus begin to cover more lines of the code, with occasional
+bursts if the fuzzing engine finds a new code path.
+
+### Failing input
+
+A failure may occur while fuzzing for several reasons:
+
+  - A panic occurred in the code or the test.
+  - The fuzz target called `t.Fail`, either directly or through methods such as
+  `t.Error` or `t.Fatal`.
+  - A non-recoverable error occured, such as an `os.Exit` or stack overflow.
+  - The fuzz target took too long to complete. Currently, the timeout for an
+  execution of a fuzz target is 1 second. This may fail due to a deadlock or
+  infinite loop, or from intended behavior in the code. This is one reason why
+  it is [suggested that your fuzz target be fast](#suggestions).
+
+If an error occurs, the fuzzing engine will attempt to minimize the input to the
+smallest possible and most human readable value which will still produce an
+error. To configure this, see the [custom settings](#custom-settings) section.
+
+Once minimization is complete, the error message will be logged, and the output
+will end with something like this:
 
 ```
     Failing input written to testdata/fuzz/FuzzFoo/a878c3134fe0404d44eb1e662e5d8d4a24beb05c3d68354903670ff65513ff49
@@ -142,11 +168,15 @@ exit status 1
 FAIL    foo 0.839s
 ```
 
-The fuzzing engine writes this [failing input](#glos-failing-input) to the seed
+The fuzzing engine wrote this [failing input](#glos-failing-input) to the seed
 corpus for that fuzz test, and it will now be run by default with `go test`,
 serving as a regression test once the bug has been fixed.
 
-### Custom settings
+The next step for you will be to diagnose the problem, fix the bug, verify the
+fix by re-running `go test`, and submit the patch with the new testdata file
+acting as your regression test.
+
+### Custom settings {#custom-settings}
 
 The default go command settings should work for most use cases of fuzzing. So
 typically, an execution of fuzzing on the command line should look like this:
@@ -275,6 +305,7 @@ corpus, invoking the mutator, identifying new coverage, and reporting failures.
 <a id="glos-generated-corpus"></a>
 **generated corpus:** A corpus which is maintained by the fuzzing engine over
 time while fuzzing to keep track of progress. It is stored in `$GOCACHE`/fuzz.
+These entries are only used while fuzzing.
 
 <a id="glos-mutator"></a>
 **mutator:** A tool used while fuzzing which randomly manipulates corpus entries
@@ -289,7 +320,8 @@ Language Specification.
 **seed corpus:** A user-provided corpus for a fuzz test which can be used to
 guide the fuzzing engine. It is composed of the corpus entries provided by f.Add
 calls within the fuzz test, and the files in the testdata/fuzz/{FuzzTestName}
-directory within the package.
+directory within the package. These entries are run by default with `go test`,
+whether fuzzing or not.
 
 <a id="glos-test-file"></a>
 **test file:** A file of the format xxx_test.go that may contain tests,
