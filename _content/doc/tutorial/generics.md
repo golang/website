@@ -468,10 +468,6 @@ Generic Sums with Constraint: 46 and 62.97
 
 Nicely done! You've just introduced yourself to generics in Go.
 
-If you want to keep experimenting, you can try writing the `Number` interface
-in terms of `constraints.Integer` and `constraints.Float`, to allow more
-numeric types.
-
 Suggested next topics:
 
 *   The [Go Tour](https://tour.golang.org/welcome/1) is a great step-by-step
