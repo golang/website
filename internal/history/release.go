@@ -15,6 +15,16 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2022, 2, 10}, Version: Version{1, 17, 7},
+		CustomSummary: `includes security fixes to the <code>crypto/elliptic</code>, <code>math/big</code> packages and to the <code>go</code> command, as well as bug fixes to the compiler, linker, runtime, the <code>go</code> command, and the <code>debug/macho</code>, <code>debug/pe</code>, and <code>net/http/httptest</code> packages.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.7+label%3ACherryPickApproved">Go 1.17.7 milestone</a> on our issue tracker for details.`,
+	},
+	{
+		Date: Date{2022, 2, 10}, Version: Version{1, 16, 14},
+		CustomSummary: `includes security fixes to the <code>crypto/elliptic</code>, <code>math/big</code> packages and to the <code>go</code> command, as well as bug fixes to the compiler, linker, runtime, the <code>go</code> command, and the <code>debug/macho</code>, <code>debug/pe</code>, <code>net/http/httptest</code>, and <code>testing</code> packages.
+See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.14+label%3ACherryPickApproved">Go 1.16.14 milestone</a> on our issue tracker for details.`,
+	},
+	{
 		Date: Date{2022, 1, 6}, Version: Version{1, 17, 6},
 		Components: []template.HTML{"the compiler", "linker", "runtime"},
 		Packages:   []string{"crypto/x509", "net/http", "reflect"},
