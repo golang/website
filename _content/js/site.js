@@ -178,9 +178,51 @@ window.initFuncs = [];
     return version;
   }
 
+  /**
+   * initialThemeSetup sets data-theme attribute based on preferred color
+   */
+
+  function initialThemeSetup() {
+    const theme = document.cookie.match(/prefers-color-scheme=(light|dark|auto)/)?.[1]
+
+    if (theme) {
+      document.querySelector('html').setAttribute('data-theme', theme);
+    }
+  }
+
+  /**
+   * setThemeButtons sets click listeners for toggling theme buttons
+   */
+  function setThemeButtons() {
+    for (const el of document.querySelectorAll('.js-toggleTheme')) {
+      el.addEventListener('click', () => {
+        toggleTheme();
+      });
+    }
+  }
+
+  /**
+   * toggleTheme switches the preferred color scheme between auto, light, and dark.
+   */
+  function toggleTheme() {
+    let nextTheme = 'dark';
+    const theme = document.documentElement.getAttribute('data-theme');
+    if (theme === 'dark') {
+      nextTheme = 'light';
+    } else if (theme === 'light') {
+      nextTheme = 'auto';
+    }
+    document.documentElement.setAttribute('data-theme', nextTheme);
+    document.cookie =
+      `prefers-color-scheme=${nextTheme};domain=.go.dev;path=/;max-age=31536000;`;
+  }
+
+  initialThemeSetup();
+
   window.addEventListener('DOMContentLoaded', () => {
     registerHeaderListeners();
     registerSolutionsTabs();
     setDownloadLinks();
+    setThemeButtons();
   });
 })();

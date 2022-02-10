@@ -8,7 +8,7 @@ books:
 icon:
   file: devops-green.svg
   alt: ops icon
-icon-white:
+iconDark:
   file: devops-white.svg
   alt: ops icon
 ---
@@ -49,6 +49,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: Docker
     url: https://docker.com/
     logoSrc: docker.svg
+    logoSrcDark: docker.svg
     desc: Docker is a software-as-a-service (SaaS) product, written in Go, that DevOps/SRE teams leverage to “drive secure automation and deployment at massive scale,” supporting their CI/CD efforts.
     ctas:
       - text: Docker CI/CD
@@ -56,6 +57,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: Drone
     url: https://github.com/drone
     logoSrc: drone.svg
+    logoSrcDark: drone.svg
     desc: Drone is a Continuous Delivery system built on container technology, written in Go, that uses a simple YAML configuration file, a superset of docker-compose, to define and execute Pipelines inside Docker containers.
     ctas:
       - text: Drone
@@ -63,6 +65,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: etcd
     url: https://github.com/etcd-io/etcd
     logoSrc: etcd.svg
+    logoSrcDark: etcd.svg
     desc: etcd is a strongly consistent, distributed key-value store that provides a reliable way to store data that needs to be accessed by a distributed system or cluster of machines, and it's written in Go.
     ctas:
       - text: etcd
@@ -70,6 +73,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: IBM
     url: https://ibm.com/
     logoSrc: ibm.svg
+    logoSrcDark: ibm.svg
     desc: IBM’s DevOps teams use Go through Docker and Kubernetes, plus other DevOps and CI/CD tools written in Go. The company also supports connection to it’s messaging middleware through a Go-specific API.
     ctas:
       - text: IBM Applications in Golang
@@ -77,6 +81,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: Netflix
     url: http://netflix.com/
     logoSrc: netflix.svg
+    logoSrcDark: netflix.svg
     desc: Netflix uses Go to handle large scale data caching, with a service called Rend, which manages globally replicated storage for personalization data.
     ctas:
       - text: Application Data Caching
@@ -85,7 +90,8 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
         url: https://github.com/netflix/rend
   - company: Microsoft
     url: https://microsoft.com/
-    logoSrc: microsoft.svg
+    logoSrc: microsoft_light.svg
+    logoSrcDark: microsoft_dark.svg
     desc: Microsoft uses Go in Azure Red Hat OpenShift services. This Microsoft solution provides DevOps teams with OpenShift clusters to maintain regulatory compliance and focus on application development.
     ctas:
       - text: OpenShift
@@ -93,6 +99,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: Terraform
     url: https://terraform.io/
     logoSrc: terraform-icon.svg
+    logoSrcDark: terraform-icon.svg
     desc: Terraform is a tool for building, changing, and versioning infrastructure safely and efficiently. It supports a number of cloud providers such as AWS, IBM Cloud, GCP, and Microsoft Azure - and it’s written in Go.
     ctas:
       - text: Terraform
@@ -100,6 +107,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: Prometheus
     url: https://github.com/prometheus/prometheus
     logoSrc: prometheus.svg
+    logoSrcDark: prometheus.svg
     desc: Prometheus is an open-source systems monitoring and alerting toolkit originally built at SoundCloud. Most Prometheus components are written in Go, making them easy to build and deploy as static binaries.
     ctas:
       - text: Prometheus
@@ -107,6 +115,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - company: YouTube
     url: https://youtube.com/
     logoSrc: youtube.svg
+    logoSrcDark: youtube.svg
     desc: YouTube uses Go with Vitess (now part of PlanetScale), its database clustering system for horizontal scaling of MySQL through generalized sharding. Since 2011 it’s been a core component of YouTube’s database infrastructure, and has grown to encompass tens of thousands of MySQL nodes.
     ctas:
       - text: Vitess

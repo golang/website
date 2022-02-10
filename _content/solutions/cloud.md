@@ -7,7 +7,7 @@ series: Use Cases
 icon:
   file: cloud-green.svg
   alt: cloud icon
-icon-white:
+iconDark:
   file: cloud-white.svg
   alt: cloud icon
 ---
@@ -69,13 +69,15 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
   - company: Google
     url: http://cloud.google.com/go
     logoSrc: google-cloud.svg
+    logoSrcDark: google-cloud.svg
     desc: Google Cloud uses Go across its ecosystem of products and tools, including Kubernetes, gVisor, Knative, Istio, and Anthos. Go is fully supported on Google Cloud across all APIs and runtimes.
     ctas:
       - text: Go on Google Cloud Platform
         url: http://cloud.google.com/go
   - company: Capital One
     url: https://www.capitalone.com/
-    logoSrc: capital-one.svg
+    logoSrc: capitalone_light.svg
+    logoSrcDark: capitalone_dark.svg
     desc: Capital One uses Go to power the Credit Offers API, a critical service. The engineering team is also building their serverless architecture with Go, citing Go’s speed and simplicity, and mentioning that “[they] didn’t want to go serverless without Go.”
     ctas:
       - text: Credit Offers API
@@ -83,13 +85,15 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
   - company: Dropbox
     url: https://www.dropbox.com/
     logoSrc: dropbox.svg
-    desc: Dropbox was built on Python, but in 2013 decided to migrate their performance-critical backends to Go. Today, most of the company’s infrastructure is written in Go.
+    logoSrcDark: dropbox.svg
+    desc: Dropbox was built on Python, but in 2013 decided to migrate their performance-critical packends to Go. Today, most of the company’s infrastructure is written in Go.
     ctas:
       - text: Dropbox libraries
         url: https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/
   - company: Mercado Libre
     url: https://www.mercadolibre.com.ar/
-    logoSrc: mercadoLibre.svg
+    logoSrc: mercadolibre_light.svg
+    logoSrcDark: mercadolibre_dark.svg
     desc: MercadoLibre uses Go to scale its eCommerce platform. Go produces efficient code that readily scales as MercadoLibre’s online commerce grows. Go improves their productivity while streamlining and expanding MercadoLibre services.
     ctas:
       - text: MercadoLibre & Go
@@ -97,6 +101,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
   - company: The New York Times
     url: https://www.nytimes.com/
     logoSrc: the-new-york-times-icon.svg
+    logoSrcDark: the-new-york-times-icon.svg
     desc: The New York Times adopted Go “to build better back-end services”. As the usage of Go expanded with in the company they felt the need to create a toolkit to “to help developers quickly configure and build microservice APIs and pubsub daemons”, which they have open sourced.
     ctas:
       - text: NYTimes - Gizmo
@@ -106,13 +111,15 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
   - company: Twitch
     url: https://www.twitch.tv/
     logoSrc: twitch.svg
+    logoSrcDark: twitch.svg
     desc: Twitch uses Go to power many of its busiest systems that serve live video and chat to millions of users.
     ctas:
       - text: Go’s march to low-latency GC
         url: https://blog.twitch.tv/en/2016/07/05/gos-march-to-low-latency-gc-a6fa96f06eb7/
   - company: Uber
     url: https://www.uber.com/
-    logoSrc: uber.svg
+    logoSrc: uber_light.svg
+    logoSrcDark: uber_dark.svg
     desc: Uber uses Go to power several of its critical services that impact the experience of millions of drivers and passengers around the world. From their real-time analytics engine, AresDB, to their microservice for Geo-querying, Geofence, and their resource scheduler, Peloton.
     ctas:
       - text: AresDB

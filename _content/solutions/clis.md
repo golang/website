@@ -7,7 +7,7 @@ series: Use Cases
 icon:
   file: clis-green.svg
   alt: CLI icon
-icon-white:
+iconDark:
   file: clis-white.svg
   alt: CLI icon
 ---
@@ -61,6 +61,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Comcast
     url: https://xfinity.com/
     logoSrc: comcast.svg
+    logoSrcDark: comcast.svg
     desc: Comcast uses Go for a CLI client used to publish and subscribe to it’s high-traffic sites. The company also supports an open source client library which is written in Go - designed for working with Apache Pulsar.
     ctas:
       - text: Client library for Apache Pulsar
@@ -70,6 +71,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: GitHub
     url: https://github.com/
     logoSrc: github.svg
+    logoSrcDark: github.svg
     desc: GitHub uses Go for a command-line tool that makes it easier to work with GitHub, wrapping git in order to extend it with extra features and commands.
     ctas:
       - text: GitHub command-line tool
@@ -77,6 +79,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Hugo
     url: http://gohugo.io/
     logoSrc: hugo.svg
+    logoSrcDark: hugo.svg
     desc: Hugo is one of the most popular Go CLI applications powering thousands of sites, including this one. One reason for it’s popularity is it’s ease of install thanks to Go. Hugo author Bjørn Erik Pedersen writes “The single binary takes most of the pain out of installation and upgrades.”
     ctas:
       - text: Hugo Website
@@ -84,6 +87,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Kubernetes
     url: https://kubernetes.com/
     logoSrc: kubernetes.svg
+    logoSrcDark: kubernetes.svg
     desc: Kubernetes is one of the most popular Go CLI applications. Kubernetes Creator, Joe Beda, said that for writing Kubernetes, “Go was the only logical choice”. Calling Go “the sweet spot” between low level languages like C++ and high level languages like Python.
     ctas:
       - text: Kubernetes + Go
@@ -91,6 +95,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: MongoDB
     url: https://mongodb.com/
     logoSrc: mongodb.svg
+    logoSrcDark: mongodb.svg
     desc: MongoDB chose to implement their Backup CLI Tool in Go citing Go’s “C-like syntax, strong standard library, the resolution of concurrency problems via goroutines, and painless multi-platform distribution” as reasons.
     ctas:
       - text: MongoDB Backup Service
@@ -98,6 +103,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Netflix
     url: http://netflix.com/
     logoSrc: netflix.svg
+    logoSrcDark: netflix.svg
     desc: Netflix uses Go to build the CLI application ChaosMonkey, an application responsible for randomly terminating instances in production to ensure that engineers implement their services to be resilient to instance failures.
     ctas:
       - text: Netflix Techblog Article
@@ -105,6 +111,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Stripe
     url: https://stripe.com/
     logoSrc: stripe.svg
+    logoSrcDark: stripe.svg
     desc: Stripe uses Go for the Stripe CLI aimed to help build, test, and manage a Stripe integration right from the terminal.
     ctas:
       - text: Stripe CLI
@@ -112,6 +119,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
   - company: Uber
     url: https://uber.com/
     logoSrc: uber.svg
+    logoSrcDark: uber.svg
     desc: Uber uses Go for several CLI tools, including the CLI API for Jaeger, a distributed tracing system used for monitoring microservice distributed systems.
     ctas:
       - text: CLI API for Jaeger

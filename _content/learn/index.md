@@ -213,9 +213,20 @@ title: "Get Started"
 {{define "learn-card"}}
 <div class="Card">
   <div class="Card-inner">
+    {{- if .thumbnailDark}}
+    <div
+      class="Card-thumbnail DarkMode-img"
+      style="background-image: url('{{.thumbnailDark}}')"
+    ></div>
+    {{- else if .thumbnail}}
+    <div
+      class="Card-thumbnail DarkMode-img"
+      style="background-image: url('{{.thumbnail}}')"
+    ></div>
+    {{- end}}
     {{- if .thumbnail}}
     <div
-      class="Card-thumbnail"
+      class="Card-thumbnail LightMode-img"
       style="background-image: url('{{.thumbnail}}')"
     ></div>
     {{- end}}

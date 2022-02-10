@@ -2,6 +2,7 @@
     description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
     link: /solutions/cloud/
     icon: /images/icons/sphere.svg
+    iconDark: /images/icons/sphere-dark.svg
     iconName: Sphere
     packages:
     - title: cloud.google.com/go
@@ -14,6 +15,7 @@
     description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
     link: /solutions/clis/
     icon: /images/icons/command-folder.svg
+    iconDark: /images/icons/command-folder-dark.svg
     iconName: Command Line
     packages:
     - title: spf13/cobra
@@ -30,6 +32,7 @@
     description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
     link: /solutions/webdev/
     icon: /images/icons/code.svg
+    iconDark: /images/icons/code-dark.svg
     iconName: Code
     packages:
     - title: net/http
@@ -46,6 +49,7 @@
     description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
     link: /solutions/devops/
     icon: /images/icons/gear.svg
+    iconDark: /images/icons/gear-dark.svg
     iconName: Sphere
     packages:
     - title: opentracing/opentracing-go

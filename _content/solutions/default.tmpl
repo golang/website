@@ -30,14 +30,15 @@
         </div>
         <div class="CaseStudy-contentAside">
           <div class="CaseStudy-aboutBlock">
-            <img src="/images/logos/{{.logoSrc}}" class="CaseStudy-aboutBlockImg" alt="{{.company}}">
+            <img src="/images/logos/{{.logoSrcDark}}" class="CaseStudy-aboutBlockImg DarkMode-img" alt="{{.company}}">
+            <img src="/images/logos/{{.logoSrc}}" class="CaseStudy-aboutBlockImg LightMode-img" alt="{{.company}}">
             <h3 class="CaseStudy-aboutBlockTitle">
               About {{.company}}
             </h3>
             {{if .description}}
-              <p class="CaseStudy-aboutBlockBody">{{markdown .description}}</p>
+              <p>{{markdown .description}}</p>
             {{ else }}
-              <p class="CaseStudy-aboutBlockBody">{{markdown .quote}}</p>
+              <p>{{markdown .quote}}</p>
             {{end}}
           </div>
         </div>
@@ -167,7 +168,8 @@
       hidden {{end}}
     >
       <td class="FeaturedUsers--hiddenMobile">
-        <img src="/images/logos/{{.logoSrc}}" alt="{{.company}}" />
+        <img src="/images/logos/{{.logoSrcDark}}" alt="{{.company}}" class="DarkMode-img" />
+        <img src="/images/logos/{{.logoSrc}}" alt="{{.company}}" class="LightMode-img" />
       </td>
       <td>
         <img

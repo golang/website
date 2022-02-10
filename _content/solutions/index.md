@@ -101,6 +101,13 @@ layout: none
             class="Solutions-useCaseLogo Solutions-useCaseLogo--{{.company}}"
           >
             <img
+              class="DarkMode-img"
+              loading="lazy"
+              alt="{{.company}}"
+              src="/images/logos/{{.logoSrcDark}}"
+            />
+            <img
+              class="LightMode-img"
               loading="lazy"
               alt="{{.company}}"
               src="/images/logos/{{.logoSrc}}"
@@ -121,6 +128,13 @@ layout: none
         <a href="{{.URL}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             <img
+              class="DarkMode-img"
+              loading="lazy"
+              alt="{{.company}}"
+              src="/images/logos/{{.logoSrcDark}}"
+            />
+            <img
+              class="LightMode-img"
               loading="lazy"
               alt="{{.company}}"
               src="/images/logos/{{.logoSrc}}"
@@ -153,11 +167,21 @@ layout: none
         <a href="{{.URL}}" class="Solutions-useCaseLink">
           <div class="Solutions-useCaseLogo">
             {{- $icon := .icon}}
+            {{- $iconDark := .iconDark}}
             {{- if $icon}}
             <img
+              class="LightMode-img"
               loading="lazy"
               alt="{{$icon.alt}}"
               src="{{path.Dir .URL}}/{{$icon.file}}"
+            />
+            {{- end}}
+            {{- if $iconDark}}
+            <img
+              class="DarkMode-img"
+              loading="lazy"
+              alt="{{$iconDark.alt}}"
+              src="{{path.Dir .URL}}/{{$iconDark.file}}"
             />
             {{- end}}
           </div>

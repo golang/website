@@ -2,6 +2,7 @@
 title: "How Google's Core Data Solutions Team Uses Go"
 company: Core Data
 logoSrc: google.svg
+logoSrcDark: google.svg
 heroImgSrc: go_core_data_case_study.png
 series: Case Studies
 quote: |

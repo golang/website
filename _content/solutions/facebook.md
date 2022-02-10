@@ -5,7 +5,8 @@ description:
   framework (ORM) in Go.
 company: Facebook
 series: Case Studies
-logoSrc: facebook.png
+logoSrc: meta_light.svg
+logoSrcDark: meta_dark.svg
 link: https://entgo.io/blog/2019/10/03/introducing-ent/
 inLandingPageGrid: true
 ---

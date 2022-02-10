@@ -194,7 +194,8 @@ func main() {
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonDetails">
             <div class="WhyGo-reasonIcon" role="presentation">
-              <img src="{{.icon}}" alt="{{.iconName}}">
+              <img class="DarkMode-img" src="{{.iconDark}}" alt="{{.iconName}}">
+              <img class="LightMode-img" src="{{.icon}}" alt="{{.iconName}}">
             </div>
             <div class="WhyGo-reasonText">
               <h3 class="WhyGo-reasonTitle">{{.title}}</h3>

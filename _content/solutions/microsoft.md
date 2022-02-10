@@ -5,7 +5,8 @@ description:
   pieces of it's cloud infrastructure.
 company: Microsoft
 series: Case Studies
-logoSrc: microsoft.png
+logoSrc: microsoft_light.svg
+logoSrcDark: microsoft_dark.svg
 link: https://cloudblogs.microsoft.com/opensource/2018/02/21/go-lang-brian-ketelsen-explains-fast-growth/
 inLandingPageGrid: true
 ---

@@ -2,6 +2,7 @@
 title: "Actuating Google Production: How Google’s Site Reliability Engineering Team Uses Go"
 company: Google Site Reliability Engineering (SRE)
 logoSrc: sitereliability.svg
+logoSrcDark: sitereliability.svg
 heroImgSrc: go_sitereliability_case_study.png
 series: Case Studies
 quote: |
