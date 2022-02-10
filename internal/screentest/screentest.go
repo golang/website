@@ -645,7 +645,7 @@ func splitDimensions(text string) (width, height int, err error) {
 // screenshots do not match.
 func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	now := time.Now()
-	fmt.Fprintf(&tc.output, "test %s\n", tc.name)
+	fmt.Fprintf(&tc.output, "test %s ", tc.name)
 	var screenA, screenB *image.Image
 	g, ctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
@@ -663,7 +663,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		return nil
 	})
 	if err := g.Wait(); err != nil {
-		fmt.Fprint(&tc.output, err)
+		fmt.Fprint(&tc.output, "\n", err)
 		return err
 	}
 	result := imgdiff.Diff(*screenA, *screenB, &imgdiff.Options{
@@ -672,10 +672,10 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	})
 	since := time.Since(now).Truncate(time.Millisecond)
 	if result.Equal {
-		fmt.Fprintf(&tc.output, "%s == %s (%s)\n", tc.urlA, tc.urlB, since)
+		fmt.Fprintf(&tc.output, "(%s)\n", since)
 		return nil
 	}
-	fmt.Fprintf(&tc.output, "%s != %s (%s)\n", tc.urlA, tc.urlB, since)
+	fmt.Fprintf(&tc.output, "(%s)\nFAIL %s != %s\n", since, tc.urlA, tc.urlB)
 	g = &errgroup.Group{}
 	g.Go(func() error {
 		return writePNG(&result.Image, tc.outDiff)
