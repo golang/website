@@ -55,6 +55,9 @@
 //
 //  output gs://bucket-name
 //
+// Values set with the keywords above apply to all testcases that follow. Values set with
+// the keywords below reset each time the test keyword is used.
+//
 // Use test NAME to create a name for the testcase.
 //
 //  test about page
@@ -63,6 +66,10 @@
 // test name is set, PATH will be used as the name for the test.
 //
 //  pathname /about
+//
+// Use status CODE to set an expected HTTP status code. The default is 200.
+//
+//  status 404
 //
 // Use click SELECTOR to add a click an element on the page.
 //
@@ -113,6 +120,7 @@ import (
 	"io/fs"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -382,6 +390,7 @@ type testcase struct {
 	tasks                     chromedp.Tasks
 	urlA, urlB                string
 	headers                   map[string]interface{}
+	status                    int
 	cacheA, cacheB            bool
 	gcsBucket                 bool
 	outImgA, outImgB, outDiff string
@@ -413,6 +422,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 		tasks              chromedp.Tasks
 		originA, originB   string
 		headers            map[string]interface{}
+		status             int = http.StatusOK
 		cacheA, cacheB     bool
 		gcsBucket          bool
 		width, height      int
@@ -438,9 +448,9 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 		switch field {
 		case "":
 			// We've reached an empty line, reset properties scoped to a single test.
-			testName = ""
-			pathname = ""
+			testName, pathname = "", ""
 			tasks = nil
+			status = http.StatusOK
 		case "COMPARE":
 			origins := strings.Split(args, " ")
 			originA, originB = origins[0], origins[1]
@@ -471,6 +481,11 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 				log.Fatalf("invalid header %s on line %d", args, lineNo)
 			}
 			headers[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
+		case "STATUS":
+			status, err = strconv.Atoi(args)
+			if err != nil {
+				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
+			}
 		case "OUTPUT":
 			if strings.HasPrefix(args, gcsScheme) {
 				gcsBucket = true
@@ -535,6 +550,7 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 				urlA:        urlA.String(),
 				urlB:        urlB.String(),
 				headers:     headers,
+				status:      status,
 				blockedURLs: blockedURLs,
 				// Default to viewportScreenshot
 				screenshotType: viewportScreenshot,
@@ -736,6 +752,10 @@ func (tc *testcase) screenshot(ctx context.Context, url, file string,
 	return &img, nil
 }
 
+type Response struct {
+	Status int
+}
+
 // captureScreenshot runs a series of browser actions and takes a screenshot
 // of the resulting webpage in an instance of headless chrome.
 func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, error) {
@@ -751,7 +771,9 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	if tc.blockedURLs != nil {
 		tasks = append(tasks, network.SetBlockedURLS(tc.blockedURLs))
 	}
+	var res Response
 	tasks = append(tasks,
+		getResponse(url, &res),
 		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
@@ -768,6 +790,9 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	}
 	if err := chromedp.Run(ctx, tasks); err != nil {
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
+	}
+	if res.Status != tc.status {
+		return nil, fmt.Errorf("http status mismatch: got %d; want %d", res.Status, tc.status)
 	}
 	return buf, nil
 }
@@ -861,6 +886,20 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 		case <-ctx.Done():
 			return ctx.Err()
 		}
+	}
+}
+
+func getResponse(url string, res *Response) chromedp.ActionFunc {
+	return func(ctx context.Context) error {
+		chromedp.ListenTarget(ctx, func(ev interface{}) {
+			switch e := ev.(type) {
+			case *network.EventResponseReceived:
+				if e.Response.URL == url {
+					res.Status = int(e.Response.Status)
+				}
+			}
+		})
+		return nil
 	}
 }
 
