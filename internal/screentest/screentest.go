@@ -792,7 +792,8 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
 	}
 	if res.Status != tc.status {
-		return nil, fmt.Errorf("http status mismatch: got %d; want %d", res.Status, tc.status)
+		fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
+		return nil, fmt.Errorf("bad status: %d", res.Status)
 	}
 	return buf, nil
 }
@@ -889,12 +890,16 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 	}
 }
 
-func getResponse(url string, res *Response) chromedp.ActionFunc {
+func getResponse(u string, res *Response) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		chromedp.ListenTarget(ctx, func(ev interface{}) {
 			switch e := ev.(type) {
 			case *network.EventResponseReceived:
-				if e.Response.URL == url {
+				// URL fragments are dropped in request targets so we must strip the fragment
+				// from the URL to make a comparison.
+				_u, _ := url.Parse(u)
+				_u.Fragment = ""
+				if e.Response.URL == _u.String() {
 					res.Status = int(e.Response.Status)
 				}
 			}
