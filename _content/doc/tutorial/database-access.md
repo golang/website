@@ -159,7 +159,7 @@ but most DBMSes have their own CLI with similar features.
     *   Create an `album` table with four columns: `title`, `artist`, and `price`.
         Each row's `id` value is created automatically by the DBMS.
 
-    *   Add three rows with values.
+    *   Add four rows with values.
 
 7. From the `mysql` command prompt, run the script you just created.
 
