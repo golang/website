@@ -57,6 +57,7 @@ capture fullscreen 540x1080
 
 test help
 pathname /help/
+status 301
 capture fullscreen
 capture fullscreen 540x1080
 

@@ -893,14 +893,19 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 func getResponse(u string, res *Response) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		chromedp.ListenTarget(ctx, func(ev interface{}) {
+			// URL fragments are dropped in request targets so we must strip the fragment
+			// from the URL to make a comparison.
+			_u, _ := url.Parse(u)
+			_u.Fragment = ""
 			switch e := ev.(type) {
 			case *network.EventResponseReceived:
-				// URL fragments are dropped in request targets so we must strip the fragment
-				// from the URL to make a comparison.
-				_u, _ := url.Parse(u)
-				_u.Fragment = ""
 				if e.Response.URL == _u.String() {
 					res.Status = int(e.Response.Status)
+				}
+			// Capture the status from a redirected response.
+			case *network.EventRequestWillBeSent:
+				if e.RedirectResponse != nil && e.RedirectResponse.URL == _u.String() {
+					res.Status = int(e.RedirectResponse.Status)
 				}
 			}
 		})
