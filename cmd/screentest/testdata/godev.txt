@@ -45,16 +45,6 @@ pathname /blog/12years
 capture fullscreen
 capture fullscreen 540x1080
 
-test install
-pathname /doc/install
-capture fullscreen
-capture fullscreen 540x1080
-
-test downloads
-pathname /dl/
-capture fullscreen
-capture fullscreen 540x1080
-
 test help
 pathname /help/
 status 301
