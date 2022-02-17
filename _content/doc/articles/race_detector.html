@@ -410,10 +410,10 @@ go func() { c <- struct{}{} }()
 close(c)
 </pre>
 
-<h2 id="Supported_Systems">Supported Systems</h2>
+<h2 id="Requirements">Requirements</h2>
 
 <p>
-  The race detector runs on
+  The race detector requires cgo to be enabled and supports
   <code>linux/amd64</code>, <code>linux/ppc64le</code>,
   <code>linux/arm64</code>, <code>freebsd/amd64</code>,
   <code>netbsd/amd64</code>, <code>darwin/amd64</code>,
