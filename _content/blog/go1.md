@@ -29,7 +29,7 @@ in many environments, on a time scale of years.
 Similarly, authors who write books about Go 1 can be sure that their examples
 and explanations will be helpful to readers today and into the future.
 
-Forward compatibility is part of stability.
+Backward compatibility is part of stability.
 Code that compiles in Go 1 should, with few exceptions,
 continue to compile and run throughout the lifetime of that version,
 even as we issue updates and bug fixes such as Go version 1.1, 1.2, and so on.
