@@ -49,7 +49,7 @@ Below are rules that fuzz tests must follow.
   arguments. There is no return value.
 - There must be exactly one fuzz target per fuzz test.
 - All [seed corpus](#glos-seed-corpus) entries must have types which are
-  identical to the [fuzzing arguments](#fuzzing-arguments), in the same order.
+  identical to the [fuzzing arguments](#glos-fuzzing-arguments), in the same order.
   This is true for calls to
   <code>[(\*testing.F).Add](https://pkg.go.dev/testing#F.Add)</code> and any
   corpus files in the testdata/fuzz directory of the fuzz test.
@@ -119,7 +119,7 @@ The first lines indicate that the "baseline coverage" is gathered before
 fuzzing begins.
 
 To gather baseline coverage, the fuzzing engine executes both the [seed
-corpus](#glos-seed-corpus) and the [generated corpus](#generated-corpus), to
+corpus](#glos-seed-corpus) and the [generated corpus](#glos-generated-corpus), to
 ensure that no errors occurred and to understand the code coverage the existing
 corpus already provides.
 
@@ -137,7 +137,7 @@ the existing generated corpus can reach. It's typical for the number of new
 interesting inputs to grow quickly at the start and eventually slow down, with
 occasional bursts as new branches are discovered.
 
-You should expect to see the "new intesting" number taper off over time as the
+You should expect to see the "new interesting" number taper off over time as the
 inputs in the corpus begin to cover more lines of the code, with occasional
 bursts if the fuzzing engine finds a new code path.
 
@@ -148,7 +148,7 @@ A failure may occur while fuzzing for several reasons:
   - A panic occurred in the code or the test.
   - The fuzz target called `t.Fail`, either directly or through methods such as
   `t.Error` or `t.Fatal`.
-  - A non-recoverable error occured, such as an `os.Exit` or stack overflow.
+  - A non-recoverable error occurred, such as an `os.Exit` or stack overflow.
   - The fuzz target took too long to complete. Currently, the timeout for an
   execution of a fuzz target is 1 second. This may fail due to a deadlock or
   infinite loop, or from intended behavior in the code. This is one reason why
