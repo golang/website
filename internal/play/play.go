@@ -35,6 +35,10 @@ func playHandler(site *web.Site) http.Handler {
 			site.ServeError(w, r, errors.New("Sorry, but shared playground snippets are not visible in China."))
 			return
 		}
+		if strings.HasSuffix(r.URL.Path, ".go") {
+			simpleProxy(w, r, "https://"+backend(r)+strings.TrimPrefix(r.URL.Path, "/play"))
+			return
+		}
 		site.ServePage(w, r, web.Page{
 			"URL":          r.URL.Path,
 			"layout":       "play",
