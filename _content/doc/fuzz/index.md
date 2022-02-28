@@ -11,7 +11,9 @@
     more sense as a blog post?)
 -->
 
-Go supports fuzzing in its standard toolchain beginning in Go 1.18.
+Go supports fuzzing in its standard toolchain beginning in Go 1.18. Native Go fuzz tests are
+[supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
+
 
 **Try out the [tutorial for fuzzing with Go](/doc/tutorial/fuzz).**
 
