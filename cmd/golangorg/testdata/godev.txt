@@ -43,19 +43,13 @@ GET https://go.dev/play/p/asdfasdf
 body contains The Go Playground
 body contains About the Playground
 
-GET https://go.dev/play/p/MAohLsrz7JQ.go
-header Content-Type == text/plain; charset=utf-8
-body !contains The Go Playground
-body !contains About the Playground
-body contains Hello, 世界
-
 GET https://golang.google.cn/play/p/asdfasdf
 code == 500
 body contains Sorry, but shared playground snippets are not visible in China.
 body !contains The Go Playground
 body !contains About the Playground
 
-GET https://golang.google.cn/play/p/MAohLsrz7JQ.go
+GET https://golang.google.cn/play/p/asdfasdf.go
 code == 500
 body contains Sorry, but shared playground snippets are not visible in China.
 

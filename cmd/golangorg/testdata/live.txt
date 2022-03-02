@@ -56,3 +56,9 @@ POST https://go.dev/_/share
 postbody
 	package main
 body !contains UA-
+
+GET https://go.dev/play/p/MAohLsrz7JQ.go
+header Content-Type == text/plain; charset=utf-8
+body !contains The Go Playground
+body !contains About the Playground
+body contains Hello, 世界
