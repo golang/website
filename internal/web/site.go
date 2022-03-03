@@ -525,7 +525,7 @@ func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, p *pageFile) {
 	}
 
 	// if it's the language spec, add tags to EBNF productions
-	if strings.HasSuffix(filePath, "go_spec.html") {
+	if strings.HasSuffix(filePath, "ref/spec.html") {
 		var buf bytes.Buffer
 		spec.Linkify(&buf, []byte(src))
 		src = buf.String()

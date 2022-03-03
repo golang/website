@@ -339,6 +339,9 @@ redirect == https://go.dev/ref/spec
 GET https://go.dev/ref/spec
 body contains Go Programming Language Specification
 
+GET https://go.dev/ref/spec
+body contains <a id="assign_op">assign_op</a>
+
 GET https://golang.org/robots.txt
 redirect == https://go.dev/robots.txt
 
