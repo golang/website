@@ -256,7 +256,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
    ```
    cd hello
-   go get example.com/dep@v0.1.0
+   go get golang.org/x/example@v0.1.0
    ```
 
    That way, the `go` command can properly resolve the modules outside the workspace.
