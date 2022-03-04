@@ -1093,6 +1093,18 @@ For more details, see <a href="https://go.dev/issue/44505">go.dev/issue/44505</a
       <code>ResponseWriter</code> and <code>Request.Body</code> with a
       <a href="/pkg/net/http#MaxBytesReader"><code>MaxBytesReader</code></a>.
     </p>
+
+    <p><!-- CL 359634, CL 360381, CL 362735 -->
+      When looking up a domain name containing non-ASCII characters,
+      the Unicode-to-ASCII conversion is now done in accordance with
+      Nontransitional Processing as defined in the
+      <a href="https://unicode.org/reports/tr46/">Unicode IDNA
+      Compatibility Processing</a> standard (UTS #46). The
+      interpretation of four distinct runes are changed: ß, ς,
+      zero-width joiner U+200D, and zero-width non-joiner
+      U+200C. Nontransitional Processing is consistent with most
+      applications and web browsers.
+    </p>
   </dd>
 </dl><!-- net/http -->
 
