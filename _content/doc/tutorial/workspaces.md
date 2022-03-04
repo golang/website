@@ -177,7 +177,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
    use (
        ./hello
-       example
+       ./example
    )
    ```
 
