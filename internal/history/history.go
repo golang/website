@@ -17,17 +17,22 @@ import (
 
 // A Release describes a single Go release.
 type Release struct {
-	Version  Version
-	Date     Date
-	Security bool // whether this is a security release
-	Future   bool // if true, the release hasn't happened yet
+	Version Version
+	Date    Date
+	Future  bool // if true, the release hasn't happened yet
 
 	// Release content summary.
-	Quantifier    string          // Optional quantifier. Empty string for unspecified amount of fixes (typical), "a" for a single fix, "two", "three" for multiple fixes, etc.
-	Components    []template.HTML // Components involved. For example, "cgo", "the <code>go</code> command", "the runtime", etc.
-	Packages      []string        // Packages involved. For example, "net/http", "crypto/x509", etc.
-	More          template.HTML   // Additional release content.
-	CustomSummary template.HTML   // CustomSummary, if non-empty, replaces the entire release content summary with custom HTML.
+	Security      *FixSummary   // Security fixes, if any.
+	Bug           *FixSummary   // Bug fixes, if any.
+	More          template.HTML // Additional release content.
+	CustomSummary template.HTML // CustomSummary, if non-empty, replaces the entire release content summary with custom HTML.
+}
+
+// FixSummary summarizes fixes in a Go release, listing components and packages involved.
+type FixSummary struct {
+	Quantifier string          // Optional quantifier. Empty string for unspecified amount of fixes (typical), "a" for a single fix, "two", "three" for multiple fixes, etc.
+	Components []template.HTML // Components involved. For example, "cgo", "the compiler", "runtime", "the <code>go</code> command", etc.
+	Packages   []string        // Packages involved. For example, "crypto/x509", "net/http", etc.
 }
 
 // A Version is a Go release version.
@@ -58,6 +63,7 @@ func (v Version) String() string {
 	}
 }
 
+// Before reports whether version v comes before version u.
 func (v Version) Before(u Version) bool {
 	if v.X != u.X {
 		return v.X < u.X
@@ -153,19 +159,19 @@ func majors() []*Major {
 // 	c1, and [2 or more packages]
 // 	c1, c2, and [1 or more packages]
 //
-func (r *Release) ComponentsAndPackages() template.HTML {
+func (f *FixSummary) ComponentsAndPackages() template.HTML {
 	var buf strings.Builder
 
 	// List components, if any.
-	for i, comp := range r.Components {
-		if len(r.Packages) == 0 {
+	for i, comp := range f.Components {
+		if len(f.Packages) == 0 {
 			// No packages, so components are joined with more rules.
 			switch {
-			case i != 0 && len(r.Components) == 2:
+			case i != 0 && len(f.Components) == 2:
 				buf.WriteString(" and ")
-			case i != 0 && len(r.Components) >= 3 && i != len(r.Components)-1:
+			case i != 0 && len(f.Components) >= 3 && i != len(f.Components)-1:
 				buf.WriteString(", ")
-			case i != 0 && len(r.Components) >= 3 && i == len(r.Components)-1:
+			case i != 0 && len(f.Components) >= 3 && i == len(f.Components)-1:
 				buf.WriteString(", and ")
 			}
 		} else {
@@ -178,32 +184,32 @@ func (r *Release) ComponentsAndPackages() template.HTML {
 	}
 
 	// Join components and packages using a comma and/or "and" as needed.
-	if len(r.Components) > 0 && len(r.Packages) > 0 {
-		if len(r.Components)+len(r.Packages) >= 3 {
+	if len(f.Components) > 0 && len(f.Packages) > 0 {
+		if len(f.Components)+len(f.Packages) >= 3 {
 			buf.WriteString(",")
 		}
 		buf.WriteString(" and ")
 	}
 
 	// List packages, if any.
-	if len(r.Packages) > 0 {
+	if len(f.Packages) > 0 {
 		buf.WriteString("the ")
 	}
-	for i, pkg := range r.Packages {
+	for i, pkg := range f.Packages {
 		switch {
-		case i != 0 && len(r.Packages) == 2:
+		case i != 0 && len(f.Packages) == 2:
 			buf.WriteString(" and ")
-		case i != 0 && len(r.Packages) >= 3 && i != len(r.Packages)-1:
+		case i != 0 && len(f.Packages) >= 3 && i != len(f.Packages)-1:
 			buf.WriteString(", ")
-		case i != 0 && len(r.Packages) >= 3 && i == len(r.Packages)-1:
+		case i != 0 && len(f.Packages) >= 3 && i == len(f.Packages)-1:
 			buf.WriteString(", and ")
 		}
 		buf.WriteString("<code>" + html.EscapeString(pkg) + "</code>")
 	}
 	switch {
-	case len(r.Packages) == 1:
+	case len(f.Packages) == 1:
 		buf.WriteString(" package")
-	case len(r.Packages) >= 2:
+	case len(f.Packages) >= 2:
 		buf.WriteString(" packages")
 	}
 

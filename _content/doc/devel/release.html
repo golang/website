@@ -43,10 +43,20 @@ in supported releases as needed by issuing minor revisions
 			{{.}}
 		{{else}}
 			{{if .Future}}will include{{else}}includes{{end}}
-			{{.Quantifier}}
-			{{if .Security}}security{{end}}
-			{{if eq .Quantifier "a"}}fix{{else}}fixes{{end -}}
-			{{with .ComponentsAndPackages}} to {{.}}{{end}}.
+			{{with .Security}}
+				{{.Quantifier}}
+				security
+				{{if eq .Quantifier "a"}}fix{{else}}fixes{{end -}}
+				{{with .ComponentsAndPackages}} to {{.}}{{end -}}
+			{{end}}
+			{{- if and .Security .Bug}}, as well as{{end -}}
+			{{if .Bug}}
+				{{.Bug.Quantifier}}
+				{{if .Security}}bug{{end}} {{/* If there are security fixes too, specify that what follows are bug fixes. */}}
+				{{if eq .Bug.Quantifier "a"}}fix{{else}}fixes{{end -}}
+				{{with .Bug.ComponentsAndPackages}} to {{.}}{{end -}}
+			{{end}}
+			{{- if or .Security .Bug}}.{{end}}
 			{{.More}}
 
 			{{if not .Future}}

@@ -5,6 +5,7 @@
 package history
 
 import (
+	"sort"
 	"testing"
 	"time"
 )
@@ -36,5 +37,21 @@ func TestReleases(t *testing.T) {
 			t.Errorf("jumped from %v to %v", old, r.Version)
 		}
 		lastMinor[major] = r.Version.Z
+		if r.Security != nil {
+			if p := r.Security.Packages; !sort.StringsAreSorted(p) {
+				t.Errorf("version %v security fix packages out of order: %v vs %v", r.Version, p, sorted(p))
+			}
+		}
+		if r.Bug != nil {
+			if p := r.Bug.Packages; !sort.StringsAreSorted(p) {
+				t.Errorf("version %v bug fix packages out of order: %v vs %v", r.Version, p, sorted(p))
+			}
+		}
 	}
+}
+
+func sorted(s []string) []string {
+	s = append([]string(nil), s...)
+	sort.Strings(s)
+	return s
 }
