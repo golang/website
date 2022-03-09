@@ -144,19 +144,19 @@ Do not send CLs removing the interior tags from such phrases.
 </p>
 
 <p>
-  The current generics implementation has the following limitations:
+  The current generics implementation has the following known limitations:
   <ul>
     <li><!-- https://golang.org/issue/47631 -->
-      The Go compiler cannot currently handle type declarations inside generic functions
+      The Go compiler cannot handle type declarations inside generic functions
       or methods. We hope to provide support for this feature in Go 1.19.
     </li>
     <li><!-- https://golang.org/issue/50937 -->
-      The Go compiler currently does not accept arguments of type parameter type with
+      The Go compiler does not accept arguments of type parameter type with
       the predeclared functions <code>real</code>, <code>imag</code>, and <code>complex</code>.
       We hope to remove this restriction in Go 1.19.
     </li>
     <li><!-- https://golang.org/issue/51183 -->
-      The Go compiler currently only supports calling a method <code>m</code> on a value
+      The Go compiler only supports calling a method <code>m</code> on a value
       <code>x</code> of type parameter type <code>P</code> if <code>m</code> is explicitly
       declared by <code>P</code>'s constraint interface.
       Similarly, method values <code>x.m</code> and method expressions
@@ -164,6 +164,12 @@ Do not send CLs removing the interior tags from such phrases.
       declared by <code>P</code>, even though <code>m</code> might be in the method set
       of <code>P</code> by virtue of the fact that all types in <code>P</code> implement
       <code>m</code>. We hope to remove this restriction in Go 1.19.
+    </li>
+    <li><!-- https://golang.org/issue/51576 -->
+      The Go compiler does not support accessing a struct field <code>x.f</code>
+      where <code>x</code> is of type parameter type even if all types in the
+      type parameter's type set have a field <code>f</code>.
+      We may remove this restriction in Go 1.19.
     </li>
     <li><!-- https://golang.org/issue/49030 -->
       Embedding a type parameter, or a pointer to a type parameter, as
