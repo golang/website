@@ -32,7 +32,7 @@
   const headerHeightPx = 56;
   const sectionHeadings = Array.from(
     document.querySelectorAll('.sectionHeading')
-  ).map(h => h.firstChild);
+  );
   let distanceFromTop =
     window.pageYOffset +
     contentBody.getBoundingClientRect().top -
@@ -151,13 +151,6 @@
         scrollPosition = siteHeader.clientHeight + header.clientHeight;
       }
     }
-
-    sectionHeadings.forEach((sectionHeading) => {
-      sectionHeading.setAttribute('style', `
-        margin-bottom: -${scrollPosition}px;
-        padding-top: ${scrollPosition}px;
-      `)
-    });
   }
 
   function setStickyNav() {

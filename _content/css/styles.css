@@ -662,6 +662,8 @@ h1 + h2.subtitle {
 }
 .BreadcrumbNav-inner {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0;
   justify-content: start;
   list-style: none;
   margin: 0 auto;
@@ -1413,10 +1415,6 @@ a.GettingStartedGo-resourceItemTitle {
   margin: 0;
 }
 .FeaturedUsers table tbody tr td img {
-  bottom: 0;
-  margin: auto;
-  position: absolute;
-  top: 0;
   width: 5rem;
 }
 .FeaturedUsers-moreProjectsBtn {
@@ -1434,9 +1432,9 @@ a.GettingStartedGo-resourceItemTitle {
   margin-bottom: 1rem;
   width: auto;
 }
-.FeaturedUsers--hiddenMobile,
 .FeaturedUsers--hiddenMobile {
   display: none;
+  vertical-align: middle !important;
 }
 @media only screen and (max-width: 48rem) {
   .FeaturedUsers table tbody tr td:last-of-type {
@@ -1445,7 +1443,6 @@ a.GettingStartedGo-resourceItemTitle {
   }
 }
 @media only screen and (min-width: 48rem) {
-  .FeaturedUsers--hiddenMobile,
   .FeaturedUsers--hiddenMobile {
     display: table-cell;
   }
@@ -3247,6 +3244,7 @@ p.BackgroundQuote-body {
   background-color: var(--color-background);
   box-shadow: 0 0.125rem 0.125rem rgba(171, 171, 171, 0.405239);
   position: fixed;
+  top: 0;
   width: 100%;
   z-index: 10;
 }
@@ -3359,7 +3357,7 @@ p.BackgroundQuote-body {
 }
 .UseCaseSubNav-anchorLinks--sticky {
   position: fixed;
-  top: 5.5rem;
+  top: 2rem;
 }
 a.UseCase-anchorLink {
   background: transparent;
