@@ -212,9 +212,14 @@ window.initFuncs = [];
     } else if (theme === 'light') {
       nextTheme = 'auto';
     }
+    let domain = '';
+    if (location.hostname === 'go.dev') {
+      // Include subdomains to apply the setting to pkg.go.dev.
+      domain = 'domain=.go.dev;';
+    }
     document.documentElement.setAttribute('data-theme', nextTheme);
     document.cookie =
-      `prefers-color-scheme=${nextTheme};domain=.go.dev;path=/;max-age=31536000;`;
+      `prefers-color-scheme=${nextTheme};${domain}path=/;max-age=31536000;`;
   }
 
   initialThemeSetup();
