@@ -4056,7 +4056,7 @@ a.error {
 .Playground-input,
 .Playground-outputContainer,
 .Playground-output {
-  color: var(--color-text-subtle);
+  color: var(--color-text);
 }
 .Playground-inputContainer,
 .Playground-outputContainer {
