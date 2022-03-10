@@ -1029,10 +1029,13 @@ For more details, see <a href="https://go.dev/issue/44505">go.dev/issue/44505</a
       <a href="/pkg/go/types/#Identical"><code>Identical</code></a>,
       <a href="/pkg/go/types/#IdenticalIgnoreTags"><code>IdenticalIgnoreTags</code></a>, and
       <a href="/pkg/go/types/#AssertableTo"><code>AssertableTo</code></a>
-      now also work with arguments that are or contain generalized interfaces, i.e. interfaces
-      that may only be used as type constraints in Go code.
-      Note that the behavior of <code>AssertableTo</code> is undefined if the first argument
-      is a generalized interface.
+      now also work with arguments that are or contain generalized interfaces,
+      i.e. interfaces that may only be used as type constraints in Go code.
+      Note that the behavior of <code>AssignableTo</code>,
+      <code>ConvertibleTo</code>, <code>Implements</code>, and
+      <code>AssertableTo</code> is undefined with arguments that are
+      uninstantiated generic types, and <code>AssertableTo</code> is undefined
+      if the first argument is a generalized interface.
     </p>
   </dd>
 </dl>
