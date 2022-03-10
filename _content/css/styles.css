@@ -48,11 +48,11 @@
   --color-background-warning: var(--yellow-light);
   --color-background-alert: var(--pink-light);
   --color-background-banner: var(--turq-dark);
-  --color-background-banner-secondary: var(--gray-10);
   --color-background-card-footer: var(--gray-10);
   --color-background-carousel-button: var(--white);
   --color-background-code: var(--gray-10);
   --color-background-logo: rgba(248, 248, 248, 0.9);
+  --color-background-playground-input: #ffffdd;
   --color-background-testimonial: var(--deep-cerulian);
   --color-border: var(--gray-7);
   --color-text: var(--gray-1);
@@ -91,10 +91,11 @@
   --color-background-alert: var(--pink);
   --color-background-banner: rgba(0, 125, 156, 0.75);
   --color-background-banner-secondary: rgba(248, 248, 248, 0.9);
-  --color-background-card-footer: var(--black-2);
+  --color-background-card-footer: var(--gray-1);
   --color-background-carousel-button: var(--gray-5);
   --color-background-code: var(--shark);
   --color-background-logo: rgba(248, 248, 248, 0.9);
+  --color-background-playground-input: var(--slate);
   --color-background-testimonial: var(--gray-2);
   --color-button-text-disabled: var(--gray-6);
   --color-border: var(--gray-4);
@@ -118,10 +119,11 @@
     --color-background-alert: var(--pink);
     --color-background-banner: rgb(0, 125, 156, 0.75);
     --color-background-banner-secondary: rgba(248, 248, 248, 0.9);
-    --color-background-card-footer: var(--black-2);
+    --color-background-card-footer: var(--gray-1);
     --color-background-carousel-button: var(--gray-5);
     --color-background-code: var(--shark);
     --color-background-logo: rgba(248, 248, 248, 0.9);
+    --color-background-playground-input: var(--slate);
     --color-background-testimonial: var(--gray-2);
     --color-button-primary: var(--yellow-primary);
     --color-button-text-disabled: var(--gray-6);
@@ -215,6 +217,7 @@ pre .highlight-comment,
 pre .selection-highlight,
 pre .selection-highlight-comment {
   background: var(--yellow);
+  color: var(--gray-1);
 }
 pre .selection,
 pre .selection-comment {
@@ -1891,7 +1894,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
 .Learn-hero,
 .Security-hero {
-  background-color: var(--color-background-banner-secondary);
+  background-color: var(--color-background-accented);
+  color: var(--color-text);
   background-image: radial-gradient(
     60.0625rem 60.0625rem,
     #bfeaf4 50%,
@@ -1961,7 +1965,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 
 .Learn-heroContent p,
 .Security-heroContent p {
-  color: var(--gray-4);
+  color: var(--color-text);
   font-size: 0.875rem;
   max-width: 27.1875rem;
 }
@@ -2527,7 +2531,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   display: flex;
 }
 .Solutions-headline .GoCarousel {
-  background-color: var(--color-background-banner-secondary);
+  background-color: var(--color-background-accented);
+  color: var(--color-text);
 }
 .Solutions-useCases,
 .Solutions-caseStudies {
@@ -2575,7 +2580,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 }
 .Solutions-headlineBody {
   align-items: flex-start;
-  color: var(--gray-4);
+  color: var(--color-text-subtle);
   display: flex;
   flex-direction: column;
   font-size: 0.875rem;
@@ -2601,7 +2606,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   transform: translateX(0.2rem);
 }
 .Solutions-headlineNotification {
-  color: var(--gray-4);
+  color: var(--color-text-subtle);
   font-size: 0.75rem;
   font-style: normal;
   font-weight: 500;
@@ -3712,6 +3717,12 @@ img.PullQuote-image {
 #blog pre, #blog code {
   font-family: monospace;
 }
+#blog svg {
+  fill: var(--color-text);
+}
+#blog .image > img {
+  background-color: var(--color-text);
+}
 #blogindex p.blogtitle a {
   font-weight: bold;
 }
@@ -4001,6 +4012,9 @@ a.error {
   border-top-right-radius: 0.3125rem;
   overflow: hidden;
 }
+.PlayPage {
+  color: var(--color-text);
+}
 .PlayPage .Playground-inputContainer {
   height: 30em;
 }
@@ -4043,10 +4057,10 @@ a.error {
 }
 .Playground-inputContainer,
 .Playground-input {
-  background: var(--color-background-code);
+  background: var(--color-background-playground-input);
 }
 .Playground-runButton {
-  background-color: var(--color-background-accented) !important;
+  background-color: var(--color-background-playground-input) !important;
 }
 .Playground-outputContainer,
 .Playground-output {
@@ -4398,7 +4412,7 @@ th.pkg-name {
   vertical-align: top;
 }
 .DocTable-head {
-  background: #e8eaed;
+  background: var(--color-background-accented);
   border-bottom: var(--border);
   border-top: var(--border);
   height: 3rem;
