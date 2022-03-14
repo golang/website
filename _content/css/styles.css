@@ -660,6 +660,9 @@ h1 + h2.subtitle {
 .Article pre {
   margin-left: 1.5rem;
 }
+.Article.Doc img {
+  background-color: var(--white);
+}
 .BreadcrumbNav-inner {
   display: flex;
   flex-wrap: wrap;
@@ -3719,7 +3722,7 @@ img.PullQuote-image {
   fill: var(--color-text);
 }
 #blog .image > img {
-  background-color: var(--color-text);
+  background-color: var(--white);
 }
 #blogindex p.blogtitle a {
   font-weight: bold;
