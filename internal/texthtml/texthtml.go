@@ -8,9 +8,9 @@ package texthtml
 import (
 	"bytes"
 	"fmt"
-	"go/ast"
-	"go/scanner"
-	"go/token"
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/scanner"
+	"golang.org/x/website/internal/backport/go/token"
 	"io"
 	"regexp"
 	"text/template"
@@ -367,7 +367,6 @@ func regexpSelection(text []byte, expr string) Selection {
 // bit 0: comments
 // bit 1: highlights
 // bit 2: selections
-//
 var startTags = [][]byte{
 	/* 000 */ []byte(``),
 	/* 001 */ []byte(`<span class="comment">`),

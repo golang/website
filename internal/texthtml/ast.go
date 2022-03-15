@@ -7,9 +7,9 @@ package texthtml
 import (
 	"bytes"
 	"fmt"
-	"go/ast"
-	"go/doc"
-	"go/token"
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/doc"
+	"golang.org/x/website/internal/backport/go/token"
 	"strconv"
 	"unicode"
 	"unicode/utf8"

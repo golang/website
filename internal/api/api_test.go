@@ -5,10 +5,11 @@
 package api
 
 import (
-	"go/build"
 	"os"
 	"runtime"
 	"testing"
+
+	"golang.org/x/website/internal/backport/go/build"
 )
 
 func TestParseVersionRow(t *testing.T) {

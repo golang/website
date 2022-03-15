@@ -7,8 +7,8 @@ package pkgdoc
 import (
 	"bytes"
 	"fmt"
-	"go/parser"
-	"go/token"
+	"golang.org/x/website/internal/backport/go/parser"
+	"golang.org/x/website/internal/backport/go/token"
 	"strings"
 	"testing"
 

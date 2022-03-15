@@ -7,10 +7,10 @@ package tour
 import (
 	"bytes"
 	"encoding/json"
-	"go/ast"
-	"go/parser"
-	"go/printer"
-	"go/token"
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/parser"
+	"golang.org/x/website/internal/backport/go/printer"
+	"golang.org/x/website/internal/backport/go/token"
 	"net/http"
 
 	"golang.org/x/tools/imports"

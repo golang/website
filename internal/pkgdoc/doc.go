@@ -11,10 +11,9 @@ package pkgdoc
 
 import (
 	"bytes"
-	"go/ast"
-	"go/build"
-	"go/doc"
-	"go/token"
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/doc"
+	"golang.org/x/website/internal/backport/go/token"
 	"io"
 	"io/fs"
 	"io/ioutil"
@@ -30,6 +29,7 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/backport/go/build"
 	"golang.org/x/website/internal/web"
 )
 
@@ -294,7 +294,6 @@ func (d *docs) includePath(path string, mode mode) (r bool) {
 // (as is the convention for packages). This is sufficient
 // to resolve package identifiers without doing an actual
 // import. It never returns an error.
-//
 func simpleImporter(imports map[string]*ast.Object, path string) (*ast.Object, error) {
 	pkg := imports[path]
 	if pkg == nil {
@@ -310,7 +309,6 @@ func simpleImporter(imports map[string]*ast.Object, path string) (*ast.Object, e
 // which correctly updates each package file's comment list.
 // (The ast.PackageExports signature is frozen, hence the local
 // implementation).
-//
 func packageExports(fset *token.FileSet, pkg *ast.Package) {
 	for _, src := range pkg.Files {
 		cmap := ast.NewCommentMap(fset, src, src.Comments)
