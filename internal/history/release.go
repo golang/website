@@ -15,6 +15,9 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2022, 3, 15}, Version: Version{1, 18, 0},
+	},
+	{
 		Date: Date{2022, 3, 3}, Version: Version{1, 17, 8},
 		CustomSummary: `includes a security fix to the <code>regexp/syntax</code> package, as well as bug fixes to the compiler, runtime, the <code>go</code> command, and the <code>crypto/x509</code>, and <code>net</code> packages.
 See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.8+label%3ACherryPickApproved">Go 1.17.8 milestone</a> on our issue tracker for details.`,
