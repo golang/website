@@ -1088,14 +1088,17 @@ operate on the set of modules determined by the current workspace.
 and `go get` always operate on a single main module.
 
 A command determines whether it is in a workspace context by first examining
-the `-workfile` flag. If `-workfile` is set to `off`, the command will be
+the `GOWORK` environment variable. If `GOWORK` is set to `off`, the command will be
 in a single-module context. If it is empty or not provided, the command
 will search the current working directory, and then successive parent directories,
 for a file `go.work`. If a file is found, the command will operate in the
 workspace it defines; otherwise, the workspace will include only the module
 containing the working directory.
-If `-workfile` names a path to an existing file that ends in .work,
-workspace mode will be enabled. Any other value is an error.
+If `GOWORK` names a path to an existing file that ends in .work,
+workspace mode will be enabled. Any other value is an error. You can use the
+`go env GOWORK` command to determine which `go.work` file the `go` command
+is using. `go env gowork` will be empty if the `go` command is not in workspace
+mode.
 
 ### `go.work` files {#go-work-file}
 
@@ -1446,11 +1449,6 @@ commands accept the following flags, common to all module commands.
   `-modfile` is specified, an alternate `go.sum` file is also used: its path is
   derived from the `-modfile` flag by trimming the `.mod` extension and
   appending `.sum`.
-* The `-workfile` flag instructs the `go` command to enter workspace mode using the provided
-  [`go.work` file](#go-work-file) to define the workspace. If `-workfile` is
-  set to `off` workspace mode is disabled. If `-workfile` is not provided the
-  `go` command will search for a `go.work` file as described in the
-  [Workspaces](#workspaces) section.
 
 ### Vendoring {#vendoring}
 
@@ -4323,6 +4321,20 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
           See <a href="#vcs-govcs">Controlling version control tools with
           <code>GOVCS</code></a> for a complete explanation.
         </p>
+      </td>
+    </tr>
+     <tr>
+      <td><code>GOWORK</code></td>
+      <td>
+       <p>
+        The `GOWORK` environment variable instructs the `go` command to enter workspace
+        mode using the provided [`go.work` file](#go-work-file) to define the workspace.
+        If `GOWORK` is set to `off` workspace mode is disabled. This can be used to run
+        the `go` command in single module mode: for example, `GOWORK=off go build .` builds
+        the `.` package in single-module mode.`If `GOWORK` is empty, the
+        `go` command will search for a `go.work` file as described in the [Workspaces](#workspaces)
+        section.
+       </p>
       </td>
     </tr>
   </tbody>
