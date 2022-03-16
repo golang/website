@@ -342,14 +342,6 @@ body contains Go Programming Language Specification
 GET https://go.dev/ref/spec
 body contains <a id="assign_op">assign_op</a>
 
-# Issue 51686.
-GET https://go.dev/ref/spec
-body contains Version of March 10, 2022
-
-# Issue 51686.
-GET https://go.dev/doc/go1.17_spec
-body contains Version of Oct 15, 2021
-
 GET https://golang.org/robots.txt
 redirect == https://go.dev/robots.txt
 
