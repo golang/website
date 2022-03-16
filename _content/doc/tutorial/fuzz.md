@@ -3,8 +3,6 @@
   "HideTOC": true
 }-->
 
-> **Note: This is beta content.**
-
 This tutorial introduces the basics of fuzzing in Go. With fuzzing, random data
 is run against your test in an attempt to find vulnerabilities or crash-causing
 inputs. Some examples of vulnerabilities that can be found by fuzzing are SQL
@@ -33,54 +31,13 @@ types to be added in the future.
 
 ## Prerequisites
 
-- **An installation of Go 1.18 Beta 1 or later.** For installation instructions,
-  see [Installing and using the beta](#installing_beta).
+- **An installation of Go 1.18 or later.** For installation instructions, see
+  [Installing Go](/doc/install).
 - **A tool to edit your code.** Any text editor you have will work fine.
 - **A command terminal.** Go works well using any terminal on Linux and Mac, and
   on PowerShell or cmd in Windows.
 - **An environment that supports fuzzing.** Go fuzzing with coverage
   instrumentation is only available on AMD64 and ARM64 architectures currently.
-
-<!-- TODO: Remove this section after release. -->
-
-### Installing and using the beta {#installing_beta}
-
-This tutorial requires the fuzzing feature available in Beta 1. To install the
-beta, following these steps:
-
-1. Run the following command to install the beta.
-
-   ```
-   $ go install golang.org/dl/go1.18beta1@latest
-   ```
-
-2. Run the following command to download updates.
-
-   ```
-   $ go1.18beta1 download
-   ```
-
-3. Run `go` commands using the beta instead of a released version of Go (if you
-   have one).
-
-   You can run commands with the beta either by using the beta name or by
-   aliasing the beta to another name.
-
-   - Using the beta name, you can run commands by invoking `go1.18beta1` instead
-     of `go`:
-
-     ```
-     $ go1.18beta1 version
-     ```
-
-   - By aliasing the beta name to another name, you can simplify the command:
-
-     ```
-     $ alias go=go1.18beta1
-     $ go version
-     ```
-
-   Commands in this tutorial will assume you have aliased the beta name.
 
 ## Create a folder for your code {#create_folder}
 
