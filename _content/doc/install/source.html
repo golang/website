@@ -714,6 +714,17 @@ contains further details regarding Go's ARM support.
 </p>
 </li>
 
+<li><code>$GOAMD64</code> (for <code>amd64</code> only;
+default is <code>v1</code>)
+<p>
+This sets the microarchitecture level for which to compile.
+Valid values are <code>v1</code> (default), <code>v2</code>, <code>v3</code>,
+<code>v4</code>.
+See <a href="https://go.dev/wiki/MinimumRequirements#amd64">the Go wiki
+MinimumRequirements page</a> for more information.
+</p>
+</li>
+
 <li><code>$GOMIPS</code> (for <code>mips</code> and <code>mipsle</code> only) <br> <code>$GOMIPS64</code> (for <code>mips64</code> and <code>mips64le</code> only)
 <p>
 	These variables set whether to use floating point instructions. Set to "<code>hardfloat</code>" to use floating point instructions; this is the default.  Set to "<code>softfloat</code>" to use soft floating point.
