@@ -190,7 +190,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
    We'll add a new function to uppercase a string to the `golang.org/x/example/stringutil` package.
 
-   Add a new folder to the `workspace/example/stringutil` directory containing the following contents:
+   Create `uppercase.go` in the `workspace/example/stringutil` directory with the following contents:
 
    ```
    package stringutil
