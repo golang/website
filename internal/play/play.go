@@ -52,6 +52,7 @@ func init() {
 	// Default set until we get the full list from play.golang.org.
 	playVersions.Store([]playVersion{
 		{Name: "Go release", Backend: ""},
+		{Name: "Go previous release", Backend: "goprev"},
 		{Name: "Go dev branch", Backend: "gotip"},
 	})
 
@@ -69,22 +70,32 @@ func readVersions() (list []playVersion, err error) {
 	client := &http.Client{
 		Timeout: 2 * time.Minute,
 	}
-	resp, err := client.Get("https://play.golang.org/versions")
-	if err != nil {
-		return nil, fmt.Errorf("readVersions: %v", err)
-	}
-	defer resp.Body.Close()
 
-	js, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("readVersions: %v", err)
-	}
-	if resp.StatusCode != 200 {
-		return nil, fmt.Errorf("readVersions: %s\n%s", resp.Status, js)
-	}
-
-	if err := json.Unmarshal(js, &list); err != nil || len(list) < 2 {
-		return nil, fmt.Errorf("readVersions: bad response: %#q", js)
+	list = append([]playVersion(nil), playVersions.Load().([]playVersion)...)
+	for i, v := range list {
+		resp, err := client.Get("https://" + v.Backend + "play.golang.org/version")
+		if err != nil {
+			log.Printf("readVersions: %v", err)
+			continue
+		}
+		js, err := io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			log.Printf("readVersions: %v", err)
+			continue
+		}
+		if resp.StatusCode != 200 {
+			log.Printf("readVersions: %s\n%s", resp.Status, js)
+			continue
+		}
+		var data struct{ Name string }
+		if err := json.Unmarshal(js, &data); err != nil {
+			log.Printf("readVersions: %v", err)
+			continue
+		}
+		if data.Name != "" {
+			list[i].Name = data.Name
+		}
 	}
 	return list, nil
 }
