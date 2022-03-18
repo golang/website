@@ -81,20 +81,19 @@
   >
     <ol>
       <li>
-        Extract the archive you downloaded into /usr/local, creating a Go tree
-        in /usr/local/go.
-        <p>
-          <strong>Important:</strong> This step will remove a previous
-          installation at /usr/local/go, if any, prior to extracting.
-          Please back up any data before proceeding.
+        <strong>Remove any previous Go installation</strong> by deleting the /usr/local/go folder
+		(if it exists), then extract the archive you just downloaded into /usr/local, creating a fresh
+		Go tree in /usr/local/go:
+		<pre>
+$ rm -rf /usr/local/go && tar -C /usr/local -xzf <span id="linux-filename">go1.14.3.linux-amd64.tar.gz</span>
+</pre>
+		<p>
+          (You may need to run the command as root or through <code>sudo</code>).
         </p>
-        <p>
-          For example, run the following as root or through <code>sudo</code>:
-        </p>
-        <pre>
-rm -rf /usr/local/go && tar -C /usr/local -xzf <span id="linux-filename">go1.14.3.linux-amd64.tar.gz</span>
-</pre
-        >
+		<p>
+		  <strong>Do not</strong> untar the archive into an existing /usr/local/go tree. This is known to
+		  produce broken Go installations.
+		 </p>
       </li>
       <li>
         Add /usr/local/go/bin to the <code>PATH</code> environment variable.
