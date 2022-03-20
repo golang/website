@@ -230,7 +230,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
    From the workspace directory, run
 
    ```
-   $ go run example/hello
+   $ go run example.com/hello
    HELLO
    ```
 
