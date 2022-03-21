@@ -150,12 +150,13 @@ Do not send CLs removing the interior tags from such phrases.
   <ul>
     <li><!-- https://golang.org/issue/47631 -->
       The Go compiler cannot handle type declarations inside generic functions
-      or methods. We hope to provide support for this feature in Go 1.19.
+      or methods. We hope to provide support for this feature in a
+      future release.
     </li>
     <li><!-- https://golang.org/issue/50937 -->
       The Go compiler does not accept arguments of type parameter type with
       the predeclared functions <code>real</code>, <code>imag</code>, and <code>complex</code>.
-      We hope to remove this restriction in Go 1.19.
+      We hope to remove this restriction in a future release.
     </li>
     <li><!-- https://golang.org/issue/51183 -->
       The Go compiler only supports calling a method <code>m</code> on a value
@@ -165,13 +166,14 @@ Do not send CLs removing the interior tags from such phrases.
       <code>P.m</code> also are only supported if <code>m</code> is explicitly
       declared by <code>P</code>, even though <code>m</code> might be in the method set
       of <code>P</code> by virtue of the fact that all types in <code>P</code> implement
-      <code>m</code>. We hope to remove this restriction in Go 1.19.
+      <code>m</code>. We hope to remove this restriction in a future
+      release.
     </li>
     <li><!-- https://golang.org/issue/51576 -->
       The Go compiler does not support accessing a struct field <code>x.f</code>
       where <code>x</code> is of type parameter type even if all types in the
       type parameter's type set have a field <code>f</code>.
-      We may remove this restriction in Go 1.19.
+      We may remove this restriction in a future release.
     </li>
     <li><!-- https://golang.org/issue/49030 -->
       Embedding a type parameter, or a pointer to a type parameter, as
@@ -596,7 +598,7 @@ For more information, see <a href="https://go.dev/design/draft-gobuild">https://
   Because of changes in the compiler related to supporting generics, the
   Go 1.18 compile speed can be roughly 15% slower than the Go 1.17 compile speed.
   The execution time of the compiled code is not affected.  We
-  intend to improve the speed of the compiler in Go 1.19.
+  intend to improve the speed of the compiler in future releases.
 </p>
 
 <h2 id="linker">Linker</h2>
