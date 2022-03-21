@@ -25,7 +25,7 @@ for any type that supports comparison.
 * Generic types
 
 In addition to generic functions, Go also supports generic types. A type can
-be parameterized with a type paremeter, which could be useful for implementing
+be parameterized with a type parameter, which could be useful for implementing
 generic data structures.
 
 This example demonstrates a simple type declaration for a singly-linked list
