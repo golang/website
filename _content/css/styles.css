@@ -322,7 +322,10 @@ a:hover {
   line-height: 1.55;
 }
 @media print {
-  .Site-header { display: none; }
+  .Site-header,
+  .Site-footer {
+    display: none;
+  }
 }
 .Header,
 .Container {
