@@ -117,7 +117,7 @@ duration of a session.
 _Using a “parent” of a language as fallback is non-trivial_
 
 Suppose your application supports Angolan Portuguese (“pt-AO”).
-Packages in [golang.org/x/text](/x/text), like collation and display, may not
+Packages in [golang.org/x/text](https://golang.org/x/text), like collation and display, may not
 have specific support for this dialect.
 The correct course of action in such cases is to match the closest parent dialect.
 Languages are arranged in a hierarchy, with each specific language having a more
@@ -138,7 +138,7 @@ that is incomprehensible to the user.
 
 ## Language Matching in Go
 
-The Go package [golang.org/x/text/language](/x/text/language) implements the BCP 47
+The Go package [golang.org/x/text/language](https://golang.org/x/text/language) implements the BCP 47
 standard for language tags and adds support for deciding which language to use
 based on data published in the Unicode Common Locale Data Repository (CLDR).
 
@@ -275,7 +275,7 @@ handle more rules.
 
 ### Displaying Supported Languages
 
-The [golang.org/x/text/language/display](/x/text/language/display) package allows naming language
+The [golang.org/x/text/language/display](https://golang.org/x/text/language/display) package allows naming language
 tags in many languages.
 It also contains a “Self” namer for displaying a tag in its own language.
 
@@ -306,5 +306,5 @@ ad-hoc language matching using nothing other than string manipulation of the
 language tags.
 As described above, this can produce awful results.
 
-Go's [golang.org/x/text/language](/x/text/language) package solves this complex problem
+Go's [golang.org/x/text/language](https://golang.org/x/text/language) package solves this complex problem
 while still presenting a simple, easy-to-use API. Enjoy.
