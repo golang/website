@@ -86,7 +86,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
     url: https://www.dropbox.com/
     logoSrc: dropbox.svg
     logoSrcDark: dropbox.svg
-    desc: Dropbox was built on Python, but in 2013 decided to migrate their performance-critical packends to Go. Today, most of the company’s infrastructure is written in Go.
+    desc: Dropbox was built on Python, but in 2013 decided to migrate their performance-critical backends to Go. Today, most of the company’s infrastructure is written in Go.
     ctas:
       - text: Dropbox libraries
         url: https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/
