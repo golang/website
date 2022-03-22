@@ -268,23 +268,23 @@ Note the syntax differences between the unit test and the fuzz test:
 
 - The function begins with FuzzXxx instead of TestXxx, and takes `*testing.F`
   instead of `*testing.T`
-- Where you would expect to a see a `t.Run` execution, you instead see `f.Fuzz`
+- Where you would expect to see a `t.Run` execution, you instead see `f.Fuzz`
   which takes a fuzz target function whose parameters are `*testing.T` and the
   types to be fuzzed. The inputs from your unit test are provided as seed corpus
   inputs using `f.Add`.
 
-2. Ensure the new package, `unicode/utf8` has been imported.
+Ensure the new package, `unicode/utf8` has been imported.
 
-   ```
-   package main
+```
+package main
 
-   import (
-       "testing"
-       "unicode/utf8"
-   )
-   ```
+import (
+    "testing"
+    "unicode/utf8"
+)
+```
 
-   With the unit test converted to a fuzz test, it’s time to run the test again.
+With the unit test converted to a fuzz test, it’s time to run the test again.
 
 ### Run the code
 
