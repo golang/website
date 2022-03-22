@@ -1727,19 +1727,20 @@ to a Go struct, but now a `Module` struct:
 
 ```
 type Module struct {
-    Path       string       // module path
-    Version    string       // module version
-    Versions   []string     // available module versions (with -versions)
-    Replace    *Module      // replaced by this module
-    Time       *time.Time   // time version was created
-    Update     *Module      // available update, if any (with -u)
-    Main       bool         // is this the main module?
-    Indirect   bool         // is this module only an indirect dependency of main module?
-    Dir        string       // directory holding files for this module, if any
-    GoMod      string       // path to go.mod file for this module, if any
-    GoVersion  string       // go version used in module
-    Deprecated string       // deprecation message, if any (with -u)
-    Error      *ModuleError // error loading module
+    Path       string        // module path
+    Version    string        // module version
+    Versions   []string      // available module versions
+    Replace    *Module       // replaced by this module
+    Time       *time.Time    // time version was created
+    Update     *Module       // available update (with -u)
+    Main       bool          // is this the main module?
+    Indirect   bool          // module is only indirectly needed by main module
+    Dir        string        // directory holding local copy of files, if any
+    GoMod      string        // path to go.mod file describing module, if any
+    GoVersion  string        // go version used in module
+    Retracted  []string      // retraction information, if any (with -retracted or -u)
+    Deprecated string        // deprecation message, if any (with -u)
+    Error      *ModuleError  // error loading module
 }
 
 type ModuleError struct {
@@ -1841,6 +1842,7 @@ to this Go struct:
 ```
 type Module struct {
     Path     string // module path
+    Query    string // version query corresponding to this version
     Version  string // module version
     Error    string // error loading module
     Info     string // absolute path to cached .info file
@@ -1849,6 +1851,8 @@ type Module struct {
     Dir      string // absolute path to cached source root directory
     Sum      string // checksum for path, version (as in go.sum)
     GoModSum string // checksum for go.mod (as in go.sum)
+    Origin   any    // provenance of module
+    Reuse    bool   // reuse of old module info is safe
 }
 ```
 
@@ -1947,11 +1951,17 @@ type Module struct {
 }
 
 type GoMod struct {
-    Module  Module
+    Module  ModPath
     Go      string
     Require []Require
     Exclude []Module
     Replace []Replace
+    Retract []Retract
+}
+
+type ModPath struct {
+    Path       string
+    Deprecated string
 }
 
 type Require struct {
@@ -1970,7 +1980,6 @@ type Retract struct {
     High      string
     Rationale string
 }
-
 ```
 
 Note that this only describes the `go.mod` file itself, not other modules
