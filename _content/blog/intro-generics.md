@@ -66,6 +66,8 @@ In this example we add a type parameter list with a single type
 parameter `T`, and replace the uses of `float64` with `T`.
 
 {{raw `
+	import "golang.org/x/exp/constraints"
+
 	func GMin[T constraints.Ordered](x, y T) T {
 		if x < y {
 			return x
