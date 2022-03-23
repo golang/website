@@ -8,12 +8,13 @@ tags:
 - go2
 - generics
 summary: An introduction to generics in Go.
+---
 
 ## Introduction
 
 This blog post is based on our talk at GopherCon 2021:
 
-{{video "https://www.youtube.com/watch?v=Pa_e9EeCdy8"}}
+{{video "https://www.youtube.com/embed/Pa_e9EeCdy8"}}
 
 The Go 1.18 release adds support for generics.
 Generics are the biggest change we've made to Go since the first open
@@ -23,9 +24,9 @@ We won't try to cover all the details, but we will hit all the
 important points.
 For a more detailed and much longer description, including many
 examples, see the [proposal
-document](https://go.googlesource.com/proposal/+/refs/heads/master/design/43651-type-parameters.md).
+document](https://go.googlesource.com/proposal/+/HEAD/design/43651-type-parameters.md).
 For a more precise description of the language changes, see the
-[updated language spec](https://go.dev/ref/spec).
+[updated language spec](/ref/spec).
 (Note that the actual 1.18 implementation imposes some restrictions on
 what the proposal document permits; the spec should be accurate.
 Future releases may lift some of the restrictions.)
@@ -140,7 +141,7 @@ parameters define sets of types.
 This meta-type is called a _type constraint_.
 
 In the generic `GMin`, the type constraint is imported from the
-[constraints package](https://pkg.go.dev/constraints).
+[constraints package](https://golang.org/x/exp/constraints).
 The `Ordered` constraint describes the set of all types with values
 that can be ordered, or, in other words, compared with the {{" < "}}
 operator (or {{" <= "}}, {{" > "}}, etc.).
@@ -432,8 +433,8 @@ for `E`.
 
 This was just an introduction to constraint type inference.
 For full details see the [proposal
-document](https://go.googlesource.com/proposal/+/refs/heads/master/design/43651-type-parameters.md)
-document or the [language spec](https://go.dev/ref/spec).
+document](https://go.googlesource.com/proposal/+/HEAD/design/43651-type-parameters.md)
+document or the [language spec](/ref/spec).
 
 ### Type inference in practice
 
