@@ -324,7 +324,7 @@ integers:
 	// Scale returns a copy of s with each element multiplied by c.
 	// This implementation has a problem, as we will see.
 	func Scale[E constraints.Integer](s []E, c E) []E {
-		r := make([]E, len(s)
+		r := make([]E, len(s))
 		for i, v := range s {
 			r[i] = v * c
 		}
@@ -377,7 +377,7 @@ type parameter for the slice type.
 {{raw `
 	// Scale returns a copy of s with each element multiplied by c.
 	func Scale[S ~[]E, E constraints.Integer](s S, c E) S {
-		r := make(S, len(s)
+		r := make(S, len(s))
 		for i, v := range s {
 			r[i] = v * c
 		}
