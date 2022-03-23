@@ -250,7 +250,7 @@ command](/ref/mod#go-get):
     ```
 
 The following go.mod file `require` directive example (see the [go.mod
-reference]/doc/modules/gomod-ref) for more) illustrates how to require a specific version
+reference](/doc/modules/gomod-ref) for more) illustrates how to require a specific version
 number:
 
 ```
