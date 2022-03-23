@@ -273,18 +273,18 @@ Note the syntax differences between the unit test and the fuzz test:
   types to be fuzzed. The inputs from your unit test are provided as seed corpus
   inputs using `f.Add`.
 
-2. Ensure the new package, `unicode/utf8` has been imported.
+Ensure the new package, `unicode/utf8` has been imported.
 
-   ```
-   package main
+```
+package main
 
-   import (
-       "testing"
-       "unicode/utf8"
-   )
-   ```
+import (
+   "testing"
+   "unicode/utf8"
+)
+```
 
-   With the unit test converted to a fuzz test, it’s time to run the test again.
+With the unit test converted to a fuzz test, it’s time to run the test again.
 
 ### Run the code
 
