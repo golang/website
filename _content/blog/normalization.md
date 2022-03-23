@@ -17,7 +17,7 @@ An earlier [post](https://blog.golang.org/strings) talked about strings, bytes
 and characters in Go. I've been working on various packages for multilingual
 text processing for the go.text repository. Several of these packages deserve a
 separate blog post, but today I want to focus on
-[go.text/unicode/norm](https://godoc.org/code.google.com/p/go.text/unicode/norm),
+[go.text/unicode/norm](https://pkg.go.dev/golang.org/x/text/unicode/norm),
 which handles normalization, a topic touched in the
 [strings article](https://blog.golang.org/strings) and the subject of this
 post. Normalization works at a higher level of abstraction than raw bytes.
@@ -136,7 +136,7 @@ APIs might expect text in a certain normal form. Or you might just want to fit
 in and output your text as NFC like the rest of the world.
 
 To write your text as NFC, use the
-[unicode/norm](https://godoc.org/code.google.com/p/go.text/unicode/norm) package
+[unicode/norm](https://pkg.go.dev/golang.org/x/text/unicode/norm) package
 to wrap your `io.Writer` of choice:
 
 	wc := norm.NFC.Writer(w)
@@ -213,7 +213,7 @@ boundaries (such as the planned go.text/search package.)
 
 Another tool provided by the norm package that may help dealing with character
 boundaries is its iterator,
-[`norm.Iter`](https://godoc.org/code.google.com/p/go.text/unicode/norm#Iter).
+[`norm.Iter`](https://pkg.go.dev/golang.org/x/text/unicode/norm#Iter).
 It iterates over characters one at a time in the normal form of choice.
 
 ## Performing magic
