@@ -31,7 +31,7 @@ For a more precise description of the language changes, see the
 what the proposal document permits; the spec should be accurate.
 Future releases may lift some of the restrictions.)
 
-Generics is a way of writing code that is independent of the specific
+Generics are a way of writing code that is independent of the specific
 types being used.
 Functions and types may now be written to use any of a set of types.
 
