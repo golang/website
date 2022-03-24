@@ -411,9 +411,14 @@ Our new `Scale` function has two type parameters, `S` and `E`.
 In a call to `Scale` not passing any type arguments, function argument
 type inference, described above, lets the compiler infer that the type
 argument for `S` is `Point`.
-But the function also has a type parameter `E`.
-The process by which the compiler infers that the type argument for
-`E` is the element type of the slice is called _constraint type
+But the function also has a type parameter `E` which is the type of the
+multiplication factor `c`.
+The corresponding function argument is `2`, and because `2` is an _untyped_
+constant, function argument type inference cannot infer the correct type for
+`E` (at best it might infer the default type for `2` which is `int` and which
+would be incorrect).
+Instead, the process by which the compiler infers that the type argument
+for `E` is the element type of the slice is called _constraint type
 inference_.
 
 Constraint type inference deduces type arguments from type parameter
