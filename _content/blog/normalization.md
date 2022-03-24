@@ -58,7 +58,7 @@ Consortium identifies these forms:
 As mentioned in the strings blog post, Go does not guarantee that characters in
 a string are normalized. However, the go.text packages can compensate. For
 example, the
-[collate](https://godoc.org/code.google.com/p/go.text/collate) package, which
+[collate](https://pkg.go.dev/golang.org/x/text/collate) package, which
 can sort strings in a language-specific way, works correctly even with
 unnormalized strings. The packages in go.text do not always require normalized
 input, but in general normalization may be necessary for consistent results.
@@ -253,7 +253,7 @@ As mentioned earlier, some packages precompute normalizations into their tables
 to minimize the need for normalization at run time. The type `norm.Properties`
 provides access to the per-rune information needed by these packages, most
 notably the Canonical Combining Class and decomposition information. Read the
-[documentation](https://godoc.org/code.google.com/p/go.text/unicode/norm/#Properties)
+[documentation](https://pkg.go.dev/golang.org/x/text/unicode/norm#Properties)
 for this type if you want to dig deeper.
 
 ## Performance
