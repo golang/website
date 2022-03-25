@@ -3696,6 +3696,19 @@ img.PullQuote-image {
   color: #999;
   font-size: smaller;
 }
+#blog #content .iframe {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+#blog #content .iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
 #blog #content .iframe, #content .image {
   margin: 20px;
 }
