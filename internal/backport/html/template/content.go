@@ -7,6 +7,8 @@ package template
 import (
 	"fmt"
 	"reflect"
+
+	stdtemplate "html/template"
 )
 
 // Strings of content from a trusted source.
@@ -22,7 +24,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	CSS string
+	CSS = stdtemplate.CSS
 
 	// HTML encapsulates a known safe HTML document fragment.
 	// It should not be used for HTML from a third-party, or HTML with
@@ -32,7 +34,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	HTML string
+	HTML = stdtemplate.HTML
 
 	// HTMLAttr encapsulates an HTML attribute from a trusted source,
 	// for example, ` dir="ltr"`.
@@ -40,7 +42,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	HTMLAttr string
+	HTMLAttr = stdtemplate.HTMLAttr
 
 	// JS encapsulates a known safe EcmaScript5 Expression, for example,
 	// `(x + y * z())`.
@@ -58,7 +60,7 @@ type (
 	// A safe alternative is to parse the JSON with json.Unmarshal and then
 	// pass the resultant object into the template, where it will be
 	// converted to sanitized JSON when presented in a JavaScript context.
-	JS string
+	JS = stdtemplate.JS
 
 	// JSStr encapsulates a sequence of characters meant to be embedded
 	// between quotes in a JavaScript expression.
@@ -71,7 +73,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	JSStr string
+	JSStr = stdtemplate.JSStr
 
 	// URL encapsulates a known safe URL or URL substring (see RFC 3986).
 	// A URL like `javascript:checkThatFormNotEditedBeforeLeavingPage()`
@@ -82,7 +84,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	URL string
+	URL = stdtemplate.URL
 
 	// Srcset encapsulates a known safe srcset attribute
 	// (see https://w3c.github.io/html/semantics-embedded-content.html#element-attrdef-img-srcset).
@@ -90,7 +92,7 @@ type (
 	// Use of this type presents a security risk:
 	// the encapsulated content should come from a trusted source,
 	// as it will be included verbatim in the template output.
-	Srcset string
+	Srcset = stdtemplate.Srcset
 )
 
 type contentType uint8

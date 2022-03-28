@@ -12,8 +12,6 @@ import (
 	"sort"
 	"strings"
 
-	stdtemplate "html/template"
-
 	"golang.org/x/tools/present"
 	"golang.org/x/website/internal/backport/html/template"
 	"gopkg.in/yaml.v3"
@@ -30,8 +28,6 @@ func toString(x interface{}) string {
 	case string:
 		return x
 	case template.HTML:
-		return string(x)
-	case stdtemplate.HTML:
 		return string(x)
 	case nil:
 		return ""
