@@ -71,6 +71,9 @@ func TestRedirects(t *testing.T) {
 		"/cl/267120043":  {302, "https://codereview.appspot.com/267120043"},
 		"/cl/267120043/": {302, "https://codereview.appspot.com/267120043"},
 
+		"/cl/1/3":   {302, "https://go-review.googlesource.com/c/1/3"},
+		"/cl/c/1/3": errorResult(404),
+
 		// Verify that we're using the Rietveld CL table:
 		"/cl/152046": {302, "https://codereview.appspot.com/152046"},
 		"/cl/152047": {302, "https://go-review.googlesource.com/152047"},

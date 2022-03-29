@@ -159,7 +159,8 @@ func Handler(target string) http.Handler {
 	})
 }
 
-var validID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
+// validPrefixID is used to validate issue and wiki path suffixes
+var validPrefixID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
 
 func PrefixHandler(prefix, baseURL string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -169,7 +170,7 @@ func PrefixHandler(prefix, baseURL string) http.Handler {
 			return
 		}
 		id := r.URL.Path[len(prefix):]
-		if !validID.MatchString(id) {
+		if !validPrefixID.MatchString(id) {
 			http.Error(w, "Not found", http.StatusNotFound)
 			return
 		}
@@ -211,6 +212,10 @@ func srcPkgHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
 }
 
+// validCLID is used to validate cl path suffxies. It supports both the
+// bare ID, as well as the patchset syntax (i.e. 1234/2.)
+var validCLID = regexp.MustCompile(`^[0-9]+(/[0-9]+)?/?$`)
+
 func clHandler(w http.ResponseWriter, r *http.Request) {
 	const prefix = "/cl/"
 	if p := r.URL.Path; p == prefix {
@@ -221,10 +226,18 @@ func clHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Path[len(prefix):]
 	// support /cl/152700045/, which is used in commit 0edafefc36.
 	id = strings.TrimSuffix(id, "/")
-	if !validID.MatchString(id) {
+	if !validCLID.MatchString(id) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
+
+	// If the ID contains a slash, it is likely pointing towards a
+	// specific patchset. In that case, prefix the id with 'c/',
+	// which Gerrit uses to indicate a specific revision.
+	if strings.Contains(id, "/") {
+		id = "c/" + id
+	}
+
 	target := ""
 
 	if n, err := strconv.Atoi(id); err == nil && isRietveldCL(n) {
