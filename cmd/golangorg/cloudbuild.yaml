@@ -1,5 +1,5 @@
 # This Cloud Build file is run automatically when commits land in the website repo.
-# See https://console.cloud.google.com/cloud-build/triggers?project=golang-org.
+# See https://console.cloud.google.com/cloud-build/triggers;region=global?project=golang-org.
 # Do not run directly.
 
 steps:
