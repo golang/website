@@ -815,27 +815,27 @@ This example shows both uses.
 
 <pre>
 Loop:
-	for n := 0; n &lt; len(src); n += size {
-		switch {
-		case src[n] &lt; sizeOne:
-			if validateOnly {
-				break
-			}
-			size = 1
-			update(src[n])
+    for n := 0; n &lt; len(src); n += size {
+        switch {
+        case src[n] &lt; sizeOne:
+            if validateOnly {
+                break
+            }
+            size = 1
+            update(src[n])
 
-		case src[n] &lt; sizeTwo:
-			if n+1 &gt;= len(src) {
-				err = errShortInput
-				break Loop
-			}
-			if validateOnly {
-				break
-			}
-			size = 2
-			update(src[n] + src[n+1]&lt;&lt;shift)
-		}
-	}
+        case src[n] &lt; sizeTwo:
+            if n+1 &gt;= len(src) {
+                err = errShortInput
+                break Loop
+            }
+            if validateOnly {
+                break
+            }
+            size = 2
+            update(src[n] + src[n+1]&lt;&lt;shift)
+        }
+    }
 </pre>
 
 <p>
@@ -1490,9 +1490,9 @@ example: each line has an independent length.
 
 <pre>
 text := LinesOfText{
-	[]byte("Now is the time"),
-	[]byte("for all good gophers"),
-	[]byte("to bring some fun to the party."),
+    []byte("Now is the time"),
+    []byte("for all good gophers"),
+    []byte("to bring some fun to the party."),
 }
 </pre>
 
@@ -1515,7 +1515,7 @@ First, a line at a time:
 picture := make([][]uint8, YSize) // One row per unit of y.
 // Loop over the rows, allocating the slice for each row.
 for i := range picture {
-	picture[i] = make([]uint8, XSize)
+    picture[i] = make([]uint8, XSize)
 }
 </pre>
 
@@ -1530,7 +1530,7 @@ picture := make([][]uint8, YSize) // One row per unit of y.
 pixels := make([]uint8, XSize*YSize) // Has type []uint8 even though picture is [][]uint8.
 // Loop over the rows, slicing each row from the front of the remaining pixels slice.
 for i := range picture {
-	picture[i], pixels = pixels[:XSize], pixels[XSize:]
+    picture[i], pixels = pixels[:XSize], pixels[XSize:]
 }
 </pre>
 
@@ -2520,7 +2520,7 @@ use the blank identifier to discard the irrelevant value.
 
 <pre>
 if _, err := os.Stat(path); os.IsNotExist(err) {
-	fmt.Printf("%s does not exist\n", path)
+    fmt.Printf("%s does not exist\n", path)
 }
 </pre>
 

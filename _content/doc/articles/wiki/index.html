@@ -54,8 +54,8 @@ add the following lines:
 package main
 
 import (
-	"fmt"
-	"os"
+    "fmt"
+    "os"
 )
 </pre>
 
@@ -255,10 +255,10 @@ To use the <code>net/http</code> package, it must be imported:
 
 <pre>
 import (
-	"fmt"
-	"os"
-	"log"
-	<b>"net/http"</b>
+    "fmt"
+    "os"
+    "log"
+    <b>"net/http"</b>
 )
 </pre>
 
@@ -371,9 +371,9 @@ also won't be using <code>fmt</code> anymore, so we have to remove that.
 
 <pre>
 import (
-	<b>"html/template"</b>
-	"os"
-	"net/http"
+    <b>"html/template"</b>
+    "os"
+    "net/http"
 )
 </pre>
 
@@ -649,10 +649,10 @@ type</i>, and returns a function of type <code>http.HandlerFunc</code>
 
 <pre>
 func makeHandler(fn func (http.ResponseWriter, *http.Request, string)) http.HandlerFunc {
-	return func(w http.ResponseWriter, r *http.Request) {
-		// Here we will extract the page title from the Request,
-		// and call the provided handler 'fn'
-	}
+    return func(w http.ResponseWriter, r *http.Request) {
+        // Here we will extract the page title from the Request,
+        // and call the provided handler 'fn'
+    }
 }
 </pre>
 

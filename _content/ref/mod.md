@@ -788,8 +788,8 @@ publishes version `v1.0.0` accidentally. To prevent users from upgrading to
 
 ```
 retract (
-	v1.0.0 // Published accidentally.
-	v1.0.1 // Contains retractions only.
+    v1.0.0 // Published accidentally.
+    v1.0.1 // Contains retractions only.
 )
 ```
 
@@ -1941,33 +1941,33 @@ The editing flags may be repeated. The changes are applied in the order given.
 
 ```
 type Module struct {
-        Path    string
-        Version string
+    Path    string
+    Version string
 }
 
 type GoMod struct {
-        Module  Module
-        Go      string
-        Require []Require
-        Exclude []Module
-        Replace []Replace
+    Module  Module
+    Go      string
+    Require []Require
+    Exclude []Module
+    Replace []Replace
 }
 
 type Require struct {
-        Path     string
-        Version  string
-        Indirect bool
+    Path     string
+    Version  string
+    Indirect bool
 }
 
 type Replace struct {
-        Old Module
-        New Module
+    Old Module
+    New Module
 }
 
 type Retract struct {
-        Low       string
-        High      string
-        Rationale string
+    Low       string
+    High      string
+    Rationale string
 }
 
 ```
@@ -2820,9 +2820,9 @@ module golang.org/x/mod
 go 1.12
 
 require (
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
-	golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
-	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
+    golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
+    golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
+    golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 )
 ```
 

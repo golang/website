@@ -99,7 +99,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("Hello, world.")
+    fmt.Println("Hello, world.")
 }
 </pre>
 
@@ -230,11 +230,11 @@ package morestrings
 
 // ReverseRunes returns its argument string reversed rune-wise left to right.
 func ReverseRunes(s string) string {
-	r := []rune(s)
-	for i, j := 0, len(r)-1; i &lt; len(r)/2; i, j = i+1, j-1 {
-		r[i], r[j] = r[j], r[i]
-	}
-	return string(r)
+    r := []rune(s)
+    for i, j := 0, len(r)-1; i &lt; len(r)/2; i, j = i+1, j-1 {
+        r[i], r[j] = r[j], r[i]
+    }
+    return string(r)
 }
 </pre>
 
@@ -270,13 +270,13 @@ from the <code>hello</code> program. To do so, modify your original
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	<b>"example/user/hello/morestrings"</b>
+    <b>"example/user/hello/morestrings"</b>
 )
 
 func main() {
-	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
+    fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
 }
 </pre>
 
@@ -310,15 +310,15 @@ For instance, to use <code>github.com/google/go-cmp/cmp</code> in your program:
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"example/user/hello/morestrings"
-	"github.com/google/go-cmp/cmp"
+    "example/user/hello/morestrings"
+    "github.com/google/go-cmp/cmp"
 )
 
 func main() {
-	fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
-	fmt.Println(cmp.Diff("Hello World", "Hello Go"))
+    fmt.Println(morestrings.ReverseRunes("!oG ,olleH"))
+    fmt.Println(cmp.Diff("Hello World", "Hello Go"))
 }
 </pre>
 
@@ -337,8 +337,8 @@ $ go install example/user/hello
 $ hello
 Hello, Go!
   string(
-- 	"Hello World",
-+ 	"Hello Go",
+-     "Hello World",
++     "Hello Go",
   )
 $ cat go.mod
 module example/user/hello
@@ -392,19 +392,19 @@ package morestrings
 import "testing"
 
 func TestReverseRunes(t *testing.T) {
-	cases := []struct {
-		in, want string
-	}{
-		{"Hello, world", "dlrow ,olleH"},
-		{"Hello, 世界", "界世 ,olleH"},
-		{"", ""},
-	}
-	for _, c := range cases {
-		got := ReverseRunes(c.in)
-		if got != c.want {
-			t.Errorf("ReverseRunes(%q) == %q, want %q", c.in, got, c.want)
-		}
-	}
+    cases := []struct {
+        in, want string
+    }{
+        {"Hello, world", "dlrow ,olleH"},
+        {"Hello, 世界", "界世 ,olleH"},
+        {"", ""},
+    }
+    for _, c := range cases {
+        got := ReverseRunes(c.in)
+        if got != c.want {
+            t.Errorf("ReverseRunes(%q) == %q, want %q", c.in, got, c.want)
+        }
+    }
 }
 </pre>
 

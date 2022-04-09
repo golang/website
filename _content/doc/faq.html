@@ -966,11 +966,11 @@ stored inside an interface value such as an <code>error</code> return:
 
 <pre>
 func returnsError() error {
-	var p *MyError = nil
-	if bad() {
-		p = ErrBad
-	}
-	return p // Will always return a non-nil error.
+    var p *MyError = nil
+    if bad() {
+        p = ErrBad
+    }
+    return p // Will always return a non-nil error.
 }
 </pre>
 
@@ -987,10 +987,10 @@ the function must return an explicit <code>nil</code>:
 
 <pre>
 func returnsError() error {
-	if bad() {
-		return ErrBad
-	}
-	return nil
+    if bad() {
+        return ErrBad
+    }
+    return nil
 }
 </pre>
 
@@ -1060,7 +1060,7 @@ Covariant result types would mean that an interface like
 
 <pre>
 type Copyable interface {
-	Copy() interface{}
+    Copy() interface{}
 }
 </pre>
 
@@ -2096,7 +2096,7 @@ that only works for certain type arguments:
 type S[T any] struct { f T }
 
 func (s S[string]) Add(t string) string {
-	return s.f + t
+    return s.f + t
 }
 </pre>
 
