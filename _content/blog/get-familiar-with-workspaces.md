@@ -174,7 +174,7 @@ then add the new module to your workspace with `go work use [path-to-module].`
 
 ## Workspace commands
 
-Along with `go work init` and `go use`, Go 1.18 introduces the following
+Along with `go work init` and `go work use`, Go 1.18 introduces the following
 commands for workspaces:
 
 -  `go work sync`: pushes the dependencies in the `go.work` file back into
