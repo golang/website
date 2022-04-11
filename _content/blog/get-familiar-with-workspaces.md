@@ -9,7 +9,7 @@ tags:
 - go1.18
 summary: Learn about Go workspaces and some of the workflows they enable.
 ---
-
+ 
 Go 1.18 adds workspace mode to Go, which lets you work on multiple modules
 simultaneously.
 
