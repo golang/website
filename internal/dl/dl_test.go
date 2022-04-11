@@ -220,6 +220,7 @@ func TestFilesToFeatured(t *testing.T) {
 	got := strings.Join(s, "\n")
 	want := strings.Join([]string{
 		"go1.16.3.windows-amd64.msi",
+		"go1.16.3.darwin-arm64.pkg",
 		"go1.16.3.darwin-amd64.pkg",
 		"go1.16.3.linux-amd64.tar.gz",
 		"go1.16.3.src.tar.gz",

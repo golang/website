@@ -91,6 +91,9 @@ func (h server) listData(ctx context.Context) (*listTemplateData, error) {
 		if err != nil {
 			return nil, err
 		}
+		if len(d.Stable) > 0 {
+			d.Featured = filesToFeatured(d.Stable[0].Files)
+		}
 		return &d, nil
 	}
 
