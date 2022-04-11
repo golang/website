@@ -54,7 +54,9 @@ func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc 
 }
 
 // linkHandler services requests to short URLs.
-//   https://go.dev/s/key[/remaining/path]
+//
+//	https://go.dev/s/key[/remaining/path]
+//
 // It consults memcache and datastore for the Link for key.
 // It then sends a redirects or an error message.
 // If the remaining path part is not empty, the redirects

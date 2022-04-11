@@ -5,7 +5,7 @@
 // Package web implements a basic web site serving framework.
 // The two fundamental types in this package are Site and Page.
 //
-// Sites
+// # Sites
 //
 // A Site is an http.Handler that serves requests from a file system.
 // Use NewSite(fsys) to create a new Site.
@@ -14,7 +14,7 @@
 // which holds files to be served as well as templates for
 // converting Markdown or HTML fragments into full HTML pages.
 //
-// Pages
+// # Pages
 //
 // A Page, which is a map[string]interface{}, is the raw data that a Site renders into a web page.
 // Typically a Page is loaded from a *.html or *.md file in the file system fsys, although
@@ -54,14 +54,14 @@
 // In addition to these explicit key-value pairs, pages loaded from the file system
 // have a few implicit key-value pairs added by the page loading process:
 //
-//	- File: the path in fsys to the file containing the page
-//	- FileData: the file body, with the key-value metadata stripped
-//	- URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
+//   - File: the path in fsys to the file containing the page
+//   - FileData: the file body, with the key-value metadata stripped
+//   - URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
 //
 // The key “Content” is added during during the rendering process.
 // See “Page Rendering” for details.
 //
-// Page Rendering
+// # Page Rendering
 //
 // A Page's content is rendered in two steps: conversion to content, and framing of content.
 //
@@ -106,7 +106,7 @@
 // if there is no layout-specific template,
 // the content will still be rendered.
 //
-// Page Template Functions
+// # Page Template Functions
 //
 // In this web server, templates can themselves be invoked as functions.
 // See https://pkg.go.dev/rsc.io/tmplfunc for more details about that feature.
@@ -194,7 +194,7 @@
 // function in these packages (except path.Split, which has more than one non-error result
 // and would not be invokable). For example, “{{strings.ToUpper "abc"}}”.
 //
-// Serving Requests
+// # Serving Requests
 //
 // A Site is an http.Handler that serves requests by consulting the underlying
 // file system and constructing and rendering pages, as well as serving binary
@@ -270,7 +270,7 @@
 // where err is the “not exist” error returned by fs.Stat(fsys, p).
 // (See also the “Serving Errors” section below.)
 //
-// Serving Dynamic Requests
+// # Serving Dynamic Requests
 //
 // Of course, a web site may wish to serve more than static content.
 // To allow dynamically generated web pages to make use of page
@@ -278,7 +278,7 @@
 // called with a dynamically generated Page value, which will then
 // be rendered and served as the result of the request.
 //
-// Serving Errors
+// # Serving Errors
 //
 // If an error occurs while serving a request r,
 // the Site responds with the rendering of
@@ -295,7 +295,6 @@
 //
 // The Site.ServeError and Site.ServeErrorStatus methods provide a way
 // for dynamic servers to generate similar responses.
-//
 package web
 
 import (
@@ -378,7 +377,6 @@ func (s *Site) ServeError(w http.ResponseWriter, r *http.Request, err error) {
 //		"layout": error,
 //		"error": err,
 //	}
-//
 func (s *Site) ServeErrorStatus(w http.ResponseWriter, r *http.Request, err error, status int) {
 	s.serveErrorStatus(w, r, err, status, false)
 }

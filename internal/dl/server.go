@@ -79,6 +79,7 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // dl.gob was generated 2021-11-08 from the live server data, for offline testing.
+//
 //go:embed dl.gob
 var dlGob []byte
 

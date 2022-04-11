@@ -9,17 +9,20 @@
 // It is designed to run only on the instance of godoc that serves golang.org.
 //
 // The package also serves the list of downloads and individual files at:
-//     https://golang.org/dl/
-//     https://golang.org/dl/{file}
+//
+//	https://golang.org/dl/
+//	https://golang.org/dl/{file}
 //
 // An optional query param, mode=json, serves the list of stable release
 // downloads in JSON format:
-//     https://golang.org/dl/?mode=json
+//
+//	https://golang.org/dl/?mode=json
 //
 // An additional query param, include=all, when used with the mode=json
 // query param, will serve a full list of available downloads, including
 // unstable, stable, and archived releases, in JSON format:
-//     https://golang.org/dl/?mode=json&include=all
+//
+//	https://golang.org/dl/?mode=json&include=all
 //
 // Releases returned in JSON modes are sorted by version, newest to oldest.
 package dl
