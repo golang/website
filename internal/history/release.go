@@ -16,13 +16,22 @@ import "golang.org/x/website/internal/backport/html/template"
 var Releases = []*Release{
 	{
 		Date: Date{2022, 4, 12}, Version: Version{1, 18, 1},
-		Future:   true,
-		Security: &FixSummary{Quantifier: "a", Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{
+			Packages: []string{"crypto/elliptic", "crypto/x509", "encoding/pem"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "linker", "runtime", "the <code>go</code> command", "vet"},
+			Packages:   []string{"bytes", "crypto/x509", "go/types"},
+		},
 	},
 	{
 		Date: Date{2022, 4, 12}, Version: Version{1, 17, 9},
-		Future:   true,
-		Security: &FixSummary{Quantifier: "a", Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{
+			Packages: []string{"crypto/elliptic", "encoding/pem"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the linker", "runtime"},
+		},
 	},
 	{
 		Date: Date{2022, 3, 15}, Version: Version{1, 18, 0},
