@@ -11,7 +11,6 @@
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
 <meta charset="utf-8">
-<meta name="description" content="Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
@@ -30,9 +29,12 @@
 <meta name="og:url" content="https://go.dev{{.URL}}">
 <meta name="og:title" content="{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}">
 <title>{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}</title>
-{{if .summary}}<meta name="og:description" content="{{.summary}}">{{end}}
+{{if .summary}}
+<meta name="og:description" content="{{.summary}}">
+<meta name="description" content="{{.summary}}">
+{{end}}
 <meta name="og:image" content="https://go.dev/doc/gopher/gopher5logo.jpg">
-<meta name="twitter:image" content="https://go.dev/doc/gopher/gopherbelly300.jpg">
+<meta name="twitter:image" content="https://go.dev/doc/gopher/{{if strings.HasPrefix .URL "/blog/"}}runningsquare.jpg{{else}}gopherbelly300.jpg{{end}}">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="@golang">
 {{if .link -}}
