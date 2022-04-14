@@ -27,7 +27,14 @@
   })(window,document,'script','dataLayer','GTM-W8MVQXG');</script>
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
+<meta name="og:url" content="https://go.dev{{.URL}}">
+<meta name="og:title" content="{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}">
 <title>{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}</title>
+{{if .summary}}<meta name="og:description" content="{{.summary}}">{{end}}
+<meta name="og:image" content="https://go.dev/doc/gopher/gopher5logo.jpg">
+<meta name="twitter:image" content="https://go.dev/doc/gopher/gopherbelly300.jpg">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@golang">
 {{if .link -}}
 <meta http-equiv="refresh" content="0; url={{.link}}">
 {{end -}}
