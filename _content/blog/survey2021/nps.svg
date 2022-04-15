@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 226.77'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg=='>
+    <rect x='50.85' y='68.96' width='501.33' height='82.56' />
+  </clipPath>
+</defs>
+<polyline points='73.63,151.52 73.63,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<polyline points='187.57,151.52 187.57,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<polyline points='301.51,151.52 301.51,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<polyline points='415.45,151.52 415.45,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<polyline points='529.39,151.52 529.39,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<rect x='221.48' y='89.60' width='307.91' height='41.28' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #91BFDB;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<rect x='101.44' y='89.60' width='120.04' height='41.28' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #FFFFBF;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<rect x='73.63' y='89.60' width='27.81' height='41.28' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #FC8D59;' clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)' />
+<g clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)'><text x='359.23' y='115.33' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>68 %</text></g>
+<g clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)'><text x='145.26' y='115.33' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>26 %</text></g>
+<g clip-path='url(#cpNTAuODQ1OHw1NTIuMTc2fDE1MS41MjR8NjguOTYxNg==)'><text x='75.29' y='115.33' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text></g>
+<defs>
+  <clipPath id='cpMHw2ODAuMzE1fDIyNi43NzJ8MA=='>
+    <rect x='0.00' y='0.00' width='680.31' height='226.77' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='63.52' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='173.56' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>25%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='287.50' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>50%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='401.44' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>75%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='511.48' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.81px' lengthAdjust='spacingAndGlyphs'>100%</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='239.25' y='195.05' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text></g>
+<rect x='569.32' y='89.02' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #91BFDB;' clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)' />
+<rect x='569.32' y='106.30' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #FFFFBF;' clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)' />
+<rect x='569.32' y='123.58' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #FC8D59;' clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)' />
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='593.86' y='101.53' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='52.62px' lengthAdjust='spacingAndGlyphs'>Promoter</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='593.86' y='118.81' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='44.81px' lengthAdjust='spacingAndGlyphs'>Passive</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='593.86' y='136.09' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='52.62px' lengthAdjust='spacingAndGlyphs'>Detractor</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='50.85' y='60.11' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  2688</text></g>
+<g clip-path='url(#cpMHw2ODAuMzE1fDIyNi43NzJ8MA==)'><text x='50.85' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='602.97px' lengthAdjust='spacingAndGlyphs'>On a scale from 0 - 10, how likely are you to recommend Go to a friend or colleague?</text></g>
+</svg>
