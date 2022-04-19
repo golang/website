@@ -2888,6 +2888,9 @@ p.BackgroundQuote-body {
   margin-left: auto;
   margin-top: 1rem;
 }
+a.BackgroundQuote-link {
+  color: inherit;
+}
 .PullQuote-author {
   font-size: 0.875rem;
 }
