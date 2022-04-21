@@ -75,7 +75,7 @@ So what did respondents use instead when they didn’t choose Go?
 
 <img src="survey2021/lang_instead.svg" alt="Chart of which languages respondents used instead of Go" width="700"/>
 
- Rust, Python, and Java are the most common choices. [Rust and Go have complimentary feature sets](https://thenewstack.io/rust-vs-go-why-theyre-better-together/), so Rust may be a good option for when Go doesn’t meet feature needs for a project. The primary reasons for using Python were missing libraries and existing infrastructure support, so Python’s large package ecosystem may make it difficult to switch to Go. Similarly, the most common reason for using Java instead was because of Go’s missing features, which may be alleviated by the introduction of generics in the 1.18 release. 
+ Rust, Python, and Java are the most common choices. [Rust and Go have complementary feature sets](https://thenewstack.io/rust-vs-go-why-theyre-better-together/), so Rust may be a good option for when Go doesn’t meet feature needs for a project. The primary reasons for using Python were missing libraries and existing infrastructure support, so Python’s large package ecosystem may make it difficult to switch to Go. Similarly, the most common reason for using Java instead was because of Go’s missing features, which may be alleviated by the introduction of generics in the 1.18 release.
 
 ## Go satisfaction and prioritization {#satisfaction}
 Let’s look at areas where Go is doing well and where things can be improved. 
