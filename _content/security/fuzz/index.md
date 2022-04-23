@@ -245,7 +245,7 @@ To use this tool:
 
 ```
 $ go install golang.org/x/tools/cmd/file2fuzz@latest
-$ file2fuzz
+$ file2fuzz -h
 ```
 
 ## Resources
