@@ -19,8 +19,8 @@
 //
 // Examples
 //
-//	go run -w wrap.go your.article
-//	go run -w wrap.go *.article
+//	go run wrap.go -w your.article
+//	go run wrap.go -w *.article
 //
 package main
 
