@@ -6,7 +6,7 @@ by:
 - Blake Mizerany
 tags:
 - guest
-summary: "_This week’s blog post is written by_ [_Keith Rarick_](http://xph.us/) _and_ [_Blake Mizerany_](http://itsbonus.heroku.com/), _systems engineers at_ [Heroku](http://www.heroku.com/). _In their own words, they \"eat, drink, and sleep distributed systems.\" Here they discuss their experiences using Go._"
+summary: Two Heroku system engineers discuss their experiences using Go.
 ---
 
 
