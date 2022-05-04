@@ -1,0 +1,78 @@
+<!--{
+	"Title": "Go Vulnerability Database",
+	"layout": "article"
+}-->
+
+<strong>This page is a work in progress.</strong>
+
+<h2 id="overview">Overview</h2>
+<p>
+The Go vulnerability database is a curated database of public Go security
+vulnerabilities, maintained by the Go Security team.
+</p>
+
+<h2 id="protocol">Protocol</h2>
+<p>
+The Go vulnerability database is rooted at <code>https://vuln.go.dev</code> and
+provides data as JSON. We recommend using
+<a href="https://pkg.go.dev/golang.org/x/vuln/client#Client">client.Client</a>
+to read data from the Go vulnerability database.
+</p>
+
+<p>
+Do not rely on the contents of the x/vulndb repository. The YAML files in that
+repository are maintained using an internal format that is subject to change
+without warning.
+</p>
+
+<p>
+The endpoints in the table below are supported. For each path:
+</p>
+
+<ul>
+  <li><code>$base</code> is the path portion of a Go vulnerability database URL (<code>https://vuln.go.dev</code>).</li>
+  <li><code>$module</code> is a module path</li>
+  <li><code>$vuln</code> is a Go vulnerabilitiy ID (for example, <code>GO-2021-1234</code>)</li>
+</ul>
+
+
+<table>
+  <thead>
+    <tr>
+      <th>Path</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>$base/index.json</code></td>
+      <td>
+        List of module paths in the database mapped to its last modified
+        timestamp (<a href="https://vuln.go.dev/index.json">link</a>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>$base/$module.json</code></td>
+      <td>
+        List of vulnerability entries for that module (<a href="https://vuln.go.dev/golang.org/x/crypto.json">example</a>).
+      </td>
+    </tr>
+    <tr>
+      <td><code>$base/ID/index.json</code></td>
+      <td>
+        List of all the vulnerability entries in the database.
+      </td>
+    </tr>
+    <tr>
+      <td><code>$base/ID/$vuln.json</code></td>
+      <td>
+        An individual Go vulnerability report.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>
+Note that these paths and format are provisional and likely to change until an
+approved proposal.
+</p>
