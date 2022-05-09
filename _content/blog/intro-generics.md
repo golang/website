@@ -192,7 +192,7 @@ containing the types `int`, `string`, and `bool`.
 Another way of saying this is that this interface is satisfied by
 only `int`, `string`, or `bool`.
 
-Now let's look at the actual definition of `contraints.Ordered`:
+Now let's look at the actual definition of `constraints.Ordered`:
 
 {{raw `
 	type Ordered interface {
