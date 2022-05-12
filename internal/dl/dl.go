@@ -164,7 +164,7 @@ var featuredFiles = []Feature{
 		fileRE:       regexp.MustCompile(`\.windows-amd64\.msi$`),
 	},
 	{
-		Platform:     "Apple macOS",
+		Platform:     "Apple macOS (Arm)",
 		Requirements: "macOS 11 or later, Apple 64-bit processor",
 		fileRE:       regexp.MustCompile(`\.darwin-arm64\.pkg$`),
 	},
