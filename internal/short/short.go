@@ -192,10 +192,10 @@ func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 // putLink validates the provided link and puts it into the datastore.
 func (h server) putLink(ctx context.Context, link *Link) error {
 	if !validKey.MatchString(link.Key) {
-		return errors.New("invalid key; must match " + validKey.String())
+		return fmt.Errorf("invalid key %q; must match %s", link.Key, validKey.String())
 	}
 	if _, err := url.Parse(link.Target); err != nil {
-		return fmt.Errorf("bad target: %v", err)
+		return fmt.Errorf("bad target %q: %v", link.Target, err)
 	}
 	k := datastore.NameKey(kind, link.Key, nil)
 	_, err := h.datastore.Put(ctx, k, link)
