@@ -1,13 +1,12 @@
-// Copyright 2015 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
+{{/*
+	Copyright 2015 The Go Authors. All rights reserved.
+	Use of this source code is governed by a BSD-style
+	license that can be found in the LICENSE file.
+*/ -}}
 
-package short
-
-const templateHTML = `
 <!doctype HTML>
 <html lang="en">
-<title>golang.org URL shortener</title>
+<title>go.dev URL shortener</title>
 <style>
 * {
 	box-sizing: border-box;
@@ -63,8 +62,8 @@ table {
 
 <form method="POST">
 <tr>
-	<td><input type="text" name="key"{{with .New}} value="{{.Key}}"{{end}} required></td>
-	<td><input type="url" name="target"{{with .New}} value="{{.Target}}"{{end}} required></td>
+	<td><input type="text" name="key"{{with .New}} value="{{.Key}}"{{end}} placeholder="better-linker" required></td>
+	<td><input type="url" name="target" value="{{with .New}}{{.Target}}{{else}}https://{{end}}" required></td>
 	<td><input type="submit" name="do" value="Add">
 </tr>
 </form>
@@ -107,4 +106,3 @@ document.querySelectorAll('.delete').forEach(el => {
 	})
 });
 </script>
-`

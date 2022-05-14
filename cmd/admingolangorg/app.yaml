@@ -1,5 +1,6 @@
-runtime: go111
+runtime: go116
 service: admin
+main: ./cmd/admingolangorg
 
 env_variables:
   GOLANGORG_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"

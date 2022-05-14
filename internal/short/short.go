@@ -10,6 +10,7 @@ package short
 
 import (
 	"context"
+	_ "embed"
 	"errors"
 	"fmt"
 	"log"
@@ -125,7 +126,12 @@ func AdminHandler(dc *datastore.Client, mc *memcache.Client) http.HandlerFunc {
 	return s.adminHandler
 }
 
-var adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+var (
+	adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+
+	//go:embed admin.html
+	templateHTML string
+)
 
 // adminHandler serves an administrative interface.
 // Be careful. Ensure that this handler is only be exposed to authorized users.
