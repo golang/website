@@ -4,7 +4,7 @@
 
 // for /play; play.js is for embedded play widgets
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('load', () => {
   // Set up playground if enabled.
   if (window.playground) {
     window.playground({
@@ -23,7 +23,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // The pre matched below is added by the code above. Style it appropriately.
     document.querySelector(".js-playgroundOutputEl pre").classList.add("Playground-output");
-    $('.js-playgroundToysEl').val("hello.go").trigger("change")
+    $('.js-playgroundRunEl').click();
 
     $('#code').linedtextarea();
     $('#code').attr('wrap', 'off');
