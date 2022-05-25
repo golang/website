@@ -1,11 +1,11 @@
-<!--{
-  "Title": "Go CNA"
-}-->
+---
+title: Go CNA
+layout: article
+---
 
 **This page is a work in progress.**
 
 ## Overview
-
 The Go CNA is a
 [CVE Numbering Authority](https://www.cve.org/ProgramOrganization/CNAs), which issues
 [CVE IDs](https://www.cve.org/ResourcesSupport/Glossary?activeTerm=glossaryCVEID) and publishes
