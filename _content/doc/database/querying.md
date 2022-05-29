@@ -147,7 +147,7 @@ func albumsByArtist(artist string) ([]Album, error) {
 			&alb.Price, &alb.Quantity); err != nil {
 			return albums, err
 		}
-		albums = append(albums, album)
+		albums = append(albums, alb)
 	}
 	if err = rows.Err(); err != nil {
 		return albums, err
