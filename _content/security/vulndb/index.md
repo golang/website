@@ -1,40 +1,29 @@
-<!--{
-	"Title": "Go Vulnerability Database",
-	"layout": "article"
-}-->
+---
+title: Go Vulnerability Database
+layout: article
+---
 
-<strong>This page is a work in progress.</strong>
+**This page is a work in progress.**
 
-<h2 id="overview">Overview</h2>
-<p>
+## Overview
+
 The Go vulnerability database is a curated database of public Go security
 vulnerabilities, maintained by the Go Security team.
-</p>
 
-<h2 id="protocol">Protocol</h2>
-<p>
-The Go vulnerability database is rooted at <code>https://vuln.go.dev</code> and
-provides data as JSON. We recommend using
-<a href="https://pkg.go.dev/golang.org/x/vuln/client#Client">client.Client</a>
-to read data from the Go vulnerability database.
-</p>
+## Protocol
 
-<p>
+The Go vulnerability database is rooted at `https://vuln.go.dev` and
+provides data as JSON. We recommend using [client.Client](https://pkg.go.dev/golang.org/x/vuln/client#Client) to read data from the Go vulnerability database.
+
 Do not rely on the contents of the x/vulndb repository. The YAML files in that
 repository are maintained using an internal format that is subject to change
 without warning.
-</p>
 
-<p>
 The endpoints in the table below are supported. For each path:
-</p>
 
-<ul>
-  <li><code>$base</code> is the path portion of a Go vulnerability database URL (<code>https://vuln.go.dev</code>).</li>
-  <li><code>$module</code> is a module path</li>
-  <li><code>$vuln</code> is a Go vulnerabilitiy ID (for example, <code>GO-2021-1234</code>)</li>
-</ul>
-
+- `$base` is the path portion of a Go vulnerability database URL (`https://vuln.go.dev`).
+- `$module` is a module path
+- `$vuln` is a Go vulnerabilitiy ID (for example, `GO-2021-1234`)
 
 <table>
   <thead>
@@ -72,7 +61,5 @@ The endpoints in the table below are supported. For each path:
   </tbody>
 </table>
 
-<p>
 Note that these paths and format are provisional and likely to change until an
 approved proposal.
-</p>
