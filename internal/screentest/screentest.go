@@ -777,6 +777,7 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
 		reduceMotion(),
+		checkResponse(tc, &res),
 		tc.tasks,
 	)
 	switch tc.screenshotType {
@@ -789,10 +790,6 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	}
 	if err := chromedp.Run(ctx, tasks); err != nil {
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
-	}
-	if res.Status != tc.status {
-		fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
-		return nil, fmt.Errorf("bad status: %d", res.Status)
 	}
 	return buf, nil
 }
@@ -908,6 +905,16 @@ func getResponse(u string, res *Response) chromedp.ActionFunc {
 				}
 			}
 		})
+		return nil
+	}
+}
+
+func checkResponse(tc *testcase, res *Response) chromedp.ActionFunc {
+	return func(context.Context) error {
+		if res.Status != tc.status {
+			fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
+			return fmt.Errorf("bad status: %d", res.Status)
+		}
 		return nil
 	}
 }
