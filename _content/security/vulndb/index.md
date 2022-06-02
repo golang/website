@@ -2,9 +2,12 @@
 title: Go Vulnerability Management
 layout: article
 ---
+
 ## Overview
 
 This page describes the Go vulnerability management system.
+
+_This project is a work in progress._
 
 ## Architecture
 
@@ -18,29 +21,29 @@ The Go vulnerability management system consists of the following high-level
 pieces:
 
 1. A **data pipeline** that populates the vulnerability database. Data about
-new vulnerabilities come directly from Go package maintainers or sources such as
-MITRE and GitHub. Reports are curated by the Go Security team.
+   new vulnerabilities come directly from Go package maintainers or sources such as
+   MITRE and GitHub. Reports are curated by the Go Security team.
 
 2. A **vulnerability database** that stores all information presented by
-govulncheck and can be consumed by other clients.
+   govulncheck and can be consumed by other clients.
 
 3. A **client library**
-([golang.org/x/vuln/client](https://golang.org/x/vuln/client)), which reads data
-from the Go vulnerability database. This is also used by pkg.go.dev to surface
-vulnerabilities.
+   ([golang.org/x/vuln/client](https:/golang.org/x/vuln/client)), which reads data
+   from the Go vulnerability database. This is also used by pkg.go.dev to surface
+   vulnerabilities.
 
 4. A **vulncheck API**
-([golang.org/x/vuln/vulncheck](https://golang.org/x/vuln/vulncheck)), which is
-used to find vulnerabilities affecting Go packages and perform static analysis.
-This API is made available for clients that do not want to run the govulncheck
-binary, such as VS Code Go.
+   ([golang.org/x/vuln/vulncheck](https:/golang.org/x/vuln/vulncheck)), which is
+   used to find vulnerabilities affecting Go packages and perform static analysis.
+   This API is made available for clients that do not want to run the govulncheck
+   binary, such as VS Code Go.
 
 5. The **govulncheck command**
-([golang.org/x/vuln/cmd/govulncheck](https://golang.org/x/vuln/cmd/govulncheck),
-a wrapper around the vulncheck library for use on the command line.
+   ([golang.org/x/vuln/cmd/govulncheck](https:/golang.org/x/vuln/cmd/govulncheck),
+   a wrapper around the vulncheck library for use on the command line.
 
 6. A **web portal** that presents information about vulnerabilities, hosted at
-[pkg.go.dev/vuln](https://pkg.go.dev/vuln).
+   [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
 
 ## Protocol
 
