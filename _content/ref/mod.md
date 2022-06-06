@@ -4323,18 +4323,18 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
         </p>
       </td>
     </tr>
-     <tr>
+    <tr>
       <td><code>GOWORK</code></td>
       <td>
-       <p>
-        The `GOWORK` environment variable instructs the `go` command to enter workspace
-        mode using the provided [`go.work` file](#go-work-file) to define the workspace.
-        If `GOWORK` is set to `off` workspace mode is disabled. This can be used to run
-        the `go` command in single module mode: for example, `GOWORK=off go build .` builds
-        the `.` package in single-module mode.`If `GOWORK` is empty, the
-        `go` command will search for a `go.work` file as described in the [Workspaces](#workspaces)
-        section.
-       </p>
+        <p>
+          The <code>GOWORK</code> environment variable instructs the <code>go</code> command to enter workspace
+          mode using the provided <a href="#go-work-file"><code>go.work</code> file</a> to define the workspace.
+          If <code>GOWORK</code> is set to <code>off</code> workspace mode is disabled. This can be used to run
+          the <code>go</code> command in single module mode: for example, <code>GOWORK=off go build .</code> builds
+          the <code>.</code> package in single-module mode. If <code>GOWORK</code> is empty, the <code>go</code> 
+          command will search for a <code>go.work</code> file as described in the <a href="#workspaces">Workspaces</a>
+          section.
+        </p>
       </td>
     </tr>
   </tbody>
