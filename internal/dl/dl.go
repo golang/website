@@ -41,7 +41,7 @@ const (
 )
 
 // File represents a file on the go.dev downloads page.
-// It should be kept in sync with the upload code in x/build/cmd/release.
+// It should be kept in sync with the upload code in x/build/internal/relui.
 type File struct {
 	Filename       string    `json:"filename"`
 	OS             string    `json:"os"`
@@ -347,7 +347,9 @@ func parseVersion(v string) (maj, min int, tail string) {
 // Go release binaries via the /dl/upload endpoint.
 func validUser(user string) bool {
 	switch user {
-	case "amedee", "cherryyz", "dmitshur", "drchase", "heschi", "katiehockman", "mknyszek", "rakoczy", "thanm", "valsorda":
+	case "amedee", "cherryyz", "dmitshur", "drchase", "heschi", "mknyszek", "rakoczy", "thanm":
+		return true
+	case "relui":
 		return true
 	}
 	return false
