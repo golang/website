@@ -521,7 +521,7 @@ gri@golang.org
 * 编程文化的演变
 
 ## `gofmt` is significant selling point for Go
-- `gomft` 是 Go 语言的一个重要的卖点
+- `gofmt` 是 Go 语言的一个重要的卖点
 
 ## Insight is spreading that uniform "good enough" formatting is hugely beneficial.
 - 大家渐渐达成共识：一致的“足够好“的格式很有好处

@@ -1,3 +1,4 @@
+//go:build ignore && OMIT
 // +build ignore,OMIT
 
 package main
@@ -49,7 +50,7 @@ func (ss *ShirtSize) UnmarshalJSON(data []byte) error {
 		return fmt.Errorf("shirt-size should be a string, got %s", data)
 	}
 
-	// The rest is equivalen to ParseShirtSize.
+	// The rest is equivalent to ParseShirtSize.
 	got, ok := map[string]ShirtSize{"XS": XS, "S": S, "M": M, "L": L, "XL": XL}[s]
 	if !ok {
 		return fmt.Errorf("invalid ShirtSize %q", s)

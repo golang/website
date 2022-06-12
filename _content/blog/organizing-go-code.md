@@ -106,7 +106,7 @@ to compile and link a lot of unrelated code.
 
 On the other hand, it is also easy to go overboard in splitting your code
 into small packages,
-in which case you will likely becomes bogged down in interface design,
+in which case you will likely become bogged down in interface design,
 rather than just getting the job done.
 
 Look to the Go standard libraries as a guide.

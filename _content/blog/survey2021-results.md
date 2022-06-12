@@ -177,7 +177,7 @@ It’s unsurprising 91% of respondents who came to the survey from the VS Code p
 ### Different resources
 The randomly selected sample was less likely to rate social channels like the Go Blog as among their top resources for answering Go-related questions, so they may have been less likely to see the survey advertised on those channels.
 
- <img src="survey2021/resources_s.svg" alt="rouped bar chart showing the top resources respondents use when writing in Go" width="700"/>
+ <img src="survey2021/resources_s.svg" alt="Grouped bar chart showing the top resources respondents use when writing in Go" width="700"/>
 
 ## Conclusion {#conclusion}
 

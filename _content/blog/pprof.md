@@ -607,7 +607,7 @@ The final version runs in 2.29 seconds and uses 351 MB of memory:
 
 That's 11 times faster than the program we started with.
 Even if we disable reuse of the generated loop graph, so that the only cached memory
-is the loop finding bookeeping, the program still runs 6.7x faster than the original
+is the loop finding bookkeeping, the program still runs 6.7x faster than the original
 and uses 1.5x less memory.
 
 	$ ./xtime ./havlak6 -reuseloopgraph=false

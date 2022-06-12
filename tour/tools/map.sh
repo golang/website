@@ -4,7 +4,7 @@
 # Use of this source code is governed by a BSD-style
 # license that can be found in the LICENSE file.
 
-# This code parses mapping.old and finds a correspondance from the old
+# This code parses mapping.old and finds a correspondence from the old
 # urls (e.g. #42) to the corresponding path (e.g. /concurrency/3).
 
 function findURL {

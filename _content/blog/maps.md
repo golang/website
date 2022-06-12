@@ -189,7 +189,7 @@ On the other hand, a design that uses a single map with a struct key does away w
 	}
 	hits := make(map[Key]int)
 
-When an Vietnamese person visits the home page,
+When a Vietnamese person visits the home page,
 incrementing (and possibly creating) the appropriate counter is a one-liner:
 
 	hits[Key{"/", "vn"}]++

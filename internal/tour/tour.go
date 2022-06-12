@@ -70,7 +70,7 @@ func initTour(mux *http.ServeMux, transport string) error {
 	return initScript(mux, socketAddr(), transport)
 }
 
-// initLessonss finds all the lessons in the content directory, renders them,
+// initLessons finds all the lessons in the content directory, renders them,
 // using the given template and saves the content in the lessons map.
 func initLessons(tmpl *template.Template) error {
 	files, err := fs.ReadDir(contentTour, "tour")

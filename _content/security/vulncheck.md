@@ -29,7 +29,7 @@ feature brings several benefits.
 
 vulncheck is more accurate than standard package-level vulnerability detection:
 just because a vulnerable _symbol_ (function or method) is imported, this does
-does not mean the symbol is actually used. Consider the following illustrative
+not mean the symbol is actually used. Consider the following illustrative
 code.
 
 {{raw `
@@ -284,7 +284,7 @@ and volume of used computational resources with the
 VTA is an over-approximate call graph algorithm. VTA does not miss a call stack
 realizable in practice (see Limitations section for exceptions to this), but it
 might sometimes report a call stack leading to a vulnerability that cannot be
-exercised in practice. Our experiments suggests this does not happen too often.
+exercised in practice. Our experiments suggest this does not happen too often.
 
 Consider again the program from the previous section. Existing algorithms, such
 as [CHA](https://pkg.go.dev/golang.org/x/tools/go/callgraph/cha) or

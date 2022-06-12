@@ -79,7 +79,7 @@ That makes it a good candidate for using type parameters.
 
 The alternative to type parameters for this kind of function is
 typically to use reflection, but that is a more awkward programming
-model, is not staticaly typechecked at build time, and is often slower
+model, is not statically typechecked at build time, and is often slower
 at run time.
 
 ### General purpose data structures
@@ -347,5 +347,5 @@ the only difference between the copies is that the code uses different
 types, consider whether you can use a type parameter.
 
 Another way to say this is that you should avoid type parameters until
-you notice that you are about the write the exact same code multiple
+you notice that you are about to write the exact same code multiple
 times.

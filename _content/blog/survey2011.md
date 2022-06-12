@@ -15,7 +15,7 @@ However, for every Gopher I know there are dozens I know nothing about.
 In order to address this imbalance I've prepared a survey for Go users everywhere.
 
 The survey is short. It asks about you, your involvement with Go,
-and and your interest in Go-related events.
+and your interest in Go-related events.
 Among other things, this data will help myself and the rest of the Go team
 plan future Go events and schedule conference appearances.
 

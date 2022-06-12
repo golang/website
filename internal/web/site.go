@@ -58,7 +58,7 @@
 //   - FileData: the file body, with the key-value metadata stripped
 //   - URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
 //
-// The key “Content” is added during during the rendering process.
+// The key “Content” is added during the rendering process.
 // See “Page Rendering” for details.
 //
 // # Page Rendering
@@ -129,7 +129,7 @@
 // If both start and end are specified, then the display shows a range of lines
 // starting at start up to and including end.
 // The arguments start and end can take two forms: a number indicates a specific line number,
-// and a string is taken to be a regular expresion indicating the earliest matching line
+// and a string is taken to be a regular expression indicating the earliest matching line
 // in the file (or, for end, the earliest matching line after the start line).
 // Any lines ending in “OMIT” are elided from the display.
 //

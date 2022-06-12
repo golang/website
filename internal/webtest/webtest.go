@@ -112,8 +112,8 @@
 //
 //	== - the value must be equal to the text
 //	!= - the value must not be equal to the text
-//	~  - the value must match the text interprted as a regular expression
-//	!~ - the value must not match the text interprted as a regular expression
+//	~  - the value must match the text interpreted as a regular expression
+//	!~ - the value must not match the text interpreted as a regular expression
 //	contains  - the value must contain the text as a substring
 //	!contains - the value must not contain the text as a substring
 //

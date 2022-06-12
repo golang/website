@@ -207,7 +207,7 @@ func sanitize(src template.HTML) template.HTML {
 }
 
 // Since reports the Go version that introduced the API feature
-// identified by kind, reeciver, name.
+// identified by kind, receiver, name.
 func (p *Page) Since(kind, receiver, name string) string {
 	pkg := p.PDoc.ImportPath
 	return p.docs.api.Func(pkg, kind, receiver, name)

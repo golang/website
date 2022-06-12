@@ -531,7 +531,7 @@ The most important thing
 we needed to do
 was communicate our vision for Go.
 That's difficult,
-and we're still working at it..
+and we're still working at it.
 The initial implementation
 was an important way
 to communicate that vision,
@@ -712,7 +712,7 @@ approach to vendoring.
 I define vendoring as
 copying source code for external dependencies
 into your tree
-to make sure that they doesn't disappear
+to make sure that they don't disappear
 or change underfoot.
 
 Vendoring is not a problem Google suffers,

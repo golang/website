@@ -13,7 +13,7 @@ _This project is a work in progress._
 
 <div class="image">
   <center>
-    <img src="architecture.svg" alt="Go Vulneraility Management Architecture"></img>
+    <img src="architecture.svg" alt="Go Vulnerability Management Architecture"></img>
   </center>
 </div>
 

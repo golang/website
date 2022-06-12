@@ -53,7 +53,7 @@ controller('EditorCtrl', ['$scope', '$routeParams', '$location', 'toc', 'i18n', 
                 $scope.curPage = page;
             } else {
                 l = (page < 1) ? toc.prevLesson(l) : toc.nextLesson(l);
-                if (l === '') { // If there's not previous or next
+                if (l === '') { // If there's no previous or next
                     $location.path('/tour/list');
                     return;
                 }

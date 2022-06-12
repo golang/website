@@ -64,7 +64,7 @@ func (site *Site) openPage(file string) (*pageFile, error) {
 	}
 
 	// Check md before html to work correctly when x/website is layered atop Go 1.15 goroot during Go 1.15 tests.
-	// Want to find x/website's debugging_with_gdb.md not Go 1.15's debuging_with_gdb.html.
+	// Want to find x/website's debugging_with_gdb.md not Go 1.15's debugging_with_gdb.html.
 	files := []string{file + ".md", file + ".html", path.Join(file, "index.md"), path.Join(file, "index.html")}
 	var filePath string
 	var b []byte

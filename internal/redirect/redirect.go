@@ -212,7 +212,7 @@ func srcPkgHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
 }
 
-// validCLID is used to validate cl path suffxies. It supports both the
+// validCLID is used to validate cl path suffixes. It supports both the
 // bare ID, as well as the patchset syntax (i.e. 1234/2.)
 var validCLID = regexp.MustCompile(`^[0-9]+(/[0-9]+)?/?$`)
 

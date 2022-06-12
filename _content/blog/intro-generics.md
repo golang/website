@@ -35,7 +35,7 @@ Generics are a way of writing code that is independent of the specific
 types being used.
 Functions and types may now be written to use any of a set of types.
 
-Generics adds three new big things to the language:
+Generics add three new big things to the language:
 1. Type parameters for function and types.
 2. Defining interface types as sets of types, including types that
    don't have methods.
@@ -441,7 +441,7 @@ for `E`.
 This was just an introduction to constraint type inference.
 For full details see the [proposal
 document](https://go.googlesource.com/proposal/+/HEAD/design/43651-type-parameters.md)
-document or the [language spec](/ref/spec).
+or the [language spec](/ref/spec).
 
 ### Type inference in practice
 

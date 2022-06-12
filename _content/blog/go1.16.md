@@ -4,7 +4,7 @@ date: 2021-02-16
 by:
 - Matt Pearring
 - Dmitri Shuralyov
-summary: Go 1.16 adds embedded files, Apple silicon support, and more.
+summary: Go 1.16 adds embedded files, Apple Silicon support, and more.
 ---
 
 

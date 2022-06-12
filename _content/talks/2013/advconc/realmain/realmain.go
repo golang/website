@@ -1,3 +1,4 @@
+//go:build ignore && OMIT
 // +build ignore,OMIT
 
 // realmain runs the Subscribe example with a real RSS fetcher.
@@ -100,7 +101,7 @@ func (s *sub) loopFetchOnly() {
 	var next time.Time // initially January 1, year 0
 	var err error
 	for {
-		var fetchDelay time.Duration // initally 0 (no delay)
+		var fetchDelay time.Duration // initially 0 (no delay)
 		if now := time.Now(); next.After(now) {
 			fetchDelay = next.Sub(now)
 		}
@@ -239,7 +240,7 @@ func (s *sub) dedupeLoop() {
 	}
 }
 
-// loop periodically fecthes Items, sends them on s.updates, and exits
+// loop periodically fetches Items, sends them on s.updates, and exits
 // when Close is called.  It extends dedupeLoop with logic to run
 // Fetch asynchronously.
 func (s *sub) loop() {

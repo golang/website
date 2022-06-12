@@ -110,7 +110,7 @@ compatible with previous versions.
   build metadata is preserved in versions specified in `go.mod` files. The
   suffix `+incompatible` denotes a version released before migrating to modules
   version major version 2 or later (see [Compatibility with non-module
-  repositories](#non-module-compat).
+  repositories](#non-module-compat)).
 
 A version is considered unstable if its major version is 0 or it has a
 pre-release suffix. Unstable versions are not subject to compatibility
@@ -655,7 +655,7 @@ command.
 
 Since Go 1.16, if a version referenced by a `require` directive in any `go.mod`
 file is excluded by an `exclude` directive in the main module's `go.mod` file,
-the requirement is ignored. This may be cause commands like [`go get`](#go-get)
+the requirement is ignored. This may cause commands like [`go get`](#go-get)
 and [`go mod tidy`](#go-mod-tidy) to add new requirements on higher versions
 to `go.mod`, with an `// indirect` comment if appropriate.
 
@@ -947,7 +947,7 @@ Consider the example below, where C 1.4 has been replaced with R. R depends on D
 1.3 instead of D 1.2, so MVS returns a build list containing A 1.2, B 1.2, C 1.4
 (replaced with R), and D 1.3.
 
-![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacment")
+![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacement")
 
 ### Exclusion {#mvs-exclude}
 
@@ -1760,7 +1760,7 @@ The `Module` struct has a `String` method that formats this line of output, so
 that the default format is equivalent to {{raw "`-f '{{.String}}'`"}}.
 
 Note that when a module has been replaced, its `Replace` field describes the
-replacement module module, and its `Dir` field is set to the replacement
+replacement module, and its `Dir` field is set to the replacement
 module's source code, if present. (That is, if `Replace` is non-nil, then `Dir`
 is set to `Replace.Dir`, with no access to the replaced source code.)
 
@@ -2392,7 +2392,7 @@ A version query may be one of the following:
   latest version starting with `v2`, not the branch named `v2`.
 * The string `latest`, which selects the highest available release version. If
   there are no release versions, `latest` selects the highest pre-release
-  version.  If there no tagged versions, `latest` selects a pseudo-version for
+  version.  If there are no tagged versions, `latest` selects a pseudo-version for
   the commit at the tip of the repository's default branch.
 * The string `upgrade`, which is like `latest` except that if the module is
   currently required at a higher version than the version `latest` would select
@@ -3562,7 +3562,7 @@ example:
 GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
 ```
 
-Use caution when taking this approach: environment variables may be appear
+Use caution when taking this approach: environment variables may appear
 in shell history and in logs.
 
 ### Passing credentials to private repositories {#private-module-repo-auth}
@@ -3753,7 +3753,7 @@ conflicts on case-insensitive file systems.
       <td>
         Directory containing extracted contents of a module <code>.zip</code>
         file. This serves as a module root directory for a downloaded module. It
-        won't contain contain a <code>go.mod</code> file if the original module
+        won't contain a <code>go.mod</code> file if the original module
         didn't have one.
       </td>
     </tr>
@@ -4463,7 +4463,7 @@ distributed together.
 **module graph:** The directed graph of module requirements, rooted at the [main
 module](#glos-main-module). Each vertex in the graph is a module; each edge is a
 version from a `require` statement in a `go.mod` file (subject to `replace` and
-`exclude` statements in the main module's `go.mod` file.
+`exclude` statements in the main module's `go.mod` file).
 
 <a id="glos-module-graph-pruning"></a>
 **module graph pruning:** A change in Go 1.17 that reduces the size of the

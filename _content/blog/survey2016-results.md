@@ -122,7 +122,7 @@ In fact, these were the only questions in the survey for which more than half of
 did not mark “somewhat agree”, “agree”, or “strongly agree” (many were neutral or did not answer).
 
 We hope that the survey and this blog post convey to those of you
-who are aren’t comfortable reaching out that the Go project leadership is listening.
+who aren’t comfortable reaching out that the Go project leadership is listening.
 Throughout 2017 we will be exploring new ways to engage with users to better understand their needs.
 
 {{raw (file "survey2016/project.html")}}

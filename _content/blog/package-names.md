@@ -208,7 +208,7 @@ then the client code becomes
 	set := stringset.New("c", "a", "b")
 	fmt.Println(stringset.Sort(set))
 
-Once you've made this change, its easier to see how to improve the new package:
+Once you've made this change, it's easier to see how to improve the new package:
 
 	package stringset
 	type Set map[string]bool
