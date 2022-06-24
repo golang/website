@@ -106,12 +106,6 @@ var redirects = map[string]string{
 	"/issues":     "https://github.com/golang/go/issues",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
 
-	// In Go 1.2 the references page is part of /doc/.
-	"/ref": "/doc/#references",
-	// This next rule clobbers /ref/spec and /ref/mem.
-	// TODO(adg): figure out what to do here, if anything.
-	// "/ref/": "/doc/#references",
-
 	// Be nice to people who are looking in the wrong place.
 	"/pkg/C/":   "/cmd/cgo/",
 	"/doc/mem":  "/ref/mem",

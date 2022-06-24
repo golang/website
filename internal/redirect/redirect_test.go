@@ -22,7 +22,6 @@ func errorResult(status int) redirectResult {
 func TestRedirects(t *testing.T) {
 	var tests = map[string]redirectResult{
 		"/build":                         {301, "https://build.golang.org"},
-		"/ref":                           {301, "/doc/#references"},
 		"/doc/mem":                       {301, "/ref/mem"},
 		"/doc/spec":                      {301, "/ref/spec"},
 		"/foo":                           errorResult(404),

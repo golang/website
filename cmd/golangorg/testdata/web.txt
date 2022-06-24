@@ -422,3 +422,9 @@ redirect == https://go.dev/dl/?mode=json
 GET https://go.dev/dl/?mode=json
 body contains .windows-amd64.msi
 body !contains UA-
+
+GET https://go.dev/ref
+redirect == /doc/#references
+
+GET https://go.dev/ref/
+redirect == /doc/#references
