@@ -1097,7 +1097,7 @@ containing the working directory.
 If `GOWORK` names a path to an existing file that ends in .work,
 workspace mode will be enabled. Any other value is an error. You can use the
 `go env GOWORK` command to determine which `go.work` file the `go` command
-is using. `go env gowork` will be empty if the `go` command is not in workspace
+is using. `go env GOWORK` will be empty if the `go` command is not in workspace
 mode.
 
 ### `go.work` files {#go-work-file}
