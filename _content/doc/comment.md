@@ -634,6 +634,8 @@ this rule should work for essentially all Go code.)
 For example, if the current package imports encoding/json,
 then “[json.Decoder]” can be written in place of “[encoding/json.Decoder]”
 to link to the docs for encoding/json's Decoder.
+If different source files in a package import different packages using the same name,
+then the shorthand is ambiguous and cannot be used.
 
 A “pkg” is only
 assumed to be a full import path if it starts with a domain name (a
