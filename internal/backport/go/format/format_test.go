@@ -6,12 +6,13 @@ package format
 
 import (
 	"bytes"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/parser"
-	"golang.org/x/website/internal/backport/go/token"
 	"os"
 	"strings"
 	"testing"
+
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/parser"
+	"golang.org/x/website/internal/backport/go/token"
 )
 
 const testfile = "format_test.go"

@@ -739,10 +739,39 @@ func (p *printer) containsLinebreak() bool {
 func (p *printer) intersperseComments(next token.Position, tok token.Token) (wroteNewline, droppedFF bool) {
 	var last *ast.Comment
 	for p.commentBefore(next) {
-		for _, c := range p.comment.List {
+		list := p.comment.List
+		changed := false
+		if p.lastTok != token.IMPORT && // do not rewrite cgo's import "C" comments
+			p.posFor(p.comment.Pos()).Column == 1 &&
+			p.posFor(p.comment.End()+1) == next {
+			// Unindented comment abutting next token position:
+			// a top-level doc comment.
+			list = formatDocComment(list)
+			changed = true
+
+			if len(p.comment.List) > 0 && len(list) == 0 {
+				// The doc comment was removed entirely.
+				// Keep preceding whitespace.
+				p.writeCommentPrefix(p.posFor(p.comment.Pos()), next, last, tok)
+				// Change print state to continue at next.
+				p.pos = next
+				p.last = next
+				// There can't be any more comments.
+				p.nextComment()
+				return p.writeCommentSuffix(false)
+			}
+		}
+		for _, c := range list {
 			p.writeCommentPrefix(p.posFor(c.Pos()), next, last, tok)
 			p.writeComment(c)
 			last = c
+		}
+		// In case list was rewritten, change print state to where
+		// the original list would have ended.
+		if len(p.comment.List) > 0 && changed {
+			last = p.comment.List[len(p.comment.List)-1]
+			p.pos = p.posFor(last.End())
+			p.last = p.pos
 		}
 		p.nextComment()
 	}
@@ -969,7 +998,7 @@ func (p *printer) print(args ...interface{}) {
 
 		default:
 			fmt.Fprintf(os.Stderr, "print: unsupported argument %v (%T)\n", arg, arg)
-			panic("golang.org/x/website/internal/backport/go/printer type")
+			panic("go/printer type")
 		}
 		// data != ""
 
@@ -1153,7 +1182,7 @@ func (p *printer) printNode(node interface{}) error {
 	return nil
 
 unsupported:
-	return fmt.Errorf("golang.org/x/website/internal/backport/go/printer: unsupported node type %T", node)
+	return fmt.Errorf("go/printer: unsupported node type %T", node)
 }
 
 // ----------------------------------------------------------------------------

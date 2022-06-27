@@ -17,11 +17,12 @@ package format
 import (
 	"bytes"
 	"fmt"
+	"io"
+
 	"golang.org/x/website/internal/backport/go/ast"
 	"golang.org/x/website/internal/backport/go/parser"
 	"golang.org/x/website/internal/backport/go/printer"
 	"golang.org/x/website/internal/backport/go/token"
-	"io"
 )
 
 // Keep these in sync with cmd/gofmt/gofmt.go.
@@ -38,7 +39,7 @@ const (
 
 var config = printer.Config{Mode: printerMode, Tabwidth: tabWidth}
 
-const parserMode = parser.ParseComments
+const parserMode = parser.ParseComments | parser.SkipObjectResolution
 
 // Node formats node in canonical gofmt style and writes the result to dst.
 //
