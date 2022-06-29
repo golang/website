@@ -1,5 +1,5 @@
 // Concurrent computation of pi.
-// See https://goo.gl/la6Kli.
+// The implementation uses the Nilakantha Series.
 //
 // This demonstrates Go's ability to handle
 // large numbers of concurrent processes.
@@ -12,7 +12,8 @@ import (
 )
 
 func main() {
-	fmt.Println(pi(5000))
+	fmt.Println("          math.Pi:", math.Pi)
+	fmt.Println("Nilakantha Series:", pi(5000))
 }
 
 // pi launches n goroutines to compute an
@@ -22,7 +23,7 @@ func pi(n int) float64 {
 	for k := 0; k < n; k++ {
 		go term(ch, float64(k))
 	}
-	f := 0.0
+	f := 3.0
 	for k := 0; k < n; k++ {
 		f += <-ch
 	}
@@ -30,5 +31,5 @@ func pi(n int) float64 {
 }
 
 func term(ch chan float64, k float64) {
-	ch <- 4 * math.Pow(-1, k) / (2*k + 1)
+	ch <- 4 * math.Pow(-1, k) / ((2*k + 2) * (2*k + 3) * (2*k + 4))
 }
