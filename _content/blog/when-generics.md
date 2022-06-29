@@ -218,7 +218,7 @@ Here is an example of a generic type `SliceFn` that implements
 	func (s SliceFn[T]) Swap(i, j int) {
 		s.s[i], s.s[j] = s.s[j], s.s[i]
 	}
-	func (s SliceFn[T] Less(i, j int) bool {
+	func (s SliceFn[T]) Less(i, j int) bool {
 		return s.less(s.s[i], s.s[j])
 	}
 `}}
