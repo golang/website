@@ -42,7 +42,6 @@ summary: Go is an open source programming language that makes it easy to build s
         <a class="Primary" href="/learn/">Get Started</a>
         <a class="Secondary js-downloadBtn"
           href="/dl"
-          target="_blank" rel="noopener"
           >Download
         </a>
       </div>
@@ -306,7 +305,7 @@ func main() {
       </p>
       <div class="GettingStartedGo-ctas">
         <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="/dl" target="_blank" rel="noopener">Download Go</a>
+        <a href="/dl">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">
