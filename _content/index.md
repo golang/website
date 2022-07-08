@@ -4,6 +4,7 @@ summary: Go is an open source programming language that makes it easy to build s
 ---
 
 {{$canShare := not googleCN}}
+
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">

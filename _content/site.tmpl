@@ -62,7 +62,35 @@
           {{- $currentPage := .}}
           {{- range $menus.main}}
           <li class="Header-menuItem {{if strings.HasPrefix $currentPage.URL .url}} Header-menuItem--active{{end}}">
-            <a href="{{.url}}">{{.name}}</a>
+            <a href="{{if .children}}#{{else}}{{.url}}{{end}}" {{if .children}}aria-haspopup="true" class="js-desktop-menu-hover"{{end}}>
+              {{.name}} {{if .children}}<i class="material-icons">arrow_drop_down</i>{{end}}
+            </a>
+            {{- if .children}}
+              <ul class="Header-submenu js-desktop-submenu-hover" aria-label="submenu">
+                {{- range .children}}
+                  <li class="Header-submenuItem">
+                    <div>
+                      {{- if .url}}
+                        <a href="{{.url}}">
+                          {{.name}}
+                          {{ if .external}} <i class="material-icons">open_in_new</i>{{end}}
+                        </a>
+                      {{- else}}
+                        {{.name}}
+                      {{- end}}
+                    </div>
+                    <p>{{.explanation}}</p>
+                    {{- if .socialIconsList}}
+                      <div class="Header-socialIcons">
+                        {{ range .socialIconsList }}
+                          <a class="Header-socialIcon" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
+                        {{- end}}
+                      </div>
+                    {{- end}}
+                  </li>
+                {{- end}}
+              </ul>
+            {{- end}}
           </li>
           {{- end}}
         </ul>
@@ -95,9 +123,45 @@
     </div>
     <ul class="NavigationDrawer-list">
       {{- range $menus.main}}
-        <li class="NavigationDrawer-listItem {{if strings.HasPrefix $currentPage.URL .url}} NavigationDrawer-listItem--active{{end}}">
-          <a href="{{.url}}">{{.name}}</a>
-        </li>
+        {{ if .children }}
+          <li class="NavigationDrawer-listItem js-mobile-subnav-trigger {{if strings.HasPrefix $currentPage.URL .url}} NavigationDrawer-listItem--active{{end}} NavigationDrawer-hasSubnav">
+            <a href="#"><span>{{.name}}</span> <i class="material-icons">navigate_next</i></a>
+
+            <div class="NavigationDrawer NavigationDrawer-submenuItem">
+              <nav class="NavigationDrawer-nav">
+                <div class="NavigationDrawer-header">
+                  <a href="#"><i class="material-icons">navigate_before</i>{{.name}}</a>
+                </div>
+                <ul class="NavigationDrawer-list">
+                  {{- range .children}}
+                    <li class="NavigationDrawer-listItem">
+                      {{- if .url}}
+                        <a href="{{.url}}">
+                          {{.name}}
+                          {{ if .external}} <i class="material-icons">open_in_new</i>{{end}}
+                        </a>
+                      {{ else }}
+                        <div>{{.name}}</div>
+                      {{- end}}
+                      {{- if .socialIconsList}}
+                        <div class="Header-socialIcons">
+                          {{ range .socialIconsList }}
+                            <a class="Header-socialIcon" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
+                          {{- end}}
+                        </div>
+                      {{- end}}
+                    </li>
+                  {{- end}}
+                </ul>
+              </div>
+            </div>
+          </li>
+
+        {{ else }}
+          <li class="NavigationDrawer-listItem {{if strings.HasPrefix $currentPage.URL .url}} NavigationDrawer-listItem--active{{end}}">
+            <a href="{{.url}}">{{.name}}</a>
+          </li>
+        {{ end }}
       {{- end}}
     </ul>
   </nav>

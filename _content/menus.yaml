@@ -1,72 +1,127 @@
 main:
   - name: Why Go
     url: /solutions/
-  - name: Get Started
+    children:
+      - name: Case Studies
+        explanation: Common problems companies solve with Go
+        url: /solutions#case-studies
+      - name: Use Cases
+        explanation: Stories about how and why companies use Go
+        url: /solutions#use-cases
+      - name: Security Policy
+        explanation: How Go can help keep you secure by default
+        url: /security/policy/
+  - name: Learn
     url: /learn/
   - name: Docs
     url: /doc/
+    children:
+      - name: Effective Go
+        explanation: Tips for writing clear, performant, and idiomatic Go code
+        url: /doc/effective_go
+      - name: Go User Manual
+        explanation: A complete introduction to building software with Go
+        url: /doc
+      - name: Standard library
+        explanation: Reference documentation for Go's standard library
+        url: https://pkg.go.dev/std
+      - name: Release Notes
+        explanation: Learn what's new in each Go release
+        url: /doc/devel/release
   - name: Packages
     url: https://pkg.go.dev
-  - name: Play
-    url: /play/
-  - name: Blog
-    url: /blog/
+  - name: Community
+    url: /example/
+    children:
+      - name: Recorded Talks
+        explanation: Videos from prior events
+        url: /talks/
+      - name: Meetups
+        explanation: Meet other local Go developers
+        url: https://www.meetup.com/pro/go
+        external: true
+      - name: Conferences
+        explanation: Learn and network with Go developers from around the world
+        url: https://github.com/golang/go/wiki/Conferences
+        external: true
+      - name: Go blog
+        explanation: The Go project's official blog.
+        url: /blog
+      - name: Go project
+        explanation: Get help and stay informed from Go
+        url: /help
+      - name: Get connected
+        socialIconsList:
+          [
+            {
+              img: google-groups.svg,
+              url: 'https://groups.google.com/g/golang-nuts',
+            },
+            {img: github.svg, url: 'https://github.com/golang'},
+            {img: twitter.svg, url: 'https://twitter.com/golang'},
+            {img: reddit.svg, url: 'https://www.reddit.com/r/golang/'},
+            {img: slack.svg, url: 'https://invite.slack.golangbridge.org/'},
+            {
+              img: stack-overflow.svg,
+              url: 'https://stackoverflow.com/collectives/go',
+            },
+          ]
 
 footer:
   - name: Why Go
     url: /solutions/
     children:
-    - name: Use Cases
-      url: /solutions/#use-cases
-    - name: Case Studies
-      url: /solutions/#case-studies
+      - name: Use Cases
+        url: /solutions/#use-cases
+      - name: Case Studies
+        url: /solutions/#case-studies
 
   - name: Get Started
     url: /learn/
     children:
-    - name: Playground
-      url: /play
-    - name: Tour
-      url: /tour/
-    - name: Stack Overflow
-      url: https://stackoverflow.com/questions/tagged/go?tab=Newest
-    - name: Help
-      url: /help/
+      - name: Playground
+        url: /play
+      - name: Tour
+        url: /tour/
+      - name: Stack Overflow
+        url: https://stackoverflow.com/questions/tagged/go?tab=Newest
+      - name: Help
+        url: /help/
 
   - name: Packages
     url: https://pkg.go.dev
     children:
-    - name: Standard Library
-      url: /pkg/
+      - name: Standard Library
+        url: /pkg/
 
   - name: About
     url: /project
     children:
-    - name: Download
-      url: /dl/
-    - name: Blog
-      url: /blog/
-    - name: Issue Tracker
-      url: https://github.com/golang/go/issues
-    - name: Release Notes
-      url: /doc/devel/release
-    - name: Brand Guidelines
-      url: /blog/go-brand
-    - name: Code of Conduct
-      url: /conduct
+      - name: Download
+        url: /dl/
+      - name: Blog
+        url: /blog/
+      - name: Issue Tracker
+        url: https://github.com/golang/go/issues
+      - name: Release Notes
+        url: /doc/devel/release
+      - name: Brand Guidelines
+        url: /blog/go-brand
+      - name: Code of Conduct
+        url: /conduct
 
   - name: Connect
     url: https://www.twitter.com/golang
     children:
-    - name: Twitter
-      url: https://www.twitter.com/golang
-    - name: GitHub
-      url: https://github.com/golang
-    - name: Slack
-      url: https://invite.slack.golangbridge.org/
-    - name: r/golang
-      url: https://reddit.com/r/golang
-    - name: Meetup
-      url: https://www.meetup.com/pro/go
-    - name: Golang Weekly
-      url: https://golangweekly.com/
+      - name: Twitter
+        url: https://www.twitter.com/golang
+      - name: GitHub
+        url: https://github.com/golang
+      - name: Slack
+        url: https://invite.slack.golangbridge.org/
+      - name: r/golang
+        url: https://reddit.com/r/golang
+      - name: Meetup
+        url: https://www.meetup.com/pro/go
+      - name: Golang Weekly
+        url: https://golangweekly.com/

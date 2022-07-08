@@ -6,9 +6,10 @@ rules:
   require-jsdoc: 'off'
   indent: 'off'
   arrow-parens: 'off'
+  comma-dangle: ['error', {'functions': 'never'}]
 overrides:
   - files:
-    - "*.ts"
+      - '*.ts'
     parser: '@typescript-eslint/parser'
     env:
       browser: true
