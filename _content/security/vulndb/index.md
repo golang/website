@@ -28,18 +28,18 @@ pieces:
    govulncheck and can be consumed by other clients.
 
 3. A **client library**
-   ([golang.org/x/vuln/client](https:/golang.org/x/vuln/client)), which reads data
+   ([golang.org/x/vuln/client](https://golang.org/x/vuln/client)), which reads data
    from the Go vulnerability database. This is also used by pkg.go.dev to surface
    vulnerabilities.
 
 4. A **vulncheck API**
-   ([golang.org/x/vuln/vulncheck](https:/golang.org/x/vuln/vulncheck)), which is
+   ([golang.org/x/vuln/vulncheck](https://golang.org/x/vuln/vulncheck)), which is
    used to find vulnerabilities affecting Go packages and perform static analysis.
    This API is made available for clients that do not want to run the govulncheck
    binary, such as VS Code Go.
 
 5. The **govulncheck command**
-   ([golang.org/x/vuln/cmd/govulncheck](https:/golang.org/x/vuln/cmd/govulncheck),
+   ([golang.org/x/vuln/cmd/govulncheck](https://golang.org/x/vuln/cmd/govulncheck),
    a wrapper around the vulncheck library for use on the command line.
 
 6. A **web portal** that presents information about vulnerabilities, hosted at
