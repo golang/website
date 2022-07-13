@@ -805,7 +805,7 @@ spending too much time in the GC.
 </p>
 
 <p>
-How this works internally is the GC mitigates sets an upper limit on the amount
+How this works internally is the GC sets an upper limit on the amount
 of CPU time it can use over some time window (with some hysteresis for very
 short transient spikes in CPU use).
 This limit is currently set at roughly 50%, with a <code>2 * GOMAXPROCS</code>
