@@ -8,11 +8,6 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/doc"
-	"golang.org/x/website/internal/backport/go/format"
-	"golang.org/x/website/internal/backport/go/printer"
-	"golang.org/x/website/internal/backport/go/token"
 	"io"
 	"log"
 	"path"
@@ -22,6 +17,11 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/backport/go/ast"
+	"golang.org/x/website/internal/backport/go/doc"
+	"golang.org/x/website/internal/backport/go/format"
+	"golang.org/x/website/internal/backport/go/printer"
+	"golang.org/x/website/internal/backport/go/token"
 	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/texthtml"
 )
@@ -155,11 +155,7 @@ func firstIdent(x []byte) string {
 
 // Comment formats the given documentation comment as HTML.
 func (p *Page) Comment(comment string) template.HTML {
-	var buf bytes.Buffer
-	// TODO(gri) Provide list of words (e.g. function parameters)
-	//           to be emphasized by ToHTML.
-	doc.ToHTML(&buf, comment, nil) // does html-escaping
-	return template.HTML(buf.String())
+	return template.HTML(p.PDoc.HTML(comment))
 }
 
 // sanitize sanitizes the argument src by replacing newlines with
