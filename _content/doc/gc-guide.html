@@ -22,13 +22,21 @@ Do not send CLs removing the interior tags from such phrases.
 .gc-guide-graph-controls {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
+  align-items: center;
   width: 100%;
 }
 
 .gc-guide-graph-controls div {
   display: flex;
-  width: 35%;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  padding-left: 5px;
+  padding-right: 5px;
+  height: 24px;
+  width: auto;
 }
 </style>
 
