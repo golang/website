@@ -29,7 +29,7 @@ function StackedAreaChart({
 
 		let seriesColors = new Array();
 		if (seriesKeys.length > 3) {
-			const colorFn = d3.interpolateViridis; 
+			const colorFn = d3.interpolateViridis;
 			for (let i = 0; i < seriesKeys.length; i++) {
 				seriesColors.push(colorFn((i / 10) - Math.floor(i/10)));
 			}
@@ -54,11 +54,13 @@ function StackedAreaChart({
 
 		const xAxis = d3.axisBottom(xScale).tickFormat(x => `${x.toFixed(1)} s`);
 		svg.selectAll("g.x.axis")
+			.style("font-size", "11px")
 			.call(xAxis);
 
 		const yAxis = d3.axisLeft(yScale).ticks(5).tickFormat(x => `${x.toFixed(0)} MiB`);
 		svg.selectAll("g.y.axis")
-			.call(yAxis)
+			.style("font-size", "11px")
+			.call(yAxis);
 
 		const area = d3.area()
 			.curve(d3.curveLinear)
