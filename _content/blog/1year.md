@@ -27,7 +27,7 @@ a chord with a broad cross-section of the programming community.
 That cross-section grew to become a dedicated community of enthusiastic Go coders.
 Our [mailing list](http://groups.google.com/group/golang-nuts) has over 3,800 members,
 with around 1,500 posts each month.
-The project has over 130 [contributors](/CONTRIBUTORS)
+The project has over 130 contributors
 (people who have submitted code or documentation),
 and of the 2,800 commits since launch almost one third were contributed
 by programmers outside the core team.
