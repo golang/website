@@ -428,3 +428,9 @@ redirect == /doc/#references
 
 GET https://go.dev/ref/
 redirect == /doc/#references
+
+GET https://go.dev/AUTHORS
+body contains is:merged author:
+
+GET https://go.dev/CONTRIBUTORS
+redirect == /AUTHORS
