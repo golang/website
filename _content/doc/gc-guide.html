@@ -1341,7 +1341,7 @@ This view will indicate allocation hot spots that would provide the most benefit
 
 <p>
 Once candidate heap allocation sites have been identified with the help of
-<a href="Heap_profiling">heap profiles</a>, how can they be eliminated?
+<a href="#Heap_profiling">heap profiles</a>, how can they be eliminated?
 The key is to leverage the Go compiler's escape analysis to have the Go compiler
 find alternative, and more efficient storage for this memory, for example
 in the goroutine stack.
@@ -1408,7 +1408,7 @@ Note: Applying the optimizations below may reduce the readability of your code
 by obscuring intent, and may fail to hold up across Go releases.
 Prefer to apply these optimizations only in the places they matter most.
 Such places may be identified by using the tools listed in the
-<a href="Identifying_costs">section on identifying costs</a>.
+<a href="#Identifying_costs">section on identifying costs</a>.
 </i>
 </p>
 
