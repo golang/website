@@ -15,6 +15,9 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2022, 8, 2}, Version: Version{1, 19, 0},
+	},
+	{
 		Date: Date{2022, 8, 1}, Version: Version{1, 18, 5},
 		Security: &FixSummary{
 			Packages: []string{"encoding/gob", "math/big"},
