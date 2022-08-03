@@ -249,15 +249,10 @@ of the Go GC and tuning parameters.
 </p>
 
 <p>
-To begin with, consider this model of GC cost based on four simple axioms.
+To begin with, consider this model of GC cost based on three simple axioms.
 </p>
 
 <ol>
-	<li>
-		<p>
-		The application is paused while the GC executes.
-		</p>
-	</li>
 	<li>
 		<p>
 		The GC involves only two resources: CPU time, and physical memory.
@@ -516,6 +511,10 @@ in terms of total duration and GC overhead.
 Each GC cycle ends while the new heap drops to zero.
 The time taken while the new heap drops to zero is the combined time for the
 mark phase for cycle N, and the sweep phase for the cycle N+1.
+Note that this visualization (and all the visualizations in this guide) assume
+the application is paused while the GC executes, so GC CPU costs are fully
+represented by the time it takes for new heap memory to drop to zero.
+This is only to make visualization simpler; the same intuition still applies.
 The X axis shifts to always show the full CPU-time duration of the program.
 Notice that additional CPU time used by the GC increases the overall duration.
 </p>
@@ -924,27 +923,25 @@ useful and applicable, and where it might cause more harm than good.
 <h3 id="Latency">Latency</h3>
 
 <p>
-Until this point, this document has modeled the application as paused while the
-GC is executing.
+The visualizations in this document have modeled the application as paused while
+the GC is executing.
 GC implementations do exist that behave this way, and they're referred to as
 "stop-the-world" GCs.
 </p>
 
 <p>
-The Go GC, however, is not fully stop-the-world, and in fact does most of its
-work concurrently with the application.
-The main reason for this is that it reduces application <i>latencies</i>.
+The Go GC, however, is not fully stop-the-world and does most of its work
+concurrently with the application.
+This is primarily to reduce application <i>latencies</i>.
 Specifically, the end-to-end duration of a single unit of computation (e.g. a
 web request).
-Thus far, this document mainly considered application <i>throughput</i>, or the
-aggregation of these operations (e.g. web requests handled per second).
+Thus far, this document mainly considered application <i>throughput</i> (e.g.
+web requests handled per second).
 Note that each example in the <a href="#The_GC_cycle">GC cycle</a> section
 focused on the total CPU duration of an executing program.
-However, such a duration is far less meaningful for say, a web service, whose
-duration primarily captures reliability (i.e. uptime) and not cost.
+However, such a duration is far less meaningful for say, a web service.
 While throughput is still important for a web service (i.e. queries per second),
-often the latency of each individual request matters even more, as it
-correlates with other important metrics.
+often the latency of each individual request matters even more.
 </p>
 
 <p>
@@ -952,54 +949,45 @@ In terms of latency, a stop-the-world GC may require a considerable length of
 time to execute both its mark and sweep phases, during which the application,
 and in the context of a web service, any in-flight request, is unable to make
 further progress.
-Instead, the Go GC ensures that the length of any global application pauses
-are never proportional to the size of the heap in any form, and that the
-core tracing algorithm is performed while the application is actively
-executing.
-This choice is not without cost, as in practice it tends to lead to a design
-with lower throughput, but it's important to note that <i>low latency does
-not inherently mean low throughput</i>, even though in many cases the two are
-at odds with one another.
+Instead, the Go GC avoids making the length of any global application pauses
+proportional to the size of the heap, and that the core tracing algorithm is
+performed while the application is actively executing.
+(The pauses are more strongly proportional to GOMAXPROCS algorithmically, but
+most commonly are dominated by the time it takes to stop running goroutines.)
+Collecting concurrently is not without cost: in practice it often leads to a
+design with lower throughput than an equivalent stop-the-world garbage
+collector.
+However,  it's important to note that <i>lower latency does not inherently mean
+lower throughput</i>, and the performance of the Go garbage collector has
+steadily improved over time, in both latency and throughput.
 </p>
 
 <p>
-At first, the concurrent nature of the Go GC may appear to be a significant
-departure from the cost model presented <a href="#Understanding_costs">earlier</a>.
-Fortunately, <i>the intuition behind the model still applies</i>.
+The concurrent nature of Go's current GC does not invalidate anything discussed
+in this document so far: none of the statements relied on this design choice.
+GC frequency is still the primary way the GC trades off between CPU
+time and memory for throughput, and in fact, it also takes on this role for
+latency.
+This is because most of the costs for the GC are incurred while the mark phase
+is active.
 </p>
 
 <p>
-Although the first axiom, that the application is paused while the GC executes,
-no longer holds, it wasn't really all that important to begin with. 
-The rest of the costs still align as described by the model, and the same notion
-of a steady-state applies.
-As a result, GC frequency is still the primary way the GC trades off between CPU
-time and memory for throughput, and it also takes on this role for latency.
-With respect to throughput, it's easy to get back within the realm of the model
-by just pretending all the little costs the concurrent GC incurs happened
-at the end of the GC cycle.
-With respect to latency, most of the added latency from the GC comes
-specifically from the period of time when the mark phase is active.
-Thus, the more often the GC is in the mark phase, the more often these costs
-are incurred, and so latency also follows GC frequency.
-</p>
-
-<p>
-More concretely, <b>adjusting GC tuning parameters to reduce GC frequency
-may also lead to latency improvements</b>.
-That means increasing GOGC and/or the memory limit.
+The key takeaway then, is that <b>reducing GC frequency may also lead to latency
+improvements</b>.
+This applies not only to reductions in GC frequency from modifying tuning
+parameters, like increasing GOGC and/or the memory limit, but also applies to
+the optimizations described in the
+<a href="#Optimization_guide">optimization guide</a>.
 </p>
 
 <p>
 However, latency is often more complex to understand than throughput, because it
 is a product of the moment-to-moment execution of the program and not just an
 aggregation of costs.
-As a result, the connection between latency and GC frequency is more tenuous
-and may not be quite as direct.
+As a result, the connection between latency and GC frequency is less direct.
 Below is a list of possible sources of latency for those inclined to dig
 deeper.
-These latency sources are visible in
-<a href="/doc/diagnostics#execution-tracer">execution traces</a>.
 </p>
 
 <ol>
@@ -1013,16 +1001,21 @@ These latency sources are visible in
 	</li>
 	<li>
 		User goroutines assisting the GC in response to a high allocation rate,
-		and
 	</li>
 	<li>
 		Pointer writes requiring additional work while the GC is in the mark
-		phase.
+		phase, and
 	</li>
 	<li>
 		Running goroutines must be suspended for their roots to be scanned.
 	</li>
 </ol>
+
+<p>
+These latency sources are visible in
+<a href="/doc/diagnostics#execution-tracer">execution traces</a>, except for
+pointer writes requiring additional work.
+</p>
 
 <!-- TODO: Add a short section about non-steady-state behavior. -->
 
