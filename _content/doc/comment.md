@@ -573,7 +573,7 @@ For example:
 	// “[JSON and Go].”
 	//
 	// [RFC 7159]: https://tools.ietf.org/html/rfc7159
-	// [JSON and Go]: https://golang.org/doc/articles/json_and_go.htmlpackage json
+	// [JSON and Go]: https://golang.org/doc/articles/json_and_go.html
 	package json
 
 By keeping URLs in a separate section,
