@@ -337,3 +337,8 @@ _reflect_ packages.
 
 Because binaries do not contain detailed call information, vulncheck cannot
 compute vulnerability call graphs and call stack witnesses for Go binaries.
+
+vulncheck currently does not detect vulnerable packages and symbols that have
+been vendored rather than imported. Also, there is currently no support for
+silencing vulnerability findings. If you are interested in any of these features,
+please let us know by [filing an issue](https://golang.org/s/govulncheck-feedback).
