@@ -145,9 +145,9 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
   - title: Monitoring and tracing
     viewMoreUrl: https://pkg.go.dev/search?q=tracing
     items:
-      - text: opentracing/opentracing-go
-        url: https://pkg.go.dev/github.com/opentracing/opentracing-go?tab=overview
-        desc: Vendor-neutral APIs and instrumentation for distributed tracing
+      - text: open-telemetry/opentelemetry-go
+        url: https://pkg.go.dev/go.opentelemetry.io/otel
+        desc: Vendor-neutral APIs and instrumentation for monitoring and distributed tracing
       - text: jaegertracing/jaeger-client-go
         url: https://pkg.go.dev/github.com/jaegertracing/jaeger-client-go?tab=overview
         desc: An open source distributed tracing system developed by Uber formats
