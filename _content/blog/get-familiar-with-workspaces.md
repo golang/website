@@ -21,7 +21,7 @@ changes.
 
 [Workspaces](https://go.dev/ref/mod#workspaces) in Go 1.18 let you work on
 multiple modules simultaneously without having to edit `go.mod` files for each
-module. Each module within a workspace is treated as a root module when
+module. Each module within a workspace is treated as a main module when
 resolving dependencies.
 
 Previously, to add a feature to one module and use it in another module, you

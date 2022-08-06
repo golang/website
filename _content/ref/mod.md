@@ -1075,7 +1075,7 @@ have been [replaced](#go-mod-file-replace) using local filesystem paths.)
 ## Workspaces {#workspaces}
 
 A <dfn>workspace</dfn> is a collection of modules on disk that are used as
-the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
 
 A workspace can be declared in a [`go.work` file](#go-work-file) that specifies
 relative paths to the module directories of each of the modules in the workspace.
@@ -4562,5 +4562,5 @@ letter `v` followed by a semantic version. See the section on
 
 <a id="glos-workspace"></a>
 **workspace:** A collection of modules on disk that are used as
-the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
 See the section on [Workspaces](#workspaces)
