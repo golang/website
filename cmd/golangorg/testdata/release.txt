@@ -6,6 +6,7 @@ trimbody contains
 	Go 1.19 is a major release of Go.
 	Read the <a href="/doc/go1.19">Go 1.19 Release Notes</a> for more information.
 	</p>
+trimbody contains
 	<h2 id="go1.18">go1.18 (released 2022-03-15)</h2>
 	<p>
 	Go 1.18 is a major release of Go.
@@ -72,6 +73,7 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.5+label%3ACherryPickApproved">Go 1.18.5 milestone</a>
 	on our issue tracker for details.
 	</p>
+trimbody contains
 	<h2 id="go1.17">go1.17 (released 2021-08-16)</h2>
 	<p>
 	Go 1.17 is a major release of Go.
