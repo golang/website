@@ -61,3 +61,7 @@ at
 ### [Command govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
 
 Documentation on the CLI tool govulncheck.
+
+### [Go CNA Policy](https://go.dev/security/vulndb/policy)
+
+Documentation on the Go CNA policy.

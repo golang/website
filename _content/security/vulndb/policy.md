@@ -1,9 +1,7 @@
 ---
-title: Go CNA
+title: Go CNA Policy
 layout: article
 ---
-
-**This page is a work in progress.**
 
 ## Overview
 The Go CNA is a
