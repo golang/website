@@ -66,7 +66,7 @@ Slides as it is easy to share and maintain updates. People are welcome to port
 them to Keynote, PowerPoint, etc.
 
 Like this blog and all our gopher images,
-the slide themes are Creative Commons Attribution 3.0 licensed.
+the slide themes are Creative Commons Attribution 4.0 licensed.
 The photos in the slides are all from
 [unsplash](https://unsplash.com/) and are released under the unsplash license.
 
