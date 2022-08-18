@@ -3543,7 +3543,7 @@ img.PullQuote-image {
   border: none;
 }
 @media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
+  :root:not([data-theme='light']) .Card {
     background-color: var(--abbey);
     border: none;
   }
