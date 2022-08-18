@@ -98,6 +98,8 @@ array will have these two fields:
 
 - **path:** a string with the import path of the package containing the vulnerability
 - **symbols:** a string array with the names of the symbols (function or method) that contains the vulnerability
+- **goos**: a string array with the execution operating system where the symbols appear, if known
+- **goarch**: a string array with the architecture where the symbols appear, if known
 
 For information on other fields in the schema, refer to the [OSV spec](https://ossf.github.io/osv-schema).
 
