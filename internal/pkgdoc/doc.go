@@ -11,9 +11,6 @@ package pkgdoc
 
 import (
 	"bytes"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/doc"
-	"golang.org/x/website/internal/backport/go/token"
 	"io"
 	"io/fs"
 	"io/ioutil"
@@ -29,7 +26,10 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
+	"golang.org/x/website/internal/backport/go/ast"
 	"golang.org/x/website/internal/backport/go/build"
+	"golang.org/x/website/internal/backport/go/doc"
+	"golang.org/x/website/internal/backport/go/token"
 	"golang.org/x/website/internal/web"
 )
 
@@ -363,14 +363,14 @@ func addNames(names map[string]bool, decl ast.Decl) {
 	case *ast.FuncDecl:
 		name := d.Name.Name
 		if d.Recv != nil {
-			var typeName string
-			switch r := d.Recv.List[0].Type.(type) {
-			case *ast.StarExpr:
-				typeName = r.X.(*ast.Ident).Name
-			case *ast.Ident:
-				typeName = r.Name
+			r := d.Recv.List[0].Type
+			if star, ok := r.(*ast.StarExpr); ok { // *Name
+				r = star.X
 			}
-			name = typeName + "_" + name
+			if index, ok := r.(*ast.IndexExpr); ok { // Name[T]
+				r = index.X
+			}
+			name = r.(*ast.Ident).Name + "_" + name
 		}
 		names[name] = true
 	case *ast.GenDecl:

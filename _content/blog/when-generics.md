@@ -235,7 +235,7 @@ function:
 {{raw `
 	// SortFn sorts s in place using a comparison function.
 	func SortFn[T any](s []T, less func(T, T) bool) {
-		sort.Sort(SliceFn[T]{s, cmp})
+		sort.Sort(SliceFn[T]{s, less})
 	}
 `}}
 

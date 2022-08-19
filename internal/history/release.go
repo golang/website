@@ -15,6 +15,28 @@ import "golang.org/x/website/internal/backport/html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2022, 8, 2}, Version: Version{1, 19, 0},
+	},
+	{
+		Date: Date{2022, 8, 1}, Version: Version{1, 18, 5},
+		Security: &FixSummary{
+			Packages: []string{"encoding/gob", "math/big"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime"},
+			Packages:   []string{"testing"},
+		},
+	},
+	{
+		Date: Date{2022, 8, 1}, Version: Version{1, 17, 13},
+		Security: &FixSummary{
+			Packages: []string{"encoding/gob", "math/big"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the runtime"},
+		},
+	},
+	{
 		Date: Date{2022, 7, 12}, Version: Version{1, 18, 4},
 		Security: &FixSummary{
 			Packages: []string{"compress/gzip", "encoding/gob", "encoding/xml", "go/parser", "io/fs", "net/http", "path/filepath"},
@@ -670,7 +692,10 @@ Only macOS users who hit this issue need to update.`,
 	{
 		Date: Date{2019, 5, 6}, Version: Version{1, 11, 10},
 		Bug: &FixSummary{
-			Components: []template.HTML{"the runtime", "the linker"},
+			Components: []template.HTML{"the linker"},
+		},
+		Security: &FixSummary{
+			Components: []template.HTML{"the runtime"},
 		},
 	},
 	{
@@ -704,8 +729,11 @@ number. The intended fix is in go1.11.9.`,
 	{
 		Date: Date{2019, 4, 5}, Version: Version{1, 12, 2},
 		Bug: &FixSummary{
-			Components: []template.HTML{"the compiler", "the go command", "the runtime"},
+			Components: []template.HTML{"the compiler", "the go command"},
 			Packages:   []string{"doc", "net", "net/http/httputil", "os"},
+		},
+		Security: &FixSummary{
+			Components: []template.HTML{"the runtime"},
 		},
 	},
 	{
@@ -842,12 +870,18 @@ minimal support to the go command for the vgo transition</a>.`,
 			Components: []template.HTML{"the compiler", "runtime"},
 			Packages:   []string{"archive/zip", "crypto/tls", "crypto/x509", "encoding/json", "net", "net/http", "net/http/pprof"},
 		},
+		Security: &FixSummary{
+			Components: []template.HTML{"the go command"},
+		},
 	},
 	{
 		Date: Date{2018, 3, 28}, Version: Version{1, 9, 5},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the compiler", "go command"},
 			Packages:   []string{"net/http/pprof"},
+		},
+		Security: &FixSummary{
+			Components: []template.HTML{"the go command"},
 		},
 	},
 	{
@@ -861,7 +895,10 @@ minimal support to the go command for the vgo transition</a>.`,
 		Date: Date{2018, 1, 22}, Version: Version{1, 9, 3},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the compiler", "runtime"},
-			Packages:   []string{"database/sql", "math/big", "net/http", "net/url"},
+			Packages:   []string{"database/sql", "math/big", "net/http"},
+		},
+		Security: &FixSummary{
+			Packages: []string{"net/url"},
 		},
 	},
 	{

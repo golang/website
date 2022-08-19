@@ -38,6 +38,11 @@ Do not send CLs removing the interior tags from such phrases.
   height: 24px;
   width: auto;
 }
+
+.gc-guide-equation {
+  display: block;
+  text-align: center;
+}
 </style>
 
 <h2 id="Introduction">Introduction</h2>
@@ -193,7 +198,7 @@ The process of walking the object graph is referred to as <b>scanning</b>.
 <p>
 This basic algorithm is common to all tracing GCs.
 Where tracing GCs differ is what they do once they discover memory is live.
-Go's GC uses the mark-sweep technique, which means is that in order to keep track
+Go's GC uses the mark-sweep technique, which means that in order to keep track
 of its progress, the GC also <b>marks</b> the values it encounters as live.
 Once tracing is complete, the GC then walks over all memory in the heap and
 makes all memory that is <i>not</i> marked available for allocation.
@@ -221,8 +226,10 @@ As a result, the act of sweeping must be entirely separated from the act of
 marking.
 Furthermore, the GC may also not be active at all, when there's no GC-related
 work to do.
-The GC continuosly rotates through these three states of off, marking, and
-sweeping in what's known as the <b>GC cycle</b>.
+The GC continuously rotates through these three phases of sweeping, off, and
+marking in what's known as the <b>GC cycle</b>.
+For the purposes of this document, consider the GC cycle starting with sweeping,
+turning off, then marking.
 </p>
 
 <p>
@@ -242,15 +249,10 @@ of the Go GC and tuning parameters.
 </p>
 
 <p>
-To begin with, consider this model of GC cost based on four simple axioms.
+To begin with, consider this model of GC cost based on three simple axioms.
 </p>
 
 <ol>
-	<li>
-		<p>
-		The application is paused while the GC executes.
-		</p>
-	</li>
 	<li>
 		<p>
 		The GC involves only two resources: CPU time, and physical memory.
@@ -325,8 +327,11 @@ the <b>steady-state</b>.
 		During the request, at most 512 KiB of that 2 MiB stays live while
 		the request is in flight, and when the service is finished handling
 		the request, all that memory dies.
-		A steady stream of requests, say 100 requests per second, results in
-		an allocation rate of 200 MiB/s and a 50 MiB peak live heap.
+		Now, for the sake of simplicity suppose each request takes about 1
+		second to handle end-to-end.
+		Then, a steady stream of requests, say 100 requests per second,
+		results in an allocation rate of 200 MiB/s and a 50 MiB peak live
+		heap.
 		</i>
 		</p>
 	</li>
@@ -407,15 +412,24 @@ has control over.
 <h3 id="GOGC">GOGC</h3>
 
 <p>
-GOGC is a tuning parameter for the Go GC that directly reflects a trade-off
-between CPU time and memory by controlling GC frequency.
-More specifically, GOGC sets the target heap size for the GC, or the amount
-of new memory that should be allocated by the time the mark phase has
-completed.
-GOGC is defined as a percent overhead over the amount of work the GC needs to
-do.
-This work is currently defined as the size of the live heap, plus the size of
-the GC roots in bytes.
+At a high level, GOGC determines the trade-off between GC CPU and memory.
+</p>
+
+<p>
+It works by determining the target heap size after each GC cycle, a target value
+for the total heap size in the next cycle.
+The GC's goal is to finish a collection cycle before the total heap size
+exceeds the target heap size.
+Total heap size is defined as the live heap size at the end of the previous
+cycle, plus any new heap memory allocated by the application since the previous
+cycle.
+Meanwhile, target heap memory is defined as:
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Target heap memory = Live heap + (Live heap + GC roots) * GOGC / 100
+</i>
 </p>
 
 <p>
@@ -430,35 +444,36 @@ With a GOGC value of 200, it'll be 200%, or 20 MiB.
 
 <p>
 <i>
-Note: GOGC may be more precisely described as defining the amount of new memory
-that can be allocated before the start of the next sweep phase.
-This timing is technically true for the <a href="#Understanding_costs">GC
-model</a> this guide has been using thus far, but also generalizes to the
-real GC implementation that Go uses that's discussed in more detail in the
-<a href="#Latency">latency section</a>.
-</i>
-</p>
-
-<p>
-The benefit of defining the trade-off this way is that the cost of GC remains
-constant in the steady-state regardless of the amount of work that the GC has
-to do (so regardless of the sizes of the live heap and root set), because the
-<i>frequency</i> will always be proportional to the amount of work that has to
-be done.
-In other words, it represents a fixed point in the trade-off between CPU cost
-and memory use.
-(It's important to note that this fixed point may shift if the steady-state
-changes as well, but crucially it is <i>not</i> dependent on the size of the
-live heap.)
-</p>
-
-<p>
-<i>
 Note: GOGC includes the root set only as of Go 1.18.
 Previously, it would only count the live heap.
 Often, the amount of memory in goroutine stacks is quite small and the live
 heap size dominates all other sources of GC work, but in cases where programs
 had hundreds of thousands of goroutines, the GC was making poor judgements.
+</i>
+</p>
+
+<p>
+The heap target controls GC frequency: the bigger the target, the longer the GC
+can wait to start another mark phase and vice versa.
+While the precise formula is useful for making estimates, it's best to think of
+GOGC in terms of its fundamental purpose: a parameter that picks a point in the
+GC CPU and memory trade-off.
+The key takeaway is that <b>doubling GOGC will double heap memory overheads and
+roughly halve GC CPU cost</b>, and vice versa.
+(To see a full explanation as to why, see the
+<a href="#Additional_notes_on_GOGC">appendix</a>.)
+</p>
+
+<p>
+<i>
+Note: the target heap size is just a target, and there are several reasons why
+the GC cycle might not finish right at that target.
+For one, a large enough heap allocation can simply exceed the target.
+However, other reasons appear in GC implementations that go beyond the
+<a href="#Understanding_costs">GC model</a> this guide has been using thus far.
+For some more detail, see the <a href="#Latency">latency section</a>, but the
+complete details may be found in the <a href="#Additional_resources">additional
+resources</a>.
 </i>
 </p>
 
@@ -493,7 +508,13 @@ and that (unrealistically) the application uses no additional memory.
 <p>
 Use the slider to adjust the value of GOGC to see how the application responds
 in terms of total duration and GC overhead.
-Each GC cycle occurs while the new heap drops to zero.
+Each GC cycle ends while the new heap drops to zero.
+The time taken while the new heap drops to zero is the combined time for the
+mark phase for cycle N, and the sweep phase for the cycle N+1.
+Note that this visualization (and all the visualizations in this guide) assume
+the application is paused while the GC executes, so GC CPU costs are fully
+represented by the time it takes for new heap memory to drop to zero.
+This is only to make visualization simpler; the same intuition still applies.
 The X axis shifts to always show the full CPU-time duration of the program.
 Notice that additional CPU time used by the GC increases the overall duration.
 </p>
@@ -902,27 +923,25 @@ useful and applicable, and where it might cause more harm than good.
 <h3 id="Latency">Latency</h3>
 
 <p>
-Until this point, this document has modeled the application as paused while the
-GC is executing.
+The visualizations in this document have modeled the application as paused while
+the GC is executing.
 GC implementations do exist that behave this way, and they're referred to as
 "stop-the-world" GCs.
 </p>
 
 <p>
-The Go GC, however, is not fully stop-the-world, and in fact does most of its
-work concurrently with the application.
-The main reason for this is that it reduces application <i>latencies</i>.
+The Go GC, however, is not fully stop-the-world and does most of its work
+concurrently with the application.
+This is primarily to reduce application <i>latencies</i>.
 Specifically, the end-to-end duration of a single unit of computation (e.g. a
 web request).
-Thus far, this document mainly considered application <i>throughput</i>, or the
-aggregation of these operations (e.g. web requests handled per second).
+Thus far, this document mainly considered application <i>throughput</i> (e.g.
+web requests handled per second).
 Note that each example in the <a href="#The_GC_cycle">GC cycle</a> section
 focused on the total CPU duration of an executing program.
-However, such a duration is far less meaningful for say, a web service, whose
-duration primarily captures reliability (i.e. uptime) and not cost.
+However, such a duration is far less meaningful for say, a web service.
 While throughput is still important for a web service (i.e. queries per second),
-often the latency of each individual request matters even more, as it
-correlates with other important metrics.
+often the latency of each individual request matters even more.
 </p>
 
 <p>
@@ -930,53 +949,45 @@ In terms of latency, a stop-the-world GC may require a considerable length of
 time to execute both its mark and sweep phases, during which the application,
 and in the context of a web service, any in-flight request, is unable to make
 further progress.
-Instead, the Go GC ensures that the length of any global application pauses
-are never proportional to the size of the heap in any form, and that the
-core tracing algorithm is performed while the application is actively
-executing.
-This choice is not without cost, as in practice it tends to lead to a design
-with lower throughput, but it's important to note that <i>low latency does
-not inherently mean low throughput</i>, even though in many cases the two are
-at odds with one another.
+Instead, the Go GC avoids making the length of any global application pauses
+proportional to the size of the heap, and that the core tracing algorithm is
+performed while the application is actively executing.
+(The pauses are more strongly proportional to GOMAXPROCS algorithmically, but
+most commonly are dominated by the time it takes to stop running goroutines.)
+Collecting concurrently is not without cost: in practice it often leads to a
+design with lower throughput than an equivalent stop-the-world garbage
+collector.
+However,  it's important to note that <i>lower latency does not inherently mean
+lower throughput</i>, and the performance of the Go garbage collector has
+steadily improved over time, in both latency and throughput.
 </p>
 
 <p>
-At first, the concurrent nature of the Go GC may appear to be a significant
-departure from the cost model presented <a href="#Understanding_costs">earlier</a>.
-Fortunately, <i>the intuition behind the model still applies</i>.
+The concurrent nature of Go's current GC does not invalidate anything discussed
+in this document so far: none of the statements relied on this design choice.
+GC frequency is still the primary way the GC trades off between CPU
+time and memory for throughput, and in fact, it also takes on this role for
+latency.
+This is because most of the costs for the GC are incurred while the mark phase
+is active.
 </p>
 
 <p>
-Although the first axiom no longer holds, it wasn't really all that important
-to begin with; the rest of the costs still align as described by the model, and
-the same notion of a steady-state applies.
-As a result, GC frequency is still the primary way the GC trades off between CPU
-time and memory for throughput, and it also takes on this role for latency.
-With respect to throughput, it's easy to get back within the realm of the model
-by just pretending all the little costs the concurrent GC incurs happened
-at the end of the GC cycle.
-With respect to latency, most of the added latency from the GC comes
-specifically from the period of time when the mark phase is active.
-Thus, the more often the GC is in the mark phase, the more often these costs
-are incurred, and so latency also follows GC frequency.
-</p>
-
-<p>
-More concretely, <b>adjusting GC tuning parameters to reduce GC frequency
-may also lead to latency improvements</b>.
-That means increasing GOGC and/or the memory limit.
+The key takeaway then, is that <b>reducing GC frequency may also lead to latency
+improvements</b>.
+This applies not only to reductions in GC frequency from modifying tuning
+parameters, like increasing GOGC and/or the memory limit, but also applies to
+the optimizations described in the
+<a href="#Optimization_guide">optimization guide</a>.
 </p>
 
 <p>
 However, latency is often more complex to understand than throughput, because it
 is a product of the moment-to-moment execution of the program and not just an
 aggregation of costs.
-As a result, the connection between latency and GC frequency is more tenuous
-and may not be quite as direct.
+As a result, the connection between latency and GC frequency is less direct.
 Below is a list of possible sources of latency for those inclined to dig
 deeper.
-These latency sources are visible in
-<a href="/doc/diagnostics#execution-tracer">execution traces</a>.
 </p>
 
 <ol>
@@ -990,16 +1001,23 @@ These latency sources are visible in
 	</li>
 	<li>
 		User goroutines assisting the GC in response to a high allocation rate,
-		and
 	</li>
 	<li>
 		Pointer writes requiring additional work while the GC is in the mark
-		phase.
+		phase, and
 	</li>
 	<li>
 		Running goroutines must be suspended for their roots to be scanned.
 	</li>
 </ol>
+
+<p>
+These latency sources are visible in
+<a href="/doc/diagnostics#execution-tracer">execution traces</a>, except for
+pointer writes requiring additional work.
+</p>
+
+<!-- TODO: Add a short section about non-steady-state behavior. -->
 
 <h3 id="Additional_resources">Additional resources</h3>
 
@@ -1234,7 +1252,7 @@ them in in order to understand GC impact and behavior.
 		</p>
 
 		<p>
-		See the documentation for the <a href="https://pkg.go.dev/runtime/trace">
+		See the <a href="https://pkg.go.dev/runtime/trace">documentation for the 
 		<code>runtime/trace</code></a> package for how to get started with
 		execution traces.
 		</p>
@@ -1447,6 +1465,141 @@ Such places may be identified by using the tools listed in the
 Furthermore, the GC must interact with nearly every pointer it sees, so using
 indices into an slice, for example, instead of pointers, can aid in reducing GC
 costs.
+</p>
+
+<h2 id="Appendix">Appendix</h2>
+
+<h3 id="Additional_notes_on_GOGC">Additional notes on GOGC</h2>
+
+<p>
+The <a href="#GOGC">GOGC section</a> claimed that doubling GOGC doubles heap
+memory overheads and halves GC CPU costs.
+To see why, let's break it down mathematically.
+</p>
+
+<p>
+Firstly, the heap target sets a target for the total heap size.
+This target, however, mainly influences the new heap memory, because the live
+heap is fundamental to the application.
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Target heap memory = Live heap + (Live heap + GC roots) * GOGC / 100
+</i>
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Total heap memory = Live heap + New heap memory
+</i>
+</p>
+
+<p class="gc-guide-equation">
+<i>
+&rArr;
+</i>
+</p>
+
+<p class="gc-guide-equation">
+<i>
+New heap memory = (Live heap + GC roots) * GOGC / 100
+</i>
+</p>
+
+<p>
+From this we can see that doubling GOGC would also double the amount of new heap
+memory that application will allocate each cycle, which captures heap memory
+overheads.
+Note that <i>Live heap + GC roots</i> is an approximation of the amount of
+memory the GC needs to scan.
+</p>
+
+<p>
+Next, let's look at GC CPU cost.
+Total cost can be broken down as the cost per cycle, times GC frequency over
+some time period T.
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Total GC CPU cost = (GC CPU cost per cycle) * (GC frequency) * T
+</i>
+</p>
+
+<p>
+GC CPU cost per cycle can be derived from the
+<a href="#Understanding_costs">GC model</a>:
+</p>
+
+<p class="gc-guide-equation">
+<i>
+GC CPU cost per cycle = (Live heap + GC roots) * (Cost per byte) + Fixed cost
+</i>
+</p>
+
+<p>
+Note that sweep phase costs are ignored here as mark and scan costs dominate.
+</p>
+
+<p>
+The steady-state is defined by a constant allocation rate and a constant cost
+per byte, so in the steady-state we can derive a GC frequency from this new heap
+memory:
+</p>
+
+<p class="gc-guide-equation">
+<i>
+GC frequency = (Allocation rate) / (New heap memory) = (Allocation rate) / ((Live heap + GC roots) * GOGC / 100)
+</i>
+</p>
+
+<p>
+Putting this together, we get the full equation for the total cost:
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Total GC CPU cost = (Allocation rate) / ((Live heap + GC roots) * GOGC / 100) * ((Live heap + GC roots) * (Cost per byte) + Fixed cost) * T
+</i>
+</p>
+
+<p>
+For a sufficiently large heap (which represents most cases), the marginal costs
+of a GC cycle dominate the fixed costs.
+This allows for a significant simplification of the total GC CPU cost formula.
+</p>
+
+<p class="gc-guide-equation">
+<i>
+Total GC CPU cost = (Allocation rate) / (GOGC / 100) * (Cost per byte) * T
+</i>
+</p>
+
+<p>
+From this simplified formula, we can see that if we double GOGC, we halve total
+GC CPU cost.
+(Note that the visualizations in this guide do simulate fixed costs, so the GC
+CPU overheads reported by them will not exactly halve when GOGC doubles.)
+Furthermore, GC CPU costs are largely determined by allocation rate and the
+cost per byte to scan memory.
+For more information on how to reduce these costs specifically, see the
+<a href="#Optimization_guide">optimization guide</a>.
+</p>
+
+<p>
+<i>
+Note: there exists a discrepancy between the size of the live heap, and the
+amount of that memory the GC actually needs to scan: the same size live heap but
+with a different structure will result in a different CPU cost, but the same
+memory cost, resulting a different trade-off.
+This is why the structure of the heap is part of the definition of the
+steady-state.
+The heap target should arguably only include the scannable live heap as a closer
+approximation of memory the GC needs to scan, but this leads to degenerate
+behavior when there's a very small amount of scannable live heap but the live
+heap is otherwise large.
+</i>
 </p>
 
 <script src="/js/d3.js"></script>

@@ -1,6 +1,77 @@
 GET https://go.dev/doc/devel/release
 header content-type == text/html; charset=utf-8
 trimbody contains
+	<h2 id="go1.19">go1.19 (released 2022-08-02)</h2>
+	<p>
+	Go 1.19 is a major release of Go.
+	Read the <a href="/doc/go1.19">Go 1.19 Release Notes</a> for more information.
+	</p>
+	<h2 id="go1.18">go1.18 (released 2022-03-15)</h2>
+	<p>
+	Go 1.18 is a major release of Go.
+	Read the <a href="/doc/go1.18">Go 1.18 Release Notes</a> for more information.
+	</p>
+	<h3 id="go1.18.minor">Minor revisions</h3>
+	<p id="go1.18.1">
+	go1.18.1
+	(released 2022-04-12)
+	includes
+	security
+	fixes to the <code>crypto/elliptic</code>, <code>crypto/x509</code>, and <code>encoding/pem</code> packages, as well as
+	bug
+	fixes to the compiler, linker, runtime, the <code>go</code> command, vet, and the <code>bytes</code>, <code>crypto/x509</code>, and <code>go/types</code> packages.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.1+label%3ACherryPickApproved">Go 1.18.1 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.18.2">
+	go1.18.2
+	(released 2022-05-10)
+	includes
+	security
+	fixes to the <code>syscall</code> package, as well as
+	bug
+	fixes to the compiler, runtime, the <code>go</code> command, and the <code>crypto/x509</code>, <code>go/types</code>, <code>net/http/httptest</code>, <code>reflect</code>, and <code>sync/atomic</code> packages.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.2+label%3ACherryPickApproved">Go 1.18.2 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.18.3">
+	go1.18.3
+	(released 2022-06-01)
+	includes
+	security
+	fixes to the <code>crypto/rand</code>, <code>crypto/tls</code>, <code>os/exec</code>, and <code>path/filepath</code> packages, as well as
+	bug
+	fixes to the compiler, and the <code>crypto/tls</code> and <code>text/template/parse</code> packages.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.3+label%3ACherryPickApproved">Go 1.18.3 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.18.4">
+	go1.18.4
+	(released 2022-07-12)
+	includes
+	security
+	fixes to the <code>compress/gzip</code>, <code>encoding/gob</code>, <code>encoding/xml</code>, <code>go/parser</code>, <code>io/fs</code>, <code>net/http</code>, and <code>path/filepath</code> packages, as well as
+	bug
+	fixes to the compiler, the <code>go</code> command, the linker, the runtime, and the <code>runtime/metrics</code> package.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.4+label%3ACherryPickApproved">Go 1.18.4 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.18.5">
+	go1.18.5
+	(released 2022-08-01)
+	includes
+	security
+	fixes to the <code>encoding/gob</code> and <code>math/big</code> packages, as well as
+	bug
+	fixes to the compiler, the <code>go</code> command, the runtime, and the <code>testing</code> package.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.18.5+label%3ACherryPickApproved">Go 1.18.5 milestone</a>
+	on our issue tracker for details.
+	</p>
 	<h2 id="go1.17">go1.17 (released 2021-08-16)</h2>
 	<p>
 	Go 1.17 is a major release of Go.
@@ -97,7 +168,66 @@ trimbody contains
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.8+label%3ACherryPickApproved">Go 1.17.8 milestone</a>
 	on our issue tracker for details.
 	</p>
-trimbody contains
+	<p id="go1.17.9">
+	go1.17.9
+	(released 2022-04-12)
+	includes
+	security
+	fixes to the <code>crypto/elliptic</code> and <code>encoding/pem</code> packages, as well as
+	bug
+	fixes to the linker and runtime.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.9+label%3ACherryPickApproved">Go 1.17.9 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.17.10">
+	go1.17.10
+	(released 2022-05-10)
+	includes
+	security
+	fixes to the <code>syscall</code> package, as well as
+	bug
+	fixes to the compiler, runtime, and the <code>crypto/x509</code> and <code>net/http/httptest</code> packages.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.10+label%3ACherryPickApproved">Go 1.17.10 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.17.11">
+	go1.17.11
+	(released 2022-06-01)
+	includes
+	security
+	fixes to the <code>crypto/rand</code>, <code>crypto/tls</code>, <code>os/exec</code>, and <code>path/filepath</code> packages, as well as
+	bug
+	fixes to the <code>crypto/tls</code> package.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.11+label%3ACherryPickApproved">Go 1.17.11 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.17.12">
+	go1.17.12
+	(released 2022-07-12)
+	includes
+	security
+	fixes to the <code>compress/gzip</code>, <code>encoding/gob</code>, <code>encoding/xml</code>, <code>go/parser</code>, <code>io/fs</code>, <code>net/http</code>, and <code>path/filepath</code> packages, as well as
+	bug
+	fixes to the compiler, the <code>go</code> command, the runtime, and the <code>runtime/metrics</code> package.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.12+label%3ACherryPickApproved">Go 1.17.12 milestone</a>
+	on our issue tracker for details.
+	</p>
+	<p id="go1.17.13">
+	go1.17.13
+	(released 2022-08-01)
+	includes
+	security
+	fixes to the <code>encoding/gob</code> and <code>math/big</code> packages, as well as
+	bug
+	fixes to the compiler and the runtime.
+	See the
+	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.17.13+label%3ACherryPickApproved">Go 1.17.13 milestone</a>
+	on our issue tracker for details.
+	</p>
 	<h2 id="go1.16">go1.16 (released 2021-02-16)</h2>
 	<p>
 	Go 1.16 is a major release of Go.
@@ -748,7 +878,10 @@ trimbody contains
 	go1.12.2
 	(released 2019-04-05)
 	includes
-	fixes to the compiler, the go command, the runtime, and the <code>doc</code>, <code>net</code>, <code>net/http/httputil</code>, and <code>os</code> packages.
+	security
+	fixes to the runtime, as well as
+	bug
+	fixes to the compiler, the go command, and the <code>doc</code>, <code>net</code>, <code>net/http/httputil</code>, and <code>os</code> packages.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.12.2+label%3ACherryPickApproved">Go 1.12.2 milestone</a>
 	on our issue tracker for details.
@@ -987,7 +1120,10 @@ trimbody contains
 	go1.11.10
 	(released 2019-05-06)
 	includes
-	fixes to the runtime and the linker.
+	security
+	fixes to the runtime, as well as
+	bug
+	fixes to the linker.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.11.10+label%3ACherryPickApproved">Go 1.11.10 milestone</a>
 	on our issue tracker for details.
@@ -1031,6 +1167,9 @@ trimbody contains
 	go1.10.1
 	(released 2018-03-28)
 	includes
+	security
+	fixes to the go command, as well as
+	bug
 	fixes to the compiler, runtime, and the <code>archive/zip</code>, <code>crypto/tls</code>, <code>crypto/x509</code>, <code>encoding/json</code>, <code>net</code>, <code>net/http</code>, and <code>net/http/pprof</code> packages.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.10.1+label%3ACherryPickApproved">Go 1.10.1 milestone</a>
@@ -1138,7 +1277,10 @@ trimbody contains
 	go1.9.3
 	(released 2018-01-22)
 	includes
-	fixes to the compiler, runtime, and the <code>database/sql</code>, <code>math/big</code>, <code>net/http</code>, and <code>net/url</code> packages.
+	security
+	fixes to the <code>net/url</code> package, as well as
+	bug
+	fixes to the compiler, runtime, and the <code>database/sql</code>, <code>math/big</code>, and <code>net/http</code> packages.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.3+label%3ACherryPickApproved">Go 1.9.3 milestone</a>
 	on our issue tracker for details.
@@ -1158,6 +1300,9 @@ trimbody contains
 	go1.9.5
 	(released 2018-03-28)
 	includes
+	security
+	fixes to the go command, as well as
+	bug
 	fixes to the compiler, go command, and the <code>net/http/pprof</code> package.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.9.5+label%3ACherryPickApproved">Go 1.9.5 milestone</a>
@@ -1354,7 +1499,7 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.4.1">Go 1.4.1 milestone on our issue tracker</a> for details.
 	</p>
 	<p id="go1.4.2">
-	go1.4.2 (released 2015-02-17) includes bug fixes to the <code>go</code> command, the compiler and linker, and the <code>runtime</code>, <code>syscall</code>, <code>reflect</code>, and <code>math/big</code> packages.
+	go1.4.2 (released 2015-02-17) includes security fixes to the compiler, and bug fixes to the <code>go</code> command, the compiler and linker, and the <code>runtime</code>, <code>syscall</code>, <code>reflect</code>, and <code>math/big</code> packages.
 	See the <a href="https://github.com/golang/go/issues?q=milestone%3AGo1.4.2">Go 1.4.2 milestone on our issue tracker</a> for details.
 	</p>
 	<p id="go1.4.3">
@@ -1372,7 +1517,7 @@ trimbody contains
 	See the <a href="https://github.com/golang/go/commits/go1.3.1">change history</a> for details.
 	</p>
 	<p id="go1.3.2">
-	go1.3.2 (released 2014-09-25) includes bug fixes to cgo and the crypto/tls packages.
+	go1.3.2 (released 2014-09-25) includes security fixes to the <code>crypto/tls</code> package and bug fixes to cgo.
 	See the <a href="https://github.com/golang/go/commits/go1.3.2">change history</a> for details.
 	</p>
 	<p id="go1.3.3">
@@ -1401,7 +1546,7 @@ trimbody contains
 	</p>
 	<h3 id="go1.1.minor">Minor revisions</h3>
 	<p id="go1.1.1">
-	go1.1.1 (released 2013-06-13) includes several compiler and runtime bug fixes.
+	go1.1.1 (released 2013-06-13) includes a security fix to the compiler and several bug fixes to the compiler and runtime.
 	See the <a href="https://github.com/golang/go/commits/go1.1.1">change history</a> for details.
 	</p>
 	<p id="go1.1.2">
