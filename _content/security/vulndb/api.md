@@ -105,7 +105,14 @@ For information on other fields in the schema, refer to the [OSV spec](https://o
 
 ## Examples
 
-TODO: add an example once changes have been made in x/vulndb and x/vuln.
+All vulnerabilities in the Go vulnerability database use the OSV schema
+described above.
+
+See the links below for examples of different Go vulnerabilities:
+
+- **Go standard library vulnerability** (GO-2022-0191): [JSON](https://vuln.go.dev/ID/GO-2022-0191.json), [HTML](https://pkg.go.dev/vuln/GO-2022-0191)
+- **Go toolchain vulnerability** (GO-2022-0189): [JSON](https://vuln.go.dev/ID/GO-2022-0189.json), [HTML](https://pkg.go.dev/vuln/GO-2022-0189)
+- **Vulnerability in Go module** (GO-2020-0015): [JSON](https://vuln.go.dev/ID/GO-2020-0015), [HTML](https://pkg.go.dev/vuln/GO-2022-0015)
 
 ## Excluded Reports
 
