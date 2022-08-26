@@ -1122,6 +1122,7 @@ to create a block.
 use (
     ./my/first/thing
     ./my/second/thing
+)
 ```
 
 The `go` command provides several subcommands for manipulating `go.work` files.
