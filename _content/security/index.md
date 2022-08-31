@@ -24,7 +24,7 @@ major Go releases are supported.
 
 _This project is a work in progress._
 
-### [Go Vulnerability Management](https://go.dev/security/vulndb)
+### [Go Vulnerability Management](https://go.dev/security/vuln)
 
 The main documentation page for the Go vulnerability management system.
 
@@ -32,7 +32,7 @@ The main documentation page for the Go vulnerability management system.
 
 A list of vulnerabilities in the Go vulnerability database can be found at
 [vuln.go.dev/index.json](https://vuln.go.dev/index.json).
-[See protocol documentation](https://go.dev/security/vulndb/api) for more
+[See protocol documentation](https://go.dev/security/vuln/database) for more
 information.
 
 ### Vulnerability Detection For Go
