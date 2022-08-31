@@ -9,61 +9,34 @@ This page provides information on writing secure and reliable software in Go.
 
 ## Go Security
 
-### [Go Security Policy](https://go.dev/security/policy)
+**[Go Security Policy](https://go.dev/security/policy)**
 
 An explanation of how to report security issues in the Go standard library and
 sub-repositories to the Go team.
 
-### [Go Security Releases](https://go.dev/doc/devel/release)
+**[Go Security Releases](https://go.dev/doc/devel/release)**
 
-Release notes for past security problems. Per the
-[release policy](https://go.dev/doc/devel/release#policy), the two most recent
-major Go releases are supported.
+Release notes for past security problems. Per the [release
+policy](https://go.dev/doc/devel/release#policy), we issue security fixes to
+the two most recent major releases of Go.
 
-## Go Vulnerability Management
+## [Go Vulnerability Management](https://go.dev/security/vulndb)
 
-_This project is a work in progress._
+The main documentation page for the Go vulnerability management system, which
+helps developers find vulnerabilities in their Go projects.
 
-### [Go Vulnerability Management](https://go.dev/security/vuln)
-
-The main documentation page for the Go vulnerability management system.
-
-### Go Vulnerability Database
-
-A list of vulnerabilities in the Go vulnerability database can be found at
-[vuln.go.dev/index.json](https://vuln.go.dev/index.json).
-[See protocol documentation](https://go.dev/security/vuln/database) for more
-information.
-
-### Vulnerability Detection For Go
-
-An overview of the Go vulnerability detection package,
-[golang.org/x/vuln/vulncheck](https://golang.org/x/vuln/vulncheck), which
-enables Go developers to scan dependencies in their Go projects for public
-vulnerabilities.
-
-## Go Fuzzing
-
-### [Go Fuzzing](https://go.dev/doc/fuzz)
+## [Go Fuzzing](https://go.dev/doc/fuzz)
 
 The main documentation page for Go native fuzzing.
 
-### [Tutorial: Getting started with fuzzing](https://go.dev/doc/tutorial/fuzz)
-
-Tutorial introducing the basics of fuzzing in Go.
-
-### [Integrating with OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support)
-
-Documentation on running native Go fuzz tests with OSS-Fuzz.
+Fuzzing is a type of automated testing which continuously manipulates inputs to
+a program to find bugs. Go supports fuzzing in its standard toolchain beginning
+in Go 1.18. Native Go fuzz tests are [supported by
+OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
 
 ## Go Cryptography
 
-### Cryptography libraries
-
-The Go cryptography libraries are the [crypto/...](https://pkg.go.dev/crypto)
-and [golang.org/x/crypto/...](https://golang.org/x/crypto) packages in the Go
-standard library and subrepos.
-
-### [Cryptography Principles](https://go.googlesource.com/proposal/+/master/design/cryptography-principles.md)
-
-Goals and principles for the Go cryptography libraries.
+The Go cryptography libraries are the [crypto/…](https://pkg.go.dev/crypto) and
+[goland.org/x/crypto/…](https://pkg.go.dev/crypto) packages in the Go standard
+library and subrepos, and developed following [these
+principles](https://go.googlesource.com/proposal/+/master/design/cryptography-principles.md).
