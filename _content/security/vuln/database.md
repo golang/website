@@ -63,7 +63,7 @@ The endpoints are:
    List of module paths in the database mapped to its last modified timestamp ([link](https://vuln.go.dev/index.json)).
 
 - `$base/$module.json`
-   List of vulnerability entries for that module ([example](https://vuln.go.dev/golang.org/x/crypto.json).
+   List of vulnerability entries for that module ([example](https://vuln.go.dev/golang.org/x/crypto.json)).
 
 - `$base/$vuln/vuln.json`
    An individual Go vulnerability report.
@@ -135,8 +135,8 @@ See the links below for examples of different Go vulnerabilities:
   [JSON](https://vuln.go.dev/ID/GO-2022-0189.json),
   [HTML](https://pkg.go.dev/vuln/GO-2022-0189)
 - **Vulnerability in Go module** (GO-2020-0015):
-  [JSON](https://vuln.go.dev/ID/GO-2020-0015),
-  [HTML](https://pkg.go.dev/vuln/GO-2022-0015)
+  [JSON](https://vuln.go.dev/ID/GO-2020-0015.json),
+  [HTML](https://pkg.go.dev/vuln/GO-2020-0015)
 
 ## Excluded Reports
 
