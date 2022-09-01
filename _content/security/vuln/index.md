@@ -150,5 +150,5 @@ A good description can break down what an issue is,
 how it can be triggered, and what consumers should consider when determining
 the impact on their own software.
 
-Feel free to [file an issue](/s/govulncheck-feedback)
+Feel free to [file an issue](/s/vuln-feedback)
 if you would like to share your thoughts with us on this topic.
