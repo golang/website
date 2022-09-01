@@ -1,67 +1,154 @@
 ---
-title: Go Vulnerability Management
+title: Vulnerability Management in Go
 layout: article
 ---
 
 ## Overview
 
-This page describes the Go vulnerability management system.
+Go helps developers detect, assess, and resolve errors or weaknesses that
+are at risk of being exploited by attackers.
+Behind the scenes, the Go team runs a pipeline to curate reports about vulnerabilities,
+which are stored in the Go vulnerability database.
+Various libraries and tools can read and analyze those reports to understand
+how specific user projects may be affected.
+This functionality is integrated into the Go IDE,
+package discovery site, and a new CLI tool, govulncheck.
 
-_This project is a work in progress._
+This project is a work in progress and under active development.
+We welcome your [feedback](#feedback) to help us improve!
+
+**NOTE**: The Go Security Policy: [go.dev/security/policy](/security/policy)
 
 ## Architecture
 
 <div class="image">
   <center>
-    <img src="architecture.svg" alt="Go Vulnerability Management Architecture"></img>
+    <img src="vuln_architecture.svg" alt="Go Vulnerability Management Architecture"></img>
   </center>
 </div>
 
-The Go vulnerability management system consists of the following high-level
-pieces:
+Vulnerability management in Go consists of the following high-level pieces:
 
-1. A **data pipeline** that populates the vulnerability database. Data about
-   new vulnerabilities come directly from Go package maintainers or sources such as
-   MITRE and GitHub. Reports are curated by the Go Security team.
+1. A **data pipeline** collects vulnerability information from various sources,
+including the  [National Vulnerability Database (NVD)](https://nvd.nist.gov/),
+the [GitHub Advisory Database](https://github.com/advisories),
+and [directly from Go package maintainers](/s/vuln-report-new).
+2. A **vulnerability database** is populated with reports using information
+from the data pipeline.
+All reports in the database are reviewed and curated by the Go Security team.
+Reports are formatted in the [Open Source Vulnerability (OSV) format](https://ossf.github.io/osv-schema/)
+and accessible through the [API](/security/vuln/database#api).
+3. **Integrations** with pkg.go.dev, VS Code Go extension,
+and govulncheck to enable developers to find vulnerabilities in their projects,
+powered by the [package vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck).
+By default, vulncheck will only report vulnerabilities in functions that
+might be called by the analyzed codebase,
+with the goal of reducing false positives and reducing noise.
+See [Vulnerability Detection for Go](/security/vuln/vulncheck) for more information.
 
-2. A **vulnerability database** that stores all information presented by
-   govulncheck and can be consumed by other clients.
+## Resources
 
-3. A **client library**
-   ([golang.org/x/vuln/client](https://pkg.go.dev/golang.org/x/vuln/client)), which reads data
-   from the Go vulnerability database. This is also used by pkg.go.dev to surface
-   vulnerabilities.
+### Go Vulnerability Database
 
-4. A **vulncheck API**
-   ([golang.org/x/vuln/vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck)), which is
-   used to find vulnerabilities affecting Go packages and perform static analysis.
-   This API is made available for clients that do not want to run the govulncheck
-   binary, such as VS Code Go.
+The [Go vulnerability database](https://vuln.go.dev) contains information
+from many existing sources in addition to direct reports by Go package maintainers
+to the Go security team.
+Each entry in the database is reviewed to ensure that the vulnerability’s description,
+package and symbol information, and version details are accurate.
 
-5. The **govulncheck command**
-   ([golang.org/x/vuln/cmd/govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck),
-   a wrapper around the vulncheck library for use on the command line.
+See [go.dev/security/vuln/database](/security/vuln/database) for more information
+about the Go vulnerability database,
+and [pkg.go.dev/vuln](https://pkg.go.dev/vuln) to view vulnerabilities in
+the database in your browser.
 
-6. A **web portal** that presents information about vulnerabilities, hosted at
-   [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
+#### Contributing
 
+You can contribute to the Go vulnerability database by [reporting a new vulnerability](/s/vulndb-report-new),
+[suggesting an update to an existing vulnerability](/s/vulndb-report-feedback),
+or [sending us feedback about the project](/s/vuln-feedback).
 
-## References
+### Vulnerability Detection for Go
 
-### [Go Vulnerability Database API](https://go.dev/security/vuln/database)
+Go’s vulnerability detection package, [vulncheck](https://golang.org/x/vuln/vulncheck),
+aims to provide a low-noise, reliable way for Go users to learn about known
+vulnerabilities that may affect their projects.
+Vulnerability checking is integrated into existing Go tools and services,
+most notably [VS Code Go](https://github.com/golang/vscode-go/blob/master/docs/commands.md#go-run-vulncheck-experimental)
+and the [Go package discovery site](https://pkg.go.dev),
+and a new command line tool, [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck).
 
-Documentation on the Go vulnerability database API.
+## Feedback
 
-### [Vulnerability Detection For Go](https://go.dev/security/vulncheck)
+We would love to hear your feedback for govulncheck:
 
-An explanation of the features of vulncheck. Reference documentation is
-at
-[pkg.go.dev/golang.org/x/vuln/vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck)
+- Share your experience with govulncheck through [this survey](/s/govulncheck-feedback).
+- [Send us feedback](/s/vuln-feedback) about issues and feature requests.
 
-### [Command govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
+## FAQs
 
-Documentation on the CLI tool govulncheck.
+**How do I report a vulnerability in the Go project?**
 
-### [Go CNA Policy](https://go.dev/security/vuln/cna)
+Report all security bugs in the Go project by email to [security@golang.org](mailto:security@golang.org).
+Read [Go’s Security Policy](/security/policy) for more information about our processes.
 
-Documentation on the Go CNA policy.
+**How do I add a public vulnerability to the Go vulnerability database?**
+
+To request addition of a public vulnerability to the Go vulnerability database,
+[fill out this form](/s/vulndb-report-new).
+
+A vulnerability is considered public if it has already been disclosed publicly,
+or if it exists in a package you maintain (and you are ready to disclose it).
+The form is only for public vulnerabilities in importable Go packages that
+are not maintained by the Go Team (anything outside the Go standard library,
+Go toolchain, and golang.org modules).
+
+The form can also be used to request a new CVE ID.
+[Read more here](/security/vuln/cna) about the Go CVE Numbering Authority.
+
+**How do I suggest an edit to a vulnerability?**
+
+To suggest an edit to an existing report in the Go vulnerability database,
+[fill out the form here](/s/vulndb-report-feedback).
+
+**How do I report an issue or give feedback about govulncheck?**
+
+Submit your issue or feedback [on the Go issue tracker](/s/vuln-feedback).
+
+**I found this vulnerability in another database. Why is it not in the Go vulnerability database?**
+
+Reports may be excluded from the Go vulnerability database for various reasons,
+including the relevant vulnerability not being present in a Go package,
+the vulnerability being in an installable command instead of an importable package,
+or the vulnerability being subsumed by another vulnerability that is already
+present in the database.
+You can learn more about the Go Security team’s [reasons for excluding reports here](/security/vuln/database#excluded-reports).
+If you think that a report was incorrectly excluded from vuln.go.dev,
+[please let us know](/s/vulndb-report-feedback).
+
+**Why does the Go vulnerability database not use severity labels?**
+
+Most vulnerability reporting formats use severity labels such as "LOW," "MEDIUM",
+and "CRITICAL" to indicate the impact of different vulnerabilities and
+to help developers prioritize security issues.
+For several reasons, however, Go avoids using such labels.
+
+The impact of a vulnerability is rarely universal,
+which means that severity indicators can often be deceptive.
+For example, a crash in a parser may be a critical severity issue if it
+is used to parse user-supplied input and can be leveraged in a DoS attack,
+but if the parser is used to parse local configuration files,
+even calling the severity "low" might be an overstatement.
+
+Labeling severity is also necessarily subjective.
+This is true even for [the CVE program](https://www.cve.org/About/Overview),
+which posits a formula to break down relevant aspects of a vulnerability,
+such as attack vector, complexity, and exploitability.
+All of these, however, require subjective evaluation.
+
+We believe good descriptions of vulnerabilities are more useful than severity indicators.
+A good description can break down what an issue is,
+how it can be triggered, and what consumers should consider when determining
+the impact on their own software.
+
+Feel free to [file an issue](/s/govulncheck-feedback)
+if you would like to share your thoughts with us on this topic.
