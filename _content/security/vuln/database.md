@@ -1,5 +1,5 @@
 ---
-title: Go Vulnerability Database API
+title: Go Vulnerability Database
 layout: article
 ---
 
@@ -7,59 +7,77 @@ layout: article
 
 The Go vulnerability database ([https://vuln.go.dev](https://vuln.go.dev))
 serves Go vulnerability information in the
-[Open Source Vulnerability (OSV)](https://ossf.github.io/osv-schema/) format.
-We recommend using
-[client.Client](https://pkg.go.dev/golang.org/x/vuln/client#Client) to read
-data from the Go vulnerability database.
+[Open Source Vulnerability (OSV) schema](https://ossf.github.io/osv-schema/).
 
-Do not rely on the contents of the x/vulndb repository. The YAML files in that
-repository are maintained using an internal format that is intended to change
+We recommend using
+[golang.org/x/vuln/client](https://pkg.go.dev/golang.org/x/vuln/client) to read
+data from the Go vulnerability database. You can also browse vulnerabilities
+in the database at [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
+
+**Do not** rely on the contents of the x/vulndb Git repository. The YAML files in that
+repository are maintained using an internal format that may change
 without warning.
+
+## Contributing
+
+We would love for all Go package maintainers to [contribute](/s/vulndb-report-new)
+information about public vulnerabilities in their own projects,
+and [update](/s/vulndb-report-feedback) existing information about vulnerabilities
+in their Go packages.
+
+We aim to make reporting a low friction process,
+so feel free to [send us your suggestions](/s/vuln-feedback).
+
+Please **do not** use the forms above to report a vulnerability in the Go
+standard library or sub-repositories.
+Instead, follow the process at [go.dev/security/policy](/security/policy)
+for vulnerabilities about the Go project.
 
 ## API
 
-The endpoints in the table below are supported. For each path:
+The vulnerability database is an HTTP server that can respond to GET requests
+for paths specified below.
+The requests have no query parameters, and no specific headers are required,
+so even a site serving from a fixed file system (including a file:// URL)
+can be a vulnerability database.
 
-- `$base` is the path portion of a Go vulnerability database URL ([https://vuln.go.dev](https://vuln.go.dev)).
+By default, govulncheck uses the Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
+The command can be configured to contact vulnerability databases using the
+GOVULNDB environment variable,
+which accepts a list of a comma-separated list of vulnerability database URLs,
+with http://, https://, or
+file:// protocols. Entries from multiple databases are merged.
+
+The vulnerability database supports the endpoints listed below. For each path:
+
+- `$base` is the path portion of a Go vulnerability database URL, by default, "https://vuln.go.dev".
 - `$module` is a module path
-- `$vuln` is a Go vulnerability ID (for example, `GO-2021-1234`)
+- `$vuln` is a Go vulnerability ID (for example, GO-2021-1234)
 
-<table>
-  <tr>
-    <td>Path</td>
-    <td>Description</td>
-  </tr>
-  <tr>
-    <td>`$base/index.json`</td>
-    <td>List of module paths in the database mapped to its last modified timestamp (<a href="https://vuln.go.dev/index.json">link</a>).</td>
-  </tr>
-  <tr>
-    <td>`$base/$module.json`</td>
-    <td>List of vulnerability entries for that module ([example](https://vuln.go.dev/golang.org/x/crypto.json).</td>
-  </tr>
-  <tr>
-    <td>`$base/ID/index.json`</td>
-    <td>List of all the vulnerability entries in the database. </td>
-  </tr>
-  <tr>
-    <td>`$base/ID/$vuln.json`</td>
-    <td>An individual Go vulnerability report.</td>
-  </tr>
-</table>
+To avoid various character set issues, the `$module` element is encoded
+using [module.EncodePath](https://pkg.go.dev/golang.org/x/mod/module/#EncodePath).
 
-Note that this project is under active development, and it is possible for
-these endpoints to change.
+The endpoints are:
+
+- `$base/index.json`
+   List of module paths in the database mapped to its last modified timestamp ([link](https://vuln.go.dev/index.json)).
+
+- `$base/$module.json`
+   List of vulnerability entries for that module ([example](https://vuln.go.dev/golang.org/x/crypto.json).
+
+- `$base/$vuln/vuln.json`
+   An individual Go vulnerability report.
 
 ## Schema
 
-Reports are written following the
-[Open Source Vulnerability (OSV)](https://ossf.github.io/osv-schema/) format.
-The fields below are specific to the Go vulnerability database:
+Reports use the
+[Open Source Vulnerability (OSV) schema](https://ossf.github.io/osv-schema/).
+The Go vulnerability database assigns the following meanings to the fields:
 
 ### id
 
 The id field is a unique identifier for the vulnerability entry. It is a string
-of the format GO-&lt;YEAR>-&lt;ENTRYID>.
+of the format GO-\<YEAR>-\<ENTRYID>.
 
 ### affected
 
@@ -79,7 +97,7 @@ required fields:
   - Importable packages in the standard library will have the name _stdlib_.
   - The go command will have the name _toolchain_.
 
-**affected[].ecosystem_specific**
+#### affected[].ecosystem_specific
 
 The
 [affected[].ecosystem_specific](https://ossf.github.io/osv-schema/#affectedecosystem_specific-field)
@@ -90,7 +108,7 @@ vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck).
 For now, ecosystem specific will always be an object with a single field,
 `imports`.
 
-#### affected[].ecosystem_specific.imports
+##### affected[].ecosystem_specific.imports
 
 The `affected[].ecosystem_specific.imports` field is a JSON array containing
 the packages and symbols affected by the vulnerability. Each object in the
@@ -110,14 +128,20 @@ described above.
 
 See the links below for examples of different Go vulnerabilities:
 
-- **Go standard library vulnerability** (GO-2022-0191): [JSON](https://vuln.go.dev/ID/GO-2022-0191.json), [HTML](https://pkg.go.dev/vuln/GO-2022-0191)
-- **Go toolchain vulnerability** (GO-2022-0189): [JSON](https://vuln.go.dev/ID/GO-2022-0189.json), [HTML](https://pkg.go.dev/vuln/GO-2022-0189)
-- **Vulnerability in Go module** (GO-2020-0015): [JSON](https://vuln.go.dev/ID/GO-2020-0015), [HTML](https://pkg.go.dev/vuln/GO-2022-0015)
+- **Go standard library vulnerability** (GO-2022-0191):
+  [JSON](https://vuln.go.dev/ID/GO-2022-0191.json),
+  [HTML](https://pkg.go.dev/vuln/GO-2022-0191)
+- **Go toolchain vulnerability** (GO-2022-0189):
+  [JSON](https://vuln.go.dev/ID/GO-2022-0189.json),
+  [HTML](https://pkg.go.dev/vuln/GO-2022-0189)
+- **Vulnerability in Go module** (GO-2020-0015):
+  [JSON](https://vuln.go.dev/ID/GO-2020-0015),
+  [HTML](https://pkg.go.dev/vuln/GO-2022-0015)
 
 ## Excluded Reports
 
 The reports in the Go vulnerability database are collected from different
-sources and curated by the Go Security team. We may come across a vulnerability
+sources and curated by the Go Security team. We may come across a vulnerability advisory
 (for example, a CVE or GHSA) and choose to exclude it for a variety of reasons.
 In these cases, a minimal report will be created in the x/vulndb repository,
 under
@@ -125,7 +149,9 @@ under
 
 Reports may be excluded for these reasons:
 
-- `NOT_GO_CODE`: The vulnerability is not in a Go package, and cannot affect any
+- `NOT_GO_CODE`: The vulnerability is not in a Go package,
+  but it was marked as a security advisory for the Go ecosystem by another source.
+  This vulnerability cannot affect any
   Go packages. (For example, a vulnerability in  a C++ library.)
 - `NOT_IMPORTABLE`: The vulnerability occurs in package `main`, an `internal/`
   package only imported by package `main`, or some  other location which can
@@ -136,14 +162,19 @@ Reports may be excluded for these reasons:
   defined.
 - `DEPENDENT_VULNERABILITY`: This vulnerability is a subset of another
   vulnerability in the database. For example, if package A contains a
-  vulnerability, package B depends on package A, and there are separate CVEs
+  vulnerability, package B depends on package A, and there are separate CVE IDs
   for packages A and B, we might mark the report for B as a dependent
   vulnerability entirely superseded by the report for A.
-- `NOT_A_VULNERABILITY`: While a CVE or GHSA has been assigned, there is no
+- `NOT_A_VULNERABILITY`: While a CVE ID or GHSA has been assigned, there is no
   known vulnerability associated with it.
 
 At the moment, excluded reports are not served via
-[vuln.go.dev](https://vuln.go.dev) API.  excluded reports. However, if you have
+[vuln.go.dev](https://vuln.go.dev) API. However, if you have
 a specific use case and it would be helpful to have access to this information
 through the API,
-[please let us know](https://golang.org/s/govulncheck-feedback).
+[please let us know](/s/govulncheck-feedback).
+
+## Go CNA
+
+The Go security team is a [CVE Numbering Authority](https://www.cve.org/ProgramOrganization/CNAs).
+See [go.dev/security/vuln/cna](/security/vuln/cna) for more information.
