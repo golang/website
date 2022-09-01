@@ -33,7 +33,7 @@ To report potential new vulnerabilities in the Go project, refer to
 undisclosed issues).
 
 To request a CVE ID for an existing PUBLIC vulnerability in the Go ecosystem,
-[submit a request via this form](https://github.com/golang/vulndb/issues/new?assignees=&labels=Needs+Triage%2CDirect+External+Report&template=new_third_party_vuln.yml&title=x%2Fvulndb%3A+potential+Go+vuln+in+%3Cpackage%3E).
+[submit a request via this form](/s/vuln-report-new).
 
 A vulnerability is considered public if it has already been disclosed publicly, or it exists in a
 package you maintain, and you are ready to disclose it publicly.
