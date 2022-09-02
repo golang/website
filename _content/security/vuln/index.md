@@ -23,7 +23,7 @@ We welcome your [feedback](#feedback) to help us improve!
 
 <div class="image">
   <center>
-    <img src="vuln_architecture.svg" alt="Go Vulnerability Management Architecture"></img>
+    <img style="width: 100%" width="2110" height="952" src="vuln_architecture.png" alt="Go Vulnerability Management Architecture"></img>
   </center>
 </div>
 
@@ -32,14 +32,14 @@ Vulnerability management in Go consists of the following high-level pieces:
 1. A **data pipeline** collects vulnerability information from various sources,
 including the  [National Vulnerability Database (NVD)](https://nvd.nist.gov/),
 the [GitHub Advisory Database](https://github.com/advisories),
-and [directly from Go package maintainers](/s/vuln-report-new).
+and [directly from Go package maintainers](/s/vulndb-report-new).
 2. A **vulnerability database** is populated with reports using information
 from the data pipeline.
 All reports in the database are reviewed and curated by the Go Security team.
 Reports are formatted in the [Open Source Vulnerability (OSV) format](https://ossf.github.io/osv-schema/)
 and accessible through the [API](/security/vuln/database#api).
-3. **Integrations** with pkg.go.dev
-and [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) to
+3. **Integrations** with [pkg.go.dev](https://pkg.go.dev)
+and [vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck) to
 enable developers to find vulnerabilities in their projects. The
 [govulncheck command](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
 analyzes your codebase and only surfaces vulnerabilities that actually affect

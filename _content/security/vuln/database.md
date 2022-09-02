@@ -20,13 +20,13 @@ without warning.
 
 ## Contributing
 
-We would love for all Go package maintainers to [contribute](/s/vulndb-report-new)
+We would love for all Go package maintainers to [contribute](https://go.dev/s/vulndb-report-new)
 information about public vulnerabilities in their own projects,
-and [update](/s/vulndb-report-feedback) existing information about vulnerabilities
+and [update](https://go.dev/s/vulndb-report-feedback) existing information about vulnerabilities
 in their Go packages.
 
 We aim to make reporting a low friction process,
-so feel free to [send us your suggestions](/s/vuln-feedback).
+so feel free to [send us your suggestions](https://go.dev/s/vuln-feedback).
 
 Please **do not** use the forms above to report a vulnerability in the Go
 standard library or sub-repositories.
@@ -172,7 +172,7 @@ At the moment, excluded reports are not served via
 [vuln.go.dev](https://vuln.go.dev) API. However, if you have
 a specific use case and it would be helpful to have access to this information
 through the API,
-[please let us know](/s/govulncheck-feedback).
+[please let us know](https://go.dev/s/govulncheck-feedback).
 
 ## Go CNA
 
