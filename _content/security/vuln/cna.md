@@ -20,7 +20,7 @@ in importable Go modules that are not already covered by another CNA.
 
 This scope is intended to explicitly exclude vulnerabilities in applications or
 packages written in Go that are not importable (for example, anything in
-package `main`). See [go.dev/security/vuln/database](/security/vuln/database) for more information on excluded reports.
+package `main`). See [go.dev/security/vuln/database#excluded-reports](/security/vuln/database#excluded-reports) for more information on excluded reports.
 
 To report potential new vulnerabilities in the Go project, refer to
 [go.dev/security/policy](/security/policy).
@@ -33,7 +33,7 @@ To report potential new vulnerabilities in the Go project, refer to
 undisclosed issues).
 
 To request a CVE ID for an existing PUBLIC vulnerability in the Go ecosystem,
-[submit a request via this form](/s/vuln-report-new).
+[submit a request via this form](/s/vulndb-report-new).
 
 A vulnerability is considered public if it has already been disclosed publicly, or it exists in a
 package you maintain, and you are ready to disclose it publicly.
