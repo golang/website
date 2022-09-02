@@ -39,8 +39,8 @@ All reports in the database are reviewed and curated by the Go Security team.
 Reports are formatted in the [Open Source Vulnerability (OSV) format](https://ossf.github.io/osv-schema/)
 and accessible through the [API](/security/vuln/database#api).
 3. **Integrations** with [pkg.go.dev](https://pkg.go.dev)
-and [vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck) to
-enable developers to find vulnerabilities in their projects. The
+and govulncheck to enable developers to find vulnerabilities in
+their projects. The
 [govulncheck command](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
 analyzes your codebase and only surfaces vulnerabilities that actually affect
 you, based on which functions in your code are transitively calling vulnerable
