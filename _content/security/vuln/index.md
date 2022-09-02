@@ -5,14 +5,14 @@ layout: article
 
 ## Overview
 
-Go helps developers detect, assess, and resolve errors or weaknesses that
-are at risk of being exploited by attackers.
-Behind the scenes, the Go team runs a pipeline to curate reports about vulnerabilities,
-which are stored in the Go vulnerability database.
-Various libraries and tools can read and analyze those reports to understand
-how specific user projects may be affected.
-This functionality is integrated into the Go IDE,
-package discovery site, and a new CLI tool, govulncheck.
+Go helps developers detect, assess, and resolve errors or weaknesses that are
+at risk of being exploited by attackers. Behind the scenes, the Go team runs a
+pipeline to curate reports about vulnerabilities, which are stored in the Go
+vulnerability database. Various libraries and tools can read and analyze those
+reports to understand how specific user projects may be affected. This
+functionality is integrated into the
+[Go package discovery site](https://pkg.go.dev) and a new CLI tool,
+govulncheck.
 
 This project is a work in progress and under active development.
 We welcome your [feedback](#feedback) to help us improve!
@@ -38,13 +38,14 @@ from the data pipeline.
 All reports in the database are reviewed and curated by the Go Security team.
 Reports are formatted in the [Open Source Vulnerability (OSV) format](https://ossf.github.io/osv-schema/)
 and accessible through the [API](/security/vuln/database#api).
-3. **Integrations** with pkg.go.dev, VS Code Go extension,
-and govulncheck to enable developers to find vulnerabilities in their projects,
-powered by the [package vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck).
-By default, vulncheck will only report vulnerabilities in functions that
-might be called by the analyzed codebase,
-with the goal of reducing false positives and reducing noise.
-See [Vulnerability Detection for Go](/security/vuln/vulncheck) for more information.
+3. **Integrations** with pkg.go.dev
+and [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck) to
+enable developers to find vulnerabilities in their projects. The
+[govulncheck command](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
+analyzes your codebase and only surfaces vulnerabilities that actually affect
+you, based on which functions in your code are transitively calling vulnerable
+functions. Govulncheck provides a low-noise, reliable way to find known
+vulnerabilities in your projects.
 
 ## Resources
 
@@ -72,10 +73,10 @@ or [sending us feedback about the project](/s/vuln-feedback).
 Go’s vulnerability detection package, [vulncheck](https://golang.org/x/vuln/vulncheck),
 aims to provide a low-noise, reliable way for Go users to learn about known
 vulnerabilities that may affect their projects.
-Vulnerability checking is integrated into existing Go tools and services,
-most notably [VS Code Go](https://github.com/golang/vscode-go/blob/master/docs/commands.md#go-run-vulncheck-experimental)
-and the [Go package discovery site](https://pkg.go.dev),
-and a new command line tool, [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck).
+Vulnerability checking is integrated into Go's tools and services, including
+a new command line tool, [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck),
+the [Go package discovery site](https://pkg.go.dev), and soon
+[VS Code Go](https://github.com/golang/vscode-go/blob/master/docs/commands.md#go-run-vulncheck-experimental).
 
 ## Feedback
 
@@ -121,7 +122,8 @@ including the relevant vulnerability not being present in a Go package,
 the vulnerability being in an installable command instead of an importable package,
 or the vulnerability being subsumed by another vulnerability that is already
 present in the database.
-You can learn more about the Go Security team’s [reasons for excluding reports here](/security/vuln/database#excluded-reports).
+You can learn more about the Go Security team’s
+[reasons for excluding reports here](/security/vuln/database#excluded-reports).
 If you think that a report was incorrectly excluded from vuln.go.dev,
 [please let us know](/s/vulndb-report-feedback).
 
