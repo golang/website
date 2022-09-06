@@ -23,7 +23,7 @@ We welcome your [feedback](#feedback) to help us improve!
 
 <div class="image">
   <center>
-    <img style="width: 100%" width="2110" height="952" src="vuln_architecture.png" alt="Go Vulnerability Management Architecture"></img>
+    <img style="width: 100%" width="2110" height="952" src="architecture.png" alt="Go Vulnerability Management Architecture"></img>
   </center>
 </div>
 
