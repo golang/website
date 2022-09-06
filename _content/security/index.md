@@ -9,29 +9,31 @@ This page provides information on writing secure and reliable software in Go.
 
 ## Go Security
 
-### [Go Security Policy](/security/policy)
+### Go Security Policy
 
-An explanation of how to report security issues in the Go standard library and sub-repositories to the Go team.
+The [Go Security Policy](/security/policy) explains how to report security
+issues in the Go standard library and sub-repositories to the Go team.
 
-### [Go Security Releases](/doc/devel/release)
+### Go Security Releases
 
-Release notes for past security problems. Per the [release
-policy](/doc/devel/release#policy), we issue security fixes to
-the two most recent major releases of Go.
+The [Go Release History](/doc/devel/release) includes release notes for past
+security problems. Per the [release policy](/doc/devel/release#policy), we
+issue security fixes to the two most recent major releases of Go.
 
-## [Go Vulnerability Management](/security/vuln)
+## Go Vulnerability Management
 
-The main documentation page for the Go vulnerability management system,
-which helps developers find and fix vulnerabilities in their Go projects.
+[Go's vulnerability management](/security/vuln) support helps developers find
+known public vulnerabilities that may affect their Go projects.
 
-## [Go Fuzzing](/security/fuzz)
+## Go Fuzzing
 
-The main documentation page for Go native fuzzing.
+[Go native fuzzing](/security/fuzz) provides a type of automated testing which
+continuously manipulates inputs to a program to find bugs.
 
-Fuzzing is a type of automated testing which continuously manipulates inputs
-to a program to find bugs.
 Go supports fuzzing in its standard toolchain beginning in Go 1.18.
-Native Go fuzz tests are [supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
+Native Go fuzz tests are
+[supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
+Try out [the tutorial for fuzzing with Go](/doc/tutorial/fuzz).
 
 ## Go Cryptography
 
