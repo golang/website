@@ -83,7 +83,7 @@ To start using govulncheck, run the following from your project:
 
 ```
 $ go install golang.org/x/vuln/cmd/govulncheck@latest
-$ govulncheck ./…
+$ govulncheck ./...
 ```
 
 ## Feedback
