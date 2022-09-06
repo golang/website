@@ -19,7 +19,7 @@ govulncheck.
 This project is a work in progress and under active development.
 We welcome your [feedback](#feedback) to help us improve!
 
-**NOTE**: The Go Security Policy: [go.dev/security/policy](/security/policy)
+**NOTE**: To report a vulnerability in the Go project, please see the [Go Security Policy](/security/policy).
 
 ## Architecture
 
@@ -64,11 +64,10 @@ about the Go vulnerability database,
 and [pkg.go.dev/vuln](https://pkg.go.dev/vuln) to view vulnerabilities in
 the database in your browser.
 
-#### Contributing
-
-You can contribute to the Go vulnerability database by [reporting a new vulnerability](/s/vulndb-report-new),
-[suggesting an update to an existing vulnerability](/s/vulndb-report-feedback),
-or [sending us feedback about the project](/s/vuln-feedback).
+We encourage package maintainers to [contribute](#feedback)
+information about public vulnerabilities in their own projects and
+[send us suggestions](https://golang.org/s/vuln-feedback) on how to reduce
+friction.
 
 ### Vulnerability Detection for Go
 
@@ -89,10 +88,16 @@ $ govulncheck ./…
 
 ## Feedback
 
-We would love to hear your feedback for govulncheck:
+We would love for you to contribute and help us make improvements in the
+following ways:
 
-- Share your experience with govulncheck through [this survey](/s/govulncheck-feedback).
-- [Send us feedback](/s/vuln-feedback) about issues and feature requests.
+- [Contribute new](https://golang.org/s/vulndb-report-new) and
+  [update existing](https://go.dev/s/vulndb-report-feedback) information about
+  public vulnerabilities for Go packages that you maintain
+- [Take this survey](https://golang.org/s/govulncheck-feedback) to share your
+  experience using govulncheck
+- [Send us feedback](https://golang.org/s/vuln-feedback) about issues and
+  feature requests
 
 ## FAQs
 
