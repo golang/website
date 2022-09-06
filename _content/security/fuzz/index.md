@@ -1,15 +1,7 @@
-<!--{
-  "Title": "Go Fuzzing"
-}-->
-
-<!-- Potential pages:
-  - What fuzzing is and is not good for
-  - Common gotchas / Strategies for inefficient fuzzing executions
-  - Commands
-    - go clean -fuzzcache
-  - Technical discussion around how the coordinator/worker work (this may make
-    more sense as a blog post?)
--->
+---
+title: Go Fuzzing
+layout: article
+---
 
 Go supports fuzzing in its standard toolchain beginning in Go 1.18. Native Go fuzz tests are
 [supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
@@ -31,7 +23,7 @@ components.
 <img alt="Example code showing the overall fuzz test, with a fuzz target within
 it. Before the fuzz target is a corpus addition with f.Add, and the parameters
 of the fuzz target are highlighted as the fuzzing arguments."
-src="/doc/fuzz/example.png" style="display: block; width: 600px; height:
+src="/security/fuzz/example.png" style="display: block; width: 600px; height:
 auto;"/>
 
 ## Writing fuzz tests

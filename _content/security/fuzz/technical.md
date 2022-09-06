@@ -16,7 +16,7 @@ If the worker process executes a mutated input which causes an increase in cover
 
 If a non-recoverable error occurs while fuzzing which causes the worker process to shut down (e.g. infinite loop, os.Exit, memory exhaustion, etc), minimization will not be attempted, and the failing input will be written to the testdata directory and reported.
 
-<img alt="Sequence diagram of the interaction between coordinator and worker, as described above." src="/doc/fuzz/seq-diagram.png"/>
+<img alt="Sequence diagram of the interaction between coordinator and worker, as described above." src="/security/fuzz/seq-diagram.png"/>
 
 ### Cross-process communication
 

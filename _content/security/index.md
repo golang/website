@@ -2,7 +2,7 @@
 title: Go Security
 layout: article
 ---
- 
+
 ## Overview
 
 This page provides information on writing secure and reliable software in Go.
@@ -24,7 +24,7 @@ the two most recent major releases of Go.
 The main documentation page for the Go vulnerability management system,
 which helps developers find and fix vulnerabilities in their Go projects.
 
-## [Go Fuzzing](/doc/fuzz)
+## [Go Fuzzing](/security/fuzz)
 
 The main documentation page for Go native fuzzing.
 
