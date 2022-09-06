@@ -1,7 +1,9 @@
 ---
-title: Vulnerability Management in Go
+title: Go Vulnerability Management
 layout: article
 ---
+
+[Back to Go Security](/security)
 
 ## Overview
 

@@ -3,6 +3,8 @@ title: Go CNA Policy
 layout: article
 ---
 
+[Back to Go Vulnerability Management](/security/vuln)
+
 ## Overview
 
 The Go CNA is a

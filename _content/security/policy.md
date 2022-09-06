@@ -3,6 +3,8 @@ title: Go Security Policy
 layout: article
 ---
 
+[Back to Go Security](/security)
+
 ## Overview
 
 This document explains the Go Security team's process for handling issues

@@ -3,6 +3,8 @@ title: Go Vulnerability Database
 layout: article
 ---
 
+[Back to Go Vulnerability Management](/security/vuln)
+
 ## Overview
 
 The Go vulnerability database ([https://vuln.go.dev](https://vuln.go.dev))
