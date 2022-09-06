@@ -56,7 +56,7 @@ based on which functions in your code are transitively calling vulnerable functi
 To start using govulncheck, you can run the following from your project:
 ```
 $ go install golang.org/x/vuln/cmd/govulncheck@latest
-$ govulncheck ./…
+$ govulncheck ./...
 ```
 
 Govulncheck is a standalone tool to allow frequent updates and rapid iteration
@@ -64,7 +64,7 @@ while we gather feedback from users.
 In the long term, we plan to integrate the govulncheck tool into the main Go distribution.
 
 To directly integrate vulnerability checking into other tools and processes,
-the [vulncheck](golang.org/x/vuln/vulncheck) package exports govulncheck’s
+the [vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck) package exports govulncheck’s
 functionality as a Go API.
 
 ### Integrations
