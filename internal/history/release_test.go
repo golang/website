@@ -11,7 +11,7 @@ import (
 )
 
 func dateTime(d Date) time.Time {
-	return time.Date(d.Year, time.Month(d.Month), d.Day, 0, 0, 0, 0, time.UTC)
+	return time.Date(d.Year, d.Month, d.Day, 0, 0, 0, 0, time.UTC)
 }
 
 func TestReleases(t *testing.T) {
