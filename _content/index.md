@@ -249,53 +249,6 @@ func main() {
     </ul>
   </div>
 </section>
-<section class="LearnGo">
-  <div class="GoCarousel" id="LearnGo-carousel">
-    <div class="GoCarousel-controlsContainer">
-      <div class="GoCarousel-eventsWrapper">
-        <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
-          {{- range $index, $element := (data "/events.yaml").all}}
-            <li
-            class="GoCarousel-eventGroup"
-            id="event_slide{{$index}}">
-              <div class="GoCarousel-eventThumbnail">
-                {{- if .thumbnailurl}}
-                  <img
-                    loading="lazy"
-                    src="{{.thumbnailurl}}"
-                    alt="{{.name}} group photo">
-                {{- else}}
-                  <img
-                    loading="lazy"
-                    src="/images/meetup.svg"
-                    alt="meetup logo">
-                {{- end}}
-              </div>
-              <div class="GoCarousel-eventBody">
-                <div class="GoCarousel-eventText">
-                  <div class="GoCarousel-eventHeader">Upcoming Events</div>
-                  <h4 class="GoCarousel-eventName">
-                    <a href="{{.url}}">{{.name}}</a>
-                  </h4>
-                  <div class="GoCarousel-eventDate">
-                    <p>{{.local_date}} | {{.city}}, {{.state}} {{.country}}</p>
-                  </div>
-                  <p class="GoCarousel-viewMore"><a href="{{.url}}">Learn more</a></p>
-                </div>
-              </div>
-            </li>
-          {{- end}}
-        </ul>
-      </div>
-      <button class="js-eventsCarouselPrev GoCarousel-controlPrev" hidden>
-        <i class="GoCarousel-icon material-icons">navigate_before</i>
-      </button>
-      <button class="js-eventsCarouselNext GoCarousel-controlNext">
-        <i class="GoCarousel-icon material-icons">navigate_next</i>
-      </button>
-    </div>
-  </div>
-</section>
 <section class="GettingStartedGo">
   <div class="GettingStartedGo-gridContainer">
     <div class="GettingStartedGo-header">
