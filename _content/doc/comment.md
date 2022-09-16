@@ -500,7 +500,7 @@ We've already seen many examples of paragraphs.
 A pair of consecutive backticks (\` U+0060)
 is interpreted as a Unicode left quote (“ U+201C),
 and a pair of consecutive single quotes (\' U+0027)
-is interpreted as a unicode right quote (” U+201D).
+is interpreted as a Unicode right quote (” U+201D).
 
 Gofmt preserves line breaks in paragraph text: it does not rewrap the text.
 This allows the use of [semantic linefeeds](https://rhodesmill.org/brandon/2012/one-sentence-per-line/),
