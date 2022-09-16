@@ -67,8 +67,8 @@ The endpoints are:
 - `$base/$module.json`
    List of vulnerability entries for that module ([example](https://vuln.go.dev/golang.org/x/crypto.json)).
 
-- `$base/$vuln/vuln.json`
-   An individual Go vulnerability report.
+- `$base/ID/$vuln.json`
+   An individual Go vulnerability report ([example](https://vuln.go.dev/ID/GO-2022-0191.json)).
 
 ## Schema
 
