@@ -175,8 +175,3 @@ At the moment, excluded reports are not served via
 a specific use case and it would be helpful to have access to this information
 through the API,
 [please let us know](https://go.dev/s/govulncheck-feedback).
-
-## Go CNA
-
-The Go security team is a [CVE Numbering Authority](https://www.cve.org/ProgramOrganization/CNAs).
-See [go.dev/security/vuln/cna](/security/vuln/cna) for more information.

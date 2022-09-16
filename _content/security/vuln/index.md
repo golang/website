@@ -86,6 +86,11 @@ $ go install golang.org/x/vuln/cmd/govulncheck@latest
 $ govulncheck ./...
 ```
 
+### Go CNA
+
+The Go security team is a [CVE Numbering Authority](https://www.cve.org/ProgramOrganization/CNAs).
+See [go.dev/security/vuln/cna](/security/vuln/cna) for more information.
+
 ## Feedback
 
 We would love for you to contribute and help us make improvements in the
