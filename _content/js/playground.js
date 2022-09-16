@@ -156,6 +156,79 @@ function HTTPTransport(enableVet) {
   };
 }
 
+// Commenting key combination
+document.onkeydown = function (e) {
+  if ((e.ctrlKey || e.metaKey) && e.code == 'Slash') {
+    var txtArea = document.getElementById('code');
+    var txtline = txtArea.value.split('\n')
+    var start = txtArea.selectionStart // Usage in detecting startline
+    var end = txtArea.selectionEnd // Usage in detecting endLine
+    var len = 0 // Usage in detecting Line
+    var idx = 0 // Usage in detecting Line    
+    var newStartPos = start // Usage in function argument
+    var newEndPos = end // Usage in function argument
+    var startLine = txtArea.value.substr(0, txtArea.selectionStart).split(/\r?\n|\r/).length - 1
+    var endLine = startLine
+    var check = false // when check both start and end Line, true    
+    if (start != end) {
+      while (!check) {
+        if (idx > txtline.length) {
+          startLine = idx - 1
+          endLine = idx - 1
+          check = true
+        }
+        len += txtline[idx].length
+        if (len >= end - 1) {
+          endLine = idx
+          check = true
+        }
+        idx++
+        start--
+        end--
+      }
+    }
+    var result = Commenting(txtline, startLine, endLine, newStartPos, newEndPos)
+    txtArea.value = result[0]
+    txtArea.selectionStart = result[1]
+    txtArea.selectionEnd = result[2]
+    txtArea.focus()
+  }
+}
+function Commenting(code, startLine, endLine, startPos, endPos){
+  var alreadyComment = true
+  var newText = '' // return text value
+  var firstPos = 0 // front pointer of startLine 
+  var nonCode = 0 // num of empty line
+  var whiteSpacePattern = /\s/g; // empty regex
+  for ( var i = startLine ; i <= endLine ; i ++){
+    if ( code[i].substring(0,2) != '//' && code[i].replace(whiteSpacePattern, '').length) { 
+      alreadyComment = false 
+      break
+    }
+  }
+  // add commenting or delete
+  for ( var i = 0 ; i <= endLine; i ++){
+    if (i < startLine) {
+      firstPos += code[i].length
+    }
+    else {
+      if (!code[i].replace(whiteSpacePattern, '').length) nonCode ++
+      else {
+        if ( alreadyComment) code[i] = code[i].substring(2,code[i].length)
+        else code[i] = '//' + code[i]
+      }
+    }
+  }
+  firstPos += startLine
+  if ( alreadyComment && startPos - firstPos  < 2) startPos += (2 - (startPos - firstPos ))
+  startPos -= 2 * (2 * alreadyComment - 1) 
+  endPos -= 2 * (endLine - startLine + 1 - nonCode) * (2 * alreadyComment - 1) 
+  for ( var i = 0 ; i < code.length-1; i ++) newText += code[i]+'\n'
+  newText += code[code.length - 1]
+  if (startPos > endPos) endPos = startPos
+  return [newText, startPos, endPos]
+}
+
 function SocketTransport() {
   'use strict';
 
