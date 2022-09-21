@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Go Fuzzing technical details"
+  "Title": "Go Fuzzing technical details",
+  "Breadcrumb": true
 }-->
 
 This document provides an overview of the technical details of the native fuzzing implementation, and is intended to be a resource for contributors.

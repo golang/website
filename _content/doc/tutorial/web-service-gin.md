@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Developing a RESTful API with Go and Gin"
+  "Title": "Tutorial: Developing a RESTful API with Go and Gin",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of writing a RESTful web service API with Go

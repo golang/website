@@ -270,21 +270,19 @@
 {{- if ne .p1.URL "/"}}
   {{- breadcrumbnav (page (path.Dir (strings.TrimRight .p1.URL "/"))) .p2}}
 {{- end}}
-{{- if not (eq .p1.title "go.dev")}}
+{{- if not (eq .p1.title "The Go Programming Language")}}
 <li class="BreadcrumbNav-li {{if eq .p1.URL .p2.URL}}active{{end}}">
   <a class="BreadcrumbNav-link" href="{{.p1.URL}}">
-  {{or .p1.company .p1.title}}
+  {{or .p1.breadcrumbTitle .p1.title}}
   </a>
 </li>
 {{- end}}
 {{- end}}
 
 {{define "breadcrumbs"}}
-<div class="BreadcrumbNav">
-    <ol class="BreadcrumbNav-inner">
-      {{breadcrumbnav . .}}
-    </ol>
-</div>
+<ol class="SiteBreadcrumb">
+  {{breadcrumbnav . .}}
+</ol>
 {{- end}}
 
 {{define "gopher info" -}}
@@ -422,6 +420,11 @@
 <div class="Article-columns">
 <div class="Article-content">
 {{end}}
+
+{{if .breadcrumb}}
+  {{ breadcrumbs . }}
+{{end}}
+
 {{if .title}}
 <h1>{{.title}}</h1>
 {{else if eq .layout "error"}}

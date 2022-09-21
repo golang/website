@@ -5,6 +5,9 @@
     <div class="Article-columns">
     <div class="Article-content">
     {{end}}
+    {{- if .breadcrumb}}
+      {{ breadcrumbs . }}
+    {{- end}}
     <h1>{{.title}}</h1>
     {{.Content}}
 

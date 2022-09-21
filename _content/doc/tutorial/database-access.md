@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Accessing a relational database"
+  "Title": "Tutorial: Accessing a relational database",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of accessing a relational database with

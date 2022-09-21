@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Getting started with generics"
+  "Title": "Tutorial: Getting started with generics",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of generics in Go. With generics, you can

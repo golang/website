@@ -1,6 +1,7 @@
 <!--{
   "Title": "Tutorial: Getting started with fuzzing",
-  "HideTOC": true
+  "HideTOC": true,
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of fuzzing in Go. With fuzzing, random data

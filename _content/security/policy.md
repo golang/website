@@ -1,9 +1,8 @@
 ---
 title: Go Security Policy
 layout: article
+breadcrumb: true
 ---
-
-[Back to Go Security](/security)
 
 ## Overview
 

@@ -8,6 +8,7 @@ layout: none
   <div class="GoCarousel" id="SolutionsHeroCarousel-carousel">
     <div class="GoCarousel-controlsContainer">
       <div class="GoCarousel-wrapper SolutionsHeroCarousel-wrapper">
+      {{ breadcrumbs . }}
         <ul class="js-solutionsHeroCarouselSlides SolutionsHeroCarousel-slides">
           {{- $n := 0}}
           {{- range newest $solutions}}

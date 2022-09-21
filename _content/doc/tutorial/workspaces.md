@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Getting started with multi-module workspaces"
+  "Title": "Tutorial: Getting started with multi-module workspaces",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of multi-module workspaces in Go.

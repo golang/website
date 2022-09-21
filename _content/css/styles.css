@@ -949,6 +949,13 @@ h1 + h2.subtitle {
   max-width: 75.75rem;
   padding: 0 0 1rem;
 }
+.SiteBreadcrumb {
+  list-style:none;
+  display:flex;
+  align-items:center;
+  padding:0;
+  margin: 1.5rem 0;
+}
 .BreadcrumbNav-li {
   align-items: center;
   display: flex;
@@ -986,11 +993,6 @@ a.BreadcrumbNav-link {
     height: 1rem;
     margin: 0 0.8125rem;
     width: 1rem;
-  }
-}
-@media only screen and (min-width: 57.7rem) {
-  .BreadcrumbNav-inner {
-    margin-top: 0;
   }
 }
 .SubHero-gridContainer,
@@ -2235,7 +2237,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   padding-top: 1.125rem;
 }
 
-.Learn-heroContent a:not(.js-downloadBtn) {
+.Learn-heroContent a:not(.js-downloadBtn):not(.BreadcrumbNav-link) {
   text-decoration: underline;
 }
 

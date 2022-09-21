@@ -1,6 +1,7 @@
 <!--{
   "Title": "Deprecation of 'go get' for installing executables",
-  "Path": "/doc/go-get-install-deprecation"
+  "Path": "/doc/go-get-install-deprecation",
+  "Breadcrumb": true
 }-->
 
 ## Overview
