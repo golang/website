@@ -88,6 +88,12 @@
 //
 //	capture element header
 //
+// Evaluate JavaScript snippets to hide elements or prepare the page in
+// some other way.
+//
+//	eval 'document.querySelector(".selector").remove();'
+//	eval 'window.scrollTo({top: 0});'
+//
 // Chain capture commands to create multiple testcases for a single page.
 //
 //	windowsize 1536x960
@@ -751,7 +757,7 @@ func (tc *testcase) screenshot(ctx context.Context, url, file string,
 	return &img, nil
 }
 
-type Response struct {
+type response struct {
 	Status int
 }
 
@@ -770,7 +776,7 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	if tc.blockedURLs != nil {
 		tasks = append(tasks, network.SetBlockedURLS(tc.blockedURLs))
 	}
-	var res Response
+	var res response
 	tasks = append(tasks,
 		getResponse(url, &res),
 		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
@@ -886,7 +892,7 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 	}
 }
 
-func getResponse(u string, res *Response) chromedp.ActionFunc {
+func getResponse(u string, res *response) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		chromedp.ListenTarget(ctx, func(ev interface{}) {
 			// URL fragments are dropped in request targets so we must strip the fragment
@@ -909,7 +915,7 @@ func getResponse(u string, res *Response) chromedp.ActionFunc {
 	}
 }
 
-func checkResponse(tc *testcase, res *Response) chromedp.ActionFunc {
+func checkResponse(tc *testcase, res *response) chromedp.ActionFunc {
 	return func(context.Context) error {
 		if res.Status != tc.status {
 			fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
