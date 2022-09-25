@@ -43,7 +43,7 @@ func AlbumByID(id int) (Album, error) {
 
 	// Execute the prepared statement, passing in an id value for the
 	// parameter whose placeholder is ?
-	err := stmt.QueryRow(id).Scan(&album.ID, &album.Title, &album.Artist, &album.Price, &album.Quantity)
+	err = stmt.QueryRow(id).Scan(&album.ID, &album.Title, &album.Artist, &album.Price, &album.Quantity)
 	if err != nil {
 		if err == sql.ErrNoRows {
 			// Handle the case of no rows returned.
