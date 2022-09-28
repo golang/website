@@ -240,7 +240,7 @@ func main() {
                 alt="Go Gopher is skateboarding.">
             </div>
             <div class="WhyGo-reasonShowMoreLink">
-              <a href="/solutions/#use-cases">More use cases <i
+              <a href="/solutions/use-cases">More use cases <i
               class="material-icons
               WhyGo-forwardArrowIcon">arrow_forward</i></a>
             </div>

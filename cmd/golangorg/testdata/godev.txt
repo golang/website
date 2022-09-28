@@ -5,7 +5,7 @@ body contains <h2 class="WhoUses-headerH2">Companies using Go</h2>
 GET https://go.dev/about
 redirect == https://pkg.go.dev/about
 
-GET https://go.dev/solutions/
+GET https://go.dev/solutions/case-studies
 body contains Using Go at Google
 
 GET https://go.dev/solutions/dropbox

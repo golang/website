@@ -4,10 +4,10 @@ main:
     children:
       - name: Case Studies
         explanation: Common problems companies solve with Go
-        url: /solutions#case-studies
+        url: /solutions/case-studies
       - name: Use Cases
         explanation: Stories about how and why companies use Go
-        url: /solutions#use-cases
+        url: /solutions/use-cases
       - name: Security Policy
         explanation: How Go can help keep you secure by default
         url: /security/policy/
@@ -72,9 +72,9 @@ footer:
     url: /solutions/
     children:
       - name: Use Cases
-        url: /solutions/#use-cases
+        url: /solutions/use-cases
       - name: Case Studies
-        url: /solutions/#case-studies
+        url: /solutions/case-studies
 
   - name: Get Started
     url: /learn/

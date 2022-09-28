@@ -7,12 +7,12 @@ capture fullscreen
 capture fullscreen 540x1080
 
 test why go case studies
-pathname /solutions/
+pathname /solutions/case-studies
 capture fullscreen
 capture fullscreen 540x1080
 
 test why go use cases
-pathname /solutions/#use-cases
+pathname /solutions/use-cases
 capture fullscreen
 capture fullscreen 540x1080
 
