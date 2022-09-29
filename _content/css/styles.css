@@ -1831,6 +1831,21 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Solutions-forwardArrowIcon {
   font-size: 1rem;
 }
+.Solutions-header {
+  padding: 0 1.5rem;
+  margin: 2.5rem auto;
+  max-width: 75.75rem;
+}
+.Solutions-header .SiteBreadcrumb {
+  margin-bottom: 2rem;
+}
+.Solutions-useCase__title {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 32px;
+  color: var(--color-text);
+}
 @media only screen and (min-width: 57.7rem) {
   .WhyGo-reasons {
     grid-template-columns: repeat(2, 1fr);
@@ -3016,6 +3031,67 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
 .Solutions-useCasesHeader h2,
 .Solutions-caseStudiesHeader h2 {
 }
+.MarketingCardList {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.75rem;
+  padding: unset;
+}
+.MarketingCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0 1.75rem;
+  text-align: left;
+  box-sizing: border-box;
+  width: auto;
+  height: auto;
+  min-height: 24.625rem;
+  background: var(--color-background);
+  border: var(--border);
+  border-radius: 0.25rem;
+}
+.MarketingCard a:hover {
+  text-decoration: none;
+}
+.MarketingCard-section {
+  margin-top: 2.625rem;
+}
+.MarketingCard-section__bottom {
+  position: absolute;
+  bottom: 2.625rem;
+}
+.MarketingCard-section__spacer {
+  padding-bottom: 6.25rem;
+}
+.MarketingCard-title {
+  color: var(--color-text);
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  font-style: normal;
+}
+.MarketingCard-body {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.1px;
+  color: var(--color-text-subtle);
+}
+.MarketingCard-action {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0.1px;
+  color: var(--color-text-link);
+  background: unset;
+  border: none;
+  padding: unset;
+  cursor: pointer;
+}
 .Solutions-cardList,
 .Solutions-caseStudyList {
   display: grid;
@@ -3038,7 +3114,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   flex: 0 100%;
 }
 @media only screen and (min-width: 38rem) {
-  .Solutions-cardList {
+  .Solutions-cardList, .MarketingCardList {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -3051,7 +3127,7 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     box-shadow: 0 0.125rem 0.5rem 0 rgba(0, 0, 0, 0.22);
     transition: all 0.2s ease-in-out;
   }
-  .Solutions-cardList {
+  .Solutions-cardList, .MarketingCardList {
     grid-template-columns: repeat(3, 1fr);
   }
 }
