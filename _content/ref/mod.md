@@ -124,7 +124,7 @@ this standard into canonical versions. The `go` command will also remove build
 metadata suffixes (except for `+incompatible`) as part of this process. This may
 result in a [pseudo-version](#glos-pseudo-version), a pre-release version that
 encodes a revision identifier (such as a Git commit hash) and a timestamp from a
-version control system. For example, the command `go get -d
+version control system. For example, the command `go get
 golang.org/x/net@daa7c041` will convert the commit hash `daa7c041` into the
 pseudo-version `v0.0.0-20191109021931-daa7c04131f5`. Canonical versions are
 required outside the main module, and the `go` command will report an error if a
@@ -198,7 +198,7 @@ a commit hash or a branch name and will translate it into a pseudo-version
 (or tagged version if available) automatically. For example:
 
 ```
-go get -d example.com/mod@master
+go get example.com/mod@master
 go list -m -json example.com/mod@abcd1234
 ```
 
@@ -1511,20 +1511,20 @@ Examples:
 
 ```
 # Upgrade a specific module.
-$ go get -d golang.org/x/net
+$ go get golang.org/x/net
 
 # Upgrade modules that provide packages imported by packages in the main module.
-$ go get -d -u ./...
+$ go get -u ./...
 
 # Upgrade or downgrade to a specific version of a module.
-$ go get -d golang.org/x/text@v0.3.2
+$ go get golang.org/x/text@v0.3.2
 
 # Update to the commit on the module's master branch.
-$ go get -d golang.org/x/text@master
+$ go get golang.org/x/text@master
 
 # Remove a dependency on a module and downgrade modules that require it
 # to versions that don't require it.
-$ go get -d golang.org/x/text@none
+$ go get golang.org/x/text@none
 ```
 
 The `go get` command updates module dependencies in the [`go.mod`
