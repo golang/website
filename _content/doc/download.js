@@ -54,32 +54,24 @@ class DownloadsController {
   // Set the download button UI for a specific OS.
   setDownloadForOS(osName) {
     const baseURL = '/dl/';
-    let download;
 
     switch(osName){
       case 'linux':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Linux';
         document.querySelector('.js-downloadDescription').textContent =
-          this.linuxFileName + ' (' + this.linuxFileSize + ' MB)';
+          'Download (' + this.parseVersionNumber(this.linuxFileName) + ')';
         document.querySelector('.js-download').href = baseURL + this.linuxFileName;
         break;
       case 'mac':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Mac';
         document.querySelector('.js-downloadDescription').textContent =
-          this.macFileName + ' (' + this.macFileSize + ' MB)';
+          'Download (' + this.parseVersionNumber(this.macFileName) + ')';
         document.querySelector('.js-download').href = baseURL + this.macFileName;
         break;
       case 'windows':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Windows';
         document.querySelector('.js-downloadDescription').textContent =
-          this.windowsFileName + ' (' + this.windowsFileSize + ' MB)';
+          'Download (' + this.parseVersionNumber(this.windowsFileName) + ')';
         document.querySelector('.js-download').href = baseURL + this.windowsFileName;
         break;
       default:
-        document.querySelector('.js-downloadButton').textContent = 'Download Go';
         document.querySelector('.js-downloadDescription').textContent =
           'Visit the downloads page.';
         document.querySelector('.js-download').href = baseURL;
@@ -135,6 +127,17 @@ class DownloadsController {
     this.activateTab(Array.prototype.indexOf.call(this.tabs, el));
     this.setDownloadForOS(el.id);
     this.setInstallTabData(el.id);
+  }
+
+  // get version number.
+  parseVersionNumber(string) {
+    const rx = /(\d+\.)(\d+\.)(\d+)/g;
+    const matches = rx.exec(string)
+    if (matches?.[0]) {
+      return matches[0];
+    } else {
+      return '';
+    }
   }
 
 }

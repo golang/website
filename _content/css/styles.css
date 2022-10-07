@@ -770,6 +770,7 @@ a.Footer-link--primary {
 .Article {
   color: var(--color-text);
   margin: 0 auto 1.875rem;
+  margin-top: 3rem;
   max-width: 75.75rem;
   padding: 0 1.5rem;
 }
@@ -803,9 +804,18 @@ h1 + h2.subtitle {
 }
 .Article h1 {
   font-size: 2.25rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2rem;
+  margin-bottom: 1.5rem;
 }
 .Article h2 {
-  font-size: 1.4rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-top: 2.75rem;
+  margin-bottom: 0.275rem;
 }
 .Article h3 {
   font-size: 1.125rem;
@@ -819,9 +829,10 @@ h1 + h2.subtitle {
 .Article ul,
 .Article ol {
   color: var(--color-text);
-  font-size: 1rem;
   font-style: normal;
-  font-weight: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.75rem;
 }
 .Article ol .Article pre {
   background-color: var(--color-background-accented);
@@ -875,6 +886,13 @@ h1 + h2.subtitle {
 }
 .Article.Doc img {
   background-color: var(--white);
+}
+.Article p.DownloadBtn {
+  margin-top: 1.5rem;
+  margin-bottom: 0.675rem;
+}
+.Article .DocInstall-footer {
+  padding-bottom: 1.5rem;
 }
 .BreadcrumbNav-inner {
   display: flex;
@@ -4633,25 +4651,37 @@ th.pkg-name {
   border-bottom: var(--border);
 }
 .TabSection-tab {
-  background: var(--color-background-accented);
+  background: var(--color-background);
   border: none;
   color: var(--color-text);
   line-height: 3rem;
   padding: 0 1.125rem;
   position: relative;
+  border-radius: 0.3125rem;
+}
+.TabSection-underline {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.TabSection-tab[aria-selected='true'] .TabSection-underline {
+  display: block;
+  background-color: var(--color-background);
 }
 .TabSection-tab[aria-selected='true'] {
-  background-color: #e0ebf5;
-  color: black;
+  color: var(--color-text-link);
   outline: 0;
 }
 .TabSection-tab:focus {
-  background-color: #e0ebf5;
-  color: black;
+  color: var(--color-text-link);
   outline: 0;
 }
 .TabSection-tabPanel {
   font-size: 0.875rem;
+  padding: 1rem 0;
 }
 /* Tutorial previous and next links */
 .Navigation {
@@ -4700,10 +4730,13 @@ th.pkg-name {
 }
 /* for doc/install */
 a#start {
-  background: #e0ebf5;
-  border: 0.0625rem solid #375eab;
+  background: var(--deep-cerulian);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1rem;
   border-radius: 0.3125rem;
-  color: #222;
+  color: #FFF;
   display: block;
   padding: 0.625rem;
   text-align: center;
@@ -4721,7 +4754,8 @@ a#start .desc {
   margin-top: 0.3125rem;
 }
 .download {
-  width: 17.5rem;
+  width: 10.25rem;
+  height: 2.5rem;
 }
 table.downloadtable {
   margin-left: 20px;
@@ -4747,29 +4781,44 @@ table.downloadtable tr.highlight td {
   font-weight: bold;
 }
 a.downloadBox {
-  display: block;
-  color: #222;
-  border: 0.0625rem solid #375eab;
-  border-radius: 5px;
-  background: #e0ebf5;
-  width: 280px;
+  display: flex;
+  flex-direction: column;
+  color: var(--color-text);
+  background: var(--color-background-accented);
+  width: 13.875rem;
+  height: 8.375rem;
   float: left;
-  margin-left: 10px;
-  margin-bottom: 10px;
-  padding: 10px;
+  padding: 1rem;
 }
 a.downloadBox:hover {
   text-decoration: none;
 }
 .downloadBox .platform {
   font-size: large;
+  margin-bottom: 0.75rem;
+}
+.downloadWrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
 }
 .downloadBox .filename {
-  color: var(--color-text-link);
-  font-weight: bold;
-  line-height: 1.5em;
+  display: flex;
+  align-items: center;
+  margin-top: auto;
 }
-a.downloadBox:hover .filename {
+.downloadBox .filename img {
+  margin-right: 0.375rem;
+}
+.downloadBox .filename span {
+  color: var(--color-text-link);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 0.75rem;
+}
+a.downloadBox:hover .filename span {
   text-decoration: underline;
 }
 .downloadBox .size {
@@ -4777,8 +4826,11 @@ a.downloadBox:hover .filename {
   font-weight: normal;
 }
 .downloadBox .reqs {
-  font-size: small;
-  font-style: italic;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  color: var(--color-text-subtle);
 }
 .downloadBox .checksum {
   font-size: 5pt;

@@ -32,10 +32,12 @@ information about Go releases.
 
 {{with .Featured}}
 <h2 id="featured">Featured downloads</h2>
+<div class="downloadWrapper">
 {{range .}}
 {{template "download" .}}
 {{end}}
 {{end}}
+</div>
 
 <div style="clear: both;"></div>
 
@@ -161,9 +163,9 @@ go install golang.org/dl/{{.Version}}@latest
 <a class="download downloadBox" href="{{.URL}}">
 <div class="platform">{{.Platform}}</div>
 {{with .Requirements}}<div class="reqs">{{.}}</div>{{end}}
-<div>
-  <span class="filename">{{.Filename}}</span>
-  {{if .Size}}<span class="size">({{.PrettySize}})</span>{{end}}
+<div class="filename">
+  <img src="/images/icons/download.svg" aria-hidden="true" width="14" height="13" />
+  <span>{{.Filename}}</span>
 </div>
 </a>
 {{end}}
