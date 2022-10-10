@@ -884,6 +884,55 @@ h1 + h2.subtitle {
 [data-theme='dark'] .CopyPaste .CopyPaste-icon-dark {
   display: block;
 }
+.Sidebar {
+  display: none;
+}
+.Sidebar a {
+  width: 7.5rem;
+}
+.Sidebar h4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.Sidebar p, .Sidebar-faq .link {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5rem;
+}
+.Sidebar-faq h4 {
+  font-size: 0.813rem;
+  margin-top: 1.25rem;
+  margin-bottom: 0.375rem;
+}
+.Sidebar-faq p {
+  margin-top: 0;
+  margin-bottom: 0.625rem;
+}
+.Sidebar-socialLinks {
+  display: flex;
+  align-items: center;
+}
+.Sidebar-socialLinks a {
+  display: flex;
+  width: unset;
+  margin-right: 0.675rem;
+}
+@media screen and (min-width: 78rem) {
+  .Article-columns {
+    display: flex;
+    gap: 10rem;
+  }
+  .Article-content {
+    flex: 3;
+  }
+  .Sidebar {
+    display: block;
+    flex: 1;
+  }
+}
 .Article.Doc img {
   background-color: var(--white);
 }
@@ -4729,7 +4778,7 @@ th.pkg-name {
   height: 3rem;
 }
 /* for doc/install */
-a#start {
+a.btn {
   background: var(--deep-cerulian);
   font-style: normal;
   font-weight: 400;

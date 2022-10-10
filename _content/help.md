@@ -1,14 +1,13 @@
-<!--{
-	"Title": "Help",
-	"Template": true,
-	"layout": "article"
-}-->
+---
+title: "Help"
+template: true
+layout: "article"
+sidebar: "bug"
+---
 
 <div id="manual-nav"></div>
 
 <h2 id="help">Get help</h2>
-
-<img class="gopher" src="/doc/gopher/help.png" alt=""/>
 
 <h3 id="mailinglist"><a href="https://groups.google.com/group/golang-nuts">Go Nuts Mailing List</a></h3>
 <p>
