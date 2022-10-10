@@ -840,7 +840,38 @@ h1 + h2.subtitle {
   background: var(--color-background-accented);
 }
 .Article pre {
+  padding: 0.5rem 1.75rem;
+  border-radius: 4px;
+}
+.CopyPaste {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 1.75rem;
+  border-radius: 4px;
+}
+.TabSection .CopyPaste {
+  margin-right: 2.5rem;
+}
+.CopyPaste button {
+  display: flex;
+  padding: unset;
+  background: none;
+  border: none;
+  margin-left: auto;
+  cursor: copy;
+}
+.CopyPaste button img.CopyPaste-icon {
   margin-left: 1.5rem;
+  background-color: unset;
+}
+.CopyPaste .CopyPaste-icon-dark {
+  display: none;
+}
+[data-theme='dark'] .CopyPaste .CopyPaste-icon {
+  display: none;
+}
+[data-theme='dark'] .CopyPaste .CopyPaste-icon-dark {
+  display: block;
 }
 .Article.Doc img {
   background-color: var(--white);

@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 16" width="14" height="16">
+	<title>copy-paste-svg</title>
+	<defs>
+		<image  width="14" height="16" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAQCAMAAAARSr4IAAAAAXNSR0IB2cksfwAAAJBQTFRFqqyu5ubn5ubn5+fn4uPj2tvc5+fo5OTk3d7f4OHi29vc9fX14ODh5eXm9fX15OXl6Onp4+Tk5ufn2Nna6Ojo6uvr5OXl5ebm4OHi5OTl3t/g2NjZ7Ozt7e3u6Ojp6erq4eHi4+Pk6enq7O3t4+Pk6+vs7+/w8vLy7Ozs3+Dg6urq4ODh3d7e5+jo5eXl7u7u4MIsPAAAADB0Uk5TANT//////8//6rwS//8I7dr/////4P//////////////zf///////+P//8f////opQXlIgAAAH9JREFUeJxjYAACRiZmJhZWNnYGCGABkxycXNxgBg+Y5OXjFwAzBMGkkKCwCIMor5i4OFQTUFwCSEoiuFIgXTAuL4M0kBSDcWXAlsjCuHJghUIwrgjYTnmEUQpAUlFJWYVHVU1dXYNBEyYDsRzO1ULlQszTFtTRZRbSk9TVB/EARPUGZJZMFO8AAAAASUVORK5CYII="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Layer" href="#img1" x="0" y="0"/>
+</svg>
