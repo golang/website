@@ -310,6 +310,9 @@ func cleanOutput(ctx context.Context, tests []*testcase) error {
 // cleanBkts clears all the GCS buckets in bkts of all objects not included
 // in the set of keepFiles. Buckets that do not exist will cause an error.
 func cleanBkts(ctx context.Context, bkts, keepFiles, safeExts map[string]bool) error {
+	if len(bkts) == 0 {
+		return nil
+	}
 	client, err := storage.NewClient(ctx)
 	if err != nil {
 		return fmt.Errorf("storage.NewClient(ctx): %w", err)
