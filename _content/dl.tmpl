@@ -54,10 +54,10 @@ information about Go releases.
 {{with .Archive}}
 <div class="toggle" id="archive">
   <div class="collapsed">
-    <h2 class="toggleButton" title="Click to show versions">Archived versions ▸</h2>
+    <h2 class="toggleButton" title="Click to show versions">Archived versions <span class="toggleText">Show</span></h2>
   </div>
   <div class="expanded">
-    <h2 class="toggleButton" title="Click to hide versions">Archived versions ▾</h2>
+    <h2 class="toggleButton" title="Click to hide versions">Archived versions <span class="toggleText">Hide</span></h2>
     {{template "download-releases" .}}
   </div>
 </div>
@@ -105,10 +105,18 @@ $(document).ready(function() {
 {{range .}}
 <div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
 	<div class="collapsed">
-		<h3 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▸</h3>
+		<h3 class="toggleButton" title="Click to show downloads for this version">
+    <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
+    <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
+    <span>{{.Version}}</span>
+    </h3>
 	</div>
 	<div class="expanded">
-		<h3 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h3>
+		<h3 class="toggleButton" title="Click to hide downloads for this version">
+    <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
+    <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
+    <span>{{.Version}}</span>
+    </h3>
 		{{if .Stable}}{{else}}
 			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
 			<p>If you already have Go installed, you can install this version by running:</p>

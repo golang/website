@@ -72,7 +72,7 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.site.ServePage(w, r, web.Page{
-		"title":  "Downloads",
+		"title":  "All releases",
 		"layout": "dl",
 		"dl":     d,
 	})

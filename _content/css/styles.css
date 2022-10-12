@@ -4549,6 +4549,43 @@ h2.Playground-about {
 }
 .toggleButton {
   cursor: pointer;
+  background-color: var(--color-background-accented);
+  padding: 0.5rem;
+}
+h3.toggleButton {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding-left: 1rem;
+  display: flex;
+  align-items: center;
+}
+#archive h2.toggleButton {
+  background-color: var(--color-background);
+}
+.toggleButton span.toggleText {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--color-text-link);
+  margin-left: 0.625rem;
+}
+.toggleButton-img {
+  display: block;
+}
+.toggleButton-img-dark {
+  display: none;
+}
+[data-theme='dark'] .toggleButton-img {
+  display: none;
+}
+[data-theme='dark'] .toggleButton-img-dark {
+  display: block;
+}
+.toggle .collapsed img {
+  transform: rotate(180deg);
 }
 .toggle > .collapsed {
   display: block;
@@ -4805,16 +4842,34 @@ a#start .desc {
   height: 2.5rem;
 }
 table.downloadtable {
-  margin-left: 20px;
-  margin-right: 20px;
+  width: 100%;
   border-collapse: collapse;
 }
-table.downloadtable tr {
-  background-color: var(--color-background-accented);
+table.downloadtable thead {
+  border: 2px solid var(--color-background-accented);
 }
 table.downloadtable tr:nth-child(2n),
-table.downloadtable tr.first {
+table.downloadtable tr.first,
+table.downloadtable tr {
   background-color: var(--color-background);
+  border: 2px solid var(--color-background-accented);
+}
+
+table.downloadtable tr.first th {
+  text-align: left;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+table.downloadtable td {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+table.downloadtable td.filename, table.downloadtable tr.first th:nth-child(1) {
+  padding-left: 4.5rem;
 }
 table.downloadtable td,
 table.downloadtable th {
