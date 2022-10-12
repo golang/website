@@ -490,6 +490,11 @@ For example:
 	//go:generate stringer -type Op -trimprefix Op
 	type Op uint8
 
+A directive comment is a line matching the regular expression
+`//(line |extern |export |[a-z0-9]+:[a-z0-9])`.
+Tools that define their own directives should use the form
+`//toolname:directive`.
+
 Gofmt removes leading and trailing blank lines in doc comments.
 
 ### Paragraphs {#paragraphs}
