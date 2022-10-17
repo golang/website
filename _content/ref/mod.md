@@ -514,9 +514,9 @@ line.
 
 When the `go` command retrieves deprecation information for a module, it loads
 the `go.mod` file from the version matching the `@latest` [version
-query](#version-queries) without considering retractions or exclusions. The `go`
-command loads [retractions](#glos-retracted-version) from the same `go.mod`
-file.
+query](#version-queries) without considering [retractions](#go-mod-file-retract) or
+[exclusions](#go-mod-file-exclude). The `go` command loads the list of
+[retracted versions](#glos-retracted-version) from the same `go.mod` file.
 
 To deprecate a module, an author may add a `// Deprecated:` comment and tag a
 new release. The author may change or remove the deprecation message in a higher
@@ -818,7 +818,9 @@ RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" new
 RetractSpec = ( Version | "[" Version "," Version "]" ) newline .
 ```
 
-Example:
+Examples:
+
+* Retracting all versions between `v1.0.0` and `v1.9.9`:
 
 ```
 retract v1.0.0
@@ -827,6 +829,18 @@ retract (
     v1.0.0
     [v1.0.0, v1.9.9]
 )
+```
+
+* Returning to unversioned after prematurely released a version `v1.0.0`:
+
+```
+retract [v0.0.0, v1.0.1] // assuming v1.0.1 contains this retraction.
+```
+
+* Wiping out a module including all pseudo-versions and tagged versions:
+
+```
+retract [v0.0.0-0, v0.15.2]  // assuming v0.15.2 contains this retraction.
 ```
 
 The `retract` directive was added in Go 1.16. Go 1.15 and lower will report an
