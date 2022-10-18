@@ -3878,7 +3878,21 @@ a.UseCase-anchorLink.selected::before {
 img.PullQuote-image {
   width: 2.625rem;
 }
-
+.BigCard {
+  border: var(--border);
+  border-radius: 0.25rem;
+  padding: 0 1.75rem;
+  margin-bottom: 1.5rem;
+}
+.BigCard h2 {
+  margin-top: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.125rem;
+  line-height: 2rem;
+  border-bottom: var(--border);
+  padding-bottom: 0.5rem;
+}
 .Card {
   background-color: var(--white);
   border: var(--border);

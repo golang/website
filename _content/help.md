@@ -7,8 +7,8 @@ sidebar: "bug"
 
 <div id="manual-nav"></div>
 
-<h2 id="help">Get help</h2>
-
+<section id="help" class="BigCard">
+<h2>Get help</h2>
 <h3 id="mailinglist"><a href="https://groups.google.com/group/golang-nuts">Go Nuts Mailing List</a></h3>
 <p>
 Get help from Go users, and share your work on the official mailing list.
@@ -39,8 +39,10 @@ the Go IRC channel.</p>
 
 <h3 id="faq"><a href="/doc/faq">Frequently Asked Questions (FAQ)</a></h3>
 <p>Answers to common questions about Go.</p>
+</section>
 
-<h2 id="inform">Stay informed</h2>
+<section id="inform" class="BigCard">
+<h2>Stay informed</h2>
 
 <h3 id="announce"><a href="https://groups.google.com/group/golang-announce">Go Announcements Mailing List</a></h3>
 <p>
@@ -66,8 +68,11 @@ for Go news and discussion.
 The <a href="https://changelog.com/gotime">Go Time podcast</a> is a panel of Go experts and special guests
 discussing the Go programming language, the community, and everything in between.
 </p>
+</section>
 
-<h2 id="community">Community resources</h2>
+
+<section id="community" class="BigCard">
+<h2>Community resources</h2>
 
 <h3 id="go_user_groups"><a href="/wiki/GoUserGroups">Go User Groups</a></h3>
 <p>
@@ -86,4 +91,4 @@ meet to talk about Go. Find a chapter near you.
 Guidelines for participating in Go community spaces
 and a reporting process for handling issues.
 </p>
-
+</section>
