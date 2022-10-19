@@ -3878,11 +3878,29 @@ a.UseCase-anchorLink.selected::before {
 img.PullQuote-image {
   width: 2.625rem;
 }
+.Masonry {
+  column-count: 1;
+  column-gap: 3.5rem;
+  row-gap: 3.5rem;
+  column-fill: balance;
+}
 .BigCard {
   border: var(--border);
   border-radius: 0.25rem;
   padding: 0 1.75rem;
+  padding-bottom: 1rem;
   margin-bottom: 1.5rem;
+}
+.Masonry .BigCard {
+  margin-bottom: unset;
+  margin-top: 1.5rem;
+  min-width: 33%;
+  height: max-content;
+  display: inline-block;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  width: 100%;
 }
 .BigCard h2 {
   margin-top: 1.5rem;
@@ -3892,6 +3910,11 @@ img.PullQuote-image {
   line-height: 2rem;
   border-bottom: var(--border);
   padding-bottom: 0.5rem;
+}
+@media only screen and (min-width: 48rem) {
+  .Masonry {
+    column-count: 2;
+  }
 }
 .Card {
   background-color: var(--white);
