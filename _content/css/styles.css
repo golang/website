@@ -3878,6 +3878,40 @@ a.UseCase-anchorLink.selected::before {
 img.PullQuote-image {
   width: 2.625rem;
 }
+.FlatCard {
+  border: var(--border);
+  border-radius: 0.25rem;
+  padding: 0 1.5rem;
+  padding-bottom: 0.75rem;
+  width: 100%;
+  min-height: 11.25rem;
+}
+.FlatCard-wrapper {
+  display: grid;
+  grid-gap: 2rem;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin-top: 1rem;
+}
+.FlatCard-column {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+.FlatCard-bottom-spacer {
+  margin-bottom: 4rem;
+}
+.FlatCard-column .FlatCard {
+  width: 100%;
+}
+.FlatCard h3 {
+  font-style: normal;
+  font-weight: 500;
+  font-size:  1rem;
+  line-height: 1.5rem;
+}
 .Masonry {
   column-count: 1;
   column-gap: 3.5rem;
