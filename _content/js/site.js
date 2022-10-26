@@ -372,8 +372,19 @@ window.initFuncs = [];
   }
 
   /**
-   * toggleTheme switches the preferred color scheme between auto, light, and
-   * dark.
+   * setVersionSpan sets the latest version in any span that has this selector.
+   */
+  async function setVersionSpans() {
+    const spans = document.querySelectorAll('.GoVersionSpan');
+    if (!spans) return;
+    const version = await getLatestVersion();
+    Array.from(spans).forEach(span => {
+      span.textContent = `Download (${version.replace('go', '')})`
+    });
+  }
+
+  /**
+   * toggleTheme switches the preferred color scheme between auto, light, and dark.
    */
   function toggleTheme() {
     let nextTheme = 'dark';
@@ -399,5 +410,6 @@ window.initFuncs = [];
     registerSolutionsTabs();
     setDownloadLinks();
     setThemeButtons();
+    setVersionSpans();
   });
 })();

@@ -8,8 +8,9 @@
       concludes with a few exercises so you can practice what you've learned.
     cta: Take a tour
     url: /tour/
-  - title: Playground
-    content: The Playground allows anyone with a web browser to write Go code
-      that we immediately compile, link, and run on our servers.
-    cta: Go to playground
-    url: /play
+  - title: Go by example
+    content: <i>Go by Example</i> is a hands-on introduction to Go using annotated
+      example programs. It’s a great starting point to use when tackling any Go
+      project.
+    url: https://gobyexample.com/
+    cta: View examples

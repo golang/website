@@ -1,25 +1,25 @@
   - title: The Go Programming Language
     description: Alan A. A. Donovan, Brian W. Kernighan
-    cta: View
+    eyebrow: PDF
     url: https://www.gopl.io/
     thumbnail: /images/learn/go-programming-language-book.png
   - title: Get Programming with Go
     description: Nathan Youngman, Roger Peppé
-    cta: Manning.com
+    eyebrow: Manning.com
     url: https://www.manning.com/books/get-programming-with-go
     thumbnail: /images/learn/get-programming-with-go.jpeg
   - title: Go Programming Blueprints
     description: This is the official source code repository for the book.
-    cta: View on GitHub
+    eyebrow: GitHub
     url: https://github.com/matryer/goblueprints
     thumbnail: /images/learn/go-programming-blueprints.png
   - title: Introducing Go
     description: Caleb Doxsey
-    cta: View on O’Reilly.com
+    eyebrow: O'Reilly.com
     url: http://shop.oreilly.com/product/0636920046516.do
     thumbnail: /images/learn/introducing-go-book.png
   - title: Concurrency in Go
     description: Katherine Cox-Buday
-    cta: View on O’Reilly.com
+    eyebrow: O'Reilly.com
     url: https://www.oreilly.com/library/view/concurrency-in-go/9781491941294/
     thumbnail: /images/learn/concurrency-in-go.png

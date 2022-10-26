@@ -2,24 +2,14 @@
     content: Go Web Examples provides easy to understand code snippets on
       how to use Go for web development.
     url: https://gowebexamples.com
-    thumbnail: /images/learn/web-dev.png
     cta: Learn more
   - title: CLIs
     content: This workshop will walk you through building a CLI app with Go,
       introducing you to basic Go principles and CLI frameworks along the way.
     url: https://spf13.com/presentation/building-an-awesome-cli-app-in-go-oscon/
-    thumbnail: /images/learn/clis.png
     cta: Learn more
   - title: New to coding?
     content: Get started with this introductory course covering basic
       programming principles and Go fundamentals.
     url: https://www.youtube.com/watch?v=Q0sKAMal4WQ
-    thumbnail: /images/learn/edureka.png
-    cta: Learn more
-  - title: Go by example
-    content: <i>Go by Example</i> is a hands-on introduction to Go using annotated
-      example programs. It’s a great starting point to use when tackling any Go
-      project.
-    url: https://gobyexample.com/
-    thumbnail: /images/learn/gobyexample.png
     cta: Learn more
