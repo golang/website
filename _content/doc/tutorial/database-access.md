@@ -653,7 +653,7 @@ relational database.
 
 Suggested next topics:
 
-*   Take a look at the data acccess guide, which includes more information
+*   Take a look at the data access guide, which includes more information
     about the subjects only touched on here.
 
 *   If you're new to Go, you'll find useful best practices described in

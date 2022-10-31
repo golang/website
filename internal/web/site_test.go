@@ -5,7 +5,6 @@
 package web
 
 import (
-	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
@@ -93,7 +92,7 @@ func TestTypeScript(t *testing.T) {
 			name:     "file not found",
 			path:     "/notfound.ts",
 			wantCode: 500,
-			wantBody: fmt.Sprintf("\n\nopen testdata/notfound.ts: %s\n", syscall.ENOENT),
+			wantBody: syscall.ENOENT.Error(),
 		},
 		{
 			name:     "syntax error",
@@ -116,8 +115,8 @@ func TestTypeScript(t *testing.T) {
 			if (tt.wantCacheHeader && !gotHeader) || (!tt.wantCacheHeader && gotHeader) {
 				t.Errorf("got cache hit %v but wanted %v", gotHeader, tt.wantCacheHeader)
 			}
-			if diff := cmp.Diff(tt.wantBody, got.Body.String()); diff != "" {
-				t.Errorf("ServeHTTP() mismatch (-want +got):\n%s", diff)
+			if !strings.Contains(got.Body.String(), tt.wantBody) {
+				t.Errorf("ServeHTTP() mismatch (-want +got):\n%s", cmp.Diff(tt.wantBody, got.Body.String()))
 			}
 		})
 	}

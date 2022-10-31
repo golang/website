@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"go/build"
 	"net/http/httptest"
 	"os"
 	"path/filepath"
@@ -24,10 +25,25 @@ func TestWeb(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, file := range files {
-		if filepath.ToSlash(file) != "testdata/live.txt" {
-			webtest.TestHandler(t, file, h)
+		switch filepath.ToSlash(file) {
+		case "testdata/live.txt":
+			continue
+		case "testdata/go1.19.txt":
+			if !haveRelease("go1.19") {
+				continue
+			}
+		}
+		webtest.TestHandler(t, file, h)
+	}
+}
+
+func haveRelease(release string) bool {
+	for _, tag := range build.Default.ReleaseTags {
+		if tag == release {
+			return true
 		}
 	}
+	return false
 }
 
 var bad = []string{

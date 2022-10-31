@@ -513,7 +513,7 @@ write or at least to compile a program with a data race. How to fit
 that into a language like Go is still an open question in the
 programming language world. Instead we added a tool to the main
 distribution and made it trivial to use: that tool, the [race detector](https://blog.golang.org/race-detector), has become
-an indispensible part of the Go experience. Here the best solution was
+an indispensable part of the Go experience. Here the best solution was
 a runtime and tooling change, not a language change.
 
 There will be language changes as well, of course, but not all

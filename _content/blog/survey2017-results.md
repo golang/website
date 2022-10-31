@@ -63,7 +63,7 @@ process with the addition of
 [Experience Reports](/wiki/ExperienceReports) which is
 enabling the project to gather and obtain feedback critical to making these
 significant changes. We also made
-[sigificant changes](/doc/go1.10#build) under the hood in
+[significant changes](/doc/go1.10#build) under the hood in
 how Go obtains, and builds packages. This is foundational work essential to
 addressing our dependency management needs.
 
@@ -89,7 +89,7 @@ allowed.
 
 Continuing its explosive growth, VSCode is now the most popular editor among
 Gophers. IntelliJ/GoLand also saw significant increase in usage. These largely
-came at the expense of Atom and Submlime Text which saw relative usage drops.
+came at the expense of Atom and Sublime Text which saw relative usage drops.
 This question had a 6% higher response rate from last year.
 
 Survey respondents demonstrated significantly higher satisfaction with Go
@@ -107,7 +107,7 @@ increase over 2016. For Non-Go applications, AWS Lambda saw the largest increase
 
 We asked how strongly people agreed or disagreed with various statements about
 Go. All questions are repeated from last year with the addition of one new
-question which we introduced to add further clarifaction around how users are
+question which we introduced to add further clarification around how users are
 able to both find and **use** Go libraries.
 
 All responses either indicated a small improvement or are comparable to 2016.

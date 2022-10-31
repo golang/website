@@ -288,7 +288,7 @@ Do not send CLs removing the interior tags from such phrases.
 </p>
 
 <p>
-  See the <a href="https://go.dev/doc/fuzz">fuzzing landing page</a> to get
+  See the <a href="https://go.dev/security/fuzz">fuzzing landing page</a> to get
   started.
 </p>
 
@@ -473,7 +473,7 @@ while <code>go</code> <code>vet</code> diagnoses when they are out of sync.
 all supported versions of Go now understand <code>//go:build</code> lines.
 In Go 1.18, <code>go</code> <code>fix</code> now removes the now-obsolete
 <code>//</code> <code>+build</code> lines in modules declaring
-<code>go</code> <code>1.17</code> or later in their <code>go.mod</code> files.
+<code>go</code> <code>1.18</code> or later in their <code>go.mod</code> files.
 </p>
 
 <p>
@@ -732,7 +732,7 @@ For more details, see <a href="https://go.dev/issue/44505">go.dev/issue/44505</a
 <p>
   This can be temporarily reverted by setting the
   <code>GODEBUG=x509sha1=1</code> environment variable.
-  This option will be removed in Go 1.19.
+  This option will be removed in a future release.
 </p>
 
 <h3 id="minor_library_changes">Minor changes to the library</h3>
@@ -866,8 +866,7 @@ For more details, see <a href="https://go.dev/issue/44505">go.dev/issue/44505</a
 
     <p>
       Support for signing certificates using signature algorithms that depend on the
-      MD5 and SHA-1 hashes (<code>MD5WithRSA</code>, <code>SHA1WithRSA</code>, and
-      <code>ECDSAWithSHA1</code>) may be removed in Go 1.19.
+      MD5 hash (<code>MD5WithRSA</code>) may be removed in Go 1.19.
     </p>
   </dd>
 </dl>

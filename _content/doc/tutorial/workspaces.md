@@ -181,7 +181,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
    )
    ```
 
-   The module now includes both the `example.com/hello` module and the `golang.org/x/example module.
+   The module now includes both the `example.com/hello` module and the `golang.org/x/example` module.
 
    This will allow us to use the new code we will write in our copy of the `stringutil` module
    instead of the version of the module in the module cache that we downloaded with the `go get` command.
@@ -256,7 +256,7 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
    ```
    cd hello
-   go get example.com/dep@v0.1.0
+   go get golang.org/x/example@v0.1.0
    ```
 
    That way, the `go` command can properly resolve the modules outside the workspace.

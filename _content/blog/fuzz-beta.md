@@ -97,7 +97,7 @@ testflag` if you want more information.
 Also be aware that the fuzzing engine writes values that expand test coverage to
 a fuzz cache directory within `$GOCACHE/fuzz` while it runs. There is currently
 no limit to the number of files or total bytes that may be written to the fuzz
-cache, so it may occupy a large amount of storage (ie. several GBs). You can
+cache, so it may occupy a large amount of storage (i.e. several GBs). You can
 clear the fuzz cache by running `gotip clean -fuzzcache`.
 
 ## What’s next?

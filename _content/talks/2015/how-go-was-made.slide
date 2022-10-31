@@ -557,7 +557,7 @@ But on design, just this:
 
 "Before undertaking to write something new for the Go project, send mail to the mailing list to discuss what you plan to do."
 
-Does this decribe the project's approach to design? Only superficially.
+Does this describe the project's approach to design? Only superficially.
 
 Successful proposals include design docs
 that discuss rationale, tradeoffs, and implementation.

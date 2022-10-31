@@ -4,17 +4,19 @@
 
 /*
 Command screentest runs the screentest check for a set of scripts.
-  Usage: screentest [flags] [glob]
+
+	Usage: screentest [flags] [glob]
 
 The flags are:
-  -u
-    update cached screenshots
-  -v
-    variables provided to script templates as comma separated KEY:VALUE pairs
-  -c
-    number of testcases to run concurrently
-	-d
-		chrome debugger url
+
+	  -u
+	    update cached screenshots
+	  -v
+	    variables provided to script templates as comma separated KEY:VALUE pairs
+	  -c
+	    number of testcases to run concurrently
+		-d
+			chrome debugger url
 */
 package main
 

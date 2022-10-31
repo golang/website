@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 510.24'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='190.20,434.99 190.20,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='282.14,434.99 282.14,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='374.07,434.99 374.07,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='466.01,434.99 466.01,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='557.95,434.99 557.95,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='190.20' y='116.01' width='19.71' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='158.54' width='56.12' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='201.07' width='107.65' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='243.60' width='103.93' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='286.13' width='71.67' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='328.66' width='38.05' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='371.19' width='48.69' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='413.72' width='13.87' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<rect x='190.20' y='107.51' width='17.48' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='150.04' width='46.69' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='192.57' width='101.45' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='235.10' width='100.05' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='277.63' width='74.79' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='320.16' width='44.54' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='362.69' width='60.68' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='405.22' width='13.99' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='190.20' y='99.00' width='20.56' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='141.53' width='43.74' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='184.06' width='104.96' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='226.59' width='104.15' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='269.12' width='72.88' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='311.65' width='39.94' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='354.18' width='59.12' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='190.20' y='396.71' width='14.33' height='8.51' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='214.81' y='129.60' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='252.80' y='172.13' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>12 %</text>
+<text x='304.33' y='214.66' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>23 %</text>
+<text x='300.62' y='257.19' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>23 %</text>
+<text x='268.36' y='299.72' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='233.15' y='342.25' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>8 %</text>
+<text x='245.38' y='384.79' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>11 %</text>
+<text x='208.97' y='427.32' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='212.58' y='116.85' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='243.37' y='159.38' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='298.13' y='201.91' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>22 %</text>
+<text x='296.74' y='244.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>22 %</text>
+<text x='271.48' y='286.97' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='241.22' y='329.50' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='257.37' y='372.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>13 %</text>
+<text x='209.10' y='414.56' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='215.67' y='104.09' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='240.43' y='146.62' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='301.64' y='189.15' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>23 %</text>
+<text x='300.83' y='231.68' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>23 %</text>
+<text x='269.56' y='274.21' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='235.04' y='316.74' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>9 %</text>
+<text x='255.80' y='359.27' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>13 %</text>
+<text x='209.43' y='401.80' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='45.91' y='406.92' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='120.97px' lengthAdjust='spacingAndGlyphs'>I've never coded as</text>
+<text x='82.07' y='422.04' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='84.81px' lengthAdjust='spacingAndGlyphs'>part of my job</text>
+<text x='46.26' y='371.95' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='120.62px' lengthAdjust='spacingAndGlyphs'>More than 20 years</text>
+<text x='85.17' y='329.42' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='81.71px' lengthAdjust='spacingAndGlyphs'>16 - 20 years</text>
+<text x='85.17' y='286.89' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='81.71px' lengthAdjust='spacingAndGlyphs'>11 - 15 years</text>
+<text x='92.96' y='244.36' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='73.92px' lengthAdjust='spacingAndGlyphs'>6 - 10 years</text>
+<text x='100.75' y='201.83' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='66.14px' lengthAdjust='spacingAndGlyphs'>3 - 5 years</text>
+<text x='100.75' y='159.30' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='66.14px' lengthAdjust='spacingAndGlyphs'>1 - 2 years</text>
+<text x='63.37' y='116.77' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='103.51px' lengthAdjust='spacingAndGlyphs'>Less than 1 year</text>
+<text x='180.08' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='268.13' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='360.06' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='452.00' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='543.94' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='311.81' y='478.51' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='593.48' y='239.39' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='593.48' y='256.67' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #9ECAE1;' />
+<rect x='593.48' y='273.95' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #DEEBF7;' />
+<text x='618.02' y='251.90' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2021</text>
+<text x='618.02' y='269.18' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2020</text>
+<text x='618.02' y='286.46' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='28.47px' lengthAdjust='spacingAndGlyphs'>2019</text>
+<text x='171.81' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  9657</text>
+<text x='171.81' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='365.52px' lengthAdjust='spacingAndGlyphs'>How many years have you coded professionally (as</text>
+<text x='171.81' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='250.81px' lengthAdjust='spacingAndGlyphs'>part of your work) in any language?</text>
+</svg>

@@ -1,12 +1,11 @@
 # admingolangorg
 
-This app serves as the [admin interface](https://admin-dot-golang-org.appspot.com) for the golang.org/s link
-shortener. Its functionality may be expanded in the future.
+This app serves as the [admin interface](https://admin-dot-golang-org.appspot.com) for the go.dev/s link shortener. It can also remove unwanted playground snippets.
 
 ## Deployment:
 
 To update the public site, run:
 
 ```
-gcloud app --account=username@domain.com --project=golang-org deploy app.yaml
+gcloud app --project=golang-org deploy --promote app.yaml
 ```

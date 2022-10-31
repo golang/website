@@ -66,7 +66,7 @@ documentation. The [Go User survey](https://blog.golang.org/survey2016-results)
 identified that our documentation was significantly lacking examples. In the
 presentation, we asked users to find a package they loved and to add an example. In
 the Go project, examples are written as code in Go files
-(with specific naming) and the `go doc` tool displays them along side the documentation.
+(with specific naming) and the `go doc` tool displays them alongside the documentation.
 This is a perfect first contribution as it's something that can be merged
 during a freeze, it's of critical importance to our users, and it's an addition
 that has a relatively narrow scope.
@@ -85,7 +85,7 @@ In addition to examples, many people contributed critical bug fixes including:
 Some people even surprised us by arriving with a bug in mind that they wanted
 to fix. Nikhita arrived ready to tackle
 [issue #20786](/issue/20786)
-and she did submitting
+and she did submit
 [CL 48871](/cl/48871/),
 after which she tweeted:
 
@@ -180,7 +180,7 @@ I've always found programming languages to be intimidating. It's the code that
 enables the world to write code. Given the impact, surely smarter people than
 me should be working on it... but that fear was something to overcome. So when
 the opportunity to join a workshop to contribute to my new favorite programming
-language came up, I was excite to see how I could and how I could help. A month
+language came up, I was excited to see how I could help. A month
 later, I'm now certain that anyone and everyone can (and should) contribute back to Go.
 
 Here are my very verbose steps to go from 0 to 2 contributions to Go:
@@ -211,7 +211,7 @@ Next, install `codereview` so you can participate in a Gerrit code review:
 This package includes `git change` and `git mail` which will replace your
 normal workflow of `git commit` and `git push` respectively.
 
-Okay, installations are out of the way. Now setup your [Gerrit account here](https://go-review.googlesource.com/settings/#Profile),
+Okay, installations are out of the way. Now set up your [Gerrit account here](https://go-review.googlesource.com/settings/#Profile),
 then [sign the CLA](https://go-review.googlesource.com/settings#Agreements) appropriate for
 you (I signed a personal one for all Google projects, but choose the right option for you.
 You can see all CLAs you've signed at [cla.developers.google.com/clas](https://cla.developers.google.com/clas)).
@@ -243,7 +243,7 @@ if you need to update your patch you can `add` then `change` and it will all
 link to the same patch. Secondly, you can always review your patch from your
 [personal Gerrit dashboard](https://go-review.googlesource.com/dashboard/).
 
-After a few back and forths, I officially had a contribute to Go! And if Jaana
+After a few back and forths, I officially had a contribution to Go! And if Jaana
 is right, it might be the first with emojis ✌️.
 
 {{image "contributor-workshop/image15.png"}}
@@ -330,7 +330,7 @@ dedicate an entire day of an upcoming weekend to figuring out the process. I
 set aside all of Saturday for doing one thing: sending my first CL to Go. I
 opened up [the Contribution Guide](/doc/contribute.html)
 and started following all the steps, from the very top. Within an hour, I was
-done. I had send my first CL. I was both in awe and shock. In awe, because I
+done. I had sent my first CL. I was both in awe and shock. In awe, because I
 had finally sent a contribution to Go, and it was accepted! In shock, because,
 why did I wait so long to finally do this? Following the steps in
 [the Contribution Guide](/doc/contribute.html) was very

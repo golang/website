@@ -9,6 +9,8 @@ tags:
 summary: How and why to document your Go packages.
 ---
 
+[_**Note, June 2022**: For updated guidelines about documenting Go code,
+see “[Go Doc Comments](/doc/comment).”_]
 
 The Go project takes documentation seriously.
 Documentation is a huge part of making software accessible and maintainable.

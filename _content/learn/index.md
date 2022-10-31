@@ -164,52 +164,6 @@ title: "Get Started"
   </div>
 </section>
 
-<section class="Learn-meetups">
-  <div class="Container">
-    <div class="Learn-subHeader">
-      <h2>Meetups</h2>
-      <p class="Learn-viewMore">
-        <a href="https://www.meetup.com/pro/go">View more events &gt;</a>
-      </p>
-    </div>
-    <ul class="Learn-events">
-      {{- range first 3 (data "/events.yaml").all}}
-      <li class="Learn-eventItem">
-        <div
-          class="Learn-eventThumbnail {{if not .photourl}}Learn-eventThumbnail--noimage{{end}}"
-        >
-          {{- if .photourl}}
-          <img alt="{{.name}} group photo" src="{{.photourl}}" />
-          {{- else}}
-          <img src="/images/meetup.svg" alt="meetup logo" />
-          {{- end}}
-        </div>
-        <div class="Learn-eventBody">
-          <div class="Learn-eventDate">
-            <p>{{.local_date}} &#183 {{.city}}, {{.state}} {{.country}}</p>
-          </div>
-          <div class="Learn-eventText">
-            <h4 class="Learn-eventName">
-              <a href="{{.url}}">{{.name}}</a>
-            </h4>
-            <p class="Learn-eventDescription">{{raw .description}}</p>
-          </div>
-          <div class="Learn-eventAttendees">
-            {{- with .attendees }}
-              {{- range first 5 .}}
-              <div class="Learn-eventAttendeesItem">
-                <img src="{{.thumb_link}}" alt="{{.name}}"/>
-              </div>
-              {{- end}}
-            {{- end}}
-          </div>
-        </div>
-      </li>
-      {{- end}}
-    </ul>
-  </div>
-</section>
-
 {{define "learn-card"}}
 <div class="Card">
   <div class="Card-inner">

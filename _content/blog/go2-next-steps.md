@@ -156,4 +156,4 @@ Per the
 the final decision will be
 made at the end of the development cycle (beginning of November, 2019).
 
-Thank you for helping making Go a better language!
+Thank you for helping make Go a better language!

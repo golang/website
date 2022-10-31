@@ -97,7 +97,7 @@ func Load(fsys fs.FS) (DB, error) {
 	return vp.res, nil
 }
 
-// parser parses $GOROOT/api/go*.txt files and stores them in in its rows field.
+// parser parses $GOROOT/api/go*.txt files and stores them in its rows field.
 type parser struct {
 	res DB // initialized lazily
 }

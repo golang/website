@@ -74,7 +74,7 @@ func TestWikiServer(t *testing.T) {
 
 	// Build the server binary from the patched sources.
 	// The 'go' command requires that they all be in the same directory.
-	// final_test.go provides the implemtation for our serve function.
+	// final_test.go provides the implementation for our serve function.
 	must(copyFile(filepath.Join(dir, "final_srv.go"), "final_test.go"))
 	cmd := exec.Command("go", "build",
 		"-o", filepath.Join(dir, "final.exe"),

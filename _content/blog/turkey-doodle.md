@@ -32,7 +32,7 @@ stream a post containing a snapshot of the turkey.
 The snapshot is a single image that matches the turkey the user created.
 
 With 13 alternatives for each of 8 parts of the turkey (heads,
-pairs of legs, distinct feathers, etc.) there are more than than 800 million
+pairs of legs, distinct feathers, etc.) there are more than 800 million
 possible snapshot images that could be generated.
 To pre-compute them all is clearly infeasible.
 Instead, we must generate the snapshots on the fly.

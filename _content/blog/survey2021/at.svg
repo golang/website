@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 510.24'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='256.42,434.99 256.42,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='331.76,434.99 331.76,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='407.10,434.99 407.10,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='482.45,434.99 482.45,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='557.79,434.99 557.79,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='633.13,434.99 633.13,103.52 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='256.42' y='150.36' width='176.01' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='222.42' width='82.04' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='114.33' width='187.95' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='366.53' width='32.82' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='402.56' width='82.04' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='186.39' width='164.08' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='294.48' width='49.22' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='330.50' width='32.82' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<rect x='256.42' y='258.45' width='68.62' height='21.62' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #2171B5;' />
+<text x='437.33' y='166.25' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='343.36' y='238.31' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='449.27' y='130.22' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='294.14' y='382.43' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>0 %</text>
+<text x='343.36' y='418.46' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='425.40' y='202.28' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='310.54' y='310.37' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='294.14' y='346.40' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>0 %</text>
+<text x='329.93' y='274.34' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='197.64' y='418.38' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='57.56' y='374.79' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='175.10px' lengthAdjust='spacingAndGlyphs'>Wheelchair or cane or guide</text>
+<text x='103.49' y='389.91' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='129.17px' lengthAdjust='spacingAndGlyphs'>animal or prosthetics</text>
+<text x='72.33' y='338.76' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='160.32px' lengthAdjust='spacingAndGlyphs'>Switch navigation or head</text>
+<text x='87.14' y='353.88' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='145.52px' lengthAdjust='spacingAndGlyphs'>pointers or eye tracking</text>
+<text x='68.47' y='302.73' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='164.19px' lengthAdjust='spacingAndGlyphs'>Screen reader or Braille or</text>
+<text x='145.49' y='317.85' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='87.17px' lengthAdjust='spacingAndGlyphs'>text to speech</text>
+<text x='151.72' y='274.26' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='80.93px' lengthAdjust='spacingAndGlyphs'>Voice control</text>
+<text x='52.93' y='238.23' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='179.72px' lengthAdjust='spacingAndGlyphs'>TDD or TTY, closed captions</text>
+<text x='83.25' y='194.64' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='149.41px' lengthAdjust='spacingAndGlyphs'>Screen magnifier or font</text>
+<text x='184.41' y='209.76' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='48.24px' lengthAdjust='spacingAndGlyphs'>resizing</text>
+<text x='88.69' y='158.62' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='143.96px' lengthAdjust='spacingAndGlyphs'>Alternative keyboard or</text>
+<text x='66.14' y='173.74' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='166.52px' lengthAdjust='spacingAndGlyphs'>alternative mouse or stylus</text>
+<text x='45.91' y='122.59' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='186.74px' lengthAdjust='spacingAndGlyphs'>High contrast or browser color</text>
+<text x='158.72' y='137.71' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='73.93px' lengthAdjust='spacingAndGlyphs'>preferences</text>
+<text x='240.46' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>0.0%</text>
+<text x='315.81' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>1.0%</text>
+<text x='391.15' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>2.0%</text>
+<text x='466.49' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>3.0%</text>
+<text x='541.83' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>4.0%</text>
+<text x='617.18' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>5.0%</text>
+<text x='382.51' y='478.51' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='237.58' y='94.67' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  5051</text>
+<text x='237.58' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='350.43px' lengthAdjust='spacingAndGlyphs'>If you use any of the assistive technologies below</text>
+<text x='237.58' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='347.73px' lengthAdjust='spacingAndGlyphs'>when working with Go, which one(s) do you use?</text>
+<text x='237.58' y='74.36' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='211.67px' lengthAdjust='spacingAndGlyphs'>(optional; select all that apply)</text>
+</svg>

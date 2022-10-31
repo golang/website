@@ -79,6 +79,7 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // dl.gob was generated 2021-11-08 from the live server data, for offline testing.
+//
 //go:embed dl.gob
 var dlGob []byte
 
@@ -89,6 +90,9 @@ func (h server) listData(ctx context.Context) (*listTemplateData, error) {
 		err := gob.NewDecoder(bytes.NewReader(dlGob)).Decode(&d)
 		if err != nil {
 			return nil, err
+		}
+		if len(d.Stable) > 0 {
+			d.Featured = filesToFeatured(d.Stable[0].Files)
 		}
 		return &d, nil
 	}

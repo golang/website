@@ -103,7 +103,7 @@ character may vary depending on the application. For normalization we will
 define it as a sequence of runes that starts with a starter, a rune that does
 not modify or combine backwards with any other rune, followed by possibly empty
 sequence of non-starters, that is, runes that do (typically accents). The
-normalization algorithm processes one character at at time.
+normalization algorithm processes one character at a time.
 
 Theoretically, there is no bound to the number of runes that can make up a
 Unicode character. In fact, there are no restrictions on the number of

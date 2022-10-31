@@ -60,7 +60,7 @@
   {{else if eq $kind "background"}}{{background . -}}
   {{else if eq $kind "iframe"}}{{iframe . -}}
   {{else if eq $kind "link"}}{{link . -}}
-  {{else if eq $kind "html"}}{{html . -}}
+  {{else if eq $kind "html"}}{{template "html" . -}} {{/* Work around https://github.com/rsc/tmplfunc/issues/1. */ -}}
   {{else if eq $kind "caption"}}{{caption . -}}
   {{else}}???{{$kind}}???
   {{- end -}}

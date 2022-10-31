@@ -110,7 +110,7 @@ compatible with previous versions.
   build metadata is preserved in versions specified in `go.mod` files. The
   suffix `+incompatible` denotes a version released before migrating to modules
   version major version 2 or later (see [Compatibility with non-module
-  repositories](#non-module-compat).
+  repositories](#non-module-compat)).
 
 A version is considered unstable if its major version is 0 or it has a
 pre-release suffix. Unstable versions are not subject to compatibility
@@ -124,7 +124,7 @@ this standard into canonical versions. The `go` command will also remove build
 metadata suffixes (except for `+incompatible`) as part of this process. This may
 result in a [pseudo-version](#glos-pseudo-version), a pre-release version that
 encodes a revision identifier (such as a Git commit hash) and a timestamp from a
-version control system. For example, the command `go get -d
+version control system. For example, the command `go get
 golang.org/x/net@daa7c041` will convert the commit hash `daa7c041` into the
 pseudo-version `v0.0.0-20191109021931-daa7c04131f5`. Canonical versions are
 required outside the main module, and the `go` command will report an error if a
@@ -198,7 +198,7 @@ a commit hash or a branch name and will translate it into a pseudo-version
 (or tagged version if available) automatically. For example:
 
 ```
-go get -d example.com/mod@master
+go get example.com/mod@master
 go list -m -json example.com/mod@abcd1234
 ```
 
@@ -514,9 +514,9 @@ line.
 
 When the `go` command retrieves deprecation information for a module, it loads
 the `go.mod` file from the version matching the `@latest` [version
-query](#version-queries) without considering retractions or exclusions. The `go`
-command loads [retractions](#glos-retracted-version) from the same `go.mod`
-file.
+query](#version-queries) without considering [retractions](#go-mod-file-retract) or
+[exclusions](#go-mod-file-exclude). The `go` command loads the list of
+[retracted versions](#glos-retracted-version) from the same `go.mod` file.
 
 To deprecate a module, an author may add a `// Deprecated:` comment and tag a
 new release. The author may change or remove the deprecation message in a higher
@@ -540,7 +540,7 @@ integer followed by a dot and a non-negative integer (for example, `1.9`,
 
 The `go` directive was originally intended to support backward incompatible
 changes to the Go language (see [Go 2
-transition](/design/28221-go2-transitions)). There have been no incompatible
+transition](https://go.googlesource.com/proposal/+/master/design/28221-go2-transitions.md)). There have been no incompatible
 language changes since modules were introduced, but the `go` directive still
 affects use of new language features:
 
@@ -655,7 +655,7 @@ command.
 
 Since Go 1.16, if a version referenced by a `require` directive in any `go.mod`
 file is excluded by an `exclude` directive in the main module's `go.mod` file,
-the requirement is ignored. This may be cause commands like [`go get`](#go-get)
+the requirement is ignored. This may cause commands like [`go get`](#go-get)
 and [`go mod tidy`](#go-mod-tidy) to add new requirements on higher versions
 to `go.mod`, with an `// indirect` comment if appropriate.
 
@@ -788,8 +788,8 @@ publishes version `v1.0.0` accidentally. To prevent users from upgrading to
 
 ```
 retract (
-	v1.0.0 // Published accidentally.
-	v1.0.1 // Contains retractions only.
+    v1.0.0 // Published accidentally.
+    v1.0.1 // Contains retractions only.
 )
 ```
 
@@ -818,7 +818,9 @@ RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" new
 RetractSpec = ( Version | "[" Version "," Version "]" ) newline .
 ```
 
-Example:
+Examples:
+
+* Retracting all versions between `v1.0.0` and `v1.9.9`:
 
 ```
 retract v1.0.0
@@ -827,6 +829,18 @@ retract (
     v1.0.0
     [v1.0.0, v1.9.9]
 )
+```
+
+* Returning to unversioned after prematurely released a version `v1.0.0`:
+
+```
+retract [v0.0.0, v1.0.1] // assuming v1.0.1 contains this retraction.
+```
+
+* Wiping out a module including all pseudo-versions and tagged versions:
+
+```
+retract [v0.0.0-0, v0.15.2]  // assuming v0.15.2 contains this retraction.
 ```
 
 The `retract` directive was added in Go 1.16. Go 1.15 and lower will report an
@@ -947,7 +961,7 @@ Consider the example below, where C 1.4 has been replaced with R. R depends on D
 1.3 instead of D 1.2, so MVS returns a build list containing A 1.2, B 1.2, C 1.4
 (replaced with R), and D 1.3.
 
-![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacment")
+![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacement")
 
 ### Exclusion {#mvs-exclude}
 
@@ -1052,7 +1066,7 @@ module graph loaded by Go 1.17. The `-compat` flag can be used to override the
 default version (for example, to prune the `go.sum` file more aggressively in a
 `go 1.17` module).
 
-See [the design document](/design/36460-lazy-module-loading) for more detail.
+See [the design document](https://go.googlesource.com/proposal/+/master/design/36460-lazy-module-loading.md) for more detail.
 
 ### Lazy module loading {#lazy-loading}
 
@@ -1075,7 +1089,7 @@ have been [replaced](#go-mod-file-replace) using local filesystem paths.)
 ## Workspaces {#workspaces}
 
 A <dfn>workspace</dfn> is a collection of modules on disk that are used as
-the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
 
 A workspace can be declared in a [`go.work` file](#go-work-file) that specifies
 relative paths to the module directories of each of the modules in the workspace.
@@ -1097,7 +1111,7 @@ containing the working directory.
 If `GOWORK` names a path to an existing file that ends in .work,
 workspace mode will be enabled. Any other value is an error. You can use the
 `go env GOWORK` command to determine which `go.work` file the `go` command
-is using. `go env gowork` will be empty if the `go` command is not in workspace
+is using. `go env GOWORK` will be empty if the `go` command is not in workspace
 mode.
 
 ### `go.work` files {#go-work-file}
@@ -1122,6 +1136,7 @@ to create a block.
 use (
     ./my/first/thing
     ./my/second/thing
+)
 ```
 
 The `go` command provides several subcommands for manipulating `go.work` files.
@@ -1510,20 +1525,20 @@ Examples:
 
 ```
 # Upgrade a specific module.
-$ go get -d golang.org/x/net
+$ go get golang.org/x/net
 
 # Upgrade modules that provide packages imported by packages in the main module.
-$ go get -d -u ./...
+$ go get -u ./...
 
 # Upgrade or downgrade to a specific version of a module.
-$ go get -d golang.org/x/text@v0.3.2
+$ go get golang.org/x/text@v0.3.2
 
 # Update to the commit on the module's master branch.
-$ go get -d golang.org/x/text@master
+$ go get golang.org/x/text@master
 
 # Remove a dependency on a module and downgrade modules that require it
 # to versions that don't require it.
-$ go get -d golang.org/x/text@none
+$ go get golang.org/x/text@none
 ```
 
 The `go get` command updates module dependencies in the [`go.mod`
@@ -1726,19 +1741,20 @@ to a Go struct, but now a `Module` struct:
 
 ```
 type Module struct {
-    Path       string       // module path
-    Version    string       // module version
-    Versions   []string     // available module versions (with -versions)
-    Replace    *Module      // replaced by this module
-    Time       *time.Time   // time version was created
-    Update     *Module      // available update, if any (with -u)
-    Main       bool         // is this the main module?
-    Indirect   bool         // is this module only an indirect dependency of main module?
-    Dir        string       // directory holding files for this module, if any
-    GoMod      string       // path to go.mod file for this module, if any
-    GoVersion  string       // go version used in module
-    Deprecated string       // deprecation message, if any (with -u)
-    Error      *ModuleError // error loading module
+    Path       string        // module path
+    Version    string        // module version
+    Versions   []string      // available module versions
+    Replace    *Module       // replaced by this module
+    Time       *time.Time    // time version was created
+    Update     *Module       // available update (with -u)
+    Main       bool          // is this the main module?
+    Indirect   bool          // module is only indirectly needed by main module
+    Dir        string        // directory holding local copy of files, if any
+    GoMod      string        // path to go.mod file describing module, if any
+    GoVersion  string        // go version used in module
+    Retracted  []string      // retraction information, if any (with -retracted or -u)
+    Deprecated string        // deprecation message, if any (with -u)
+    Error      *ModuleError  // error loading module
 }
 
 type ModuleError struct {
@@ -1760,7 +1776,7 @@ The `Module` struct has a `String` method that formats this line of output, so
 that the default format is equivalent to {{raw "`-f '{{.String}}'`"}}.
 
 Note that when a module has been replaced, its `Replace` field describes the
-replacement module module, and its `Dir` field is set to the replacement
+replacement module, and its `Dir` field is set to the replacement
 module's source code, if present. (That is, if `Replace` is non-nil, then `Dir`
 is set to `Replace.Dir`, with no access to the replaced source code.)
 
@@ -1840,6 +1856,7 @@ to this Go struct:
 ```
 type Module struct {
     Path     string // module path
+    Query    string // version query corresponding to this version
     Version  string // module version
     Error    string // error loading module
     Info     string // absolute path to cached .info file
@@ -1848,6 +1865,8 @@ type Module struct {
     Dir      string // absolute path to cached source root directory
     Sum      string // checksum for path, version (as in go.sum)
     GoModSum string // checksum for go.mod (as in go.sum)
+    Origin   any    // provenance of module
+    Reuse    bool   // reuse of old module info is safe
 }
 ```
 
@@ -1941,35 +1960,40 @@ The editing flags may be repeated. The changes are applied in the order given.
 
 ```
 type Module struct {
-        Path    string
-        Version string
+    Path    string
+    Version string
 }
 
 type GoMod struct {
-        Module  Module
-        Go      string
-        Require []Require
-        Exclude []Module
-        Replace []Replace
+    Module  ModPath
+    Go      string
+    Require []Require
+    Exclude []Module
+    Replace []Replace
+    Retract []Retract
+}
+
+type ModPath struct {
+    Path       string
+    Deprecated string
 }
 
 type Require struct {
-        Path     string
-        Version  string
-        Indirect bool
+    Path     string
+    Version  string
+    Indirect bool
 }
 
 type Replace struct {
-        Old Module
-        New Module
+    Old Module
+    New Module
 }
 
 type Retract struct {
-        Low       string
-        High      string
-        Rationale string
+    Low       string
+    High      string
+    Rationale string
 }
-
 ```
 
 Note that this only describes the `go.mod` file itself, not other modules
@@ -2392,7 +2416,7 @@ A version query may be one of the following:
   latest version starting with `v2`, not the branch named `v2`.
 * The string `latest`, which selects the highest available release version. If
   there are no release versions, `latest` selects the highest pre-release
-  version.  If there no tagged versions, `latest` selects a pseudo-version for
+  version.  If there are no tagged versions, `latest` selects a pseudo-version for
   the commit at the tip of the repository's default branch.
 * The string `upgrade`, which is like `latest` except that if the module is
   currently required at a higher version than the version `latest` would select
@@ -2820,9 +2844,9 @@ module golang.org/x/mod
 go 1.12
 
 require (
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
-	golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
-	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
+    golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
+    golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
+    golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 )
 ```
 
@@ -3562,7 +3586,7 @@ example:
 GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
 ```
 
-Use caution when taking this approach: environment variables may be appear
+Use caution when taking this approach: environment variables may appear
 in shell history and in logs.
 
 ### Passing credentials to private repositories {#private-module-repo-auth}
@@ -3753,7 +3777,7 @@ conflicts on case-insensitive file systems.
       <td>
         Directory containing extracted contents of a module <code>.zip</code>
         file. This serves as a module root directory for a downloaded module. It
-        won't contain contain a <code>go.mod</code> file if the original module
+        won't contain a <code>go.mod</code> file if the original module
         didn't have one.
       </td>
     </tr>
@@ -4463,7 +4487,7 @@ distributed together.
 **module graph:** The directed graph of module requirements, rooted at the [main
 module](#glos-main-module). Each vertex in the graph is a module; each edge is a
 version from a `require` statement in a `go.mod` file (subject to `replace` and
-`exclude` statements in the main module's `go.mod` file.
+`exclude` statements in the main module's `go.mod` file).
 
 <a id="glos-module-graph-pruning"></a>
 **module graph pruning:** A change in Go 1.17 that reduces the size of the
@@ -4562,5 +4586,5 @@ letter `v` followed by a semantic version. See the section on
 
 <a id="glos-workspace"></a>
 **workspace:** A collection of modules on disk that are used as
-the root modules when running [minimal version selection (MVS)](#minimal-version-selection).
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
 See the section on [Workspaces](#workspaces)

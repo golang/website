@@ -43,4 +43,4 @@ Whether it passes or not, the new deployment can be found in the
 
 If the automatic deployment is not working, or to check on the status of a pending deployment,
 see the “website-redeploy-golang-org” trigger in the
-[Cloud Build console](https://console.cloud.google.com/cloud-build/builds?project=golang-org&query=trigger_id%3D%222399003e-0cc5-4877-86de-8bc8f13fd984%22).
+[Cloud Build console](https://console.cloud.google.com/cloud-build/builds;region=global?project=golang-org&query=trigger_id%3D%222399003e-0cc5-4877-86de-8bc8f13fd984%22).

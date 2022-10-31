@@ -60,7 +60,7 @@ some require extremely careful and complex implementations to be secure,
 and some are only secure if the client applies certain mitigations or even
 has certain hardware.
 Beyond the security of the individual components,
-different ciphersuites can provide drastically different security properties
+different cipher suites can provide drastically different security properties
 for the whole connection,
 as cipher suites without ECDHE or DHE don’t provide forward secrecy—the
 property that connections can’t be retroactively or passively decrypted
@@ -94,7 +94,7 @@ replaced on the fly.
 Modern cryptography is significantly different.
 Protocols can still break from time to time,
 but it’s rarely an individual abstracted component that fails.
-_None of the AEAD-based ciphersuites introduced starting with TLS 1.2 in
+_None of the AEAD-based cipher suites introduced starting with TLS 1.2 in
 2008 have been broken._ These days cryptographic agility is a liability:
 it introduces complexity that can lead to weaknesses or downgrades,
 and it is only necessary for performance and compliance reasons.

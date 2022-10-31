@@ -166,7 +166,7 @@ Go guarantees that the following strings won't be used in package names.
 
 - `test` -- You can use `test` as a module path prefix for a module whose code
     is designed to locally test functions in another module.
-    
+
     Use the `test` path prefix for modules that are created as part of a test.
     For example, your test itself might run `go mod init test` and then set up
     that module in some particular way in order to test with a Go source code
@@ -250,7 +250,7 @@ command](/ref/mod#go-get):
     ```
 
 The following go.mod file `require` directive example (see the [go.mod
-reference]/doc/modules/gomod-ref) for more) illustrates how to require a specific version
+reference](/doc/modules/gomod-ref) for more) illustrates how to require a specific version
 number:
 
 ```
@@ -370,7 +370,7 @@ to ensure that requirements described by the file remain consistent:
 
 ```
 $ go mod edit -replace=example.com/theirmodule@v0.0.0-unpublished=../theirmodule
-$ go get -d example.com/theirmodule@v0.0.0-unpublished
+$ go get example.com/theirmodule@v0.0.0-unpublished
 ```
 
 **Note:** When you use the replace directive, Go tools don't authenticate

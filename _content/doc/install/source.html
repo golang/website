@@ -53,6 +53,12 @@ The Go compilers support the following instruction sets:
   The <code>ARM</code> instruction set, 64-bit (<code>AArch64</code>) and 32-bit.
 </dd>
 <dt>
+  <code>loong64</code>
+</dt>
+<dd>
+  The 64-bit LoongArch instruction set.
+</dd>
+<dt>
   <code>mips64</code>, <code>mips64le</code>, <code>mips</code>,  <code>mipsle</code>
 </dt>
 <dd>
@@ -434,7 +440,7 @@ To update an existing tree to the latest release, you can run:
 <pre>
 $ cd go/src
 $ git fetch
-$ git checkout <span class="versionTag"><i>&lt;tag&gt;</i></psan>
+$ git checkout <span class="versionTag"><i>&lt;tag&gt;</i></span>
 $ ./all.bash
 </pre>
 
@@ -599,10 +605,7 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 <td></td><td><code>linux</code></td> <td><code>arm64</code></td>
 </tr>
 <tr>
-<td></td><td><code>linux</code></td> <td><code>ppc64</code></td>
-</tr>
-<tr>
-<td></td><td><code>linux</code></td> <td><code>ppc64le</code></td>
+<td></td><td><code>linux</code></td> <td><code>loong64</code></td>
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>mips</code></td>
@@ -615,6 +618,12 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>mips64le</code></td>
+</tr>
+<tr>
+<td></td><td><code>linux</code></td> <td><code>ppc64</code></td>
+</tr>
+<tr>
+<td></td><td><code>linux</code></td> <td><code>ppc64le</code></td>
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>riscv64</code></td>

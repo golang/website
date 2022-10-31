@@ -147,18 +147,17 @@ func majors() []*Major {
 //
 // The different special cases are:
 //
-// 	c1
-// 	c1 and c2
-// 	c1, c2, and c3
+//	c1
+//	c1 and c2
+//	c1, c2, and c3
 //
-// 	the p1 package
-// 	the p1 and p2 packages
-// 	the p1, p2, and p3 packages
+//	the p1 package
+//	the p1 and p2 packages
+//	the p1, p2, and p3 packages
 //
-// 	c1 and [1 package]
-// 	c1, and [2 or more packages]
-// 	c1, c2, and [1 or more packages]
-//
+//	c1 and [1 package]
+//	c1, and [2 or more packages]
+//	c1, c2, and [1 or more packages]
 func (f *FixSummary) ComponentsAndPackages() template.HTML {
 	var buf strings.Builder
 

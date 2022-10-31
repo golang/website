@@ -324,7 +324,7 @@ code to handle a `POST` request to add an item.
 ## Write a handler to add a new item {#add_item}
 
 When the client makes a `POST` request at `/albums`, you want to add the album
-described in the request body to the existing albums data.
+described in the request body to the existing albums' data.
 
 To do this, you'll write the following:
 

@@ -25,7 +25,7 @@ should be taken to mean "reflection in Go".
 
 Note added January 2022: This blog post was written in 2011 and predates
 parametric polymorphism (a.k.a. generics) in Go.
-Although nothing important in the article has become incorrect as as a result
+Although nothing important in the article has become incorrect as a result
 of that development in the language,
 it has been tweaked in a few places to avoid
 confusing someone familiar with modern Go.
@@ -305,7 +305,7 @@ is to pass the result of the `Interface` method to the formatted print routine:
 
 	fmt.Println(v.Interface())
 
-(Since the this article was first written, a change was made to the `fmt`
+(Since this article was first written, a change was made to the `fmt`
 package so that it automatically unpacks a `reflect.Value` like this, so
 we could just say
 
@@ -363,7 +363,7 @@ prints
 
 	settability of v: false
 
-It is an error to call a `Set` method on an non-settable `Value`. But what is settability?
+It is an error to call a `Set` method on a non-settable `Value`. But what is settability?
 
 Settability is a bit like addressability, but stricter.
 It's the property that a reflection object can modify the actual storage

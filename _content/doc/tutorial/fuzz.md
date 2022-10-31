@@ -12,7 +12,7 @@ In this tutorial, you'll write a fuzz test for a simple function, run the go
 command, and debug and fix issues in the code.
 
 For help with terminology throughout this tutorial, see the [Go Fuzzing
-glossary](/doc/fuzz/#glossary).
+glossary](/security/fuzz/#glossary).
 
 You'll progress through the following sections:
 
@@ -26,7 +26,7 @@ You'll progress through the following sections:
 **Note:** For other tutorials, see [Tutorials](/doc/tutorial/index.html).
 
 **Note:** Go fuzzing currently supports a subset of built-in types, listed in
-the [Go Fuzzing docs](/doc/fuzz/#requirements), with support for more built-in
+the [Go Fuzzing docs](/security/fuzz/#requirements), with support for more built-in
 types to be added in the future.
 
 ## Prerequisites
@@ -700,7 +700,7 @@ UTF-8.
    Fuzzing passed!
 
    In addition to the `-fuzz` flag, several new flags have been added to `go
-   test` and can be viewed in the [documentation](/doc/fuzz/#custom-settings).
+   test` and can be viewed in the [documentation](/security/fuzz/#custom-settings).
 
 ## Conclusion {#conclusion}
 
@@ -717,7 +717,7 @@ For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in
 Gophers Slack.
 
-Check out the documentation at [go.dev/doc/fuzz](/doc/fuzz/#requirements) for
+Check out the documentation at [go.dev/security/fuzz](/security/fuzz/#requirements) for
 further reading.
 
 ## Completed code

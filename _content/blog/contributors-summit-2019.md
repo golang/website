@@ -169,7 +169,7 @@ A lot of people with lots of interest in lots of tools!
 The session focused on two areas (all that time allowed): gopls and visualizations.
 [Gopls](/wiki/gopls) (pronounced: “go please”) is an implementation of the
 [Language Server Protocol (LSP)](https://langserver.org) server for Go.
-Rebecca Stamber, the gopls lead author, and the rest of the Go tools team were interested
+Rebecca Stambler, the gopls lead author, and the rest of the Go tools team were interested
 in hearing people’s experiences with gopls: stability, missing features, integrations in editors working, etc?
 The general feeling was that gopls was in really good shape and working extremely well for the majority of use cases.
 Integration test coverage needs to be improved, but this is a hard problem to get “right” across all editors.
@@ -268,7 +268,7 @@ But rather we should be aware of untapped potential and unrecognized
 hindrances in the Go language and ecosystem.
 
 While several different possibilities to actively solicit this information
-from the outside was discussed, this is a problem we fundamentally need your help.
+from the outside were discussed, this is a problem we fundamentally need your help.
 If you are in an organization that doesn’t use Go even though it was considered,
 let us know why Go wasn’t chosen.
 If you are in an organization where Go is only used for a subsection of programming tasks,
@@ -381,7 +381,7 @@ Cite them?
 We agreed that a portal-like-solution (of external links to resources)
 makes navigation difficult and takes away from the learning experience,
 which led us to the conclusion that such contribution cannot be passive,
-and contributors will likely have to opt-in to have their material on the platform.
+and contributors will likely have to opt in to have their material on the platform.
 There was then much excitement around the idea of adding a voting mechanism to the platform,
 effectively turning the learners into contributors, too,
 and incentivizing the contributors to put their materials on the platform.

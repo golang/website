@@ -22,7 +22,6 @@ func errorResult(status int) redirectResult {
 func TestRedirects(t *testing.T) {
 	var tests = map[string]redirectResult{
 		"/build":                         {301, "https://build.golang.org"},
-		"/ref":                           {301, "/doc/#references"},
 		"/doc/mem":                       {301, "/ref/mem"},
 		"/doc/spec":                      {301, "/ref/spec"},
 		"/foo":                           errorResult(404),
@@ -70,6 +69,9 @@ func TestRedirects(t *testing.T) {
 		"/cl/1/":         {302, "https://go-review.googlesource.com/1"},
 		"/cl/267120043":  {302, "https://codereview.appspot.com/267120043"},
 		"/cl/267120043/": {302, "https://codereview.appspot.com/267120043"},
+
+		"/cl/1/3":   {302, "https://go-review.googlesource.com/c/1/3"},
+		"/cl/c/1/3": errorResult(404),
 
 		// Verify that we're using the Rietveld CL table:
 		"/cl/152046": {302, "https://codereview.appspot.com/152046"},

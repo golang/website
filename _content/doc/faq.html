@@ -966,11 +966,11 @@ stored inside an interface value such as an <code>error</code> return:
 
 <pre>
 func returnsError() error {
-	var p *MyError = nil
-	if bad() {
-		p = ErrBad
-	}
-	return p // Will always return a non-nil error.
+    var p *MyError = nil
+    if bad() {
+        p = ErrBad
+    }
+    return p // Will always return a non-nil error.
 }
 </pre>
 
@@ -987,10 +987,10 @@ the function must return an explicit <code>nil</code>:
 
 <pre>
 func returnsError() error {
-	if bad() {
-		return ErrBad
-	}
-	return nil
+    if bad() {
+        return ErrBad
+    }
+    return nil
 }
 </pre>
 
@@ -1060,7 +1060,7 @@ Covariant result types would mean that an interface like
 
 <pre>
 type Copyable interface {
-	Copy() interface{}
+    Copy() interface{}
 }
 </pre>
 
@@ -1237,7 +1237,7 @@ The document <a href="effective_go.html">Effective Go</a>
 contains some advice on these topics.
 More directly, the program <code>gofmt</code> is a pretty-printer
 whose purpose is to enforce layout rules; it replaces the usual
-compendium of do's and don'ts that allows interpretation.
+compendium of dos and don'ts that allows interpretation.
 All the Go code in the repository, and the vast majority in the
 open source world, has been run through <code>gofmt</code>.
 </p>
@@ -2044,7 +2044,7 @@ For example, consider a statement like
 </pre>
 
 Without type information, it is impossible to decide whether the right
-hand side of the assigment is a pair of expressions (<code>w &lt; x</code>
+hand side of the assignment is a pair of expressions (<code>w &lt; x</code>
 and <code>y &gt; z</code>), or whether it is a generic function
 instantiation and call that returns two result values
 (<code>(w&lt;x, y&gt;)(z)</code>).
@@ -2096,7 +2096,7 @@ that only works for certain type arguments:
 type S[T any] struct { f T }
 
 func (s S[string]) Add(t string) string {
-	return s.f + t
+    return s.f + t
 }
 </pre>
 

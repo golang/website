@@ -1,8 +1,10 @@
 ---
 title: The Go Programming Language
+summary: Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
 ---
 
 {{$canShare := not googleCN}}
+
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
@@ -41,7 +43,6 @@ title: The Go Programming Language
         <a class="Primary" href="/learn/">Get Started</a>
         <a class="Secondary js-downloadBtn"
           href="/dl"
-          target="_blank" rel="noopener"
           >Download
         </a>
       </div>
@@ -249,53 +250,6 @@ func main() {
     </ul>
   </div>
 </section>
-<section class="LearnGo">
-  <div class="GoCarousel" id="LearnGo-carousel">
-    <div class="GoCarousel-controlsContainer">
-      <div class="GoCarousel-eventsWrapper">
-        <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
-          {{- range $index, $element := (data "/events.yaml").all}}
-            <li
-            class="GoCarousel-eventGroup"
-            id="event_slide{{$index}}">
-              <div class="GoCarousel-eventThumbnail">
-                {{- if .thumbnailurl}}
-                  <img
-                    loading="lazy"
-                    src="{{.thumbnailurl}}"
-                    alt="{{.name}} group photo">
-                {{- else}}
-                  <img
-                    loading="lazy"
-                    src="/images/meetup.svg"
-                    alt="meetup logo">
-                {{- end}}
-              </div>
-              <div class="GoCarousel-eventBody">
-                <div class="GoCarousel-eventText">
-                  <div class="GoCarousel-eventHeader">Upcoming Events</div>
-                  <h4 class="GoCarousel-eventName">
-                    <a href="{{.url}}">{{.name}}</a>
-                  </h4>
-                  <div class="GoCarousel-eventDate">
-                    <p>{{.local_date}} | {{.city}}, {{.state}} {{.country}}</p>
-                  </div>
-                  <p class="GoCarousel-viewMore"><a href="{{.url}}">Learn more</a></p>
-                </div>
-              </div>
-            </li>
-          {{- end}}
-        </ul>
-      </div>
-      <button class="js-eventsCarouselPrev GoCarousel-controlPrev" hidden>
-        <i class="GoCarousel-icon material-icons">navigate_before</i>
-      </button>
-      <button class="js-eventsCarouselNext GoCarousel-controlNext">
-        <i class="GoCarousel-icon material-icons">navigate_next</i>
-      </button>
-    </div>
-  </div>
-</section>
 <section class="GettingStartedGo">
   <div class="GettingStartedGo-gridContainer">
     <div class="GettingStartedGo-header">
@@ -305,7 +259,7 @@ func main() {
       </p>
       <div class="GettingStartedGo-ctas">
         <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="/dl" target="_blank" rel="noopener">Download Go</a>
+        <a href="/dl">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">

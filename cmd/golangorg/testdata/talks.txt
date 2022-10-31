@@ -18,3 +18,11 @@ body contains <script src='/talks/static/slides.js'></script>
 GET https://go.dev/talks/2017/state-of-go-may.slide#26
 body contains <a href="https://en.wikipedia.org/wiki/DWARF" target="_blank">DWARF</a>
 body !contains [[https://en.wikipedia.org/wiki/DWARF][DWARF]]
+
+# Issue 51989.
+GET https://go.dev/talks/2014/go4gophers.slide#76
+body contains <div style="float:right">Don't under-specify.</div>
+
+# Issue 51989.
+GET https://go.dev/talks/2016/refactor.article
+body contains <center><img src="refactor/import1.svg" alt="Import graph before Go 1"></img></center>

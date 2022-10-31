@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 510.24'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='197.92,434.99 197.92,65.93 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='262.36,434.99 262.36,65.93 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='326.80,434.99 326.80,65.93 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='391.24,434.99 391.24,65.93 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='455.68,434.99 455.68,65.93 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='197.92' y='101.65' width='176.96' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='161.17' width='58.76' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='280.22' width='20.50' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='220.70' width='29.11' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='339.75' width='30.98' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='399.27' width='5.88' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<rect x='197.92' y='83.79' width='54.98' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='197.92' y='143.32' width='99.20' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='197.92' y='262.37' width='60.29' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='197.92' y='202.84' width='78.85' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='197.92' y='321.89' width='24.31' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='197.92' y='381.42' width='4.56' height='17.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<text x='391.09' y='120.13' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>55 %</text>
+<text x='272.89' y='179.65' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='230.68' y='298.70' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>6 %</text>
+<text x='239.28' y='239.18' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>9 %</text>
+<text x='245.11' y='358.23' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='216.06' y='417.75' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='269.11' y='93.34' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<text x='313.33' y='152.87' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>31 %</text>
+<text x='274.42' y='271.92' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>19 %</text>
+<text x='292.97' y='212.39' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>24 %</text>
+<text x='234.48' y='331.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>8 %</text>
+<text x='214.74' y='390.97' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='45.91' y='396.72' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='134.19px' lengthAdjust='spacingAndGlyphs'>I've stopped writing in</text>
+<text x='71.94' y='411.84' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='108.17px' lengthAdjust='spacingAndGlyphs'>Go in this context</text>
+<text x='142.76' y='344.76' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='37.34px' lengthAdjust='spacingAndGlyphs'>Never</text>
+<text x='131.08' y='285.23' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='49.02px' lengthAdjust='spacingAndGlyphs'>Monthly</text>
+<text x='106.95' y='225.71' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='73.16px' lengthAdjust='spacingAndGlyphs'>Infrequently</text>
+<text x='134.21' y='166.18' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='45.90px' lengthAdjust='spacingAndGlyphs'>Weekly</text>
+<text x='64.95' y='99.10' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='115.15px' lengthAdjust='spacingAndGlyphs'>As part of my daily</text>
+<text x='137.30' y='114.22' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='42.81px' lengthAdjust='spacingAndGlyphs'>routine</text>
+<text x='187.81' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='248.35' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='312.79' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='377.23' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='441.67' y='449.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='264.54' y='478.51' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='485.71' y='237.87' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #00BFC4;' />
+<rect x='485.71' y='255.15' width='15.86' height='15.86' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #F8766D;' />
+<text x='510.25' y='250.38' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='136.24px' lengthAdjust='spacingAndGlyphs'>outside of work n= 9464</text>
+<text x='510.25' y='267.66' style='font-size: 12.80px; fill: #333333; font-family: Arial;' textLength='91.42px' lengthAdjust='spacingAndGlyphs'>at work n= 9475</text>
+<text x='185.04' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='264.13px' lengthAdjust='spacingAndGlyphs'>How often do you use Go [at work/for</text>
+<text x='185.04' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='180.55px' lengthAdjust='spacingAndGlyphs'>reasons other than work?</text>
+</svg>

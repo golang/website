@@ -10,6 +10,7 @@ package short
 
 import (
 	"context"
+	_ "embed"
 	"errors"
 	"fmt"
 	"log"
@@ -54,7 +55,9 @@ func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc 
 }
 
 // linkHandler services requests to short URLs.
-//   https://go.dev/s/key[/remaining/path]
+//
+//	https://go.dev/s/key[/remaining/path]
+//
 // It consults memcache and datastore for the Link for key.
 // It then sends a redirects or an error message.
 // If the remaining path part is not empty, the redirects
@@ -123,7 +126,12 @@ func AdminHandler(dc *datastore.Client, mc *memcache.Client) http.HandlerFunc {
 	return s.adminHandler
 }
 
-var adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+var (
+	adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+
+	//go:embed admin.html
+	templateHTML string
+)
 
 // adminHandler serves an administrative interface.
 // Be careful. Ensure that this handler is only be exposed to authorized users.
@@ -190,10 +198,10 @@ func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 // putLink validates the provided link and puts it into the datastore.
 func (h server) putLink(ctx context.Context, link *Link) error {
 	if !validKey.MatchString(link.Key) {
-		return errors.New("invalid key; must match " + validKey.String())
+		return fmt.Errorf("invalid key %q; must match %s", link.Key, validKey.String())
 	}
 	if _, err := url.Parse(link.Target); err != nil {
-		return fmt.Errorf("bad target: %v", err)
+		return fmt.Errorf("bad target %q: %v", link.Target, err)
 	}
 	k := datastore.NameKey(kind, link.Key, nil)
 	_, err := h.datastore.Put(ctx, k, link)

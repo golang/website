@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 453.54'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='269.86,378.30 269.86,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='360.84,378.30 360.84,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='451.82,378.30 451.82,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='542.79,378.30 542.79,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='633.77,378.30 633.77,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='269.86' y='103.09' width='339.84' height='33.70' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='269.86' y='215.42' width='31.50' height='33.70' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='269.86' y='159.26' width='47.41' height='33.70' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='269.86' y='271.58' width='30.83' height='33.70' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='269.86' y='327.75' width='5.30' height='33.70' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='616.18' y='125.03' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>75 %</text>
+<text x='306.26' y='237.35' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='323.75' y='181.19' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='305.60' y='293.52' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='280.07' y='349.68' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='211.72' y='349.60' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='97.31' y='293.44' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='149.42px' lengthAdjust='spacingAndGlyphs'>We haven’t decided yet.</text>
+<text x='115.99' y='222.16' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='130.74px' lengthAdjust='spacingAndGlyphs'>No, we kept using an</text>
+<text x='71.59' y='237.28' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='175.14px' lengthAdjust='spacingAndGlyphs'>established language on the</text>
+<text x='122.23' y='252.40' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='124.50px' lengthAdjust='spacingAndGlyphs'>team for the project.</text>
+<text x='45.91' y='173.55' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='200.82px' lengthAdjust='spacingAndGlyphs'>No, we adopted a new language</text>
+<text x='67.74' y='188.67' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='178.99px' lengthAdjust='spacingAndGlyphs'>other than Go for the project.</text>
+<text x='96.54' y='117.39' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='150.19px' lengthAdjust='spacingAndGlyphs'>Yes, we used Go for the</text>
+<text x='200.82' y='132.51' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='45.91px' lengthAdjust='spacingAndGlyphs'>project.</text>
+<text x='259.74' y='393.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='346.83' y='393.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='437.81' y='393.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='528.78' y='393.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='619.76' y='393.24' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='389.56' y='421.82' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='251.67' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  1372</text>
+<text x='251.67' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='342.41px' lengthAdjust='spacingAndGlyphs'>After your last evaluation, did you use Go for the</text>
+<text x='251.67' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='56.92px' lengthAdjust='spacingAndGlyphs'>project?</text>
+</svg>

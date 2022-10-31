@@ -41,6 +41,5 @@ The command by default will:
 	]
 	deleting go-discovery/go-dev/20191030t225128
 	...
-
 */
 package main

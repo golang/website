@@ -187,7 +187,7 @@ Given the `errWriter` type and its `write` method, the code above can be refacto
 
 This is cleaner, even compared to the use of a closure,
 and also makes the actual sequence of writes being done easier to see on the page.
-There is no clutter any more.
+There is no clutter anymore.
 Programming with error values (and interfaces) has made the code nicer.
 
 It's likely that some other piece of code in the same package can build on this idea,

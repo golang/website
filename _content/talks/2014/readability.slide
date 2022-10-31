@@ -55,7 +55,7 @@ _"_Want_to_understand_something_in_google_servers?_Read_the_Go_implementation!_"
 [[https://golang.org/cmd/gofmt/][go fmt]] - format Go programs.
 [[https://godoc.org/golang.org/x/tools/cmd/vet][go vet]] - report suspicious code
 [[https://github.com/golang/lint][golint]] - report coding style errors.
-[[http://blog.golang.org/godoc-documenting-go-code][godoc]] - browse documenation
+[[http://blog.golang.org/godoc-documenting-go-code][godoc]] - browse documentation
 
 # Go code is easy to read for tools too.
 
@@ -132,7 +132,7 @@ If client doesn't need to distinguish errors, e.g. ok with `err` `!=` `nil` chec
 If client wants to distinguish several errors by error code.
 
 	var (
-	  ErrInternal   = errors.New("foo: inetrnal error")
+	  ErrInternal   = errors.New("foo: internal error")
 	  ErrBadRequest = errors.New("foo: bad request")
 	)
 

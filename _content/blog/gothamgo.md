@@ -55,7 +55,7 @@ Two more talks come from the Go meetup in New York City, which met the day befor
   - [Benchmarking Go](http://vimeo.com/114975899) _by_ [_Brian Bulkowski_](https://twitter.com/bbulkow) -
     the founder of Aerospike talks about profiling tools for Go and Linux,
     and micro benchmarks for goroutines, channels,
-    buffers, and and other Go features.
+    buffers, and other Go features.
   - [Go Static Analysis Tools](http://vimeo.com/114736889) _by Alan Donovan_ -
     a member of the Go team at Google NY gives a guided tour of several static
     analysis tools designed to help Go programmers understand,

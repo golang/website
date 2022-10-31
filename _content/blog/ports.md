@@ -59,7 +59,7 @@ Go has been powering Docker, Kubernetes, and the rest of the Go ecosystem
 on ARM64 Linux servers,
 as well as mobile apps on ARM64 Android and iOS devices.
 
-Since Apple’s announcement of the Mac transitioning to Apple silicon this summer,
+Since Apple’s announcement of the Mac transitioning to Apple Silicon this summer,
 Apple and Google have been working together to ensure that Go and the broader
 Go ecosystem work well on them,
 both running Go x86 binaries under Rosetta 2 and running native Go ARM64 binaries.

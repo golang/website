@@ -2,24 +2,26 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package dl implements a simple downloads frontend server.
+// Package dl implements a simple Go downloads frontend server.
 //
-// It accepts HTTP POST requests to create a new download metadata entity, and
-// lists entities with sorting and filtering.
-// It is designed to run only on the instance of godoc that serves golang.org.
+// It accepts HTTP POST requests to create a new download metadata entity,
+// and lists entities with sorting and filtering.
 //
-// The package also serves the list of downloads and individual files at:
-//     https://golang.org/dl/
-//     https://golang.org/dl/{file}
+// The list of downloads, as well as individual files, are served at:
+//
+//	https://go.dev/dl/
+//	https://go.dev/dl/{file}
 //
 // An optional query param, mode=json, serves the list of stable release
 // downloads in JSON format:
-//     https://golang.org/dl/?mode=json
+//
+//	https://go.dev/dl/?mode=json
 //
 // An additional query param, include=all, when used with the mode=json
 // query param, will serve a full list of available downloads, including
 // unstable, stable, and archived releases, in JSON format:
-//     https://golang.org/dl/?mode=json&include=all
+//
+//	https://go.dev/dl/?mode=json&include=all
 //
 // Releases returned in JSON modes are sorted by version, newest to oldest.
 package dl
@@ -38,8 +40,8 @@ const (
 	cacheDuration = time.Hour
 )
 
-// File represents a file on the golang.org downloads page.
-// It should be kept in sync with the upload code in x/build/cmd/release.
+// File represents a file on the go.dev downloads page.
+// It should be kept in sync with the upload code in x/build/internal/relui.
 type File struct {
 	Filename       string    `json:"filename"`
 	OS             string    `json:"os"`
@@ -130,7 +132,7 @@ func (f File) Highlight() bool {
 // URL returns the canonical URL of the file.
 func (f File) URL() string {
 	// The download URL of a Go release file is /dl/{name}. It is handled by getHandler.
-	// Use a relative URL so it works for any host like golang.org and golang.google.cn.
+	// Use a relative URL so it works for any host like go.dev and golang.google.cn.
 	// Don't shortcut to the redirect target here, we want canonical URLs to be visible. See issue 38713.
 	return "/dl/" + f.Filename
 }
@@ -162,13 +164,18 @@ var featuredFiles = []Feature{
 		fileRE:       regexp.MustCompile(`\.windows-amd64\.msi$`),
 	},
 	{
-		Platform:     "Apple macOS",
+		Platform:     "Apple macOS (ARM64)",
+		Requirements: "macOS 11 or later, Apple 64-bit processor",
+		fileRE:       regexp.MustCompile(`\.darwin-arm64\.pkg$`),
+	},
+	{
+		Platform:     "Apple macOS (x86-64)",
 		Requirements: "macOS 10.13 or later, Intel 64-bit processor",
 		fileRE:       regexp.MustCompile(`\.darwin-amd64\.pkg$`),
 	},
 	{
 		Platform:     "Linux",
-		Requirements: "Linux 2.6.23 or later, Intel 64-bit processor",
+		Requirements: "Linux 2.6.32 or later, Intel 64-bit processor",
 		fileRE:       regexp.MustCompile(`\.linux-amd64\.tar\.gz$`),
 	},
 	{
@@ -340,7 +347,9 @@ func parseVersion(v string) (maj, min int, tail string) {
 // Go release binaries via the /dl/upload endpoint.
 func validUser(user string) bool {
 	switch user {
-	case "amedee", "cherryyz", "dmitshur", "drchase", "heschi", "katiehockman", "mknyszek", "rakoczy", "thanm", "valsorda":
+	case "amedee", "cherryyz", "dmitshur", "drchase", "heschi", "mknyszek", "rakoczy", "thanm":
+		return true
+	case "relui":
 		return true
 	}
 	return false

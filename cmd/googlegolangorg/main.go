@@ -109,7 +109,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	godoc := "https://pkg.go.dev/google.golang.org/" + head + tail
-	// For users visting in a browser, redirect straight to pkg.go.dev.
+	// For users visiting in a browser, redirect straight to pkg.go.dev.
 	if isBrowser := r.FormValue("go-get") == ""; isBrowser {
 		http.Redirect(w, r, godoc, http.StatusFound)
 		return

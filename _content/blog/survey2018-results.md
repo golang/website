@@ -60,7 +60,7 @@ We also see an increase in the number of respondents who program in Go outside
 of work (64% → 70%).
 For the first time, the number of survey respondents who write in Go as
 part of their daily routine reached 50% (up from 44% in 2016).
-These findings suggests companies are continuing to embrace Go for professional
+These findings suggest companies are continuing to embrace Go for professional
 software development at a consistent pace,
 and that Go's general popularity with developers remains strong.
 

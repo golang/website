@@ -86,7 +86,7 @@
 {{- with (yaml .info)}}
 <div class="BackgroundQuote">
 {{- with .link}}
-<a href="{{.}}" target="_blank" rel="noopener">
+<a href="{{.}}" class="BackgroundQuote-link" target="_blank" rel="noopener">
 {{- end}}
     <p class="BackgroundQuote-body">
       “{{markdown .quote}}”

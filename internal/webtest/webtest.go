@@ -21,7 +21,7 @@
 // They run the entire script and return a multiline error summarizing
 // any problems.
 //
-// Scripts
+// # Scripts
 //
 // A script is a text file containing a sequence of cases, separated by blank lines.
 // Lines beginning with # characters are ignored as comments.
@@ -36,7 +36,7 @@
 // In this case, the request is a GET of the URL /, and the response body
 // must contain the text “Go is an open source programming language”.
 //
-// Requests
+// # Requests
 //
 // Each case begins with a line starting with GET, HEAD, or POST.
 // The argument (the remainder of the line) is the URL to be used in the request.
@@ -79,7 +79,7 @@
 // This stanza sends a request with post body “x=hello+world&y=Go+%26+You”.
 // (The multiline syntax is described in detail below.)
 //
-// Checks
+// # Checks
 //
 // By default, a stanza like the ones above checks only that the request
 // succeeds in returning a response with HTTP status code 200 (OK).
@@ -112,8 +112,8 @@
 //
 //	== - the value must be equal to the text
 //	!= - the value must not be equal to the text
-//	~  - the value must match the text interprted as a regular expression
-//	!~ - the value must not match the text interprted as a regular expression
+//	~  - the value must match the text interpreted as a regular expression
+//	!~ - the value must not match the text interpreted as a regular expression
 //	contains  - the value must contain the text as a substring
 //	!contains - the value must not contain the text as a substring
 //
@@ -130,7 +130,7 @@
 //	body ~ Got1xxResponse.*// Go 1\.11
 //	body ~ GotFirstResponseByte func\(\)\s*$
 //
-// Multiline Texts
+// # Multiline Texts
 //
 // The <text> in a request or check line can take a multiline form,
 // by omitting it from the original line and then specifying the text
@@ -145,7 +145,6 @@
 //	body ==
 //		<!DOCTYPE html>
 //		hello, world
-//
 package webtest
 
 import (

@@ -81,7 +81,7 @@ The `go` tool can report test coverage statistics.
 	coverage: 96.4% of statements
 	ok  	strings	0.692s
 
-The `go` tool can generate coverage profiles that may be intepreted by the `cover` tool.
+The `go` tool can generate coverage profiles that may be interpreted by the `cover` tool.
 
 	$ go test -coverprofile=cover.out
 	$ go tool cover -func=cover.out

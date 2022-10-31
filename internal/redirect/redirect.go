@@ -106,12 +106,6 @@ var redirects = map[string]string{
 	"/issues":     "https://github.com/golang/go/issues",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
 
-	// In Go 1.2 the references page is part of /doc/.
-	"/ref": "/doc/#references",
-	// This next rule clobbers /ref/spec and /ref/mem.
-	// TODO(adg): figure out what to do here, if anything.
-	// "/ref/": "/doc/#references",
-
 	// Be nice to people who are looking in the wrong place.
 	"/pkg/C/":   "/cmd/cgo/",
 	"/doc/mem":  "/ref/mem",
@@ -159,7 +153,8 @@ func Handler(target string) http.Handler {
 	})
 }
 
-var validID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
+// validPrefixID is used to validate issue and wiki path suffixes
+var validPrefixID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
 
 func PrefixHandler(prefix, baseURL string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -169,7 +164,7 @@ func PrefixHandler(prefix, baseURL string) http.Handler {
 			return
 		}
 		id := r.URL.Path[len(prefix):]
-		if !validID.MatchString(id) {
+		if !validPrefixID.MatchString(id) {
 			http.Error(w, "Not found", http.StatusNotFound)
 			return
 		}
@@ -211,6 +206,10 @@ func srcPkgHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
 }
 
+// validCLID is used to validate cl path suffixes. It supports both the
+// bare ID, as well as the patchset syntax (i.e. 1234/2.)
+var validCLID = regexp.MustCompile(`^[0-9]+(/[0-9]+)?/?$`)
+
 func clHandler(w http.ResponseWriter, r *http.Request) {
 	const prefix = "/cl/"
 	if p := r.URL.Path; p == prefix {
@@ -221,10 +220,18 @@ func clHandler(w http.ResponseWriter, r *http.Request) {
 	id := r.URL.Path[len(prefix):]
 	// support /cl/152700045/, which is used in commit 0edafefc36.
 	id = strings.TrimSuffix(id, "/")
-	if !validID.MatchString(id) {
+	if !validCLID.MatchString(id) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
+
+	// If the ID contains a slash, it is likely pointing towards a
+	// specific patchset. In that case, prefix the id with 'c/',
+	// which Gerrit uses to indicate a specific revision.
+	if strings.Contains(id, "/") {
+		id = "c/" + id
+	}
+
 	target := ""
 
 	if n, err := strconv.Atoi(id); err == nil && isRietveldCL(n) {

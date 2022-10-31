@@ -62,7 +62,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
     url: https://xfinity.com/
     logoSrc: comcast.svg
     logoSrcDark: comcast.svg
-    desc: Comcast uses Go for a CLI client used to publish and subscribe to it’s high-traffic sites. The company also supports an open source client library which is written in Go - designed for working with Apache Pulsar.
+    desc: Comcast uses Go for a CLI client used to publish and subscribe to its high-traffic sites. The company also supports an open source client library which is written in Go - designed for working with Apache Pulsar.
     ctas:
       - text: Client library for Apache Pulsar
         url: https://github.com/Comcast/pulsar-client-go
@@ -80,7 +80,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
     url: http://gohugo.io/
     logoSrc: hugo.svg
     logoSrcDark: hugo.svg
-    desc: Hugo is one of the most popular Go CLI applications powering thousands of sites, including this one. One reason for it’s popularity is it’s ease of install thanks to Go. Hugo author Bjørn Erik Pedersen writes “The single binary takes most of the pain out of installation and upgrades.”
+    desc: Hugo is one of the most popular Go CLI applications powering thousands of sites, including this one. One reason for its popularity is its ease of install thanks to Go. Hugo author Bjørn Erik Pedersen writes “The single binary takes most of the pain out of installation and upgrades.”
     ctas:
       - text: Hugo Website
         url: https://gohugo.io/

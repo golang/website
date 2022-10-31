@@ -163,7 +163,7 @@ if you start contributing code on behalf of a new company&mdash;please send mail
 to the <a href="mailto:golang-dev@googlegroups.com"><code>golang-dev</code>
 mailing list</a>.
 This will let us know the situation so we can make sure an appropriate agreement is
-completed and update the <code>AUTHORS</code> file.
+completed.
 </p>
 
 
@@ -924,44 +924,48 @@ don't be discouraged by it.
 <h3 id="votes">Voting conventions</h3>
 
 <p>
-As they near a decision, reviewers will make a "vote" on your change.
-The Gerrit voting system involves an integer in the range -2 to +2:
+As they near a decision, reviewers will apply a Code-Review “vote” to your change.
+There are two possible votes:
 </p>
 
 <ul>
 	<li>
 	<b>+2</b> The change is approved for being merged.
-	Only Go maintainers can cast a +2 vote.
+	Only Go maintainers (also referred to as “approvers”) can cast a +2 vote.
 	</li>
 	<li>
 	<b>+1</b> The change looks good, but either the reviewer is requesting
 	minor changes before approving it, or they are not a maintainer and cannot
 	approve it, but would like to encourage an approval.
 	</li>
-	<li>
-	<b>-1</b> The change is not good the way it is but might be fixable.
-	A -1 vote will always have a comment explaining why the change is unacceptable.
-	</li>
-	<li>
-	<b>-2</b> The change is blocked by a maintainer and cannot be approved.
-	Again, there will be a comment explaining the decision.
-	</li>
 </ul>
 
 <p>
-At least two maintainers must approve of the change, and at least one
-of those maintainers must +2 the change.
-The second maintainer may cast a vote of Trust+1, meaning that the
-change looks basically OK, but that the maintainer hasn't done the
-detailed review required for a +2 vote.
+To be submitted, a change must have a Code-Review +2 from a maintainer.
+</p>
+
+<p>
+Maintainers can also apply a Hold +1 vote to the change,
+to mark a change that should not be submitted now
+(for example, because the <a href="/s/proposal-process">proposal review</a>
+for new API in the change has not completed).
+</p>
+
+<p>
+To be submitted, a change must not have any Hold +1 votes from a maintainer.
+</p>
+
+<p>
+Finally, to be submitted, a change must have the involvement of two Google employees,
+either as the uploader of the change or as a reviewer voting at least Code-Review +1.
+This requirement is for compliance and supply chain security reasons.
 </p>
 
 <h3 id="submit">Submitting an approved change</h3>
 
 <p>
-After the code has been +2'ed and Trust+1'ed, an approver will
-apply it to the master branch using the Gerrit user interface.
-This is called "submitting the change".
+When a change is ready, a maintainer will submit the change,
+which adds it as a commit to the Gerrit repository.
 </p>
 
 <p>
@@ -985,7 +989,6 @@ If your change has been approved for a few days without being
 submitted, feel free to write a comment in Gerrit requesting
 submission.
 </p>
-
 
 <h3 id="more_information">More information</h3>
 
@@ -1011,12 +1014,7 @@ outside the issue/edit/code review/submit process itself.
 Files in the Go repository don't list author names, both to avoid clutter
 and to avoid having to keep the lists up to date.
 Instead, your name will appear in the
-<a href="/change">change log</a> and in the <a
-href="/CONTRIBUTORS"><code>CONTRIBUTORS</code></a> file and perhaps the <a
-href="/AUTHORS"><code>AUTHORS</code></a> file.
-These files are automatically generated from the commit logs periodically.
-The <a href="/AUTHORS"><code>AUTHORS</code></a> file defines who &ldquo;The Go
-Authors&rdquo;&mdash;the copyright holders&mdash;are.
+<a href="/change">change log</a>.
 </p>
 
 <p>

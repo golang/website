@@ -11,12 +11,89 @@ window.initFuncs = [];
   'use strict';
 
   function registerHeaderListeners() {
+    // Desktop menu hover state
+    const menuItemHovers = document.querySelectorAll('.js-desktop-menu-hover');
+    menuItemHovers.forEach(menuItemHover => {
+      // when user clicks on the dropdown menu item on desktop or mobile,
+      // force the menu to stay open until the user clicks off of it.
+      menuItemHover.addEventListener('mouseenter', e => {
+        const forced = document.querySelector('.forced-open');
+        if (forced && forced !== menuItemHover) {
+          forced.blur();
+          forced.classList.remove('forced-open');
+        }
+        // prevents menus that have been tabbed into from staying open
+        // when you hover over another menu
+        e.target.focus();
+        e.target.blur();
+      });
+      const toggleForcedOpen = e => {
+        const isForced = e.target.classList.contains('forced-open');
+        const target = e.currentTarget;
+        if (isForced) {
+          target.removeEventListener('blur', e =>
+            target.classList.remove('forced-open')
+          );
+          target.classList.remove('forced-open');
+          target.classList.add('forced-closed');
+          target.blur();
+          target.parentNode.addEventListener('mouseout', () => {
+            target.classList.remove('forced-closed');
+          });
+        } else {
+          target.classList.remove('forced-closed');
+          target.classList.add('forced-open');
+          target.focus();
+          target.addEventListener('blur', e =>
+            target.classList.remove('forced-open')
+          );
+          target.parentNode.removeEventListener('mouseout', () => {
+            target.classList.remove('forced-closed');
+          });
+        }
+      };
+      menuItemHover.addEventListener('click', toggleForcedOpen);
+    });
+
+    // ensure desktop submenus are closed when esc is pressed
+    const headerItems = document.querySelectorAll('.Header-menuItem');
+    headerItems.forEach(header => {
+      header.addEventListener('keyup', e => {
+        if (e.key === 'Escape') {
+          e.target.blur();
+        }
+      });
+    });
+
+    // Mobile menu subnav menus
     const header = document.querySelector('.js-header');
-    const menuButtons = document.querySelectorAll('.js-headerMenuButton');
-    menuButtons.forEach(button => {
+    const headerbuttons = document.querySelectorAll('.js-headerMenuButton');
+    headerbuttons.forEach(button => {
       button.addEventListener('click', e => {
         e.preventDefault();
-        header.classList.toggle('is-active');
+        const isActive = header.classList.contains('is-active');
+        if (isActive) {
+          handleNavigationDrawerInactive(header);
+        } else {
+          handleNavigationDrawerActive(header);
+        }
+        button.setAttribute('aria-expanded', isActive);
+      });
+    });
+
+    const scrim = document.querySelector('.js-scrim');
+    scrim.addEventListener('click', e => {
+      e.preventDefault();
+
+      // find any active submenus and close them
+      const activeSubnavs = document.querySelectorAll(
+        '.NavigationDrawer-submenuItem.is-active'
+      );
+      activeSubnavs.forEach(subnav => handleNavigationDrawerInactive(subnav));
+
+      handleNavigationDrawerInactive(header);
+
+      headerbuttons.forEach(button => {
         button.setAttribute(
           'aria-expanded',
           header.classList.contains('is-active')
@@ -24,17 +101,110 @@ window.initFuncs = [];
       });
     });
 
-    const scrim = document.querySelector('.js-scrim');
-    scrim.addEventListener('click', e => {
-      e.preventDefault();
-      header.classList.remove('is-active');
-      menuButtons.forEach(button => {
-        button.setAttribute(
-          'aria-expanded',
-          header.classList.contains('is-active')
-        );
+    const getNavigationDrawerMenuItems = navigationDrawer => [
+      navigationDrawer.querySelector('.NavigationDrawer-header > a'),
+      ...navigationDrawer.querySelectorAll(
+        ':scope > .NavigationDrawer-nav > .NavigationDrawer-list > .NavigationDrawer-listItem > a, :scope > .NavigationDrawer-nav > .NavigationDrawer-list > .NavigationDrawer-listItem > .Header-socialIcons > a'
+      ),
+    ];
+
+    const getNavigationDrawerIsSubnav = navigationDrawer =>
+      navigationDrawer.classList.contains('NavigationDrawer-submenuItem');
+
+    const handleNavigationDrawerInactive = navigationDrawer => {
+      const menuItems = getNavigationDrawerMenuItems(navigationDrawer);
+      navigationDrawer.classList.remove('is-active');
+      const parentMenuItem = navigationDrawer
+        .closest('.NavigationDrawer-listItem')
+        ?.querySelector(':scope > a');
+      parentMenuItem?.focus();
+
+      menuItems.forEach(item => item.setAttribute('tabindex', '-1'));
+
+      menuItems[0].removeEventListener(
+        'keydown',
+        handleMenuItemTabLeft.bind(navigationDrawer)
+      );
+      menuItems[menuItems.length - 1].removeEventListener(
+        'keydown',
+        handleMenuItemTabRight.bind(navigationDrawer)
+      );
+
+      if (navigationDrawer === header) {
+        headerbuttons[0]?.focus();
+      }
+    };
+
+    const handleNavigationDrawerActive = navigationDrawer => {
+      const menuItems = getNavigationDrawerMenuItems(navigationDrawer);
+
+      navigationDrawer.classList.add('is-active');
+      menuItems.forEach(item => item.setAttribute('tabindex', '0'));
+      menuItems[0].focus();
+
+      menuItems[0].addEventListener(
+        'keydown',
+        handleMenuItemTabLeft.bind(this, navigationDrawer)
+      );
+      menuItems[menuItems.length - 1].addEventListener(
+        'keydown',
+        handleMenuItemTabRight.bind(this, navigationDrawer)
+      );
+    };
+
+    const handleMenuItemTabLeft = (navigationDrawer, e) => {
+      if (e.key === 'Tab' && e.shiftKey) {
+        e.preventDefault();
+        handleNavigationDrawerInactive(navigationDrawer);
+      }
+    };
+
+    const handleMenuItemTabRight = (navigationDrawer, e) => {
+      if (e.key === 'Tab' && !e.shiftKey) {
+        e.preventDefault();
+        handleNavigationDrawerInactive(navigationDrawer);
+      }
+    };
+
+    const prepMobileNavigationDrawer = navigationDrawer => {
+      const isSubnav = getNavigationDrawerIsSubnav(navigationDrawer);
+      const menuItems = getNavigationDrawerMenuItems(navigationDrawer);
+
+      navigationDrawer.addEventListener('keyup', e => {
+        if (e.key === 'Escape') {
+          handleNavigationDrawerInactive(navigationDrawer);
+        }
       });
-    });
+
+      menuItems.forEach(item => {
+        const parentLi = item.closest('li');
+        if (
+          parentLi &&
+          parentLi.classList.contains('js-mobile-subnav-trigger')
+        ) {
+          const submenu = parentLi.querySelector(
+            '.NavigationDrawer-submenuItem'
+          );
+          item.addEventListener('click', () => {
+            handleNavigationDrawerActive(submenu);
+          });
+        }
+      });
+      if (isSubnav) {
+        handleNavigationDrawerInactive(navigationDrawer);
+        navigationDrawer
+          .querySelector('.NavigationDrawer-header')
+          .addEventListener('click', e => {
+            e.preventDefault();
+            handleNavigationDrawerInactive(navigationDrawer);
+          });
+      }
+    };
+
+    document
+      .querySelectorAll('.NavigationDrawer')
+      .forEach(drawer => prepMobileNavigationDrawer(drawer));
+    handleNavigationDrawerInactive(header);
   }
 
   function registerSolutionsTabs() {
@@ -45,7 +215,7 @@ window.initFuncs = [];
       const tabs = tabList.querySelectorAll('[role="tab"]');
       let tabFocus = getTabFocus();
 
-      changeTabs({ target: tabs[tabFocus] })
+      changeTabs({target: tabs[tabFocus]});
 
       tabs.forEach(tab => {
         tab.addEventListener('click', changeTabs);
@@ -113,7 +283,7 @@ window.initFuncs = [];
 
         // Set this tab as selected
         target.setAttribute('aria-selected', true);
-        setTabFocus(target.id)
+        setTabFocus(target.id);
 
         // Hide all tab panels
         grandparent
@@ -162,9 +332,7 @@ window.initFuncs = [];
   async function getLatestVersion() {
     let version = 'go1.17'; // fallback version if fetch fails
     try {
-      const versionData = await (
-        await fetch('/dl/?mode=json')
-      ).json();
+      const versionData = await (await fetch('/dl/?mode=json')).json();
       if (!versionData.length) {
         return version;
       }
@@ -183,8 +351,10 @@ window.initFuncs = [];
    */
 
   function initialThemeSetup() {
-    const theme = document.cookie.match(/prefers-color-scheme=(light|dark|auto)/)?.[1]
-
+    const themeCookie = document.cookie.match(
+      /prefers-color-scheme=(light|dark|auto)/
+    );
+    const theme = themeCookie && themeCookie.length > 0 && themeCookie[1];
     if (theme) {
       document.querySelector('html').setAttribute('data-theme', theme);
     }
@@ -202,7 +372,8 @@ window.initFuncs = [];
   }
 
   /**
-   * toggleTheme switches the preferred color scheme between auto, light, and dark.
+   * toggleTheme switches the preferred color scheme between auto, light, and
+   * dark.
    */
   function toggleTheme() {
     let nextTheme = 'dark';
@@ -212,9 +383,13 @@ window.initFuncs = [];
     } else if (theme === 'light') {
       nextTheme = 'auto';
     }
+    let domain = '';
+    if (location.hostname === 'go.dev') {
+      // Include subdomains to apply the setting to pkg.go.dev.
+      domain = 'domain=.go.dev;';
+    }
     document.documentElement.setAttribute('data-theme', nextTheme);
-    document.cookie =
-      `prefers-color-scheme=${nextTheme};domain=.go.dev;path=/;max-age=31536000;`;
+    document.cookie = `prefers-color-scheme=${nextTheme};${domain}path=/;max-age=31536000;`;
   }
 
   initialThemeSetup();

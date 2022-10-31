@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='566.93pt' height='453.54pt' viewBox='0 0 566.93 453.54'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: none;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1NjYuOTN8MC4wMHw0NTMuNTQ='>
+    <rect x='0.00' y='0.00' width='566.93' height='453.54' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1NjYuOTN8MC4wMHw0NTMuNTQ=)'>
+<polyline points='193.12,377.99 193.12,86.57 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='275.37,377.99 275.37,86.57 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='357.63,377.99 357.63,86.57 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='439.88,377.99 439.88,86.57 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='522.13,377.99 522.13,86.57 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='193.12' y='310.47' width='4.58' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='239.39' width='8.93' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='346.00' width='1.88' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='97.23' width='304.26' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='168.31' width='48.16' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='274.93' width='7.05' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='203.85' width='9.23' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='193.12' y='132.77' width='58.29' height='21.32' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='211.24' y='326.31' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='27.09px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='215.59' y='255.23' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='27.09px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='208.54' y='361.85' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='27.09px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='515.45' y='113.07' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='36.14px' lengthAdjust='spacingAndGlyphs'>92 %</text>
+<text x='259.35' y='184.15' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='36.14px' lengthAdjust='spacingAndGlyphs'>15 %</text>
+<text x='213.71' y='290.77' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='27.09px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='215.89' y='219.69' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='27.09px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='269.47' y='148.61' style='font-size: 14.23px;fill: #333333; font-family: "Arial";' textLength='36.14px' lengthAdjust='spacingAndGlyphs'>18 %</text>
+<text x='171.74' y='361.77' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='23.79px' lengthAdjust='spacingAndGlyphs'>iOS</text>
+<text x='171.74' y='326.23' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='54.11px' lengthAdjust='spacingAndGlyphs'>Android</text>
+<text x='171.74' y='290.69' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='39.74px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='171.74' y='255.15' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='125.66px' lengthAdjust='spacingAndGlyphs'>Embedded device</text>
+<text x='171.74' y='219.61' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='102.43px' lengthAdjust='spacingAndGlyphs'>Web Assembly</text>
+<text x='171.74' y='184.07' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='49.81px' lengthAdjust='spacingAndGlyphs'>macOS</text>
+<text x='171.74' y='148.53' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='62.47px' lengthAdjust='spacingAndGlyphs'>Windows</text>
+<text x='171.74' y='112.99' text-anchor='end' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='37.71px' lengthAdjust='spacingAndGlyphs'>Linux</text>
+<text x='193.12' y='393.12' text-anchor='middle' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='22.20px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='275.37' y='393.12' text-anchor='middle' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='31.11px' lengthAdjust='spacingAndGlyphs'>25%</text>
+<text x='357.63' y='393.12' text-anchor='middle' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='31.11px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='439.88' y='393.12' text-anchor='middle' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='31.11px' lengthAdjust='spacingAndGlyphs'>75%</text>
+<text x='522.13' y='393.12' text-anchor='middle' style='font-size: 14.00px;fill: #333333; font-family: "Arial";' textLength='40.02px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='357.63' y='421.87' text-anchor='middle' style='font-size: 16.00px;fill: #333333; font-family: "Arial";' textLength='140.00px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='176.67' y='77.76' style='font-size: 16.00px;fill: #333333; font-family: "Arial";' textLength='79.52px' lengthAdjust='spacingAndGlyphs'>n =  4386</text>
+<text x='176.67' y='40.01' style='font-size: 16.00px;fill: #333333; font-family: "Arial";' textLength='404.35px' lengthAdjust='spacingAndGlyphs'>On which platform(s) do you primarily deploy your</text>
+<text x='176.67' y='57.29' style='font-size: 16.00px;fill: #333333; font-family: "Arial";' textLength='251.70px' lengthAdjust='spacingAndGlyphs'>Go code? (Select all that apply)</text>
+</g>
+</svg>

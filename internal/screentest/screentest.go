@@ -5,7 +5,7 @@
 // Package screentest implements script-based visual diff testing
 // for webpages.
 //
-// Scripts
+// # Scripts
 //
 // A script is a template file containing a sequence of testcases, separated by
 // blank lines. Lines beginning with # characters are ignored as comments. A
@@ -13,99 +13,104 @@
 // with the dimensions of the screenshots to be compared. For example, here is
 // a trivial script:
 //
-//  compare https://go.dev {{.ComparisonURL}}
-//  pathname /about
-//  capture fullscreen
+//	compare https://go.dev {{.ComparisonURL}}
+//	pathname /about
+//	capture fullscreen
 //
 // This script has a single testcase. The first line sets the origin servers to
 // compare. The second line sets the page to visit at each origin. The last line
 // captures fullpage screenshots of the pages and generates a diff image if they
 // do not match.
 //
-// Keywords
+// # Keywords
 //
 // Use windowsize WIDTHxHEIGHT to set the default window size for all testcases
 // that follow.
 //
-//  windowsize 540x1080
+//	windowsize 540x1080
 //
 // Use compare ORIGIN ORIGIN to set the origins to compare.
 //
-//  compare https://go.dev http://localhost:6060
+//	compare https://go.dev http://localhost:6060
 //
 // Use header KEY:VALUE to add headers to requests
 //
-//  header Authorization: Bearer token
+//	header Authorization: Bearer token
 //
 // Add the ::cache suffix to cache the images from an origin for subsequent
 // test runs.
 //
-//  compare https://go.dev::cache http://localhost:6060
+//	compare https://go.dev::cache http://localhost:6060
 //
 // Use block URL ... to set URL patterns to block. Wildcards ('*') are allowed.
 //
-//  block https://codecov.io/* https://travis-ci.com/*
+//	block https://codecov.io/* https://travis-ci.com/*
 //
 // Use output DIRECTORY to set the output directory for diffs and cached images.
 //
-//  output testdata/snapshots
+//	output testdata/snapshots
 //
 // USE output BUCKETNAME for screentest to upload test output to a Cloud Storage bucket.
 // The bucket must already exist prior to running the tests.
 //
-//  output gs://bucket-name
+//	output gs://bucket-name
 //
 // Values set with the keywords above apply to all testcases that follow. Values set with
 // the keywords below reset each time the test keyword is used.
 //
 // Use test NAME to create a name for the testcase.
 //
-//  test about page
+//	test about page
 //
 // Use pathname PATH to set the page to visit at each origin. If no
 // test name is set, PATH will be used as the name for the test.
 //
-//  pathname /about
+//	pathname /about
 //
 // Use status CODE to set an expected HTTP status code. The default is 200.
 //
-//  status 404
+//	status 404
 //
 // Use click SELECTOR to add a click an element on the page.
 //
-//  click button.submit
+//	click button.submit
 //
 // Use wait SELECTOR to wait for an element to appear.
 //
-//  wait [role="treeitem"][aria-expanded="true"]
+//	wait [role="treeitem"][aria-expanded="true"]
 //
 // Use capture [SIZE] [ARG] to create a testcase with the properties
 // defined above.
 //
-//  capture fullscreen 540x1080
+//	capture fullscreen 540x1080
 //
 // When taking an element screenshot provide a selector.
 //
-//  capture element header
+//	capture element header
+//
+// Evaluate JavaScript snippets to hide elements or prepare the page in
+// some other way.
+//
+//	eval 'document.querySelector(".selector").remove();'
+//	eval 'window.scrollTo({top: 0});'
 //
 // Chain capture commands to create multiple testcases for a single page.
 //
-//  windowsize 1536x960
-//  compare https://go.dev::cache http://localhost:6060
-//  output testdata/snapshots
+//	windowsize 1536x960
+//	compare https://go.dev::cache http://localhost:6060
+//	output testdata/snapshots
 //
-//  test homepage
-//  pathname /
-//  capture viewport
-//  capture viewport 540x1080
-//  capture viewport 400x1000
+//	test homepage
+//	pathname /
+//	capture viewport
+//	capture viewport 540x1080
+//	capture viewport 400x1000
 //
-//  test about page
-//  pathname /about
-//  capture viewport
-//  capture viewport 540x1080
-//  capture viewport 400x1000
-//
+//	test about page
+//	pathname /about
+//	capture viewport
+//	capture viewport 540x1080
+//	capture viewport 400x1000
 package screentest
 
 import (
@@ -305,6 +310,9 @@ func cleanOutput(ctx context.Context, tests []*testcase) error {
 // cleanBkts clears all the GCS buckets in bkts of all objects not included
 // in the set of keepFiles. Buckets that do not exist will cause an error.
 func cleanBkts(ctx context.Context, bkts, keepFiles, safeExts map[string]bool) error {
+	if len(bkts) == 0 {
+		return nil
+	}
 	client, err := storage.NewClient(ctx)
 	if err != nil {
 		return fmt.Errorf("storage.NewClient(ctx): %w", err)
@@ -752,7 +760,7 @@ func (tc *testcase) screenshot(ctx context.Context, url, file string,
 	return &img, nil
 }
 
-type Response struct {
+type response struct {
 	Status int
 }
 
@@ -771,13 +779,14 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	if tc.blockedURLs != nil {
 		tasks = append(tasks, network.SetBlockedURLS(tc.blockedURLs))
 	}
-	var res Response
+	var res response
 	tasks = append(tasks,
 		getResponse(url, &res),
 		chromedp.EmulateViewport(int64(tc.viewportWidth), int64(tc.viewportHeight)),
 		chromedp.Navigate(url),
 		waitForEvent("networkIdle"),
 		reduceMotion(),
+		checkResponse(tc, &res),
 		tc.tasks,
 	)
 	switch tc.screenshotType {
@@ -790,10 +799,6 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	}
 	if err := chromedp.Run(ctx, tasks); err != nil {
 		return nil, fmt.Errorf("chromedp.Run(...): %w", err)
-	}
-	if res.Status != tc.status {
-		fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
-		return nil, fmt.Errorf("bad status: %d", res.Status)
 	}
 	return buf, nil
 }
@@ -890,7 +895,7 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 	}
 }
 
-func getResponse(u string, res *Response) chromedp.ActionFunc {
+func getResponse(u string, res *response) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		chromedp.ListenTarget(ctx, func(ev interface{}) {
 			// URL fragments are dropped in request targets so we must strip the fragment
@@ -909,6 +914,16 @@ func getResponse(u string, res *Response) chromedp.ActionFunc {
 				}
 			}
 		})
+		return nil
+	}
+}
+
+func checkResponse(tc *testcase, res *response) chromedp.ActionFunc {
+	return func(context.Context) error {
+		if res.Status != tc.status {
+			fmt.Fprintf(&tc.output, "\nFAIL http status mismatch: got %d; want %d", res.Status, tc.status)
+			return fmt.Errorf("bad status: %d", res.Status)
+		}
 		return nil
 	}
 }
