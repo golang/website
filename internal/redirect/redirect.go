@@ -218,6 +218,16 @@ func clHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id := r.URL.Path[len(prefix):]
+
+	// Some shorteners blindly rewrite go-review.googlesource.com/ to go.dev/cl/
+	// but Gerrit has changed the URL schema to start with c/<repo>/+/<id>
+	// instead of just <id>. So we now see URLs like go.dev/cl/c/go/+/12345.
+	// Assume that the leading c/ means it is for Gerrit and blindly redirect.
+	if strings.HasPrefix(id, "c/") {
+		http.Redirect(w, r, "https://go-review.googlesource.com/"+id, http.StatusFound)
+		return
+	}
+
 	// support /cl/152700045/, which is used in commit 0edafefc36.
 	id = strings.TrimSuffix(id, "/")
 	if !validCLID.MatchString(id) {
