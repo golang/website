@@ -4332,7 +4332,6 @@ a.error {
   }
 }
 h1.Playground-title {
-  font-size: 1.5rem;
   line-height: 1.75rem;
   display: inline;
   margin: 0;
@@ -4347,8 +4346,21 @@ h2.Playground-about {
   margin-left: 1rem;
 }
 .PlayPage .Playground-controls {
-  margin-top: 1rem;
-  margin-bottom: 1rem;
+  align-items: start;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+}
+@media only screen and (min-width: 57.7rem) {
+  .PlayPage .Playground-controls {
+    align-items: initial;
+    flex-direction: row;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+    padding: 0;
+  }
 }
 .linedtextarea .lines {
   float: left;
