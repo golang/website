@@ -1103,9 +1103,9 @@ followed by <code>run.bash</code>.
 </li>
 
 <li>
-In this section, we'll call the directory into which you cloned the Go repository <code>$GODIR</code>.
-The <code>go</code> tool built by <code>$GODIR/src/make.bash</code> will be installed
-in <code>$GODIR/bin/go</code> and you
+In this section, we'll call the directory into which you cloned the Go repository <code>$GOROOT</code>.
+The <code>go</code> tool built by <code>$GOROOT/src/make.bash</code> will be installed
+in <code>$GOROOT/bin/go</code> and you
 can invoke it to test your code.
 For instance, if you
 have modified the compiler and you want to test how it affects the
@@ -1114,7 +1114,7 @@ using it:
 
 <pre>
 $ cd &lt;MYPROJECTDIR&gt;
-$ $GODIR/bin/go test
+$ $GOROOT/bin/go test
 </pre>
 </li>
 
@@ -1127,9 +1127,9 @@ sometimes required because the standard library code you're modifying
 might require a newer version than the stable one you have installed).
 
 <pre>
-$ cd $GODIR/src/crypto/sha1
+$ cd $GOROOT/src/crypto/sha1
 $ [make changes...]
-$ $GODIR/bin/go test .
+$ $GOROOT/bin/go test .
 </pre>
 </li>
 
@@ -1140,12 +1140,12 @@ by <code>go</code> <code>build</code> to compile each single package).
 After that, you will want to test it by compiling or running something.
 
 <pre>
-$ cd $GODIR/src
+$ cd $GOROOT/src
 $ [make changes...]
-$ $GODIR/bin/go install cmd/compile
-$ $GODIR/bin/go build [something...]   # test the new compiler
-$ $GODIR/bin/go run [something...]     # test the new compiler
-$ $GODIR/bin/go test [something...]    # test the new compiler
+$ $GOROOT/bin/go install cmd/compile
+$ $GOROOT/bin/go build [something...]   # test the new compiler
+$ $GOROOT/bin/go run [something...]     # test the new compiler
+$ $GOROOT/bin/go test [something...]    # test the new compiler
 </pre>
 
 The same applies to other internal tools of the Go tool chain,
@@ -1157,14 +1157,14 @@ the built Go binary to test it.
 
 <li>
 In addition to the standard per-package tests, there is a top-level
-test suite in <code>$GODIR/test</code> that contains
+test suite in <code>$GOROOT/test</code> that contains
 several black-box and regression tests.
 The test suite is run
 by <code>all.bash</code> but you can also run it manually:
 
 <pre>
-$ cd $GODIR/test
-$ $GODIR/bin/go run run.go
+$ cd $GOROOT/test
+$ $GOROOT/bin/go run run.go
 </pre>
 </ul>
 
