@@ -827,6 +827,8 @@ h1 + h2.subtitle {
 .Article pre,
 .Article code {
   color: var(--color-text);
+}
+.Article pre {
   background: var(--color-background-accented);
 }
 .Article pre {
