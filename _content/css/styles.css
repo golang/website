@@ -758,6 +758,14 @@ a.Footer-link--primary {
 .Header-menuItem a.Header-socialIcon:not(:last-child) {
   margin-right: 0.75rem;
 }
+[data-theme='dark'] .Header-socialIcon img[src$='/github.svg'] {
+  filter: invert(1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .Header-socialIcon img[src$='/github.svg'] {
+    filter: invert(1);
+  }
+}
 /* End nav */
 .Article {
   color: var(--color-text);
