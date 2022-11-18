@@ -1,6 +1,6 @@
 ---
 title: The Go Programming Language
-summary: Go is an open source programming language that makes it easy to build simple, reliable, and efficient software.
+summary: Go is an open source programming language that makes it simple to build secure, scalable systems.
 ---
 
 {{$canShare := not googleCN}}
@@ -8,19 +8,19 @@ summary: Go is an open source programming language that makes it easy to build s
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
-      <h1>Build fast, reliable, and efficient software at scale</h1>
+      <h1>Build simple, secure, scalable systems with Go</h1>
       <ul class="Hero-blurbList">
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Go is an open source programming language supported by Google
+          An open-source programming language supported by Google
         </li>
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Easy to learn and get started with
+          Easy to learn and great for teams
         </li>
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -32,7 +32,7 @@ summary: Go is an open source programming language that makes it easy to build s
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Growing ecosystem of partners, communities, and tools
+          Large ecosystem of partners, communities, and tools
         </li>
       </ul>
     </div>

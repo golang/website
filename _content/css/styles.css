@@ -1360,7 +1360,7 @@ a.GettingStartedGo-resourceItemTitle {
   }
   .Hero-blurb {
     grid-column: 1 / 2;
-    margin: 2.5rem auto 0;
+    margin: 2.5rem 0 0;
   }
   .Hero-gopher {
     grid-row: 1 / 3;
