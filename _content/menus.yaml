@@ -57,7 +57,7 @@ main:
               img: google-groups.svg,
               url: 'https://groups.google.com/g/golang-nuts',
             },
-            {img: github.svg, url: 'https://github.com/golang'},
+            {img: github.svg, darkImg: github-light.svg, url: 'https://github.com/golang',},
             {img: twitter.svg, url: 'https://twitter.com/golang'},
             {img: reddit.svg, url: 'https://www.reddit.com/r/golang/'},
             {img: slack.svg, url: 'https://invite.slack.golangbridge.org/'},
