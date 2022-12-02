@@ -22,11 +22,16 @@ valuable for finding security exploits and vulnerabilities.
 Below is an example of a [fuzz test](#glos-fuzz-test), highlighting its main
 components.
 
+<img class="DarkMode-img" alt="Example code showing the overall fuzz test, with a fuzz target within
+it. Before the fuzz target is a corpus addition with f.Add, and the parameters
+of the fuzz target are highlighted as the fuzzing arguments."
+src="/security/fuzz/example-dark.png" style="width: 600px; height:
+auto;"/>
 <img alt="Example code showing the overall fuzz test, with a fuzz target within
 it. Before the fuzz target is a corpus addition with f.Add, and the parameters
 of the fuzz target are highlighted as the fuzzing arguments."
-src="/security/fuzz/example.png" style="display: block; width: 600px; height:
-auto;"/>
+src="/security/fuzz/example.png" style="width: 600px; height:
+auto;" class="LightMode-img"/>
 
 ## Writing fuzz tests
 
