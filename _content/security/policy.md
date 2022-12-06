@@ -55,7 +55,7 @@ Examples of past PUBLIC issues include:
 
 - [#44916](/issue/44916): archive/zip: can panic when calling Reader.Open
 - [#44913](/issue/44913): encoding/xml: infinite loop when using xml.NewTokenDecoder with a custom TokenReader
-- [#43786](/issue/43786): encoding/xml: infinite crypto/elliptic: incorrect operations on the P-224 curve
+- [#43786](/issue/43786): crypto/elliptic: incorrect operations on the P-224 curve
 - [#40928](/issue/40928): net/http/cgi,net/http/fcgi: Cross-Site Scripting (XSS) when Content-Type is not specified
 - [#40618](/issue/40618): encoding/binary: ReadUvarint and ReadVarint can read an unlimited number of bytes from invalid inputs
 - [#36834](/issue/36834): crypto/x509: certificate validation bypass on Windows 10
