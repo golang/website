@@ -9,20 +9,19 @@ Beginning in Go 1.20, Go supports collection of coverage profiles from applicati
 
 ## Overview
 
-Go provides easy-to-use support for collecting coverage profiles at the level of package unit tests via the "`go test -cover <pkg_target>`" command.
+Go provides easy-to-use support for collecting coverage profiles at the level of package unit tests via the "`go test -coverprofile=... <pkg_target>`" command.
 Starting with Go 1.20, users can now collect coverage profiles for larger [integration tests](#glos-integration-test): more heavy-weight, complex tests that perform multiple runs of a given application binary.
 
 For unit tests, collecting a coverage profile and generating a report requires two steps: a `go test -coverprofile=...` run, followed by an invocation of `go tool cover {-func,-html}` to generate a report.
 
-For integration tests, three steps are needed: a [build](#build) step, a [run](#running) step (which may involve multiple invocations of the binary from the build step), and and finally a [reporting](#reporting) step, as described below.
+For integration tests, three steps are needed: a [build](#build) step, a [run](#running) step (which may involve multiple invocations of the binary from the build step), and finally a [reporting](#reporting) step, as described below.
 
 ## Building a binary for coverage profiling
 
 To build an application for collecting coverage profiles, pass the `-cover` flag at the top level (package `main`) build:
 
 ```
-$ cd cmd/myprogram
-$ go build -cover -o myprogram.exe .
+$ go build -cover -o myprogram.exe cmd/myprogram
 $
 ```
 
@@ -32,7 +31,7 @@ The resulting binary can then be run using an environment variable setting to ca
 
 During a given "`go build -cover`" invocation, the Go command will select packages in the main module for coverage profiling; other packages that feed into the build (dependencies listed in go.mod, or packages that are part of the Go standard library) will not be included by default.
 
-For example, here is a toy program containing a local main-module package `greetings` and a set of dependent packages that include (among others) `rsc.io/quote` and `fmt` ([link](https://go.dev/play/p/VSQJN8xkkf-?v=gotip)).
+For example, here is a toy program containing a main package, a local main-module package `greetings` and a set of packages imported from outside the module, including (among others) `rsc.io/quote` and `fmt` ([link to full program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip)).
 
 ```
 $ cat go.mod
