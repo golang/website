@@ -5,18 +5,29 @@ layout: article
 
 [Back to Go Testing](/testing)
 
+Table of Contents:
+
+ [Overview](#overview)\
+ [Building a binary for coverage profiling](#building)\
+ [Running a coverage-instrumented binary](#running)\
+ [Working with coverage data files](#working)\
+ [Frequently Asked Questions](#FAQ)\
+ [Resources](#resources)\
+ [Glossary](#glossary)
+
+
 Beginning in Go 1.20, Go supports collection of coverage profiles from applications and from integration tests, larger and more complex tests for Go programs.
 
-## Overview
+# Overview {#overview}
 
 Go provides easy-to-use support for collecting coverage profiles at the level of package unit tests via the "`go test -coverprofile=... <pkg_target>`" command.
 Starting with Go 1.20, users can now collect coverage profiles for larger [integration tests](#glos-integration-test): more heavy-weight, complex tests that perform multiple runs of a given application binary.
 
 For unit tests, collecting a coverage profile and generating a report requires two steps: a `go test -coverprofile=...` run, followed by an invocation of `go tool cover {-func,-html}` to generate a report.
 
-For integration tests, three steps are needed: a [build](#build) step, a [run](#running) step (which may involve multiple invocations of the binary from the build step), and finally a [reporting](#reporting) step, as described below.
+For integration tests, three steps are needed: a [build](#building) step, a [run](#running) step (which may involve multiple invocations of the binary from the build step), and finally a [reporting](#reporting) step, as described below.
 
-## Building a binary for coverage profiling
+# Building a binary for coverage profiling {#building}
 
 To build an application for collecting coverage profiles, pass the `-cover` flag at the top level (package `main`) build:
 
@@ -27,7 +38,7 @@ $
 
 The resulting binary can then be run using an environment variable setting to capture coverage profiles (see the next section on [running](#running)).
 
-### How packages are selected for instrumentation
+## How packages are selected for instrumentation
 
 During a given "`go build -cover`" invocation, the Go command will select packages in the main module for coverage profiling; other packages that feed into the build (dependencies listed in go.mod, or packages that are part of the Go standard library) will not be included by default.
 
@@ -126,7 +137,7 @@ Coverage data output files come in two flavors: meta-data files (containing the 
 
 In the example above, the first run produced two files (counter and meta), whereas the second run generated only a counter data file: since meta-data doesn't change from run to run, it only needs to be written once.
 
-# Working with coverage data files
+# Working with coverage data files {#working}
 
 Go 1.20 introduces a new tool, '`covdata`', that can be used to read and manipulate coverage data files from a `GOCOVERDIR` directory.
 
@@ -138,7 +149,7 @@ $ go tool covdata <mode> -i=<dir1,dir2,...> ...flags...
 
 where the "`-i`" flag provides a list of directories to read, where each directories is derived from an execution of a coverage-instrumented binary (via `GOCOVERDIR`).
 
-## Reporting {#reporting}
+## Creating coverage profile reports {#reporting}
 
 This section discusses how to use "`go tool covdata`" to produce human-readable reports from coverage data files.
 
@@ -221,10 +232,76 @@ $ go tool covdata percent -i=somedata -pkg=rsc.io/quote
 $
 ```
 
-The "`-pkg`" flag can be used to select out the specific subset of packages of interest for a given report.
+The "`-pkg`" flag can be used to select the specific subset of packages of interest for a given report.
+
+# 
+
+## Frequently Asked Questions {#FAQ}
+
+1. [How can I request coverage instrumentation for all imported packages mentioned in my `go.mod` file](#gomodselect)
+2. [Can I use `go build -cover` in GOPATH/GO111MODULE=off mode?](#gopathmode)
+3. [If my program panics, will coverage data be written?](#panicprof)
+4. [Will `-coverpkg=main` select my main package for profiling?](#mainpkg)
 
 
-## Resources
+#### How can I request coverage instrumentation for all imported packages mentioned in my `go.mod` file {#gomodselect}
+
+By default, `go build -cover` will instrument all main module packages
+for coverage, but will not instrument imports outside the main module
+(e.g. standard library packages or imports listed in `go.mod`).
+One way to request instrumentation for all non-stdlib dependencies
+is to feed the output of `go list` into `-coverpkg`.
+Here is an example, again using
+the [example program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip) cited above:
+
+```
+$ go list -f '{{"{{if not .Standard}}{{.ImportPath}}{{end}}"}}' -deps . | tr '\n' ',' > pkgs.txt
+$ go build -o myprogram.exe -coverpkg=`cat pkgs.txt` .
+$ mkdir somedata
+$ GOCOVERDIR=somedata ./myprogram.exe
+$ go tool covdata percent -i=somedata
+	golang.org/x/text/internal/tag	coverage: 78.4% of statements
+	golang.org/x/text/language	coverage: 35.5% of statements
+	mydomain.com	coverage: 100.0% of statements
+	mydomain.com/greetings	coverage: 100.0% of statements
+	rsc.io/quote	coverage: 25.0% of statements
+	rsc.io/sampler	coverage: 86.7% of statements
+$ 
+```
+
+#### Can I use `go build -cover` in GO111MODULE=off mode? {#gopathmode}
+
+Yes, `go build -cover` does work with `GO111MODULE=off`. 
+When building a program in GO111MODULE=off mode, only the package specifically named as the target on the command line will be instrumented for profiling. Use the `-coverpkg` flag to include additional packages in the profile.
+
+#### If my program panics, will coverage data be written? {#panicprof}
+
+Programs built with `go build -cover` will only write out complete profile
+data at the end of execution if the program invokes `os.Exit()` or returns
+normally from `main.main`. 
+If a program terminates in an unrecovered panic, or if the program hits a
+fatal exception (such as a segmentation violation, divide by zero, etc),
+profile data from statements executed during the run will be lost.
+
+#### Will `-coverpkg=main` select my main package for profiling? {#mainpkg}
+
+The `-coverpkg` flag accepts a list of import paths, not a list of package names. If you want to select your `main` package for coverage instrumention, please identify it by import path, not by name. Example (using [this example program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip)):
+
+```
+$ go list -m
+mydomain.com
+$ go build -coverpkg=main -o oops.exe .
+warning: no packages being built depend on matches for pattern main
+$ go build -coverpkg=mydomain.com -o myprogram.exe .
+$ mkdir somedata
+$ GOCOVERDIR=somedata ./myprogram.exe
+I say "Hello, world." and "see ya"
+$ go tool covdata percent -i=somedata
+	mydomain.com	coverage: 100.0% of statements
+$
+```
+
+## Resources {#resources}
 
 - **Blog post introducing unit test coverage in Go 1.2**:
   - Coverage profiling for unit tests was introduced as part of the
