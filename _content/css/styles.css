@@ -216,6 +216,9 @@ pre code {
 pre {
   line-height: 1.4;
   overflow-x: auto;
+  padding: .5rem;
+  border-radius: 0.25rem;
+  border: 0.0625rem solid var(--gray-4);
 }
 pre .comment {
   color: var(--color-text-link);
@@ -997,7 +1000,6 @@ a.BreadcrumbNav-link {
   font-style: normal;
   font-weight: 500;
   line-height: 1.75rem;
-  margin-bottom: 1.5rem;
   margin-bottom: 0.5rem;
   margin-top: 0;
 }
@@ -1089,7 +1091,6 @@ a.BreadcrumbNav-link {
   margin: 0 auto;
   max-width: 75.75rem;
   position: relative;
-  width: auto;
   width: 100%;
 }
 .GettingStartedGo-gridContainer {
@@ -2900,9 +2901,6 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
     font-size: 1.125rem;
     margin-right: 4rem;
   }
-}
-.Solutions-useCasesHeader h2,
-.Solutions-caseStudiesHeader h2 {
 }
 .Solutions-cardList,
 .Solutions-caseStudyList {
