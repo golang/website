@@ -29,16 +29,10 @@ For integration tests, three steps are needed: a [build](#building) step, a [run
 
 # Building a binary for coverage profiling {#building}
 
-To build an application for collecting coverage profiles, pass the `-cover` flag at the top level (package `main`) build:
-
-```
-$ go build -cover -o myprogram.exe cmd/myprogram
-$
-```
-
+To build an application for collecting coverage profiles, pass the `-cover` flag when invoking `go build` on your application binary target. See the section [below](#packageselection) for a sample `go build -cover` invocation.
 The resulting binary can then be run using an environment variable setting to capture coverage profiles (see the next section on [running](#running)).
 
-## How packages are selected for instrumentation
+## How packages are selected for instrumentation {#packageselection}
 
 During a given "`go build -cover`" invocation, the Go command will select packages in the main module for coverage profiling; other packages that feed into the build (dependencies listed in go.mod, or packages that are part of the Go standard library) will not be included by default.
 
@@ -75,6 +69,7 @@ package greetings
 func Goodbye() string {
 	return "see ya"
 }
+$ go build -cover -o myprogram.exe .
 $
 ```
 
@@ -83,7 +78,7 @@ If you build this program with the "`-cover`" command line flag and run it, exac
 Users who want to have more control over which packages are included for coverage can build with the "`-coverpkg`" flag. Example:
 
 ```
-$ go build -cover -o prog2.exe -coverpkg=io,mydomain.com,rsc.io/quote .
+$ go build -cover -o myprogramMorePkgs.exe -coverpkg=io,mydomain.com,rsc.io/quote .
 $
 ```
 
@@ -121,7 +116,7 @@ $
 Integration tests can in many cases involve multiple program runs; when the program is built with "`-cover`", each run will produce a new data file. Example
 
 ```
-$ mkdir
+$ mkdir somedata2
 $ GOCOVERDIR=somedata2 ./myprogram.exe          // first run
 I say "Hello, world." and "see ya"
 $ GOCOVERDIR=somedata2 ./myprogram.exe -flag    // second run
@@ -227,8 +222,9 @@ Example:
 $ ls somedata
 covcounters.c6de772f99010ef5925877a7b05db4cc.2424989.1670252383678349347
 covmeta.c6de772f99010ef5925877a7b05db4cc
-$ go tool covdata percent -i=somedata -pkg=rsc.io/quote
-	rsc.io/quote	coverage: 100.0% of statements
+$ go tool covdata percent -i=somedata -pkg=mydomain.com/greetings
+	mydomain.com/greetings	coverage: 100.0% of statements
+$ go tool covdata percent -i=somedata -pkg=nonexistentpackage
 $
 ```
 
@@ -255,7 +251,7 @@ Here is an example, again using
 the [example program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip) cited above:
 
 ```
-$ go list -f '{{"{{if not .Standard}}{{.ImportPath}}{{end}}"}}' -deps . | tr '\n' ',' > pkgs.txt
+$ go list -f '{{"{{if not .Standard}}{{.ImportPath}}{{end}}"}}' -deps . | paste -sd "," > pkgs.txt
 $ go build -o myprogram.exe -coverpkg=`cat pkgs.txt` .
 $ mkdir somedata
 $ GOCOVERDIR=somedata ./myprogram.exe
