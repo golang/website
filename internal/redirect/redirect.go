@@ -11,6 +11,7 @@ import (
 	"context"
 	_ "embed"
 	"fmt"
+	"html/template"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -19,7 +20,6 @@ import (
 	"time"
 
 	"golang.org/x/net/context/ctxhttp"
-	"golang.org/x/website/internal/backport/html/template"
 )
 
 // Register registers HTTP handlers that redirect old godoc paths to their new

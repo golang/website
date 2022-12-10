@@ -6,6 +6,7 @@ package web
 
 import (
 	"fmt"
+	"html/template"
 	"io/fs"
 	"path"
 	"reflect"
@@ -13,7 +14,6 @@ import (
 	"strings"
 
 	"golang.org/x/tools/present"
-	"golang.org/x/website/internal/backport/html/template"
 	"gopkg.in/yaml.v3"
 )
 

@@ -10,11 +10,10 @@ import (
 	"reflect"
 	"regexp"
 	"strings"
+	"text/template/parse"
 
-	"golang.org/x/website/internal/backport/text/template/parse"
-
-	htmltemplate "golang.org/x/website/internal/backport/html/template"
-	texttemplate "golang.org/x/website/internal/backport/text/template"
+	htmltemplate "html/template"
+	texttemplate "text/template"
 )
 
 var validNameRE = regexp.MustCompile(`\A[_\pL][_\pL\p{Nd}]*\z`)

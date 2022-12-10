@@ -8,6 +8,12 @@ import (
 	"bufio"
 	"bytes"
 	"fmt"
+	"go/ast"
+	"go/doc"
+	"go/format"
+	"go/printer"
+	"go/token"
+	"html/template"
 	"io"
 	"log"
 	"path"
@@ -17,12 +23,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/doc"
-	"golang.org/x/website/internal/backport/go/format"
-	"golang.org/x/website/internal/backport/go/printer"
-	"golang.org/x/website/internal/backport/go/token"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/texthtml"
 )
 
@@ -155,7 +155,10 @@ func firstIdent(x []byte) string {
 
 // Comment formats the given documentation comment as HTML.
 func (p *Page) Comment(comment string) template.HTML {
-	return template.HTML(p.PDoc.HTML(comment))
+	// TODO: After Go 1.20 is out, this can be simplified to:
+	//return template.HTML(p.PDoc.HTML(comment))
+	// While deleting the go118.go and go119.go files.
+	return template.HTML(docPackageHTML(p.PDoc, comment))
 }
 
 // sanitize sanitizes the argument src by replacing newlines with

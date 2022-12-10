@@ -7,12 +7,11 @@ package pkgdoc
 import (
 	"bytes"
 	"fmt"
-	"golang.org/x/website/internal/backport/go/parser"
-	"golang.org/x/website/internal/backport/go/token"
+	"go/parser"
+	"go/token"
+	"html/template"
 	"strings"
 	"testing"
-
-	"golang.org/x/website/internal/backport/html/template"
 )
 
 func TestSrcPosLink(t *testing.T) {

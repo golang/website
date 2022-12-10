@@ -8,10 +8,10 @@ package pkgdoc
 
 import (
 	"bytes"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/doc"
-	"golang.org/x/website/internal/backport/go/parser"
-	"golang.org/x/website/internal/backport/go/token"
+	"go/ast"
+	"go/doc"
+	"go/parser"
+	"go/token"
 	"io/fs"
 	"log"
 	"path"

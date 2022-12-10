@@ -8,11 +8,11 @@ import (
 	"bytes"
 	"fmt"
 	"html"
+	"html/template"
 	"log"
 	"regexp"
 	"strings"
 
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/texthtml"
 )
 

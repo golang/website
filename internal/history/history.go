@@ -8,11 +8,10 @@ package history
 import (
 	"fmt"
 	"html"
+	"html/template"
 	"sort"
 	"strings"
 	"time"
-
-	"golang.org/x/website/internal/backport/html/template"
 )
 
 // A Release describes a single Go release.

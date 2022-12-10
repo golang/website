@@ -16,6 +16,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"io/fs"
 	"log"
@@ -28,7 +29,6 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/web"
 )
 

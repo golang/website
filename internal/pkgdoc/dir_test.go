@@ -5,7 +5,7 @@
 package pkgdoc
 
 import (
-	"golang.org/x/website/internal/backport/go/token"
+	"go/token"
 	"os"
 	"runtime"
 	"sort"

@@ -2,11 +2,11 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package comment
+//go:build go1.19
+// +build go1.19
 
-import "testing"
+package pkgdoc
 
-// See https://golang.org/issue/52353
-func Test52353(t *testing.T) {
-	ident("𫕐ﯯ")
-}
+import "go/doc"
+
+var docPackageHTML = (*doc.Package).HTML

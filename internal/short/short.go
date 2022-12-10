@@ -13,6 +13,7 @@ import (
 	_ "embed"
 	"errors"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"net/url"
@@ -20,7 +21,6 @@ import (
 	"strings"
 
 	"cloud.google.com/go/datastore"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/memcache"
 )
 

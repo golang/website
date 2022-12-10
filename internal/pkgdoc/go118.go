@@ -2,18 +2,18 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+//go:build !go1.19
+// +build !go1.19
+
 package pkgdoc
 
 import (
-	crand "crypto/rand"
-	"math/rand"
+	"bytes"
+	"go/doc"
 )
 
-type T int
-
-type U int
-
-func (T) M() {}
-
-var _ = rand.Int
-var _ = crand.Reader
+func docPackageHTML(_ *doc.Package, text string) []byte {
+	var buf bytes.Buffer
+	doc.ToHTML(&buf, text, nil)
+	return buf.Bytes()
+}

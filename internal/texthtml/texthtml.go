@@ -8,9 +8,9 @@ package texthtml
 import (
 	"bytes"
 	"fmt"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/scanner"
-	"golang.org/x/website/internal/backport/go/token"
+	"go/ast"
+	"go/scanner"
+	"go/token"
 	"io"
 	"regexp"
 	"text/template"

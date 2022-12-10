@@ -11,6 +11,10 @@ package pkgdoc
 
 import (
 	"bytes"
+	"go/ast"
+	"go/build"
+	"go/doc"
+	"go/token"
 	"io"
 	"io/fs"
 	"io/ioutil"
@@ -26,10 +30,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
-	"golang.org/x/website/internal/backport/go/ast"
-	"golang.org/x/website/internal/backport/go/build"
-	"golang.org/x/website/internal/backport/go/doc"
-	"golang.org/x/website/internal/backport/go/token"
 	"golang.org/x/website/internal/web"
 )
 

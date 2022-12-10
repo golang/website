@@ -302,6 +302,7 @@ import (
 	"errors"
 	"fmt"
 	"html"
+	"html/template"
 	"io"
 	"io/fs"
 	"log"
@@ -313,7 +314,6 @@ import (
 	"sync"
 
 	"github.com/evanw/esbuild/pkg/api"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
 )
