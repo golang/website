@@ -1,2 +1,3 @@
 service: google
-runtime: go112
+runtime: go119
+main: ./cmd/googlegolangorg

@@ -1,5 +1,5 @@
-runtime: go116
 service: admin
+runtime: go119
 main: ./cmd/admingolangorg
 
 env_variables:
