@@ -150,7 +150,7 @@ This section discusses how to use "`go tool covdata`" to produce human-readable 
 
 ### Reporting percent statements covered
 
-To report a "percent statements covered" metric for each instrumented package, use the command "`go tool covdata -i=<directory> percent`".
+To report a "percent statements covered" metric for each instrumented package, use the command "`go tool covdata percent -i=<directory>`".
 Using the example from the [running](#running) section above:
 
 ```
