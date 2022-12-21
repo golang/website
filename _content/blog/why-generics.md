@@ -358,9 +358,9 @@ discuss a design for how we think we can add them to the language.
 
 Note added January 2022: This blog post was written in 2019 and does
 not describe the version of generics that was finally adopted.
-For updated information please see [the language
-spec](https://go.dev/ref/spec) and [the generics design document]
-(https://go.dev/design/43651-type-parameters).
+For updated information please see the description of type parameters in
+[the language spec](https://go.dev/ref/spec) and
+[the generics design document](https://go.dev/design/43651-type-parameters).
 
 At this year's Gophercon Robert Griesemer and I published
 [a design draft](https://github.com/golang/proposal/blob/master/design/go2draft-contracts.md)
