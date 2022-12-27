@@ -294,8 +294,8 @@ their application, thus reducing the overall amount of unplanned work in this
 space.
 
 <img src="survey2022q2/text_vuln_resolve.svg" alt="Chart showing most
-respondents resolved vulnerabilities by upgrading dependencies" class="chart"
-/> <img src="survey2022q2/text_vuln_challenge.svg" alt="Chart showing a 6-way
+respondents resolved vulnerabilities by upgrading dependencies" class="chart" />
+<img src="survey2022q2/text_vuln_challenge.svg" alt="Chart showing a 6-way
 tie for tasks that were most challenging when investigating and resolving
 security vulnerabilities" class="chart" />
 
@@ -333,9 +333,9 @@ still have unresolved issues with gopls, please let us know by <a
 href="https://github.com/golang/go/issues">filing an issue on GitHub</a>.
 
 <img src="survey2022q2/editor_self_select.svg" alt="Chart showing the top
-preferred editors for Go are VS Code, GoLand, and Vim / Neovim" class="chart"
-/> <img src="survey2022q2/use_gopls.svg" alt="Chart showing only 2% of
-respondents disabled gopls" class="chart" />
+preferred editors for Go are VS Code, GoLand, and Vim / Neovim" class="chart" />
+<img src="survey2022q2/use_gopls.svg" alt="Chart showing only 2% of
+respondents disabled gopls" class="chart"/>
 
 Regarding workspaces, it seems many people first learned about Go's support
 for multi-module workspaces via this survey. Respondents who learned of the
