@@ -770,7 +770,7 @@ a.Footer-link--primary {
 .Article {
   color: var(--color-text);
   margin: 0 auto 1.875rem;
-  margin-top: 3rem;
+
   max-width: 75.75rem;
   padding: 0 1.5rem;
 }
@@ -804,18 +804,9 @@ h1 + h2.subtitle {
 }
 .Article h1 {
   font-size: 2.25rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 2rem;
-  margin-bottom: 1.5rem;
 }
 .Article h2 {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1.5rem;
-  line-height: 2rem;
-  margin-top: 2.75rem;
-  margin-bottom: 0.275rem;
+  font-size: 1.4rem;
 }
 .Article h3 {
   font-size: 1.125rem;
@@ -829,10 +820,9 @@ h1 + h2.subtitle {
 .Article ul,
 .Article ol {
   color: var(--color-text);
+  font-size: 1rem;
   font-style: normal;
-  font-weight: 400;
-  font-size: 0.875rem;
-  line-height: 1.75rem;
+  font-weight: normal;
 }
 .Article ol .Article pre {
   background-color: var(--color-background-accented);
