@@ -1825,7 +1825,7 @@ field.
 Usage:
 
 ```
-go mod download [-json] [-x] [modules]
+go mod download [-x] [-json] [-reuse=old.json] [modules]
 ```
 
 Example:
@@ -1872,6 +1872,14 @@ type Module struct {
 
 The `-x` flag causes `download` to print the commands `download` executes
 to standard error.
+
+The -reuse flag accepts the name of file containing the JSON output of a
+previous 'go mod download -json' invocation. The go command may use this
+file to determine that a module is unchanged since the previous invocation
+and avoid redownloading it. Modules that are not redownloaded will be marked
+in the new output by setting the Reuse field to true. Normally the module
+cache provides this kind of reuse automatically; the -reuse flag can be
+useful on systems that do not preserve the module cache.
 
 ### `go mod edit` {#go-mod-edit}
 
