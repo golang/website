@@ -3644,7 +3644,7 @@ p.BackgroundQuote-body {
   flex-direction: column;
 }
 .UseCaseSubNav-anchorLinks--sticky {
-  position: fixed;
+  position: sticky;
   top: 2rem;
 }
 a.UseCase-anchorLink {
