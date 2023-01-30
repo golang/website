@@ -15,6 +15,9 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2023, 2, 1}, Version: Version{1, 20, 0},
+	},
+	{
 		Date: Date{2023, 1, 10}, Version: Version{1, 19, 5},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the compiler", "the linker"},
