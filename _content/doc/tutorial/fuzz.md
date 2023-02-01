@@ -302,7 +302,20 @@ With the unit test converted to a fuzz test, it’s time to run the test again.
 
 2. Run `FuzzReverse` with fuzzing, to see if any randomly generated string
    inputs will cause a failure. This is executed using `go test` with a new
-   flag, `-fuzz`.
+   flag, `-fuzz`, set to the parameter `Fuzz`. Copy the command below.
+
+    ```
+    $ go test -fuzz=Fuzz
+    ```
+
+    Another useful flag is `-fuzztime`, which restricts the time fuzzing takes.
+    For example, specifying `-fuzztime 10s` in the test below would mean that,
+    as long as no failures occurred earlier, the test would exit by default
+    after 10 seconds had elapsed. See [this
+    section](https://pkg.go.dev/cmd/go#hdr-Testing_flags) of the cmd/go
+    documentation to see other testing flags.
+
+   Now, run the command you just copied.
 
    ```
    $ go test -fuzz=Fuzz
@@ -538,6 +551,12 @@ replacement UTF-8 character to the input byte slice, they are clearly not equal.
 This time, we only want to run the failing test in order to inspect the logs. To
 do this, we will use `go test -run`.
 
+To run a specific corpus entry within FuzzXxx/testdata, you can provide
+{FuzzTestName}/{filename} to `-run`. This can be helpful when debugging.
+In this case, set the `-run` flag equal to the exact hash of the failing test.
+Copy and paste the unique hash from your terminal;
+it will be different than the one below.
+
 ```
 $ go test -run=FuzzReverse/28f36ef487f23e6c7a81ebdaa9feffe2f2b02b4cddaa6252e87f69863046a5e0
 input: "\x91"
@@ -552,9 +571,6 @@ FAIL
 exit status 1
 FAIL    example/fuzz    0.145s
 ```
-
-To run a specific corpus entry within FuzzXxx/testdata, you can provide
-{FuzzTestName}/{filename} to `-run`. This can be helpful when debugging.
 
 Knowing that the input is invalid unicode, let’s fix the error in our `Reverse`
 function.
@@ -655,8 +671,10 @@ UTF-8.
    ok      example/fuzz  0.019s
    ```
 
-2. Fuzz it with `go test -fuzz=Fuzz`, then after a few seconds has passed, stop
-   fuzzing with `ctrl-C`.
+2.  Fuzz it with `go test -fuzz=Fuzz`, then after a few seconds has passed, stop
+    fuzzing with `ctrl-C`. The fuzz test will run until it encounters a failing
+    input unless you pass the `-fuzztime` flag. The default is to run forever if no
+    failures occur, and the process can be interrupted with `ctrl-C`.
 
    ```
    $ go test -fuzz=Fuzz
@@ -671,10 +689,6 @@ UTF-8.
    PASS
    ok      example/fuzz  228.000s
    ```
-
-   The fuzz test will run until it encounters a failing input unless you pass
-   the `-fuzztime` flag. The default is to run forever if no failures occur, and
-   the process can be interrupted with `ctrl-C`.
 
 3. Fuzz it with `go test -fuzz=Fuzz -fuzztime 30s` which will fuzz for 30
    seconds before exiting if no failure was found.
@@ -702,6 +716,13 @@ UTF-8.
 
    In addition to the `-fuzz` flag, several new flags have been added to `go
    test` and can be viewed in the [documentation](/security/fuzz/#custom-settings).
+
+   See [Go Fuzzing](https://go.dev/security/fuzz/#command-line-output) for more
+   information on terms used in fuzzing output. For example, "new interesting"
+   refers to inputs that expand the code coverage of the existing fuzz test
+   corpus. The number of "new interesting" inputs can be expected to increase
+   sharply as fuzzing begins, spike several times as new code paths are
+   discovered, then taper off over time.
 
 ## Conclusion {#conclusion}
 
@@ -788,3 +809,5 @@ func FuzzReverse(f *testing.F) {
     })
 }
 ```
+
+[Back to top](#top)
