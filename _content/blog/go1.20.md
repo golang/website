@@ -27,7 +27,7 @@ many improvements to tooling and the library, and better overall performance.
 
 ## Language changes
 
-- The predeclared [`comparable`](ref/spec#Type_constraints) constraint is
+- The predeclared [`comparable`](/ref/spec#Type_constraints) constraint is
 now also [satisfied](/ref/spec#Satisfying_a_type_constraint) by
 ordinary [comparable types](/ref/spec#Comparison_operators), such as interfaces,
 which will simplify generic code.
