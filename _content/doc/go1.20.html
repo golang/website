@@ -330,12 +330,19 @@ Do not send CLs removing the interior tags from such phrases.
 
 <p>
   The Go 1.20 compiler upgraded its front-end to use a new way of handling the
-  compiler's internal data, which fixes several generic-types bugs and enables
-  local types in generic functions and methods.
+  compiler's internal data, which fixes several generic-types issues and enables
+  type declarations within generic functions and methods.
 </p>
 
 <p><!-- https://go.dev/issue/56103, CL 445598 -->
-  The compiler now <a href="https://go.dev/issue/56103">disallows anonymous interface cycles</a>.
+  The compiler now <a href="/issue/56103">rejects anonymous interface cycles</a>
+  with a compiler error by default.
+  These arise from tricky uses of <a href="/ref/spec#Embedded_interfaces">embedded interfaces</a>
+  and have always had subtle correctness issues,
+  yet we have no evidence that they're actually used in practice.
+  Assuming no reports from users adversely affected by this change,
+  we plan to update the language specification for Go 1.22 to formally disallow them
+  so tools authors can stop supporting them too.
 </p>
 
 <p><!-- https://go.dev/issue/49569 -->
