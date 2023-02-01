@@ -4,7 +4,7 @@
 
 steps:
   - name: gcr.io/cloud-builders/git
-    args: ["clone", "--branch=${_GO_REF}", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
+    args: ["clone", "--branch=release-branch.go1.20", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
   - name: gcr.io/cloud-builders/git
     args: ["archive", "--format=zip", "--output=../_goroot.zip", "HEAD"]
     dir: _gotmp
