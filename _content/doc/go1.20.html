@@ -1098,7 +1098,7 @@ proxyHandler := &httputil.ReverseProxy{
       Go 1.20 adds new <a href="/pkg/runtime/metrics/#hdr-Supported_metrics">supported metrics</a>,
       including the current <code>GOMAXPROCS</code> setting (<code>/sched/gomaxprocs:threads</code>),
       the number of cgo calls executed (<code>/cgo/go-to-c-calls:calls</code>),
-      total mutex block time (<code>/sync/mutex/wait/total</code>), and various measures of time
+      total mutex block time (<code>/sync/mutex/wait/total:seconds</code>), and various measures of time
       spent in garbage collection.
     </p>
 
