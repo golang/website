@@ -131,8 +131,8 @@ class DownloadsController {
 
   // get version number.
   parseVersionNumber(string) {
-    const rx = /(\d+\.)(\d+\.)(\d+)/g;
-    const matches = rx.exec(string)
+    const rx = /(\d+\.)(\d+)(\.\d+)?/g;
+    const matches = rx.exec(string);
     if (matches?.[0]) {
       return matches[0];
     } else {
