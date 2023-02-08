@@ -63,6 +63,97 @@ func TestMarkdown(t *testing.T) {
 	testServeBody(t, site, "/doc/test2", "<em>template</em>")
 }
 
+func TestCode(t *testing.T) {
+	site := NewSite(fstest.MapFS{
+		"site.tmpl": {Data: []byte(`{{.Content}}`)},
+		"doc/code.md": {Data: []byte(`
+# hi
+whole file
+{{code "_code/prog.go"}}
+one line
+{{code "_code/prog.go" "/func main/"}}
+multiple lines
+{{code "_code/prog.go" "/START/" "/END/"}}
+following lines
+{{code "_code/prog.go" "/START/" "$"}}
+play
+{{play "_code/prog.go" "/START/" "/END/"}}
+play with numbers
+{{play "_code/prog.go" "/START/" "/END/" 0}}
+`)},
+		"doc/_code/prog.go": {Data: []byte(`
+// +build OMIT
+
+package main
+
+// START OMIT
+func main() { fmt.Println("hi") }
+// END OMIT
+
+func foo() {}
+`)},
+	})
+
+	testServeBody(t, site, "/doc/code", `<h1 id="hi">hi</h1>
+<p>whole file</p>
+<div class="code">
+<pre>package main
+
+func main() { fmt.Println(&#34;hi&#34;) }
+
+func foo() {}
+</pre>
+</div>
+<p>one line</p>
+<div class="code">
+<pre>func main() { fmt.Println(&#34;hi&#34;) }
+</pre>
+</div>
+<p>multiple lines</p>
+<div class="code">
+<pre>func main() { fmt.Println(&#34;hi&#34;) }
+</pre>
+</div>
+<p>following lines</p>
+<div class="code">
+<pre>func main() { fmt.Println(&#34;hi&#34;) }
+
+func foo() {}
+</pre>
+</div>
+<p>play</p>
+<div class="playground">
+<pre style="display: none"><span>
+
+package main
+
+</span>
+</pre>
+<pre contenteditable="true" spellcheck="false">func main() { fmt.Println(&#34;hi&#34;) }
+</pre>
+<pre style="display: none"><span>
+func foo() {}
+</span>
+</pre>
+</div>
+<p>play with numbers</p>
+<div class="playground">
+<pre style="display: none"><span>
+
+package main
+
+</span>
+</pre>
+<pre contenteditable="true" spellcheck="false"><span class="number"> 5&nbsp;&nbsp;</span>func main() { fmt.Println(&#34;hi&#34;) }
+<span class="number"> 6&nbsp;&nbsp;</span>
+</pre>
+<pre style="display: none"><span>
+func foo() {}
+</span>
+</pre>
+</div>`)
+}
+
 func TestTypeScript(t *testing.T) {
 	exampleOut, err := os.ReadFile("testdata/example.js")
 	if err != nil {
