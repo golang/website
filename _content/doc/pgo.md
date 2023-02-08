@@ -252,7 +252,7 @@ However, organizations may have alternative preferred tooling (e.g., Linux perf)
 
 Profiles from alternative source may be used with Go PGO if converted to the [pprof format](https://github.com/google/pprof/tree/main/proto), provided they follow these general requirements:
 
-* Sample index 0 should be type “cpu” and unit “count”.
+* One of the sample indices should have type/unit "samples"/"count" or "cpu"/"nanoseconds".
 
 * Samples should represent samples of CPU time at the sample location.
 
