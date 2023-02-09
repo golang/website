@@ -155,10 +155,7 @@ func firstIdent(x []byte) string {
 
 // Comment formats the given documentation comment as HTML.
 func (p *Page) Comment(comment string) template.HTML {
-	// TODO: After Go 1.20 is out, this can be simplified to:
-	//return template.HTML(p.PDoc.HTML(comment))
-	// While deleting the go118.go and go119.go files.
-	return template.HTML(docPackageHTML(p.PDoc, comment))
+	return template.HTML(p.PDoc.HTML(comment))
 }
 
 // sanitize sanitizes the argument src by replacing newlines with

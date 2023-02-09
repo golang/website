@@ -259,7 +259,7 @@ func main() {
       </p>
       <div class="GettingStartedGo-ctas">
         <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="/dl">Download Go</a>
+        <a href="/doc/install/">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">

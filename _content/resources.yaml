@@ -52,8 +52,8 @@
     iconDark: /images/icons/gear-dark.svg
     iconName: Sphere
     packages:
-    - title: opentracing/opentracing-go
-      url: https://github.com/opentracing/opentracing-go
+    - title: open-telemetry/opentelemetry-go
+      url: https://github.com/open-telemetry/opentelemetry-go
     - title: istio/istio
       url: https://github.com/istio/istio
     - title: urfave/cli

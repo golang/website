@@ -66,7 +66,7 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
       - text: Building a new router for gov.uk
         url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
       - text: Using Go in government
-        url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
+        url: https://technology.blog.gov.uk/2014/11/14/using-go-in-government/
   - company: Hugo
     url: http://gohugo.io/
     logoSrc: hugo.svg
