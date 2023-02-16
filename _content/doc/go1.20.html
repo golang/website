@@ -973,6 +973,11 @@ proxyHandler := &httputil.ReverseProxy{
       For example, a cookie setting of "name =value"
       is now accepted as setting the cookie "name".
     </p>
+
+    <p><!-- https://go.dev/issue/52989 -->
+     A <a href="/pkg/net/http#Cookie"><code>Cookie</code></a> with an empty Expires field is now considered valid.
+     <a href="/pkg/net/http#Cookie.Valid"><code>Cookie.Valid</code></a> only checks Expires when it is set.
+    </p>
   </dd>
 </dl><!-- net/http -->
 
