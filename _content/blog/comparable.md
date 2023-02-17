@@ -106,7 +106,7 @@ func min[P interface{ ~int64 | ~float64 }](x, y P) P
 
 which accepts any `int64` or `float64` argument.
 (Of course, a more realistic implementation would use a constraint that
-enumerates all basic types with an {{raw "<code>&lt;</code>" }} operator.)
+enumerates all basic types with an <code>&lt;</code> operator.)
 
 As an aside, because enumerating explicit types without methods is common,
 a little bit of [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)
@@ -146,7 +146,7 @@ defined by a constraint is permitted with values of the corresponding type param
 
 For instance, given the `min` example, in the function body any operation that is supported by
 `int64` and `float64` types is permitted on values of the type parameter `P`.
-That includes all the basic arithmetic operations, but also comparisons such as {{raw "<code>&lt;</code>" }}.
+That includes all the basic arithmetic operations, but also comparisons such as <code>&lt;</code>.
 But it does not include bitwise operations such as `&` or `|`
 because those operations are not defined on `float64` values.
 
