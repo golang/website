@@ -766,13 +766,6 @@ a.Footer-link--primary {
     filter: invert(1);
   }
 }
-[data-theme='dark'] .Header-menuItem a.Header-socialIcon.Header-socialIcon-dark {
-  display: inline-flex;
-}
-[data-theme='dark'] .Header-menuItem a.Header-socialIcon.Header-socialIcon-light {
-  display: none;
-}
-/* End nav */
 .Article {
   color: var(--color-text);
   margin: 0 auto 1.875rem;

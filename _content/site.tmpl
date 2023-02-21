@@ -83,12 +83,7 @@
                     {{- if .socialIconsList}}
                       <div class="Header-socialIcons">
                         {{ range .socialIconsList }}
-                        {{ if .darkImg }}
-                        <a class="Header-socialIcon Header-socialIcon-light" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
-                        <a class="Header-socialIcon Header-socialIcon-dark" href="{{.url}}"><img src="/images/logos/social/{{.darkImg}}" /></a>
-                        {{else}}
                         <a class="Header-socialIcon" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
-                        {{end}}
                         {{- end}}
                       </div>
                     {{- end}}
