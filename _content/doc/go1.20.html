@@ -234,6 +234,14 @@ Do not send CLs removing the interior tags from such phrases.
 </p>
 
 <p>
+  A consequence is that, on macOS, if Go code that uses
+  the <code>net</code> package is built
+  with <code>-buildmode=c-archive</code>, linking the resulting
+  archive into a C program requires passing <code>-lresolv</code> when
+  linking the C code.
+</p>
+
+<p>
   On macOS, the race detector has been rewritten not to use cgo:
   race-detector-enabled programs can be built and run without Xcode.
   On Linux and other Unix systems, and on Windows, a host C toolchain
