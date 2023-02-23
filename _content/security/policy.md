@@ -67,9 +67,9 @@ PRIVATE track issues are **fixed in the next scheduled [minor
 releases](/wiki/MinorReleases)**, and are kept private until then.
 
 Three to seven days before the release, a pre-announcement is sent to
-golang-announce, announcing the presence of a security fix in the upcoming
-releases, and whether the issue affects the standard library, the toolchain, or
-both (but not disclosing any more details).
+golang-announce, announcing the presence of one or more security fixes in the
+upcoming releases, and whether the issues affect the standard library, the
+toolchain, or both, as well as reserved CVE IDs for each of the fixes.
 
 Some examples of past PRIVATE issues include:
 
