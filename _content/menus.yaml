@@ -63,7 +63,7 @@ main:
             {img: slack.svg, url: 'https://invite.slack.golangbridge.org/'},
             {
               img: stack-overflow.svg,
-              url: 'https://stackoverflow.com/collectives/go',
+              url: 'https://stackoverflow.com/tags/go',
             },
           ]
 
