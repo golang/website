@@ -2,24 +2,24 @@
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/website.svg)](https://pkg.go.dev/golang.org/x/website)
 
-This repo holds content and serving programs for the go.dev and golang.org web sites.
+This repo holds content and serving programs for the https://go.dev website.
 
-Content is in \_content/ (go.dev) and tour/ (go.dev/tour).
-Server code is in cmd/ and internal/.
+Content is in `_content/` (https://go.dev) and `tour/` (https://go.dev/tour).
+Server code is in `cmd/` and `internal/` .
 
-To run the combined go.dev+golang.org server to preview local content changes, use:
+To run https://go.dev server to preview local content changes, use
+```bash
+go run ./cmd/golangorg
+```
+The supporting programs `cmd/admingolangorg` and `cmd/googlegolangorg`
+are the servers for https://admin.golang.org and https://google.golang.org.
+They do not use the `_content/` directories.
 
-    go run ./cmd/golangorg
-
-The supporting programs cmd/admingolangorg and cmd/googlegolangorg
-are the servers for admin.golang.org and google.golang.org.
-(They do not use the \_content/ directories.)
-
-Each command directory has its own README.md explaining deployment.
+Each command directory has its own `README.md` explaining deployment.
 
 ## JS/TS/CSS Formatting
 
-This repository uses [eslint](https://eslint.org/) to format JS and TS files,
+This repository uses [eslint](https://eslint.org/) to format JavaScript and TypeScript files,
 and [stylelint](https://stylelint.io/) to format CSS files.
 
 See also:
@@ -28,14 +28,14 @@ See also:
 - [JavaScript](https://google.github.io/styleguide/jsguide.html)
 - [TypeScript](https://google.github.io/styleguide/tsguide.html)
 
-It is encouraged that all JS, TS, and CSS code be run through formatters before
+It is encouraged that all JavaScript, TypeScript, and CSS code be run through formatters before
 submitting a change. However, it is not a strict requirement enforced by CI.
 
-### Installing npm Dependencies:
+### Installing npm Dependencies
 
 1. Install [docker](https://docs.docker.com/get-docker/)
-2. Create a .gitignore file at repo root
-3. Add .gitignore and node_modules to .gitignore
+2. Create a `.gitignore` file at repo root
+3. Add `.gitignore` and `node_modules` to `.gitignore`
 4. Run `./npm install`
 
 ### Run ESlint
@@ -51,15 +51,17 @@ submitting a change. However, it is not a strict requirement enforced by CI.
 TypeScript files served from _content are transformed into JavaScript.
 Reference .ts files in html templates as module code.
 
-  `<script type="module" src="/ts/filename.ts">`
+```html
+<script type="module" src="/ts/filename.ts">
+```
 
 Write unit tests for TypeScript code using the [jest](https://jestjs.io/)
 testing framework.
 
 ### Run Jest
-
-    ./npx jest [TestPathPattern]
-
+```bash
+./npx jest [TestPathPattern]
+```
 ## Deploying
 
 Each time a CL is reviewed and submitted, the code is deployed to App Engine.
