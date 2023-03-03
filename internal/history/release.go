@@ -15,6 +15,22 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2023, 3, 7}, Version: Version{1, 20, 2},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"crypto/elliptic"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>covdata</code> command", "the linker", "the runtime"},
+			Packages:   []string{"crypto/ecdh", "crypto/rsa", "crypto/x509", "os", "syscall"}, // "net" omitted because its fix is test-only.
+		},
+	},
+	{
+		Date: Date{2023, 3, 7}, Version: Version{1, 19, 7},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"crypto/elliptic"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the linker", "the runtime"},
+			Packages:   []string{"crypto/x509", "syscall"}, // "net" omitted because its fix is test-only.
+		},
+	},
+	{
 		Date: Date{2023, 2, 14}, Version: Version{1, 20, 1},
 		Security: &FixSummary{
 			Packages: []string{"crypto/tls", "mime/multipart", "net/http", "path/filepath"},
