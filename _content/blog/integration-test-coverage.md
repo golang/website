@@ -6,8 +6,6 @@ by:
 summary:  Code coverage for integration tests, available in Go 1.20.
 ---
 
-# Code coverage for Go integration tests
-
 Code coverage tools help developers determine what fraction of a source code base is executed (covered) when a given test suite is executed.
 
 Go has for some time provided support ([introduced](https://go.dev/blog/cover) in the Go 1.2 release) to measure code coverage at the package level, using the **"-cover"** flag of the "go test" command.
