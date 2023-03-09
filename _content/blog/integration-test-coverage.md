@@ -146,8 +146,8 @@ If we make changes to enhance the test harness, then do a second coverage collec
 For example, suppose we improve our test by adding these two additional lines to `integration_test.sh`:
 
 {{raw `
-./mdtool.exe +ty testdata/README.md  > /dev/null
-./mdtool.exe +ta < testdata/README.md  > /dev/null
+	./mdtool.exe +ty testdata/README.md  > /dev/null
+	./mdtool.exe +ta < testdata/README.md  > /dev/null
 `}}
 
 Running the coverage testing wrapper again:
@@ -231,7 +231,7 @@ $
 
 Each execution of a "-cover" built application will write out one or more data files to the directory specified in the GOCOVERDIR environment variable.
 If an integration test performs N program executions, you'll wind up with O(N) files in your output directory.
-There is typically a lot of duplicated content in the data files, so to compact the data and/or combine data sets from different integration test runs, you can can use the `go tool covdata merge` command to merge profiles together.
+There is typically a lot of duplicated content in the data files, so to compact the data and/or combine data sets from different integration test runs, you can use the `go tool covdata merge` command to merge profiles together.
 Example:
 
 ```
