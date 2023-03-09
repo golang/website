@@ -455,7 +455,7 @@ experiences with Go. There are half a million of you, working in a
 broad range of environments, and not that many of us.
 Write a post on your own blog,
 or write a [Medium](https://www.medium.com/) post,
-or write a [Github Gist](https://gist.github.com/) (add a `.md` file extension for Markdown),
+or write a [GitHub Gist](https://gist.github.com/) (add a `.md` file extension for Markdown),
 or write a [Google doc](https://docs.google.com/),
 or use any other publishing mechanism you like.
 After you've posted, please add the post to our new wiki page,

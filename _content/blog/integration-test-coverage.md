@@ -263,5 +263,5 @@ This merge capability is also useful to combine results from different types of 
 That covers it: with the 1.20 release, Go's coverage tooling is no longer limited to package tests, but supports collecting profiles from larger integration tests.
 We hope you will make good use of the new features to help understand how well your larger and more complicated tests are working, and which parts of your source code they are exercising.
 
-Please try out these new features, and as always if you encounter problems, file issues on our [Github issue tracker](https://github.com/golang/go/issues).
+Please try out these new features, and as always if you encounter problems, file issues on our [GitHub issue tracker](https://github.com/golang/go/issues).
 Thanks.

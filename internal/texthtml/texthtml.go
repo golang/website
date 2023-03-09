@@ -86,7 +86,7 @@ func Format(text []byte, cfg Config) (html []byte) {
 			// pseudo-element. This prevents them from being copied when users
 			// highlight and copy text.
 			// ::before is supported in 98% of browsers: https://caniuse.com/#feat=css-gencontent
-			// This is also the trick Github uses to hide line numbers.
+			// This is also the trick GitHub uses to hide line numbers.
 			//
 			// The first tab for the code snippet needs to start in column 9, so
 			// it indents a full 8 spaces, hence the two nbsp's. Otherwise the tab
