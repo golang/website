@@ -11,10 +11,7 @@ The Go vulnerability database ([https://vuln.go.dev](https://vuln.go.dev))
 serves Go vulnerability information in the
 [Open Source Vulnerability (OSV) schema](https://ossf.github.io/osv-schema/).
 
-We recommend using
-[golang.org/x/vuln/client](https://pkg.go.dev/golang.org/x/vuln/client) to read
-data from the Go vulnerability database. You can also browse vulnerabilities
-in the database at [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
+You can also browse vulnerabilities in the database at [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
 
 **Do not** rely on the contents of the x/vulndb Git repository. The YAML files in that
 repository are maintained using an internal format that may change
@@ -104,8 +101,7 @@ required fields:
 The
 [affected[].ecosystem_specific](https://ossf.github.io/osv-schema/#affectedecosystem_specific-field)
 field is a JSON object with additional information about the vulnerability,
-which is used by [package
-vulncheck](https://pkg.go.dev/golang.org/x/vuln/vulncheck).
+which is used by Go's vulnerability detection tools.
 
 For now, ecosystem specific will always be an object with a single field,
 `imports`.
