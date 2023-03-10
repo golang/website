@@ -51,12 +51,7 @@ func Hello(name string) (string, error) {
     return message, nil
 }
 
-<ins>// init sets initial values for variables used in the function.
-func init() {
-    rand.Seed(time.Now().UnixNano())
-}
-
-// randomFormat returns one of a set of greeting messages. The returned
+<ins>// randomFormat returns one of a set of greeting messages. The returned
 // message is selected at random.
 func randomFormat() string {
     // A slice of message formats.
