@@ -528,6 +528,48 @@ with a single blank line.
 Gofmt also reformats consecutive backticks or single quotes
 to their Unicode interpretations.
 
+#### Notes {#notes}
+
+Notes are special comments of the form `MARKER(uid): body`.
+MARKER should consist of 2 or more upper case `[A-Z]` letters,
+identifying the type of note, while uid is at least 1 character,
+usually a username of someone who can provide more information.
+The `:` following the uid is optional.
+
+Notes are collected and rendered in their own section on pkg.go.dev.
+
+For example:
+
+	// TODO(user1): refactor to use standard library context
+	// BUG(user2): not cleaned up
+	var ctx context.Context
+
+#### Deprecations {#deprecations}
+
+Paragraphs starting with `Deprecated: ` are treated as deprecation notices.
+Some tools will warn when deprecated identifiers are used.
+[pkg.go.dev](https://pkg.go.dev) will hide their docs by default.
+
+Deprecation notices are followed by some information about the deprecation,
+and a recommendation on what to use instead, if applicable.
+The paragraph does not have to be the last paragraph in the doc comment.
+
+For example:
+
+	// Package rc4 implements the RC4 stream cipher.
+	//
+	// Deprecated: RC4 is cryptographically broken and should not be used
+	// except for compatibility with legacy systems.
+	//
+	// This package is frozen and no new functionality will be added.
+	package rc4
+
+	// Reset zeros the key data and makes the Cipher unusable.
+	//
+	// Deprecated: Reset can't guarantee that the key will be entirely removed from
+	// the process's memory.
+	func (c *Cipher) Reset()
+
 ### Headings {#headings}
 
 A heading is a line beginning with a number sign (U+0023) and then a space and the heading text.
