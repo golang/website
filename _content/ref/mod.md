@@ -1448,6 +1448,8 @@ commands accept the following flags, common to all module commands.
     higher and a `vendor` directory is present, the `go` command acts as if
     `-mod=vendor` were used. Otherwise, the `go` command acts as if
     `-mod=readonly` were used.
+  * `go get` rejects this flag as the purpose of the command is to modify
+    dependencies, which is only allowed by `-mod=mod`.
 * The `-modcacherw` flag instructs the `go` command to create new directories
   in the module cache with read-write permissions instead of making them
   read-only. When this flag is used consistently (typically by setting
