@@ -2,7 +2,7 @@ Generics
 Go supports generic programming using type parameters. This lesson shows some examples for employing generics in your code.
 
 The Go Authors
-https://golang.org
+https://go.dev
 
 * Type parameters
 

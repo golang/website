@@ -2,7 +2,7 @@ Welcome!
 Learn how to use this tour: including how to navigate the different lessons and how to run code.
 
 The Go Authors
-https://golang.org
+https://go.dev
 
 * Hello, 世界
 
@@ -79,8 +79,8 @@ Click the [[javascript:highlightAndClick(".next-page")]["next"]] button or type 
 
 #appengine: * The Go Playground
 #appengine:
-#appengine: This tour is built atop the [[https://play.golang.org/][Go Playground]], a
-#appengine: web service that runs on [[/][golang.org]]'s servers.
+#appengine: This tour is built atop the [[/play/][Go Playground]], a
+#appengine: web service that runs on [[/][go.dev]]'s servers.
 #appengine:
 #appengine: The service receives a Go program, compiles, links, and runs the program inside
 #appengine: a sandbox, then returns the output.
