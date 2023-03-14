@@ -43,8 +43,8 @@
       url: https://github.com/flosch/pongo2
     - title: database/sql
       url: /pkg/database/sql/
-    - title: olivere/elastic
-      url: https://github.com/olivere/elastic
+    - title: elastic/go-elasticsearch
+      url: https://github.com/elastic/go-elasticsearch
   - title: DevOps & Site Reliability
     description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
     link: /solutions/devops/

@@ -17,7 +17,7 @@ iconDark:
 
 ### Go delivers speed, security, and developer-friendly tools for Web Applications
 
-Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
+Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [Elasticsearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v8), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
 
 ## Key Benefits {#key-benefits .sectionHeading}
 
@@ -175,9 +175,9 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
       - text: mongo-driver/mongo
         url: https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview
         desc: The MongoDB supported driver for Go
-      - text: olivere/elastic
-        url: https://pkg.go.dev/github.com/olivere/elastic?tab=overview
-        desc: A Elasticsearch client for Go
+      - text: elastic/go-elasticsearch
+        url: https://pkg.go.dev/github.com/elastic/go-elasticsearch/v8?tab=overview
+        desc: An Elasticsearch client for Go
       - text: GORM
         url: https://gorm.io/
         desc: An ORM library for Go

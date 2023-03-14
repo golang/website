@@ -201,9 +201,9 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
       - text: mongo-driver/mongo
         url: https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview
         desc: The MongoDB supported driver for Go
-      - text: olivere/elastic
-        url: https://pkg.go.dev/github.com/olivere/elastic?tab=overview
-        desc: A Elasticsearch client for Go
+      - text: elastic/go-elasticsearch
+        url: https://pkg.go.dev/github.com/elastic/go-elasticsearch/v8?tab=overview
+        desc: An Elasticsearch client for Go
       - text: GORM
         url: https://gorm.io/
         desc: An ORM library for Go
