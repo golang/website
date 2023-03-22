@@ -4,7 +4,7 @@
     cta: View documentation
     url: /doc/
   - title: Tour of Go
-    content: An interactive introduction to Go in three sections. Each section
+    content: An interactive introduction to Go in four sections. Each section
       concludes with a few exercises so you can practice what you've learned.
     cta: Take a tour
     url: /tour/

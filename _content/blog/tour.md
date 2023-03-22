@@ -17,9 +17,10 @@ The tour is hands-on, demonstrating the language through code samples that you c
 compile, and run from the tour itself.
 (The technology behind the [Go Playground](/doc/play/) does the work.)
 
-The tour has three sections. The first section covers basic syntax and data structures;
+The tour has four sections. The first section covers basic syntax and data structures;
 the second discusses methods and interfaces;
-and the third introduces Go's concurrency primitives.
+the third is about Generics;
+and the fourth introduces Go's concurrency primitives.
 Each section concludes with a few exercises so you can practice what you've learned.
 
 So, what are you waiting for? [Get started now!](/tour/)
