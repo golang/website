@@ -23,12 +23,14 @@ import (
 const playgroundURL = "https://play.golang.org"
 
 type Request struct {
-	Body string
+	Body    string
+	WithVet bool
 }
 
 type Response struct {
-	Errors string
-	Events []Event
+	Errors    string
+	Events    []Event
+	VetErrors string
 }
 
 type Event struct {
@@ -62,8 +64,9 @@ func compile(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	body := r.FormValue("body")
+	withVet := r.FormValue("withVet")
 	res := &Response{}
-	req := &Request{Body: body}
+	req := &Request{Body: body, WithVet: withVet == "true"}
 	if err := makeCompileRequest(ctx, backend(r), req, res); err != nil {
 		log.Printf("ERROR compile error %s: %v", backend(r), err)
 		http.Error(w, "Internal Server Error", http.StatusInternalServerError)

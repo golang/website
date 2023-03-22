@@ -50,12 +50,17 @@ function HTTPTransport(enableVet) {
     // Backwards compatibility: default values do not affect the output.
     var events = data.Events || [];
     var errors = data.Errors || '';
+    var vetErrors = data.VetErrors || '';
     var status = data.Status || 0;
     var isTest = data.IsTest || false;
     var testsFailed = data.TestsFailed || 0;
 
     var timeout;
     output({ Kind: 'start' });
+    if (vetErrors !== '') {
+      output({ Kind: 'stderr', Body: vetErrors });
+      output({ Kind: 'system', Body: '\nGo vet failed.\n\n' });
+    }
     function next() {
       if (!events || events.length === 0) {
         if (isTest) {

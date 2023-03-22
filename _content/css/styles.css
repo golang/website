@@ -59,6 +59,7 @@
   --color-text-link: var(--turq-dark);
   --color-text-subtle: var(--gray-4);
   --color-text-inverted: var(--white);
+  --color-text-alert: #aa536c;
   --color-code-comment: var(--green);
 
   /* Interactive Colors */
@@ -102,6 +103,7 @@
   --color-text: var(--gray-9);
   --color-text-link: var(--turq-med);
   --color-text-subtle: var(--gray-7);
+  --color-text-alert: #e67193;
   --color-code-comment: var(--green-light);
 }
 @media (prefers-color-scheme: dark) {
@@ -131,6 +133,7 @@
     --color-text: var(--gray-9);
     --color-text-link: var(--turq-med);
     --color-text-subtle: var(--gray-7);
+    --color-text-alert: #e67193;
     --color-code-comment: var(--green-light);
   }
 }
@@ -4574,6 +4577,12 @@ a.error {
   padding: 0;
   border-radius: 0;
 }
+.Playground-output .stderr {
+  color: var(--color-text-alert);
+}
+.Playground-output .system {
+  color: var(--color-text-subtle);
+}
 .Playground-inputContainer,
 .Playground-input {
   background: var(--color-background-playground-input);
@@ -4886,12 +4895,16 @@ div.play .buttons {
 div.play .buttons .Button {
   margin-left: 0.3125rem;
 }
+
+/* TODO(rsc): are these selectors stale? It looks like they were not ported to go.dev/play.
+ * See for example .Playground-output .stderr. */
 .output .stderr {
   color: #933;
 }
 .output .system {
   color: #999;
 }
+
 .permalink {
   display: none;
 }
