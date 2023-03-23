@@ -1218,10 +1218,11 @@ $ git codereview sync
 As part of the review process reviewers can propose changes directly (in the
 GitHub workflow this would be someone else attaching commits to a pull request).
 
-You can import these changes proposed by someone else into your local Git repository.
-On the Gerrit review page, click the "Download ▼" link in the upper right
-corner, copy the "Checkout" command and run it from your local Git repo.
-It will look something like this:
+Gerrit provides access to commands that will help you import changes proposed
+by another developer so you can review/test them locally. From the Gerrit page
+for the CL you want to import, open the "⋮" menu, click the "Download patch" link.
+Depending on your preferred git workflow, choose the appropriate command. The options
+will look something like this:
 </p>
 
 <pre>
