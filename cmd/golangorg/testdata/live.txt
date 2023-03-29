@@ -39,13 +39,13 @@ POST https://golang.org/compile
 postquery
 	version=2
 	body=package main; import ("fmt"; "time"); func main() {fmt.Print("A"); time.Sleep(time.Second); fmt.Print("B")}
-body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}]}
+body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}],"VetErrors":""}
 
 POST https://go.dev/_/compile
 postquery
 	version=2
 	body=package main; import ("fmt"; "time"); func main() {fmt.Print("A"); time.Sleep(time.Second); fmt.Print("B")}
-body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}]}
+body == {"Errors":"","Events":[{"Message":"A","Kind":"stdout","Delay":0},{"Message":"B","Kind":"stdout","Delay":1000000000}],"VetErrors":""}
 
 POST https://golang.org/share
 postbody
