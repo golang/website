@@ -42,6 +42,8 @@ func RegisterHandlers(mux *http.ServeMux, site *web.Site, host string, dc *datas
 	s := server{site, dc, gob}
 	mux.HandleFunc(host+"/dl", s.getHandler)
 	mux.HandleFunc(host+"/dl/", s.getHandler) // also serves listHandler
+	mux.HandleFunc(host+"/dl/mod/golang.org/toolchain/@v/", s.toolchainRedirect)
+	mux.HandleFunc(host+"/dl/mod/golang.org/toolchain/@v/list", s.toolchainList)
 	mux.HandleFunc(host+"/dl/upload", s.uploadHandler)
 
 	// NOTE(cbro): this only needs to be run once per project,
@@ -76,6 +78,38 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 		"layout": "dl",
 		"dl":     d,
 	})
+}
+
+// toolchainList serves the toolchain module version list.
+// We only list the stable releases, even though older releases are available as well.
+func (h server) toolchainList(w http.ResponseWriter, r *http.Request) {
+	d, err := h.listData(r.Context())
+	if err != nil {
+		log.Printf("ERROR listing downloads: %v", err)
+		http.Error(w, "Could not get module list. Try again in a few minutes.", 500)
+		return
+	}
+
+	var buf bytes.Buffer
+	for _, r := range d.Stable {
+		for _, f := range r.Files {
+			if f.Kind != "archive" {
+				continue
+			}
+			buf.WriteString("v0.0.1-")
+			buf.WriteString(f.Version)
+			buf.WriteString(".")
+			buf.WriteString(f.OS)
+			buf.WriteString("-")
+			arch := f.Arch
+			if arch == "armv6l" {
+				arch = "arm"
+			}
+			buf.WriteString(arch)
+			buf.WriteString("\n")
+		}
+	}
+	w.Write(buf.Bytes())
 }
 
 // dl.gob was generated 2021-11-08 from the live server data, for offline testing.
@@ -252,6 +286,22 @@ func (h server) getHandler(w http.ResponseWriter, r *http.Request) {
 </body>
 </html>
 `, html.EscapeString(redirectURL), html.EscapeString(redirectURL))
+}
+
+// toolchainRedirect redirects /dl/mod/golang.org/toolchain/@v/v___ to https://dl.google.com/go/v___.
+func (server) toolchainRedirect(w http.ResponseWriter, r *http.Request) {
+	if r.Method != "GET" && r.Method != "HEAD" && r.Method != "OPTIONS" {
+		http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	_, file, _ := strings.Cut(r.URL.Path, "/@v/")
+	if (!strings.HasPrefix(file, "v0.") && !strings.HasPrefix(file, "v1.")) || strings.Contains(file, "/") {
+		http.NotFound(w, r)
+		return
+	}
+
+	http.Redirect(w, r, "https://dl.google.com/go/"+file, http.StatusFound)
 }
 
 func (h server) initHandler(w http.ResponseWriter, r *http.Request) {

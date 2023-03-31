@@ -222,6 +222,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	// Note: Only golang.org/x/, no go.dev/x/.
 	mux.Handle("golang.org/x/", http.HandlerFunc(xHandler))
+	mux.Handle("golang.org/toolchain", http.HandlerFunc(toolchainHandler))
 
 	redirect.Register(mux)
 
@@ -573,8 +574,8 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<title>The Go Programming Language</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="go-import" content="golang.org/x/{{.Proj}} git https://go.googlesource.com/{{.Proj}}">
 <meta name="go-source" content="golang.org/x/{{.Proj}} https://github.com/golang/{{.Proj}}/ https://github.com/golang/{{.Proj}}/tree/master{/dir} https://github.com/golang/{{.Proj}}/blob/master{/dir}/{file}#L{line}">
@@ -585,6 +586,30 @@ var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
 </body>
 </html>
 `))
+
+func toolchainHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/toolchain" {
+		// Shouldn't happen if handler is registered correctly.
+		http.NotFound(w, r)
+		return
+	}
+	w.Write(toolchainPage)
+}
+
+var toolchainPage = []byte(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>The Go Programming Language</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="go-import" content="golang.org/toolchain mod https://go.dev/dl/mod">
+<meta http-equiv="refresh" content="0; url=https://go.dev/dl/">
+</head>
+<body>
+golang.org/toolchain is the module form of the Go toolchain releases.
+<a href="https://go.dev/dl/">Redirecting to Go toolchain download page...</a>
+</body>
+</html>
+`)
 
 var _ fs.ReadDirFS = unionFS{}
 
