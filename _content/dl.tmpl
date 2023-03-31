@@ -62,39 +62,6 @@ information about Go releases.
   </div>
 </div>
 {{end}}
-
-<script>
-$(document).ready(function() {
-  $('a.download').click(function(e) {
-    // Try using the link text as the file name,
-    // unless there's a child element of class 'filename'.
-    var filename = $(this).text();
-    var child = $(this).find('.filename');
-    if (child.length > 0) {
-      filename = child.text();
-    }
-
-    // This must be kept in sync with the filenameRE in godocs.js.
-    var filenameRE = /^go1\.\d+(\.\d+)?([a-z0-9]+)?\.([a-z0-9]+)(-[a-z0-9]+)?(-osx10\.[68])?\.([a-z.]+)$/;
-    var m = filenameRE.exec(filename);
-    if (!m) {
-      // Don't redirect to the download page if it won't recognize this file.
-      // (Should not happen.)
-      return;
-    }
-
-    var dest = "/doc/install";
-    if (filename.indexOf(".src.") != -1) {
-      dest += "/source";
-    }
-    dest += "?download=" + filename;
-
-    e.preventDefault();
-    e.stopPropagation();
-    window.location = dest;
-  });
-});
-</script>
 {{end}}
 
 </article>
