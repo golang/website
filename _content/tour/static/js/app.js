@@ -35,6 +35,10 @@ run(function($rootScope, $location, mapping) {
     $rootScope.$on( "$locationChangeStart", function(event, next) {
         var url = document.createElement('a');
         url.href = next;
+        if (url.pathname == '/') {
+            window.location.href = next;
+            return;
+        }
         if (url.pathname != '/tour/' || url.hash == '') {
             return;
         }
