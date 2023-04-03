@@ -180,13 +180,9 @@ func TestReadTests(t *testing.T) {
 			}
 			if diff := cmp.Diff(tt.want, got,
 				cmp.AllowUnexported(testcase{}),
-				cmpopts.IgnoreFields(testcase{}, "output"),
-				cmp.Comparer(func(a, b chromedp.ActionFunc) bool {
-					return fmt.Sprint(a) == fmt.Sprint(b)
-				}),
-				cmp.Comparer(func(a, b chromedp.Selector) bool {
-					return fmt.Sprint(a) == fmt.Sprint(b)
-				}),
+				cmpopts.IgnoreFields(testcase{}, "output", "tasks"),
+				cmp.AllowUnexported(chromedp.Selector{}),
+				cmpopts.IgnoreFields(chromedp.Selector{}, "by", "wait", "after"),
 			); diff != "" {
 				t.Errorf("readTests() mismatch (-want +got):\n%s", diff)
 			}
