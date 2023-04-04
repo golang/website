@@ -117,6 +117,11 @@ array will have these two fields:
 - **goos**: a string array with the execution operating system where the symbols appear, if known
 - **goarch**: a string array with the architecture where the symbols appear, if known
 
+### database_specific.url
+
+The `database_specific.url` field is a string representing the fully-qualified
+URL of the Go vulnerability report, e.g, "https://pkg.go.dev/vuln/GO-2023-1621".
+
 For information on other fields in the schema, refer to the [OSV spec](https://ossf.github.io/osv-schema).
 
 ## Examples
