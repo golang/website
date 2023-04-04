@@ -15,6 +15,28 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2023, 4, 4}, Version: Version{1, 20, 3},
+		Security: &FixSummary{Packages: []string{"go/parser", "html/template", "mime/multipart", "net/http", "net/textproto"}},
+		Bug: &FixSummary{
+			// "the go command" omitted because its fix is test-only.
+			Components: []template.HTML{"the compiler", "the linker", "the runtime"},
+			// "math/big" omitted because its fix is documentation-only.
+			// "internal/testpty" omitted because its fix is test-only.
+			Packages: []string{"time"},
+		},
+	},
+	{
+		Date: Date{2023, 4, 4}, Version: Version{1, 19, 8},
+		Security: &FixSummary{Packages: []string{"go/parser", "html/template", "mime/multipart", "net/http", "net/textproto"}},
+		Bug: &FixSummary{
+			// "the go command" omitted because its fix is test-only.
+			Components: []template.HTML{"the linker", "the runtime"},
+			// "internal/testpty" omitted because its fix is test-only.
+			// "runtime/pprof" omitted because its fix is test-only.
+			Packages: []string{"time"},
+		},
+	},
+	{
 		Date: Date{2023, 3, 7}, Version: Version{1, 20, 2},
 		Security: &FixSummary{Quantifier: "a", Packages: []string{"crypto/elliptic"}},
 		Bug: &FixSummary{
