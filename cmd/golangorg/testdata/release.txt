@@ -323,7 +323,7 @@ trimbody contains
 	security
 	fix to the <code>archive/zip</code> package, as well as
 	bug
-	fixes to the <code>archive/zip, go/internal/gccgoimporter</code>, <code>html/template</code>, <code>net/http</code>, and <code>runtime/pprof</code> packages.
+	fixes to the <code>archive/zip</code>, <code>go/internal/gccgoimporter</code>, <code>html/template</code>, <code>net/http</code>, and <code>runtime/pprof</code> packages.
 	See the
 	<a href="https://github.com/golang/go/issues?q=milestone%3AGo1.16.8+label%3ACherryPickApproved">Go 1.16.8 milestone</a>
 	on our issue tracker for details.

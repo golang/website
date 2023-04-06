@@ -404,7 +404,7 @@ var Releases = []*Release{
 		Date: Date{2021, 9, 9}, Version: Version{1, 16, 8},
 		Security: &FixSummary{Quantifier: "a", Packages: []string{"archive/zip"}},
 		Bug: &FixSummary{
-			Packages: []string{"archive/zip, go/internal/gccgoimporter", "html/template", "net/http", "runtime/pprof"},
+			Packages: []string{"archive/zip", "go/internal/gccgoimporter", "html/template", "net/http", "runtime/pprof"},
 		},
 	},
 	{
