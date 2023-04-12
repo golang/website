@@ -8,9 +8,9 @@ main:
       - name: Use Cases
         explanation: Stories about how and why companies use Go
         url: /solutions/use-cases
-      - name: Security Policy
+      - name: Security
         explanation: How Go can help keep you secure by default
-        url: /security/policy/
+        url: /security/
   - name: Learn
     url: /learn/
   - name: Docs
