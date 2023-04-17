@@ -9,33 +9,28 @@ import (
 	"strings"
 )
 
-var repoMap = map[string]*repoImport{
+var repoMap = map[string]Repo{
 	"api": {
 		VCS: "git",
 		URL: "https://github.com/googleapis/google-api-go-client",
-		Src: github("googleapis/google-api-go-client"),
 	},
 	"appengine": {
 		VCS: "git",
 		URL: "https://github.com/golang/appengine",
-		Src: github("golang/appengine"),
 	},
 	"cloud": {
 		// This repo is now at "cloud.google.com/go", but still specifying the repo
 		// here gives nicer errors in the go tool.
 		VCS: "git",
 		URL: "https://github.com/googleapis/google-cloud-go",
-		Src: github("googleapis/google-cloud-go"),
 	},
 	"genproto": {
 		VCS: "git",
 		URL: "https://github.com/googleapis/go-genproto",
-		Src: github("googleapis/go-genproto"),
 	},
 	"grpc": {
 		VCS: "git",
 		URL: "https://github.com/grpc/grpc-go",
-		Src: github("grpc/grpc-go"),
 	},
 	"protobuf": {
 		VCS: "git",
@@ -44,36 +39,32 @@ var repoMap = map[string]*repoImport{
 	},
 }
 
-// repoImport represents an import meta-tag, as per
-// https://golang.org/cmd/go/#hdr-Import_path_syntax
-type repoImport struct {
+// Repo represents a repository containing Go code.
+type Repo struct {
+	// VCS and URL set the go-import meta-tag,
+	// as per https://go.dev/ref/mod#vcs-find.
 	VCS string
 	URL string
+
+	// Src sets additional control over where to
+	// link to for viewing source code. Optional.
 	Src *src
 }
 
 // src represents a pkg.go.dev source redirect.
-// https://github.com/golang/gddo/search?utf8=%E2%9C%93&q=sourceMeta
+// See https://cs.opensource.google/go/x/pkgsite/+/master:internal/source/meta-tags.go;l=19;drc=19794c8aeb90c0a8f17c5ee1ed187bd005a1fd40?q=sourceMeta&ss=go%2Fx%2Fpkgsite.
 type src struct {
 	URL     string
 	DirTpl  string
 	FileTpl string
 }
 
-// github returns the *src representing a github repo.
+// github returns the *src representing a repo on github.com.
 func github(base string) *src {
 	return &src{
 		URL:     fmt.Sprintf("https://github.com/%s", base),
 		DirTpl:  fmt.Sprintf("https://github.com/%s/tree/master{/dir}", base),
 		FileTpl: fmt.Sprintf("https://github.com/%s/tree/master{/dir}/{file}#L{line}", base),
-	}
-}
-
-func googsource(repo, base string) *src {
-	return &src{
-		URL:     fmt.Sprintf("https://%s.googlesource.com/%s", repo, base),
-		DirTpl:  fmt.Sprintf("https://%s.googlesource.com/%s/+/master{/dir}", repo, base),
-		FileTpl: fmt.Sprintf("https://%s.googlesource.com/%s/+/master{/dir}/{file}#{line}", repo, base),
 	}
 }
 
@@ -107,16 +98,16 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		http.NotFound(w, r)
 		return
 	}
-	godoc := "https://pkg.go.dev/google.golang.org/" + head + tail
+	docURL := "https://pkg.go.dev/google.golang.org/" + head + tail
 	// For users visiting in a browser, redirect straight to pkg.go.dev.
 	if isBrowser := r.FormValue("go-get") == ""; isBrowser {
-		http.Redirect(w, r, godoc, http.StatusFound)
+		http.Redirect(w, r, docURL, http.StatusFound)
 		return
 	}
 	data := struct {
-		Head, GoDoc string
-		Repo        *repoImport
-	}{head, godoc, repo}
+		Head, DocURL string
+		Repo         Repo
+	}{head, docURL, repo}
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	if err := tmpl.Execute(w, data); err != nil {
 		fmt.Fprintf(os.Stderr, "tmpl.Execute: %v\n", err)
@@ -130,10 +121,10 @@ var tmpl = template.Must(template.New("redir").Parse(`<!DOCTYPE html>
 {{if .Repo.Src}}
 <meta name="go-source" content="google.golang.org/{{.Head}} {{.Repo.Src.URL}} {{.Repo.Src.DirTpl}} {{.Repo.Src.FileTpl}}">
 {{end}}
-<meta http-equiv="refresh" content="0; url={{.GoDoc}}">
+<meta http-equiv="refresh" content="0; url={{.DocURL}}">
 </head>
 <body>
-Nothing to see here. Please <a href="{{.GoDoc}}">move along</a>.
+<a href="{{.DocURL}}">Redirecting to documentation...</a>
 </body>
 </html>
 `))
