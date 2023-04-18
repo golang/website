@@ -34,37 +34,107 @@ for vulnerabilities about the Go project.
 
 ## API
 
-The vulnerability database is an HTTP server that can respond to GET requests
-for paths specified below.
-The requests have no query parameters, and no specific headers are required,
-so even a site serving from a fixed file system (including a file:// URL)
-can be a vulnerability database.
+The canonical Go vulnerability database, [https://vuln.go.dev](https://vuln.go.dev),
+is an HTTP server that can respond to GET requests for the endpoints specified below.
 
-By default, govulncheck uses the Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
+The endpoints have no query parameters, and no specific headers are required.
+Because of this, even a site serving from a fixed file system (including a `file://` URL)
+can implement this API.
+
+Each endpoint returns a JSON-encoded response, in either uncompressed
+(if requested as `.json`) or gzipped form (if requested as `.json.gz`).
+
+The endpoints are:
+
+- `/index/db.json[.gz]`
+
+  Returns metadata about the database:
+
+  ```json
+  {
+    // The latest time the database should be considered
+    // to have been modified, as an RFC3339-formatted UTC
+    // timestamp ending in "Z".
+    "modified": string
+  }
+  ```
+
+  Note that the modified time *should not* be compared to wall clock time,
+  e.g. for purposes of cache invalidation, as there may a delay in making
+  database modifications live.
+
+  See [/index/db.json](https://vuln.go.dev/index/db.json) for a live example.
+
+- `/index/modules.json[.gz]`
+
+  Returns a list containing metadata about each module in the database:
+
+  ```json
+  [ {
+    // The module path.
+    "path": string,
+    // The vulnerabilities that affect this module.
+    "vulns":
+      [ {
+        // The vulnerability ID.
+        "id": string,
+        // The latest time the vulnerability should be considered
+        // to have been modified, as an RFC3339-formatted UTC
+        // timestamp ending in "Z".
+        "modified": string,
+        // (Optional) The module version (in SemVer 2.0.0 format)
+        // that contains the latest fix for the vulnerability.
+        // If unknown or unavailable, this should be omitted.
+        "fixed": string,
+      } ]
+  } ]
+  ```
+
+  See [/index/modules.json](https://vuln.go.dev/index/modules.json) for a live example.
+
+- `/index/vulns.json[.gz]`
+
+  Returns a list containing metadata about each vulnerability in the database:
+
+  ```json
+   [ {
+       // The vulnerability ID.
+       "id": string,
+       // The latest time the vulnerability should be considered
+       // to have been modified, as an RFC3339-formatted UTC
+       // timestamp ending in "Z".
+       "modified": string,
+       // A list of IDs of the same vulnerability in other databases.
+       "aliases": [ string ]
+   } ]
+  ```
+
+  See [/index/vulns.json](https://vuln.go.dev/index/vulns.json) for a live example.
+
+- `/ID/$id.json[.gz]`
+
+  Returns the individual report for the vulnerability with ID `$id`,
+  in OSV format (described below in [Schema](#schema)).
+
+  See [/ID/GO-2022-0191.json](https://vuln.go.dev/ID/GO-2022-0191.json)
+  for a live example.
+
+### Usage in `govulncheck`
+
+By default, `govulncheck` uses the canonical Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
+
 The command can be configured to contact a different vulnerability database using the
 GOVULNDB environment variable,
 which accepts a vulnerability database URL with protocol `http://`, `https://`, or
 `file://`.
 
-The vulnerability database supports the endpoints listed below. For each path:
+To work correctly with `govulncheck`, the vulnerability database specified must implement the API described above. The `govulncheck` command uses compressed ".json.gz" endpoints when reading from an http(s) source, and the ".json" endpoints when reading from a file source.
 
-- `$base` is the path portion of a Go vulnerability database URL, by default, "https://vuln.go.dev".
-- `$module` is a module path
-- `$vuln` is a Go vulnerability ID (for example, GO-2021-1234)
+### Legacy API
 
-To avoid various character set issues, the `$module` element is escaped
-using [module.EscapePath](https://pkg.go.dev/golang.org/x/mod/module#EscapePath).
-
-The endpoints are:
-
-- `$base/index.json`
-   A map from module paths to their last modified timestamp ([link](https://vuln.go.dev/index.json)).
-
-- `$base/$module.json`
-   A list of all vulnerability reports for the escaped module path `$module` ([example](https://vuln.go.dev/golang.org/x/crypto.json), [escaped example](https://vuln.go.dev/github.com/!robots!and!pencils/go-saml.json)).
-
-- `$base/ID/$vuln.json`
-   An individual Go vulnerability report ([example](https://vuln.go.dev/ID/GO-2022-0191.json)).
+The canonical database contains some additional endpoints that are part of a legacy API.
+We plan to remove support for these endpoints soon. If you are relying on the legacy API
+and need additional time to migrate, [please let us know](https://go.dev/s/govulncheck-feedback).
 
 ## Schema
 
