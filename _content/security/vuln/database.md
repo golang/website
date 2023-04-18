@@ -123,10 +123,7 @@ The endpoints are:
 
 By default, `govulncheck` uses the canonical Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
 
-The command can be configured to contact a different vulnerability database using the
-GOVULNDB environment variable,
-which accepts a vulnerability database URL with protocol `http://`, `https://`, or
-`file://`.
+The command can be configured to contact a different vulnerability database using the `-db` flag,which accepts a vulnerability database URL with protocol `http://`, `https://`, or `file://`.
 
 To work correctly with `govulncheck`, the vulnerability database specified must implement the API described above. The `govulncheck` command uses compressed ".json.gz" endpoints when reading from an http(s) source, and the ".json" endpoints when reading from a file source.
 
