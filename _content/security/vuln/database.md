@@ -41,11 +41,10 @@ so even a site serving from a fixed file system (including a file:// URL)
 can be a vulnerability database.
 
 By default, govulncheck uses the Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
-The command can be configured to contact vulnerability databases using the
+The command can be configured to contact a different vulnerability database using the
 GOVULNDB environment variable,
-which accepts a list of a comma-separated list of vulnerability database URLs,
-with http://, https://, or
-file:// protocols. Entries from multiple databases are merged.
+which accepts a vulnerability database URL with protocol `http://`, `https://`, or
+`file://`.
 
 The vulnerability database supports the endpoints listed below. For each path:
 
