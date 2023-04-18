@@ -75,8 +75,7 @@ Go’s vulnerability detection aims to provide a low-noise, reliable way for Go
 users to learn about known vulnerabilities that may affect their projects.
 Vulnerability checking is integrated into Go's tools and services, including
 a new command line tool, [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck),
-the [Go package discovery site](https://pkg.go.dev), and soon,
-[VS Code Go](https://github.com/golang/vscode-go/blob/master/docs/commands.md#go-run-vulncheck-experimental).
+the [Go package discovery site](https://pkg.go.dev), [major editors](/security/vuln/editor) like VS Code with the Go extension.
 
 To start using govulncheck, run the following from your project:
 
@@ -84,6 +83,8 @@ To start using govulncheck, run the following from your project:
 $ go install golang.org/x/vuln/cmd/govulncheck@latest
 $ govulncheck ./...
 ```
+
+To enable vulnerability detection in your editor, see the instruction in the [editor integration](/security/vuln/editor) page.
 
 ### Go CNA
 
