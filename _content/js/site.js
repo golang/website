@@ -235,6 +235,14 @@ window.initFuncs = [];
     }
   }
 
+  function registerPortToggles() {
+    for (const el of document.querySelectorAll('.js-togglePorts')) {
+      el.addEventListener('click', () => {
+        el.setAttribute('aria-expanded', el.getAttribute('aria-expanded') === 'true' ? 'false' : 'true')
+      })
+    }
+  }
+
   /**
    * Retrieves list of Go versions & returns the latest
    */
@@ -319,5 +327,6 @@ window.initFuncs = [];
     setDownloadLinks();
     setThemeButtons();
     setVersionSpans();
+    registerPortToggles();
   });
 })();

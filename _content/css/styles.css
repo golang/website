@@ -5071,7 +5071,27 @@ table.downloadtable tr {
   background-color: var(--color-background);
   border: 2px solid var(--color-background-accented);
 }
-
+table.downloadtable tr.first[aria-expanded] {
+  cursor: pointer;
+}
+table.downloadtable tr.first[aria-expanded] th::after {
+  content: "⌵";
+  display: inline-block;
+  padding: 0 0.5rem;
+  transform: rotate(180deg);
+  vertical-align: sub;
+}
+table.downloadtable tr.first[aria-expanded="true"] th::after {
+  bottom: 0.3125rem;
+  position: relative;
+  transform: rotate(0);
+}
+table.downloadtable tr.first[aria-expanded="false"] ~ tr.secondary {
+  display: none;
+}
+table.downloadtable tr.first[aria-expanded="true"] ~ tr.secondary {
+  display: table-row;
+}
 table.downloadtable tr.first th {
   text-align: left;
   font-style: normal;

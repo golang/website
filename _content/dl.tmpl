@@ -73,16 +73,16 @@ information about Go releases.
 <div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
 	<div class="collapsed">
 		<h3 class="toggleButton" title="Click to show downloads for this version">
+    <span>{{.Version}}</span>
     <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
     <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
-    <span>{{.Version}}</span>
     </h3>
 	</div>
 	<div class="expanded">
 		<h3 class="toggleButton" title="Click to hide downloads for this version">
+    <span>{{.Version}}</span>
     <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
     <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
-    <span>{{.Version}}</span>
     </h3>
 		{{if .Stable}}{{else}}
 			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
@@ -115,7 +115,7 @@ go install golang.org/dl/{{.Version}}@latest
   {{range .Files}}{{if .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
 
   {{/* TODO(cbro): add a link to an explanatory doc page */}}
-  <tr class="first"><th colspan="6" class="first">Other Ports</th></tr>
+  <tr class="first js-togglePorts" aria-expanded="false"><th colspan="6" class="first">Other Ports</th></tr>
   {{range .Files}}{{if not .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
 {{else}}
   {{range .Files}}{{template "download-file" .}}{{end}}
@@ -124,7 +124,7 @@ go install golang.org/dl/{{.Version}}@latest
 {{end}}
 
 {{define "download-file"}}
-<tr{{if .Highlight}} class="highlight"{{end}}>
+<tr class="{{if .Highlight}}highlight{{end}} {{if not .PrimaryPort}}secondary{{end}}">
   <td class="filename"><a class="download" href="{{.URL}}">{{.Filename}}</a></td>
   <td>{{.PrettyKind}}</td>
   <td>{{.PrettyOS}}</td>
