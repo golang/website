@@ -14,12 +14,12 @@ require (
 	github.com/n7olkachev/imgdiff v1.0.2
 	github.com/yuin/goldmark v1.4.13
 	golang.org/x/build v0.0.0-20230125185836-7be615f6a3cb
-	golang.org/x/net v0.3.0
+	golang.org/x/net v0.9.0
 	golang.org/x/sync v0.1.0
-	golang.org/x/tools v0.4.0
+	golang.org/x/tools v0.6.0
 	google.golang.org/api v0.102.0
 	google.golang.org/genproto v0.0.0-20221109142239-94d6d90a7d66
-	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b
+	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -41,10 +41,10 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	go.opencensus.io v0.23.0 // indirect
-	golang.org/x/mod v0.7.0 // indirect
+	golang.org/x/mod v0.8.0 // indirect
 	golang.org/x/oauth2 v0.3.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/sys v0.7.0 // indirect
+	golang.org/x/text v0.9.0 // indirect
 	golang.org/x/xerrors v0.0.0-20220907171357-04be3eba64a2 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	google.golang.org/grpc v1.50.1 // indirect
