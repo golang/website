@@ -415,7 +415,7 @@ We were extremely close to the release and had to make a decision quickly.
 In the absence of a convincing solution, it seemed safest to make the
 implementation consistent with the spec.
 A year later, and with plenty of time to consider different approaches,
-it seems that the implementation we had was the implementation we want in the first place.
+it seems that the implementation we had was the implementation we wanted in the first place.
 We have come full circle.
 
 As always, please let us know if anything doesn't work as expected
