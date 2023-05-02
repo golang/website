@@ -45,10 +45,13 @@ issues will be issued CVE numbers.
 Issues in the PUBLIC track affect niche configurations, have very limited
 impact, or are already widely known.
 
-PUBLIC track issues are **fixed in public**, and get backported to the next
-scheduled [minor releases](/wiki/MinorReleases) (which occur ~monthly). The
-release announcement includes details of these issues, but there is no
-pre-announcement.
+PUBLIC track issues are labeled with
+[`Proposal-Security`](https://github.com/golang/go/labels/Proposal-Security),
+discussed through the
+[Go proposal review process](https://go.googlesource.com/proposal/+/master/README.md#proposal-review)
+**fixed in public**, and get backported to the next scheduled [minor
+releases](/wiki/MinorReleases) (which occur ~monthly). The release announcement
+includes details of these issues, but there is no pre-announcement.
 
 Examples of past PUBLIC issues include:
 
