@@ -16,8 +16,7 @@ import "html/template"
 var Releases = []*Release{
 	{
 		Date: Date{2023, 5, 2}, Version: Version{1, 20, 4},
-		Future:   true,
-		Security: &FixSummary{Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{Quantifier: "three", Packages: []string{"html/template"}},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the compiler", "the runtime"},
 			Packages:   []string{"crypto/subtle", "crypto/tls", "net/http", "syscall"},
@@ -25,8 +24,7 @@ var Releases = []*Release{
 	},
 	{
 		Date: Date{2023, 5, 2}, Version: Version{1, 19, 9},
-		Future:   true,
-		Security: &FixSummary{Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{Quantifier: "three", Packages: []string{"html/template"}},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the compiler", "the runtime"},
 			Packages:   []string{"crypto/tls", "syscall"},
