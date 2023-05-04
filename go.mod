@@ -13,7 +13,7 @@ require (
 	github.com/google/go-cmp v0.5.9
 	github.com/n7olkachev/imgdiff v1.0.2
 	github.com/yuin/goldmark v1.4.13
-	golang.org/x/build v0.0.0-20230125185836-7be615f6a3cb
+	golang.org/x/build v0.0.0-20230504205928-29d30d7cb172
 	golang.org/x/net v0.9.0
 	golang.org/x/sync v0.1.0
 	golang.org/x/tools v0.6.0
@@ -32,7 +32,7 @@ require (
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
 	github.com/gobwas/ws v1.1.0 // indirect
-	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
+	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/enterprise-certificate-proxy v0.2.0 // indirect
