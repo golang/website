@@ -320,6 +320,24 @@ window.initFuncs = [];
     document.cookie = `prefers-color-scheme=${nextTheme};${domain}path=/;max-age=31536000;`;
   }
 
+  function registerCookieNotice() {
+    const themeCookie = document.cookie.match(/cookie-consent=true/);
+    if (!themeCookie) {
+      const notice = document.querySelector('.js-cookieNotice');
+      const button = notice.querySelector('button');
+      notice.classList.add('Cookie-notice--visible');
+      button.addEventListener('click', () => {
+        let domain = '';
+        if (location.hostname === 'go.dev') {
+          // Apply the cookie to *.go.dev.
+          domain = 'domain=.go.dev;';
+        }
+        document.cookie = `cookie-consent=true;${domain}path=/;max-age=31536000`;
+        notice.remove();
+      })
+    }
+  }
+
   initialThemeSetup();
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -328,5 +346,6 @@ window.initFuncs = [];
     setThemeButtons();
     setVersionSpans();
     registerPortToggles();
+    registerCookieNotice();
   });
 })();
