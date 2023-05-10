@@ -1425,7 +1425,6 @@ includes:
 * `go build`
 * `go fix`
 * `go generate`
-* `go get`
 * `go install`
 * `go list`
 * `go run`
