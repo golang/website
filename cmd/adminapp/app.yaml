@@ -1,11 +1,11 @@
-service: admin
+service: default
 runtime: go119
-main: ./cmd/admingolangorg
+main: ./cmd/adminapp
 
 env_variables:
   GOLANGORG_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"
   DATASTORE_PROJECT_ID: golang-org
-  IAP_AUDIENCE: /projects/397748307997/apps/golang-org
+  IAP_AUDIENCE: /projects/872405196845/apps/symbolic-datum-552
 
 handlers:
   - url: .*
@@ -13,4 +13,4 @@ handlers:
     secure: always
 
 vpc_access_connector:
-  name: 'projects/golang-org/locations/us-central1/connectors/golang-vpc-connector'
+  name: 'projects/symbolic-datum-552/locations/us-central1/connectors/app-engine-vpc'

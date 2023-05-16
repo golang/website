@@ -1,4 +1,4 @@
-# The admingolangorg program needs a fairly short list of things
+# The adminapp program needs a fairly short list of things
 # from the golang.org/x/website repository that probably doesn't
 # change often. Filter everything else out implicitly as long as
 # this approach needs less maintenance.
@@ -6,7 +6,7 @@
 !go.mod
 !go.sum
 !cmd/
-!cmd/admingolangorg/**
+!cmd/adminapp/**
 !internal/
 !internal/short/**
 !internal/memcache/**
