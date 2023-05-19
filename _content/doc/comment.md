@@ -49,7 +49,8 @@ For example:
 The square brackets in `[path/filepath]` create a [documentation link](#links).
 
 As can be seen in this example, Go doc comments use complete sentences.
-For a package comment, that means the first sentence begins with “Package <name>”.
+For a package comment, that means the [first sentence](/pkg/go/doc/#Package.Synopsis)
+begins with “Package <name>”.
 
 For multi-file packages, the package comment should only be in one source file.
 If multiple files have package comments, they are concatenated to form one

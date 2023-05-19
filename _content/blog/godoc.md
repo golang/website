@@ -74,8 +74,9 @@ the package comment is placed in its own file,
 [doc.go](/src/pkg/encoding/gob/doc.go),
 which contains only those comments and a package clause.
 
-When writing package comments of any size,
-keep in mind that their first sentence will appear in godoc's [package list](/pkg/).
+When writing a package comment of any size,
+keep in mind that its [first sentence](/pkg/go/doc/#Package.Synopsis)
+will appear in godoc's [package list](/pkg/).
 
 Comments that are not adjacent to a top-level declaration are omitted from godoc's output,
 with one notable exception.
