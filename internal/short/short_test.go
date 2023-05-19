@@ -20,9 +20,17 @@ func TestExtractKey(t *testing.T) {
 		{in: "/s/foo/bar/", wantKey: "foo", wantRemaining: "/bar/"},
 		{in: "/s/foo.bar/baz", wantKey: "foo.bar", wantRemaining: "/baz"},
 		{in: "/s/s/s/s", wantKey: "s", wantRemaining: "/s/s"},
+		// empty queries are dropped.
+		{in: "/s/foo?", wantKey: "foo", wantRemaining: ""},
+		{in: "/s/foo/?", wantKey: "foo", wantRemaining: "/"},
+		{in: "/s/foo/bar?", wantKey: "foo", wantRemaining: "/bar"},
+		{in: "/s/foo?a=b", wantKey: "foo", wantRemaining: "?a=b"},
+		{in: "/s/foo/bar?a=b", wantKey: "foo", wantRemaining: "/bar?a=b"},
+		{in: "/s/foo?my%2Fcool%2Bblog%26about%2Cstuff", wantKey: "foo", wantRemaining: "?my%2Fcool%2Bblog%26about%2Cstuff"},
 		{in: "/", wantErr: true},
 		{in: "/s/", wantErr: true},
 		{in: "/s", wantErr: true},
+		{in: "/t/s/", wantErr: true},
 		{in: "/t/foo", wantErr: true},
 		{in: "/s/foo*", wantErr: true},
 	}

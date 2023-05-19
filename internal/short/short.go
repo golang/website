@@ -65,7 +65,7 @@ func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc 
 func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	key, remainingPath, err := extractKey(r)
+	key, remaining, err := extractKey(r)
 	if err != nil { // invalid key or url
 		http.Error(w, "not found", http.StatusNotFound)
 		return
@@ -95,27 +95,31 @@ func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	target := link.Target
-	if remainingPath != "" {
-		target += remainingPath
+	if remaining != "" {
+		target += remaining
 	}
 	http.Redirect(w, r, target, http.StatusFound)
 }
 
-func extractKey(r *http.Request) (key, remainingPath string, err error) {
+// extractKey returns the key part from the short link request URL and
+// the remaining part of the request URL including "/" and non-empty URL query if any.
+func extractKey(r *http.Request) (key, remaining string, err error) {
 	path := r.URL.Path
 	if !strings.HasPrefix(path, prefix+"/") {
 		return "", "", errors.New("invalid path")
 	}
-
-	key, remainingPath = path[len(prefix)+1:], ""
+	key, remaining = path[len(prefix)+1:], ""
 	if slash := strings.Index(key, "/"); slash > 0 {
-		key, remainingPath = key[:slash], key[slash:]
+		key, remaining = key[:slash], key[slash:] // remaining includes slash.
 	}
 
 	if !validKey.MatchString(key) {
 		return "", "", errors.New("invalid key")
 	}
-	return key, remainingPath, nil
+	if r.URL.RawQuery != "" {
+		remaining += "?" + r.URL.RawQuery
+	}
+	return key, remaining, nil
 }
 
 // AdminHandler serves an administrative interface for managing shortener entries.
