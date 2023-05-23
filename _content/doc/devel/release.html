@@ -30,10 +30,10 @@ in supported releases as needed by issuing minor revisions
 
 	<p>
 	Go {{.Version}} is a major release of Go.
-	Read the <a href="/doc/go{{.Version}}">Go {{.Version}} Release Notes</a> for more information.
+	Read the <a href="/doc/go{{.Version.MajorPrefix}}">Go {{.Version.MajorPrefix}} Release Notes</a> for more information.
 	</p>
 
-	{{if .Minor}}<h3 id="go{{.Version}}.minor">Minor revisions</h3>{{end}}
+	{{if .Minor}}<h3 id="go{{.Version.MajorPrefix}}.minor">Minor revisions</h3>{{end}}
 
 	{{range .Minor}}
 		<p id="go{{.Version}}">

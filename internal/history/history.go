@@ -37,11 +37,11 @@ type FixSummary struct {
 // A Version is a Go release version.
 //
 // In contrast to Semantic Versioning 2.0.0,
-// trailing zero components are omitted,
-// a version like Go 1.14 is considered a major Go release,
-// a version like Go 1.14.1 is considered a minor Go release.
+// a version like Go 1.21.0 is considered a major Go release and
+// a version like Go 1.21.1 is considered a minor Go release.
+// Prior to 1.21.0, trailing zero components were omitted. (See proposal 57631 that changed this.)
 //
-// See proposal golang.org/issue/32450 for background, details,
+// See proposal go.dev/issue/32450 for background, details,
 // and a discussion of the costs involved in making a change.
 type Version struct {
 	X int // X is the 1st component of a Go X.Y.Z version. It must be 1 or higher.
@@ -50,11 +50,30 @@ type Version struct {
 }
 
 // String returns the Go release version string,
-// like "1.14", "1.14.1", "1.14.2", and so on.
+// like "1.21.0", "1.21.1", "1.21.2", and so on.
 func (v Version) String() string {
 	switch {
-	case v.Z != 0:
+	// Starting with 1.21.0, trailing 0 components are no longer
+	// left out out of the Go version string. See proposal 57631.
+	// So it only needs to be done for prior historical versions.
+	case v.X == 1 && v.Y < 21 && v.Z == 0:
+		return fmt.Sprintf("%d.%d", v.X, v.Y)
+	case v.X == 1 && v.Y == 0 && v.Z == 0:
+		return fmt.Sprintf("%d", v.X)
+
+	default:
 		return fmt.Sprintf("%d.%d.%d", v.X, v.Y, v.Z)
+	}
+}
+
+// MajorPrefix returns the major version prefix of a Go release version,
+// like "1", "1.20", "1.21", and so on.
+//
+// This prefix can be used when referring to the entire series of releases,
+// including the major Go release and all of its subsequent minor releases,
+// that this version belongs to.
+func (v Version) MajorPrefix() string {
+	switch {
 	case v.Y != 0:
 		return fmt.Sprintf("%d.%d", v.X, v.Y)
 	default:
@@ -72,14 +91,6 @@ func (v Version) Before(u Version) bool {
 	}
 	return v.Z < u.Z
 }
-
-// IsMajor reports whether version v is considered to be a major Go release.
-// For example, Go 1.14 and 1.13 are major Go releases.
-func (v Version) IsMajor() bool { return v.Z == 0 }
-
-// IsMinor reports whether version v is considered to be a minor Go release.
-// For example, Go 1.14.1 and 1.13.9 are minor Go releases.
-func (v Version) IsMinor() bool { return v.Z != 0 }
 
 // A Date represents the date (year, month, day) of a Go release.
 //
