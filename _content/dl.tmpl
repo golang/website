@@ -99,6 +99,7 @@ go install golang.org/dl/{{.Version}}@latest
 {{end}}
 
 {{define "download-files"}}
+<div style="overflow:auto;">
 <table class="downloadtable">
 <thead>
 <tr class="first">
@@ -121,6 +122,7 @@ go install golang.org/dl/{{.Version}}@latest
   {{range .Files}}{{template "download-file" .}}{{end}}
 {{end}}
 </table>
+</div>
 {{end}}
 
 {{define "download-file"}}
