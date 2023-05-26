@@ -24,6 +24,10 @@ import (
 	"golang.org/x/website/internal/memcache"
 )
 
+// useMemcache controls whether to use Redis.
+// We are hoping to remove Redis entirely.
+const useMemcache = false
+
 const (
 	prefix  = "/s"
 	kind    = "Link"
@@ -72,7 +76,10 @@ func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var link Link
-	if err := h.memcache.Get(ctx, cacheKey(key), &link); err != nil {
+	if useMemcache {
+		err = h.memcache.Get(ctx, cacheKey(key), &link)
+	}
+	if err != nil || !useMemcache {
 		k := datastore.NameKey(kind, key, nil)
 		err = h.datastore.Get(ctx, k, &link)
 		switch err {
@@ -84,12 +91,14 @@ func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "internal server error", http.StatusInternalServerError)
 			return
 		case nil:
-			item := &memcache.Item{
-				Key:    cacheKey(key),
-				Object: &link,
-			}
-			if err := h.memcache.Set(ctx, item); err != nil {
-				log.Printf("WARNING %q: %v", key, err)
+			if useMemcache {
+				item := &memcache.Item{
+					Key:    cacheKey(key),
+					Object: &link,
+				}
+				if err := h.memcache.Set(ctx, item); err != nil {
+					log.Printf("WARNING %q: %v", key, err)
+				}
 			}
 		}
 	}
@@ -156,9 +165,11 @@ func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 		default:
 			http.Error(w, "unknown action", http.StatusBadRequest)
 		}
-		err := h.memcache.Delete(ctx, cacheKey(key))
-		if err != nil && err != memcache.ErrCacheMiss {
-			log.Printf("WARNING %q: %v", key, err)
+		if useMemcache {
+			err := h.memcache.Delete(ctx, cacheKey(key))
+			if err != nil && err != memcache.ErrCacheMiss {
+				log.Printf("WARNING %q: %v", key, err)
+			}
 		}
 	}
 
