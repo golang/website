@@ -27,7 +27,7 @@ These features are available in `gopls` v0.11.0 or newer. Please share your feed
 The [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go) offers the integration with gopls. The following settings are required to enable the vulnerability scanning features:
 
 ```
-"go.vulncheck": "Imports" // enable the imports-based analysis by default.
+"go.diagnostic.vulncheck": "Imports", // enable the imports-based analysis by default.
 "gopls": {
   "codelenses": {
     "run_govulncheck": true  // "Run govulncheck" code lens on go.mod file.
@@ -58,7 +58,7 @@ When using [coc.nvim](https://www.vim.org/scripts/script.php?script_id=5779), th
 
 ## Notes and Caveats
 
-- The import-based analysis uses the list of packages in the workspace modules, which may be different from what you see from `go.mod` files if `go.work` or module `replace`/`exclude` is used.
-- The govulncheck analysis result can become stale as you modify code or the Go vulnerability database is updated. In order to invalidate the analysis results manually, use the [`"Reset go.mod diagnostics"`] codelens shown on the top of the `go.mod` file. Otherwise, the result will be automatically invalidated after an hour.
-- These features currently don't report vulnerabilities in the standard libraries or tool chains. We are still investigating UX on where to surface the findings and how to help users handle the issues.
 - The extension does not scan private packages nor send any information on private modules. All the analysis is done by pulling a list of known vulnerable modules from the Go vulnerability database and then computing the intersection locally.
+- The import-based analysis uses the list of packages in the workspace modules, which may be different from what you see from `go.mod` files if `go.work` or module `replace`/`exclude` is used.
+- The govulncheck analysis result can become stale as you modify code or the Go vulnerability database is updated. In order to invalidate the analysis results manually, use the `"Reset go.mod diagnostics"` codelens shown on the top of the `go.mod` file. Otherwise, the result will be automatically invalidated after an hour.
+- These features currently don't report vulnerabilities in the standard libraries or tool chains. We are still investigating UX on where to surface the findings and how to help users handle the issues.
