@@ -158,11 +158,14 @@ Go Modules Reference.
 
 ### Notes {#go-notes}
 
-The `go` directive was originally intended to support backward incompatible
-changes to the Go language (see [Go 2
-transition](/design/28221-go2-transitions)). There have been no incompatible
-language changes since modules were introduced, but the `go` directive still
-affects use of new language features:
+The `go` directive sets the minimum version of Go required to use this module.
+Before Go 1.21, the directive was advisory only; now it is a mandatory requirement:
+Go toolchains refuse to use modules declaring newer Go versions.
+
+The `go` directive is an input into selecting which Go toolchain to run.
+See “[/doc/toolchain](Go toolchains)” for details.
+
+The `go` directive affects use of new language features:
 
 * For packages within the module, the compiler rejects use of language features
   introduced after the version specified by the `go` directive. For example, if
@@ -174,8 +177,7 @@ affects use of new language features:
   numeric literal `1_000_000`. If that package is built with Go 1.12, the
   compiler notes that the code is written for Go 1.13.
 
-Additionally, the `go` command changes its behavior based on the version
-specified by the `go` directive. This has the following effects:
+The `go` directive also affects the behavior of the `go` command:
 
 * At `go 1.14` or higher, automatic [vendoring](/ref/mod#vendoring) may be
   enabled.  If the file `vendor/modules.txt` is present and consistent with
@@ -203,10 +205,49 @@ specified by the `go` directive. This has the following effects:
      subdirectories of `vendor` to identify the correct main module.)
    * `go mod vendor` records the `go` version from each dependency's `go.mod`
      file in `vendor/modules.txt`.
+* At `go 1.21` or higher:
+   * The `go` line declares a required minimum version of Go to use with this module.
+   * The `go` line must be greater than or equal to the `go` line of all dependencies.
+   * The `go` command no longer attempts to maintain compatibility with the previous older version of Go.
+   * The `go` command is more careful about keeping checksums of `go.mod` files in the `go.sum` file.
 <!-- If you update this list, also update /ref/mod#go-mod-file-go. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
+
+## toolchain {#toolchain}
+
+Declares a suggested Go toolchain to use with this module.
+Only takes effect when the module is the main module
+and the default toolchain is older than the suggested toolchain.
+
+For more see “[/doc/toolchain](Go toolchains)” and
+[`toolchain` directive](/ref/mod/#go-mod-file-toolchain) in the
+Go Modules Reference.
+
+### Syntax {#toolchain-syntax}
+
+<pre>toolchain <var>toolchain-name</var></pre>
+
+<dl>
+    <dt>toolchain-name</dt>
+    <dd>The suggested Go toolchain's name. Standard toolchain names take the form
+      <code>go<i>V</i></code> for a Go version <i>V</i>, as in
+      <code>go1.21.0</code> and <code>go1.18rc1</code>.
+      The special value <code>default</code> disables automatic toolchain switching.</dd>
+</dl>
+
+### Examples {#toolchain-examples}
+
+* Suggest using Go 1.21.0 or newer:
+    ```
+    toolchain go1.21.0
+    ```
+
+### Notes {#toolchain-notes}
+
+See “[/doc/toolchain](Go toolchains)” for details about how the `toolchain` line
+affects Go toolchain selection.
 
 ## require {#require}
 

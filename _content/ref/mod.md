@@ -534,15 +534,17 @@ major version. Individual minor and patch versions cannot be deprecated;
 ### `go` directive {#go-mod-file-go}
 
 A `go` directive indicates that a module was written assuming the semantics of a
-given version of Go. The version must be a valid Go release version: a positive
-integer followed by a dot and a non-negative integer (for example, `1.9`,
-`1.14`).
+given version of Go. The version must be a valid [Go release version](/doc/toolchain#version),
+such as `1.9`, `1.14`, or `1.21rc1`.
 
-The `go` directive was originally intended to support backward incompatible
-changes to the Go language (see [Go 2
-transition](https://go.googlesource.com/proposal/+/master/design/28221-go2-transitions.md)). There have been no incompatible
-language changes since modules were introduced, but the `go` directive still
-affects use of new language features:
+The `go` directive sets the minimum version of Go required to use this module.
+Before Go 1.21, the directive was advisory only; now it is a mandatory requirement:
+Go toolchains refuse to use modules declaring newer Go versions.
+
+The `go` directive is an input into selecting which Go toolchain to run.
+See “[/doc/toolchain](Go toolchains)” for details.
+
+The `go` directive affects use of new language features:
 
 * For packages within the module, the compiler rejects use of language features
   introduced after the version specified by the `go` directive. For example, if
@@ -554,8 +556,7 @@ affects use of new language features:
   numeric literal `1_000_000`. If that package is built with Go 1.12, the
   compiler notes that the code is written for Go 1.13.
 
-Additionally, the `go` command changes its behavior based on the version
-specified by the `go` directive. This has the following effects:
+The `go` directive also affects the behavior of the `go` command:
 
 * At `go 1.14` or higher, automatic [vendoring](#vendoring) may be enabled.
   If the file `vendor/modules.txt` is present and consistent with `go.mod`,
@@ -583,13 +584,17 @@ specified by the `go` directive. This has the following effects:
      subdirectories of `vendor` to identify the correct main module.)
    * `go mod vendor` records the `go` version from each dependency's `go.mod`
      file in `vendor/modules.txt`.
+* At `go 1.21` or higher:
+   * The `go` line declares a required minimum version of Go to use with this module.
+   * The `go` line must be greater than or equal to the `go` line of all dependencies.
+   * The `go` command no longer attempts to maintain compatibility with the previous older version of Go.
+   * The `go` command is more careful about keeping checksums of `go.mod` files in the `go.sum` file.
 <!-- If you update this list, also update /doc/modules/gomod-ref#go-notes. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
 
-As of the Go 1.17 release, if the `go` directive is missing, `go 1.16`
-is assumed.
+If the `go` directive is missing, `go 1.16` is assumed.
 
 ```
 GoDirective = "go" GoVersion newline .
@@ -600,6 +605,31 @@ Example:
 
 ```
 go 1.14
+```
+
+### `toolchain` directive {#go-mod-file-toolchain}
+
+A `toolchain` directive declares a suggested Go toolchain to use with a module.
+The suggested Go toolchain's version cannot be less than the required Go version
+declared in the `go` directive.
+The `toolchain` directive
+only has an effect when the module is the main module and the default toolchain's
+version is less than the suggested toolchain's version.
+
+For reproducibility, the `go` command writes its own toolchain name in a `toolchain` line any time
+it is updating the `go` version in the `go.mod` file (usually during `go get`).
+
+For details, see “[/doc/toolchain](Go toolchains)”.
+
+```
+ToolchainDirective = "toolchain" ToolchainName newline .
+ToolchainName = string | ident .  /* valid toolchain name; see “Go toolchains” */
+```
+
+Example:
+
+```
+toolchain go1.21.0
 ```
 
 ### `require` directive {#go-mod-file-require}
@@ -1160,6 +1190,7 @@ for details on EBNF syntax.
 ```
 GoWork = { Directive } .
 Directive = GoDirective |
+            ToolchainDirective |
             UseDirective |
             ReplaceDirective .
 ```
@@ -1176,7 +1207,7 @@ ModulePath = ident | string . /* see restrictions above */
 Version = ident | string .    /* see restrictions above */
 ```
 
-### `go` directive {#go-mod-file-go}
+### `go` directive {#go-work-file-go}
 
 A `go` directive is required in a valid `go.work` file. The version must
 be a valid Go release version: a positive
@@ -1199,6 +1230,25 @@ Example:
 
 ```
 go 1.18
+```
+
+### `toolchain` directive {#go-work-file-toolchain}
+
+A `toolchain` directive declares a suggested Go toolchain to use in a workspace.
+It only has an effect when the default toolchain
+is older than the suggested toolchain.
+
+For details, see “[/doc/toolchain](Go toolchains)”.
+
+```
+ToolchainDirective = "toolchain" ToolchainName newline .
+ToolchainName = string | ident .  /* valid toolchain name; see “Go toolchains” */
+```
+
+Example:
+
+```
+toolchain go1.21.0
 ```
 
 ### `use` directive {#go-work-file-use}
@@ -1540,6 +1590,15 @@ $ go get golang.org/x/text@master
 # Remove a dependency on a module and downgrade modules that require it
 # to versions that don't require it.
 $ go get golang.org/x/text@none
+
+# Upgrade the minimum required Go version for the main module.
+$ go get go
+
+# Upgrade the suggested Go toolchain, leaving the minimum Go version alone.
+$ go get toolchain
+
+# Upgrade to the latest patch release of the suggested Go toolchain.
+$ go get toolchain@patch
 ```
 
 The `go get` command updates module dependencies in the [`go.mod`
