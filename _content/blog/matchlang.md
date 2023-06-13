@@ -124,7 +124,7 @@ Languages are arranged in a hierarchy, with each specific language having a more
 general parent.
 For example, the parent of “en-GB-oxendict” is “en-GB”, whose parent is “en”,
 whose parent is the undefined language “und”, also known as the root language.
-In the case of collation, there is no specific collation order for Portugese,
+In the case of collation, there is no specific collation order for Portuguese,
 so the collate package will select the sorting order of the root language.
 The closest parent to Angolan Portuguese supported by the display package is
 European Portuguese (“pt-PT”) and not the more obvious “pt”, which implies

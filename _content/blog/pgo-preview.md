@@ -144,7 +144,7 @@ Once this completes, kill the load generator and the server.
 We can ask the Go toolchain to build with PGO using the `-pgo` flag to `go build`.
 `-pgo` takes either the path to the profile to use, or `auto`, which will use the `default.pgo` file in the main package directory.
 
-We recommending commiting `default.pgo` profiles to your repository.
+We recommend committing `default.pgo` profiles to your repository.
 Storing profiles alongside your source code ensures that users automatically have access to the profile simply by fetching the repository (either via the version control system, or via `go get`) and that builds remain reproducible.
 In Go 1.20, `-pgo=off` is the default, so users still need to add `-pgo=auto`, but a future version of Go is expected to change the default to `-pgo=auto`, automatically giving anyone that builds the binary the benefit of PGO.
 

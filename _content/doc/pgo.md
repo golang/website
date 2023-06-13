@@ -61,7 +61,7 @@ Setting this flag to anything other than `-pgo=off` enables PGO optimizations.
 
 The standard approach is to store a pprof CPU profile with filename `default.pgo` in the main package directory of the profiled binary, and build with `go build -pgo=auto`, which will pick up `default.pgo` files automatically.
 
-Commiting profiles directly in the source repository is recommended as profiles are an input to the build important for reproducible (and performant!) builds.
+Committing profiles directly in the source repository is recommended as profiles are an input to the build important for reproducible (and performant!) builds.
 Storing alongside the source simplifies the build experience as there are no additional steps to get the profile beyond fetching the source.
 
 _Note: In Go 1.20, the default is `-pgo=off`.

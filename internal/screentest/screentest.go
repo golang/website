@@ -146,7 +146,7 @@ import (
 )
 
 type CheckOptions struct {
-	// Update is true if cached screenshots should be udpated.
+	// Update is true if cached screenshots should be updated.
 	Update bool
 
 	// MaxConcurrency is the maximum number of testcases to run in parallel.
@@ -156,7 +156,7 @@ type CheckOptions struct {
 	Vars map[string]string
 
 	// DebuggerURL is the URL to a chrome websocket debugger. If left empty
-	// screentest tries to find the Chrome exectuable on the system and starts
+	// screentest tries to find the Chrome executable on the system and starts
 	// a new instance.
 	DebuggerURL string
 }
@@ -222,7 +222,7 @@ func CheckHandler(glob string, opts CheckOptions) error {
 }
 
 type TestOpts struct {
-	// Update is true if cached screenshots should be udpated.
+	// Update is true if cached screenshots should be updated.
 	Update bool
 
 	// Parallel runs t.Parallel for each testcase.
