@@ -346,7 +346,7 @@ which run in no workspace or main module and cannot write a `toolchain` line.
 They print a switching message every time they need to switch
 to a newer toolchain.
 
-## Downloading toolchains (#download)
+## Downloading toolchains {#download}
 
 When using `GOTOOLCHAIN=auto` or `GOTOOLCHAIN=<name>+auto`, the Go command
 downloads newer toolchains as needed.
@@ -422,7 +422,7 @@ When `go get` is run in a module in a directory contained in a workspace root,
 but it does update the `go.work` file to upgrade the `go` line
 when the workspace would otherwise be left with too old a `go` line.
 
-## Managing Go version workspace requirements with `go work` (#work)
+## Managing Go version workspace requirements with `go work` {#work}
 
 As noted in the previous section, `go get` run in a directory
 inside a workspace root will take care to update the `go.work` file's `go` line
