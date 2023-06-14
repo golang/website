@@ -163,7 +163,7 @@ Before Go 1.21, the directive was advisory only; now it is a mandatory requireme
 Go toolchains refuse to use modules declaring newer Go versions.
 
 The `go` directive is an input into selecting which Go toolchain to run.
-See “[/doc/toolchain](Go toolchains)” for details.
+See “[Go toolchains](/doc/toolchain)” for details.
 
 The `go` directive affects use of new language features:
 
@@ -221,7 +221,7 @@ Declares a suggested Go toolchain to use with this module.
 Only takes effect when the module is the main module
 and the default toolchain is older than the suggested toolchain.
 
-For more see “[/doc/toolchain](Go toolchains)” and
+For more see “[Go toolchains](/doc/toolchain)” and
 [`toolchain` directive](/ref/mod/#go-mod-file-toolchain) in the
 Go Modules Reference.
 
@@ -246,7 +246,7 @@ Go Modules Reference.
 
 ### Notes {#toolchain-notes}
 
-See “[/doc/toolchain](Go toolchains)” for details about how the `toolchain` line
+See “[Go toolchains](/doc/toolchain)” for details about how the `toolchain` line
 affects Go toolchain selection.
 
 ## require {#require}
