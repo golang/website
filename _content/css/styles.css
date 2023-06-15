@@ -5320,3 +5320,10 @@ a.downloadBox:hover .filename span {
 .Cookie-notice--visible {
   display: flex;
 }
+
+@media print {
+  .Cookie-notice,
+  .Cookie-notice--visible {
+    display: none;
+  }
+}
