@@ -79,7 +79,7 @@ The language version for a Go version is the result of truncating everything aft
 
 Released Go toolchains such as Go 1.21.0 and Go 1.21rc1 report that specific version
 (for example, `go1.21.0` or `go1.21rc1`)
-from `go version` and [`runtime.Version](/pkg/runtime/#Version).
+from `go version` and [`runtime.Version`](/pkg/runtime/#Version).
 Unreleased (still in development) Go toolchains built from the Go development repository
 instead report only the language version (for example, `go1.21`).
 
