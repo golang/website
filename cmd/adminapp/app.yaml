@@ -1,5 +1,5 @@
 service: default
-runtime: go119
+runtime: go120
 main: ./cmd/adminapp
 
 env_variables:
