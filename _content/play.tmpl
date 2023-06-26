@@ -15,9 +15,9 @@
     {{end -}}
     <button id="run" class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
     <div class="Playground-secondaryButtons">
-      <button id="fmt" class="Button js-playgroundFmtEl" title="Format this code">Format</button>
+      <button id="fmt" class="Button js-playgroundFmtEl Playground-button" title="Format this code">Format</button>
       {{- if $canShare}}
-      <button id="share" class="Button js-playgroundShareEl" title="Share this code">Share</button>
+      <button id="share" class="Button js-playgroundShareEl Playground-button" title="Share this code">Share</button>
       {{- end}}
     </div>
     <input type="text" class="Playground-shareURL js-playgroundShareURLEl" title="Sharing URL" style="display: none;"></input>

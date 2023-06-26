@@ -184,9 +184,9 @@ func main() {
       <button class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
       <div class="Playground-secondaryButtons">
         {{- if $canShare}}
-        <button class="Button js-playgroundShareEl" title="Share in Go Playground">Share</button>
+        <button class="Button js-playgroundShareEl Playground-button" title="Share in Go Playground">Share</button>
         {{- end}}
-        <a class="Button tour" href="/tour/" title="Tour Go from your browser">Tour</a>
+        <a class="Button tour Playground-button" href="/tour/" title="Tour Go from your browser">Tour</a>
       </div>
       </div>
     </div>
@@ -224,7 +224,7 @@ func main() {
               <ul class="WhyGo-reasonPackagesList">
                 {{- range .packages }}
                   <li class="WhyGo-reasonPackage">
-                    <a href="{{.url}}" target="_blank" rel="noopener">
+                    <a class="WhyGo-reasonLink" href="{{.url}}" target="_blank" rel="noopener">
                       {{.title}}
                     </a>
                   </li>
