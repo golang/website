@@ -269,7 +269,8 @@ a:visited {
   color: var(--color-text-link);
   text-decoration: none;
 }
-a:hover {
+a:hover,
+a:focus {
   text-decoration: underline;
 }
 .Site {
@@ -978,6 +979,9 @@ h1 + h2.subtitle {
 a.BreadcrumbNav-link {
   font-size: 0.875rem;
   text-decoration: none;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
 }
 .BreadcrumbNav-li:last-child {
   padding-right: 0.812rem;
@@ -1912,6 +1916,10 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   display: flex;
   font-size: 0.875rem;
   text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
 }
 .WhyGo-reasonPackages {
   color: var(--color-text);
@@ -2961,6 +2969,9 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   display: flex;
   margin-top: 1rem;
   text-decoration: none;
+  &:hover, &:focus {
+    text-decoration: underline;
+  }
 }
 .Solutions-headlineBody a i,
 .WhyGo-reasonLearnMoreLink a i,
@@ -3073,7 +3084,8 @@ a.WhoUsesCaseStudy-librariesViewMoreLink {
   border: var(--border);
   border-radius: 0.25rem;
 }
-.MarketingCard a:hover {
+.MarketingCard a:hover,
+.MarketingCard a:focus {
   text-decoration: none;
 }
 .MarketingCard-section {
