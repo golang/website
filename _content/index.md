@@ -186,9 +186,9 @@ func main() {
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
       <h2 class="WhyGo-headerH2">What’s possible with Go</h2>
-      <h4 class="WhyGo-headerH4">
+      <p class="WhyGo-subheader">
         Use Go for a variety of software development purposes
-      </h4>
+      </p>
     </div>
     <ul class="WhyGo-reasons">
       {{- range first 4 (data "/resources.yaml")}}

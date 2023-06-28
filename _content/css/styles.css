@@ -1241,7 +1241,7 @@ a.GettingStartedGo-resourceItemTitle {
   font-size: 0.8125rem;
 }
 .WhoUses-header h4,
-.WhyGo-headerH4,
+.WhyGo-subheader,
 .LearnGo-header h4,
 .WhoUses-subheader {
   color: var(--color-text);
@@ -1253,7 +1253,7 @@ a.GettingStartedGo-resourceItemTitle {
 }
 @media only screen and (min-width: 38rem) {
   .WhoUses-header h4,
-  .WhyGo-headerH4,
+  .WhyGo-subheader,
   .LearnGo-header h4,
   .WhoUses-subheader {
     font-size: 1rem;
