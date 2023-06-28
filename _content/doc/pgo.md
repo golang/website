@@ -3,11 +3,7 @@ title: Profile-guided optimization
 layout: article
 ---
 
-Beginning in Go 1.20, the Go compiler supports profile-guided optimization (PGO) to further optimize builds.
-
-_Note: As of Go 1.20, PGO is in public preview.
-We encourage folks to try it out, but there are still rough edges (noted below) which may preclude production use.
-Please report issues you experience to https://go.dev/issue/new. We expect PGO to be generally available in a future release._
+Starting in Go 1.20, the Go compiler supports profile-guided optimization (PGO) to further optimize builds.
 
 Table of Contents:
 
@@ -25,7 +21,7 @@ For example, the compiler may decide to more aggressively inline functions which
 
 In Go, the compiler uses CPU pprof profiles as the input profile, such as from [runtime/pprof](https://pkg.go.dev/runtime/pprof) or [net/http/pprof](https://pkg.go.dev/net/http/pprof).
 
-As of Go 1.20, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-4%.
+As of Go 1.21, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-7%.
 We expect performance gains to generally increase over time as additional optimizations take advantage of PGO in future versions of Go.
 
 
@@ -56,26 +52,23 @@ In particular, _microbenchmarks are usually bad candidates for PGO profiling_, a
 
 # Building with PGO {#building}
 
-The `go build -pgo` flag controls PGO profile selection.
-Setting this flag to anything other than `-pgo=off` enables PGO optimizations.
-
-The standard approach is to store a pprof CPU profile with filename `default.pgo` in the main package directory of the profiled binary, and build with `go build -pgo=auto`, which will pick up `default.pgo` files automatically.
+The standard approach to building is to store a pprof CPU profile with filename `default.pgo` in the main package directory of the profiled binary.
+By default, `go build` will detect `default.pgo` files automatically and enable PGO.
 
 Committing profiles directly in the source repository is recommended as profiles are an input to the build important for reproducible (and performant!) builds.
 Storing alongside the source simplifies the build experience as there are no additional steps to get the profile beyond fetching the source.
 
-_Note: In Go 1.20, the default is `-pgo=off`.
-A future version is likely to change the default to `-pgo=auto` to automatically build any binary with `default.pgo` with PGO._
+For more complex scenarios, the `go build -pgo` flag controls PGO profile selection.
+This flag defaults to `-pgo=auto` for the `default.pgo` behavior described above.
+Setting the flag to `-pgo=off` disables PGO optimizations entirely.
 
-_Note: In Go 1.20, `-pgo=auto` only works with a single main package.
-Attempting to build multiple main packages (`go build -pgo=auto ./cmd/foo ./cmd/bar`) will result in a build error.
-This is https://go.dev/issue/58099._
-
-For more complex scenarios (e.g., different profiles for different scenarios of one binary, unable to store profile with source, etc), you may directly pass a path to the profile to use (e.g., `go build -pgo=/tmp/foo.pprof`).
+If you cannot use `default.pgo` (e.g., different profiles for different scenarios of one binary, unable to store profile with source, etc), you may directly pass a path to the profile to use (e.g., `go build -pgo=/tmp/foo.pprof`).
 
 _Note: A path passed to `-pgo` applies to all main packages.
 e.g., `go build -pgo=/tmp/foo.pprof ./cmd/foo ./cmd/bar` applies `foo.pprof` to both binaries `foo` and `bar`, which is often not what you want.
 Usually different binaries should have different profiles, passed via separate `go build` invocations._
+
+_Note: Before Go 1.21, the default is `-pgo=off`. PGO must be explicitly enabled._
 
 # Notes {#notes}
 
@@ -232,13 +225,14 @@ There are three options:
 
 ## How does PGO affect build time?
 
-Enabling PGO builds should cause measurable, but small, increases in package build times.
-Likely more noticeable than individual package build times is that PGO profiles apply to all packages in a binary, meaning that the first use of a profile requires a rebuild of every package in the dependency graph.
+Enabling PGO builds will likely cause measurable increases in package build times.
+The most noticeable component of this is that PGO profiles apply to all packages in a binary, meaning that the first use of a profile requires a rebuild of every package in the dependency graph.
 These builds are cached like any other, so subsequent incremental builds using the same profile do not require complete rebuilds.
 
 If you experience extreme increases in build time, please file an issue at https://go.dev/issue/new.
 
-_Note: In Go 1.20, profile parsing adds significant overhead, particularly for large profiles, which can significantly increase build times.
+_Note: Parsing of the profile by the compiler can also add significant overhead, particularly for large profiles.
+Using large profiles with a large dependency graph can significantly increase build times.
 This is tracked by https://go.dev/issue/58102 and will be addressed in a future release._
 
 ## How does PGO affect binary size?
@@ -267,5 +261,4 @@ Profiles from alternative source may be used with Go PGO if converted to the [pp
   The Go compiler uses this field to compute line offsets of samples (`Location.Line.line - Function.start_line`).
   **Note that many existing pprof converters omit this field.**
 
-_Note: In Go 1.20, DWARF metadata omits function start lines (`DW_AT_decl_line`), which may make it difficult for tools to determine the start line.
-This is tracked by https://go.dev/issue/57308, and is expected to be fixed in Go 1.21._
+_Note: Before Go 1.21, DWARF metadata omits function start lines (`DW_AT_decl_line`), which may make it difficult for tools to determine the start line._
