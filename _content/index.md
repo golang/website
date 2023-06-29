@@ -40,11 +40,14 @@ summary: Go is an open source programming language that makes it simple to build
       <div
         data-version=""
         class="js-latestGoVersion">
-        <a class="Primary" href="/learn/">Get Started</a>
-        <a class="Secondary js-downloadBtn"
-          href="/dl"
-          >Download
-        </a>
+        <a class="Primary" href="/learn/" aria-label="Get Started" aria-describedby="getStarted-description" role="button">Get Started</a>
+        <a class="Secondary js-downloadBtn" href="/dl" aria-label="Download" aria-describedby="download-description" role="button">Download</a>
+        <div class="screen-reader-only" id="getStarted-description" hidden>
+          Opens a new window with the Get Started guide.
+        </div>
+        <div class="screen-reader-only" id="download-description" hidden>
+          Opens a new window to download Go.
+        </div>
       </div>
       <div class="Hero-footnote">
         <p>
