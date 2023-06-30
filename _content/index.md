@@ -82,7 +82,7 @@ summary: Go is an open source programming language that makes it simple to build
       {{- if .link }}
         {{- if .inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
-            <a href="{{.link}}" target="_blank" rel="noopener"
+            <a href="{{.link}}" aria-label="View CaseStudy of {{.company}}, (opens in new window)" target="_blank" rel="noopener"
               class="WhoUsesCaseStudyList-caseStudyLink">
               <img
                 loading="lazy"
@@ -96,7 +96,7 @@ summary: Go is an open source programming language that makes it simple to build
         {{- end}}
       {{- else}}
         <li class="WhoUsesCaseStudyList-caseStudy">
-          <a href="{{.URL}}" class="WhoUsesCaseStudyList-caseStudyLink">
+          <a href="{{.URL}}" aria-label="View CaseStudy of {{.company}}, (opens in new window)" class="WhoUsesCaseStudyList-caseStudyLink">
             <img
               loading="lazy"
               height="48"

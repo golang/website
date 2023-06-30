@@ -86,7 +86,7 @@
                     {{- if .socialIconsList}}
                       <div class="Header-socialIcons">
                         {{ range .socialIconsList }}
-                        <a class="Header-socialIcon" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
+                        <a class="Header-socialIcon" aria-label="Get connected with {{.name}} (Opens in new window)" href="{{.url}}"><img src="/images/logos/social/{{.img}}" /></a>
                         {{- end}}
                       </div>
                     {{- end}}

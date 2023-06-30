@@ -55,14 +55,16 @@ main:
           [
             {
               img: google-groups.svg,
+              name: google-groups,
               url: 'https://groups.google.com/g/golang-nuts',
             },
-            {img: github.svg, darkImg: github-light.svg, url: 'https://github.com/golang',},
-            {img: twitter.svg, url: 'https://twitter.com/golang'},
-            {img: reddit.svg, url: 'https://www.reddit.com/r/golang/'},
-            {img: slack.svg, url: 'https://invite.slack.golangbridge.org/'},
+            {img: github.svg, darkImg: github-light.svg, name: github, url: 'https://github.com/golang',},
+            {img: twitter.svg, name: twitter, url: 'https://twitter.com/golang'},
+            {img: reddit.svg, name: reddit ,url: 'https://www.reddit.com/r/golang/'},
+            {img: slack.svg, name: slack, url: 'https://invite.slack.golangbridge.org/'},
             {
               img: stack-overflow.svg,
+              name: stack-overflow,
               url: 'https://stackoverflow.com/tags/go',
             },
           ]
