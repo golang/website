@@ -22,13 +22,15 @@ vulnerabilities affect their code and prioritize next steps based on which vulne
 functions and methods are actually called.
 
 - [View the govulncheck documentation](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
+- [Tutorial: Get started with govulncheck](https://go.dev/doc/tutorial/govulncheck)
 
 ### Detect vulnerabilities from your editor
 
 The VS Code Go extension checks third-party dependencies and surfaces relevant vulnerabilities.
 
 - [User documentation](https://go.dev/security/vuln/editor)
-- [Get started with VS Code Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+- [Download VS Code Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
+- [Tutorial: Get started with VS Code Go](https://go.dev/doc/tutorial/govulncheck-ide)
 
 ### Find Go modules to build upon
 
@@ -47,7 +49,7 @@ maintainers as well as from outside sources such as [MITRE](https://www.cve.org/
 are curated by the Go Security team.
 
 - [Browse reports in the Go vulnerability database](https://pkg.go.dev/vuln/)
-- [View the API documentation](https://go.dev/security/vuln/database#api)
+- [View the Go Vulnerability Database documentation](https://go.dev/security/vuln/database)
 - [Contribute a public vulnerability to the database](https://go.dev/s/vulndb-report-new)
 
 
@@ -71,7 +73,7 @@ standard toolchain beginning in Go 1.18.  Native Go fuzz tests are
 [supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
 
 - [Review the basics of fuzzing](https://go.dev/security/fuzz)
-- [Get started with fuzzing tutorial](https://go.dev/doc/tutorial/fuzz)
+- [Tutorial: Get started with fuzzing](https://go.dev/doc/tutorial/fuzz)
 
 ## Secure services with Go's cryptography libraries
 
