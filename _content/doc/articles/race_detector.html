@@ -422,6 +422,18 @@ close(c)
   <code>darwin/arm64</code>, and <code>windows/amd64</code>.
 </p>
 
+<p>
+  On Windows, the race detector runtime is sensitive to the
+  version of the C compiler installed; as of Go 1.21, building
+  a program with <code>-race</code> requires a C compiler that
+  incorporates version 8 or later of the <code>mingw-w64</code>
+  runtime libraries. You can test your C compiler by invoking it
+  with the arguments
+  <code>--print-file-name libsynchronization.a</code>. A newer
+  compliant C compiler will print a full path for this library,
+  whereas older C compilers will just echo the argument.
+</p>
+
 <h2 id="Runtime_Overheads">Runtime Overhead</h2>
 
 <p>
