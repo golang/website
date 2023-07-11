@@ -60,6 +60,9 @@
           src="/images/go-logo-white.svg"
           alt="Go">
       </a>
+      <div class="skip-navigation-wrapper">
+        <a class="skip-to-content-link" aria-label="Skip to main content" href="#main-content"> Skip to Main Content </a>
+      </div>
       <div class="Header-rightContent">
         <ul class="Header-menu">
           {{- $currentPage := .}}
@@ -173,7 +176,7 @@
   </nav>
 </aside>
 <div class="NavigationDrawer-scrim js-scrim" role="presentation"></div>
-<main class="SiteContent SiteContent--default">
+<main class="SiteContent SiteContent--default" id="main-content">
   {{block "layout" .}}{{.Content}}{{end}}
 </main>
 <footer class="Site-footer">

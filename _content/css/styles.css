@@ -563,6 +563,21 @@ a.Footer-link--primary {
 .Header-navOpen--white {
   background: no-repeat center/2rem url('/images/menu-24px-white.svg');
 }
+.skip-to-content-link {
+  background: var(--color-background);
+  border-radius: 6px;
+  color: var(--color-text);
+  font-weight: 500;
+  margin: 5px;
+  position: absolute;
+  overflow: hidden;
+  top: 12px;
+  clip: rect(0 0 0 0);
+  left: 8%;
+}
+.skip-to-content-link:focus {
+  clip: unset;
+}
 .NavigationDrawer {
   background: var(--color-background);
   height: 100%;
