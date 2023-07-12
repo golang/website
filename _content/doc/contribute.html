@@ -394,11 +394,11 @@ GitHub pull requests to Gerrit.
 </p>
 
 <p>
-Open a pull request as you normally would.
-Gopherbot will create a corresponding Gerrit change and post a link to
+Open a GitHub pull request as you normally would.
+Gopherbot will create a corresponding Gerrit change list (a "CL") and post a link to
 it on your GitHub pull request; updates to the pull request will also
-get reflected in the Gerrit change.
-When somebody comments on the change, their comment will be also
+get reflected in the Gerrit CL.
+When somebody comments on the CL, their comment will be also
 posted in your pull request, so you will get a notification.
 </p>
 
@@ -407,6 +407,15 @@ Some things to keep in mind:
 </p>
 
 <ul>
+<li>
+You will need a <a href="https://go-review.googlesource.com/login/">Gerrit account</a>
+to respond to your reviewers, including to <a href="#reviews">mark feedback as 'Done'</a>
+if implemented as suggested.
+It is a good idea to familiarize yourself with Gerrit, such as by
+<a href="https://go-review.googlesource.com/q/status:open+-is:wip">skimming the open CLs</a>,
+subscribing to updates on interesting CLs (via the star icon),
+or <a href="/wiki/Gardening#pending-cls">reviewing or giving a +1</a> to other people's CLs.
+</li>
 <li>
 To update the pull request with new code, just push it to the branch; you can either
 add more commits, or rebase and force-push (both styles are accepted).
@@ -420,9 +429,7 @@ See <a href="#commit_messages">Writing good commit messages</a> for some
 suggestions.
 </li>
 <li>
-Gopherbot is unable to sync line-by-line codereview into GitHub: only the
-contents of the overall comment on the request will be synced.
-Remember you can always visit Gerrit to see the fine-grained review.
+See the <a href="/wiki/GerritBot#frequently-asked-questions">FAQ</a> for more details.
 </li>
 </ul>
 
