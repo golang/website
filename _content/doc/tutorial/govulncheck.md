@@ -81,7 +81,7 @@ the tag is undefined, or whether there was an error while parsing the tag.
 **Step 3.** Run `go mod tidy`, which will populate the `go.mod` file with all the
 dependencies required by the code you added to `main.go` in the previous step.
 
-    From the `vuln-tutorial` folder, run:
+From the `vuln-tutorial` folder, run:
 
 ```
 $ go mod tidy
