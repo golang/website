@@ -35,7 +35,7 @@ go install golang.org/x/vuln/cmd/govulncheck@latest
 
 Then, run govulncheck inside your module:
 ```
-govulncheck ./…
+govulncheck ./...
 ```
 
 See the [govulncheck tutorial](https://go.dev/doc/tutorial/govulncheck)
