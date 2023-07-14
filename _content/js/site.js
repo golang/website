@@ -24,8 +24,8 @@ window.initFuncs = [];
         }
         // prevents menus that have been tabbed into from staying open
         // when you hover over another menu
-        e.target.focus();
-        e.target.blur();
+        e.target.classList.remove('forced-closed');
+        e.target.classList.add('forced-open');
       });
       const toggleForcedOpen = e => {
         const isForced = e.target.classList.contains('forced-open');
@@ -43,16 +43,17 @@ window.initFuncs = [];
         } else {
           target.classList.remove('forced-closed');
           target.classList.add('forced-open');
-          target.focus();
-          target.addEventListener('blur', e =>
-            target.classList.remove('forced-open')
-          );
           target.parentNode.removeEventListener('mouseout', () => {
             target.classList.remove('forced-closed');
           });
         }
+        e.target.focus();
       };
       menuItemHover.addEventListener('click', toggleForcedOpen);
+      menuItemHover.addEventListener('focus', e => {
+        e.target.classList.add('forced-closed');
+        e.target.classList.remove('forced-open');
+      });
     });
 
     // ensure desktop submenus are closed when esc is pressed
@@ -61,6 +62,7 @@ window.initFuncs = [];
       header.addEventListener('keyup', e => {
         if (e.key === 'Escape') {
           e.target.blur();
+          e.target.focus();
         }
       });
     });
