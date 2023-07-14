@@ -6,6 +6,8 @@ layout: article
 This page provides resources for Go developers to improve security for their
 projects.
 
+(See also: [Security Best Practices for Go Developers](https://go.dev/security/best-practices).)
+
 ## Find and fix known vulnerabilities
 
 Go’s vulnerability detection aims to provide low-noise, reliable tools for
@@ -13,7 +15,6 @@ developers to learn about known vulnerabilities that may affect their projects.
 For an overview, start at [this summary and FAQ page](https://go.dev/security/vuln)
 about Go’s vulnerability management architecture. For an applied approach,
 explore the tools below.
-
 
 ### Scan code for vulnerabilities with govulncheck
 
