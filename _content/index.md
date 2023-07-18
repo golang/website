@@ -151,13 +151,20 @@ summary: Go is an open source programming language that makes it simple to build
       <h2 class="HomeSection-header">Try Go</h2>
     </div>
     <div class="Playground-inputContainer">
-      <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go">// You can edit this code!
+      <div class="Playground-preContainer">
+        <div style="font-family:Menlo, monospace; font-size: 0.875rem"> Press Esc to move out of the Editor. </div>
+      </div>
+      <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go" aria-describedby="editor-description" id="code">
+// You can edit this code!
 // Click here and start typing.
 package main
 import "fmt"
 func main() {
   fmt.Println("Hello, 世界")
 }</textarea>
+    </div>
+    <div class="screen-reader-only" id="editor-description" hidden>
+      Press Esc to move out of the Editor.
     </div>
     <div class="Playground-outputContainer js-playgroundOutputEl">
       <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>

@@ -42,8 +42,12 @@
   </div>
   <div class="Playground-inputContainer">
     <div id="wrap">
-    <textarea id="code" name="code" class="Playground-input js-playgroundCodeEl" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Try Go">{{if strings.Contains .URL "/play/p/"}}Loading share...
-{{else}}// You can edit this code!
+    <div class="Playground-preContainer">
+        <div style="font-family:Menlo, monospace; font-size: 0.875rem"> Press Esc to move out of the Editor. </div>
+    </div>
+    <textarea id="code" name="code" class="Playground-input js-playgroundCodeEl" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Try Go" aria-describedby="editor-description">{{if strings.Contains .URL "/play/p/"}}Loading share...
+{{else}}
+// You can edit this code!
 // Click here and start typing.
 package main
 
@@ -52,6 +56,9 @@ import "fmt"
 func main() {
 	fmt.Println("Hello, 世界")
 }{{end}}</textarea>
+    <div class="screen-reader-only" id="editor-description" hidden>
+      Press Esc to move out of the Editor.
+    </div>
     </div>
   </div>
   <div class="Playground-outputContainer js-playgroundOutputEl">

@@ -4606,7 +4606,8 @@ a.error {
   background-color: var(--color-background-playground-input) !important;
 }
 .Playground-outputContainer,
-.Playground-output {
+.Playground-output,
+.Playground-preContainer {
   background: var(--color-background-code);
 }
 .Playground-inputContainer,
@@ -4619,6 +4620,15 @@ a.error {
 .Playground-outputContainer {
   border: var(--border-code);
   resize: vertical;
+}
+.Playground-preContainer {
+  border-bottom: var(--border-code);
+}
+.Playground-preContainer {
+  display: none;
+}
+.Playground-input:focus + .Playground-preContainer {
+  display: block;
 }
 .Playground-controls {
   display: flex;

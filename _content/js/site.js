@@ -209,6 +209,26 @@ window.initFuncs = [];
     handleNavigationDrawerInactive(header);
   }
 
+  function registerPlaygroundListeners() {
+    const textarea = document.getElementById('code');
+    const preContainer = document.querySelector('.Playground-preContainer');
+
+    textarea.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        textarea.blur();
+      }
+    });
+
+    textarea.addEventListener('blur', () => {
+      preContainer.style.display = 'none';
+    });
+    
+    textarea.addEventListener('focus', () => {
+      preContainer.style.display = 'block';
+    });
+  }
+
   /**
    * Attempts to detect user's operating system and sets the download
    * links accordingly
@@ -344,6 +364,7 @@ window.initFuncs = [];
 
   window.addEventListener('DOMContentLoaded', () => {
     registerHeaderListeners();
+    registerPlaygroundListeners();
     setDownloadLinks();
     setThemeButtons();
     setVersionSpans();
