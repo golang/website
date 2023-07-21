@@ -29,9 +29,9 @@ layout: none
                   </h2>
                   <p class="Solutions-headlineBody">
                     {{with .quote}}{{.}}{{end}}
-                    <a href="{{.URL}}"
+                    <a href="{{.URL}}" aria-describedby="casestudy-description"
                       >Learn more
-                      <i class="material-icons Solutions-forwardArrowIcon"
+                      <i class="material-icons Solutions-forwardArrowIcon" aria-hidden="true"
                         >arrow_forward</i
                       >
                     </a>
@@ -43,6 +43,9 @@ layout: none
           {{- end}}
         </ul>
       </div>
+      <div class="screen-reader-only" id="casestudy-description" hidden>
+          Opens in new window.
+    </div>
       <button
         class="js-solutionsHeroCarouselPrev GoCarousel-controlPrev GoCarousel-controlPrev-solutionsHero"
         hidden
@@ -99,7 +102,7 @@ layout: none
                 {{- end}}
                 </p>
               </div>
-              <div class="MarketingCard-section__bottom">
+              <div class="MarketingCard-section__bottom" aria-describedby="casestudy-description">
                 <p class="MarketingCard-action">View Case Study</p>
               </div>
             </a>

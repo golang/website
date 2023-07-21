@@ -11,7 +11,7 @@
   <h4>Articles:</h4>
   <dl>
   {{range .}}
-  <dd><a href="/{{.Path}}">{{.Name}}</a>: {{.Title}}</dd>
+  <dd><a href="/{{.Path}}" aria-describedby="talks-description">{{.Name}}</a>: {{.Title}}</dd>
   {{end}}
   </dl>
   {{end}}
@@ -20,7 +20,7 @@
   <h4>Slide decks:</h4>
   <dl>
   {{range .}}
-  <dd><a href="/{{.Path}}">{{.Name}}</a>: {{.Title}}</dd>
+  <dd><a href="/{{.Path}}" aria-describedby="talks-description">{{.Name}}</a>: {{.Title}}</dd>
   {{end}}
   </dl>
   {{end}}
@@ -29,7 +29,7 @@
   <h4>Files:</h4>
   <dl>
   {{range .}}
-  <dd><a href="/{{.Path}}">{{.Name}}</a></dd>
+  <dd><a href="/{{.Path}}" aria-describedby="talks-description">{{.Name}}</a></dd>
   {{end}}
   </dl>
   {{end}}
@@ -38,7 +38,7 @@
   <h4>Sub-directories:</h4>
   <dl>
   {{range .}}
-  <dd><a href="/{{.Path}}">{{.Name}}</a></dd>
+  <dd><a href="/{{.Path}}" aria-describedby="talks-description">{{.Name}}</a></dd>
   {{end}}
   </dl>
   {{end}}
@@ -46,5 +46,7 @@
 
 </article>
 
-
+<div class="screen-reader-only" id="talks-description" hidden>
+          Opens in new window.
+    </div>
 {{end}}

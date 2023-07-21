@@ -55,14 +55,17 @@ summary: Go is an open source programming language that makes it simple to build
           <a class="js-downloadWin">Windows 64-bit</a>,
           <a class="js-downloadMac">macOS</a>,
           <a class="js-downloadLinux">Linux</a>, and
-          <a href="/dl/">more</a>
+          <a href="/dl/" aria-describedby="newwindow-description">more</a>
         </p>
         <p>
           The <code>go</code> command by default downloads and authenticates
           modules using the Go module mirror and Go checksum database run by
-          Google. <a href="/dl">Learn more.</a>
+          Google. <a href="/dl" aria-describedby="newwindow-description">Learn more.</a>
         </p>
       </div>
+    </div>
+    <div class="screen-reader-only" id="newwindow-description" hidden>
+          Opens in new window.
     </div>
     <div class="Hero-gopher">
       <img class="Hero-gopherLadder" src="/images/gophers/ladder.svg" alt="Go Gopher climbing a ladder.">
@@ -74,7 +77,7 @@ summary: Go is an open source programming language that makes it simple to build
     <div class="WhoUses-header">
       <h2 class="WhoUses-headerH2">Companies using Go</h2>
       <p class="WhoUses-subheader">Organizations in every industry use Go to power their software and services
-        <a href="/solutions/" class="WhoUsesCaseStudyList-seeAll">
+        <a href="/solutions/" class="WhoUsesCaseStudyList-seeAll" aria-describedby="newwindow-description">
         View all stories
        </a>
      </p>
@@ -232,7 +235,8 @@ func main() {
               </ul>
             </div>
             <div class="WhyGo-reasonLearnMoreLink">
-              <a href="{{.link}}">Learn More <i class="material-icons WhyGo-forwardArrowIcon">arrow_forward</i></a>
+              <a href="{{.link}}" aria-describedby="newwindow-description">Learn More 
+              <i class="material-icons WhyGo-forwardArrowIcon" aria-hidden="true">arrow_forward</i></a>
             </div>
           </div>
         </li>
@@ -250,9 +254,9 @@ func main() {
                 alt="Go Gopher is skateboarding.">
             </div>
             <div class="WhyGo-reasonShowMoreLink">
-              <a href="/solutions/use-cases">More use cases <i
-              class="material-icons
-              WhyGo-forwardArrowIcon">arrow_forward</i></a>
+              <a href="/solutions/use-cases" aria-describedby="newwindow-description">More use cases 
+              <i class="material-icons
+              WhyGo-forwardArrowIcon" aria-hidden="true">arrow_forward</i></a>
             </div>
           </div>
         </li>
@@ -268,8 +272,8 @@ func main() {
         Explore a wealth of learning resources, including guided journeys, courses, books, and more.
       </p>
       <div class="GettingStartedGo-ctas">
-        <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="/doc/install/">Download Go</a>
+        <a class="GettingStartedGo-primaryCta" href="/learn/"aria-describedby="newwindow-description">Get Started</a>
+        <a href="/doc/install/" aria-describedby="newwindow-description">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">
@@ -278,7 +282,7 @@ func main() {
           Resources to start on your own
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#guided-learning-journeys" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#guided-learning-journeys" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Guided learning journeys
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -286,7 +290,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#online-learning" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#online-learning" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Online learning
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -294,7 +298,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#featured-books" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#featured-books" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Featured books
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -302,7 +306,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#self-paced-labs" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#self-paced-labs" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Cloud Self-paced labs
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -316,7 +320,7 @@ func main() {
         </li>
         {{- range first 4 (data "/learn/training.yaml")}}
           <li class="GettingStartedGo-resourceItem">
-            <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle">
+            <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
               {{.title}}
             </a>
             <div class="GettingStartedGo-resourceItemDescription">

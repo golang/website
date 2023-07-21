@@ -185,11 +185,11 @@
       <div class="Footer-links">
         {{- range $menus.footer}}
           <div class="Footer-linkColumn">
-            <a href="{{.url}}" class="Footer-link Footer-link--primary">
+            <a href="{{.url}}" class="Footer-link Footer-link--primary" aria-describedby="footer-description">
               {{.name}}
             </a>
             {{- range .children}}
-              <a href="{{.url}}" class="Footer-link">
+              <a href="{{.url}}" class="Footer-link" aria-describedby="footer-description">
                 {{.name}}
               </a>
             {{- end}}
@@ -198,19 +198,22 @@
       </div>
     </div>
   </div>
+  <div class="screen-reader-only" id="footer-description" hidden>
+          Opens in new window.
+  </div>
   <div class="Footer">
     <div class="Container Container--fullBleed">
       <div class="Footer-bottom">
         <img class="Footer-gopher" src="/images/gophers/pilot-bust.svg" alt="The Go Gopher">
         <ul class="Footer-listRow">
           <li class="Footer-listItem">
-            <a href="/copyright">Copyright</a>
+            <a href="/copyright" aria-describedby="footer-description">Copyright</a>
           </li>
           <li class="Footer-listItem">
-            <a href="/tos">Terms of Service</a>
+            <a href="/tos" aria-describedby="footer-description">Terms of Service</a>
           </li>
           <li class="Footer-listItem">
-            <a href="http://www.google.com/intl/en/policies/privacy/"
+            <a href="http://www.google.com/intl/en/policies/privacy/" aria-describedby="footer-description"
               target="_blank"
               rel="noopener">
               Privacy Policy
@@ -218,7 +221,7 @@
             </li>
           <li class="Footer-listItem">
             <a
-              href="/s/website-issue"
+              href="/s/website-issue" aria-describedby="footer-description"
               target="_blank"
               rel="noopener"
               >
@@ -476,7 +479,7 @@
 <aside class="Sidebar">
   <h4>Report Issues</h4>
   <p>If you spot bugs, mistakes, or inconsistencies in the Go project's code or documentation, please let us know by filing a ticket on our <a href="https://github.com/golang/go/issues">issue tracker.</a> Of course, you should check it's not an existing issue before creating a new one.</p>
-  <a class="btn" href="https://github.com/golang/go/issues">Filing a ticket</a>
+  <a class="btn" href="https://github.com/golang/go/issues" aria-describedby="footer-description">Filing a ticket</a>
 </aside>
 {{end}}
 
@@ -484,19 +487,19 @@
 <aside class="Sidebar Sidebar-faq">
   <h4>Release Notes</h4>
   <p>Learn about what's new in each Go release.</p>
-  <a class="link" href="/doc/devel/release">View release notes</a>
+  <a class="link" href="/doc/devel/release" aria-describedby="footer-description">View release notes</a>
 
   <h4>Code of Conduct</h4>
   <p>Guidelines for participating in Go community spaces and reporting process for handing issues.</p>
-  <a class="link" href="/conduct">View more</a>
+  <a class="link" href="/conduct" aria-describedby="footer-description">View more</a>
 
   <h4>Brand Guidelines</h4>
   <p>Guidance about reusing the Go logo, gopher mascot, etc.</p>
-  <a class="link" href="/blog/go-brand">View guidelines</a>
+  <a class="link" href="/blog/go-brand" aria-describedby="footer-description">View guidelines</a>
 
   <h4>Contribute Guide</h4>
   <p>Learn how to file bugs, pull requests, or otherwise contribute to the Go ecosystem.</p>
-  <a class="link" href="/doc/contribute">View guide</a>
+  <a class="link" href="/doc/contribute" aria-describedby="footer-description">View guide</a>
 
   <h4>Get connected</h4>
   <div class="Sidebar-socialLinks">

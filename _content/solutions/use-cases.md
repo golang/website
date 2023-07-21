@@ -43,7 +43,7 @@ layout: none
                 {{.description}}
               </p>
             </div>
-            <div class="MarketingCard-section__bottom">
+            <div class="MarketingCard-section__bottom" aria-describedby="usecase-description">
               <p class="MarketingCard-action">
                 Learn More
               </p>
@@ -54,4 +54,7 @@ layout: none
       {{- end}}
     </ul>
   </div>
+  <div class="screen-reader-only" id="usecase-description" hidden>
+          Opens in new window.
+    </div>
 </section>
