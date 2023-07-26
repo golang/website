@@ -372,7 +372,7 @@ window.initFuncs = [];
     registerCookieNotice();
   };
 
-  // DOM might be already loaded when try to setup the callback, hence the check.
+  // DOM might be already loaded when we try to setup the callback, hence the check.
   if (document.readyState !== 'loading') {
     onPageLoad();
   } else {
