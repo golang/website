@@ -376,8 +376,6 @@ window.initFuncs = [];
   if (document.readyState !== 'loading') {
     onPageLoad();
   } else {
-    document.addEventListener('DOMContentLoaded', function () {
-      onPageLoad();
-    });
+    document.addEventListener('DOMContentLoaded', onPageLoad);
   }
 })();
