@@ -213,18 +213,18 @@ window.initFuncs = [];
     const textarea = document.getElementById('code');
     const preContainer = document.querySelector('.Playground-preContainer');
 
-    textarea.addEventListener('keydown', e => {
+    textarea?.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
         e.preventDefault();
         textarea.blur();
       }
     });
 
-    textarea.addEventListener('blur', () => {
+    textarea?.addEventListener('blur', () => {
       preContainer.style.display = 'none';
     });
-    
-    textarea.addEventListener('focus', () => {
+
+    textarea?.addEventListener('focus', () => {
       preContainer.style.display = 'block';
     });
   }
@@ -356,13 +356,13 @@ window.initFuncs = [];
         }
         document.cookie = `cookie-consent=true;${domain}path=/;max-age=31536000`;
         notice.remove();
-      })
+      });
     }
   }
 
   initialThemeSetup();
 
-  window.addEventListener('DOMContentLoaded', () => {
+  const onPageLoad = () => {
     registerHeaderListeners();
     registerPlaygroundListeners();
     setDownloadLinks();
@@ -370,5 +370,14 @@ window.initFuncs = [];
     setVersionSpans();
     registerPortToggles();
     registerCookieNotice();
-  });
+  };
+
+  // DOM might be already loaded when try to setup the callback, hence the check.
+  if (document.readyState !== 'loading') {
+    onPageLoad();
+  } else {
+    document.addEventListener('DOMContentLoaded', function () {
+      onPageLoad();
+    });
+  }
 })();
