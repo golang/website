@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"go/format"
 	"html/template"
+	"io"
 	"io/fs"
 	"io/ioutil"
 	"log"
@@ -27,6 +28,7 @@ import (
 	"runtime"
 	"runtime/debug"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -242,6 +244,8 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	return h
 }
 
+var gorebuild = NewCachedURL("https://gorebuild.storage.googleapis.com/gorebuild.json", 5*time.Minute)
+
 // newSite creates a new site for a given content and goroot file system pair
 // and registers it in mux to handle requests for host.
 // If host is the empty string, the registrations are for the wildcard host.
@@ -251,11 +255,14 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	site.Funcs(template.FuncMap{
 		"googleAnalytics": func() string { return googleAnalytics },
 		"googleCN":        func() bool { return host == "golang.google.cn" },
+		"gorebuild":       gorebuild.Get,
+		"json":            jsonUnmarshal,
 		"newest":          newest,
+		"now":             func() time.Time { return time.Now() },
 		"releases":        func() []*history.Major { return history.Majors },
+		"rfc3339":         parseRFC3339,
 		"section":         section,
 		"version":         func() string { return runtime.Version() },
-		"now":             func() time.Time { return time.Now() },
 	})
 	docs, err := pkgdoc.NewServer(fsys, site, googleCN)
 	if err != nil {
@@ -267,6 +274,10 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	mux.Handle(host+"/pkg/", docs)
 	mux.Handle(host+"/doc/codewalk/", codewalk.NewServer(fsys, site))
 	return site, nil
+}
+
+func parseRFC3339(s string) (time.Time, error) {
+	return time.Parse(time.RFC3339, s)
 }
 
 // watchTip is a background goroutine that watches the main Go repo for updates.
@@ -802,4 +813,67 @@ func redirectPrefix(prefix string) http.Handler {
 		}
 		http.Redirect(w, r, url, http.StatusMovedPermanently)
 	})
+}
+
+type CachedURL struct {
+	url     string
+	timeout time.Duration
+
+	mu      sync.Mutex
+	data    []byte
+	err     error
+	etag    string
+	updated time.Time
+}
+
+func NewCachedURL(url string, timeout time.Duration) *CachedURL {
+	return &CachedURL{url: url, timeout: timeout}
+}
+
+func (c *CachedURL) Get() (data []byte, err error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	if time.Since(c.updated) < c.timeout {
+		return c.data, c.err
+	}
+	defer func() {
+		c.updated = time.Now()
+		c.data, c.err = data, err
+	}()
+
+	cli := &http.Client{Timeout: 60 * time.Second}
+	req, err := http.NewRequest("GET", c.url, nil)
+	if err != nil {
+		return nil, err
+	}
+	if c.etag != "" {
+		req.Header.Set("If-None-Match", c.etag)
+	}
+	resp, err := cli.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == 206 {
+		// Unmodified.
+		log.Printf("checked %s - unmodified", c.url)
+		return c.data, c.err
+	}
+	log.Printf("reloading %s", c.url)
+	if resp.StatusCode != 200 {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", resp.Status)
+	}
+	c.etag = resp.Header.Get("Etag")
+	data, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", err)
+	}
+	return data, nil
+}
+
+func jsonUnmarshal(data []byte) (any, error) {
+	var x any
+	err := json.Unmarshal(data, &x)
+	return x, err
 }
