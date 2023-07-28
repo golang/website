@@ -55,8 +55,9 @@ The <code>-p=4</code> means to run up to four builds in parallel.
 {{$Report := json gorebuild}}
 {{with $Report}}
 
-Using gorebuild from {{.Version}}<br><br>
-
+Gorebuild version {{.Version}}.<br>
+Built with Go version {{.GoVersion}}, {{.GOOS}}-{{.GOARCH}}.<br>
+<br>
 Rebuild started at {{(rfc3339 .Start).UTC.Format "2006-01-02 15:04:05"}} UTC.<br>
 Rebuild finished at {{(rfc3339 .End).UTC.Format "2006-01-02 15:04:05"}} UTC.<br>
 Elapsed time: {{((rfc3339 .End).Sub (rfc3339 .Start)).Round 1e9}}.

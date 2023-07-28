@@ -855,13 +855,13 @@ func (c *CachedURL) Get() (data []byte, err error) {
 		return nil, fmt.Errorf("loading rebuild report JSON: %v", err)
 	}
 	defer resp.Body.Close()
-	if resp.StatusCode == 206 {
+	if resp.StatusCode == http.StatusNotModified {
 		// Unmodified.
 		log.Printf("checked %s - unmodified", c.url)
 		return c.data, c.err
 	}
 	log.Printf("reloading %s", c.url)
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		return nil, fmt.Errorf("loading rebuild report JSON: %v", resp.Status)
 	}
 	c.etag = resp.Header.Get("Etag")
