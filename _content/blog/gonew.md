@@ -32,15 +32,19 @@ and help us build a more useful tool for everyone.
 
 Start by installing `gonew` using [`go install`](https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies):
 
+```
 $ go install golang.org/x/tools/cmd/gonew@latest
+```
 
 To copy an existing template, run `gonew` in your new project’s parent
 directory with two arguments:
 first, the path to the template you wish to copy,
 and second, the module name of the project you are creating. For example:
 
+```
 $ gonew golang.org/x/example/helloserver example.com/myserver
 $ cd ./myserver
+```
 
 And then you can read and edit the files in `./myserver` to customize.
 
