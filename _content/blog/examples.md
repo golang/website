@@ -36,43 +36,44 @@ As with typical tests, examples are functions that reside in a package's
 Unlike normal test functions, though, example functions take no arguments
 and begin with the word `Example` instead of `Test`.
 
-The [`stringutil` package](https://pkg.go.dev/golang.org/x/example/stringutil/)
+The [`reverse` package](https://pkg.go.dev/golang.org/x/example/hello/reverse/)
 is part of the [Go example repository](https://cs.opensource.google/go/x/example).
-Here's an example that demonstrates its `Reverse` function:
+Here's an example that demonstrates its `String` function:
 
-	package stringutil_test
+	package reverse_test
 
 	import (
 		"fmt"
 
-		"golang.org/x/example/stringutil"
+		"golang.org/x/example/hello/reverse"
 	)
 
-	func ExampleReverse() {
-		fmt.Println(stringutil.Reverse("hello"))
+	func ExampleString() {
+		fmt.Println(reverse.String("hello"))
 		// Output: olleh
 	}
 
-This code might live in `example_test.go` in the `stringutil` directory.
+This code might live in `example_test.go` in the `reverse` directory.
 
-Godoc will present this example alongside the `Reverse` function's documentation:
+The Go package documentation server _pkg.go.dev_ presents this
+example alongside the [`String` function's documentation](https://pkg.go.dev/golang.org/x/example/hello/reverse/#String):
 
-{{image "examples/reverse.png"}}
+{{image "examples/pkgdoc.png" 517}}
 
 Running the package's test suite, we can see the example function is executed
 with no further arrangement from us:
 
 	$ go test -v
-	=== RUN TestReverse
-	--- PASS: TestReverse (0.00s)
-	=== RUN: ExampleReverse
-	--- PASS: ExampleReverse (0.00s)
+	=== RUN   TestString
+	--- PASS: TestString (0.00s)
+	=== RUN   ExampleString
+	--- PASS: ExampleString (0.00s)
 	PASS
-	ok  	golang.org/x/example/stringutil	0.009s
+	ok  	golang.org/x/example/hello/reverse	0.209s
 
 ## Output comments
 
-What does it mean that the `ExampleReverse` function "passes"?
+What does it mean that the `ExampleString` function "passes"?
 
 As it executes the example,
 the testing framework captures data written to standard output
@@ -82,15 +83,15 @@ The test passes if the test's output matches its output comment.
 To see a failing example we can change the output comment text to something
 obviously incorrect
 
-	func ExampleReverse() {
-		fmt.Println(stringutil.Reverse("hello"))
+	func ExampleString() {
+		fmt.Println(reverse.String("hello"))
 		// Output: golly
 	}
 
 and run the tests again:
 
 	$ go test
-	--- FAIL: ExampleReverse (0.00s)
+	--- FAIL: ExampleString (0.00s)
 	got:
 	olleh
 	want:
@@ -99,17 +100,17 @@ and run the tests again:
 
 If we remove the output comment entirely
 
-	func ExampleReverse() {
-		fmt.Println(stringutil.Reverse("hello"))
+	func ExampleString() {
+		fmt.Println(reverse.String("hello"))
 	}
 
 then the example function is compiled but not executed:
 
 	$ go test -v
-	=== RUN TestReverse
-	--- PASS: TestReverse (0.00s)
+	=== RUN   TestString
+	--- PASS: TestString (0.00s)
 	PASS
-	ok  	golang.org/x/example/stringutil	0.009s
+	ok  	golang.org/x/example/hello/reverse	0.110s
 
 Examples without output comments are useful for demonstrating code that cannot
 run as unit tests, such as that which accesses the network,
@@ -124,16 +125,16 @@ package-level identifier.
 	func ExampleBar_Qux() // documents the Qux method of type Bar
 	func Example()        // documents the package as a whole
 
-Following this convention, godoc displays the `ExampleReverse` example
-alongside the documentation for the `Reverse` function.
+Following this convention, godoc displays the `ExampleString` example
+alongside the documentation for the `String` function.
 
 Multiple examples can be provided for a given identifier by using a suffix
 beginning with an underscore followed by a lowercase letter.
-Each of these examples documents the `Reverse` function:
+Each of these examples documents the `String` function:
 
-	func ExampleReverse()
-	func ExampleReverse_second()
-	func ExampleReverse_third()
+	func ExampleString()
+	func ExampleString_second()
+	func ExampleString_third()
 
 ## Larger examples
 

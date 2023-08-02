@@ -67,10 +67,10 @@ To begin, create a module for the code you’ll write.
    go: creating new go.mod: module example.com/hello
    ```
 
-   Add a dependency on the golang.org/x/example module by using `go get`.
+   Add a dependency on the golang.org/x/example/hello/reverse package by using `go get`.
 
    ```
-   $ go get golang.org/x/example
+   $ go get golang.org/x/example/hello/reverse
    ```
 
    Create hello.go in the hello directory with the following contents:
@@ -81,18 +81,18 @@ To begin, create a module for the code you’ll write.
    import (
        "fmt"
 
-       "golang.org/x/example/stringutil"
+       "golang.org/x/example/hello/reverse"
    )
 
    func main() {
-       fmt.Println(stringutil.Reverse("Hello"))
+       fmt.Println(reverse.String("Hello"))
    }
    ```
 
    Now, run the hello program:
 
    ```
-   $ go run example.com/hello
+   $ go run .
    olleH
    ```
 
@@ -136,7 +136,7 @@ So in any subdirectory of `workspace` the module will be active.
 In the `workspace` directory, run:
 
    ```
-   $ go run example.com/hello
+   $ go run ./hello
    olleH
    ```
 
@@ -145,12 +145,13 @@ to refer to a package in the module, even outside the module. Running the `go ru
 outside the module or the workspace would result in an error because the `go` command
 wouldn't know which modules to use.
 
-Next, we'll add a local copy of the `golang.org/x/example` module to the workspace. We'll then
-add a new function to the `stringutil` package that we can use instead of `Reverse`.
+Next, we'll add a local copy of the `golang.org/x/example/hello` module to the workspace.
+That module is stored in a subdirectory of the `go.googlesource.com/example` Git repository.
+We'll then add a new function to the `reverse` package that we can use instead of `String`.
 
-## Download and modify the `golang.org/x/example` module
+## Download and modify the `golang.org/x/example/hello` module
 
-   In this step, we'll download a copy of the Git repo containing the `golang.org/x/example` module,
+   In this step, we'll download a copy of the Git repo containing the `golang.org/x/example/hello` module,
    add it to the workspace, and then add a new function to it that we will use from the hello program.
 
 1. Clone the repository
@@ -167,8 +168,12 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
 2. Add the module to the workspace
 
+   The Git repo was just checked out into `./example`.
+   The source code for the `golang.org/x/example/hello` module is in `./example/hello`.
+   Add it to the workspace:
+
    ```
-   $ go work use ./example
+   $ go work use ./example/hello
    ```
 
    The `go work use` command adds a new module to the go.work file. It will now look like this:
@@ -178,33 +183,32 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
    use (
        ./hello
-       ./example
+       ./example/hello
    )
    ```
 
-   The module now includes both the `example.com/hello` module and the `golang.org/x/example` module.
+   The module now includes both the `example.com/hello` module and the `golang.org/x/example/hello` module,
+   which provides the `golang.org/x/example/hello/reverse` package.
 
-   This will allow us to use the new code we will write in our copy of the `stringutil` module
-   instead of the version of the module in the module cache that we downloaded with the `go get` command.
+   This will allow us to use the new code we will write in our copy of the `reverse` package
+   instead of the version of the package in the module cache
+   that we downloaded with the `go get` command.
 
 3. Add the new function.
 
-   We'll add a new function to uppercase a string to the `golang.org/x/example/stringutil` package.
+   We'll add a new function to reverse a number to the `golang.org/x/example/hello/reverse` package.
 
-   Create a new file named `toupper.go` in the `workspace/example/stringutil` directory containing the following contents:
+   Create a new file named `int.go` in the `workspace/example/hello/reverse` directory containing the following contents:
 
    ```
-   package stringutil
+   package reverse
 
-   import "unicode"
+   import "strconv"
 
-   // ToUpper uppercases all the runes in its argument string.
-   func ToUpper(s string) string {
-       r := []rune(s)
-       for i := range r {
-           r[i] = unicode.ToUpper(r[i])
-       }
-       return string(r)
+   // Int returns the decimal reversal of the integer i.
+   func Int(i int) int {
+       i, _ = strconv.Atoi(String(strconv.Itoa(i)))
+       return i
    }
    ```
 
@@ -218,11 +222,11 @@ add a new function to the `stringutil` package that we can use instead of `Rever
    import (
        "fmt"
 
-       "golang.org/x/example/stringutil"
+       "golang.org/x/example/hello/reverse"
    )
 
    func main() {
-       fmt.Println(stringutil.ToUpper("Hello"))
+       fmt.Println(reverse.String("Hello"), reverse.Int(24601))
    }
    ```
 
@@ -231,13 +235,13 @@ add a new function to the `stringutil` package that we can use instead of `Rever
    From the workspace directory, run
 
    ```
-   $ go run example.com/hello
-   HELLO
+   $ go run ./hello
+   olleH 10642
    ```
 
    The Go command finds the `example.com/hello` module specified in the
    command line in the `hello` directory specified by the `go.work`
-   file, and similarly resolves the `golang.org/x/example` import using
+   file, and similarly resolves the `golang.org/x/example/hello/reverse` import using
    the `go.work` file.
 
    `go.work` can be used instead of adding [`replace`](https://go.dev/ref/mod#go-mod-file-replace)
@@ -248,16 +252,16 @@ add a new function to the `stringutil` package that we can use instead of `Rever
 
 #### Future step
 
-   Now, to properly release these modules we'd need to make a release of the `golang.org/x/example`
+   Now, to properly release these modules we'd need to make a release of the `golang.org/x/example/hello`
    module, for example at `v0.1.0`. This is usually done by tagging a commit on the module's version
    control repository. See the
    [module release workflow documentation](https://go.dev/doc/modules/release-workflow)
    for more details. Once the release is done, we can increase the requirement on the
-   `golang.org/x/example` module in `hello/go.mod`:
+   `golang.org/x/example/hello` module in `hello/go.mod`:
 
    ```
    cd hello
-   go get golang.org/x/example@v0.1.0
+   go get golang.org/x/example/hello@v0.1.0
    ```
 
    That way, the `go` command can properly resolve the modules outside the workspace.
