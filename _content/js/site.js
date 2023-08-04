@@ -54,17 +54,20 @@ window.initFuncs = [];
         e.target.classList.add('forced-closed');
         e.target.classList.remove('forced-open');
       });
-    });
-
-    // ensure desktop submenus are closed when esc is pressed
-    const headerItems = document.querySelectorAll('.Header-menuItem');
-    headerItems.forEach(header => {
-      header.addEventListener('keyup', e => {
+      // ensure desktop submenus are closed when esc is pressed
+      const closeSubmenuOnEsc = e => {
         if (e.key === 'Escape') {
-          e.target.blur();
-          e.target.focus();
+          const forcedOpenItem = document.querySelector('.forced-open');
+          const target = e.currentTarget;
+          if (forcedOpenItem) {
+            forcedOpenItem.classList.remove('forced-open');
+            forcedOpenItem.blur();
+            forcedOpenItem.classList.add('forced-closed');
+          }
         }
-      });
+        e.target.focus();
+      };
+      document.addEventListener('keydown', closeSubmenuOnEsc);
     });
 
     // Mobile menu subnav menus
