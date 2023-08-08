@@ -148,7 +148,7 @@ Do not send CLs removing the interior tags from such phrases.
   Go 1.21 now defines that if a goroutine is panicking and recover was called directly by a deferred
   function, the return value of recover is guaranteed not to be nil. To ensure this, calling panic
   with a nil interface value (or an untyped nil) causes a run-time panic of type
-  <a href="/runtime/#PanicNilError"><code>*runtime.PanicNilError</code></a>.
+  <a href="/pkg/runtime/#PanicNilError"><code>*runtime.PanicNilError</code></a>.
 </p>
 <p>
   To support programs written for older versions of Go, nil panics can be re-enabled by setting
