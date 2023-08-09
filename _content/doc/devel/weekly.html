@@ -73,7 +73,7 @@ Changes in this snapshot:
 	inform users that the playground doesn't work via local godoc,
 	style example headings like links,
 	use *goroot as base path in zip file,
-	use FormatText for formating code in html template,
+	use FormatText for formatting code in html template,
 	use shorter titles for tabs.
 * cmd/gofmt: show ascii in usage (thanks Yasuhiro Matsumoto).
 * cmd/pack: also recognize '\\' as path separator in filenames (thanks Shenghou Ma).
@@ -579,7 +579,7 @@ Other changes:
 	support ErrSkip in Tx.Exec (thanks Andrew Balholm),
 	treat pointers as nullable types as with encoding/json (thanks Andrew Pritchard).
 * debug/macho: drop terrifyingly monstrous URL from package comment.
-* dist: prevent recusive loop on windows when fatal() is called (thanks Daniel Theophanes).
+* dist: prevent recursive loop on windows when fatal() is called (thanks Daniel Theophanes).
 * doc: add App Engine docs to 'learn' and 'reference' pages,
 	add playground.js,
 	new document about compatibility of releases,
@@ -741,7 +741,7 @@ Other changes:
 * encoding/xml: fix decoding of xml.Name with sub-elements (thanks Gustavo Niemeyer),
 	fix documentation for Decoder.Skip.
 * exp/norm: Added some benchmarks for form-specific performance measurements,
-	a few minor changes in prepration for a table format change.
+	a few minor changes in preparation for a table format change.
 * expvar: revise API.
 * fix: add image/{bmp,tiff} to go1pkgrename.
 * flag: allow a FlagSet to not write to os.Stderr,
@@ -1252,7 +1252,7 @@ Other changes:
 	implement and test \r in raw strings,
 	inlining, allow empty bodies, fix _ arguments,
 	omit argument names from function types in error messages.
-* go/ast, parser: remember short variable decls. w/ correspoding ident objects.
+* go/ast, parser: remember short variable decls. w/ corresponding ident objects.
 * go/build: add new +build tags 'cgo' and 'nocgo'.
 * go/doc, godoc: move export filtering into go/doc
 * go/printer, gofmt: fine tuning of line spacing.
@@ -2132,7 +2132,7 @@ at a later date.
 	mksyscall_windows.pl creates non-syscall packages (thanks Jaroslavas Počepko),
 	update multicast socket options (thanks Mikio Hara).
 * testing: support for running tests in parallel (thanks Miki Tebeka).
-* time: make month/day name comparisons case insenstive.
+* time: make month/day name comparisons case insensitive.
 * unicode: fix make tables.
 * vim: Send GoFmt errors to a location list (thanks Paul Sbarra).
 * websocket: add hybi-13 support, add mutex to make websocket full-duplex.
@@ -2402,7 +2402,7 @@ Other changes:
 	ctrlhandler for windows amd64. (thanks Wei Guangjing)
 	fix stack cleanup on windows/amd64. (thanks Hector Chu)
 	fix void warnings.
-	go interface to cdecl calbacks. (thanks Jaroslavas Počepko)
+	go interface to cdecl callbacks. (thanks Jaroslavas Počepko)
 	handle string + char literals in goc2c.
 	make arm work on Ubuntu Natty qemu.
 	openbsd thread tweaks.
@@ -3438,7 +3438,7 @@ Other changes:
         drop Author: line on self-clpatch,
         recognize code URL without trailing slash.
 * crypto/block: remove deprecated package.
-* crypto/des: new package implementating DES and TDEA (thanks Yasuhiro Matsumoto).
+* crypto/des: new package implementing DES and TDEA (thanks Yasuhiro Matsumoto).
 * crypto/ecdsa, crypto/rsa: use io.ReadFull to read from random source (thanks Dmitry Chestnykh).
 * crypto/rsa: add 3-prime support,
         add support for precomputing CRT values,
@@ -3776,7 +3776,7 @@ Code that uses the Addr method will have to call UnsafeAddr instead.
 The path package has been split into two packages: path and path/filepath.
 Package path manipulates slash-separated paths, regardless of operating system.
 Package filepath implements the local operating system's native file paths.
-OS-specific functioanlity in pacakge path, such as Walk, moved to filepath.
+OS-specific functionality in package path, such as Walk, moved to filepath.
 
 Other changes:
 * build: fixes and simplifications (thanks Dave Cheney),
@@ -4462,7 +4462,7 @@ Other changes:
 * crypto/tls: fix build of certificate generation example (thanks Christian Himpel).
 * doc/install: describe GOHOSTOS and GOHOSTARCH.
 * errchk: accept multiple source files (thanks Eoghan Sherry).
-* exec.LookPath: return os.PathError instad of os.ENOENT (thanks Michael Hoisie)..
+* exec.LookPath: return os.PathError instead of os.ENOENT (thanks Michael Hoisie)..
 * flag: fix format error in boolean error report,
         handle multiple calls to flag.Parse.
 * fmt: add %U format for standard Unicode representation of code point values.
@@ -5096,7 +5096,7 @@ and these additions, changes, and fixes:
         rather than 0, make -1 mean infinite (a la strings.Split et al),
         use acknowledgements on export send.
         new methods Sync and Drain for clean teardown.
-* regexp: interpret all Go characer escapes \a \b \f \n \r \t \v.
+* regexp: interpret all Go character escapes \a \b \f \n \r \t \v.
 * rpc: fix bug that caused private methods to attempt to be registered.
 * runtime: Correct commonType.kind values to match compiler,
         add GOOS, GOARCH; fix FuncLine,
@@ -5915,7 +5915,7 @@ xml: allow unquoted attribute values in non-Strict mode (thanks Amrut Joshi)
 
 <pre>
 There are two small language changes:
-* NUL bytes may be rejected in souce files, and the tools do reject them.
+* NUL bytes may be rejected in source files, and the tools do reject them.
 * Conversions from string to []int and []byte are defined but not yet implemented.
 
 Other changes and fixes:
@@ -6046,7 +6046,7 @@ math: special cases for most functions and 386 hardware Sqrt (thanks Charles Dor
 misc/dashboard: beginning of a build dashboard at godashboard.appspot.com.
 misc/emacs: handling of new semicolon rules (thanks Austin Clements),
 	empty buffer bug fix (thanks Kevin Ballard)
-misc/kate: highlighting improvements (tahnks Evan Shaw)
+misc/kate: highlighting improvements (thanks Evan Shaw)
 os/signal: add signal names: signal.SIGHUP, etc (thanks David Symonds)
 runtime: preliminary Windows support (thanks Hector Chu),
 	preemption polling to reduce garbage collector pauses
