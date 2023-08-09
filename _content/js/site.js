@@ -54,20 +54,28 @@ window.initFuncs = [];
         e.target.classList.add('forced-closed');
         e.target.classList.remove('forced-open');
       });
-      // ensure desktop submenus are closed when esc is pressed
-      const closeSubmenuOnEsc = e => {
+      
+      // ensure focus is removed when esc is pressed
+      const focusOutOnEsc = e => {
         if (e.key === 'Escape') {
-          const forcedOpenItem = document.querySelector('.forced-open');
-          const target = e.currentTarget;
-          if (forcedOpenItem) {
-            forcedOpenItem.classList.remove('forced-open');
-            forcedOpenItem.blur();
-            forcedOpenItem.classList.add('forced-closed');
+          const textarea = document.getElementById('code');
+          if (e.target == textarea) {
+            e.preventDefault();
+            textarea.blur();
+          }
+          else {
+            const forcedOpenItem = document.querySelector('.forced-open');
+            const target = e.currentTarget;
+            if (forcedOpenItem) {
+              forcedOpenItem.classList.remove('forced-open');
+              forcedOpenItem.blur();
+              forcedOpenItem.classList.add('forced-closed');
+              e.target.focus();
+            }
           }
         }
-        e.target.focus();
       };
-      document.addEventListener('keydown', closeSubmenuOnEsc);
+      document.addEventListener('keydown', focusOutOnEsc);
     });
 
     // Mobile menu subnav menus
@@ -212,18 +220,6 @@ window.initFuncs = [];
     handleNavigationDrawerInactive(header);
   }
 
-  function registerPlaygroundListeners() {
-    const textarea = document.getElementById('code');
-    const preContainer = document.querySelector('.Playground-preContainer');
-
-    textarea?.addEventListener('keydown', e => {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        textarea.blur();
-      }
-    });
-  }
-
   /**
    * Attempts to detect user's operating system and sets the download
    * links accordingly
@@ -359,7 +355,6 @@ window.initFuncs = [];
 
   const onPageLoad = () => {
     registerHeaderListeners();
-    registerPlaygroundListeners();
     setDownloadLinks();
     setThemeButtons();
     setVersionSpans();
