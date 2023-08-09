@@ -155,7 +155,7 @@ summary: Go is an open source programming language that makes it simple to build
     </div>
     <div class="Playground-inputContainer">
       <div class="Playground-preContainer">
-        <div style="font-family:Menlo, monospace; font-size: 0.875rem"> Press Esc to move out of the Editor. </div>
+        Press Esc to move out of the editor.
       </div>
       <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go" aria-describedby="editor-description" id="code">
 // You can edit this code!
@@ -167,7 +167,7 @@ func main() {
 }</textarea>
     </div>
     <div class="screen-reader-only" id="editor-description" hidden>
-      Press Esc to move out of the Editor.
+      Press Esc to move out of the editor.
     </div>
     <div class="Playground-outputContainer js-playgroundOutputEl">
       <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>

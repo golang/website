@@ -222,14 +222,6 @@ window.initFuncs = [];
         textarea.blur();
       }
     });
-
-    textarea?.addEventListener('blur', () => {
-      preContainer.style.display = 'none';
-    });
-
-    textarea?.addEventListener('focus', () => {
-      preContainer.style.display = 'block';
-    });
   }
 
   /**
