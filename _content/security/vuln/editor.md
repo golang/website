@@ -29,7 +29,7 @@ The [Go extension](https://marketplace.visualstudio.com/items?itemName=golang.go
 ```
 "go.diagnostic.vulncheck": "Imports", // enable the imports-based analysis by default.
 "gopls": {
-  "codelenses": {
+  "ui.codelenses": {
     "run_govulncheck": true  // "Run govulncheck" code lens on go.mod file.
   }
 }
