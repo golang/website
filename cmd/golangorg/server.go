@@ -59,7 +59,8 @@ var (
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
 
-	tipFlag = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+	tipFlag  = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+	wikiFlag = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
 
 	googleAnalytics string
 )
@@ -157,6 +158,19 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		gorootFS = os.DirFS(goroot)
 	}
 
+	// go.dev/wiki serves content from the very latest Git commit of the wiki repo.
+	// Start with the _content/wiki directory as placeholder until Git loads.
+	var wikiFS atomicFS
+	wikiDefault, err := fs.Sub(contentFS, "wiki")
+	if err != nil {
+		log.Fatalf("loading default wiki content: %v", err)
+	}
+	wikiFS.Set(wikiDefault)
+	if *wikiFlag {
+		go watchGit(&wikiFS, "https://go.googlesource.com/wiki")
+	}
+	contentFS = &mountFS{contentFS, "wiki", &wikiFS}
+
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
 	var tipGoroot atomicFS
@@ -164,7 +178,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("loading tip site: %v", err)
 	}
 	if *tipFlag {
-		go watchTip(&tipGoroot)
+		go watchGit(&tipGoroot, "https://go.googlesource.com/go")
 	}
 
 	// beta.golang.org is an old name for tip.
@@ -280,32 +294,32 @@ func parseRFC3339(s string) (time.Time, error) {
 	return time.Parse(time.RFC3339, s)
 }
 
-// watchTip is a background goroutine that watches the main Go repo for updates.
-// When a new commit is available, watchTip downloads the new tree and calls
-// tipGoroot.Set to install the new file system.
-func watchTip(tipGoroot *atomicFS) {
+// watchGit is a background goroutine that watches a Git repo for updates.
+// When a new commit is available, watchGit downloads the new tree and calls
+// fsys.Set to install the new file system.
+func watchGit(fsys *atomicFS, repo string) {
 	for {
-		// watchTip1 runs until it panics (hopefully never).
+		// watchGit1 runs until it panics (hopefully never).
 		// If that happens, sleep 5 minutes and try again.
-		watchTip1(tipGoroot)
+		watchGit1(fsys, repo)
 		time.Sleep(5 * time.Minute)
 	}
 }
 
-// watchTip1 does the actual work of watchTip and recovers from panics.
-func watchTip1(tipGoroot *atomicFS) {
+// watchGit1 does the actual work of watchGit and recovers from panics.
+func watchGit1(afs *atomicFS, repo string) {
 	defer func() {
 		if e := recover(); e != nil {
-			log.Printf("watchTip panic: %v\n%s", e, debug.Stack())
+			log.Printf("watchGit %s panic: %v\n%s", repo, e, debug.Stack())
 		}
 	}()
 
 	var r *gitfs.Repo
 	for {
 		var err error
-		r, err = gitfs.NewRepo("https://go.googlesource.com/go")
+		r, err = gitfs.NewRepo(repo)
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)
 			continue
 		}
@@ -318,11 +332,11 @@ func watchTip1(tipGoroot *atomicFS) {
 		var err error
 		h, fsys, err = r.Clone("HEAD")
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)
 			continue
 		}
-		tipGoroot.Set(fsys)
+		afs.Set(fsys)
 		break
 	}
 
@@ -330,17 +344,17 @@ func watchTip1(tipGoroot *atomicFS) {
 		time.Sleep(5 * time.Minute)
 		h2, err := r.Resolve("HEAD")
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			continue
 		}
 		if h2 != h {
 			fsys, err := r.CloneHash(h2)
 			if err != nil {
-				log.Printf("tip: %v", err)
+				log.Printf("watchGit %s: %v", repo, err)
 				time.Sleep(1 * time.Minute)
 				continue
 			}
-			tipGoroot.Set(fsys)
+			afs.Set(fsys)
 			h = h2
 		}
 	}
@@ -715,6 +729,7 @@ func (fsys fixSpecsFS) Open(name string) (fs.File, error) {
 // README.md, and SECURITY.md. The last is particularly problematic
 // when running locally on a Mac, because it can be opened as
 // security.md, which takes priority over _content/security.html.
+// Same for wiki.
 type hideRootMDFS struct {
 	fs fs.FS
 }
@@ -722,6 +737,10 @@ type hideRootMDFS struct {
 func (fsys hideRootMDFS) Open(name string) (fs.File, error) {
 	if !strings.Contains(name, "/") && strings.HasSuffix(name, ".md") {
 		return nil, errors.New(".md file not available")
+	}
+	switch name {
+	case "wiki/README.md", "wiki/CONTRIBUTING.md", "wiki/LICENSE", "wiki/PATENTS", "wiki/codereview.cfg":
+		return nil, errors.New("wiki meta file not available")
 	}
 	return fsys.fs.Open(name)
 }
@@ -793,6 +812,23 @@ type atomicFS struct {
 // Set sets the file system used by future calls to Open.
 func (a *atomicFS) Set(fsys fs.FS) {
 	a.v.Store(&fsys)
+}
+
+// A mountFS is a root FS with a second FS mounted at a specific location.
+type mountFS struct {
+	old fs.FS  // root file system
+	dir string // mount point
+	new fs.FS  // fs mounted on dir
+}
+
+func (m *mountFS) Open(name string) (fs.File, error) {
+	if name == m.dir {
+		return m.new.Open(".")
+	}
+	if strings.HasPrefix(name, m.dir) && len(name) > len(m.dir) && name[len(m.dir)] == '/' {
+		return m.new.Open(name[len(m.dir)+1:])
+	}
+	return m.old.Open(name)
 }
 
 // Open returns fsys.Open(name) where fsys is the file system passed to the most recent call to Set.

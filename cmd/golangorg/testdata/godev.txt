@@ -109,3 +109,11 @@ redirect == /doc/security/
 
 GET https://go.dev/doc/security/
 body contains Security
+
+GET https://go.dev/wiki/
+body contains Go Wiki: Index
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+
+GET https://go.dev/wiki/Comments
+body contains Go Wiki: Comments
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>

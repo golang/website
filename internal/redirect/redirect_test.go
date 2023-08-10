@@ -85,9 +85,6 @@ func TestRedirects(t *testing.T) {
 		"/issues/new/choose":        errorResult(404),
 		"/issues/1/2/3":             errorResult(404),
 
-		"/wiki/foo":  {302, "https://github.com/golang/go/wiki/foo"},
-		"/wiki/foo/": {302, "https://github.com/golang/go/wiki/foo/"},
-
 		"/design":              {301, "https://go.googlesource.com/proposal/+/master/design"},
 		"/design/":             {302, "/design"},
 		"/design/123-foo":      {302, "https://go.googlesource.com/proposal/+/master/design/123-foo.md"},

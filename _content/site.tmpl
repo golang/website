@@ -71,7 +71,7 @@
             <a href="{{if .children}}#{{else}}{{.url}}{{end}}" {{if .children}} class="js-desktop-menu-hover"{{end}} aria-label={{.name}} aria-describedby="dropdown-description">
               {{.name}} {{if .children}}<i class="material-icons" aria-hidden="true">arrow_drop_down</i>{{end}}
             </a>
-            <div class="screen-reader-only" id="dropdown-description" hidden> 
+            <div class="screen-reader-only" id="dropdown-description" hidden>
               Press Enter to activate/deactivate dropdown
             </div>
             {{- if .children}}
@@ -270,7 +270,7 @@
   <script async src="/js/copypaste.js"></script>
 </footer>
 <section class="Cookie-notice js-cookieNotice">
-  <div>go.dev uses cookies from Google to deliver and enhance the quality of its services and to 
+  <div>go.dev uses cookies from Google to deliver and enhance the quality of its services and to
   analyze traffic. <a target=_blank href="https://policies.google.com/technologies/cookies">Learn more.</a></div>
   <div><button class="go-Button">Okay</button></div>
 </section>
@@ -438,7 +438,7 @@
 {{end}}
 
 {{if .title}}
-<h1>{{.title}}</h1>
+<h1>{{if strings.HasPrefix .URL "/wiki/"}}Go Wiki: {{end}}{{.title}}</h1>
 {{else if eq .layout "error"}}
 <h1>Error</h1>
 {{else if eq .layout "dir"}}
@@ -470,6 +470,13 @@
 {{ bugsidebar .}}
 {{end}}
 </div>
+{{end}}
+
+{{if strings.HasPrefix .URL "/wiki/"}}
+<hr>
+<p>
+<i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+</p>
 {{end}}
 </article>
 

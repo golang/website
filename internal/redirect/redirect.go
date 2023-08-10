@@ -111,8 +111,6 @@ var redirects = map[string]string{
 	"/doc/mem":  "/ref/mem",
 	"/doc/spec": "/ref/spec",
 
-	"/wiki": "https://github.com/golang/go/wiki",
-
 	"/doc/articles/c_go_cgo.html":                    "/blog/c-go-cgo",
 	"/doc/articles/concurrency_patterns.html":        "/blog/go-concurrency-patterns-timing-out-and",
 	"/doc/articles/defer_panic_recover.html":         "/blog/defer-panic-and-recover",
@@ -163,7 +161,6 @@ var newIssueRedirects = [...]string{
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
-	"wiki":   "https://github.com/golang/go/wiki/",
 }
 
 func Handler(target string) http.Handler {

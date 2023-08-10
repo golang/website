@@ -62,3 +62,11 @@ header Content-Type == text/plain; charset=utf-8
 body !contains The Go Playground
 body !contains About the Playground
 body contains Hello, 世界
+
+GET https://go.dev/wiki/Comments
+body contains Go Wiki: Comments
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+
+GET https://go.dev/wiki/CommonMistakes
+body contains Go Wiki: Common Mistakes
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>

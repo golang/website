@@ -127,6 +127,12 @@ func (site *Site) renderHTML(p Page, tmpl string, r *http.Request) ([]byte, erro
 		// Either the page explicitly requested templating, or it is markdown,
 		// which is treated as a template by default.
 		isTemplate, explicit := p["template"].(bool)
+
+		// The wiki is not templated by default.
+		if !explicit && strings.HasPrefix(file, "wiki/") {
+			isTemplate, explicit = false, true
+		}
+
 		tdata := data
 		if !explicit || isTemplate {
 			// Load content as a template.
@@ -193,6 +199,7 @@ func markdownToHTML(markdown string) (template.HTML, error) {
 				extension.WithLinkifyEmailRegexp(regexp.MustCompile(`[^\x00-\x{10FFFF}]`)), // impossible
 			),
 			extension.DefinitionList,
+			extension.NewTable(),
 		),
 	)
 	var buf bytes.Buffer

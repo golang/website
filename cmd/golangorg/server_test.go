@@ -114,6 +114,9 @@ func TestAll(t *testing.T) {
 
 	// Do not process these paths or path prefixes.
 	ignores := []string{
+		// Wiki is in a different repo; errors there should not block production push.
+		"/wiki/",
+
 		// Support files not meant to be served directly.
 		"/doc/articles/wiki/",
 		"/talks/2013/highperf/",
