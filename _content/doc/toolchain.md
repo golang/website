@@ -179,8 +179,8 @@ if builds succeeded the toolchain assumed everything worked,
 and if not it printed a note about the potential version mismatch.
 Go 1.21 changed the `go` line to be a mandatory requirement instead.
 This behavior is partly backported to earlier language versions:
-Go 1.19 releases starting at Go 1.19.11 and Go 1.20 releases starting at Go 1.20.6,
-refuse to load workspaces or modules declaring version Go 1.21 or later.
+Go 1.19 releases starting at Go 1.19.13 and Go 1.20 releases starting at Go 1.20.8,
+refuse to load workspaces or modules declaring version Go 1.22 or later.
 
 Before Go 1.21, toolchains did not require a module
 or workspace to have a `go` line greater than or equal to the
