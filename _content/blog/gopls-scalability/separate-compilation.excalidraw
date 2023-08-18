@@ -1,0 +1,253 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "text",
+      "version": 514,
+      "versionNonce": 1931030537,
+      "isDeleted": false,
+      "id": "8vCu0eNhvFjFZlYF6qMKK",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 634.2309083984003,
+      "y": 256.521234050657,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 304.6875,
+      "height": 216,
+      "seed": 588319446,
+      "groupIds": [
+        "catUVsDqTBTKpq-jyjQOz"
+      ],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1693404698186,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 3,
+      "text": "package foo\n\nimport \"fmt\"\n\ntype Bar struct{}\n\nfunc (Bar) Baz(s string) {\n    fmt.Println(s)\n}",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "package foo\n\nimport \"fmt\"\n\ntype Bar struct{}\n\nfunc (Bar) Baz(s string) {\n    fmt.Println(s)\n}",
+      "lineHeight": 1.2,
+      "baseline": 211
+    },
+    {
+      "type": "rectangle",
+      "version": 466,
+      "versionNonce": 584127881,
+      "isDeleted": false,
+      "id": "OIDpNpialGaYan-IDYsYp",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 607,
+      "y": 211,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 348.79070653208913,
+      "height": 312.7659493429823,
+      "seed": 160776214,
+      "groupIds": [
+        "catUVsDqTBTKpq-jyjQOz"
+      ],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "YfmaTvV7nBEdCO5v-yiWr",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1693403971747,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "rectangle",
+      "version": 479,
+      "versionNonce": 2124129159,
+      "isDeleted": false,
+      "id": "3OdPvUKZKpvbzhl_B5fid",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1030.5,
+      "y": 186.5,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 342,
+      "height": 341.4999999999999,
+      "seed": 1665264074,
+      "groupIds": [
+        "3Jg1OxEHWdnyfhavtSLUi"
+      ],
+      "frameId": null,
+      "roundness": {
+        "type": 3
+      },
+      "boundElements": [
+        {
+          "id": "YfmaTvV7nBEdCO5v-yiWr",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1693403971747,
+      "link": null,
+      "locked": false
+    },
+    {
+      "type": "text",
+      "version": 518,
+      "versionNonce": 1221397097,
+      "isDeleted": false,
+      "id": "eeZNpC4B2KUVuWE7MReMW",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 1051,
+      "y": 207,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 288.3397216796875,
+      "height": 275,
+      "seed": 1807097994,
+      "groupIds": [
+        "3Jg1OxEHWdnyfhavtSLUi"
+      ],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [
+        {
+          "id": "YfmaTvV7nBEdCO5v-yiWr",
+          "type": "arrow"
+        }
+      ],
+      "updated": 1693423357961,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Summary\n  package foo\n  import \"fmt\"\n  type Bar struct{}\n  func (Bar) Baz(s string)\n\nReferences:\n  fmt.Println: line 8, column 6\n\nMethods:\n  Baz(string): Bar",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "Summary\n  package foo\n  import \"fmt\"\n  type Bar struct{}\n  func (Bar) Baz(s string)\n\nReferences:\n  fmt.Println: line 8, column 6\n\nMethods:\n  Baz(string): Bar",
+      "lineHeight": 1.25,
+      "baseline": 268
+    },
+    {
+      "type": "arrow",
+      "version": 1132,
+      "versionNonce": 1317771943,
+      "isDeleted": false,
+      "id": "YfmaTvV7nBEdCO5v-yiWr",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0,
+      "x": 971.7907065320892,
+      "y": 367.1869308196924,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 44.20929346791081,
+      "height": 1.1750564695992125,
+      "seed": 1753119510,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": {
+        "type": 2
+      },
+      "boundElements": [],
+      "updated": 1693403971747,
+      "link": null,
+      "locked": false,
+      "startBinding": {
+        "elementId": "OIDpNpialGaYan-IDYsYp",
+        "gap": 16,
+        "focus": -0.03876047338293693
+      },
+      "endBinding": {
+        "elementId": "3OdPvUKZKpvbzhl_B5fid",
+        "gap": 14.5,
+        "focus": -0.0915169218121322
+      },
+      "lastCommittedPoint": null,
+      "startArrowhead": null,
+      "endArrowhead": "triangle",
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          44.20929346791081,
+          1.1750564695992125
+        ]
+      ]
+    },
+    {
+      "type": "text",
+      "version": 215,
+      "versionNonce": 1703806793,
+      "isDeleted": false,
+      "id": "Ca7svLx55Vj_MCQV-LfdJ",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "dashed",
+      "roughness": 2,
+      "opacity": 100,
+      "angle": 0.17623928971477731,
+      "x": 1254.5398740640808,
+      "y": 209.57474426703484,
+      "strokeColor": "#1e1e1e",
+      "backgroundColor": "transparent",
+      "width": 99.139892578125,
+      "height": 25,
+      "seed": 1290026070,
+      "groupIds": [],
+      "frameId": null,
+      "roundness": null,
+      "boundElements": [],
+      "updated": 1693403971747,
+      "link": null,
+      "locked": false,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "File Cache",
+      "textAlign": "left",
+      "verticalAlign": "top",
+      "containerId": null,
+      "originalText": "File Cache",
+      "lineHeight": 1.25,
+      "baseline": 18
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  },
+  "files": {}
+}
