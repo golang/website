@@ -1176,6 +1176,10 @@ edits. The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
+`go.work` files should not be checked into version control repos containing modules
+so that the `go.work` file in a module does not end up overriding the configuration 
+a user created themselves outside of the module.
+
 ### Lexical elements {#go-work-file-lexical}
 
 Lexical elements in `go.work` files are defined in exactly the same way [as for
