@@ -150,7 +150,7 @@ There is a lot more to `slog`:
   among other things.
 
 The best place to learn about all of `slog` is the [package
-documentation](https://pkg.dev.go/log/slog).
+documentation](https://pkg.go.dev/log/slog).
 
 
 ## Performance
