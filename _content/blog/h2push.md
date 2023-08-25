@@ -62,9 +62,7 @@ then the `PUSH_PROMISE` should include an Accept-Encoding value:
 
 {{code "h2push/pusher.go" `/START1/` `/END1/`}}
 
-A fully working example is available at:
-
-	$ go get golang.org/x/blog/content/h2push/server
+A fully working example is [available here](https://cs.opensource.google/go/x/website/+/master:_content/blog/h2push/server/).
 
 If you run the server and load [https://localhost:8080](https://localhost:8080),
 your browser's developer tools should show that `app.js` and
