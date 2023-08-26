@@ -15,6 +15,7 @@
 <meta name="theme-color" content="#00add8">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons">
 <link rel="stylesheet" href="/css/styles.css">
+<link rel="stylesheet" href="/css/docs.css">
 <link rel="icon" href="/images/favicon-gopher.png" sizes="any">
 <link rel="apple-touch-icon" href="/images/favicon-gopher-plain.png"/>
 <link rel="icon" href="/images/favicon-gopher.svg" type="image/svg+xml">
@@ -268,6 +269,7 @@
   <script src="/js/playground.js"></script>
   <script src="/js/godocs.js"></script>
   <script async src="/js/copypaste.js"></script>
+  <script async src="/js/docs.js"></script>
 </footer>
 <section class="Cookie-notice js-cookieNotice">
   <div>go.dev uses cookies from Google to deliver and enhance the quality of its services and to 
@@ -425,54 +427,75 @@
 <span class="text-muted">{{strings.Join (slice $elems (len $prefix) (len $elems)) "/"}}</span>
 {{end}}
 
+{{/* layout for the existing */}}
 {{define "doclayout"}}
-{{/* used from various subdirectory default.tmpl */}}
+{{if .hidetoc}}
 <article class="Doc Article">
-{{if .sidebar }}
-<div class="Article-columns">
-<div class="Article-content">
-{{end}}
+  {{if .breadcrumb}}
+    {{ breadcrumbs . }}
+  {{end}}
 
-{{if .breadcrumb}}
-  {{ breadcrumbs . }}
-{{end}}
+  {{if .title}}
+  <h1>{{.title}}</h1>
+  {{else if eq .layout "error"}}
+  <h1>Error</h1>
+  {{else if eq .layout "dir"}}
+  <h1>Directory {{breadcrumb .URL}}</h1>
+  {{else if and (eq .layout "texthtml") (strings.HasSuffix .URL ".go")}}
+  <h1>Source file {{breadcrumb .URL}}</h1>
+  {{else if eq .layout "texthtml"}}
+  <h1>Text file {{breadcrumb .URL}}</h1>
+  {{end}}
 
-{{if .title}}
-<h1>{{.title}}</h1>
-{{else if eq .layout "error"}}
-<h1>Error</h1>
-{{else if eq .layout "dir"}}
-<h1>Directory {{breadcrumb .URL}}</h1>
-{{else if and (eq .layout "texthtml") (strings.HasSuffix .URL ".go")}}
-<h1>Source file {{breadcrumb .URL}}</h1>
-{{else if eq .layout "texthtml"}}
-<h1>Text file {{breadcrumb .URL}}</h1>
-{{end}}
+  {{with .subtitle}}
+  <h2 class="subtitle">{{.}}</h2>
+  {{end}}
 
-{{with .subtitle}}
-<h2 class="subtitle">{{.}}</h2>
-{{end}}
-
-{{/* The Table of Contents is automatically inserted in this <div>.
-     Do not delete this <div>. */}}
-{{if not .hidetoc}}
-<div id="nav" class="TOC"></div>
-{{end}}
-
-
-{{.Content}}
-
-{{if .sidebar }}
-</div>
-{{if eq .sidebar "faq"}}
-{{ faqsidebar .}}
-{{else if eq .sidebar "bug"}}
-{{ bugsidebar .}}
-{{end}}
-</div>
-{{end}}
+  {{.Content}}
 </article>
+{{ else }}
+<article class="Documentation">
+  <aside class="doc-Outline">
+    <ul class="outline-Tree js-outline-tree" role="tree">
+      <li>
+        <ul>{{treenav .}}</ul>
+      </li>
+    </ul>
+  </aside>
+  <div class="doc-Main">
+    {{if .breadcrumb}}
+    {{breadcrumbs .}}
+    {{end}}
 
+    {{if .title}}
+    <h1>{{.title}}</h1>
+    {{else if eq .layout "error"}}
+    <h1>Error</h1>
+    {{else if eq .layout "dir"}}
+    <h1>Directory {{breadcrumb .URL}}</h1>
+    {{else if and (eq .layout "texthtml") (strings.HasSuffix .URL ".go")}}
+    <h1>Source file {{breadcrumb .URL}}</h1>
+    {{else if eq .layout "texthtml"}}
+    <h1>Text file {{breadcrumb .URL}}</h1>
+    {{end}}
+
+    {{with .subtitle}}
+    <h2 class="subtitle">{{.}}</h2>
+    {{end}}
+    {{.Content}}
+  </div>
+  <aside class="doc-TableOfContent">
+    <p>
+      <span>This page &nbsp;</span>
+      <button class="go-Button go-Button--text js-expand-toc" aria-label="collapse table of content">
+        <img class="go-Icon" height="24" width="24" src="/images/icons/chevron-down-double.svg" alt="">
+        <img class="go-Icon" height="24" width="24" src="/images/icons/chevron-up-double.svg" alt="" style="display:none">
+      </button>
+    </p>
+    <ul class="toc-Tree js-toc-tree" role="tree"></ul>
+  </aside>
+</article>
+{{end}}
 {{end}}
 
 {{define "bugsidebar"}}
@@ -518,3 +541,23 @@
   </div>
 </aside>
 {{end}}
+
+{{/* outline templating */}}
+{{define "treeitems"}}
+  {{range .}}
+    <li>
+      {{if .url}}<a href="{{.url}}">{{.name}}</a>{{else}}<span class="label">{{.name}}</span>{{end}}
+      {{if .children}}
+        <ul>
+          {{template "treeitems" .children}}
+        </ul>
+      {{end}}
+    </li>
+  {{end}}
+{{end}}
+
+{{define "treenav"}}
+  {{$docs := data "/docs.yaml"}}
+  {{template "treeitems" $docs.subjects}}
+{{end}}
+{{/* end outlining templating */}}

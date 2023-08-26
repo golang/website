@@ -37,26 +37,72 @@ summary: Go is an open source programming language that makes it simple to build
       </ul>
     </div>
     <div class="Hero-actions">
-      <div
-        data-version=""
-        class="js-latestGoVersion">
-        <a class="Primary" href="/learn/" aria-label="Get Started" aria-describedby="getStarted-description" role="button">Get Started</a>
-        <a class="Secondary js-downloadBtn" href="/dl" aria-label="Download" aria-describedby="download-description" role="button">Download</a>
-        <div class="screen-reader-only" id="getStarted-description" hidden>
-          Opens a new window with the Get Started guide.
+      <div data-version="" class="js-latestGoVersion">
+        <div role="group" class="BtnGroup">
+          <div class="BtnGroup-sub">
+            <button class="mainBtn go-Button go-Button--accented js-downloadBtn" aria-label="Download" aria-describedby="download-description">
+              <span>Download Go <small class="js-goVersion"></small></span>
+              <small class="go-Chip go-Chip--accented js-osAndArch"></small>
+            </button>
+            <button class="go-Button go-Button--accented js-selectBinary" aria-haspopup="menu" aria-label="select binary type to download">
+              <img class="go-Icon" height="24" width="24" src="/images/icons/arrow_drop_down_gm_grey_24dp.svg" alt="arrow-dropdown">
+            </button>
+          </div>
+          <div class="binaryMatrix js-binaryMatrix">
+            <table class="binaryMatrix-Table">
+              <thead>
+                <tr>
+                  <th scope="col"><p><small>OS</small></p></th>
+                  <th scope="col"><p><small>(Arch)</small></p></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody class="binaryDistribution js-binaryDistribution">
+                <tr>
+                  <td scope="row"><p>MacOS</p></td>
+                  <td>
+                    <p><span class="go-Chip go-Chip--accented">ARM64</span></p>
+                    <p><span class="go-Chip go-Chip--accented">AMD64</span></p>
+                  </td>
+                  <td>
+                    <p><a href="/doc/install?dc=darwin-arm64"><img class="go-Icon" height="24" width="24" src="/images/icons/insert_drive_file_gm_grey_24dp.svg" alt=""></a></p>
+                    <p><a href="/doc/install?dc=darwin-amd64"><img class="go-Icon" height="24" width="24" src="/images/icons/insert_drive_file_gm_grey_24dp.svg" alt=""></a></p>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="binaryDistribution js-binaryDistribution">
+                <tr><td scope="row"><p>Windows</p></td>
+                  <td><p><span class="go-Chip go-Chip--accented">AMD64</span></p></td>
+                  <td><p><a href="/doc/install?dc=windows-amd64"><img class="go-Icon" height="24" width="24" src="/images/icons/insert_drive_file_gm_grey_24dp.svg" alt=""></a></p>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="binaryDistribution js-binaryDistribution">
+                <tr><td scope="row"><p>Linux</p></td>
+                  <td><p><span class="go-Chip go-Chip--accented">AMD64</span></p></td>
+                  <td><p>
+                    <a href="/doc/install?dc=linux-amd64" data-os="linux" data-arch="amd64"><img class="go-Icon" height="24" width="24" src="/images/icons/insert_drive_file_gm_grey_24dp.svg" alt=""></a></p>
+                  </td>
+                </tr>
+              </tbody>
+              <tbody class="otherDistribution">
+                <tr><td colspan="3"><a href="/dl"><small>See other <code>go</code> binary releases</small></a></td></tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <a class="Secondary secondaryBtn" href="/play/" aria-label="Try a Tour of Go" aria-describedby="tryGoTour-description" role="button">
+          <span>Not ready to download Go?</span>
+          <small>Try a tour of Go</small>
+        </a>
         <div class="screen-reader-only" id="download-description" hidden>
-          Opens a new window to download Go.
+          Downloads Go and opens a new window with instructions to install Go.
+        </div>
+        <div class="screen-reader-only" id="tryGoTour-description" hidden>
+          Opens a new window with A Tour of Go.
         </div>
       </div>
       <div class="Hero-footnote">
-        <p>
-          Download packages for
-          <a class="js-downloadWin">Windows 64-bit</a>,
-          <a class="js-downloadMac">macOS</a>,
-          <a class="js-downloadLinux">Linux</a>, and
-          <a href="/dl/" aria-describedby="newwindow-description">more</a>
-        </p>
         <p>
           The <code>go</code> command by default downloads and authenticates
           modules using the Go module mirror and Go checksum database run by
@@ -65,7 +111,7 @@ summary: Go is an open source programming language that makes it simple to build
       </div>
     </div>
     <div class="screen-reader-only" id="newwindow-description" hidden>
-          Opens in new window.
+      Opens in new window.
     </div>
     <div class="Hero-gopher">
       <img class="Hero-gopherLadder" src="/images/gophers/ladder.svg" alt="Go Gopher climbing a ladder.">

@@ -1,0 +1,97 @@
+subjects:
+  - name: Getting Started
+    children:
+      - name: Installing Go
+        url: /doc/install
+      - name: Setup Editor
+        url: /doc/editors
+      - name: Setup Tools
+        children:
+          - name: gopls
+            url: https://pkg.go.dev/golang.org/x/tools/gopls
+      - name: Hello Go
+        url: /doc/tutorial/getting-started
+  - name: Writing Go code
+    children:
+      - name: Effective Go
+        url: /doc/effective_go
+      - name: How to write Go code
+        url: /doc/code
+  - name: Packages, Modules and Workspaces
+    children:
+      - name: Create a module
+        url: /doc/tutorial/create-module
+      - name: Publishing a module
+        url: /doc/modules/publishing
+      - name: Developing and publishing modules
+        url: /doc/modules/developing
+      - name: Module release and versioning workflow
+        url: /doc/modules/release-workflow
+      - name: Managing module source
+        url: /doc/modules/managing-source
+      - name: Module version numbering
+        url: /doc/modules/version-numbers
+      - name: Developing a major version update
+        url: /doc/modules/major-version
+      - name: Getting started with multi-module workspaces
+        url: /doc/tutorial/workspaces
+      - name: Managing dependencies
+        url: /doc/modules/managing-dependencies
+  - name: Language
+    children:
+      - name: A Guide to the Go Garbage Collector
+        url: /doc/gc-guide
+      - name: Profile-guided optimization
+        url: /doc/pgo
+      - name: Getting started with Generics
+        url: /doc/tutorial/generics
+      - name: Fuzzing
+        url: /security/fuzz/
+      - name: Getting started with fuzzing
+        url: /doc/tutorial/fuzz
+  - name: Tour of Go
+    url: /tour/welcome/1
+  - name: Web Application
+    children:
+      - name: Developing a RESTful API with Go and Gin
+        url: /doc/tutorial/web-service-gin
+      - name: Writing Web Applications
+        url: /doc/articles/wiki/
+  - name: Database
+    children:
+      - name: Accessing a relational database (tutorial)
+        url: /doc/tutorial/database-access
+      - name: Accessing relational databases
+        url: /doc/database/
+      - name: Opening a database handle
+        url: /doc/database/open-handle
+      - name: Executing SQL statements that don't return data
+        url: /doc/database/change-data
+      - name: Querying for data
+        url: /doc/database/querying
+      - name: Using prepared statements
+        url: /doc/database/prepared-statements
+      - name: Executing transactions
+        url: /doc/database/execute-transactions
+      - name: Cancelling in-progress database operations
+        url: /doc/database/cancel-operations
+      - name: Managing connections
+        url: /doc/database/manage-connections
+      - name: Avoiding SQL injection risk
+        url: /doc/database/sql-injection
+  - name: Resources
+    children:
+      - name: FAQ
+        url: /doc/faq
+      - name: Talks
+        children:
+          - name: A Video Tour of Go
+            url: https://research.swtch.com/gotour
+          - name: Code that grows with grace
+            url: https://vimeo.com/53221560
+          - name: Go concurrency patterns
+            url: https://www.youtube.com/watch?v=f6kdp27TYZs
+          - name: Advanced Go Concurrency Patterns
+            url: https://www.youtube.com/watch?v=QDDwwePbDtw
+          - name: Go Talks site
+            url: /talks/

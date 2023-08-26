@@ -24,7 +24,6 @@ import (
 	"net/url"
 	"os"
 	"path"
-	"path/filepath"
 	"runtime"
 	"runtime/debug"
 	"strings"
@@ -57,7 +56,7 @@ var (
 	goroot     = flag.String("goroot", runtime.GOROOT(), "Go root directory")
 	contentDir = flag.String("content", "", "path to _content directory")
 
-	runningOnAppEngine = os.Getenv("PORT") != ""
+	runningOnAppEngine = false // os.Getenv("PORT") != ""
 
 	tipFlag = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
 
@@ -75,13 +74,13 @@ func main() {
 	// so that updates to those files appear on the local dev instance without restarting.
 	// On App Engine, leave contentDir empty, so we use the embedded copy,
 	// which is much faster to access than the simulated file system.
-	if *contentDir == "" && !runningOnAppEngine {
-		repoRoot := "../.."
-		if _, err := os.Stat("_content"); err == nil {
-			repoRoot = "."
-		}
-		*contentDir = filepath.Join(repoRoot, "_content")
-	}
+	// if *contentDir == "" && !runningOnAppEngine {
+	// 	repoRoot := "../.."
+	// 	if _, err := os.Stat("_content"); err == nil {
+	// 		repoRoot = "."
+	// 	}
+	// 	*contentDir = filepath.Join(repoRoot, "_content")
+	// }
 
 	if runningOnAppEngine {
 		log.Print("golang.org server starting")

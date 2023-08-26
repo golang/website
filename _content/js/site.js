@@ -221,30 +221,72 @@ window.initFuncs = [];
   }
 
   /**
+   * 
+   * @return {'darwin'|'linux'|'windows'}
+   */
+  function detectUserAgentOS() {
+    const ua = (typeof window !== 'undefined' ? navigator.userAgent : '').toLowerCase();
+    const osToUaRegexp = {
+      linux: /linux ()([a-z\.\_\d]+)/,
+      darwin: /mac os x/,
+      windows: /windows\s*(?:nt)?\s*([\.\_\d]+)/,
+      ios: /os ([\.\_\d]+) like mac os/,
+      android: /android/,
+    };
+    let finalOs = 'windows'; // fallback to windows
+    Object.keys(osToUaRegexp).forEach((os) => {
+      /** @type {RegExp} regexp */
+      const regexp = osToUaRegexp[os];
+      const match = ua.match(regexp);
+      if (match) {
+        if (os === 'ios') finalOs = 'darwin';
+        else if (os === 'android') finalOs = 'linux';
+        else finalOs = os;
+      }
+    });
+    return finalOs;
+  }
+
+  /**
    * Attempts to detect user's operating system and sets the download
    * links accordingly
    */
   async function setDownloadLinks() {
     const versionElement = document.querySelector('.js-latestGoVersion');
     if (versionElement) {
-      const anchorTagWindows = document.querySelector('.js-downloadWin');
-      const anchorTagMac = document.querySelector('.js-downloadMac');
-      const anchorTagLinux = document.querySelector('.js-downloadLinux');
-      const version = await getLatestVersion();
+      const os = detectUserAgentOS();
+      const osAndArchEl = document.querySelector('.js-osAndArch');
+      const downloadBtn = document.querySelector('.js-downloadBtn');
+      const goVersionEl = document.querySelector('.js-goVersion');
+    
+      const resources = await getLatestSortedGoResources();
+      let version = 'go1.17';
+      if (resources.length > 0) version = resources[0].version;
 
-      const macDownloadUrl = `/dl/${version}.darwin-amd64.pkg`;
-      const windowsDownloadUrl = `/dl/${version}.windows-amd64.msi`;
-      const linuxDownloadUrl = `/dl/${version}.linux-amd64.tar.gz`;
+      let arch = 'amd64';
+      const macDownloadUrl = `/dl/${version}.darwin-${arch}.pkg`;
+      const windowsDownloadUrl = `/dl/${version}.windows-${arch}.msi`;
+      const linuxDownloadUrl = `/dl/${version}.linux-${arch}.tar.gz`;
+      goVersionEl.textContent = `\u00a0(${version.replace('go', '')})`;
 
-      anchorTagWindows.href = windowsDownloadUrl;
-      anchorTagMac.href = macDownloadUrl;
-      anchorTagLinux.href = linuxDownloadUrl;
+      const titleCase = (t) => t.charAt(0).toUpperCase() + t.slice(1).toLowerCase();
+      osAndArchEl.textContent = `For ${titleCase(os)} ${arch.toUpperCase()}`;
+      
+      const selectBinaryEl = document.querySelector('.js-selectBinary');
+      const binaryMatrixEl = document.querySelector('.js-binaryMatrix');
+      selectBinaryEl.addEventListener('click', () => {
+        const display = binaryMatrixEl.style.display;
+        if (display ===  'block') {
+          binaryMatrixEl.style.display = 'none';
+        } else {
+          binaryMatrixEl.style.display = 'block';
+        }
+      });
 
-      /*
-       * Note: we do not change .js-downloadBtn anymore
-       * because it is impossible to tell reliably which architecture
-       * the user's browser is running on.
-       */
+      const dlUrl = os === 'darwin' ? macDownloadUrl : (os === 'linux' ? linuxDownloadUrl : windowsDownloadUrl);
+      downloadBtn.addEventListener('click', () => {
+        window.open(dlUrl, '_self');
+      });
     }
   }
 
@@ -256,24 +298,33 @@ window.initFuncs = [];
     }
   }
 
-  /**
-   * Retrieves list of Go versions & returns the latest
-   */
   async function getLatestVersion() {
     let version = 'go1.17'; // fallback version if fetch fails
     try {
-      const versionData = await (await fetch('/dl/?mode=json')).json();
+      const versionData = await getLatestSortedGoResources();
       if (!versionData.length) {
         return version;
       }
-      versionData.sort((v1, v2) => {
-        return v2.version - v1.version;
-      });
       version = versionData[0].version;
     } catch (err) {
       console.error(err);
     }
     return version;
+  }
+
+  /**
+   * Retrieves list of Go versions and stable binaries for download
+   */
+  async function getLatestSortedGoResources() {
+    try {
+      const versionData = await (await fetch('/dl/?mode=json')).json();
+      if (!versionData.length) return [];
+      versionData.sort((v1, v2) => v2.version - v1.version);
+      return versionData;
+    } catch (err) {
+      console.error(err);
+      return [];
+    }
   }
 
   /**

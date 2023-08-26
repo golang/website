@@ -7,10 +7,19 @@ class DownloadsController {
 
     // OS for which to display download and install steps.
     this.osName = 'Unknown OS';
+    this.osNameFromQuery = '';
 
     // URL to JSON containing list of installer downloads.
     const fileListUrl = '/dl/?mode=json';
     this.activeTabIndex = 0;
+
+    const dlQuery = new URL(document.URL).searchParams.get('dc') || '';
+    if (dlQuery !== '') {
+      const [queryOS] = dlQuery.split('-');
+      if (queryOS === 'darwin') this.osNameFromQuery = 'mac';
+      if (queryOS === 'windows') this.osNameFromQuery = 'windows';
+      if (queryOS === 'linux') this.osNameFromQuery = 'linux';
+    }
 
     // Get the install file list, then get names and sizes
     // for each OS supported on the install page.
@@ -66,6 +75,10 @@ class DownloadsController {
 
   // Detect the users OS for installation default.
   detectOS() {
+    if (this.osNameFromQuery !== '') {
+      this.osName = this.osNameFromQuery;
+      return;
+    }
     if (navigator.userAgent.indexOf('Linux') !== -1) {
       this.osName = 'linux';
     } else if (navigator.userAgent.indexOf('Mac') !== -1) {

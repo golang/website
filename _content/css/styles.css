@@ -4,6 +4,9 @@
   --border-card: var(--border);
   --border-code: var(--border);
 
+  /** Site */
+  --site-header-height: 3.5rem;
+
   /* Colors */
   --gray-1: #202224;
   --gray-2: #2d2d2d;
@@ -290,6 +293,7 @@ a:focus {
 .SiteContent {
   background: var(--color-background);
   flex: 1;
+  margin-top: var(--site-header-height);
 }
 .Site-footer {
   border-top: var(--border);
@@ -303,6 +307,7 @@ a:focus {
   top: 0;
   width: 100%;
   z-index: 10;
+  position: fixed;
 }
 .CaseStudy-aboutBlock {
   background-color: var(--color-background-accented);
@@ -762,12 +767,12 @@ a.Footer-link--primary {
   width: 18.5rem;
   left: -1px;
 }
-.Header-menu li:nth-child(3) .Header-submenu {
+.Header-menu li:nth-child(4) .Header-submenu {
   left: -12rem;
   height: 19.275rem;
   width: 37.25rem;
 }
-.Header-menu li:nth-child(5) .Header-submenu {
+.Header-menu li:nth-child(6) .Header-submenu {
   right: -1px;
   height: 17.65rem;
   width: 37.25rem;
@@ -1334,8 +1339,9 @@ a.GettingStartedGo-resourceItemTitle {
   border-radius: 0.25rem;
   display: flex;
   flex-wrap: nowrap;
+  white-space: nowrap;
   font-size: 0.875rem;
-  height: 2.5rem;
+  height: 3rem;
   justify-content: center;
   line-height: 1.3125rem;
   margin: 0;
@@ -1467,7 +1473,7 @@ a.GettingStartedGo-resourceItemTitle {
   .Hero-actions a.Primary,
   .Hero-actions a.Secondary {
     font-size: 1.5rem;
-    height: 4rem;
+    height: 5rem;
     line-height: 1.75rem;
   }
   .Hero-actions a.Secondary {
@@ -5368,5 +5374,220 @@ a.downloadBox:hover .filename span {
   .Cookie-notice,
   .Cookie-notice--visible {
     display: none;
+  }
+}
+
+.go-Chip {
+  background: var(--color-button);
+  border: 0.0625rem solid var(--color-button);
+  border-radius: 1.25rem;
+  font-size: 0.5rem;
+  padding: 0 0.25rem;
+}
+.go-Chip--subtle {
+  background-color: var(--color-background-accented);
+  border-color: transparent;
+  color: var(--color-text-subtle);
+  font-size: 0.5rem;
+}
+.go-Chip--highlighted {
+  background: var(--color-background-highlighted-link);
+  border-color: var(--color-background-highlighted-link);
+  color: var(--color-brand-primary);
+}
+.go-Chip--accented {
+  background: var(--color-button-accented);
+  filter: brightness(0.95);
+  border: 0.0625rem solid var(--color-button-accented);
+  color: var(--black-1);
+}
+
+.Hero-actions {
+  .BtnGroup {
+    position: relative;
+  }
+  .BtnGroup-sub {
+    display: inline-flex;
+    box-shadow: 0 0.0625rem 0.125rem rgba(171, 171, 171, 0.3);
+    height: 3rem;
+    margin: 0 1.3125rem 0 0;
+    line-height: 1.75rem;
+    font-size: 1rem;
+    white-space: nowrap;
+  }
+  .BtnGroup-sub > :first-child {
+    border-radius: 0.25rem 0 0 0.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 0;
+    margin-right: 0.05rem;
+  }
+  .BtnGroup-sub > :last-child {
+    border-radius: 0 0.25rem 0.25rem 0;
+    filter: brightness(0.95);
+    padding: 0 0.5rem;
+    position: relative;
+  }
+  .mainBtn {
+    display: inline-flex;
+  }
+  .mainBtn > small {
+    line-height: 0.3rem;
+  }
+  .mainBtn > span {
+    padding: 0 0.25rem;
+  }
+  .mainBtn > p {
+    margin: 0;
+  }
+  .secondaryBtn {
+    display: flex;
+    flex-direction: column;
+  }
+  .secondaryBtn > span {
+    font-size: 1rem;
+  }
+  
+  .go-Button {
+    align-items: center;
+    background-color: var(--color-button);
+    border: .0625rem solid transparent;
+    color: var(--color-button-text);
+    cursor: pointer;
+    display: inline-flex;
+    padding: 0 0.2rem;
+    font-weight: 400;
+    gap: 0;
+  }
+  .go-Button--accented {
+    background-color: var(--color-button-accented);
+    color: var(--color-button-accented-text);
+  }
+}
+
+.binaryMatrix {
+  display: none;
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  white-space: nowrap;
+  border-spacing: 0;
+  box-sizing: border-box;
+  background-color: var(--color-background);
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, .33);
+  font-weight: normal;
+}
+
+table.binaryMatrix-Table {
+  min-width: 12.5rem;
+  border-collapse: collapse;
+  font-size: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+.binaryMatrix .binaryMatrix-Table p {
+  margin: 0;
+  padding: 0.25rem 0.5rem;
+  text-align: right;
+  color: var(--color-text);
+}
+.binaryMatrix .binaryMatrix-Table small {
+  padding: 0.2rem 0.5rem;
+}
+
+tbody.binaryDistribution {
+  border-top: 0.01rem solid var(--color-border);
+}
+tbody.otherDistribution {
+  border-top: 1px solid var(--color-border);
+  background-color: var(--color-background-accented);
+  text-align: center;
+}
+.Hero-actions tbody.otherDistribution a {
+  color: var(--color-text-link);
+}
+
+@media only screen and (min-width: 48rem) {
+  .Hero-actions {
+    .BtnGroup-sub {
+      height: 5rem;
+      line-height: 1.75rem;
+      font-size: 1.5rem;
+    }
+    .BtnGroup-sub > :first-child {
+      align-items: center;
+      margin-right: 0rem;
+      padding: 0 1rem;
+      margin-right: 0.1rem;
+      border: 1px solid var(--white);
+    }
+    .BtnGroup-sub > :last-child {
+      border-radius: 0 0.25rem 0.25rem 0;
+      filter: brightness(0.95);
+      padding: 0 0.5rem;
+      position: relative;
+      border: 1px solid var(--white);
+    }
+    .mainBtn > small {
+      line-height: 1.75rem;
+    }
+    .go-Button {
+      align-items: center;
+      background-color: var(--color-button);
+      border: .0625rem solid transparent;
+      color: var(--color-button-text);
+      cursor: pointer;
+      display: inline-flex;
+      padding: 0 0.2rem;
+      font-weight: 400;
+    }
+    .go-Button--accented {
+      background-color: var(--color-button-accented);
+      color: var(--color-button-accented-text);
+    }
+  }
+  .binaryMatrix {
+    display: none;
+    position: absolute;
+    top: 4.9rem;
+    left: 0;
+    white-space: nowrap;
+    border-spacing: 0;
+    box-sizing: border-box;
+    background-color: var(--color-background);
+    box-shadow: 0px 1px 1px 0px rgba(0,0,0,.33);
+    font-weight: normal;
+  }
+  .go-Chip {
+    background: var(--color-button);
+    border: 0.0625rem solid var(--color-button);
+    border-radius: 1.25rem;
+    font-size: .75rem;
+    padding: 0 0.625rem;
+  }
+  .go-Chip--subtle {
+    background-color: var(--color-background-accented);
+    border-color: transparent;
+    color: var(--color-text-subtle);
+    font-size: 0.7rem;
+  }
+  .go-Chip--highlighted {
+    background: var(--color-background-highlighted-link);
+    border-color: var(--color-background-highlighted-link);
+    color: var(--color-brand-primary);
+  }
+  .go-Chip--accented {
+    background: var(--color-button-accented);
+    filter: brightness(0.95);
+    border: 0.0625rem solid var(--color-button-accented);
+    color: var(--black-1);
+  }
+  table.binaryMatrix-Table {
+    min-width: 18.75rem;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
   }
 }
