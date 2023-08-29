@@ -497,6 +497,8 @@ Tools that define their own directives should use the form
 `//toolname:directive`.
 
 Gofmt removes leading and trailing blank lines in doc comments.
+If all lines in a doc comment begin with the same sequence of
+spaces and tabs, gofmt removes that prefix.
 
 ### Paragraphs {#paragraphs}
 
