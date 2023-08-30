@@ -77,7 +77,7 @@ Common relevant inputs to a build include:
   - the specific versions of dependencies that will be included in the build;
   - the operating system running the build, which may affect path names in the resulting binaries;
   - the architecture of the CPU on the build system,
-  - which may affect which optimizations the compiler uses or the layout of certain data structures;
+    which may affect which optimizations the compiler uses or the layout of certain data structures;
   - the compiler version being used, as well as compiler options passed to it, which affect how the code is compiled;
   - the name of the directory containing the source code, which may appear in debug information;
   - the user name, group name, uid, and gid of the account running the build, which may appear in file metadata in an archive;
