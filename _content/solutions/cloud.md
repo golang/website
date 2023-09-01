@@ -145,7 +145,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
     url: https://www.amazon.com/Building-RESTful-Web-services-gracefully-ebook/dp/B072QB8KL1
     thumbnail: /images/books/building-restful-web-services-with-go.jpg
   - title: Mastering Go Web Services
-    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra-ebook/dp/B00W5GUKL6
+    url: https://www.amazon.com/Mastering-Web-Services-Nathan-Kozyra/dp/178398130X
     thumbnail: /images/books/mastering-go-web-services.jpg
 `}}
 
