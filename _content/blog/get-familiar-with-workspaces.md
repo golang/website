@@ -35,8 +35,7 @@ the first module.
 With Go workspaces, you control all your dependencies using a `go.work` file in
 the root of your workspace directory. The `go.work` file has `use` and
 `replace` directives that override the individual `go.mod` files, so there is
- no need to
-edit each `go.mod` file individually.
+no need to edit each `go.mod` file individually.
 
 You create a workspace by running `go work init` with a list of module
 directories as space-separated arguments. The workspace doesn't need to contain
@@ -44,8 +43,8 @@ the modules you're working with. The` init` command creates a `go.work` file
 that lists modules in the workspace.  If you run `go work init` without
 arguments, the command creates an empty workspace.
 
-To add modules to the workspace, run ` go work use [moddir]` or manually edit
-the `go.work` file. Run `go work use -r` to recursively add directories in the
+To add modules to the workspace, run `go work use [moddir]` or manually edit
+the `go.work` file. Run `go work use -r .` to recursively add directories in the
 argument directory with a `go.mod` file to your workspace. If a directory
 doesn't have a `go.mod` file, or no longer exists, the `use` directive for that
 directory is removed from your `go.work` file.
@@ -71,8 +70,7 @@ sections are a brief overview of the ones we think will be the most common.
 ### Add a feature to an upstream module and use it in your own module
 
 1. Create a directory for your workspace.
-1. Clone the upstream module you want to edit. If you haven't contributed to
-    Go before, read the [contribution guide](https://go.dev/doc/contribute).
+1. Clone the upstream module you want to edit.
 1. Add your feature to the local version of the upstream module.
 1. Run `go work init [path-to-upstream-mod-dir]` in the workspace folder.
 1. Make changes to your own module in order to implement the feature added
