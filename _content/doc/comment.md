@@ -225,9 +225,9 @@ For example:
 
 ## Funcs {#func}
 
-A func's doc comment should explain what the function returns
+A function's doc comment should explain what the function returns
 or, for functions called for side effects, what it does.
-Named arguments or results can be referred to directly in
+Named parameters and results can be referred to directly in
 the comment, without any special syntax like backquotes.
 (A consequence of this convention is that names like `a`,
 which might be mistaken for ordinary words, are typically avoided.)
@@ -254,6 +254,16 @@ And:
 	func Exit(code int) {
 		...
 	}
+
+Doc comments typically use the phrase “reports whether”
+to describe functions that return a boolean.
+The phrase “or not” is unnecessary.
+For example:
+
+	package strings
+
+	// HasPrefix reports whether the string s begins with prefix.
+	func HasPrefix(s, prefix string) bool
 
 If a doc comment needs to explain multiple results,
 naming the results can make the doc comment more understandable,
@@ -306,7 +316,7 @@ perhaps with an additional error result,
 are shown alongside the type `T` and its methods,
 under the assumption that they are `T`'s constructors.
 
-By default, programmers can assume that a top-level func
+By default, programmers can assume that a top-level function
 is safe to call from multiple goroutines;
 this fact need not be stated explicitly.
 
@@ -330,7 +340,7 @@ For example:
 		...
 	}
 
-Note that func and method doc comments focus on
+Note that function and method doc comments focus on
 what the operation returns or does,
 detailing what the caller needs to know.
 Special cases can be particularly important to document.
