@@ -31,6 +31,13 @@ var Releases = []*Release{
 		},
 	},
 	{
+		Date: Date{2023, 9, 6}, Version: Version{1, 19, 13},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"crypto/tls", "net/http"},
+		},
+	},
+	{
 		Date: Date{2023, 8, 8}, Version: Version{1, 21, 0},
 	},
 	{
