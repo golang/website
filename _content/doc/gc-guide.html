@@ -1468,6 +1468,86 @@ indices into an slice, for example, instead of pointers, can aid in reducing GC
 costs.
 </p>
 
+<h3 id="Linux_transparent_huge_pages">Linux transparent huge pages (THP)</h3>
+
+<p>
+When a program accesses memory, the CPU needs to translate the
+<a href="#A_note_about_virtual_memory">virtual memory</a> addresses it uses
+into physical memory addresses that refer to the data it was trying to access.
+To do this, the CPU consults the "page table," a data structure that represents
+the mapping from virtual to physical memory, managed by the operating system.
+Each entry in the page table represents an indivisible block of physical memory
+called a page, hence the name.
+</p>
+
+<p>
+Transparent huge pages (THP) is a Linux feature that transparently replaces pages of
+physical memory backing contiguous virtual memory regions with bigger blocks of memory
+called huge pages.
+By using bigger blocks, fewer page table entries are needed to represent the same memory
+region, improving page table lookup times.
+However, bigger blocks mean more waste if only a small part of the huge page is used
+by the system.
+</p>
+
+<p>
+When running Go programs in production, enabling transparent huge pages on Linux
+can improve throughput and latency at the cost of additional memory use.
+Applications with small heaps tend not to benefit from THP and may end up using a
+substantial amount of additional memory (as high as 50%).
+However, applications with big heaps (1 GiB or more) tend to benefit quite a bit
+(up to 10% throughput) without very much additional memory overhead (1-2% or less).
+Being aware of your THP settings in either case can be helpful, and experimentation
+is always recommended.
+</p>
+
+<p>
+One can enable or disable transparent huge pages in a Linux environment by modifying
+<code>/sys/kernel/mm/transparent_hugepage/enabled</code>.
+See the
+<a href="https://www.kernel.org/doc/html/next/admin-guide/mm/transhuge.html">official
+Linux admin guide</a> for more details.
+If you choose to have your Linux production environment enable transparent huge pages,
+we recommend the following additional settings for Go programs.
+</p>
+
+<ul>
+	<li>
+		<p>
+		Set <code>/sys/kernel/mm/transparent_hugepage/defrag</code>
+		to <code>defer</code> or <code>defer+madvise</code>.
+		<br />
+		<br />
+		This setting controls how aggressively a Linux kernel coalesces regular
+		pages into huge pages.
+		<code>defer</code> tells the kernel to coalesce huge pages lazily
+		and in the background.
+		A more aggressive setting can induce stalls in memory constrained systems
+		and can often hurt application latencies.
+		<code>defer+madvise</code> is like <code>defer</code>, but is friendlier
+		to other applications on the system that request huge pages explicitly and
+		require them for performance.
+		</p>
+	</li>
+	<li>
+		<p>
+		Set <code>/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none</code>
+		to <code>0</code>.
+		<br />
+		<br />
+		This setting controls how many additional pages the Linux kernel daemon
+		can allocate when trying to allocate a huge page.
+		The default setting is maximally aggressive, and can often
+		<a href="https://bugzilla.kernel.org/show_bug.cgi?id=93111">undo work the Go
+		runtime does to return memory to the OS</a>.
+		Before Go 1.21, the Go runtime tried to mitigate the negative effects of the
+		default setting, but it came with a CPU cost.
+		With Go 1.21+ and Linux 6.2+, the Go runtime will coalesce regular pages
+		into huge pages itself with its own more accurate heuristics.
+		</p>
+	</li>
+</ul>
+
 <h2 id="Appendix">Appendix</h2>
 
 <h3 id="Additional_notes_on_GOGC">Additional notes on GOGC</h3>
