@@ -41,8 +41,8 @@
     },
     {
       "type": "text",
-      "version": 382,
-      "versionNonce": 198113875,
+      "version": 384,
+      "versionNonce": 1168430131,
       "isDeleted": false,
       "id": "PScOU98GRKKPi_JFEXVOd",
       "fillStyle": "hachure",
@@ -55,7 +55,7 @@
       "y": 225.5,
       "strokeColor": "#1e1e1e",
       "backgroundColor": "transparent",
-      "width": 152.34375,
+      "width": 175.78125,
       "height": 168,
       "seed": 1266662166,
       "groupIds": [],
@@ -67,16 +67,16 @@
           "type": "arrow"
         }
       ],
-      "updated": 1692713327603,
+      "updated": 1694197075823,
       "link": null,
       "locked": false,
       "fontSize": 20,
       "fontFamily": 3,
-      "text": "package b\n\nimport \"c\"\n\nfunc B1() {}\n\nfunc B2(C) {}",
+      "text": "package b\n\nimport \"c\"\n\nfunc B1() {}\n\nfunc B2(c.C) {}",
       "textAlign": "left",
       "verticalAlign": "top",
       "containerId": null,
-      "originalText": "package b\n\nimport \"c\"\n\nfunc B1() {}\n\nfunc B2(C) {}",
+      "originalText": "package b\n\nimport \"c\"\n\nfunc B1() {}\n\nfunc B2(c.C) {}",
       "lineHeight": 1.2,
       "baseline": 163
     },
@@ -175,8 +175,8 @@
     },
     {
       "type": "arrow",
-      "version": 1142,
-      "versionNonce": 1980630022,
+      "version": 1227,
+      "versionNonce": 645070227,
       "isDeleted": false,
       "id": "dlPrM6ifKO8CYIQGgVSjT",
       "fillStyle": "hachure",
@@ -185,12 +185,12 @@
       "roughness": 1,
       "opacity": 100,
       "angle": 0,
-      "x": 1034.8165343534565,
-      "y": 397.5,
+      "x": 1053.9998047207002,
+      "y": 396.72297253820346,
       "strokeColor": "#1971c2",
       "backgroundColor": "transparent",
-      "width": 176.6140607076302,
-      "height": 106.6081098471862,
+      "width": 157.43079034038647,
+      "height": 101.94594507640693,
       "seed": 371482890,
       "groupIds": [],
       "frameId": null,
@@ -198,13 +198,13 @@
         "type": 2
       },
       "boundElements": [],
-      "updated": 1694183691116,
+      "updated": 1694197089037,
       "link": null,
       "locked": false,
       "startBinding": {
         "elementId": "PScOU98GRKKPi_JFEXVOd",
-        "focus": 0.5314594691269521,
-        "gap": 4
+        "focus": 0.6615135890909877,
+        "gap": 3.2229725382034644
       },
       "endBinding": {
         "elementId": "qdvLpJXYgRj1saqwYi-Ff",
@@ -220,20 +220,20 @@
           0
         ],
         [
-          22.480751639833215,
-          13.6081098471862
+          29.716414973672045,
+          9.722972538203464
         ],
         [
-          91.90307013873098,
-          -13
+          85.92926662202854,
+          -7.560807767424194
         ],
         [
-          154.18346564654348,
-          -65
+          135.00019527929976,
+          -64.22297253820346
         ],
         [
-          176.6140607076302,
-          -93
+          157.43079034038647,
+          -92.22297253820346
         ]
       ]
     },
