@@ -74,12 +74,12 @@ directive('syntaxCheckbox', ['editor',
     }
 ]).
 
-// verticalSlide creates a sliding separator between the left and right elements.
+// vertical-slide creates a sliding separator between the left and right elements.
 // e.g.:
 // <div id="header">Some content</div>
 // <div vertical-slide top="#header" bottom="#footer"></div>
 // <div id="footer">Some footer</div>
-directive('verticalSlide', ['editor',
+directive('vertical-slide', ['editor',
     function(editor) {
         return function(scope, elm, attrs) {
             var moveTo = function(x) {
@@ -113,11 +113,11 @@ directive('verticalSlide', ['editor',
     }
 ]).
 
-// horizontalSlide creates a sliding separator between the top and bottom elements.
+// horizontal-slide creates a sliding separator between the top and bottom elements.
 // <div id="menu">Some menu</div>
 // <div vertical-slide left="#menu" bottom="#content"></div>
 // <div id="content">Some content</div>
-directive('horizontalSlide', ['editor',
+directive('horizontal-slide', ['editor',
     function(editor) {
         return function(scope, elm, attrs) {
             var moveTo = function(y) {
