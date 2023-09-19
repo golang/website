@@ -148,7 +148,7 @@ We included a special case with the same effect in
 the point releases Go 1.20.8 and Go 1.19.13,
 so when Go 1.22 is released,
 code written depending on the new semantics will never be compiled with
-the old semantics, unless people are using very old, unsupported Go versions](/doc/devel/release#policy).
+the old semantics, unless people are using very old, [unsupported Go versions](/doc/devel/release#policy).
 
 
 ## Previewing The Fix
