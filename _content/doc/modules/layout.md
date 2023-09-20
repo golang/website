@@ -55,7 +55,7 @@ project-root-directory/
   modname.go
   modname_test.go
   auth.go
-  auto_test.go
+  auth_test.go
   hash.go
   hash_test.go
 ```
