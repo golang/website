@@ -61,7 +61,7 @@ This example has the same problem but no goroutines:
 
 This kind of mistake has caused production problems at many companies,
 including a
-[publicly documented issue at Lets Encrypt](https://go.googlesource.com/proposal/+/master/design/60078-loopvar.md).
+[publicly documented issue at Lets Encrypt](https://bugzilla.mozilla.org/show_bug.cgi?id=1619047).
 In that instance, the accidental capture of the loop variable was spread across
 multiple functions and much more difficult to notice:
 
