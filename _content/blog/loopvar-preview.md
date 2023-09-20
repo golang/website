@@ -9,7 +9,7 @@ summary: Go 1.21 shipped a preview of a change in Go 1.22 to make for loops less
 
 Go 1.21 includes a preview of a change to `for` loop scoping
 that we plan to ship in Go 1.22,
-removing one the most common Go mistakes.
+removing one of the most common Go mistakes.
 
 ## The Problem
 
