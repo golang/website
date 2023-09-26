@@ -390,6 +390,12 @@ a#run, a#kill {
 [data-theme='dark'] .cm-s-default .cm-string {
     color: #F585C0;
 }
+[data-theme='dark'] .cm-s-default .cm-atom {
+    color: #7bf;
+}
+[data-theme='dark'] .cm-s-default .cm-comment {
+    color: #fb6;
+}
 @media (min-width: 601px) {
     #editor-container {
         position: fixed;
