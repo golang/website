@@ -534,7 +534,7 @@ major version. Individual minor and patch versions cannot be deprecated;
 ### `go` directive {#go-mod-file-go}
 
 A `go` directive indicates that a module was written assuming the semantics of a
-given version of Go. The version must be a valid [Go release version](/doc/toolchain#version),
+given version of Go. The version must be a valid [Go version](/doc/toolchain#version),
 such as `1.9`, `1.14`, or `1.21rc1`.
 
 The `go` directive sets the minimum version of Go required to use this module.
