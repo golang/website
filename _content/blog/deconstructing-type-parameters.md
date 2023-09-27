@@ -85,7 +85,7 @@ The [Go assignment rules](https://go.dev/ref/spec#Assignability) allow
 us to pass a value of type `MySlice` to a parameter of type
 `[]string`, so calling `Clone1` is fine.
 But `Clone1` will return a value of type `[]string`, not a value of
-type `MySlce`.
+type `MySlice`.
 The type `[]string` doesn't have a `String` method, so the compiler
 reports an error.
 
@@ -180,7 +180,7 @@ It might seem that we would always want to permit passing `MySlice`,
 so why not make that the default?
 Or, if we need to support exact matching, why not flip things around,
 so that a constraint of `[]E` permits a named type while a constraint
-of, say, `=[]E` only permits slice type literals?
+of, say, `=[]E`, only permits slice type literals?
 
 To explain this, let's first observe that a type parameter list like
 `[T ~MySlice]` doesn't make sense.
