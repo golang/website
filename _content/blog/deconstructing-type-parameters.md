@@ -85,7 +85,7 @@ The [Go assignment rules](https://go.dev/ref/spec#Assignability) allow
 us to pass a value of type `MySlice` to a parameter of type
 `[]string`, so calling `Clone1` is fine.
 But `Clone1` will return a value of type `[]string`, not a value of
-type `MySlce`.
+type `MySlice`.
 The type `[]string` doesn't have a `String` method, so the compiler
 reports an error.
 
