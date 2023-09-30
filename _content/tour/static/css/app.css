@@ -396,6 +396,13 @@ a#run, a#kill {
 [data-theme='dark'] .cm-s-default .cm-comment {
     color: #fb6;
 }
+
+[data-theme='dark'] .CodeMirror-cursor { border-color: #BABABA; }
+[data-theme='dark'] .CodeMirror-selected { background: #55483a; }
+[data-theme='dark'] .CodeMirror-focused .CodeMirror-selected { background: #433425; }
+[data-theme='dark'] .CodeMirror-line::selection, .CodeMirror-line > span::selection, .CodeMirror-line > span > span::selection { background: #433425; }
+[data-theme='dark'] .CodeMirror-line::-moz-selection, .CodeMirror-line > span::-moz-selection, .CodeMirror-line > span > span::-moz-selection { background: #433425; }
+
 @media (min-width: 601px) {
     #editor-container {
         position: fixed;
