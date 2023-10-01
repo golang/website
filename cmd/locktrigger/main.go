@@ -47,8 +47,8 @@ import (
 	"time"
 
 	cloudbuild "cloud.google.com/go/cloudbuild/apiv1/v2"
+	"cloud.google.com/go/cloudbuild/apiv1/v2/cloudbuildpb"
 	"google.golang.org/api/iterator"
-	cloudbuildpb "google.golang.org/genproto/googleapis/devtools/cloudbuild/v1"
 )
 
 var (
