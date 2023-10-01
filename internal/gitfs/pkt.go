@@ -139,13 +139,3 @@ func (w *pktLineWriter) Close() error {
 func (w *pktLineWriter) Delim() {
 	w.b.WriteString("0001")
 }
-
-// cut looks for sep in s.
-// If sep is present, cut returns the text before and after sep, with ok = true.
-// If sep is missing, cut returns s, "", false.
-func cut(s, sep string) (before, after string, ok bool) {
-	if i := strings.Index(s, sep); i >= 0 {
-		return s[:i], s[i+len(sep):], true
-	}
-	return s, "", false
-}

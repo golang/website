@@ -63,7 +63,7 @@ func (r *Repo) handshake() error {
 	}
 	caps := make(map[string]string)
 	for _, line := range lines {
-		verb, args, _ := cut(line, "=")
+		verb, args, _ := strings.Cut(line, "=")
 		caps[verb] = args
 	}
 	if _, ok := caps["version 2"]; !ok {
@@ -147,7 +147,7 @@ func (r *Repo) refs(prefixes ...string) ([]ref, error) {
 		return nil, fmt.Errorf("refs: parsing response: %v %d\n%s\n%s", err, len(data), hex.Dump(postbody), hex.Dump(data))
 	}
 	for _, line := range lines {
-		hash, rest, ok := cut(line, " ")
+		hash, rest, ok := strings.Cut(line, " ")
 		if !ok {
 			return nil, fmt.Errorf("refs: parsing response: invalid line: %q", line)
 		}
@@ -155,7 +155,7 @@ func (r *Repo) refs(prefixes ...string) ([]ref, error) {
 		if err != nil {
 			return nil, fmt.Errorf("refs: parsing response: invalid line: %q", line)
 		}
-		name, _, _ := cut(rest, " ")
+		name, _, _ := strings.Cut(rest, " ")
 		refs = append(refs, ref{hash: h, name: name})
 	}
 	return refs, nil
