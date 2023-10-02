@@ -1192,7 +1192,7 @@ them in in order to understand GC impact and behavior.
 		<li>
 			<p>
 			<b><code>runtime.gcBgMarkWorker</code></b>: Entrypoint to the
-			dedicated mark worker goroutines.
+			background mark worker goroutines.
 			Time spent here scales with GC frequency and the complexity and
 			size of the object graph.
 			It represents a baseline for how much time the application spends
@@ -1200,10 +1200,19 @@ them in in order to understand GC impact and behavior.
 			</p>
 			<p>
 			<i>
-			Note: In a largely idle Go application, the Go GC is going to
-			use up additional (idle) CPU resources to get its job done faster.
-			As a result, this symbol may represent a large fraction of samples,
-			that it believes are free.
+			Note: Within these goroutines, you will find calls to
+			<code>runtime.gcDrainMarkWorkerDedicated</code>,
+			<code>runtime.gcDrainMarkWorkerFractional</code>, and
+			<code>runtime.gcDrainMarkWorkerIdle</code>,
+			which indicate worker type.
+			In a largely idle Go application, the Go GC is going to use up
+			additional (idle) CPU resources to get its job done faster, which
+			is indicated with the <code>runtime.gcDrainMarkWorkerIdle</code>
+			symbol.
+			As a result, time here may represent a large fraction of CPU
+			samples, which the Go GC believes are free.
+			If the application becomes more active, CPU time in idle workers
+			will drop.
 			One common reason this can happen is if an application runs entirely
 			in one goroutine but </i><code>GOMAXPROCS</code><i> is &gt;1.
 			</i>
