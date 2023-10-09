@@ -1,10 +1,10 @@
 ---
 title: Everything You Always Wanted to Know About Type Inference - And a Little Bit More
-date: 2023-10-06
+date: 2023-10-09
 by:
 - Robert Griesemer
 summary: A description of how type inference for Go works.
-Based on the GopherCon 2023 talk with the same title.
+  Based on the GopherCon 2023 talk with the same title.
 ---
 
 This is the blog version of my talk on type inference at GopherCon 2023 in San Diego,
@@ -124,7 +124,7 @@ but for now it's good enough to assume that the types must be identical.
 Once we have inferred the type for `S`, we can look at the
 [type constraint](https://go.dev/ref/spec#Type_constraints) for `S`.
 It says&mdash;because of the tilde `~` symbol&mdash;that the
-[underlying type](https://go.dev/ref/spec#Underlying_types) of `S`
+[_underlying type_](https://go.dev/ref/spec#Underlying_types) of `S`
 must be the slice `[]E`.
 The underlying type of `S` is `[]int`, therefore `[]int` must match `[]E`,
 and with that we can conclude that `E` must be `int`.
@@ -180,7 +180,7 @@ slices.Sort(list)
 Inference succeeds if the type equations below can be solved.
 Here `≡` stands for [_is identical to_](https://go.dev/ref/spec#Type_identity),
 and `under(S)` represents
-the [_underlying type_](https://go.dev/ref/spec#Underlying_types)
+the [underlying type](https://go.dev/ref/spec#Underlying_types)
 of `S`:
 
 	S ≡ List        // find S such that S ≡ List is true
@@ -212,8 +212,7 @@ we write as `:≡` and `∈`:
 
 Generally, we can say that type equations come in three forms:
 two types must be identical, one type must be assignable to the other type,
-or one type must satisfy a type constraint.
-We use the following notation to express these type relations:
+or one type must satisfy a type constraint:
 
 	X ≡ Y             // X and Y must be identical
 	X :≡ Y            // Y is assignable to X
@@ -302,6 +301,9 @@ Starting with Go 1.21, an uninstantiated or partially instantiated function
 (but not a function call) may also be assigned to a function-typed variable, as in:
 
 ```Go
+// From the slices package
+// func Sort[S ~[]E, E cmp.Ordered](x S)
+
 var intSort func([]int) = slices.Sort
 ```
 
@@ -312,7 +314,10 @@ type equation. For this example it would be
 
 or simplified
 
-	func([]int) :≡ func[S ~[]E, E cmp.Ordered](S)
+	func([]int) :≡ func(S)
+
+together with equations for the constraints for `S` and `E` from `slices.Sort`
+(see below).
 
 #### 3. Type equations from constraints
 
@@ -355,7 +360,7 @@ can be assigned to a variable of function type
 var strEq func(x, y string) bool = myEq  // same as using myEq[string]
 ```
 
-without being fully instantiated,
+without `myEq` being fully instantiated,
 and type inference will infer that the type argument for `P` must be `string`.
 
 Furthermore, a generic function may be used uninstantiated or partially instantiated as
@@ -495,16 +500,16 @@ Unification proceeds by comparing the structure of `X` and `Y` recursively, star
 Simply looking at the structure of the two types we have
 
 ```Go
-map[·]· ≡ map[·]·
+map[…]… ≡ map[…]…
 ```
 
-with the middle dot `·` representing the respective map key and value types that we're
+with the `…` representing the respective map key and value types that we're
 ignoring at this step.
 Since we have a map on both sides, the types are identical so far.
 Unification proceeds recursively, first with the key types which are `A` for the `X` map,
 and `string` for the `Y` map.
 Corresponding key types must be identical, and from that we can immediately infer that
-the type argument for `A` must be `string`
+the type argument for `A` must be `string`:
 
 ```Go
 A ≡ string => A ➞ string
@@ -519,7 +524,7 @@ struct{i int; s []B} ≡ struct{i C; s []byte}
 Both sides are structs so unification proceeds with the struct fields.
 They are identical if they are in the same order, with the same names, and identical types.
 The first field pair is `i int` and `i C`.
-The names match and because `int` must unify with `C` we arrive at
+The names match and because `int` must unify with `C`, thus
 
 ```Go
 int ≡ C => C ➞ int
@@ -527,7 +532,7 @@ int ≡ C => C ➞ int
 
 This recursive type matching continues until the tree structure of the two types is fully
 traversed, or until a conflict appears.
-In this example, eventually we end up at
+In this example, eventually we end up with
 
 ```Go
 []B ≡ []byte => B ≡ byte => B ➞ byte
@@ -560,10 +565,10 @@ A ≡ string => A ➞ string
 ```
 
 also as before.
-But when we proceed with the map's value types we arrive at
+But when we proceed with the map's value types we have
 
 ```Go
-struct{·} ≡ bool
+struct{…} ≡ bool
 ```
 
 The `struct` type doesn't match `bool`; we have different types and unification (and thus type inference) fails.
@@ -588,7 +593,7 @@ A   ≡ string => A ➞ string  // map key type
 int ≡ C      => C ➞ int     // first struct field type
 ```
 
-When we arrive at the second struct field type we get
+When we get to the second struct field type we have
 
 ```Go
 []A ≡ []C => A ≡ C
@@ -635,31 +640,30 @@ get by with type identity, or a slight variation of it.
 As long as we find potential type arguments, we're happy, exactly because type inference
 is still followed by type instantiation and function invocation.
 If inference finds a type argument where it shouldn't, it'll be caught later.
+Thus, when matching for assignability, we make the following adjustments to the
+unfication algorithm:
 
-So when we match for assignability, we ignore
+- When a named (defined) type is matched against a type literal,
+their underlying types are compared instead.
+- When comparing channel types, channel directions are ignored.
 
-- named (defined) types if they match against type literals;
-instead we compare the underlying types
-- channel directions
-- when matching against an interface, we accept any type that has all methods of the
-interface if corresponding signatures match
+Furthermore, the assignment direction is ignored: `X :≡ Y` is treated like `Y :≡ X`.
 
-These simplifications apply only at the top level of a type structure:
+These adjustments apply only at the top level of a type structure:
 for instance, per Go's [assignability rules](https://go.dev/ref/spec#Assignability),
 a named map type may be assigned to an unnamed map type, but the key and element types
 must still be identical.
-With this information in hand, unification for assignability becomes a (minor) variation
+With these changes, unification for assignability becomes a (minor) variation
 of unification for type identity.
-A simple example will make this clear:
+The following example illustrates this.
 
-Let's assume we are passing a value of our earlier `List` type to a function parameter
-of type `[]E` where `E` is a bound type parameter (i.e., `E` is declared by the generic
-function that is being called).
+Let's assume we are passing a value of our earlier `List` type (defined as `type List []int`)
+to a function parameter of type `[]E` where `E` is a bound type parameter (i.e., `E` is declared
+by the generic function that is being called).
 This leads to the type equation `[]E :≡ List`.
 Attempting to unify these two types requires comparing `[]E` with `List`
 These two types are not identical, and without any changes to how unification works,
 it will fail.
-
 But because we are unifying for assignability, this initial match doesn't need to be exact.
 There's no harm in continuing with the underlying type of the named type `List`:
 in the worst case we may infer an incorrect type argument, but that will lead to an error
@@ -792,7 +796,7 @@ foo(x, 2.1)    // P ➞ int, but parameter passing fails: 2.1 is not assignable 
 
 For type inference, typed arguments take precedence over untyped arguments.
 An untyped constant is considered for inference only if the type parameter it's assigned
-to doesn't yet have an inferred type yet.
+to doesn't have an inferred type yet.
 In these first three calls to `foo`, the variable `x` determines the inferred type for `P`:
 it's the type of `x` which is `int`.
 Untyped constants are ignored for type inference in this case and the calls behave exactly
@@ -930,7 +934,7 @@ As a result, irrespective of the unification order, the result is the same (`T`)
 
 ### Self-recursive functions
 
-Another scenario that causes problems in a naive implementation of inference are self-recursive functions.
+Another scenario that causes problems in a naive implementation of inference is self-recursive functions.
 Let's consider a generic factorial function `fact`, defined such that it also works for floating-point arguments
 ([playground](https://go.dev/play/p/s3wXpgHX6HQ)).
 Note that this is not a mathematically correct implementation of the
@@ -939,14 +943,14 @@ it is simply a convenient example.
 
 ```Go
 func fact[P ~int | ~float64](n P) P {
-	if n <= 1 {
+	if n {{raw "<"}}= 1 {
 		return 1
 	}
 	return fact(n-1) * n
 }
 ```
 
-The point here is not the factorial function but the fact that `fact` calls itself with the
+The point here is not the factorial function but rather that `fact` calls itself with the
 argument `n-1` which is of the same type `P` as the incoming parameter `n`.
 In this call, the type parameter `P` is simultaneously a bound and a free type parameter:
 it is bound because it is declared by `fact`, the function that we are calling recursively.
@@ -974,7 +978,7 @@ The effect is as if the recursive call was done indirectly through a `helper` fu
 
 ```Go
 func fact[P ~int | ~float64](n P) P {
-	if n <= 1 {
+	if n {{raw "<"}}= 1 {
 		return 1
 	}
 	return helper(n-1) * n
@@ -1000,7 +1004,7 @@ the recursive call ([playground](https://go.dev/play/p/zkUFvwJ54lC)):
 
 ```Go
 func fact[P ~int | ~float64](n P) P {
-	if n <= 1 {
+	if n {{raw "<"}}= 1 {
 		return 1
 	}
 	return fact[P](n-1) * n
@@ -1023,7 +1027,7 @@ equations resulting from type constraints; i.e., where there are at least two ty
 parameters. We believe this is not a very common scenario.
 
 Second, and more pertinent, type parameters allow an entirely new kind of recursive
-types. Consider this hypothetical type declaration
+types. Consider the hypothetical type
 
 ```Go
 type T[P T[P]] interface{ … }
