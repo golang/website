@@ -897,7 +897,7 @@ That underlying type is `struct{}`, which matches `struct` in equation 1, and un
 
 As a consequence, depending on the order in which unification solves the two type equations,
 the inferred type is either `struct{}` or `T`.
-This is of course unsatisfying: a program may suddenly stop to compile simply because arguments
+This is of course unsatisfying: a program may suddenly stop compiling simply because arguments
 may have been shuffled around during a code refactoring or cleanup.
 
 
