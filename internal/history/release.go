@@ -16,13 +16,11 @@ import "html/template"
 var Releases = []*Release{
 	{
 		Date: Date{2023, 10, 10}, Version: Version{1, 21, 3},
-		Future:   true,
-		Security: &FixSummary{Quantifier: "a", Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"net/http"}},
 	},
 	{
 		Date: Date{2023, 10, 10}, Version: Version{1, 20, 10},
-		Future:   true,
-		Security: &FixSummary{Quantifier: "a", Components: []template.HTML{"the standard library"}},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"net/http"}},
 	},
 	{
 		Date: Date{2023, 10, 5}, Version: Version{1, 21, 2},
