@@ -8,6 +8,8 @@ by:
 summary: Announcing the Go font family, by Bigelow & Holmes.
 ---
 
+<link rel="stylesheet" href="/css/fonts.css">
+
 ## An Announcement
 
 The experimental user interface toolkit being built at
