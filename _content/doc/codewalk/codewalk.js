@@ -245,6 +245,7 @@ CodewalkViewer.prototype.changeCodeSide = function(codeSide) {
 CodewalkViewer.prototype.changeSelectedComment = function(target) {
   var currentFile = target.find('.comment-link').attr('href');
   if (!currentFile) return;
+  currentFile = currentFile.replaceAll('%2f', '/').replaceAll('/go.dev/', '/');
 
   if (!(this.lastSelected && this.lastSelected.get(0) === target.get(0))) {
     if (this.lastSelected) this.lastSelected.removeClass('selected');
@@ -261,7 +262,7 @@ CodewalkViewer.prototype.changeSelectedComment = function(target) {
     }
     var fname = currentFile.match(/(?:select=|fileprint=)\/[^&]+/)[0];
     fname = fname.slice(fname.indexOf('=')+2, fname.length);
-    this.context.find('#code-selector').val(fname);
+    this.context.find('#code-selector').val('/doc/codewalk/?fileprint=/'+fname);
     this.context.find('#prev-comment').toggleClass(
         'disabled', !target.prev().length);
     this.context.find('#next-comment').toggleClass(
@@ -279,12 +280,15 @@ CodewalkViewer.prototype.changeSelectedComment = function(target) {
  * after the user changes the window size.
  */
 CodewalkViewer.prototype.updateHeight = function() {
-  var windowHeight = jQuery(window).height() - 5  // GOK
+  /* The new go.dev footer is too big; hide it since we are trying to keep the whole page on the screen. */
+  jQuery('.Footer').hide();
+
+  /* The -30 here work around some margin that seems to be introduced by the browsers. */
+  var windowHeight = jQuery(window).height() - 30
   var areaHeight = windowHeight - this.codeArea.offset().top
-  /* The new go.dev footer is too big to keep on the page, so zero out footerHeight */
-  var footerHeight = 0 /* jQuery('.Site-footer').outerHeight(true) */
+  var footerHeight = jQuery('.Site-footer').outerHeight(true)
   this.commentArea.height(areaHeight - footerHeight - this.context.find('#comment-options').outerHeight(true))
-  var codeHeight = areaHeight - footerHeight - 15  // GOK
+  var codeHeight = areaHeight - footerHeight - 30
   this.codeArea.height(codeHeight)
   this.codeDisplay.height(codeHeight - this.codeDisplay.offset().top + this.codeArea.offset().top);
   this.sizer.height(codeHeight);
