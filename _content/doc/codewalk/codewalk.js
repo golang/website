@@ -149,13 +149,6 @@ CodewalkViewer.prototype.installEventHandlers = function() {
           self.changeSelectedComment(self.lastSelected.next()); return false;
       });
 
-  // Workaround for Firefox 2 and 3, which steal focus from the main document
-  // whenever the iframe content is (re)loaded.  The input field is not shown,
-  // but is a way for us to bring focus back to a place where we can detect
-  // keypresses.
-  this.context.find('#code-display')
-      .load(function(ev) {self.shortcutInput.focus();});
-
   jQuery(document).keypress(function(ev) {
     switch(ev.which) {
       case 110:  // 'n'
@@ -288,7 +281,8 @@ CodewalkViewer.prototype.changeSelectedComment = function(target) {
 CodewalkViewer.prototype.updateHeight = function() {
   var windowHeight = jQuery(window).height() - 5  // GOK
   var areaHeight = windowHeight - this.codeArea.offset().top
-  var footerHeight = this.context.find('#footer').outerHeight(true)
+  /* The new go.dev footer is too big to keep on the page, so zero out footerHeight */
+  var footerHeight = 0 /* jQuery('.Site-footer').outerHeight(true) */
   this.commentArea.height(areaHeight - footerHeight - this.context.find('#comment-options').outerHeight(true))
   var codeHeight = areaHeight - footerHeight - 15  // GOK
   this.codeArea.height(codeHeight)
