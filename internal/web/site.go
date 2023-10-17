@@ -5,7 +5,7 @@
 // Package web implements a basic web site serving framework.
 // The two fundamental types in this package are Site and Page.
 //
-// Sites
+// # Sites
 //
 // A Site is an http.Handler that serves requests from a file system.
 // Use NewSite(fsys) to create a new Site.
@@ -14,7 +14,7 @@
 // which holds files to be served as well as templates for
 // converting Markdown or HTML fragments into full HTML pages.
 //
-// Pages
+// # Pages
 //
 // A Page, which is a map[string]interface{}, is the raw data that a Site renders into a web page.
 // Typically a Page is loaded from a *.html or *.md file in the file system fsys, although
@@ -54,14 +54,14 @@
 // In addition to these explicit key-value pairs, pages loaded from the file system
 // have a few implicit key-value pairs added by the page loading process:
 //
-//	- File: the path in fsys to the file containing the page
-//	- FileData: the file body, with the key-value metadata stripped
-//	- URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
+//   - File: the path in fsys to the file containing the page
+//   - FileData: the file body, with the key-value metadata stripped
+//   - URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
 //
-// The key “Content” is added during during the rendering process.
+// The key “Content” is added during the rendering process.
 // See “Page Rendering” for details.
 //
-// Page Rendering
+// # Page Rendering
 //
 // A Page's content is rendered in two steps: conversion to content, and framing of content.
 //
@@ -106,7 +106,7 @@
 // if there is no layout-specific template,
 // the content will still be rendered.
 //
-// Page Template Functions
+// # Page Template Functions
 //
 // In this web server, templates can themselves be invoked as functions.
 // See https://pkg.go.dev/rsc.io/tmplfunc for more details about that feature.
@@ -129,7 +129,7 @@
 // If both start and end are specified, then the display shows a range of lines
 // starting at start up to and including end.
 // The arguments start and end can take two forms: a number indicates a specific line number,
-// and a string is taken to be a regular expresion indicating the earliest matching line
+// and a string is taken to be a regular expression indicating the earliest matching line
 // in the file (or, for end, the earliest matching line after the start line).
 // Any lines ending in “OMIT” are elided from the display.
 //
@@ -194,7 +194,7 @@
 // function in these packages (except path.Split, which has more than one non-error result
 // and would not be invokable). For example, “{{strings.ToUpper "abc"}}”.
 //
-// Serving Requests
+// # Serving Requests
 //
 // A Site is an http.Handler that serves requests by consulting the underlying
 // file system and constructing and rendering pages, as well as serving binary
@@ -226,7 +226,7 @@
 // (at least up to the first kilobyte of the file) and the Site
 // can find a template “text.tmpl” in that file's directory or a parent,
 // and the file is not named robots.txt,
-// and the file does not have a .css, .js, or .svg extension,
+// and the file does not have a .css, .js, .svg, or .ts extension,
 // then the Site responds with the rendering of
 //
 //	Page{
@@ -248,6 +248,10 @@
 // then the text file content is not rendered or framed and is instead
 // served directly as a plain text response.
 //
+// If the request is for a file with a .ts extension the file contents
+// are transformed from TypeScript to JavaScript and then served with
+// a Content-Type=text/javascript header.
+//
 // Otherwise, if none of those cases apply but the request path p
 // does exist in the file system, then the Site passes the
 // request to an http.FileServer serving from fsys.
@@ -266,7 +270,7 @@
 // where err is the “not exist” error returned by fs.Stat(fsys, p).
 // (See also the “Serving Errors” section below.)
 //
-// Serving Dynamic Requests
+// # Serving Dynamic Requests
 //
 // Of course, a web site may wish to serve more than static content.
 // To allow dynamically generated web pages to make use of page
@@ -274,7 +278,7 @@
 // called with a dynamically generated Page value, which will then
 // be rendered and served as the result of the request.
 //
-// Serving Errors
+// # Serving Errors
 //
 // If an error occurs while serving a request r,
 // the Site responds with the rendering of
@@ -291,7 +295,6 @@
 //
 // The Site.ServeError and Site.ServeErrorStatus methods provide a way
 // for dynamic servers to generate similar responses.
-//
 package web
 
 import (
@@ -299,6 +302,8 @@ import (
 	"errors"
 	"fmt"
 	"html"
+	"html/template"
+	"io"
 	"io/fs"
 	"log"
 	"net/http"
@@ -308,7 +313,7 @@ import (
 	"strings"
 	"sync"
 
-	"golang.org/x/website/internal/backport/html/template"
+	"github.com/evanw/esbuild/pkg/api"
 	"golang.org/x/website/internal/spec"
 	"golang.org/x/website/internal/texthtml"
 )
@@ -372,7 +377,6 @@ func (s *Site) ServeError(w http.ResponseWriter, r *http.Request, err error) {
 //		"layout": error,
 //		"error": err,
 //	}
-//
 func (s *Site) ServeErrorStatus(w http.ResponseWriter, r *http.Request, err error, status int) {
 	s.serveErrorStatus(w, r, err, status, false)
 }
@@ -422,6 +426,12 @@ func (s *Site) servePage(w http.ResponseWriter, r *http.Request, p Page, renderi
 func (s *Site) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	abspath := r.URL.Path
 	relpath := path.Clean(strings.TrimPrefix(abspath, "/"))
+
+	// Is it a TypeScript file?
+	if strings.HasSuffix(relpath, ".ts") {
+		s.serveTypeScript(w, r)
+		return
+	}
 
 	// Is it a page we can generate?
 	if p, err := s.openPage(relpath); err == nil {
@@ -513,7 +523,7 @@ func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, p *pageFile) {
 	}
 
 	// if it's the language spec, add tags to EBNF productions
-	if strings.HasSuffix(filePath, "go_spec.html") {
+	if strings.HasSuffix(filePath, "ref/spec.html") {
 		var buf bytes.Buffer
 		spec.Linkify(&buf, []byte(src))
 		src = buf.String()
@@ -610,4 +620,59 @@ func rangeSelection(str string) texthtml.Selection {
 func (s *Site) serveRawText(w http.ResponseWriter, text []byte) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
 	w.Write(text)
+}
+
+const cacheHeader = "X-Go-Dev-Cache-Hit"
+
+type jsout struct {
+	output []byte
+	stat   fs.FileInfo // stat for file when page was loaded
+}
+
+func (s *Site) serveTypeScript(w http.ResponseWriter, r *http.Request) {
+	filename := path.Clean(strings.TrimPrefix(r.URL.Path, "/"))
+	if cjs, ok := s.cache.Load(filename); ok {
+		js := cjs.(*jsout)
+		info, err := fs.Stat(s.fs, filename)
+		if err == nil && info.ModTime().Equal(js.stat.ModTime()) {
+			w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
+			w.Header().Set(cacheHeader, "true")
+			http.ServeContent(w, r, filename, info.ModTime(), bytes.NewReader(js.output))
+			return
+		}
+	}
+	file, err := s.fs.Open(filename)
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	var contents bytes.Buffer
+	_, err = io.Copy(&contents, file)
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	result := api.Transform(contents.String(), api.TransformOptions{
+		Loader: api.LoaderTS,
+		Target: api.ES2018,
+	})
+	var buf bytes.Buffer
+	for _, v := range result.Errors {
+		fmt.Fprintln(&buf, v.Text)
+	}
+	if buf.Len() > 0 {
+		s.ServeError(w, r, errors.New(buf.String()))
+		return
+	}
+	info, err := file.Stat()
+	if err != nil {
+		s.ServeError(w, r, err)
+		return
+	}
+	w.Header().Set("Content-Type", "text/javascript; charset=utf-8")
+	http.ServeContent(w, r, filename, info.ModTime(), bytes.NewReader(result.Code))
+	s.cache.Store(filename, &jsout{
+		output: result.Code,
+		stat:   info,
+	})
 }

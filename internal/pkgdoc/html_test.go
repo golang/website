@@ -9,10 +9,9 @@ import (
 	"fmt"
 	"go/parser"
 	"go/token"
+	"html/template"
 	"strings"
 	"testing"
-
-	"golang.org/x/website/internal/backport/html/template"
 )
 
 func TestSrcPosLink(t *testing.T) {

@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Developing a RESTful API with Go and Gin"
+  "Title": "Tutorial: Developing a RESTful API with Go and Gin",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of writing a RESTful web service API with Go
@@ -324,7 +325,7 @@ code to handle a `POST` request to add an item.
 ## Write a handler to add a new item {#add_item}
 
 When the client makes a `POST` request at `/albums`, you want to add the album
-described in the request body to the existing albums data.
+described in the request body to the existing albums' data.
 
 To do this, you'll write the following:
 

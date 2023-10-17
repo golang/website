@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 510.24 226.77'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='179.63,151.52 179.63,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='251.59,151.52 251.59,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='323.56,151.52 323.56,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='395.53,151.52 395.53,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='467.50,151.52 467.50,68.96 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='179.63' y='80.22' width='249.10' height='22.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='179.63' y='117.75' width='110.74' height='22.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='435.21' y='96.56' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>69 %</text>
+<text x='296.85' y='134.09' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>31 %</text>
+<text x='45.91' y='134.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='114.39px' lengthAdjust='spacingAndGlyphs'>randomly sampled</text>
+<text x='81.71' y='96.49' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='78.59px' lengthAdjust='spacingAndGlyphs'>self-selected</text>
+<text x='169.51' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='237.58' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='309.55' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='381.52' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='453.49' y='166.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='261.30' y='195.05' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='165.23' y='60.11' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='76.07px' lengthAdjust='spacingAndGlyphs'>n =  11841</text>
+<text x='165.23' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='233.01px' lengthAdjust='spacingAndGlyphs'>How respondents were sampled:</text>
+</svg>

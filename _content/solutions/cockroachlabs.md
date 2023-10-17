@@ -4,6 +4,7 @@ description: Go's performance benefits, garbage collection, and low barrier to e
   made it a great fit for CockroachDB.
 company: Cockroach Labs
 logoSrc: cockroach.svg
+logoSrcDark: cockroach.svg
 series: Case Studies
 link:
   https://www.cockroachlabs.com/blog/why-go-was-the-right-choice-for-cockroachdb/

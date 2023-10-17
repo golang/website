@@ -1,5 +1,6 @@
 <!--{
-	"Title": "Installing Go from source"
+	"Title": "Installing Go from source",
+	"Breadcrumb": true
 }-->
 
 <p>
@@ -53,6 +54,12 @@ The Go compilers support the following instruction sets:
   The <code>ARM</code> instruction set, 64-bit (<code>AArch64</code>) and 32-bit.
 </dd>
 <dt>
+  <code>loong64</code>
+</dt>
+<dd>
+  The 64-bit LoongArch instruction set.
+</dd>
+<dt>
   <code>mips64</code>, <code>mips64le</code>, <code>mips</code>,  <code>mipsle</code>
 </dt>
 <dd>
@@ -104,15 +111,9 @@ discussion of <a href="#environment">environment variables</a> below.
 </p>
 
 <p>
-See the main installation page for the <a href="/doc/install#requirements">overall system requirements</a>.
-The following additional constraints apply to systems that can be built only from source:
+See the Go Wiki MinimumRequirements page for the
+<a href="/wiki/MinimumRequirements">overall system requirements</a>.
 </p>
-
-<ul>
-<li>For Linux on PowerPC 64-bit, the minimum supported kernel version is 2.6.37, meaning that
-Go does not support CentOS 6 on these systems.
-</li>
-</ul>
 
 </div>
 
@@ -434,7 +435,7 @@ To update an existing tree to the latest release, you can run:
 <pre>
 $ cd go/src
 $ git fetch
-$ git checkout <span class="versionTag"><i>&lt;tag&gt;</i></psan>
+$ git checkout <span class="versionTag"><i>&lt;tag&gt;</i></span>
 $ ./all.bash
 </pre>
 
@@ -522,7 +523,8 @@ Choices for <code>$GOOS</code> are
 <code>android</code>, <code>darwin</code>, <code>dragonfly</code>,
 <code>freebsd</code>, <code>illumos</code>, <code>ios</code>, <code>js</code>,
 <code>linux</code>, <code>netbsd</code>, <code>openbsd</code>,
-<code>plan9</code>, <code>solaris</code> and <code>windows</code>.
+<code>plan9</code>, <code>solaris</code>, <code>wasip1</code>,
+and <code>windows</code>.
 </p>
 
 <p>
@@ -599,10 +601,7 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 <td></td><td><code>linux</code></td> <td><code>arm64</code></td>
 </tr>
 <tr>
-<td></td><td><code>linux</code></td> <td><code>ppc64</code></td>
-</tr>
-<tr>
-<td></td><td><code>linux</code></td> <td><code>ppc64le</code></td>
+<td></td><td><code>linux</code></td> <td><code>loong64</code></td>
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>mips</code></td>
@@ -615,6 +614,12 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>mips64le</code></td>
+</tr>
+<tr>
+<td></td><td><code>linux</code></td> <td><code>ppc64</code></td>
+</tr>
+<tr>
+<td></td><td><code>linux</code></td> <td><code>ppc64le</code></td>
 </tr>
 <tr>
 <td></td><td><code>linux</code></td> <td><code>riscv64</code></td>
@@ -654,6 +659,9 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 </tr>
 <tr>
 <td></td><td><code>solaris</code></td> <td><code>amd64</code></td>
+</tr>
+<tr>
+<td></td><td><code>wasip1</code></td> <td><code>wasm</code></td>
 </tr>
 <tr>
 <td></td><td><code>windows</code></td> <td><code>386</code></td>
@@ -711,6 +719,17 @@ when you first run the Go executable.
 The <a href="/wiki/GoArm">GoARM</a> page
 on the <a href="/wiki">Go community wiki</a>
 contains further details regarding Go's ARM support.
+</p>
+</li>
+
+<li><code>$GOAMD64</code> (for <code>amd64</code> only;
+default is <code>v1</code>)
+<p>
+This sets the microarchitecture level for which to compile.
+Valid values are <code>v1</code> (default), <code>v2</code>, <code>v3</code>,
+<code>v4</code>.
+See <a href="https://go.dev/wiki/MinimumRequirements#amd64">the Go wiki
+MinimumRequirements page</a> for more information.
 </p>
 </li>
 

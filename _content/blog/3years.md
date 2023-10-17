@@ -20,7 +20,7 @@ and experience with the language.
 
 Since the open source launch,
 we've been joined by
-[hundreds of external contributors](/CONTRIBUTORS),
+hundreds of external contributors,
 who have extended and improved Go in myriad ways,
 including writing a Windows port from scratch.
 We added a package management system

@@ -5,7 +5,8 @@ description: Wildlife is a Brazilian native global company focused on mobile
   have almost 40 million daily active users, and we rely on Go as the main
   language for our core platform, given its features to scale our backend
   services.
-logoSrc: wildlife.svg
+logoSrc: wildlife_light.svg
+logoSrcDark: wildlife_dark.svg
 company: Wildlife Studios
 series: Case Studies
 link:

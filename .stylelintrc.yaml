@@ -1,0 +1,15 @@
+extends:
+  - stylelint-config-standard
+  - stylelint-prettier/recommended
+plugins:
+  - stylelint-order
+rules:
+  color-hex-case: lower
+  declaration-property-value-allowed-list:
+    '/color/':
+      - "/^var\\(--/"
+      - 'transparent'
+  order/properties-alphabetical-order: true
+  unit-disallowed-list:
+    - 'px'
+  selector-class-pattern: '^[a-zA-Z\-]+$'

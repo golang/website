@@ -37,7 +37,7 @@ We expect almost all Go programs to continue to compile and run as before.
 The release <a href="#ports">adds a port to IBM LinuxOne</a>;
 <a href="#compiler">updates the x86-64 compiler back end</a> to generate more efficient code;
 includes the <a href="#context">context package</a>, promoted from the
-<a href="/x/net/context">x/net subrepository</a>
+<a href="https://golang.org/x/net/context">x/net subrepository</a>
 and now used in the standard library;
 and <a href="#testing">adds support in the testing package</a> for
 creating hierarchies of tests and benchmarks.
@@ -299,13 +299,13 @@ To avoid confusion with the new <code>-tests</code> check, the old, unadvertised
 <p id="vet_lostcancel">
 The <code>vet</code> command also has a new check,
 <code>-lostcancel</code>, which detects failure to call the
-cancelation function returned by the <code>WithCancel</code>,
+cancellation function returned by the <code>WithCancel</code>,
 <code>WithTimeout</code>, and <code>WithDeadline</code> functions in
 Go 1.7's new <code>context</code> package (see <a
 href='#context'>below</a>).
 Failure to call the function prevents the new <code>Context</code>
-from being reclaimed until its parent is cancelled.
-(The background context is never cancelled.)
+from being reclaimed until its parent is canceled.
+(The background context is never canceled.)
 </p>
 
 <h3 id="cmd_dist">Go tool dist</h3>
@@ -388,7 +388,7 @@ substantial stack size fluctuation, or large package-level variables.
 <p>
 Go 1.7 moves the <code>golang.org/x/net/context</code> package
 into the standard library as <a href="/pkg/context/"><code>context</code></a>.
-This allows the use of contexts for cancelation, timeouts, and passing
+This allows the use of contexts for cancellation, timeouts, and passing
 request-scoped data in other standard library packages,
 including
 <a href="#net">net</a>,
@@ -766,7 +766,7 @@ adds new fields <code>BinaryOnly</code>, <code>CgoFFLAGS</code>, and <code>FFile
 <dd>
 <p>
 To support the corresponding change in <code>go</code> <code>test</code> described above,
-<a href="/pkg/go/doc/#Example"><code>Example</code></a> struct adds a Unordered field
+<a href="/pkg/go/doc/#Example"><code>Example</code></a> struct adds an Unordered field
 indicating whether the example may generate its output lines in any order.
 </p>
 </dd>

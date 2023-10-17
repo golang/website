@@ -443,7 +443,7 @@ Some history: swtch.com/~rsc/thread/
 
 A previous talk (video): tinyurl.com/newsqueak1
 
-Parellelism is not concurrency (Harper): tinyurl.com/pincharper
+Parallelism is not concurrency (Harper): tinyurl.com/pincharper
 
 A concurrent window system (Pike): tinyurl.com/pikecws
 

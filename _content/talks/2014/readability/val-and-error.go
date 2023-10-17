@@ -1,3 +1,4 @@
+//go:build ignore && OMIT
 // +build ignore,OMIT
 
 package sample // OMIT
@@ -10,7 +11,7 @@ import ( // OMIT
 var (
 	ErrDurationUnterminated = errors.new("duration: unterminated")
 	ErrNoDuration           = errors.New("duration: not found")
-	ErrNoIteration          = errors.New("duration: not interation")
+	ErrNoIteration          = errors.New("duration: no iteration")
 )
 
 func (it Iterator) DurationAt() (time.Duration, error) { // HL

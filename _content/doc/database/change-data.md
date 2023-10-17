@@ -11,7 +11,7 @@ instead. For more, see [Querying a database](/doc/database/querying).
 
 An `ExecContext` method works as an `Exec` method does, but with an additional
 `context.Context` argument, as described in
-[Cancelling in-progress operations](/doc/database/cancel-operations).
+[Canceling in-progress operations](/doc/database/cancel-operations).
 
 Code in the following example uses
 [`DB.Exec`](https://pkg.go.dev/database/sql#DB.Exec) to execute a

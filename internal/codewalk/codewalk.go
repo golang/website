@@ -16,6 +16,7 @@ import (
 	"encoding/xml"
 	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"io/fs"
 	"log"
@@ -28,7 +29,6 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/web"
 )
 
@@ -288,7 +288,7 @@ func (s *server) codewalkFileprint(w http.ResponseWriter, r *http.Request, f str
 	io.WriteString(w, "</pre>")
 }
 
-// addrToByte evaluates the given address starting at offset start in data.
+// addrToByteRange evaluates the given address starting at offset start in data.
 // It returns the lo and hi byte offset of the matched region within data.
 // See https://9p.io/sys/doc/sam/sam.html Table II
 // for details on the syntax.

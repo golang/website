@@ -62,18 +62,18 @@ welcome to use this theme for their own presentations.
 {{image "go-brand/go-slides-4up.jpg"}}
 
 The presentations are available as Google Slides presentations. We chose Google
-slides as it is easy to share and maintain updates. People are welcome to port
-them to keynote, powerpoint, etc.
+Slides as it is easy to share and maintain updates. People are welcome to port
+them to Keynote, PowerPoint, etc.
 
 Like this blog and all our gopher images,
-the slide themes are Creative Commons Attribution 3.0 licensed.
+the slide themes are Creative Commons Attribution 4.0 licensed.
 The photos in the slides are all from
 [unsplash](https://unsplash.com/) and are released under the unsplash license.
 
 Instructions to use slides:
 
-  - Open the [Go Slide Masters](/s/presentation-theme) presentation on Google slides.
-  - File > “Make a Copy” (you may need to login first)
+  - Open the [Go Slide Masters](/s/presentation-theme) presentation on Google Slides.
+  - File > “Make a Copy” (you may need to log in first)
   - Create new slides using the layouts provided in the layouts menu.
   - Use the included example slides to help guide the styling and creation of your presentation.
 

@@ -9,6 +9,8 @@ tags:
 summary: How and why to document your Go packages.
 ---
 
+[_**Note, June 2022**: For updated guidelines about documenting Go code,
+see “[Go Doc Comments](/doc/comment).”_]
 
 The Go project takes documentation seriously.
 Documentation is a huge part of making software accessible and maintainable.
@@ -72,8 +74,9 @@ the package comment is placed in its own file,
 [doc.go](/src/pkg/encoding/gob/doc.go),
 which contains only those comments and a package clause.
 
-When writing package comments of any size,
-keep in mind that their first sentence will appear in godoc's [package list](/pkg/).
+When writing a package comment of any size,
+keep in mind that its [first sentence](/pkg/go/doc/#Package.Synopsis)
+will appear in godoc's [package list](/pkg/).
 
 Comments that are not adjacent to a top-level declaration are omitted from godoc's output,
 with one notable exception.

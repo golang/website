@@ -16,7 +16,7 @@ by default, to deliver more robust IDE features and better support for Go
 modules.
 
 {{image "gopls/features.gif" 635}}
-_(`gopls` provides IDE features, such as as intelligent autocompletion, signature help, refactoring, and workspace symbol search.)_
+_(`gopls` provides IDE features, such as intelligent autocompletion, signature help, refactoring, and workspace symbol search.)_
 
 When [Go modules](using-go-modules) were
 released two years ago, they completely changed the landscape of Go developer

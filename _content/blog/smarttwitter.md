@@ -26,7 +26,7 @@ While working on web.go I got involved in the Go community,
 submitted a bunch of bug reports, and hacked on some standard library packages
 (mainly [http](/pkg/http/) and [json](/pkg/json/)).
 
-After a few weeks I noticed that web.go was getting attention at Github.
+After a few weeks I noticed that web.go was getting attention at GitHub.
 This was surprising because I'd never really promoted the project.
 I think there's a niche for simple, fast web applications,
 and I think Go can fill it.

@@ -86,7 +86,7 @@ On OpenBSD, Go now requires OpenBSD 5.9 or later. <!-- CL 34093 -->
 <p>
 The Plan 9 port's networking support is now much more complete
 and matches the behavior of Unix and Windows with respect to deadlines
-and cancelation. For Plan 9 kernel requirements, see the
+and cancellation. For Plan 9 kernel requirements, see the
 <a href="/wiki/Plan9">Plan 9 wiki page</a>.
 </p>
 
@@ -889,7 +889,7 @@ crypto/x509: return error for missing SerialNumber (CL 27238)
     </p>
     <p>
       The new <code>Context</code> query methods work for all drivers, but
-      <code>Context</code> cancelation is not responsive unless the driver has been
+      <code>Context</code> cancellation is not responsive unless the driver has been
       updated to use them. The other features require driver support in
       <a href="/pkg/database/sql/driver"><code>database/sql/driver</code></a>.
       Driver authors should review the new interfaces. Users of existing

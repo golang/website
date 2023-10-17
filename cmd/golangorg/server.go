@@ -15,6 +15,8 @@ import (
 	"flag"
 	"fmt"
 	"go/format"
+	"html/template"
+	"io"
 	"io/fs"
 	"io/ioutil"
 	"log"
@@ -26,13 +28,13 @@ import (
 	"runtime"
 	"runtime/debug"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
 	"cloud.google.com/go/datastore"
 	"golang.org/x/build/repos"
 	"golang.org/x/website"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/blog"
 	"golang.org/x/website/internal/codewalk"
 	"golang.org/x/website/internal/dl"
@@ -40,7 +42,7 @@ import (
 	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/memcache"
 	"golang.org/x/website/internal/pkgdoc"
-	"golang.org/x/website/internal/proxy"
+	"golang.org/x/website/internal/play"
 	"golang.org/x/website/internal/redirect"
 	"golang.org/x/website/internal/short"
 	"golang.org/x/website/internal/talks"
@@ -169,12 +171,22 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
 
 	// By default, golang.org/foo redirects to go.dev/foo.
-	// There are some exceptions below, like for golang.org/x and golang.org/fmt.
+	// All the user-facing golang.org subdomains have moved to go.dev subdirectories.
+	// There are some exceptions below, like for golang.org/x.
 	mux.Handle("golang.org/", redirectPrefix("https://go.dev/"))
 	mux.Handle("blog.golang.org/", redirectPrefix("https://go.dev/blog/"))
 	mux.Handle("learn.go.dev/", redirectPrefix("https://go.dev/learn/"))
 	mux.Handle("talks.golang.org/", redirectPrefix("https://go.dev/talks/"))
 	mux.Handle("tour.golang.org/", redirectPrefix("https://go.dev/tour/"))
+
+	// Redirect subdirectory-like domains to the actual subdirectories,
+	// for people whose fingers learn to type go.dev instead of golang.org
+	// but not the rest of the URL schema change.
+	// Note that these domains have to be listed in knownHosts below as well.
+	mux.Handle("blog.go.dev/", redirectPrefix("https://go.dev/blog/"))
+	mux.Handle("play.go.dev/", redirectPrefix("https://go.dev/play/"))
+	mux.Handle("talks.go.dev/", redirectPrefix("https://go.dev/talks/"))
+	mux.Handle("tour.go.dev/", redirectPrefix("https://go.dev/tour/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -196,11 +208,14 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	if err != nil {
 		log.Fatalf("newSite golang.google.cn: %v", err)
 	}
-	siteMux.Handle("/play/", playHandler(godevSite))
-	siteMux.Handle("golang.google.cn/play/", playHandler(chinaSite))
+	if runningOnAppEngine {
+		appEngineSetup(mux)
+	}
 	dl.RegisterHandlers(siteMux, godevSite, "", datastoreClient, memcacheClient)
 	dl.RegisterHandlers(siteMux, chinaSite, "golang.google.cn", datastoreClient, memcacheClient)
 	mux.Handle("/", siteMux)
+
+	play.RegisterHandlers(mux, godevSite, chinaSite)
 
 	mux.Handle("/explore/", http.StripPrefix("/explore/", redirectPrefix("https://pkg.go.dev/")))
 	if err := blog.RegisterFeeds(mux, "", godevSite); err != nil {
@@ -209,15 +224,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 
 	// Note: Only golang.org/x/, no go.dev/x/.
 	mux.Handle("golang.org/x/", http.HandlerFunc(xHandler))
+	mux.Handle("golang.org/toolchain", http.HandlerFunc(toolchainHandler))
 
 	redirect.Register(mux)
-
-	if runningOnAppEngine {
-		appEngineSetup(mux)
-	}
-
-	// Note: Registers for golang.org, go.dev/_, and golang.google.cn.
-	proxy.RegisterHandlers(mux)
 
 	// Note: Using godevSite (non-China) for global mux registration because there's no sharing in talks.
 	// Don't need the hassle of two separate registrations for different domains in siteMux.
@@ -235,23 +244,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	return h
 }
 
-func playHandler(site *web.Site) http.Handler {
-	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if r.URL.Path == "/play/p" || r.URL.Path == "/play/p/" {
-			http.Redirect(w, r, "/play/", http.StatusFound)
-			return
-		}
-		if r.Host == "golang.google.cn" && strings.HasPrefix(r.URL.Path, "/play/p/") {
-			site.ServeError(w, r, errors.New("Sorry, but shared playground snippets are not visible in China."))
-			return
-		}
-		site.ServePage(w, r, web.Page{
-			"URL":    r.URL.Path,
-			"layout": "play",
-			"title":  "Go Playground",
-		})
-	})
-}
+var gorebuild = NewCachedURL("https://gorebuild.storage.googleapis.com/gorebuild.json", 5*time.Minute)
 
 // newSite creates a new site for a given content and goroot file system pair
 // and registers it in mux to handle requests for host.
@@ -262,8 +255,12 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	site.Funcs(template.FuncMap{
 		"googleAnalytics": func() string { return googleAnalytics },
 		"googleCN":        func() bool { return host == "golang.google.cn" },
+		"gorebuild":       gorebuild.Get,
+		"json":            jsonUnmarshal,
 		"newest":          newest,
+		"now":             func() time.Time { return time.Now() },
 		"releases":        func() []*history.Major { return history.Majors },
+		"rfc3339":         parseRFC3339,
 		"section":         section,
 		"version":         func() string { return runtime.Version() },
 	})
@@ -277,6 +274,10 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	mux.Handle(host+"/pkg/", docs)
 	mux.Handle(host+"/doc/codewalk/", codewalk.NewServer(fsys, site))
 	return site, nil
+}
+
+func parseRFC3339(s string) (time.Time, error) {
+	return time.Parse(time.RFC3339, s)
 }
 
 // watchTip is a background goroutine that watches the main Go repo for updates.
@@ -403,7 +404,11 @@ var validHosts = map[string]bool{
 	"tour.golang.org":  true,
 
 	"go.dev":       true,
+	"blog.go.dev":  true,
 	"learn.go.dev": true,
+	"play.go.dev":  true,
+	"talks.go.dev": true,
+	"tour.go.dev":  true,
 }
 
 // hostEnforcerHandler redirects http://foo.golang.org/bar to https://golang.org/bar.
@@ -450,7 +455,13 @@ func hostPathHandler(h http.Handler) http.Handler {
 
 		elem, rest := strings.TrimPrefix(r.URL.Path, "/"), ""
 		if i := strings.Index(elem, "/"); i >= 0 {
-			elem, rest = elem[:i], elem[i+1:]
+			if elem[:i] == "tour" {
+				// The Angular router serving /tour/ fails badly when it sees /go.dev/tour/.
+				// Just take http://localhost/tour/ as meaning /go.dev/tour/ instead of redirecting.
+				elem, rest = "go.dev", elem
+			} else {
+				elem, rest = elem[:i], elem[i+1:]
+			}
 		}
 		if !validHosts[elem] {
 			u := "/go.dev" + r.URL.EscapedPath()
@@ -465,7 +476,10 @@ func hostPathHandler(h http.Handler) http.Handler {
 		r.URL.Scheme = "https"
 		r.URL.Host = elem
 		r.URL.Path = "/" + rest
-		lw := &linkRewriter{ResponseWriter: w, host: r.Host}
+
+		log.Print(r.URL.String())
+
+		lw := &linkRewriter{ResponseWriter: w, host: r.Host, tour: strings.HasPrefix(r.URL.Path, "/tour/")}
 		h.ServeHTTP(lw, r)
 		lw.Flush()
 	})
@@ -478,6 +492,7 @@ func hostPathHandler(h http.Handler) http.Handler {
 type linkRewriter struct {
 	http.ResponseWriter
 	host string
+	tour bool // is this go.dev/tour/?
 	buf  []byte
 	ct   string // content-type
 }
@@ -485,7 +500,7 @@ type linkRewriter struct {
 func (r *linkRewriter) WriteHeader(code int) {
 	loc := r.Header().Get("Location")
 	delete(r.Header(), "Content-Length") // we might change the content
-	if strings.HasPrefix(loc, "/") {
+	if strings.HasPrefix(loc, "/") && !strings.HasPrefix(loc, "/tour/") {
 		r.Header().Set("Location", "/"+r.host+loc)
 	} else if u, _ := url.Parse(loc); u != nil && validHosts[u.Host] {
 		r.Header().Set("Location", "/"+u.Host+"/"+strings.TrimPrefix(u.Path, "/")+u.RawQuery)
@@ -510,9 +525,12 @@ func (r *linkRewriter) Write(data []byte) (int, error) {
 }
 
 func (r *linkRewriter) Flush() {
-	repl := []string{
-		`href="/`, `href="/` + r.host + `/`,
-		`src="/`, `src="/` + r.host + `/`,
+	var repl []string
+	if !r.tour {
+		repl = []string{
+			`href="/`, `href="/` + r.host + `/`,
+			`src="/`, `src="/` + r.host + `/`,
+		}
 	}
 	for host := range validHosts {
 		repl = append(repl, `href="https://`+host, `href="/`+host)
@@ -567,11 +585,10 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
-<html>
-<head>
+<html lang="en">
+<title>The Go Programming Language</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="go-import" content="golang.org/x/{{.Proj}} git https://go.googlesource.com/{{.Proj}}">
-<meta name="go-source" content="golang.org/x/{{.Proj}} https://github.com/golang/{{.Proj}}/ https://github.com/golang/{{.Proj}}/tree/master{/dir} https://github.com/golang/{{.Proj}}/blob/master{/dir}/{file}#L{line}">
 <meta http-equiv="refresh" content="0; url=https://pkg.go.dev/golang.org/x/{{.Proj}}{{.Suffix}}">
 </head>
 <body>
@@ -579,6 +596,30 @@ var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
 </body>
 </html>
 `))
+
+func toolchainHandler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/toolchain" {
+		// Shouldn't happen if handler is registered correctly.
+		http.NotFound(w, r)
+		return
+	}
+	w.Write(toolchainPage)
+}
+
+var toolchainPage = []byte(`<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>The Go Programming Language</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta name="go-import" content="golang.org/toolchain mod https://go.dev/dl/mod">
+<meta http-equiv="refresh" content="0; url=https://go.dev/dl/">
+</head>
+<body>
+golang.org/toolchain is the module form of the Go toolchain releases.
+<a href="https://go.dev/dl/">Redirecting to Go toolchain download page...</a>
+</body>
+</html>
+`)
 
 var _ fs.ReadDirFS = unionFS{}
 
@@ -772,4 +813,67 @@ func redirectPrefix(prefix string) http.Handler {
 		}
 		http.Redirect(w, r, url, http.StatusMovedPermanently)
 	})
+}
+
+type CachedURL struct {
+	url     string
+	timeout time.Duration
+
+	mu      sync.Mutex
+	data    []byte
+	err     error
+	etag    string
+	updated time.Time
+}
+
+func NewCachedURL(url string, timeout time.Duration) *CachedURL {
+	return &CachedURL{url: url, timeout: timeout}
+}
+
+func (c *CachedURL) Get() (data []byte, err error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+
+	if time.Since(c.updated) < c.timeout {
+		return c.data, c.err
+	}
+	defer func() {
+		c.updated = time.Now()
+		c.data, c.err = data, err
+	}()
+
+	cli := &http.Client{Timeout: 60 * time.Second}
+	req, err := http.NewRequest("GET", c.url, nil)
+	if err != nil {
+		return nil, err
+	}
+	if c.etag != "" {
+		req.Header.Set("If-None-Match", c.etag)
+	}
+	resp, err := cli.Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", err)
+	}
+	defer resp.Body.Close()
+	if resp.StatusCode == http.StatusNotModified {
+		// Unmodified.
+		log.Printf("checked %s - unmodified", c.url)
+		return c.data, c.err
+	}
+	log.Printf("reloading %s", c.url)
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", resp.Status)
+	}
+	c.etag = resp.Header.Get("Etag")
+	data, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("loading rebuild report JSON: %v", err)
+	}
+	return data, nil
+}
+
+func jsonUnmarshal(data []byte) (any, error) {
+	var x any
+	err := json.Unmarshal(data, &x)
+	return x, err
 }

@@ -62,7 +62,7 @@ Only data structures that can be represented as valid JSON will be encoded:
 
 The json package only accesses the exported fields of struct types (those
 that begin with an uppercase letter).
-Therefore only the the exported fields of a struct will be present in the JSON output.
+Therefore only the exported fields of a struct will be present in the JSON output.
 
 ## Decoding
 

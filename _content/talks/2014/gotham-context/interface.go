@@ -1,10 +1,11 @@
+//go:build ignore && OMIT
 // +build ignore,OMIT
 
 package context
 
 import "time"
 
-// A Context carries a deadline, cancelation signal, and request-scoped values
+// A Context carries a deadline, cancellation signal, and request-scoped values
 // across API boundaries. Its methods are safe for simultaneous use by multiple
 // goroutines.
 type Context interface {

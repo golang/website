@@ -45,7 +45,7 @@ including many entirely new packages, a sizable portion written by external cont
 Speaking of third parties, since launch a vibrant community has flourished
 on our [mailing list](http://groups.google.com/group/golang-nuts/) and
 irc channel (#go-nuts on freenode).
-We have officially added [more than 50 people](/CONTRIBUTORS) to the project.
+We have officially added more than 50 people to the project.
 Their contributions range from bug fixes and documentation corrections to
 core packages and support for additional operating systems (Go is now supported under FreeBSD,
 and a [Windows port](http://code.google.com/p/go/wiki/WindowsPort) is underway).

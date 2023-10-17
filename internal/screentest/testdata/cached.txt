@@ -1,0 +1,7 @@
+windowsize 1536x960
+compare https://go.dev::cache https://go.dev::cache
+output testdata/screenshots/cached
+
+test homepage
+pathname /
+capture viewport

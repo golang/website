@@ -110,7 +110,7 @@ compatible with previous versions.
   build metadata is preserved in versions specified in `go.mod` files. The
   suffix `+incompatible` denotes a version released before migrating to modules
   version major version 2 or later (see [Compatibility with non-module
-  repositories](#non-module-compat).
+  repositories](#non-module-compat)).
 
 A version is considered unstable if its major version is 0 or it has a
 pre-release suffix. Unstable versions are not subject to compatibility
@@ -124,7 +124,7 @@ this standard into canonical versions. The `go` command will also remove build
 metadata suffixes (except for `+incompatible`) as part of this process. This may
 result in a [pseudo-version](#glos-pseudo-version), a pre-release version that
 encodes a revision identifier (such as a Git commit hash) and a timestamp from a
-version control system. For example, the command `go get -d
+version control system. For example, the command `go get
 golang.org/x/net@daa7c041` will convert the commit hash `daa7c041` into the
 pseudo-version `v0.0.0-20191109021931-daa7c04131f5`. Canonical versions are
 required outside the main module, and the `go` command will report an error if a
@@ -198,7 +198,7 @@ a commit hash or a branch name and will translate it into a pseudo-version
 (or tagged version if available) automatically. For example:
 
 ```
-go get -d example.com/mod@master
+go get example.com/mod@master
 go list -m -json example.com/mod@abcd1234
 ```
 
@@ -514,9 +514,9 @@ line.
 
 When the `go` command retrieves deprecation information for a module, it loads
 the `go.mod` file from the version matching the `@latest` [version
-query](#version-queries) without considering retractions or exclusions. The `go`
-command loads [retractions](#glos-retracted-version) from the same `go.mod`
-file.
+query](#version-queries) without considering [retractions](#go-mod-file-retract) or
+[exclusions](#go-mod-file-exclude). The `go` command loads the list of
+[retracted versions](#glos-retracted-version) from the same `go.mod` file.
 
 To deprecate a module, an author may add a `// Deprecated:` comment and tag a
 new release. The author may change or remove the deprecation message in a higher
@@ -534,15 +534,17 @@ major version. Individual minor and patch versions cannot be deprecated;
 ### `go` directive {#go-mod-file-go}
 
 A `go` directive indicates that a module was written assuming the semantics of a
-given version of Go. The version must be a valid Go release version: a positive
-integer followed by a dot and a non-negative integer (for example, `1.9`,
-`1.14`).
+given version of Go. The version must be a valid [Go version](/doc/toolchain#version),
+such as `1.9`, `1.14`, or `1.21rc1`.
 
-The `go` directive was originally intended to support backward incompatible
-changes to the Go language (see [Go 2
-transition](/design/28221-go2-transitions)). There have been no incompatible
-language changes since modules were introduced, but the `go` directive still
-affects use of new language features:
+The `go` directive sets the minimum version of Go required to use this module.
+Before Go 1.21, the directive was advisory only; now it is a mandatory requirement:
+Go toolchains refuse to use modules declaring newer Go versions.
+
+The `go` directive is an input into selecting which Go toolchain to run.
+See “[Go toolchains](/doc/toolchain)” for details.
+
+The `go` directive affects use of new language features:
 
 * For packages within the module, the compiler rejects use of language features
   introduced after the version specified by the `go` directive. For example, if
@@ -554,8 +556,7 @@ affects use of new language features:
   numeric literal `1_000_000`. If that package is built with Go 1.12, the
   compiler notes that the code is written for Go 1.13.
 
-Additionally, the `go` command changes its behavior based on the version
-specified by the `go` directive. This has the following effects:
+The `go` directive also affects the behavior of the `go` command:
 
 * At `go 1.14` or higher, automatic [vendoring](#vendoring) may be enabled.
   If the file `vendor/modules.txt` is present and consistent with `go.mod`,
@@ -583,10 +584,17 @@ specified by the `go` directive. This has the following effects:
      subdirectories of `vendor` to identify the correct main module.)
    * `go mod vendor` records the `go` version from each dependency's `go.mod`
      file in `vendor/modules.txt`.
+* At `go 1.21` or higher:
+   * The `go` line declares a required minimum version of Go to use with this module.
+   * The `go` line must be greater than or equal to the `go` line of all dependencies.
+   * The `go` command no longer attempts to maintain compatibility with the previous older version of Go.
+   * The `go` command is more careful about keeping checksums of `go.mod` files in the `go.sum` file.
 <!-- If you update this list, also update /doc/modules/gomod-ref#go-notes. -->
 
 A `go.mod` file may contain at most one `go` directive. Most commands will add a
 `go` directive with the current Go version if one is not present.
+
+If the `go` directive is missing, `go 1.16` is assumed.
 
 ```
 GoDirective = "go" GoVersion newline .
@@ -597,6 +605,31 @@ Example:
 
 ```
 go 1.14
+```
+
+### `toolchain` directive {#go-mod-file-toolchain}
+
+A `toolchain` directive declares a suggested Go toolchain to use with a module.
+The suggested Go toolchain's version cannot be less than the required Go version
+declared in the `go` directive.
+The `toolchain` directive
+only has an effect when the module is the main module and the default toolchain's
+version is less than the suggested toolchain's version.
+
+For reproducibility, the `go` command writes its own toolchain name in a `toolchain` line any time
+it is updating the `go` version in the `go.mod` file (usually during `go get`).
+
+For details, see “[Go toolchains](/doc/toolchain)”.
+
+```
+ToolchainDirective = "toolchain" ToolchainName newline .
+ToolchainName = string | ident .  /* valid toolchain name; see “Go toolchains” */
+```
+
+Example:
+
+```
+toolchain go1.21.0
 ```
 
 ### `require` directive {#go-mod-file-require}
@@ -652,7 +685,7 @@ command.
 
 Since Go 1.16, if a version referenced by a `require` directive in any `go.mod`
 file is excluded by an `exclude` directive in the main module's `go.mod` file,
-the requirement is ignored. This may be cause commands like [`go get`](#go-get)
+the requirement is ignored. This may cause commands like [`go get`](#go-get)
 and [`go mod tidy`](#go-mod-tidy) to add new requirements on higher versions
 to `go.mod`, with an `// indirect` comment if appropriate.
 
@@ -711,6 +744,11 @@ must match the module path it replaces.
 `replace` directives only apply in the main module's `go.mod` file
 and are ignored in other modules. See [Minimal version
 selection](#minimal-version-selection) for details.
+
+If there are multiple main modules, all main modules' `go.mod`
+files apply. Conflicting `replace` directives across main
+modules are disallowed, and must be removed or overridden in
+a [replace in the `go.work file`](#go-work-file-replace).
 
 Note that a `replace` directive alone does not add a module to the [module
 graph](#glos-module-graph). A [`require` directive](#go-mod-file-require) that
@@ -780,8 +818,8 @@ publishes version `v1.0.0` accidentally. To prevent users from upgrading to
 
 ```
 retract (
-	v1.0.0 // Published accidentally.
-	v1.0.1 // Contains retractions only.
+    v1.0.0 // Published accidentally.
+    v1.0.1 // Contains retractions only.
 )
 ```
 
@@ -810,7 +848,9 @@ RetractDirective = "retract" ( RetractSpec | "(" newline { RetractSpec } ")" new
 RetractSpec = ( Version | "[" Version "," Version "]" ) newline .
 ```
 
-Example:
+Examples:
+
+* Retracting all versions between `v1.0.0` and `v1.9.9`:
 
 ```
 retract v1.0.0
@@ -819,6 +859,18 @@ retract (
     v1.0.0
     [v1.0.0, v1.9.9]
 )
+```
+
+* Returning to unversioned after prematurely released a version `v1.0.0`:
+
+```
+retract [v0.0.0, v1.0.1] // assuming v1.0.1 contains this retraction.
+```
+
+* Wiping out a module including all pseudo-versions and tagged versions:
+
+```
+retract [v0.0.0-0, v0.15.2]  // assuming v0.15.2 contains this retraction.
 ```
 
 The `retract` directive was added in Go 1.16. Go 1.15 and lower will report an
@@ -895,13 +947,14 @@ Conceptually, MVS operates on a directed graph of modules, specified with
 [`go.mod` files](#glos-go-mod-file). Each vertex in the graph represents a
 module version. Each edge represents a minimum required version of a dependency,
 specified using a [`require`](#go-mod-file-require)
-directive. [`replace`](#go-mod-file-replace) and [`exclude`](#go-mod-file-exclude)
-directives in the main module's `go.mod` file modify the graph.
+directive. The graph may be modified by [`exclude`](#go-mod-file-exclude)
+and [`replace`](#go-mod-file-replace) directives in the `go.mod` file(s) of the main
+module(s) and by [`replace`](#go-work-file-replace) directives in the `go.work` file.
 
 MVS produces the [build list](#glos-build-list) as output, the list of module
 versions used for a build.
 
-MVS starts at the main module (a special vertex in the graph that has no
+MVS starts at the main modules (special vertices in the graph that have no
 version) and traverses the graph, tracking the highest required version of each
 module. At the end of the traversal, the highest required versions comprise the
 build list: they are the minimum versions that satisfy all requirements.
@@ -927,9 +980,9 @@ requires them.
 ### Replacement {#mvs-replace}
 
 The content of a module (including its `go.mod` file) may be replaced using a
-[`replace` directive](#go-mod-file-replace) in the main module's `go.mod` file.
-A `replace` directive may apply to a specific version of a module or to all
-versions of a module.
+[`replace` directive](#go-mod-file-replace) in a main module's `go.mod` file
+or a workspace's `go.work` file. A `replace` directive may apply to a specific
+version of a module or to all versions of a module.
 
 Replacements change the module graph, since a replacement module may have
 different dependencies than replaced versions.
@@ -938,7 +991,7 @@ Consider the example below, where C 1.4 has been replaced with R. R depends on D
 1.3 instead of D 1.2, so MVS returns a build list containing A 1.2, B 1.2, C 1.4
 (replaced with R), and D 1.3.
 
-![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacment")
+![Module version graph with a replacement](/doc/mvs/replace.svg "MVS replacement")
 
 ### Exclusion {#mvs-exclude}
 
@@ -1043,7 +1096,7 @@ module graph loaded by Go 1.17. The `-compat` flag can be used to override the
 default version (for example, to prune the `go.sum` file more aggressively in a
 `go 1.17` module).
 
-See [the design document](/design/36460-lazy-module-loading) for more detail.
+See [the design document](https://go.googlesource.com/proposal/+/master/design/36460-lazy-module-loading.md) for more detail.
 
 ### Lazy module loading {#lazy-loading}
 
@@ -1062,6 +1115,197 @@ those packages, and their requirements are checked against the requirements of
 the main module to ensure that they are locally consistent. (Inconsistencies can
 arise due to version-control merges, hand-edits, and changes in modules that
 have been [replaced](#go-mod-file-replace) using local filesystem paths.)
+
+## Workspaces {#workspaces}
+
+A <dfn>workspace</dfn> is a collection of modules on disk that are used as
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
+
+A workspace can be declared in a [`go.work` file](#go-work-file) that specifies
+relative paths to the module directories of each of the modules in the workspace.
+When no `go.work` file exists, the workspace consists of the single module
+containing the current directory.
+
+Most `go` subcommands that work with modules
+operate on the set of modules determined by the current workspace.
+`go mod init`, `go mod why`, `go mod edit`, `go mod tidy`, `go mod vendor`,
+and `go get` always operate on a single main module.
+
+A command determines whether it is in a workspace context by first examining
+the `GOWORK` environment variable. If `GOWORK` is set to `off`, the command will be
+in a single-module context. If it is empty or not provided, the command
+will search the current working directory, and then successive parent directories,
+for a file `go.work`. If a file is found, the command will operate in the
+workspace it defines; otherwise, the workspace will include only the module
+containing the working directory.
+If `GOWORK` names a path to an existing file that ends in .work,
+workspace mode will be enabled. Any other value is an error. You can use the
+`go env GOWORK` command to determine which `go.work` file the `go` command
+is using. `go env GOWORK` will be empty if the `go` command is not in workspace
+mode.
+
+### `go.work` files {#go-work-file}
+
+A workspace is defined by a UTF-8 encoded text file named `go.work`. The
+`go.work` file is line oriented. Each line holds a single directive, made up of
+a keyword followed by arguments. For example:
+
+```
+go 1.18
+
+use ./my/first/thing
+use ./my/second/thing
+
+replace example.com/bad/thing v1.4.5 => example.com/good/thing v1.4.5
+```
+
+As in `go.mod` files, a leading keyword can be factored out of adjacent lines
+to create a block.
+
+```
+use (
+    ./my/first/thing
+    ./my/second/thing
+)
+```
+
+The `go` command provides several subcommands for manipulating `go.work` files.
+[`go work init`](#go-work-init) creates new `go.work` files. [`go work use`](#go-work-use) adds module directories to
+the `go.work` file. [`go work edit`](#go-work-edit) performs low-level
+edits. The
+[`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
+package can be used by Go programs to make the same changes programmatically.
+
+### Lexical elements {#go-work-file-lexical}
+
+Lexical elements in `go.work` files are defined in exactly the same way [as for
+`go.mod files`](#go-mod-file-lexical).
+
+### Grammar {#go-work-file-grammar}
+
+`go.work` syntax is specified below using Extended Backus-Naur Form (EBNF).
+See the [Notation section in the Go Language Specification](/ref/spec#Notation)
+for details on EBNF syntax.
+
+```
+GoWork = { Directive } .
+Directive = GoDirective |
+            ToolchainDirective |
+            UseDirective |
+            ReplaceDirective .
+```
+
+Newlines, identifiers, and strings are denoted with `newline`, `ident`, and
+`string`, respectively.
+
+Module paths and versions are denoted with `ModulePath` and `Version`.
+Module paths and versions are specified in exactly the same way [as for
+`go.mod files`](#go-mod-file-lexical).
+
+```
+ModulePath = ident | string . /* see restrictions above */
+Version = ident | string .    /* see restrictions above */
+```
+
+### `go` directive {#go-work-file-go}
+
+A `go` directive is required in a valid `go.work` file. The version must
+be a valid Go release version: a positive
+integer followed by a dot and a non-negative integer (for example, `1.18`,
+`1.19`).
+
+The `go` directive indicates the  go  toolchain version with which the
+`go.work` file is intended to work. If changes are made to the `go.work`
+file format, future versions of the toolchain will interpret the file
+according to its indicated version.
+
+A `go.work` file may contain at most one `go` directive.
+
+```
+GoDirective = "go" GoVersion newline .
+GoVersion = string | ident .  /* valid release version; see above */
+```
+
+Example:
+
+```
+go 1.18
+```
+
+### `toolchain` directive {#go-work-file-toolchain}
+
+A `toolchain` directive declares a suggested Go toolchain to use in a workspace.
+It only has an effect when the default toolchain
+is older than the suggested toolchain.
+
+For details, see “[Go toolchains](/doc/toolchain)”.
+
+```
+ToolchainDirective = "toolchain" ToolchainName newline .
+ToolchainName = string | ident .  /* valid toolchain name; see “Go toolchains” */
+```
+
+Example:
+
+```
+toolchain go1.21.0
+```
+
+### `use` directive {#go-work-file-use}
+
+A `use` adds a module on disk to the set of main modules in a workspace.
+Its argument is a relative path to the directory containing the module's
+`go.mod` file. A `use` directive does not add modules contained in
+subdirectories of its argument directory. Those modules may be added by
+the directory containing their `go.mod` file in separate `use` directives.
+
+```
+UseDirective = "use" ( UseSpec | "(" newline { UseSpec } ")" newline ) .
+UseSpec = FilePath newline .
+FilePath = /* platform-specific relative or absolute file path */
+
+```
+
+Example:
+
+```
+use ./mymod  // example.com/mymod
+
+use (
+    ../othermod
+    ./subdir/thirdmod
+)
+```
+
+### `replace` directive {#go-work-file-replace}
+
+Similar to a `replace` directive in a `go.mod` file, a `replace` directive in
+a `go.work` file replaces the contents of a specific version of a module,
+or all versions of a module, with contents found elsewhere. A wildcard replace
+in `go.work` overrides a version-specific `replace` in a `go.mod` file.
+
+`replace` directives in `go.work` files override any replaces of the same
+module or module version in workspace modules.
+
+```
+ReplaceDirective = "replace" ( ReplaceSpec | "(" newline { ReplaceSpec } ")" newline ) .
+ReplaceSpec = ModulePath [ Version ] "=>" FilePath newline
+            | ModulePath [ Version ] "=>" ModulePath Version newline .
+FilePath = /* platform-specific relative or absolute file path */
+```
+
+Example:
+
+```
+replace golang.org/x/net v1.2.3 => example.com/fork/net v1.4.5
+
+replace (
+    golang.org/x/net v1.2.3 => example.com/fork/net v1.4.5
+    golang.org/x/net => example.com/fork/net v1.4.5
+    golang.org/x/net v1.2.3 => ./fork/net
+    golang.org/x/net => ./fork/net
+)
+```
 
 ## Compatibility with non-module repositories {#non-module-compat}
 
@@ -1231,7 +1475,6 @@ includes:
 * `go build`
 * `go fix`
 * `go generate`
-* `go get`
 * `go install`
 * `go list`
 * `go run`
@@ -1255,6 +1498,8 @@ commands accept the following flags, common to all module commands.
     higher and a `vendor` directory is present, the `go` command acts as if
     `-mod=vendor` were used. Otherwise, the `go` command acts as if
     `-mod=readonly` were used.
+  * `go get` rejects this flag as the purpose of the command is to modify
+    dependencies, which is only allowed by `-mod=mod`.
 * The `-modcacherw` flag instructs the `go` command to create new directories
   in the module cache with read-write permissions instead of making them
   read-only. When this flag is used consistently (typically by setting
@@ -1331,20 +1576,29 @@ Examples:
 
 ```
 # Upgrade a specific module.
-$ go get -d golang.org/x/net
+$ go get golang.org/x/net
 
 # Upgrade modules that provide packages imported by packages in the main module.
-$ go get -d -u ./...
+$ go get -u ./...
 
 # Upgrade or downgrade to a specific version of a module.
-$ go get -d golang.org/x/text@v0.3.2
+$ go get golang.org/x/text@v0.3.2
 
 # Update to the commit on the module's master branch.
-$ go get -d golang.org/x/text@master
+$ go get golang.org/x/text@master
 
 # Remove a dependency on a module and downgrade modules that require it
 # to versions that don't require it.
-$ go get -d golang.org/x/text@none
+$ go get golang.org/x/text@none
+
+# Upgrade the minimum required Go version for the main module.
+$ go get go
+
+# Upgrade the suggested Go toolchain, leaving the minimum Go version alone.
+$ go get toolchain
+
+# Upgrade to the latest patch release of the suggested Go toolchain.
+$ go get toolchain@patch
 ```
 
 The `go get` command updates module dependencies in the [`go.mod`
@@ -1547,19 +1801,20 @@ to a Go struct, but now a `Module` struct:
 
 ```
 type Module struct {
-    Path       string       // module path
-    Version    string       // module version
-    Versions   []string     // available module versions (with -versions)
-    Replace    *Module      // replaced by this module
-    Time       *time.Time   // time version was created
-    Update     *Module      // available update, if any (with -u)
-    Main       bool         // is this the main module?
-    Indirect   bool         // is this module only an indirect dependency of main module?
-    Dir        string       // directory holding files for this module, if any
-    GoMod      string       // path to go.mod file for this module, if any
-    GoVersion  string       // go version used in module
-    Deprecated string       // deprecation message, if any (with -u)
-    Error      *ModuleError // error loading module
+    Path       string        // module path
+    Version    string        // module version
+    Versions   []string      // available module versions
+    Replace    *Module       // replaced by this module
+    Time       *time.Time    // time version was created
+    Update     *Module       // available update (with -u)
+    Main       bool          // is this the main module?
+    Indirect   bool          // module is only indirectly needed by main module
+    Dir        string        // directory holding local copy of files, if any
+    GoMod      string        // path to go.mod file describing module, if any
+    GoVersion  string        // go version used in module
+    Retracted  []string      // retraction information, if any (with -retracted or -u)
+    Deprecated string        // deprecation message, if any (with -u)
+    Error      *ModuleError  // error loading module
 }
 
 type ModuleError struct {
@@ -1581,7 +1836,7 @@ The `Module` struct has a `String` method that formats this line of output, so
 that the default format is equivalent to {{raw "`-f '{{.String}}'`"}}.
 
 Note that when a module has been replaced, its `Replace` field describes the
-replacement module module, and its `Dir` field is set to the replacement
+replacement module, and its `Dir` field is set to the replacement
 module's source code, if present. (That is, if `Replace` is non-nil, then `Dir`
 is set to `Replace.Dir`, with no access to the replaced source code.)
 
@@ -1630,7 +1885,7 @@ field.
 Usage:
 
 ```
-go mod download [-json] [-x] [modules]
+go mod download [-x] [-json] [-reuse=old.json] [modules]
 ```
 
 Example:
@@ -1661,6 +1916,7 @@ to this Go struct:
 ```
 type Module struct {
     Path     string // module path
+    Query    string // version query corresponding to this version
     Version  string // module version
     Error    string // error loading module
     Info     string // absolute path to cached .info file
@@ -1669,11 +1925,21 @@ type Module struct {
     Dir      string // absolute path to cached source root directory
     Sum      string // checksum for path, version (as in go.sum)
     GoModSum string // checksum for go.mod (as in go.sum)
+    Origin   any    // provenance of module
+    Reuse    bool   // reuse of old module info is safe
 }
 ```
 
 The `-x` flag causes `download` to print the commands `download` executes
 to standard error.
+
+The -reuse flag accepts the name of file containing the JSON output of a
+previous 'go mod download -json' invocation. The go command may use this
+file to determine that a module is unchanged since the previous invocation
+and avoid redownloading it. Modules that are not redownloaded will be marked
+in the new output by setting the Reuse field to true. Normally the module
+cache provides this kind of reuse automatically; the -reuse flag can be
+useful on systems that do not preserve the module cache.
 
 ### `go mod edit` {#go-mod-edit}
 
@@ -1762,35 +2028,40 @@ The editing flags may be repeated. The changes are applied in the order given.
 
 ```
 type Module struct {
-        Path    string
-        Version string
+    Path    string
+    Version string
 }
 
 type GoMod struct {
-        Module  Module
-        Go      string
-        Require []Require
-        Exclude []Module
-        Replace []Replace
+    Module  ModPath
+    Go      string
+    Require []Require
+    Exclude []Module
+    Replace []Replace
+    Retract []Retract
+}
+
+type ModPath struct {
+    Path       string
+    Deprecated string
 }
 
 type Require struct {
-        Path     string
-        Version  string
-        Indirect bool
+    Path     string
+    Version  string
+    Indirect bool
 }
 
 type Replace struct {
-        Old Module
-        New Module
+    Old Module
+    New Module
 }
 
 type Retract struct {
-        Low       string
-        High      string
-        Rationale string
+    Low       string
+    High      string
+    Rationale string
 }
-
 ```
 
 Note that this only describes the `go.mod` file itself, not other modules
@@ -2213,7 +2484,7 @@ A version query may be one of the following:
   latest version starting with `v2`, not the branch named `v2`.
 * The string `latest`, which selects the highest available release version. If
   there are no release versions, `latest` selects the highest pre-release
-  version.  If there no tagged versions, `latest` selects a pseudo-version for
+  version.  If there are no tagged versions, `latest` selects a pseudo-version for
   the commit at the tip of the repository's default branch.
 * The string `upgrade`, which is like `latest` except that if the module is
   currently required at a higher version than the version `latest` would select
@@ -2324,6 +2595,135 @@ disabling module-aware mode.
     </tr>
   </tbody>
 </table>
+
+### `go work init` {#go-work-init}
+
+Usage:
+
+```
+go work init [moddirs]
+```
+
+Init initializes and writes a new go.work file in the
+current directory, in effect creating a new workspace at the current
+directory.
+
+go work init optionally accepts paths to the workspace modules as
+arguments. If the argument is omitted, an empty workspace with no
+modules will be created.
+
+Each argument path is added to a use directive in the go.work file. The
+current go version will also be listed in the go.work file.
+
+### `go work edit` {#go-work-edit}
+
+Usage:
+
+```
+go work edit [editing flags] [go.work]
+```
+
+The `go work edit` command provides a command-line interface for editing `go.work`,
+for use primarily by tools or scripts. It only reads `go.work`;
+it does not look up information about the modules involved.
+If no file is specified, Edit looks for a `go.work` file in the current
+directory and its parent directories
+
+The editing flags specify a sequence of editing operations.
+* The `-fmt` flag reformats the go.work file without making other changes.
+  This reformatting is also implied by any other modifications that use or
+  rewrite the `go.work` file. The only time this flag is needed is if no other
+  flags are specified, as in 'go work edit `-fmt`'.
+* The `-use=path` and `-dropuse=path` flags
+  add and drop a use directive from the `go.work` file's set of module directories.
+* The `-replace=old[@v]=new[@v]` flag adds a replacement of the given
+  module path and version pair. If the `@v` in `old@v` is omitted, a
+  replacement without a version on the left side is added, which applies
+  to all versions of the old module path. If the `@v` in `new@v` is omitted,
+  the new path should be a local module root directory, not a module
+  path. Note that `-replace` overrides any redundant replacements for `old[@v]`,
+  so omitting `@v` will drop existing replacements for specific versions.
+* The `-dropreplace=old[@v]` flag drops a replacement of the given
+  module path and version pair. If the `@v` is omitted, a replacement without
+  a version on the left side is dropped.
+* The `-go=version` flag sets the expected Go language version.
+
+The editing flags may be repeated. The changes are applied in the order given.
+
+`go work edit` has additional flags that control its output
+
+* The -print flag prints the final go.work in its text format instead of
+  writing it back to go.mod.
+* The -json flag prints the final go.work file in JSON format instead of
+  writing it back to go.mod. The JSON output corresponds to these Go types:
+
+```
+type Module struct {
+    Path    string
+    Version string
+}
+
+type GoWork struct {
+    Go        string
+    Directory []Directory
+    Replace   []Replace
+}
+
+type Use struct {
+    Path       string
+    ModulePath string
+}
+
+type Replace struct {
+    Old Module
+    New Module
+}
+```
+
+### `go work use` {#go-work-use}
+
+Usage:
+
+```
+go work use [-r] [moddirs]
+```
+
+The `go work use` command provides a command-line interface for adding
+directories, optionally recursively, to a `go.work` file.
+
+A [`use` directive](#go-work-file-use) will be added to the `go.work` file for each argument
+directory listed on the command line `go.work` file, if it exists on disk,
+or removed from the `go.work` file if it does not exist on disk.
+
+The `-r` flag searches recursively for modules in the argument
+directories, and the use command operates as if each of the directories
+were specified as arguments: namely, `use` directives will be added for
+directories that exist, and removed for directories that do not exist.
+
+### `go work sync` {#go-work-sync}
+
+Usage:
+
+```
+go work sync
+```
+
+The `go work sync` command syncs the workspace's build list back to the
+workspace's modules.
+
+The workspace's build list is the set of versions of all the
+(transitive) dependency modules used to do builds in the workspace. `go
+work sync` generates that build list using the [Minimal Version Selection
+(MVS)](#glos-minimal-version-selection)
+algorithm, and then syncs those versions back to each of modules
+specified in the workspace (with `use` directives).
+
+Once the workspace build list is computed, the `go.mod` file for each
+module in the workspace is rewritten with the dependencies relevant
+to that module upgraded to match the workspace build list.
+Note that [Minimal Version Selection](#glos-minimal-version-selection)
+guarantees that the build list's version of each module is always
+the same or higher than that in each workspace module.
 
 ## Module proxies {#module-proxy}
 
@@ -2512,9 +2912,9 @@ module golang.org/x/mod
 go 1.12
 
 require (
-	golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
-	golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
-	golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
+    golang.org/x/crypto v0.0.0-20191011191535-87dc89f01550
+    golang.org/x/tools v0.0.0-20191119224855-298f0cb1881e
+    golang.org/x/xerrors v0.0.0-20191011141410-1b5146add898
 )
 ```
 
@@ -3254,7 +3654,7 @@ example:
 GOPROXY=https://jrgopher:hunter2@proxy.corp.example.com
 ```
 
-Use caution when taking this approach: environment variables may be appear
+Use caution when taking this approach: environment variables may appear
 in shell history and in logs.
 
 ### Passing credentials to private repositories {#private-module-repo-auth}
@@ -3445,7 +3845,7 @@ conflicts on case-insensitive file systems.
       <td>
         Directory containing extracted contents of a module <code>.zip</code>
         file. This serves as a module root directory for a downloaded module. It
-        won't contain contain a <code>go.mod</code> file if the original module
+        won't contain a <code>go.mod</code> file if the original module
         didn't have one.
       </td>
     </tr>
@@ -4015,6 +4415,20 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
         </p>
       </td>
     </tr>
+     <tr>
+      <td><code>GOWORK</code></td>
+      <td>
+       <p>
+        The `GOWORK` environment variable instructs the `go` command to enter workspace
+        mode using the provided [`go.work` file](#go-work-file) to define the workspace.
+        If `GOWORK` is set to `off` workspace mode is disabled. This can be used to run
+        the `go` command in single module mode: for example, `GOWORK=off go build .` builds
+        the `.` package in single-module mode.`If `GOWORK` is empty, the
+        `go` command will search for a `go.work` file as described in the [Workspaces](#workspaces)
+        section.
+       </p>
+      </td>
+    </tr>
   </tbody>
 </table>
 
@@ -4069,6 +4483,11 @@ for modules matching a list of patterns.
 other metadata. Appears in the [module's root
 directory](#glos-module-root-directory). See the section on [`go.mod`
 files](#go-mod-file).
+
+<a id="glos-go-work-file"></a>
+**`go.work` file** The file that defines the set of modules to be
+used in a [workspace](#workspaces). See the section on
+[`go.work` files](#go-work-file)
 
 <a id="glos-import-path"></a>
 **import path:** A string used to import a package in a Go source file.
@@ -4136,7 +4555,7 @@ distributed together.
 **module graph:** The directed graph of module requirements, rooted at the [main
 module](#glos-main-module). Each vertex in the graph is a module; each edge is a
 version from a `require` statement in a `go.mod` file (subject to `replace` and
-`exclude` statements in the main module's `go.mod` file.
+`exclude` statements in the main module's `go.mod` file).
 
 <a id="glos-module-graph-pruning"></a>
 **module graph pruning:** A change in Go 1.17 that reduces the size of the
@@ -4232,3 +4651,8 @@ other modules needed to build packages in the main module. Maintained with
 **version:** An identifier for an immutable snapshot of a module, written as the
 letter `v` followed by a semantic version. See the section on
 [Versions](#versions).
+
+<a id="glos-workspace"></a>
+**workspace:** A collection of modules on disk that are used as
+the main modules when running [minimal version selection (MVS)](#minimal-version-selection).
+See the section on [Workspaces](#workspaces)

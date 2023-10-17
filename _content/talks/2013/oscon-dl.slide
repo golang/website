@@ -59,12 +59,12 @@ $ apt-get update
 
 .image oscon-dl/slow.png
 
-- embarassing
+- embarrassing
 - Google can't serve a 1,238 byte file?
 - Hanging?
 - 207 B/s?!
 
-* Yeah, embarassing, for years...
+* Yeah, embarrassing, for years...
 
 .image oscon-dl/crbug.png
 

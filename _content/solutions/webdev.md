@@ -8,7 +8,7 @@ books:
 icon:
   file: webdev-green.svg
   alt: web dev icon
-icon-white:
+iconDark:
   file: webdev-white.svg
   alt: web dev icon
 ---
@@ -17,7 +17,7 @@ icon-white:
 
 ### Go delivers speed, security, and developer-friendly tools for Web Applications
 
-Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [ElasticSearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v7), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
+Go is designed to enable developers to rapidly develop scalable and secure web applications. Go ships with an easy to use, secure and performant web server and includes it own web templating library. Go has excellent support for all of the latest technologies from [HTTP/2](https://pkg.go.dev/net/http), to databases like [MySQL](https://pkg.go.dev/mod/github.com/go-sql-driver/mysql), [MongoDB](https://pkg.go.dev/mod/go.mongodb.org/mongo-driver) and [Elasticsearch](https://pkg.go.dev/mod/github.com/elastic/go-elasticsearch/v8), to the latest encryption standards including [TLS 1.3](https://pkg.go.dev/crypto/tls). Go web applications run natively on [Google App Engine](https://cloud.google.com/appengine/) and [Google Cloud Run](https://cloud.google.com/run/) (for easy scaling) or on any environment, cloud, or operating system thanks to Go’s extreme portability.
 
 ## Key Benefits {#key-benefits .sectionHeading}
 
@@ -44,6 +44,7 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
   - company: Caddy
     url: https://caddyserver.com/
     logoSrc: caddy.svg
+    logoSrcDark: caddy.svg
     desc: Caddy 2 is a powerful, enterprise-ready, open source web server with automatic HTTPS written in Go. Caddy offers greater memory safety than servers written in C. A hardened TLS stack powered by the Go standard library serves a significant portion of all Internet traffic.
     ctas:
       - text: Caddy 2
@@ -51,36 +52,41 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
   - company: Cloudflare
     url: https://www.cloudflare.com/en-gb/
     logoSrc: cloudflare-icon.svg
+    logoSrcDark: cloudflare-icon.svg
     desc: Cloudflare speeds up and protects millions of websites, APIs, SaaS services, and other properties connected to the Internet. “Go is at the heart of CloudFlare’s services including handling compression for high-latency HTTP connections, our entire DNS infrastructure, SSL, load testing and more.”
     ctas:
       - text: Cloudflare and Go
         url: https://blog.cloudflare.com/what-weve-been-doing-with-go/
   - company: gov.uk
     url: https://gov.uk/
-    logoSrc: govuk.svg
+    logoSrc: govuk_light.svg
+    logoSrcDark: govuk_dark.svg
     desc: The simplicity and safety of the Go language were a good fit for the United Kingdom’s government’s HTTP infrastructure, and some brief experiments with the excellent net/http package convinced web developers they were on the right track. “In particular, Go’s concurrency model makes it absurdly easy to build performant I/O-bound applications.”
     ctas:
       - text: Building a new router for gov.uk
         url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
       - text: Using Go in government
-        url: https://technology.blog.gov.uk/2013/12/05/building-a-new-router-for-gov-uk/
+        url: https://technology.blog.gov.uk/2014/11/14/using-go-in-government/
   - company: Hugo
     url: http://gohugo.io/
     logoSrc: hugo.svg
+    logoSrcDark: hugo.svg
     desc: Hugo is a fast and modern website engine written in Go, and designed to make website creation fun again. Websites built with Hugo are extremely fast and secure and can be hosted anywhere without any dependencies.
     ctas:
       - text: Hugo
         url: http://gohugo.io/
   - company: Mattermost
     url: https://mattermost.com/
-    logoSrc: mattermost.png
+    logoSrc: mattermost_light.svg
+    logoSrcDark: mattermost_dark.svg
     desc: Mattermost is a flexible, open source messaging platform that enables secure team collaboration. It’s written in Go and React.
     ctas:
       - text: Mattermost
         url: https://mattermost.com/
   - company: Medium
     url: https://medium.org/
-    logoSrc: medium.svg
+    logoSrc: medium_light.svg
+    logoSrcDark: medium_dark.svg
     desc: Medium uses Go to power their social graph, their image server and several auxiliary services. “We’ve found Go very easy to build, package, and deploy. We like the type-safety without the verbosity and JVM tuning of Java.”
     ctas:
       - text: Medium's Go Services
@@ -88,6 +94,7 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
   - company: The Economist
     url: https://economist.com/
     logoSrc: economist.svg
+    logoSrcDark: economist.svg
     desc: The Economist needed more flexibility to deliver content to increasingly diverse digital channels. Services written in Go were a key component of the new system that would enable The Economist to deliver scalable, high performing services and quickly iterate new products. “Overall, it was determined that Go was the language best designed for usability and efficiency in a distributed, cloud-based system.”
     ctas:
       - text: The Economist's Go microservices
@@ -168,9 +175,9 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
       - text: mongo-driver/mongo
         url: https://pkg.go.dev/go.mongodb.org/mongo-driver/mongo?tab=overview
         desc: The MongoDB supported driver for Go
-      - text: olivere/elastic
-        url: https://pkg.go.dev/github.com/olivere/elastic?tab=overview
-        desc: A Elasticsearch client for Go
+      - text: elastic/go-elasticsearch
+        url: https://pkg.go.dev/github.com/elastic/go-elasticsearch/v8?tab=overview
+        desc: An Elasticsearch client for Go
       - text: GORM
         url: https://gorm.io/
         desc: An ORM library for Go

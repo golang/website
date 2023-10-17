@@ -1,0 +1,97 @@
+<!--{
+	"Title": "Go Reproducible Build Report",
+	"layout": "article",
+	"template": true
+}-->
+
+<style>
+details { margin-left: 2em; }
+pre { margin-left: 2em; }
+.time { color: #777; }
+</style>
+
+<p>
+As of Go 1.21, Go's binary toolchain downloads served by <a href="/dl/">go.dev/dl/</a> can be
+reproduced and verified by anyone, on any platform,
+using <a href="https://pkg.go.dev/golang.org/x/build/cmd/gorebuild">golang.org/x/build/cmd/gorebuild</a>.
+For more details, see the blog post
+“[Perfectly Reproducible, Verified Go Toolchains](/blog/rebuild).”
+</p>
+
+<p>
+This page is updated daily with the results of running <code>gorebuild</code> in an Ubuntu VM,
+using this script:
+</p>
+
+<pre>
+apt-get update &&
+apt-get -y install software-properties-common &&
+add-apt-repository universe &&
+apt-get -y install golang-go msitools &&
+go run golang.org/x/build/cmd/gorebuild@latest -p=4
+</pre>
+
+<p>
+The installation of <code>msitools</code> lets <code>gorebuild</code>
+check the contents of the Windows MSI installation file.
+The <code>-p=4</code> means to run up to four builds in parallel.
+</p>
+
+{{define "marker"}}<span style="marker">{{template "markersymbol" .}}</span>{{end}}
+{{define "markersymbol"}}
+{{- if eq . "PASS" -}} ✅
+{{- else if eq . "SKIP" -}} —
+{{- else -}}  ❌
+{{- end -}}
+{{end}}
+
+{{define "log"}}
+<pre>
+{{range .Messages}}<span class="time">{{(rfc3339 .Time).UTC.Format "15:04:05"}}</span> {{.Text}}
+{{end}}
+</pre>
+{{end}}
+
+{{define "autoopen"}} {{if not (eq . "PASS")}} open {{end}} {{end}}
+
+{{$Report := json gorebuild}}
+{{with $Report}}
+
+Gorebuild version {{.Version}}.<br>
+Built with Go version {{.GoVersion}}, {{.GOOS}}-{{.GOARCH}}.<br>
+<br>
+Rebuild started at {{(rfc3339 .Start).UTC.Format "2006-01-02 15:04:05"}} UTC.<br>
+Rebuild finished at {{(rfc3339 .End).UTC.Format "2006-01-02 15:04:05"}} UTC.<br>
+Elapsed time: {{((rfc3339 .End).Sub (rfc3339 .Start)).Round 1e9}}.
+
+<h2 id="releases">Releases</h2>
+
+{{range .Releases}}
+<details {{template "autoopen" .Log.Status}} >
+<summary><b id="{{.Version}}">{{template "marker" .Log.Status}} {{.Version}}</b></summary>
+
+<details>
+<summary>Log</summary>
+{{template "log" .Log}}
+</details>
+
+{{range .Files}}
+<details {{template "autoopen" .Log.Status}}>
+<summary><b id="{{.Name}}">{{template "marker" .Log.Status}} {{.Name}}</b></summary>
+{{template "log" .Log}}
+</details>
+{{end}}
+
+</details>
+{{end}}
+
+<h2 id="bootstraps">Bootstraps</h2>
+
+{{range .Bootstraps}}
+<details>
+<summary><b>Bootstrap {{.Version}}</b></summary>
+{{template "log" .Log}}
+</details>
+{{end}}
+
+{{end}}

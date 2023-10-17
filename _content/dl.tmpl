@@ -32,10 +32,12 @@ information about Go releases.
 
 {{with .Featured}}
 <h2 id="featured">Featured downloads</h2>
+<div class="downloadWrapper">
 {{range .}}
 {{template "download" .}}
 {{end}}
 {{end}}
+</div>
 
 <div style="clear: both;"></div>
 
@@ -52,47 +54,14 @@ information about Go releases.
 {{with .Archive}}
 <div class="toggle" id="archive">
   <div class="collapsed">
-    <h2 class="toggleButton" title="Click to show versions">Archived versions ▸</h2>
+    <h2 class="toggleButton" title="Click to show versions">Archived versions <span class="toggleText">Show</span></h2>
   </div>
   <div class="expanded">
-    <h2 class="toggleButton" title="Click to hide versions">Archived versions ▾</h2>
+    <h2 class="toggleButton" title="Click to hide versions">Archived versions <span class="toggleText">Hide</span></h2>
     {{template "download-releases" .}}
   </div>
 </div>
 {{end}}
-
-<script>
-$(document).ready(function() {
-  $('a.download').click(function(e) {
-    // Try using the link text as the file name,
-    // unless there's a child element of class 'filename'.
-    var filename = $(this).text();
-    var child = $(this).find('.filename');
-    if (child.length > 0) {
-      filename = child.text();
-    }
-
-    // This must be kept in sync with the filenameRE in godocs.js.
-    var filenameRE = /^go1\.\d+(\.\d+)?([a-z0-9]+)?\.([a-z0-9]+)(-[a-z0-9]+)?(-osx10\.[68])?\.([a-z.]+)$/;
-    var m = filenameRE.exec(filename);
-    if (!m) {
-      // Don't redirect to the download page if it won't recognize this file.
-      // (Should not happen.)
-      return;
-    }
-
-    var dest = "/doc/install";
-    if (filename.indexOf(".src.") != -1) {
-      dest += "/source";
-    }
-    dest += "?download=" + filename;
-
-    e.preventDefault();
-    e.stopPropagation();
-    window.location = dest;
-  });
-});
-</script>
 {{end}}
 
 </article>
@@ -103,10 +72,18 @@ $(document).ready(function() {
 {{range .}}
 <div class="toggle{{if .Visible}}Visible{{end}}" id="{{.Version}}">
 	<div class="collapsed">
-		<h3 class="toggleButton" title="Click to show downloads for this version">{{.Version}} ▸</h3>
+		<h3 class="toggleButton" title="Click to show downloads for this version">
+    <span>{{.Version}}</span>
+    <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
+    <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
+    </h3>
 	</div>
 	<div class="expanded">
-		<h3 class="toggleButton" title="Click to hide downloads for this version">{{.Version}} ▾</h3>
+		<h3 class="toggleButton" title="Click to hide downloads for this version">
+    <span>{{.Version}}</span>
+    <img class="toggleButton-img" src="/images/icons/arrow-down.svg" width="18" height="18" aria-hidden="true" />
+    <img class="toggleButton-img toggleButton-img-dark" src="/images/icons/arrow-down-dark.svg" width="18" height="18" aria-hidden="true" />
+    </h3>
 		{{if .Stable}}{{else}}
 			<p>This is an <b>unstable</b> version of Go. Use with caution.</p>
 			<p>If you already have Go installed, you can install this version by running:</p>
@@ -122,6 +99,7 @@ go install golang.org/dl/{{.Version}}@latest
 {{end}}
 
 {{define "download-files"}}
+<div style="overflow:auto;">
 <table class="downloadtable">
 <thead>
 <tr class="first">
@@ -138,16 +116,17 @@ go install golang.org/dl/{{.Version}}@latest
   {{range .Files}}{{if .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
 
   {{/* TODO(cbro): add a link to an explanatory doc page */}}
-  <tr class="first"><th colspan="6" class="first">Other Ports</th></tr>
+  <tr class="first js-togglePorts" aria-expanded="false"><th colspan="6" class="first">Other Ports</th></tr>
   {{range .Files}}{{if not .PrimaryPort}}{{template "download-file" .}}{{end}}{{end}}
 {{else}}
   {{range .Files}}{{template "download-file" .}}{{end}}
 {{end}}
 </table>
+</div>
 {{end}}
 
 {{define "download-file"}}
-<tr{{if .Highlight}} class="highlight"{{end}}>
+<tr class="{{if .Highlight}}highlight{{end}} {{if not .PrimaryPort}}secondary{{end}}">
   <td class="filename"><a class="download" href="{{.URL}}">{{.Filename}}</a></td>
   <td>{{.PrettyKind}}</td>
   <td>{{.PrettyOS}}</td>
@@ -161,9 +140,9 @@ go install golang.org/dl/{{.Version}}@latest
 <a class="download downloadBox" href="{{.URL}}">
 <div class="platform">{{.Platform}}</div>
 {{with .Requirements}}<div class="reqs">{{.}}</div>{{end}}
-<div>
-  <span class="filename">{{.Filename}}</span>
-  {{if .Size}}<span class="size">({{.PrettySize}})</span>{{end}}
+<div class="filename">
+  <img src="/images/icons/download.svg" aria-hidden="true" width="14" height="13" />
+  <span>{{.Filename}}</span>
 </div>
 </a>
 {{end}}

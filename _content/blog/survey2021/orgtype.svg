@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 340.16'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='270.53,264.91 270.53,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='361.35,264.91 361.35,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='452.17,264.91 452.17,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='542.99,264.91 542.99,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='633.80,264.91 633.80,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='270.53' y='152.52' width='112.32' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='270.53' y='181.34' width='30.94' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='270.53' y='123.70' width='128.23' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='270.53' y='94.89' width='159.02' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='270.53' y='210.16' width='13.40' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='270.53' y='238.97' width='10.18' height='17.29' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='389.33' y='166.25' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>25 %</text>
+<text x='306.37' y='195.07' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>7 %</text>
+<text x='405.24' y='137.44' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>28 %</text>
+<text x='436.03' y='108.62' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>35 %</text>
+<text x='288.83' y='223.89' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='285.61' y='252.70' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>2 %</text>
+<text x='212.42' y='252.63' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='35.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='146.27' y='223.81' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='101.17px' lengthAdjust='spacingAndGlyphs'>Public institution</text>
+<text x='170.39' y='194.99' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='77.04px' lengthAdjust='spacingAndGlyphs'>Consultancy</text>
+<text x='197.63' y='166.17' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='49.80px' lengthAdjust='spacingAndGlyphs'>Start-up</text>
+<text x='45.91' y='137.36' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='201.52px' lengthAdjust='spacingAndGlyphs'>Small or medium-sized business</text>
+<text x='183.62' y='108.54' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='63.81px' lengthAdjust='spacingAndGlyphs'>Enterprise</text>
+<text x='260.41' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='347.34' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='438.16' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='528.97' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='619.79' y='279.86' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='389.90' y='308.44' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='252.36' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='67.17px' lengthAdjust='spacingAndGlyphs'>n =  8878</text>
+<text x='252.36' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='345.97px' lengthAdjust='spacingAndGlyphs'>Which of the following do you feel best describes</text>
+<text x='252.36' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='131.64px' lengthAdjust='spacingAndGlyphs'>your organization?</text>
+</svg>

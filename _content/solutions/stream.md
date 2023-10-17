@@ -6,7 +6,8 @@ description: Go’s combination of a great ecosystem, easy onboarding for new de
   It allowed a small development team at Stream to power
   feeds and chat for over 500 million end users.
 company: Stream
-logoSrc: stream.png
+logoSrc: getstream_light.svg
+logoSrcDark: getstream_dark.svg
 series: Case Studies
 link: https://getstream.io/blog/switched-python-go/
 ---

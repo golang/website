@@ -6,7 +6,8 @@ description: Cloudflare speeds up and protects millions of websites, APIs, SaaS 
   entire DNS infrastructure, SSL, load testing and more.”
 company: Cloudflare
 series: Case Studies
-logoSrc: cloudflare.svg
+logoSrc: cloudflare_light.svg
+logoSrcDark: cloudflare_dark.svg
 link: https://blog.cloudflare.com/graceful-upgrades-in-go/
 inLandingPageGrid: true
 ---

@@ -1,4 +1,4 @@
-Cancelation, Context, and Plumbing
+Cancellation, Context, and Plumbing
 GothamGo 2014
 
 Sameer Ajmani
@@ -22,7 +22,7 @@ Handler code needs access to request-specific values:
 
 When the request completes or times out, its work should be canceled.
 
-* Cancelation
+* Cancellation
 
 Abandon work when the caller no longer needs the result.
 
@@ -32,27 +32,27 @@ Abandon work when the caller no longer needs the result.
 
 Efficiently canceling unneeded work saves resources.
 
-* Cancelation is advisory
+* Cancellation is advisory
 
-Cancelation does not stop execution or trigger panics.
+Cancellation does not stop execution or trigger panics.
 
-Cancelation informs code that its work is no longer needed.
+Cancellation informs code that its work is no longer needed.
 
-Code checks for cancelation and decides what to do:
+Code checks for cancellation and decides what to do:
 shut down, clean up, return errors.
 
-* Cancelation is transitive
+* Cancellation is transitive
 
 .image gotham-context/transitive.svg
 
-* Cancelation affects all APIs on the request path
+* Cancellation affects all APIs on the request path
 
-Network protocols support cancelation.
+Network protocols support cancellation.
 
 - HTTP: close the connection
 - RPC: send a control message
 
-APIs above network need cancelation, too.
+APIs above network need cancellation, too.
 
 - Database clients
 - Network file system clients
@@ -60,13 +60,13 @@ APIs above network need cancelation, too.
 
 And all the layers atop those, up to the UI.
 
-*Goal:* provide a uniform cancelation API that works across package boundaries.
+*Goal:* provide a uniform cancellation API that works across package boundaries.
 
-* Cancelation APIs
+* Cancellation APIs
 
-Many Go APIs support cancelation and deadlines already.
+Many Go APIs support cancellation and deadlines already.
 
-Go APIs are synchronous, so cancelation comes from another goroutine.
+Go APIs are synchronous, so cancellation comes from another goroutine.
 
 Method on the connection or client object:
 
@@ -84,7 +84,7 @@ Method on the request object:
   // goroutine #2
   req.Cancel()
 
-* Cancelation APIs (continued)
+* Cancellation APIs (continued)
 
 Method on the pending result object:
 
@@ -97,7 +97,7 @@ Method on the pending result object:
   pending.Cancel()
 
 
-Different cancelation APIs in each package are a headache.
+Different cancellation APIs in each package are a headache.
 
 We need one that's independent of package or transport:
 
@@ -109,7 +109,7 @@ We need one that's independent of package or transport:
 
 * Context
 
-A `Context` carries a cancelation signal and request-scoped values to all functions running on behalf of the same task.  It's safe for concurrent access.
+A `Context` carries a cancellation signal and request-scoped values to all functions running on behalf of the same task.  It's safe for concurrent access.
 
 .code gotham-context/interface.go /type Context/,/^}/
 
@@ -163,7 +163,7 @@ Using `close` requires care.
 Contexts carry request-scoped values across API boundaries.
 
 - deadline
-- cancelation signal
+- cancellation signal
 - security credentials
 - distributed trace IDs
 - operation priority
@@ -322,7 +322,7 @@ More to do here.
 
 * Conclusion
 
-Cancelation needs a uniform API across package boundaries.
+Cancellation needs a uniform API across package boundaries.
 
 Retrofitting code is hard, but Go is tool-friendly.
 

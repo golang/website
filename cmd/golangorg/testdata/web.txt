@@ -2,6 +2,11 @@ GET https://golang.org/
 code == 301
 redirect == https://go.dev/
 
+GET https://golang.org/toolchain
+code == 200
+body contains <meta name="go-import" content="golang.org/toolchain mod https://go.dev/dl/mod">
+body contains <meta http-equiv="refresh" content="0; url=https://go.dev/dl/">
+
 GET http://localhost:6060/
 redirect == /go.dev/
 
@@ -311,10 +316,6 @@ body contains href="/src/strings/strings.go"
 GET https://golang.org/project
 redirect == https://go.dev/project
 
-GET https://go.dev/project
-body contains <li><a href="/doc/go1.14">Go 1.14</a> <small>(February 2020)</small></li>
-body contains <li><a href="/doc/go1.1">Go 1.1</a> <small>(May 2013)</small></li>
-
 GET https://golang.org/project/
 redirect == https://go.dev/project/
 
@@ -338,6 +339,9 @@ redirect == https://go.dev/ref/spec
 
 GET https://go.dev/ref/spec
 body contains Go Programming Language Specification
+
+GET https://go.dev/ref/spec
+body contains <a id="assign_op">assign_op</a>
 
 GET https://golang.org/robots.txt
 redirect == https://go.dev/robots.txt
@@ -390,6 +394,9 @@ GET https://go.dev/doc/codewalk/
 body contains Codewalks
 body contains <td>How to Write a Codewalk</td>
 
+GET https://go.dev/doc/contribute
+body ~ ^// Copyright \d{4,} The Go Authors\. All rights reserved\.$
+
 GET https://golang.org/ref/mod
 redirect == https://go.dev/ref/mod
 
@@ -416,3 +423,33 @@ redirect == https://go.dev/dl/?mode=json
 GET https://go.dev/dl/?mode=json
 body contains .windows-amd64.msi
 body !contains UA-
+
+GET https://go.dev/dl/go1.10.darwin-amd64.tar.gz
+redirect == https://dl.google.com/go/go1.10.darwin-amd64.tar.gz
+
+GET https://go.dev/dl/mod/golang.org/toolchain/@v/v0.0.1-go1.20.2.darwin-amd64.zip
+redirect == https://dl.google.com/go/v0.0.1-go1.20.2.darwin-amd64.zip
+
+GET https://go.dev/dl/mod/golang.org/toolchain/@v/v0.0.1-go1.20.2.darwin-amd64.mod
+redirect == https://dl.google.com/go/v0.0.1-go1.20.2.darwin-amd64.mod
+
+GET https://go.dev/dl/mod/golang.org/toolchain/@v/v0.0.1-go1.20.2.darwin-amd64.info
+redirect == https://dl.google.com/go/v0.0.1-go1.20.2.darwin-amd64.info
+
+GET https://go.dev/dl/mod/golang.org/toolchain/@v/list
+body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.darwin-arm64$
+body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.darwin-amd64$
+body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.linux-386$
+body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.windows-amd64$
+
+GET https://go.dev/ref
+redirect == /doc/#references
+
+GET https://go.dev/ref/
+redirect == /doc/#references
+
+GET https://go.dev/AUTHORS
+body contains is:merged author:
+
+GET https://go.dev/CONTRIBUTORS
+redirect == /AUTHORS

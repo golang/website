@@ -1,0 +1,27 @@
+root: true
+extends: google
+parserOptions:
+  ecmaVersion: 2018
+rules:
+  require-jsdoc: 'off'
+  indent: 'off'
+  arrow-parens: 'off'
+  comma-dangle: ['error', {'functions': 'never'}]
+overrides:
+  - files:
+      - '*.ts'
+    parser: '@typescript-eslint/parser'
+    env:
+      browser: true
+    plugins:
+      - '@typescript-eslint'
+    extends:
+      - eslint:recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:prettier/recommended
+    rules:
+      valid-jsdoc:
+        - error
+        - requireParamType: false
+          requireReturnType: false
+          requireReturn: false

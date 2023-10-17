@@ -1,24 +1,26 @@
 ---
-title: go.dev
+title: The Go Programming Language
+summary: Go is an open source programming language that makes it simple to build secure, scalable systems.
 ---
 
 {{$canShare := not googleCN}}
+
 <section class="Hero bluebg">
   <div class="Hero-gridContainer">
     <div class="Hero-blurb">
-      <h1>Build fast, reliable, and efficient software at scale</h1>
+      <h1>Build simple, secure, scalable systems with Go</h1>
       <ul class="Hero-blurbList">
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Go is an open source programming language supported by Google
+          An open-source programming language supported by Google
         </li>
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Easy to learn and get started with
+          Easy to learn and great for teams
         </li>
         <li>
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -30,7 +32,7 @@ title: go.dev
           <svg width="12" height="10" viewBox="0 0 12 10" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M10.8519 0.52594L3.89189 7.10404L1.14811 4.51081L0 5.59592L3.89189 9.27426L12 1.61105L10.8519 0.52594Z" fill="white" fill-opacity="0.87">
           </svg>
-          Growing ecosystem of partners, communities, and tools
+          Large ecosystem of partners, communities, and tools
         </li>
       </ul>
     </div>
@@ -38,15 +40,14 @@ title: go.dev
       <div
         data-version=""
         class="js-latestGoVersion">
-        <a class="Primary" href="/learn/">Get Started</a>
-        <a class="Secondary js-downloadBtn"
-          href="/dl"
-          target="_blank" rel="noopener"
-          >Download
-          <span
-            class="js-goVersion DownloadBtn-versionNum">
-          </span>
-        </a>
+        <a class="Primary" href="/learn/" aria-label="Get Started" aria-describedby="getStarted-description" role="button">Get Started</a>
+        <a class="Secondary js-downloadBtn" href="/dl" aria-label="Download" aria-describedby="download-description" role="button">Download</a>
+        <div class="screen-reader-only" id="getStarted-description" hidden>
+          Opens a new window with the Get Started guide.
+        </div>
+        <div class="screen-reader-only" id="download-description" hidden>
+          Opens a new window to download Go.
+        </div>
       </div>
       <div class="Hero-footnote">
         <p>
@@ -54,14 +55,17 @@ title: go.dev
           <a class="js-downloadWin">Windows 64-bit</a>,
           <a class="js-downloadMac">macOS</a>,
           <a class="js-downloadLinux">Linux</a>, and
-          <a href="/dl/">more</a>
+          <a href="/dl/" aria-describedby="newwindow-description">more</a>
         </p>
         <p>
           The <code>go</code> command by default downloads and authenticates
           modules using the Go module mirror and Go checksum database run by
-          Google. <a href="/dl">Learn more.</a>
+          Google. <a href="/dl" aria-describedby="newwindow-description">Learn more.</a>
         </p>
       </div>
+    </div>
+    <div class="screen-reader-only" id="newwindow-description" hidden>
+          Opens in new window.
     </div>
     <div class="Hero-gopher">
       <img class="Hero-gopherLadder" src="/images/gophers/ladder.svg" alt="Go Gopher climbing a ladder.">
@@ -73,7 +77,7 @@ title: go.dev
     <div class="WhoUses-header">
       <h2 class="WhoUses-headerH2">Companies using Go</h2>
       <p class="WhoUses-subheader">Organizations in every industry use Go to power their software and services
-        <a href="/solutions/" class="WhoUsesCaseStudyList-seeAll">
+        <a href="/solutions/" class="WhoUsesCaseStudyList-seeAll" aria-describedby="newwindow-description">
         View all stories
        </a>
      </p>
@@ -84,7 +88,7 @@ title: go.dev
       {{- if .link }}
         {{- if .inLandingPageGrid }}
           <li class="WhoUsesCaseStudyList-caseStudy">
-            <a href="{{.link}}" target="_blank" rel="noopener"
+            <a href="{{.link}}" aria-label="View CaseStudy of {{.company}}, (opens in new window)" target="_blank" rel="noopener"
               class="WhoUsesCaseStudyList-caseStudyLink">
               <img
                 loading="lazy"
@@ -98,7 +102,7 @@ title: go.dev
         {{- end}}
       {{- else}}
         <li class="WhoUsesCaseStudyList-caseStudy">
-          <a href="{{.URL}}" class="WhoUsesCaseStudyList-caseStudyLink">
+          <a href="{{.URL}}" aria-label="View CaseStudy of {{.company}}, (opens in new window)" class="WhoUsesCaseStudyList-caseStudyLink">
             <img
               loading="lazy"
               height="48"
@@ -150,14 +154,20 @@ title: go.dev
       <h2 class="HomeSection-header">Try Go</h2>
     </div>
     <div class="Playground-inputContainer">
-      <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go">// You can edit this code!
+      <div class="Playground-preContainer">
+        Press Esc to move out of the editor.
+      </div>
+      <textarea class="Playground-input js-playgroundCodeEl" spellcheck="false" aria-label="Try Go" aria-describedby="editor-description" id="code">
+// You can edit this code!
 // Click here and start typing.
 package main
 import "fmt"
 func main() {
   fmt.Println("Hello, 世界")
-}
-      </textarea>
+}</textarea>
+    </div>
+    <div class="screen-reader-only" id="editor-description" hidden>
+      Press Esc to move out of the editor.
     </div>
     <div class="Playground-outputContainer js-playgroundOutputEl">
       <pre class="Playground-output"><noscript>Hello, 世界</noscript></pre>
@@ -177,9 +187,9 @@ func main() {
       <button class="Button Button--primary js-playgroundRunEl Playground-runButton" title="Run this code [shift-enter]">Run</button>
       <div class="Playground-secondaryButtons">
         {{- if $canShare}}
-        <button class="Button js-playgroundShareEl" title="Share this code">Share</button>
+        <button class="Button js-playgroundShareEl Playground-button" title="Share in Go Playground">Share</button>
         {{- end}}
-        <a class="Button tour" href="/tour/" title="Playground – Go from your browser">Tour</a>
+        <a class="Button tour Playground-button" href="/tour/" title="Tour Go from your browser">Tour</a>
       </div>
       </div>
     </div>
@@ -189,16 +199,17 @@ func main() {
   <div class="WhyGo-gridContainer">
     <div class="WhyGo-header">
       <h2 class="WhyGo-headerH2">What’s possible with Go</h2>
-      <h4 class="WhyGo-headerH4">
+      <p class="WhyGo-subheader">
         Use Go for a variety of software development purposes
-      </h4>
+      </p>
     </div>
     <ul class="WhyGo-reasons">
       {{- range first 4 (data "/resources.yaml")}}
         <li class="WhyGo-reason">
           <div class="WhyGo-reasonDetails">
             <div class="WhyGo-reasonIcon" role="presentation">
-              <img src="{{.icon}}" alt="{{.iconName}}">
+              <img class="DarkMode-img" src="{{.iconDark}}" alt="{{.iconName}}">
+              <img class="LightMode-img" src="{{.icon}}" alt="{{.iconName}}">
             </div>
             <div class="WhyGo-reasonText">
               <h3 class="WhyGo-reasonTitle">{{.title}}</h3>
@@ -216,7 +227,7 @@ func main() {
               <ul class="WhyGo-reasonPackagesList">
                 {{- range .packages }}
                   <li class="WhyGo-reasonPackage">
-                    <a href="{{.url}}" target="_blank" rel="noopener">
+                    <a class="WhyGo-reasonLink" href="{{.url}}" target="_blank" rel="noopener">
                       {{.title}}
                     </a>
                   </li>
@@ -224,7 +235,8 @@ func main() {
               </ul>
             </div>
             <div class="WhyGo-reasonLearnMoreLink">
-              <a href="{{.link}}">Learn More <i class="material-icons WhyGo-forwardArrowIcon">arrow_forward</i></a>
+              <a href="{{.link}}" aria-describedby="newwindow-description">Learn More 
+              <i class="material-icons WhyGo-forwardArrowIcon" aria-hidden="true">arrow_forward</i></a>
             </div>
           </div>
         </li>
@@ -242,61 +254,14 @@ func main() {
                 alt="Go Gopher is skateboarding.">
             </div>
             <div class="WhyGo-reasonShowMoreLink">
-              <a href="/solutions/#use-cases">More use cases <i
-              class="material-icons
-              WhyGo-forwardArrowIcon">arrow_forward</i></a>
+              <a href="/solutions/use-cases" aria-describedby="newwindow-description">More use cases 
+              <i class="material-icons
+              WhyGo-forwardArrowIcon" aria-hidden="true">arrow_forward</i></a>
             </div>
           </div>
         </li>
       {{- end}}
     </ul>
-  </div>
-</section>
-<section class="LearnGo">
-  <div class="GoCarousel" id="LearnGo-carousel">
-    <div class="GoCarousel-controlsContainer">
-      <div class="GoCarousel-eventsWrapper">
-        <ul class="js-goCarouselEventsSlides GoCarousel-eventsSlides">
-          {{- range $index, $element := (data "/events.yaml").all}}
-            <li
-            class="GoCarousel-eventGroup"
-            id="event_slide{{$index}}">
-              <div class="GoCarousel-eventThumbnail">
-                {{- if .thumbnailurl}}
-                  <img
-                    loading="lazy"
-                    src="{{.thumbnailurl}}"
-                    alt="{{.name}} group photo">
-                {{- else}}
-                  <img
-                    loading="lazy"
-                    src="/images/meetup.svg"
-                    alt="meetup logo">
-                {{- end}}
-              </div>
-              <div class="GoCarousel-eventBody">
-                <div class="GoCarousel-eventText">
-                  <div class="GoCarousel-eventHeader">Upcoming Events</div>
-                  <h4 class="GoCarousel-eventName">
-                    <a href="{{.url}}">{{.name}}</a>
-                  </h4>
-                  <div class="GoCarousel-eventDate">
-                    <p>{{.local_date}} | {{.city}}, {{.state}} {{.country}}</p>
-                  </div>
-                  <p class="GoCarousel-viewMore"><a href="{{.url}}">Learn more</a></p>
-                </div>
-              </div>
-            </li>
-          {{- end}}
-        </ul>
-      </div>
-      <button class="js-eventsCarouselPrev GoCarousel-controlPrev" hidden>
-        <i class="GoCarousel-icon material-icons">navigate_before</i>
-      </button>
-      <button class="js-eventsCarouselNext GoCarousel-controlNext">
-        <i class="GoCarousel-icon material-icons">navigate_next</i>
-      </button>
-    </div>
   </div>
 </section>
 <section class="GettingStartedGo">
@@ -307,8 +272,8 @@ func main() {
         Explore a wealth of learning resources, including guided journeys, courses, books, and more.
       </p>
       <div class="GettingStartedGo-ctas">
-        <a class="GettingStartedGo-primaryCta" href="/learn/">Get Started</a>
-        <a href="/dl" target="_blank" rel="noopener">Download Go</a>
+        <a class="GettingStartedGo-primaryCta" href="/learn/"aria-describedby="newwindow-description">Get Started</a>
+        <a href="/doc/install/" aria-describedby="newwindow-description">Download Go</a>
       </div>
     </div>
     <div class="GettingStartedGo-resourcesSection">
@@ -317,7 +282,7 @@ func main() {
           Resources to start on your own
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#guided-learning-journeys" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#guided-learning-journeys" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Guided learning journeys
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -325,7 +290,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#online-learning" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#online-learning" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Online learning
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -333,7 +298,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#featured-books" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#featured-books" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Featured books
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -341,7 +306,7 @@ func main() {
           </div>
         </li>
         <li class="GettingStartedGo-resourceItem">
-          <a href="/learn#self-paced-labs" class="GettingStartedGo-resourceItemTitle">
+          <a href="/learn#self-paced-labs" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
             Cloud Self-paced labs
           </a>
           <div class="GettingStartedGo-resourceItemDescription">
@@ -355,7 +320,7 @@ func main() {
         </li>
         {{- range first 4 (data "/learn/training.yaml")}}
           <li class="GettingStartedGo-resourceItem">
-            <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle">
+            <a href="{{.url}}" class="GettingStartedGo-resourceItemTitle" aria-describedby="newwindow-description">
               {{.title}}
             </a>
             <div class="GettingStartedGo-resourceItemDescription">

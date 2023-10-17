@@ -1,0 +1,5 @@
+GET https://golang.org/pkg/sync/atomic/?m=old
+redirect == https://go.dev/pkg/sync/atomic/?m=old
+
+GET https://go.dev/pkg/sync/atomic/?m=old
+body contains func (x *Pointer[T]) Load() *T

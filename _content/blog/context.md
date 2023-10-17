@@ -5,7 +5,6 @@ by:
 - Sameer Ajmani
 tags:
 - concurrency
-- cancelation
 - cancellation
 - context
 summary: An introduction to the Go context package.
@@ -24,7 +23,7 @@ request should exit quickly so the system can reclaim any resources they are
 using.
 
 At Google, we developed a `context` package that makes it easy to pass
-request-scoped values, cancelation signals, and deadlines across API boundaries
+request-scoped values, cancellation signals, and deadlines across API boundaries
 to all the goroutines involved in handling a request.
 The package is publicly available as
 [context](/pkg/context).
@@ -40,15 +39,15 @@ The core of the `context` package is the `Context` type:
 (This description is condensed; the
 [godoc](/pkg/context) is authoritative.)
 
-The `Done` method returns a channel that acts as a cancelation signal to
+The `Done` method returns a channel that acts as a cancellation signal to
 functions running on behalf of the `Context`: when the channel is closed, the
 functions should abandon their work and return.
 The `Err` method returns an error indicating why the `Context` was canceled.
-The [Pipelines and Cancelation](/blog/pipelines) article discusses the `Done`
+The [Pipelines and Cancellation](/blog/pipelines) article discusses the `Done`
 channel idiom in more detail.
 
 A `Context` does _not_ have a `Cancel` method for the same reason the `Done`
-channel is receive-only: the function receiving a cancelation signal is usually
+channel is receive-only: the function receiving a cancellation signal is usually
 not the one that sends the signal.
 In particular, when a parent operation starts goroutines for sub-operations,
 those sub-operations should not be able to cancel the parent.
@@ -204,9 +203,9 @@ In [gorilla.go](context/gorilla/gorilla.go), we provide a `Context`
 implementation whose `Value` method returns the values associated with a
 specific HTTP request in the Gorilla package.
 
-Other packages have provided cancelation support similar to `Context`.
+Other packages have provided cancellation support similar to `Context`.
 For example, [Tomb](https://godoc.org/gopkg.in/tomb.v2) provides a `Kill`
-method that signals cancelation by closing a `Dying` channel.
+method that signals cancellation by closing a `Dying` channel.
 `Tomb` also provides methods to wait for those goroutines to exit, similar to
 `sync.WaitGroup`.
 In [tomb.go](context/tomb/tomb.go), we provide a `Context` implementation that
@@ -219,13 +218,13 @@ At Google, we require that Go programmers pass a `Context` parameter as the
 first argument to every function on the call path between incoming and outgoing
 requests.
 This allows Go code developed by many different teams to interoperate well.
-It provides simple control over timeouts and cancelation and ensures that
+It provides simple control over timeouts and cancellation and ensures that
 critical values like security credentials transit Go programs properly.
 
 Server frameworks that want to build on `Context` should provide implementations
 of `Context` to bridge between their packages and those that expect a `Context`
 parameter.
 Their client libraries would then accept a `Context` from the calling code.
-By establishing a common interface for request-scoped data and cancelation,
+By establishing a common interface for request-scoped data and cancellation,
 `Context` makes it easier for package developers to share code for creating
 scalable services.

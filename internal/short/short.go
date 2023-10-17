@@ -10,8 +10,10 @@ package short
 
 import (
 	"context"
+	_ "embed"
 	"errors"
 	"fmt"
+	"html/template"
 	"log"
 	"net/http"
 	"net/url"
@@ -19,9 +21,12 @@ import (
 	"strings"
 
 	"cloud.google.com/go/datastore"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/memcache"
 )
+
+// useMemcache controls whether to use Redis.
+// We are hoping to remove Redis entirely.
+const useMemcache = false
 
 const (
 	prefix  = "/s"
@@ -54,7 +59,9 @@ func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc 
 }
 
 // linkHandler services requests to short URLs.
-//   https://go.dev/s/key[/remaining/path]
+//
+//	https://go.dev/s/key[/remaining/path]
+//
 // It consults memcache and datastore for the Link for key.
 // It then sends a redirects or an error message.
 // If the remaining path part is not empty, the redirects
@@ -62,14 +69,17 @@ func RegisterHandlers(mux *http.ServeMux, host string, dc *datastore.Client, mc 
 func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
-	key, remainingPath, err := extractKey(r)
+	key, remaining, err := extractKey(r)
 	if err != nil { // invalid key or url
 		http.Error(w, "not found", http.StatusNotFound)
 		return
 	}
 
 	var link Link
-	if err := h.memcache.Get(ctx, cacheKey(key), &link); err != nil {
+	if useMemcache {
+		err = h.memcache.Get(ctx, cacheKey(key), &link)
+	}
+	if err != nil || !useMemcache {
 		k := datastore.NameKey(kind, key, nil)
 		err = h.datastore.Get(ctx, k, &link)
 		switch err {
@@ -81,38 +91,44 @@ func (h server) linkHandler(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "internal server error", http.StatusInternalServerError)
 			return
 		case nil:
-			item := &memcache.Item{
-				Key:    cacheKey(key),
-				Object: &link,
-			}
-			if err := h.memcache.Set(ctx, item); err != nil {
-				log.Printf("WARNING %q: %v", key, err)
+			if useMemcache {
+				item := &memcache.Item{
+					Key:    cacheKey(key),
+					Object: &link,
+				}
+				if err := h.memcache.Set(ctx, item); err != nil {
+					log.Printf("WARNING %q: %v", key, err)
+				}
 			}
 		}
 	}
 
 	target := link.Target
-	if remainingPath != "" {
-		target += remainingPath
+	if remaining != "" {
+		target += remaining
 	}
 	http.Redirect(w, r, target, http.StatusFound)
 }
 
-func extractKey(r *http.Request) (key, remainingPath string, err error) {
+// extractKey returns the key part from the short link request URL and
+// the remaining part of the request URL including "/" and non-empty URL query if any.
+func extractKey(r *http.Request) (key, remaining string, err error) {
 	path := r.URL.Path
 	if !strings.HasPrefix(path, prefix+"/") {
 		return "", "", errors.New("invalid path")
 	}
-
-	key, remainingPath = path[len(prefix)+1:], ""
+	key, remaining = path[len(prefix)+1:], ""
 	if slash := strings.Index(key, "/"); slash > 0 {
-		key, remainingPath = key[:slash], key[slash:]
+		key, remaining = key[:slash], key[slash:] // remaining includes slash.
 	}
 
 	if !validKey.MatchString(key) {
 		return "", "", errors.New("invalid key")
 	}
-	return key, remainingPath, nil
+	if r.URL.RawQuery != "" {
+		remaining += "?" + r.URL.RawQuery
+	}
+	return key, remaining, nil
 }
 
 // AdminHandler serves an administrative interface for managing shortener entries.
@@ -123,7 +139,12 @@ func AdminHandler(dc *datastore.Client, mc *memcache.Client) http.HandlerFunc {
 	return s.adminHandler
 }
 
-var adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+var (
+	adminTemplate = template.Must(template.New("admin").Parse(templateHTML))
+
+	//go:embed admin.html
+	templateHTML string
+)
 
 // adminHandler serves an administrative interface.
 // Be careful. Ensure that this handler is only be exposed to authorized users.
@@ -144,9 +165,11 @@ func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 		default:
 			http.Error(w, "unknown action", http.StatusBadRequest)
 		}
-		err := h.memcache.Delete(ctx, cacheKey(key))
-		if err != nil && err != memcache.ErrCacheMiss {
-			log.Printf("WARNING %q: %v", key, err)
+		if useMemcache {
+			err := h.memcache.Delete(ctx, cacheKey(key))
+			if err != nil && err != memcache.ErrCacheMiss {
+				log.Printf("WARNING %q: %v", key, err)
+			}
 		}
 	}
 
@@ -190,10 +213,10 @@ func (h server) adminHandler(w http.ResponseWriter, r *http.Request) {
 // putLink validates the provided link and puts it into the datastore.
 func (h server) putLink(ctx context.Context, link *Link) error {
 	if !validKey.MatchString(link.Key) {
-		return errors.New("invalid key; must match " + validKey.String())
+		return fmt.Errorf("invalid key %q; must match %s", link.Key, validKey.String())
 	}
 	if _, err := url.Parse(link.Target); err != nil {
-		return fmt.Errorf("bad target: %v", err)
+		return fmt.Errorf("bad target %q: %v", link.Target, err)
 	}
 	k := datastore.NameKey(kind, link.Key, nil)
 	_, err := h.datastore.Put(ctx, k, link)

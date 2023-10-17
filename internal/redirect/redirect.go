@@ -11,6 +11,7 @@ import (
 	"context"
 	_ "embed"
 	"fmt"
+	"html/template"
 	"net/http"
 	"regexp"
 	"strconv"
@@ -19,7 +20,6 @@ import (
 	"time"
 
 	"golang.org/x/net/context/ctxhttp"
-	"golang.org/x/website/internal/backport/html/template"
 )
 
 // Register registers HTTP handlers that redirect old godoc paths to their new
@@ -37,6 +37,9 @@ func Register(mux *http.ServeMux) {
 	}
 	for path, redirect := range blogRedirects {
 		mux.Handle("/blog"+path, Handler("/blog/"+redirect))
+	}
+	for _, path := range newIssueRedirects {
+		mux.Handle(path, newIssueHandler(path))
 	}
 	// NB: /src/pkg (sans trailing slash) is the index of packages.
 	mux.HandleFunc("/src/pkg/", srcPkgHandler)
@@ -100,16 +103,8 @@ var redirects = map[string]string{
 	"/cl":         "https://go-review.googlesource.com",
 	"/cmd/godoc/": "https://pkg.go.dev/golang.org/x/tools/cmd/godoc",
 	"/issue":      "https://github.com/golang/go/issues",
-	"/issue/new":  "https://github.com/golang/go/issues/new",
 	"/issues":     "https://github.com/golang/go/issues",
-	"/issues/new": "https://github.com/golang/go/issues/new",
 	"/design":     "https://go.googlesource.com/proposal/+/master/design",
-
-	// In Go 1.2 the references page is part of /doc/.
-	"/ref": "/doc/#references",
-	// This next rule clobbers /ref/spec and /ref/mem.
-	// TODO(adg): figure out what to do here, if anything.
-	// "/ref/": "/doc/#references",
 
 	// Be nice to people who are looking in the wrong place.
 	"/pkg/C/":   "/cmd/cgo/",
@@ -135,6 +130,13 @@ var redirects = map[string]string{
 	"/doc/go_tutorial.html":                          "/tour",
 }
 
+var newIssueRedirects = [...]string{
+	"/issue/new",
+	"/issue/new/",
+	"/issues/new",
+	"/issues/new/",
+}
+
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
@@ -151,7 +153,8 @@ func Handler(target string) http.Handler {
 	})
 }
 
-var validID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
+// validPrefixID is used to validate issue and wiki path suffixes
+var validPrefixID = regexp.MustCompile(`^[A-Za-z0-9\-._]*/?$`)
 
 func PrefixHandler(prefix, baseURL string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -161,11 +164,37 @@ func PrefixHandler(prefix, baseURL string) http.Handler {
 			return
 		}
 		id := r.URL.Path[len(prefix):]
-		if !validID.MatchString(id) {
+		if !validPrefixID.MatchString(id) {
 			http.Error(w, "Not found", http.StatusNotFound)
 			return
 		}
 		target := baseURL + id
+		http.Redirect(w, r, target, http.StatusFound)
+	})
+}
+
+// newIssueHandler handles /issue/new and similar requests,
+// redirecting to a "New Issue" UI in the main Go issue tracker.
+func newIssueHandler(source string) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if r.URL.Path != source {
+			http.Error(w, "Not found", http.StatusNotFound)
+			return
+		}
+		target := "https://github.com/golang/go/issues/new"
+		if qs := r.URL.RawQuery; qs == "" {
+			// There are many "go.dev/issue/new" links that led to a good experience
+			// of reporting an issue when there was a single issue template.
+			// As of CL 366736 there are many templates, and the same URL results
+			// in an empty new issue UI, which defeats having any templates.
+			//
+			// Handle this case specially and redirect to "/new/choose" instead,
+			// at least until GitHub changes their behavior. See go.dev/issue/29839.
+			target += "/choose"
+		} else {
+			// Query options like ?title=...&body=...&labels=... only work on /new.
+			target += "?" + qs
+		}
 		http.Redirect(w, r, target, http.StatusFound)
 	})
 }
@@ -177,6 +206,10 @@ func srcPkgHandler(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, r.URL.String(), http.StatusMovedPermanently)
 }
 
+// validCLID is used to validate cl path suffixes. It supports both the
+// bare ID, as well as the patchset syntax (i.e. 1234/2.)
+var validCLID = regexp.MustCompile(`^[0-9]+(/[0-9]+)?/?$`)
+
 func clHandler(w http.ResponseWriter, r *http.Request) {
 	const prefix = "/cl/"
 	if p := r.URL.Path; p == prefix {
@@ -185,12 +218,30 @@ func clHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id := r.URL.Path[len(prefix):]
+
+	// Some shorteners blindly rewrite go-review.googlesource.com/ to go.dev/cl/
+	// but Gerrit has changed the URL schema to start with c/<repo>/+/<id>
+	// instead of just <id>. So we now see URLs like go.dev/cl/c/go/+/12345.
+	// Assume that the leading c/ means it is for Gerrit and blindly redirect.
+	if strings.HasPrefix(id, "c/") {
+		http.Redirect(w, r, "https://go-review.googlesource.com/"+id, http.StatusFound)
+		return
+	}
+
 	// support /cl/152700045/, which is used in commit 0edafefc36.
 	id = strings.TrimSuffix(id, "/")
-	if !validID.MatchString(id) {
+	if !validCLID.MatchString(id) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
+
+	// If the ID contains a slash, it is likely pointing towards a
+	// specific patchset. In that case, prefix the id with 'c/',
+	// which Gerrit uses to indicate a specific revision.
+	if strings.Contains(id, "/") {
+		id = "c/" + id
+	}
+
 	target := ""
 
 	if n, err := strconv.Atoi(id); err == nil && isRietveldCL(n) {

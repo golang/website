@@ -1,0 +1,39 @@
+windowsize 1536x960
+compare https://go.dev http://localhost:6060/go.dev
+
+test go.dev homepage
+pathname /
+capture fullscreen
+capture fullscreen 540x1080
+
+test about page
+pathname /about
+capture fullscreen
+
+compare https://pkg.go.dev https://beta.pkg.go.dev
+
+test pkg.go.dev homepage
+pathname /
+click .go-Carousel-dot
+capture element .go-Carousel
+
+test net package doc
+pathname /net
+wait [role="treeitem"][aria-expanded="true"]
+capture viewport
+capture viewport 540x1080
+
+compare https://pkg.go.dev::cache http://localhost:8080
+header Authorization: {{.Authorization}}
+
+pathname /about
+capture
+
+test eval
+pathname /eval
+eval console.log('hello, world!')
+capture
+
+output gs://bucket-name
+pathname /gcs-output
+capture

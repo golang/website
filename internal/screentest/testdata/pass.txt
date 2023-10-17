@@ -1,0 +1,13 @@
+compare https://go.dev https://go.dev
+
+test homepage
+pathname /
+capture viewport
+
+pathname /page-not-found
+status 404
+capture
+
+pathname /page-not-found-with-fragment#fragment
+status 404
+capture

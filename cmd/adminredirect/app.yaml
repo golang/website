@@ -1,0 +1,11 @@
+service: admin
+runtime: go121
+main: ./cmd/adminredirect
+
+env_variables:
+  REDIRECT: https://admin.go.dev/
+
+handlers:
+  - url: .*
+    script: auto
+    secure: always

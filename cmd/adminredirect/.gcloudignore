@@ -1,0 +1,9 @@
+# The adminredirect program needs nothing else from the golang.org/x/website repository.
+# Filter everything else out to avoid maintenance.
+**
+!go.mod
+!go.sum
+!cmd/
+!cmd/adminredirect/**
+
+.gcloudignore

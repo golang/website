@@ -22,7 +22,6 @@ func errorResult(status int) redirectResult {
 func TestRedirects(t *testing.T) {
 	var tests = map[string]redirectResult{
 		"/build":                         {301, "https://build.golang.org"},
-		"/ref":                           {301, "/doc/#references"},
 		"/doc/mem":                       {301, "/ref/mem"},
 		"/doc/spec":                      {301, "/ref/spec"},
 		"/foo":                           errorResult(404),
@@ -46,11 +45,16 @@ func TestRedirects(t *testing.T) {
 		"/issue":                    {301, "https://github.com/golang/go/issues"},
 		"/issue?":                   {301, "https://github.com/golang/go/issues"},
 		"/issue/1":                  {302, "https://github.com/golang/go/issues/1"},
-		"/issue/new":                {301, "https://github.com/golang/go/issues/new"},
-		"/issue/new?a=b&c=d%20&e=f": {301, "https://github.com/golang/go/issues/new?a=b&c=d%20&e=f"},
+		"/issue/new":                {302, "https://github.com/golang/go/issues/new/choose"},
+		"/issue/new/":               {302, "https://github.com/golang/go/issues/new/choose"},
+		"/issue/new?a=b&c=d%20&e=f": {302, "https://github.com/golang/go/issues/new?a=b&c=d%20&e=f"},
+		"/issue/new/choose":         errorResult(404),
 		"/issues":                   {301, "https://github.com/golang/go/issues"},
 		"/issues/1":                 {302, "https://github.com/golang/go/issues/1"},
-		"/issues/new":               {301, "https://github.com/golang/go/issues/new"},
+		"/issues/new":               {302, "https://github.com/golang/go/issues/new/choose"},
+		"/issues/new/":              {302, "https://github.com/golang/go/issues/new/choose"},
+		"/issues/new?title=pkg":     {302, "https://github.com/golang/go/issues/new?title=pkg"},
+		"/issues/new/choose":        errorResult(404),
 		"/issues/1/2/3":             errorResult(404),
 
 		"/wiki/foo":  {302, "https://github.com/golang/go/wiki/foo"},
@@ -65,6 +69,11 @@ func TestRedirects(t *testing.T) {
 		"/cl/1/":         {302, "https://go-review.googlesource.com/1"},
 		"/cl/267120043":  {302, "https://codereview.appspot.com/267120043"},
 		"/cl/267120043/": {302, "https://codereview.appspot.com/267120043"},
+
+		"/cl/1/3":      {302, "https://go-review.googlesource.com/c/1/3"},
+		"/cl/blah/1/3": errorResult(404),
+		// /cl/c/ always goes to Gerrit.
+		"/cl/c/anything/at/all": {302, "https://go-review.googlesource.com/c/anything/at/all"},
 
 		// Verify that we're using the Rietveld CL table:
 		"/cl/152046": {302, "https://codereview.appspot.com/152046"},

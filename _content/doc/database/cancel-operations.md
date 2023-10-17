@@ -1,11 +1,11 @@
 <!--{
-  "Title": "Cancelling in-progress operations"
+  "Title": "Canceling in-progress operations"
 }-->
 
 You can manage in-progress operations by using Go
 [`context.Context`](https://pkg.go.dev/context#Context). A `Context` is a
 standard Go data value that can report whether the overall operation it
-represents has been cancelled and is no longer needed. By passing a
+represents has been canceled and is no longer needed. By passing a
 `context.Context` across function calls and services in your application, those
 can stop working early and return an error when their processing is no longer
 needed. For more about `Context`, see
@@ -21,10 +21,10 @@ For example, you might want to:
 Many APIs for Go developers include methods that take a `Context` argument,
 making it easier for you to use `Context` throughout your application.
 
-### Cancelling database operations after a timeout {#timeout_cancel}
+### Canceling database operations after a timeout {#timeout_cancel}
 
 You can use a `Context` to set a timeout or deadline after which an operation
-will be cancelled. To derive a `Context` with a timeout or deadline, call
+will be canceled. To derive a `Context` with a timeout or deadline, call
 [`context.WithTimeout`](https://pkg.go.dev/context#WithTimeout) or
 [`context.WithDeadline`](https://pkg.go.dev/context#WithDeadline).
 
@@ -50,13 +50,13 @@ func QueryWithTimeout(ctx context.Context) {
 ```
 
 When one context is derived from an outer context, as `queryCtx` is derived
-from `ctx` in this example, if the outer context is cancelled, then the derived
-context is automatically cancelled as well. For example, in HTTP servers, the
+from `ctx` in this example, if the outer context is canceled, then the derived
+context is automatically canceled as well. For example, in HTTP servers, the
 `http.Request.Context` method returns a context associated with the request.
-That context is cancelled if the HTTP client disconnects or cancels the HTTP
+That context is canceled if the HTTP client disconnects or cancels the HTTP
 request (possible in HTTP/2). Passing an HTTP request’s context to
 `QueryWithTimeout` above would cause the database query to stop early _either_
-if the overall HTTP request was cancelled or if the query took more than five
+if the overall HTTP request was canceled or if the query took more than five
 seconds.
 
 **Note:** Always defer a call to the `cancel` function that's returned when you

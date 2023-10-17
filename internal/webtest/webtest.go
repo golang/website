@@ -21,7 +21,7 @@
 // They run the entire script and return a multiline error summarizing
 // any problems.
 //
-// Scripts
+// # Scripts
 //
 // A script is a text file containing a sequence of cases, separated by blank lines.
 // Lines beginning with # characters are ignored as comments.
@@ -36,7 +36,7 @@
 // In this case, the request is a GET of the URL /, and the response body
 // must contain the text “Go is an open source programming language”.
 //
-// Requests
+// # Requests
 //
 // Each case begins with a line starting with GET, HEAD, or POST.
 // The argument (the remainder of the line) is the URL to be used in the request.
@@ -79,7 +79,7 @@
 // This stanza sends a request with post body “x=hello+world&y=Go+%26+You”.
 // (The multiline syntax is described in detail below.)
 //
-// Checks
+// # Checks
 //
 // By default, a stanza like the ones above checks only that the request
 // succeeds in returning a response with HTTP status code 200 (OK).
@@ -112,8 +112,8 @@
 //
 //	== - the value must be equal to the text
 //	!= - the value must not be equal to the text
-//	~  - the value must match the text interprted as a regular expression
-//	!~ - the value must not match the text interprted as a regular expression
+//	~  - the value must match the text interpreted as a regular expression
+//	!~ - the value must not match the text interpreted as a regular expression
 //	contains  - the value must contain the text as a substring
 //	!contains - the value must not contain the text as a substring
 //
@@ -130,7 +130,7 @@
 //	body ~ Got1xxResponse.*// Go 1\.11
 //	body ~ GotFirstResponseByte func\(\)\s*$
 //
-// Multiline Texts
+// # Multiline Texts
 //
 // The <text> in a request or check line can take a multiline form,
 // by omitting it from the original line and then specifying the text
@@ -145,7 +145,6 @@
 //	body ==
 //		<!DOCTYPE html>
 //		hello, world
-//
 package webtest
 
 import (
@@ -162,7 +161,6 @@ import (
 	"regexp"
 	"strings"
 	"testing"
-	"unicode/utf8"
 )
 
 // HandlerWithCheck returns an http.Handler that responds to each request
@@ -493,7 +491,7 @@ func parseScript(file, text string) (*script, error) {
 	for text != "" {
 		lineno++
 		prevLine := line
-		line, text, _ = cut(text, "\n")
+		line, text, _ = strings.Cut(text, "\n")
 		if strings.HasPrefix(line, "#") {
 			continue
 		}
@@ -612,7 +610,7 @@ func parseScript(file, text string) (*script, error) {
 				if kv == "" {
 					continue
 				}
-				k, v, ok := cut(kv, "=")
+				k, v, ok := strings.Cut(kv, "=")
 				if !ok {
 					lineno = cas.line // close enough
 					line = kv
@@ -649,24 +647,6 @@ func parseScript(file, text string) (*script, error) {
 		}
 	}
 	return script, nil
-}
-
-// cut returns the result of cutting s around the first instance of sep.
-func cut(s, sep string) (before, after string, ok bool) {
-	if i := strings.Index(s, sep); i >= 0 {
-		return s[:i], s[i+len(sep):], true
-	}
-	return s, "", false
-}
-
-// cutAny returns the result of cutting s around the first instance of
-// any code point from any.
-func cutAny(s, any string) (before, after string, ok bool) {
-	if i := strings.IndexAny(s, any); i >= 0 {
-		_, size := utf8.DecodeRuneInString(s[i:])
-		return s[:i], s[i+size:], true
-	}
-	return s, "", false
 }
 
 // splitOneField splits text at the first space or tab

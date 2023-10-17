@@ -893,8 +893,8 @@ design problems for package installation.
 When people asked about versions,
 we encouraged them to experiment by
 creating additional tools, and they did.
-And we encouraged package AUTHORS
-to provide their USERS
+And we encouraged package authors
+to provide their users
 with the same backwards compatibility
 we did for the Go 1 libraries.
 Quoting [the Go FAQ](/doc/faq#get_version):

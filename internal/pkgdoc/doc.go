@@ -294,7 +294,6 @@ func (d *docs) includePath(path string, mode mode) (r bool) {
 // (as is the convention for packages). This is sufficient
 // to resolve package identifiers without doing an actual
 // import. It never returns an error.
-//
 func simpleImporter(imports map[string]*ast.Object, path string) (*ast.Object, error) {
 	pkg := imports[path]
 	if pkg == nil {
@@ -310,7 +309,6 @@ func simpleImporter(imports map[string]*ast.Object, path string) (*ast.Object, e
 // which correctly updates each package file's comment list.
 // (The ast.PackageExports signature is frozen, hence the local
 // implementation).
-//
 func packageExports(fset *token.FileSet, pkg *ast.Package) {
 	for _, src := range pkg.Files {
 		cmap := ast.NewCommentMap(fset, src, src.Comments)
@@ -365,14 +363,14 @@ func addNames(names map[string]bool, decl ast.Decl) {
 	case *ast.FuncDecl:
 		name := d.Name.Name
 		if d.Recv != nil {
-			var typeName string
-			switch r := d.Recv.List[0].Type.(type) {
-			case *ast.StarExpr:
-				typeName = r.X.(*ast.Ident).Name
-			case *ast.Ident:
-				typeName = r.Name
+			r := d.Recv.List[0].Type
+			if star, ok := r.(*ast.StarExpr); ok { // *Name
+				r = star.X
 			}
-			name = typeName + "_" + name
+			if index, ok := r.(*ast.IndexExpr); ok { // Name[T]
+				r = index.X
+			}
+			name = r.(*ast.Ident).Name + "_" + name
 		}
 		names[name] = true
 	case *ast.GenDecl:

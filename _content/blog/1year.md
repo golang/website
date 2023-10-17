@@ -27,7 +27,7 @@ a chord with a broad cross-section of the programming community.
 That cross-section grew to become a dedicated community of enthusiastic Go coders.
 Our [mailing list](http://groups.google.com/group/golang-nuts) has over 3,800 members,
 with around 1,500 posts each month.
-The project has over 130 [contributors](/CONTRIBUTORS)
+The project has over 130 contributors
 (people who have submitted code or documentation),
 and of the 2,800 commits since launch almost one third were contributed
 by programmers outside the core team.
@@ -92,7 +92,7 @@ fully decoupled from GCC.
 Outside the Go project itself Go is starting to be used to build real software.
 There are more than 200 Go programs and libraries listed on our [Project dashboard](http://godashboard.appspot.com/project),
 and hundreds more on [Google Code](http://code.google.com/hosting/search?q=label:Go)
-and [Github](https://github.com/search?q=language:Go).
+and [GitHub](https://github.com/search?q=language:Go).
 On our mailing list and IRC channel you can find coders from around the
 world who use Go for their programming projects.
 (See our [guest blog post](https://blog.golang.org/2010/10/real-go-projects-smarttwitter-and-webgo.html)

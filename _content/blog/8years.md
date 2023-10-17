@@ -137,7 +137,7 @@ Many of these authors have said that their projects would not exist without
 Go. Some like Kubernetes and Docker created entirely new solutions. Others
 like Hugo, Syncthing and Fzf created more refined experiences where many
 solutions already existed. The popularity of these applications alone is
-proof that Go is a ideal language for a broad set of use cases.
+proof that Go is an ideal language for a broad set of use cases.
 
 ## Thank You
 

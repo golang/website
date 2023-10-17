@@ -2,6 +2,7 @@
 title: "Chrome Content Optimization Service Runs on Go"
 company: Chrome
 logoSrc: chrome.svg
+logoSrcDark: chrome.svg
 heroImgSrc: go_chrome_case_study.png
 series: Case Studies
 quote: |

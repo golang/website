@@ -285,7 +285,7 @@ Works fine for Go, except:
  $ go run -race lots_of_goroutines.go
  race: limit on 8192 simultaneously alive goroutines is exceeded, dying
 
-Research question: race dectector that efficiently supports hundreds of thousands of goroutines?
+Research question: race detector that efficiently supports hundreds of thousands of goroutines?
 
 * Deadlock detection
 
@@ -386,7 +386,7 @@ Gosmith is a tool that generates random Go programs that statically and dynamica
 
 Turned out to be much simpler than C: no undefined behavior all around!
 
-- no unitialized variables
+- no uninitialized variables
 - no concurrent mutations between sequence points (x[i++] = --i)
 - no UB during signed overflow
 - total 191 kinds of undefined behavior and 52 kinds of unspecified behavior in C

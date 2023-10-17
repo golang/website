@@ -1,6 +1,7 @@
 <!--{
 	"Title": "Documentation",
-	"Template": true
+	"Template": true,
+	"HideTOC": true
 }-->
 
 <p>
@@ -18,328 +19,401 @@ fast, statically typed, compiled language that feels like a dynamically typed,
 interpreted language.
 </p>
 
-<div id="manual-nav"></div>
+<div class="Masonry">
 
-<h2 id="getting-started">Getting started</h2>
+<section id="getting-started" class="BigCard">
 
-<h3 id="installing"><a href="/doc/install">Installing Go</a></h3>
-<p>
-Instructions for downloading and installing Go.
-</p>
+<h2>Getting Started</h2>
 
-<h3 id="get-started-tutorial"><a href="/doc/tutorial/getting-started.html">Tutorial: Getting started</a></h3>
-<p>
-A brief Hello, World tutorial to get started. Learn a bit about Go code, tools, packages, and modules.
-</p>
+<h3 id="installing"><a href="/doc/install" aria-describedby="index-description">Installing Go</a></h3>
+<p>Instructions for downloading and installing Go.</p>
 
-<h3 id="create-module-tutorial"><a href="/doc/tutorial/create-module.html">Tutorial: Create a module</a></h3>
-<p>
-A tutorial of short topics introducing functions, error handling, arrays, maps, unit testing, and compiling.
-</p>
+<h3 id="get-started-tutorial"><a href="/doc/tutorial/getting-started.html" aria-describedby="index-description">Tutorial: Getting started</a></h3>
+<p>A brief Hello, World tutorial to get started. Learn a bit about Go code, tools, packages, and modules.</p>
 
-<h3 id="web-service-gin-tutorial"><a href="/doc/tutorial/web-service-gin.html">Tutorial: Developing a RESTful
-    API with Go and Gin</a></h3>
-<p>
-Introduces the basics of writing a RESTful web service API with Go and the Gin Web Framework.
-</p>
+<h3 id="create-module-tutorial"><a href="/doc/tutorial/create-module.html" aria-describedby="index-description">Tutorial: Create a module</a></h3>
+<p>A tutorial of short topics introducing functions, error handling, arrays, maps, unit testing, and compiling.</p>
 
-<h3 id="writing-web-applications"><a href="/doc/articles/wiki/">Writing Web Applications</a></h3>
-<p>
-Building a simple web application.
-</p>
+<h3 id="workspaces-tutorial"><a href="/doc/tutorial/workspaces.html" aria-describedby="index-description">Tutorial: Getting started with multi-module workspaces</a></h3>
+<p>Introduces the basics of creating and using multi-module workspaces in Go. Multi-module workspaces are useful for making changes across multiple modules.</p>
 
-<h3 id="code"><a href="code.html">How to write Go code</a></h3>
+<h3 id="web-service-gin-tutorial"><a href="/doc/tutorial/web-service-gin.html" aria-describedby="index-description">Tutorial: Developing a RESTful API with Go and Gin</a></h3>
+<p>Introduces the basics of writing a RESTful web service API with Go and the Gin Web Framework.</p>
+
+<h3 id="generics-tutorial"><a href="/doc/tutorial/generics.html" aria-describedby="index-description">Tutorial: Getting started with generics</a></h3>
+<p>With generics, you can declare and use functions or types that are written to work with any of a set of types provided by calling code.</p>
+
+<h3 id="fuzz-tutorial"><a href="/doc/tutorial/fuzz.html" aria-describedby="index-description">Tutorial: Getting started with fuzzing</a></h3>
+<p>Fuzzing can generate inputs to your tests that can catch edge cases and security issues that you may have missed.</p>
+
+<h3 id="writing-web-applications"><a href="/doc/articles/wiki/" aria-describedby="index-description">Writing Web Applications</a></h3>
+<p>Building a simple web application.</p>
+
+<h3 id="code"><a href="code.html" aria-describedby="index-description">How to write Go code</a></h3>
 <p>
 This doc explains how to develop a simple set of Go packages inside a module,
 and it shows how to use the <a href="/cmd/go/"><code>go</code>&nbsp;command</a>
 to build and test packages.
 </p>
 
-<img class="gopher" src="/doc/gopher/doc.png" alt=""/>
-
-<h3 id="go_tour"><a href="/tour/">A Tour of Go</a></h3>
+<h3 id="go_tour"><a href="/tour/" aria-describedby="index-description">A Tour of Go</a></h3>
 <p>
-An interactive introduction to Go in three sections.
+An interactive introduction to Go in four sections.
 The first section covers basic syntax and data structures; the second discusses
-methods and interfaces; and the third introduces Go's concurrency primitives.
+methods and interfaces; the third is about Generics; and the fourth introduces Go's concurrency primitives.
 Each section concludes with a few exercises so you can practice what you've
-learned. You can <a href="/tour/">take the tour
-online</a> or install it locally with:
+learned. You can <a href="/tour/" aria-describedby="index-description">take the tour online</a> or install it locally with:
 </p>
-<pre>
-$ go install golang.org/x/website/tour@latest
+
+<pre class="CopyPaste">
+	<span>$ go install golang.org/x/website/tour@latest</span>
+	<button aria-label="Copy and paste the code.">
+	  <img class="CopyPaste-icon" src="/images/icons/copy-paste.svg" />
+	  <img class="CopyPaste-icon CopyPaste-icon-dark" src="/images/icons/copy-paste-dark.svg" />
+	</button>
 </pre>
+
 <p>
 This will place the <code>tour</code> binary in your
 <a href="/cmd/go/#hdr-GOPATH_and_Modules">GOPATH</a>'s <code>bin</code> directory.
 </p>
 
-<h2 id="learning">Using and understanding Go</h2>
+</section>
 
-<h3 id="effective_go"><a href="effective_go.html">Effective Go</a></h3>
+
+<section id="learning" class="BigCard">
+
+<h2>Using and understanding Go</h2>
+
+<h3 id="effective_go"><a href="effective_go.html" aria-describedby="index-description">Effective Go</a></h3>
 <p>
 A document that gives tips for writing clear, idiomatic Go code.
 A must read for any new Go programmer. It augments the tour and
 the language specification, both of which should be read first.
 </p>
 
-<h3 id="editors"><a href="editors.html">Editor plugins and IDEs</a></h3>
+<h3 id="faq"><a href="/doc/faq" aria-describedby="index-description">Frequently Asked Questions (FAQ)</a></h3>
+
+<p>
+Answers to common questions about Go.
+</p>
+
+<h3 id="editors"><a href="editors.html" aria-describedby="index-description">Editor plugins and IDEs</a></h3>
 <p>
 A document that summarizes commonly used editor plugins and IDEs with
 Go support.
 </p>
 
-<h3 id="diagnostics"><a href="/doc/diagnostics.html">Diagnostics</a></h3>
+<h3 id="diagnostics"><a href="/doc/diagnostics.html" aria-describedby="index-description">Diagnostics</a></h3>
 <p>
 Summarizes tools and methodologies to diagnose problems in Go programs.
 </p>
 
-<h3 id="dependencies"><a href="/doc/modules/managing-dependencies">Managing dependencies</a></h3>
+<h3 id="gc-guide"><a href="/doc/gc-guide" aria-describedby="index-description">A Guide to the Go Garbage Collector</a></h3>
+<p>
+A document that describes how Go manages memory, and how to make the most of it.
+</p>
+
+<h3 id="dependencies"><a href="/doc/modules/managing-dependencies" aria-describedby="index-description">Managing dependencies</a></h3>
 <p>
 When your code uses external packages, those packages (distributed as modules) become dependencies.
 </p>
 
-<h3 id="data-access">Accessing databases</h3>
-
-<h4 id="data-access-tutorial"><a href="/doc/tutorial/database-access">Tutorial: Accessing a relational database</a></h4>
+<h3 id="fuzzing"><a href="/security/fuzz" aria-describedby="index-description">Fuzzing</a></h3>
 <p>
-Introduces the basics of accessing a relational database using Go and the
-<code>database/sql</code> package in the standard library.
+Main documentation page for Go fuzzing.
 </p>
 
-<h4 id="accessing-databases"><a href="/doc/database/index">Accessing relational databases</a></h4>
+<h3 id="coverage"><a href="/testing/coverage" aria-describedby="index-description">Coverage for Go applications</a></h3>
 <p>
-An overview of Go's data access features.
+Main documentation page for coverage testing of Go applications.
 </p>
 
-<h4 id="open-handle"><a href="/doc/database/open-handle">Opening a database handle</a></h4>
+<h3 id="pgo"><a href="/doc/pgo" aria-describedby="index-description">Profile-guided optimization</a></h3>
 <p>
-You use the Go database handle to execute database operations. Once you open a
-handle with database connection properties, the handle represents a connection
-pool it manages on your behalf.
+Main documentation page for profile-guided optimization (PGO) of Go applications.
 </p>
 
-<h4 id="change-data"><a href="/doc/database/change-data">Executing SQL statements that don't return data</a></h4>
-<p>
-For SQL operations that might change the database, including SQL
-<code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>, you use
-<code>Exec</code> methods.
-</p>
+</section>
 
-<h4 id="querying"><a href="/doc/database/querying">Querying for data</a></h4>
-<p>
-For <code>SELECT</code> statements that return data from a query, using the
-<code>Query</code> or <code>QueryRow</code> method.
-</p>
 
-<h4 id="prepared-statements"><a href="/doc/database/prepared-statements">Using prepared statements</a></h4>
-<p>
-Defining a prepared statement for repeated use can help your code run a bit
-faster by avoiding the overhead of re-creating the statement each time your
-code performs the database operation.
-</p>
+<section id="references" class="BigCard">
 
-<h4 id="execute-transactions"><a href="/doc/database/execute-transactions">Executing transactions</a></h4>
-<p>
-<code>sql.Tx</code> exports methods representing transaction-specific semantics,
-including <code>Commit</code> and <code>Rollback</code>, as well as methods you
-use to perform common database operations.
-</p>
+<h2>References</h2>
 
-<h4 id="cancel-operations"><a href="/doc/database/cancel-operations">Cancelling in-progress database operations</a></h4>
-<p>
-Using <a href="https://pkg.go.dev/context#Context">context.Context</a>, you can
-have your application's function calls and services stop working early and
-return an error when their processing is no longer needed.
-</p>
-
-<h4 id="manage-connections"><a href="/doc/database/manage-connections">Managing connections</a></h4>
-<p>
-For some advanced programs, you might need to tune connection pool parameters
-or work with connections explicitly.
-</p>
-
-<h4 id="sql-injection"><a href="/doc/database/sql-injection">Avoiding SQL injection risk</a></h4>
-<p>
-You can avoid an SQL injection risk by providing SQL parameter values as
-<code>sql</code> package function arguments
-</p>
-
-<h3 id="developing-modules">Developing modules</h3>
-
-<h4 id="modules-develop-publish"><a href="/doc/modules/developing">Developing and publishing modules</a></h4>
-<p>
-You can collect related packages into modules, then publish the modules for other developers to use. This topic gives an overview of developing and publishing modules.
-</p>
-
-<h4 id="modules-release-workflow"><a href="/doc/modules/release-workflow">Module release and versioning workflow</a></h4>
-<p>
-When you develop modules for use by other developers, you can follow a workflow that helps ensure a reliable, consistent experience for developers using the module. This topic describes the high-level steps in that workflow.
-</p>
-
-<h4 id="modules-managing-source"><a href="/doc/modules/managing-source">Managing module source</a></h4>
-<p>
-When you're developing modules to publish for others to use, you can help ensure that your modules are easier for other developers to use by following the repository conventions described in this topic.
-</p>
-
-<h4 id="modules-major-version"><a href="/doc/modules/major-version">Developing a major version update</a></h4>
-<p>
-A major version update can be very disruptive to your module's users because it includes breaking changes and represents a new module. Learn more in this topic.
-</p>
-
-<h4 id="modules-publishing"><a href="/doc/modules/publishing">Publishing a module</a></h4>
-<p>
-When you want to make a module available for other developers, you publish it so that it's visible to Go tools. Once you've published the module, developers importing its packages will be able to resolve a dependency on the module by running commands such as <code>go get</code>.
-</p>
-
-<h4 id="modules-version-numbers"><a href="/doc/modules/version-numbers">Module version numbering</a></h4>
-<p>
-A module's developer uses each part of a module's version number to signal the version’s stability and backward compatibility. For each new release, a module's release version number specifically reflects the nature of the module's changes since the preceding release.
-</p>
-
-<h3 id="faq"><a href="/doc/faq">Frequently Asked Questions (FAQ)</a></h3>
-<p>
-Answers to common questions about Go.
-</p>
-
-<h2 id="references">References</h2>
-
-<h3 id="pkg"><a href="/pkg/">Package Documentation</a></h3>
+<h3 id="pkg"><a href="/pkg/" aria-describedby="index-description">Package Documentation</a></h3>
 <p>
 The documentation for the Go standard library.
 </p>
 
-<h3 id="cmd"><a href="/doc/cmd">Command Documentation</a></h3>
+<h3 id="cmd"><a href="/doc/cmd" aria-describedby="index-description">Command Documentation</a></h3>
 <p>
 The documentation for the Go tools.
 </p>
 
-<h3 id="spec"><a href="/ref/spec">Language Specification</a></h3>
+<h3 id="spec"><a href="/ref/spec" aria-describedby="index-description">Language Specification</a></h3>
 <p>
 The official Go Language specification.
 </p>
 
-<h3 id="mod"><a href="/ref/mod">Go Modules Reference</a></h3>
+<h3 id="mod"><a href="/ref/mod" aria-describedby="index-description">Go Modules Reference</a></h3>
 <p>
 A detailed reference manual for Go's dependency management system.
 </p>
 
-<h3><a href="/doc/modules/gomod-ref">go.mod file reference</a></h3>
+<h3><a href="/doc/modules/gomod-ref" aria-describedby="index-description">go.mod file reference</a></h3>
 <p>
 Reference for the directives included in a go.mod file.
 </p>
 
-<h3 id="go_mem"><a href="/ref/mem">The Go Memory Model</a></h3>
+<h3 id="go_mem"><a href="/ref/mem" aria-describedby="index-description">The Go Memory Model</a></h3>
 <p>
 A document that specifies the conditions under which reads of a variable in
 one goroutine can be guaranteed to observe values produced by writes to the
 same variable in a different goroutine.
 </p>
 
-<h3 id="release"><a href="/doc/devel/release.html">Release History</a></h3>
+<h3 id="contributing"><a href="/doc/contribute" aria-describedby="index-description">Contribution Guide</a></h3>
+<p>Contributing to Go.</p>
+
+<h3 id="release"><a href="/doc/devel/release.html" aria-describedby="index-description">Release History</a></h3>
 <p>A summary of the changes between Go releases.</p>
 
-<h2 id="codewalks">Codewalks</h2>
+</section>
+
+
+<section id="data-access" class="BigCard">
+
+<h2>Accessing databases</h2>
+
+<h3 id="data-access-tutorial"><a href="/doc/tutorial/database-access" aria-describedby="index-description">Tutorial: Accessing a relational database</a></h3>
 <p>
-Guided tours of Go programs.
+Introduces the basics of accessing a relational database using Go and the
+<code>database/sql</code> package in the standard library.
 </p>
-<ul>
-<li><a href="/doc/codewalk/functions">First-Class Functions in Go</a></li>
-<li><a href="/doc/codewalk/markov">Generating arbitrary text: a Markov chain algorithm</a></li>
-<li><a href="/doc/codewalk/sharemem">Share Memory by Communicating</a></li>
-</ul>
 
-<h2 id="blog">From the Go Blog</h2>
-<p>The <a href="https://blog.golang.org/">official blog of the Go project</a>, featuring news and in-depth articles by
-the Go team and guests.</p>
-
-<h4>Language</h4>
-<ul>
-<li><a href="/blog/json-rpc-tale-of-interfaces">JSON-RPC: a tale of interfaces</a></li>
-<li><a href="/blog/gos-declaration-syntax">Go's Declaration Syntax</a></li>
-<li><a href="/blog/defer-panic-and-recover">Defer, Panic, and Recover</a></li>
-<li><a href="/blog/go-concurrency-patterns-timing-out-and">Go Concurrency Patterns: Timing out, moving on</a></li>
-<li><a href="/blog/go-slices-usage-and-internals">Go Slices: usage and internals</a></li>
-<li><a href="/blog/gif-decoder-exercise-in-go-interfaces">A GIF decoder: an exercise in Go interfaces</a></li>
-<li><a href="/blog/error-handling-and-go">Error Handling and Go</a></li>
-<li><a href="/blog/organizing-go-code">Organizing Go code</a></li>
-</ul>
-
-<h4>Packages</h4>
-<ul>
-<li><a href="/blog/json-and-go">JSON and Go</a> - using the <a href="/pkg/encoding/json/">json</a> package.</li>
-<li><a href="/blog/gobs-of-data">Gobs of data</a> - the design and use of the <a href="/pkg/encoding/gob/">gob</a> package.</li>
-<li><a href="/blog/laws-of-reflection">The Laws of Reflection</a> - the fundamentals of the <a href="/pkg/reflect/">reflect</a> package.</li>
-<li><a href="/blog/go-image-package">The Go image package</a> - the fundamentals of the <a href="/pkg/image/">image</a> package.</li>
-<li><a href="/blog/go-imagedraw-package">The Go image/draw package</a> - the fundamentals of the <a href="/pkg/image/draw/">image/draw</a> package.</li>
-</ul>
-
-<h4>Modules</h4>
-<ul>
-<li><a href="/blog/using-go-modules">Using Go Modules</a> - an introduction to using modules in a simple project.</li>
-<li><a href="/blog/migrating-to-go-modules">Migrating to Go Modules</a> - converting an existing project to use modules.</li>
-<li><a href="/blog/publishing-go-modules">Publishing Go Modules</a> - how to make new versions of modules available to others.</li>
-<li><a href="/blog/v2-go-modules">Go Modules: v2 and Beyond</a> - creating and publishing major versions 2 and higher.</li>
-<li><a href="/blog/module-compatibility">Keeping Your Modules Compatible</a> - how to keep your modules compatible with prior minor/patch versions.</li>
-</ul>
-
-<h4>Tools</h4>
-<ul>
-<li><a href="/doc/articles/go_command.html">About the Go command</a> - why we wrote it, what it is, what it's not, and how to use it.</li>
-<li><a href="/doc/gdb">Debugging Go Code with GDB</a></li>
-<li><a href="/doc/articles/race_detector.html">Data Race Detector</a> - a manual for the data race detector.</li>
-<li><a href="/doc/asm">A Quick Guide to Go's Assembler</a> - an introduction to the assembler used by Go.</li>
-<li><a href="/blog/c-go-cgo">C? Go? Cgo!</a> - linking against C code with <a href="/cmd/cgo/">cgo</a>.</li>
-<li><a href="/blog/godoc-documenting-go-code">Godoc: documenting Go code</a> - writing good documentation for <a href="/cmd/godoc/">godoc</a>.</li>
-<li><a href="/blog/profiling-go-programs">Profiling Go Programs</a></li>
-<li><a href="/blog/race-detector">Introducing the Go Race Detector</a> - an introduction to the race detector.</li>
-</ul>
-
-<h2 id="wiki">Wiki</h2>
+<h3 id="accessing-databases"><a href="/doc/database/index" aria-describedby="index-description">Accessing relational databases</a></h3>
 <p>
-The <a href="/wiki">Go Wiki</a>, maintained by the Go community, includes articles about the Go language, tools, and other resources.
+An overview of Go's data access features.
 </p>
 
-<p id="learn_more">
-See the <a href="/wiki/Learn">Learn</a> page at the <a href="/wiki">Wiki</a>
-for more Go learning resources.
+<h3 id="open-handle"><a href="/doc/database/open-handle" aria-describedby="index-description">Opening a database handle</a></h3>
+<p>
+You use the Go database handle to execute database operations. Once you open a
+handle with database connection properties, the handle represents a connection
+pool it manages on your behalf.
 </p>
 
-<h2 id="talks">Talks</h2>
+<h3 id="change-data"><a href="/doc/database/change-data" aria-describedby="index-description">Executing SQL statements that don't return data</a></h3>
+<p>
+For SQL operations that might change the database, including SQL
+<code>INSERT</code>, <code>UPDATE</code>, and <code>DELETE</code>, you use
+<code>Exec</code> methods.
+</p>
 
-<img class="gopher" src="/doc/gopher/talks.png" alt=""/>
+<h3 id="querying"><a href="/doc/database/querying" aria-describedby="index-description">Querying for data</a></h3>
+<p>
+For <code>SELECT</code> statements that return data from a query, using the
+<code>Query</code> or <code>QueryRow</code> method.
+</p>
 
-<h3 id="video_tour_of_go"><a href="https://research.swtch.com/gotour">A Video Tour of Go</a></h3>
+<h3 id="prepared-statements"><a href="/doc/database/prepared-statements" aria-describedby="index-description">Using prepared statements</a></h3>
+<p>
+Defining a prepared statement for repeated use can help your code run a bit
+faster by avoiding the overhead of re-creating the statement each time your
+code performs the database operation.
+</p>
+
+<h3 id="execute-transactions"><a href="/doc/database/execute-transactions" aria-describedby="index-description">Executing transactions</a></h3>
+<p>
+<code>sql.Tx</code> exports methods representing transaction-specific semantics,
+including <code>Commit</code> and <code>Rollback</code>, as well as methods you
+use to perform common database operations.
+</p>
+
+<h3 id="cancel-operations"><a href="/doc/database/cancel-operations" aria-describedby="index-description">Canceling in-progress database operations</a></h3>
+<p>
+Using <a href="https://pkg.go.dev/context#Context">context.Context</a>, you can
+have your application's function calls and services stop working early and
+return an error when their processing is no longer needed.
+</p>
+
+<h3 id="manage-connections"><a href="/doc/database/manage-connections" aria-describedby="index-description">Managing connections</a></h3>
+<p>
+For some advanced programs, you might need to tune connection pool parameters
+or work with connections explicitly.
+</p>
+
+<h3 id="sql-injection"><a href="/doc/database/sql-injection" aria-describedby="index-description">Avoiding SQL injection risk</a></h3>
+<p>
+You can avoid an SQL injection risk by providing SQL parameter values as
+<code>sql</code> package function arguments
+</p>
+
+</section>
+
+
+<section id="developing-modules" class="BigCard">
+
+<h2>Developing modules</h2>
+
+<h3 id="modules-develop-publish"><a href="/doc/modules/developing" aria-describedby="index-description">Developing and publishing modules</a></h3>
+<p>
+You can collect related packages into modules, then publish the modules for other developers to use. This topic gives an overview of developing and publishing modules.
+</p>
+
+<h3 id="modules-release-workflow"><a href="/doc/modules/release-workflow" aria-describedby="index-description">Module release and versioning workflow</a></h3>
+<p>
+When you develop modules for use by other developers, you can follow a workflow that helps ensure a reliable, consistent experience for developers using the module. This topic describes the high-level steps in that workflow.
+</p>
+
+<h3 id="modules-managing-source"><a href="/doc/modules/managing-source" aria-describedby="index-description">Managing module source</a></h3>
+<p>
+When you're developing modules to publish for others to use, you can help ensure that your modules are easier for other developers to use by following the repository conventions described in this topic.
+</p>
+
+<h3 id="modules-layout"><a href="/doc/modules/layout" aria-describedby="index-description">Organizing a Go module</a></h3>
+<p>
+What is the right way to organize the files and directories in a typical Go project? This topic discusses some common layouts depending on the kind of module you have.
+</p>
+
+<h3 id="modules-major-version"><a href="/doc/modules/major-version" aria-describedby="index-description">Developing a major version update</a></h3>
+<p>
+A major version update can be very disruptive to your module's users because it includes breaking changes and represents a new module. Learn more in this topic.
+</p>
+
+<h3 id="modules-publishing"><a href="/doc/modules/publishing" aria-describedby="index-description">Publishing a module</a></h3>
+
+<p>
+When you want to make a module available for other developers, you publish it so that it's visible to Go tools. Once you've published the module, developers importing its packages will be able to resolve a dependency on the module by running commands such as <code>go get</code>.
+</p>
+
+<h3 id="modules-version-numbers"><a href="/doc/modules/version-numbers" aria-describedby="index-description">Module version numbering</a></h3>
+
+<p>
+A module's developer uses each part of a module's version number to signal the version’s stability and backward compatibility. For each new release, a module's release version number specifically reflects the nature of the module's changes since the preceding release.
+</p>
+
+</section>
+
+
+<section id="talks" class="BigCard">
+
+<h2>Talks</h2>
+
+<h3 id="video_tour_of_go"><a href="https://research.swtch.com/gotour" aria-describedby="index-description">A Video Tour of Go</a></h3>
 <p>
 Three things that make Go fast, fun, and productive:
 interfaces, reflection, and concurrency. Builds a toy web crawler to
 demonstrate these.
 </p>
 
-<h3 id="go_code_that_grows"><a href="https://vimeo.com/53221560">Code that grows with grace</a></h3>
+<h3 id="go_code_that_grows"><a href="https://vimeo.com/53221560" aria-describedby="index-description">Code that grows with grace</a></h3>
 <p>
 One of Go's key design goals is code adaptability; that it should be easy to take a simple design and build upon it in a clean and natural way. In this talk Andrew Gerrand describes a simple "chat roulette" server that matches pairs of incoming TCP connections, and then use Go's concurrency mechanisms, interfaces, and standard library to extend it with a web interface and other features. While the function of the program changes dramatically, Go's flexibility preserves the original design as it grows.
 </p>
 
-<h3 id="go_concurrency_patterns"><a href="https://www.youtube.com/watch?v=f6kdp27TYZs">Go Concurrency Patterns</a></h3>
+<h3 id="go_concurrency_patterns"><a href="https://www.youtube.com/watch?v=f6kdp27TYZs" aria-describedby="index-description">Go Concurrency Patterns</a></h3>
 <p>
 Concurrency is the key to designing high performance network services. Go's concurrency primitives (goroutines and channels) provide a simple and efficient means of expressing concurrent execution. In this talk we see how tricky concurrency problems can be solved gracefully with simple Go code.
 </p>
 
-<h3 id="advanced_go_concurrency_patterns"><a href="https://www.youtube.com/watch?v=QDDwwePbDtw">Advanced Go Concurrency Patterns</a></h3>
+<h3 id="advanced_go_concurrency_patterns"><a href="https://www.youtube.com/watch?v=QDDwwePbDtw" aria-describedby="index-description">Advanced Go Concurrency Patterns</a></h3>
 <p>
 This talk expands on the <i>Go Concurrency Patterns</i> talk to dive deeper into Go's concurrency primitives.
 </p>
 
 <h4 id="talks_more">More</h4>
 <p>
-See the <a href="/talks">Go Talks site</a> and <a href="/wiki/GoTalks">wiki page</a> for more Go talks.
+See the <a href="/talks" aria-describedby="index-description">Go Talks site</a> and <a href="/wiki/GoTalks"  aria-describedby="index-description">wiki page</a> for more Go talks.
 </p>
 
-<h2 id="nonenglish">Non-English Documentation</h2>
+</section>
 
+
+<section id="codewalks" class="BigCard">
+
+<h2>Codewalks</h2>
 <p>
-See the <a href="/wiki/NonEnglish">NonEnglish</a> page
-at the <a href="/wiki">Wiki</a> for localized
+Guided tours of Go programs.
+</p>
+
+<ul>
+<li><a href="/doc/codewalk/functions" aria-describedby="index-description">First-Class Functions in Go</a></li>
+<li><a href="/doc/codewalk/markov" aria-describedby="index-description">Generating arbitrary text: a Markov chain algorithm</a></li>
+<li><a href="/doc/codewalk/sharemem" aria-describedby="index-description">Share Memory by Communicating</a></li>
+</ul>
+
+<h3>Language</h3>
+<ul>
+<li><a href="/blog/json-rpc-tale-of-interfaces" aria-describedby="index-description">JSON-RPC: a tale of interfaces</a></li>
+<li><a href="/blog/gos-declaration-syntax" aria-describedby="index-description">Go's Declaration Syntax</a></li>
+<li><a href="/blog/defer-panic-and-recover" aria-describedby="index-description">Defer, Panic, and Recover</a></li>
+<li><a href="/blog/go-concurrency-patterns-timing-out-and" aria-describedby="index-description">Go Concurrency Patterns: Timing out, moving on</a></li>
+<li><a href="/blog/go-slices-usage-and-internals" aria-describedby="index-description">Go Slices: usage and internals</a></li>
+<li><a href="/blog/gif-decoder-exercise-in-go-interfaces" aria-describedby="index-description">A GIF decoder: an exercise in Go interfaces</a></li>
+<li><a href="/blog/error-handling-and-go" aria-describedby="index-description">Error Handling and Go</a></li>
+</ul>
+
+<h3>Packages</h3>
+<ul>
+<li><a href="/blog/json-and-go" aria-describedby="index-description">JSON and Go</a> - using the <a href="/pkg/encoding/json/" aria-describedby="index-description">json</a> package.</li>
+<li><a href="/blog/gobs-of-data" aria-describedby="index-description">Gobs of data</a> - the design and use of the <a href="/pkg/encoding/gob/" aria-describedby="index-description">gob</a> package.</li>
+<li><a href="/blog/laws-of-reflection" aria-describedby="index-description">The Laws of Reflection</a> - the fundamentals of the <a href="/pkg/reflect/" aria-describedby="index-description">reflect</a> package.</li>
+<li><a href="/blog/go-image-package" aria-describedby="index-description">The Go image package</a> - the fundamentals of the <a href="/pkg/image/" aria-describedby="index-description">image</a> package.</li>
+<li><a href="/blog/go-imagedraw-package">The Go image/draw package</a> - the fundamentals of the <a href="/pkg/image/draw/">image/draw</a> package.</li>
+</ul>
+
+<h3>Modules</h3>
+<ul>
+<li><a href="/blog/using-go-modules" aria-describedby="index-description">Using Go Modules</a> - an introduction to using modules in a simple project.</li>
+<li><a href="/blog/migrating-to-go-modules" aria-describedby="index-description">Migrating to Go Modules</a> - converting an existing project to use modules.</li>
+<li><a href="/blog/publishing-go-modules" aria-describedby="index-description">Publishing Go Modules</a> - how to make new versions of modules available to others.</li>
+<li><a href="/blog/v2-go-modules" aria-describedby="index-description">Go Modules: v2 and Beyond</a> - creating and publishing major versions 2 and higher.</li>
+<li><a href="/blog/module-compatibility" aria-describedby="index-description">Keeping Your Modules Compatible</a> - how to keep your modules compatible with prior minor/patch versions.</li>
+</ul>
+
+<h3>Tools</h3>
+<ul>
+<li><a href="/doc/articles/go_command.html" aria-describedby="index-description">About the Go command</a> - why we wrote it, what it is, what it's not, and how to use it.</li>
+<li><a href="/doc/comment" aria-describedby="index-description">Go Doc Comments</a> - writing good program documentation</li>
+<li><a href="/doc/gdb" aria-describedby="index-description">Debugging Go Code with GDB</a></li>
+<li><a href="/doc/articles/race_detector.html" aria-describedby="index-description">Data Race Detector</a> - a manual for the data race detector.</li>
+<li><a href="/doc/asm" aria-describedby="index-description">A Quick Guide to Go's Assembler</a> - an introduction to the assembler used by Go.</li>
+<li><a href="/blog/c-go-cgo" aria-describedby="index-description">C? Go? Cgo!</a> - linking against C code with <a href="/cmd/cgo/" aria-describedby="index-description">cgo</a>.</li>
+<li><a href="/blog/profiling-go-programs" aria-describedby="index-description">Profiling Go Programs</a></li>
+<li><a href="/blog/race-detector" aria-describedby="index-description">Introducing the Go Race Detector</a> - an introduction to the race detector.</li>
+</ul>
+
+</section>
+
+
+<section id="wiki" class="BigCard">
+
+<h2>Wiki</h2>
+<p>
+The <a href="/wiki" aria-describedby="index-description">Go Wiki</a>, maintained by the Go community, includes articles about the Go language, tools, and other resources.
+</p>
+
+<p id="learn_more">
+See the <a href="/wiki/Learn" aria-describedby="index-description">Learn</a> page at the <a href="/wiki" aria-describedby="index-description">Wiki</a>
+for more Go learning resources.
+</p>
+
+</section>
+
+
+<section id="nonenglish" class="BigCard">
+
+<h2>Non-English Documentation</h2>
+See the <a href="/wiki/NonEnglish" aria-describedby="index-description">NonEnglish</a> page
+at the <a href="/wiki" aria-describedby="index-description">Wiki</a> for localized
 documentation.
 </p>
+
+</section>
+
+<div class="screen-reader-only" id="index-description" hidden>
+	Opens in new window.
+</div>
+</div>

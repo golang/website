@@ -8,6 +8,8 @@ by:
 summary: Announcing the Go font family, by Bigelow & Holmes.
 ---
 
+<link rel="stylesheet" href="/css/fonts.css">
+
 ## An Announcement
 
 The experimental user interface toolkit being built at
@@ -225,7 +227,7 @@ bold stem thickness is 1.5 times thicker than the normal weight, hence
 the Bold Mono has the same stem thickness as Bold Go proportional.
 Because the letter width of monospaced bold is identical to the width of
 monospaced normal, the bold Mono appears slightly bolder than the
-proportional Go Bold, as more black pixels are put into the same area.)
+proportional Go Bold, as more black pixels are put into the same area.
 
 ### Metric compatibility with popular monospaced fonts
 

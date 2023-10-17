@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='144.00pt' viewBox='0 0 432.00 144.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxNDQuMDA='>
+    <rect x='0.00' y='0.00' width='432.00' height='144.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDQuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMzcuMjN8NDI2LjUyfDc0Ljk3fDk1LjYy'>
+    <rect x='37.23' y='74.97' width='389.29' height='20.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMzcuMjN8NDI2LjUyfDc0Ljk3fDk1LjYy)'>
+<polyline points='121.86,95.62 121.86,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='291.11,95.62 291.11,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='37.23,95.62 37.23,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='206.49,95.62 206.49,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='375.74,95.62 375.74,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='64.22' y='78.41' width='311.52' height='13.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00DA83;' />
+<rect x='50.37' y='78.41' width='13.85' height='13.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFBF;' />
+<rect x='37.23' y='78.41' width='13.14' height='13.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ED6868;' />
+<text x='219.98' y='87.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #555555; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>92%</text>
+<text x='57.29' y='87.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #555555; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>4%</text>
+<text x='43.80' y='87.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #555555; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>4%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDQuMDA=)'>
+<text x='32.30' y='88.16' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='14.68px' lengthAdjust='spacingAndGlyphs'>csat</text>
+<text x='37.23' y='106.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='206.49' y='106.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='375.74' y='106.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='231.87' y='123.76' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='96.88' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #ED6868;' />
+<rect x='159.94' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #FFFFBF;' />
+<rect x='295.07' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00DA83;' />
+<text x='114.33' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='40.92px' lengthAdjust='spacingAndGlyphs'>Dissatisfied</text>
+<text x='177.39' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='112.98px' lengthAdjust='spacingAndGlyphs'>Neither satisfied nor dissatisfied</text>
+<text x='312.52' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='30.69px' lengthAdjust='spacingAndGlyphs'>Satisfied</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='343.47px' lengthAdjust='spacingAndGlyphs'>Overall, how satisfied or dissatisfied have you been using Go during the</text>
+<text x='5.48' y='28.46' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='50.05px' lengthAdjust='spacingAndGlyphs'>past year?</text>
+<text x='426.52' y='136.75' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='35.82px' lengthAdjust='spacingAndGlyphs'>n =  5,280</text>
+</g>
+</svg>

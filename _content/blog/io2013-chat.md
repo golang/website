@@ -102,8 +102,8 @@ continue, but no major changes to the interface of `database/sql` are planned.
 assist some drivers.
 
 _What is the status of versioning?_
-_Is importing some code from github a best practice recommended by the Go team?_
-_What happens when we publish our code that is dependent on a github repo and_
+_Is importing some code from GitHub a best practice recommended by the Go team?_
+_What happens when we publish our code that is dependent on a GitHub repo and_
 _the API of the dependee changes?_
 
 **Ian:** This is frequently discussed on the mailing list. What we do internally

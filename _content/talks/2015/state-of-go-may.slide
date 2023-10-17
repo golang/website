@@ -67,7 +67,7 @@ Better performance executing goroutines in parallel:
 
 .image state-of-go-may/conc-sieve.png _ 800
 
-Better perfomance switching between goroutines in serial:
+Better performance switching between goroutines in serial:
 
 .image state-of-go-may/conc-chain.png _ 800
 

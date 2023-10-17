@@ -424,7 +424,7 @@ so they have _very_ long tails;
 categories totalling less than 3% of the total responses have been grouped
 into the "Other" category for each chart.
 A single response may mention multiple topics,
-thus charts do not not sum to 100%.
+thus charts do not sum to 100%.
 
 Among the 25% of respondents who said Go lacks language features they need,
 79% pointed to generics as a critical missing feature.

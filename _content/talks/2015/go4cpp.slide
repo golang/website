@@ -246,7 +246,7 @@ But no pointer arithmetics:
 
 There's `new` but there's no `delete`.
 
-Memory is garbaged collected after it's no longer accessible.
+Memory is garbage collected after it's no longer accessible.
 
 * Memory allocation
 
@@ -683,7 +683,7 @@ And there's lots to learn!
 
 - [[http://go.dev/talks/2012/concurrency.slide#1][Go Concurrency Patterns]], by Rob Pike
 - [[http://go.dev/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
-- [[http://go.dev/talks/2012/waza.slide#1][Concurrency is not Parellelism]], by Rob Pike
+- [[http://go.dev/talks/2012/waza.slide#1][Concurrency is not Parallelism]], by Rob Pike
 
 .image go4cpp/busy.jpg
 

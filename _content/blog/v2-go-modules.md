@@ -121,20 +121,15 @@ To start development on `v2` of `github.com/googleapis/gax-go`, we'll create a
 new `v2/` directory and copy our package into it.
 
 	$ mkdir v2
-	$ cp *.go v2/
-	building file list ... done
-	call_option.go
-	gax.go
-	header.go
-	invoke.go
-	tools.go
-
-	sent 10588 bytes  received 130 bytes  21436.00 bytes/sec
-	total size is 10208  speedup is 0.95
+	$ cp -v *.go v2
+	'call_option.go' -> 'v2/call_option.go'
+	'gax.go' -> 'v2/gax.go'
+	'header.go' -> 'v2/header.go'
+	'invoke.go' -> 'v2/invoke.go'
 	$
 
 Now, let's create a v2 `go.mod` file by copying the current `go.mod` file and
-adding a `v2/` suffix to the module path:
+adding a `/v2` suffix to the module path:
 
 	$ cp go.mod v2/go.mod
 	$ go mod edit -module github.com/googleapis/gax-go/v2 v2/go.mod

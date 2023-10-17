@@ -18,7 +18,7 @@
 //
 //	{{template "link" (dict "url" "https://golang.org" "text" "the Go language")}}
 //
-// Function Definitions
+// # Function Definitions
 //
 // The function installed for a given template depends on the name of the
 // defined template, which can include not just a function name but also
@@ -52,9 +52,9 @@
 //
 //	{{define "link url text?"}}<a href="{{.url}}">{{or .text .url}}</a>{{end}}
 //
-// 	The Go home page is {{link "https://golang.org"}}.
+//	The Go home page is {{link "https://golang.org"}}.
 //
-// Usage
+// # Usage
 //
 // This package is meant to be used with templates from either the
 // text/template or html/template packages. Given a *template.Template
@@ -86,8 +86,8 @@ import (
 	"path"
 	"path/filepath"
 
-	htmltemplate "golang.org/x/website/internal/backport/html/template"
-	texttemplate "golang.org/x/website/internal/backport/text/template"
+	htmltemplate "html/template"
+	texttemplate "text/template"
 )
 
 // A Template is a *template.Template, where template refers to either

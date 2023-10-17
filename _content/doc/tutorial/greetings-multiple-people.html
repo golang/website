@@ -1,5 +1,6 @@
 <!--{
-    "Title": "Return greetings for multiple people"
+    "Title": "Return greetings for multiple people",
+    "Breadcrumb": true
 }-->
 
 <p>
@@ -39,7 +40,6 @@ import (
     "errors"
     "fmt"
     "math/rand"
-    "time"
 )
 
 // Hello returns a greeting for the named person.
@@ -71,11 +71,6 @@ func Hellos(names []string) (map[string]string, error) {
     }
     return messages, nil
 }</ins>
-
-// Init sets initial values for variables used in the function.
-func init() {
-    rand.Seed(time.Now().UnixNano())
-}
 
 // randomFormat returns one of a set of greeting messages. The returned
 // message is selected at random.
@@ -156,16 +151,16 @@ func main() {
     log.SetFlags(0)
 
     <ins>// A slice of names.
-    names := []string{"Gladys", "Samantha", "Darrin"}</ins>
+    names := []string{"Gladys", "Samantha", "Darrin"}
 
     // Request greeting messages for the names.
-    messages, err := greetings.Hellos(names)
+    messages, err := greetings.Hellos(names)</ins>
     if err != nil {
         log.Fatal(err)
     }
-    // If no error was returned, print the returned map of
+    <ins>// If no error was returned, print the returned map of
     // messages to the console.
-    fmt.Println(messages)
+    fmt.Println(messages)</ins>
 }
 </pre>
 

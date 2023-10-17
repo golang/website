@@ -141,7 +141,7 @@ It is identical to the code listing above,
 and requires no build constraints as it should be included in all versions of the program.
 
 main.go runs the web server. It includes the "!appengine" build constraint,
-as it must only included when building the stand-alone binary.
+as it must only be included when building the stand-alone binary.
 
 	// +build !appengine
 

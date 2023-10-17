@@ -1,9 +1,14 @@
+// Copyright 2021 The Go Authors. All rights reserved.
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
 package main
 
 import (
 	"context"
 	"flag"
 	"fmt"
+	"log"
 	"os"
 	"sort"
 	"time"
@@ -12,35 +17,33 @@ import (
 )
 
 var (
-	dryRun       = flag.Bool("dry_run", true, "When true, just print intended modifications and quit")
-	keepDuration = flag.Duration("keep_duration", 24*time.Hour, "Versions older than this will be deleted")
-	keepNumber   = flag.Int("keep_number", 5, "Minimum number of versions to keep")
-	project      = flag.String("project", "", "GCP Project (required)")
-	service      = flag.String("service", "", "AppEngine service (required)")
+	dryRun       = flag.Bool("dry_run", true, "print but do not run changes")
+	keepDuration = flag.Duration("keep_duration", 24*time.Hour, "keep versions with age < `t`")
+	keepNumber   = flag.Int("keep_number", 5, "keep at least `n` versions")
+	project      = flag.String("project", "", "GCP project `name` (required)")
+	service      = flag.String("service", "", "AppEngine service `name` (required)")
 )
 
-func main() {
-	flag.Parse()
+func usage() {
+	fmt.Fprintf(os.Stderr, "usage: versionprune -project=name -service=name [options]\n")
+	flag.PrintDefaults()
+	os.Exit(2)
+}
 
-	if *project == "" {
-		fmt.Println("-project flag is required.")
-		flag.Usage()
-		os.Exit(1)
-	}
-	if *service == "" {
-		fmt.Println("-service flag is required.")
-		flag.Usage()
-		os.Exit(1)
+func main() {
+	flag.Usage = usage
+	flag.Parse()
+	log.SetPrefix("versionprune: ")
+	log.SetFlags(0)
+
+	if *project == "" || *service == "" {
+		usage()
 	}
 	if *keepDuration < 0 {
-		fmt.Printf("-keep_duration must be greater or equal to 0, got %s\n", *keepDuration)
-		flag.Usage()
-		os.Exit(1)
+		log.Fatalf("-keep_duration=%v must be >= 0", *keepDuration)
 	}
 	if *keepNumber < 0 {
-		fmt.Printf("-keep_number must be greater or equal to 0, got %d\n", *keepNumber)
-		flag.Usage()
-		os.Exit(1)
+		log.Fatalf("-keep_number=%d must be >= 0", *keepNumber)
 	}
 
 	if err := run(context.Background()); err != nil {

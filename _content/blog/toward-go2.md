@@ -455,7 +455,7 @@ experiences with Go. There are half a million of you, working in a
 broad range of environments, and not that many of us.
 Write a post on your own blog,
 or write a [Medium](https://www.medium.com/) post,
-or write a [Github Gist](https://gist.github.com/) (add a `.md` file extension for Markdown),
+or write a [GitHub Gist](https://gist.github.com/) (add a `.md` file extension for Markdown),
 or write a [Google doc](https://docs.google.com/),
 or use any other publishing mechanism you like.
 After you've posted, please add the post to our new wiki page,
@@ -513,7 +513,7 @@ write or at least to compile a program with a data race. How to fit
 that into a language like Go is still an open question in the
 programming language world. Instead we added a tool to the main
 distribution and made it trivial to use: that tool, the [race detector](https://blog.golang.org/race-detector), has become
-an indispensible part of the Go experience. Here the best solution was
+an indispensable part of the Go experience. Here the best solution was
 a runtime and tooling change, not a language change.
 
 There will be language changes as well, of course, but not all

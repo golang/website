@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Tutorial: Accessing a relational database"
+  "Title": "Tutorial: Accessing a relational database",
+  "Breadcrumb": true
 }-->
 
 This tutorial introduces the basics of accessing a relational database with
@@ -12,7 +13,7 @@ for a quick introduction.
 
 The [`database/sql`](https://pkg.go.dev/database/sql) package you'll
 be using includes types and functions for connecting to databases, executing
-transactions, cancelling an operation in progress, and more. For more details
+transactions, canceling an operation in progress, and more. For more details
 on using the package, see
 [Accessing databases](/doc/database/index).
 
@@ -159,7 +160,7 @@ but most DBMSes have their own CLI with similar features.
     *   Create an `album` table with four columns: `title`, `artist`, and `price`.
         Each row's `id` value is created automatically by the DBMS.
 
-    *   Add three rows with values.
+    *   Add four rows with values.
 
 7. From the `mysql` command prompt, run the script you just created.
 
@@ -653,7 +654,7 @@ relational database.
 
 Suggested next topics:
 
-*   Take a look at the data acccess guide, which includes more information
+*   Take a look at the data access guide, which includes more information
     about the subjects only touched on here.
 
 *   If you're new to Go, you'll find useful best practices described in

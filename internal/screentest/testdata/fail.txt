@@ -1,0 +1,10 @@
+compare https://go.dev https://pkg.go.dev
+
+test homepage
+pathname /
+capture viewport
+
+test 404 missing selector
+pathname /404
+wait [role='treeitem'][aria-selected='true']
+capture viewport

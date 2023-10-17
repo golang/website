@@ -20,18 +20,8 @@ class DownloadsController {
         const files = data[0]['files'];
         for (var i = 0; i < files.length; i++) {
           let file = files[i].filename;
-          let fileSize = files[i].size;
           if (file.match('.linux-amd64.tar.gz$')) {
             this.linuxFileName = file;
-            this.linuxFileSize = Math.round(fileSize / Math.pow(1024, 2));
-          }
-          if (file.match('.darwin-amd64(-osx10.8)?.pkg$')) {
-            this.macFileName = file;
-            this.macFileSize = Math.round(fileSize / Math.pow(1024, 2));
-          }
-          if (file.match('.windows-amd64.msi$')) {
-            this.windowsFileName = file;
-            this.windowsFileSize = Math.round(fileSize / Math.pow(1024, 2));
           }
         }
         this.detectOS();
@@ -39,7 +29,7 @@ class DownloadsController {
         if (osTab !== null) {
           osTab.click();
         }
-        this.setDownloadForOS(this.osName);
+        this.setVersion(data[0].version);
       })
       .catch(console.error);
       this.setEventListeners();
@@ -51,40 +41,10 @@ class DownloadsController {
     });
   }
 
-  // Set the download button UI for a specific OS.
-  setDownloadForOS(osName) {
-    const baseURL = '/dl/';
-    let download;
-
-    switch(osName){
-      case 'linux':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Linux';
-        document.querySelector('.js-downloadDescription').textContent =
-          this.linuxFileName + ' (' + this.linuxFileSize + ' MB)';
-        document.querySelector('.js-download').href = baseURL + this.linuxFileName;
-        break;
-      case 'mac':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Mac';
-        document.querySelector('.js-downloadDescription').textContent =
-          this.macFileName + ' (' + this.macFileSize + ' MB)';
-        document.querySelector('.js-download').href = baseURL + this.macFileName;
-        break;
-      case 'windows':
-        document.querySelector('.js-downloadButton').textContent =
-          'Download Go for Windows';
-        document.querySelector('.js-downloadDescription').textContent =
-          this.windowsFileName + ' (' + this.windowsFileSize + ' MB)';
-        document.querySelector('.js-download').href = baseURL + this.windowsFileName;
-        break;
-      default:
-        document.querySelector('.js-downloadButton').textContent = 'Download Go';
-        document.querySelector('.js-downloadDescription').textContent =
-          'Visit the downloads page.';
-        document.querySelector('.js-download').href = baseURL;
-        break;
-    }
+  // Set the download button UI version.
+  setVersion(latest) {
+    document.querySelector('.js-downloadDescription').textContent =
+      `Download (${this.parseVersionNumber(latest)})`;
   }
 
   // Updates install tab with dynamic data.
@@ -133,8 +93,18 @@ class DownloadsController {
   handleTabClick(e) {
     const el = (e.target);
     this.activateTab(Array.prototype.indexOf.call(this.tabs, el));
-    this.setDownloadForOS(el.id);
     this.setInstallTabData(el.id);
+  }
+
+  // get version number.
+  parseVersionNumber(string) {
+    const rx = /(\d+\.)(\d+)(\.\d+)?/g;
+    const matches = rx.exec(string);
+    if (matches?.[0]) {
+      return matches[0];
+    } else {
+      return '';
+    }
   }
 
 }

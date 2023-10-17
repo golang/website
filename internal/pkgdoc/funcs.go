@@ -13,6 +13,7 @@ import (
 	"go/format"
 	"go/printer"
 	"go/token"
+	"html/template"
 	"io"
 	"log"
 	"path"
@@ -22,7 +23,6 @@ import (
 	"unicode/utf8"
 
 	"golang.org/x/website/internal/api"
-	"golang.org/x/website/internal/backport/html/template"
 	"golang.org/x/website/internal/texthtml"
 )
 
@@ -155,11 +155,7 @@ func firstIdent(x []byte) string {
 
 // Comment formats the given documentation comment as HTML.
 func (p *Page) Comment(comment string) template.HTML {
-	var buf bytes.Buffer
-	// TODO(gri) Provide list of words (e.g. function parameters)
-	//           to be emphasized by ToHTML.
-	doc.ToHTML(&buf, comment, nil) // does html-escaping
-	return template.HTML(buf.String())
+	return template.HTML(p.PDoc.HTML(comment))
 }
 
 // sanitize sanitizes the argument src by replacing newlines with
@@ -207,7 +203,7 @@ func sanitize(src template.HTML) template.HTML {
 }
 
 // Since reports the Go version that introduced the API feature
-// identified by kind, reeciver, name.
+// identified by kind, receiver, name.
 func (p *Page) Since(kind, receiver, name string) string {
 	pkg := p.PDoc.ImportPath
 	return p.docs.api.Func(pkg, kind, receiver, name)

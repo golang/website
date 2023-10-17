@@ -47,7 +47,7 @@ See the [announcement post](https://groups.google.com/d/msg/golang-announce/eD8d
 
 This release also coincides with the project's move from Mercurial to Git (for
 source control), Rietveld to Gerrit (for code review), and Google Code to
-Github (for issue tracking and wiki).
+GitHub (for issue tracking and wiki).
 The move affects the core Go repository and its sub-repositories.
 You can find the canonical Git repositories at
 [go.googlesource.com](https://go.googlesource.com),

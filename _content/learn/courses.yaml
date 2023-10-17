@@ -2,23 +2,27 @@
     content: This course covers setting up a Go environment, the fundamentals of
       Go, and will walk you through building a few sample projects.
     url: https://www.codecademy.com/learn/learn-go?utm_source=customer_io&utm_campaign=oct_21_golaunch&utm_medium=email&utm_content=header_img
-    thumbnail: /images/learn/codecademy.png
+    thumbnail: /images/learn/codecademy_light.svg
+    thumbnailDark: /images/learn/codecademy_dark.svg
     cta: Learn more
   - title: Exercism.io
     content: Tackle community-sourced Go challenges in this interactive course,
       working with other participants and mentors along the way.
     url: https://exercism.io/tracks/go
-    thumbnail: /images/learn/exercism.png
+    thumbnail: /images/learn/exercism_light.svg
+    thumbnailDark: /images/learn/exercism_dark.svg
     cta: Learn more
   - title: Google Developers Codelabs
     content: Get started with a free codelab that walks you through using Go to
       build and publish a Google Cloud Function.
     url: https://codelabs.developers.google.com/codelabs/cloud-functions-go-http/#0
-    thumbnail: /images/learn/codelabs.png
+    thumbnail: /images/learn/codelabs_light.svg
+    thumbnailDark: /images/learn/codelabs_dark.svg
     cta: Learn more
   - title: Gophercises
     content: Build your confidence in using Go with this course, where you’ll
       build roughly twenty different Go applications.
     url: https://gophercises.com/
-    thumbnail: /images/learn/gophercises.png
+    thumbnail: /images/learn/gophercises_light.png
+    thumbnailDark: /images/learn/gophercises_dark.png
     cta: Learn more

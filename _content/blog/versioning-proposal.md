@@ -256,7 +256,7 @@ which I filed last week.
 Even though it might look like a complete implementation,
 it’s still just a prototype,
 one that we will all need to work together to complete.
-You can download and try the `vgo` prototype from [golang.org/x/vgo](/x/vgo),
+You can download and try the `vgo` prototype from [golang.org/x/vgo](https://golang.org/x/vgo),
 and you can read the
 [Tour of Versioned Go](https://research.swtch.com/vgo-tour)
 to get a sense of what using `vgo` is like.

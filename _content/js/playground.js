@@ -50,12 +50,17 @@ function HTTPTransport(enableVet) {
     // Backwards compatibility: default values do not affect the output.
     var events = data.Events || [];
     var errors = data.Errors || '';
+    var vetErrors = data.VetErrors || '';
     var status = data.Status || 0;
     var isTest = data.IsTest || false;
     var testsFailed = data.TestsFailed || 0;
 
     var timeout;
     output({ Kind: 'start' });
+    if (vetErrors !== '') {
+      output({ Kind: 'stderr', Body: vetErrors });
+      output({ Kind: 'system', Body: '\nGo vet failed.\n\n' });
+    }
     function next() {
       if (!events || events.length === 0) {
         if (isTest) {
@@ -123,7 +128,7 @@ function HTTPTransport(enableVet) {
       seq++;
       var cur = seq;
       var playing;
-      $.ajax('/_/compile', {
+      $.ajax('/_/compile?backend=' + (options.backend || ''), {
         type: 'POST',
         data: { version: 2, body: body, withVet: enableVet },
         dataType: 'json',
@@ -293,21 +298,11 @@ function PlaygroundOutput(el) {
 
     // autoindent helpers.
     function insertTabs(n) {
-      // find the selection start and end
-      var start = code[0].selectionStart;
-      var end = code[0].selectionEnd;
-      // split the textarea content into two, and insert n tabs
-      var v = code[0].value;
-      var u = v.substr(0, start);
-      for (var i = 0; i < n; i++) {
-        u += '\t';
+      // Without the n > 0 check, Safari cannot type a blank line at the bottom of a playground snippet.
+      // See go.dev/issue/49794.
+      if (n > 0) {
+        document.execCommand('insertText', false, '\t'.repeat(n));
       }
-      u += v.substr(end);
-      // set revised content
-      code[0].value = u;
-      // reset caret position after inserted tabs
-      code[0].selectionStart = start + n;
-      code[0].selectionEnd = start + n;
     }
     function autoindent(el) {
       var curpos = el.selectionStart;
@@ -385,16 +380,24 @@ function PlaygroundOutput(el) {
         .join('/');
     }
 
-    var pushedPlay = window.location.pathname == '/play';
+    var pushedPlay = window.location.pathname == '/play/';
     function inputChanged() {
       if (pushedPlay) {
         return;
       }
       pushedPlay = true;
       $(opts.shareURLEl).hide();
+      $(opts.toysEl).show();
       var path = window.location.pathname;
-      var i = path.indexOf('/play');
-      window.history.pushState(null, '', path.substr(0, i+5));
+      var i = path.indexOf('/play/');
+      var p = path.substr(0, i+6);
+      if (opts.versionEl !== null) {
+        var v = $(opts.versionEl).val();
+        if (v != '') {
+          p += '?v=' + v;
+        }
+      }
+      window.history.pushState(null, '', p);
     }
     function popState(e) {
       if (e === null) {
@@ -416,6 +419,17 @@ function PlaygroundOutput(el) {
       window.addEventListener('popstate', popState);
     }
 
+    function backend() {
+      if (!opts.versionEl) {
+        return '';
+      }
+      var vers = $(opts.versionEl);
+      if (!vers) {
+        return '';
+      }
+      return vers.val();
+    }
+
     function setError(error) {
       if (running) running.Kill();
       lineClear();
@@ -434,7 +448,8 @@ function PlaygroundOutput(el) {
       loading();
       running = transport.Run(
         body(),
-        highlightOutput(PlaygroundOutput(output[0]))
+        highlightOutput(PlaygroundOutput(output[0])),
+        {backend: backend()},
       );
     }
 
@@ -442,7 +457,7 @@ function PlaygroundOutput(el) {
       loading();
       var data = { body: body() };
       data['imports'] = 'true';
-      $.ajax('/_/fmt', {
+      $.ajax('/_/fmt?backend='+backend(), {
         data: data,
         type: 'POST',
         dataType: 'json',
@@ -454,6 +469,9 @@ function PlaygroundOutput(el) {
             setError('');
           }
           run();
+        },
+        error: function() {
+          setError('Error communicating with remote server.');
         },
       });
     }
@@ -489,6 +507,10 @@ function PlaygroundOutput(el) {
       if (sharing) return;
       sharing = true;
 
+      var errorMessages = {
+        413: 'Snippet is too large to share.'
+      };
+
       var sharingData = body();
       $.ajax('/_/share', {
         processData: false,
@@ -498,15 +520,18 @@ function PlaygroundOutput(el) {
         complete: function(xhr) {
           sharing = false;
           if (xhr.status != 200) {
-            alert('Server error; try again.');
+            var alertMsg = errorMessages[xhr.status] ? errorMessages[xhr.status] : 'Server error; try again.';
+            alert(alertMsg);
             return;
           }
           if (opts.shareRedirect) {
             window.location = opts.shareRedirect + xhr.responseText;
           }
           var path = '/play/p/' + xhr.responseText;
+          if (opts.versionEl !== null && $(opts.versionEl).val() != "") {
+            path += "?v=" + $(opts.versionEl).val();
+          }
           var url = origin(window.location) + path;
-
           for (var i = 0; i < shareCallbacks.length; i++) {
             shareCallbacks[i](url);
           }
@@ -519,10 +544,11 @@ function PlaygroundOutput(el) {
               .focus()
               .select();
 
+            $(opts.toysEl).hide();
             if (rewriteHistory) {
               var historyData = { code: sharingData };
               window.history.pushState(historyData, '', path);
-              pushedEmpty = false;
+              pushedPlay = false;
             }
           }
         },
@@ -572,10 +598,28 @@ function PlaygroundOutput(el) {
               return;
             }
             setBody(xhr.responseText);
+            if (toy.includes('-dev') && opts.versionEl !== null) {
+              $(opts.versionEl).val('gotip');
+            }
             run();
           },
         });
       });
+    }
+
+    if (opts.versionEl !== null) {
+     var select = $(opts.versionEl);
+      var v = (new URL(window.location)).searchParams.get('v');
+      if (v !== null && v != "") {
+      	select.val(v);
+        if (select.val() != v) {
+          select.append($('<option>', {value: v, text: 'Backend: ' + v}));
+          select.val(v);
+        }
+      }
+      if (opts.enableHistory) {
+        select.bind('change', inputChanged);
+      }
     }
   }
 

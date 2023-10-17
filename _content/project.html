@@ -1,58 +1,42 @@
 <!--{
 	"Title": "The Go Project",
-	"Template": true,
-	"layout": "article"
+	"layout": "article",
+    "template": true
 }-->
-
-<img class="gopher" src="/doc/gopher/project.png" alt="" />
 
 <div id="manual-nav"></div>
 
 <p>
 Go is an open source project developed by a team at
 <a href="https://google.com/">Google</a> and many
-<a href="/CONTRIBUTORS">contributors</a> from the open source community.
-</p>
-
-<p>
+contributors from the open source community.
 Go is distributed under a <a href="/LICENSE">BSD-style license</a>.
 </p>
 
-<h3 id="announce"><a href="https://groups.google.com/group/golang-announce">Announcements Mailing List</a></h3>
-<p>
-A low traffic mailing list for important announcements, such as new releases.
-</p>
-<p>
-We encourage all Go users to subscribe to
-<a href="https://groups.google.com/group/golang-announce">golang-announce</a>.
-</p>
-
-
 <h2 id="go1">Version history</h2>
 
-<h3 id="release"><a href="/doc/devel/release.html">Release History</a></h3>
-
-<p>A <a href="/doc/devel/release.html">summary</a> of the changes between Go releases. Notes for the major releases:</p>
-
-<ul>
-	{{range releases -}}
-	<li><a href="/doc/go{{.Version}}">Go {{.Version}}</a> <small>({{.Date.Format "January 2006"}})</small></li>
-	{{end -}}
-</ul>
-
-<h3 id="go1compat"><a href="/doc/go1compat">Go 1 and the Future of Go Programs</a></h3>
-<p>
-What Go 1 defines and the backwards-compatibility guarantees one can expect as
-Go 1 matures.
-</p>
-
+<div class="FlatCard-wrapper">
+<div class="FlatCard">
+    <h3 id="release"><a href="/doc/devel/release.html">Release History</a></h3>
+    <p>A <a href="/doc/devel/release.html">summary</a> of the changes between Go releases.</p>
+</div>
+<div class="FlatCard">
+    <h3 id="go1compat"><a href="/doc/go1compat">Go 1 and the Future of Go Programs</a></h3>
+    <p>What Go 1 defines and the backwards-compatibility guarantees one can expect as Go 1 matures.</p>
+</div>
+</div>
 
 <h2 id="resources">Developer Resources</h2>
 
-<h3 id="source"><a href="/change">Source Code</a></h3>
-<p>Check out the Go source code.</p>
+<div class="FlatCard-wrapper">
 
-<h3 id="discuss"><a href="https://groups.google.com/group/golang-nuts">Discussion Mailing List</a></h3>
+<div class="FlatCard">
+<h3 id="source"><a href="/change">Source Code <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
+<p>Check out the Go source code.</p>
+</div>
+
+<div class="FlatCard">
+<h3 id="discuss"><a href="https://groups.google.com/group/golang-nuts">Discussion Mailing List <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
 <p>
 A mailing list for general discussion of Go programming.
 </p>
@@ -60,25 +44,46 @@ A mailing list for general discussion of Go programming.
 Questions about using Go or announcements relevant to other Go users should be sent to
 <a href="https://groups.google.com/group/golang-nuts">golang-nuts</a>.
 </p>
+</div>
 
-<h3 id="golang-dev"><a href="https://groups.google.com/group/golang-dev">Developer</a> and
-<a href="https://groups.google.com/group/golang-codereviews">Code Review Mailing List</a></h3>
+<div class="FlatCard">
+<h3 id="discuss"><a href="https://groups.google.com/group/golang-dev">Developer Mailing List <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
 <p>The <a href="https://groups.google.com/group/golang-dev">golang-dev</a>
 mailing list is for discussing code changes to the Go project.
-The <a href="https://groups.google.com/group/golang-codereviews">golang-codereviews</a>
+</p>
+</div>
+
+<div class="FlatCard">
+<h3 id="golang-dev">
+<a href="https://groups.google.com/group/golang-codereviews">Code Review Mailing List <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
+<p>The <a href="https://groups.google.com/group/golang-codereviews">golang-codereviews</a>
 mailing list is for actual reviewing of the code changes (CLs).</p>
+</div>
 
-<h3 id="golang-checkins"><a href="https://groups.google.com/group/golang-checkins">Checkins Mailing List</a></h3>
+<div class="FlatCard">
+<h3 id="golang-checkins"><a href="https://groups.google.com/group/golang-checkins">Checkins Mailing List <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
 <p>A mailing list that receives a message summarizing each checkin to the Go repository.</p>
+</div>
 
-<h3 id="build_status"><a href="https://build.golang.org/">Build Status</a></h3>
+<div class="FlatCard">
+<h3 id="build_status"><a href="https://build.golang.org/">Build Status <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
 <p>View the status of Go builds across the supported operating
 systems and architectures.</p>
+</div>
 
+<div class="FlatCard">
+<h3 id="faq"><a href="/doc/faq">FAQ</a></h3>
+<p>Answers to common questions about Go.</p>
+</div>
+
+</div>
 
 <h2 id="howto">How you can help</h2>
 
-<h3><a href="/issue">Reporting issues</a></h3>
+<div class="FlatCard-column FlatCard-bottom-spacer">
+
+<div class="FlatCard">
+<h3><a href="/issue">Reporting issues <img src="/images/icons/union.svg" width="12" height="12" aria-hidden="true" /></a></h3>
 
 <p>
 If you spot bugs, mistakes, or inconsistencies in the Go project's code or
@@ -96,15 +101,17 @@ We pride ourselves on being meticulous; no issue is too small.
 <p>
 Security-related issues should be reported to
 <a href="mailto:security@golang.org">security@golang.org</a>.<br>
-See the <a href="/security">security policy</a> for more details.
+See the <a href="/security/policy">security policy</a> for more details.
 </p>
 
 <p>
 Community-related issues should be reported to
-<a href="mailto:conduct@golang.org">conduct@golang.org</a>.<br>
+<a href="mailto:conduct@golang.org">conduct@golang.org</a>.
 See the <a href="/conduct">Code of Conduct</a> for more details.
 </p>
+</div>
 
+<div class="FlatCard">
 <h3><a href="/doc/contribute.html">Contributing code &amp; documentation</a></h3>
 
 <p>
@@ -120,3 +127,6 @@ open issues that interest you. Those labeled
 <a href="https://github.com/golang/go/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22">help wanted</a>
 are particularly in need of outside help.
 </p>
+</div>
+
+</div>

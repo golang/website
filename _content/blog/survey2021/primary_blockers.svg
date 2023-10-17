@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' viewBox='0 0 680.31 680.31'>
+<defs>
+  <style type='text/css'><![CDATA[
+    line, polyline, path, rect, circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<polyline points='288.41,605.07 288.41,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='374.97,605.07 374.97,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='461.53,605.07 461.53,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='548.10,605.07 548.10,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='634.66,605.07 634.66,86.24 ' style='stroke-width: 2.13; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='288.41' y='269.11' width='42.02' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='524.27' width='6.30' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='99.00' width='105.05' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='226.58' width='44.12' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='141.53' width='71.43' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='184.05' width='67.23' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='439.21' width='12.61' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='566.79' width='4.20' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='396.69' width='14.71' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='481.74' width='6.30' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='354.16' width='18.91' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<rect x='288.41' y='311.63' width='39.92' height='25.52' style='stroke-width: 1.07; stroke: #333333; stroke-linecap: square; stroke-linejoin: miter; fill: #3182BD;' />
+<text x='346.64' y='286.95' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='306.97' y='542.11' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='409.67' y='116.84' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>24 %</text>
+<text x='348.74' y='244.42' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>10 %</text>
+<text x='376.05' y='159.37' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>17 %</text>
+<text x='371.85' y='201.90' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='32.41px' lengthAdjust='spacingAndGlyphs'>16 %</text>
+<text x='313.27' y='457.06' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='304.86' y='584.64' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='315.37' y='414.53' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>3 %</text>
+<text x='306.97' y='499.58' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>1 %</text>
+<text x='319.57' y='372.00' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>4 %</text>
+<text x='340.58' y='329.48' style='font-size: 14.23px; fill: #333333; font-family: Arial;' textLength='24.50px' lengthAdjust='spacingAndGlyphs'>9 %</text>
+<text x='114.09' y='584.56' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='152.08px' lengthAdjust='spacingAndGlyphs'>Go isn't enterprise ready</text>
+<text x='85.62' y='534.47' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='180.55px' lengthAdjust='spacingAndGlyphs'>Go lacks educational/support</text>
+<text x='204.70' y='549.59' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='61.47px' lengthAdjust='spacingAndGlyphs'>resources</text>
+<text x='45.91' y='491.95' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='220.25px' lengthAdjust='spacingAndGlyphs'>Concern about Google sponsorship</text>
+<text x='126.09' y='507.07' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='140.08px' lengthAdjust='spacingAndGlyphs'>and stewardship of Go</text>
+<text x='94.19' y='449.42' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='171.98px' lengthAdjust='spacingAndGlyphs'>Difficulty getting approval to</text>
+<text x='128.38' y='464.54' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='137.79px' lengthAdjust='spacingAndGlyphs'>adopt a new language</text>
+<text x='54.15' y='414.45' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='212.02px' lengthAdjust='spacingAndGlyphs'>Go tooling doesn't meet my needs</text>
+<text x='80.20' y='371.93' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='185.97px' lengthAdjust='spacingAndGlyphs'>Difficulty hiring Go developers</text>
+<text x='234.26' y='329.40' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.91px' lengthAdjust='spacingAndGlyphs'>other</text>
+<text x='56.05' y='279.31' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='210.12px' lengthAdjust='spacingAndGlyphs'>Lack of personal/team experience</text>
+<text x='218.71' y='294.43' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='47.46px' lengthAdjust='spacingAndGlyphs'>with Go</text>
+<text x='96.95' y='244.35' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='169.22px' lengthAdjust='spacingAndGlyphs'>Go isn't performant enough</text>
+<text x='101.94' y='186.70' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='164.23px' lengthAdjust='spacingAndGlyphs'>Another language is better</text>
+<text x='73.96' y='201.82' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='192.21px' lengthAdjust='spacingAndGlyphs'>supported by my existing tools/</text>
+<text x='184.47' y='216.94' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='81.70px' lengthAdjust='spacingAndGlyphs'>infrastructure</text>
+<text x='52.21' y='151.73' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='213.96px' lengthAdjust='spacingAndGlyphs'>The Go ecosystem lacks libraries I</text>
+<text x='235.02' y='166.85' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='31.14px' lengthAdjust='spacingAndGlyphs'>need</text>
+<text x='114.42' y='116.77' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='151.75px' lengthAdjust='spacingAndGlyphs'>Go lacks features I need</text>
+<text x='278.29' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='20.23px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='360.96' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>20%</text>
+<text x='447.52' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>40%</text>
+<text x='534.08' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>60%</text>
+<text x='620.65' y='620.01' style='font-size: 14.00px; fill: #333333; font-family: Arial;' textLength='28.02px' lengthAdjust='spacingAndGlyphs'>80%</text>
+<text x='399.27' y='648.59' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='124.52px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='271.10' y='77.39' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='58.27px' lengthAdjust='spacingAndGlyphs'>n =  206</text>
+<text x='271.10' y='39.80' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='340.59px' lengthAdjust='spacingAndGlyphs'>Which reason was the most significant barrier to</text>
+<text x='271.10' y='57.08' style='font-size: 16.00px; fill: #333333; font-family: Arial;' textLength='177.87px' lengthAdjust='spacingAndGlyphs'>using Go for this project?</text>
+</svg>

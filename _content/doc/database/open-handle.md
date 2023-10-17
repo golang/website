@@ -1,5 +1,6 @@
 <!--{
-  "Title": "Opening a database handle"
+  "Title": "Opening a database handle",
+  "Breadcrumb": true
 }-->
 
 The [`database/sql`](https://pkg.go.dev/database/sql) package simplifies

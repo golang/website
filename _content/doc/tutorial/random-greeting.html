@@ -1,5 +1,6 @@
 <!--{
-    "Title": "Return a random greeting"
+    "Title": "Return a random greeting",
+    "Breadcrumb": true
 }-->
 
 <p>
@@ -35,8 +36,7 @@ package greetings
 import (
     "errors"
     "fmt"
-    <ins>"math/rand"
-    "time"</ins>
+    <ins>"math/rand"</ins>
 )
 
 // Hello returns a greeting for the named person.
@@ -50,12 +50,7 @@ func Hello(name string) (string, error) {
     return message, nil
 }
 
-<ins>// init sets initial values for variables used in the function.
-func init() {
-    rand.Seed(time.Now().UnixNano())
-}
-
-// randomFormat returns one of a set of greeting messages. The returned
+<ins>// randomFormat returns one of a set of greeting messages. The returned
 // message is selected at random.
 func randomFormat() string {
     // A slice of message formats.
@@ -95,13 +90,6 @@ func randomFormat() string {
           ><code>math/rand</code> package</a
         >
         to generate a random number for selecting an item from the slice.
-      </li>
-      <li>
-        Add an <code>init</code> function to seed the <code>rand</code> package
-        with the current time. Go executes <code>init</code> functions
-        automatically at program startup, after global variables have been
-        initialized. For more about <code>init</code> functions, see
-        <a href="/doc/effective_go.html#init">Effective Go</a>.
       </li>
       <li>
         In <code>Hello</code>, call the <code>randomFormat</code> function to

@@ -86,7 +86,7 @@ func Format(text []byte, cfg Config) (html []byte) {
 			// pseudo-element. This prevents them from being copied when users
 			// highlight and copy text.
 			// ::before is supported in 98% of browsers: https://caniuse.com/#feat=css-gencontent
-			// This is also the trick Github uses to hide line numbers.
+			// This is also the trick GitHub uses to hide line numbers.
 			//
 			// The first tab for the code snippet needs to start in column 9, so
 			// it indents a full 8 spaces, hence the two nbsp's. Otherwise the tab
@@ -367,7 +367,6 @@ func regexpSelection(text []byte, expr string) Selection {
 // bit 0: comments
 // bit 1: highlights
 // bit 2: selections
-//
 var startTags = [][]byte{
 	/* 000 */ []byte(``),
 	/* 001 */ []byte(`<span class="comment">`),

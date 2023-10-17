@@ -54,7 +54,7 @@ Given such a rewriter, which is going to be our prototype of a real implementati
 [11]
 So let’s design our rewriter. Since we want to rewrite index expressions into methods, we are going to allow two special method names, made up of a sequence of index and assignment operators. I’m calling them indexed getters and indexed setters.
 I have also added the binary operator + to this list. We don’t need it for our proposal, but it’s easier to explain the rewriting process using + down the road, which why it’s here.
-We also going to allow more than one index in index expressions.
+We are also going to allow more than one index in index expressions.
 This doesn’t make sense for the basic indexable data structures (arrays, slices, maps) we have in Go, of course. But it does make sense for our extended indexing operations.
 And finally, we need to give some new meaning to index expressions. The idea is simple: Whenever we see an index expression where the indexed expression, say x, has a respective getter or setter, then the index expression is interpreted as the respective method call.
 This last part is crucial, it’s the core of the rewriter. We’re going to look at it in more detail.
@@ -115,7 +115,7 @@ For instance, using our rewriter, we can now define a Matrix type, effectively r
 Given this Matrix type, we can implement matrix multiplication. I’m showing the core of the multiplication here: On the left, we have the code that we wish to write, and which current Go doesn’t understand, and on the right we have the rewritten version which is valid Go code.
 
 [26]
-Finally, I want to briefly raise an important point which I haven’t talked about yet: During the implementation of a prototype, one will invariable encounter the unexpected. In other words, questions will come up that we didn’t even know we should be asking.
+Finally, I want to briefly raise an important point which I haven’t talked about yet: During the implementation of a prototype, one will invariably encounter the unexpected. In other words, questions will come up that we didn’t even know we should be asking.
 Without a prototype, these same questions will come up much later, when it’s perhaps too late.
 
 [27]
