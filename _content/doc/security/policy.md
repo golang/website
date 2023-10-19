@@ -24,7 +24,7 @@ with the progress until resolution. Your issue will be fixed or made public
 within 90 days.
 
 If you have not received a reply to your email within 7 days, please follow up
-with the Go security team again at
+with the Go Security team again at
 [security@golang.org](mailto:security@golang.org). Please make sure the word
 **vulnerability** is in your email.
 
@@ -37,8 +37,24 @@ report a technical security or an abuse risk related bug in a Google product
 ## Tracks
 
 Depending on the nature of your issue, it will be categorized by the Go
-security team as an issue in the PUBLIC, PRIVATE, or URGENT track. All security
+Security team as an issue in the PUBLIC, PRIVATE, or URGENT track. All security
 issues will be issued CVE numbers.
+
+The Go Security team does not assign traditional fine-grained severity labels
+(e.g CRITICAL, HIGH, MEDIUM, LOW) to security issues because severity depends
+highly on how a user is using the affected API or functionality.
+
+For example, the impact of a resource exhaustion issue in the `encoding/json`
+parser depends on what is being parsed. If the user is parsing trusted JSON
+files from their local filesystem, the impact is likely to be low. If the user
+is parsing untrusted arbitrary JSON from an HTTP request body, the impact may be
+much higher.
+
+That said, the following issue tracks do signal how severe and/or wide-reaching
+the Security team believes an issue to be. For example, an issue with medium to
+significant impact for many users is a PRIVATE track issue in this policy, and
+an issue with negligible to minor impact, or which affects only a small subset
+of users, is a PUBLIC track issue.
 
 ### PUBLIC
 
