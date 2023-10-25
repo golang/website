@@ -124,24 +124,32 @@ func (site *Site) renderHTML(p Page, tmpl string, r *http.Request) ([]byte, erro
 
 	var buf bytes.Buffer
 	if _, ok := p["Content"]; !ok && data != "" {
-		// Load actual Markdown content (also a template).
-		tf := t.New(file)
-		if err := tmplfunc.Parse(tf, data); err != nil {
-			return nil, err
+		// Either the page explicitly requested templating, or it is markdown,
+		// which is treated as a template by default.
+		isTemplate, explicit := p["template"].(bool)
+		tdata := data
+		if !explicit || isTemplate {
+			// Load content as a template.
+			tf := t.New(file)
+			if err := tmplfunc.Parse(tf, data); err != nil {
+				return nil, err
+			}
+			if err := tf.Execute(&buf, p); err != nil {
+				return nil, err
+			}
+			tdata = buf.String()
+			buf.Reset()
 		}
-		if err := tf.Execute(&buf, p); err != nil {
-			return nil, err
-		}
+
 		if strings.HasSuffix(file, ".md") {
-			html, err := markdownToHTML(buf.String())
+			html, err := markdownToHTML(tdata)
 			if err != nil {
 				return nil, err
 			}
 			p["Content"] = html
 		} else {
-			p["Content"] = template.HTML(buf.String())
+			p["Content"] = template.HTML(tdata)
 		}
-		buf.Reset()
 	}
 
 	if err := t.Execute(&buf, p); err != nil {

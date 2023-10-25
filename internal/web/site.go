@@ -51,6 +51,10 @@
 // The key-value pair “layout: name” selects the page layout template with the given name.
 // See the next section, “Page Rendering”, for details about layout and rendering.
 //
+// The key-value pair “template: bool” controls whether the page is treated as an HTML template
+// (see the next section, “Page Rendering”). The default is false for HTML
+// and true for markdown.
+//
 // In addition to these explicit key-value pairs, pages loaded from the file system
 // have a few implicit key-value pairs added by the page loading process:
 //
@@ -529,8 +533,8 @@ func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, p *pageFile) {
 		src = buf.String()
 	}
 
-	// Template is enabled always in Markdown.
-	// It can only be disabled for HTML files.
+	// If the file doesn't ask to be treated as a template and isn't Markdown,
+	// set the page's content to skip templating later, in Site.renderHTML.
 	isTemplate, _ := p.page["template"].(bool)
 	if !isTemplate && !isMarkdown {
 		p.page["Content"] = template.HTML(src)
