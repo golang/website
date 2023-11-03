@@ -173,7 +173,7 @@ func TestReadTests(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"})
+			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"}, nil)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return

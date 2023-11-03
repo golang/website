@@ -159,6 +159,10 @@ type CheckOptions struct {
 	// screentest tries to find the Chrome executable on the system and starts
 	// a new instance.
 	DebuggerURL string
+
+	// If set, only tests for which Filter returns true are included.
+	// Filter is called on the test name.
+	Filter func(string) bool
 }
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
@@ -188,11 +192,11 @@ func CheckHandler(glob string, opts CheckOptions) error {
 	defer cancel()
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, opts.Vars)
+		tests, err := readTests(file, opts.Vars, opts.Filter)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
-		if len(tests) == 0 {
+		if len(tests) == 0 && opts.Filter == nil {
 			return fmt.Errorf("no tests found in %q", file)
 		}
 		if err := cleanOutput(ctx, tests); err != nil {
@@ -248,7 +252,7 @@ func TestHandler(t *testing.T, glob string, opts TestOpts) {
 	)...)
 	defer cancel()
 	for _, file := range files {
-		tests, err := readTests(file, opts.Vars)
+		tests, err := readTests(file, opts.Vars, nil)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -415,7 +419,7 @@ func (t *testcase) String() string {
 }
 
 // readTests parses the testcases from a text file.
-func readTests(file string, vars map[string]string) ([]*testcase, error) {
+func readTests(file string, vars map[string]string, filter func(string) bool) ([]*testcase, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -560,6 +564,9 @@ func readTests(file string, vars map[string]string) ([]*testcase, error) {
 			urlB, err := url.Parse(originB + pathname)
 			if err != nil {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
+			}
+			if filter != nil && !filter(testName) {
+				continue
 			}
 			test := &testcase{
 				name:        testName,

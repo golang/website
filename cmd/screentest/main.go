@@ -9,14 +9,16 @@ Command screentest runs the screentest check for a set of scripts.
 
 The flags are:
 
-	  -u
-	    update cached screenshots
-	  -v
-	    variables provided to script templates as comma separated KEY:VALUE pairs
-	  -c
-	    number of testcases to run concurrently
-		-d
-			chrome debugger url
+	-u
+	  update cached screenshots
+	-v
+	  variables provided to script templates as comma separated KEY:VALUE pairs
+	-c
+	  number of testcases to run concurrently
+	-d
+	  chrome debugger url
+	-run
+	  run only tests matching regexp
 */
 package main
 
@@ -26,6 +28,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 	"runtime"
 	"strings"
 
@@ -37,6 +40,7 @@ var (
 	vars        = flag.String("v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	concurrency = flag.Int("c", (runtime.NumCPU()+1)/2, "number of testcases to run concurrently")
 	debuggerURL = flag.String("d", "", "chrome debugger url")
+	run         = flag.String("run", "", "regexp to match test")
 )
 
 func main() {
@@ -70,6 +74,13 @@ func main() {
 		MaxConcurrency: *concurrency,
 		Vars:           parsedVars,
 		DebuggerURL:    *debuggerURL,
+	}
+	if *run != "" {
+		re, err := regexp.Compile(*run)
+		if err != nil {
+			log.Fatal(err)
+		}
+		opts.Filter = re.MatchString
 	}
 	if err := screentest.CheckHandler(glob, opts); err != nil {
 		log.Fatal(err)
