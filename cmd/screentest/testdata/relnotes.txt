@@ -1,0 +1,13 @@
+windowsize 1536x960
+compare https://go.dev http://localhost:6060/go.dev
+
+
+test rl0
+pathname /doc/go1
+capture fullscreen
+
+{{range ints 1 22}}
+  test rl{{.}}
+  pathname /doc/go1.{{.}}
+  capture fullscreen
+{{end}}

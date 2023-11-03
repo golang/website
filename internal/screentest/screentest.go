@@ -416,7 +416,16 @@ func (t *testcase) String() string {
 
 // readTests parses the testcases from a text file.
 func readTests(file string, vars map[string]string) ([]*testcase, error) {
-	tmpl, err := template.ParseFiles(file)
+	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
+		"ints": func(start, end int) []int {
+			var out []int
+			for i := start; i < end; i++ {
+				out = append(out, i)
+			}
+			return out
+		},
+	})
+	_, err := tmpl.ParseFiles(file)
 	if err != nil {
 		return nil, fmt.Errorf("template.ParseFiles(%q): %w", file, err)
 	}
