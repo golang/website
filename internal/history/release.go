@@ -15,6 +15,22 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2023, 11, 7}, Version: Version{1, 21, 4},
+		Security: &FixSummary{Packages: []string{"path/filepath"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the linker", "the runtime", "the compiler"},
+			Packages:   []string{"go/types", "net/http", "runtime/cgo"},
+		},
+	},
+	{
+		Date: Date{2023, 11, 7}, Version: Version{1, 20, 11},
+		Security: &FixSummary{Packages: []string{"path/filepath"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the linker"},
+			Packages:   []string{"net/http"},
+		},
+	},
+	{
 		Date: Date{2023, 10, 10}, Version: Version{1, 21, 3},
 		Security: &FixSummary{Quantifier: "a", Packages: []string{"net/http"}},
 	},
