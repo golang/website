@@ -140,7 +140,7 @@ func compositeLiterals() {
 }
 
 func runeType() {
-	// STARTRUNE OMIT
+	l            // STARTRUNE OMIT
 	delta := 'δ' // delta has type rune.
 	var DELTA rune
 	DELTA = unicode.ToUpper(delta)
@@ -242,4 +242,27 @@ func osIsExist() {
 		log.Printf("%s already exists", name)
 	}
 	_ = f
+}
+
+func closeExample() {
+	// STARTCLOSE OMIT
+	var c chan int
+	var csend chan<- int = c
+	var crecv <-chan int = c
+	close(c)     // legal
+	close(csend) // legal
+	close(crecv) // illegal
+	// ENDCLOSE OMIT
+}
+
+func Bug() (i, j, k int) {
+	for i = 0; i < 5; i++ {
+		for j := 0; j < 5; j++ { // Redeclares j.
+			k += i * j
+			if k > 100 {
+				return // Rejected: j is shadowed here.
+			}
+		}
+	}
+	return // OK: j is not shadowed here.
 }
