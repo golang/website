@@ -358,13 +358,13 @@ See the relevant package documentation for more information about each change.
     [`DefaultTransport`](/pkg/net/http/#DefaultTransport),
     used by the HTTP client code, now
     enables [TCP
-    keep-alives](http://en.wikipedia.org/wiki/Keepalive#TCP_keepalive) by default.
+    keep-alives](https://en.wikipedia.org/wiki/Keepalive#TCP_keepalive) by default.
     Other [`Transport`](/pkg/net/http/#Transport)
     values with a nil `Dial` field continue to function the same
     as before: no TCP keep-alives are used.
   - The [`net/http`](/pkg/net/http/) package
     now enables [TCP
-    keep-alives](http://en.wikipedia.org/wiki/Keepalive#TCP_keepalive) for incoming server requests when
+    keep-alives](https://en.wikipedia.org/wiki/Keepalive#TCP_keepalive) for incoming server requests when
     [`ListenAndServe`](/pkg/net/http/#ListenAndServe)
     or
     [`ListenAndServeTLS`](/pkg/net/http/#ListenAndServeTLS)
@@ -429,4 +429,4 @@ See the relevant package documentation for more information about each change.
     Also, tests now write profiles (if invoked with profiling flags) even on failure.
   - The [`unicode`](/pkg/unicode/) package and associated
     support throughout the system has been upgraded from
-    Unicode 6.2.0 to [Unicode 6.3.0](http://www.unicode.org/versions/Unicode6.3.0/).
+    Unicode 6.2.0 to [Unicode 6.3.0](https://www.unicode.org/versions/Unicode6.3.0/).

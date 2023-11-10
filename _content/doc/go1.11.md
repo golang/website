@@ -585,7 +585,7 @@ in mind.
 
     <!-- CL 107715 -->
     The `net` package now automatically uses the
-    [`splice` system call](http://man7.org/linux/man-pages/man2/splice.2.html)
+    [`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html)
     on Linux when copying data between TCP connections in
     [`TCPConn.ReadFrom`](/pkg/net/#TCPConn.ReadFrom), as called by
     [`io.Copy`](/pkg/io/#Copy). The result is faster, more efficient TCP proxying.

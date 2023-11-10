@@ -1118,6 +1118,6 @@ in mind.
 
 :   The [`unicode`](/pkg/unicode/) package and associated
     support throughout the system has been upgraded from Unicode 9.0 to
-    [Unicode 10.0](http://www.unicode.org/versions/Unicode10.0.0/),
+    [Unicode 10.0](https://www.unicode.org/versions/Unicode10.0.0/),
     which adds 8,518 new characters, including four new scripts, one new property,
     a Bitcoin currency symbol, and 56 new emoji.

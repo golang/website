@@ -933,11 +933,11 @@ in mind.
     [`ForkExec`](/pkg/syscall/#ForkExec)
     (as used in `exec.Cmd`'s `Run` method)
     will call the
-    [_unshare_(2)](http://man7.org/linux/man-pages/man2/unshare.2.html)
+    [_unshare_(2)](https://man7.org/linux/man-pages/man2/unshare.2.html)
     system call before executing the new program.
 
 [unicode](/pkg/unicode/)
 
 :   The [`unicode`](/pkg/unicode/) package and associated
     support throughout the system has been upgraded from version 8.0 to
-    [Unicode 9.0](http://www.unicode.org/versions/Unicode9.0.0/).
+    [Unicode 9.0](https://www.unicode.org/versions/Unicode9.0.0/).

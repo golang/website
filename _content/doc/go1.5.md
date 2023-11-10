@@ -897,4 +897,4 @@ The fixes harden the implementation against incorrect and malicious inputs.
     which can be used to avoid allocation when printing a time value.
   - The [`unicode`](/pkg/unicode/) package and associated
     support throughout the system has been upgraded from version 7.0 to
-    [Unicode 8.0](http://www.unicode.org/versions/Unicode8.0.0/).
+    [Unicode 8.0](https://www.unicode.org/versions/Unicode8.0.0/).

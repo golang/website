@@ -905,7 +905,7 @@ in mind.
 
 :   The [`unicode`](/pkg/unicode/) package and associated
     support throughout the system has been upgraded from Unicode 10.0 to
-    [Unicode 11.0](http://www.unicode.org/versions/Unicode11.0.0/),
+    [Unicode 11.0](https://www.unicode.org/versions/Unicode11.0.0/),
     which adds 684 new characters, including seven new scripts, and 66 new emoji.
 
 <!-- unicode -->

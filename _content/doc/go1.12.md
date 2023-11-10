@@ -564,7 +564,7 @@ in mind.
     To disable, set it to a negative value.
 
     <!-- CL 113997 -->
-    On Linux, the [`splice` system call](http://man7.org/linux/man-pages/man2/splice.2.html) is now used when copying from a
+    On Linux, the [`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html) is now used when copying from a
     [`UnixConn`](/pkg/net/#UnixConn) to a
     [`TCPConn`](/pkg/net/#TCPConn).
 

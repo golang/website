@@ -286,7 +286,7 @@ Those programs will have to handle those errors in some way, most
 likely looping to try the system call again. For more
 information about this
 see [`man
-  7 signal`](http://man7.org/linux/man-pages/man7/signal.7.html) for Linux systems or similar documentation for
+  7 signal`](https://man7.org/linux/man-pages/man7/signal.7.html) for Linux systems or similar documentation for
 other systems.
 
 <!-- CL 201765, CL 195701 and many others -->
