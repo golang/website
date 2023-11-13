@@ -505,586 +505,586 @@ As always, there are various minor changes and updates to the library,
 made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind.
 
-[archive/zip](/pkg/archive/zip/)
+#### [archive/zip](/pkg/archive/zip/)
 
-:   <!-- CL 243937 -->
-    The new [`Reader.Open`](/pkg/archive/zip/#Reader.Open)
-    method implements the [`fs.FS`](/pkg/io/fs/#FS)
-    interface.
+<!-- CL 243937 -->
+The new [`Reader.Open`](/pkg/archive/zip/#Reader.Open)
+method implements the [`fs.FS`](/pkg/io/fs/#FS)
+interface.
 
-[crypto/dsa](/pkg/crypto/dsa/)
+#### [crypto/dsa](/pkg/crypto/dsa/)
 
-:   <!-- CL 257939 -->
-    The [`crypto/dsa`](/pkg/crypto/dsa/) package is now deprecated.
-    See [issue #40337](/issue/40337).
+<!-- CL 257939 -->
+The [`crypto/dsa`](/pkg/crypto/dsa/) package is now deprecated.
+See [issue #40337](/issue/40337).
 
 <!-- crypto/dsa -->
 
-[crypto/hmac](/pkg/crypto/hmac/)
+#### [crypto/hmac](/pkg/crypto/hmac/)
 
-:   <!-- CL 261960 -->
-    [`New`](/pkg/crypto/hmac/#New) will now panic if
-    separate calls to the hash generation function fail to return new values.
-    Previously, the behavior was undefined and invalid outputs were sometimes
-    generated.
+<!-- CL 261960 -->
+[`New`](/pkg/crypto/hmac/#New) will now panic if
+separate calls to the hash generation function fail to return new values.
+Previously, the behavior was undefined and invalid outputs were sometimes
+generated.
 
 <!-- crypto/hmac -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 256897 -->
-    I/O operations on closing or closed TLS connections can now be detected
-    using the new [`net.ErrClosed`](/pkg/net/#ErrClosed)
-    error. A typical use would be `errors.Is(err, net.ErrClosed)`.
+<!-- CL 256897 -->
+I/O operations on closing or closed TLS connections can now be detected
+using the new [`net.ErrClosed`](/pkg/net/#ErrClosed)
+error. A typical use would be `errors.Is(err, net.ErrClosed)`.
 
-    <!-- CL 266037 -->
-    A default write deadline is now set in
-    [`Conn.Close`](/pkg/crypto/tls/#Conn.Close)
-    before sending the "close notify" alert, in order to prevent blocking
-    indefinitely.
+<!-- CL 266037 -->
+A default write deadline is now set in
+[`Conn.Close`](/pkg/crypto/tls/#Conn.Close)
+before sending the "close notify" alert, in order to prevent blocking
+indefinitely.
 
-    <!-- CL 239748 -->
-    Clients now return a handshake error if the server selects
-    [
-    an ALPN protocol](/pkg/crypto/tls/#ConnectionState.NegotiatedProtocol) that was not in
-    [
-    the list advertised by the client](/pkg/crypto/tls/#Config.NextProtos).
+<!-- CL 239748 -->
+Clients now return a handshake error if the server selects
+[
+an ALPN protocol](/pkg/crypto/tls/#ConnectionState.NegotiatedProtocol) that was not in
+[
+the list advertised by the client](/pkg/crypto/tls/#Config.NextProtos).
 
-    <!-- CL 262857 -->
-    Servers will now prefer other available AEAD cipher suites (such as ChaCha20Poly1305)
-    over AES-GCM cipher suites if either the client or server doesn't have AES hardware
-    support, unless both [
-    `Config.PreferServerCipherSuites`](/pkg/crypto/tls/#Config.PreferServerCipherSuites)
-    and [`Config.CipherSuites`](/pkg/crypto/tls/#Config.CipherSuites)
-    are set. The client is assumed not to have AES hardware support if it does
-    not signal a preference for AES-GCM cipher suites.
+<!-- CL 262857 -->
+Servers will now prefer other available AEAD cipher suites (such as ChaCha20Poly1305)
+over AES-GCM cipher suites if either the client or server doesn't have AES hardware
+support, unless both [
+`Config.PreferServerCipherSuites`](/pkg/crypto/tls/#Config.PreferServerCipherSuites)
+and [`Config.CipherSuites`](/pkg/crypto/tls/#Config.CipherSuites)
+are set. The client is assumed not to have AES hardware support if it does
+not signal a preference for AES-GCM cipher suites.
 
-    <!-- CL 246637 -->
-    [`Config.Clone`](/pkg/crypto/tls/#Config.Clone) now
-    returns nil if the receiver is nil, rather than panicking.
+<!-- CL 246637 -->
+[`Config.Clone`](/pkg/crypto/tls/#Config.Clone) now
+returns nil if the receiver is nil, rather than panicking.
 
 <!-- crypto/tls -->
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   The `GODEBUG=x509ignoreCN=0` flag will be removed in Go 1.17.
-    It enables the legacy behavior of treating the `CommonName`
-    field on X.509 certificates as a host name when no Subject Alternative
-    Names are present.
+The `GODEBUG=x509ignoreCN=0` flag will be removed in Go 1.17.
+It enables the legacy behavior of treating the `CommonName`
+field on X.509 certificates as a host name when no Subject Alternative
+Names are present.
 
-    <!-- CL 235078 -->
-    [`ParseCertificate`](/pkg/crypto/x509/#ParseCertificate) and
-    [`CreateCertificate`](/pkg/crypto/x509/#CreateCertificate)
-    now enforce string encoding restrictions for the `DNSNames`,
-    `EmailAddresses`, and `URIs` fields. These fields
-    can only contain strings with characters within the ASCII range.
+<!-- CL 235078 -->
+[`ParseCertificate`](/pkg/crypto/x509/#ParseCertificate) and
+[`CreateCertificate`](/pkg/crypto/x509/#CreateCertificate)
+now enforce string encoding restrictions for the `DNSNames`,
+`EmailAddresses`, and `URIs` fields. These fields
+can only contain strings with characters within the ASCII range.
 
-    <!-- CL 259697 -->
-    [`CreateCertificate`](/pkg/crypto/x509/#CreateCertificate)
-    now verifies the generated certificate's signature using the signer's
-    public key. If the signature is invalid, an error is returned, instead of
-    a malformed certificate.
+<!-- CL 259697 -->
+[`CreateCertificate`](/pkg/crypto/x509/#CreateCertificate)
+now verifies the generated certificate's signature using the signer's
+public key. If the signature is invalid, an error is returned, instead of
+a malformed certificate.
 
-    <!-- CL 257939 -->
-    DSA signature verification is no longer supported. Note that DSA signature
-    generation was never supported.
-    See [issue #40337](/issue/40337).
+<!-- CL 257939 -->
+DSA signature verification is no longer supported. Note that DSA signature
+generation was never supported.
+See [issue #40337](/issue/40337).
 
-    <!-- CL 257257 -->
-    On Windows, [`Certificate.Verify`](/pkg/crypto/x509/#Certificate.Verify)
-    will now return all certificate chains that are built by the platform
-    certificate verifier, instead of just the highest ranked chain.
+<!-- CL 257257 -->
+On Windows, [`Certificate.Verify`](/pkg/crypto/x509/#Certificate.Verify)
+will now return all certificate chains that are built by the platform
+certificate verifier, instead of just the highest ranked chain.
 
-    <!-- CL 262343 -->
-    The new [`SystemRootsError.Unwrap`](/pkg/crypto/x509/#SystemRootsError.Unwrap)
-    method allows accessing the [`Err`](/pkg/crypto/x509/#SystemRootsError.Err)
-    field through the [`errors`](/pkg/errors) package functions.
+<!-- CL 262343 -->
+The new [`SystemRootsError.Unwrap`](/pkg/crypto/x509/#SystemRootsError.Unwrap)
+method allows accessing the [`Err`](/pkg/crypto/x509/#SystemRootsError.Err)
+field through the [`errors`](/pkg/errors) package functions.
 
-    <!-- CL 230025 -->
-    On Unix systems, the `crypto/x509` package is now more
-    efficient in how it stores its copy of the system cert pool.
-    Programs that use only a small number of roots will use around a
-    half megabyte less memory.
+<!-- CL 230025 -->
+On Unix systems, the `crypto/x509` package is now more
+efficient in how it stores its copy of the system cert pool.
+Programs that use only a small number of roots will use around a
+half megabyte less memory.
 
 <!-- crypto/x509 -->
 
-[debug/elf](/pkg/debug/elf/)
+#### [debug/elf](/pkg/debug/elf/)
 
-:   <!-- CL 255138 -->
-    More [`DT`](/pkg/debug/elf/#DT_NULL)
-    and [`PT`](/pkg/debug/elf/#PT_NULL)
-    constants have been added.
+<!-- CL 255138 -->
+More [`DT`](/pkg/debug/elf/#DT_NULL)
+and [`PT`](/pkg/debug/elf/#PT_NULL)
+constants have been added.
 
 <!-- debug/elf -->
 
-[encoding/asn1](/pkg/encoding/asn1)
+#### [encoding/asn1](/pkg/encoding/asn1)
 
-:   <!-- CL 255881 -->
-    [`Unmarshal`](/pkg/encoding/asn1/#Unmarshal) and
-    [`UnmarshalWithParams`](/pkg/encoding/asn1/#UnmarshalWithParams)
-    now return an error instead of panicking when the argument is not
-    a pointer or is nil. This change matches the behavior of other
-    encoding packages such as [`encoding/json`](/pkg/encoding/json).
+<!-- CL 255881 -->
+[`Unmarshal`](/pkg/encoding/asn1/#Unmarshal) and
+[`UnmarshalWithParams`](/pkg/encoding/asn1/#UnmarshalWithParams)
+now return an error instead of panicking when the argument is not
+a pointer or is nil. This change matches the behavior of other
+encoding packages such as [`encoding/json`](/pkg/encoding/json).
 
-[encoding/json](/pkg/encoding/json/)
+#### [encoding/json](/pkg/encoding/json/)
 
-:   <!-- CL 234818 -->
-    The `json` struct field tags understood by
-    [`Marshal`](/pkg/encoding/json/#Marshal),
-    [`Unmarshal`](/pkg/encoding/json/#Unmarshal),
-    and related functionality now permit semicolon characters within
-    a JSON object name for a Go struct field.
+<!-- CL 234818 -->
+The `json` struct field tags understood by
+[`Marshal`](/pkg/encoding/json/#Marshal),
+[`Unmarshal`](/pkg/encoding/json/#Unmarshal),
+and related functionality now permit semicolon characters within
+a JSON object name for a Go struct field.
 
 <!-- encoding/json -->
 
-[encoding/xml](/pkg/encoding/xml/)
+#### [encoding/xml](/pkg/encoding/xml/)
 
-:   <!-- CL 264024 -->
-    The encoder has always taken care to avoid using namespace prefixes
-    beginning with `xml`, which are reserved by the XML
-    specification.
-    Now, following the specification more closely, that check is
-    case-insensitive, so that prefixes beginning
-    with `XML`, `XmL`, and so on are also
-    avoided.
+<!-- CL 264024 -->
+The encoder has always taken care to avoid using namespace prefixes
+beginning with `xml`, which are reserved by the XML
+specification.
+Now, following the specification more closely, that check is
+case-insensitive, so that prefixes beginning
+with `XML`, `XmL`, and so on are also
+avoided.
 
 <!-- encoding/xml -->
 
-[flag](/pkg/flag/)
+#### [flag](/pkg/flag/)
 
-:   <!-- CL 240014 -->
-    The new [`Func`](/pkg/flag/#Func) function
-    allows registering a flag implemented by calling a function,
-    as a lighter-weight alternative to implementing the
-    [`Value`](/pkg/flag/#Value) interface.
+<!-- CL 240014 -->
+The new [`Func`](/pkg/flag/#Func) function
+allows registering a flag implemented by calling a function,
+as a lighter-weight alternative to implementing the
+[`Value`](/pkg/flag/#Value) interface.
 
 <!-- flag -->
 
-[go/build](/pkg/go/build/)
+#### [go/build](/pkg/go/build/)
 
-:   <!-- CL 243941, CL 283636 -->
-    The [`Package`](/pkg/go/build/#Package)
-    struct has new fields that report information
-    about `//go:embed` directives in the package:
-    [`EmbedPatterns`](/pkg/go/build/#Package.EmbedPatterns),
-    [`EmbedPatternPos`](/pkg/go/build/#Package.EmbedPatternPos),
-    [`TestEmbedPatterns`](/pkg/go/build/#Package.TestEmbedPatterns),
-    [`TestEmbedPatternPos`](/pkg/go/build/#Package.TestEmbedPatternPos),
-    [`XTestEmbedPatterns`](/pkg/go/build/#Package.XTestEmbedPatterns),
-    [`XTestEmbedPatternPos`](/pkg/go/build/#Package.XTestEmbedPatternPos).
+<!-- CL 243941, CL 283636 -->
+The [`Package`](/pkg/go/build/#Package)
+struct has new fields that report information
+about `//go:embed` directives in the package:
+[`EmbedPatterns`](/pkg/go/build/#Package.EmbedPatterns),
+[`EmbedPatternPos`](/pkg/go/build/#Package.EmbedPatternPos),
+[`TestEmbedPatterns`](/pkg/go/build/#Package.TestEmbedPatterns),
+[`TestEmbedPatternPos`](/pkg/go/build/#Package.TestEmbedPatternPos),
+[`XTestEmbedPatterns`](/pkg/go/build/#Package.XTestEmbedPatterns),
+[`XTestEmbedPatternPos`](/pkg/go/build/#Package.XTestEmbedPatternPos).
 
-    <!-- CL 240551 -->
-    The [`Package`](/pkg/go/build/#Package) field
-    [`IgnoredGoFiles`](/pkg/go/build/#Package.IgnoredGoFiles)
-    will no longer include files that start with "\_" or ".",
-    as those files are always ignored.
-    `IgnoredGoFiles` is for files ignored because of
-    build constraints.
+<!-- CL 240551 -->
+The [`Package`](/pkg/go/build/#Package) field
+[`IgnoredGoFiles`](/pkg/go/build/#Package.IgnoredGoFiles)
+will no longer include files that start with "\_" or ".",
+as those files are always ignored.
+`IgnoredGoFiles` is for files ignored because of
+build constraints.
 
-    <!-- CL 240551 -->
-    The new [`Package`](/pkg/go/build/#Package)
-    field [`IgnoredOtherFiles`](/pkg/go/build/#Package.IgnoredOtherFiles)
-    has a list of non-Go files ignored because of build constraints.
+<!-- CL 240551 -->
+The new [`Package`](/pkg/go/build/#Package)
+field [`IgnoredOtherFiles`](/pkg/go/build/#Package.IgnoredOtherFiles)
+has a list of non-Go files ignored because of build constraints.
 
 <!-- go/build -->
 
-[go/build/constraint](/pkg/go/build/constraint/)
+#### [go/build/constraint](/pkg/go/build/constraint/)
 
-:   <!-- CL 240604 -->
-    The new
-    [`go/build/constraint`](/pkg/go/build/constraint/)
-    package parses build constraint lines, both the original
-    `// +build` syntax and the `//go:build`
-    syntax that will be introduced in Go 1.17.
-    This package exists so that tools built with Go 1.16 will be able
-    to process Go 1.17 source code.
-    See [https://golang.org/design/draft-gobuild](/design/draft-gobuild)
-    for details about the build constraint syntaxes and the planned
-    transition to the `//go:build` syntax.
-    Note that `//go:build` lines are **not** supported
-    in Go 1.16 and should not be introduced into Go programs yet.
+<!-- CL 240604 -->
+The new
+[`go/build/constraint`](/pkg/go/build/constraint/)
+package parses build constraint lines, both the original
+`// +build` syntax and the `//go:build`
+syntax that will be introduced in Go 1.17.
+This package exists so that tools built with Go 1.16 will be able
+to process Go 1.17 source code.
+See [https://golang.org/design/draft-gobuild](/design/draft-gobuild)
+for details about the build constraint syntaxes and the planned
+transition to the `//go:build` syntax.
+Note that `//go:build` lines are **not** supported
+in Go 1.16 and should not be introduced into Go programs yet.
 
 <!-- go/build/constraint -->
 
-[html/template](/pkg/html/template/)
+#### [html/template](/pkg/html/template/)
 
-:   <!-- CL 243938 -->
-    The new [`template.ParseFS`](/pkg/html/template/#ParseFS)
-    function and [`template.Template.ParseFS`](/pkg/html/template/#Template.ParseFS)
-    method are like [`template.ParseGlob`](/pkg/html/template/#ParseGlob)
-    and [`template.Template.ParseGlob`](/pkg/html/template/#Template.ParseGlob),
-    but read the templates from an [`fs.FS`](/pkg/io/fs/#FS).
+<!-- CL 243938 -->
+The new [`template.ParseFS`](/pkg/html/template/#ParseFS)
+function and [`template.Template.ParseFS`](/pkg/html/template/#Template.ParseFS)
+method are like [`template.ParseGlob`](/pkg/html/template/#ParseGlob)
+and [`template.Template.ParseGlob`](/pkg/html/template/#Template.ParseGlob),
+but read the templates from an [`fs.FS`](/pkg/io/fs/#FS).
 
 <!-- html/template -->
 
-[io](/pkg/io/)
+#### [io](/pkg/io/)
 
-:   <!-- CL 261577 -->
-    The package now defines a
-    [`ReadSeekCloser`](/pkg/io/#ReadSeekCloser) interface.
+<!-- CL 261577 -->
+The package now defines a
+[`ReadSeekCloser`](/pkg/io/#ReadSeekCloser) interface.
 
-    <!-- CL 263141 -->
-    The package now defines
-    [`Discard`](/pkg/io/#Discard),
-    [`NopCloser`](/pkg/io/#NopCloser), and
-    [`ReadAll`](/pkg/io/#ReadAll),
-    to be used instead of the same names in the
-    [`io/ioutil`](/pkg/io/ioutil/) package.
+<!-- CL 263141 -->
+The package now defines
+[`Discard`](/pkg/io/#Discard),
+[`NopCloser`](/pkg/io/#NopCloser), and
+[`ReadAll`](/pkg/io/#ReadAll),
+to be used instead of the same names in the
+[`io/ioutil`](/pkg/io/ioutil/) package.
 
 <!-- io -->
 
-[log](/pkg/log/)
+#### [log](/pkg/log/)
 
-:   <!-- CL 264460 -->
-    The new [`Default`](/pkg/log/#Default) function
-    provides access to the default [`Logger`](/pkg/log/#Logger).
+<!-- CL 264460 -->
+The new [`Default`](/pkg/log/#Default) function
+provides access to the default [`Logger`](/pkg/log/#Logger).
 
 <!-- log -->
 
-[log/syslog](/pkg/log/syslog/)
+#### [log/syslog](/pkg/log/syslog/)
 
-:   <!-- CL 264297 -->
-    The [`Writer`](/pkg/log/syslog/#Writer)
-    now uses the local message format
-    (omitting the host name and using a shorter time stamp)
-    when logging to custom Unix domain sockets,
-    matching the format already used for the default log socket.
+<!-- CL 264297 -->
+The [`Writer`](/pkg/log/syslog/#Writer)
+now uses the local message format
+(omitting the host name and using a shorter time stamp)
+when logging to custom Unix domain sockets,
+matching the format already used for the default log socket.
 
 <!-- log/syslog -->
 
-[mime/multipart](/pkg/mime/multipart/)
+#### [mime/multipart](/pkg/mime/multipart/)
 
-:   <!-- CL 247477 -->
-    The [`Reader`](/pkg/mime/multipart/#Reader)'s
-    [`ReadForm`](/pkg/mime/multipart/#Reader.ReadForm)
-    method no longer rejects form data
-    when passed the maximum int64 value as a limit.
+<!-- CL 247477 -->
+The [`Reader`](/pkg/mime/multipart/#Reader)'s
+[`ReadForm`](/pkg/mime/multipart/#Reader.ReadForm)
+method no longer rejects form data
+when passed the maximum int64 value as a limit.
 
 <!-- mime/multipart -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- CL 250357 -->
-    The case of I/O on a closed network connection, or I/O on a network
-    connection that is closed before any of the I/O completes, can now
-    be detected using the new [`ErrClosed`](/pkg/net/#ErrClosed)
-    error. A typical use would be `errors.Is(err, net.ErrClosed)`.
-    In earlier releases the only way to reliably detect this case was to
-    match the string returned by the `Error` method
-    with `"use of closed network connection"`.
+<!-- CL 250357 -->
+The case of I/O on a closed network connection, or I/O on a network
+connection that is closed before any of the I/O completes, can now
+be detected using the new [`ErrClosed`](/pkg/net/#ErrClosed)
+error. A typical use would be `errors.Is(err, net.ErrClosed)`.
+In earlier releases the only way to reliably detect this case was to
+match the string returned by the `Error` method
+with `"use of closed network connection"`.
 
-    <!-- CL 255898 -->
-    In previous Go releases the default TCP listener backlog size on Linux systems,
-    set by `/proc/sys/net/core/somaxconn`, was limited to a maximum of `65535`.
-    On Linux kernel version 4.1 and above, the maximum is now `4294967295`.
+<!-- CL 255898 -->
+In previous Go releases the default TCP listener backlog size on Linux systems,
+set by `/proc/sys/net/core/somaxconn`, was limited to a maximum of `65535`.
+On Linux kernel version 4.1 and above, the maximum is now `4294967295`.
 
-    <!-- CL 238629 -->
-    On Linux, host name lookups no longer use DNS before checking
-    `/etc/hosts` when `/etc/nsswitch.conf`
-    is missing; this is common on musl-based systems and makes
-    Go programs match the behavior of C programs on those systems.
+<!-- CL 238629 -->
+On Linux, host name lookups no longer use DNS before checking
+`/etc/hosts` when `/etc/nsswitch.conf`
+is missing; this is common on musl-based systems and makes
+Go programs match the behavior of C programs on those systems.
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- CL 233637 -->
-    In the [`net/http`](/pkg/net/http/) package, the
-    behavior of [`StripPrefix`](/pkg/net/http/#StripPrefix)
-    has been changed to strip the prefix from the request URL's
-    `RawPath` field in addition to its `Path` field.
-    In past releases, only the `Path` field was trimmed, and so if the
-    request URL contained any escaped characters the URL would be modified to
-    have mismatched `Path` and `RawPath` fields.
-    In Go 1.16, `StripPrefix` trims both fields.
-    If there are escaped characters in the prefix part of the request URL the
-    handler serves a 404 instead of its previous behavior of invoking the
-    underlying handler with a mismatched `Path`/`RawPath` pair.
+<!-- CL 233637 -->
+In the [`net/http`](/pkg/net/http/) package, the
+behavior of [`StripPrefix`](/pkg/net/http/#StripPrefix)
+has been changed to strip the prefix from the request URL's
+`RawPath` field in addition to its `Path` field.
+In past releases, only the `Path` field was trimmed, and so if the
+request URL contained any escaped characters the URL would be modified to
+have mismatched `Path` and `RawPath` fields.
+In Go 1.16, `StripPrefix` trims both fields.
+If there are escaped characters in the prefix part of the request URL the
+handler serves a 404 instead of its previous behavior of invoking the
+underlying handler with a mismatched `Path`/`RawPath` pair.
 
-    <!-- CL 252497 -->
-    The [`net/http`](/pkg/net/http/) package now rejects HTTP range requests
-    of the form `"Range": "bytes=--N"` where `"-N"` is a negative suffix length, for
-    example `"Range": "bytes=--2"`. It now replies with a `416 "Range Not Satisfiable"` response.
+<!-- CL 252497 -->
+The [`net/http`](/pkg/net/http/) package now rejects HTTP range requests
+of the form `"Range": "bytes=--N"` where `"-N"` is a negative suffix length, for
+example `"Range": "bytes=--2"`. It now replies with a `416 "Range Not Satisfiable"` response.
 
-    <!-- CL 256498, golang.org/issue/36990 -->
-    Cookies set with [`SameSiteDefaultMode`](/pkg/net/http/#SameSiteDefaultMode)
-    now behave according to the current spec (no attribute is set) instead of
-    generating a SameSite key without a value.
+<!-- CL 256498, golang.org/issue/36990 -->
+Cookies set with [`SameSiteDefaultMode`](/pkg/net/http/#SameSiteDefaultMode)
+now behave according to the current spec (no attribute is set) instead of
+generating a SameSite key without a value.
 
-    <!-- CL 250039 -->
-    The [`Client`](/pkg/net/http/#Client) now sends
-    an explicit `Content-Length:` `0`
-    header in `PATCH` requests with empty bodies,
-    matching the existing behavior of `POST` and `PUT`.
+<!-- CL 250039 -->
+The [`Client`](/pkg/net/http/#Client) now sends
+an explicit `Content-Length:` `0`
+header in `PATCH` requests with empty bodies,
+matching the existing behavior of `POST` and `PUT`.
 
-    <!-- CL 249440 -->
-    The [`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment)
-    function no longer returns the setting of the `HTTP_PROXY`
-    environment variable for `https://` URLs when
-    `HTTPS_PROXY` is unset.
+<!-- CL 249440 -->
+The [`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment)
+function no longer returns the setting of the `HTTP_PROXY`
+environment variable for `https://` URLs when
+`HTTPS_PROXY` is unset.
 
-    <!-- 259917 -->
-    The [`Transport`](/pkg/net/http/#Transport)
-    type has a new field
-    [`GetProxyConnectHeader`](/pkg/net/http/#Transport.GetProxyConnectHeader)
-    which may be set to a function that returns headers to send to a
-    proxy during a `CONNECT` request.
-    In effect `GetProxyConnectHeader` is a dynamic
-    version of the existing field
-    [`ProxyConnectHeader`](/pkg/net/http/#Transport.ProxyConnectHeader);
-    if `GetProxyConnectHeader` is not `nil`,
-    then `ProxyConnectHeader` is ignored.
+<!-- 259917 -->
+The [`Transport`](/pkg/net/http/#Transport)
+type has a new field
+[`GetProxyConnectHeader`](/pkg/net/http/#Transport.GetProxyConnectHeader)
+which may be set to a function that returns headers to send to a
+proxy during a `CONNECT` request.
+In effect `GetProxyConnectHeader` is a dynamic
+version of the existing field
+[`ProxyConnectHeader`](/pkg/net/http/#Transport.ProxyConnectHeader);
+if `GetProxyConnectHeader` is not `nil`,
+then `ProxyConnectHeader` is ignored.
 
-    <!-- CL 243939 -->
-    The new [`http.FS`](/pkg/net/http/#FS)
-    function converts an [`fs.FS`](/pkg/io/fs/#FS)
-    to an [`http.FileSystem`](/pkg/net/http/#FileSystem).
+<!-- CL 243939 -->
+The new [`http.FS`](/pkg/net/http/#FS)
+function converts an [`fs.FS`](/pkg/io/fs/#FS)
+to an [`http.FileSystem`](/pkg/net/http/#FileSystem).
 
 <!-- net/http -->
 
-[net/http/httputil](/pkg/net/http/httputil/)
+#### [net/http/httputil](/pkg/net/http/httputil/)
 
-:   <!-- CL 260637 -->
-    [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
-    now flushes buffered data more aggressively when proxying
-    streamed responses with unknown body lengths.
+<!-- CL 260637 -->
+[`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
+now flushes buffered data more aggressively when proxying
+streamed responses with unknown body lengths.
 
 <!-- net/http/httputil -->
 
-[net/smtp](/pkg/net/smtp/)
+#### [net/smtp](/pkg/net/smtp/)
 
-:   <!-- CL 247257 -->
-    The [`Client`](/pkg/net/smtp/#Client)'s
-    [`Mail`](/pkg/net/smtp/#Client.Mail)
-    method now sends the `SMTPUTF8` directive to
-    servers that support it, signaling that addresses are encoded in UTF-8.
+<!-- CL 247257 -->
+The [`Client`](/pkg/net/smtp/#Client)'s
+[`Mail`](/pkg/net/smtp/#Client.Mail)
+method now sends the `SMTPUTF8` directive to
+servers that support it, signaling that addresses are encoded in UTF-8.
 
 <!-- net/smtp -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- CL 242998 -->
-    [`Process.Signal`](/pkg/os/#Process.Signal) now
-    returns [`ErrProcessDone`](/pkg/os/#ErrProcessDone)
-    instead of the unexported `errFinished` when the process has
-    already finished.
+<!-- CL 242998 -->
+[`Process.Signal`](/pkg/os/#Process.Signal) now
+returns [`ErrProcessDone`](/pkg/os/#ErrProcessDone)
+instead of the unexported `errFinished` when the process has
+already finished.
 
-    <!-- CL 261540 -->
-    The package defines a new type
-    [`DirEntry`](/pkg/os/#DirEntry)
-    as an alias for [`fs.DirEntry`](/pkg/io/fs/#DirEntry).
-    The new [`ReadDir`](/pkg/os/#ReadDir)
-    function and the new
-    [`File.ReadDir`](/pkg/os/#File.ReadDir)
-    method can be used to read the contents of a directory into a
-    slice of [`DirEntry`](/pkg/os/#DirEntry).
-    The [`File.Readdir`](/pkg/os/#File.Readdir)
-    method (note the lower case `d` in `dir`)
-    still exists, returning a slice of
-    [`FileInfo`](/pkg/os/#FileInfo), but for
-    most programs it will be more efficient to switch to
-    [`File.ReadDir`](/pkg/os/#File.ReadDir).
+<!-- CL 261540 -->
+The package defines a new type
+[`DirEntry`](/pkg/os/#DirEntry)
+as an alias for [`fs.DirEntry`](/pkg/io/fs/#DirEntry).
+The new [`ReadDir`](/pkg/os/#ReadDir)
+function and the new
+[`File.ReadDir`](/pkg/os/#File.ReadDir)
+method can be used to read the contents of a directory into a
+slice of [`DirEntry`](/pkg/os/#DirEntry).
+The [`File.Readdir`](/pkg/os/#File.Readdir)
+method (note the lower case `d` in `dir`)
+still exists, returning a slice of
+[`FileInfo`](/pkg/os/#FileInfo), but for
+most programs it will be more efficient to switch to
+[`File.ReadDir`](/pkg/os/#File.ReadDir).
 
-    <!-- CL 263141 -->
-    The package now defines
-    [`CreateTemp`](/pkg/os/#CreateTemp),
-    [`MkdirTemp`](/pkg/os/#MkdirTemp),
-    [`ReadFile`](/pkg/os/#ReadFile), and
-    [`WriteFile`](/pkg/os/#WriteFile),
-    to be used instead of functions defined in the
-    [`io/ioutil`](/pkg/io/ioutil/) package.
+<!-- CL 263141 -->
+The package now defines
+[`CreateTemp`](/pkg/os/#CreateTemp),
+[`MkdirTemp`](/pkg/os/#MkdirTemp),
+[`ReadFile`](/pkg/os/#ReadFile), and
+[`WriteFile`](/pkg/os/#WriteFile),
+to be used instead of functions defined in the
+[`io/ioutil`](/pkg/io/ioutil/) package.
 
-    <!-- CL 243906 -->
-    The types [`FileInfo`](/pkg/os/#FileInfo),
-    [`FileMode`](/pkg/os/#FileMode), and
-    [`PathError`](/pkg/os/#PathError)
-    are now aliases for types of the same name in the
-    [`io/fs`](/pkg/io/fs/) package.
-    Function signatures in the [`os`](/pkg/os/)
-    package have been updated to refer to the names in the
-    [`io/fs`](/pkg/io/fs/) package.
-    This should not affect any existing code.
+<!-- CL 243906 -->
+The types [`FileInfo`](/pkg/os/#FileInfo),
+[`FileMode`](/pkg/os/#FileMode), and
+[`PathError`](/pkg/os/#PathError)
+are now aliases for types of the same name in the
+[`io/fs`](/pkg/io/fs/) package.
+Function signatures in the [`os`](/pkg/os/)
+package have been updated to refer to the names in the
+[`io/fs`](/pkg/io/fs/) package.
+This should not affect any existing code.
 
-    <!-- CL 243911 -->
-    The new [`DirFS`](/pkg/os/#DirFS) function
-    provides an implementation of
-    [`fs.FS`](/pkg/io/fs/#FS) backed by a tree
-    of operating system files.
+<!-- CL 243911 -->
+The new [`DirFS`](/pkg/os/#DirFS) function
+provides an implementation of
+[`fs.FS`](/pkg/io/fs/#FS) backed by a tree
+of operating system files.
 
 <!-- os -->
 
-[os/signal](/pkg/os/signal/)
+#### [os/signal](/pkg/os/signal/)
 
-:   <!-- CL 219640 -->
-    The new
-    [`NotifyContext`](/pkg/os/signal/#NotifyContext)
-    function allows creating contexts that are canceled upon arrival of
-    specific signals.
+<!-- CL 219640 -->
+The new
+[`NotifyContext`](/pkg/os/signal/#NotifyContext)
+function allows creating contexts that are canceled upon arrival of
+specific signals.
 
 <!-- os/signal -->
 
-[path](/pkg/path/)
+#### [path](/pkg/path/)
 
-:   <!-- CL 264397, golang.org/issues/28614 -->
-    The [`Match`](/pkg/path/#Match) function now
-    returns an error if the unmatched part of the pattern has a
-    syntax error. Previously, the function returned early on a failed
-    match, and thus did not report any later syntax error in the
-    pattern.
+<!-- CL 264397, golang.org/issues/28614 -->
+The [`Match`](/pkg/path/#Match) function now
+returns an error if the unmatched part of the pattern has a
+syntax error. Previously, the function returned early on a failed
+match, and thus did not report any later syntax error in the
+pattern.
 
 <!-- path -->
 
-[path/filepath](/pkg/path/filepath/)
+#### [path/filepath](/pkg/path/filepath/)
 
-:   <!-- CL 267887 -->
-    The new function
-    [`WalkDir`](/pkg/path/filepath/#WalkDir)
-    is similar to
-    [`Walk`](/pkg/path/filepath/#Walk),
-    but is typically more efficient.
-    The function passed to `WalkDir` receives a
-    [`fs.DirEntry`](/pkg/io/fs/#DirEntry)
-    instead of a
-    [`fs.FileInfo`](/pkg/io/fs/#FileInfo).
-    (To clarify for those who recall the `Walk` function
-    as taking an [`os.FileInfo`](/pkg/os/#FileInfo),
-    `os.FileInfo` is now an alias for `fs.FileInfo`.)
+<!-- CL 267887 -->
+The new function
+[`WalkDir`](/pkg/path/filepath/#WalkDir)
+is similar to
+[`Walk`](/pkg/path/filepath/#Walk),
+but is typically more efficient.
+The function passed to `WalkDir` receives a
+[`fs.DirEntry`](/pkg/io/fs/#DirEntry)
+instead of a
+[`fs.FileInfo`](/pkg/io/fs/#FileInfo).
+(To clarify for those who recall the `Walk` function
+as taking an [`os.FileInfo`](/pkg/os/#FileInfo),
+`os.FileInfo` is now an alias for `fs.FileInfo`.)
 
-    <!-- CL 264397, golang.org/issues/28614 -->
-    The [`Match`](/pkg/path/filepath#Match) and
-    [`Glob`](/pkg/path/filepath#Glob) functions now
-    return an error if the unmatched part of the pattern has a
-    syntax error. Previously, the functions returned early on a failed
-    match, and thus did not report any later syntax error in the
-    pattern.
+<!-- CL 264397, golang.org/issues/28614 -->
+The [`Match`](/pkg/path/filepath#Match) and
+[`Glob`](/pkg/path/filepath#Glob) functions now
+return an error if the unmatched part of the pattern has a
+syntax error. Previously, the functions returned early on a failed
+match, and thus did not report any later syntax error in the
+pattern.
 
 <!-- path/filepath -->
 
-[reflect](/pkg/reflect/)
+#### [reflect](/pkg/reflect/)
 
-:   <!-- CL 192331 -->
-    The Zero function has been optimized to avoid allocations. Code
-    which incorrectly compares the returned Value to another Value
-    using == or DeepEqual may get different results than those
-    obtained in previous Go versions. The documentation
-    for [`reflect.Value`](/pkg/reflect#Value)
-    describes how to compare two `Value`s correctly.
+<!-- CL 192331 -->
+The Zero function has been optimized to avoid allocations. Code
+which incorrectly compares the returned Value to another Value
+using == or DeepEqual may get different results than those
+obtained in previous Go versions. The documentation
+for [`reflect.Value`](/pkg/reflect#Value)
+describes how to compare two `Value`s correctly.
 
 <!-- reflect -->
 
-[runtime/debug](/pkg/runtime/debug/)
+#### [runtime/debug](/pkg/runtime/debug/)
 
-:   <!-- CL 249677 -->
-    The [`runtime.Error`](/pkg/runtime#Error) values
-    used when `SetPanicOnFault` is enabled may now have an
-    `Addr` method. If that method exists, it returns the memory
-    address that triggered the fault.
+<!-- CL 249677 -->
+The [`runtime.Error`](/pkg/runtime#Error) values
+used when `SetPanicOnFault` is enabled may now have an
+`Addr` method. If that method exists, it returns the memory
+address that triggered the fault.
 
 <!-- runtime/debug -->
 
-[strconv](/pkg/strconv/)
+#### [strconv](/pkg/strconv/)
 
-:   <!-- CL 260858 -->
-    [`ParseFloat`](/pkg/strconv/#ParseFloat) now uses
-    the [Eisel-Lemire
-    algorithm](https://nigeltao.github.io/blog/2020/eisel-lemire.html), improving performance by up to a factor of 2. This can
-    also speed up decoding textual formats like [`encoding/json`](/pkg/encoding/json/).
+<!-- CL 260858 -->
+[`ParseFloat`](/pkg/strconv/#ParseFloat) now uses
+the [Eisel-Lemire
+algorithm](https://nigeltao.github.io/blog/2020/eisel-lemire.html), improving performance by up to a factor of 2. This can
+also speed up decoding textual formats like [`encoding/json`](/pkg/encoding/json/).
 
 <!-- strconv -->
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 263271 -->
-    [`NewCallback`](/pkg/syscall/?GOOS=windows#NewCallback)
-    and
-    [`NewCallbackCDecl`](/pkg/syscall/?GOOS=windows#NewCallbackCDecl)
-    now correctly support callback functions with multiple
-    sub-`uintptr`-sized arguments in a row. This may
-    require changing uses of these functions to eliminate manual
-    padding between small arguments.
+<!-- CL 263271 -->
+[`NewCallback`](/pkg/syscall/?GOOS=windows#NewCallback)
+and
+[`NewCallbackCDecl`](/pkg/syscall/?GOOS=windows#NewCallbackCDecl)
+now correctly support callback functions with multiple
+sub-`uintptr`-sized arguments in a row. This may
+require changing uses of these functions to eliminate manual
+padding between small arguments.
 
-    <!-- CL 261917 -->
-    [`SysProcAttr`](/pkg/syscall/?GOOS=windows#SysProcAttr) on Windows has a new `NoInheritHandles` field that disables inheriting handles when creating a new process.
+<!-- CL 261917 -->
+[`SysProcAttr`](/pkg/syscall/?GOOS=windows#SysProcAttr) on Windows has a new `NoInheritHandles` field that disables inheriting handles when creating a new process.
 
-    <!-- CL 269761, golang.org/issue/42584 -->
-    [`DLLError`](/pkg/syscall/?GOOS=windows#DLLError) on Windows now has an `Unwrap` method for unwrapping its underlying error.
+<!-- CL 269761, golang.org/issue/42584 -->
+[`DLLError`](/pkg/syscall/?GOOS=windows#DLLError) on Windows now has an `Unwrap` method for unwrapping its underlying error.
 
-    <!-- CL 210639 -->
-    On Linux,
-    [`Setgid`](/pkg/syscall/#Setgid),
-    [`Setuid`](/pkg/syscall/#Setuid),
-    and related calls are now implemented.
-    Previously, they returned an `syscall.EOPNOTSUPP` error.
+<!-- CL 210639 -->
+On Linux,
+[`Setgid`](/pkg/syscall/#Setgid),
+[`Setuid`](/pkg/syscall/#Setuid),
+and related calls are now implemented.
+Previously, they returned an `syscall.EOPNOTSUPP` error.
 
-    <!-- CL 210639 -->
-    On Linux, the new functions
-    [`AllThreadsSyscall`](/pkg/syscall/#AllThreadsSyscall)
-    and [`AllThreadsSyscall6`](/pkg/syscall/#AllThreadsSyscall6)
-    may be used to make a system call on all Go threads in the process.
-    These functions may only be used by programs that do not use cgo;
-    if a program uses cgo, they will always return
-    [`syscall.ENOTSUP`](/pkg/syscall/#ENOTSUP).
+<!-- CL 210639 -->
+On Linux, the new functions
+[`AllThreadsSyscall`](/pkg/syscall/#AllThreadsSyscall)
+and [`AllThreadsSyscall6`](/pkg/syscall/#AllThreadsSyscall6)
+may be used to make a system call on all Go threads in the process.
+These functions may only be used by programs that do not use cgo;
+if a program uses cgo, they will always return
+[`syscall.ENOTSUP`](/pkg/syscall/#ENOTSUP).
 
 <!-- syscall -->
 
-[testing/iotest](/pkg/testing/iotest/)
+#### [testing/iotest](/pkg/testing/iotest/)
 
-:   <!-- CL 199501 -->
-    The new
-    [`ErrReader`](/pkg/testing/iotest/#ErrReader)
-    function returns an
-    [`io.Reader`](/pkg/io/#Reader) that always
-    returns an error.
+<!-- CL 199501 -->
+The new
+[`ErrReader`](/pkg/testing/iotest/#ErrReader)
+function returns an
+[`io.Reader`](/pkg/io/#Reader) that always
+returns an error.
 
-    <!-- CL 243909 -->
-    The new
-    [`TestReader`](/pkg/testing/iotest/#TestReader)
-    function tests that an [`io.Reader`](/pkg/io/#Reader)
-    behaves correctly.
+<!-- CL 243909 -->
+The new
+[`TestReader`](/pkg/testing/iotest/#TestReader)
+function tests that an [`io.Reader`](/pkg/io/#Reader)
+behaves correctly.
 
 <!-- testing/iotest -->
 
-[text/template](/pkg/text/template/)
+#### [text/template](/pkg/text/template/)
 
-:   <!-- CL 254257, golang.org/issue/29770 -->
-    Newlines characters are now allowed inside action delimiters,
-    permitting actions to span multiple lines.
+<!-- CL 254257, golang.org/issue/29770 -->
+Newlines characters are now allowed inside action delimiters,
+permitting actions to span multiple lines.
 
-    <!-- CL 243938 -->
-    The new [`template.ParseFS`](/pkg/text/template/#ParseFS)
-    function and [`template.Template.ParseFS`](/pkg/text/template/#Template.ParseFS)
-    method are like [`template.ParseGlob`](/pkg/text/template/#ParseGlob)
-    and [`template.Template.ParseGlob`](/pkg/text/template/#Template.ParseGlob),
-    but read the templates from an [`fs.FS`](/pkg/io/fs/#FS).
+<!-- CL 243938 -->
+The new [`template.ParseFS`](/pkg/text/template/#ParseFS)
+function and [`template.Template.ParseFS`](/pkg/text/template/#Template.ParseFS)
+method are like [`template.ParseGlob`](/pkg/text/template/#ParseGlob)
+and [`template.Template.ParseGlob`](/pkg/text/template/#Template.ParseGlob),
+but read the templates from an [`fs.FS`](/pkg/io/fs/#FS).
 
 <!-- text/template -->
 
-[text/template/parse](/pkg/text/template/parse/)
+#### [text/template/parse](/pkg/text/template/parse/)
 
-:   <!-- CL 229398, golang.org/issue/34652 -->
-    A new [`CommentNode`](/pkg/text/template/parse/#CommentNode)
-    was added to the parse tree. The [`Mode`](/pkg/text/template/parse/#Mode)
-    field in the `parse.Tree` enables access to it.
+<!-- CL 229398, golang.org/issue/34652 -->
+A new [`CommentNode`](/pkg/text/template/parse/#CommentNode)
+was added to the parse tree. The [`Mode`](/pkg/text/template/parse/#Mode)
+field in the `parse.Tree` enables access to it.
 
 <!-- text/template/parse -->
 
-[time/tzdata](/pkg/time/tzdata/)
+#### [time/tzdata](/pkg/time/tzdata/)
 
-:   <!-- CL 261877 -->
-    The slim timezone data format is now used for the timezone database in
-    `$GOROOT/lib/time/zoneinfo.zip` and the embedded copy in this
-    package. This reduces the size of the timezone database by about 350 KB.
+<!-- CL 261877 -->
+The slim timezone data format is now used for the timezone database in
+`$GOROOT/lib/time/zoneinfo.zip` and the embedded copy in this
+package. This reduces the size of the timezone database by about 350 KB.
 
 <!-- time/tzdata -->
 
-[unicode](/pkg/unicode/)
+#### [unicode](/pkg/unicode/)
 
-:   <!-- CL 248765 -->
-    The [`unicode`](/pkg/unicode/) package and associated
-    support throughout the system has been upgraded from Unicode 12.0.0 to
-    [Unicode 13.0.0](https://www.unicode.org/versions/Unicode13.0.0/),
-    which adds 5,930 new characters, including four new scripts, and 55 new emoji.
-    Unicode 13.0.0 also designates plane 3 (U+30000-U+3FFFF) as the tertiary
-    ideographic plane.
+<!-- CL 248765 -->
+The [`unicode`](/pkg/unicode/) package and associated
+support throughout the system has been upgraded from Unicode 12.0.0 to
+[Unicode 13.0.0](https://www.unicode.org/versions/Unicode13.0.0/),
+which adds 5,930 new characters, including four new scripts, and 55 new emoji.
+Unicode 13.0.0 also designates plane 3 (U+30000-U+3FFFF) as the tertiary
+ideographic plane.
 
 <!-- unicode -->

@@ -550,768 +550,768 @@ made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind. The following sections list the user visible changes and additions.
 Optimizations and minor bug fixes are not listed.
 
-[archive/tar](/pkg/archive/tar/)
+#### [archive/tar](/pkg/archive/tar/)
 
-:   <!-- CL 28471, CL 31440, CL 31441, CL 31444, CL 28418, CL 31439 -->
-    The tar implementation corrects many bugs in corner cases of the file format.
-    The [`Reader`](/pkg/archive/tar/#Reader)
-    is now able to process tar files in the PAX format with entries larger than 8GB.
-    The [`Writer`](/pkg/archive/tar/#Writer)
-    no longer produces invalid tar files in some situations involving long pathnames.
+<!-- CL 28471, CL 31440, CL 31441, CL 31444, CL 28418, CL 31439 -->
+The tar implementation corrects many bugs in corner cases of the file format.
+The [`Reader`](/pkg/archive/tar/#Reader)
+is now able to process tar files in the PAX format with entries larger than 8GB.
+The [`Writer`](/pkg/archive/tar/#Writer)
+no longer produces invalid tar files in some situations involving long pathnames.
 
-[compress/flate](/pkg/compress/flate/)
+#### [compress/flate](/pkg/compress/flate/)
 
-:   <!-- CL 31640, CL 31174, CL 32149 -->
-    There have been some minor fixes to the encoder to improve the
-    compression ratio in certain situations. As a result, the exact
-    encoded output of `DEFLATE` may be different from Go 1.7. Since
-    `DEFLATE` is the underlying compression of gzip, png, zlib, and zip,
-    those formats may have changed outputs.
+<!-- CL 31640, CL 31174, CL 32149 -->
+There have been some minor fixes to the encoder to improve the
+compression ratio in certain situations. As a result, the exact
+encoded output of `DEFLATE` may be different from Go 1.7. Since
+`DEFLATE` is the underlying compression of gzip, png, zlib, and zip,
+those formats may have changed outputs.
 
-    <!-- CL 31174 -->
-    The encoder, when operating in
-    [`NoCompression`](/pkg/compress/flate/#NoCompression)
-    mode, now produces a consistent output that is not dependent on
-    the size of the slices passed to the
-    [`Write`](/pkg/compress/flate/#Writer.Write)
-    method.
+<!-- CL 31174 -->
+The encoder, when operating in
+[`NoCompression`](/pkg/compress/flate/#NoCompression)
+mode, now produces a consistent output that is not dependent on
+the size of the slices passed to the
+[`Write`](/pkg/compress/flate/#Writer.Write)
+method.
 
-    <!-- CL 28216 -->
-    The decoder, upon encountering an error, now returns any
-    buffered data it had uncompressed along with the error.
+<!-- CL 28216 -->
+The decoder, upon encountering an error, now returns any
+buffered data it had uncompressed along with the error.
 
-[compress/gzip](/pkg/compress/gzip/)
+#### [compress/gzip](/pkg/compress/gzip/)
 
-:   The [`Writer`](/pkg/compress/gzip/#Writer)
-    now encodes a zero `MTIME` field when
-    the [`Header.ModTime`](/pkg/compress/gzip/#Header)
-    field is the zero value.
-    In previous releases of Go, the `Writer` would encode
-    a nonsensical value.
-    Similarly,
-    the [`Reader`](/pkg/compress/gzip/#Reader)
-    now reports a zero encoded `MTIME` field as a zero
-    `Header.ModTime`.
+The [`Writer`](/pkg/compress/gzip/#Writer)
+now encodes a zero `MTIME` field when
+the [`Header.ModTime`](/pkg/compress/gzip/#Header)
+field is the zero value.
+In previous releases of Go, the `Writer` would encode
+a nonsensical value.
+Similarly,
+the [`Reader`](/pkg/compress/gzip/#Reader)
+now reports a zero encoded `MTIME` field as a zero
+`Header.ModTime`.
 
-[context](/pkg/context/)
+#### [context](/pkg/context/)
 
-:   <!-- CL 30370 -->
-    The [`DeadlineExceeded`](/pkg/context#DeadlineExceeded)
-    error now implements
-    [`net.Error`](/pkg/net/#Error)
-    and reports true for both the `Timeout` and
-    `Temporary` methods.
+<!-- CL 30370 -->
+The [`DeadlineExceeded`](/pkg/context#DeadlineExceeded)
+error now implements
+[`net.Error`](/pkg/net/#Error)
+and reports true for both the `Timeout` and
+`Temporary` methods.
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 25159, CL 31318 -->
-    The new method
-    [`Conn.CloseWrite`](/pkg/crypto/tls/#Conn.CloseWrite)
-    allows TLS connections to be half closed.
+<!-- CL 25159, CL 31318 -->
+The new method
+[`Conn.CloseWrite`](/pkg/crypto/tls/#Conn.CloseWrite)
+allows TLS connections to be half closed.
 
-    <!-- CL 28075 -->
-    The new method
-    [`Config.Clone`](/pkg/crypto/tls/#Config.Clone)
-    clones a TLS configuration.
+<!-- CL 28075 -->
+The new method
+[`Config.Clone`](/pkg/crypto/tls/#Config.Clone)
+clones a TLS configuration.
 
-    <!-- CL 30790 -->
-    The new [`Config.GetConfigForClient`](/pkg/crypto/tls/#Config.GetConfigForClient)
-    callback allows selecting a configuration for a client dynamically, based
-    on the client's
-    [`ClientHelloInfo`](/pkg/crypto/tls/#ClientHelloInfo). <!-- CL 31391, CL 32119 -->
-    The [`ClientHelloInfo`](/pkg/crypto/tls/#ClientHelloInfo)
-    struct now has new
-    fields `Conn`, `SignatureSchemes` (using
-    the new
-    type [`SignatureScheme`](/kg/crypto/tls/#SignatureScheme)),
-    `SupportedProtos`, and `SupportedVersions`.
+<!-- CL 30790 -->
+The new [`Config.GetConfigForClient`](/pkg/crypto/tls/#Config.GetConfigForClient)
+callback allows selecting a configuration for a client dynamically, based
+on the client's
+[`ClientHelloInfo`](/pkg/crypto/tls/#ClientHelloInfo). <!-- CL 31391, CL 32119 -->
+The [`ClientHelloInfo`](/pkg/crypto/tls/#ClientHelloInfo)
+struct now has new
+fields `Conn`, `SignatureSchemes` (using
+the new
+type [`SignatureScheme`](/kg/crypto/tls/#SignatureScheme)),
+`SupportedProtos`, and `SupportedVersions`.
 
-    <!-- CL 32115 -->
-    The new [`Config.GetClientCertificate`](/pkg/crypto/tls/#Config.GetClientCertificate)
-    callback allows selecting a client certificate based on the server's
-    TLS `CertificateRequest` message, represented by the new
-    [`CertificateRequestInfo`](/pkg/crypto/tls/#CertificateRequestInfo).
+<!-- CL 32115 -->
+The new [`Config.GetClientCertificate`](/pkg/crypto/tls/#Config.GetClientCertificate)
+callback allows selecting a client certificate based on the server's
+TLS `CertificateRequest` message, represented by the new
+[`CertificateRequestInfo`](/pkg/crypto/tls/#CertificateRequestInfo).
 
-    <!-- CL 27434 -->
-    The new
-    [`Config.KeyLogWriter`](/pkg/crypto/tls/#Config.KeyLogWriter)
-    allows debugging TLS connections
-    in [WireShark](https://www.wireshark.org/) and
-    similar tools.
+<!-- CL 27434 -->
+The new
+[`Config.KeyLogWriter`](/pkg/crypto/tls/#Config.KeyLogWriter)
+allows debugging TLS connections
+in [WireShark](https://www.wireshark.org/) and
+similar tools.
 
-    <!-- CL 32115 -->
-    The new
-    [`Config.VerifyPeerCertificate`](/pkg/crypto/tls/#Config.VerifyPeerCertificate)
-    callback allows additional validation of a peer's presented certificate.
+<!-- CL 32115 -->
+The new
+[`Config.VerifyPeerCertificate`](/pkg/crypto/tls/#Config.VerifyPeerCertificate)
+callback allows additional validation of a peer's presented certificate.
 
-    <!-- CL 18130 -->
-    The `crypto/tls` package now implements basic
-    countermeasures against CBC padding oracles. There should be
-    no explicit secret-dependent timings, but it does not attempt to
-    normalize memory accesses to prevent cache timing leaks.
+<!-- CL 18130 -->
+The `crypto/tls` package now implements basic
+countermeasures against CBC padding oracles. There should be
+no explicit secret-dependent timings, but it does not attempt to
+normalize memory accesses to prevent cache timing leaks.
 
-    The `crypto/tls` package now supports
-    X25519 and <!-- CL 30824, CL 30825 -->
-    ChaCha20-Poly1305. <!-- CL 30957, CL 30958 -->
-    ChaCha20-Poly1305 is now prioritized unless <!-- CL 32871 -->
-    hardware support for AES-GCM is present.
+The `crypto/tls` package now supports
+X25519 and <!-- CL 30824, CL 30825 -->
+ChaCha20-Poly1305. <!-- CL 30957, CL 30958 -->
+ChaCha20-Poly1305 is now prioritized unless <!-- CL 32871 -->
+hardware support for AES-GCM is present.
 
-    <!-- CL 27315, CL 35290 -->
-    AES-128-CBC cipher suites with SHA-256 are also
-    now supported, but disabled by default.
+<!-- CL 27315, CL 35290 -->
+AES-128-CBC cipher suites with SHA-256 are also
+now supported, but disabled by default.
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   <!-- CL 24743 -->
-    PSS signatures are now supported.
+<!-- CL 24743 -->
+PSS signatures are now supported.
 
-    <!-- CL 32644 -->
-    [`UnknownAuthorityError`](/pkg/crypto/x509/#UnknownAuthorityError)
-    now has a `Cert` field, reporting the untrusted
-    certificate.
+<!-- CL 32644 -->
+[`UnknownAuthorityError`](/pkg/crypto/x509/#UnknownAuthorityError)
+now has a `Cert` field, reporting the untrusted
+certificate.
 
-    Certificate validation is more permissive in a few cases and
-    stricter in a few other cases. <!--
-    crypto/x509: allow a leaf certificate to be specified directly as root (CL 27393)
-    crypto/x509: check that the issuer name matches the issuer's subject name (CL 23571)
-    crypto/x509: don't accept a root that already appears in a chain. (CL 32121)
-    crypto/x509: fix name constraints handling (CL 30155)
-    crypto/x509: parse all names in an RDN (CL 30810)
-    crypto/x509: recognise ISO OID for RSA+SHA1 (CL 27394)
-    crypto/x509: require a NULL parameters for RSA public keys (CL 16166, CL 27312)
-    crypto/x509: return error for missing SerialNumber (CL 27238)
-    -->
+Certificate validation is more permissive in a few cases and
+stricter in a few other cases. <!--
+crypto/x509: allow a leaf certificate to be specified directly as root (CL 27393)
+crypto/x509: check that the issuer name matches the issuer's subject name (CL 23571)
+crypto/x509: don't accept a root that already appears in a chain. (CL 32121)
+crypto/x509: fix name constraints handling (CL 30155)
+crypto/x509: parse all names in an RDN (CL 30810)
+crypto/x509: recognise ISO OID for RSA+SHA1 (CL 27394)
+crypto/x509: require a NULL parameters for RSA public keys (CL 16166, CL 27312)
+crypto/x509: return error for missing SerialNumber (CL 27238)
+-->
 
-    <!-- CL 30375 -->
-    Root certificates will now also be looked for
-    at `/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem`
-    on Linux, to support RHEL and CentOS.
+<!-- CL 30375 -->
+Root certificates will now also be looked for
+at `/etc/pki/ca-trust/extracted/pem/tls-ca-bundle.pem`
+on Linux, to support RHEL and CentOS.
 
-[database/sql](/pkg/database/sql/)
+#### [database/sql](/pkg/database/sql/)
 
-:   The package now supports `context.Context`. There are new methods
-    ending in `Context` such as
-    [`DB.QueryContext`](/pkg/database/sql/#DB.QueryContext) and
-    [`DB.PrepareContext`](/pkg/database/sql/#DB.PrepareContext)
-    that take context arguments. Using the new `Context` methods ensures that
-    connections are closed and returned to the connection pool when the
-    request is done; enables canceling in-progress queries
-    should the driver support that; and allows the database
-    pool to cancel waiting for the next available connection.
+The package now supports `context.Context`. There are new methods
+ending in `Context` such as
+[`DB.QueryContext`](/pkg/database/sql/#DB.QueryContext) and
+[`DB.PrepareContext`](/pkg/database/sql/#DB.PrepareContext)
+that take context arguments. Using the new `Context` methods ensures that
+connections are closed and returned to the connection pool when the
+request is done; enables canceling in-progress queries
+should the driver support that; and allows the database
+pool to cancel waiting for the next available connection.
 
-    The [`IsolationLevel`](/pkg/database/sql#IsolationLevel)
-    can now be set when starting a transaction by setting the isolation level
-    on [`TxOptions.Isolation`](/pkg/database/sql#TxOptions.Isolation) and passing
-    it to [`DB.BeginTx`](/pkg/database/sql#DB.BeginTx).
-    An error will be returned if an isolation level is selected that the driver
-    does not support. A read-only attribute may also be set on the transaction
-    by setting [`TxOptions.ReadOnly`](/pkg/database/sql/#TxOptions.ReadOnly)
-    to true.
+The [`IsolationLevel`](/pkg/database/sql#IsolationLevel)
+can now be set when starting a transaction by setting the isolation level
+on [`TxOptions.Isolation`](/pkg/database/sql#TxOptions.Isolation) and passing
+it to [`DB.BeginTx`](/pkg/database/sql#DB.BeginTx).
+An error will be returned if an isolation level is selected that the driver
+does not support. A read-only attribute may also be set on the transaction
+by setting [`TxOptions.ReadOnly`](/pkg/database/sql/#TxOptions.ReadOnly)
+to true.
 
-    Queries now expose the SQL column type information for drivers that support it.
-    Rows can return [`ColumnTypes`](/pkg/database/sql#Rows.ColumnTypes)
-    which can include SQL type information, column type lengths, and the Go type.
+Queries now expose the SQL column type information for drivers that support it.
+Rows can return [`ColumnTypes`](/pkg/database/sql#Rows.ColumnTypes)
+which can include SQL type information, column type lengths, and the Go type.
 
-    A [`Rows`](/pkg/database/sql/#Rows)
-    can now represent multiple result sets. After
-    [`Rows.Next`](/pkg/database/sql/#Rows.Next) returns false,
-    [`Rows.NextResultSet`](/pkg/database/sql/#Rows.NextResultSet)
-    may be called to advance to the next result set. The existing `Rows`
-    should continue to be used after it advances to the next result set.
+A [`Rows`](/pkg/database/sql/#Rows)
+can now represent multiple result sets. After
+[`Rows.Next`](/pkg/database/sql/#Rows.Next) returns false,
+[`Rows.NextResultSet`](/pkg/database/sql/#Rows.NextResultSet)
+may be called to advance to the next result set. The existing `Rows`
+should continue to be used after it advances to the next result set.
 
-    [`NamedArg`](/pkg/database/sql/#NamedArg) may be used
-    as query arguments. The new function [`Named`](/pkg/database/sql/#Named)
-    helps create a [`NamedArg`](/pkg/database/sql/#NamedArg)
-    more succinctly.
+[`NamedArg`](/pkg/database/sql/#NamedArg) may be used
+as query arguments. The new function [`Named`](/pkg/database/sql/#Named)
+helps create a [`NamedArg`](/pkg/database/sql/#NamedArg)
+more succinctly.
 
-    If a driver supports the new
-    [`Pinger`](/pkg/database/sql/driver/#Pinger)
-    interface, the
-    [`DB.Ping`](/pkg/database/sql/#DB.Ping)
+If a driver supports the new
+[`Pinger`](/pkg/database/sql/driver/#Pinger)
+interface, the
+[`DB.Ping`](/pkg/database/sql/#DB.Ping)
+and
+[`DB.PingContext`](/pkg/database/sql/#DB.PingContext)
+methods will use that interface to check whether a
+database connection is still valid.
+
+The new `Context` query methods work for all drivers, but
+`Context` cancellation is not responsive unless the driver has been
+updated to use them. The other features require driver support in
+[`database/sql/driver`](/pkg/database/sql/driver).
+Driver authors should review the new interfaces. Users of existing
+driver should review the driver documentation to see what
+it supports and any system specific documentation on each feature.
+
+#### [debug/pe](/pkg/debug/pe/)
+
+<!-- CL 22720, CL 27212, CL 22181, CL 22332, CL 22336, Issue 15345 -->
+The package has been extended and is now used by
+[the Go linker](/cmd/link/) to read `gcc`-generated object files.
+The new
+[`File.StringTable`](/pkg/debug/pe/#File.StringTable)
+and
+[`Section.Relocs`](/pkg/debug/pe/#Section.Relocs)
+fields provide access to the COFF string table and COFF relocations.
+The new
+[`File.COFFSymbols`](/pkg/debug/pe/#File.COFFSymbols)
+allows low-level access to the COFF symbol table.
+
+#### [encoding/base64](/pkg/encoding/base64/)
+
+<!-- CL 24964 -->
+The new
+[`Encoding.Strict`](/pkg/encoding/base64/#Encoding.Strict)
+method returns an `Encoding` that causes the decoder
+to return an error when the trailing padding bits are not zero.
+
+#### [encoding/binary](/pkg/encoding/binary/)
+
+<!-- CL 28514 -->
+[`Read`](/pkg/encoding/binary/#Read)
+and
+[`Write`](/pkg/encoding/binary/#Write)
+now support booleans.
+
+#### [encoding/json](/pkg/encoding/json/)
+
+<!-- CL 18692  -->
+[`UnmarshalTypeError`](/pkg/encoding/json/#UnmarshalTypeError)
+now includes the struct and field name.
+
+<!-- CL 31932 -->
+A nil [`Marshaler`](/pkg/encoding/json/#Marshaler)
+now marshals as a JSON `null` value.
+
+<!-- CL 21811 -->
+A [`RawMessage`](/pkg/encoding/json/#RawMessage) value now
+marshals the same as its pointer type.
+
+<!-- CL 30371 -->
+[`Marshal`](/pkg/encoding/json/#Marshal)
+encodes floating-point numbers using the same format as in ES6,
+preferring decimal (not exponential) notation for a wider range of values.
+In particular, all floating-point integers up to 2<sup>64</sup> format the
+same as the equivalent `int64` representation.
+
+<!-- CL 30944 -->
+In previous versions of Go, unmarshaling a JSON `null` into an
+[`Unmarshaler`](/pkg/encoding/json/#Unmarshaler)
+was considered a no-op; now the `Unmarshaler`'s
+`UnmarshalJSON` method is called with the JSON literal
+`null` and can define the semantics of that case.
+
+#### [encoding/pem](/pkg/encoding/pem/)
+
+<!-- CL 27391 -->
+[`Decode`](/pkg/encoding/pem/#Decode)
+is now strict about the format of the ending line.
+
+#### [encoding/xml](/pkg/encoding/xml/)
+
+<!-- CL 30946 -->
+[`Unmarshal`](/pkg/encoding/xml/#Unmarshal)
+now has wildcard support for collecting all attributes using
+the new `",any,attr"` struct tag.
+
+#### [expvar](/pkg/expvar/)
+
+<!-- CL 30917 -->
+The new methods
+[`Int.Value`](/pkg/expvar/#Int.Value),
+[`String.Value`](/pkg/expvar/#String.Value),
+[`Float.Value`](/pkg/expvar/#Float.Value), and
+[`Func.Value`](/pkg/expvar/#Func.Value)
+report the current value of an exported variable.
+
+<!-- CL 24722 -->
+The new
+function [`Handler`](/pkg/expvar/#Handler)
+returns the package's HTTP handler, to enable installing it in
+non-standard locations.
+
+#### [fmt](/pkg/fmt/)
+
+<!-- CL 30611 -->
+[`Scanf`](/pkg/fmt/#Scanf),
+[`Fscanf`](/pkg/fmt/#Fscanf), and
+[`Sscanf`](/pkg/fmt/#Sscanf) now
+handle spaces differently and more consistently than
+previous releases. See the
+[scanning documentation](/pkg/fmt/#hdr-Scanning)
+for details.
+
+#### [go/doc](/pkg/go/doc/)
+
+<!-- CL 29870 -->
+The new [`IsPredeclared`](/pkg/go/doc/#IsPredeclared)
+function reports whether a string is a predeclared identifier.
+
+#### [go/types](/pkg/go/types/)
+
+<!-- CL 30715 -->
+The new function
+[`Default`](/pkg/go/types/#Default)
+returns the default "typed" type for an "untyped" type.
+
+<!-- CL 31939 -->
+The alignment of `complex64` now matches
+the [Go compiler](/cmd/compile/).
+
+#### [html/template](/pkg/html/template/)
+
+<!-- CL 14336 -->
+The package now validates
+the `"type"` attribute on
+a `<script>` tag.
+
+#### [image/png](/pkg/image/png/)
+
+<!-- CL 32143, CL 32140 -->
+[`Decode`](/pkg/image/png/#Decode)
+(and `DecodeConfig`)
+now supports True Color and grayscale transparency.
+
+<!-- CL 29872 -->
+[`Encoder`](/pkg/image/png/#Encoder)
+is now faster and creates smaller output
+when encoding paletted images.
+
+#### [math/big](/pkg/math/big/)
+
+<!-- CL 30706 -->
+The new method
+[`Int.Sqrt`](/pkg/math/big/#Int.Sqrt)
+calculates ⌊√x⌋.
+
+The new method
+[`Float.Scan`](/pkg/math/big/#Float.Scan)
+is a support routine for
+[`fmt.Scanner`](/pkg/fmt/#Scanner).
+
+[`Int.ModInverse`](/pkg/math/big/#Int.ModInverse)
+now supports negative numbers.
+
+#### [math/rand](/pkg/math/rand/)
+
+<!-- CL 27253, CL 33456 -->
+The new [`Rand.Uint64`](/pkg/math/rand/#Rand.Uint64)
+method returns `uint64` values. The
+new [`Source64`](/pkg/math/rand/#Source64)
+interface describes sources capable of generating such values
+directly; otherwise the `Rand.Uint64` method
+constructs a `uint64` from two calls
+to [`Source`](/pkg/math/rand/#Source)'s
+`Int63` method.
+
+#### [mime](/pkg/mime/)
+
+<!-- CL 32175 -->
+[`ParseMediaType`](/pkg/mime/#ParseMediaType)
+now preserves unnecessary backslash escapes as literals,
+in order to support MSIE.
+When MSIE sends a full file path (in “intranet mode”), it does not
+escape backslashes: “`C:\dev\go\foo.txt`”, not
+“`C:\\dev\\go\\foo.txt`”.
+If we see an unnecessary backslash escape, we now assume it is from MSIE
+and intended as a literal backslash.
+No known MIME generators emit unnecessary backslash escapes
+for simple token characters like numbers and letters.
+
+#### [mime/quotedprintable](/pkg/mime/quotedprintable/)
+
+The
+[`Reader`](/pkg/mime/quotedprintable/#Reader)'s
+parsing has been relaxed in two ways to accept
+more input seen in the wild. <!-- CL 32174 -->
+First, it accepts an equals sign (`=`) not followed
+by two hex digits as a literal equal sign. <!-- CL 27530 -->
+Second, it silently ignores a trailing equals sign at the end of
+an encoded input.
+
+#### [net](/pkg/net/)
+
+<!-- CL 30164, CL 33473 -->
+The [`Conn`](/pkg/net/#Conn) documentation
+has been updated to clarify expectations of an interface
+implementation. Updates in the `net/http` packages
+depend on implementations obeying the documentation.
+
+_Updating:_ implementations of the `Conn` interface should verify
+they implement the documented semantics. The
+[golang.org/x/net/nettest](https://godoc.org/golang.org/x/net/nettest)
+package will exercise a `Conn` and validate it behaves properly.
+
+<!-- CL 32099 -->
+The new method
+[`UnixListener.SetUnlinkOnClose`](/pkg/net/#UnixListener.SetUnlinkOnClose)
+sets whether the underlying socket file should be removed from the file system when
+the listener is closed.
+
+<!-- CL 29951 -->
+The new [`Buffers`](/pkg/net/#Buffers) type permits
+writing to the network more efficiently from multiple discontiguous buffers
+in memory. On certain machines, for certain types of connections,
+this is optimized into an OS-specific batch write operation (such as `writev`).
+
+<!-- CL 29440 -->
+The new [`Resolver`](/pkg/net/#Resolver) looks up names and numbers
+and supports [`context.Context`](/pkg/context/#Context).
+The [`Dialer`](/pkg/net/#Dialer) now has an optional
+[`Resolver` field](/pkg/net/#Dialer.Resolver).
+
+<!-- CL 29892 -->
+[`Interfaces`](/pkg/net/#Interfaces) is now supported on Solaris.
+
+<!-- CL 29233, CL 24901 -->
+The Go DNS resolver now supports `resolv.conf`'s “`rotate`”
+and “`option` `ndots:0`” options. The “`ndots`” option is
+now respected in the same way as `libresolve`.
+
+#### [net/http](/pkg/net/http/)
+
+Server changes:
+
+  - The server now supports graceful shutdown support, [mentioned above](#http_shutdown).
+  - <!-- CL 32024 -->
+    The [`Server`](/pkg/net/http/#Server)
+    adds configuration options
+    `ReadHeaderTimeout` and `IdleTimeout`
+    and documents `WriteTimeout`.
+  - <!-- CL 32014 -->
+    [`FileServer`](/pkg/net/http/#FileServer)
     and
-    [`DB.PingContext`](/pkg/database/sql/#DB.PingContext)
-    methods will use that interface to check whether a
-    database connection is still valid.
-
-    The new `Context` query methods work for all drivers, but
-    `Context` cancellation is not responsive unless the driver has been
-    updated to use them. The other features require driver support in
-    [`database/sql/driver`](/pkg/database/sql/driver).
-    Driver authors should review the new interfaces. Users of existing
-    driver should review the driver documentation to see what
-    it supports and any system specific documentation on each feature.
-
-[debug/pe](/pkg/debug/pe/)
-
-:   <!-- CL 22720, CL 27212, CL 22181, CL 22332, CL 22336, Issue 15345 -->
-    The package has been extended and is now used by
-    [the Go linker](/cmd/link/) to read `gcc`-generated object files.
-    The new
-    [`File.StringTable`](/pkg/debug/pe/#File.StringTable)
-    and
-    [`Section.Relocs`](/pkg/debug/pe/#Section.Relocs)
-    fields provide access to the COFF string table and COFF relocations.
-    The new
-    [`File.COFFSymbols`](/pkg/debug/pe/#File.COFFSymbols)
-    allows low-level access to the COFF symbol table.
-
-[encoding/base64](/pkg/encoding/base64/)
-
-:   <!-- CL 24964 -->
-    The new
-    [`Encoding.Strict`](/pkg/encoding/base64/#Encoding.Strict)
-    method returns an `Encoding` that causes the decoder
-    to return an error when the trailing padding bits are not zero.
-
-[encoding/binary](/pkg/encoding/binary/)
-
-:   <!-- CL 28514 -->
-    [`Read`](/pkg/encoding/binary/#Read)
-    and
-    [`Write`](/pkg/encoding/binary/#Write)
-    now support booleans.
-
-[encoding/json](/pkg/encoding/json/)
-
-:   <!-- CL 18692  -->
-    [`UnmarshalTypeError`](/pkg/encoding/json/#UnmarshalTypeError)
-    now includes the struct and field name.
-
-    <!-- CL 31932 -->
-    A nil [`Marshaler`](/pkg/encoding/json/#Marshaler)
-    now marshals as a JSON `null` value.
-
-    <!-- CL 21811 -->
-    A [`RawMessage`](/pkg/encoding/json/#RawMessage) value now
-    marshals the same as its pointer type.
-
-    <!-- CL 30371 -->
-    [`Marshal`](/pkg/encoding/json/#Marshal)
-    encodes floating-point numbers using the same format as in ES6,
-    preferring decimal (not exponential) notation for a wider range of values.
-    In particular, all floating-point integers up to 2<sup>64</sup> format the
-    same as the equivalent `int64` representation.
-
-    <!-- CL 30944 -->
-    In previous versions of Go, unmarshaling a JSON `null` into an
-    [`Unmarshaler`](/pkg/encoding/json/#Unmarshaler)
-    was considered a no-op; now the `Unmarshaler`'s
-    `UnmarshalJSON` method is called with the JSON literal
-    `null` and can define the semantics of that case.
-
-[encoding/pem](/pkg/encoding/pem/)
-
-:   <!-- CL 27391 -->
-    [`Decode`](/pkg/encoding/pem/#Decode)
-    is now strict about the format of the ending line.
-
-[encoding/xml](/pkg/encoding/xml/)
-
-:   <!-- CL 30946 -->
-    [`Unmarshal`](/pkg/encoding/xml/#Unmarshal)
-    now has wildcard support for collecting all attributes using
-    the new `",any,attr"` struct tag.
-
-[expvar](/pkg/expvar/)
-
-:   <!-- CL 30917 -->
-    The new methods
-    [`Int.Value`](/pkg/expvar/#Int.Value),
-    [`String.Value`](/pkg/expvar/#String.Value),
-    [`Float.Value`](/pkg/expvar/#Float.Value), and
-    [`Func.Value`](/pkg/expvar/#Func.Value)
-    report the current value of an exported variable.
-
-    <!-- CL 24722 -->
-    The new
-    function [`Handler`](/pkg/expvar/#Handler)
-    returns the package's HTTP handler, to enable installing it in
-    non-standard locations.
-
-[fmt](/pkg/fmt/)
-
-:   <!-- CL 30611 -->
-    [`Scanf`](/pkg/fmt/#Scanf),
-    [`Fscanf`](/pkg/fmt/#Fscanf), and
-    [`Sscanf`](/pkg/fmt/#Sscanf) now
-    handle spaces differently and more consistently than
-    previous releases. See the
-    [scanning documentation](/pkg/fmt/#hdr-Scanning)
-    for details.
-
-[go/doc](/pkg/go/doc/)
-
-:   <!-- CL 29870 -->
-    The new [`IsPredeclared`](/pkg/go/doc/#IsPredeclared)
-    function reports whether a string is a predeclared identifier.
-
-[go/types](/pkg/go/types/)
-
-:   <!-- CL 30715 -->
-    The new function
-    [`Default`](/pkg/go/types/#Default)
-    returns the default "typed" type for an "untyped" type.
-
-    <!-- CL 31939 -->
-    The alignment of `complex64` now matches
-    the [Go compiler](/cmd/compile/).
-
-[html/template](/pkg/html/template/)
-
-:   <!-- CL 14336 -->
-    The package now validates
-    the `"type"` attribute on
-    a `<script>` tag.
-
-[image/png](/pkg/image/png/)
-
-:   <!-- CL 32143, CL 32140 -->
-    [`Decode`](/pkg/image/png/#Decode)
-    (and `DecodeConfig`)
-    now supports True Color and grayscale transparency.
-
-    <!-- CL 29872 -->
-    [`Encoder`](/pkg/image/png/#Encoder)
-    is now faster and creates smaller output
-    when encoding paletted images.
-
-[math/big](/pkg/math/big/)
-
-:   <!-- CL 30706 -->
-    The new method
-    [`Int.Sqrt`](/pkg/math/big/#Int.Sqrt)
-    calculates ⌊√x⌋.
-
-    The new method
-    [`Float.Scan`](/pkg/math/big/#Float.Scan)
-    is a support routine for
-    [`fmt.Scanner`](/pkg/fmt/#Scanner).
-
-    [`Int.ModInverse`](/pkg/math/big/#Int.ModInverse)
-    now supports negative numbers.
-
-[math/rand](/pkg/math/rand/)
-
-:   <!-- CL 27253, CL 33456 -->
-    The new [`Rand.Uint64`](/pkg/math/rand/#Rand.Uint64)
-    method returns `uint64` values. The
-    new [`Source64`](/pkg/math/rand/#Source64)
-    interface describes sources capable of generating such values
-    directly; otherwise the `Rand.Uint64` method
-    constructs a `uint64` from two calls
-    to [`Source`](/pkg/math/rand/#Source)'s
-    `Int63` method.
-
-[mime](/pkg/mime/)
-
-:   <!-- CL 32175 -->
-    [`ParseMediaType`](/pkg/mime/#ParseMediaType)
-    now preserves unnecessary backslash escapes as literals,
-    in order to support MSIE.
-    When MSIE sends a full file path (in “intranet mode”), it does not
-    escape backslashes: “`C:\dev\go\foo.txt`”, not
-    “`C:\\dev\\go\\foo.txt`”.
-    If we see an unnecessary backslash escape, we now assume it is from MSIE
-    and intended as a literal backslash.
-    No known MIME generators emit unnecessary backslash escapes
-    for simple token characters like numbers and letters.
-
-[mime/quotedprintable](/pkg/mime/quotedprintable/)
-
-:   The
-    [`Reader`](/pkg/mime/quotedprintable/#Reader)'s
-    parsing has been relaxed in two ways to accept
-    more input seen in the wild. <!-- CL 32174 -->
-    First, it accepts an equals sign (`=`) not followed
-    by two hex digits as a literal equal sign. <!-- CL 27530 -->
-    Second, it silently ignores a trailing equals sign at the end of
-    an encoded input.
-
-[net](/pkg/net/)
-
-:   <!-- CL 30164, CL 33473 -->
-    The [`Conn`](/pkg/net/#Conn) documentation
-    has been updated to clarify expectations of an interface
-    implementation. Updates in the `net/http` packages
-    depend on implementations obeying the documentation.
-
-    _Updating:_ implementations of the `Conn` interface should verify
-    they implement the documented semantics. The
-    [golang.org/x/net/nettest](https://godoc.org/golang.org/x/net/nettest)
-    package will exercise a `Conn` and validate it behaves properly.
-
-    <!-- CL 32099 -->
-    The new method
-    [`UnixListener.SetUnlinkOnClose`](/pkg/net/#UnixListener.SetUnlinkOnClose)
-    sets whether the underlying socket file should be removed from the file system when
-    the listener is closed.
-
-    <!-- CL 29951 -->
-    The new [`Buffers`](/pkg/net/#Buffers) type permits
-    writing to the network more efficiently from multiple discontiguous buffers
-    in memory. On certain machines, for certain types of connections,
-    this is optimized into an OS-specific batch write operation (such as `writev`).
-
-    <!-- CL 29440 -->
-    The new [`Resolver`](/pkg/net/#Resolver) looks up names and numbers
-    and supports [`context.Context`](/pkg/context/#Context).
-    The [`Dialer`](/pkg/net/#Dialer) now has an optional
-    [`Resolver` field](/pkg/net/#Dialer.Resolver).
-
-    <!-- CL 29892 -->
-    [`Interfaces`](/pkg/net/#Interfaces) is now supported on Solaris.
-
-    <!-- CL 29233, CL 24901 -->
-    The Go DNS resolver now supports `resolv.conf`'s “`rotate`”
-    and “`option` `ndots:0`” options. The “`ndots`” option is
-    now respected in the same way as `libresolve`.
-
-[net/http](/pkg/net/http/)
-
-:   Server changes:
-
-      - The server now supports graceful shutdown support, [mentioned above](#http_shutdown).
-      - <!-- CL 32024 -->
-        The [`Server`](/pkg/net/http/#Server)
-        adds configuration options
-        `ReadHeaderTimeout` and `IdleTimeout`
-        and documents `WriteTimeout`.
-      - <!-- CL 32014 -->
-        [`FileServer`](/pkg/net/http/#FileServer)
-        and
-        [`ServeContent`](/pkg/net/http/#ServeContent)
-        now support HTTP `If-Match` conditional requests,
-        in addition to the previous `If-None-Match`
-        support for ETags properly formatted according to RFC 7232, section 2.3.
-
-    There are several additions to what a server's `Handler` can do:
-
-      - <!-- CL 31173 -->
-        The [`Context`](/pkg/context/#Context)
-        returned
-        by [`Request.Context`](/pkg/net/http/#Request.Context)
-        is canceled if the underlying `net.Conn`
-        closes. For instance, if the user closes their browser in the
-        middle of a slow request, the `Handler` can now
-        detect that the user is gone. This complements the
-        existing [`CloseNotifier`](/pkg/net/http/#CloseNotifier)
-        support. This functionality requires that the underlying
-        [`net.Conn`](/pkg/net/#Conn) implements
-        [recently clarified interface documentation](#net).
-      - <!-- CL 32479 -->
-        To serve trailers produced after the header has already been written,
-        see the new
-        [`TrailerPrefix`](/pkg/net/http/#TrailerPrefix)
-        mechanism.
-      - <!-- CL 33099 -->
-        A `Handler` can now abort a response by panicking
-        with the error
-        [`ErrAbortHandler`](/pkg/net/http/#ErrAbortHandler).
-      - <!-- CL 30812 -->
-        A `Write` of zero bytes to a
-        [`ResponseWriter`](/pkg/net/http/#ResponseWriter)
-        is now defined as a
-        way to test whether a `ResponseWriter` has been hijacked:
-        if so, the `Write` returns
-        [`ErrHijacked`](/pkg/net/http/#ErrHijacked)
-        without printing an error
-        to the server's error log.
-
-    Client & Transport changes:
-
-      - <!-- CL 28930, CL 31435 -->
-        The [`Client`](/pkg/net/http/#Client)
-        now copies most request headers on redirect. See
-        [the documentation](/pkg/net/http/#Client)
-        on the `Client` type for details.
-      - <!-- CL 29072 -->
-        The [`Transport`](/pkg/net/http/#Transport)
-        now supports international domain names. Consequently, so do
-        [Get](/pkg/net/http/#Get) and other helpers.
-      - <!-- CL 31733, CL 29852 -->
-        The `Client` now supports 301, 307, and 308 redirects.
-        For example, `Client.Post` now follows 301
-        redirects, converting them to `GET` requests
-        without bodies, like it did for 302 and 303 redirect responses
-        previously.
-        The `Client` now also follows 307 and 308
-        redirects, preserving the original request method and body, if
-        any. If the redirect requires resending the request body, the
-        request must have the new
-        [`Request.GetBody`](/pkg/net/http/#Request)
-        field defined.
-        [`NewRequest`](/pkg/net/http/#NewRequest)
-        sets `Request.GetBody` automatically for common
-        body types.
-      - <!-- CL 32482 -->
-        The `Transport` now rejects requests for URLs with
-        ports containing non-digit characters.
-      - <!-- CL 27117 -->
-        The `Transport` will now retry non-idempotent
-        requests if no bytes were written before a network failure
-        and the request has no body.
-      - <!-- CL 32481 -->
-        The
-        new [`Transport.ProxyConnectHeader`](/pkg/net/http/#Transport)
-        allows configuration of header values to send to a proxy
-        during a `CONNECT` request.
-      - <!-- CL 28077 -->
-        The [`DefaultTransport.Dialer`](/pkg/net/http/#DefaultTransport)
-        now enables `DualStack` ("[Happy Eyeballs](https://tools.ietf.org/html/rfc6555)") support,
-        allowing the use of IPv4 as a backup if it looks like IPv6 might be
-        failing.
-      - <!-- CL 31726 -->
-        The [`Transport`](/pkg/net/http/#Transport)
-        no longer reads a byte of a non-nil
-        [`Request.Body`](/pkg/net/http/#Request.Body)
-        when the
-        [`Request.ContentLength`](/pkg/net/http/#Request.ContentLength)
-        is zero to determine whether the `ContentLength`
-        is actually zero or just undefined.
-        To explicitly signal that a body has zero length,
-        either set it to `nil`, or set it to the new value
-        [`NoBody`](/pkg/net/http/#NoBody).
-        The new `NoBody` value is intended for use by `Request`
-        constructor functions; it is used by
-        [`NewRequest`](/pkg/net/http/#NewRequest).
-
-[net/http/httptrace](/pkg/net/http/httptrace/)
-
-:   <!-- CL 30359 -->
-    There is now support for tracing a client request's TLS handshakes with
-    the new
-    [`ClientTrace.TLSHandshakeStart`](/pkg/net/http/httptrace/#ClientTrace.TLSHandshakeStart)
-    and
-    [`ClientTrace.TLSHandshakeDone`](/pkg/net/http/httptrace/#ClientTrace.TLSHandshakeDone).
-
-[net/http/httputil](/pkg/net/http/httputil/)
-
-:   <!-- CL 32356 -->
-    The [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
-    has a new optional hook,
-    [`ModifyResponse`](/pkg/net/http/httputil/#ReverseProxy.ModifyResponse),
-    for modifying the response from the back end before proxying it to the client.
-
-[net/mail](/pkg/net/mail/)
-
-:   <!-- CL 32176 -->
-    Empty quoted strings are once again allowed in the name part of
-    an address. That is, Go 1.4 and earlier accepted
-    `""` `<gopher@example.com>`,
-    but Go 1.5 introduced a bug that rejected this address.
-    The address is recognized again.
-
-    <!-- CL 31581 -->
+    [`ServeContent`](/pkg/net/http/#ServeContent)
+    now support HTTP `If-Match` conditional requests,
+    in addition to the previous `If-None-Match`
+    support for ETags properly formatted according to RFC 7232, section 2.3.
+
+There are several additions to what a server's `Handler` can do:
+
+  - <!-- CL 31173 -->
+    The [`Context`](/pkg/context/#Context)
+    returned
+    by [`Request.Context`](/pkg/net/http/#Request.Context)
+    is canceled if the underlying `net.Conn`
+    closes. For instance, if the user closes their browser in the
+    middle of a slow request, the `Handler` can now
+    detect that the user is gone. This complements the
+    existing [`CloseNotifier`](/pkg/net/http/#CloseNotifier)
+    support. This functionality requires that the underlying
+    [`net.Conn`](/pkg/net/#Conn) implements
+    [recently clarified interface documentation](#net).
+  - <!-- CL 32479 -->
+    To serve trailers produced after the header has already been written,
+    see the new
+    [`TrailerPrefix`](/pkg/net/http/#TrailerPrefix)
+    mechanism.
+  - <!-- CL 33099 -->
+    A `Handler` can now abort a response by panicking
+    with the error
+    [`ErrAbortHandler`](/pkg/net/http/#ErrAbortHandler).
+  - <!-- CL 30812 -->
+    A `Write` of zero bytes to a
+    [`ResponseWriter`](/pkg/net/http/#ResponseWriter)
+    is now defined as a
+    way to test whether a `ResponseWriter` has been hijacked:
+    if so, the `Write` returns
+    [`ErrHijacked`](/pkg/net/http/#ErrHijacked)
+    without printing an error
+    to the server's error log.
+
+Client & Transport changes:
+
+  - <!-- CL 28930, CL 31435 -->
+    The [`Client`](/pkg/net/http/#Client)
+    now copies most request headers on redirect. See
+    [the documentation](/pkg/net/http/#Client)
+    on the `Client` type for details.
+  - <!-- CL 29072 -->
+    The [`Transport`](/pkg/net/http/#Transport)
+    now supports international domain names. Consequently, so do
+    [Get](/pkg/net/http/#Get) and other helpers.
+  - <!-- CL 31733, CL 29852 -->
+    The `Client` now supports 301, 307, and 308 redirects.
+    For example, `Client.Post` now follows 301
+    redirects, converting them to `GET` requests
+    without bodies, like it did for 302 and 303 redirect responses
+    previously.
+    The `Client` now also follows 307 and 308
+    redirects, preserving the original request method and body, if
+    any. If the redirect requires resending the request body, the
+    request must have the new
+    [`Request.GetBody`](/pkg/net/http/#Request)
+    field defined.
+    [`NewRequest`](/pkg/net/http/#NewRequest)
+    sets `Request.GetBody` automatically for common
+    body types.
+  - <!-- CL 32482 -->
+    The `Transport` now rejects requests for URLs with
+    ports containing non-digit characters.
+  - <!-- CL 27117 -->
+    The `Transport` will now retry non-idempotent
+    requests if no bytes were written before a network failure
+    and the request has no body.
+  - <!-- CL 32481 -->
     The
-    [`Header.Date`](/pkg/net/mail/#Header.Date)
-    method has always provided a way to parse
-    the `Date:` header.
-    A new function
-    [`ParseDate`](/pkg/net/mail/#ParseDate)
-    allows parsing dates found in other
-    header lines, such as the `Resent-Date:` header.
+    new [`Transport.ProxyConnectHeader`](/pkg/net/http/#Transport)
+    allows configuration of header values to send to a proxy
+    during a `CONNECT` request.
+  - <!-- CL 28077 -->
+    The [`DefaultTransport.Dialer`](/pkg/net/http/#DefaultTransport)
+    now enables `DualStack` ("[Happy Eyeballs](https://tools.ietf.org/html/rfc6555)") support,
+    allowing the use of IPv4 as a backup if it looks like IPv6 might be
+    failing.
+  - <!-- CL 31726 -->
+    The [`Transport`](/pkg/net/http/#Transport)
+    no longer reads a byte of a non-nil
+    [`Request.Body`](/pkg/net/http/#Request.Body)
+    when the
+    [`Request.ContentLength`](/pkg/net/http/#Request.ContentLength)
+    is zero to determine whether the `ContentLength`
+    is actually zero or just undefined.
+    To explicitly signal that a body has zero length,
+    either set it to `nil`, or set it to the new value
+    [`NoBody`](/pkg/net/http/#NoBody).
+    The new `NoBody` value is intended for use by `Request`
+    constructor functions; it is used by
+    [`NewRequest`](/pkg/net/http/#NewRequest).
 
-[net/smtp](/pkg/net/smtp/)
+#### [net/http/httptrace](/pkg/net/http/httptrace/)
 
-:   <!-- CL 33143 -->
-    If an implementation of the
-    [`Auth.Start`](/pkg/net/smtp/#Auth)
-    method returns an empty `toServer` value,
-    the package no longer sends
-    trailing whitespace in the SMTP `AUTH` command,
-    which some servers rejected.
+<!-- CL 30359 -->
+There is now support for tracing a client request's TLS handshakes with
+the new
+[`ClientTrace.TLSHandshakeStart`](/pkg/net/http/httptrace/#ClientTrace.TLSHandshakeStart)
+and
+[`ClientTrace.TLSHandshakeDone`](/pkg/net/http/httptrace/#ClientTrace.TLSHandshakeDone).
 
-[net/url](/pkg/net/url/)
+#### [net/http/httputil](/pkg/net/http/httputil/)
 
-:   <!-- CL 31322 -->
-    The new functions
-    [`PathEscape`](/pkg/net/url/#PathEscape)
-    and
-    [`PathUnescape`](/pkg/net/url/#PathUnescape)
-    are similar to the query escaping and unescaping functions but
-    for path elements.
+<!-- CL 32356 -->
+The [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
+has a new optional hook,
+[`ModifyResponse`](/pkg/net/http/httputil/#ReverseProxy.ModifyResponse),
+for modifying the response from the back end before proxying it to the client.
 
-    <!-- CL 28933 -->
-    The new methods
-    [`URL.Hostname`](/pkg/net/url/#URL.Hostname)
-    and
-    [`URL.Port`](/pkg/net/url/#URL.Port)
-    return the hostname and port fields of a URL,
-    correctly handling the case where the port may not be present.
+#### [net/mail](/pkg/net/mail/)
 
-    <!-- CL 28343 -->
-    The existing method
-    [`URL.ResolveReference`](/pkg/net/url/#URL.ResolveReference)
-    now properly handles paths with escaped bytes without losing
-    the escaping.
+<!-- CL 32176 -->
+Empty quoted strings are once again allowed in the name part of
+an address. That is, Go 1.4 and earlier accepted
+`""` `<gopher@example.com>`,
+but Go 1.5 introduced a bug that rejected this address.
+The address is recognized again.
 
-    <!-- CL 31467 -->
-    The `URL` type now implements
-    [`encoding.BinaryMarshaler`](/pkg/encoding/#BinaryMarshaler) and
-    [`encoding.BinaryUnmarshaler`](/pkg/encoding/#BinaryUnmarshaler),
-    making it possible to process URLs in [gob data](/pkg/encoding/gob/).
+<!-- CL 31581 -->
+The
+[`Header.Date`](/pkg/net/mail/#Header.Date)
+method has always provided a way to parse
+the `Date:` header.
+A new function
+[`ParseDate`](/pkg/net/mail/#ParseDate)
+allows parsing dates found in other
+header lines, such as the `Resent-Date:` header.
 
-    <!-- CL 29610, CL 31582 -->
-    Following RFC 3986,
-    [`Parse`](/pkg/net/url/#Parse)
-    now rejects URLs like `this_that:other/thing` instead of
-    interpreting them as relative paths (`this_that` is not a valid scheme).
-    To force interpretation as a relative path,
-    such URLs should be prefixed with “`./`”.
-    The `URL.String` method now inserts this prefix as needed.
+#### [net/smtp](/pkg/net/smtp/)
 
-[os](/pkg/os/)
+<!-- CL 33143 -->
+If an implementation of the
+[`Auth.Start`](/pkg/net/smtp/#Auth)
+method returns an empty `toServer` value,
+the package no longer sends
+trailing whitespace in the SMTP `AUTH` command,
+which some servers rejected.
 
-:   <!-- CL 16551 -->
-    The new function
-    [`Executable`](/pkg/os/#Executable) returns
-    the path name of the running executable.
+#### [net/url](/pkg/net/url/)
 
-    <!-- CL 30614 -->
-    An attempt to call a method on
-    an [`os.File`](/pkg/os/#File) that has
-    already been closed will now return the new error
-    value [`os.ErrClosed`](/pkg/os/#ErrClosed).
-    Previously it returned a system-specific error such
-    as `syscall.EBADF`.
+<!-- CL 31322 -->
+The new functions
+[`PathEscape`](/pkg/net/url/#PathEscape)
+and
+[`PathUnescape`](/pkg/net/url/#PathUnescape)
+are similar to the query escaping and unescaping functions but
+for path elements.
 
-    <!-- CL 31358 -->
-    On Unix systems, [`os.Rename`](/pkg/os/#Rename)
-    will now return an error when used to rename a directory to an
-    existing empty directory.
-    Previously it would fail when renaming to a non-empty directory
-    but succeed when renaming to an empty directory.
-    This makes the behavior on Unix correspond to that of other systems.
+<!-- CL 28933 -->
+The new methods
+[`URL.Hostname`](/pkg/net/url/#URL.Hostname)
+and
+[`URL.Port`](/pkg/net/url/#URL.Port)
+return the hostname and port fields of a URL,
+correctly handling the case where the port may not be present.
 
-    <!-- CL 32451 -->
-    On Windows, long absolute paths are now transparently converted to
-    extended-length paths (paths that start with “`\\?\`”).
-    This permits the package to work with files whose path names are
-    longer than 260 characters.
+<!-- CL 28343 -->
+The existing method
+[`URL.ResolveReference`](/pkg/net/url/#URL.ResolveReference)
+now properly handles paths with escaped bytes without losing
+the escaping.
 
-    <!-- CL 29753 -->
-    On Windows, [`os.IsExist`](/pkg/os/#IsExist)
-    will now return `true` for the system
-    error `ERROR_DIR_NOT_EMPTY`.
-    This roughly corresponds to the existing handling of the Unix
-    error `ENOTEMPTY`.
+<!-- CL 31467 -->
+The `URL` type now implements
+[`encoding.BinaryMarshaler`](/pkg/encoding/#BinaryMarshaler) and
+[`encoding.BinaryUnmarshaler`](/pkg/encoding/#BinaryUnmarshaler),
+making it possible to process URLs in [gob data](/pkg/encoding/gob/).
 
-    <!-- CL 32152 -->
-    On Plan 9, files that are not served by `#M` will now
-    have [`ModeDevice`](/pkg/os/#ModeDevice) set in
-    the value returned
-    by [`FileInfo.Mode`](/pkg/os/#FileInfo).
+<!-- CL 29610, CL 31582 -->
+Following RFC 3986,
+[`Parse`](/pkg/net/url/#Parse)
+now rejects URLs like `this_that:other/thing` instead of
+interpreting them as relative paths (`this_that` is not a valid scheme).
+To force interpretation as a relative path,
+such URLs should be prefixed with “`./`”.
+The `URL.String` method now inserts this prefix as needed.
 
-[path/filepath](/pkg/path/filepath/)
+#### [os](/pkg/os/)
 
-:   A number of bugs and corner cases on Windows were fixed:
-    [`Abs`](/pkg/path/filepath/#Abs) now calls `Clean` as documented,
-    [`Glob`](/pkg/path/filepath/#Glob) now matches
-    “`\\?\c:\*`”,
-    [`EvalSymlinks`](/pkg/path/filepath/#EvalSymlinks) now
-    correctly handles “`C:.`”, and
-    [`Clean`](/pkg/path/filepath/#Clean) now properly
-    handles a leading “`..`” in the path.
+<!-- CL 16551 -->
+The new function
+[`Executable`](/pkg/os/#Executable) returns
+the path name of the running executable.
 
-[reflect](/pkg/reflect/)
+<!-- CL 30614 -->
+An attempt to call a method on
+an [`os.File`](/pkg/os/#File) that has
+already been closed will now return the new error
+value [`os.ErrClosed`](/pkg/os/#ErrClosed).
+Previously it returned a system-specific error such
+as `syscall.EBADF`.
 
-:   <!-- CL 30088 -->
-    The new function
-    [`Swapper`](/pkg/reflect/#Swapper) was
-    added to support [`sort.Slice`](#sortslice).
+<!-- CL 31358 -->
+On Unix systems, [`os.Rename`](/pkg/os/#Rename)
+will now return an error when used to rename a directory to an
+existing empty directory.
+Previously it would fail when renaming to a non-empty directory
+but succeed when renaming to an empty directory.
+This makes the behavior on Unix correspond to that of other systems.
 
-[strconv](/pkg/strconv/)
+<!-- CL 32451 -->
+On Windows, long absolute paths are now transparently converted to
+extended-length paths (paths that start with “`\\?\`”).
+This permits the package to work with files whose path names are
+longer than 260 characters.
 
-:   <!-- CL 31210 -->
-    The [`Unquote`](/pkg/strconv/#Unquote)
-    function now strips carriage returns (`\r`) in
-    backquoted raw strings, following the
-    [Go language semantics](/ref/spec#String_literals).
+<!-- CL 29753 -->
+On Windows, [`os.IsExist`](/pkg/os/#IsExist)
+will now return `true` for the system
+error `ERROR_DIR_NOT_EMPTY`.
+This roughly corresponds to the existing handling of the Unix
+error `ENOTEMPTY`.
 
-[syscall](/pkg/syscall/)
+<!-- CL 32152 -->
+On Plan 9, files that are not served by `#M` will now
+have [`ModeDevice`](/pkg/os/#ModeDevice) set in
+the value returned
+by [`FileInfo.Mode`](/pkg/os/#FileInfo).
 
-:   <!-- CL 25050, CL 25022 -->
-    The [`Getpagesize`](/pkg/syscall/#Getpagesize)
-    now returns the system's size, rather than a constant value.
-    Previously it always returned 4KB.
+#### [path/filepath](/pkg/path/filepath/)
 
-    <!-- CL 31446 -->
-    The signature
-    of [`Utimes`](/pkg/syscall/#Utimes) has
-    changed on Solaris to match all the other Unix systems'
-    signature. Portable code should continue to use
-    [`os.Chtimes`](/pkg/os/#Chtimes) instead.
+A number of bugs and corner cases on Windows were fixed:
+[`Abs`](/pkg/path/filepath/#Abs) now calls `Clean` as documented,
+[`Glob`](/pkg/path/filepath/#Glob) now matches
+“`\\?\c:\*`”,
+[`EvalSymlinks`](/pkg/path/filepath/#EvalSymlinks) now
+correctly handles “`C:.`”, and
+[`Clean`](/pkg/path/filepath/#Clean) now properly
+handles a leading “`..`” in the path.
 
-    <!-- CL 32319 -->
-    The `X__cmsg_data` field has been removed from
-    [`Cmsghdr`](/pkg/syscall/#Cmsghdr).
+#### [reflect](/pkg/reflect/)
 
-[text/template](/pkg/text/template/)
+<!-- CL 30088 -->
+The new function
+[`Swapper`](/pkg/reflect/#Swapper) was
+added to support [`sort.Slice`](#sortslice).
 
-:   <!-- CL 31462 -->
-    [`Template.Execute`](/pkg/text/template/#Template.Execute)
-    can now take a
-    [`reflect.Value`](/pkg/reflect/#Value) as its data
-    argument, and
-    [`FuncMap`](/pkg/text/template/#FuncMap)
-    functions can also accept and return `reflect.Value`.
+#### [strconv](/pkg/strconv/)
 
-[time](/pkg/time/)
+<!-- CL 31210 -->
+The [`Unquote`](/pkg/strconv/#Unquote)
+function now strips carriage returns (`\r`) in
+backquoted raw strings, following the
+[Go language semantics](/ref/spec#String_literals).
 
-:   <!-- CL 20118 -->
-    The new function
-    [`Until`](/pkg/time/#Until) complements
-    the analogous `Since` function.
+#### [syscall](/pkg/syscall/)
 
-    <!-- CL 29338 -->
-    [`ParseDuration`](/pkg/time/#ParseDuration)
-    now accepts long fractional parts.
+<!-- CL 25050, CL 25022 -->
+The [`Getpagesize`](/pkg/syscall/#Getpagesize)
+now returns the system's size, rather than a constant value.
+Previously it always returned 4KB.
 
-    <!-- CL 33429 -->
-    [`Parse`](/pkg/time/#Parse)
-    now rejects dates before the start of a month, such as June 0;
-    it already rejected dates beyond the end of the month, such as
-    June 31 and July 32.
+<!-- CL 31446 -->
+The signature
+of [`Utimes`](/pkg/syscall/#Utimes) has
+changed on Solaris to match all the other Unix systems'
+signature. Portable code should continue to use
+[`os.Chtimes`](/pkg/os/#Chtimes) instead.
 
-    <!-- CL 33029 -->
-    <!-- CL 34816 -->
-    The `tzdata` database has been updated to version
-    2016j for systems that don't already have a local time zone
-    database.
+<!-- CL 32319 -->
+The `X__cmsg_data` field has been removed from
+[`Cmsghdr`](/pkg/syscall/#Cmsghdr).
+
+#### [text/template](/pkg/text/template/)
+
+<!-- CL 31462 -->
+[`Template.Execute`](/pkg/text/template/#Template.Execute)
+can now take a
+[`reflect.Value`](/pkg/reflect/#Value) as its data
+argument, and
+[`FuncMap`](/pkg/text/template/#FuncMap)
+functions can also accept and return `reflect.Value`.
+
+#### [time](/pkg/time/)
+
+<!-- CL 20118 -->
+The new function
+[`Until`](/pkg/time/#Until) complements
+the analogous `Since` function.
+
+<!-- CL 29338 -->
+[`ParseDuration`](/pkg/time/#ParseDuration)
+now accepts long fractional parts.
+
+<!-- CL 33429 -->
+[`Parse`](/pkg/time/#Parse)
+now rejects dates before the start of a month, such as June 0;
+it already rejected dates beyond the end of the month, such as
+June 31 and July 32.
+
+<!-- CL 33029 -->
+<!-- CL 34816 -->
+The `tzdata` database has been updated to version
+2016j for systems that don't already have a local time zone
+database.
 
 
-[testing](/pkg/testing/)
+#### [testing](/pkg/testing/)
 
-:   <!-- CL 29970 -->
-    The new method
-    [`T.Name`](/pkg/testing/#T.Name)
-    (and `B.Name`) returns the name of the current
-    test or benchmark.
+<!-- CL 29970 -->
+The new method
+[`T.Name`](/pkg/testing/#T.Name)
+(and `B.Name`) returns the name of the current
+test or benchmark.
 
-    <!-- CL 32483 -->
-    The new function
-    [`CoverMode`](/pkg/testing/#CoverMode)
-    reports the test coverage mode.
+<!-- CL 32483 -->
+The new function
+[`CoverMode`](/pkg/testing/#CoverMode)
+reports the test coverage mode.
 
-    <!-- CL 32615 -->
-    Tests and benchmarks are now marked as failed if the race
-    detector is enabled and a data race occurs during execution.
-    Previously, individual test cases would appear to pass,
-    and only the overall execution of the test binary would fail.
+<!-- CL 32615 -->
+Tests and benchmarks are now marked as failed if the race
+detector is enabled and a data race occurs during execution.
+Previously, individual test cases would appear to pass,
+and only the overall execution of the test binary would fail.
 
-    <!-- CL 32455 -->
-    The signature of the
-    [`MainStart`](/pkg/testing/#MainStart)
-    function has changed, as allowed by the documentation. It is an
-    internal detail and not part of the Go 1 compatibility promise.
-    If you're not calling `MainStart` directly but see
-    errors, that likely means you set the
-    normally-empty `GOROOT` environment variable and it
-    doesn't match the version of your `go` command's binary.
+<!-- CL 32455 -->
+The signature of the
+[`MainStart`](/pkg/testing/#MainStart)
+function has changed, as allowed by the documentation. It is an
+internal detail and not part of the Go 1 compatibility promise.
+If you're not calling `MainStart` directly but see
+errors, that likely means you set the
+normally-empty `GOROOT` environment variable and it
+doesn't match the version of your `go` command's binary.
 
-[unicode](/pkg/unicode/)
+#### [unicode](/pkg/unicode/)
 
-:   <!-- CL 30935 -->
-    [`SimpleFold`](/pkg/unicode/#SimpleFold)
-    now returns its argument unchanged if the provided input was an invalid rune.
-    Previously, the implementation failed with an index bounds check panic.
+<!-- CL 30935 -->
+[`SimpleFold`](/pkg/unicode/#SimpleFold)
+now returns its argument unchanged if the provided input was an invalid rune.
+Previously, the implementation failed with an index bounds check panic.

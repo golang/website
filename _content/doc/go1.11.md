@@ -408,402 +408,402 @@ in mind.
 <!-- CL 110395: https://golang.org/cl/110395: cmd/go, cmd/compile: use Windows response files to avoid arg length limits -->
 <!-- CL 112436: https://golang.org/cl/112436: cmd/pprof: add readline support similar to upstream -->
 
-[crypto](/pkg/crypto/)
+#### [crypto](/pkg/crypto/)
 
-:   <!-- CL 64451 -->
-    Certain crypto operations, including
-    [`ecdsa.Sign`](/pkg/crypto/ecdsa/#Sign),
-    [`rsa.EncryptPKCS1v15`](/pkg/crypto/rsa/#EncryptPKCS1v15) and
-    [`rsa.GenerateKey`](/pkg/crypto/rsa/#GenerateKey),
-    now randomly read an extra byte of randomness to ensure tests don't rely on internal behavior.
+<!-- CL 64451 -->
+Certain crypto operations, including
+[`ecdsa.Sign`](/pkg/crypto/ecdsa/#Sign),
+[`rsa.EncryptPKCS1v15`](/pkg/crypto/rsa/#EncryptPKCS1v15) and
+[`rsa.GenerateKey`](/pkg/crypto/rsa/#GenerateKey),
+now randomly read an extra byte of randomness to ensure tests don't rely on internal behavior.
 
 <!-- crypto -->
 
-[crypto/cipher](/pkg/crypto/cipher/)
+#### [crypto/cipher](/pkg/crypto/cipher/)
 
-:   <!-- CL 48510, CL 116435 -->
-    The new function [`NewGCMWithTagSize`](/pkg/crypto/cipher/#NewGCMWithTagSize)
-    implements Galois Counter Mode with non-standard tag lengths for compatibility with existing cryptosystems.
+<!-- CL 48510, CL 116435 -->
+The new function [`NewGCMWithTagSize`](/pkg/crypto/cipher/#NewGCMWithTagSize)
+implements Galois Counter Mode with non-standard tag lengths for compatibility with existing cryptosystems.
 
 <!-- crypto/cipher -->
 
-[crypto/rsa](/pkg/crypto/rsa/)
+#### [crypto/rsa](/pkg/crypto/rsa/)
 
-:   <!-- CL 103876 -->
-    [`PublicKey`](/pkg/crypto/rsa/#PublicKey) now implements a
-    [`Size`](/pkg/crypto/rsa/#PublicKey.Size) method that
-    returns the modulus size in bytes.
+<!-- CL 103876 -->
+[`PublicKey`](/pkg/crypto/rsa/#PublicKey) now implements a
+[`Size`](/pkg/crypto/rsa/#PublicKey.Size) method that
+returns the modulus size in bytes.
 
 <!-- crypto/rsa -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 85115 -->
-    [`ConnectionState`](/pkg/crypto/tls/#ConnectionState)'s new
-    [`ExportKeyingMaterial`](/pkg/crypto/tls/#ConnectionState.ExportKeyingMaterial)
-    method allows exporting keying material bound to the
-    connection according to RFC 5705.
+<!-- CL 85115 -->
+[`ConnectionState`](/pkg/crypto/tls/#ConnectionState)'s new
+[`ExportKeyingMaterial`](/pkg/crypto/tls/#ConnectionState.ExportKeyingMaterial)
+method allows exporting keying material bound to the
+connection according to RFC 5705.
 
 <!-- crypto/tls -->
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   <!-- CL 123355, CL 123695 -->
-    The deprecated, legacy behavior of treating the `CommonName` field as
-    a hostname when no Subject Alternative Names are present is now disabled when the CN is not a
-    valid hostname.
-    The `CommonName` can be completely ignored by adding the experimental value
-    `x509ignoreCN=1` to the `GODEBUG` environment variable.
-    When the CN is ignored, certificates without SANs validate under chains with name constraints
-    instead of returning `NameConstraintsWithoutSANs`.
+<!-- CL 123355, CL 123695 -->
+The deprecated, legacy behavior of treating the `CommonName` field as
+a hostname when no Subject Alternative Names are present is now disabled when the CN is not a
+valid hostname.
+The `CommonName` can be completely ignored by adding the experimental value
+`x509ignoreCN=1` to the `GODEBUG` environment variable.
+When the CN is ignored, certificates without SANs validate under chains with name constraints
+instead of returning `NameConstraintsWithoutSANs`.
 
-    <!-- CL 113475 -->
-    Extended key usage restrictions are again checked only if they appear in the `KeyUsages`
-    field of [`VerifyOptions`](/pkg/crypto/x509/#VerifyOptions), instead of always being checked.
-    This matches the behavior of Go 1.9 and earlier.
+<!-- CL 113475 -->
+Extended key usage restrictions are again checked only if they appear in the `KeyUsages`
+field of [`VerifyOptions`](/pkg/crypto/x509/#VerifyOptions), instead of always being checked.
+This matches the behavior of Go 1.9 and earlier.
 
-    <!-- CL 102699 -->
-    The value returned by [`SystemCertPool`](/pkg/crypto/x509/#SystemCertPool)
-    is now cached and might not reflect system changes between invocations.
+<!-- CL 102699 -->
+The value returned by [`SystemCertPool`](/pkg/crypto/x509/#SystemCertPool)
+is now cached and might not reflect system changes between invocations.
 
 <!-- crypto/x509 -->
 
-[debug/elf](/pkg/debug/elf/)
+#### [debug/elf](/pkg/debug/elf/)
 
-:   <!-- CL 112115 -->
-    More [`ELFOSABI`](/pkg/debug/elf/#ELFOSABI_NONE)
-    and [`EM`](/pkg/debug/elf/#EM_NONE)
-    constants have been added.
+<!-- CL 112115 -->
+More [`ELFOSABI`](/pkg/debug/elf/#ELFOSABI_NONE)
+and [`EM`](/pkg/debug/elf/#EM_NONE)
+constants have been added.
 
 <!-- debug/elf -->
 
-[encoding/asn1](/pkg/encoding/asn1/)
+#### [encoding/asn1](/pkg/encoding/asn1/)
 
-:   <!-- CL 110561 -->
-    `Marshal` and [`Unmarshal`](/pkg/encoding/asn1/#Unmarshal)
-    now support "private" class annotations for fields.
+<!-- CL 110561 -->
+`Marshal` and [`Unmarshal`](/pkg/encoding/asn1/#Unmarshal)
+now support "private" class annotations for fields.
 
 <!-- encoding/asn1 -->
 
-[encoding/base32](/pkg/encoding/base32/)
+#### [encoding/base32](/pkg/encoding/base32/)
 
-:   <!-- CL 112516 -->
-    The decoder now consistently
-    returns `io.ErrUnexpectedEOF` for an incomplete
-    chunk. Previously it would return `io.EOF` in some
-    cases.
+<!-- CL 112516 -->
+The decoder now consistently
+returns `io.ErrUnexpectedEOF` for an incomplete
+chunk. Previously it would return `io.EOF` in some
+cases.
 
 <!-- encoding/base32 -->
 
-[encoding/csv](/pkg/encoding/csv/)
+#### [encoding/csv](/pkg/encoding/csv/)
 
-:   <!-- CL 99696 -->
-    The `Reader` now rejects attempts to set
-    the [`Comma`](/pkg/encoding/csv/#Reader.Comma)
-    field to a double-quote character, as double-quote characters
-    already have a special meaning in CSV.
+<!-- CL 99696 -->
+The `Reader` now rejects attempts to set
+the [`Comma`](/pkg/encoding/csv/#Reader.Comma)
+field to a double-quote character, as double-quote characters
+already have a special meaning in CSV.
 
 <!-- encoding/csv -->
 
 <!-- CL 100235 was reverted -->
 
-[html/template](/pkg/html/template/)
+#### [html/template](/pkg/html/template/)
 
-:   <!-- CL 121815 -->
-    The package has changed its behavior when a typed interface
-    value is passed to an implicit escaper function. Previously such
-    a value was written out as (an escaped form)
-    of `<nil>`. Now such values are ignored, just
-    as an untyped `nil` value is (and always has been)
-    ignored.
+<!-- CL 121815 -->
+The package has changed its behavior when a typed interface
+value is passed to an implicit escaper function. Previously such
+a value was written out as (an escaped form)
+of `<nil>`. Now such values are ignored, just
+as an untyped `nil` value is (and always has been)
+ignored.
 
 <!-- html/template -->
 
-[image/gif](/pkg/image/gif/)
+#### [image/gif](/pkg/image/gif/)
 
-:   <!-- CL 93076 -->
-    Non-looping animated GIFs are now supported. They are denoted by having a
-    [`LoopCount`](/pkg/image/gif/#GIF.LoopCount) of -1.
+<!-- CL 93076 -->
+Non-looping animated GIFs are now supported. They are denoted by having a
+[`LoopCount`](/pkg/image/gif/#GIF.LoopCount) of -1.
 
 <!-- image/gif -->
 
-[io/ioutil](/pkg/io/ioutil/)
+#### [io/ioutil](/pkg/io/ioutil/)
 
-:   <!-- CL 105675 -->
-    The [`TempFile`](/pkg/io/ioutil/#TempFile)
-    function now supports specifying where the random characters in
-    the filename are placed. If the `prefix` argument
-    includes a "`*`", the random string replaces the
-    "`*`". For example, a `prefix` argument of "`myname.*.bat`" will
-    result in a random filename such as
-    "`myname.123456.bat`". If no "`*`" is
-    included the old behavior is retained, and the random digits are
-    appended to the end.
+<!-- CL 105675 -->
+The [`TempFile`](/pkg/io/ioutil/#TempFile)
+function now supports specifying where the random characters in
+the filename are placed. If the `prefix` argument
+includes a "`*`", the random string replaces the
+"`*`". For example, a `prefix` argument of "`myname.*.bat`" will
+result in a random filename such as
+"`myname.123456.bat`". If no "`*`" is
+included the old behavior is retained, and the random digits are
+appended to the end.
 
 <!-- io/ioutil -->
 
-[math/big](/pkg/math/big/)
+#### [math/big](/pkg/math/big/)
 
-:   <!-- CL 108996 -->
-    [`ModInverse`](/pkg/math/big/#Int.ModInverse) now returns nil when g and n are not relatively prime. The result was previously undefined.
+<!-- CL 108996 -->
+[`ModInverse`](/pkg/math/big/#Int.ModInverse) now returns nil when g and n are not relatively prime. The result was previously undefined.
 
 <!-- math/big -->
 
-[mime/multipart](/pkg/mime/multipart/)
+#### [mime/multipart](/pkg/mime/multipart/)
 
-:   <!-- CL 121055 -->
-    The handling of form-data with missing/empty file names has been
-    restored to the behavior in Go 1.9: in the
-    [`Form`](/pkg/mime/multipart/#Form) for
-    the form-data part the value is available in
-    the `Value` field rather than the `File`
-    field. In Go releases 1.10 through 1.10.3 a form-data part with
-    a missing/empty file name and a non-empty "Content-Type" field
-    was stored in the `File` field. This change was a
-    mistake in 1.10 and has been reverted to the 1.9 behavior.
+<!-- CL 121055 -->
+The handling of form-data with missing/empty file names has been
+restored to the behavior in Go 1.9: in the
+[`Form`](/pkg/mime/multipart/#Form) for
+the form-data part the value is available in
+the `Value` field rather than the `File`
+field. In Go releases 1.10 through 1.10.3 a form-data part with
+a missing/empty file name and a non-empty "Content-Type" field
+was stored in the `File` field. This change was a
+mistake in 1.10 and has been reverted to the 1.9 behavior.
 
 <!-- mime/multipart -->
 
-[mime/quotedprintable](/pkg/mime/quotedprintable/)
+#### [mime/quotedprintable](/pkg/mime/quotedprintable/)
 
-:   <!-- CL 121095 -->
-    To support invalid input found in the wild, the package now
-    permits non-ASCII bytes but does not validate their encoding.
+<!-- CL 121095 -->
+To support invalid input found in the wild, the package now
+permits non-ASCII bytes but does not validate their encoding.
 
 <!-- mime/quotedprintable -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- CL 72810 -->
-    The new [`ListenConfig`](/pkg/net/#ListenConfig) type and the new
-    [`Dialer.Control`](/pkg/net/#Dialer.Control) field permit
-    setting socket options before accepting and creating connections, respectively.
+<!-- CL 72810 -->
+The new [`ListenConfig`](/pkg/net/#ListenConfig) type and the new
+[`Dialer.Control`](/pkg/net/#Dialer.Control) field permit
+setting socket options before accepting and creating connections, respectively.
 
-    <!-- CL 76391 -->
-    The [`syscall.RawConn`](/pkg/syscall/#RawConn) `Read`
-    and `Write` methods now work correctly on Windows.
+<!-- CL 76391 -->
+The [`syscall.RawConn`](/pkg/syscall/#RawConn) `Read`
+and `Write` methods now work correctly on Windows.
 
-    <!-- CL 107715 -->
-    The `net` package now automatically uses the
-    [`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html)
-    on Linux when copying data between TCP connections in
-    [`TCPConn.ReadFrom`](/pkg/net/#TCPConn.ReadFrom), as called by
-    [`io.Copy`](/pkg/io/#Copy). The result is faster, more efficient TCP proxying.
+<!-- CL 107715 -->
+The `net` package now automatically uses the
+[`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html)
+on Linux when copying data between TCP connections in
+[`TCPConn.ReadFrom`](/pkg/net/#TCPConn.ReadFrom), as called by
+[`io.Copy`](/pkg/io/#Copy). The result is faster, more efficient TCP proxying.
 
-    <!-- CL 108297 -->
-    The [`TCPConn.File`](/pkg/net/#TCPConn.File),
-    [`UDPConn.File`](/pkg/net/#UDPConn.File),
-    [`UnixConn.File`](/pkg/net/#UnixCOnn.File),
-    and [`IPConn.File`](/pkg/net/#IPConn.File)
-    methods no longer put the returned `*os.File` into
-    blocking mode.
+<!-- CL 108297 -->
+The [`TCPConn.File`](/pkg/net/#TCPConn.File),
+[`UDPConn.File`](/pkg/net/#UDPConn.File),
+[`UnixConn.File`](/pkg/net/#UnixCOnn.File),
+and [`IPConn.File`](/pkg/net/#IPConn.File)
+methods no longer put the returned `*os.File` into
+blocking mode.
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- CL 71272 -->
-    The [`Transport`](/pkg/net/http/#Transport) type has a
-    new [`MaxConnsPerHost`](/pkg/net/http/#Transport.MaxConnsPerHost)
-    option that permits limiting the maximum number of connections
-    per host.
+<!-- CL 71272 -->
+The [`Transport`](/pkg/net/http/#Transport) type has a
+new [`MaxConnsPerHost`](/pkg/net/http/#Transport.MaxConnsPerHost)
+option that permits limiting the maximum number of connections
+per host.
 
-    <!-- CL 79919 -->
-    The [`Cookie`](/pkg/net/http/#Cookie) type has a new
-    [`SameSite`](/pkg/net/http/#Cookie.SameSite) field
-    (of new type also named
-    [`SameSite`](/pkg/net/http/#SameSite)) to represent the new cookie attribute recently supported by most browsers.
-    The `net/http`'s `Transport` does not use the `SameSite`
-    attribute itself, but the package supports parsing and serializing the
-    attribute for browsers to use.
+<!-- CL 79919 -->
+The [`Cookie`](/pkg/net/http/#Cookie) type has a new
+[`SameSite`](/pkg/net/http/#Cookie.SameSite) field
+(of new type also named
+[`SameSite`](/pkg/net/http/#SameSite)) to represent the new cookie attribute recently supported by most browsers.
+The `net/http`'s `Transport` does not use the `SameSite`
+attribute itself, but the package supports parsing and serializing the
+attribute for browsers to use.
 
-    <!-- CL 81778 -->
-    It is no longer allowed to reuse a [`Server`](/pkg/net/http/#Server)
-    after a call to
-    [`Shutdown`](/pkg/net/http/#Server.Shutdown) or
-    [`Close`](/pkg/net/http/#Server.Close). It was never officially supported
-    in the past and had often surprising behavior. Now, all future calls to the server's `Serve`
-    methods will return errors after a shutdown or close.
+<!-- CL 81778 -->
+It is no longer allowed to reuse a [`Server`](/pkg/net/http/#Server)
+after a call to
+[`Shutdown`](/pkg/net/http/#Server.Shutdown) or
+[`Close`](/pkg/net/http/#Server.Close). It was never officially supported
+in the past and had often surprising behavior. Now, all future calls to the server's `Serve`
+methods will return errors after a shutdown or close.
 
-    <!-- CL 89275 was reverted before Go 1.11 -->
+<!-- CL 89275 was reverted before Go 1.11 -->
 
-    <!-- CL 93296 -->
-    The constant `StatusMisdirectedRequest` is now defined for HTTP status code 421.
+<!-- CL 93296 -->
+The constant `StatusMisdirectedRequest` is now defined for HTTP status code 421.
 
-    <!-- CL 123875 -->
-    The HTTP server will no longer cancel contexts or send on
-    [`CloseNotifier`](/pkg/net/http/#CloseNotifier)
-    channels upon receiving pipelined HTTP/1.1 requests. Browsers do
-    not use HTTP pipelining, but some clients (such as
-    Debian's `apt`) may be configured to do so.
+<!-- CL 123875 -->
+The HTTP server will no longer cancel contexts or send on
+[`CloseNotifier`](/pkg/net/http/#CloseNotifier)
+channels upon receiving pipelined HTTP/1.1 requests. Browsers do
+not use HTTP pipelining, but some clients (such as
+Debian's `apt`) may be configured to do so.
 
-    <!-- CL 115255 -->
-    [`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment), which is used by the
-    [`DefaultTransport`](/pkg/net/http/#DefaultTransport), now
-    supports CIDR notation and ports in the `NO_PROXY` environment variable.
+<!-- CL 115255 -->
+[`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment), which is used by the
+[`DefaultTransport`](/pkg/net/http/#DefaultTransport), now
+supports CIDR notation and ports in the `NO_PROXY` environment variable.
 
 <!-- net/http -->
 
-[net/http/httputil](/pkg/net/http/httputil/)
+#### [net/http/httputil](/pkg/net/http/httputil/)
 
-:   <!-- CL 77410 -->
-    The
-    [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
-    has a new
-    [`ErrorHandler`](/pkg/net/http/httputil/#ReverseProxy.ErrorHandler)
-    option to permit changing how errors are handled.
+<!-- CL 77410 -->
+The
+[`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy)
+has a new
+[`ErrorHandler`](/pkg/net/http/httputil/#ReverseProxy.ErrorHandler)
+option to permit changing how errors are handled.
 
-    <!-- CL 115135 -->
-    The `ReverseProxy` now also passes
-    "`TE:`&nbsp;`trailers`" request headers
-    through to the backend, as required by the gRPC protocol.
+<!-- CL 115135 -->
+The `ReverseProxy` now also passes
+"`TE:`&nbsp;`trailers`" request headers
+through to the backend, as required by the gRPC protocol.
 
 <!-- net/http/httputil -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- CL 78835 -->
-    The new [`UserCacheDir`](/pkg/os/#UserCacheDir) function
-    returns the default root directory to use for user-specific cached data.
+<!-- CL 78835 -->
+The new [`UserCacheDir`](/pkg/os/#UserCacheDir) function
+returns the default root directory to use for user-specific cached data.
 
-    <!-- CL 94856 -->
-    The new [`ModeIrregular`](/pkg/os/#ModeIrregular)
-    is a [`FileMode`](/pkg/os/#FileMode) bit to represent
-    that a file is not a regular file, but nothing else is known about it, or that
-    it's not a socket, device, named pipe, symlink, or other file type for which
-    Go has a defined mode bit.
+<!-- CL 94856 -->
+The new [`ModeIrregular`](/pkg/os/#ModeIrregular)
+is a [`FileMode`](/pkg/os/#FileMode) bit to represent
+that a file is not a regular file, but nothing else is known about it, or that
+it's not a socket, device, named pipe, symlink, or other file type for which
+Go has a defined mode bit.
 
-    <!-- CL 99337 -->
-    [`Symlink`](/pkg/os/#Symlink) now works
-    for unprivileged users on Windows 10 on machines with Developer
-    Mode enabled.
+<!-- CL 99337 -->
+[`Symlink`](/pkg/os/#Symlink) now works
+for unprivileged users on Windows 10 on machines with Developer
+Mode enabled.
 
-    <!-- CL 100077 -->
-    When a non-blocking descriptor is passed
-    to [`NewFile`](/pkg/os#NewFile), the
-    resulting `*File` will be kept in non-blocking
-    mode. This means that I/O for that `*File` will use
-    the runtime poller rather than a separate thread, and that
-    the [`SetDeadline`](/pkg/os/#File.SetDeadline)
-    methods will work.
+<!-- CL 100077 -->
+When a non-blocking descriptor is passed
+to [`NewFile`](/pkg/os#NewFile), the
+resulting `*File` will be kept in non-blocking
+mode. This means that I/O for that `*File` will use
+the runtime poller rather than a separate thread, and that
+the [`SetDeadline`](/pkg/os/#File.SetDeadline)
+methods will work.
 
 <!-- os -->
 
-[os/signal](/pkg/os/signal/)
+#### [os/signal](/pkg/os/signal/)
 
-:   <!-- CL 108376 -->
-    The new [`Ignored`](/pkg/os/signal/#Ignored) function reports
-    whether a signal is currently ignored.
+<!-- CL 108376 -->
+The new [`Ignored`](/pkg/os/signal/#Ignored) function reports
+whether a signal is currently ignored.
 
 <!-- os/signal -->
 
-[os/user](/pkg/os/user/)
+#### [os/user](/pkg/os/user/)
 
-:   <!-- CL 92456 -->
-    The `os/user` package can now be built in pure Go
-    mode using the build tag "`osusergo`",
-    independent of the use of the environment
-    variable `CGO_ENABLED=0`. Previously the only way to use
-    the package's pure Go implementation was to disable `cgo`
-    support across the entire program.
+<!-- CL 92456 -->
+The `os/user` package can now be built in pure Go
+mode using the build tag "`osusergo`",
+independent of the use of the environment
+variable `CGO_ENABLED=0`. Previously the only way to use
+the package's pure Go implementation was to disable `cgo`
+support across the entire program.
 
 <!-- os/user -->
 
 <!-- CL 101715 was reverted -->
 
-[runtime](/pkg/runtime/)
+#### [runtime](/pkg/runtime/)
 
-:   <!-- CL 70993 -->
-    Setting the <code>GODEBUG=tracebackancestors=_N_</code>
-    environment variable now extends tracebacks with the stacks at
-    which goroutines were created, where _N_ limits the
-    number of ancestor goroutines to report.
+<!-- CL 70993 -->
+Setting the <code>GODEBUG=tracebackancestors=_N_</code>
+environment variable now extends tracebacks with the stacks at
+which goroutines were created, where _N_ limits the
+number of ancestor goroutines to report.
 
 <!-- runtime -->
 
-[runtime/pprof](/pkg/runtime/pprof/)
+#### [runtime/pprof](/pkg/runtime/pprof/)
 
-:   <!-- CL 102696 -->
-    This release adds a new "allocs" profile type that profiles
-    total number of bytes allocated since the program began
-    (including garbage-collected bytes). This is identical to the
-    existing "heap" profile viewed in `-alloc_space` mode.
-    Now `go test -memprofile=...` reports an "allocs" profile
-    instead of "heap" profile.
+<!-- CL 102696 -->
+This release adds a new "allocs" profile type that profiles
+total number of bytes allocated since the program began
+(including garbage-collected bytes). This is identical to the
+existing "heap" profile viewed in `-alloc_space` mode.
+Now `go test -memprofile=...` reports an "allocs" profile
+instead of "heap" profile.
 
 <!-- runtime/pprof -->
 
-[sync](/pkg/sync/)
+#### [sync](/pkg/sync/)
 
-:   <!-- CL 87095 -->
-    The mutex profile now includes reader/writer contention
-    for [`RWMutex`](/pkg/sync/#RWMutex).
-    Writer/writer contention was already included in the mutex
-    profile.
+<!-- CL 87095 -->
+The mutex profile now includes reader/writer contention
+for [`RWMutex`](/pkg/sync/#RWMutex).
+Writer/writer contention was already included in the mutex
+profile.
 
 <!-- sync -->
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 106275 -->
-    On Windows, several fields were changed from `uintptr` to a new
-    [`Pointer`](/pkg/syscall/?GOOS=windows&GOARCH=amd64#Pointer)
-    type to avoid problems with Go's garbage collector. The same change was made
-    to the [`golang.org/x/sys/windows`](https://godoc.org/golang.org/x/sys/windows)
-    package. For any code affected, users should first migrate away from the `syscall`
-    package to the `golang.org/x/sys/windows` package, and then change
-    to using the `Pointer`, while obeying the
-    [`unsafe.Pointer` conversion rules](/pkg/unsafe/#Pointer).
+<!-- CL 106275 -->
+On Windows, several fields were changed from `uintptr` to a new
+[`Pointer`](/pkg/syscall/?GOOS=windows&GOARCH=amd64#Pointer)
+type to avoid problems with Go's garbage collector. The same change was made
+to the [`golang.org/x/sys/windows`](https://godoc.org/golang.org/x/sys/windows)
+package. For any code affected, users should first migrate away from the `syscall`
+package to the `golang.org/x/sys/windows` package, and then change
+to using the `Pointer`, while obeying the
+[`unsafe.Pointer` conversion rules](/pkg/unsafe/#Pointer).
 
-    <!-- CL 118658 -->
-    On Linux, the `flags` parameter to
-    [`Faccessat`](/pkg/syscall/?GOOS=linux&GOARCH=amd64#Faccessat)
-    is now implemented just as in glibc. In earlier Go releases the
-    flags parameter was ignored.
+<!-- CL 118658 -->
+On Linux, the `flags` parameter to
+[`Faccessat`](/pkg/syscall/?GOOS=linux&GOARCH=amd64#Faccessat)
+is now implemented just as in glibc. In earlier Go releases the
+flags parameter was ignored.
 
-    <!-- CL 118658 -->
-    On Linux, the `flags` parameter to
-    [`Fchmodat`](/pkg/syscall/?GOOS=linux&GOARCH=amd64#Fchmodat)
-    is now validated. Linux's `fchmodat` doesn't support the `flags` parameter
-    so we now mimic glibc's behavior and return an error if it's non-zero.
+<!-- CL 118658 -->
+On Linux, the `flags` parameter to
+[`Fchmodat`](/pkg/syscall/?GOOS=linux&GOARCH=amd64#Fchmodat)
+is now validated. Linux's `fchmodat` doesn't support the `flags` parameter
+so we now mimic glibc's behavior and return an error if it's non-zero.
 
 <!-- syscall -->
 
-[text/scanner](/pkg/text/scanner/)
+#### [text/scanner](/pkg/text/scanner/)
 
-:   <!-- CL 112037 -->
-    The [`Scanner.Scan`](/pkg/text/scanner/#Scanner.Scan) method now returns
-    the [`RawString`](/pkg/text/scanner/#RawString) token
-    instead of [`String`](/pkg/text/scanner/#String)
-    for raw string literals.
+<!-- CL 112037 -->
+The [`Scanner.Scan`](/pkg/text/scanner/#Scanner.Scan) method now returns
+the [`RawString`](/pkg/text/scanner/#RawString) token
+instead of [`String`](/pkg/text/scanner/#String)
+for raw string literals.
 
 <!-- text/scanner -->
 
-[text/template](/pkg/text/template/)
+#### [text/template](/pkg/text/template/)
 
-:   <!-- CL 84480 -->
-    Modifying template variables via assignments is now permitted via the `=` token:
+<!-- CL 84480 -->
+Modifying template variables via assignments is now permitted via the `=` token:
 
-    	  {{ $v := "init" }}
-    	  {{ if true }}
-    	    {{ $v = "changed" }}
-    	  {{ end }}
-    	  v: {{ $v }} {{/* "changed" */}}
+	  {{ $v := "init" }}
+	  {{ if true }}
+	    {{ $v = "changed" }}
+	  {{ end }}
+	  v: {{ $v }} {{/* "changed" */}}
 
-    <!-- CL 95215 -->
-    In previous versions untyped `nil` values passed to
-    template functions were ignored. They are now passed as normal
-    arguments.
+<!-- CL 95215 -->
+In previous versions untyped `nil` values passed to
+template functions were ignored. They are now passed as normal
+arguments.
 
 <!-- text/template -->
 
-[time](/pkg/time/)
+#### [time](/pkg/time/)
 
-:   <!-- CL 98157 -->
-    Parsing of timezones denoted by sign and offset is now
-    supported. In previous versions, numeric timezone names
-    (such as `+03`) were not considered valid, and only
-    three-letter abbreviations (such as `MST`) were accepted
-    when expecting a timezone name.
+<!-- CL 98157 -->
+Parsing of timezones denoted by sign and offset is now
+supported. In previous versions, numeric timezone names
+(such as `+03`) were not considered valid, and only
+three-letter abbreviations (such as `MST`) were accepted
+when expecting a timezone name.
 
 <!-- time -->

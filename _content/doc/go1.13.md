@@ -478,434 +478,434 @@ As always, there are various minor changes and updates to the library,
 made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind.
 
-[bytes](/pkg/bytes/)
+#### [bytes](/pkg/bytes/)
 
-:   The new [`ToValidUTF8`](/pkg/bytes/#ToValidUTF8) function returns a
-    copy of a given byte slice with each run of invalid UTF-8 byte sequences replaced by a given slice.
+The new [`ToValidUTF8`](/pkg/bytes/#ToValidUTF8) function returns a
+copy of a given byte slice with each run of invalid UTF-8 byte sequences replaced by a given slice.
 
 <!-- bytes -->
 
-[context](/pkg/context/)
+#### [context](/pkg/context/)
 
-:   <!-- CL 169080 -->
-    The formatting of contexts returned by [`WithValue`](/pkg/context/#WithValue) no longer depends on `fmt` and will not stringify in the same way. Code that depends on the exact previous stringification might be affected.
+<!-- CL 169080 -->
+The formatting of contexts returned by [`WithValue`](/pkg/context/#WithValue) no longer depends on `fmt` and will not stringify in the same way. Code that depends on the exact previous stringification might be affected.
 
 <!-- context -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   Support for SSL version 3.0 (SSLv3) [
-    is now deprecated and will be removed in Go 1.14](/issue/32716). Note that SSLv3 is the
-    [cryptographically broken](https://tools.ietf.org/html/rfc7568)
-    protocol predating TLS.
+Support for SSL version 3.0 (SSLv3) [
+is now deprecated and will be removed in Go 1.14](/issue/32716). Note that SSLv3 is the
+[cryptographically broken](https://tools.ietf.org/html/rfc7568)
+protocol predating TLS.
 
-    SSLv3 was always disabled by default, other than in Go 1.12, when it was
-    mistakenly enabled by default server-side. It is now again disabled by
-    default. (SSLv3 was never supported client-side.)
+SSLv3 was always disabled by default, other than in Go 1.12, when it was
+mistakenly enabled by default server-side. It is now again disabled by
+default. (SSLv3 was never supported client-side.)
 
-    <!-- CL 177698 -->
-    Ed25519 certificates are now supported in TLS versions 1.2 and 1.3.
+<!-- CL 177698 -->
+Ed25519 certificates are now supported in TLS versions 1.2 and 1.3.
 
 <!-- crypto/tls -->
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   <!-- CL 175478 -->
-    Ed25519 keys are now supported in certificates and certificate requests
-    according to [RFC 8410](https://www.rfc-editor.org/info/rfc8410), as well as by the
-    [`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey),
-    [`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey),
-    and [`ParsePKIXPublicKey`](/pkg/crypto/x509/#ParsePKIXPublicKey) functions.
+<!-- CL 175478 -->
+Ed25519 keys are now supported in certificates and certificate requests
+according to [RFC 8410](https://www.rfc-editor.org/info/rfc8410), as well as by the
+[`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey),
+[`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey),
+and [`ParsePKIXPublicKey`](/pkg/crypto/x509/#ParsePKIXPublicKey) functions.
 
-    <!-- CL 169238 -->
-    The paths searched for system roots now include `/etc/ssl/cert.pem`
-    to support the default location in Alpine Linux 3.7+.
+<!-- CL 169238 -->
+The paths searched for system roots now include `/etc/ssl/cert.pem`
+to support the default location in Alpine Linux 3.7+.
 
 <!-- crypto/x509 -->
 
-[database/sql](/pkg/database/sql/)
+#### [database/sql](/pkg/database/sql/)
 
-:   <!-- CL 170699 -->
-    The new [`NullTime`](/pkg/database/sql/#NullTime) type represents a `time.Time` that may be null.
+<!-- CL 170699 -->
+The new [`NullTime`](/pkg/database/sql/#NullTime) type represents a `time.Time` that may be null.
 
-    <!-- CL 174178 -->
-    The new [`NullInt32`](/pkg/database/sql/#NullInt32) type represents an `int32` that may be null.
+<!-- CL 174178 -->
+The new [`NullInt32`](/pkg/database/sql/#NullInt32) type represents an `int32` that may be null.
 
 <!-- database/sql -->
 
-[debug/dwarf](/pkg/debug/dwarf/)
+#### [debug/dwarf](/pkg/debug/dwarf/)
 
-:   <!-- CL 158797 -->
-    The [`Data.Type`](/pkg/debug/dwarf/#Data.Type)
-    method no longer panics if it encounters an unknown DWARF tag in
-    the type graph. Instead, it represents that component of the
-    type with
-    an [`UnsupportedType`](/pkg/debug/dwarf/#UnsupportedType)
-    object.
+<!-- CL 158797 -->
+The [`Data.Type`](/pkg/debug/dwarf/#Data.Type)
+method no longer panics if it encounters an unknown DWARF tag in
+the type graph. Instead, it represents that component of the
+type with
+an [`UnsupportedType`](/pkg/debug/dwarf/#UnsupportedType)
+object.
 
 <!-- debug/dwarf -->
 
-[errors](/pkg/errors/)
+#### [errors](/pkg/errors/)
 
-:   <!-- CL 163558 -->
+<!-- CL 163558 -->
 
-    The new function [`As`](/pkg/errors/#As) finds the first
-    error in a given error’s chain (sequence of wrapped errors)
-    that matches a given target’s type, and if so, sets the target to that error value.
+The new function [`As`](/pkg/errors/#As) finds the first
+error in a given error’s chain (sequence of wrapped errors)
+that matches a given target’s type, and if so, sets the target to that error value.
 
-    The new function [`Is`](/pkg/errors/#Is) reports whether a given error value matches an
-    error in another’s chain.
+The new function [`Is`](/pkg/errors/#Is) reports whether a given error value matches an
+error in another’s chain.
 
-    The new function [`Unwrap`](/pkg/errors/#Unwrap) returns the result of calling
-    `Unwrap` on a given error, if one exists.
+The new function [`Unwrap`](/pkg/errors/#Unwrap) returns the result of calling
+`Unwrap` on a given error, if one exists.
 
 <!-- errors -->
 
-[fmt](/pkg/fmt/)
+#### [fmt](/pkg/fmt/)
 
-:   <!-- CL 160245 -->
+<!-- CL 160245 -->
 
-    The printing verbs `%x` and `%X` now format floating-point and
-    complex numbers in hexadecimal notation, in lower-case and upper-case respectively.
+The printing verbs `%x` and `%X` now format floating-point and
+complex numbers in hexadecimal notation, in lower-case and upper-case respectively.
 
-    <!-- CL 160246 -->
+<!-- CL 160246 -->
 
-    The new printing verb `%O` formats integers in base 8, emitting the `0o` prefix.
+The new printing verb `%O` formats integers in base 8, emitting the `0o` prefix.
 
-    <!-- CL 160247 -->
+<!-- CL 160247 -->
 
-    The scanner now accepts hexadecimal floating-point values, digit-separating underscores
-    and leading `0b` and `0o` prefixes.
-    See the [Changes to the language](#language) for details.
+The scanner now accepts hexadecimal floating-point values, digit-separating underscores
+and leading `0b` and `0o` prefixes.
+See the [Changes to the language](#language) for details.
 
-    <!-- CL 176998 -->
+<!-- CL 176998 -->
 
-    The [`Errorf`](/pkg/fmt/#Errorf) function
-    has a new verb, `%w`, whose operand must be an error.
-    The error returned from `Errorf` will have an
-    `Unwrap` method which returns the operand of `%w`.
+The [`Errorf`](/pkg/fmt/#Errorf) function
+has a new verb, `%w`, whose operand must be an error.
+The error returned from `Errorf` will have an
+`Unwrap` method which returns the operand of `%w`.
 
 <!-- fmt -->
 
-[go/scanner](/pkg/go/scanner/)
+#### [go/scanner](/pkg/go/scanner/)
 
-:   <!-- CL 175218 -->
-    The scanner has been updated to recognize the new Go number literals, specifically
-    binary literals with `0b`/`0B` prefix, octal literals with `0o`/`0O` prefix,
-    and floating-point numbers with hexadecimal mantissa. The imaginary suffix `i` may now be used with any number
-    literal, and underscores may be used as digit separators for grouping.
-    See the [Changes to the language](#language) for details.
+<!-- CL 175218 -->
+The scanner has been updated to recognize the new Go number literals, specifically
+binary literals with `0b`/`0B` prefix, octal literals with `0o`/`0O` prefix,
+and floating-point numbers with hexadecimal mantissa. The imaginary suffix `i` may now be used with any number
+literal, and underscores may be used as digit separators for grouping.
+See the [Changes to the language](#language) for details.
 
 <!-- go/scanner -->
 
-[go/types](/pkg/go/types/)
+#### [go/types](/pkg/go/types/)
 
-:   The type-checker has been updated to follow the new rules for integer shifts.
-    See the [Changes to the language](#language) for details.
+The type-checker has been updated to follow the new rules for integer shifts.
+See the [Changes to the language](#language) for details.
 
 <!-- go/types -->
 
-[html/template](/pkg/html/template/)
+#### [html/template](/pkg/html/template/)
 
-:   <!-- CL 175218 -->
-    When using a `<script>` tag with "module" set as the
-    type attribute, code will now be interpreted as [JavaScript module script](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element:module-script-2).
+<!-- CL 175218 -->
+When using a `<script>` tag with "module" set as the
+type attribute, code will now be interpreted as [JavaScript module script](https://html.spec.whatwg.org/multipage/scripting.html#the-script-element:module-script-2).
 
 <!-- html/template -->
 
-[log](/pkg/log/)
+#### [log](/pkg/log/)
 
-:   <!-- CL 168920 -->
-    The new [`Writer`](/pkg/log/#Writer) function returns the output destination for the standard logger.
+<!-- CL 168920 -->
+The new [`Writer`](/pkg/log/#Writer) function returns the output destination for the standard logger.
 
 <!-- log -->
 
-[math/big](/pkg/math/big/)
+#### [math/big](/pkg/math/big/)
 
-:   <!-- CL 160682 -->
-    The new [`Rat.SetUint64`](/pkg/math/big/#Rat.SetUint64) method sets the `Rat` to a `uint64` value.
+<!-- CL 160682 -->
+The new [`Rat.SetUint64`](/pkg/math/big/#Rat.SetUint64) method sets the `Rat` to a `uint64` value.
 
-    <!-- CL 166157 -->
-    For [`Float.Parse`](/pkg/math/big/#Float.Parse), if base is 0, underscores
-    may be used between digits for readability.
-    See the [Changes to the language](#language) for details.
+<!-- CL 166157 -->
+For [`Float.Parse`](/pkg/math/big/#Float.Parse), if base is 0, underscores
+may be used between digits for readability.
+See the [Changes to the language](#language) for details.
 
-    <!-- CL 166157 -->
-    For [`Int.SetString`](/pkg/math/big/#Int.SetString), if base is 0, underscores
-    may be used between digits for readability.
-    See the [Changes to the language](#language) for details.
+<!-- CL 166157 -->
+For [`Int.SetString`](/pkg/math/big/#Int.SetString), if base is 0, underscores
+may be used between digits for readability.
+See the [Changes to the language](#language) for details.
 
-    <!-- CL 168237 -->
-    [`Rat.SetString`](/pkg/math/big/#Rat.SetString) now accepts non-decimal floating point representations.
+<!-- CL 168237 -->
+[`Rat.SetString`](/pkg/math/big/#Rat.SetString) now accepts non-decimal floating point representations.
 
 <!-- math/big -->
 
-[math/bits](/pkg/math/bits/)
+#### [math/bits](/pkg/math/bits/)
 
-:   <!-- CL 178177 -->
-    The execution time of [`Add`](/pkg/math/bits/#Add),
-    [`Sub`](/pkg/math/bits/#Sub),
-    [`Mul`](/pkg/math/bits/#Mul),
-    [`RotateLeft`](/pkg/math/bits/#RotateLeft), and
-    [`ReverseBytes`](/pkg/math/bits/#ReverseBytes) is now
-    guaranteed to be independent of the inputs.
+<!-- CL 178177 -->
+The execution time of [`Add`](/pkg/math/bits/#Add),
+[`Sub`](/pkg/math/bits/#Sub),
+[`Mul`](/pkg/math/bits/#Mul),
+[`RotateLeft`](/pkg/math/bits/#RotateLeft), and
+[`ReverseBytes`](/pkg/math/bits/#ReverseBytes) is now
+guaranteed to be independent of the inputs.
 
 <!-- math/bits -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- CL 156366 -->
-    On Unix systems where `use-vc` is set in `resolv.conf`, TCP is used for DNS resolution.
+<!-- CL 156366 -->
+On Unix systems where `use-vc` is set in `resolv.conf`, TCP is used for DNS resolution.
 
-    <!-- CL 170678 -->
-    The new field [`ListenConfig.KeepAlive`](/pkg/net/#ListenConfig.KeepAlive)
-    specifies the keep-alive period for network connections accepted by the listener.
-    If this field is 0 (the default) TCP keep-alives will be enabled.
-    To disable them, set it to a negative value.
+<!-- CL 170678 -->
+The new field [`ListenConfig.KeepAlive`](/pkg/net/#ListenConfig.KeepAlive)
+specifies the keep-alive period for network connections accepted by the listener.
+If this field is 0 (the default) TCP keep-alives will be enabled.
+To disable them, set it to a negative value.
 
-    Note that the error returned from I/O on a connection that was
-    closed by a keep-alive timeout will have a
-    `Timeout` method that returns `true` if called.
-    This can make a keep-alive error difficult to distinguish from
-    an error returned due to a missed deadline as set by the
-    [`SetDeadline`](/pkg/net/#Conn)
-    method and similar methods.
-    Code that uses deadlines and checks for them with
-    the `Timeout` method or
-    with [`os.IsTimeout`](/pkg/os/#IsTimeout)
-    may want to disable keep-alives, or
-    use `errors.Is(syscall.ETIMEDOUT)` (on Unix systems)
-    which will return true for a keep-alive timeout and false for a
-    deadline timeout.
+Note that the error returned from I/O on a connection that was
+closed by a keep-alive timeout will have a
+`Timeout` method that returns `true` if called.
+This can make a keep-alive error difficult to distinguish from
+an error returned due to a missed deadline as set by the
+[`SetDeadline`](/pkg/net/#Conn)
+method and similar methods.
+Code that uses deadlines and checks for them with
+the `Timeout` method or
+with [`os.IsTimeout`](/pkg/os/#IsTimeout)
+may want to disable keep-alives, or
+use `errors.Is(syscall.ETIMEDOUT)` (on Unix systems)
+which will return true for a keep-alive timeout and false for a
+deadline timeout.
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- CL 76410 -->
-    The new fields [`Transport.WriteBufferSize`](/pkg/net/http/#Transport.WriteBufferSize)
-    and [`Transport.ReadBufferSize`](/pkg/net/http/#Transport.ReadBufferSize)
-    allow one to specify the sizes of the write and read buffers for a [`Transport`](/pkg/net/http/#Transport).
-    If either field is zero, a default size of 4KB is used.
+<!-- CL 76410 -->
+The new fields [`Transport.WriteBufferSize`](/pkg/net/http/#Transport.WriteBufferSize)
+and [`Transport.ReadBufferSize`](/pkg/net/http/#Transport.ReadBufferSize)
+allow one to specify the sizes of the write and read buffers for a [`Transport`](/pkg/net/http/#Transport).
+If either field is zero, a default size of 4KB is used.
 
-    <!-- CL 130256 -->
-    The new field [`Transport.ForceAttemptHTTP2`](/pkg/net/http/#Transport.ForceAttemptHTTP2)
-    controls whether HTTP/2 is enabled when a non-zero `Dial`, `DialTLS`, or `DialContext`
-    func or `TLSClientConfig` is provided.
+<!-- CL 130256 -->
+The new field [`Transport.ForceAttemptHTTP2`](/pkg/net/http/#Transport.ForceAttemptHTTP2)
+controls whether HTTP/2 is enabled when a non-zero `Dial`, `DialTLS`, or `DialContext`
+func or `TLSClientConfig` is provided.
 
-    <!-- CL 140357 -->
-    [`Transport.MaxConnsPerHost`](/pkg/net/http/#Transport.MaxConnsPerHost) now works
-    properly with HTTP/2.
+<!-- CL 140357 -->
+[`Transport.MaxConnsPerHost`](/pkg/net/http/#Transport.MaxConnsPerHost) now works
+properly with HTTP/2.
 
-    <!-- CL 154383 -->
-    [`TimeoutHandler`](/pkg/net/http/#TimeoutHandler)'s
-    [`ResponseWriter`](/pkg/net/http/#ResponseWriter) now implements the
-    [`Pusher`](/pkg/net/http/#Pusher) interface.
+<!-- CL 154383 -->
+[`TimeoutHandler`](/pkg/net/http/#TimeoutHandler)'s
+[`ResponseWriter`](/pkg/net/http/#ResponseWriter) now implements the
+[`Pusher`](/pkg/net/http/#Pusher) interface.
 
-    <!-- CL 157339 -->
-    The `StatusCode` `103` `"Early Hints"` has been added.
+<!-- CL 157339 -->
+The `StatusCode` `103` `"Early Hints"` has been added.
 
-    <!-- CL 163599 -->
-    [`Transport`](/pkg/net/http/#Transport) now uses the [`Request.Body`](/pkg/net/http/#Request.Body)'s
-    [`io.ReaderFrom`](/pkg/io/#ReaderFrom) implementation if available, to optimize writing the body.
+<!-- CL 163599 -->
+[`Transport`](/pkg/net/http/#Transport) now uses the [`Request.Body`](/pkg/net/http/#Request.Body)'s
+[`io.ReaderFrom`](/pkg/io/#ReaderFrom) implementation if available, to optimize writing the body.
 
-    <!-- CL 167017 -->
-    On encountering unsupported transfer-encodings, [`http.Server`](/pkg/net/http/#Server) now
-    returns a "501 Unimplemented" status as mandated by the HTTP specification [RFC 7230 Section 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1).
+<!-- CL 167017 -->
+On encountering unsupported transfer-encodings, [`http.Server`](/pkg/net/http/#Server) now
+returns a "501 Unimplemented" status as mandated by the HTTP specification [RFC 7230 Section 3.3.1](https://tools.ietf.org/html/rfc7230#section-3.3.1).
 
-    <!-- CL 167681 -->
-    The new [`Server`](/pkg/net/http/#Server) fields
-    [`BaseContext`](/pkg/net/http/#Server.BaseContext) and
-    [`ConnContext`](/pkg/net/http/#Server.ConnContext)
-    allow finer control over the [`Context`](/pkg/context/#Context) values provided to requests and connections.
+<!-- CL 167681 -->
+The new [`Server`](/pkg/net/http/#Server) fields
+[`BaseContext`](/pkg/net/http/#Server.BaseContext) and
+[`ConnContext`](/pkg/net/http/#Server.ConnContext)
+allow finer control over the [`Context`](/pkg/context/#Context) values provided to requests and connections.
 
-    <!-- CL 167781 -->
-    [`http.DetectContentType`](/pkg/net/http/#DetectContentType) now correctly detects RAR signatures, and can now also detect RAR v5 signatures.
+<!-- CL 167781 -->
+[`http.DetectContentType`](/pkg/net/http/#DetectContentType) now correctly detects RAR signatures, and can now also detect RAR v5 signatures.
 
-    <!-- CL 173658 -->
-    The new [`Header`](/pkg/net/http/#Header) method
-    [`Clone`](/pkg/net/http/#Header.Clone) returns a copy of the receiver.
+<!-- CL 173658 -->
+The new [`Header`](/pkg/net/http/#Header) method
+[`Clone`](/pkg/net/http/#Header.Clone) returns a copy of the receiver.
 
-    <!-- CL 174324 -->
-    A new function [`NewRequestWithContext`](/pkg/net/http/#NewRequestWithContext) has been added and it
-    accepts a [`Context`](/pkg/context/#Context) that controls the entire lifetime of
-    the created outgoing [`Request`](/pkg/net/http/#Request), suitable for use with
-    [`Client.Do`](/pkg/net/http/#Client.Do) and [`Transport.RoundTrip`](/pkg/net/http/#Transport.RoundTrip).
+<!-- CL 174324 -->
+A new function [`NewRequestWithContext`](/pkg/net/http/#NewRequestWithContext) has been added and it
+accepts a [`Context`](/pkg/context/#Context) that controls the entire lifetime of
+the created outgoing [`Request`](/pkg/net/http/#Request), suitable for use with
+[`Client.Do`](/pkg/net/http/#Client.Do) and [`Transport.RoundTrip`](/pkg/net/http/#Transport.RoundTrip).
 
-    <!-- CL 179457 -->
-    The [`Transport`](/pkg/net/http/#Transport) no longer logs errors when servers
-    gracefully shut down idle connections using a `"408 Request Timeout"` response.
+<!-- CL 179457 -->
+The [`Transport`](/pkg/net/http/#Transport) no longer logs errors when servers
+gracefully shut down idle connections using a `"408 Request Timeout"` response.
 
 <!-- net/http -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- CL 160877 -->
-    The new [`UserConfigDir`](/pkg/os/#UserConfigDir) function
-    returns the default directory to use for user-specific configuration data.
+<!-- CL 160877 -->
+The new [`UserConfigDir`](/pkg/os/#UserConfigDir) function
+returns the default directory to use for user-specific configuration data.
 
-    <!-- CL 166578 -->
-    If a [`File`](/pkg/os/#File) is opened using the O\_APPEND flag, its
-    [`WriteAt`](/pkg/os/#File.WriteAt) method will always return an error.
+<!-- CL 166578 -->
+If a [`File`](/pkg/os/#File) is opened using the O\_APPEND flag, its
+[`WriteAt`](/pkg/os/#File.WriteAt) method will always return an error.
 
 <!-- os -->
 
-[os/exec](/pkg/os/exec/)
+#### [os/exec](/pkg/os/exec/)
 
-:   <!-- CL 174318 -->
-    On Windows, the environment for a [`Cmd`](/pkg/os/exec/#Cmd) always inherits the
-    `%SYSTEMROOT%` value of the parent process unless the
-    [`Cmd.Env`](/pkg/os/exec/#Cmd.Env) field includes an explicit value for it.
+<!-- CL 174318 -->
+On Windows, the environment for a [`Cmd`](/pkg/os/exec/#Cmd) always inherits the
+`%SYSTEMROOT%` value of the parent process unless the
+[`Cmd.Env`](/pkg/os/exec/#Cmd.Env) field includes an explicit value for it.
 
 <!-- os/exec -->
 
-[reflect](/pkg/reflect/)
+#### [reflect](/pkg/reflect/)
 
-:   <!-- CL 171337 -->
-    The new [`Value.IsZero`](/pkg/reflect/#Value.IsZero) method reports whether a `Value` is the zero value for its type.
+<!-- CL 171337 -->
+The new [`Value.IsZero`](/pkg/reflect/#Value.IsZero) method reports whether a `Value` is the zero value for its type.
 
-    <!-- CL 174531 -->
-    The [`MakeFunc`](/pkg/reflect/#MakeFunc) function now allows assignment conversions on returned values, instead of requiring exact type match. This is particularly useful when the type being returned is an interface type, but the value actually returned is a concrete value implementing that type.
+<!-- CL 174531 -->
+The [`MakeFunc`](/pkg/reflect/#MakeFunc) function now allows assignment conversions on returned values, instead of requiring exact type match. This is particularly useful when the type being returned is an interface type, but the value actually returned is a concrete value implementing that type.
 
 <!-- reflect -->
 
-[runtime](/pkg/runtime/)
+#### [runtime](/pkg/runtime/)
 
-:   <!-- CL 167780 -->
-    Tracebacks, [`runtime.Caller`](/pkg/runtime/#Caller),
-    and [`runtime.Callers`](/pkg/runtime/#Callers) now refer to the function that
-    initializes the global variables of `PKG`
-    as `PKG.init` instead of `PKG.init.ializers`.
+<!-- CL 167780 -->
+Tracebacks, [`runtime.Caller`](/pkg/runtime/#Caller),
+and [`runtime.Callers`](/pkg/runtime/#Callers) now refer to the function that
+initializes the global variables of `PKG`
+as `PKG.init` instead of `PKG.init.ializers`.
 
 <!-- runtime -->
 
-[strconv](/pkg/strconv/)
+#### [strconv](/pkg/strconv/)
 
-:   <!-- CL 160243 -->
-    For [`strconv.ParseFloat`](/pkg/strconv/#ParseFloat),
-    [`strconv.ParseInt`](/pkg/strconv/#ParseInt)
-    and [`strconv.ParseUint`](/pkg/strconv/#ParseUint),
-    if base is 0, underscores may be used between digits for readability.
-    See the [Changes to the language](#language) for details.
+<!-- CL 160243 -->
+For [`strconv.ParseFloat`](/pkg/strconv/#ParseFloat),
+[`strconv.ParseInt`](/pkg/strconv/#ParseInt)
+and [`strconv.ParseUint`](/pkg/strconv/#ParseUint),
+if base is 0, underscores may be used between digits for readability.
+See the [Changes to the language](#language) for details.
 
 <!-- strconv -->
 
-[strings](/pkg/strings/)
+#### [strings](/pkg/strings/)
 
-:   <!-- CL 142003 -->
-    The new [`ToValidUTF8`](/pkg/strings/#ToValidUTF8) function returns a
-    copy of a given string with each run of invalid UTF-8 byte sequences replaced by a given string.
+<!-- CL 142003 -->
+The new [`ToValidUTF8`](/pkg/strings/#ToValidUTF8) function returns a
+copy of a given string with each run of invalid UTF-8 byte sequences replaced by a given string.
 
 <!-- strings -->
 
-[sync](/pkg/sync/)
+#### [sync](/pkg/sync/)
 
-:   <!-- CL 148958, CL 148959, CL 152697, CL 152698 -->
-    The fast paths of [`Mutex.Lock`](/pkg/sync/#Mutex.Lock), [`Mutex.Unlock`](/pkg/sync/#Mutex.Unlock),
-    [`RWMutex.Lock`](/pkg/sync/#RWMutex.Lock), [`RWMutex.RUnlock`](/pkg/sync/#Mutex.RUnlock), and
-    [`Once.Do`](/pkg/sync/#Once.Do) are now inlined in their callers.
-    For the uncontended cases on amd64, these changes make [`Once.Do`](/pkg/sync/#Once.Do) twice as fast, and the
-    [`Mutex`](/pkg/sync/#Mutex)/[`RWMutex`](/pkg/sync/#RWMutex) methods up to 10% faster.
+<!-- CL 148958, CL 148959, CL 152697, CL 152698 -->
+The fast paths of [`Mutex.Lock`](/pkg/sync/#Mutex.Lock), [`Mutex.Unlock`](/pkg/sync/#Mutex.Unlock),
+[`RWMutex.Lock`](/pkg/sync/#RWMutex.Lock), [`RWMutex.RUnlock`](/pkg/sync/#Mutex.RUnlock), and
+[`Once.Do`](/pkg/sync/#Once.Do) are now inlined in their callers.
+For the uncontended cases on amd64, these changes make [`Once.Do`](/pkg/sync/#Once.Do) twice as fast, and the
+[`Mutex`](/pkg/sync/#Mutex)/[`RWMutex`](/pkg/sync/#RWMutex) methods up to 10% faster.
 
-    <!-- CL 166960 -->
-    Large [`Pool`](/pkg/sync/#Pool) no longer increase stop-the-world pause times.
+<!-- CL 166960 -->
+Large [`Pool`](/pkg/sync/#Pool) no longer increase stop-the-world pause times.
 
-    <!-- CL 166961 -->
-    `Pool` no longer needs to be completely repopulated after every GC. It now retains some objects across GCs,
-    as opposed to releasing all objects, reducing load spikes for heavy users of `Pool`.
+<!-- CL 166961 -->
+`Pool` no longer needs to be completely repopulated after every GC. It now retains some objects across GCs,
+as opposed to releasing all objects, reducing load spikes for heavy users of `Pool`.
 
 <!-- sync -->
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 168479 -->
-    Uses of `_getdirentries64` have been removed from
-    Darwin builds, to allow Go binaries to be uploaded to the macOS
-    App Store.
+<!-- CL 168479 -->
+Uses of `_getdirentries64` have been removed from
+Darwin builds, to allow Go binaries to be uploaded to the macOS
+App Store.
 
-    <!-- CL 174197 -->
-    The new `ProcessAttributes` and `ThreadAttributes` fields in
-    [`SysProcAttr`](/pkg/syscall/?GOOS=windows#SysProcAttr) have been introduced for Windows,
-    exposing security settings when creating new processes.
+<!-- CL 174197 -->
+The new `ProcessAttributes` and `ThreadAttributes` fields in
+[`SysProcAttr`](/pkg/syscall/?GOOS=windows#SysProcAttr) have been introduced for Windows,
+exposing security settings when creating new processes.
 
-    <!-- CL 174320 -->
-    `EINVAL` is no longer returned in zero
-    [`Chmod`](/pkg/syscall/?GOOS=windows#Chmod) mode on Windows.
+<!-- CL 174320 -->
+`EINVAL` is no longer returned in zero
+[`Chmod`](/pkg/syscall/?GOOS=windows#Chmod) mode on Windows.
 
-    <!-- CL 191337 -->
-    Values of type `Errno` can be tested against error values in
-    the `os` package,
-    like [`ErrExist`](/pkg/os/#ErrExist), using
-    [`errors.Is`](/pkg/errors/#Is).
+<!-- CL 191337 -->
+Values of type `Errno` can be tested against error values in
+the `os` package,
+like [`ErrExist`](/pkg/os/#ErrExist), using
+[`errors.Is`](/pkg/errors/#Is).
 
 <!-- syscall -->
 
-[syscall/js](/pkg/syscall/js/)
+#### [syscall/js](/pkg/syscall/js/)
 
-:   <!-- CL 177537 -->
-    `TypedArrayOf` has been replaced by
-    [`CopyBytesToGo`](/pkg/syscall/js/#CopyBytesToGo) and
-    [`CopyBytesToJS`](/pkg/syscall/js/#CopyBytesToJS) for copying bytes
-    between a byte slice and a `Uint8Array`.
+<!-- CL 177537 -->
+`TypedArrayOf` has been replaced by
+[`CopyBytesToGo`](/pkg/syscall/js/#CopyBytesToGo) and
+[`CopyBytesToJS`](/pkg/syscall/js/#CopyBytesToJS) for copying bytes
+between a byte slice and a `Uint8Array`.
 
 <!-- syscall/js -->
 
-[testing](/pkg/testing/)
+#### [testing](/pkg/testing/)
 
-:   <!-- CL 112155 -->
-    When running benchmarks, [`B.N`](/pkg/testing/#B.N) is no longer rounded.
+<!-- CL 112155 -->
+When running benchmarks, [`B.N`](/pkg/testing/#B.N) is no longer rounded.
 
-    <!-- CL 166717 -->
-    The new method [`B.ReportMetric`](/pkg/testing/#B.ReportMetric) lets users report
-    custom benchmark metrics and override built-in metrics.
+<!-- CL 166717 -->
+The new method [`B.ReportMetric`](/pkg/testing/#B.ReportMetric) lets users report
+custom benchmark metrics and override built-in metrics.
 
-    <!-- CL 173722 -->
-    Testing flags are now registered in the new [`Init`](/pkg/testing/#Init) function,
-    which is invoked by the generated `main` function for the test.
-    As a result, testing flags are now only registered when running a test binary,
-    and packages that call `flag.Parse` during package initialization may cause tests to fail.
+<!-- CL 173722 -->
+Testing flags are now registered in the new [`Init`](/pkg/testing/#Init) function,
+which is invoked by the generated `main` function for the test.
+As a result, testing flags are now only registered when running a test binary,
+and packages that call `flag.Parse` during package initialization may cause tests to fail.
 
 <!-- testing -->
 
-[text/scanner](/pkg/text/scanner/)
+#### [text/scanner](/pkg/text/scanner/)
 
-:   <!-- CL 183077 -->
-    The scanner has been updated to recognize the new Go number literals, specifically
-    binary literals with `0b`/`0B` prefix, octal literals with `0o`/`0O` prefix,
-    and floating-point numbers with hexadecimal mantissa.
-    Also, the new [`AllowDigitSeparators`](/pkg/text/scanner/#AllowDigitSeparators)
-    mode allows number literals to contain underscores as digit separators (off by default for backwards-compatibility).
-    See the [Changes to the language](#language) for details.
+<!-- CL 183077 -->
+The scanner has been updated to recognize the new Go number literals, specifically
+binary literals with `0b`/`0B` prefix, octal literals with `0o`/`0O` prefix,
+and floating-point numbers with hexadecimal mantissa.
+Also, the new [`AllowDigitSeparators`](/pkg/text/scanner/#AllowDigitSeparators)
+mode allows number literals to contain underscores as digit separators (off by default for backwards-compatibility).
+See the [Changes to the language](#language) for details.
 
 <!-- text/scanner -->
 
-[text/template](/pkg/text/template/)
+#### [text/template](/pkg/text/template/)
 
-:   <!-- CL 161762 -->
-    The new [slice function](/pkg/text/template/#hdr-Functions)
-    returns the result of slicing its first argument by the following arguments.
+<!-- CL 161762 -->
+The new [slice function](/pkg/text/template/#hdr-Functions)
+returns the result of slicing its first argument by the following arguments.
 
 <!-- text/template -->
 
-[time](/pkg/time/)
+#### [time](/pkg/time/)
 
-:   <!-- CL 122876 -->
-    Day-of-year is now supported by [`Format`](/pkg/time/#Time.Format)
-    and [`Parse`](/pkg/time/#Parse).
+<!-- CL 122876 -->
+Day-of-year is now supported by [`Format`](/pkg/time/#Time.Format)
+and [`Parse`](/pkg/time/#Parse).
 
-    <!-- CL 167387 -->
-    The new [`Duration`](/pkg/time/#Duration) methods
-    [`Microseconds`](/pkg/time/#Duration.Microseconds) and
-    [`Milliseconds`](/pkg/time/#Duration.Milliseconds) return
-    the duration as an integer count of their respectively named units.
+<!-- CL 167387 -->
+The new [`Duration`](/pkg/time/#Duration) methods
+[`Microseconds`](/pkg/time/#Duration.Microseconds) and
+[`Milliseconds`](/pkg/time/#Duration.Milliseconds) return
+the duration as an integer count of their respectively named units.
 
 <!-- time -->
 
-[unicode](/pkg/unicode/)
+#### [unicode](/pkg/unicode/)
 
-:   The [`unicode`](/pkg/unicode/) package and associated
-    support throughout the system has been upgraded from Unicode 10.0 to
-    [Unicode 11.0](https://www.unicode.org/versions/Unicode11.0.0/),
-    which adds 684 new characters, including seven new scripts, and 66 new emoji.
+The [`unicode`](/pkg/unicode/) package and associated
+support throughout the system has been upgraded from Unicode 10.0 to
+[Unicode 11.0](https://www.unicode.org/versions/Unicode11.0.0/),
+which adds 684 new characters, including seven new scripts, and 66 new emoji.
 
 <!-- unicode -->

@@ -351,420 +351,420 @@ made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind.
 There are also various performance improvements, not enumerated here.
 
-[archive/tar](/pkg/archive/tar/)
+#### [archive/tar](/pkg/archive/tar/)
 
-:   <!-- https://go.dev/issue/54451, CL 491175 -->
-    The implementation of the
-    [`io/fs.FileInfo`](/pkg/io/fs/#FileInfo)
-    interface returned by
-    [`Header.FileInfo`](/pkg/archive/tar/#Header.FileInfo)
-    now implements a `String` method that calls
-    [`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+The implementation of the
+[`io/fs.FileInfo`](/pkg/io/fs/#FileInfo)
+interface returned by
+[`Header.FileInfo`](/pkg/archive/tar/#Header.FileInfo)
+now implements a `String` method that calls
+[`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
 
 <!-- archive/tar -->
 
-[archive/zip](/pkg/archive/zip/)
+#### [archive/zip](/pkg/archive/zip/)
 
-:   <!-- https://go.dev/issue/54451, CL 491175 -->
-    The implementation of the
-    [`io/fs.FileInfo`](/pkg/io/fs/#FileInfo)
-    interface returned by
-    [`FileHeader.FileInfo`](/pkg/archive/zip/#FileHeader.FileInfo)
-    now implements a `String` method that calls
-    [`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+The implementation of the
+[`io/fs.FileInfo`](/pkg/io/fs/#FileInfo)
+interface returned by
+[`FileHeader.FileInfo`](/pkg/archive/zip/#FileHeader.FileInfo)
+now implements a `String` method that calls
+[`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
 
-    <!-- https://go.dev/issue/54451, CL 491175 -->
-    The implementation of the
-    [`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
-    interface returned by the
-    [`io/fs.ReadDirFile.ReadDir`](/pkg/io/fs/#ReadDirFile.ReadDir)
-    method of the
-    [`io/fs.File`](/pkg/io/fs/#File)
-    returned by
-    [`Reader.Open`](/pkg/archive/zip/#Reader.Open)
-    now implements a `String` method that calls
-    [`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+The implementation of the
+[`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
+interface returned by the
+[`io/fs.ReadDirFile.ReadDir`](/pkg/io/fs/#ReadDirFile.ReadDir)
+method of the
+[`io/fs.File`](/pkg/io/fs/#File)
+returned by
+[`Reader.Open`](/pkg/archive/zip/#Reader.Open)
+now implements a `String` method that calls
+[`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
 
 <!-- archive/zip -->
 
-[bytes](/pkg/bytes/)
+#### [bytes](/pkg/bytes/)
 
-:   <!-- https://go.dev/issue/53685, CL 474635 -->
-    The [`Buffer`](/pkg/bytes/#Buffer) type
-    has two new methods:
-    [`Available`](/pkg/bytes/#Buffer.Available)
-    and [`AvailableBuffer`](/pkg/bytes/#Buffer.AvailableBuffer).
-    These may be used along with the
-    [`Write`](/pkg/bytes/#Buffer.Write)
-    method to append directly to the `Buffer`.
+<!-- https://go.dev/issue/53685, CL 474635 -->
+The [`Buffer`](/pkg/bytes/#Buffer) type
+has two new methods:
+[`Available`](/pkg/bytes/#Buffer.Available)
+and [`AvailableBuffer`](/pkg/bytes/#Buffer.AvailableBuffer).
+These may be used along with the
+[`Write`](/pkg/bytes/#Buffer.Write)
+method to append directly to the `Buffer`.
 
 <!-- bytes -->
 
-[context](/pkg/context/)
+#### [context](/pkg/context/)
 
-:   <!-- https://go.dev/issue/40221, CL 479918 -->
-    The new [`WithoutCancel`](/pkg/context/#WithoutCancel)
-    function returns a copy of a context that is not canceled when the original
-    context is canceled.
+<!-- https://go.dev/issue/40221, CL 479918 -->
+The new [`WithoutCancel`](/pkg/context/#WithoutCancel)
+function returns a copy of a context that is not canceled when the original
+context is canceled.
 
-    <!-- https://go.dev/issue/56661, CL 449318 -->
-    The new [`WithDeadlineCause`](/pkg/context/#WithDeadlineCause)
-    and [`WithTimeoutCause`](/pkg/context/#WithTimeoutCause)
-    functions provide a way to set a context cancellation cause when a deadline or
-    timer expires. The cause may be retrieved with the
-    [`Cause`](/pkg/context/#Cause) function.
+<!-- https://go.dev/issue/56661, CL 449318 -->
+The new [`WithDeadlineCause`](/pkg/context/#WithDeadlineCause)
+and [`WithTimeoutCause`](/pkg/context/#WithTimeoutCause)
+functions provide a way to set a context cancellation cause when a deadline or
+timer expires. The cause may be retrieved with the
+[`Cause`](/pkg/context/#Cause) function.
 
-    <!-- https://go.dev/issue/57928, CL 482695 -->
-    The new [`AfterFunc`](/pkg/context/#AfterFunc)
-    function registers a function to run after a context has been cancelled.
+<!-- https://go.dev/issue/57928, CL 482695 -->
+The new [`AfterFunc`](/pkg/context/#AfterFunc)
+function registers a function to run after a context has been cancelled.
 
-    <!-- CL 455455 -->
-    An optimization means that the results of calling
-    [`Background`](/pkg/context/#Background)
-    and [`TODO`](/pkg/context/#TODO) and
-    converting them to a shared type can be considered equal.
-    In previous releases they were always different. Comparing
-    [`Context`](/pkg/context/#Context) values
-    for equality has never been well-defined, so this is not
-    considered to be an incompatible change.
+<!-- CL 455455 -->
+An optimization means that the results of calling
+[`Background`](/pkg/context/#Background)
+and [`TODO`](/pkg/context/#TODO) and
+converting them to a shared type can be considered equal.
+In previous releases they were always different. Comparing
+[`Context`](/pkg/context/#Context) values
+for equality has never been well-defined, so this is not
+considered to be an incompatible change.
 
-[crypto/ecdsa](/pkg/crypto/ecdsa/)
+#### [crypto/ecdsa](/pkg/crypto/ecdsa/)
 
-:   <!-- CL 492955 -->
-    [`PublicKey.Equal`](/pkg/crypto/ecdsa/#PublicKey.Equal) and
-    [`PrivateKey.Equal`](/pkg/crypto/ecdsa/#PrivateKey.Equal)
-    now execute in constant time.
+<!-- CL 492955 -->
+[`PublicKey.Equal`](/pkg/crypto/ecdsa/#PublicKey.Equal) and
+[`PrivateKey.Equal`](/pkg/crypto/ecdsa/#PrivateKey.Equal)
+now execute in constant time.
 
 <!-- crypto/ecdsa -->
 
-[crypto/elliptic](/pkg/crypto/elliptic/)
+#### [crypto/elliptic](/pkg/crypto/elliptic/)
 
-:   <!-- CL 459977 -->
-    All of the [`Curve`](/pkg/crypto/elliptic/#Curve) methods have been deprecated, along with [`GenerateKey`](/pkg/crypto/elliptic/#GenerateKey), [`Marshal`](/pkg/crypto/elliptic/#Marshal), and [`Unmarshal`](/pkg/crypto/elliptic/#Unmarshal). For ECDH operations, the new [`crypto/ecdh`](/pkg/crypto/ecdh/) package should be used instead. For lower-level operations, use third-party modules such as [filippo.io/nistec](https://pkg.go.dev/filippo.io/nistec).
+<!-- CL 459977 -->
+All of the [`Curve`](/pkg/crypto/elliptic/#Curve) methods have been deprecated, along with [`GenerateKey`](/pkg/crypto/elliptic/#GenerateKey), [`Marshal`](/pkg/crypto/elliptic/#Marshal), and [`Unmarshal`](/pkg/crypto/elliptic/#Unmarshal). For ECDH operations, the new [`crypto/ecdh`](/pkg/crypto/ecdh/) package should be used instead. For lower-level operations, use third-party modules such as [filippo.io/nistec](https://pkg.go.dev/filippo.io/nistec).
 
 <!-- crypto/elliptic -->
 
-[crypto/rand](/pkg/crypto/rand/)
+#### [crypto/rand](/pkg/crypto/rand/)
 
-:   <!-- CL 463123 -->
-    The [`crypto/rand`](/pkg/crypto/rand/) package now uses the `getrandom` system call on NetBSD 10.0 and later.
+<!-- CL 463123 -->
+The [`crypto/rand`](/pkg/crypto/rand/) package now uses the `getrandom` system call on NetBSD 10.0 and later.
 
 <!-- crypto/rand -->
 
-[crypto/rsa](/pkg/crypto/rsa/)
+#### [crypto/rsa](/pkg/crypto/rsa/)
 
-:   <!-- CL 471259, CL 492935 -->
-    The performance of private RSA operations (decryption and signing) is now better than Go 1.19 for `GOARCH=amd64` and `GOARCH=arm64`. It had regressed in Go 1.20.
+<!-- CL 471259, CL 492935 -->
+The performance of private RSA operations (decryption and signing) is now better than Go 1.19 for `GOARCH=amd64` and `GOARCH=arm64`. It had regressed in Go 1.20.
 
-    Due to the addition of private fields to [`PrecomputedValues`](/pkg/crypto/rsa/#PrecomputedValues), [`PrivateKey.Precompute`](/pkg/crypto/rsa/#PrivateKey.Precompute) must be called for optimal performance even if deserializing (for example from JSON) a previously-precomputed private key.
+Due to the addition of private fields to [`PrecomputedValues`](/pkg/crypto/rsa/#PrecomputedValues), [`PrivateKey.Precompute`](/pkg/crypto/rsa/#PrivateKey.Precompute) must be called for optimal performance even if deserializing (for example from JSON) a previously-precomputed private key.
 
-    <!-- CL 492955 -->
-    [`PublicKey.Equal`](/pkg/crypto/rsa/#PublicKey.Equal) and
-    [`PrivateKey.Equal`](/pkg/crypto/rsa/#PrivateKey.Equal)
-    now execute in constant time.
+<!-- CL 492955 -->
+[`PublicKey.Equal`](/pkg/crypto/rsa/#PublicKey.Equal) and
+[`PrivateKey.Equal`](/pkg/crypto/rsa/#PrivateKey.Equal)
+now execute in constant time.
 
-    <!-- https://go.dev/issue/56921, CL 459976 -->
-    The [`GenerateMultiPrimeKey`](/pkg/crypto/rsa/#GenerateMultiPrimeKey) function and the [`PrecomputedValues.CRTValues`](/pkg/crypto/rsa/#PrecomputedValues.CRTValues) field have been deprecated. [`PrecomputedValues.CRTValues`](/pkg/crypto/rsa/#PrecomputedValues.CRTValues) will still be populated when [`PrivateKey.Precompute`](/pkg/crypto/rsa/#PrivateKey.Precompute) is called, but the values will not be used during decryption operations.
+<!-- https://go.dev/issue/56921, CL 459976 -->
+The [`GenerateMultiPrimeKey`](/pkg/crypto/rsa/#GenerateMultiPrimeKey) function and the [`PrecomputedValues.CRTValues`](/pkg/crypto/rsa/#PrecomputedValues.CRTValues) field have been deprecated. [`PrecomputedValues.CRTValues`](/pkg/crypto/rsa/#PrecomputedValues.CRTValues) will still be populated when [`PrivateKey.Precompute`](/pkg/crypto/rsa/#PrivateKey.Precompute) is called, but the values will not be used during decryption operations.
 
 <!-- crypto/rsa -->
 
 <!-- CL 483815 reverted -->
 
-[crypto/sha256](/pkg/crypto/sha256/)
+#### [crypto/sha256](/pkg/crypto/sha256/)
 
-:   <!-- https://go.dev/issue/50543, CL 408795 -->
-    SHA-224 and SHA-256 operations now use native instructions when available when `GOARCH=amd64`, providing a performance improvement on the order of 3-4x.
+<!-- https://go.dev/issue/50543, CL 408795 -->
+SHA-224 and SHA-256 operations now use native instructions when available when `GOARCH=amd64`, providing a performance improvement on the order of 3-4x.
 
 <!-- crypto/sha256 -->
 
 <!-- CL 481478 reverted -->
 <!-- CL 483816 reverted -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 497895 -->
-    Servers now skip verifying client certificates (including not running
-    [`Config.VerifyPeerCertificate`](/pkg/crypto/tls/#Config.VerifyPeerCertificate))
-    for resumed connections, besides checking the expiration time. This makes
-    session tickets larger when client certificates are in use. Clients were
-    already skipping verification on resumption, but now check the expiration
-    time even if [`Config.InsecureSkipVerify`](/pkg/crypto/tls/#Config.InsecureSkipVerify)
-    is set.
+<!-- CL 497895 -->
+Servers now skip verifying client certificates (including not running
+[`Config.VerifyPeerCertificate`](/pkg/crypto/tls/#Config.VerifyPeerCertificate))
+for resumed connections, besides checking the expiration time. This makes
+session tickets larger when client certificates are in use. Clients were
+already skipping verification on resumption, but now check the expiration
+time even if [`Config.InsecureSkipVerify`](/pkg/crypto/tls/#Config.InsecureSkipVerify)
+is set.
 
-    <!-- https://go.dev/issue/60105, CL 496818, CL 496820, CL 496822, CL 496821, CL 501675 -->
-    Applications can now control the content of session tickets.
+<!-- https://go.dev/issue/60105, CL 496818, CL 496820, CL 496822, CL 496821, CL 501675 -->
+Applications can now control the content of session tickets.
 
-      - The new [`SessionState`](/pkg/crypto/tls/#SessionState) type
-        describes a resumable session.
-      - The [`SessionState.Bytes`](/pkg/crypto/tls/#SessionState.Bytes)
-        method and [`ParseSessionState`](/pkg/crypto/tls/#ParseSessionState)
-        function serialize and deserialize a `SessionState`.
-      - The [`Config.WrapSession`](/pkg/crypto/tls/#Config.WrapSession) and
-        [`Config.UnwrapSession`](/pkg/crypto/tls/#Config.UnwrapSession)
-        hooks convert a `SessionState` to and from a ticket on the server side.
-      - The [`Config.EncryptTicket`](/pkg/crypto/tls/#Config.EncryptTicket)
-        and [`Config.DecryptTicket`](/pkg/crypto/tls/#Config.DecryptTicket)
-        methods provide a default implementation of `WrapSession` and
-        `UnwrapSession`.
-      - The [`ClientSessionState.ResumptionState`](/pkg/crypto/tls/#ClientSessionState.ResumptionState) method and
-        [`NewResumptionState`](/pkg/crypto/tls/#NewResumptionState) function
-        may be used by a `ClientSessionCache` implementation to store and
-        resume sessions on the client side.
+  - The new [`SessionState`](/pkg/crypto/tls/#SessionState) type
+    describes a resumable session.
+  - The [`SessionState.Bytes`](/pkg/crypto/tls/#SessionState.Bytes)
+    method and [`ParseSessionState`](/pkg/crypto/tls/#ParseSessionState)
+    function serialize and deserialize a `SessionState`.
+  - The [`Config.WrapSession`](/pkg/crypto/tls/#Config.WrapSession) and
+    [`Config.UnwrapSession`](/pkg/crypto/tls/#Config.UnwrapSession)
+    hooks convert a `SessionState` to and from a ticket on the server side.
+  - The [`Config.EncryptTicket`](/pkg/crypto/tls/#Config.EncryptTicket)
+    and [`Config.DecryptTicket`](/pkg/crypto/tls/#Config.DecryptTicket)
+    methods provide a default implementation of `WrapSession` and
+    `UnwrapSession`.
+  - The [`ClientSessionState.ResumptionState`](/pkg/crypto/tls/#ClientSessionState.ResumptionState) method and
+    [`NewResumptionState`](/pkg/crypto/tls/#NewResumptionState) function
+    may be used by a `ClientSessionCache` implementation to store and
+    resume sessions on the client side.
 
 
-    <!-- CL 496817 -->
-    To reduce the potential for session tickets to be used as a tracking
-    mechanism across connections, the server now issues new tickets on every
-    resumption (if they are supported and not disabled) and tickets don't bear
-    an identifier for the key that encrypted them anymore. If passing a large
-    number of keys to [`Conn.SetSessionTicketKeys`](/pkg/crypto/tls/#Conn.SetSessionTicketKeys),
-    this might lead to a noticeable performance cost.
+<!-- CL 496817 -->
+To reduce the potential for session tickets to be used as a tracking
+mechanism across connections, the server now issues new tickets on every
+resumption (if they are supported and not disabled) and tickets don't bear
+an identifier for the key that encrypted them anymore. If passing a large
+number of keys to [`Conn.SetSessionTicketKeys`](/pkg/crypto/tls/#Conn.SetSessionTicketKeys),
+this might lead to a noticeable performance cost.
 
-    <!-- CL 497376 -->
-    Both clients and servers now implement the Extended Master Secret extension (RFC 7627).
-    The deprecation of [`ConnectionState.TLSUnique`](/pkg/crypto/tls/#ConnectionState.TLSUnique)
-    has been reverted, and is now set for resumed connections that support Extended Master Secret.
+<!-- CL 497376 -->
+Both clients and servers now implement the Extended Master Secret extension (RFC 7627).
+The deprecation of [`ConnectionState.TLSUnique`](/pkg/crypto/tls/#ConnectionState.TLSUnique)
+has been reverted, and is now set for resumed connections that support Extended Master Secret.
 
-    <!-- https://go.dev/issue/44886, https://go.dev/issue/60107, CL 493655, CL 496995, CL 514997 -->
-    The new [`QUICConn`](/pkg/crypto/tls/#QUICConn) type
-    provides support for QUIC implementations, including 0-RTT support. Note
-    that this is not itself a QUIC implementation, and 0-RTT is still not
-    supported in TLS.
+<!-- https://go.dev/issue/44886, https://go.dev/issue/60107, CL 493655, CL 496995, CL 514997 -->
+The new [`QUICConn`](/pkg/crypto/tls/#QUICConn) type
+provides support for QUIC implementations, including 0-RTT support. Note
+that this is not itself a QUIC implementation, and 0-RTT is still not
+supported in TLS.
 
-    <!-- https://go.dev/issue/46308, CL 497377 -->
-    The new [`VersionName`](/pkg/crypto/tls/#VersionName) function
-    returns the name for a TLS version number.
+<!-- https://go.dev/issue/46308, CL 497377 -->
+The new [`VersionName`](/pkg/crypto/tls/#VersionName) function
+returns the name for a TLS version number.
 
-    <!-- https://go.dev/issue/52113, CL 410496 -->
-    The TLS alert codes sent from the server for client authentication failures have
-    been improved. Previously, these failures always resulted in a "bad certificate" alert.
-    Now, certain failures will result in more appropriate alert codes,
-    as defined by RFC 5246 and RFC 8446:
+<!-- https://go.dev/issue/52113, CL 410496 -->
+The TLS alert codes sent from the server for client authentication failures have
+been improved. Previously, these failures always resulted in a "bad certificate" alert.
+Now, certain failures will result in more appropriate alert codes,
+as defined by RFC 5246 and RFC 8446:
 
-      - For TLS 1.3 connections, if the server is configured to require client authentication using
-        [RequireAnyClientCert](/pkg/crypto/tls/#RequireAnyClientCert) or
-        [RequireAndVerifyClientCert](/pkg/crypto/tls/#RequireAndVerifyClientCert),
-        and the client does not provide any certificate, the server will now return the "certificate required" alert.
-      - If the client provides a certificate that is not signed by the set of trusted certificate authorities
-        configured on the server, the server will return the "unknown certificate authority" alert.
-      - If the client provides a certificate that is either expired or not yet valid,
-        the server will return the "expired certificate" alert.
-      - In all other scenarios related to client authentication failures, the server still returns "bad certificate".
+  - For TLS 1.3 connections, if the server is configured to require client authentication using
+    [RequireAnyClientCert](/pkg/crypto/tls/#RequireAnyClientCert) or
+    [RequireAndVerifyClientCert](/pkg/crypto/tls/#RequireAndVerifyClientCert),
+    and the client does not provide any certificate, the server will now return the "certificate required" alert.
+  - If the client provides a certificate that is not signed by the set of trusted certificate authorities
+    configured on the server, the server will return the "unknown certificate authority" alert.
+  - If the client provides a certificate that is either expired or not yet valid,
+    the server will return the "expired certificate" alert.
+  - In all other scenarios related to client authentication failures, the server still returns "bad certificate".
 
 
 <!-- crypto/tls -->
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   <!-- https://go.dev/issue/53573, CL 468875 -->
-    [`RevocationList.RevokedCertificates`](/pkg/crypto/x509/#RevocationList.RevokedCertificates) has been deprecated and replaced with the new [`RevokedCertificateEntries`](/pkg/crypto/x509/#RevocationList.RevokedCertificateEntries) field, which is a slice of [`RevocationListEntry`](/pkg/crypto/x509/#RevocationListEntry). [`RevocationListEntry`](/pkg/crypto/x509/#RevocationListEntry) contains all of the fields in [`pkix.RevokedCertificate`](/pkg/crypto/x509/pkix#RevokedCertificate), as well as the revocation reason code.
+<!-- https://go.dev/issue/53573, CL 468875 -->
+[`RevocationList.RevokedCertificates`](/pkg/crypto/x509/#RevocationList.RevokedCertificates) has been deprecated and replaced with the new [`RevokedCertificateEntries`](/pkg/crypto/x509/#RevocationList.RevokedCertificateEntries) field, which is a slice of [`RevocationListEntry`](/pkg/crypto/x509/#RevocationListEntry). [`RevocationListEntry`](/pkg/crypto/x509/#RevocationListEntry) contains all of the fields in [`pkix.RevokedCertificate`](/pkg/crypto/x509/pkix#RevokedCertificate), as well as the revocation reason code.
 
-    <!-- CL 478216 -->
-    Name constraints are now correctly enforced on non-leaf certificates, and
-    not on the certificates where they are expressed.
+<!-- CL 478216 -->
+Name constraints are now correctly enforced on non-leaf certificates, and
+not on the certificates where they are expressed.
 
 <!-- crypto/x509 -->
 
-[debug/elf](/pkg/debug/elf/)
+#### [debug/elf](/pkg/debug/elf/)
 
-:   <!-- https://go.dev/issue/56892, CL 452617 -->
-    The new
-    [`File.DynValue`](/pkg/debug/elf/#File.DynValue)
-    method may be used to retrieve the numeric values listed with a
-    given dynamic tag.
+<!-- https://go.dev/issue/56892, CL 452617 -->
+The new
+[`File.DynValue`](/pkg/debug/elf/#File.DynValue)
+method may be used to retrieve the numeric values listed with a
+given dynamic tag.
 
-    <!-- https://go.dev/issue/56887, CL 452496 -->
-    The constant flags permitted in a `DT_FLAGS_1`
-    dynamic tag are now defined with type
-    [`DynFlag1`](/pkg/debug/elf/#DynFlag1). These
-    tags have names starting with `DF_1`.
+<!-- https://go.dev/issue/56887, CL 452496 -->
+The constant flags permitted in a `DT_FLAGS_1`
+dynamic tag are now defined with type
+[`DynFlag1`](/pkg/debug/elf/#DynFlag1). These
+tags have names starting with `DF_1`.
 
-    <!-- CL 473256 -->
-    The package now defines the constant
-    [`COMPRESS_ZSTD`](/pkg/debug/elf/#COMPRESS_ZSTD).
+<!-- CL 473256 -->
+The package now defines the constant
+[`COMPRESS_ZSTD`](/pkg/debug/elf/#COMPRESS_ZSTD).
 
-    <!-- https://go.dev/issue/60348, CL 496918 -->
-    The package now defines the constant
-    [`R_PPC64_REL24_P9NOTOC`](/pkg/debug/elf/#R_PPC64_REL24_P9NOTOC).
+<!-- https://go.dev/issue/60348, CL 496918 -->
+The package now defines the constant
+[`R_PPC64_REL24_P9NOTOC`](/pkg/debug/elf/#R_PPC64_REL24_P9NOTOC).
 
 <!-- debug/elf -->
 
-[debug/pe](/pkg/debug/pe/)
+#### [debug/pe](/pkg/debug/pe/)
 
-:   <!-- CL 488475 -->
-    Attempts to read from a section containing uninitialized data
-    using
-    [`Section.Data`](/pkg/debug/pe/#Section.Data)
-    or the reader returned by [`Section.Open`](/pkg/debug/pe/#Section.Open)
-    now return an error.
+<!-- CL 488475 -->
+Attempts to read from a section containing uninitialized data
+using
+[`Section.Data`](/pkg/debug/pe/#Section.Data)
+or the reader returned by [`Section.Open`](/pkg/debug/pe/#Section.Open)
+now return an error.
 
 <!-- debug/pe -->
 
-[embed](/pkg/embed/)
+#### [embed](/pkg/embed/)
 
-:   <!-- https://go.dev/issue/57803, CL 483235 -->
-    The [`io/fs.File`](/pkg/io/fs/#File)
-    returned by
-    [`FS.Open`](/pkg/embed/#FS.Open) now
-    has a `ReadAt` method that
-    implements [`io.ReaderAt`](/pkg/io/#ReaderAt).
+<!-- https://go.dev/issue/57803, CL 483235 -->
+The [`io/fs.File`](/pkg/io/fs/#File)
+returned by
+[`FS.Open`](/pkg/embed/#FS.Open) now
+has a `ReadAt` method that
+implements [`io.ReaderAt`](/pkg/io/#ReaderAt).
 
-    <!-- https://go.dev/issue/54451, CL 491175 -->
-    Calling <code>[FS.Open](/pkg/embed/FS.Open).[Stat](/pkg/io/fs/#File.Stat)</code>
-    will return a type that now implements a `String`
-    method that calls
-    [`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+Calling <code>[FS.Open](/pkg/embed/FS.Open).[Stat](/pkg/io/fs/#File.Stat)</code>
+will return a type that now implements a `String`
+method that calls
+[`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
 
 <!-- embed -->
 
-[encoding/binary](/pkg/encoding/binary/)
+#### [encoding/binary](/pkg/encoding/binary/)
 
-:   <!-- https://go.dev/issue/57237, CL 463218, CL 463985 -->
-    The new
-    [`NativeEndian`](/pkg/encoding/binary/#NativeEndian)
-    variable may be used to convert between byte slices and integers
-    using the current machine's native endianness.
+<!-- https://go.dev/issue/57237, CL 463218, CL 463985 -->
+The new
+[`NativeEndian`](/pkg/encoding/binary/#NativeEndian)
+variable may be used to convert between byte slices and integers
+using the current machine's native endianness.
 
 <!-- encoding/binary -->
 
-[errors](/pkg/errors/)
+#### [errors](/pkg/errors/)
 
-:   <!-- https://go.dev/issue/41198, CL 473935 -->
-    The new
-    [`ErrUnsupported`](/pkg/errors/#ErrUnsupported)
-    error provides a standardized way to indicate that a requested
-    operation may not be performed because it is unsupported.
-    For example, a call to
-    [`os.Link`](/pkg/os/#Link) when using a
-    file system that does not support hard links.
+<!-- https://go.dev/issue/41198, CL 473935 -->
+The new
+[`ErrUnsupported`](/pkg/errors/#ErrUnsupported)
+error provides a standardized way to indicate that a requested
+operation may not be performed because it is unsupported.
+For example, a call to
+[`os.Link`](/pkg/os/#Link) when using a
+file system that does not support hard links.
 
 <!-- errors -->
 
-[flag](/pkg/flag/)
+#### [flag](/pkg/flag/)
 
-:   <!-- https://go.dev/issue/53747, CL 476015 -->
-    The new [`BoolFunc`](/pkg/flag/#BoolFunc)
-    function and
-    [`FlagSet.BoolFunc`](/pkg/flag/#FlagSet.BoolFunc)
-    method define a flag that does not require an argument and calls
-    a function when the flag is used. This is similar to
-    [`Func`](/pkg/flag/#Func) but for a
-    boolean flag.
+<!-- https://go.dev/issue/53747, CL 476015 -->
+The new [`BoolFunc`](/pkg/flag/#BoolFunc)
+function and
+[`FlagSet.BoolFunc`](/pkg/flag/#FlagSet.BoolFunc)
+method define a flag that does not require an argument and calls
+a function when the flag is used. This is similar to
+[`Func`](/pkg/flag/#Func) but for a
+boolean flag.
 
-    <!-- CL 480215 -->
-    A flag definition
-    (via [`Bool`](/pkg/flag/#Bool),
-    [`BoolVar`](/pkg/flag/#BoolVar),
-    [`Int`](/pkg/flag/#Int),
-    [`IntVar`](/pkg/flag/#IntVar), etc.)
-    will panic if [`Set`](/pkg/flag/#Set) has
-    already been called on a flag with the same name. This change is
-    intended to detect cases where [changes in
-    initialization order](#language) cause flag operations to occur in a
-    different order than expected. In many cases the fix to this
-    problem is to introduce a explicit package dependence to
-    correctly order the definition before any
-    [`Set`](/pkg/flag/#Set) operations.
+<!-- CL 480215 -->
+A flag definition
+(via [`Bool`](/pkg/flag/#Bool),
+[`BoolVar`](/pkg/flag/#BoolVar),
+[`Int`](/pkg/flag/#Int),
+[`IntVar`](/pkg/flag/#IntVar), etc.)
+will panic if [`Set`](/pkg/flag/#Set) has
+already been called on a flag with the same name. This change is
+intended to detect cases where [changes in
+initialization order](#language) cause flag operations to occur in a
+different order than expected. In many cases the fix to this
+problem is to introduce a explicit package dependence to
+correctly order the definition before any
+[`Set`](/pkg/flag/#Set) operations.
 
 <!-- flag -->
 
-[go/ast](/pkg/go/ast/)
+#### [go/ast](/pkg/go/ast/)
 
-:   <!-- https://go.dev/issue/28089, CL 487935 -->
-    The new [`IsGenerated`](/pkg/go/ast/#IsGenerated) predicate
-    reports whether a file syntax tree contains the
-    [special comment](https://go.dev/s/generatedcode)
-    that conventionally indicates that the file was generated by a tool.
+<!-- https://go.dev/issue/28089, CL 487935 -->
+The new [`IsGenerated`](/pkg/go/ast/#IsGenerated) predicate
+reports whether a file syntax tree contains the
+[special comment](https://go.dev/s/generatedcode)
+that conventionally indicates that the file was generated by a tool.
 
-    <!-- https://go.dev/issue/59033, CL 476276 -->
-    The new
-    [`File.GoVersion`](/pkg/go/ast/#File.GoVersion)
-    field records the minimum Go version required by
-    any `//go:build` or `// +build`
-    directives.
+<!-- https://go.dev/issue/59033, CL 476276 -->
+The new
+[`File.GoVersion`](/pkg/go/ast/#File.GoVersion)
+field records the minimum Go version required by
+any `//go:build` or `// +build`
+directives.
 
 <!-- go/ast -->
 
-[go/build](/pkg/go/build/)
+#### [go/build](/pkg/go/build/)
 
-:   <!-- https://go.dev/issue/56986, CL 453603 -->
-    The package now parses build directives (comments that start
-    with `//go:`) in file headers (before
-    the `package` declaration). These directives are
-    available in the new
-    [`Package`](/pkg/go/build#Package) fields
-    [`Directives`](/pkg/go/build#Package.Directives),
-    [`TestDirectives`](/pkg/go/build#Package.TestDirectives),
-    and
-    [`XTestDirectives`](/pkg/go/build#Package.XTestDirectives).
+<!-- https://go.dev/issue/56986, CL 453603 -->
+The package now parses build directives (comments that start
+with `//go:`) in file headers (before
+the `package` declaration). These directives are
+available in the new
+[`Package`](/pkg/go/build#Package) fields
+[`Directives`](/pkg/go/build#Package.Directives),
+[`TestDirectives`](/pkg/go/build#Package.TestDirectives),
+and
+[`XTestDirectives`](/pkg/go/build#Package.XTestDirectives).
 
 <!-- go/build -->
 
-[go/build/constraint](/pkg/go/build/constraint/)
+#### [go/build/constraint](/pkg/go/build/constraint/)
 
-:   <!-- https://go.dev/issue/59033, CL 476275 -->
-    The new
-    [`GoVersion`](/pkg/go/build/constraint/#GoVersion)
-    function returns the minimum Go version implied by a build
-    expression.
+<!-- https://go.dev/issue/59033, CL 476275 -->
+The new
+[`GoVersion`](/pkg/go/build/constraint/#GoVersion)
+function returns the minimum Go version implied by a build
+expression.
 
 <!-- go/build/constraint -->
 
-[go/token](/pkg/go/token/)
+#### [go/token](/pkg/go/token/)
 
-:   <!-- https://go.dev/issue/57708, CL 464515 -->
-    The new [`File.Lines`](/pkg/go/token/#File.Lines) method
-    returns the file's line-number table in the same form as accepted by
-    `File.SetLines`.
+<!-- https://go.dev/issue/57708, CL 464515 -->
+The new [`File.Lines`](/pkg/go/token/#File.Lines) method
+returns the file's line-number table in the same form as accepted by
+`File.SetLines`.
 
 <!-- go/token -->
 
-[go/types](/pkg/go/types/)
+#### [go/types](/pkg/go/types/)
 
-:   <!-- https://go.dev/issue/61175, CL 507975 -->
-    The new [`Package.GoVersion`](/pkg/go/types/#Package.GoVersion)
-    method returns the Go language version used to check the package.
+<!-- https://go.dev/issue/61175, CL 507975 -->
+The new [`Package.GoVersion`](/pkg/go/types/#Package.GoVersion)
+method returns the Go language version used to check the package.
 
 <!-- go/types -->
 
-[hash/maphash](/pkg/hash/maphash/)
+#### [hash/maphash](/pkg/hash/maphash/)
 
-:   <!-- https://go.dev/issue/47342, CL 468795 -->
-    The `hash/maphash` package now has a pure Go implementation, selectable with the `purego` build tag.
+<!-- https://go.dev/issue/47342, CL 468795 -->
+The `hash/maphash` package now has a pure Go implementation, selectable with the `purego` build tag.
 
 <!-- hash/maphash -->
 
-[html/template](/pkg/html/template/)
+#### [html/template](/pkg/html/template/)
 
-:   <!-- https://go.dev/issue/59584, CL 496395 -->
-    The new error
-    [`ErrJSTemplate`](/pkg/html/template/#ErrJSTemplate)
-    is returned when an action appears in a JavaScript template
-    literal. Previously an unexported error was returned.
+<!-- https://go.dev/issue/59584, CL 496395 -->
+The new error
+[`ErrJSTemplate`](/pkg/html/template/#ErrJSTemplate)
+is returned when an action appears in a JavaScript template
+literal. Previously an unexported error was returned.
 
 <!-- html/template -->
 
-[io/fs](/pkg/io/fs/)
+#### [io/fs](/pkg/io/fs/)
 
-:   <!-- https://go.dev/issue/54451, CL 489555 -->
-    The new
-    [`FormatFileInfo`](/pkg/io/fs/#FormatFileInfo)
-    function returns a formatted version of a
-    [`FileInfo`](/pkg/io/fs/#FileInfo).
-    The new
-    [`FormatDirEntry`](/pkg/io/fs/#FormatDirEntry)
-    function returns a formatted version of a
-    [`DirEntry`](/pkg/io/fs/#FileInfo).
-    The implementation of
-    [`DirEntry`](/pkg/io/fs/#DirEntry)
-    returned by
-    [`ReadDir`](/pkg/io/fs/#ReadDir) now
-    implements a `String` method that calls
-    [`FormatDirEntry`](/pkg/io/fs/#FormatDirEntry),
-    and the same is true for
-    the [`DirEntry`](/pkg/io/fs/#DirEntry)
-    value passed to
-    [`WalkDirFunc`](/pkg/io/fs/#WalkDirFunc).
+<!-- https://go.dev/issue/54451, CL 489555 -->
+The new
+[`FormatFileInfo`](/pkg/io/fs/#FormatFileInfo)
+function returns a formatted version of a
+[`FileInfo`](/pkg/io/fs/#FileInfo).
+The new
+[`FormatDirEntry`](/pkg/io/fs/#FormatDirEntry)
+function returns a formatted version of a
+[`DirEntry`](/pkg/io/fs/#FileInfo).
+The implementation of
+[`DirEntry`](/pkg/io/fs/#DirEntry)
+returned by
+[`ReadDir`](/pkg/io/fs/#ReadDir) now
+implements a `String` method that calls
+[`FormatDirEntry`](/pkg/io/fs/#FormatDirEntry),
+and the same is true for
+the [`DirEntry`](/pkg/io/fs/#DirEntry)
+value passed to
+[`WalkDirFunc`](/pkg/io/fs/#WalkDirFunc).
 
 <!-- io/fs -->
 
@@ -772,322 +772,322 @@ There are also various performance improvements, not enumerated here.
 <!-- CL 459435 reverted by CL 467255 -->
 <!-- CL 467515 reverted by CL 499416 -->
 
-[math/big](/pkg/math/big/)
+#### [math/big](/pkg/math/big/)
 
-:   <!-- https://go.dev/issue/56984, CL 453115, CL 500116 -->
-    The new [`Int.Float64`](/pkg/math/big/#Int.Float64)
-    method returns the nearest floating-point value to a
-    multi-precision integer, along with an indication of any
-    rounding that occurred.
+<!-- https://go.dev/issue/56984, CL 453115, CL 500116 -->
+The new [`Int.Float64`](/pkg/math/big/#Int.Float64)
+method returns the nearest floating-point value to a
+multi-precision integer, along with an indication of any
+rounding that occurred.
 
 <!-- math/big -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- https://go.dev/issue/59166, https://go.dev/issue/56539 -->
-    <!-- CL 471136, CL 471137, CL 471140 -->
-    On Linux, the [net](/pkg/net/) package can now use
-    Multipath TCP when the kernel supports it. It is not used by
-    default. To use Multipath TCP when available on a client, call
-    the
-    [`Dialer.SetMultipathTCP`](/pkg/net/#Dialer.SetMultipathTCP)
-    method before calling the
-    [`Dialer.Dial`](/pkg/net/#Dialer.Dial) or
-    [`Dialer.DialContext`](/pkg/net/#Dialer.DialContext)
-    methods. To use Multipath TCP when available on a server, call
-    the
-    [`ListenConfig.SetMultipathTCP`](/pkg/net/#ListenConfig.SetMultipathTCP)
-    method before calling the
-    [`ListenConfig.Listen`](/pkg/net/#ListenConfig.Listen)
-    method. Specify the network as `"tcp"` or
-    `"tcp4"` or `"tcp6"` as usual. If
-    Multipath TCP is not supported by the kernel or the remote host,
-    the connection will silently fall back to TCP. To test whether a
-    particular connection is using Multipath TCP, use the
-    [`TCPConn.MultipathTCP`](/pkg/net/#TCPConn.MultipathTCP)
-    method.
+<!-- https://go.dev/issue/59166, https://go.dev/issue/56539 -->
+<!-- CL 471136, CL 471137, CL 471140 -->
+On Linux, the [net](/pkg/net/) package can now use
+Multipath TCP when the kernel supports it. It is not used by
+default. To use Multipath TCP when available on a client, call
+the
+[`Dialer.SetMultipathTCP`](/pkg/net/#Dialer.SetMultipathTCP)
+method before calling the
+[`Dialer.Dial`](/pkg/net/#Dialer.Dial) or
+[`Dialer.DialContext`](/pkg/net/#Dialer.DialContext)
+methods. To use Multipath TCP when available on a server, call
+the
+[`ListenConfig.SetMultipathTCP`](/pkg/net/#ListenConfig.SetMultipathTCP)
+method before calling the
+[`ListenConfig.Listen`](/pkg/net/#ListenConfig.Listen)
+method. Specify the network as `"tcp"` or
+`"tcp4"` or `"tcp6"` as usual. If
+Multipath TCP is not supported by the kernel or the remote host,
+the connection will silently fall back to TCP. To test whether a
+particular connection is using Multipath TCP, use the
+[`TCPConn.MultipathTCP`](/pkg/net/#TCPConn.MultipathTCP)
+method.
 
-    In a future Go release we may enable Multipath TCP by default on
-    systems that support it.
+In a future Go release we may enable Multipath TCP by default on
+systems that support it.
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- CL 472636 -->
-    The new [`ResponseController.EnableFullDuplex`](/pkg/net/http#ResponseController.EnableFullDuplex)
-    method allows server handlers to concurrently read from an HTTP/1
-    request body while writing the response. Normally, the HTTP/1 server
-    automatically consumes any remaining request body before starting to
-    write the response, to avoid deadlocking clients which attempt to
-    write a complete request before reading the response. The
-    `EnableFullDuplex` method disables this behavior.
+<!-- CL 472636 -->
+The new [`ResponseController.EnableFullDuplex`](/pkg/net/http#ResponseController.EnableFullDuplex)
+method allows server handlers to concurrently read from an HTTP/1
+request body while writing the response. Normally, the HTTP/1 server
+automatically consumes any remaining request body before starting to
+write the response, to avoid deadlocking clients which attempt to
+write a complete request before reading the response. The
+`EnableFullDuplex` method disables this behavior.
 
-    <!-- https://go.dev/issue/44855, CL 382117 -->
-    The new [`ErrSchemeMismatch`](/pkg/net/http/#ErrSchemeMismatch) error is returned by [`Client`](/pkg/net/http/#Client) and [`Transport`](/pkg/net/http/#Transport) when the server responds to an HTTPS request with an HTTP response.
+<!-- https://go.dev/issue/44855, CL 382117 -->
+The new [`ErrSchemeMismatch`](/pkg/net/http/#ErrSchemeMismatch) error is returned by [`Client`](/pkg/net/http/#Client) and [`Transport`](/pkg/net/http/#Transport) when the server responds to an HTTPS request with an HTTP response.
 
-    <!-- CL 494122 -->
-    The [net/http](/pkg/net/http/) package now supports
-    [`errors.ErrUnsupported`](/pkg/errors/#ErrUnsupported),
-    in that the expression
-    `errors.Is(http.ErrNotSupported, errors.ErrUnsupported)`
-    will return true.
+<!-- CL 494122 -->
+The [net/http](/pkg/net/http/) package now supports
+[`errors.ErrUnsupported`](/pkg/errors/#ErrUnsupported),
+in that the expression
+`errors.Is(http.ErrNotSupported, errors.ErrUnsupported)`
+will return true.
 
 <!-- net/http -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- https://go.dev/issue/32558, CL 219638 -->
-    Programs may now pass an empty `time.Time` value to
-    the [`Chtimes`](/pkg/os/#Chtimes) function
-    to leave either the access time or the modification time unchanged.
+<!-- https://go.dev/issue/32558, CL 219638 -->
+Programs may now pass an empty `time.Time` value to
+the [`Chtimes`](/pkg/os/#Chtimes) function
+to leave either the access time or the modification time unchanged.
 
-    <!-- CL 480135 -->
-    On Windows the
-    [`File.Chdir`](/pkg/os#File.Chdir) method
-    now changes the current directory to the file, rather than
-    always returning an error.
+<!-- CL 480135 -->
+On Windows the
+[`File.Chdir`](/pkg/os#File.Chdir) method
+now changes the current directory to the file, rather than
+always returning an error.
 
-    <!-- CL 495079 -->
-    On Unix systems, if a non-blocking descriptor is passed
-    to [`NewFile`](/pkg/os/#NewFile), calling
-    the [`File.Fd`](/pkg/os/#File.Fd) method
-    will now return a non-blocking descriptor. Previously the
-    descriptor was converted to blocking mode.
+<!-- CL 495079 -->
+On Unix systems, if a non-blocking descriptor is passed
+to [`NewFile`](/pkg/os/#NewFile), calling
+the [`File.Fd`](/pkg/os/#File.Fd) method
+will now return a non-blocking descriptor. Previously the
+descriptor was converted to blocking mode.
 
-    <!-- CL 477215 -->
-    On Windows calling
-    [`Truncate`](/pkg/os/#Truncate) on a
-    non-existent file used to create an empty file. It now returns
-    an error indicating that the file does not exist.
+<!-- CL 477215 -->
+On Windows calling
+[`Truncate`](/pkg/os/#Truncate) on a
+non-existent file used to create an empty file. It now returns
+an error indicating that the file does not exist.
 
-    <!-- https://go.dev/issue/56899, CL 463219 -->
-    On Windows calling
-    [`TempDir`](/pkg/os/#TempDir) now uses
-    GetTempPath2W when available, instead of GetTempPathW. The
-    new behavior is a security hardening measure that prevents
-    temporary files created by processes running as SYSTEM to
-    be accessed by non-SYSTEM processes.
+<!-- https://go.dev/issue/56899, CL 463219 -->
+On Windows calling
+[`TempDir`](/pkg/os/#TempDir) now uses
+GetTempPath2W when available, instead of GetTempPathW. The
+new behavior is a security hardening measure that prevents
+temporary files created by processes running as SYSTEM to
+be accessed by non-SYSTEM processes.
 
-    <!-- CL 493036 -->
-    On Windows the os package now supports working with files whose
-    names, stored as UTF-16, can't be represented as valid UTF-8.
+<!-- CL 493036 -->
+On Windows the os package now supports working with files whose
+names, stored as UTF-16, can't be represented as valid UTF-8.
 
-    <!-- CL 463177 -->
-    On Windows [`Lstat`](/pkg/os/#Lstat) now resolves
-    symbolic links for paths ending with a path separator, consistent with its
-    behavior on POSIX platforms.
+<!-- CL 463177 -->
+On Windows [`Lstat`](/pkg/os/#Lstat) now resolves
+symbolic links for paths ending with a path separator, consistent with its
+behavior on POSIX platforms.
 
-    <!-- https://go.dev/issue/54451, CL 491175 -->
-    The implementation of the
-    [`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
-    interface returned by the
-    [`ReadDir`](/pkg/os/#ReadDir) function and
-    the [`File.ReadDir`](/pkg/os/#File.ReadDir)
-    method now implements a `String` method that calls
-    [`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+The implementation of the
+[`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
+interface returned by the
+[`ReadDir`](/pkg/os/#ReadDir) function and
+the [`File.ReadDir`](/pkg/os/#File.ReadDir)
+method now implements a `String` method that calls
+[`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
 
-    <!-- https://go.dev/issue/53761, CL 416775, CL 498015-->
-    The implementation of the
-    [`io/fs.FS`](/pkg/io/fs/#FS) interface returned by
-    the [`DirFS`](/pkg/os/#DirFS) function now implements
-    the [`io/fs.ReadFileFS`](/pkg/io/fs/#ReadFileFS) and
-    the [`io/fs.ReadDirFS`](/pkg/io/fs/#ReadDirFS)
-    interfaces.
+<!-- https://go.dev/issue/53761, CL 416775, CL 498015-->
+The implementation of the
+[`io/fs.FS`](/pkg/io/fs/#FS) interface returned by
+the [`DirFS`](/pkg/os/#DirFS) function now implements
+the [`io/fs.ReadFileFS`](/pkg/io/fs/#ReadFileFS) and
+the [`io/fs.ReadDirFS`](/pkg/io/fs/#ReadDirFS)
+interfaces.
 
 <!-- os -->
 
-[path/filepath](/pkg/path/filepath/)
+#### [path/filepath](/pkg/path/filepath/)
 
-:   The implementation of the
-    [`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
-    interface passed to the function argument of
-    [`WalkDir`](/pkg/path/filepath/#WalkDir)
-    now implements a `String` method that calls
-    [`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
+The implementation of the
+[`io/fs.DirEntry`](/pkg/io/fs/#DirEntry)
+interface passed to the function argument of
+[`WalkDir`](/pkg/path/filepath/#WalkDir)
+now implements a `String` method that calls
+[`io/fs.FormatDirEntry`](/pkg/io/fs/#FormatDirEntry).
 
 <!-- path/filepath -->
 
 <!-- CL 459455 reverted -->
 
-[reflect](/pkg/reflect/)
+#### [reflect](/pkg/reflect/)
 
-:   <!-- CL 408826, CL 413474 -->
-    In Go 1.21, [`ValueOf`](/pkg/reflect/#ValueOf)
-    no longer forces its argument to be allocated on the heap, allowing
-    a `Value`'s content to be allocated on the stack. Most
-    operations on a `Value` also allow the underlying value
-    to be stack allocated.
+<!-- CL 408826, CL 413474 -->
+In Go 1.21, [`ValueOf`](/pkg/reflect/#ValueOf)
+no longer forces its argument to be allocated on the heap, allowing
+a `Value`'s content to be allocated on the stack. Most
+operations on a `Value` also allow the underlying value
+to be stack allocated.
 
-    <!-- https://go.dev/issue/55002 -->
-    The new [`Value`](/pkg/reflect/#Value)
-    method [`Value.Clear`](/pkg/reflect/#Value.Clear)
-    clears the contents of a map or zeros the contents of a slice.
-    This corresponds to the new `clear` built-in
-    [added to the language](#language).
+<!-- https://go.dev/issue/55002 -->
+The new [`Value`](/pkg/reflect/#Value)
+method [`Value.Clear`](/pkg/reflect/#Value.Clear)
+clears the contents of a map or zeros the contents of a slice.
+This corresponds to the new `clear` built-in
+[added to the language](#language).
 
-    <!-- https://go.dev/issue/56906, CL 452762 -->
-    The [`SliceHeader`](/pkg/reflect/#SliceHeader)
-    and [`StringHeader`](/pkg/reflect/#StringHeader)
-    types are now deprecated. In new code
-    prefer [`unsafe.Slice`](/pkg/unsafe/#Slice),
-    [`unsafe.SliceData`](/pkg/unsafe/#SliceData),
-    [`unsafe.String`](/pkg/unsafe/#String),
-    or [`unsafe.StringData`](/pkg/unsafe/#StringData).
+<!-- https://go.dev/issue/56906, CL 452762 -->
+The [`SliceHeader`](/pkg/reflect/#SliceHeader)
+and [`StringHeader`](/pkg/reflect/#StringHeader)
+types are now deprecated. In new code
+prefer [`unsafe.Slice`](/pkg/unsafe/#Slice),
+[`unsafe.SliceData`](/pkg/unsafe/#SliceData),
+[`unsafe.String`](/pkg/unsafe/#String),
+or [`unsafe.StringData`](/pkg/unsafe/#StringData).
 
 <!-- reflect -->
 
-[regexp](/pkg/regexp/)
+#### [regexp](/pkg/regexp/)
 
-:   <!-- https://go.dev/issue/46159, CL 479401 -->
-    [`Regexp`](/pkg/regexp#Regexp) now defines
-    [`MarshalText`](/pkg/regexp#Regexp.MarshalText)
-    and [`UnmarshalText`](/pkg/regexp#Regexp.UnmarshalText)
-    methods. These implement
-    [`encoding.TextMarshaler`](/pkg/encoding#TextMarshaler)
-    and
-    [`encoding.TextUnmarshaler`](/pkg/encoding#TextUnmarshaler)
-    and will be used by packages such as
-    [encoding/json](/pkg/encoding/json).
+<!-- https://go.dev/issue/46159, CL 479401 -->
+[`Regexp`](/pkg/regexp#Regexp) now defines
+[`MarshalText`](/pkg/regexp#Regexp.MarshalText)
+and [`UnmarshalText`](/pkg/regexp#Regexp.UnmarshalText)
+methods. These implement
+[`encoding.TextMarshaler`](/pkg/encoding#TextMarshaler)
+and
+[`encoding.TextUnmarshaler`](/pkg/encoding#TextUnmarshaler)
+and will be used by packages such as
+[encoding/json](/pkg/encoding/json).
 
 <!-- regexp -->
 
-[runtime](/pkg/runtime/)
+#### [runtime](/pkg/runtime/)
 
-:   <!-- https://go.dev/issue/38651, CL 435337 -->
-    Textual stack traces produced by Go programs, such as those
-    produced when crashing, calling `runtime.Stack`, or
-    collecting a goroutine profile with `debug=2`, now
-    include the IDs of the goroutines that created each goroutine in
-    the stack trace.
+<!-- https://go.dev/issue/38651, CL 435337 -->
+Textual stack traces produced by Go programs, such as those
+produced when crashing, calling `runtime.Stack`, or
+collecting a goroutine profile with `debug=2`, now
+include the IDs of the goroutines that created each goroutine in
+the stack trace.
 
-    <!-- https://go.dev/issue/57441, CL 474915 -->
-    Crashing Go applications can now opt-in to Windows Error Reporting (WER) by setting the environment variable
-    `GOTRACEBACK=wer` or calling [`debug.SetTraceback("wer")`](/pkg/runtime/debug/#SetTraceback)
-    before the crash. Other than enabling WER, the runtime will behave as with `GOTRACEBACK=crash`.
-    On non-Windows systems, `GOTRACEBACK=wer` is ignored.
+<!-- https://go.dev/issue/57441, CL 474915 -->
+Crashing Go applications can now opt-in to Windows Error Reporting (WER) by setting the environment variable
+`GOTRACEBACK=wer` or calling [`debug.SetTraceback("wer")`](/pkg/runtime/debug/#SetTraceback)
+before the crash. Other than enabling WER, the runtime will behave as with `GOTRACEBACK=crash`.
+On non-Windows systems, `GOTRACEBACK=wer` is ignored.
 
-    <!-- CL 447778 -->
-    `GODEBUG=cgocheck=2`, a thorough checker of cgo pointer passing rules,
-    is no longer available as a [debug option](/pkg/runtime#hdr-Environment_Variables).
-    Instead, it is available as an experiment using `GOEXPERIMENT=cgocheck2`.
-    In particular this means that this mode has to be selected at build time instead of startup time.
+<!-- CL 447778 -->
+`GODEBUG=cgocheck=2`, a thorough checker of cgo pointer passing rules,
+is no longer available as a [debug option](/pkg/runtime#hdr-Environment_Variables).
+Instead, it is available as an experiment using `GOEXPERIMENT=cgocheck2`.
+In particular this means that this mode has to be selected at build time instead of startup time.
 
-    `GODEBUG=cgocheck=1` is still available (and is still the default).
+`GODEBUG=cgocheck=1` is still available (and is still the default).
 
-    <!-- https://go.dev/issue/46787, CL 367296 -->
-    A new type `Pinner` has been added to the runtime
-    package. `Pinner`s may be used to "pin" Go memory
-    such that it may be used more freely by non-Go code. For instance,
-    passing Go values that reference pinned Go memory to C code is
-    now allowed. Previously, passing any such nested reference was
-    disallowed by the
-    [cgo pointer passing rules.](https://pkg.go.dev/cmd/cgo#hdr-Passing_pointers)
-    See [the docs](/pkg/runtime#Pinner) for more details.
+<!-- https://go.dev/issue/46787, CL 367296 -->
+A new type `Pinner` has been added to the runtime
+package. `Pinner`s may be used to "pin" Go memory
+such that it may be used more freely by non-Go code. For instance,
+passing Go values that reference pinned Go memory to C code is
+now allowed. Previously, passing any such nested reference was
+disallowed by the
+[cgo pointer passing rules.](https://pkg.go.dev/cmd/cgo#hdr-Passing_pointers)
+See [the docs](/pkg/runtime#Pinner) for more details.
 
-    <!-- CL 472195 no release note needed -->
+<!-- CL 472195 no release note needed -->
 
 <!-- runtime -->
 
-[runtime/metrics](/pkg/runtime/metrics/)
+#### [runtime/metrics](/pkg/runtime/metrics/)
 
-:   <!-- https://go.dev/issue/56857, CL 497315 -->
-    A few previously-internal GC metrics, such as live heap size, are
-    now available.
-    `GOGC` and `GOMEMLIMIT` are also now
-    available as metrics.
+<!-- https://go.dev/issue/56857, CL 497315 -->
+A few previously-internal GC metrics, such as live heap size, are
+now available.
+`GOGC` and `GOMEMLIMIT` are also now
+available as metrics.
 
 <!-- runtime/metrics -->
 
-[runtime/trace](/pkg/runtime/trace/)
+#### [runtime/trace](/pkg/runtime/trace/)
 
-:   <!-- https://go.dev/issue/16638 -->
-    Collecting traces on amd64 and arm64 now incurs a substantially
-    smaller CPU cost: up to a 10x improvement over the previous release.
+<!-- https://go.dev/issue/16638 -->
+Collecting traces on amd64 and arm64 now incurs a substantially
+smaller CPU cost: up to a 10x improvement over the previous release.
 
-    <!-- CL 494495 -->
-    Traces now contain explicit stop-the-world events for every reason
-    the Go runtime might stop-the-world, not just garbage collection.
+<!-- CL 494495 -->
+Traces now contain explicit stop-the-world events for every reason
+the Go runtime might stop-the-world, not just garbage collection.
 
 <!-- runtime/trace -->
 
-[sync](/pkg/sync/)
+#### [sync](/pkg/sync/)
 
-:   <!-- https://go.dev/issue/56102, CL 451356 -->
-    The new [`OnceFunc`](/pkg/sync/#OnceFunc),
-    [`OnceValue`](/pkg/sync/#OnceValue), and
-    [`OnceValues`](/pkg/sync/#OnceValues)
-    functions capture a common use of [Once](/pkg/sync/#Once) to
-    lazily initialize a value on first use.
+<!-- https://go.dev/issue/56102, CL 451356 -->
+The new [`OnceFunc`](/pkg/sync/#OnceFunc),
+[`OnceValue`](/pkg/sync/#OnceValue), and
+[`OnceValues`](/pkg/sync/#OnceValues)
+functions capture a common use of [Once](/pkg/sync/#Once) to
+lazily initialize a value on first use.
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 480135 -->
-    On Windows the
-    [`Fchdir`](/pkg/syscall#Fchdir) function
-    now changes the current directory to its argument, rather than
-    always returning an error.
+<!-- CL 480135 -->
+On Windows the
+[`Fchdir`](/pkg/syscall#Fchdir) function
+now changes the current directory to its argument, rather than
+always returning an error.
 
-    <!-- https://go.dev/issue/46259, CL 458335 -->
-    On FreeBSD
-    [`SysProcAttr`](/pkg/syscall#SysProcAttr)
-    has a new field `Jail` that may be used to put the
-    newly created process in a jailed environment.
+<!-- https://go.dev/issue/46259, CL 458335 -->
+On FreeBSD
+[`SysProcAttr`](/pkg/syscall#SysProcAttr)
+has a new field `Jail` that may be used to put the
+newly created process in a jailed environment.
 
-    <!-- CL 493036 -->
-    On Windows the syscall package now supports working with files whose
-    names, stored as UTF-16, can't be represented as valid UTF-8.
-    The [`UTF16ToString`](/pkg/syscall#UTF16ToString)
-    and [`UTF16FromString`](/pkg/syscall#UTF16FromString)
-    functions now convert between UTF-16 data and
-    [WTF-8](https://simonsapin.github.io/wtf-8/) strings.
-    This is backward compatible as WTF-8 is a superset of the UTF-8
-    format that was used in earlier releases.
+<!-- CL 493036 -->
+On Windows the syscall package now supports working with files whose
+names, stored as UTF-16, can't be represented as valid UTF-8.
+The [`UTF16ToString`](/pkg/syscall#UTF16ToString)
+and [`UTF16FromString`](/pkg/syscall#UTF16FromString)
+functions now convert between UTF-16 data and
+[WTF-8](https://simonsapin.github.io/wtf-8/) strings.
+This is backward compatible as WTF-8 is a superset of the UTF-8
+format that was used in earlier releases.
 
-    <!-- CL 476578, CL 476875, CL 476916 -->
-    Several error values match the new
-    [`errors.ErrUnsupported`](/pkg/errors/#ErrUnsupported),
-    such that `errors.Is(err, errors.ErrUnsupported)`
-    returns true.
+<!-- CL 476578, CL 476875, CL 476916 -->
+Several error values match the new
+[`errors.ErrUnsupported`](/pkg/errors/#ErrUnsupported),
+such that `errors.Is(err, errors.ErrUnsupported)`
+returns true.
 
-      - `ENOSYS`
-      - `ENOTSUP`
-      - `EOPNOTSUPP`
-      - `EPLAN9` (Plan 9 only)
-      - `ERROR_CALL_NOT_IMPLEMENTED` (Windows only)
-      - `ERROR_NOT_SUPPORTED` (Windows only)
-      - `EWINDOWS` (Windows only)
+  - `ENOSYS`
+  - `ENOTSUP`
+  - `EOPNOTSUPP`
+  - `EPLAN9` (Plan 9 only)
+  - `ERROR_CALL_NOT_IMPLEMENTED` (Windows only)
+  - `ERROR_NOT_SUPPORTED` (Windows only)
+  - `EWINDOWS` (Windows only)
 
 
 <!-- syscall -->
 
-[testing](/pkg/testing/)
+#### [testing](/pkg/testing/)
 
-:   <!-- https://go.dev/issue/37708, CL 463837 -->
-    The new `-test.fullpath` option will print full path
-    names in test log messages, rather than just base names.
+<!-- https://go.dev/issue/37708, CL 463837 -->
+The new `-test.fullpath` option will print full path
+names in test log messages, rather than just base names.
 
-    <!-- https://go.dev/issue/52600, CL 475496 -->
-    The new [`Testing`](/pkg/testing/#Testing) function reports whether the program is a test created by `go` `test`.
+<!-- https://go.dev/issue/52600, CL 475496 -->
+The new [`Testing`](/pkg/testing/#Testing) function reports whether the program is a test created by `go` `test`.
 
 <!-- testing -->
 
-[testing/fstest](/pkg/testing/fstest/)
+#### [testing/fstest](/pkg/testing/fstest/)
 
-:   <!-- https://go.dev/issue/54451, CL 491175 -->
-    Calling <code>[Open](/pkg/testing/fstest/MapFS.Open).[Stat](/pkg/io/fs/#File.Stat)</code>
-    will return a type that now implements a `String`
-    method that calls
-    [`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
+<!-- https://go.dev/issue/54451, CL 491175 -->
+Calling <code>[Open](/pkg/testing/fstest/MapFS.Open).[Stat](/pkg/io/fs/#File.Stat)</code>
+will return a type that now implements a `String`
+method that calls
+[`io/fs.FormatFileInfo`](/pkg/io/fs/#FormatFileInfo).
 
 <!-- testing/fstest -->
 
-[unicode](/pkg/unicode/)
+#### [unicode](/pkg/unicode/)
 
-:   <!-- CL 456837 -->
-    The [`unicode`](/pkg/unicode/) package and
-    associated support throughout the system has been upgraded to
-    [Unicode 15.0.0](https://www.unicode.org/versions/Unicode15.0.0/).
+<!-- CL 456837 -->
+The [`unicode`](/pkg/unicode/) package and
+associated support throughout the system has been upgraded to
+[Unicode 15.0.0](https://www.unicode.org/versions/Unicode15.0.0/).
 
 <!-- unicode -->
 

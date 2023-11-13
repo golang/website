@@ -521,603 +521,603 @@ As always, there are various minor changes and updates to the library,
 made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind.
 
-[archive/tar](/pkg/archive/tar/)
-
-:   In general, the handling of special header formats is significantly improved and expanded.
-
-    [`FileInfoHeader`](/pkg/archive/tar/#FileInfoHeader) has always
-    recorded the Unix UID and GID numbers from its [`os.FileInfo`](/pkg/os/#FileInfo) argument
-    (specifically, from the system-dependent information returned by the `FileInfo`'s `Sys` method)
-    in the returned [`Header`](/pkg/archive/tar/#Header).
-    Now it also records the user and group names corresponding to those IDs,
-    as well as the major and minor device numbers for device files.
-
-    The new [`Header.Format`](/pkg/archive/tar/#Header) field
-    of type [`Format`](/pkg/archive/tar/#Format)
-    controls which tar header format the [`Writer`](/pkg/archive/tar/#Writer) uses.
-    The default, as before, is to select the most widely-supported header type
-    that can encode the fields needed by the header (USTAR if possible, or else PAX if possible, or else GNU).
-    The [`Reader`](/pkg/archive/tar/#Reader) sets `Header.Format` for each header it reads.
-
-    `Reader` and the `Writer` now support arbitrary PAX records,
-    using the new [`Header.PAXRecords`](/pkg/archive/tar/#Header) field,
-    a generalization of the existing `Xattrs` field.
-
-    The `Reader` no longer insists that the file name or link name in GNU headers
-    be valid UTF-8.
-
-    When writing PAX- or GNU-format headers, the `Writer` now includes
-    the `Header.AccessTime` and `Header.ChangeTime` fields (if set).
-    When writing PAX-format headers, the times include sub-second precision.
-
-[archive/zip](/pkg/archive/zip/)
-
-:   Go 1.10 adds more complete support for times and character set encodings in ZIP archives.
-
-    The original ZIP format used the standard MS-DOS encoding of year, month, day, hour, minute, and second into fields in two 16-bit values.
-    That encoding cannot represent time zones or odd seconds, so multiple extensions have been
-    introduced to allow richer encodings.
-    In Go 1.10, the [`Reader`](/pkg/archive/zip/#Reader) and [`Writer`](/pkg/archive/zip/#Writer)
-    now support the widely-understood Info-Zip extension that encodes the time separately in the 32-bit Unix “seconds since epoch” form.
-    The [`FileHeader`](/pkg/archive/zip/#FileHeader)'s new `Modified` field of type [`time.Time`](/pkg/time/#Time)
-    obsoletes the `ModifiedTime` and `ModifiedDate` fields, which continue to hold the MS-DOS encoding.
-    The `Reader` and `Writer` now adopt the common
-    convention that a ZIP archive storing a time zone-independent Unix time
-    also stores the local time in the MS-DOS field,
-    so that the time zone offset can be inferred.
-    For compatibility, the [`ModTime`](/pkg/archive/zip/#FileHeader.ModTime) and
-    [`SetModTime`](/pkg/archive/zip/#FileHeader.SetModTime) methods
-    behave the same as in earlier releases; new code should use `Modified` directly.
-
-    The header for each file in a ZIP archive has a flag bit indicating whether
-    the name and comment fields are encoded as UTF-8, as opposed to a system-specific default encoding.
-    In Go 1.8 and earlier, the `Writer` never set the UTF-8 bit.
-    In Go 1.9, the `Writer` changed to set the UTF-8 bit almost always.
-    This broke the creation of ZIP archives containing Shift-JIS file names.
-    In Go 1.10, the `Writer` now sets the UTF-8 bit only when
-    both the name and the comment field are valid UTF-8 and at least one is non-ASCII.
-    Because non-ASCII encodings very rarely look like valid UTF-8, the new
-    heuristic should be correct nearly all the time.
-    Setting a `FileHeader`'s new `NonUTF8` field to true
-    disables the heuristic entirely for that file.
-
-    The `Writer` also now supports setting the end-of-central-directory record's comment field,
-    by calling the `Writer`'s new [`SetComment`](/pkg/archive/zip/#Writer.SetComment) method.
-
-[bufio](/pkg/bufio/)
-
-:   The new [`Reader.Size`](/pkg/bufio/#Reader.Size)
-    and [`Writer.Size`](/pkg/bufio/#Writer.Size)
-    methods report the `Reader` or `Writer`'s underlying buffer size.
-
-[bytes](/pkg/bytes/)
-
-:   The
-    [`Fields`](/pkg/bytes/#Fields),
-    [`FieldsFunc`](/pkg/bytes/#FieldsFunc),
-    [`Split`](/pkg/bytes/#Split),
-    and
-    [`SplitAfter`](/pkg/bytes/#SplitAfter)
-    functions have always returned subslices of their inputs.
-    Go 1.10 changes each returned subslice to have capacity equal to its length,
-    so that appending to one cannot overwrite adjacent data in the original input.
-
-[crypto/cipher](/pkg/crypto/cipher/)
-
-:   [`NewOFB`](/pkg/crypto/cipher/#NewOFB) now panics if given
-    an initialization vector of incorrect length, like the other constructors in the
-    package always have.
-    (Previously it returned a nil `Stream` implementation.)
-
-[crypto/tls](/pkg/crypto/tls/)
-
-:   The TLS server now advertises support for SHA-512 signatures when using TLS 1.2.
-    The server already supported the signatures, but some clients would not select
-    them unless explicitly advertised.
-
-[crypto/x509](/pkg/crypto/x509/)
-
-:   [`Certificate.Verify`](/pkg/crypto/x509/#Certificate.Verify)
-    now enforces the name constraints for all
-    names contained in the certificate, not just the one name that a client has asked about.
-    Extended key usage restrictions are similarly now checked all at once.
-    As a result, after a certificate has been validated, now it can be trusted in its entirety.
-    It is no longer necessary to revalidate the certificate for each additional name
-    or key usage.
-
-    Parsed certificates also now report URI names and IP, email, and URI constraints, using the new
-    [`Certificate`](/pkg/crypto/x509/#Certificate) fields
-    `URIs`, `PermittedIPRanges`, `ExcludedIPRanges`,
-    `PermittedEmailAddresses`, `ExcludedEmailAddresses`,
-    `PermittedURIDomains`, and `ExcludedURIDomains`. Certificates with
-    invalid values for those fields are now rejected.
-
-    The new [`MarshalPKCS1PublicKey`](/pkg/crypto/x509/#MarshalPKCS1PublicKey)
-    and [`ParsePKCS1PublicKey`](/pkg/crypto/x509/#ParsePKCS1PublicKey)
-    functions convert an RSA public key to and from PKCS#1-encoded form.
-
-    The new [`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey)
-    function converts a private key to PKCS#8-encoded form.
-    ([`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey)
-    has existed since Go 1.)
-
-[crypto/x509/pkix](/pkg/crypto/x509/pkix/)
-
-:   [`Name`](/pkg/crypto/x509/pkix/#Name) now implements a
-    [`String`](/pkg/crypto/x509/pkix/#Name.String) method that
-    formats the X.509 distinguished name in the standard RFC 2253 format.
-
-[database/sql/driver](/pkg/database/sql/driver/)
-
-:   Drivers that currently hold on to the destination buffer provided by
-    [`driver.Rows.Next`](/pkg/database/sql/driver/#Rows.Next) should ensure they no longer
-    write to a buffer assigned to the destination array outside of that call.
-    Drivers must be careful that underlying buffers are not modified when closing
-    [`driver.Rows`](/pkg/database/sql/driver/#Rows).
-
-    Drivers that want to construct a [`sql.DB`](/pkg/database/sql/#DB) for
-    their clients can now implement the [`Connector`](/pkg/database/sql/driver/#Connector) interface
-    and call the new [`sql.OpenDB`](/pkg/database/sql/#OpenDB) function,
-    instead of needing to encode all configuration into a string
-    passed to [`sql.Open`](/pkg/database/sql/#Open).
-
-    Drivers that want to parse the configuration string only once per `sql.DB`
-    instead of once per [`sql.Conn`](/pkg/database/sql/#Conn),
-    or that want access to each `sql.Conn`'s underlying context,
-    can make their [`Driver`](/pkg/database/sql/driver/#Driver)
-    implementations also implement [`DriverContext`](/pkg/database/sql/driver/#DriverContext)'s
-    new `OpenConnector` method.
-
-    Drivers that implement [`ExecerContext`](/pkg/database/sql/driver/#ExecerContext)
-    no longer need to implement [`Execer`](/pkg/database/sql/driver/#Execer);
-    similarly, drivers that implement [`QueryerContext`](/pkg/database/sql/driver/#QueryerContext)
-    no longer need to implement [`Queryer`](/pkg/database/sql/driver/#Queryer).
-    Previously, even if the context-based interfaces were implemented they were ignored
-    unless the non-context-based interfaces were also implemented.
-
-    To allow drivers to better isolate different clients using a cached driver connection in succession,
-    if a [`Conn`](/pkg/database/sql/driver/#Conn) implements the new
-    [`SessionResetter`](/pkg/database/sql/driver/#SessionResetter) interface,
-    `database/sql` will now call `ResetSession` before
-    reusing the `Conn` for a new client.
-
-[debug/elf](/pkg/debug/elf/)
-
-:   This release adds 348 new relocation constants divided between the relocation types
-    [`R_386`](/pkg/debug/elf/#R_386),
-    [`R_AARCH64`](/pkg/debug/elf/#R_AARCH64),
-    [`R_ARM`](/pkg/debug/elf/#R_ARM),
-    [`R_PPC64`](/pkg/debug/elf/#R_PPC64),
-    and
-    [`R_X86_64`](/pkg/debug/elf/#R_X86_64).
-
-[debug/macho](/pkg/debug/macho/)
-
-:   Go 1.10 adds support for reading relocations from Mach-O sections,
-    using the [`Section`](/pkg/debug/macho#Section) struct's new `Relocs` field
-    and the new [`Reloc`](/pkg/debug/macho/#Reloc),
-    [`RelocTypeARM`](/pkg/debug/macho/#RelocTypeARM),
-    [`RelocTypeARM64`](/pkg/debug/macho/#RelocTypeARM64),
-    [`RelocTypeGeneric`](/pkg/debug/macho/#RelocTypeGeneric),
-    and
-    [`RelocTypeX86_64`](/pkg/debug/macho/#RelocTypeX86_64)
-    types and associated constants.
-
-    Go 1.10 also adds support for the `LC_RPATH` load command,
-    represented by the types
-    [`RpathCmd`](/pkg/debug/macho/#RpathCmd) and
-    [`Rpath`](/pkg/debug/macho/#Rpath),
-    and new [named constants](/pkg/debug/macho/#pkg-constants)
-    for the various flag bits found in headers.
-
-[encoding/asn1](/pkg/encoding/asn1/)
-
-:   [`Marshal`](/pkg/encoding/asn1/#Marshal) now correctly encodes
-    strings containing asterisks as type UTF8String instead of PrintableString,
-    unless the string is in a struct field with a tag forcing the use of PrintableString.
-    `Marshal` also now respects struct tags containing `application` directives.
-
-    The new [`MarshalWithParams`](/pkg/encoding/asn1/#MarshalWithParams)
-    function marshals its argument as if the additional params were its associated
-    struct field tag.
-
-    [`Unmarshal`](/pkg/encoding/asn1/#Unmarshal) now respects
-    struct field tags using the `explicit` and `tag`
-    directives.
-
-    Both `Marshal` and `Unmarshal` now support a new struct field tag
-    `numeric`, indicating an ASN.1 NumericString.
-
-[encoding/csv](/pkg/encoding/csv/)
-
-:   [`Reader`](/pkg/encoding/csv/#Reader) now disallows the use of
-    nonsensical `Comma` and `Comment` settings,
-    such as NUL, carriage return, newline, invalid runes, and the Unicode replacement character,
-    or setting `Comma` and `Comment` equal to each other.
-
-    In the case of a syntax error in a CSV record that spans multiple input lines, `Reader`
-    now reports the line on which the record started in the [`ParseError`](/pkg/encoding/csv/#ParseError)'s new `StartLine` field.
-
-[encoding/hex](/pkg/encoding/hex/)
-
-:   The new functions
-    [`NewEncoder`](/pkg/encoding/hex/#NewEncoder)
-    and
-    [`NewDecoder`](/pkg/encoding/hex/#NewDecoder)
-    provide streaming conversions to and from hexadecimal,
-    analogous to equivalent functions already in
-    [encoding/base32](/pkg/encoding/base32/)
-    and
-    [encoding/base64](/pkg/encoding/base64/).
-
-    When the functions
-    [`Decode`](/pkg/encoding/hex/#Decode)
-    and
-    [`DecodeString`](/pkg/encoding/hex/#DecodeString)
-    encounter malformed input,
-    they now return the number of bytes already converted
-    along with the error.
-    Previously they always returned a count of 0 with any error.
-
-[encoding/json](/pkg/encoding/json/)
-
-:   The [`Decoder`](/pkg/encoding/json/#Decoder)
-    adds a new method
-    [`DisallowUnknownFields`](/pkg/encoding/json/#Decoder.DisallowUnknownFields)
-    that causes it to report inputs with unknown JSON fields as a decoding error.
-    (The default behavior has always been to discard unknown fields.)
-
-    As a result of [fixing a reflect bug](#reflect),
-    [`Unmarshal`](/pkg/encoding/json/#Unmarshal)
-    can no longer decode into fields inside
-    embedded pointers to unexported struct types,
-    because it cannot initialize the unexported embedded pointer
-    to point at fresh storage.
-    `Unmarshal` now returns an error in this case.
-
-[encoding/pem](/pkg/encoding/pem/)
-
-:   [`Encode`](/pkg/encoding/pem/#Encode)
-    and
-    [`EncodeToMemory`](/pkg/encoding/pem/#EncodeToMemory)
-    no longer generate partial output when presented with a
-    block that is impossible to encode as PEM data.
-
-[encoding/xml](/pkg/encoding/xml/)
-
-:   The new function
-    [`NewTokenDecoder`](/pkg/encoding/xml/#NewTokenDecoder)
-    is like
-    [`NewDecoder`](/pkg/encoding/xml/#NewDecoder)
-    but creates a decoder reading from a [`TokenReader`](/pkg/encoding/xml/#TokenReader)
-    instead of an XML-formatted byte stream.
-    This is meant to enable the construction of XML stream transformers in client libraries.
-
-[flag](/pkg/flag/)
-
-:   The default
-    [`Usage`](/pkg/flag/#Usage) function now prints
-    its first line of output to
-    `CommandLine.Output()`
-    instead of assuming `os.Stderr`,
-    so that the usage message is properly redirected for
-    clients using `CommandLine.SetOutput`.
-
-    [`PrintDefaults`](/pkg/flag/#PrintDefaults) now
-    adds appropriate indentation after newlines in flag usage strings,
-    so that multi-line usage strings display nicely.
-
-    [`FlagSet`](/pkg/flag/#FlagSet) adds new methods
-    [`ErrorHandling`](/pkg/flag/#FlagSet.ErrorHandling),
-    [`Name`](/pkg/flag/#FlagSet.Name),
-    and
-    [`Output`](/pkg/flag/#FlagSet.Output),
-    to retrieve the settings passed to
-    [`NewFlagSet`](/pkg/flag/#NewFlagSet)
-    and
-    [`FlagSet.SetOutput`](/pkg/flag/#FlagSet.SetOutput).
-
-[go/doc](/pkg/go/doc/)
-
-:   To support the [doc change](#doc) described above,
-    functions returning slices of `T`, `*T`, `**T`, and so on
-    are now reported in `T`'s [`Type`](/pkg/go/doc/#Type)'s `Funcs` list,
-    instead of in the [`Package`](/pkg/go/doc/#Package)'s `Funcs` list.
-
-[go/importer](/pkg/go/importer/)
-
-:   The [`For`](/pkg/go/importer/#For) function now accepts a non-nil lookup argument.
-
-[go/printer](/pkg/go/printer/)
-
-:   The changes to the default formatting of Go source code
-    discussed in the [gofmt section](#gofmt) above
-    are implemented in the [go/printer](/pkg/go/printer/) package
-    and also affect the output of the higher-level [go/format](/pkg/go/format/) package.
-
-[hash](/pkg/hash/)
-
-:   Implementations of the [`Hash`](/pkg/hash/#Hash) interface are now
-    encouraged to implement [`encoding.BinaryMarshaler`](/pkg/encoding/#BinaryMarshaler)
-    and [`encoding.BinaryUnmarshaler`](/pkg/encoding/#BinaryUnmarshaler)
-    to allow saving and recreating their internal state,
-    and all implementations in the standard library
-    ([hash/crc32](/pkg/hash/crc32/), [crypto/sha256](/pkg/crypto/sha256/), and so on)
-    now implement those interfaces.
-
-[html/template](/pkg/html/template/)
-
-:   The new [`Srcset`](/pkg/html/template#Srcset) content
-    type allows for proper handling of values within the
-    [`srcset`](https://w3c.github.io/html/semantics-embedded-content.html#element-attrdef-img-srcset)
-    attribute of `img` tags.
-
-[math/big](/pkg/math/big/)
-
-:   [`Int`](/pkg/math/big/#Int) now supports conversions to and from bases 2 through 62
-    in its [`SetString`](/pkg/math/big/#Int.SetString) and [`Text`](/pkg/math/big/#Text) methods.
-    (Previously it only allowed bases 2 through 36.)
-    The value of the constant `MaxBase` has been updated.
-
-    [`Int`](/pkg/math/big/#Int) adds a new
-    [`CmpAbs`](/pkg/math/big/#CmpAbs) method
-    that is like [`Cmp`](/pkg/math/big/#Cmp) but
-    compares only the absolute values (not the signs) of its arguments.
-
-    [`Float`](/pkg/math/big/#Float) adds a new
-    [`Sqrt`](/pkg/math/big/#Float.Sqrt) method to
-    compute square roots.
-
-[math/cmplx](/pkg/math/cmplx/)
-
-:   Branch cuts and other boundary cases in
-    [`Asin`](/pkg/math/cmplx/#Asin),
-    [`Asinh`](/pkg/math/cmplx/#Asinh),
-    [`Atan`](/pkg/math/cmplx/#Atan),
-    and
-    [`Sqrt`](/pkg/math/cmplx/#Sqrt)
-    have been corrected to match the definitions used in the C99 standard.
-
-[math/rand](/pkg/math/rand/)
-
-:   The new [`Shuffle`](/pkg/math/rand/#Shuffle) function and corresponding
-    [`Rand.Shuffle`](/pkg/math/rand/#Rand.Shuffle) method
-    shuffle an input sequence.
-
-[math](/pkg/math/)
-
-:   The new functions
-    [`Round`](/pkg/math/#Round)
-    and
-    [`RoundToEven`](/pkg/math/#RoundToEven)
-    round their arguments to the nearest floating-point integer;
-    `Round` rounds a half-integer to its larger integer neighbor (away from zero)
-    while `RoundToEven` rounds a half-integer to its even integer neighbor.
-
-    The new functions
-    [`Erfinv`](/pkg/math/#Erfinv)
-    and
-    [`Erfcinv`](/pkg/math/#Erfcinv)
-    compute the inverse error function and the
-    inverse complementary error function.
-
-[mime/multipart](/pkg/mime/multipart/)
-
-:   [`Reader`](/pkg/mime/multipart/#Reader)
-    now accepts parts with empty filename attributes.
-
-[mime](/pkg/mime/)
-
-:   [`ParseMediaType`](/pkg/mime/#ParseMediaType) now discards
-    invalid attribute values; previously it returned those values as empty strings.
-
-[net](/pkg/net/)
-
-:   The [`Conn`](/pkg/net/#Conn) and
-    [`Listener`](/pkg/net/#Conn) implementations
-    in this package now guarantee that when `Close` returns,
-    the underlying file descriptor has been closed.
-    (In earlier releases, if the `Close` stopped pending I/O
-    in other goroutines, the closing of the file descriptor could happen in one of those
-    goroutines shortly after `Close` returned.)
-
-    [`TCPListener`](/pkg/net/#TCPListener) and
-    [`UnixListener`](/pkg/net/#UnixListener)
-    now implement
-    [`syscall.Conn`](/pkg/syscall/#Conn),
-    to allow setting options on the underlying file descriptor
-    using [`syscall.RawConn.Control`](/pkg/syscall/#RawConn).
-
-    The `Conn` implementations returned by [`Pipe`](/pkg/net/#Pipe)
-    now support setting read and write deadlines.
-
-    The [`IPConn.ReadMsgIP`](/pkg/net/#IPConn.ReadMsgIP),
-    [`IPConn.WriteMsgIP`](/pkg/net/#IPConn.WriteMsgIP),
-    [`UDPConn.ReadMsgUDP`](/pkg/net/#UDPConn.ReadMsgUDP),
-    and
-    [`UDPConn.WriteMsgUDP`](/pkg/net/#UDPConn.WriteMsgUDP),
-    methods are now implemented on Windows.
-
-[net/http](/pkg/net/http/)
-
-:   On the client side, an HTTP proxy (most commonly configured by
-    [`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment))
-    can now be specified as an `https://` URL,
-    meaning that the client connects to the proxy over HTTPS before issuing a standard, proxied HTTP request.
-    (Previously, HTTP proxy URLs were required to begin with `http://` or `socks5://`.)
-
-    On the server side, [`FileServer`](/pkg/net/http/#FileServer) and its single-file equivalent [`ServeFile`](/pkg/net/http/#ServeFile)
-    now apply `If-Range` checks to `HEAD` requests.
-    `FileServer` also now reports directory read failures to the [`Server`](/pkg/net/http/#Server)'s `ErrorLog`.
-    The content-serving handlers also now omit the `Content-Type` header when serving zero-length content.
-
-    [`ResponseWriter`](/pkg/net/http/#ResponseWriter)'s `WriteHeader` method now panics
-    if passed an invalid (non-3-digit) status code.
-
-    <!-- CL 46631 -->
-    The `Server` will no longer add an implicit Content-Type when a `Handler` does not write any output.
-
-    [`Redirect`](/pkg/net/http/#Redirect) now sets the `Content-Type` header before writing its HTTP response.
-
-[net/mail](/pkg/net/mail/)
-
-:   [`ParseAddress`](/pkg/net/mail/#ParseAddress) and
-    [`ParseAddressList`](/pkg/net/mail/#ParseAddressList)
-    now support a variety of obsolete address formats.
-
-[net/smtp](/pkg/net/smtp/)
-
-:   The [`Client`](/pkg/net/smtp/#Client) adds a new
-    [`Noop`](/pkg/net/smtp/#Client.Noop) method,
-    to test whether the server is still responding.
-    It also now defends against possible SMTP injection in the inputs
-    to the [`Hello`](/pkg/net/smtp/#Client.Hello)
-    and [`Verify`](/pkg/net/smtp/#Client.Verify) methods.
-
-[net/textproto](/pkg/net/textproto/)
-
-:   [`ReadMIMEHeader`](/pkg/net/textproto/#ReadMIMEHeader)
-    now rejects any header that begins with a continuation (indented) header line.
-    Previously a header with an indented first line was treated as if the first line
-    were not indented.
-
-[net/url](/pkg/net/url/)
-
-:   [`ResolveReference`](/pkg/net/url/#ResolveReference)
-    now preserves multiple leading slashes in the target URL.
-    Previously it rewrote multiple leading slashes to a single slash,
-    which resulted in the [`http.Client`](/pkg/net/http/#Client)
-    following certain redirects incorrectly.
-
-    For example, this code's output has changed:
-
-    	base, _ := url.Parse("http://host//path//to/page1")
-    	target, _ := url.Parse("page2")
-    	fmt.Println(base.ResolveReference(target))
-
-    Note the doubled slashes around `path`.
-    In Go 1.9 and earlier, the resolved URL was `http://host/path//to/page2`:
-    the doubled slash before `path` was incorrectly rewritten
-    to a single slash, while the doubled slash after `path` was
-    correctly preserved.
-    Go 1.10 preserves both doubled slashes, resolving to `http://host//path//to/page2`
-    as required by [RFC 3986](https://tools.ietf.org/html/rfc3986#section-5.2).
-
-    This change may break existing buggy programs that unintentionally
-    construct a base URL with a leading doubled slash in the path and inadvertently
-    depend on `ResolveReference` to correct that mistake.
-    For example, this can happen if code adds a host prefix
-    like `http://host/` to a path like `/my/api`,
-    resulting in a URL with a doubled slash: `http://host//my/api`.
-
-    [`UserInfo`](/pkg/net/url/#UserInfo)'s methods
-    now treat a nil receiver as equivalent to a pointer to a zero `UserInfo`.
-    Previously, they panicked.
-
-[os](/pkg/os/)
-
-:   [`File`](/pkg/os/#File) adds new methods
-    [`SetDeadline`](/pkg/os/#File.SetDeadline),
-    [`SetReadDeadline`](/pkg/os/#File.SetReadDeadline),
-    and
-    [`SetWriteDeadline`](/pkg/os/#File.SetWriteDeadline)
-    that allow setting I/O deadlines when the
-    underlying file descriptor supports non-blocking I/O operations.
-    The definition of these methods matches those in [`net.Conn`](/pkg/net/#Conn).
-    If an I/O method fails due to missing a deadline, it will return a
-    timeout error; the
-    new [`IsTimeout`](/pkg/os/#IsTimeout) function
-    reports whether an error represents a timeout.
-
-    Also matching `net.Conn`,
-    `File`'s
-    [`Close`](/pkg/os/#File.Close) method
-    now guarantee that when `Close` returns,
-    the underlying file descriptor has been closed.
-    (In earlier releases,
-    if the `Close` stopped pending I/O
-    in other goroutines, the closing of the file descriptor could happen in one of those
-    goroutines shortly after `Close` returned.)
-
-    On BSD, macOS, and Solaris systems,
-    [`Chtimes`](/pkg/os/#Chtimes)
-    now supports setting file times with nanosecond precision
-    (assuming the underlying file system can represent them).
-
-[reflect](/pkg/reflect/)
-
-:   The [`Copy`](/pkg/reflect/#Copy) function now allows copying
-    from a string into a byte array or byte slice, to match the
-    [built-in copy function](/pkg/builtin/#copy).
-
-    In structs, embedded pointers to unexported struct types were
-    previously incorrectly reported with an empty `PkgPath`
-    in the corresponding [StructField](/pkg/reflect/#StructField),
-    with the result that for those fields,
-    and [`Value.CanSet`](/pkg/reflect/#Value.CanSet)
-    incorrectly returned true and
-    [`Value.Set`](/pkg/reflect/#Value.Set)
-    incorrectly succeeded.
-    The underlying metadata has been corrected;
-    for those fields,
-    `CanSet` now correctly returns false
-    and `Set` now correctly panics.
-    This may affect reflection-based unmarshalers
-    that could previously unmarshal into such fields
-    but no longer can.
-    For example, see the [`encoding/json` notes](#encoding/json).
-
-[runtime/pprof](/pkg/runtime/pprof/)
-
-:   As [noted above](#pprof), the blocking and mutex profiles
-    now include symbol information so that they can be viewed without needing
-    the binary that generated them.
-
-[strconv](/pkg/strconv/)
-
-:   [`ParseUint`](/pkg/strconv/#ParseUint) now returns
-    the maximum magnitude integer of the appropriate size
-    with any `ErrRange` error, as it was already documented to do.
-    Previously it returned 0 with `ErrRange` errors.
-
-[strings](/pkg/strings/)
-
-:   A new type
-    [`Builder`](/pkg/strings/#Builder) is a replacement for
-    [`bytes.Buffer`](/pkg/bytes/#Buffer) for the use case of
-    accumulating text into a `string` result.
-    The `Builder`'s API is a restricted subset of `bytes.Buffer`'s
-    that allows it to safely avoid making a duplicate copy of the data
-    during the [`String`](/pkg/strings/#Builder.String) method.
-
-[syscall](/pkg/syscall/)
-
-:   On Windows,
-    the new [`SysProcAttr`](/pkg/syscall/#SysProcAttr) field `Token`,
-    of type [`Token`](/pkg/syscall/#Token) allows the creation of a process that
-    runs as another user during [`StartProcess`](/pkg/syscall/#StartProcess)
-    (and therefore also during [`os.StartProcess`](/pkg/os/#StartProcess) and
-    [`exec.Cmd.Start`](/pkg/os/exec/#Cmd.Start)).
-    The new function [`CreateProcessAsUser`](/pkg/syscall/#CreateProcessAsUser)
-    gives access to the underlying system call.
-
-    On BSD, macOS, and Solaris systems, [`UtimesNano`](/pkg/syscall/#UtimesNano)
-    is now implemented.
-
-[time](/pkg/time/)
-
-:   [`LoadLocation`](/pkg/time/#LoadLocation) now uses the directory
-    or uncompressed zip file named by the `$ZONEINFO`
-    environment variable before looking in the default system-specific list of
-    known installation locations or in `$GOROOT/lib/time/zoneinfo.zip`.
-
-    The new function [`LoadLocationFromTZData`](/pkg/time/#LoadLocationFromTZData)
-    allows conversion of IANA time zone file data to a [`Location`](/pkg/time/#Location).
-
-[unicode](/pkg/unicode/)
-
-:   The [`unicode`](/pkg/unicode/) package and associated
-    support throughout the system has been upgraded from Unicode 9.0 to
-    [Unicode 10.0](https://www.unicode.org/versions/Unicode10.0.0/),
-    which adds 8,518 new characters, including four new scripts, one new property,
-    a Bitcoin currency symbol, and 56 new emoji.
+#### [archive/tar](/pkg/archive/tar/)
+
+In general, the handling of special header formats is significantly improved and expanded.
+
+[`FileInfoHeader`](/pkg/archive/tar/#FileInfoHeader) has always
+recorded the Unix UID and GID numbers from its [`os.FileInfo`](/pkg/os/#FileInfo) argument
+(specifically, from the system-dependent information returned by the `FileInfo`'s `Sys` method)
+in the returned [`Header`](/pkg/archive/tar/#Header).
+Now it also records the user and group names corresponding to those IDs,
+as well as the major and minor device numbers for device files.
+
+The new [`Header.Format`](/pkg/archive/tar/#Header) field
+of type [`Format`](/pkg/archive/tar/#Format)
+controls which tar header format the [`Writer`](/pkg/archive/tar/#Writer) uses.
+The default, as before, is to select the most widely-supported header type
+that can encode the fields needed by the header (USTAR if possible, or else PAX if possible, or else GNU).
+The [`Reader`](/pkg/archive/tar/#Reader) sets `Header.Format` for each header it reads.
+
+`Reader` and the `Writer` now support arbitrary PAX records,
+using the new [`Header.PAXRecords`](/pkg/archive/tar/#Header) field,
+a generalization of the existing `Xattrs` field.
+
+The `Reader` no longer insists that the file name or link name in GNU headers
+be valid UTF-8.
+
+When writing PAX- or GNU-format headers, the `Writer` now includes
+the `Header.AccessTime` and `Header.ChangeTime` fields (if set).
+When writing PAX-format headers, the times include sub-second precision.
+
+#### [archive/zip](/pkg/archive/zip/)
+
+Go 1.10 adds more complete support for times and character set encodings in ZIP archives.
+
+The original ZIP format used the standard MS-DOS encoding of year, month, day, hour, minute, and second into fields in two 16-bit values.
+That encoding cannot represent time zones or odd seconds, so multiple extensions have been
+introduced to allow richer encodings.
+In Go 1.10, the [`Reader`](/pkg/archive/zip/#Reader) and [`Writer`](/pkg/archive/zip/#Writer)
+now support the widely-understood Info-Zip extension that encodes the time separately in the 32-bit Unix “seconds since epoch” form.
+The [`FileHeader`](/pkg/archive/zip/#FileHeader)'s new `Modified` field of type [`time.Time`](/pkg/time/#Time)
+obsoletes the `ModifiedTime` and `ModifiedDate` fields, which continue to hold the MS-DOS encoding.
+The `Reader` and `Writer` now adopt the common
+convention that a ZIP archive storing a time zone-independent Unix time
+also stores the local time in the MS-DOS field,
+so that the time zone offset can be inferred.
+For compatibility, the [`ModTime`](/pkg/archive/zip/#FileHeader.ModTime) and
+[`SetModTime`](/pkg/archive/zip/#FileHeader.SetModTime) methods
+behave the same as in earlier releases; new code should use `Modified` directly.
+
+The header for each file in a ZIP archive has a flag bit indicating whether
+the name and comment fields are encoded as UTF-8, as opposed to a system-specific default encoding.
+In Go 1.8 and earlier, the `Writer` never set the UTF-8 bit.
+In Go 1.9, the `Writer` changed to set the UTF-8 bit almost always.
+This broke the creation of ZIP archives containing Shift-JIS file names.
+In Go 1.10, the `Writer` now sets the UTF-8 bit only when
+both the name and the comment field are valid UTF-8 and at least one is non-ASCII.
+Because non-ASCII encodings very rarely look like valid UTF-8, the new
+heuristic should be correct nearly all the time.
+Setting a `FileHeader`'s new `NonUTF8` field to true
+disables the heuristic entirely for that file.
+
+The `Writer` also now supports setting the end-of-central-directory record's comment field,
+by calling the `Writer`'s new [`SetComment`](/pkg/archive/zip/#Writer.SetComment) method.
+
+#### [bufio](/pkg/bufio/)
+
+The new [`Reader.Size`](/pkg/bufio/#Reader.Size)
+and [`Writer.Size`](/pkg/bufio/#Writer.Size)
+methods report the `Reader` or `Writer`'s underlying buffer size.
+
+#### [bytes](/pkg/bytes/)
+
+The
+[`Fields`](/pkg/bytes/#Fields),
+[`FieldsFunc`](/pkg/bytes/#FieldsFunc),
+[`Split`](/pkg/bytes/#Split),
+and
+[`SplitAfter`](/pkg/bytes/#SplitAfter)
+functions have always returned subslices of their inputs.
+Go 1.10 changes each returned subslice to have capacity equal to its length,
+so that appending to one cannot overwrite adjacent data in the original input.
+
+#### [crypto/cipher](/pkg/crypto/cipher/)
+
+[`NewOFB`](/pkg/crypto/cipher/#NewOFB) now panics if given
+an initialization vector of incorrect length, like the other constructors in the
+package always have.
+(Previously it returned a nil `Stream` implementation.)
+
+#### [crypto/tls](/pkg/crypto/tls/)
+
+The TLS server now advertises support for SHA-512 signatures when using TLS 1.2.
+The server already supported the signatures, but some clients would not select
+them unless explicitly advertised.
+
+#### [crypto/x509](/pkg/crypto/x509/)
+
+[`Certificate.Verify`](/pkg/crypto/x509/#Certificate.Verify)
+now enforces the name constraints for all
+names contained in the certificate, not just the one name that a client has asked about.
+Extended key usage restrictions are similarly now checked all at once.
+As a result, after a certificate has been validated, now it can be trusted in its entirety.
+It is no longer necessary to revalidate the certificate for each additional name
+or key usage.
+
+Parsed certificates also now report URI names and IP, email, and URI constraints, using the new
+[`Certificate`](/pkg/crypto/x509/#Certificate) fields
+`URIs`, `PermittedIPRanges`, `ExcludedIPRanges`,
+`PermittedEmailAddresses`, `ExcludedEmailAddresses`,
+`PermittedURIDomains`, and `ExcludedURIDomains`. Certificates with
+invalid values for those fields are now rejected.
+
+The new [`MarshalPKCS1PublicKey`](/pkg/crypto/x509/#MarshalPKCS1PublicKey)
+and [`ParsePKCS1PublicKey`](/pkg/crypto/x509/#ParsePKCS1PublicKey)
+functions convert an RSA public key to and from PKCS#1-encoded form.
+
+The new [`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey)
+function converts a private key to PKCS#8-encoded form.
+([`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey)
+has existed since Go 1.)
+
+#### [crypto/x509/pkix](/pkg/crypto/x509/pkix/)
+
+[`Name`](/pkg/crypto/x509/pkix/#Name) now implements a
+[`String`](/pkg/crypto/x509/pkix/#Name.String) method that
+formats the X.509 distinguished name in the standard RFC 2253 format.
+
+#### [database/sql/driver](/pkg/database/sql/driver/)
+
+Drivers that currently hold on to the destination buffer provided by
+[`driver.Rows.Next`](/pkg/database/sql/driver/#Rows.Next) should ensure they no longer
+write to a buffer assigned to the destination array outside of that call.
+Drivers must be careful that underlying buffers are not modified when closing
+[`driver.Rows`](/pkg/database/sql/driver/#Rows).
+
+Drivers that want to construct a [`sql.DB`](/pkg/database/sql/#DB) for
+their clients can now implement the [`Connector`](/pkg/database/sql/driver/#Connector) interface
+and call the new [`sql.OpenDB`](/pkg/database/sql/#OpenDB) function,
+instead of needing to encode all configuration into a string
+passed to [`sql.Open`](/pkg/database/sql/#Open).
+
+Drivers that want to parse the configuration string only once per `sql.DB`
+instead of once per [`sql.Conn`](/pkg/database/sql/#Conn),
+or that want access to each `sql.Conn`'s underlying context,
+can make their [`Driver`](/pkg/database/sql/driver/#Driver)
+implementations also implement [`DriverContext`](/pkg/database/sql/driver/#DriverContext)'s
+new `OpenConnector` method.
+
+Drivers that implement [`ExecerContext`](/pkg/database/sql/driver/#ExecerContext)
+no longer need to implement [`Execer`](/pkg/database/sql/driver/#Execer);
+similarly, drivers that implement [`QueryerContext`](/pkg/database/sql/driver/#QueryerContext)
+no longer need to implement [`Queryer`](/pkg/database/sql/driver/#Queryer).
+Previously, even if the context-based interfaces were implemented they were ignored
+unless the non-context-based interfaces were also implemented.
+
+To allow drivers to better isolate different clients using a cached driver connection in succession,
+if a [`Conn`](/pkg/database/sql/driver/#Conn) implements the new
+[`SessionResetter`](/pkg/database/sql/driver/#SessionResetter) interface,
+`database/sql` will now call `ResetSession` before
+reusing the `Conn` for a new client.
+
+#### [debug/elf](/pkg/debug/elf/)
+
+This release adds 348 new relocation constants divided between the relocation types
+[`R_386`](/pkg/debug/elf/#R_386),
+[`R_AARCH64`](/pkg/debug/elf/#R_AARCH64),
+[`R_ARM`](/pkg/debug/elf/#R_ARM),
+[`R_PPC64`](/pkg/debug/elf/#R_PPC64),
+and
+[`R_X86_64`](/pkg/debug/elf/#R_X86_64).
+
+#### [debug/macho](/pkg/debug/macho/)
+
+Go 1.10 adds support for reading relocations from Mach-O sections,
+using the [`Section`](/pkg/debug/macho#Section) struct's new `Relocs` field
+and the new [`Reloc`](/pkg/debug/macho/#Reloc),
+[`RelocTypeARM`](/pkg/debug/macho/#RelocTypeARM),
+[`RelocTypeARM64`](/pkg/debug/macho/#RelocTypeARM64),
+[`RelocTypeGeneric`](/pkg/debug/macho/#RelocTypeGeneric),
+and
+[`RelocTypeX86_64`](/pkg/debug/macho/#RelocTypeX86_64)
+types and associated constants.
+
+Go 1.10 also adds support for the `LC_RPATH` load command,
+represented by the types
+[`RpathCmd`](/pkg/debug/macho/#RpathCmd) and
+[`Rpath`](/pkg/debug/macho/#Rpath),
+and new [named constants](/pkg/debug/macho/#pkg-constants)
+for the various flag bits found in headers.
+
+#### [encoding/asn1](/pkg/encoding/asn1/)
+
+[`Marshal`](/pkg/encoding/asn1/#Marshal) now correctly encodes
+strings containing asterisks as type UTF8String instead of PrintableString,
+unless the string is in a struct field with a tag forcing the use of PrintableString.
+`Marshal` also now respects struct tags containing `application` directives.
+
+The new [`MarshalWithParams`](/pkg/encoding/asn1/#MarshalWithParams)
+function marshals its argument as if the additional params were its associated
+struct field tag.
+
+[`Unmarshal`](/pkg/encoding/asn1/#Unmarshal) now respects
+struct field tags using the `explicit` and `tag`
+directives.
+
+Both `Marshal` and `Unmarshal` now support a new struct field tag
+`numeric`, indicating an ASN.1 NumericString.
+
+#### [encoding/csv](/pkg/encoding/csv/)
+
+[`Reader`](/pkg/encoding/csv/#Reader) now disallows the use of
+nonsensical `Comma` and `Comment` settings,
+such as NUL, carriage return, newline, invalid runes, and the Unicode replacement character,
+or setting `Comma` and `Comment` equal to each other.
+
+In the case of a syntax error in a CSV record that spans multiple input lines, `Reader`
+now reports the line on which the record started in the [`ParseError`](/pkg/encoding/csv/#ParseError)'s new `StartLine` field.
+
+#### [encoding/hex](/pkg/encoding/hex/)
+
+The new functions
+[`NewEncoder`](/pkg/encoding/hex/#NewEncoder)
+and
+[`NewDecoder`](/pkg/encoding/hex/#NewDecoder)
+provide streaming conversions to and from hexadecimal,
+analogous to equivalent functions already in
+[encoding/base32](/pkg/encoding/base32/)
+and
+[encoding/base64](/pkg/encoding/base64/).
+
+When the functions
+[`Decode`](/pkg/encoding/hex/#Decode)
+and
+[`DecodeString`](/pkg/encoding/hex/#DecodeString)
+encounter malformed input,
+they now return the number of bytes already converted
+along with the error.
+Previously they always returned a count of 0 with any error.
+
+#### [encoding/json](/pkg/encoding/json/)
+
+The [`Decoder`](/pkg/encoding/json/#Decoder)
+adds a new method
+[`DisallowUnknownFields`](/pkg/encoding/json/#Decoder.DisallowUnknownFields)
+that causes it to report inputs with unknown JSON fields as a decoding error.
+(The default behavior has always been to discard unknown fields.)
+
+As a result of [fixing a reflect bug](#reflect),
+[`Unmarshal`](/pkg/encoding/json/#Unmarshal)
+can no longer decode into fields inside
+embedded pointers to unexported struct types,
+because it cannot initialize the unexported embedded pointer
+to point at fresh storage.
+`Unmarshal` now returns an error in this case.
+
+#### [encoding/pem](/pkg/encoding/pem/)
+
+[`Encode`](/pkg/encoding/pem/#Encode)
+and
+[`EncodeToMemory`](/pkg/encoding/pem/#EncodeToMemory)
+no longer generate partial output when presented with a
+block that is impossible to encode as PEM data.
+
+#### [encoding/xml](/pkg/encoding/xml/)
+
+The new function
+[`NewTokenDecoder`](/pkg/encoding/xml/#NewTokenDecoder)
+is like
+[`NewDecoder`](/pkg/encoding/xml/#NewDecoder)
+but creates a decoder reading from a [`TokenReader`](/pkg/encoding/xml/#TokenReader)
+instead of an XML-formatted byte stream.
+This is meant to enable the construction of XML stream transformers in client libraries.
+
+#### [flag](/pkg/flag/)
+
+The default
+[`Usage`](/pkg/flag/#Usage) function now prints
+its first line of output to
+`CommandLine.Output()`
+instead of assuming `os.Stderr`,
+so that the usage message is properly redirected for
+clients using `CommandLine.SetOutput`.
+
+[`PrintDefaults`](/pkg/flag/#PrintDefaults) now
+adds appropriate indentation after newlines in flag usage strings,
+so that multi-line usage strings display nicely.
+
+[`FlagSet`](/pkg/flag/#FlagSet) adds new methods
+[`ErrorHandling`](/pkg/flag/#FlagSet.ErrorHandling),
+[`Name`](/pkg/flag/#FlagSet.Name),
+and
+[`Output`](/pkg/flag/#FlagSet.Output),
+to retrieve the settings passed to
+[`NewFlagSet`](/pkg/flag/#NewFlagSet)
+and
+[`FlagSet.SetOutput`](/pkg/flag/#FlagSet.SetOutput).
+
+#### [go/doc](/pkg/go/doc/)
+
+To support the [doc change](#doc) described above,
+functions returning slices of `T`, `*T`, `**T`, and so on
+are now reported in `T`'s [`Type`](/pkg/go/doc/#Type)'s `Funcs` list,
+instead of in the [`Package`](/pkg/go/doc/#Package)'s `Funcs` list.
+
+#### [go/importer](/pkg/go/importer/)
+
+The [`For`](/pkg/go/importer/#For) function now accepts a non-nil lookup argument.
+
+#### [go/printer](/pkg/go/printer/)
+
+The changes to the default formatting of Go source code
+discussed in the [gofmt section](#gofmt) above
+are implemented in the [go/printer](/pkg/go/printer/) package
+and also affect the output of the higher-level [go/format](/pkg/go/format/) package.
+
+#### [hash](/pkg/hash/)
+
+Implementations of the [`Hash`](/pkg/hash/#Hash) interface are now
+encouraged to implement [`encoding.BinaryMarshaler`](/pkg/encoding/#BinaryMarshaler)
+and [`encoding.BinaryUnmarshaler`](/pkg/encoding/#BinaryUnmarshaler)
+to allow saving and recreating their internal state,
+and all implementations in the standard library
+([hash/crc32](/pkg/hash/crc32/), [crypto/sha256](/pkg/crypto/sha256/), and so on)
+now implement those interfaces.
+
+#### [html/template](/pkg/html/template/)
+
+The new [`Srcset`](/pkg/html/template#Srcset) content
+type allows for proper handling of values within the
+[`srcset`](https://w3c.github.io/html/semantics-embedded-content.html#element-attrdef-img-srcset)
+attribute of `img` tags.
+
+#### [math/big](/pkg/math/big/)
+
+[`Int`](/pkg/math/big/#Int) now supports conversions to and from bases 2 through 62
+in its [`SetString`](/pkg/math/big/#Int.SetString) and [`Text`](/pkg/math/big/#Text) methods.
+(Previously it only allowed bases 2 through 36.)
+The value of the constant `MaxBase` has been updated.
+
+[`Int`](/pkg/math/big/#Int) adds a new
+[`CmpAbs`](/pkg/math/big/#CmpAbs) method
+that is like [`Cmp`](/pkg/math/big/#Cmp) but
+compares only the absolute values (not the signs) of its arguments.
+
+[`Float`](/pkg/math/big/#Float) adds a new
+[`Sqrt`](/pkg/math/big/#Float.Sqrt) method to
+compute square roots.
+
+#### [math/cmplx](/pkg/math/cmplx/)
+
+Branch cuts and other boundary cases in
+[`Asin`](/pkg/math/cmplx/#Asin),
+[`Asinh`](/pkg/math/cmplx/#Asinh),
+[`Atan`](/pkg/math/cmplx/#Atan),
+and
+[`Sqrt`](/pkg/math/cmplx/#Sqrt)
+have been corrected to match the definitions used in the C99 standard.
+
+#### [math/rand](/pkg/math/rand/)
+
+The new [`Shuffle`](/pkg/math/rand/#Shuffle) function and corresponding
+[`Rand.Shuffle`](/pkg/math/rand/#Rand.Shuffle) method
+shuffle an input sequence.
+
+#### [math](/pkg/math/)
+
+The new functions
+[`Round`](/pkg/math/#Round)
+and
+[`RoundToEven`](/pkg/math/#RoundToEven)
+round their arguments to the nearest floating-point integer;
+`Round` rounds a half-integer to its larger integer neighbor (away from zero)
+while `RoundToEven` rounds a half-integer to its even integer neighbor.
+
+The new functions
+[`Erfinv`](/pkg/math/#Erfinv)
+and
+[`Erfcinv`](/pkg/math/#Erfcinv)
+compute the inverse error function and the
+inverse complementary error function.
+
+#### [mime/multipart](/pkg/mime/multipart/)
+
+[`Reader`](/pkg/mime/multipart/#Reader)
+now accepts parts with empty filename attributes.
+
+#### [mime](/pkg/mime/)
+
+[`ParseMediaType`](/pkg/mime/#ParseMediaType) now discards
+invalid attribute values; previously it returned those values as empty strings.
+
+#### [net](/pkg/net/)
+
+The [`Conn`](/pkg/net/#Conn) and
+[`Listener`](/pkg/net/#Conn) implementations
+in this package now guarantee that when `Close` returns,
+the underlying file descriptor has been closed.
+(In earlier releases, if the `Close` stopped pending I/O
+in other goroutines, the closing of the file descriptor could happen in one of those
+goroutines shortly after `Close` returned.)
+
+[`TCPListener`](/pkg/net/#TCPListener) and
+[`UnixListener`](/pkg/net/#UnixListener)
+now implement
+[`syscall.Conn`](/pkg/syscall/#Conn),
+to allow setting options on the underlying file descriptor
+using [`syscall.RawConn.Control`](/pkg/syscall/#RawConn).
+
+The `Conn` implementations returned by [`Pipe`](/pkg/net/#Pipe)
+now support setting read and write deadlines.
+
+The [`IPConn.ReadMsgIP`](/pkg/net/#IPConn.ReadMsgIP),
+[`IPConn.WriteMsgIP`](/pkg/net/#IPConn.WriteMsgIP),
+[`UDPConn.ReadMsgUDP`](/pkg/net/#UDPConn.ReadMsgUDP),
+and
+[`UDPConn.WriteMsgUDP`](/pkg/net/#UDPConn.WriteMsgUDP),
+methods are now implemented on Windows.
+
+#### [net/http](/pkg/net/http/)
+
+On the client side, an HTTP proxy (most commonly configured by
+[`ProxyFromEnvironment`](/pkg/net/http/#ProxyFromEnvironment))
+can now be specified as an `https://` URL,
+meaning that the client connects to the proxy over HTTPS before issuing a standard, proxied HTTP request.
+(Previously, HTTP proxy URLs were required to begin with `http://` or `socks5://`.)
+
+On the server side, [`FileServer`](/pkg/net/http/#FileServer) and its single-file equivalent [`ServeFile`](/pkg/net/http/#ServeFile)
+now apply `If-Range` checks to `HEAD` requests.
+`FileServer` also now reports directory read failures to the [`Server`](/pkg/net/http/#Server)'s `ErrorLog`.
+The content-serving handlers also now omit the `Content-Type` header when serving zero-length content.
+
+[`ResponseWriter`](/pkg/net/http/#ResponseWriter)'s `WriteHeader` method now panics
+if passed an invalid (non-3-digit) status code.
+
+<!-- CL 46631 -->
+The `Server` will no longer add an implicit Content-Type when a `Handler` does not write any output.
+
+[`Redirect`](/pkg/net/http/#Redirect) now sets the `Content-Type` header before writing its HTTP response.
+
+#### [net/mail](/pkg/net/mail/)
+
+[`ParseAddress`](/pkg/net/mail/#ParseAddress) and
+[`ParseAddressList`](/pkg/net/mail/#ParseAddressList)
+now support a variety of obsolete address formats.
+
+#### [net/smtp](/pkg/net/smtp/)
+
+The [`Client`](/pkg/net/smtp/#Client) adds a new
+[`Noop`](/pkg/net/smtp/#Client.Noop) method,
+to test whether the server is still responding.
+It also now defends against possible SMTP injection in the inputs
+to the [`Hello`](/pkg/net/smtp/#Client.Hello)
+and [`Verify`](/pkg/net/smtp/#Client.Verify) methods.
+
+#### [net/textproto](/pkg/net/textproto/)
+
+[`ReadMIMEHeader`](/pkg/net/textproto/#ReadMIMEHeader)
+now rejects any header that begins with a continuation (indented) header line.
+Previously a header with an indented first line was treated as if the first line
+were not indented.
+
+#### [net/url](/pkg/net/url/)
+
+[`ResolveReference`](/pkg/net/url/#ResolveReference)
+now preserves multiple leading slashes in the target URL.
+Previously it rewrote multiple leading slashes to a single slash,
+which resulted in the [`http.Client`](/pkg/net/http/#Client)
+following certain redirects incorrectly.
+
+For example, this code's output has changed:
+
+	base, _ := url.Parse("http://host//path//to/page1")
+	target, _ := url.Parse("page2")
+	fmt.Println(base.ResolveReference(target))
+
+Note the doubled slashes around `path`.
+In Go 1.9 and earlier, the resolved URL was `http://host/path//to/page2`:
+the doubled slash before `path` was incorrectly rewritten
+to a single slash, while the doubled slash after `path` was
+correctly preserved.
+Go 1.10 preserves both doubled slashes, resolving to `http://host//path//to/page2`
+as required by [RFC 3986](https://tools.ietf.org/html/rfc3986#section-5.2).
+
+This change may break existing buggy programs that unintentionally
+construct a base URL with a leading doubled slash in the path and inadvertently
+depend on `ResolveReference` to correct that mistake.
+For example, this can happen if code adds a host prefix
+like `http://host/` to a path like `/my/api`,
+resulting in a URL with a doubled slash: `http://host//my/api`.
+
+[`UserInfo`](/pkg/net/url/#UserInfo)'s methods
+now treat a nil receiver as equivalent to a pointer to a zero `UserInfo`.
+Previously, they panicked.
+
+#### [os](/pkg/os/)
+
+[`File`](/pkg/os/#File) adds new methods
+[`SetDeadline`](/pkg/os/#File.SetDeadline),
+[`SetReadDeadline`](/pkg/os/#File.SetReadDeadline),
+and
+[`SetWriteDeadline`](/pkg/os/#File.SetWriteDeadline)
+that allow setting I/O deadlines when the
+underlying file descriptor supports non-blocking I/O operations.
+The definition of these methods matches those in [`net.Conn`](/pkg/net/#Conn).
+If an I/O method fails due to missing a deadline, it will return a
+timeout error; the
+new [`IsTimeout`](/pkg/os/#IsTimeout) function
+reports whether an error represents a timeout.
+
+Also matching `net.Conn`,
+`File`'s
+[`Close`](/pkg/os/#File.Close) method
+now guarantee that when `Close` returns,
+the underlying file descriptor has been closed.
+(In earlier releases,
+if the `Close` stopped pending I/O
+in other goroutines, the closing of the file descriptor could happen in one of those
+goroutines shortly after `Close` returned.)
+
+On BSD, macOS, and Solaris systems,
+[`Chtimes`](/pkg/os/#Chtimes)
+now supports setting file times with nanosecond precision
+(assuming the underlying file system can represent them).
+
+#### [reflect](/pkg/reflect/)
+
+The [`Copy`](/pkg/reflect/#Copy) function now allows copying
+from a string into a byte array or byte slice, to match the
+[built-in copy function](/pkg/builtin/#copy).
+
+In structs, embedded pointers to unexported struct types were
+previously incorrectly reported with an empty `PkgPath`
+in the corresponding [StructField](/pkg/reflect/#StructField),
+with the result that for those fields,
+and [`Value.CanSet`](/pkg/reflect/#Value.CanSet)
+incorrectly returned true and
+[`Value.Set`](/pkg/reflect/#Value.Set)
+incorrectly succeeded.
+The underlying metadata has been corrected;
+for those fields,
+`CanSet` now correctly returns false
+and `Set` now correctly panics.
+This may affect reflection-based unmarshalers
+that could previously unmarshal into such fields
+but no longer can.
+For example, see the [`encoding/json` notes](#encoding/json).
+
+#### [runtime/pprof](/pkg/runtime/pprof/)
+
+As [noted above](#pprof), the blocking and mutex profiles
+now include symbol information so that they can be viewed without needing
+the binary that generated them.
+
+#### [strconv](/pkg/strconv/)
+
+[`ParseUint`](/pkg/strconv/#ParseUint) now returns
+the maximum magnitude integer of the appropriate size
+with any `ErrRange` error, as it was already documented to do.
+Previously it returned 0 with `ErrRange` errors.
+
+#### [strings](/pkg/strings/)
+
+A new type
+[`Builder`](/pkg/strings/#Builder) is a replacement for
+[`bytes.Buffer`](/pkg/bytes/#Buffer) for the use case of
+accumulating text into a `string` result.
+The `Builder`'s API is a restricted subset of `bytes.Buffer`'s
+that allows it to safely avoid making a duplicate copy of the data
+during the [`String`](/pkg/strings/#Builder.String) method.
+
+#### [syscall](/pkg/syscall/)
+
+On Windows,
+the new [`SysProcAttr`](/pkg/syscall/#SysProcAttr) field `Token`,
+of type [`Token`](/pkg/syscall/#Token) allows the creation of a process that
+runs as another user during [`StartProcess`](/pkg/syscall/#StartProcess)
+(and therefore also during [`os.StartProcess`](/pkg/os/#StartProcess) and
+[`exec.Cmd.Start`](/pkg/os/exec/#Cmd.Start)).
+The new function [`CreateProcessAsUser`](/pkg/syscall/#CreateProcessAsUser)
+gives access to the underlying system call.
+
+On BSD, macOS, and Solaris systems, [`UtimesNano`](/pkg/syscall/#UtimesNano)
+is now implemented.
+
+#### [time](/pkg/time/)
+
+[`LoadLocation`](/pkg/time/#LoadLocation) now uses the directory
+or uncompressed zip file named by the `$ZONEINFO`
+environment variable before looking in the default system-specific list of
+known installation locations or in `$GOROOT/lib/time/zoneinfo.zip`.
+
+The new function [`LoadLocationFromTZData`](/pkg/time/#LoadLocationFromTZData)
+allows conversion of IANA time zone file data to a [`Location`](/pkg/time/#Location).
+
+#### [unicode](/pkg/unicode/)
+
+The [`unicode`](/pkg/unicode/) package and associated
+support throughout the system has been upgraded from Unicode 9.0 to
+[Unicode 10.0](https://www.unicode.org/versions/Unicode10.0.0/),
+which adds 8,518 new characters, including four new scripts, one new property,
+a Bitcoin currency symbol, and 56 new emoji.

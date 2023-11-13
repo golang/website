@@ -460,659 +460,659 @@ made with the Go 1 [promise of compatibility](/doc/go1compat)
 in mind.
 There are also various performance improvements, not enumerated here.
 
-[archive/tar](/pkg/archive/tar/)
+#### [archive/tar](/pkg/archive/tar/)
 
-:   <!-- https://go.dev/issue/55356, CL 449937 -->
-    When the `GODEBUG=tarinsecurepath=0` environment variable is set,
-    [`Reader.Next`](/pkg/archive/tar/#Reader.Next) method
-    will now return the error [`ErrInsecurePath`](/pkg/archive/tar/#ErrInsecurePath)
-    for an entry with a file name that is an absolute path,
-    refers to a location outside the current directory, contains invalid
-    characters, or (on Windows) is a reserved name such as `NUL`.
-    A future version of Go may disable insecure paths by default.
+<!-- https://go.dev/issue/55356, CL 449937 -->
+When the `GODEBUG=tarinsecurepath=0` environment variable is set,
+[`Reader.Next`](/pkg/archive/tar/#Reader.Next) method
+will now return the error [`ErrInsecurePath`](/pkg/archive/tar/#ErrInsecurePath)
+for an entry with a file name that is an absolute path,
+refers to a location outside the current directory, contains invalid
+characters, or (on Windows) is a reserved name such as `NUL`.
+A future version of Go may disable insecure paths by default.
 
 <!-- archive/tar -->
 
-[archive/zip](/pkg/archive/zip/)
+#### [archive/zip](/pkg/archive/zip/)
 
-:   <!-- https://go.dev/issue/55356 -->
-    When the `GODEBUG=zipinsecurepath=0` environment variable is set,
-    [`NewReader`](/pkg/archive/zip/#NewReader) will now return the error
-    [`ErrInsecurePath`](/pkg/archive/zip/#ErrInsecurePath)
-    when opening an archive which contains any file name that is an absolute path,
-    refers to a location outside the current directory, contains invalid
-    characters, or (on Windows) is a reserved names such as `NUL`.
-    A future version of Go may disable insecure paths by default.
+<!-- https://go.dev/issue/55356 -->
+When the `GODEBUG=zipinsecurepath=0` environment variable is set,
+[`NewReader`](/pkg/archive/zip/#NewReader) will now return the error
+[`ErrInsecurePath`](/pkg/archive/zip/#ErrInsecurePath)
+when opening an archive which contains any file name that is an absolute path,
+refers to a location outside the current directory, contains invalid
+characters, or (on Windows) is a reserved names such as `NUL`.
+A future version of Go may disable insecure paths by default.
 
-    <!-- CL 449955 -->
-    Reading from a directory file that contains file data will now return an error.
-    The zip specification does not permit directory files to contain file data,
-    so this change only affects reading from invalid archives.
+<!-- CL 449955 -->
+Reading from a directory file that contains file data will now return an error.
+The zip specification does not permit directory files to contain file data,
+so this change only affects reading from invalid archives.
 
 <!-- archive/zip -->
 
-[bytes](/pkg/bytes/)
+#### [bytes](/pkg/bytes/)
 
-:   <!-- CL 407176 -->
-    The new
-    [`CutPrefix`](/pkg/bytes/#CutPrefix) and
-    [`CutSuffix`](/pkg/bytes/#CutSuffix) functions
-    are like [`TrimPrefix`](/pkg/bytes/#TrimPrefix)
-    and [`TrimSuffix`](/pkg/bytes/#TrimSuffix)
-    but also report whether the string was trimmed.
+<!-- CL 407176 -->
+The new
+[`CutPrefix`](/pkg/bytes/#CutPrefix) and
+[`CutSuffix`](/pkg/bytes/#CutSuffix) functions
+are like [`TrimPrefix`](/pkg/bytes/#TrimPrefix)
+and [`TrimSuffix`](/pkg/bytes/#TrimSuffix)
+but also report whether the string was trimmed.
 
-    <!-- CL 359675, https://go.dev/issue/45038 -->
-    The new [`Clone`](/pkg/bytes/#Clone) function
-    allocates a copy of a byte slice.
+<!-- CL 359675, https://go.dev/issue/45038 -->
+The new [`Clone`](/pkg/bytes/#Clone) function
+allocates a copy of a byte slice.
 
 <!-- bytes -->
 
-[context](/pkg/context/)
+#### [context](/pkg/context/)
 
-:   <!-- https://go.dev/issue/51365, CL 375977 -->
-    The new [`WithCancelCause`](/pkg/context/#WithCancelCause) function
-    provides a way to cancel a context with a given error.
-    That error can be retrieved by calling the new [`Cause`](/pkg/context/#Cause) function.
+<!-- https://go.dev/issue/51365, CL 375977 -->
+The new [`WithCancelCause`](/pkg/context/#WithCancelCause) function
+provides a way to cancel a context with a given error.
+That error can be retrieved by calling the new [`Cause`](/pkg/context/#Cause) function.
 
 <!-- context -->
 
-[crypto/ecdsa](/pkg/crypto/ecdsa/)
+#### [crypto/ecdsa](/pkg/crypto/ecdsa/)
 
-:   <!-- CL 353849 -->
-    When using supported curves, all operations are now implemented in constant time.
-    This led to an increase in CPU time between 5% and 30%, mostly affecting P-384 and P-521.
+<!-- CL 353849 -->
+When using supported curves, all operations are now implemented in constant time.
+This led to an increase in CPU time between 5% and 30%, mostly affecting P-384 and P-521.
 
-    <!-- https://go.dev/issue/56088, CL 450816 -->
-    The new [`PrivateKey.ECDH`](/pkg/crypto/ecdsa/#PrivateKey.ECDH) method
-    converts an `ecdsa.PrivateKey` to an `ecdh.PrivateKey`.
+<!-- https://go.dev/issue/56088, CL 450816 -->
+The new [`PrivateKey.ECDH`](/pkg/crypto/ecdsa/#PrivateKey.ECDH) method
+converts an `ecdsa.PrivateKey` to an `ecdh.PrivateKey`.
 
 <!-- crypto/ecdsa -->
 
-[crypto/ed25519](/pkg/crypto/ed25519/)
+#### [crypto/ed25519](/pkg/crypto/ed25519/)
 
-:   <!-- CL 373076, CL 404274, https://go.dev/issue/31804 -->
-    The [`PrivateKey.Sign`](/pkg/crypto/ed25519/#PrivateKey.Sign) method
-    and the
-    [`VerifyWithOptions`](/pkg/crypto/ed25519/#VerifyWithOptions) function
-    now support signing pre-hashed messages with Ed25519ph,
-    indicated by an
-    [`Options.HashFunc`](/pkg/crypto/ed25519/#Options.HashFunc)
-    that returns
-    [`crypto.SHA512`](/pkg/crypto/#SHA512).
-    They also now support Ed25519ctx and Ed25519ph with context,
-    indicated by setting the new
-    [`Options.Context`](/pkg/crypto/ed25519/#Options.Context)
-    field.
+<!-- CL 373076, CL 404274, https://go.dev/issue/31804 -->
+The [`PrivateKey.Sign`](/pkg/crypto/ed25519/#PrivateKey.Sign) method
+and the
+[`VerifyWithOptions`](/pkg/crypto/ed25519/#VerifyWithOptions) function
+now support signing pre-hashed messages with Ed25519ph,
+indicated by an
+[`Options.HashFunc`](/pkg/crypto/ed25519/#Options.HashFunc)
+that returns
+[`crypto.SHA512`](/pkg/crypto/#SHA512).
+They also now support Ed25519ctx and Ed25519ph with context,
+indicated by setting the new
+[`Options.Context`](/pkg/crypto/ed25519/#Options.Context)
+field.
 
 <!-- crypto/ed25519 -->
 
-[crypto/rsa](/pkg/crypto/rsa/)
+#### [crypto/rsa](/pkg/crypto/rsa/)
 
-:   <!-- CL 418874, https://go.dev/issue/19974 -->
-    The new field [`OAEPOptions.MGFHash`](/pkg/crypto/rsa/#OAEPOptions.MGFHash)
-    allows configuring the MGF1 hash separately for OAEP decryption.
+<!-- CL 418874, https://go.dev/issue/19974 -->
+The new field [`OAEPOptions.MGFHash`](/pkg/crypto/rsa/#OAEPOptions.MGFHash)
+allows configuring the MGF1 hash separately for OAEP decryption.
 
-    <!-- https://go.dev/issue/20654 -->
-    crypto/rsa now uses a new, safer, constant-time backend. This causes a CPU
-    runtime increase for decryption operations between approximately 15%
-    (RSA-2048 on amd64) and 45% (RSA-4096 on arm64), and more on 32-bit architectures.
-    Encryption operations are approximately 20x slower than before (but still 5-10x faster than decryption).
-    Performance is expected to improve in future releases.
-    Programs must not modify or manually generate the fields of
-    [`PrecomputedValues`](/pkg/crypto/rsa/#PrecomputedValues).
+<!-- https://go.dev/issue/20654 -->
+crypto/rsa now uses a new, safer, constant-time backend. This causes a CPU
+runtime increase for decryption operations between approximately 15%
+(RSA-2048 on amd64) and 45% (RSA-4096 on arm64), and more on 32-bit architectures.
+Encryption operations are approximately 20x slower than before (but still 5-10x faster than decryption).
+Performance is expected to improve in future releases.
+Programs must not modify or manually generate the fields of
+[`PrecomputedValues`](/pkg/crypto/rsa/#PrecomputedValues).
 
 <!-- crypto/rsa -->
 
-[crypto/subtle](/pkg/crypto/subtle/)
+#### [crypto/subtle](/pkg/crypto/subtle/)
 
-:   <!-- https://go.dev/issue/53021, CL 421435 -->
-    The new function [`XORBytes`](/pkg/crypto/subtle/#XORBytes)
-    XORs two byte slices together.
+<!-- https://go.dev/issue/53021, CL 421435 -->
+The new function [`XORBytes`](/pkg/crypto/subtle/#XORBytes)
+XORs two byte slices together.
 
 <!-- crypto/subtle -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 426455, CL 427155, CL 426454, https://go.dev/issue/46035 -->
-    Parsed certificates are now shared across all clients actively using that certificate.
-    The memory savings can be significant in programs that make many concurrent connections to a
-    server or collection of servers sharing any part of their certificate chains.
+<!-- CL 426455, CL 427155, CL 426454, https://go.dev/issue/46035 -->
+Parsed certificates are now shared across all clients actively using that certificate.
+The memory savings can be significant in programs that make many concurrent connections to a
+server or collection of servers sharing any part of their certificate chains.
 
-    <!-- https://go.dev/issue/48152, CL 449336 -->
-    For a handshake failure due to a certificate verification failure,
-    the TLS client and server now return an error of the new type
-    [`CertificateVerificationError`](/pkg/crypto/tls/#CertificateVerificationError),
-    which includes the presented certificates.
+<!-- https://go.dev/issue/48152, CL 449336 -->
+For a handshake failure due to a certificate verification failure,
+the TLS client and server now return an error of the new type
+[`CertificateVerificationError`](/pkg/crypto/tls/#CertificateVerificationError),
+which includes the presented certificates.
 
 <!-- crypto/tls -->
 
-[crypto/x509](/pkg/crypto/x509/)
+#### [crypto/x509](/pkg/crypto/x509/)
 
-:   <!-- CL 450816, CL 450815 -->
-    [`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey)
-    and
-    [`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey)
-    now support keys of type [`*crypto/ecdh.PrivateKey`](/pkg/crypto/ecdh.PrivateKey).
-    [`ParsePKIXPublicKey`](/pkg/crypto/x509/#ParsePKIXPublicKey)
-    and
-    [`MarshalPKIXPublicKey`](/pkg/crypto/x509/#MarshalPKIXPublicKey)
-    now support keys of type [`*crypto/ecdh.PublicKey`](/pkg/crypto/ecdh.PublicKey).
-    Parsing NIST curve keys still returns values of type
-    `*ecdsa.PublicKey` and `*ecdsa.PrivateKey`.
-    Use their new `ECDH` methods to convert to the `crypto/ecdh` types.
+<!-- CL 450816, CL 450815 -->
+[`ParsePKCS8PrivateKey`](/pkg/crypto/x509/#ParsePKCS8PrivateKey)
+and
+[`MarshalPKCS8PrivateKey`](/pkg/crypto/x509/#MarshalPKCS8PrivateKey)
+now support keys of type [`*crypto/ecdh.PrivateKey`](/pkg/crypto/ecdh.PrivateKey).
+[`ParsePKIXPublicKey`](/pkg/crypto/x509/#ParsePKIXPublicKey)
+and
+[`MarshalPKIXPublicKey`](/pkg/crypto/x509/#MarshalPKIXPublicKey)
+now support keys of type [`*crypto/ecdh.PublicKey`](/pkg/crypto/ecdh.PublicKey).
+Parsing NIST curve keys still returns values of type
+`*ecdsa.PublicKey` and `*ecdsa.PrivateKey`.
+Use their new `ECDH` methods to convert to the `crypto/ecdh` types.
 
-    <!-- CL 449235 -->
-    The new [`SetFallbackRoots`](/pkg/crypto/x509/#SetFallbackRoots)
-    function allows a program to define a set of fallback root certificates in case an
-    operating system verifier or standard platform root bundle is unavailable at runtime.
-    It will most commonly be used with a new package, [golang.org/x/crypto/x509roots/fallback](/pkg/golang.org/x/crypto/x509roots/fallback),
-    which will provide an up to date root bundle.
+<!-- CL 449235 -->
+The new [`SetFallbackRoots`](/pkg/crypto/x509/#SetFallbackRoots)
+function allows a program to define a set of fallback root certificates in case an
+operating system verifier or standard platform root bundle is unavailable at runtime.
+It will most commonly be used with a new package, [golang.org/x/crypto/x509roots/fallback](/pkg/golang.org/x/crypto/x509roots/fallback),
+which will provide an up to date root bundle.
 
 <!-- crypto/x509 -->
 
-[debug/elf](/pkg/debug/elf/)
+#### [debug/elf](/pkg/debug/elf/)
 
-:   <!-- CL 429601 -->
-    Attempts to read from a `SHT_NOBITS` section using
-    [`Section.Data`](/pkg/debug/elf/#Section.Data)
-    or the reader returned by [`Section.Open`](/pkg/debug/elf/#Section.Open)
-    now return an error.
+<!-- CL 429601 -->
+Attempts to read from a `SHT_NOBITS` section using
+[`Section.Data`](/pkg/debug/elf/#Section.Data)
+or the reader returned by [`Section.Open`](/pkg/debug/elf/#Section.Open)
+now return an error.
 
-    <!-- CL 420982 -->
-    Additional [`R_LARCH_*`](/pkg/debug/elf/#R_LARCH) constants are defined for use with LoongArch systems.
+<!-- CL 420982 -->
+Additional [`R_LARCH_*`](/pkg/debug/elf/#R_LARCH) constants are defined for use with LoongArch systems.
 
-    <!-- CL 420982, CL 435415, CL 425555 -->
-    Additional [`R_PPC64_*`](/pkg/debug/elf/#R_PPC64) constants are defined for use with PPC64 ELFv2 relocations.
+<!-- CL 420982, CL 435415, CL 425555 -->
+Additional [`R_PPC64_*`](/pkg/debug/elf/#R_PPC64) constants are defined for use with PPC64 ELFv2 relocations.
 
-    <!-- CL 411915 -->
-    The constant value for [`R_PPC64_SECTOFF_LO_DS`](/pkg/debug/elf/#R_PPC64_SECTOFF_LO_DS) is corrected, from 61 to 62.
+<!-- CL 411915 -->
+The constant value for [`R_PPC64_SECTOFF_LO_DS`](/pkg/debug/elf/#R_PPC64_SECTOFF_LO_DS) is corrected, from 61 to 62.
 
 <!-- debug/elf -->
 
-[debug/gosym](/pkg/debug/gosym/)
+#### [debug/gosym](/pkg/debug/gosym/)
 
-:   <!-- https://go.dev/issue/37762, CL 317917 -->
-    Due to a change of [Go's symbol naming conventions](#linker), tools that
-    process Go binaries should use Go 1.20's `debug/gosym` package to
-    transparently handle both old and new binaries.
+<!-- https://go.dev/issue/37762, CL 317917 -->
+Due to a change of [Go's symbol naming conventions](#linker), tools that
+process Go binaries should use Go 1.20's `debug/gosym` package to
+transparently handle both old and new binaries.
 
 <!-- debug/gosym -->
 
-[debug/pe](/pkg/debug/pe/)
+#### [debug/pe](/pkg/debug/pe/)
 
-:   <!-- CL 421357 -->
-    Additional [`IMAGE_FILE_MACHINE_RISCV*`](/pkg/debug/pe/#IMAGE_FILE_MACHINE_RISCV128) constants are defined for use with RISC-V systems.
+<!-- CL 421357 -->
+Additional [`IMAGE_FILE_MACHINE_RISCV*`](/pkg/debug/pe/#IMAGE_FILE_MACHINE_RISCV128) constants are defined for use with RISC-V systems.
 
 <!-- debug/pe -->
 
-[encoding/binary](/pkg/encoding/binary/)
+#### [encoding/binary](/pkg/encoding/binary/)
 
-:   <!-- CL 420274 -->
-    The [`ReadVarint`](/pkg/encoding/binary/#ReadVarint) and
-    [`ReadUvarint`](/pkg/encoding/binary/#ReadUvarint)
-    functions will now return `io.ErrUnexpectedEOF` after reading a partial value,
-    rather than `io.EOF`.
+<!-- CL 420274 -->
+The [`ReadVarint`](/pkg/encoding/binary/#ReadVarint) and
+[`ReadUvarint`](/pkg/encoding/binary/#ReadUvarint)
+functions will now return `io.ErrUnexpectedEOF` after reading a partial value,
+rather than `io.EOF`.
 
 <!-- encoding/binary -->
 
-[encoding/xml](/pkg/encoding/xml/)
+#### [encoding/xml](/pkg/encoding/xml/)
 
-:   <!-- https://go.dev/issue/53346, CL 424777 -->
-    The new [`Encoder.Close`](/pkg/encoding/xml/#Encoder.Close) method
-    can be used to check for unclosed elements when finished encoding.
+<!-- https://go.dev/issue/53346, CL 424777 -->
+The new [`Encoder.Close`](/pkg/encoding/xml/#Encoder.Close) method
+can be used to check for unclosed elements when finished encoding.
 
-    <!-- CL 103875, CL 105636 -->
-    The decoder now rejects element and attribute names with more than one colon,
-    such as `<a:b:c>`,
-    as well as namespaces that resolve to an empty string, such as `xmlns:a=""`.
+<!-- CL 103875, CL 105636 -->
+The decoder now rejects element and attribute names with more than one colon,
+such as `<a:b:c>`,
+as well as namespaces that resolve to an empty string, such as `xmlns:a=""`.
 
-    <!-- CL 107255 -->
-    The decoder now rejects elements that use different namespace prefixes in the opening and closing tag,
-    even if those prefixes both denote the same namespace.
+<!-- CL 107255 -->
+The decoder now rejects elements that use different namespace prefixes in the opening and closing tag,
+even if those prefixes both denote the same namespace.
 
 <!-- encoding/xml -->
 
-[errors](/pkg/errors/)
+#### [errors](/pkg/errors/)
 
-:   <!-- https://go.dev/issue/53435 -->
-    The new [`Join`](/pkg/errors/#Join) function returns an error wrapping a list of errors.
+<!-- https://go.dev/issue/53435 -->
+The new [`Join`](/pkg/errors/#Join) function returns an error wrapping a list of errors.
 
 <!-- errors -->
 
-[fmt](/pkg/fmt/)
+#### [fmt](/pkg/fmt/)
 
-:   <!-- https://go.dev/issue/53435 -->
-    The [`Errorf`](/pkg/fmt/#Errorf) function supports multiple occurrences of
-    the `%w` format verb, returning an error that unwraps to the list of all arguments to `%w`.
+<!-- https://go.dev/issue/53435 -->
+The [`Errorf`](/pkg/fmt/#Errorf) function supports multiple occurrences of
+the `%w` format verb, returning an error that unwraps to the list of all arguments to `%w`.
 
-    <!-- https://go.dev/issue/51668, CL 400875 -->
-    The new [`FormatString`](/pkg/fmt/#FormatString) function recovers the
-    formatting directive corresponding to a [`State`](/pkg/fmt/#State),
-    which can be useful in [`Formatter`](/pkg/fmt/#Formatter).
-    implementations.
+<!-- https://go.dev/issue/51668, CL 400875 -->
+The new [`FormatString`](/pkg/fmt/#FormatString) function recovers the
+formatting directive corresponding to a [`State`](/pkg/fmt/#State),
+which can be useful in [`Formatter`](/pkg/fmt/#Formatter).
+implementations.
 
 <!-- fmt -->
 
-[go/ast](/pkg/go/ast/)
+#### [go/ast](/pkg/go/ast/)
 
-:   <!-- CL 426091, https://go.dev/issue/50429 -->
-    The new [`RangeStmt.Range`](/pkg/go/ast/#RangeStmt.Range) field
-    records the position of the `range` keyword in a range statement.
+<!-- CL 426091, https://go.dev/issue/50429 -->
+The new [`RangeStmt.Range`](/pkg/go/ast/#RangeStmt.Range) field
+records the position of the `range` keyword in a range statement.
 
-    <!-- CL 427955, https://go.dev/issue/53202 -->
-    The new [`File.FileStart`](/pkg/go/ast/#File.FileStart)
-    and [`File.FileEnd`](/pkg/go/ast/#File.FileEnd) fields
-    record the position of the start and end of the entire source file.
+<!-- CL 427955, https://go.dev/issue/53202 -->
+The new [`File.FileStart`](/pkg/go/ast/#File.FileStart)
+and [`File.FileEnd`](/pkg/go/ast/#File.FileEnd) fields
+record the position of the start and end of the entire source file.
 
 <!-- go/ast -->
 
-[go/token](/pkg/go/token/)
+#### [go/token](/pkg/go/token/)
 
-:   <!-- CL 410114, https://go.dev/issue/53200 -->
-    The new [`FileSet.RemoveFile`](/pkg/go/token/#FileSet.RemoveFile) method
-    removes a file from a `FileSet`.
-    Long-running programs can use this to release memory associated
-    with files they no longer need.
+<!-- CL 410114, https://go.dev/issue/53200 -->
+The new [`FileSet.RemoveFile`](/pkg/go/token/#FileSet.RemoveFile) method
+removes a file from a `FileSet`.
+Long-running programs can use this to release memory associated
+with files they no longer need.
 
 <!-- go/token -->
 
-[go/types](/pkg/go/types/)
+#### [go/types](/pkg/go/types/)
 
-:   <!-- CL 454575 -->
-    The new [`Satisfies`](/pkg/go/types/#Satisfies) function reports
-    whether a type satisfies a constraint.
-    This change aligns with the [new language semantics](#language)
-    that distinguish satisfying a constraint from implementing an interface.
+<!-- CL 454575 -->
+The new [`Satisfies`](/pkg/go/types/#Satisfies) function reports
+whether a type satisfies a constraint.
+This change aligns with the [new language semantics](#language)
+that distinguish satisfying a constraint from implementing an interface.
 
 <!-- go/types -->
 
-[html/template](/pkg/html/template/)
+#### [html/template](/pkg/html/template/)
 
-:   <!-- https://go.dev/issue/59153 -->
-    <!-- CL 481993 -->
-    Go 1.20.3 and later
-    [disallow actions in ECMAScript 6 template literals.](/pkg/html/template#hdr-Security_Model)
-    This behavior can be reverted by the `GODEBUG=jstmpllitinterp=1` setting.
+<!-- https://go.dev/issue/59153 -->
+<!-- CL 481993 -->
+Go 1.20.3 and later
+[disallow actions in ECMAScript 6 template literals.](/pkg/html/template#hdr-Security_Model)
+This behavior can be reverted by the `GODEBUG=jstmpllitinterp=1` setting.
 
 <!-- html/template -->
 
-[io](/pkg/io/)
+#### [io](/pkg/io/)
 
-:   <!-- https://go.dev/issue/45899, CL 406776 -->
-    The new [`OffsetWriter`](/pkg/io/#OffsetWriter) wraps an underlying
-    [`WriterAt`](/pkg/io/#WriterAt)
-    and provides `Seek`, `Write`, and `WriteAt` methods
-    that adjust their effective file offset position by a fixed amount.
-
-<!-- io -->
-
-[io/fs](/pkg/io/fs/)
-
-:   <!-- CL 363814, https://go.dev/issue/47209 -->
-    The new error [`SkipAll`](/pkg/io/fs/#SkipAll)
-    terminates a [`WalkDir`](/pkg/io/fs/#WalkDir)
-    immediately but successfully.
+<!-- https://go.dev/issue/45899, CL 406776 -->
+The new [`OffsetWriter`](/pkg/io/#OffsetWriter) wraps an underlying
+[`WriterAt`](/pkg/io/#WriterAt)
+and provides `Seek`, `Write`, and `WriteAt` methods
+that adjust their effective file offset position by a fixed amount.
 
 <!-- io -->
 
-[math/big](/pkg/math/big/)
+#### [io/fs](/pkg/io/fs/)
 
-:   <!-- https://go.dev/issue/52182 -->
-    The [math/big](/pkg/math/big/) package's wide scope and
-    input-dependent timing make it ill-suited for implementing cryptography.
-    The cryptography packages in the standard library no longer call non-trivial
-    [Int](/pkg/math/big#Int) methods on attacker-controlled inputs.
-    In the future, the determination of whether a bug in math/big is
-    considered a security vulnerability will depend on its wider impact on the
-    standard library.
+<!-- CL 363814, https://go.dev/issue/47209 -->
+The new error [`SkipAll`](/pkg/io/fs/#SkipAll)
+terminates a [`WalkDir`](/pkg/io/fs/#WalkDir)
+immediately but successfully.
+
+<!-- io -->
+
+#### [math/big](/pkg/math/big/)
+
+<!-- https://go.dev/issue/52182 -->
+The [math/big](/pkg/math/big/) package's wide scope and
+input-dependent timing make it ill-suited for implementing cryptography.
+The cryptography packages in the standard library no longer call non-trivial
+[Int](/pkg/math/big#Int) methods on attacker-controlled inputs.
+In the future, the determination of whether a bug in math/big is
+considered a security vulnerability will depend on its wider impact on the
+standard library.
 
 <!-- math/big -->
 
-[math/rand](/pkg/math/rand/)
+#### [math/rand](/pkg/math/rand/)
 
-:   <!-- https://go.dev/issue/54880, CL 436955, https://go.dev/issue/56319 -->
-    The [math/rand](/pkg/math/rand/) package now automatically seeds
-    the global random number generator
-    (used by top-level functions like `Float64` and `Int`) with a random value,
-    and the top-level [`Seed`](/pkg/math/rand/#Seed) function has been deprecated.
-    Programs that need a reproducible sequence of random numbers
-    should prefer to allocate their own random source, using `rand.New(rand.NewSource(seed))`.
+<!-- https://go.dev/issue/54880, CL 436955, https://go.dev/issue/56319 -->
+The [math/rand](/pkg/math/rand/) package now automatically seeds
+the global random number generator
+(used by top-level functions like `Float64` and `Int`) with a random value,
+and the top-level [`Seed`](/pkg/math/rand/#Seed) function has been deprecated.
+Programs that need a reproducible sequence of random numbers
+should prefer to allocate their own random source, using `rand.New(rand.NewSource(seed))`.
 
-    Programs that need the earlier consistent global seeding behavior can set
-    `GODEBUG=randautoseed=0` in their environment.
+Programs that need the earlier consistent global seeding behavior can set
+`GODEBUG=randautoseed=0` in their environment.
 
-    <!-- https://go.dev/issue/20661 -->
-    The top-level [`Read`](/pkg/math/rand/#Read) function has been deprecated.
-    In almost all cases, [`crypto/rand.Read`](/pkg/crypto/rand/#Read) is more appropriate.
+<!-- https://go.dev/issue/20661 -->
+The top-level [`Read`](/pkg/math/rand/#Read) function has been deprecated.
+In almost all cases, [`crypto/rand.Read`](/pkg/crypto/rand/#Read) is more appropriate.
 
 <!-- math/rand -->
 
-[mime](/pkg/mime/)
+#### [mime](/pkg/mime/)
 
-:   <!-- https://go.dev/issue/48866 -->
-    The [`ParseMediaType`](/pkg/mime/#ParseMediaType) function now allows duplicate parameter names,
-    so long as the values of the names are the same.
+<!-- https://go.dev/issue/48866 -->
+The [`ParseMediaType`](/pkg/mime/#ParseMediaType) function now allows duplicate parameter names,
+so long as the values of the names are the same.
 
 <!-- mime -->
 
-[mime/multipart](/pkg/mime/multipart/)
+#### [mime/multipart](/pkg/mime/multipart/)
 
-:   <!-- CL 431675 -->
-    Methods of the [`Reader`](/pkg/mime/multipart/#Reader) type now wrap errors
-    returned by the underlying `io.Reader`.
+<!-- CL 431675 -->
+Methods of the [`Reader`](/pkg/mime/multipart/#Reader) type now wrap errors
+returned by the underlying `io.Reader`.
 
-    <!-- https://go.dev/issue/59153 -->
-    <!-- CL 481985 -->
-    In Go 1.19.8 and later, this package sets limits the size
-    of the MIME data it processes to protect against malicious inputs.
-    `Reader.NextPart` and `Reader.NextRawPart` limit the
-    number of headers in a part to 10000 and `Reader.ReadForm` limits
-    the total number of headers in all `FileHeaders` to 10000.
-    These limits may be adjusted with the `GODEBUG=multipartmaxheaders`
-    setting.
-    `Reader.ReadForm` further limits the number of parts in a form to 1000.
-    This limit may be adjusted with the `GODEBUG=multipartmaxparts`
-    setting.
+<!-- https://go.dev/issue/59153 -->
+<!-- CL 481985 -->
+In Go 1.19.8 and later, this package sets limits the size
+of the MIME data it processes to protect against malicious inputs.
+`Reader.NextPart` and `Reader.NextRawPart` limit the
+number of headers in a part to 10000 and `Reader.ReadForm` limits
+the total number of headers in all `FileHeaders` to 10000.
+These limits may be adjusted with the `GODEBUG=multipartmaxheaders`
+setting.
+`Reader.ReadForm` further limits the number of parts in a form to 1000.
+This limit may be adjusted with the `GODEBUG=multipartmaxparts`
+setting.
 
 <!-- mime/multipart -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- https://go.dev/issue/50101, CL 446179 -->
-    The [`LookupCNAME`](/pkg/net/#LookupCNAME)
-    function now consistently returns the contents
-    of a `CNAME` record when one exists. Previously on Unix systems and
-    when using the pure Go resolver, `LookupCNAME` would return an error
-    if a `CNAME` record referred to a name that with no `A`,
-    `AAAA`, or `CNAME` record. This change modifies
-    `LookupCNAME` to match the previous behavior on Windows,
-    allowing `LookupCNAME` to succeed whenever a
-    `CNAME` exists.
+<!-- https://go.dev/issue/50101, CL 446179 -->
+The [`LookupCNAME`](/pkg/net/#LookupCNAME)
+function now consistently returns the contents
+of a `CNAME` record when one exists. Previously on Unix systems and
+when using the pure Go resolver, `LookupCNAME` would return an error
+if a `CNAME` record referred to a name that with no `A`,
+`AAAA`, or `CNAME` record. This change modifies
+`LookupCNAME` to match the previous behavior on Windows,
+allowing `LookupCNAME` to succeed whenever a
+`CNAME` exists.
 
-    <!-- https://go.dev/issue/53482, CL 413454 -->
-    [`Interface.Flags`](/pkg/net/#Interface.Flags) now includes the new flag `FlagRunning`,
-    indicating an operationally active interface. An interface which is administratively
-    configured but not active (for example, because the network cable is not connected)
-    will have `FlagUp` set but not `FlagRunning`.
+<!-- https://go.dev/issue/53482, CL 413454 -->
+[`Interface.Flags`](/pkg/net/#Interface.Flags) now includes the new flag `FlagRunning`,
+indicating an operationally active interface. An interface which is administratively
+configured but not active (for example, because the network cable is not connected)
+will have `FlagUp` set but not `FlagRunning`.
 
-    <!-- https://go.dev/issue/55301, CL 444955 -->
-    The new [`Dialer.ControlContext`](/pkg/net/#Dialer.ControlContext) field contains a callback function
-    similar to the existing [`Dialer.Control`](/pkg/net/#Dialer.Control) hook, that additionally
-    accepts the dial context as a parameter.
-    `Control` is ignored when `ControlContext` is not nil.
+<!-- https://go.dev/issue/55301, CL 444955 -->
+The new [`Dialer.ControlContext`](/pkg/net/#Dialer.ControlContext) field contains a callback function
+similar to the existing [`Dialer.Control`](/pkg/net/#Dialer.Control) hook, that additionally
+accepts the dial context as a parameter.
+`Control` is ignored when `ControlContext` is not nil.
 
-    <!-- CL 428955 -->
-    The Go DNS resolver recognizes the `trust-ad` resolver option.
-    When `options trust-ad` is set in `resolv.conf`,
-    the Go resolver will set the AD bit in DNS queries. The resolver does not
-    make use of the AD bit in responses.
+<!-- CL 428955 -->
+The Go DNS resolver recognizes the `trust-ad` resolver option.
+When `options trust-ad` is set in `resolv.conf`,
+the Go resolver will set the AD bit in DNS queries. The resolver does not
+make use of the AD bit in responses.
 
-    <!-- CL 448075 -->
-    DNS resolution will detect changes to `/etc/nsswitch.conf`
-    and reload the file when it changes. Checks are made at most once every
-    five seconds, matching the previous handling of `/etc/hosts`
-    and `/etc/resolv.conf`.
+<!-- CL 448075 -->
+DNS resolution will detect changes to `/etc/nsswitch.conf`
+and reload the file when it changes. Checks are made at most once every
+five seconds, matching the previous handling of `/etc/hosts`
+and `/etc/resolv.conf`.
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- https://go.dev/issue/51914 -->
-    The [`ResponseWriter.WriteHeader`](/pkg/net/http/#ResponseWriter.WriteHeader) function now supports sending
-    `1xx` status codes.
+<!-- https://go.dev/issue/51914 -->
+The [`ResponseWriter.WriteHeader`](/pkg/net/http/#ResponseWriter.WriteHeader) function now supports sending
+`1xx` status codes.
 
-    <!-- https://go.dev/issue/41773, CL 356410 -->
-    The new [`Server.DisableGeneralOptionsHandler`](/pkg/net/http/#Server.DisableGeneralOptionsHandler) configuration setting
-    allows disabling the default `OPTIONS *` handler.
+<!-- https://go.dev/issue/41773, CL 356410 -->
+The new [`Server.DisableGeneralOptionsHandler`](/pkg/net/http/#Server.DisableGeneralOptionsHandler) configuration setting
+allows disabling the default `OPTIONS *` handler.
 
-    <!-- https://go.dev/issue/54299, CL 447216 -->
-    The new [`Transport.OnProxyConnectResponse`](/pkg/net/http/#Transport.OnProxyConnectResponse) hook is called
-    when a `Transport` receives an HTTP response from a proxy
-    for a `CONNECT` request.
+<!-- https://go.dev/issue/54299, CL 447216 -->
+The new [`Transport.OnProxyConnectResponse`](/pkg/net/http/#Transport.OnProxyConnectResponse) hook is called
+when a `Transport` receives an HTTP response from a proxy
+for a `CONNECT` request.
 
-    <!-- https://go.dev/issue/53960, CL 418614  -->
-    The HTTP server now accepts HEAD requests containing a body,
-    rather than rejecting them as invalid.
+<!-- https://go.dev/issue/53960, CL 418614  -->
+The HTTP server now accepts HEAD requests containing a body,
+rather than rejecting them as invalid.
 
-    <!-- https://go.dev/issue/53896 -->
-    HTTP/2 stream errors returned by `net/http` functions may be converted
-    to a [`golang.org/x/net/http2.StreamError`](/pkg/golang.org/x/net/http2/#StreamError) using
-    [`errors.As`](/pkg/errors/#As).
+<!-- https://go.dev/issue/53896 -->
+HTTP/2 stream errors returned by `net/http` functions may be converted
+to a [`golang.org/x/net/http2.StreamError`](/pkg/golang.org/x/net/http2/#StreamError) using
+[`errors.As`](/pkg/errors/#As).
 
-    <!-- https://go.dev/cl/397734 -->
-    Leading and trailing spaces are trimmed from cookie names,
-    rather than being rejected as invalid.
-    For example, a cookie setting of "name =value"
-    is now accepted as setting the cookie "name".
+<!-- https://go.dev/cl/397734 -->
+Leading and trailing spaces are trimmed from cookie names,
+rather than being rejected as invalid.
+For example, a cookie setting of "name =value"
+is now accepted as setting the cookie "name".
 
-    <!-- https://go.dev/issue/52989 -->
-    A [`Cookie`](/pkg/net/http#Cookie) with an empty Expires field is now considered valid.
-    [`Cookie.Valid`](/pkg/net/http#Cookie.Valid) only checks Expires when it is set.
+<!-- https://go.dev/issue/52989 -->
+A [`Cookie`](/pkg/net/http#Cookie) with an empty Expires field is now considered valid.
+[`Cookie.Valid`](/pkg/net/http#Cookie.Valid) only checks Expires when it is set.
 
 <!-- net/http -->
 
-[net/netip](/pkg/net/netip/)
+#### [net/netip](/pkg/net/netip/)
 
-:   <!-- https://go.dev/issue/51766, https://go.dev/issue/51777, CL 412475 -->
-    The new [`IPv6LinkLocalAllRouters`](/pkg/net/netip/#IPv6LinkLocalAllRouters)
-    and [`IPv6Loopback`](/pkg/net/netip/#IPv6Loopback) functions
-    are the `net/netip` equivalents of
-    [`net.IPv6loopback`](/pkg/net/#IPv6loopback) and
-    [`net.IPv6linklocalallrouters`](/pkg/net/#IPv6linklocalallrouters).
+<!-- https://go.dev/issue/51766, https://go.dev/issue/51777, CL 412475 -->
+The new [`IPv6LinkLocalAllRouters`](/pkg/net/netip/#IPv6LinkLocalAllRouters)
+and [`IPv6Loopback`](/pkg/net/netip/#IPv6Loopback) functions
+are the `net/netip` equivalents of
+[`net.IPv6loopback`](/pkg/net/#IPv6loopback) and
+[`net.IPv6linklocalallrouters`](/pkg/net/#IPv6linklocalallrouters).
 
 <!-- net/netip -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- CL 448897 -->
-    On Windows, the name `NUL` is no longer treated as a special case in
-    [`Mkdir`](/pkg/os/#Mkdir) and
-    [`Stat`](/pkg/os/#Stat).
+<!-- CL 448897 -->
+On Windows, the name `NUL` is no longer treated as a special case in
+[`Mkdir`](/pkg/os/#Mkdir) and
+[`Stat`](/pkg/os/#Stat).
 
-    <!-- https://go.dev/issue/52747, CL 405275 -->
-    On Windows, [`File.Stat`](/pkg/os/#File.Stat)
-    now uses the file handle to retrieve attributes when the file is a directory.
-    Previously it would use the path passed to
-    [`Open`](/pkg/os/#Open), which may no longer be the file
-    represented by the file handle if the file has been moved or replaced.
-    This change modifies `Open` to open directories without the
-    `FILE_SHARE_DELETE` access, which match the behavior of regular files.
+<!-- https://go.dev/issue/52747, CL 405275 -->
+On Windows, [`File.Stat`](/pkg/os/#File.Stat)
+now uses the file handle to retrieve attributes when the file is a directory.
+Previously it would use the path passed to
+[`Open`](/pkg/os/#Open), which may no longer be the file
+represented by the file handle if the file has been moved or replaced.
+This change modifies `Open` to open directories without the
+`FILE_SHARE_DELETE` access, which match the behavior of regular files.
 
-    <!-- https://go.dev/issue/36019, CL 405275 -->
-    On Windows, [`File.Seek`](/pkg/os/#File.Seek) now supports
-    seeking to the beginning of a directory.
+<!-- https://go.dev/issue/36019, CL 405275 -->
+On Windows, [`File.Seek`](/pkg/os/#File.Seek) now supports
+seeking to the beginning of a directory.
 
 <!-- os -->
 
-[os/exec](/pkg/os/exec/)
+#### [os/exec](/pkg/os/exec/)
 
-:   <!-- https://go.dev/issue/50436, CL 401835 -->
-    The new [`Cmd`](/pkg/os/exec/#Cmd) fields
-    [`Cancel`](/pkg/os/exec/#Cmd.Cancel) and
-    [`WaitDelay`](/pkg/os/exec/#Cmd.WaitDelay)
-    specify the behavior of the `Cmd` when its associated
-    `Context` is canceled or its process exits with I/O pipes still
-    held open by a child process.
+<!-- https://go.dev/issue/50436, CL 401835 -->
+The new [`Cmd`](/pkg/os/exec/#Cmd) fields
+[`Cancel`](/pkg/os/exec/#Cmd.Cancel) and
+[`WaitDelay`](/pkg/os/exec/#Cmd.WaitDelay)
+specify the behavior of the `Cmd` when its associated
+`Context` is canceled or its process exits with I/O pipes still
+held open by a child process.
 
 <!-- os/exec -->
 
-[path/filepath](/pkg/path/filepath/)
+#### [path/filepath](/pkg/path/filepath/)
 
-:   <!-- CL 363814, https://go.dev/issue/47209 -->
-    The new error [`SkipAll`](/pkg/path/filepath/#SkipAll)
-    terminates a [`Walk`](/pkg/path/filepath/#Walk)
-    immediately but successfully.
+<!-- CL 363814, https://go.dev/issue/47209 -->
+The new error [`SkipAll`](/pkg/path/filepath/#SkipAll)
+terminates a [`Walk`](/pkg/path/filepath/#Walk)
+immediately but successfully.
 
-    <!-- https://go.dev/issue/56219, CL 449239 -->
-    The new [`IsLocal`](/pkg/path/filepath/#IsLocal) function reports whether a path is
-    lexically local to a directory.
-    For example, if `IsLocal(p)` is `true`,
-    then `Open(p)` will refer to a file that is lexically
-    within the subtree rooted at the current directory.
+<!-- https://go.dev/issue/56219, CL 449239 -->
+The new [`IsLocal`](/pkg/path/filepath/#IsLocal) function reports whether a path is
+lexically local to a directory.
+For example, if `IsLocal(p)` is `true`,
+then `Open(p)` will refer to a file that is lexically
+within the subtree rooted at the current directory.
 
 <!-- io -->
 
-[reflect](/pkg/reflect/)
+#### [reflect](/pkg/reflect/)
 
-:   <!-- https://go.dev/issue/46746, CL 423794 -->
-    The new [`Value.Comparable`](/pkg/reflect/#Value.Comparable) and
-    [`Value.Equal`](/pkg/reflect/#Value.Equal) methods
-    can be used to compare two `Value`s for equality.
-    `Comparable` reports whether `Equal` is a valid operation for a given `Value` receiver.
+<!-- https://go.dev/issue/46746, CL 423794 -->
+The new [`Value.Comparable`](/pkg/reflect/#Value.Comparable) and
+[`Value.Equal`](/pkg/reflect/#Value.Equal) methods
+can be used to compare two `Value`s for equality.
+`Comparable` reports whether `Equal` is a valid operation for a given `Value` receiver.
 
-    <!-- https://go.dev/issue/48000, CL 389635 -->
-    The new [`Value.Grow`](/pkg/reflect/#Value.Grow) method
-    extends a slice to guarantee space for another `n` elements.
+<!-- https://go.dev/issue/48000, CL 389635 -->
+The new [`Value.Grow`](/pkg/reflect/#Value.Grow) method
+extends a slice to guarantee space for another `n` elements.
 
-    <!-- https://go.dev/issue/52376, CL 411476 -->
-    The new [`Value.SetZero`](/pkg/reflect/#Value.SetZero) method
-    sets a value to be the zero value for its type.
+<!-- https://go.dev/issue/52376, CL 411476 -->
+The new [`Value.SetZero`](/pkg/reflect/#Value.SetZero) method
+sets a value to be the zero value for its type.
 
-    <!-- CL 425184 -->
-    Go 1.18 introduced [`Value.SetIterKey`](/pkg/reflect/#Value.SetIterKey)
-    and [`Value.SetIterValue`](/pkg/reflect/#Value.SetIterValue) methods.
-    These are optimizations: `v.SetIterKey(it)` is meant to be equivalent to `v.Set(it.Key())`.
-    The implementations incorrectly omitted a check for use of unexported fields that was present in the unoptimized forms.
-    Go 1.20 corrects these methods to include the unexported field check.
+<!-- CL 425184 -->
+Go 1.18 introduced [`Value.SetIterKey`](/pkg/reflect/#Value.SetIterKey)
+and [`Value.SetIterValue`](/pkg/reflect/#Value.SetIterValue) methods.
+These are optimizations: `v.SetIterKey(it)` is meant to be equivalent to `v.Set(it.Key())`.
+The implementations incorrectly omitted a check for use of unexported fields that was present in the unoptimized forms.
+Go 1.20 corrects these methods to include the unexported field check.
 
 <!-- reflect -->
 
-[regexp](/pkg/regexp/)
+#### [regexp](/pkg/regexp/)
 
-:   <!-- CL 444817 -->
-    Go 1.19.2 and Go 1.18.7 included a security fix to the regular expression parser,
-    making it reject very large expressions that would consume too much memory.
-    Because Go patch releases do not introduce new API,
-    the parser returned [`syntax.ErrInternalError`](/pkg/regexp/syntax/#ErrInternalError) in this case.
-    Go 1.20 adds a more specific error, [`syntax.ErrLarge`](/pkg/regexp/syntax/#ErrLarge),
-    which the parser now returns instead.
+<!-- CL 444817 -->
+Go 1.19.2 and Go 1.18.7 included a security fix to the regular expression parser,
+making it reject very large expressions that would consume too much memory.
+Because Go patch releases do not introduce new API,
+the parser returned [`syntax.ErrInternalError`](/pkg/regexp/syntax/#ErrInternalError) in this case.
+Go 1.20 adds a more specific error, [`syntax.ErrLarge`](/pkg/regexp/syntax/#ErrLarge),
+which the parser now returns instead.
 
 <!-- regexp -->
 
-[runtime/cgo](/pkg/runtime/cgo/)
+#### [runtime/cgo](/pkg/runtime/cgo/)
 
-:   <!-- https://go.dev/issue/46731, CL 421879 -->
-    Go 1.20 adds new [`Incomplete`](/pkg/runtime/cgo/#Incomplete) marker type.
-    Code generated by cgo will use `cgo.Incomplete` to mark an incomplete C type.
+<!-- https://go.dev/issue/46731, CL 421879 -->
+Go 1.20 adds new [`Incomplete`](/pkg/runtime/cgo/#Incomplete) marker type.
+Code generated by cgo will use `cgo.Incomplete` to mark an incomplete C type.
 
 <!-- runtime/cgo -->
 
-[runtime/metrics](/pkg/runtime/metrics/)
+#### [runtime/metrics](/pkg/runtime/metrics/)
 
-:   <!-- https://go.dev/issue/47216, https://go.dev/issue/49881 -->
-    Go 1.20 adds new [supported metrics](/pkg/runtime/metrics/#hdr-Supported_metrics),
-    including the current `GOMAXPROCS` setting (`/sched/gomaxprocs:threads`),
-    the number of cgo calls executed (`/cgo/go-to-c-calls:calls`),
-    total mutex block time (`/sync/mutex/wait/total:seconds`), and various measures of time
-    spent in garbage collection.
+<!-- https://go.dev/issue/47216, https://go.dev/issue/49881 -->
+Go 1.20 adds new [supported metrics](/pkg/runtime/metrics/#hdr-Supported_metrics),
+including the current `GOMAXPROCS` setting (`/sched/gomaxprocs:threads`),
+the number of cgo calls executed (`/cgo/go-to-c-calls:calls`),
+total mutex block time (`/sync/mutex/wait/total:seconds`), and various measures of time
+spent in garbage collection.
 
-    <!-- CL 427615 -->
-    Time-based histogram metrics are now less precise, but take up much less memory.
+<!-- CL 427615 -->
+Time-based histogram metrics are now less precise, but take up much less memory.
 
 <!-- runtime/metrics -->
 
-[runtime/pprof](/pkg/runtime/pprof/)
+#### [runtime/pprof](/pkg/runtime/pprof/)
 
-:   <!-- CL 443056 -->
-    Mutex profile samples are now pre-scaled, fixing an issue where old mutex profile
-    samples would be scaled incorrectly if the sampling rate changed during execution.
+<!-- CL 443056 -->
+Mutex profile samples are now pre-scaled, fixing an issue where old mutex profile
+samples would be scaled incorrectly if the sampling rate changed during execution.
 
-    <!-- CL 416975 -->
-    Profiles collected on Windows now include memory mapping information that fixes
-    symbolization issues for position-independent binaries.
+<!-- CL 416975 -->
+Profiles collected on Windows now include memory mapping information that fixes
+symbolization issues for position-independent binaries.
 
 <!-- runtime/pprof -->
 
-[runtime/trace](/pkg/runtime/trace/)
+#### [runtime/trace](/pkg/runtime/trace/)
 
-:   <!-- CL 447135, https://go.dev/issue/55022 -->
-    The garbage collector's background sweeper now yields less frequently,
-    resulting in many fewer extraneous events in execution traces.
+<!-- CL 447135, https://go.dev/issue/55022 -->
+The garbage collector's background sweeper now yields less frequently,
+resulting in many fewer extraneous events in execution traces.
 
 <!-- runtime/trace -->
 
-[strings](/pkg/strings/)
+#### [strings](/pkg/strings/)
 
-:   <!-- CL 407176, https://go.dev/issue/42537 -->
-    The new
-    [`CutPrefix`](/pkg/strings/#CutPrefix) and
-    [`CutSuffix`](/pkg/strings/#CutSuffix) functions
-    are like [`TrimPrefix`](/pkg/strings/#TrimPrefix)
-    and [`TrimSuffix`](/pkg/strings/#TrimSuffix)
-    but also report whether the string was trimmed.
+<!-- CL 407176, https://go.dev/issue/42537 -->
+The new
+[`CutPrefix`](/pkg/strings/#CutPrefix) and
+[`CutSuffix`](/pkg/strings/#CutSuffix) functions
+are like [`TrimPrefix`](/pkg/strings/#TrimPrefix)
+and [`TrimSuffix`](/pkg/strings/#TrimSuffix)
+but also report whether the string was trimmed.
 
 <!-- strings -->
 
-[sync](/pkg/sync/)
+#### [sync](/pkg/sync/)
 
-:   <!-- CL 399094, https://go.dev/issue/51972 -->
-    The new [`Map`](/pkg/sync/#Map) methods [`Swap`](/pkg/sync/#Map.Swap),
-    [`CompareAndSwap`](/pkg/sync/#Map.CompareAndSwap), and
-    [`CompareAndDelete`](/pkg/sync/#Map.CompareAndDelete)
-    allow existing map entries to be updated atomically.
+<!-- CL 399094, https://go.dev/issue/51972 -->
+The new [`Map`](/pkg/sync/#Map) methods [`Swap`](/pkg/sync/#Map.Swap),
+[`CompareAndSwap`](/pkg/sync/#Map.CompareAndSwap), and
+[`CompareAndDelete`](/pkg/sync/#Map.CompareAndDelete)
+allow existing map entries to be updated atomically.
 
 <!-- sync -->
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 411596 -->
-    On FreeBSD, compatibility shims needed for FreeBSD 11 and earlier have been removed.
+<!-- CL 411596 -->
+On FreeBSD, compatibility shims needed for FreeBSD 11 and earlier have been removed.
 
-    <!-- CL 407574 -->
-    On Linux, additional [`CLONE_*`](/pkg/syscall/#CLONE_CLEAR_SIGHAND) constants
-    are defined for use with the [`SysProcAttr.Cloneflags`](/pkg/syscall/#SysProcAttr.Cloneflags) field.
+<!-- CL 407574 -->
+On Linux, additional [`CLONE_*`](/pkg/syscall/#CLONE_CLEAR_SIGHAND) constants
+are defined for use with the [`SysProcAttr.Cloneflags`](/pkg/syscall/#SysProcAttr.Cloneflags) field.
 
-    <!-- CL 417695 -->
-    On Linux, the new [`SysProcAttr.CgroupFD`](/pkg/syscall/#SysProcAttr.CgroupFD)
-    and [`SysProcAttr.UseCgroupFD`](/pkg/syscall/#SysProcAttr.UseCgroupFD) fields
-    provide a way to place a child process into a specific cgroup.
+<!-- CL 417695 -->
+On Linux, the new [`SysProcAttr.CgroupFD`](/pkg/syscall/#SysProcAttr.CgroupFD)
+and [`SysProcAttr.UseCgroupFD`](/pkg/syscall/#SysProcAttr.UseCgroupFD) fields
+provide a way to place a child process into a specific cgroup.
 
 <!-- syscall -->
 
-[testing](/pkg/testing/)
+#### [testing](/pkg/testing/)
 
-:   <!-- https://go.dev/issue/43620, CL 420254 -->
-    The new method [`B.Elapsed`](/pkg/testing/#B.Elapsed)
-    reports the current elapsed time of the benchmark, which may be useful for
-    calculating rates to report with `ReportMetric`.
+<!-- https://go.dev/issue/43620, CL 420254 -->
+The new method [`B.Elapsed`](/pkg/testing/#B.Elapsed)
+reports the current elapsed time of the benchmark, which may be useful for
+calculating rates to report with `ReportMetric`.
 
-    <!-- https://go.dev/issue/48515, CL 352349 -->
-    Calling [`T.Run`](/pkg/testing/#T.Run)
-    from a function passed
-    to [`T.Cleanup`](/pkg/testing/#T.Cleanup)
-    was never well-defined, and will now panic.
+<!-- https://go.dev/issue/48515, CL 352349 -->
+Calling [`T.Run`](/pkg/testing/#T.Run)
+from a function passed
+to [`T.Cleanup`](/pkg/testing/#T.Cleanup)
+was never well-defined, and will now panic.
 
 <!-- testing -->
 
-[time](/pkg/time/)
+#### [time](/pkg/time/)
 
-:   <!-- https://go.dev/issue/52746, CL 412495 -->
-    The new time layout constants [`DateTime`](/pkg/time/#DateTime),
-    [`DateOnly`](/pkg/time/#DateOnly), and
-    [`TimeOnly`](/pkg/time/#TimeOnly)
-    provide names for three of the most common layout strings used in a survey of public Go source code.
+<!-- https://go.dev/issue/52746, CL 412495 -->
+The new time layout constants [`DateTime`](/pkg/time/#DateTime),
+[`DateOnly`](/pkg/time/#DateOnly), and
+[`TimeOnly`](/pkg/time/#TimeOnly)
+provide names for three of the most common layout strings used in a survey of public Go source code.
 
-    <!-- CL 382734, https://go.dev/issue/50770 -->
-    The new [`Time.Compare`](/pkg/time/#Time.Compare) method
-    compares two times.
+<!-- CL 382734, https://go.dev/issue/50770 -->
+The new [`Time.Compare`](/pkg/time/#Time.Compare) method
+compares two times.
 
-    <!-- CL 425037 -->
-    [`Parse`](/pkg/time/#Parse)
-    now ignores sub-nanosecond precision in its input,
-    instead of reporting those digits as an error.
+<!-- CL 425037 -->
+[`Parse`](/pkg/time/#Parse)
+now ignores sub-nanosecond precision in its input,
+instead of reporting those digits as an error.
 
-    <!-- CL 444277 -->
-    The [`Time.MarshalJSON`](/pkg/time/#Time.MarshalJSON) method
-    is now more strict about adherence to RFC 3339.
+<!-- CL 444277 -->
+The [`Time.MarshalJSON`](/pkg/time/#Time.MarshalJSON) method
+is now more strict about adherence to RFC 3339.
 
 <!-- time -->
 
-[unicode/utf16](/pkg/unicode/utf16/)
+#### [unicode/utf16](/pkg/unicode/utf16/)
 
-:   <!-- https://go.dev/issue/51896, CL 409054 -->
-    The new [`AppendRune`](/pkg/unicode/utf16/#AppendRune)
-    function appends the UTF-16 encoding of a given rune to a uint16 slice,
-    analogous to [`utf8.AppendRune`](/pkg/unicode/utf8/#AppendRune).
+<!-- https://go.dev/issue/51896, CL 409054 -->
+The new [`AppendRune`](/pkg/unicode/utf16/#AppendRune)
+function appends the UTF-16 encoding of a given rune to a uint16 slice,
+analogous to [`utf8.AppendRune`](/pkg/unicode/utf8/#AppendRune).
 
 <!-- unicode/utf16 -->
 

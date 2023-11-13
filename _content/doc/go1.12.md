@@ -390,437 +390,437 @@ in mind.
 
 <!-- TODO: CL 115677: https://golang.org/cl/115677: cmd/vet: check embedded field tags too -->
 
-[bufio](/pkg/bufio/)
+#### [bufio](/pkg/bufio/)
 
-:   <!-- CL 149297 -->
-    `Reader`'s [`UnreadRune`](/pkg/bufio/#Reader.UnreadRune) and
-    [`UnreadByte`](/pkg/bufio/#Reader.UnreadByte) methods will now return an error
-    if they are called after [`Peek`](/pkg/bufio/#Reader.Peek).
+<!-- CL 149297 -->
+`Reader`'s [`UnreadRune`](/pkg/bufio/#Reader.UnreadRune) and
+[`UnreadByte`](/pkg/bufio/#Reader.UnreadByte) methods will now return an error
+if they are called after [`Peek`](/pkg/bufio/#Reader.Peek).
 
 <!-- bufio -->
 
-[bytes](/pkg/bytes/)
+#### [bytes](/pkg/bytes/)
 
-:   <!-- CL 137855 -->
-    The new function [`ReplaceAll`](/pkg/bytes/#ReplaceAll) returns a copy of
-    a byte slice with all non-overlapping instances of a value replaced by another.
+<!-- CL 137855 -->
+The new function [`ReplaceAll`](/pkg/bytes/#ReplaceAll) returns a copy of
+a byte slice with all non-overlapping instances of a value replaced by another.
 
-    <!-- CL 145098 -->
-    A pointer to a zero-value [`Reader`](/pkg/bytes/#Reader) is now
-    functionally equivalent to [`NewReader`](/pkg/bytes/#NewReader)`(nil)`.
-    Prior to Go 1.12, the former could not be used as a substitute for the latter in all cases.
+<!-- CL 145098 -->
+A pointer to a zero-value [`Reader`](/pkg/bytes/#Reader) is now
+functionally equivalent to [`NewReader`](/pkg/bytes/#NewReader)`(nil)`.
+Prior to Go 1.12, the former could not be used as a substitute for the latter in all cases.
 
 <!-- bytes -->
 
-[crypto/rand](/pkg/crypto/rand/)
+#### [crypto/rand](/pkg/crypto/rand/)
 
-:   <!-- CL 139419 -->
-    A warning will now be printed to standard error the first time
-    `Reader.Read` is blocked for more than 60 seconds waiting
-    to read entropy from the kernel.
+<!-- CL 139419 -->
+A warning will now be printed to standard error the first time
+`Reader.Read` is blocked for more than 60 seconds waiting
+to read entropy from the kernel.
 
-    <!-- CL 120055 -->
-    On FreeBSD, `Reader` now uses the `getrandom`
-    system call if available, `/dev/urandom` otherwise.
+<!-- CL 120055 -->
+On FreeBSD, `Reader` now uses the `getrandom`
+system call if available, `/dev/urandom` otherwise.
 
 <!-- crypto/rand -->
 
-[crypto/rc4](/pkg/crypto/rc4/)
+#### [crypto/rc4](/pkg/crypto/rc4/)
 
-:   <!-- CL 130397 -->
-    This release removes the assembly implementations, leaving only
-    the pure Go version. The Go compiler generates code that is
-    either slightly better or slightly worse, depending on the exact
-    CPU. RC4 is insecure and should only be used for compatibility
-    with legacy systems.
+<!-- CL 130397 -->
+This release removes the assembly implementations, leaving only
+the pure Go version. The Go compiler generates code that is
+either slightly better or slightly worse, depending on the exact
+CPU. RC4 is insecure and should only be used for compatibility
+with legacy systems.
 
 <!-- crypto/rc4 -->
 
-[crypto/tls](/pkg/crypto/tls/)
+#### [crypto/tls](/pkg/crypto/tls/)
 
-:   <!-- CL 143177 -->
-    If a client sends an initial message that does not look like TLS, the server
-    will no longer reply with an alert, and it will expose the underlying
-    `net.Conn` in the new field `Conn` of
-    [`RecordHeaderError`](/pkg/crypto/tls/#RecordHeaderError).
+<!-- CL 143177 -->
+If a client sends an initial message that does not look like TLS, the server
+will no longer reply with an alert, and it will expose the underlying
+`net.Conn` in the new field `Conn` of
+[`RecordHeaderError`](/pkg/crypto/tls/#RecordHeaderError).
 
 <!-- crypto/tls -->
 
-[database/sql](/pkg/database/sql/)
+#### [database/sql](/pkg/database/sql/)
 
-:   <!-- CL 145738 -->
-    A query cursor can now be obtained by passing a
-    [`*Rows`](/pkg/database/sql/#Rows)
-    value to the [`Row.Scan`](/pkg/database/sql/#Row.Scan) method.
+<!-- CL 145738 -->
+A query cursor can now be obtained by passing a
+[`*Rows`](/pkg/database/sql/#Rows)
+value to the [`Row.Scan`](/pkg/database/sql/#Row.Scan) method.
 
 <!-- database/sql -->
 
-[expvar](/pkg/expvar/)
+#### [expvar](/pkg/expvar/)
 
-:   <!-- CL 139537 -->
-    The new [`Delete`](/pkg/expvar/#Map.Delete) method allows
-    for deletion of key/value pairs from a [`Map`](/pkg/expvar/#Map).
+<!-- CL 139537 -->
+The new [`Delete`](/pkg/expvar/#Map.Delete) method allows
+for deletion of key/value pairs from a [`Map`](/pkg/expvar/#Map).
 
 <!-- expvar -->
 
-[fmt](/pkg/fmt/)
+#### [fmt](/pkg/fmt/)
 
-:   <!-- CL 142737 -->
-    Maps are now printed in key-sorted order to ease testing. The ordering rules are:
+<!-- CL 142737 -->
+Maps are now printed in key-sorted order to ease testing. The ordering rules are:
 
-      - When applicable, nil compares low
-      - ints, floats, and strings order by <
-      - NaN compares less than non-NaN floats
-      - bool compares false before true
-      - Complex compares real, then imaginary
-      - Pointers compare by machine address
-      - Channel values compare by machine address
-      - Structs compare each field in turn
-      - Arrays compare each element in turn
-      - Interface values compare first by `reflect.Type` describing the concrete type
-        and then by concrete value as described in the previous rules.
+  - When applicable, nil compares low
+  - ints, floats, and strings order by <
+  - NaN compares less than non-NaN floats
+  - bool compares false before true
+  - Complex compares real, then imaginary
+  - Pointers compare by machine address
+  - Channel values compare by machine address
+  - Structs compare each field in turn
+  - Arrays compare each element in turn
+  - Interface values compare first by `reflect.Type` describing the concrete type
+    and then by concrete value as described in the previous rules.
 
 
-    <!-- CL 129777 -->
-    When printing maps, non-reflexive key values like `NaN` were previously
-    displayed as `<nil>`. As of this release, the correct values are printed.
+<!-- CL 129777 -->
+When printing maps, non-reflexive key values like `NaN` were previously
+displayed as `<nil>`. As of this release, the correct values are printed.
 
 <!-- fmt -->
 
-[go/doc](/pkg/go/doc/)
+#### [go/doc](/pkg/go/doc/)
 
-:   <!-- CL 140958 -->
-    To address some outstanding issues in [`cmd/doc`](/cmd/doc/),
-    this package has a new [`Mode`](/pkg/go/doc/#Mode) bit,
-    `PreserveAST`, which controls whether AST data is cleared.
+<!-- CL 140958 -->
+To address some outstanding issues in [`cmd/doc`](/cmd/doc/),
+this package has a new [`Mode`](/pkg/go/doc/#Mode) bit,
+`PreserveAST`, which controls whether AST data is cleared.
 
 <!-- go/doc -->
 
-[go/token](/pkg/go/token/)
+#### [go/token](/pkg/go/token/)
 
-:   <!-- CL 134075 -->
-    The [`File`](/pkg/go/token#File) type has a new
-    [`LineStart`](/pkg/go/token#File.LineStart) field,
-    which returns the position of the start of a given line. This is especially useful
-    in programs that occasionally handle non-Go files, such as assembly, but wish to use
-    the `token.Pos` mechanism to identify file positions.
+<!-- CL 134075 -->
+The [`File`](/pkg/go/token#File) type has a new
+[`LineStart`](/pkg/go/token#File.LineStart) field,
+which returns the position of the start of a given line. This is especially useful
+in programs that occasionally handle non-Go files, such as assembly, but wish to use
+the `token.Pos` mechanism to identify file positions.
 
 <!-- go/token -->
 
-[image](/pkg/image/)
+#### [image](/pkg/image/)
 
-:   <!-- CL 118755 -->
-    The [`RegisterFormat`](/pkg/image/#RegisterFormat) function is now safe for concurrent use.
+<!-- CL 118755 -->
+The [`RegisterFormat`](/pkg/image/#RegisterFormat) function is now safe for concurrent use.
 
 <!-- image -->
 
-[image/png](/pkg/image/png/)
+#### [image/png](/pkg/image/png/)
 
-:   <!-- CL 134235 -->
-    Paletted images with fewer than 16 colors now encode to smaller outputs.
+<!-- CL 134235 -->
+Paletted images with fewer than 16 colors now encode to smaller outputs.
 
 <!-- image/png -->
 
-[io](/pkg/io/)
+#### [io](/pkg/io/)
 
-:   <!-- CL 139457 -->
-    The new [`StringWriter`](/pkg/io#StringWriter) interface wraps the
-    [`WriteString`](/pkg/io/#WriteString) function.
+<!-- CL 139457 -->
+The new [`StringWriter`](/pkg/io#StringWriter) interface wraps the
+[`WriteString`](/pkg/io/#WriteString) function.
 
 <!-- io -->
 
-[math](/pkg/math/)
+#### [math](/pkg/math/)
 
-:   <!-- CL 153059 -->
-    The functions
-    [`Sin`](/pkg/math/#Sin),
-    [`Cos`](/pkg/math/#Cos),
-    [`Tan`](/pkg/math/#Tan),
-    and [`Sincos`](/pkg/math/#Sincos) now
-    apply Payne-Hanek range reduction to huge arguments. This
-    produces more accurate answers, but they will not be bit-for-bit
-    identical with the results in earlier releases.
+<!-- CL 153059 -->
+The functions
+[`Sin`](/pkg/math/#Sin),
+[`Cos`](/pkg/math/#Cos),
+[`Tan`](/pkg/math/#Tan),
+and [`Sincos`](/pkg/math/#Sincos) now
+apply Payne-Hanek range reduction to huge arguments. This
+produces more accurate answers, but they will not be bit-for-bit
+identical with the results in earlier releases.
 
 <!-- math -->
 
-[math/bits](/pkg/math/bits/)
+#### [math/bits](/pkg/math/bits/)
 
-:   <!-- CL 123157 -->
-    New extended precision operations [`Add`](/pkg/math/bits/#Add), [`Sub`](/pkg/math/bits/#Sub), [`Mul`](/pkg/math/bits/#Mul), and [`Div`](/pkg/math/bits/#Div) are available in `uint`, `uint32`, and `uint64` versions.
+<!-- CL 123157 -->
+New extended precision operations [`Add`](/pkg/math/bits/#Add), [`Sub`](/pkg/math/bits/#Sub), [`Mul`](/pkg/math/bits/#Mul), and [`Div`](/pkg/math/bits/#Div) are available in `uint`, `uint32`, and `uint64` versions.
 
 <!-- math/bits -->
 
-[net](/pkg/net/)
+#### [net](/pkg/net/)
 
-:   <!-- CL 146659 -->
-    The
-    [`Dialer.DualStack`](/pkg/net/#Dialer.DualStack) setting is now ignored and deprecated;
-    RFC 6555 Fast Fallback ("Happy Eyeballs") is now enabled by default. To disable, set
-    [`Dialer.FallbackDelay`](/pkg/net/#Dialer.FallbackDelay) to a negative value.
+<!-- CL 146659 -->
+The
+[`Dialer.DualStack`](/pkg/net/#Dialer.DualStack) setting is now ignored and deprecated;
+RFC 6555 Fast Fallback ("Happy Eyeballs") is now enabled by default. To disable, set
+[`Dialer.FallbackDelay`](/pkg/net/#Dialer.FallbackDelay) to a negative value.
 
-    <!-- CL 107196 -->
-    Similarly, TCP keep-alives are now enabled by default if
-    [`Dialer.KeepAlive`](/pkg/net/#Dialer.KeepAlive) is zero.
-    To disable, set it to a negative value.
+<!-- CL 107196 -->
+Similarly, TCP keep-alives are now enabled by default if
+[`Dialer.KeepAlive`](/pkg/net/#Dialer.KeepAlive) is zero.
+To disable, set it to a negative value.
 
-    <!-- CL 113997 -->
-    On Linux, the [`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html) is now used when copying from a
-    [`UnixConn`](/pkg/net/#UnixConn) to a
-    [`TCPConn`](/pkg/net/#TCPConn).
+<!-- CL 113997 -->
+On Linux, the [`splice` system call](https://man7.org/linux/man-pages/man2/splice.2.html) is now used when copying from a
+[`UnixConn`](/pkg/net/#UnixConn) to a
+[`TCPConn`](/pkg/net/#TCPConn).
 
 <!-- net -->
 
-[net/http](/pkg/net/http/)
+#### [net/http](/pkg/net/http/)
 
-:   <!-- CL 143177 -->
-    The HTTP server now rejects misdirected HTTP requests to HTTPS servers with a plaintext "400 Bad Request" response.
+<!-- CL 143177 -->
+The HTTP server now rejects misdirected HTTP requests to HTTPS servers with a plaintext "400 Bad Request" response.
 
-    <!-- CL 130115 -->
-    The new [`Client.CloseIdleConnections`](/pkg/net/http/#Client.CloseIdleConnections)
-    method calls the `Client`'s underlying `Transport`'s `CloseIdleConnections`
-    if it has one.
+<!-- CL 130115 -->
+The new [`Client.CloseIdleConnections`](/pkg/net/http/#Client.CloseIdleConnections)
+method calls the `Client`'s underlying `Transport`'s `CloseIdleConnections`
+if it has one.
 
-    <!-- CL 145398 -->
-    The [`Transport`](/pkg/net/http/#Transport) no longer rejects HTTP responses which declare
-    HTTP Trailers but don't use chunked encoding. Instead, the declared trailers are now just ignored.
+<!-- CL 145398 -->
+The [`Transport`](/pkg/net/http/#Transport) no longer rejects HTTP responses which declare
+HTTP Trailers but don't use chunked encoding. Instead, the declared trailers are now just ignored.
 
-    <!-- CL 152080 -->
-    <!-- CL 151857 -->
-    The [`Transport`](/pkg/net/http/#Transport) no longer handles `MAX_CONCURRENT_STREAMS` values
-    advertised from HTTP/2 servers as strictly as it did during Go 1.10 and Go 1.11. The default behavior is now back
-    to how it was in Go 1.9: each connection to a server can have up to `MAX_CONCURRENT_STREAMS` requests
-    active and then new TCP connections are created as needed. In Go 1.10 and Go 1.11 the `http2` package
-    would block and wait for requests to finish instead of creating new connections.
-    To get the stricter behavior back, import the
-    [`golang.org/x/net/http2`](https://godoc.org/golang.org/x/net/http2) package
-    directly and set
-    [`Transport.StrictMaxConcurrentStreams`](https://godoc.org/golang.org/x/net/http2#Transport.StrictMaxConcurrentStreams) to
-    `true`.
+<!-- CL 152080 -->
+<!-- CL 151857 -->
+The [`Transport`](/pkg/net/http/#Transport) no longer handles `MAX_CONCURRENT_STREAMS` values
+advertised from HTTP/2 servers as strictly as it did during Go 1.10 and Go 1.11. The default behavior is now back
+to how it was in Go 1.9: each connection to a server can have up to `MAX_CONCURRENT_STREAMS` requests
+active and then new TCP connections are created as needed. In Go 1.10 and Go 1.11 the `http2` package
+would block and wait for requests to finish instead of creating new connections.
+To get the stricter behavior back, import the
+[`golang.org/x/net/http2`](https://godoc.org/golang.org/x/net/http2) package
+directly and set
+[`Transport.StrictMaxConcurrentStreams`](https://godoc.org/golang.org/x/net/http2#Transport.StrictMaxConcurrentStreams) to
+`true`.
 
 <!-- net/http -->
 
-[net/url](/pkg/net/url/)
+#### [net/url](/pkg/net/url/)
 
-:   <!-- CL 159157, CL 160178 -->
-    [`Parse`](/pkg/net/url/#Parse),
-    [`ParseRequestURI`](/pkg/net/url/#ParseRequestURI),
-    and
-    [`URL.Parse`](/pkg/net/url/#URL.Parse)
-    now return an
-    error for URLs containing ASCII control characters, which includes NULL,
-    tab, and newlines.
+<!-- CL 159157, CL 160178 -->
+[`Parse`](/pkg/net/url/#Parse),
+[`ParseRequestURI`](/pkg/net/url/#ParseRequestURI),
+and
+[`URL.Parse`](/pkg/net/url/#URL.Parse)
+now return an
+error for URLs containing ASCII control characters, which includes NULL,
+tab, and newlines.
 
 <!-- net/url -->
 
-[net/http/httputil](/pkg/net/http/httputil/)
+#### [net/http/httputil](/pkg/net/http/httputil/)
 
-:   <!-- CL 146437 -->
-    The [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy) now automatically
-    proxies WebSocket requests.
+<!-- CL 146437 -->
+The [`ReverseProxy`](/pkg/net/http/httputil/#ReverseProxy) now automatically
+proxies WebSocket requests.
 
 <!-- net/http/httputil -->
 
-[os](/pkg/os/)
+#### [os](/pkg/os/)
 
-:   <!-- CL 125443 -->
-    The new [`ProcessState.ExitCode`](/pkg/os/#ProcessState.ExitCode) method
-    returns the process's exit code.
+<!-- CL 125443 -->
+The new [`ProcessState.ExitCode`](/pkg/os/#ProcessState.ExitCode) method
+returns the process's exit code.
 
-    <!-- CL 135075 -->
-    `ModeCharDevice` has been added to the `ModeType` bitmask, allowing for
-    `ModeDevice | ModeCharDevice` to be recovered when masking a
-    [`FileMode`](/pkg/os/#FileMode) with `ModeType`.
+<!-- CL 135075 -->
+`ModeCharDevice` has been added to the `ModeType` bitmask, allowing for
+`ModeDevice | ModeCharDevice` to be recovered when masking a
+[`FileMode`](/pkg/os/#FileMode) with `ModeType`.
 
-    <!-- CL 139418 -->
-    The new function [`UserHomeDir`](/pkg/os/#UserHomeDir) returns the
-    current user's home directory.
+<!-- CL 139418 -->
+The new function [`UserHomeDir`](/pkg/os/#UserHomeDir) returns the
+current user's home directory.
 
-    <!-- CL 146020 -->
-    [`RemoveAll`](/pkg/os/#RemoveAll) now supports paths longer than 4096 characters
-    on most Unix systems.
+<!-- CL 146020 -->
+[`RemoveAll`](/pkg/os/#RemoveAll) now supports paths longer than 4096 characters
+on most Unix systems.
 
-    <!-- CL 130676 -->
-    [`File.Sync`](/pkg/os/#File.Sync) now uses `F_FULLFSYNC` on macOS
-    to correctly flush the file contents to permanent storage.
-    This may cause the method to run more slowly than in previous releases.
+<!-- CL 130676 -->
+[`File.Sync`](/pkg/os/#File.Sync) now uses `F_FULLFSYNC` on macOS
+to correctly flush the file contents to permanent storage.
+This may cause the method to run more slowly than in previous releases.
 
-    <!--CL 155517 -->
-    [`File`](/pkg/os/#File) now supports
-    a [`SyscallConn`](/pkg/os/#File.SyscallConn)
-    method returning
-    a [`syscall.RawConn`](/pkg/syscall/#RawConn)
-    interface value. This may be used to invoke system-specific
-    operations on the underlying file descriptor.
+<!--CL 155517 -->
+[`File`](/pkg/os/#File) now supports
+a [`SyscallConn`](/pkg/os/#File.SyscallConn)
+method returning
+a [`syscall.RawConn`](/pkg/syscall/#RawConn)
+interface value. This may be used to invoke system-specific
+operations on the underlying file descriptor.
 
 <!-- os -->
 
-[path/filepath](/pkg/path/filepath/)
+#### [path/filepath](/pkg/path/filepath/)
 
-:   <!-- CL 145220 -->
-    The [`IsAbs`](/pkg/path/filepath/#IsAbs) function now returns true when passed
-    a reserved filename on Windows such as `NUL`.
-    [List of reserved names.](https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#naming-conventions)
+<!-- CL 145220 -->
+The [`IsAbs`](/pkg/path/filepath/#IsAbs) function now returns true when passed
+a reserved filename on Windows such as `NUL`.
+[List of reserved names.](https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#naming-conventions)
 
 <!-- path/filepath -->
 
-[reflect](/pkg/reflect/)
+#### [reflect](/pkg/reflect/)
 
-:   <!-- CL 33572 -->
-    A new [`MapIter`](/pkg/reflect#MapIter) type is
-    an iterator for ranging over a map. This type is exposed through the
-    [`Value`](/pkg/reflect#Value) type's new
-    [`MapRange`](/pkg/reflect#Value.MapRange) method.
-    This follows the same iteration semantics as a range statement, with `Next`
-    to advance the iterator, and `Key`/`Value` to access each entry.
+<!-- CL 33572 -->
+A new [`MapIter`](/pkg/reflect#MapIter) type is
+an iterator for ranging over a map. This type is exposed through the
+[`Value`](/pkg/reflect#Value) type's new
+[`MapRange`](/pkg/reflect#Value.MapRange) method.
+This follows the same iteration semantics as a range statement, with `Next`
+to advance the iterator, and `Key`/`Value` to access each entry.
 
 <!-- reflect -->
 
-[regexp](/pkg/regexp/)
+#### [regexp](/pkg/regexp/)
 
-:   <!-- CL 139784 -->
-    [`Copy`](/pkg/regexp/#Regexp.Copy) is no longer necessary
-    to avoid lock contention, so it has been given a partial deprecation comment.
-    [`Copy`](/pkg/regexp/#Regexp.Copy)
-    may still be appropriate if the reason for its use is to make two copies with
-    different [`Longest`](/pkg/regexp/#Regexp.Longest) settings.
+<!-- CL 139784 -->
+[`Copy`](/pkg/regexp/#Regexp.Copy) is no longer necessary
+to avoid lock contention, so it has been given a partial deprecation comment.
+[`Copy`](/pkg/regexp/#Regexp.Copy)
+may still be appropriate if the reason for its use is to make two copies with
+different [`Longest`](/pkg/regexp/#Regexp.Longest) settings.
 
 <!-- regexp -->
 
-[runtime/debug](/pkg/runtime/debug/)
+#### [runtime/debug](/pkg/runtime/debug/)
 
-:   <!-- CL 144220 -->
-    A new [`BuildInfo`](/pkg/runtime/debug/#BuildInfo) type
-    exposes the build information read from the running binary, available only in
-    binaries built with module support. This includes the main package path, main
-    module information, and the module dependencies. This type is given through the
-    [`ReadBuildInfo`](/pkg/runtime/debug/#ReadBuildInfo) function
-    on [`BuildInfo`](/pkg/runtime/debug/#BuildInfo).
+<!-- CL 144220 -->
+A new [`BuildInfo`](/pkg/runtime/debug/#BuildInfo) type
+exposes the build information read from the running binary, available only in
+binaries built with module support. This includes the main package path, main
+module information, and the module dependencies. This type is given through the
+[`ReadBuildInfo`](/pkg/runtime/debug/#ReadBuildInfo) function
+on [`BuildInfo`](/pkg/runtime/debug/#BuildInfo).
 
 <!-- runtime/debug -->
 
-[strings](/pkg/strings/)
+#### [strings](/pkg/strings/)
 
-:   <!-- CL 137855 -->
-    The new function [`ReplaceAll`](/pkg/strings/#ReplaceAll) returns a copy of
-    a string with all non-overlapping instances of a value replaced by another.
+<!-- CL 137855 -->
+The new function [`ReplaceAll`](/pkg/strings/#ReplaceAll) returns a copy of
+a string with all non-overlapping instances of a value replaced by another.
 
-    <!-- CL 145098 -->
-    A pointer to a zero-value [`Reader`](/pkg/strings/#Reader) is now
-    functionally equivalent to [`NewReader`](/pkg/strings/#NewReader)`(nil)`.
-    Prior to Go 1.12, the former could not be used as a substitute for the latter in all cases.
+<!-- CL 145098 -->
+A pointer to a zero-value [`Reader`](/pkg/strings/#Reader) is now
+functionally equivalent to [`NewReader`](/pkg/strings/#NewReader)`(nil)`.
+Prior to Go 1.12, the former could not be used as a substitute for the latter in all cases.
 
-    <!-- CL 122835 -->
-    The new [`Builder.Cap`](/pkg/strings/#Builder.Cap) method returns the capacity of the builder's underlying byte slice.
+<!-- CL 122835 -->
+The new [`Builder.Cap`](/pkg/strings/#Builder.Cap) method returns the capacity of the builder's underlying byte slice.
 
-    <!-- CL 131495 -->
-    The character mapping functions [`Map`](/pkg/strings/#Map),
-    [`Title`](/pkg/strings/#Title),
-    [`ToLower`](/pkg/strings/#ToLower),
-    [`ToLowerSpecial`](/pkg/strings/#ToLowerSpecial),
-    [`ToTitle`](/pkg/strings/#ToTitle),
-    [`ToTitleSpecial`](/pkg/strings/#ToTitleSpecial),
-    [`ToUpper`](/pkg/strings/#ToUpper), and
-    [`ToUpperSpecial`](/pkg/strings/#ToUpperSpecial)
-    now always guarantee to return valid UTF-8. In earlier releases, if the input was invalid UTF-8 but no character replacements
-    needed to be applied, these routines incorrectly returned the invalid UTF-8 unmodified.
+<!-- CL 131495 -->
+The character mapping functions [`Map`](/pkg/strings/#Map),
+[`Title`](/pkg/strings/#Title),
+[`ToLower`](/pkg/strings/#ToLower),
+[`ToLowerSpecial`](/pkg/strings/#ToLowerSpecial),
+[`ToTitle`](/pkg/strings/#ToTitle),
+[`ToTitleSpecial`](/pkg/strings/#ToTitleSpecial),
+[`ToUpper`](/pkg/strings/#ToUpper), and
+[`ToUpperSpecial`](/pkg/strings/#ToUpperSpecial)
+now always guarantee to return valid UTF-8. In earlier releases, if the input was invalid UTF-8 but no character replacements
+needed to be applied, these routines incorrectly returned the invalid UTF-8 unmodified.
 
 <!-- strings -->
 
-[syscall](/pkg/syscall/)
+#### [syscall](/pkg/syscall/)
 
-:   <!-- CL 138595 -->
-    64-bit inodes are now supported on FreeBSD 12. Some types have been adjusted accordingly.
+<!-- CL 138595 -->
+64-bit inodes are now supported on FreeBSD 12. Some types have been adjusted accordingly.
 
-    <!-- CL 125456 -->
-    The Unix socket
-    ([`AF_UNIX`](https://blogs.msdn.microsoft.com/commandline/2017/12/19/af_unix-comes-to-windows/))
-    address family is now supported for compatible versions of Windows.
+<!-- CL 125456 -->
+The Unix socket
+([`AF_UNIX`](https://blogs.msdn.microsoft.com/commandline/2017/12/19/af_unix-comes-to-windows/))
+address family is now supported for compatible versions of Windows.
 
-    <!-- CL 147117 -->
-    The new function [`Syscall18`](/pkg/syscall/?GOOS=windows&GOARCH=amd64#Syscall18)
-    has been introduced for Windows, allowing for calls with up to 18 arguments.
+<!-- CL 147117 -->
+The new function [`Syscall18`](/pkg/syscall/?GOOS=windows&GOARCH=amd64#Syscall18)
+has been introduced for Windows, allowing for calls with up to 18 arguments.
 
 <!-- syscall -->
 
-[syscall/js](/pkg/syscall/js/)
+#### [syscall/js](/pkg/syscall/js/)
 
-:   <!-- CL 153559 -->
+<!-- CL 153559 -->
 
-    The `Callback` type and `NewCallback` function have been renamed;
-    they are now called
-    [`Func`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Func) and
-    [`FuncOf`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#FuncOf), respectively.
-    This is a breaking change, but WebAssembly support is still experimental
-    and not yet subject to the
-    [Go 1 compatibility promise](/doc/go1compat). Any code using the
-    old names will need to be updated.
+The `Callback` type and `NewCallback` function have been renamed;
+they are now called
+[`Func`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Func) and
+[`FuncOf`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#FuncOf), respectively.
+This is a breaking change, but WebAssembly support is still experimental
+and not yet subject to the
+[Go 1 compatibility promise](/doc/go1compat). Any code using the
+old names will need to be updated.
 
-    <!-- CL 141644 -->
-    If a type implements the new
-    [`Wrapper`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Wrapper)
-    interface,
-    [`ValueOf`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#ValueOf)
-    will use it to return the JavaScript value for that type.
+<!-- CL 141644 -->
+If a type implements the new
+[`Wrapper`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Wrapper)
+interface,
+[`ValueOf`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#ValueOf)
+will use it to return the JavaScript value for that type.
 
-    <!-- CL 143137 -->
-    The meaning of the zero
-    [`Value`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value)
-    has changed. It now represents the JavaScript `undefined` value
-    instead of the number zero.
-    This is a breaking change, but WebAssembly support is still experimental
-    and not yet subject to the
-    [Go 1 compatibility promise](/doc/go1compat). Any code relying on
-    the zero [`Value`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value)
-    to mean the number zero will need to be updated.
+<!-- CL 143137 -->
+The meaning of the zero
+[`Value`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value)
+has changed. It now represents the JavaScript `undefined` value
+instead of the number zero.
+This is a breaking change, but WebAssembly support is still experimental
+and not yet subject to the
+[Go 1 compatibility promise](/doc/go1compat). Any code relying on
+the zero [`Value`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value)
+to mean the number zero will need to be updated.
 
-    <!-- CL 144384 -->
-    The new
-    [`Value.Truthy`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value.Truthy)
-    method reports the
-    [JavaScript "truthiness"](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
-    of a given value.
+<!-- CL 144384 -->
+The new
+[`Value.Truthy`](/pkg/syscall/js/?GOOS=js&GOARCH=wasm#Value.Truthy)
+method reports the
+[JavaScript "truthiness"](https://developer.mozilla.org/en-US/docs/Glossary/Truthy)
+of a given value.
 
 <!-- syscall/js -->
 
-[testing](/pkg/testing/)
+#### [testing](/pkg/testing/)
 
-:   <!-- CL 139258 -->
-    The [`-benchtime`](/cmd/go/#hdr-Testing_flags) flag now supports setting an explicit iteration count instead of a time when the value ends with an "`x`". For example, `-benchtime=100x` runs the benchmark 100 times.
+<!-- CL 139258 -->
+The [`-benchtime`](/cmd/go/#hdr-Testing_flags) flag now supports setting an explicit iteration count instead of a time when the value ends with an "`x`". For example, `-benchtime=100x` runs the benchmark 100 times.
 
 <!-- testing -->
 
-[text/template](/pkg/text/template/)
+#### [text/template](/pkg/text/template/)
 
-:   <!-- CL 142217 -->
-    When executing a template, long context values are no longer truncated in errors.
+<!-- CL 142217 -->
+When executing a template, long context values are no longer truncated in errors.
 
-    `executing "tmpl" at <.very.deep.context.v...>: map has no entry for key "notpresent"`
+`executing "tmpl" at <.very.deep.context.v...>: map has no entry for key "notpresent"`
 
-    is now
+is now
 
-    `executing "tmpl" at <.very.deep.context.value.notpresent>: map has no entry for key "notpresent"`
+`executing "tmpl" at <.very.deep.context.value.notpresent>: map has no entry for key "notpresent"`
 
-    <!-- CL 143097 -->
-    If a user-defined function called by a template panics, the
-    panic is now caught and returned as an error by
-    the `Execute` or `ExecuteTemplate` method.
+<!-- CL 143097 -->
+If a user-defined function called by a template panics, the
+panic is now caught and returned as an error by
+the `Execute` or `ExecuteTemplate` method.
 
 <!-- text/template -->
 
-[time](/pkg/time/)
+#### [time](/pkg/time/)
 
-:   <!-- CL 151299 -->
-    The time zone database in `$GOROOT/lib/time/zoneinfo.zip`
-    has been updated to version 2018i. Note that this ZIP file is
-    only used if a time zone database is not provided by the operating
-    system.
+<!-- CL 151299 -->
+The time zone database in `$GOROOT/lib/time/zoneinfo.zip`
+has been updated to version 2018i. Note that this ZIP file is
+only used if a time zone database is not provided by the operating
+system.
 
 <!-- time -->
 
-[unsafe](/pkg/unsafe/)
+#### [unsafe](/pkg/unsafe/)
 
-:   <!-- CL 146058 -->
-    It is invalid to convert a nil `unsafe.Pointer` to `uintptr` and back with arithmetic.
-    (This was already invalid, but will now cause the compiler to misbehave.)
+<!-- CL 146058 -->
+It is invalid to convert a nil `unsafe.Pointer` to `uintptr` and back with arithmetic.
+(This was already invalid, but will now cause the compiler to misbehave.)
 
 <!-- unsafe -->
