@@ -87,6 +87,10 @@ and if the program terminates with output "ARMv6K supported." then the system
 implements ARMv6K or later.
 Go on non-Linux ARM systems already requires ARMv6K or later.
 
+<!-- CL 31596, go.dev/issue/17528 -->
+`zos` is now a recognized value for `GOOS`,
+reserved for the z/OS operating system.
+
 ### Known Issues {#known_issues}
 
 There are some instabilities on FreeBSD and NetBSD that are known but not understood.
