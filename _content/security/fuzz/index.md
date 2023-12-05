@@ -24,13 +24,11 @@ components.
 <img class="DarkMode-img" alt="Example code showing the overall fuzz test, with a fuzz target within
 it. Before the fuzz target is a corpus addition with f.Add, and the parameters
 of the fuzz target are highlighted as the fuzzing arguments."
-src="/security/fuzz/example-dark.png" style="width: 600px; height:
-auto;"/>
+src="/security/fuzz/example-dark.png" width="85%"/>
 <img alt="Example code showing the overall fuzz test, with a fuzz target within
 it. Before the fuzz target is a corpus addition with f.Add, and the parameters
 of the fuzz target are highlighted as the fuzzing arguments."
-src="/security/fuzz/example.png" style="width: 600px; height:
-auto;" class="LightMode-img"/>
+src="/security/fuzz/example.png" width="85%" class="LightMode-img"/>
 
 ## Writing fuzz tests
 
