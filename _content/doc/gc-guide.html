@@ -1539,7 +1539,7 @@ we recommend the following additional settings for Go programs.
 		</p>
 	</li>
 	<li>
-		<p>
+		<p id="Linux_THP_max_ptes_none_workaround">
 		Set <code>/sys/kernel/mm/transparent_hugepage/khugepaged/max_ptes_none</code>
 		to <code>0</code>.
 		<br />
@@ -1551,8 +1551,18 @@ we recommend the following additional settings for Go programs.
 		runtime does to return memory to the OS</a>.
 		Before Go 1.21, the Go runtime tried to mitigate the negative effects of the
 		default setting, but it came with a CPU cost.
-		With Go 1.21+ and Linux 6.2+, the Go runtime will coalesce regular pages
-		into huge pages itself with its own more accurate heuristics.
+		With Go 1.21+ and Linux 6.2+, the Go runtime no longer mutates huge page
+		state.
+		<br />
+		<br />
+		If you experience an increase in memory usage when upgrading to Go 1.21.1 or
+		later, try applying this setting; it will likely resolve your issue.
+		As an additional workaround, you can call
+		<a href="/pkg/golang.org/x/sys/unix#Prctl">the <code>Prctl</code>
+		function</a> with <code>PR_SET_THP_DISABLE</code> to disable huge pages at
+		the process level, or you can set <code>GODEBUG=disablethp=1</code> (to be
+		added in Go 1.21.6 and Go 1.22) to disable huge pages for heap memory.
+		Note that the <code>GODEBUG</code> setting may be removed in a future release.
 		</p>
 	</li>
 </ul>

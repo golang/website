@@ -231,7 +231,13 @@ now manages which parts of the heap may be backed by huge pages more
 explicitly. This leads to better utilization of memory: small heaps
 should see less memory used (up to 50% in pathological cases) while
 large heaps should see fewer broken huge pages for dense parts of the
-heap, improving CPU usage and latency by up to 1%.
+heap, improving CPU usage and latency by up to 1%. A consequence of this
+change is that the runtime no longer tries to work around a particular
+problematic Linux configuration setting, which may result in higher
+memory overheads. The recommended fix is to adjust the OS's huge page
+settings according to the [GC guide](/doc/gc-guide#Linux_transparent_huge_pages).
+However, other workarounds are available as well. See the [section on
+`max_ptes_none`](/doc/gc-guide#Linux_THP_max_ptes_none_workaround).
 
 <!-- https://go.dev/issue/57069, https://go.dev/issue/56966 -->
 As a result of runtime-internal garbage collection tuning,
