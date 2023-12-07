@@ -8,7 +8,7 @@ summary: Introduction to profile-guided optimization, generally available in Go 
 
 Earlier in 2023, Go 1.20 [shipped a preview of profile-guided optimization (PGO)](/blog/pgo-preview) for users to test.
 After addressing known limitations in the preview, and with additional refinements thanks to community feedback and contributions, PGO support in Go 1.21 is ready for general production use!
-See the [profile-guided optimization user guide](https://go.dev/doc/pgo) for complete documentation.
+See the [profile-guided optimization user guide](/doc/pgo) for complete documentation.
 
 [Below](#example) we will run through an example of using PGO to improve the performance of an application.
 Before we get to that, what exactly is "profile-guided optimization"?
@@ -27,7 +27,7 @@ The compiler must make a best guess based on static heuristics because it can’
 Or can it?
 
 With no definitive information about how the code is used in a production environment, the compiler can operate only on the source code of packages.
-But we do have a tool to evaluate production behavior: [profiling](https://go.dev/doc/diagnostics#profiling).
+But we do have a tool to evaluate production behavior: [profiling](/doc/diagnostics#profiling).
 If we provide a profile to the compiler, it can make more informed decisions: more aggressively optimizing the most frequently used functions, or more accurately selecting common cases.
 
 Using profiles of application behavior for compiler optimization is known as _Profile-Guided Optimization (PGO)_ (also known as Feedback-Directed Optimization (FDO)).
@@ -225,7 +225,7 @@ That is perfectly fine!
 PGO in Go can handle minor changes to source code without issue.
 Of course, over time source code will drift more and more, so it is still important to update the profile occasionally.
 
-For much more information on using PGO, best practices and caveats to be aware of, please see the [profile-guided optimization user guide](https://go.dev/doc/pgo).
+For much more information on using PGO, best practices and caveats to be aware of, please see the [profile-guided optimization user guide](/doc/pgo).
 If you are curious about what is going on under the hood, keep reading!
 
 ## Under the hood
@@ -350,7 +350,7 @@ Showing nodes accounting for -3.72s, 3.13% of 118.73s total
 ```
 
 So `runtime.scanobject` is ultimately coming from `runtime.gcBgMarkWorker`.
-The [Go GC Guide](https://go.dev/doc/gc-guide#Identiying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
+The [Go GC Guide](/doc/gc-guide#Identiying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
 What about `nextFreeFast` and other `runtime` functions?
 
 ```

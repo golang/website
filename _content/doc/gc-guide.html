@@ -112,7 +112,7 @@ be managed by the GC.
 For instance, non-pointer Go values stored in local variables will likely not be
 managed by the Go GC at all, and Go will instead arrange for memory to be
 allocated that's tied to the
-<a href="https://go.dev/ref/spec#Declarations_and_scope">lexical scope</a> in
+<a href="/ref/spec#Declarations_and_scope">lexical scope</a> in
 which it's created.
 In general, this is more efficient than relying on the GC, because the Go
 compiler is able to predetermine when that memory may be freed and emit
@@ -1038,11 +1038,11 @@ For more information, see the following additional resources.
 			document for the C/C++ memory allocator TCMalloc, which the Go memory allocator is based on.
 	</li>
 	<li>
-		<a href="https://go.dev/blog/go15gc">Go 1.5 GC announcement</a>&mdash;The
+		<a href="/blog/go15gc">Go 1.5 GC announcement</a>&mdash;The
 			blog post announcing the Go 1.5 concurrent GC, which describes the algorithm in more detail.
 	</li>
 	<li>
-		<a href="https://go.dev/blog/ismmkeynote">Getting to Go</a>&mdash;An
+		<a href="/blog/ismmkeynote">Getting to Go</a>&mdash;An
 			in-depth presentation about the evolution of Go's GC design up to 2018.
 	</li>
 	<li>

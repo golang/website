@@ -17,7 +17,7 @@ potential security risks early.
 You can use [govulncheck](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck),
 backed by the [Go vulnerability database](https://pkg.go.dev),
 to scan your code for vulnerabilities and analyze which ones actually affect you.
-Get started with [the govulncheck tutorial](https://go.dev/doc/tutorial/govulncheck).
+Get started with [the govulncheck tutorial](/doc/tutorial/govulncheck).
 
 Govulncheck can also be integrated into CI/CD flows.
 The Go team provides a
@@ -27,17 +27,17 @@ Govulncheck also supports a `-json` flag to help developers integrate vulnerabil
 scanning with other CI/CD systems.
 
 You can also scan for vulnerabilities directly in your code editor by using
-the [Go extension for Visual Studio Code](https://go.dev/security/vuln/editor).
-Get started with [this tutorial](https://go.dev/doc/tutorial/govulncheck-ide).
+the [Go extension for Visual Studio Code](/security/vuln/editor).
+Get started with [this tutorial](/doc/tutorial/govulncheck-ide).
 
 ## Keep your Go version and dependencies up to date
 
-Keeping your [Go version up-to-date](https://go.dev/doc/install) offers
+Keeping your [Go version up-to-date](/doc/install) offers
 access to the latest language features,
 performance improvements and patches for known security vulnerabilities.
 An updated Go version also ensures compatibility with newer versions of dependencies,
 helping to avoid potential integration issues.
-Review the [Go release history](https://go.dev/doc/devel/release) to see
+Review the [Go release history](/doc/devel/release) to see
 what changes have been made to Go between releases.
 The Go team issues point releases throughout the release cycle to address security bugs.
 Be sure to update to the latest minor Go version to ensure you have the
@@ -55,22 +55,22 @@ each update should be carefully reviewed and tested.
 
 ## Test with fuzzing to uncover edge-case exploits
 
-[Fuzzing](https://go.dev/security/fuzz) is a type of automated testing that
+[Fuzzing](/security/fuzz) is a type of automated testing that
 uses coverage guidance to manipulate random inputs and walk through code
 to find and report potential vulnerabilities like SQL injections,
 buffer overflows, denial or service and cross-site scripting attacks.
 Fuzzing can often reach edge cases that programmers miss,
 or deem too improbable to test.
-Get started with [this tutorial](https://go.dev/doc/tutorial/fuzz).
+Get started with [this tutorial](/doc/tutorial/fuzz).
 
 ## Check for race conditions with Go’s race detector
 
-Race conditions occur when two or more [goroutines](https://go.dev/tour/concurrency/1)
+Race conditions occur when two or more [goroutines](/tour/concurrency/1)
 access the same resource concurrently,
 and at least one of those accesses is a write.
 This can lead to unpredictable, difficult-to-diagnose issues in your software.
 Identify potential race conditions in your Go code using the built-in
-[race detector](https://go.dev/doc/articles/race_detector),
+[race detector](/doc/articles/race_detector),
 which can help you ensure the safety and reliability of your concurrent programs.
 The race detector finds races that occur at runtime,
 however, so it will not find races in code paths that are not executed.
@@ -81,7 +81,7 @@ for example, `go test -race`.
 This will compile your code with the race detector enabled and report any
 race conditions it detects at runtime.
 When the race detector finds a data race in the program, it will
-[print a report](https://go.dev/doc/articles/race_detector#report-format)
+[print a report](/doc/articles/race_detector#report-format)
 containing stack traces for conflicting accesses,
 and stacks where the involved goroutines were created.
 

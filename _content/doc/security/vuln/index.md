@@ -97,7 +97,7 @@ We would love for you to contribute and help us make improvements in the
 following ways:
 
 - [Contribute new](https://golang.org/s/vulndb-report-new) and
-  [update existing](https://go.dev/s/vulndb-report-feedback) information about
+  [update existing](/s/vulndb-report-feedback) information about
   public vulnerabilities for Go packages that you maintain
 - [Take this survey](https://golang.org/s/govulncheck-feedback) to share your
   experience using govulncheck

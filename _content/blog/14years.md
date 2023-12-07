@@ -26,7 +26,7 @@ of your program that run most often.
 In Go 1.21, workloads typically get between
 2% and 7% CPU usage improvements from enabling PGO.
 See “[Profile-guided optimization in Go 1.21](/blog/pgo)” for an overview
-and the [profile-guided optimization user guide](https://go.dev/doc/pgo)
+and the [profile-guided optimization user guide](/doc/pgo)
 for complete documentation.
 
 Go has provided support for gathering coverage profiles during `go test`
@@ -108,7 +108,7 @@ dependencies and vulnerabilities,
 with [Govulncheck 1.0 launching in July](/blog/govulncheck).
 If you use VS Code, you can run govulncheck directly in your
 editor using the Go extension:
-see [this tutorial](https://go.dev/doc/tutorial/govulncheck-ide) to get started.
+see [this tutorial](/doc/tutorial/govulncheck-ide) to get started.
 And if you use GitHub, you can run govulncheck as part of
 your CI/CD, with the
 [GitHub Action for govulncheck](https://github.com/marketplace/actions/golang-govulncheck-action).

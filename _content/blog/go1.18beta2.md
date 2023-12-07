@@ -8,9 +8,9 @@ summary: Go 1.18 Beta 2 is our second preview of Go 1.18. Please try it and let 
 
 We are encouraged by all the excitement around Go’s upcoming 1.18 release,
 which adds support for
-[generics](https://go.dev/blog/why-generics),
-[fuzzing](https://go.dev/blog/fuzz-beta), and the new
-[Go workspace mode](https://go.dev/design/45713-workspace).
+[generics](/blog/why-generics),
+[fuzzing](/blog/fuzz-beta), and the new
+[Go workspace mode](/design/45713-workspace).
 
 We released Go 1.18 beta 1 two months ago,
 and it is now the most downloaded Go beta ever,
@@ -42,5 +42,5 @@ and to configure the VS Code Go extension, follow [this instruction](https://git
 
 
 As always, especially for beta releases,
-if you notice any problems, please [file an issue](https://go.dev/issue/new).
+if you notice any problems, please [file an issue](/issue/new).
 

@@ -24,11 +24,11 @@ dependency being published—to automatically affect a Go build.
 Unlike most other package managers files, Go modules don’t have a separate list
 of constraints and a lock file pinning specific versions.
 The version of every dependency contributing to any Go build is fully determined
-by the [`go.mod` file](https://go.dev/ref/mod#go-mod-file) of the main module.
+by the [`go.mod` file](/ref/mod#go-mod-file) of the main module.
 
 Since Go 1.16, this determinism is enforced by default, and build commands (`go
 build`, `go test`, `go install`, `go run`, …) [will fail if the go.mod is
-incomplete](https://go.dev/ref/mod#go-mod-file-updates).
+incomplete](/ref/mod#go-mod-file-updates).
 The only commands that will change the `go.mod` (and therefore the build) are
 `go get` and `go mod tidy`.
 These commands are not expected to be run automatically or in CI, so changes to
@@ -43,7 +43,7 @@ There is no way for third parties to affect that.
 Moreover, when a dependency is added with `go get`, its transitive dependencies
 are added at the version specified in the dependency’s `go.mod` file, not at
 their latest versions, thanks to
-[Minimal version selection](https://go.dev/ref/mod#minimal-version-selection).
+[Minimal version selection](/ref/mod#minimal-version-selection).
 The same happens for invocations of
 `go install example.com/cmd/devtoolx@latest`, [the equivalents of which in some
 ecosystems bypass pinning](https://research.swtch.com/npm-colors).
@@ -63,7 +63,7 @@ that the contents of a module version are immutable.
 If an attacker that compromises a dependency could re-upload an existing
 version, they could automatically compromise all projects that depend on it.
 
-That’s what the [`go.sum` file](https://go.dev/ref/mod#go-sum-files) is for.
+That’s what the [`go.sum` file](/ref/mod#go-sum-files) is for.
 It contains a list of cryptographic hashes of each dependency that contributes
 to the build.
 Again, an incomplete <code>go.sum</code> causes an error, and only <code>go
@@ -73,7 +73,7 @@ Other builds are guaranteed to have a full set of checksums.
 
 This is a common feature of most lock files.
 Go goes beyond it with the
-[Checksum Database](https://go.dev/ref/mod#checksum-database) (sumdb for short),
+[Checksum Database](/ref/mod#checksum-database) (sumdb for short),
 a global append-only cryptographically-verifiable list of go.sum entries.
 When `go get` needs to add an entry to the `go.sum` file, it fetches it from the
 sumdb along with cryptographic proof of the sumdb integrity.
@@ -109,7 +109,7 @@ The import path of a package embeds the information that `go mod download`
 module](https://pkg.go.dev/cmd/go#hdr-Remote_import_paths) directly from the
 VCS, where tags define versions.
 
-We do have the [Go Module Mirror](https://go.dev/blog/module-mirror-launch), but
+We do have the [Go Module Mirror](/blog/module-mirror-launch), but
 that’s only a proxy.
 Module authors don’t register an account and don’t upload versions to the proxy.
 The proxy uses the same logic that the `go` tool uses (in fact, the proxy runs
@@ -126,7 +126,7 @@ Running VCS tools on the client exposes a pretty large attack surface.
 That’s another place the Go Module Mirror helps: the `go` tool on the proxy runs
 inside a robust sandbox and is configured to support every VCS tool, while
 [the default is to only support the two major VCS
-systems](https://go.dev/ref/mod#vcs-govcs) (git and Mercurial).
+systems](/ref/mod#vcs-govcs) (git and Mercurial).
 Anyone using the proxy can still fetch code published using off-by-default VCS
 systems, but attackers can’t reach that code in most installations.
 

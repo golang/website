@@ -229,7 +229,7 @@ FreeBSD 13.0+ will require a kernel with the COMPAT\_FREEBSD12 option set (this 
 Go 1.18 includes an implementation of fuzzing as described by
 [the fuzzing proposal](https://golang.org/issue/44551).
 
-See the [fuzzing landing page](https://go.dev/security/fuzz) to get
+See the [fuzzing landing page](/security/fuzz) to get
 started.
 
 Please be aware that fuzzing can consume a lot of memory and may impact your
@@ -531,7 +531,7 @@ Go now looks first for `$HOME/go1.17` or `$HOME/sdk/go1.17`
 before falling back to `$HOME/go1.4`.
 We intend for Go 1.19 to require Go 1.17 or later for bootstrap,
 and this change should make the transition smoother.
-For more details, see [go.dev/issue/44505](https://go.dev/issue/44505).
+For more details, see [go.dev/issue/44505](/issue/44505).
 
 ## Core library {#library}
 

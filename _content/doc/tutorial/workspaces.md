@@ -24,7 +24,7 @@ of those changes in a build.
     and on PowerShell or cmd in Windows.
 
 This tutorial requires go1.18 or later. Make sure you've installed Go at Go 1.18 or later using the
-links at [go.dev/dl](https://go.dev/dl).
+links at [go.dev/dl](/dl).
 
 ## Create a module for your code {#create_folder}
 
@@ -244,7 +244,7 @@ We'll then add a new function to the `reverse` package that we can use instead o
    file, and similarly resolves the `golang.org/x/example/hello/reverse` import using
    the `go.work` file.
 
-   `go.work` can be used instead of adding [`replace`](https://go.dev/ref/mod#go-mod-file-replace)
+   `go.work` can be used instead of adding [`replace`](/ref/mod#go-mod-file-replace)
    directives to work across multiple modules.
 
    Since the two modules are in the same workspace it's easy
@@ -255,7 +255,7 @@ We'll then add a new function to the `reverse` package that we can use instead o
    Now, to properly release these modules we'd need to make a release of the `golang.org/x/example/hello`
    module, for example at `v0.1.0`. This is usually done by tagging a commit on the module's version
    control repository. See the
-   [module release workflow documentation](https://go.dev/doc/modules/release-workflow)
+   [module release workflow documentation](/doc/modules/release-workflow)
    for more details. Once the release is done, we can increase the requirement on the
    `golang.org/x/example/hello` module in `hello/go.mod`:
 
@@ -277,5 +277,5 @@ We'll then add a new function to the `reverse` package that we can use instead o
    - `go work edit` edits the `go.work` file similarly to `go mod edit`
    - `go work sync` syncs dependencies from the workspace's build list into each of the workspace modules.
 
-   See [Workspaces](https://go.dev/ref/mod#workspaces) in the Go Modules Reference for more detail on
+   See [Workspaces](/ref/mod#workspaces) in the Go Modules Reference for more detail on
    workspaces and `go.work` files.

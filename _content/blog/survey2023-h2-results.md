@@ -320,7 +320,7 @@ analysis, we did identify some interesting patterns:
 ## How developers start new Go projects {#gonew}
 
 As part of our [experimentation with project
-templates](https://go.dev/blog/gonew), we wanted to understand how Go
+templates](/blog/gonew), we wanted to understand how Go
 developers get started with new projects today. Respondents told us their
 biggest challenges were choosing an appropriate way to structure their project
 (54%) and learning how to write idiomatic Go (47%). As two respondents phrased
@@ -730,7 +730,7 @@ respondents recently used Go" class="chart" />
 
 The majority of respondents have been working with Go for under five years
 (68%). As we've seen in [prior
-years](https://go.dev/blog/survey2023-q1-results#novice-respondents-are-more-likely-to-prefer-windows-than-more-experienced-respondents),
+years](/blog/survey2023-q1-results#novice-respondents-are-more-likely-to-prefer-windows-than-more-experienced-respondents),
 people who found this survey via VS Code tended to be less experienced than
 people who found the survey via other channels.
 

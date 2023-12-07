@@ -36,10 +36,10 @@ because a bug was found and fixed after tagging `go1.21rc1`)*
   has been expanded and clarified.
 - In a future version of Go we’re planning to address one of the most common
   gotchas of Go programming:
-  [loop variable capture](https://go.dev/wiki/CommonMistakes).
+  [loop variable capture](/wiki/CommonMistakes).
   Go 1.21 comes with a preview of this feature that you can enable in your code
   using an environment variable. See [this LoopvarExperiment wiki
-  page](https://go.dev/wiki/LoopvarExperiment) for more details.
+  page](/wiki/LoopvarExperiment) for more details.
 
 ## Standard library additions
 

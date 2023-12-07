@@ -18,7 +18,7 @@ summary: As the Go ecosystem gets bigger, gopls must get smaller
   }
 </style>
 
-Earlier this summer, the Go team released version [v0.12](https://go.dev/s/gopls-v0.12)
+Earlier this summer, the Go team released version [v0.12](/s/gopls-v0.12)
 of [gopls](https://pkg.go.dev/golang.org/x/tools/gopls),
 the [language server](https://microsoft.github.io/language-server-protocol/) for Go, featuring a rewrite of its core that allows
 it to scale to larger codebases.
@@ -66,7 +66,7 @@ Since its beginnings in 2018, gopls has consolidated many disparate command-line
 tools such as [guru](https://pkg.go.dev/golang.org/x/tools/cmd/guru),
 [gorename](https://pkg.go.dev/golang.org/x/tools/cmd/gorename),
 and [goimports](https://pkg.go.dev/golang.org/x/tools/cmd/goimports) and
-has become the [default backend for the VS Code Go extension](https://go.dev/blog/gopls-vscode-go)
+has become the [default backend for the VS Code Go extension](/blog/gopls-vscode-go)
 as well as many other editors and LSP plugins.
 Perhaps you’ve been using gopls through your editor without even knowing
 it---that’s the goal!
@@ -79,7 +79,7 @@ that gopls's high memory usage was barely tolerable.
 
 Meanwhile, the Go ecosystem was growing, with more code being written in
 larger repositories.
-[Go workspaces](https://go.dev/blog/get-familiar-with-workspaces) allowed
+[Go workspaces](/blog/get-familiar-with-workspaces) allowed
 developers to work on multiple modules simultaneously,
 and [containerized development](https://code.visualstudio.com/docs/devcontainers/containers)
 put language servers in increasingly resource-constrained environments.
@@ -183,7 +183,7 @@ require recompiling _all_ the packages that indirectly depend on that package.
 Pruned incremental rebuilds make the amount of work proportional to the
 scope of each change.
 This is not a new idea: it was introduced by [Vesta](https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-177.pdf)
-and also used in [`go build`](https://go.dev/doc/go1.10#build).
+and also used in [`go build`](/doc/go1.10#build).
 
 The v0.12 release introduces a similar pruning technique to gopls,
 going one step further to implement a faster pruning heuristic based on syntactic analysis.
@@ -216,8 +216,8 @@ even in your user-defined wrappers around `fmt.Printf`.
 Notably, `go vet` has provided this level of precision for years,
 but gopls was unable to do this in real time after each edit. Now it can.
 
-The second is [simpler workspace configuration](https://go.dev/issue/57979)
-and [improved handling for build tags](https://go.dev/issue/29202).
+The second is [simpler workspace configuration](/issue/57979)
+and [improved handling for build tags](/issue/29202).
 These two features both amount to gopls "doing the right thing" when you
 open any Go file on your machine,
 but both were infeasible without the optimization work because (for example)

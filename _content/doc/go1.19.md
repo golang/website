@@ -167,7 +167,7 @@ a detailed guide explaining the soft memory limit in more detail, as well as
 a variety of common use-cases and scenarios. Please note that small memory
 limits, on the order of tens of megabytes or less, are less likely to be
 respected due to external latency factors, such as OS scheduling. See
-[issue 52433](https://go.dev/issue/52433) for more details. Larger
+[issue 52433](/issue/52433) for more details. Larger
 memory limits, on the order of hundreds of megabytes or more, are stable and
 production-ready.
 

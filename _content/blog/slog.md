@@ -217,7 +217,7 @@ and the `LogValuer` interface. We changed the mapping from log levels to
 integers twice.
 
 After two months and about 300 comments, we felt we were ready for an actual
-[proposal](https://go.dev/issue/56345) and accompanying [design
+[proposal](/issue/56345) and accompanying [design
 doc](https://go.googlesource.com/proposal/+/03441cb358c7b27a8443bca839e5d7a314677ea6/design/56345-structured-logging.md).
 The proposal issue garnered over 800 comments and resulted in many improvements to
 the API and the implementation. Here are two examples of API changes, both

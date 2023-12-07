@@ -6,13 +6,13 @@ layout: article
 This page provides resources for Go developers to improve security for their
 projects.
 
-(See also: [Security Best Practices for Go Developers](https://go.dev/security/best-practices).)
+(See also: [Security Best Practices for Go Developers](/security/best-practices).)
 
 ## Find and fix known vulnerabilities
 
 Go’s vulnerability detection aims to provide low-noise, reliable tools for
 developers to learn about known vulnerabilities that may affect their projects.
-For an overview, start at [this summary and FAQ page](https://go.dev/security/vuln)
+For an overview, start at [this summary and FAQ page](/security/vuln)
 about Go’s vulnerability management architecture. For an applied approach,
 explore the tools below.
 
@@ -23,15 +23,15 @@ vulnerabilities affect their code and prioritize next steps based on which vulne
 functions and methods are actually called.
 
 - [View the govulncheck documentation](https://pkg.go.dev/golang.org/x/vuln/cmd/govulncheck)
-- [Tutorial: Get started with govulncheck](https://go.dev/doc/tutorial/govulncheck)
+- [Tutorial: Get started with govulncheck](/doc/tutorial/govulncheck)
 
 ### Detect vulnerabilities from your editor
 
 The VS Code Go extension checks third-party dependencies and surfaces relevant vulnerabilities.
 
-- [User documentation](https://go.dev/security/vuln/editor)
+- [User documentation](/security/vuln/editor)
 - [Download VS Code Go](https://marketplace.visualstudio.com/items?itemName=golang.go)
-- [Tutorial: Get started with VS Code Go](https://go.dev/doc/tutorial/govulncheck-ide)
+- [Tutorial: Get started with VS Code Go](/doc/tutorial/govulncheck-ide)
 
 ### Find Go modules to build upon
 
@@ -50,20 +50,20 @@ maintainers as well as from outside sources such as [MITRE](https://www.cve.org/
 are curated by the Go Security team.
 
 - [Browse reports in the Go vulnerability database](https://pkg.go.dev/vuln/)
-- [View the Go Vulnerability Database documentation](https://go.dev/security/vuln/database)
-- [Contribute a public vulnerability to the database](https://go.dev/s/vulndb-report-new)
+- [View the Go Vulnerability Database documentation](/security/vuln/database)
+- [Contribute a public vulnerability to the database](/s/vulndb-report-new)
 
 
 ## Report security bugs in the Go project
 
-### [Security Policy](https://go.dev/security/policy)
+### [Security Policy](/security/policy)
 
 Consult the Security Policy for instructions on how to
-[report a vulnerability in the Go project](https://go.dev/security/policy#reporting-a-security-bug).
+[report a vulnerability in the Go project](/security/policy#reporting-a-security-bug).
 The page also details the Go security team’s process of tracking issues and
 disclosing them to the public. See the
-[release history](https://go.dev/doc/devel/release) for details about past security
-fixes. Per the [release policy](https://go.dev/doc/devel/release#policy),
+[release history](/doc/devel/release) for details about past security
+fixes. Per the [release policy](/doc/devel/release#policy),
 we issue security fixes to the two most recent major releases of Go.
 
 ## Test unexpected inputs with fuzzing
@@ -73,8 +73,8 @@ manipulates inputs to a program to find bugs. Go supports fuzzing in its
 standard toolchain beginning in Go 1.18.  Native Go fuzz tests are
 [supported by OSS-Fuzz](https://google.github.io/oss-fuzz/getting-started/new-project-guide/go-lang/#native-go-fuzzing-support).
 
-- [Review the basics of fuzzing](https://go.dev/security/fuzz)
-- [Tutorial: Get started with fuzzing](https://go.dev/doc/tutorial/fuzz)
+- [Review the basics of fuzzing](/security/fuzz)
+- [Tutorial: Get started with fuzzing](/doc/tutorial/fuzz)
 
 ## Secure services with Go's cryptography libraries
 

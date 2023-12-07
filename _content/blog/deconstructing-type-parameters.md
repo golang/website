@@ -81,7 +81,7 @@ replacing the type parameter with the type argument.
 func InstantiatedClone1(s []string) []string
 ```
 
-The [Go assignment rules](https://go.dev/ref/spec#Assignability) allow
+The [Go assignment rules](/ref/spec#Assignability) allow
 us to pass a value of type `MySlice` to a parameter of type
 `[]string`, so calling `Clone1` is fine.
 But `Clone1` will return a value of type `[]string`, not a value of
@@ -166,7 +166,7 @@ underlying type of `T2`.
 The underlying type of a predeclared type like `int` or a type literal
 like `[]string` is just the type itself.
 For the exact details, [see the language
-spec](https://go.dev/ref/spec#Underlying_types).
+spec](/ref/spec#Underlying_types).
 In our example, the underlying type of `MySlice` is `[]string`.
 
 Since the underlying type of `MySlice` is a slice, we can pass an

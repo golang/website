@@ -7,14 +7,14 @@
 
 You can scan your code for vulnerabilities directly out of your editor with the Go extension for Visual Studio Code.
 
-Note: for an explanation of the vulnerability fix included in the images below, see the [govulncheck tutorial](https://go.dev/doc/tutorial/govulncheck).
+Note: for an explanation of the vulnerability fix included in the images below, see the [govulncheck tutorial](/doc/tutorial/govulncheck).
 
 ## Prerequisites:
 
-- **Go 1.18 or later.** Govulncheck is designed to work with Go 1.18 onwards. For installation instructions, see [Installing Go](https://go.dev/doc/install). We recommend using the latest version of Go to follow this tutorial.
-- **VS Code**, updated to the latest version. [Download here](https://code.visualstudio.com/). You can also use Vim (see [here](https://go.dev/security/vuln/editor#editor-specific-instructions) for details), but this tutorial focuses on VS Code Go.
+- **Go 1.18 or later.** Govulncheck is designed to work with Go 1.18 onwards. For installation instructions, see [Installing Go](/doc/install). We recommend using the latest version of Go to follow this tutorial.
+- **VS Code**, updated to the latest version. [Download here](https://code.visualstudio.com/). You can also use Vim (see [here](/security/vuln/editor#editor-specific-instructions) for details), but this tutorial focuses on VS Code Go.
 - **VS Code Go extension**, which can be [downloaded here](https://marketplace.visualstudio.com/items?itemName=golang.go).
-- **Editor-specific settings changes.** You will need to modify your IDE settings according to [these specifications](https://go.dev/security/vuln/editor#editor-specific-instructions) before being able to replicate the results below.
+- **Editor-specific settings changes.** You will need to modify your IDE settings according to [these specifications](/security/vuln/editor#editor-specific-instructions) before being able to replicate the results below.
 
 
 ## How to scan for vulnerabilities using VS Code Go
@@ -110,6 +110,6 @@ Code actions can also be used to quickly upgrade to a version of your dependency
 
 ## Additional resources
 
-- See [this page](https://go.dev/security/vuln/editor) for more information about vulnerability scanning in your IDE. The [Notes and Caveats section](https://go.dev/security/vuln/editor#notes-and-caveats), in particular, discusses special cases for which vulnerability scanning may be more complex than in the example above.
+- See [this page](/security/vuln/editor) for more information about vulnerability scanning in your IDE. The [Notes and Caveats section](/security/vuln/editor#notes-and-caveats), in particular, discusses special cases for which vulnerability scanning may be more complex than in the example above.
 - The [Go Vulnerability Database](https://pkg.go.dev/vuln/) contains information from many existing sources in addition to direct reports by Go package maintainers to the Go security team.
-- See [Go Vulnerability Management](https://go.dev/security/vuln/) page provides a high-level view of Go's architecture for detecting, reporting and managing vulnerabilities.
+- See [Go Vulnerability Management](/security/vuln/) page provides a high-level view of Go's architecture for detecting, reporting and managing vulnerabilities.

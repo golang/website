@@ -25,7 +25,7 @@ leveraging the Go module proxy and checksum database for better security and ava
 The prototype `gonew` is intentionally minimal:
 what we have released today is an extremely limited prototype meant to provide
 a base from which we can gather feedback and community direction.
-Try it out, [tell us what you think](https://go.dev/s/gonew-feedback),
+Try it out, [tell us what you think](/s/gonew-feedback),
 and help us build a more useful tool for everyone.
 
 ## Getting started
@@ -67,5 +67,5 @@ and [Service Weaver](https://github.com/ServiceWeaver/template) teams.
 
 Please try out `gonew` and let us know how we can make it better and more useful.
 Remember, `gonew` is just an experiment for now;
-we need your [feedback to get it right](https://go.dev/s/gonew-feedback).
+we need your [feedback to get it right](/s/gonew-feedback).
 

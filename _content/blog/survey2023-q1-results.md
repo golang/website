@@ -86,7 +86,7 @@ included in the chart, in the form “_n = [number of respondents]_”.
 ### A note on methodology
 
 Most survey respondents “self-selected” to take the survey by accessing it
-through a link on [the Go blog](https://go.dev/blog), [@golang on
+through a link on [the Go blog](/blog), [@golang on
 Twitter](https://twitter.com/golang), or other social Go channels. People who
 don’t follow these channels might respond differently from people who _do_
 closely follow them. About a quarter of respondents were randomly sampled,
@@ -101,7 +101,7 @@ down responses into “Random sample” and “Self-selected” groups.
 ## Taking a closer look at different groups of respondents  
 
 Our respondent demographics did not change significantly from [our last
-survey](https://go.dev/blog/survey2022-q2-results). Consistent with previous
+survey](/blog/survey2022-q2-results). Consistent with previous
 cycles, Go is primarily used in the tech industry, and about 80% of
 respondents said they program in Go at work. Overall, survey respondents
 tended to be satisfied with Go over the past year, with 92% saying they were
@@ -275,7 +275,7 @@ One respondent succinctly illustrated this issue:
 >"Using Go effectively. Easy to learn, hard to master."
 
 We’ve heard that Go is easy to learn, and a [previous survey showed that over
-70%](https://go.dev/blog/survey2020-results#TOC_6.2) of respondents feel
+70%](/blog/survey2020-results#TOC_6.2) of respondents feel
 productive using Go within their first year, but learning Go best practices
 came up as one of the biggest challenges to using Go. Respondents this year
 told us that best practices around **code structure** and **recommended tools

@@ -40,7 +40,7 @@ For example, consider this program:
 The three created goroutines are all printing the same variable `v`,
 so they usually print “c”, “c”, “c”, instead of printing “a”, “b”, and “c” in some order.
 
-The [Go FAQ entry “What happens with closures running as goroutines?”](https://go.dev/doc/faq#closures_and_goroutines),
+The [Go FAQ entry “What happens with closures running as goroutines?”](/doc/faq#closures_and_goroutines),
 gives this example and remarks
 “Some confusion may arise when using closures with concurrency.”
 
@@ -168,7 +168,7 @@ we have had zero reports of any problems in production code.
 
 You can also try test programs to better understand the semantics
 on the Go playground by including a `// GOEXPERIMENT=loopvar` comment
-at the top of the program, like in [this program](https://go.dev/play/p/YchKkkA1ETH).
+at the top of the program, like in [this program](/play/p/YchKkkA1ETH).
 (This comment only applies in the Go playground.)
 
 ## Fixing Buggy Tests
@@ -200,7 +200,7 @@ Fixing for loops exposes this kind of buggy test.
 To help prepare for this kind of discovery, we improved the precision
 of the `loopclosure` analyzer in Go 1.21 so that it can identify and
 report this problem.
-You can see the report [in this program](https://go.dev/play/p/WkJkgXRXg0m) on the Go playground.
+You can see the report [in this program](/play/p/WkJkgXRXg0m) on the Go playground.
 If `go vet` is reporting this kind of problem in your own tests,
 fixing them will prepare you better for Go 1.22.
 
@@ -214,5 +214,5 @@ which specific loop is causing a test failure when the new semantics are applied
 For more information about the change, see the
 [design document](https://go.googlesource.com/proposal/+/master/design/60078-loopvar.md)
 and the
-[FAQ](https://go.dev/wiki/LoopvarExperiment).
+[FAQ](/wiki/LoopvarExperiment).
 

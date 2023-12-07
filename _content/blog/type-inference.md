@@ -118,13 +118,13 @@ The `Sort` function call passes the `list` variable as function argument for the
 of [`slices.Sort`](https://pkg.go.dev/slices#Sort).
 Therefore the type of `list`, which is `List`, must match the type of `x`, which is type parameter `S`.
 If `S` has the type `List`, this assignment becomes valid.
-In reality, the [rules for assignments](https://go.dev/ref/spec#Assignability) are complicated,
+In reality, the [rules for assignments](/ref/spec#Assignability) are complicated,
 but for now it's good enough to assume that the types must be identical.
 
 Once we have inferred the type for `S`, we can look at the
-[type constraint](https://go.dev/ref/spec#Type_constraints) for `S`.
+[type constraint](/ref/spec#Type_constraints) for `S`.
 It says&mdash;because of the tilde `~` symbol&mdash;that the
-[_underlying type_](https://go.dev/ref/spec#Underlying_types) of `S`
+[_underlying type_](/ref/spec#Underlying_types) of `S`
 must be the slice `[]E`.
 The underlying type of `S` is `[]int`, therefore `[]int` must match `[]E`,
 and with that we can conclude that `E` must be `int`.
@@ -178,9 +178,9 @@ slices.Sort(list)
 ```
 
 Inference succeeds if the type equations below can be solved.
-Here `≡` stands for [_is identical to_](https://go.dev/ref/spec#Type_identity),
+Here `≡` stands for [_is identical to_](/ref/spec#Type_identity),
 and `under(S)` represents
-the [underlying type](https://go.dev/ref/spec#Underlying_types)
+the [underlying type](/ref/spec#Underlying_types)
 of `S`:
 
 	S ≡ List        // find S such that S ≡ List is true
@@ -197,11 +197,11 @@ flows into inference.
 ### Being precise with type relations
 
 Until now we have simply talked about types having to be
-[identical](https://go.dev/ref/spec#Type_identity).
+[identical](/ref/spec#Type_identity).
 But for actual Go code that is too strong a requirement.
 In the previous example, `S` need not be identical to `List`,
-rather `List` must be [assignable](https://go.dev/ref/spec#Assignability) to `S`.
-Similarly, `S` must [satisfy](https://go.dev/ref/spec#Satisfying_a_type_constraint)
+rather `List` must be [assignable](/ref/spec#Assignability) to `S`.
+Similarly, `S` must [satisfy](/ref/spec#Satisfying_a_type_constraint)
 its corresponding type constraint.
 We can formulate our type equations more precisely by using specific operators that
 we write as `:≡` and `∈`:
@@ -222,7 +222,7 @@ or one type must satisfy a type constraint:
 `≡`<sub>C</sub> for `∈`.
 We believe `:≡` more clearly evokes an assignment relation;
 and `∈` directly expresses that the type represented by a type parameter must
-be an element of its constraint's [type set](https://go.dev/ref/spec#Interface_types).)
+be an element of its constraint's [type set](/ref/spec#Interface_types).)
 
 
 ### Sources of type equations
@@ -459,7 +459,7 @@ type parameters that may occur in `X` and `Y`.
 The goal is to make the types `X` and `Y` _identical_.
 This matching process is called [_unification_](https://en.wikipedia.org/wiki/Unification_(computer_science)).
 
-The rules for [type identity](https://go.dev/ref/spec#Type_identity) tell
+The rules for [type identity](/ref/spec#Type_identity) tell
 us how to compare types.
 Since _bound_ type parameters play the role of type variables, we need
 to specify how they are matched against other types.
@@ -613,7 +613,7 @@ But what about `X :≡ Y` or `X ∈ Y`?
 A couple of observations help us out here:
 The job of type inference is solely to find the types of omitted type arguments.
 Type inference is always followed by type or function
-[instantiation](https://go.dev/ref/spec#Instantiations) which
+[instantiation](/ref/spec#Instantiations) which
 checks that each type argument actually satisfies its respective type constraint.
 Finally, in case of a generic function call, the compiler also checks that
 function arguments are assignable to their corresponding function parameters.
@@ -650,7 +650,7 @@ their underlying types are compared instead.
 Furthermore, the assignment direction is ignored: `X :≡ Y` is treated like `Y :≡ X`.
 
 These adjustments apply only at the top level of a type structure:
-for instance, per Go's [assignability rules](https://go.dev/ref/spec#Assignability),
+for instance, per Go's [assignability rules](/ref/spec#Assignability),
 a named map type may be assigned to an unnamed map type, but the key and element types
 must still be identical.
 With these changes, unification for assignability becomes a (minor) variation
@@ -685,7 +685,7 @@ slice type and we care about the slice's element type.
 For example, a type parameter list of the form `[P ~[]E]` tells us that whatever `P` is,
 its underlying type must be of the form `[]E`.
 These are exactly the situations where the constraint has a
-[core type](https://go.dev/ref/spec#Core_types).
+[core type](/ref/spec#Core_types).
 
 Therefore, if we have an equation of the form
 
@@ -803,7 +803,7 @@ Untyped constants are ignored for type inference in this case and the calls beha
 as if `foo` was explicitly instantiated with `int`.
 
 It gets more interesting if `foo` is called with untyped constant arguments only.
-In this case, type inference considers the [default types](https://go.dev/ref/spec#Constants)
+In this case, type inference considers the [default types](/ref/spec#Constants)
 of the untyped constants.
 As a quick reminder, here are the possible default types in Go:
 
@@ -842,7 +842,7 @@ the result is the floating-point constant `3.0` with default type `float64`.
 In Go 1.21 the behavior was changed accordingly.
 Now, if multiple untyped numeric constants are matched against the same type parameter,
 the default type that appears later in the list of `int`, `rune`, `float64`, `complex` is
-selected, matching the rules for [constant expressions](https://go.dev/ref/spec#Constant_expressions):
+selected, matching the rules for [constant expressions](/ref/spec#Constant_expressions):
 
 ```Go
 foo(1, 2.0)    // Go 1.21: P ➞ float64 (larger default type of 1 and 2.0; behavior like in 1 + 2.0)
@@ -863,7 +863,7 @@ order in each call of that function).
 
 Let's reconsider our variadic `foo` function:
 the type inferred for `P` should be the same irrespective of the order in which
-we pass the arguments `s` and `t` ([playground](https://go.dev/play/p/sOlWutKnDFc)).
+we pass the arguments `s` and `t` ([playground](/play/p/sOlWutKnDFc)).
 
 ```Go
 func foo[P any](...P) (x P) {}
@@ -936,7 +936,7 @@ As a result, irrespective of the unification order, the result is the same (`T`)
 
 Another scenario that causes problems in a naive implementation of inference is self-recursive functions.
 Let's consider a generic factorial function `fact`, defined such that it also works for floating-point arguments
-([playground](https://go.dev/play/p/s3wXpgHX6HQ)).
+([playground](/play/p/s3wXpgHX6HQ)).
 Note that this is not a mathematically correct implementation of the
 [gamma function](https://en.wikipedia.org/wiki/Gamma_function),
 it is simply a convenient example.
@@ -974,7 +974,7 @@ they denote the same generic functions irrespective of what the names of the typ
 
 For the purpose of this example, let's assume the `P` in the signature of `fact` got renamed to `Q`.
 The effect is as if the recursive call was done indirectly through a `helper` function
-([playground](https://go.dev/play/p/TLpo-0auWwC)):
+([playground](/play/p/TLpo-0auWwC)):
 
 ```Go
 func fact[P ~int | ~float64](n P) P {
@@ -1000,7 +1000,7 @@ function that is being called, and the free type parameter `P`, declared by the 
 function. This type equation is trivially solved for `Q` and results in the inference
 `Q ➞ P`
 which is of course what we'd expect, and which we can verify by explicitly instantiating
-the recursive call ([playground](https://go.dev/play/p/zkUFvwJ54lC)):
+the recursive call ([playground](/play/p/zkUFvwJ54lC)):
 
 ```Go
 func fact[P ~int | ~float64](n P) P {

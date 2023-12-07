@@ -13,20 +13,20 @@ summary: Learn about Go workspaces and some of the workflows they enable.
 Go 1.18 adds workspace mode to Go, which lets you work on multiple modules
 simultaneously.
 
-You can get Go 1.18 by visiting the [download](https://go.dev/dl/) page. The
-[release notes](https://go.dev/doc/go1.18) have more details about all the
+You can get Go 1.18 by visiting the [download](/dl/) page. The
+[release notes](/doc/go1.18) have more details about all the
 changes.
 
 ## Workspaces
 
-[Workspaces](https://go.dev/ref/mod#workspaces) in Go 1.18 let you work on
+[Workspaces](/ref/mod#workspaces) in Go 1.18 let you work on
 multiple modules simultaneously without having to edit `go.mod` files for each
 module. Each module within a workspace is treated as a main module when
 resolving dependencies.
 
 Previously, to add a feature to one module and use it in another module, you
 needed to either publish the changes to the first module, or [edit the
-go.mod](https://go.dev/doc/tutorial/call-module-code) file of the dependent
+go.mod](/doc/tutorial/call-module-code) file of the dependent
 module with a `replace` directive for your local, unpublished module changes. In
 order to publish without errors, you had to remove the `replace` directive from
 the dependent module's `go.mod` file after you published the local changes to
@@ -237,13 +237,13 @@ documentation](https://pkg.go.dev/golang.org/x/tools/gopls#readme-editors).
 
 ## What's next?
 
--  Download and install [Go 1.18](https://go.dev/dl/).
--  Try using [workspaces](https://go.dev/ref/mod#workspaces) with the [Go
-    workspaces Tutorial](https://go.dev/doc/tutorial/workspaces).
+-  Download and install [Go 1.18](/dl/).
+-  Try using [workspaces](/ref/mod#workspaces) with the [Go
+    workspaces Tutorial](/doc/tutorial/workspaces).
 -  If you encounter any problems with workspaces, or want to suggest
     something, file an [issue](https://github.com/golang/go/issues/new/choose).
 -  Read the
     [workspace maintenance documentation](https://pkg.go.dev/cmd/go#hdr-Workspace_maintenance).
 -  Explore module commands for [working outside of a single
-    module](https://go.dev/ref/mod#commands-outside) including `go work init`,
+    module](/ref/mod#commands-outside) including `go work init`,
     `go work sync` and more.
