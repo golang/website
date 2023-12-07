@@ -46,7 +46,7 @@ Supports interactive, editor-integrated queries:
 
 * Demo: godoc analysis features
 
-.link http://golang.org/lib/godoc/analysis/help.html godoc -analysis=type,pointer
+.link /lib/godoc/analysis/help.html godoc -analysis=type,pointer
 
 Package view
 - method set and _implements_ relation for every type
@@ -85,7 +85,7 @@ Many subtle corners:
 
 Making it correct, fast, and clean was a substantial project
 
-.link http://godoc.org/golang.org/x/tools/go/types golang.org/x/tools/go/types
+.link https://pkg.go.dev/golang.org/x/tools/go/types golang.org/x/tools/go/types
 
 Author: Robert Griesemer
 
@@ -103,7 +103,7 @@ All Go programs can be expressed using only ~30 basic instructions
 
 Simple, explicit, high-level, high source fidelity
 
-.link http://godoc.org/golang.org/x/tools/go/ssa golang.org/x/tools/go/ssa
+.link https://pkg.go.dev/golang.org/x/tools/go/ssa golang.org/x/tools/go/ssa
 
 The llgo project is using go/ssa as a front-end for LLVM
 
@@ -128,7 +128,7 @@ Pointers complicate reasoning about program behaviour
 We use *pointer* *analysis* to answer the question:
 which variables might this pointer point to?
 
-.link http://godoc.org/golang.org/x/tools/go/pointer golang.org/x/tools/go/pointer
+.link https://pkg.go.dev/golang.org/x/tools/go/pointer golang.org/x/tools/go/pointer
 
 # comment on go's appropriateness for this analysis:
 # (closed program---no dlopen, classloading, no generics, typesafe)
@@ -209,7 +209,7 @@ Lots of optimizations, for example:
 
 _sparse_bit_vectors_, a very compact representation for points-to sets
 
-.link http://godoc.org/golang.org/x/tools/container/ints golang.org/x/tools/container/ints
+.link https://pkg.go.dev/golang.org/x/tools/container/ints golang.org/x/tools/container/ints
 
 Solver log is >1GB.  Debugging is fun.
 
@@ -251,7 +251,7 @@ Sound: either a conflict is reported, or the refactoring preserves behaviour*
 
 *except reflection
 
-.link http://godoc.org/golang.org/x/tools/cmd/gorename golang.org/x/tools/cmd/gorename
+.link https://pkg.go.dev/golang.org/x/tools/cmd/gorename golang.org/x/tools/cmd/gorename
 
 * Demo: gorename
 
@@ -273,7 +273,7 @@ Parameters are _wildcards_
 
 	% eg -t template.go <package> ...
 
-.link http://godoc.org/golang.org/x/tools/cmd/eg golang.org/x/tools/cmd/eg
+.link https://pkg.go.dev/golang.org/x/tools/cmd/eg golang.org/x/tools/cmd/eg
 
 * Demo: eg
 

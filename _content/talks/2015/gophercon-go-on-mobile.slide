@@ -77,18 +77,18 @@ There is no Java or Objective-C or C in my code
 
 golang.org/x/mobile/...
 
-- [[https://golang.org/x/mobile/app][app: App control]]
-- [[https://golang.org/x/mobile/asset][asset: Asset management]]
-- [[https://golang.org/x/mobile/gl][gl: OpenGL ES 2]]
-- [[https://golang.org/x/mobile/event][event: Events]]
-- [[https://golang.org/x/mobile/geom][geom: Screen geometry]]
+- [[https://pkg.go.dev/golang.org/x/mobile/app][app: App control]]
+- [[https://pkg.go.dev/golang.org/x/mobile/asset][asset: Asset management]]
+- [[https://pkg.go.dev/golang.org/x/mobile/gl][gl: OpenGL ES 2]]
+- [[https://pkg.go.dev/golang.org/x/mobile/event][event: Events]]
+- [[https://pkg.go.dev/golang.org/x/mobile/geom][geom: Screen geometry]]
 
 golang.org/x/mobile/exp/...
 
-- [[https://golang.org/x/mobile/exp/audio][audio: Audio]]
-- [[https://golang.org/x/mobile/exp/font][font: System font]]
-- [[https://golang.org/x/mobile/exp/sprite][sprite: 2-D rendering]]
-- [[https://golang.org/x/mobile/exp/sensor][sensor: Sensors]]
+- [[https://pkg.go.dev/golang.org/x/mobile/exp/audio][audio: Audio]]
+- [[https://pkg.go.dev/golang.org/x/mobile/exp/font][font: System font]]
+- [[https://pkg.go.dev/golang.org/x/mobile/exp/sprite][sprite: 2-D rendering]]
+- [[https://pkg.go.dev/golang.org/x/mobile/exp/sensor][sensor: Sensors]]
 
 * Challenge #2: Build systems
 
@@ -130,7 +130,7 @@ Go 1.5 can build Go programs as a library that can be used by non-Go programs
 
 Functions marked with `//export` cgo annotations are callable.
 
-.link https://golang.org/s/execmodes
+.link /s/execmodes go.dev/s/execmodes
 
 * Working with Foreign Languages
 
@@ -147,7 +147,7 @@ Automates language binding through code generation
 
 Defines the language binding from exported Go APIs; no explicit annotation
 
-Currently supports a [[https://golang.org/x/mobile/cmd/gobind][subset of Go types]]
+Currently supports a [[https://pkg.go.dev/golang.org/x/mobile/cmd/gobind][subset of Go types]]
 
 
 * Binding Functions, Basic Types & Errors
@@ -201,17 +201,17 @@ Use it from Java
 	Counter counter = NewCounter();
 	counter.SetValue(12345);
 	counter.Inc();
-	
+
 
 * Generated Objective-C API
-  	
+
 	@interface GoMypkgCounter : NSObject { }
 	@property(strong, readonly) GoSeqRef *ref;
 	- (int64_t)Value;
 	- (void)setValue:(int64_t)v;
 	- (void)Inc;
 	@end
-	
+
 	FOUNDATION_EXPORT GoMypkgCounter* GoMypkgNewCounter();
 
 Use it from Objective-C
@@ -255,7 +255,7 @@ To update the .aar,
 
 * The Story of Ivy
 
-The [[robpike.io/ivy][Ivy]] is a command line tool developed by Rob Pike
+The [[https://robpike.io/ivy][Ivy]] is a command line tool developed by Rob Pike
 
 It's a useful desktop calculator that handles big int, rational and floating-point numbers, vectors, matrices, ...
 
@@ -300,8 +300,8 @@ The `gobind` tool for Java and Go language binding
 
 Packages for cross-device apps: basic app control, OpenGL ES 2, touch
 
-.link https://golang.org/s/go14android
-.link https://golang.org/s/gobind
+.link /s/go14android go.dev/s/go14android
+.link /s/gobind go.dev/s/gobind
 
 * Go 1.5: Hello iOS!
 
@@ -315,7 +315,7 @@ iOS builder
 
 Can call Go functions from foreign language in a clean way
 
-.link https://golang.org/s/execmodes
+.link /s/execmodes go.dev/s/execmodes
 
 * Go 1.5: Better tools & more packages
 

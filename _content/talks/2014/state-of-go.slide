@@ -171,7 +171,7 @@ And, later:
 
 - `$GOPATH/src/mypkg/internal/foo` can be imported only by code in `$GOPATH/src/mypkg`.
 
-.link http://golang.org/s/go14internal
+.link /s/go14internal go.dev/s/go14internal
 
 
 * src/pkg → src
@@ -182,7 +182,7 @@ Basically makes `$GOROOT` work just like `$GOPATH`.
 
 (Not a big deal for most, but a nice clean up for the core.)
 
-.link http://golang.org/s/go14nopkg
+.link /s/go14nopkg go.dev/s/go14nopkg
 
 
 * File system access throttling
@@ -244,7 +244,7 @@ Rough estimate: 10-20% overall speedup, 20-50% GC pause reduction, 5-10% RSS red
 
 Details:
 
-.link http://golang.org/s/go14mallocgc
+.link /s/go14mallocgc go.dev/s/go14mallocgc
 
 * Other runtime changes
 
@@ -282,12 +282,12 @@ Goal: enough support for writing games.
 
 Based on the work of Elias Naur and others in the community.
 
-.link http://golang.org/s/go14android
+.link /s/go14android go.dev/s/go14android
 
 
 * More
 
-.link http://golang.org/s/go14todo
+.link /s/go14todo go.dev/s/go14todo
 
 
 * Questions?

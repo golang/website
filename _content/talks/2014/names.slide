@@ -5,7 +5,7 @@ Andrew Gerrand
 Google Inc.
 adg@golang.org
 @enneff
-https://golang.org/
+https://go.dev/
 
 
 * Names matter
@@ -133,7 +133,7 @@ By convention, they are one or two characters that reflect the receiver type,
 because they typically appear on almost every line:
 
 	func (b *Buffer) Read(p []byte) (n int, err error)
-	
+
 	func (sh serverHandler) ServeHTTP(rw ResponseWriter, req *Request)
 
 	func (r Rectangle) Size() Point

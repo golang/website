@@ -26,7 +26,7 @@ Go 1.9 will be released early August.
 
 * Notes
 
-The slides are available on [[https://go.dev/talks/2017/state-of-go-may.slide]]
+The slides are available on [[/talks/2017/state-of-go-may.slide]]
 
 Most of the code examples won't run except locally and using tip.
 
@@ -46,7 +46,7 @@ Changes since Go 1.8:
 
 * Codebase Refactoring (with help from Go)
 
-Article written by Russ Cox [[https://go.dev/talks/2016/refactor.article][link]]
+Article written by Russ Cox [[/talks/2016/refactor.article][link]]
 
 .image state-of-go-may/img/atomic.svg _ 300
 
@@ -125,7 +125,7 @@ Both types are equivalent and completely interchangeable.
 * Quaternions
 
 .image state-of-go-may/img/quaternions.png _ 750
-.caption [[https://golang.org/issue/19813][issue #19813]]
+.caption [[/issue/19813][issue #19813]]
 
 * The Standard library
 
@@ -138,7 +138,7 @@ Both types are equivalent and completely interchangeable.
 
 [[https://tip.golang.org/pkg/math/bits/#Len16][Package bits]] implements bit counting and manipulation functions for the predeclared unsigned integer types.
 
-Added to the standard library with proposal [[https://golang.org/issue/18616][#18616]].
+Added to the standard library with proposal [[/issue/18616][#18616]].
 
 - LenXX, OnesCountXX
 - ReverseXX, ReverseBytesXX
@@ -149,7 +149,7 @@ Added to the standard library with proposal [[https://golang.org/issue/18616][#1
 
 * sync.Map
 
-A new type has been added to the `sync` package with proposal [[https://golang.org/issue/18177][#18177]].
+A new type has been added to the `sync` package with proposal [[/issue/18177][#18177]].
 
 [[https://tip.golang.org/pkg/sync/#Map][sync.Map]] is a concurrent map with amortized-constant-time loads, stores,and deletes.
 
@@ -252,17 +252,17 @@ The compiler has been refactored into multiple packages.
 
     cmd/go/internal/...
 
-Issue [[https://golang.org/issue/17639][#17639]] made parsing concurrent.
+Issue [[/issue/17639][#17639]] made parsing concurrent.
 
 The compiler is faster as a result.
 
 * go test
 
-`vendor` directories are ignored by the `go` tool [[https://golang.org/issue/19090][#19090]]:
+`vendor` directories are ignored by the `go` tool [[/issue/19090][#19090]]:
 
     go test ./...
 
-You can now list all the tests to be executed, without running them [[https://golang.org/issue/17209][#17209]].
+You can now list all the tests to be executed, without running them [[/issue/17209][#17209]].
 
 	$ go test -test.list .
     TestIntegration
@@ -271,7 +271,7 @@ You can now list all the tests to be executed, without running them [[https://go
 
 * godoc
 
-You can now link to fields in a struct in the documentation [[https://golang.org/issue/16753][#16753]].
+You can now link to fields in a struct in the documentation [[/issue/16753][#16753]].
 
 .link https://tip.golang.org/pkg/net/http/#Client.Transport
 

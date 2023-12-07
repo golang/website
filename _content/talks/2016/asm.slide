@@ -5,9 +5,7 @@ Gophercon
 
 Rob Pike
 Google
-@rob_pike
-[[http://golang.org/s/plusrob][+RobPikeTheHuman]]
-http://golang.org/
+https://go.dev/
 
 * Presentation on youtube.com
 
@@ -15,7 +13,7 @@ Video is [[https://www.youtube.com/watch?v=KINIAgRpkDA][here]].
 
 
 * Motivation
- 
+
 _Why_Learn_Assembler_Language?_
 
 _The_most_important_single_thing_to_realize_about_assembler_language_is_that_it_enables_the_programmer_to_use_all_System/360_machine_functions_as_if_he_were_coding_in_System/360_machine_language._
@@ -65,7 +63,7 @@ Some examples...
 
 .code asm/68000.s.txt
 
-(From Wikipedia)             
+(From Wikipedia)
 
 * CRAY-1
 
@@ -185,11 +183,11 @@ The old `liblink` became a new suite of libraries, `obj/...`:
 - `cmd/internal/obj/x86`    (architecture-specific part)
 - `cmd/internal/obj/arm`    (architecture-specific part)
 - ...
- 
+
 Previous presentations about this work:
 
-- Russ Cox at Gophercon 2014 (out of date): [[youtube.com/watch?v=QIE5nV5fDwA]]
-- Rob Pike at Gopherfest 2015: [[youtube.com/watch?v=cF1zJYkBW4A]]
+- Russ Cox at Gophercon 2014 (out of date): [[https://youtube.com/watch?v=QIE5nV5fDwA]]
+- Rob Pike at Gopherfest 2015: [[https://youtube.com/watch?v=cF1zJYkBW4A]]
 * Go 1.5: Compiler and linker as single programs
 
 The many compilers (`6g`, `8g` etc.) were replaced with a single tool: `compile`.

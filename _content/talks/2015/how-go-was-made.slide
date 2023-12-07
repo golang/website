@@ -60,7 +60,7 @@ The first commit (now git hash `18c5b48`) was a draft of that spec:
 Go's entire history is preserved in the core reposistory.
 
 
-* The first Go program 
+* The first Go program
 
 The first Go program was a Prime Sieve, and was included in the spec.
 
@@ -108,7 +108,7 @@ The last Subversion commit (git hash `777ee7`, 21 July 2008) contained:
 
 
 * Getting serious
- 
+
 In July 2008 the project migrated from Subversion to Perforce,
 to use Google's excellent code review system.
 
@@ -142,7 +142,7 @@ Before then, `fmt` had an awkward chaining API:
 
 	fmt.New().s("i = ").d(i).putnl()
 
-Now: 
+Now:
 
 	fmt.Println("i = ", i)
 
@@ -226,9 +226,9 @@ People sent changes from day one. The first non-Googler change:
 	Date:   Tue Nov 10 20:04:14 2009 -0800
 
 	    Fix go-mode.el to work on empty buffers
-	    
+
 	    Fixes #8.
-	    
+
 	    R=agl, agl1, rsc
 	    https://golang.org/cl/153056
 
@@ -249,7 +249,7 @@ But the process was now different, as they now had a community.
 On December 9th, Rob Pike sent the first public change proposal.
 
 He proposed to remove semicolons at line endings.
-[[https://golang.org/s/semicolon-proposal][golang.org/s/semicolon-proposal]]
+[[/s/semicolon-proposal][go.dev/s/semicolon-proposal]]
 
 The proposal was a "design doc" that included:
 
@@ -305,7 +305,7 @@ At first, we did a poor job explaining the project's goals and development proce
 This caused frustration. ("Why don't they accept my suggestions?")
 
 It took us a while to articulate it:
-Rob Pike's [[http://go.dev/talks/2012/splash.article][talk]] in October 2012
+Rob Pike's [[/talks/2012/splash.article][talk]] in October 2012
 "Go at Google: Language Design in the Service of Software Engineering"
 was the first thorough explanation of Go's _raison_d'être_.
 
@@ -446,7 +446,7 @@ Presented the document to the community for discussion.
 
 Community feedback essential in refining the document.
 
-.link http://blog.golang.org/preview-of-go-version-1
+.link /blog/preview-of-go-version-1 go.dev/blog/preview-of-go-version-1
 
 
 * An example: errors (1/5)
@@ -467,7 +467,7 @@ References to `os.Error` were ubiquitous.
 	type Reader interface {
 		Read(p []byte) (n int, err os.Error)
 	}
-	
+
 	type Closer interface {
 		Close() os.Error
 	}
@@ -487,14 +487,14 @@ At the meeting the team discussed the issue,
 Russ presented data from his experiments with the change,
 and we made a tentative decision:
 
-.image how-go-was-made/errors-discussion.png 350 _ 
+.image how-go-was-made/errors-discussion.png 350 _
 
 
 * An example: errors (4/5)
 
 On the list, the community made some keen suggestions:
 
-.image how-go-was-made/errors-rog.png 500 _ 
+.image how-go-was-made/errors-rog.png 500 _
 
 
 * An example: errors (5/5)
@@ -586,7 +586,7 @@ The new change process, in brief:
 - The contributors review the document.
 - If the proposal is accepted, implement it.
 
-[[https://golang.org/s/proposal-process][golang.org/s/proposal-process]]
+[[/s/proposal-process][go.dev/s/proposal-process]]
 
 
 * An experimental process
@@ -607,4 +607,4 @@ the community needs a larger role in shaping its future.
 
 With your help, we can make Go's next 5 years more spectacular than the last.
 
-.image how-go-was-made/5years.png 350 _ 
+.image how-go-was-made/5years.png 350 _

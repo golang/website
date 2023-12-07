@@ -24,7 +24,7 @@ This talk was presented at the [[http://applicative.acm.org/][ACM Applicative]] 
 
 "Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
 
-.link http://golang.org
+.link / go.dev
 
 * History
 
@@ -94,7 +94,7 @@ The target is networked servers, but Go is a great general-purpose language.
 
 * Who uses Go besides Google?
 
-.link http://golang.org/wiki/GoUsers
+.link /wiki/GoUsers go.dev/wiki/GoUsers
 
 Aerospike, BBC Worldwide, Bitbucket, Booking.com, Core OS, Datadog, Digital Ocean, Docker, Dropbox, Facebook, Getty Images, GitHub, GOV.UK, Heroku, IBM, Intel, InfluxDB, Iron.io, Kubernetes, Medium, MongoDB, Mozilla services, Netflix, New York Times, pool.ntp.org, Rackspace, Shutterfly, SmugMug, SoundCloud, SpaceX, Square, Stack Exchange, Thomson Reuters Eikon, Tumblr, Twitch, Twitter, Uber, VMWare ...
 
@@ -161,7 +161,7 @@ Sometimes this means writing out a loop instead of invoking an obscure function.
 For more background on design:
 
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
-- [[http://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
+- [[/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
 
 * Code examples
 
@@ -408,11 +408,11 @@ No locks. No condition variables. No futures. No callbacks.
 
 Take the Go Tour online.
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 Then go deeper ...
 
-.link http://golang.org/wiki/Learn
+.link /wiki/Learn go.dev/wiki/Learn
 
 Still interested?
 
@@ -448,18 +448,18 @@ Go tools meet you where you are.  There's no one "Go IDE".
 - `gocode`: automatic completion
 - the `go` tool: automatic fetch & build
 - `guru`: static analysis, bug finding, code navigation
-- [[http://godoc.org][godoc.org]]: open source package index and docs
+- [[https://pkg.go.dev][pkg.go.dev]]: open source package index and docs
 
 * Where to Go next
 
 Take the Go Tour online.
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 Lots more material.
 
-.link http://golang.org/wiki/Learn
+.link /wiki/Learn go.dev/wiki/Learn
 
 Great community.
 
-.link http://golang.org/project
+.link /project go.dev/project

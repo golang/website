@@ -121,7 +121,7 @@ A `Context` carries a cancellation signal and request-scoped values to all funct
   // If ctx.Done is closed, ReadFile returns ctx.Err immediately.
   func ReadFile(ctx context.Context, name string) ([]byte, error)
 
-Examples and discussion in [[http://blog.golang.org/context][blog.golang.org/context]].
+Examples and discussion in [[/blog/context][blog.golang.org/context]].
 
 * Contexts are hierarchical
 
@@ -149,7 +149,7 @@ _After_the_last_value_has_been_received_from_a_closed_channel_c,_any_receive_fro
 
 Any number of goroutines can `select` on `<-ctx.Done()`.
 
-Examples and discussion in in [[http://blog.golang.org/pipelines][blog.golang.org/pipelines]].
+Examples and discussion in in [[/blog/pipelines][blog.golang.org/pipelines]].
 
 Using `close` requires care.
 
@@ -175,7 +175,7 @@ RPC servers decode them into a new `Context` for the handler function.
 
 * Replicated Search
 
-Example from [[https://go.dev/talks/2012/concurrency.slide][Go Concurrency Patterns]].
+Example from [[/talks/2012/concurrency.slide][Go Concurrency Patterns]].
 
 .code gotham-context/first.go /START1/,/STOP1/
 
@@ -251,7 +251,7 @@ Repeat until `context.TODO()` is gone.
 
 * Finding relevant functions
 
-The [[http://godoc.org/golang.org/x/tools/cmd/callgraph][golang.org/x/tools/cmd/callgraph]] tool constructs the call graph of a Go program.
+The [[https://pkg.go.dev/golang.org/x/tools/cmd/callgraph][golang.org/x/tools/cmd/callgraph]] tool constructs the call graph of a Go program.
 
 It uses whole-program pointer analysis to find dynamic calls (via interfaces or function values).
 
@@ -283,7 +283,7 @@ We want to restrict the transformation to specific method signatures.
 
 * The eg tool
 
-The [[http://godoc.org/golang.org/x/tools/cmd/eg][golang.org/x/tools/cmd/eg]] tool performs precise example-based refactoring.
+The [[https://pkg.go.dev/golang.org/x/tools/cmd/eg][golang.org/x/tools/cmd/eg]] tool performs precise example-based refactoring.
 
 The `before` expression specifies a pattern and the `after` expression its replacement.
 
@@ -299,7 +299,7 @@ If `M` called via interface `I`, then `I.M` also needs to change.  The eg tool c
 
 When we change `I`, we need to update all of its implementations.
 
-Find types assignable to `I` using [[http://godoc.org/golang.org/x/tools/go/types][golang.org/x/tools/go/types]].
+Find types assignable to `I` using [[https://pkg.go.dev/golang.org/x/tools/go/types][golang.org/x/tools/go/types]].
 
 More to do here.
 
@@ -330,6 +330,6 @@ New code should use `Context`.
 
 Links:
 
-- [[http://golang.org/x/net/context][golang.org/x/net/context]] - package
-- [[http://blog.golang.org/context][blog.golang.org/context]] - blog post
-- [[http://golang.org/x/tools/cmd/eg][golang.org/x/tools/cmd/eg]] - eg tool
+- [[https://pkg.go.dev/golang.org/x/net/context][golang.org/x/net/context]] - package
+- [[/blog/context][blog.golang.org/context]] - blog post
+- [[https://pkg.go.dev/golang.org/x/tools/cmd/eg][golang.org/x/tools/cmd/eg]] - eg tool

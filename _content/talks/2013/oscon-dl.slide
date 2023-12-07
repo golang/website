@@ -7,7 +7,7 @@ Gopher, Google
 @bradfitz
 bradfitz@golang.org
 http://bradfitz.com/
-http://golang.org/
+https://go.dev/
 https://github.com/golang/groupcache/
 
 * Overview / tl;dw:
@@ -264,7 +264,7 @@ each "payload" (~URL) described by a protobuf:
 
 - net/http
 - io
-- [[http://golang.org/pkg/net/http/#ServeContent][http.ServeContent]]
+- [[/pkg/net/http/#ServeContent][http.ServeContent]]
 
 * Hello World
 

@@ -6,7 +6,7 @@ Go: a simple programming environment
 # statically typed languages and productive dynamic language. But it’s not just
 # the language that makes Go special – Go has broad and consistent standard
 # libraries and powerful but simple tools.
-# 
+#
 # This talk gives an introduction to Go, followed by a tour of some real
 # programs that demonstrate the power, scope, and simplicity of the Go
 # programming environment.
@@ -15,7 +15,7 @@ Andrew Gerrand
 Google Inc.
 @enneff
 adg@golang.org
-http://golang.org
+https://go.dev
 
 * Video
 
@@ -242,11 +242,11 @@ To run the tests for all my projects:
 * Tests: benchmarks
 
 The `testing` package also supports benchmarks.
-	
+
 A sample benchmark function:
 
 .code simple/test/string_test.go /func BenchmarkIndex/,/^}/
- 
+
 The benchmark package will vary `b.N` until the benchmark function lasts long enough to be timed reliably.
 
 	$ go test -test.bench=Index
@@ -268,7 +268,7 @@ Examples and built and run as part of the normal test suite:
 
 The example is displayed in `godoc` alongside the thing it demonstrates:
 
-.link http://golang.org/pkg/strings/#Index
+.link /pkg/strings/#Index go.dev/pkg/strings/#Index
 
 * And there's more
 
@@ -372,11 +372,11 @@ For each test case, construct an `http.Request` for the url and an `httptest.Res
 
 All about Go:
 
-.link http://golang.org
+.link / go.dev
 
 The slides for this talk:
 
-.link http://go.dev/talks/2012/simple.slide
+.link /talks/2012/simple.slide go.dev/talks/2012/simple.slide
 
 webfront:
 

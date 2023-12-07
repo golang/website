@@ -4,7 +4,7 @@ Toward Go 1.3
 Andrew Gerrand
 Gopher
 @enneff
-http://golang.org
+https://go.dev
 
 
 * Go 1.3
@@ -20,7 +20,7 @@ Release is June 1, 2014.
 
 After Go 1.2 the Go contributors compiled a to-do list:
 
-.link http://golang.org/s/go13todo
+.link /s/go13todo go.dev/s/go13todo
 
 The list is aspirational; not all of it will get done.
 
@@ -34,7 +34,7 @@ Finally!
 
 * Copying stacks (1/2)
 
-.link http://golang.org/s/contigstacks
+.link /s/contigstacks go.dev/s/contigstacks
 
 Go 1.2's stack split mechanism has a "hot split" problem.
 
@@ -67,7 +67,7 @@ And many more to come...
 
 * Channel rewrite
 
-.link http://golang.org/s/go13chan
+.link /s/go13chan go.dev/s/go13chan
 
 Goals:
 
@@ -131,7 +131,7 @@ This is an experimental type and might not be released.
 
 * Native Client port
 
-.link http://golang.org/s/go13nacl
+.link /s/go13nacl go.dev/s/go13nacl
 
 Native Client (NaCl) is a restricted execution environment for x86 binaries.
 
@@ -159,7 +159,7 @@ darwin/arm, android/arm: a contributor is working on these, some way to go.
 
 * The go command and fsnotify
 
-.link http://golang.org/s/go13fsnotify
+.link /s/go13fsnotify go.dev/s/go13fsnotify
 
 In Go 1.2, `go` `build` stats every dependent source file to see whether they have changed.
 
@@ -173,7 +173,7 @@ A new `os/fsnotify` package will be added to the standard library to support the
 
 A proposed interface is discussed here:
 
-.link http://golang.org/cl/48310043
+.link /cl/48310043 go.dev/cl/48310043
 
 
 * Support for linking against Objective C code
@@ -187,7 +187,7 @@ This will make it easier to write native OS X applications.
 
 * Address binary bloat
 
-.link http://golang.org/issue/6853
+.link /issue/6853 go.dev/issue/6853
 
 Go binaries are getting pretty big. Rob ran an experiment:
 
@@ -207,7 +207,7 @@ Speaking of which...
 
 * Linker overhaul (1/3)
 
-.link http://golang.org/s/go13linker
+.link /s/go13linker go.dev/s/go13linker
 
 The `gc` tool chain is a bit unconventional.
 
@@ -241,7 +241,7 @@ And because the linker is much simpler now, we can rewrite it in Go.
 
 * Compiler overhaul
 
-.link http://golang.org/s/go13compiler
+.link /s/go13compiler go.dev/s/go13compiler
 
 The "gc" tool chain is based on the Plan 9 C compilers.
 

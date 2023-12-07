@@ -21,7 +21,7 @@ Lots of behind-the-scenes work:
 - Prep work for C to Go tool chain conversion.
 - Source tree re-organization.
 
-.link https://golang.org/doc/go1.4
+.link /doc/go1.4 go.dev/doc/go1.4
 
 
 * Transition to Git
@@ -112,7 +112,7 @@ Machine-translated `gc` to replace `6g`, `8g`, etc.
 
 Design doc:
 
-.link https://golang.org/s/go13compiler
+.link /s/go13compiler go.dev/s/go13compiler
 
 Go 1.5 will have *no* C code in the tool chain or runtime.
 
@@ -129,7 +129,7 @@ New OS or architecture ports will need to cross-compile.
 
 Design doc:
 
-.link https://golang.org/s/go15bootstrap
+.link /s/go15bootstrap go.dev/s/go15bootstrap
 
 If you use a binary distribution of Go, you don't need to do anything.
 
@@ -145,7 +145,7 @@ Goal:
 
 On track for Go 1.5.
 
-.link https://golang.org/s/go14gc
+.link /s/go14gc go.dev/s/go14gc
 
 
 * HTTP/2
@@ -205,7 +205,7 @@ It collects data to produce diagrams of process execution.
 
 Front end is the Android/Chrome trace-viewer. ([[https://github.com/google/trace-viewer][github.com/google/trace-viewer]])
 
-.link http://golang.org/s/go15trace
+.link /s/go15trace go.dev/s/go15trace
 
 
 * Analysis and Refactoring Tools

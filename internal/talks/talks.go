@@ -78,6 +78,20 @@ func (h *handler) renderDoc(w http.ResponseWriter, r *http.Request, docFile stri
 		return err
 	}
 
+	for _, a := range doc.Authors {
+		for _, elem := range a.Elem {
+			if link, ok := elem.(present.Link); ok {
+				if link.URL.Host == "go.dev" {
+					if link.URL.Path == "" {
+						link.URL.Path = "/"
+					}
+					link.URL.Host = ""
+					link.URL.Scheme = ""
+				}
+			}
+		}
+	}
+
 	ext := strings.TrimPrefix(path.Ext(r.URL.Path), ".")
 	h.site.ServePage(w, r, web.Page{
 		"layout": "/talks/" + ext,

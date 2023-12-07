@@ -276,7 +276,7 @@ You will see it as comments in the code like:
 
     //go:generate go tool yacc -o gopher.go -p parser gopher.y
 
-More information in the [[http://blog.golang.org/generate][blog post]].
+More information in the [[/blog/generate][blog post]].
 
 * code generation tools: stringer
 

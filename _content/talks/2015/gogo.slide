@@ -5,7 +5,7 @@ Gopherfest
 Rob Pike
 Google
 r@golang.org
-http://golang.org/
+https://go.dev/
 
 * Go in Go
 
@@ -35,7 +35,7 @@ Not for validation; we have more pragmatic motives:
 
 Already seeing benefits, and it's early yet.
 
-Design document: [[http://golang.org/s/go13compiler]]
+Design document: [[/s/go13compiler]]
 
 * Why move the runtime to Go?
 
@@ -277,7 +277,7 @@ Therefore need to build or download a working Go installation to build 1.5 from 
 
 We use Go 1.4+ as the base to build the 1.5+ tool chain. (Newer is OK too.)
 
-Details: [[http://golang.org/s/go15bootstrap]]
+Details: [[/s/go15bootstrap]]
 
 * Future
 

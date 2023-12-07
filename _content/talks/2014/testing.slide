@@ -251,9 +251,9 @@ To test this code, we invoke the test binary itself as a subprocess:
 
 * More information
 
-.link http://golang.org/pkg/testing/
+.link /pkg/testing/ go.dev/pkg/testing/
 
-.link http://golang.org/cmd/go/
+.link /cmd/go/ go.dev/cmd/go/
 
-.link http://golang.org
+.link / go.dev
 

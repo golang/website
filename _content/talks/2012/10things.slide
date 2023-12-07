@@ -4,7 +4,7 @@ Andrew Gerrand
 Gopher
 https://plus.google.com/106356964679457436995
 @enneff
-http://golang.org
+https://go.dev
 
 * 1. Anonymous structs
 
@@ -64,7 +64,7 @@ http://golang.org
   {"data": {"children": [
     {"data": {
       "title": "The Go homepage",
-      "url": "http://golang.org/"
+      "url": "https://go.dev/"
     }},
     ...
   ]}}

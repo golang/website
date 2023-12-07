@@ -4,7 +4,7 @@ Andrew Gerrand
 Google Sydney
 http://andrewgerrand.com
 @enneff
-http://golang.org
+https://go.dev
 
 * Video
 
@@ -173,7 +173,7 @@ It's important to clean up when the conversation is over. To do this we send the
 
 * Demo
 
-* Taking it to the web 
+* Taking it to the web
 
 "Cute program," you say, "But who wants to chat over a raw TCP connection?"
 
@@ -217,7 +217,7 @@ Go supports a kind of "mix-in" functionality with a feature known as "struct emb
 
 * Embedding the websocket connection
 
-By embedding the `*websocket.Conn` as an `io.ReadWriter`, we can drop the explicit `socket` `Read` and `Write` methods. 
+By embedding the `*websocket.Conn` as an `io.ReadWriter`, we can drop the explicit `socket` `Read` and `Write` methods.
 
 .code chat/http/chat.go /type.socket/,/END/
 
@@ -239,7 +239,7 @@ Let's do it.
 
 Fortunately, the Go docs include a markov chain implementation:
 
-.link http://golang.org/doc/codewalk/markov
+.link /doc/codewalk/markov go.dev/doc/codewalk/markov
 
 We'll use a version that has been modified to be safe for concurrent use.
 
@@ -289,12 +289,12 @@ The `chat` function remains untouched.
 
 All about Go:
 
-.link http://golang.org
+.link / go.dev
 
 The slides for this talk:
 
-.link http://go.dev/talks/2012/chat.slide
+.link /talks/2012/chat.slide go.dev/talks/2012/chat.slide
 
 "Go Concurrency Patterns" by Rob Pike:
 
-.link http://golang.org/s/concurrency-patterns
+.link /s/concurrency-patterns go.dev/s/concurrency-patterns

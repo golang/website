@@ -32,7 +32,7 @@ Others:
 - Mozilla
 - ...
 
-[[http://golang.org/wiki/GoUsers][golang.org/wiki/GoUsers]]
+[[/wiki/GoUsers][go.dev/wiki/GoUsers]]
 
 * Who uses Go?
 
@@ -61,7 +61,7 @@ Orthogonal features
 “The ratio of time spent reading (code) versus writing is well over 10 to 1 ... (therefore) making it easy to read makes it easier to write.”
 ― Robert C. Martin
 
-.image go4java/img/piet.png 500 600 
+.image go4java/img/piet.png 500 600
 
 * Safety
 
@@ -122,7 +122,7 @@ Go is Object Oriented, but doesn't have the keywords:
 	}
 
 - slices and arrays
-	
+
 	[]int, [3]string, []struct{ Name string }
 
 - maps
@@ -629,9 +629,9 @@ Ok, I'm just bragging here
 
 And there's lots to learn!
 
-- [[http://go.dev/talks/2012/concurrency.slide#1][Go Concurrency Patterns]], by Rob Pike
-- [[http://go.dev/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
-- [[http://go.dev/talks/2012/waza.slide#1][Concurrency is not Parallelism]], by Rob Pike
+- [[/talks/2012/concurrency.slide#1][Go Concurrency Patterns]], by Rob Pike
+- [[/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
+- [[/talks/2012/waza.slide#1][Concurrency is not Parallelism]], by Rob Pike
 
 .image go4java/img/busy.jpg
 
@@ -658,10 +658,10 @@ Concurrency is awesome, and you should check it out.
 
 * What to do next?
 
-Learn Go on your browser with [[http://tour.golang.org][tour.golang.org]]
+Learn Go on your browser with [[/tour/][go.dev/tour]]
 
-Find more about Go on [[http://golang.org][golang.org]]
+Find more about Go on [[/][go.dev]]
 
 Join the community at [[https://groups.google.com/forum/#!forum/Golang-nuts][golang-nuts]]
 
-Link to the slides [[http://go.dev/talks/2014/go4java.slide]]
+Link to the slides [[/talks/2014/go4java.slide]]

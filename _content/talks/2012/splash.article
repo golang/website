@@ -2,9 +2,7 @@ Go at Google: Language Design in the Service of Software Engineering
 
 Rob Pike
 Google, Inc.
-@rob_pike
-http://golang.org/s/plusrob
-http://golang.org
+https://go.dev
 
 * Abstract
 
@@ -395,7 +393,7 @@ One may always tell whether a name is local to package from its syntax: `Name` v
 (More on this later.)
 
 For our example, the package path is `"encoding/json"` while the package name is `json`.
-Outside the standard repository, the convention is to place the 
+Outside the standard repository, the convention is to place the
 project or company name at the root of the name space:
 
 	import "google/base/go/log"
@@ -490,7 +488,7 @@ the second is shorter and idiomatic:
 	var buf *bytes.Buffer = bytes.NewBuffer(x) // explicit
 	buf := bytes.NewBuffer(x)                  // derived
 
-There is a blog post at [[http://golang.org/s/decl-syntax][golang.org/s/decl-syntax]] with more detail about the syntax of declarations in Go and
+There is a blog post at [[/s/decl-syntax][go.dev/s/decl-syntax]] with more detail about the syntax of declarations in Go and
 why it is so different from C.
 
 Function syntax is straightforward for simple functions.
@@ -510,7 +508,7 @@ And here is a variable (closure) with a type `T` argument; Go has first-class
 functions and closures:
 
 	negAbs := func(x T) float64 { return -Abs(x) }
-	
+
 Finally, in Go functions can return multiple values. A common case is to
 return the function result and an `error` value as a pair, like this:
 
@@ -654,7 +652,7 @@ The following sections provide brief discussions of two of these topics in Go,
 concurrency and garbage collection,
 mostly from a software engineering perspective.
 For a full discussion of the language semantics and uses see the many
-resources on the [[http://golang.org]] web site.
+resources on the [[/][go.dev]] web site.
 
 * Concurrency
 
@@ -718,7 +716,7 @@ Go has no explicit memory-freeing operation: the only way allocated
 memory returns to the pool is through the garbage collector.
 
 It was an easy decision to make because memory management
-has a profound effect on the way a language works in practice. 
+has a profound effect on the way a language works in practice.
 In C and C++, too much programming effort is spent on memory allocation
 and freeing.
 The resulting designs tend to expose details of memory management
@@ -1110,7 +1108,7 @@ Go's use is growing inside Google.
 
 Several big user-facing services use it, including `youtube.com` and `dl.google.com`
 (the download server that delivers Chrome, Android and other downloads),
-as well as our own [[http://golang.org][golang.org]].
+as well as our own [[/][go.dev]].
 And of course many small ones do, mostly
 built using Google App Engine's native support for Go.
 
@@ -1174,7 +1172,7 @@ The properties that led to that include:
 If you haven't tried Go already, we suggest you do.
 
 
-.link http://golang.org http://golang.org
+.link / go.dev
 
 .image splash/appenginegophercolor.jpg
 

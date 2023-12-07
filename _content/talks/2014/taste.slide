@@ -464,7 +464,7 @@ Reducer:
 
 - Extensive standard library
 
-.link http://golang.org/pkg/
+.link /pkg/ go.dev/pkg/
 
 - Powerful tools
 
@@ -477,4 +477,4 @@ Reducer:
 
 - Great documentation
 
-.link http://tour.golang.org/#1
+.link /tour/ go.dev/tour

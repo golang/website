@@ -326,8 +326,8 @@ Package docs go above the package declaration:
 	// Package fmt…
 	package fmt
 
-Read the world's Go docs on [[godoc.org]]. E.g.
+Read the world's Go docs on [[https://pkg.go.dev]]. E.g.
 
-[[http://godoc.org/code.google.com/p/go.tools/cmd/vet]]
+[[https://pkg.go.dev/golang.org/x/tools/txtar]]
 
 * Questions?

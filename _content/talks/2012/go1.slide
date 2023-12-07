@@ -2,15 +2,13 @@ The Path to Go 1
 
 Rob Pike
 Google
-http://golang.org/s/plusrob
-@rob_pike
-http://golang.org
+https://go.dev
 
 Andrew Gerrand
 Google
 http://andrewgerrand.com
 @go_nuts
-http://golang.org
+https://go.dev
 
 
 * Introduction
@@ -359,7 +357,7 @@ Examples:
   "gob"       "encoding/gob"
   "json"      "encoding/json"
   "xml"       "encoding/xml"
-  
+
   "unicode"   "unicode"
   "utf8"      "unicode/utf8"
   "utf16"     "unicode/utf16"
@@ -491,15 +489,15 @@ Go 2 is likely years away.
 
 The Go web site has a huge amount of documentation:
 
-.link http://golang.org
+.link / go.dev
 
 Learn Go from a web browser:
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 "Meet the Go team" panel from Google I/O 2012:
 
-.link http://golang.org/s/meet-the-go-team
+.link /s/meet-the-go-team go.dev/s/meet-the-go-team
 
 Google Code project:
 

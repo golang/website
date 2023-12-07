@@ -95,7 +95,7 @@ You should watch [[http://youtu.be/ph374fJqFPE][Mindblowing Python GIL]], by Dav
 
 * Things I like about Python
 
-- The Zen of Python. ([[http://go.dev/talks/2012/zen.slide#1][Go and the Zen of Python]])
+- The Zen of Python. ([[/talks/2012/zen.slide#1][Go and the Zen of Python]])
 
 - Hashes and arrays are part of the language.
 
@@ -176,7 +176,7 @@ Given the function `prime`:
 
 Use the Go playground:
 
-.link http://golang.org/s/go4py-ex1
+.link /s/go4py-ex1 go.dev/s/go4py-ex1
 
 * Solution: generating prime numbers
 
@@ -194,7 +194,7 @@ sent into the output channel.
 
 Complete this code snippet:
 
-.link http://golang.org/s/go4py-ex2
+.link /s/go4py-ex2 go.dev/s/go4py-ex2
 
 * Solution: Fibonacci primes
 
@@ -209,9 +209,9 @@ all kinds of concurrent systems.
 
 To learn more:
 
-- [[http://go.dev/talks/2012/concurrency.slide#1][Concurrency patterns]], by Rob Pike
+- [[/talks/2012/concurrency.slide#1][Concurrency patterns]], by Rob Pike
 
-- [[http://go.dev/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
+- [[/talks/2013/advconc.slide#1][Advanced Concurrency Patterns]], by Sameer Ajmani
 
 * Object-oriented Go
 
@@ -363,7 +363,7 @@ We want to use it as follows.
 
 Implement `handleError` using the playground.
 
-.link http://golang.org/s/go4py-ex3
+.link /s/go4py-ex3 go.dev/s/go4py-ex3
 
 * Solution: errors in HTTP handlers
 
@@ -441,11 +441,11 @@ _Disclaimer_:_
 
 Next steps
 
-.link http://golang.org
+.link / go.dev
 
 Learn Go from your browser
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 The community: golang-nuts
 

@@ -5,7 +5,7 @@ Gopher at Google
 @francesc
 http://campoy.cat/+
 
-http://golang.org
+https://go.dev
 
 * Best practices
 
@@ -20,7 +20,7 @@ Techniques to write Go code that is
 - readable,
 - maintainable.
 
-.image http://golang.org/doc/gopher/gopherbw.png 200 200
+.image /doc/gopher/gopherbw.png 200 200
 
 * Some code
 
@@ -117,9 +117,9 @@ Exported identifiers appear in `godoc`, they should be documented correctly.
 	// without the contact details.
 	func (p *Author) TextElem() (elems []Elem) {
 
-[[http://godoc.org/code.google.com/p/go.talks/pkg/present#Author][Generated documentation]]
+[[https://pkg.go.dev/code.google.com/p/go.talks/pkg/present#Author][Generated documentation]]
 
-[[http://blog.golang.org/godoc-documenting-go-code][Gocode: documenting Go code]]
+[[/blog/godoc-documenting-go-code][Gocode: documenting Go code]]
 
 * Shorter is better
 
@@ -265,7 +265,7 @@ Use a chan or a struct with a chan to communicate with a goroutine
 3. Important code goes first
 4. Document your code
 5. Shorter is better
-6. Packages with multiple files 
+6. Packages with multiple files
 7. Make your packages "go get"-able
 8. Ask for what you need
 9. Keep independent packages independent
@@ -277,8 +277,8 @@ Use a chan or a struct with a chan to communicate with a goroutine
 
 Resources
 
-- Go homepage [[http://golang.org]]
-- Go interactive tour [[http://tour.golang.org]]
+- Go homepage [[/][go.dev]]
+- Go interactive tour [[/tour/][go.dev/tour]]
 
 Other talks
 
