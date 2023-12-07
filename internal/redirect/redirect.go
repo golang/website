@@ -132,6 +132,25 @@ var redirects = map[string]string{
 	// These moved.
 	"/testing/":          "/doc/",
 	"/testing/coverage/": "/doc/build-cover",
+
+	"/security/":                      "/doc/security/",
+	"/security/best-practices":        "/doc/security/best-practices",
+	"/security/fuzz/":                 "/doc/security/fuzz/",
+	"/security/fuzz/example-dark.png": "/doc/security/fuzz/example-dark.png",
+	"/security/fuzz/example.png":      "/doc/security/fuzz/example.png",
+	"/security/fuzz/seq-diagram.png":  "/doc/security/fuzz/seq-diagram.png",
+	"/security/fuzz/technical":        "/doc/security/fuzz/technical",
+	"/security/policy":                "/doc/security/policy",
+	"/security/vuln/":                 "/doc/security/vuln/",
+	"/security/vuln/architecture.png": "/doc/security/vuln/architecture.png",
+	"/security/vuln/cna":              "/doc/security/vuln/cna",
+	"/security/vuln/database":         "/doc/security/vuln/database",
+	"/security/vuln/editor":           "/doc/security/vuln/editor",
+	"/security/vuln/vscode.gif":       "/doc/security/vuln/vscode.gif",
+	"/security/vulncheck":             "/doc/security/vulncheck",
+	"/security/vulndb/":               "/doc/security/vulndb/",
+	"/security/vulndb/api":            "/doc/security/vulndb/api",
+	"/security/vulndb/policy":         "/doc/security/vulndb/policy",
 }
 
 var newIssueRedirects = [...]string{
