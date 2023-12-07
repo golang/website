@@ -36,7 +36,7 @@ This post uses [Git](https://git-scm.com/) in examples.
 
 For this post, you'll need an existing project to use as an example. So, start
 with the files from the end of the
-[Using Go Modules](https://blog.golang.org/using-go-modules) article:
+[Using Go Modules](/blog/using-go-modules) article:
 
 	$ cat go.mod
 	module example.com/hello
@@ -149,7 +149,7 @@ Do not delete version tags from your repo. If you find a bug or a security issue
 with a version, release a new version. If people depend on a version that you
 have deleted, their builds may fail. Similarly, once you release a version, do
 not change or overwrite it. The
-[module mirror and checksum database](https://blog.golang.org/module-mirror-launch)
+[module mirror and checksum database](/blog/module-mirror-launch)
 store modules, their versions, and signed cryptographic hashes to ensure that
 the build of a given version remains reproducible over time.
 

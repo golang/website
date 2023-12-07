@@ -13,7 +13,7 @@ summary: An analysis of the results from the 2019 Go Developer Survey.
 
 I want to start with an enormous **thank you** to the thousands of Go developers
 who participated in this year’s survey.
-For 2019, we saw 10,975 responses, nearly [twice as many as last year](https://blog.golang.org/survey2018-results)!
+For 2019, we saw 10,975 responses, nearly [twice as many as last year](/blog/survey2018-results)!
 On behalf of the rest of the team, I cannot adequately stress how much we
 appreciate you taking the time and effort to tell us about your experiences with Go. Thank you!
 

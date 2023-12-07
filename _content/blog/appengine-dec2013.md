@@ -11,7 +11,7 @@ summary: Announcing improvements to Go on App Engine.
 
 ## Background
 
-When we [launched Go for App Engine](https://blog.golang.org/go-and-google-app-engine)
+When we [launched Go for App Engine](/blog/go-and-google-app-engine)
 in May 2011 the SDK was just a modified version of the Python SDK.
 At the time, there was no canonical way to build or organize Go programs, so it
 made sense to take the Python approach. Since then Go 1.0 was released,
@@ -19,7 +19,7 @@ including the [go tool](/cmd/go/) and a
 [convention](/doc/code.html) for organizing Go programs.
 
 In January 2013 we announced
-[better integration](https://blog.golang.org/the-app-engine-sdk-and-workspaces-gopath)
+[better integration](/blog/the-app-engine-sdk-and-workspaces-gopath)
 between the Go App Engine SDK and the go tool, promoting the use of
 conventional import paths in App Engine apps and making it possible to use "go
 get" to fetch app dependencies.

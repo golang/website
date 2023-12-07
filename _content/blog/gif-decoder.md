@@ -161,7 +161,7 @@ It's a nice technique in Go programming to couple a slice (`b.slice`) to an arra
 In this case, it means `blockReader` type's `Read` method never does any allocations.
 It also means we don't need to keep a count around (it's implicit in the slice length),
 and the built-in `copy` function guarantees we never copy more than we should.
-(For more about slices, see [this post from the Go Blog](https://blog.golang.org/2011/01/go-slices-usage-and-internals.html).)
+(For more about slices, see [this post from the Go Blog](/blog/2011/01/go-slices-usage-and-internals.html).)
 
 Given the `blockReader` type, we can unblock the image data stream just
 by wrapping the input reader,

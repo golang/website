@@ -17,7 +17,7 @@ and ecosystem for building modern networked software.
 To mark the occasion,
 [Renee French](https://twitter.com/reneefrench),
 the creator of the
-[Go gopher](https://blog.golang.org/gopher),
+[Go gopher](/blog/gopher),
 painted this delightful scene:
 
 <a href="10years/gopher10th-large.jpg">
@@ -86,7 +86,7 @@ we have evolved this idea and sketch into a productive language
 with fantastic tooling,
 a production-quality implementation,
 a
-[state-of-the-art garbage collector](https://blog.golang.org/ismmkeynote),
+[state-of-the-art garbage collector](/blog/ismmkeynote),
 and [ports to 12 operating systems and 10 architectures](/doc/install/source#introduction).
 
 Any programming language needs the support of a thriving ecosystem.

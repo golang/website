@@ -9,13 +9,13 @@ summary: The plan for moving from godoc.org to pkg.go.dev.
 
 With the introduction of Go modules and the growth of the Go ecosystem,
 [pkg.go.dev](https://pkg.go.dev) was
-[launched in 2019](https://blog.golang.org/go.dev) to provide a central place
+[launched in 2019](/blog/go.dev) to provide a central place
 where developers can discover and evaluate Go packages and modules. Like
 godoc.org, pkg.go.dev serves Go documentation, but it also supports modules,
 better search functionality, and signals to help Go users to find the right
 packages.
 
-As [we shared in January 2020](https://blog.golang.org/pkg.go.dev-2020), our
+As [we shared in January 2020](/blog/pkg.go.dev-2020), our
 goal is to eventually redirect traffic from godoc.org to the corresponding page
 on pkg.go.dev. We’ve also made it possible for users to opt in to redirecting
 their own requests from godoc.org to pkg.go.dev.
@@ -26,8 +26,8 @@ resolved through the
 and [pkgsite/design-2020](https://github.com/golang/go/milestone/159?closed=1)
 milestones on the Go issue tracker. Your feedback resulted in support for
 popular feature requests on pkg.go.dev,
-[open sourcing pkgsite](https://blog.golang.org/pkgsite), and most recently, a
-[redesign of pkg.go.dev](https://blog.golang.org/pkgsite-redesign).
+[open sourcing pkgsite](/blog/pkgsite), and most recently, a
+[redesign of pkg.go.dev](/blog/pkgsite-redesign).
 
 ## Next Steps
 

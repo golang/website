@@ -13,7 +13,7 @@ This document is a detailed reference manual for Go's module system. For an
 introduction to creating Go projects, see [How to Write Go
 Code](/doc/code.html). For information on using modules,
 migrating projects to modules, and other topics, see the blog series starting
-with [Using Go Modules](https://blog.golang.org/using-go-modules).
+with [Using Go Modules](/blog/using-go-modules).
 
 ## Modules, packages, and versions {#modules-overview}
 
@@ -1369,7 +1369,7 @@ usually release a new major version. In the example above, the author should
 create a module with the path `example.com/m/v5` and should release version
 `v5.0.0`. The author should also update imports of packages in the module to use
 the prefix `example.com/m/v5` instead of `example.com/m`. See [Go Modules: v2
-and Beyond](https://blog.golang.org/v2-go-modules) for a more detailed example.
+and Beyond](/blog/v2-go-modules) for a more detailed example.
 
 Note that the `+incompatible` suffix should not appear on a tag in a repository;
 a tag like `v4.1.2+incompatible` will be ignored. The suffix only appears in

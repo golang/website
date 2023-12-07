@@ -24,14 +24,14 @@ selected from the much larger list of
 [Go 2 proposals](https://github.com/golang/go/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3AGo2+label%3AProposal),
 per the new proposal evaluation process outlined
 in the
-“[Go 2, here we come!](https://blog.golang.org/go2-here-we-come)” blog post.
+“[Go 2, here we come!](/blog/go2-here-we-come)” blog post.
 We wanted our initial selection of proposals
 to be relatively minor and mostly uncontroversial,
 to have a reasonably high chance of having them
 make it through the process.
 The proposed changes had to be backward-compatible
 to be minimally disruptive since
-[modules](https://blog.golang.org/using-go-modules),
+[modules](/blog/using-go-modules),
 which eventually will allow module-specific language version selection,
 are not the default build mode quite yet.
 In short, this initial round of changes was more about
@@ -39,7 +39,7 @@ getting the ball rolling again and gaining experience
 with the new process, rather than tackling big issues.
 
 Our
-[original list of proposals](https://blog.golang.org/go2-here-we-come) –
+[original list of proposals](/blog/go2-here-we-come) –
 [general Unicode identifiers](/issue/20706),
 [binary integer literals](/issue/19308),
 [separators for number literals](/issue/28493),
@@ -62,7 +62,7 @@ and determine what we want to tackle next.
 ## Proposals for Go 1.14
 
 The goals we have for Go today are the same as in 2007: to
-[make software development scale](https://blog.golang.org/toward-go2).
+[make software development scale](/blog/toward-go2).
 The three biggest hurdles on this path to improved scalability for Go are
 package and version management,
 better error handling support,
@@ -152,7 +152,7 @@ start of the
 (beginning of August, 2019)
 so that they can be evaluated in practice.
 Per the
-[proposal evaluation process](https://blog.golang.org/go2-here-we-come),
+[proposal evaluation process](/blog/go2-here-we-come),
 the final decision will be
 made at the end of the development cycle (beginning of November, 2019).
 

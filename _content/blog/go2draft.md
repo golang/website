@@ -11,7 +11,7 @@ summary: Announcing the draft designs for the major Go 2 changes.
 Yesterday, at our annual Go contributor summit,
 attendees got a sneak peek at preliminary _drafts_ of
 possible designs for changes to error handling and generics.
-[The development of Go 2](https://blog.golang.org/toward-go2) was announced last year and we are excited to share updates with you today.
+[The development of Go 2](/blog/toward-go2) was announced last year and we are excited to share updates with you today.
 
 For a quick overview, watch this short message we just played at Gophercon 2018:
 

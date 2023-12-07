@@ -56,7 +56,7 @@ correct and easy-to-read code.
 One example is the gofix tool, which automates the
 rewriting of code to use new language features or updated libraries.
 Gofix let us make fundamental changes to the language and libraries in the
-[run-up to Go 1.0](https://blog.golang.org/the-path-to-go-1),
+[run-up to Go 1.0](/blog/the-path-to-go-1),
 with the confidence that users could just run the tool to update their source to the newest version.
 
 Inside Google, we have used gofix to make sweeping changes in a huge code repository that would be almost

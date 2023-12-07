@@ -20,7 +20,7 @@ success can be attributed to the fantastic development tools created by the Go
 community. The
 [VS Code extension for Go](https://github.com/microsoft/vscode-go), built using
 many of these tools, is now used by 41 percent of Go developers
-([Go developer survey](https://blog.golang.org/survey2019-results)).
+([Go developer survey](/blog/survey2019-results)).
 
 As the VS Code Go extension grows in popularity and as
 [the ecosystem expands](https://www.youtube.com/watch?v=EFJfdWzBHwE), it

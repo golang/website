@@ -20,7 +20,7 @@ Google's language-neutral data interchange format.
 ## Motivations for a new API
 
 The first protocol buffer bindings for Go were
-[announced by Rob Pike](https://blog.golang.org/third-party-libraries-goprotobuf-and)
+[announced by Rob Pike](/blog/third-party-libraries-goprotobuf-and)
 in March of 2010. Go 1 would not be released for another two years.
 
 In the decade since that first release, the package has grown and

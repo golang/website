@@ -26,7 +26,7 @@ See [the documentation](/lib/godoc/analysis/help.html) for the details.
 The gc toolchain now supports the Native Client (NaCl) execution sandbox on the
 32- and 64-bit Intel architectures.
 This permits the safe execution of untrusted code, useful in environments such as the
-[Playground](https://blog.golang.org/playground).
+[Playground](/blog/playground).
 To set up NaCl on your system see the [NativeClient wiki page](/wiki/NativeClient).
 
 Also included in this release is experimental support for the DragonFly BSD,

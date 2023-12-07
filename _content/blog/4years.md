@@ -138,7 +138,7 @@ it's easy to believe that prediction.
 So how can you get involved? Whether you're a seasoned Go programmer or just Go-curious,
 there are many ways to get started in the Go community:
 
-  - [Join your nearest Go User Group](https://blog.golang.org/getthee-to-go-meetup),
+  - [Join your nearest Go User Group](/blog/getthee-to-go-meetup),
     where your local gophers meet to share their knowledge and experience.
     These groups are popping up all over the world.
     I have personally spoken at Go groups in Amsterdam,

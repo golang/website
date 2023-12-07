@@ -29,7 +29,7 @@ See the [recording](https://youtu.be/KqTySYYhPUE) if you are interested in the f
 
 ## Module Mirror
 
-[Modules](https://blog.golang.org/versioning-proposal) are sets of Go packages
+[Modules](/blog/versioning-proposal) are sets of Go packages
 that are versioned together, and the contents of each version are immutable.
 That immutability provides new opportunities for caching and authentication.
 When `go get` runs in module mode, it must fetch the module containing the
@@ -55,7 +55,7 @@ A module mirror is a special kind of module proxy that caches metadata and
 source code in its own storage system, allowing the mirror to continue to serve
 source code that is no longer available from the original locations. This can
 speed up downloads and protect you from disappearing dependencies. See
-[Go Modules in 2019](https://blog.golang.org/modules2019) for more information.
+[Go Modules in 2019](/blog/modules2019) for more information.
 
 The Go team maintains a module mirror, served at
 [proxy.golang.org](https://proxy.golang.org), which the `go` command will use by

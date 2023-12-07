@@ -26,7 +26,7 @@ This post is part 1 in a series.
 Go 1.11 and 1.12 include preliminary
 [support for modules](/doc/go1.11#modules),
 Go’s
-[new dependency management system](https://blog.golang.org/versioning-proposal)
+[new dependency management system](/blog/versioning-proposal)
 that makes dependency version information explicit
 and easier to manage.
 This blog post is an introduction to the basic operations needed

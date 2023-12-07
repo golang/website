@@ -14,7 +14,7 @@ summary: An updated generics design draft, and a translation tool for experiment
 ## Introduction
 
 It’s been almost a year since we [last wrote about the possibility of
-adding generics to Go](https://blog.golang.org/why-generics).
+adding generics to Go](/blog/why-generics).
 It’s time for an update.
 
 ## Updated design

@@ -47,7 +47,7 @@ Support for contexts has been added to the
 [net/http](/pkg/net/http/), and
 [os/exec](/pkg/os/exec/) packages.
 For more information about contexts, see the [package documentation](/pkg/context)
-and the Go blog post [_Go Concurrency Patterns: Context_](https://blog.golang.org/context).
+and the Go blog post [_Go Concurrency Patterns: Context_](/blog/context).
 
 Go 1.5 introduced experimental support for a ["vendor" directory](/cmd/go/#hdr-Vendor_Directories),
 enabled by the `GO15VENDOREXPERIMENT` environment variable.

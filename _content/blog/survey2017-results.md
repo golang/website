@@ -16,7 +16,7 @@ and insights. It also draws key comparisons between the results of the 2016 and
 2017 survey.
 
 This year we had 6,173 survey respondents, 70% more than the 3,595 we had in the
-[Go 2016 User Survey](https://blog.golang.org/survey2016-results). In
+[Go 2016 User Survey](/blog/survey2016-results). In
 addition, it also had a slightly higher completion rate (84% → 87%) and a
 higher response rate to most of the questions. We believe that survey length is
 the main cause of this improvement as the 2017 survey was shortened in response
@@ -144,7 +144,7 @@ continues to be an area of focus for the project and its leadership going
 forward. We will continue to work to improve our understanding of user needs and
 approachability.
 
-We tried some [new ways](https://blog.golang.org/8years#TOC_1.3.) to engage
+We tried some [new ways](/blog/8years#TOC_1.3.) to engage
 with users in 2017 and while progress was made, we are still working on making these
 solutions scalable for our growing community.
 

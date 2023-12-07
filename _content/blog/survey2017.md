@@ -12,7 +12,7 @@ summary: Please take the 2017 Go User Survey. We want to hear from you!
 ## The Go project wants to hear from you (again)!
 
 Last year we conducted the first ever
-[Go user survey](https://blog.golang.org/survey2016-results). Thanks to all of you,
+[Go user survey](/blog/survey2016-results). Thanks to all of you,
 it was an overwhelming success with over 3500 responses. The survey provided key insights
 and helped us better plan and prioritize.
 
@@ -34,7 +34,7 @@ and what's not, as well as help us prioritize improvements for the Go
 language, libraries and tools.
 
 A few weeks after the survey closes, we will publish the anonymous aggregate results to
-the Go blog. See the [2016 Go user survey results](https://blog.golang.org/survey2016-results)
+the Go blog. See the [2016 Go user survey results](/blog/survey2016-results)
 to learn what insights were gained from last year's survey.
 
 ## Spread the word!

@@ -104,4 +104,4 @@ It would have been daunting to attempt by hand,
 but with the code in a standard format it was relatively easy to prepare,
 execute, and review this change which touched almost all Go code in existence.
 
-For more about gofix, see [this article](https://blog.golang.org/introducing-gofix).
+For more about gofix, see [this article](/blog/introducing-gofix).

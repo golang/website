@@ -747,7 +747,7 @@ The fixes harden the implementation against incorrect and malicious inputs.
     `uint8(r>>8)`.
     Incidentally, the `image/draw` package
     provides better support for such conversions; see
-    [this blog post](https://blog.golang.org/go-imagedraw-package)
+    [this blog post](/blog/go-imagedraw-package)
     for more information.
   - Finally, as of Go 1.5 the closest match check in
     [`Index`](/pkg/image/color/#Palette.Index)

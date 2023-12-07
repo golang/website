@@ -253,7 +253,7 @@ Given the disruptive effect a major version upgrade can have on code relying on
 the module, you should avoid a major version update if you can. For more about
 major version updates, see [Developing a major version update](/doc/modules/major-version).
 For strategies to avoid making breaking changes, see the blog post [Keeping your
-modules compatible](https://blog.golang.org/module-compatibility).
+modules compatible](/blog/module-compatibility).
 
 Where publishing other kinds of versions requires essentially tagging the module
 code with the version number, publishing a major version update requires more

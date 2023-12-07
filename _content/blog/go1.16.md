@@ -25,7 +25,7 @@ Go 1.16 also adds
 [macOS ARM64 support](/doc/go1.16#darwin)
 (also known as Apple silicon).
 Since Apple’s announcement of their new arm64 architecture, we have been working closely with them to ensure Go is fully supported; see our blog post
-“[Go on ARM and Beyond](https://blog.golang.org/ports)”
+“[Go on ARM and Beyond](/blog/ports)”
 for more.
 
 Note that Go 1.16

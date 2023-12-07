@@ -8,7 +8,7 @@ summary: How to use Wire, a dependency injection tool for Go.
 
 ## Overview
 
-The Go team recently [announced](https://blog.golang.org/go-cloud) the
+The Go team recently [announced](/blog/go-cloud) the
 open source project [Go Cloud](https://github.com/google/go-cloud),
 with portable Cloud APIs and tools for [open cloud](https://cloud.google.com/open-cloud/) development.
 This post goes into more detail about Wire,

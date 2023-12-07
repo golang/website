@@ -322,7 +322,7 @@ as noted below.
 For more information about contexts, see the
 [package documentation](/pkg/context/)
 and the Go blog post
-“[Go Concurrent Patterns: Context](https://blog.golang.org/context).”
+“[Go Concurrent Patterns: Context](/blog/context).”
 
 ### HTTP Tracing {#httptrace}
 

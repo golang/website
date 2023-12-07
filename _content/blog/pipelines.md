@@ -318,7 +318,7 @@ Further reading:
   - [Go Concurrency Patterns](/talks/2012/concurrency.slide#1)
     ([video](https://www.youtube.com/watch?v=f6kdp27TYZs)) presents the basics
     of Go's concurrency primitives and several ways to apply them.
-  - [Advanced Go Concurrency Patterns](https://blog.golang.org/advanced-go-concurrency-patterns)
+  - [Advanced Go Concurrency Patterns](/blog/advanced-go-concurrency-patterns)
     ([video](http://www.youtube.com/watch?v=QDDwwePbDtw)) covers more complex
     uses of Go's primitives,
     especially `select`.

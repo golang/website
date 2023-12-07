@@ -35,7 +35,7 @@ collections of command-line tools.
 
 In addition to working on `gopls`, we sought other ways of creating a stable
 ecosystem of editor tooling. Last year, the Go team took responsibility for the
-[Go extension for VS Code](https://blog.golang.org/vscode-go). As part of this
+[Go extension for VS Code](/blog/vscode-go). As part of this
 work, we smoothed the extension’s integration with the language server—automating
 `gopls` updates, rearranging and clarifying `gopls` settings, improving the
 troubleshooting workflow, and soliciting feedback through a survey. We’ve also

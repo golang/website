@@ -227,7 +227,7 @@ reading or writing the map concurrently.
 If the runtime detects this condition, it prints a diagnosis and crashes the program.
 The best way to find out more about the problem is to run the program
 under the
-[race detector](https://blog.golang.org/race-detector),
+[race detector](/blog/race-detector),
 which will more reliably identify the race
 and give more detail.
 

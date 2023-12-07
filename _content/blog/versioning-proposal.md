@@ -40,7 +40,7 @@ some of the details, especially concerning backwards compatibility.
 ## The Impact of Compatibility
 
 The most important new feature of
-[Go 1](https://blog.golang.org/preview-of-go-version-1)
+[Go 1](/blog/preview-of-go-version-1)
 was not a language feature.
 It was Go 1’s emphasis on backwards compatibility.
 Until that point we’d issued stable release

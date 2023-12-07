@@ -16,7 +16,7 @@ by sharing their thoughts via our annual Go Developer Survey.
 Your feedback has played an enormous role in driving changes to our language,
 ecosystem, and community, including the gopls language server,
 the latest generics draft, the module mirror, and so much more.
-And of course, we publicly share [each year's results](https://blog.golang.org/survey2019-results),
+And of course, we publicly share [each year's results](/blog/survey2019-results),
 so we can all benefit from the community's insights.
 
 This year we’ve streamlined the survey to shorten the time it takes to

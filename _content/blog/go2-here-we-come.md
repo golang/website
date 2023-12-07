@@ -14,7 +14,7 @@ summary: How Go 2 proposals will be evaluated, selected, and shipped.
 
 At GopherCon 2017, Russ Cox officially started the thought process on the
 next big version of Go with his talk [The Future of Go](https://www.youtube.com/watch?v=0Zbh_vmAKvk)
-([blog post](https://blog.golang.org/toward-go2)). We have
+([blog post](/blog/toward-go2)). We have
 called this future language informally Go 2, even though we understand now
 that it will arrive in incremental steps rather than with a big bang and a
 single major release. Still, Go 2 is a useful moniker, if only to have a way
@@ -56,11 +56,11 @@ seemed clearly out of the scope of Go, or were otherwise unactionable.
 
 Ideas from the remaining proposals will likely influence Go 2’s libraries
 and languages. Two major themes have emerged early on: support for better
-error handling, and generics. [Draft designs](https://blog.golang.org/go2draft)
+error handling, and generics. [Draft designs](/blog/go2draft)
 for these two areas have been
 published at this year’s GopherCon, and more exploration is needed.
 
-But what about the rest? We are [constrained](https://blog.golang.org/toward-go2)
+But what about the rest? We are [constrained](/blog/toward-go2)
 by the fact that we now have
 millions of Go programmers and a large body of Go code, and we need to
 bring it all along, lest we risk a split ecosystem. That means we cannot

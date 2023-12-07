@@ -48,9 +48,9 @@ metrics, the Go community is growing faster than we believed possible.
 
 Where can those gophers be found? They are at the many Go events that are
 popping up around the world. This year we saw several dedicated Go conferences:
-the inaugural [GopherCon](https://blog.golang.org/gophercon) and
+the inaugural [GopherCon](/blog/gophercon) and
 [dotGo](http://www.dotgo.eu/) conferences in Denver and Paris, the
-[Go DevRoom at FOSDEM](https://blog.golang.org/fosdem14) and two more
+[Go DevRoom at FOSDEM](/blog/fosdem14) and two more
 instances of the biannual [GoCon](https://github.com/GoCon/GoCon) conference
 in Tokyo. At each event, gophers from around the globe eagerly presented their
 Go projects. For the Go team, it is very satisfying to meet so many programmers
@@ -64,7 +64,7 @@ There are also dozens of community-run
 [Go User Groups](/wiki/GoUserGroups) spread across cities
 worldwide. If you haven't visited your local group, consider going along. And
 if there isn't a group in your area, maybe you should
-[start one](https://blog.golang.org/getthee-to-go-meetup)?
+[start one](/blog/getthee-to-go-meetup)?
 
 Today, Go has found a home in the cloud. Go arrived as the industry underwent a
 tectonic shift toward cloud computing, and we were thrilled to see it quickly

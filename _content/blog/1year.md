@@ -73,7 +73,7 @@ The debugging story has gotten better, too.
 Recent improvements to the DWARF output of the gc compilers make the GNU debugger,
 GDB, useful for Go binaries, and we’re actively working on making that
 debugging information more complete.
-(See the [ recent blog post](https://blog.golang.org/2010/11/debugging-go-code-status-report.html) for details.)
+(See the [ recent blog post](/blog/2010/11/debugging-go-code-status-report.html) for details.)
 
 It’s now easier than ever to link against existing libraries written in
 languages other than Go.
@@ -95,7 +95,7 @@ and hundreds more on [Google Code](http://code.google.com/hosting/search?q=label
 and [GitHub](https://github.com/search?q=language:Go).
 On our mailing list and IRC channel you can find coders from around the
 world who use Go for their programming projects.
-(See our [guest blog post](https://blog.golang.org/2010/10/real-go-projects-smarttwitter-and-webgo.html)
+(See our [guest blog post](/blog/2010/10/real-go-projects-smarttwitter-and-webgo.html)
 from last month for a real-world example.) Internally at Google there are
 several teams that choose Go for building production software,
 and we have received reports from other companies that are developing sizable systems in Go.
@@ -117,7 +117,7 @@ many of which were driven by feedback from the community.
     [spec](/doc/go_spec.html#Slices)
   - The new built-in function `recover` complements `panic` and `defer` as
     an error handling mechanism.
-    [blog](https://blog.golang.org/2010/08/defer-panic-and-recover.html),
+    [blog](/blog/2010/08/defer-panic-and-recover.html),
     [spec](/doc/go_spec.html#Handling_panics)
   - The new complex number types (`complex`,
     `complex64`, and `complex128`) simplify certain mathematical operations.

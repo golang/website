@@ -49,7 +49,7 @@ A project might be in one of three states when beginning the transition to Go mo
   - An established Go project with a non-modules dependency manager.
   - An established Go project without any dependency manager.
 
-The first case is covered in [Using Go Modules](https://blog.golang.org/using-go-modules);
+The first case is covered in [Using Go Modules](/blog/using-go-modules);
 we'll address the latter two in this post.
 
 ## With a dependency manager

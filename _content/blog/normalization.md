@@ -13,13 +13,13 @@ summary: How and why to normalize UTF-8 text in Go.
 
 ## Introduction
 
-An earlier [post](https://blog.golang.org/strings) talked about strings, bytes
+An earlier [post](/blog/strings) talked about strings, bytes
 and characters in Go. I've been working on various packages for multilingual
 text processing for the go.text repository. Several of these packages deserve a
 separate blog post, but today I want to focus on
 [go.text/unicode/norm](https://pkg.go.dev/golang.org/x/text/unicode/norm),
 which handles normalization, a topic touched in the
-[strings article](https://blog.golang.org/strings) and the subject of this
+[strings article](/blog/strings) and the subject of this
 post. Normalization works at a higher level of abstraction than raw bytes.
 
 To learn pretty much everything you ever wanted to know about normalization

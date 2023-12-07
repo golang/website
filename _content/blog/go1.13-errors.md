@@ -11,7 +11,7 @@ summary: How to use the new Go 1.13 error interfaces and functions.
 
 ## Introduction
 
-Go’s treatment of [errors as values](https://blog.golang.org/errors-are-values)
+Go’s treatment of [errors as values](/blog/errors-are-values)
 has served us well over the last decade. Although the standard library’s support
 for errors has been minimal—just the `errors.New` and `fmt.Errorf` functions,
 which produce errors that contain only a message—the built-in `error` interface
@@ -345,6 +345,6 @@ handled in Go programs. We expect that wrapping to provide additional context
 will become commonplace, helping programs to make better decisions and helping
 programmers to find bugs more quickly.
 
-As Russ Cox said in his [GopherCon 2019 keynote](https://blog.golang.org/experiment),
+As Russ Cox said in his [GopherCon 2019 keynote](/blog/experiment),
 on the path to Go 2 we experiment, simplify and ship. Now that we’ve
 shipped these changes, we look forward to the experiments that will follow.

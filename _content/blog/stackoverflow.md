@@ -11,7 +11,7 @@ summary: Announcing the Go Collective, a new experience for Go on Stack Overflow
 
 Since the earliest days of Go,
 Stack Overflow has been a significant part of the Go user experience.
-For the past five years, the [Go user survey](https://blog.golang.org/survey2020-results)
+For the past five years, the [Go user survey](/blog/survey2020-results)
 has consistently identified Stack Overflow as
 the #1 place users go to find answers to their Go questions.
 
