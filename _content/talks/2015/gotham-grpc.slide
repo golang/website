@@ -87,7 +87,7 @@ Transport: *HTTP2*
 
 * Generated code
 
-.code gotham-grpc/search/README.md /protoc/
+.code gotham-grpc/search/README /protoc/
 .code gotham-grpc/search-only/search-only.pb.go /type GoogleClient/,/^}/
 .code gotham-grpc/search-only/search-only.pb.go /type GoogleServer/,/^}/
 .code gotham-grpc/search-only/search-only.pb.go /type Request/,/^}/
@@ -237,5 +237,5 @@ It is an excellent fit for building parallel, distributed, and streaming systems
 
 Sameer Ajmani
 Tech Lead Manager, Go team, Google
-[[twitter.com/Sajma][@Sajma]]
+[[https://twitter.com/Sajma][@Sajma]]
 [[mailto:sameer@golang.org][sameer@golang.org]]

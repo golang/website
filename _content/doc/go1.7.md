@@ -124,7 +124,7 @@ generates more compact, more efficient code
 and provides a better platform for optimizations
 such as bounds check elimination.
 The new back end reduces the CPU time required by
-[our benchmark programs](/test/bench/go1/) by 5-35%.
+our benchmark programs by 5-35%.
 
 For this release, the new back end can be disabled by passing
 `-ssa=0` to the compiler.

@@ -51,7 +51,7 @@ Subscribe to
 for important announcements, such as the availability of new Go releases.
 </p>
 
-<h3 id="blog"><a href="https://blog.golang.org" aria-describedby="help-description">Go Blog</a></h3>
+<h3 id="blog"><a href="/blog/" aria-describedby="help-description">Go Blog</a></h3>
 <p>The Go project's official blog.</p>
 
 <h3 id="twitter"><a href="https://twitter.com/golang" aria-describedby="help-description">@golang at Twitter</a></h3>

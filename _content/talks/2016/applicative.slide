@@ -442,7 +442,7 @@ while helping your organization discover the benefits.
 Go tools meet you where you are.  There's no one "Go IDE".
 
 - IDE & editor integration: Eclipse, IntelliJ, VisualStudio, SublimeText, emacs, vim, ...
-- [[http://play.golang.org][play.golang.org]]: online playground
+- [[/play/][go.dev/play]]: online playground
 - `gofmt`: automatic formatting
 - `goimports`: automatic updates of package imports
 - `gocode`: automatic completion

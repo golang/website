@@ -21,7 +21,7 @@ This new back end generates more compact, more efficient code that includes
 optimizations like
 [bounds check elimination](https://en.wikipedia.org/wiki/Bounds-checking_elimination) and
 [common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination).
-We observed a 5–35% speedup across our [benchmarks](/test/bench/go1/).
+We observed a 5–35% speedup across our benchmarks.
 For now, the new backend is only available for the 64-bit x86 platform ("amd64"),
 but we’re planning to convert more architecture backends to SSA in future releases.
 

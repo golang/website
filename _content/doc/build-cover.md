@@ -34,7 +34,7 @@ The resulting binary can then be run using an environment variable setting to ca
 
 During a given "`go build -cover`" invocation, the Go command will select packages in the main module for coverage profiling; other packages that feed into the build (dependencies listed in go.mod, or packages that are part of the Go standard library) will not be included by default.
 
-For example, here is a toy program containing a main package, a local main-module package `greetings` and a set of packages imported from outside the module, including (among others) `rsc.io/quote` and `fmt` ([link to full program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip)).
+For example, here is a toy program containing a main package, a local main-module package `greetings` and a set of packages imported from outside the module, including (among others) `rsc.io/quote` and `fmt` ([link to full program](/play/p/VSQJN8xkkf-?v=gotip)).
 
 ```
 $ cat go.mod
@@ -246,7 +246,7 @@ for coverage, but will not instrument imports outside the main module
 One way to request instrumentation for all non-stdlib dependencies
 is to feed the output of `go list` into `-coverpkg`.
 Here is an example, again using
-the [example program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip) cited above:
+the [example program](/play/p/VSQJN8xkkf-?v=gotip) cited above:
 
 ```
 $ go list -f '{{"{{if not .Standard}}{{.ImportPath}}{{end}}"}}' -deps . | paste -sd "," > pkgs.txt
@@ -279,7 +279,7 @@ profile data from statements executed during the run will be lost.
 
 #### Will `-coverpkg=main` select my main package for profiling? {#mainpkg}
 
-The `-coverpkg` flag accepts a list of import paths, not a list of package names. If you want to select your `main` package for coverage instrumention, please identify it by import path, not by name. Example (using [this example program](https://go.dev/play/p/VSQJN8xkkf-?v=gotip)):
+The `-coverpkg` flag accepts a list of import paths, not a list of package names. If you want to select your `main` package for coverage instrumention, please identify it by import path, not by name. Example (using [this example program](/play/p/VSQJN8xkkf-?v=gotip)):
 
 ```
 $ go list -m
@@ -299,13 +299,13 @@ $
 
 - **Blog post introducing unit test coverage in Go 1.2**:
   - Coverage profiling for unit tests was introduced as part of the
-    Go 1.2 release; see [this blog post](https://go.dev/blog/cover) for details.
+    Go 1.2 release; see [this blog post](/blog/cover) for details.
 - **Documentation**:
   - The [`cmd/go`](https://pkg.go.dev/cmd/go) package docs describe the
     build and test flags associated with coverage.
 - **Technical details**:
-  - [Design draft](https://go.googlesource.com/proposal/+/master/design/51430-revamp-code-coverage.md)
-  - [Proposal](https://golang.org/issue/51430)
+  - [Design draft](/design/51430-revamp-code-coverage)
+  - [Proposal](/issue/51430)
 
 ## Glossary {#glossary}
 

@@ -10,7 +10,7 @@ summary: How to build scalable web applications using Go with Google App Engine.
 ---
 
 
-Back in May, we [announced](/blog/2011/05/go-and-google-app-engine.html)
+Back in May, we [announced](/blog/go-and-google-app-engine)
 the Go runtime for App Engine.
 Since then, we've opened it up for everyone to use,
 added many new APIs, and improved performance.

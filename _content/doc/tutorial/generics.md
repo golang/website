@@ -429,7 +429,7 @@ Nicely done! You've just introduced yourself to generics in Go.
 
 Suggested next topics:
 
-*   The [Go Tour](https://tour.golang.org/welcome/1) is a great step-by-step
+*   The [Go Tour](/tour/) is a great step-by-step
     introduction to Go fundamentals.
 *   You'll find useful Go best practices described in
     [Effective Go](/doc/effective_go) and

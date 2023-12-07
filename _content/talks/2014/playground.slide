@@ -19,12 +19,12 @@ http://campoy.cat
 * The Go playground
 
 .image playground/img/play.png 500 _
-.caption [[http://play.golang.org][play.golang.org]]
+.caption [[/play/][go.dev/play]]
 
 * De facto pastebin of the Go community
 
 .image playground/img/share.png 500 _
-.caption [[http://play.golang.org/p/bJYnajZ6Kp]]
+.caption [[/play/p/bJYnajZ6Kp][go.dev/play/p/bJYnajZ6Kp]]
 
 * The Go tour
 
@@ -288,20 +288,20 @@ Returns directly
 * So the bug was fixed
 
 .image playground/img/andrew.png _ 1000
-.caption [[http://play.golang.org/p/3fv0L3-z0s]]
+.caption [[/play/p/3fv0L3-z0s][go.dev/play/p/3fv0L3-z0s]]
 
 * And people were happy
 
 .image playground/img/brad.png _ 1000
-.caption [[http://play.golang.org/p/rX_3WcpUOZ]]
+.caption [[/play/p/rX_3WcpUOZ][go.dev/play/p/rX_3WcpUOZ]]
 
 * Very happy
 
 .image playground/img/jan.png _ 1000
-.caption [[http://play.golang.org/p/P-Dk0NH_vf]]
+.caption [[/play/p/P-Dk0NH_vf][go.dev/play/p/P-Dk0NH_vf]]
 
 .image playground/img/mattn.png _ 1000
-.caption [[http://play.golang.org/p/NOycgN2i6b]]
+.caption [[/play/p/NOycgN2i6b][go.dev/play/p/NOycgN2i6b]]
 
 * References
 

@@ -38,7 +38,7 @@ concurrent processes that communicate via passing messages.
 In Doozer, these processes are implemented as goroutines,
 and their communications as channel operations.
 In the same way that garbage collectors improve upon malloc and free,
-we found that [goroutines and channels](/blog/2010/07/share-memory-by-communicating.html)
+we found that [goroutines and channels](/blog/share-memory-by-communicating)
 improve upon the lock-based approach to concurrency.
 These tools let us avoid complex bookkeeping and stay focused on the problem at hand.
 We are still amazed at how few lines of code it took to achieve something

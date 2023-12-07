@@ -28,7 +28,7 @@ The easiest way to install it alongside your existing Go toolchain is to run:
 	go1.18beta2 download
 
 After that, you can run `go1.18beta2` as a drop-in replacement for `go`.
-For more download options, visit https://go.dev/dl/#go1.18beta2.
+For more download options, visit [go.dev/dl/#go1.18beta2](/dl/#go1.18beta2).
 
 Because we are taking the time to issue a second beta,
 we now expect that the Go 1.18 release candidate will be issued in February,

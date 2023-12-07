@@ -22,7 +22,7 @@ and were gradually joined by dozens - and then hundreds - of programmers
 from the open source community.
 The Go Authors went on to produce lots of libraries,
 new tools, and reams of [documentation](/doc/docs.html).
-They celebrated a successful year in the public eye with a [blog post](/blog/2010/11/go-one-year-ago-today.html)
+They celebrated a successful year in the public eye with a [blog post](/blog/go-one-year-ago-today)
 last November that concluded "Go is certainly ready for production use,
 but there is still room for improvement.
 Our focus for the immediate future is making Go programs faster and more
@@ -32,8 +32,8 @@ Today is the second anniversary of Go's release,
 and Go is faster and more stable than ever.
 Careful tuning of Go's code generators, concurrency primitives,
 garbage collector, and core libraries have increased the performance of Go programs,
-and native support for [profiling](/blog/2011/06/profiling-go-programs.html)
-and [debugging](http://blog.golang.org/2011/10/debugging-go-programs-with-gnu-debugger.html)
+and native support for [profiling](/blog/profiling-go-programs)
+and [debugging](/blog/debugging-go-programs-with-gnu-debugger)
 makes it easier to detect and remove performance issues in user code.
 Go is also now easier to learn with [A Tour of Go](/tour/),
 an interactive tutorial you can take from the comfort of your web browser.
@@ -57,7 +57,7 @@ This year we issued several "[release](/doc/devel/release.html)"
 versions of Go that were more reliable and better supported than weekly snapshots.
 We also introduced [gofix](/cmd/gofix/) to take the
 pain out of migrating to newer releases.
-Furthermore, last month we announced a [plan for Go version 1](/blog/2011/10/preview-of-go-version-1.html) -
+Furthermore, last month we announced a [plan for Go version 1](/blog/preview-of-go-version-1) -
 a release that will be supported for years to come.
 Work toward Go 1 is already underway and you can observe our progress by
 the latest weekly snapshot at [weekly.golang.org](http://weekly.golang.org/pkg/).

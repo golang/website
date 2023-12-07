@@ -215,4 +215,5 @@ For much more information on using PGO, best practices and caveats to be aware o
 
 Please send us your feedback!
 PGO is still in preview and we'd love to hear about anything that is difficult to use, doesn't work correctly, etc.
-Please file issues at https://go.dev/issue/new.
+Please file issues at [go.dev/issue/new](/issue/new).
+

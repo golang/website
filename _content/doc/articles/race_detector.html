@@ -200,7 +200,7 @@ Here are some typical data races.  All of them can be detected with the race det
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(5)
-	for i := 0; i < 5; i++ {
+	for i := 0; i &lt; 5; i++ {
 		go func() {
 			fmt.Println(i) // Not the 'i' you are looking for.
 			wg.Done()
@@ -221,7 +221,7 @@ The program can be fixed by making a copy of the variable:
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(5)
-	for i := 0; i < 5; i++ {
+	for i := 0; i &lt; 5; i++ {
 		go func(j int) {
 			fmt.Println(j) // Good. Read local copy of the loop counter.
 			wg.Done()
@@ -336,7 +336,7 @@ func (w *Watchdog) Start() {
 		for {
 			time.Sleep(time.Second)
 			// Second conflicting access.
-			if w.last < time.Now().Add(-10*time.Second).UnixNano() {
+			if w.last &lt; time.Now().Add(-10*time.Second).UnixNano() {
 				fmt.Println("No keepalives for 10 seconds. Dying.")
 				os.Exit(1)
 			}
@@ -369,7 +369,7 @@ func (w *Watchdog) Start() {
 	go func() {
 		for {
 			time.Sleep(time.Second)
-			if atomic.LoadInt64(&amp;w.last) < time.Now().Add(-10*time.Second).UnixNano() {
+			if atomic.LoadInt64(&amp;w.last) &lt; time.Now().Add(-10*time.Second).UnixNano() {
 				fmt.Println("No keepalives for 10 seconds. Dying.")
 				os.Exit(1)
 			}
@@ -391,7 +391,7 @@ c := make(chan struct{}) // or buffered channel
 // The race detector cannot derive the happens before relation
 // for the following send and close operations. These two operations
 // are unsynchronized and happen concurrently.
-go func() { c <- struct{}{} }()
+go func() { c &lt;- struct{}{} }()
 close(c)
 </pre>
 
@@ -405,8 +405,8 @@ the send is done before the close:
 <pre>
 c := make(chan struct{}) // or buffered channel
 
-go func() { c <- struct{}{} }()
-<-c
+go func() { c &lt;- struct{}{} }()
+&lt;-c
 close(c)
 </pre>
 

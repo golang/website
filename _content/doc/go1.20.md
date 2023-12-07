@@ -230,7 +230,7 @@ to an output directory for coverage profiles.
 See the
 ['coverage for integration tests' landing page](/testing/coverage) for more on how to get started.
 For details on the design and implementation, see the
-[proposal](https://golang.org/issue/51430).
+[proposal](/issue/51430).
 
 ### Vet {#vet}
 

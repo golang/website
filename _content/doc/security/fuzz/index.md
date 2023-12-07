@@ -261,8 +261,8 @@ $ file2fuzz -h
   - The [`cmd/go`](https://pkg.go.dev/cmd/go) package docs describe the flags
     associated with fuzzing.
 - **Technical details**:
-  - [Design draft](https://golang.org/s/draft-fuzzing-design)
-  - [Proposal](https://golang.org/issue/44551)
+  - [Design draft](/s/draft-fuzzing-design)
+  - [Proposal](/issue/44551)
 
 ## Glossary {#glossary}
 

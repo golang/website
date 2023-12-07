@@ -69,7 +69,7 @@ func main() {
 
 <div class="slide">
 	<h1>History</h1>
-	
+
 	<h2>Design started in late 2007.</h2>
 	<h2>Implementation starting to work mid-2008.</h2>
 	<h2>Released as an open source project in November 2009.</h2>
@@ -79,7 +79,7 @@ func main() {
 
 <div class="slide">
 	<h1>Goals and Motivation</h1>
-	
+
 	<h2>Go fast!</h2>
 	<h2>Make programming fun again.</h2>
 	<h2>Targeted at systems software, broadly.</h2>
@@ -87,10 +87,10 @@ func main() {
 
 <div class="slide">
 	<h1>Why isn't programming fun?</h1>
-	
+
 	<div class="incremental">
 	<h2>Compiled, statically-typed languages (C, C++, Java) require too much typing and too much typing:</h2>
-	
+
 	<ul>
 		<li>verbose, lots of repetition</li>
 		<li>too much focus on type hierarchy</li>
@@ -98,22 +98,22 @@ func main() {
 		<li>compiles take far too long</li>
 	</ul>
 	</div>
-	
+
 	<div class="incremental">
 	<h2>Dynamic languages (Python, JavaScript) fix these problems (no more types, no more compiler) but introduce others:</h2>
-	
+
 	<ul>
 		<li>errors at run time that should be caught statically</li>
 		<li>no compilation means slow code</li>
 	</ul>
 	</div>
-	
+
 	<h2 class="incremental">Can we combine the best of both?</h2>
 </div>
 
 <div class="slide">
 	<h1>Why a new language?</h1>
-	
+
 	<div class="incremental">
 	<h2>No new systems language in 10+ years.</h2>
 	<h2>Current languages designed before ...</h2>
@@ -121,47 +121,47 @@ func main() {
 	<h3>... rise of Internet-scale distributed development (many libraries)</h3>
 	</div>
 </div>
-	
+
 <div class="slide">
 	<h1>Go</h1>
-	
+
 	<h2>Make the language fast.</h2>
 	<h2>Make the tools fast.</h2>
 </div>
 
 <div class="slide">
 	<h1>Compilation Demo</h1>
-	
+
 	<h2>Build all standard Go packages: ~120,000 lines of code.</h2>
 </div>
 
 <div class="slide">
 	<h1>Go in one slide</h1>
-	
+
 	<h2 class="incremental">Lightweight syntax.</h2>
-	
+
 	<h2 class="incremental">Static types: enough to compile well, but inferred much of the time.</h2>
-	
+
 	<h2 class="incremental">Methods: on any type, orthogonal to type system.</h2>
-	
+
 	<h2 class="incremental">Abstract types: interface values, relations inferred statically.</h2>
-	
+
 	<h2 class="incremental">Visibility: inferred from case of name.</h2>
 
 	<h2 class="incremental">First-class functions.</h2>
-	
+
 	<h2 class="incremental">Garbage collection.</h2>
 
 	<br/>
-	
+
 	<h2 class="incremental">Lightweight feel of a scripting language but compiled.</h2>
 </div>
 
 <div class="slide">
 	<h1>Go, concurrently</h1>
-	
+
 	<h2>Cheap to create a new flow of control (goroutine):</h2>
-	
+
 <pre>
 func main() {
 	go expensiveComputation(x, y, z)
@@ -174,9 +174,9 @@ func main() {
 
 <div class="slide">
 	<h1>Go, concurrently</h1>
-	
+
 	<h2>Cheap to create a new flow of control (goroutine):</h2>
-	
+
 <pre>
 	for {
 		rw := l.Accept()
@@ -195,19 +195,19 @@ func main() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>Use explicit messages to communicate and synchronize.</h2>
-	
+
 <pre>
 func computeAndSend(ch chan int, x, y, z int) {
-	ch <- expensiveComputation(x, y, z)
+	ch &lt;- expensiveComputation(x, y, z)
 }
 
 func main() {
 	ch := make(chan int)
 	go computeAndSend(ch, x, y, z)
 	v2 := anotherExpensiveComputation(a, b, c)
-	v1 := <-ch
+	v1 := &lt;-ch
 	fmt.Println(v1, v2)
 }
 </pre>
@@ -216,25 +216,25 @@ func main() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client</h2>
 
 <pre>
 func (client *Client) Call(method string, args, reply interface{}) os.Error {
     // Send RPC message.
     call := client.Go(method, args, reply, nil)
-	
+
     // Read reply from Done channel.
-    <-call.Done
+    &lt;-call.Done
 
     return call.Error
 }
-</pre>	
+</pre>
 </div>
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -249,7 +249,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)
-		c.Done <- c
+		c.Done &lt;- c
 	}
 }
 </pre>
@@ -257,7 +257,7 @@ func (client *Client) input() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -272,7 +272,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)
-		c.Done <- c
+		c.Done &lt;- c
 	}
 }
 </pre>
@@ -281,7 +281,7 @@ func (client *Client) input() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -296,7 +296,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)
-		c.Done <- c
+		c.Done &lt;- c
 	}
 }
 </pre>
@@ -305,7 +305,7 @@ func (client *Client) input() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -320,7 +320,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)</font>
-		c.Done <- c
+		c.Done &lt;- c
 	}
 }
 </pre>
@@ -329,7 +329,7 @@ func (client *Client) input() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -344,7 +344,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)
-		<font style="color: black;">c.Done <- c</font>
+		<font style="color: black;">c.Done &lt;- c</font>
 	}
 }
 </pre>
@@ -353,7 +353,7 @@ func (client *Client) input() {
 
 <div class="slide">
 	<h1>Go, synchronized</h1>
-	
+
 	<h2>RPC client demux</h2>
 
 <pre>
@@ -368,7 +368,7 @@ func (client *Client) input() {
 			c.Error = os.ErrorString(resp.error)
 		}
 		resp.Decode(c.Reply)
-		c.Done <- c
+		c.Done &lt;- c
 	}
 }
 </pre>
@@ -381,16 +381,16 @@ and distinguish which finished by inspecting value sent on channel.
 
 <div class="slide">
 	<h1>Goroutine demo</h1>
-	
+
 	<h2>Chain together 100,000 goroutines connected by 100,001 channels.</h2>
-	
+
 	<h2>Send a value to one end of the chain.</h2>
-	
+
 	<h2>Each passes it along, increments.</h2>
-	
+
 	<h2>Receive value out the other end of the chain.</h2>
 </div>
-	
+
 
 <div class="slide">
 	<h1>Go Status</h1>
@@ -398,7 +398,7 @@ and distinguish which finished by inspecting value sent on channel.
 
 <div class="slide">
 	<h1>Go Status</h1>
-	
+
 	<h2>Open source:</h2>
 	<ul>
 	<li>released on November 10, 2009
@@ -412,7 +412,7 @@ and distinguish which finished by inspecting value sent on channel.
 
 <div class="slide">
 	<h1>Go Status</h1>
-	
+
 	<h2>Open source</h2>
 
 	<h2>Portable:</h2>
@@ -424,7 +424,7 @@ and distinguish which finished by inspecting value sent on channel.
 
 <div class="slide">
 	<h1>Go Status</h1>
-	
+
 	<h2>Open source</h2>
 	<h2>Portable</h2>
 

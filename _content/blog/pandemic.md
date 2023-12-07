@@ -71,7 +71,7 @@ the [Gophers slack](https://gophers.slack.com)
 ## Online Training
 
 The Go trainers you meet at conferences also travel the globe doing
-[in-person training](https://learn.go.dev/)
+[in-person training](/learn/)
 for companies that want help adopting Go.
 That in-person teaching is crucial to bringing
 new gophers into the community;

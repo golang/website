@@ -404,7 +404,7 @@ Goimports updates import statements based on your workspace.
 
 Most people run these tools on save.
 
-.link http://play.golang.org/p/GPqra77cBK
+.link /play/p/GPqra77cBK go.dev/play/p/GPqra77cBK
 
 * The go tool
 

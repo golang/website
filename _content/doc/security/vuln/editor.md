@@ -1,5 +1,5 @@
 ---
-title: Vulnerability Scanning in IDE
+title: Vulnerability Scanning in IDEs
 layout: article
 ---
 
@@ -18,7 +18,7 @@ There are two modes for detecting vulnerabilities in dependencies. Both are back
 href="https://user-images.githubusercontent.com/4999471/206977512-a821107d-9ffb-4456-9b27-6a6a4f900ba6.mp4">(vulncheck.mp4)</a>
 </div>
 
-These features are available in `gopls` v0.11.0 or newer. Please share your feedback at https://go.dev/s/vsc-vulncheck-feedback.
+These features are available in `gopls` v0.11.0 or newer. Please share your feedback at [go.dev/s/vsc-vulncheck-feedback](/s/vsc-vulncheck-feedback).
 
 ## Editor-specific Instructions
 

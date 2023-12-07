@@ -230,15 +230,7 @@ Is Google using Go internally?</h3>
 
 <p>
 Yes. Go is used widely in production inside Google.
-One easy example is the server behind
-<a href="https://golang.org">golang.org</a>.
-It's just the <a href="/cmd/godoc"><code>godoc</code></a>
-document server running in a production configuration on
-<a href="https://developers.google.com/appengine/">Google App Engine</a>.
-</p>
-
-<p>
-A more significant instance is Google's download server, <code>dl.google.com</code>,
+One example is Google's download server, <code>dl.google.com</code>,
 which delivers Chrome binaries and other large installables such as <code>apt-get</code>
 packages.
 </p>
@@ -1626,7 +1618,7 @@ Do not communicate by sharing memory. Instead, share memory by communicating.
 
 <p>
 See the <a href="/doc/codewalk/sharemem/">Share Memory By Communicating</a> code walk
-and its <a href="/blog/2010/07/share-memory-by-communicating.html">
+and its <a href="/blog/share-memory-by-communicating">
 associated article</a> for a detailed discussion of this concept.
 </p>
 
@@ -1665,7 +1657,7 @@ to speed it up.
 
 <p>
 For more detail on this topic see the talk entitled
-<a href="/blog/2013/01/concurrency-is-not-parallelism.html">Concurrency
+<a href="/blog/concurrency-is-not-parallelism">Concurrency
 is not Parallelism</a>.
 
 <h3 id="number_cpus">
@@ -2506,7 +2498,7 @@ In any case, Go can often be very competitive.
 There has been significant improvement in the performance of many programs
 as the language and tools have developed.
 See the blog post about
-<a href="/blog/2011/06/profiling-go-programs.html">profiling
+<a href="/blog/profiling-go-programs">profiling
 Go programs</a> for an informative example.
 
 <h2 id="change_from_c">Changes from C</h2>
@@ -2695,7 +2687,7 @@ considerable control over memory layout and allocation, much more than
 is typical in garbage-collected languages. A careful programmer can reduce
 the garbage collection overhead dramatically by using the language well;
 see the article about
-<a href="/blog/2011/06/profiling-go-programs.html">profiling
+<a href="/blog/profiling-go-programs">profiling
 Go programs</a> for a worked example, including a demonstration of Go's
 profiling tools.
 </p>

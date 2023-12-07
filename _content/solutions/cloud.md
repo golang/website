@@ -97,7 +97,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
     desc: MercadoLibre uses Go to scale its eCommerce platform. Go produces efficient code that readily scales as MercadoLibre’s online commerce grows. Go improves their productivity while streamlining and expanding MercadoLibre services.
     ctas:
       - text: MercadoLibre & Go
-        url: http://go.dev/solutions/mercadolibre
+        url: /solutions/mercadolibre
   - company: The New York Times
     url: https://www.nytimes.com/
     logoSrc: the-new-york-times-icon.svg

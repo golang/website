@@ -162,7 +162,7 @@ A new type has been added to the `sync` package with proposal [[/issue/18177][#1
 
 * html/template panic on predefined escaper
 
-What do you expect [[https://play.golang.org/p/-z5rZilH1F][this code]] to print?
+What do you expect [[/play/p/-z5rZilH1F][this code]] to print?
 
 .play state-of-go-may/html/main.go /Foo/,
 

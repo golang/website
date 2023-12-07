@@ -162,7 +162,7 @@ _Updating_:
 Since godoc and vet are not part of the library,
 no client Go code depends on their source and no updating is required.
 
-The binary distributions available from [golang.org](https://golang.org)
+The binary distributions available from [golang.org](/)
 include these binaries, so users of these distributions are unaffected.
 
 When building from source, users must use "go get" to install godoc and vet.

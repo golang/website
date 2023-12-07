@@ -134,7 +134,7 @@ _Iterative stability_ is the prevention of cycles of variable performance in suc
 We use CPU profiles to identify hot functions to target with optimizations.
 In theory, a hot function could be sped up so much by PGO that it no longer appears hot in the next profile and does not get optimized, making it slow again.
 The Go compiler takes a conservative approach to PGO optimizations, which we believe prevents significant variance.
-If you do observe this kind of instability, please file an issue at https://go.dev/issue/new.
+If you do observe this kind of instability, please file an issue at [go.dev/issue/new](/issue/new).
 
 Together, source and iterative stability eliminate the requirement for two-stage builds where a first, unoptimized build is profiled as a canary, and then rebuilt with PGO for production (unless absolutely peak performance is required).
 
@@ -190,7 +190,7 @@ This means that the unique way your application uses a dependency impacts the op
 
 It should not.
 While a profile that is not representative of production behavior will result in optimizations in cold parts of the application, it should not make hot parts of the application slower.
-If you encounter a program where PGO results in worse performance than disabling PGO, please file an issue at https://go.dev/issue/new.
+If you encounter a program where PGO results in worse performance than disabling PGO, please file an issue at [go.dev/issue/new](/issue/new).
 
 ## Can I use the same profile for different GOOS/GOARCH builds?
 
@@ -229,11 +229,11 @@ Enabling PGO builds will likely cause measurable increases in package build time
 The most noticeable component of this is that PGO profiles apply to all packages in a binary, meaning that the first use of a profile requires a rebuild of every package in the dependency graph.
 These builds are cached like any other, so subsequent incremental builds using the same profile do not require complete rebuilds.
 
-If you experience extreme increases in build time, please file an issue at https://go.dev/issue/new.
+If you experience extreme increases in build time, please file an issue at [go.dev/issue/new](/issue/new).
 
 _Note: Parsing of the profile by the compiler can also add significant overhead, particularly for large profiles.
 Using large profiles with a large dependency graph can significantly increase build times.
-This is tracked by https://go.dev/issue/58102 and will be addressed in a future release._
+This is tracked by [go.dev/issue/58102](/issue/58102) and will be addressed in a future release._
 
 ## How does PGO affect binary size?
 

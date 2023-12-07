@@ -37,7 +37,7 @@ The tutorial will take you through the following steps:
 ## Create a sample Go module with a vulnerable dependency
 
 **Step 1.** To begin, create a new folder called `vuln-tutorial` and initialize a Go module.
-(If you are new to Go modules, check out https://go.dev/doc/tutorial/create-module).
+(If you are new to Go modules, check out [go.dev/doc/tutorial/create-module](/doc/tutorial/create-module).
 
 For example, from your home directory, run the following:
 

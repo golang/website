@@ -11,7 +11,7 @@ summary: "The Go home page and binary downloads is now available in China, at ht
 
 
 We are thrilled to announce that the content on
-[golang.org](https://golang.org) is now available in mainland China through
+[golang.org](/) is now available in mainland China through
 the name [https://golang.google.cn](https://golang.google.cn).
 The growing Go developer community in China can now directly access official
 documentation, technical articles, and binaries.

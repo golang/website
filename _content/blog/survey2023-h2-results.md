@@ -117,7 +117,7 @@ external research like [Stack Overflow's Developer
 Survey](https://survey.stackoverflow.co/2023/#most-popular-technologies-language-prof)
 (which found 14% of professional developers worked with Go during the past
 year, a roughly 15% year-over-year increase), as well as analytics for
-[go.dev](https://go.dev) (which show an 8% rise in visitors year-over-year).
+[go.dev](/) (which show an 8% rise in visitors year-over-year).
 Combining this growth with a high satisfaction score is evidence that Go
 continues to appeal to developers, and suggests that many developers who
 choose to learn the language feel good about their decision long afterwards.

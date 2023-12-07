@@ -11,7 +11,7 @@ summary: Announcing a new article about debugging Go programs with GDB.
 ---
 
 
-Last year we [reported](/blog/2010/11/debugging-go-code-status-report.html)
+Last year we [reported](/blog/debugging-go-code-status-report)
 that Go's [gc](/cmd/gc/)/[ld](/cmd/6l/)
 toolchain produces DWARFv3 debugging information that can be read by the GNU Debugger (GDB).
 Since then, work has continued steadily on improving support for debugging Go code with GDB.

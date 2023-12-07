@@ -66,7 +66,7 @@ the database in your browser.
 
 We encourage package maintainers to [contribute](#feedback)
 information about public vulnerabilities in their own projects and
-[send us suggestions](https://golang.org/s/vuln-feedback) on how to reduce
+[send us suggestions](/s/vuln-feedback) on how to reduce
 friction.
 
 ### Vulnerability Detection for Go
@@ -96,12 +96,12 @@ See [go.dev/security/vuln/cna](/security/vuln/cna) for more information.
 We would love for you to contribute and help us make improvements in the
 following ways:
 
-- [Contribute new](https://golang.org/s/vulndb-report-new) and
+- [Contribute new](/s/vulndb-report-new) and
   [update existing](/s/vulndb-report-feedback) information about
   public vulnerabilities for Go packages that you maintain
-- [Take this survey](https://golang.org/s/govulncheck-feedback) to share your
+- [Take this survey](/s/govulncheck-feedback) to share your
   experience using govulncheck
-- [Send us feedback](https://golang.org/s/vuln-feedback) about issues and
+- [Send us feedback](/s/vuln-feedback) about issues and
   feature requests
 
 ## FAQs

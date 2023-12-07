@@ -378,7 +378,7 @@ Other changes:
 	make https DumpRequestOut less racy.
 * net/http: add overlooked 418 status code, per RFC 2324,
 	fix ProxyFromEnvironment bug, docs, add tests,
-	make a test more paranoid & reliable on Windows.
+	make a test more paranoid &amp; reliable on Windows.
 * net/rpc: silence read error on closing connection.
 * net: add stubs for NetBSD (thanks Benny Siegert),
 	make -external flag for tests default to true (thanks Mikio Hara),
@@ -615,7 +615,7 @@ Other changes:
 	fix client goroutine leak with persistent connections,
 	fix reference to URL.RawPath in docs (thanks Bjorn Tipling),
 	panic on duplicate registrations,
-	use mtime < t+1s to check for unmodified (thanks Hong Ruiqi).
+	use mtime &lt; t+1s to check for unmodified (thanks Hong Ruiqi).
 * net: avoid Shutdown during Close,
 	avoid TCP self-connect,
 	disable TestDialTimeout on Windows,
@@ -708,7 +708,7 @@ Other changes:
 	diagnose \ in import path,
 	disallow switch _ := v.(type),
 	don't print implicit type on struct literal in export,
-	fix codegen reordering for expressions involving && and ||,
+	fix codegen reordering for expressions involving &amp;&amp; and ||,
 	use octal escapes in mkopnames (thanks Anthony Martin).
 	use original constant expression in error messages (thanks Rémy Oudompheng).
 * cmd/go: add support for release tags via git branches (thanks Gustavo Niemeyer),
@@ -885,7 +885,7 @@ Other changes:
 * 6c, 8c: make floating point code NaN-safe.
 * 6l, 8l: remove unused macro definition (thanks Shenghou Ma).
 * archive/tar: fix race in TestNonSeekable.
-* archive/zip: add functions to convert between os.FileInfo & FileHeader.
+* archive/zip: add functions to convert between os.FileInfo &amp; FileHeader.
 * build: do not build all C compilers (thanks Shenghou Ma),
 	remove code now in subrepositories.
 * bytes: remove dead code, complete documentation,
@@ -1603,7 +1603,7 @@ Other changes:
 * runtime: make sure stack is 16-byte aligned on syscall (thanks Alex Brainman).
 * spec, gc: allow direct conversion between string and named []byte, []rune.
 * sql: add Tx.Stmt to use an existing prepared stmt in a transaction,
-	more driver docs & tests; no functional changes.
+	more driver docs &amp; tests; no functional changes.
 * strings: add ContainsAny and ContainsRune (thanks Scott Lawrence).
 * syscall: add SUSv3 RLIMIT/RUSAGE constants (thanks Sébastien Paolacci),
 	fix openbsd sysctl hostname/domainname workaround,
@@ -2343,7 +2343,7 @@ Other changes:
 	adjustments to filter function.
 	fix ast.MergePackageFiles to collect infos about imports. (thanks Sebastien Binet)
 	generalize ast.FilterFile.
-* go/build: add test support & use in gotest.
+* go/build: add test support &amp; use in gotest.
 	separate test imports out when scanning. (thanks Gustavo Niemeyer)
 * go/parser: fix type switch scoping.
 	fix type switch scoping.
@@ -2692,7 +2692,7 @@ Other changes:
 * json: add omitempty struct tag option,
 	allow using '$' and '-' as the struct field's tag (thanks Mikio Hara),
 	encode \r and \n in strings as e.g. "\n", not "\u000A" (thanks Evan Martin),
-	escape < and > in any JSON string for XSS prevention.
+	escape &lt; and > in any JSON string for XSS prevention.
 * ld: allow seek within write buffer<
 	add a PT_LOAD PHDR entry for the PHDR (thanks David Anderson).
 * net: windows/amd64 port (thanks Wei Guangjing).
