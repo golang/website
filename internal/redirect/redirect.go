@@ -128,6 +128,10 @@ var redirects = map[string]string{
 	"/doc/articles/slices_usage_and_internals.html":  "/blog/go-slices-usage-and-internals",
 	"/doc/go_for_cpp_programmers.html":               "/wiki/GoForCPPProgrammers",
 	"/doc/go_tutorial.html":                          "/tour",
+
+	// These moved.
+	"/testing/":          "/doc/",
+	"/testing/coverage/": "/doc/build-cover",
 }
 
 var newIssueRedirects = [...]string{

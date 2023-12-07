@@ -3,8 +3,6 @@ title: Coverage profiling support for integration tests
 layout: article
 ---
 
-[Back to Go Testing](/testing)
-
 Table of Contents:
 
  [Overview](#overview)\
@@ -230,7 +228,7 @@ $
 
 The "`-pkg`" flag can be used to select the specific subset of packages of interest for a given report.
 
-# 
+#
 
 ## Frequently Asked Questions {#FAQ}
 
@@ -262,19 +260,19 @@ $ go tool covdata percent -i=somedata
 	mydomain.com/greetings	coverage: 100.0% of statements
 	rsc.io/quote	coverage: 25.0% of statements
 	rsc.io/sampler	coverage: 86.7% of statements
-$ 
+$
 ```
 
 #### Can I use `go build -cover` in GO111MODULE=off mode? {#gopathmode}
 
-Yes, `go build -cover` does work with `GO111MODULE=off`. 
+Yes, `go build -cover` does work with `GO111MODULE=off`.
 When building a program in GO111MODULE=off mode, only the package specifically named as the target on the command line will be instrumented for profiling. Use the `-coverpkg` flag to include additional packages in the profile.
 
 #### If my program panics, will coverage data be written? {#panicprof}
 
 Programs built with `go build -cover` will only write out complete profile
 data at the end of execution if the program invokes `os.Exit()` or returns
-normally from `main.main`. 
+normally from `main.main`.
 If a program terminates in an unrecovered panic, or if the program hits a
 fatal exception (such as a segmentation violation, divide by zero, etc),
 profile data from statements executed during the run will be lost.

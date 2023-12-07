@@ -37,6 +37,11 @@ func TestRedirects(t *testing.T) {
 
 		"/cmd/gofix": {301, "/cmd/fix/"},
 
+		"/testing":           {301, "/testing/"},
+		"/testing/":          {301, "/doc/"},
+		"/testing/coverage":  {301, "/testing/coverage/"},
+		"/testing/coverage/": {301, "/doc/build-cover"},
+
 		// git commits (/change)
 		// TODO: mercurial tags and LoadChangeMap.
 		"/change":   {301, "https://go.googlesource.com/go"},
