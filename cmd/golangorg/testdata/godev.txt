@@ -100,3 +100,12 @@ redirect == /play/
 
 GET https://go.dev/play/p/
 redirect == /play/
+
+GET https://go.dev/security
+redirect == /security/
+
+GET https://go.dev/security/
+redirect == /doc/security/
+
+GET https://go.dev/doc/security/
+body contains Security
