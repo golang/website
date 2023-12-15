@@ -30,8 +30,8 @@
   <!-- End Google Tag Manager -->
 <script src="/js/site.js"></script>
 <meta name="og:url" content="https://go.dev{{.URL}}">
-<meta name="og:title" content="{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}">
-<title>{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}</title>
+<meta name="og:title" content="{{if strings.HasPrefix .URL "/wiki/"}}Go Wiki: {{end}}{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}">
+<title>{{if strings.HasPrefix .URL "/wiki/"}}Go Wiki: {{end}}{{.title}}{{if ne .URL "/"}} - The Go Programming Language{{end}}</title>
 {{if .summary}}
 <meta name="og:description" content="{{.summary}}">
 <meta name="description" content="{{.summary}}">
