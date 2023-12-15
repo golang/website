@@ -19,7 +19,7 @@ steps:
   - name: golang
     args: ["rm", "-rf", "_wikitmp/.git"]
   - name: golang
-    args: ["cp", "-a", "_wikitmp/*", "_content/wiki"]
+    args: ["sh", "-c", "cp -a _wikitmp/* _content/wiki"]
   # Run tests.
   - name: golang
     args: ["go", "test", "./..."]
