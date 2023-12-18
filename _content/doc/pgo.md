@@ -263,4 +263,4 @@ Profiles from alternative source may be used with Go PGO if converted to the [pp
 
 _Note: Before Go 1.21, DWARF metadata omits function start lines (`DW_AT_decl_line`), which may make it difficult for tools to determine the start line._
 
-See the [PGO Tools](https://github.com/golang/go/wiki/PGO-Tools) page on the Go Wiki for additional information about PGO compatibility of specific third-party tools.
+See the [PGO Tools](/wiki/PGO-Tools) page on the Go Wiki for additional information about PGO compatibility of specific third-party tools.

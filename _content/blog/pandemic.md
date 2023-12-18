@@ -35,7 +35,7 @@ We had anticipated 35 conferences this year
 and thousands of meetups, nearly all of which have
 now changed, been postponed, or been canceled.
 We’ll keep the
-[conferences wiki page](https://github.com/golang/go/wiki/Conferences)
+[conferences wiki page](/wiki/Conferences)
 updated as plans change.
 
 We want to do everything we can to help support impacted Go conferences.

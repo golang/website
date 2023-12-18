@@ -42,7 +42,7 @@ We are excited about all of our new gophers and actively working to improve our 
 It’s hard to believe that it’s only been five years since
 the first Go conferences and Go meetups.
 We’ve seen major growth in this area of community leadership over the last year.
-There are now over 20 [Go conferences](https://github.com/golang/go/wiki/Conferences)
+There are now over 20 [Go conferences](/wiki/Conferences)
 and over 300 [Go-related meetups](https://www.meetup.com/topics/golang/) spanning the globe.
 
 Thanks to the hard work put into these many conferences and meetups,

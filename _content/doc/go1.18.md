@@ -503,7 +503,7 @@ than before. In some cases, pre-Go 1.18 error messages provided more
 detail or were phrased in a more helpful way.
 We intend to address these cases in Go 1.19.
 
-<!-- https://github.com/golang/go/issues/49569 -->
+<!-- /issue/49569 -->
 Because of changes in the compiler related to supporting generics, the
 Go 1.18 compile speed can be roughly 15% slower than the Go 1.17 compile speed.
 The execution time of the compiled code is not affected. We

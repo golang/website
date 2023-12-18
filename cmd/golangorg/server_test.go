@@ -288,6 +288,17 @@ func fixURL(u *url.URL) string {
 		u.Scheme = ""
 		u.Path = "/" + name + u.Path
 		return u.String()
+	case "github.com":
+		if strings.HasPrefix(u.Path, "/golang/go/issues/") {
+			u.Host = "go.dev"
+			u.Path = "/issue/" + strings.TrimPrefix(u.Path, "/golang/go/issues/")
+			return u.String()
+		}
+		if strings.HasPrefix(u.Path, "/golang/go/wiki/") {
+			u.Host = "go.dev"
+			u.Path = "/wiki/" + strings.TrimPrefix(u.Path, "/golang/go/wiki/")
+			return u.String()
+		}
 	}
 	return ""
 }

@@ -154,7 +154,7 @@ and improved handling of issues and code changes in the future.
 
 The tools breakout session during the contributor summit took an extended form,
 with two further sessions on the main conference days organized by the
-[golang-tools](https://github.com/golang/go/wiki/golang-tools) group.
+[golang-tools](/wiki/golang-tools) group.
 This summary is broken down into two parts: the tools session at the contributor workshop,
 and a combined report from the golang-tools sessions on the main conference days.
 

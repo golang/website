@@ -81,7 +81,7 @@ And, of course, there are many more additions, improvements, and fixes.
 You can find them all in the comprehensive [release notes](/doc/go1.6).
 
 To celebrate the release,
-[Go User Groups around the world](https://github.com/golang/go/wiki/Go-1.6-release-party)
+[Go User Groups around the world](/wiki/Go-1.6-release-party)
 are holding release parties on the 17th of February.
 Online, the Go contributors are hosting a question and answer session
 on the [golang subreddit](https://reddit.com/r/golang) for the next 24 hours.

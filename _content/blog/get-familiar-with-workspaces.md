@@ -241,7 +241,7 @@ documentation](https://pkg.go.dev/golang.org/x/tools/gopls#readme-editors).
 -  Try using [workspaces](/ref/mod#workspaces) with the [Go
     workspaces Tutorial](/doc/tutorial/workspaces).
 -  If you encounter any problems with workspaces, or want to suggest
-    something, file an [issue](https://github.com/golang/go/issues/new/choose).
+    something, file an [issue](/issue/new).
 -  Read the
     [workspace maintenance documentation](https://pkg.go.dev/cmd/go#hdr-Workspace_maintenance).
 -  Explore module commands for [working outside of a single

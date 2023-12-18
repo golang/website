@@ -52,7 +52,7 @@ more, see [Freeing resources](#free_resources).
 ### Locating and importing a database driver {#database_driver}
 
 You'll need a database driver that supports the DBMS you're using. To locate
-a driver for your database, see [SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers).
+a driver for your database, see [SQLDrivers](/wiki/SQLDrivers).
 
 To make the driver available to your code, you import it as you would
 another Go package. Here's an example:

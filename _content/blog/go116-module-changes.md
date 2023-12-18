@@ -29,7 +29,7 @@ Note that you can set `GO111MODULE` and other variables permanently with `go env
 We plan to drop support for GOPATH mode in Go 1.17.
 In other words, Go 1.17 will ignore `GO111MODULE`.
 If you have projects that do not build in module-aware mode, now is the time to migrate.
-If there is a problem preventing you from migrating, please consider filing an [issue](https://github.com/golang/go/issues/new) or an [experience report](https://github.com/golang/go/wiki/ExperienceReports).
+If there is a problem preventing you from migrating, please consider filing an [issue](/issue/new) or an [experience report](/wiki/ExperienceReports).
 
 ## No automatic changes to go.mod and go.sum
 
@@ -135,5 +135,5 @@ See [Controlling version control tools with `GOVCS`](/ref/mod#vcs-govcs) for mor
 
 ## What's next?
 
-We hope you find these features useful. We're already hard at work on the next set of module features for Go 1.17, particularly [lazy module loading](https://github.com/golang/go/issues/36460), which should make the module loading process faster and more stable.
+We hope you find these features useful. We're already hard at work on the next set of module features for Go 1.17, particularly [lazy module loading](/issue/36460), which should make the module loading process faster and more stable.
 As always, if you run into new bugs, please let us know on the [issue tracker](https://github.com/golang/go/issues). Happy coding!

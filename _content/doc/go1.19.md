@@ -26,7 +26,7 @@ We expect almost all Go programs to continue to compile and run as before.
 
 <!-- https://go.dev/issue/52038 -->
 There is only one small change to the language,
-a [very small correction](https://github.com/golang/go/issues/52038)
+a [very small correction](/issue/52038)
 to the [scope of type parameters in method declarations](/ref/spec#Declarations_and_scope).
 Existing programs are unaffected.
 

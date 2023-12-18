@@ -83,5 +83,5 @@ or some other combination.
 
 The next target we’d like to add support for is ARM64 Windows 10 systems.
 If you have expertise and would like to help,
-we’re coordinating work on [golang.org/issue/36439](https://github.com/golang/go/issues/36439).
+we’re coordinating work on [golang.org/issue/36439](/issue/36439).
 

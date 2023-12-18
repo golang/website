@@ -86,7 +86,7 @@ issues that would already be caught by an existing test.
 Note that it is up to you to decide how long to run fuzzing. It is very possible
 that an execution of fuzzing could run indefinitely if it doesn't find any errors.
 There will be support to run these fuzz tests continuously using tools like OSS-Fuzz
-in the future, see [Issue #50192](https://github.com/golang/go/issues/50192).
+in the future, see [Issue #50192](/issue/50192).
 
 **Note:** Fuzzing should be run on a platform that supports coverage
 instrumentation (currently AMD64 and ARM64) so that the corpus can meaningfully
@@ -334,7 +334,7 @@ by an attacker.
 ## Feedback
 
 If you experience any problems or have an idea for a feature, please [file an
-issue](https://github.com/golang/go/issues/new?&labels=fuzz).
+issue](/issue/new?&labels=fuzz).
 
 For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in

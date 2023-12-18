@@ -1052,6 +1052,6 @@ or unimportant in production code, and that our current implementation covers a 
 majority of all useful code scenarios.
 
 That said, if you run into a situation where you believe type inference should work or
-went astray, please [file an issue](https://github.com/golang/go/issues/new/choose)!
+went astray, please [file an issue](/issue/new)!
 As always, the Go team loves to hear from you, especially when it helps us making Go
 even better.

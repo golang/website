@@ -238,4 +238,4 @@ $ go install golang.org/x/tools/gopls@latest
 
 Please try it out and fill out the [survey](https://google.qualtrics.com/jfe/form/SV_4SnGxpcSKN33WZw?s=blog) ---
 and if you should encounter a bug,
-[report it](https://github.com/golang/go/issues/new/choose) and we will fix it.
+[report it](/issue/new) and we will fix it.

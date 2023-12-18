@@ -205,7 +205,7 @@ If `go vet` is reporting this kind of problem in your own tests,
 fixing them will prepare you better for Go 1.22.
 
 If you run into other problems,
-[the FAQ](https://github.com/golang/go/wiki/LoopvarExperiment#my-test-fails-with-the-change-how-can-i-debug-it)
+[the FAQ](/wiki/LoopvarExperiment#my-test-fails-with-the-change-how-can-i-debug-it)
 has links to examples and details about using a tool we’ve written to identify
 which specific loop is causing a test failure when the new semantics are applied.
 

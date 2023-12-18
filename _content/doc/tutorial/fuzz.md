@@ -730,10 +730,10 @@ Nicely done! You've just introduced yourself to fuzzing in Go.
 
 The next step is to choose a function in your code that you'd like to fuzz, and
 try it out! If fuzzing finds a bug in your code, consider adding it to the
-[trophy case](https://github.com/golang/go/wiki/Fuzzing-trophy-case).
+[trophy case](/wiki/Fuzzing-trophy-case).
 
 If you experience any problems or have an idea for a feature, [file an
-issue](https://github.com/golang/go/issues/new/?&labels=fuzz).
+issue](/issue/new/?&labels=fuzz).
 
 For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in

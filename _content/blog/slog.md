@@ -273,7 +273,7 @@ process. Your contributions improved `slog` immensely.
 The [documentation](https://pkg.go.dev/log/slog) for the `log/slog` package
 explains how to use it and provides several examples.
 
-The [wiki page](https://github.com/golang/go/wiki/Resources-for-slog) has
+The [wiki page](/wiki/Resources-for-slog) has
 additional resources provided by the Go community, including a variety of
 handlers.
 

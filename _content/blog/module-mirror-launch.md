@@ -141,5 +141,5 @@ newest modules that people are using.
 ## Feedback or bugs
 
 We hope these services improve your experience with modules, and encourage you
-to [file issues](https://github.com/golang/go/issues/new?title=proxy.golang.org) if you run into
+to [file issues](/issue/new?title=proxy.golang.org) if you run into
 problems or have feedback!

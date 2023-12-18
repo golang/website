@@ -42,7 +42,7 @@ main:
         external: true
       - name: Conferences
         explanation: Learn and network with Go developers from around the world
-        url: https://github.com/golang/go/wiki/Conferences
+        url: /wiki/Conferences
         external: true
       - name: Go blog
         explanation: The Go project's official blog.

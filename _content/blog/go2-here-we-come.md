@@ -95,7 +95,7 @@ community have a chance to experiment with the new features and collect
 further feedback.
 
 5. _Launch decision_. At the end of the three month
-[development cycle](https://github.com/golang/go/wiki/Go-Release-Cycle)
+[development cycle](/wiki/Go-Release-Cycle)
 (just when starting the three month repo freeze before a release), and
 based on the experience and feedback gathered during the release cycle,
 the Go team makes the final decision about whether to ship each change.
@@ -152,14 +152,14 @@ breaking existing code, and thus they serve as a perfect trial balloon.
 With all that said, we propose the following selection of Go 2 proposals for
 the Go 1.13 release (step 1 in the proposal evaluation process):
 
-1. [_\#20706_](https://github.com/golang/go/issues/20706) _General Unicode identifiers based on_ [_Unicode TR31_](http://unicode.org/reports/tr31/):
+1. [_\#20706_](/issue/20706) _General Unicode identifiers based on_ [_Unicode TR31_](http://unicode.org/reports/tr31/):
 This addresses an important issue for Go programmers using non-Western alphabets
 and should have little if any impact on anyone else. There are normalization
 questions which we need to answer and where community feedback will be
 important, but after that the implementation path is well understood.
 Note that identifier export rules will not be affected by this.
 
-2. [_\#19308_](https://github.com/golang/go/issues/19308), [_\#28493_](https://github.com/golang/go/issues/28493) _Binary integer literals and support for \_ in number literals_:
+2. [_\#19308_](/issue/19308), [_\#28493_](/issue/28493) _Binary integer literals and support for \_ in number literals_:
 These are relatively minor changes that seem hugely popular among many
 programmers. They may not quite reach the threshold of solving an
 “important issue” (hexadecimal numbers have worked well so far) but they
@@ -168,7 +168,7 @@ a pain point for some programmers. They have minimal impact on others who
 don’t care about binary integer literals or number formatting, and the
 implementation is well understood.
 
-3. [_\#19113_](https://github.com/golang/go/issues/19113) _Permit signed integers as shift counts_:
+3. [_\#19113_](/issue/19113) _Permit signed integers as shift counts_:
 An estimated 38% of all non-constant shifts require an (artificial) uint
 conversion (see the issue for a more detailed break-down). This proposal
 will clean up a lot of code, get shift expressions better in sync with index

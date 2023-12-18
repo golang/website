@@ -45,7 +45,7 @@ Go 1.8 includes many more additions, improvements, and fixes.
 Find the complete set of changes, and more information about the improvements listed above, in the
 [Go 1.8 release notes](/doc/go1.8.html).
 
-To celebrate the release, Go User Groups around the world are holding [release parties](https://github.com/golang/go/wiki/Go-1.8-release-party) this week.
+To celebrate the release, Go User Groups around the world are holding [release parties](/wiki/Go-1.8-release-party) this week.
 Release parties have become a tradition in the Go community, so if you missed out this time, keep an eye out when 1.9 nears.
 
 Thank you to over 200 contributors who helped with this release.

@@ -89,7 +89,7 @@
         document.querySelectorAll('.js-searchForm input')
       ).pop();
       // Favoring the Firefox quick find feature over search input
-      // focus. See: https://github.com/golang/go/issues/41093.
+      // focus. See: go.dev/issue/41093.
       if (searchInput && !window.navigator.userAgent.includes('Firefox')) {
         e.preventDefault();
         searchInput.focus();

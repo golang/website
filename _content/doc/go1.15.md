@@ -263,7 +263,7 @@ Go 1.15 adds a `-spectre` flag to both the
 compiler and the assembler, to allow enabling Spectre mitigations.
 These should almost never be needed and are provided mainly as a
 “defense in depth” mechanism.
-See the [Spectre wiki page](https://github.com/golang/go/wiki/Spectre) for details.
+See the [Spectre wiki page](/wiki/Spectre) for details.
 
 <!-- CL 228578 -->
 The compiler now rejects `//go:` compiler directives that
