@@ -81,7 +81,6 @@ func (h server) listHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 // toolchainList serves the toolchain module version list.
-// We only list the stable releases, even though older releases are available as well.
 func (h server) toolchainList(w http.ResponseWriter, r *http.Request) {
 	d, err := h.listData(r.Context())
 	if err != nil {
@@ -91,22 +90,24 @@ func (h server) toolchainList(w http.ResponseWriter, r *http.Request) {
 	}
 
 	var buf bytes.Buffer
-	for _, r := range d.Stable {
-		for _, f := range r.Files {
-			if f.Kind != "archive" {
-				continue
+	for _, l := range [][]Release{d.Stable, d.Unstable, d.Archive} {
+		for _, r := range l {
+			for _, f := range r.Files {
+				if f.Kind != "archive" || f.Arch == "bootstrap" {
+					continue
+				}
+				buf.WriteString("v0.0.1-")
+				buf.WriteString(f.Version)
+				buf.WriteString(".")
+				buf.WriteString(f.OS)
+				buf.WriteString("-")
+				arch := f.Arch
+				if arch == "armv6l" {
+					arch = "arm"
+				}
+				buf.WriteString(arch)
+				buf.WriteString("\n")
 			}
-			buf.WriteString("v0.0.1-")
-			buf.WriteString(f.Version)
-			buf.WriteString(".")
-			buf.WriteString(f.OS)
-			buf.WriteString("-")
-			arch := f.Arch
-			if arch == "armv6l" {
-				arch = "arm"
-			}
-			buf.WriteString(arch)
-			buf.WriteString("\n")
 		}
 	}
 	w.Write(buf.Bytes())

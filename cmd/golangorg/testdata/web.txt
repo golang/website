@@ -441,6 +441,11 @@ body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.darwin-arm64$
 body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.darwin-amd64$
 body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.linux-386$
 body ~ (?m)^v0\.0\.1-go1\.\d+\.\d+.windows-amd64$
+body ~ (?m)^v0\.0\.1-go1\.\d+rc\d+\.darwin-arm64$
+body ~ (?m)^v0\.0\.1-go1\.\d+rc\d+\.darwin-amd64$
+body ~ (?m)^v0\.0\.1-go1\.\d+rc\d+\.linux-386$
+body ~ (?m)^v0\.0\.1-go1\.\d+rc\d+\.windows-amd64$
+body !contains bootstrap
 
 GET https://go.dev/ref
 redirect == /doc/#references
