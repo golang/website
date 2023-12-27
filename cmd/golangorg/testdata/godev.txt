@@ -111,7 +111,7 @@ GET https://go.dev/doc/security/
 body contains Security
 
 GET https://go.dev/wiki/
-body contains Go Wiki: Index
+body contains Go Wiki: Home
 body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 
 GET https://go.dev/wiki/Comments

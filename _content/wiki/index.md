@@ -1,5 +1,5 @@
 ---
-title: Index
+title: Home
 ---
 
 The Wiki is still loading...
