@@ -116,8 +116,8 @@ compatible with previous versions.
   the corresponding release versions. For example, `v1.2.3-pre` comes before
   `v1.2.3`.
 * The build metadata suffix is ignored for the purpose of comparing versions.
-  Tags with build metadata are ignored in version control repositories, but
-  build metadata is preserved in versions specified in `go.mod` files. The
+  The go command accepts versions with build metadata and converts them to
+  pseudo-versions to maintain the total ordering between versions. The special
   suffix `+incompatible` denotes a version released before migrating to modules
   version major version 2 or later (see [Compatibility with non-module
   repositories](#non-module-compat)).
