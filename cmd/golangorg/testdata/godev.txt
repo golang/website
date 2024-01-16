@@ -49,6 +49,12 @@ body contains Sorry, but shared playground snippets are not visible in China.
 body !contains The Go Playground
 body !contains About the Playground
 
+POST https://golang.google.cn/_/share
+code == 404
+
+GET https://golang.google.cn/_/share?id=asdfasdf
+code == 404
+
 GET https://golang.google.cn/play/p/asdfasdf.go
 code == 500
 body contains Sorry, but shared playground snippets are not visible in China.
