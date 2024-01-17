@@ -869,6 +869,9 @@ h1 + h2.subtitle {
   padding: 0.5rem 1.75rem;
   border-radius: 4px;
 }
+.Article img {
+  max-width: 100%;
+}
 .CopyPaste {
   display: flex;
   align-items: center;
