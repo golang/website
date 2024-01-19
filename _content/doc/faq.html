@@ -10,7 +10,7 @@
 What is the purpose of the project?</h3>
 
 <p>
-At the time of Go's inception, only a decade ago, the programming world was different from today.
+At the time of Go's inception in 2007 the programming world was different from today.
 Production software was usually written in C++ or Java,
 GitHub did not exist, most computers were not yet multiprocessors,
 and other than Visual Studio and Eclipse there were few IDEs or other high-level tools available
@@ -18,8 +18,9 @@ at all, let alone for free on the Internet.
 </p>
 
 <p>
-Meanwhile, we had become frustrated by the undue complexity required to use
-the languages we worked with to develop server software.
+Meanwhile, we had become frustrated by the undue complexity required
+to build large software projects with
+the languages we were using and their associated build systems.
 Computers had become enormously quicker since languages such as
 C, C++ and Java were first developed but the act of programming had not
 itself advanced nearly as much.
@@ -119,7 +120,7 @@ originally <i>golang.org</i>.
 (There was no <i>.dev</i> domain then.)
 Many use the golang name, though, and it is handy as
 a label.
-For instance, the Twitter tag for the language is "#golang".
+For instance, the social media tag for the language is "#golang".
 The language's name is just plain Go, regardless.
 </p>
 
@@ -156,13 +157,16 @@ an active, almost mainstream field again.
 Go addressed these issues by attempting to combine the ease of programming of an interpreted,
 dynamically typed
 language with the efficiency and safety of a statically typed, compiled language.
-It also aimed to be modern, with support for networked and multicore
-computing.  Finally, working with Go is intended to be <i>fast</i>: it should take
+It also aimed to be better adapted to current hardware, with support for networked and multicore
+computing.
+Finally, working with Go is intended to be <i>fast</i>: it should take
 at most a few seconds to build a large executable on a single computer.
-To meet these goals required addressing a number of
-linguistic issues: an expressive but lightweight type system;
-concurrency and garbage collection; rigid dependency specification;
-and so on.  These cannot be addressed well by libraries or tools; a new
+Meeting these goals led us to rethink some of the programming approaches
+from our current languages, leading to:
+a compositional rather than hierarchical type system;
+support for concurrency and garbage collection; rigid specification of dependencies;
+and so on.
+These cannot be handled well by libraries or tools; a new
 language was called for.
 </p>
 
@@ -214,7 +218,7 @@ simple type derivation using the <code>:=</code>
 declare-and-initialize construct.  And perhaps most radically, there
 is no type hierarchy: types just <i>are</i>, they don't have to
 announce their relationships.  These simplifications allow Go to be
-expressive yet comprehensible without sacrificing, well, sophistication.
+expressive yet comprehensible without sacrificing productivity.
 </p>
 <p>
 Another important principle is to keep the concepts orthogonal.
@@ -241,6 +245,7 @@ for a number of areas including
 <a href="/talks/2013/go-sreops.slide">site reliability
 engineering (SRE)</a>
 and large-scale data processing.
+It is also a key part of the software that runs Google Cloud.
 </p>
 
 <h3 id="external_usage">
@@ -255,14 +260,18 @@ but there are many more.
 </p>
 
 <p>
-It's not just cloud, though.
-The Go Wiki includes a
+It's not just cloud, though, as you can see from the list of
+companies on the
+<a href="/">go.dev web site</a>
+along with some
+<a href="/solutions/case-studies">success stories</a>.
+Also, the Go Wiki includes a
 <a href="/wiki/GoUsers">page</a>,
 updated regularly, that lists some of the many companies using Go.
 </p>
 
 <p>
-The Wiki also has a page with links to
+The Wiki also has a page with links to more
 <a href="/wiki/SuccessStories">success stories</a>
 about companies and projects that are using the language.
 </p>
@@ -283,11 +292,13 @@ pure Go code, so do so with care.
 <p>
 If you do need to use C with Go, how to proceed depends on the Go
 compiler implementation.
-There are three Go compiler implementations supported by the
-Go team.
-These are <code>gc</code>, the default compiler,
-<code>gccgo</code>, which uses the GCC back end,
-and a somewhat less mature <code>gollvm</code>, which uses the LLVM infrastructure.
+The "standard" compiler, part of the Go toolchain supported by the
+Go team at Google, is called <code>gc</code>.
+In addition, there are also a GCC-based compiler (<code>gccgo</code>) and
+an LLVM-based compiler (<code>gollvm</code),
+as well as a growing list of unusual ones serving different purposes,
+sometimes implementing language subsets,
+such as <a href="https://tinygo.org/">TinyGo</a>.
 </p>
 
 <p>
@@ -300,8 +311,8 @@ SWIG extends this capability to C++ libraries.
 </p>
 
 <p>
-You can also use <code>cgo</code> and SWIG with <code>Gccgo</code> and <code>gollvm</code>.
-Since they use a traditional API, it's also possible, with great care,
+You can also use <code>cgo</code> and SWIG with <code>gccgo</code> and <code>gollvm</code>.
+Since they use a traditional ABI, it's also possible, with great care,
 to link code from these compilers directly with GCC/LLVM-compiled C or C++ programs.
 However, doing so safely requires an understanding of the calling conventions for
 all languages concerned, as well as concern for stack limits when calling C or C++
@@ -319,9 +330,15 @@ either directly or through a plugin.
 </p>
 
 <p>
-The list of well-known IDEs and editors that have good Go support
-available includes Emacs, Vim, VSCode, Atom, Eclipse, Sublime, IntelliJ
-(through a custom variant called Goland), and many more.
+The Go team also supports a Go language server for the LSP protocol, called
+<a href="https://pkg.go.dev/golang.org/x/tools/gopls#section-readme"><code>gopls</code></a>.
+Tools that support LSP can use <code>gopls</code> to integrate language-specific support.
+</p>
+
+<p>
+The list of well-known IDEs and editors that offer good Go support
+includes Emacs, Vim, VSCode, Atom, Eclipse, Sublime, IntelliJ
+(through a custom variant called GoLand), and many more.
 Chances are your favorite environment is a productive one for
 programming in Go.
 </p>
@@ -335,27 +352,15 @@ It is available at
 <a href="https://github.com/golang/protobuf">github.com/golang/protobuf/</a>.
 </p>
 
-
-<h3 id="Can_I_translate_the_Go_home_page">
-Can I translate the Go home page into another language?</h3>
-
-<p>
-Absolutely. We encourage developers to make Go Language sites in their own languages.
-However, if you choose to add the Google logo or branding to your site
-(it does not appear on <a href="/">golang.org</a>),
-you will need to abide by the guidelines at
-<a href="https://www.google.com/permissions/guidelines.html">www.google.com/permissions/guidelines.html</a>
-</p>
-
 <h2 id="Design">Design</h2>
 
 <h3 id="runtime">
 Does Go have a runtime?</h3>
 
 <p>
-Go does have an extensive library, called the <em>runtime</em>,
+Go has an extensive runtime library, often just called the <em>runtime</em>,
 that is part of every Go program.
-The runtime library implements garbage collection, concurrency,
+This library implements garbage collection, concurrency,
 stack management, and other critical features of the Go language.
 Although it is more central to the language, Go's runtime is analogous
 to <code>libc</code>, the C library.
@@ -600,6 +605,10 @@ it is safe for them to access the map concurrently without synchronization.
 As an aid to correct map use, some implementations of the language
 contain a special check that automatically reports at run time when a map is modified
 unsafely by concurrent execution.
+Also there is a type in the sync library called
+<a href="https://pkg.go.dev/sync#Map"><code>sync.Map</code></a> that works
+well for certain usage patterns such as static caches, although it is not
+suitable as a general replacement for the builtin map type.
 </p>
 
 <h3 id="language_changes">
@@ -735,7 +744,7 @@ requirement.  Again, things are simpler without it.
 Why doesn't Go have "implements" declarations?</h3>
 
 <p>
-A Go type satisfies an interface by implementing the methods of that interface,
+A Go type implements an interface by implementing the methods of that interface,
 nothing more.  This property allows interfaces to be defined and used without
 needing to modify existing code.  It enables a kind of
 <a href="https://en.wikipedia.org/wiki/Structural_type_system">structural typing</a> that
@@ -874,9 +883,7 @@ interface satisfaction very easy to state: are the function's names
 and signatures exactly those of the interface?
 Go's rule is also easy to implement efficiently.
 We feel these benefits offset the lack of
-automatic type promotion. Should Go one day adopt some form of polymorphic
-typing, we expect there would be a way to express the idea of these
-examples and also have them be statically checked.
+automatic type promotion.
 </p>
 
 <h3 id="convert_slice_of_interface">
@@ -1088,7 +1095,7 @@ The convenience of automatic conversion between numeric types in C is
 outweighed by the confusion it causes.  When is an expression unsigned?
 How big is the value?  Does it overflow?  Is the result portable, independent
 of the machine on which it executes?
-It also complicates the compiler; &ldquo;the usual arithmetic conversions&rdquo;
+It also complicates the compiler; C's &ldquo;usual arithmetic conversions&rdquo;
 are not easy to implement and inconsistent across architectures.
 For reasons of portability, we decided to make things clear and straightforward
 at the cost of some explicit conversions in the code.
@@ -1114,7 +1121,7 @@ Literal constants such as <code>23</code>, <code>3.14159</code>
 and <a href="/pkg/math/#pkg-constants"><code>math.Pi</code></a>
 occupy a sort of ideal number space, with arbitrary precision and
 no overflow or underflow.
-For instance, the value of <code>math.Pi</code> is specified to 63 places
+For instance, the value of <code>math.Pi</code> is specified to 63 decimal digits
 in the source code, and constant expressions involving the value keep
 precision beyond what a <code>float64</code> could hold.
 Only when the constant or constant expression is assigned to a
@@ -1170,8 +1177,7 @@ equality of slices should mean, it was simpler to leave it out for now.
 </p>
 
 <p>
-In Go 1, unlike prior releases, equality is defined for structs and arrays, so such
-types can be used as map keys. Slices still do not have a definition of equality, though.
+Equality is defined for structs and arrays, so they can be used as map keys.
 </p>
 
 <h3 id="references">
@@ -1194,26 +1200,31 @@ productive, comfortable language when it was introduced.
 How are libraries documented?</h3>
 
 <p>
-There is a program, <code>godoc</code>, written in Go, that extracts
-package documentation from the source code and serves it as a web
-page with links to declarations, files, and so on.
-An instance is running at
-<a href="/pkg/">golang.org/pkg/</a>.
-In fact, <code>godoc</code> implements the full site at
-<a href="/">golang.org/</a>.
-</p>
-
-<p>
-A <code>godoc</code> instance may be configured to provide rich,
-interactive static analyses of symbols in the programs it displays; details are
-listed <a href="/lib/godoc/analysis/help.html">here</a>.
-</p>
-
-<p>
 For access to documentation from the command line, the
 <a href="/pkg/cmd/go/">go</a> tool has a
 <a href="/pkg/cmd/go/#hdr-Show_documentation_for_package_or_symbol">doc</a>
-subcommand that provides a textual interface to the same information.
+subcommand that provides a textual interface to the documentation
+for declarations, files, packages and so on.
+</p>
+
+<p>
+The global package discovery page
+<a href="/pkg/">pkg.go.dev/pkg/</a>.
+runs a server that extracts package documentation from Go source code
+anywhere on the web
+and serves it as HTML with links to the declarations and related elements.
+It is the easiest way to learn about existing Go libraries.
+</p>
+
+<p>
+In the early days of the project, there was a similar program, <code>godoc</code>,
+that could also be run to extract documentation for files on the local machine;
+<a href="/pkg/">pkg.go.dev/pkg/</a> is essentially a descendant.
+Another descendant is the
+<a href="https://pkg.go.dev/golang.org/x/pkgsite/cmd/pkgsite"><code>pkgsite</code></a>
+command that, like <code>godoc</code>, can be run locally, although
+it is not yet integrated into
+the results shown by <code>go</code> <code>doc</code>.
 </p>
 
 <h3 id="Is_there_a_Go_programming_style_guide">
@@ -1465,15 +1476,15 @@ of passing a value), so changes it makes will be invisible to the caller.
 </p>
 
 <p>
-By the way, in Java method receivers are always pointers,
+By the way, in Java method receivers have always been pointers,
 although their pointer nature is somewhat disguised
-(and there is a proposal to add value receivers to the language).
+(and recent developments are bringing value receivers to Java).
 It is the value receivers in Go that are unusual.
 </p>
 
 <p>
 Second is the consideration of efficiency. If the receiver is large,
-a big <code>struct</code> for instance, it will be much cheaper to
+a big <code>struct</code> for instance, it may be cheaper to
 use a pointer receiver.
 </p>
 
@@ -1688,10 +1699,11 @@ in system calls.
 </p>
 
 <p>
-Go's goroutine scheduler is not as good as it needs to be, although it
-has improved over time.
-In the future, it may better optimize its use of OS threads.
-For now, if there are performance issues,
+Go's goroutine scheduler does well at balancing goroutines
+and threads, and can even preempt execution of a goroutine
+to make sure others on the same thread are not starved.
+However, it is not perfect.
+If you see performance issues,
 setting <code>GOMAXPROCS</code> on a per-application basis may help.
 </p>
 
@@ -1796,7 +1808,9 @@ This is almost never the desired behavior.
 What happens with closures running as goroutines?</h3>
 
 <p>
-Some confusion may arise when using closures with concurrency.
+Due to the way loop variables work, before Go version 1.22 (see
+the end of this section for an update),
+some confusion could arise when using closures with concurrency.
 Consider the following program:
 </p>
 
@@ -1868,9 +1882,9 @@ seem odd but works fine in Go:
 
 <p>
 This behavior of the language, not defining a new variable for
-each iteration, may have been a mistake in retrospect.
-It may be addressed in a later version but, for compatibility,
-cannot change in Go version 1.
+each iteration, was considered a mistake in retrospect,
+and has been addressed in <a href="/wiki/LoopvarExperiment">Go 1.22</a>, which
+does indeed create a new variable for each iteration, eliminating this issue.
 </p>
 
 <h2 id="Control_flow">Control flow</h2>
@@ -1921,16 +1935,16 @@ How are generics implemented in Go?</h3>
 
 <p>
 The compiler can choose whether to compile each instantiation
-separately or whether to compile reasonably similar instantiations as
+separately or whether to compile similar instantiations as
 a single implementation.
 The single implementation approach is similar to a function with an
 interface parameter.
 Different compilers will make different choices for different cases.
-The standard Go 1.18 compiler ordinarily emits a single instantiation
+The standard Go compiler ordinarily emits a single instantiation
 for every type argument with the same shape, where the shape is
 determined by properties of the type such as the size and the location
 of pointers that it contains.
-Future releases will experiment with the tradeoff between compile
+Future releases may experiment with the tradeoff between compile
 time, run-time efficiency, and code size.
 </p>
 
@@ -2003,7 +2017,9 @@ In Go type arguments implicitly satisfy constraints, just as Go types
 implicitly implement interface types.
 The Rust standard library defines standard traits for operations such as
 comparison or addition; the Go standard library does not, as these can
-be expressed in user code via interface types.
+be expressed in user code via interface types. The one exception
+is Go's <code>comparable</code> predefined interface, which
+captures a property not expressible in the type system.
 </dd>
 
 <dt>Python</dt>
@@ -2024,7 +2040,7 @@ Java <code>List&lt;Integer&gt;</code> and C++
 <code>std::vector&lt;int&gt;</code>.
 However, that option was not available for Go, because it leads to
 a syntactic problem: when parsing code within a function, such
-as <code>v := F&ltT&gt</code>, at the point of seeing
+as <code>v := F&lt;T&gt;</code>, at the point of seeing
 the <code>&lt;</code> it's ambiguous whether we are seeing an
 instantiation or an expression using the <code>&lt;</code> operator.
 This is very difficult to resolve without type information.
@@ -2032,11 +2048,13 @@ This is very difficult to resolve without type information.
 
 <p>
 For example, consider a statement like
+</p>
 
 <pre>
     a, b = w &lt; x, y &gt; (z)
 </pre>
 
+<p>
 Without type information, it is impossible to decide whether the right
 hand side of the assignment is a pair of expressions (<code>w &lt; x</code>
 and <code>y &gt; z</code>), or whether it is a generic function
@@ -2082,8 +2100,11 @@ Why can't I use a more specific type for the receiver of a parameterized type?</
 <p>
 The method declarations of a generic type are written with a receiver
 that includes the type parameter names.
-Some people think that a specific type can be used, producing a method
-that only works for certain type arguments:
+Perhaps because of the similarity of the syntax for specifying types
+at a call site,
+some have thought this provides a mechanism for producing
+a method customized for certain type arguments by naming
+a specific type in the receiver, such as <code>string</code>:
 </p>
 
 <pre>
@@ -2095,22 +2116,16 @@ func (s S[string]) Add(t string) string {
 </pre>
 
 <p>
-This fails with a compiler error like <code>operator + not defined on
-s.f (variable of type string constrained by any)</code>, even though
-the <code>+</code> operator does of course work on the predeclared
-type <code>string</code>.
-</p>
-
-<p>
-This is because the use of <code>string</code> in the declaration of
-the method <code>Add</code> is simply introducing a name for the type
-parameter, and the name is <code>string</code>.
-This is a valid, if strange, thing to do.
-The field <code>s.f</code> has type <code>string</code>, not the usual
-predeclared type <code>string</code>, but rather the type parameter
-of <code>S</code>, which in this method is named <code>string</code>.
-Since the constraint of the type parameter is <code>any</code>,
-the <code>+</code> operator is not permitted.
+This fails because the word <code>string</code> is taken by
+the compiler to be the name of the type argument in the method.
+The compiler error message will be something like "<code>operator + not defined on
+s.f (variable of type string)</code>".
+This can be confusing because the <code>+</code> operator
+works fine on the predeclared type <code>string</code>,
+but the declaration has overwritten, for this method, the definition of <code>string</code>,
+and the operator does not work on that unrelated version of <code>string</code>.
+It's valid to overwrite a predeclared name like this, but is an odd thing to do and
+often a mistake.
 </p>
 
 <h3 id="type_inference">
@@ -2215,7 +2230,7 @@ test cases. The standard Go library is full of illustrative examples, such as in
 Why isn't <i>X</i> in the standard library?</h3>
 
 <p>
-The standard library's purpose is to support the runtime, connect to
+The standard library's purpose is to support the runtime library, connect to
 the operating system, and provide key functionality that many Go
 programs require, such as formatted I/O and networking.
 It also contains elements important for web programming, including
@@ -2247,7 +2262,7 @@ via the <a href="/cmd/go/"><code>go</code> tool</a>'s
 Such code can have its own maintainers, release cycle,
 and compatibility guarantees.
 Users can find packages and read their documentation at
-<a href="https://godoc.org/">godoc.org</a>.
+<a href="https://pkg.go.dev/">pkg.go.dev</a>.
 </p>
 
 <p>
@@ -2323,9 +2338,10 @@ which is a worthy goal but not the one we had initially.
 </p>
 
 <p>
-Although <code>gc</code> does not use them (yet?), a native lexer and
-parser are available in the <a href="/pkg/go/"><code>go</code></a> package
+Although <code>gc</code> has its own implementation, a native lexer and
+parser are available in the <a href="/pkg/go/parser/"><code>go/parser</code></a> package
 and there is also a native <a href="/pkg/go/types">type checker</a>.
+The <code>gc</code> compiler uses variants of these libraries.
 </p>
 
 <h3 id="How_is_the_run_time_support_implemented">
@@ -2402,7 +2418,7 @@ errors that prevent compilation.
 
 <p>
 There are two reasons for having no warnings.  First, if it's worth
-complaining about, it's worth fixing in the code.  (And if it's not
+complaining about, it's worth fixing in the code.  (Conversely, if it's not
 worth fixing, it's not worth mentioning.) Second, having the compiler
 generate warnings encourages the implementation to warn about weak
 cases that can make compilation noisy, masking real errors that
@@ -2433,7 +2449,9 @@ Nowadays, most Go programmers use a tool,
 <a href="https://godoc.org/golang.org/x/tools/cmd/goimports">goimports</a>,
 which automatically rewrites a Go source file to have the correct imports,
 eliminating the unused imports issue in practice.
-This program is easily connected to most editors to run automatically when a Go source file is written.
+This program is easily connected to most editors and IDEs to run automatically when a Go source file is written.
+This functionality is also built into <code>gopls</code>, as
+<a href="/doc/faq#ide">discussed above</a>.
 </p>
 
 <h3 id="virus">
@@ -2479,7 +2497,7 @@ mature, highly optimized regular expression libraries like PCRE.
 
 <p>
 Benchmark games are won by extensive tuning and the Go versions of most
-of the benchmarks need attention.  If you measure comparable C
+of the benchmarks need attention.  If you measure truly comparable C
 and Go programs
 (<a href="https://go.googlesource.com/exp/+/master/shootout/reverse-complement.go">reverse-complement.go</a>
 is one example), you'll see the two languages are much closer in raw performance
@@ -2500,6 +2518,7 @@ as the language and tools have developed.
 See the blog post about
 <a href="/blog/profiling-go-programs">profiling
 Go programs</a> for an informative example.
+It's quite old but still contains helpful information.
 
 <h2 id="change_from_c">Changes from C</h2>
 
