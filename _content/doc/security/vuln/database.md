@@ -119,6 +119,12 @@ The endpoints are:
   See [/ID/GO-2022-0191.json](https://vuln.go.dev/ID/GO-2022-0191.json)
   for a live example.
 
+### Bulk download
+
+To make it easier to download the entire Go vulnerability database,
+a zip file containing all the index and OSV files is available at
+[vuln.go.dev/vulndb.zip](https://vuln.go.dev/vulndb.zip).
+
 ### Usage in `govulncheck`
 
 By default, `govulncheck` uses the canonical Go vulnerability database at [vuln.go.dev](https://vuln.go.dev).
