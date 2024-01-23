@@ -43,6 +43,8 @@
       url: https://github.com/flosch/pongo2
     - title: database/sql
       url: /pkg/database/sql/
+    - title: gin-gonic/gin
+      url: https://github.com/gin-gonic/gin
     - title: elastic/go-elasticsearch
       url: https://github.com/elastic/go-elasticsearch
   - title: DevOps & Site Reliability
