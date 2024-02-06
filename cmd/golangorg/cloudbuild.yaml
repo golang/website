@@ -5,7 +5,7 @@
 steps:
   # Clone go repo to _goroot.zip for use by uploaded app.
   - name: gcr.io/cloud-builders/git
-    args: ["clone", "--branch=release-branch.go1.21", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
+    args: ["clone", "--branch=release-branch.go1.22", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
   - name: gcr.io/cloud-builders/git
     args: ["archive", "--format=zip", "--output=../_goroot.zip", "HEAD"]
     dir: _gotmp
