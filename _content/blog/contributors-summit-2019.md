@@ -340,7 +340,7 @@ But we can do more. Many people seek out programming as a way to design
 applications or scratch a particular itch, and they are most likely to want
 to target the interface they are most familiar with: the browser.
 Go does not have a good front-end story yet.
-Javascript is still the only language that really provides
+JavaScript is still the only language that really provides
 both a frontend and a backend environment,
 but WASM is fast becoming a first-order platform,
 and there are so many places we could go with that.

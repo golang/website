@@ -573,7 +573,7 @@ There are also various performance improvements, not enumerated here.
 [html/template](/pkg/html/template/)
 
 :   <!-- https://go.dev/issue/61619, CL 507995 -->
-    Javascript template literals may now contain Go template actions, and parsing a template containing one will
+    JavaScript template literals may now contain Go template actions, and parsing a template containing one will
     no longer return `ErrJSTemplate`. Similarly the GODEBUG setting `jstmpllitinterp` no
     longer has any effect.
 

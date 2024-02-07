@@ -31,7 +31,7 @@ million users worldwide. In the [freshly published 2017 Octoverse](https://octov
 by GitHub, **Go has become the #9 most popular language**, surpassing C.
 **Go is the fastest growing language on GitHub in 2017** in the top 10 with
 **52% growth over the previous year**. In growth, Go swapped places with
-Javascript, which fell to the second spot with 44%.
+JavaScript, which fell to the second spot with 44%.
 
 {{image "8years/image2.png"}}
 
