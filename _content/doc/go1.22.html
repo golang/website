@@ -615,7 +615,7 @@ We plan to include an API migration tool in a future release, likely Go 1.23.
       The new representation retains the intermediate <code>Alias</code>.
       This enables improved error reporting (the name of a type alias can be reported), and allows for better handling
       of cyclic type declarations involving type aliases.
-      In a future release, <code>Alias</code> types will also carry <a href="/issue/46477">type parameter information</a>.
+      In a future release, <code>Alias</code> types will also carry <a href="https://github.com/golang/go/issues/46477">type parameter information</a>.
       The new function <a href="/pkg/go/types#Unalias"><code>Unalias</code></a> returns the actual type denoted by an
       <code>Alias</code> type (or any other <a href="/pkg/go/types#Type"><code>Type</code></a> for that matter).
     </p>
