@@ -130,6 +130,19 @@ root of a Go installation to use to build the new Go toolchain;
 <code>$GOROOT_BOOTSTRAP/bin/go</code> should be the go command to use.</p>
 
 <p>
+The minimum version of Go required depends on the target version of Go:
+</p>
+
+<ul>
+<li> Go &lt;= 1.4: a C toolchain.
+<li> 1.5 &lt;= Go &lt;= 1.19: a Go 1.4 compiler.
+<li> 1.20 &lt;= Go &lt;= 1.21: a Go 1.17 compiler.
+<li> 1.22 &lt;= Go &lt;= 1.23: a Go 1.20 compiler.
+<li> Going forward, Go version 1.N will require a Go 1.M compiler, 
+where M is N-2 rounded down to an even number. Example: Go 1.24 and 1.25 require Go 1.22.
+</ul>
+
+<p>
 There are four possible ways to obtain a bootstrap toolchain:
 </p>
 
@@ -149,7 +162,7 @@ These approaches are detailed below.
 <p>
 To use a binary release as a bootstrap toolchain, see
 <a href="/dl/">the downloads page</a> or use any other
-packaged Go distribution.
+packaged Go distribution meeting the minimum version requirements.
 </p>
 
 <h3 id="bootstrapFromCrosscompiledSource">Bootstrap toolchain from cross-compiled source</h3>
