@@ -1176,6 +1176,9 @@ edits. The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
+The go command will maintain a `go.work.sum` file that keeps track of hashes used by the workspace
+that are not in collective workspace modules' go.sum files.
+
 ### Lexical elements {#go-work-file-lexical}
 
 Lexical elements in `go.work` files are defined in exactly the same way [as for
