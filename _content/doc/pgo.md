@@ -21,7 +21,7 @@ For example, the compiler may decide to more aggressively inline functions which
 
 In Go, the compiler uses CPU pprof profiles as the input profile, such as from [runtime/pprof](https://pkg.go.dev/runtime/pprof) or [net/http/pprof](https://pkg.go.dev/net/http/pprof).
 
-As of Go 1.21, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-7%.
+As of Go 1.22, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-14%.
 We expect performance gains to generally increase over time as additional optimizations take advantage of PGO in future versions of Go.
 
 
