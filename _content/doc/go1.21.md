@@ -205,6 +205,11 @@ The `go` `test` `-o` flag now
 accepts a directory argument, in which case test binaries are written to that
 directory instead of the current directory.
 
+<!-- https://go.dev/issue/31544, CL 477839 -->
+When using an external (C) linker with cgo enabled, the `runtime/cgo` package is
+now supplied to the Go linker as an additional dependency to ensure that the Go
+runtime is compatible with any additional libraries added by the C linker.
+
 ### Cgo {#cgo}
 
 <!-- CL 490819 -->

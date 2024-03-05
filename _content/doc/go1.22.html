@@ -125,6 +125,14 @@ func main() {
   will continue to report that there are no test files.
 </p>
 
+<!-- CL 522239, https://go.dev/issue/46330 -->
+<p>
+  <code>go</code> build commands that invoke the linker now error out if an
+  external (C) linker will be used but cgo is not enabled. (The Go runtime
+  requires cgo support to ensure that it is compatible with any additional
+  libraries added by the C linker.)
+</p>
+
 
 <h3 id="trace">Trace</h3>
 
