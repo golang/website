@@ -46,7 +46,7 @@ in supported releases as needed by issuing minor revisions
 			{{with .Security}}
 				{{.Quantifier}}
 				security
-				{{if eq .Quantifier "a"}}fix{{else}}fixes{{end -}}
+				{{if (or (eq .Quantifier "a") (eq .Quantifier "one"))}}fix{{else}}fixes{{end -}}
 				{{with .ComponentsAndPackages}} to {{.}}{{end -}}
 			{{end}}
 			{{- if and .Security .Bug}}, as well as{{end -}}
