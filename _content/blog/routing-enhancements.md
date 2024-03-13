@@ -35,7 +35,7 @@ has an integer identifier. A request like `GET /posts/234` retrieves the post wi
 ID 234. Before Go 1.22, the code for handling those requests would start with a
 line like this:
 
-    http.Handle("/posts/", handlePost)
+    http.HandleFunc("/posts/", handlePost)
 
 The trailing slash routes all requests beginning `/posts/` to the `handlePost`
 function, which would have to check that the HTTP method was GET, extract
@@ -46,7 +46,7 @@ is surprising at the least.
 
 In Go 1.22, the existing code will continue to work, or you could instead write this:
 
-    http.Handle("GET /posts/{id}", handlePost2)
+    http.HandleFunc("GET /posts/{id}", handlePost2)
 
 This pattern matches a GET request whose path begins "/posts/" and has two
 segments. (As a special case, GET also matches HEAD; all the other methods match
