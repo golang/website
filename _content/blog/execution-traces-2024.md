@@ -54,7 +54,7 @@ applications, which limits tracing to situational usage, rather than continuous 
 profiling.
 It turned out that much of the cost of tracing came down to tracebacks.
 Many events produced by the runtime have stack traces attached, which are invaluable to actually
-identifying what goroutines where doing at key moments in their execution.
+identifying what goroutines were doing at key moments in their execution.
 
 Thanks to work by Felix Geisendörfer and Nick Ripley on optimizing the efficiency of tracebacks,
 the run-time CPU overhead of execution traces has been cut dramatically, down to 1–2% for many
