@@ -29,7 +29,7 @@ func main() {
 
 		// We saw a long request. Take a snapshot!
 		if time.Since(start) > 300*time.Millisecond {
-			// Do it only once for simplicitly, but you can take more than one.
+			// Do it only once for simplicity, but you can take more than one.
 			once.Do(func() {
 				// Grab the snapshot.
 				var b bytes.Buffer
