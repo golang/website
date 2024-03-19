@@ -241,7 +241,7 @@ proposal process_, which proceeds as follows:
 2. Once discussion on the issue resolves, the proposal is approved or declined
    by a member of the Go team.
 3. The proposer sends a CL modifying the internal
-   [chart config](https://go.googlesource.com/telemetry/+/refs/heads/master/internal/configgen/config.txt)
+   [chart config](https://go.googlesource.com/telemetry/+/refs/heads/master/internal/chartconfig/config.txt)
    to include the new chart.
 4. An automatic process regenerates the upload config to allow uploading of the
    counters required for the new chart. This process will also regularly add
@@ -373,4 +373,4 @@ A: At [golang.org/x/telemetry](/pkg/golang.org/x/telemetry).
 [debug.BuildInfo]: /pkg/runtime/debug#BuildInfo
 [proposal]: /issue/new?assignees=&labels=Telemetry-Proposal&projects=golang%2F29&template=12-telemetry.yml&title=x%2Ftelemetry%2Fconfig%3A+proposal+title
 [telemetry.go.dev]: https://telemetry.go.dev
-[chart config]: /pkg/golang.org/x/telemetry/internal/graphconfig
+[chart config]: /pkg/golang.org/x/telemetry/internal/chartconfig
