@@ -1,4 +1,4 @@
-// +build no-run OMIT
+//go:build ignore || OMIT
 
 package main
 
