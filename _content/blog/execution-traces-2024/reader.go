@@ -35,8 +35,7 @@ func main() {
 		if ev.Kind() == trace.EventStateTransition {
 			st := ev.StateTransition()
 			if st.Resource.Kind == trace.ResourceGoroutine {
-				id := st.Resource.Goroutine()
-				from, to := st.GoroutineTransition()
+				from, to := st.Goroutine()
 
 				// Look for goroutines blocking, and count them.
 				if from.Executing() && to == trace.GoWaiting {
