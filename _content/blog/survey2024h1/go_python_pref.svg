@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='149.91pt' viewBox='0 0 432.00 149.91'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE='>
+    <rect x='0.00' y='0.00' width='432.00' height='149.91' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+</g>
+<defs>
+  <clipPath id='cpMTUyLjYxfDQyNi41MnwzNS42NnwxMDEuNTI='>
+    <rect x='152.61' y='35.66' width='273.91' height='65.86' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTUyLjYxfDQyNi41MnwzNS42NnwxMDEuNTI=)'>
+<polyline points='212.16,101.52 212.16,35.66 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='331.25,101.52 331.25,35.66 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='152.61,101.52 152.61,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='271.70,101.52 271.70,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='390.79,101.52 390.79,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='152.61' y='60.36' width='45.71' height='16.47' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='152.61' y='39.78' width='135.09' height='16.47' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='152.61' y='80.94' width='57.39' height='16.47' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<polyline points='204.32,70.65 204.32,66.53 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='204.32,68.59 192.32,68.59 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='192.32,70.65 192.32,66.53 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='295.25,50.07 295.25,45.95 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='295.25,48.01 280.15,48.01 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='280.15,50.07 280.15,45.95 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='216.52,91.23 216.52,87.12 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='216.52,89.17 203.48,89.17 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='203.48,91.23 203.48,87.12 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<text x='204.32' y='71.28' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>19%</text>
+<text x='293.70' y='50.70' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>57%</text>
+<text x='216.00' y='91.86' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>24%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+<text x='147.68' y='92.04' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='41.56px' lengthAdjust='spacingAndGlyphs'>I'm not sure</text>
+<text x='147.68' y='71.46' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='130.07px' lengthAdjust='spacingAndGlyphs'>No, we're satisfied with using Python</text>
+<text x='147.68' y='50.88' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='111.64px' lengthAdjust='spacingAndGlyphs'>Yes, we would prefer to use Go</text>
+<text x='152.61' y='112.19' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='271.70' y='112.19' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='390.79' y='112.19' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='289.57' y='129.67' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='333.99px' lengthAdjust='spacingAndGlyphs'>Is your team interested in using Go instead of Python to integrate with</text>
+<text x='5.48' y='28.46' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='106.73px' lengthAdjust='spacingAndGlyphs'>generative AI models?</text>
+<text x='426.52' y='142.65' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='29.15px' lengthAdjust='spacingAndGlyphs'>n =  938</text>
+</g>
+</svg>
