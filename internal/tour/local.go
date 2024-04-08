@@ -19,8 +19,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/Go-zh/website/internal/webtest"
 	"golang.org/x/tools/playground/socket"
-	"golang.org/x/website/internal/webtest"
 )
 
 const (

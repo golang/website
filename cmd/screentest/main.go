@@ -32,7 +32,7 @@ import (
 	"runtime"
 	"strings"
 
-	"golang.org/x/website/internal/screentest"
+	"github.com/Go-zh/website/internal/screentest"
 )
 
 var (

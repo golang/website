@@ -8,7 +8,7 @@ import (
 	"testing"
 	"testing/fstest"
 
-	"golang.org/x/website/internal/web"
+	"github.com/Go-zh/website/internal/web"
 )
 
 // TestIgnoredGoFiles tests the scenario where a folder has no .go or .c files,

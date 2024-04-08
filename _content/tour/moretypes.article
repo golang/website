@@ -1,37 +1,37 @@
-More types: structs, slices, and maps.
-Learn how to define types based on existing ones: this lesson covers structs, arrays, slices, and maps.
+更多类型：结构体、切片和映射
+学习如何基于现有类型定义新的类型：本节课涵盖了结构体、数组、切片和映射。
 
 项目地址
 https://github.com/Go-zh/website
 
-* Pointers
+* 指针
 
-Go has pointers.
-A pointer holds the memory address of a value.
+Go 拥有指针。指针保存了值的内存地址。
 
-The type `*T` is a pointer to a `T` value. Its zero value is `nil`.
+类型 `*T` 是指向 `T` 类型值的指针，其零值为 `nil`。
 
 	var p *int
 
-The `&` operator generates a pointer to its operand.
+`&` 操作符会生成一个指向其操作数的指针。
 
 	i := 42
 	p = &i
 
-The `*` operator denotes the pointer's underlying value.
+`*` 操作符表示指针指向的底层值。
 
-	fmt.Println(*p) // read i through the pointer p
-	*p = 21         // set i through the pointer p
+	fmt.Println(*p) // 通过指针 p 读取 i
+	*p = 21         // 通过指针 p 设置 i
 
-This is known as "dereferencing" or "indirecting".
+这也就是通常所说的「解引用」或「间接引用」。
 
-Unlike C, Go has no pointer arithmetic.
+与 C 不同，Go 没有指针运算。
 
 .play moretypes/pointers.go
 
-* Structs
+* 结构体
 
 A `struct` is a collection of fields.
+一个 *结构体（`struct`）* 就是一组 *字段（field）*。
 
 .play moretypes/structs.go
 

@@ -17,8 +17,8 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
-	"golang.org/x/website/internal/memcache"
-	"golang.org/x/website/internal/short"
+	"github.com/Go-zh/website/internal/memcache"
+	"github.com/Go-zh/website/internal/short"
 	"google.golang.org/api/idtoken"
 )
 

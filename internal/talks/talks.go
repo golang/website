@@ -14,8 +14,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/Go-zh/website/internal/web"
 	"golang.org/x/tools/present"
-	"golang.org/x/website/internal/web"
 )
 
 func RegisterHandlers(mux *http.ServeMux, site *web.Site, content fs.FS) error {

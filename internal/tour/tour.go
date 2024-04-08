@@ -20,7 +20,7 @@ import (
 	"time"
 
 	"golang.org/x/tools/present"
-	"golang.org/x/website"
+	"github.com/Go-zh/website"
 )
 
 var (

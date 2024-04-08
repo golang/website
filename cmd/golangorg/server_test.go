@@ -17,8 +17,8 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/Go-zh/website/internal/webtest"
 	"golang.org/x/net/html"
-	"golang.org/x/website/internal/webtest"
 )
 
 func TestWeb(t *testing.T) {

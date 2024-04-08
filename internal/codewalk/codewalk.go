@@ -29,7 +29,7 @@ import (
 	"strings"
 	"unicode/utf8"
 
-	"golang.org/x/website/internal/web"
+	"github.com/Go-zh/website/internal/web"
 )
 
 type server struct {

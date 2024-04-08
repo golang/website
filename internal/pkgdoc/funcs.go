@@ -22,8 +22,8 @@ import (
 	"unicode"
 	"unicode/utf8"
 
-	"golang.org/x/website/internal/api"
-	"golang.org/x/website/internal/texthtml"
+	"github.com/Go-zh/website/internal/api"
+	"github.com/Go-zh/website/internal/texthtml"
 )
 
 var slashSlash = []byte("//")

@@ -9,7 +9,7 @@ import (
 	"net/http"
 	"testing"
 
-	"golang.org/x/website/internal/webtest"
+	"github.com/Go-zh/website/internal/webtest"
 )
 
 func TestWeb(t *testing.T) {
