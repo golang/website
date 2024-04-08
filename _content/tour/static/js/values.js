@@ -9,49 +9,49 @@ angular.module('tour.values', []).
 // List of modules with description and lessons in it.
 value('tableOfContents', [{
     'id': 'mechanics',
-    'title': 'Using the tour',
-    'description': '<p>Welcome to a tour of the <a href="https://go.dev">Go programming language</a>. The tour covers the most important features of the language, mainly:</p>',
+    'title': '使用本教程',
+    'description': '<p>欢迎来到 <a href="https://go.dev">Go 编程语言</a>教程。本教程涵盖了该语言的大部分重要特性，主要包括：</p>',
     'lessons': ['welcome']
 }, {
     'id': 'basics',
-    'title': 'Basics',
-    'description': '<p>The starting point, learn all the basics of the language.</p><p>Declaring variables, calling functions, and all the things you need to know before moving to the next lessons.</p>',
+    'title': '基础',
+    'description': '<p>起点，学习所有的语言基础。</p><p>声明变量、调用函数、以及在你学习下一课之前需要了解的所有内容。</p>',
     'lessons': ['basics', 'flowcontrol', 'moretypes']
 }, {
     'id': 'methods',
-    'title': 'Methods and interfaces',
-    'description': '<p>Learn how to define methods on types, how to declare interfaces, and how to put everything together.</p>',
+    'title': '方法和接口',
+    'description': '<p>学习如何为类型定义方法，如何声明接口，以及如何将它们串连在一起。</p>',
     'lessons': ['methods']
 }, {
     'id': 'generics',
-    'title': 'Generics',
-    'description': '<p>Learn how to use type parameters in Go functions and structs.</p>',
+    'title': '泛型',
+    'description': '<p>学习如何在 Go 函数和结构体中使用类型参数。</p>',
     'lessons': ['generics']
 }, {
     'id': 'concurrency',
-    'title': 'Concurrency',
-    'description': '<p>Go provides concurrency features as part of the core language.</p><p>This module goes over goroutines and channels, and how they are used to implement different concurrency patterns.</p>',
+    'title': '并发',
+    'description': '<p>Go 提供了并发特性作为核心语言的一部分。</p><p>本模块涵盖了 Go 协程和信道，以及如何用它们来实现不同的并发模式。</p>',
     'lessons': ['concurrency']
 }]).
 
 // translation
 value('translation', {
-    'off': 'off',
-    'on': 'on',
-    'syntax': 'Syntax-Highlighting',
-    'lineno': 'Line-Numbers',
-    'reset': 'Reset Slide',
-    'format': 'Format Source Code',
-    'kill': 'Kill Program',
-    'run': 'Run',
-    'compile': 'Compile and Run',
-    'more': 'Options',
-    'toc': 'Table of Contents',
-    'prev': 'Previous',
-    'next': 'Next',
-    'waiting': 'Waiting for remote server...',
-    'errcomm': 'Error communicating with remote server.',
-    'submit-feedback': 'Send feedback about this page',
+    'off': '关闭',
+    'on': '打开',
+    'syntax': '语法高亮',
+    'lineno': '行号',
+    'reset': '重置演示页',
+    'format': '格式化源代码',
+    'kill': '杀死程序',
+    'run': '运行',
+    'compile': '编译并运行',
+    'more': '选项',
+    'toc': '目录',
+    'prev': '上一节',
+    'next': '下一节',
+    'waiting': '等待远程服务器响应...',
+    'errcomm': '远程服务器通信错误',
+    'submit-feedback': '反馈本页的错误',
 
     // GitHub issue template: update repo and messaging when translating.
     'github-repo': 'github.com/golang/tour',

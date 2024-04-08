@@ -1,4 +1,4 @@
-module golang.org/x/website
+module github.com/Go-zh/website
 
 go 1.18
 
