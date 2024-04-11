@@ -310,7 +310,6 @@ detailed in [proposal #61716](/issue/61716). The most important changes are:
     `Uint32N`,
     `Uint64`,
     `Uint64N`,
-    `Uint`,
     and
     `UintN`.
   - The
