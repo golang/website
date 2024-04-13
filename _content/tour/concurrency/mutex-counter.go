@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 package main
@@ -8,24 +9,24 @@ import (
 	"time"
 )
 
-// SafeCounter is safe to use concurrently.
+// SafeCounter 是并发安全的
 type SafeCounter struct {
 	mu sync.Mutex
 	v  map[string]int
 }
 
-// Inc increments the counter for the given key.
+// Inc 对给定键的计数加一
 func (c *SafeCounter) Inc(key string) {
 	c.mu.Lock()
-	// Lock so only one goroutine at a time can access the map c.v.
+	// 锁定使得一次只有一个 Go 协程可以访问映射 c.v。
 	c.v[key]++
 	c.mu.Unlock()
 }
 
-// Value returns the current value of the counter for the given key.
+// Value 返回给定键的计数的当前值。
 func (c *SafeCounter) Value(key string) int {
 	c.mu.Lock()
-	// Lock so only one goroutine at a time can access the map c.v.
+	// 锁定使得一次只有一个 Go 协程可以访问映射 c.v。
 	defer c.mu.Unlock()
 	return c.v[key]
 }

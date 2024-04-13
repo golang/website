@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 package main
@@ -12,8 +13,7 @@ type T struct {
 	S string
 }
 
-// This method means type T implements the interface I,
-// but we don't need to explicitly declare that it does so.
+// 此方法表示类型 T 实现了接口 I，不过我们并不需要显式声明这一点。
 func (t T) M() {
 	fmt.Println(t.S)
 }

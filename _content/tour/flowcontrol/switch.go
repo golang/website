@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 package main
@@ -8,10 +9,10 @@ import (
 )
 
 func main() {
-	fmt.Print("Go runs on ")
+	fmt.Print("Go 运行的系统环境：")
 	switch os := runtime.GOOS; os {
 	case "darwin":
-		fmt.Println("OS X.")
+		fmt.Println("macOS.")
 	case "linux":
 		fmt.Println("Linux.")
 	default:

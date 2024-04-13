@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 package main
@@ -7,15 +8,15 @@ import "fmt"
 func main() {
 	m := make(map[string]int)
 
-	m["Answer"] = 42
-	fmt.Println("The value:", m["Answer"])
+	m["答案"] = 42
+	fmt.Println("值：", m["答案"])
 
-	m["Answer"] = 48
-	fmt.Println("The value:", m["Answer"])
+	m["答案"] = 48
+	fmt.Println("值：", m["答案"])
 
-	delete(m, "Answer")
-	fmt.Println("The value:", m["Answer"])
+	delete(m, "答案")
+	fmt.Println("值：", m["答案"])
 
-	v, ok := m["Answer"]
-	fmt.Println("The value:", v, "Present?", ok)
+	v, ok := m["答案"]
+	fmt.Println("值：", v, "是否存在？", ok)
 }

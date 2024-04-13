@@ -4,12 +4,10 @@ package main
 
 import "golang.org/x/tour/tree"
 
-// Walk walks the tree t sending all values
-// from the tree to the channel ch.
+// Walk 遍历树 t，并树中所有的值发送到信道 ch。
 func Walk(t *tree.Tree, ch chan int)
 
-// Same determines whether the trees
-// t1 and t2 contain the same values.
+// Same 判断 t1 和 t2 是否包含相同的值。
 func Same(t1, t2 *tree.Tree) bool
 
 func main() {
