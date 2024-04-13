@@ -221,7 +221,7 @@ directive('feedbackButton', ['i18n', function(i18n) {
             scope.feedbackMessage = i18n.l('submit-feedback');
 
             elm.on('click', function() {
-                var url = 'https://' + i18n.l('github-repo')
+                var url = 'https://' + i18n.l('github-repo') + '/issues'
                 window.open(url);
             });
         }
