@@ -1,309 +1,272 @@
-Methods and interfaces
-This lesson covers methods and interfaces, the constructs that define objects and their behavior.
+方法和接口
+本节课包含了方法和接口，这种构造可以用来定义对象及其行为。
 
 项目地址
 https://github.com/Go-zh/website
 
-* Methods
+* 方法
 
-Go does not have classes.
-However, you can define methods on types.
+Go 没有类。不过你可以为类型定义方法。
 
-A method is a function with a special _receiver_ argument.
+方法就是一类带特殊的 *接收者* 参数的函数。
 
-The receiver appears in its own argument list between the `func` keyword and
-the method name.
+方法接收者在它自己的参数列表内，位于 `func` 关键字和方法名之间。
 
-In this example, the `Abs` method has a receiver of type `Vertex` named `v`.
+在此例中，`Abs` 方法拥有一个名字为 `v`，类型为 `Vertex` 的接收者。
 
 .play methods/methods.go
 
-* Methods are functions
+* 方法即函数
 
-Remember: a method is just a function with a receiver argument.
+记住：方法只是个带接收者参数的函数。
 
-Here's `Abs` written as a regular function with no change in functionality.
+现在这个 `Abs` 的写法就是个正常的函数，功能并没有什么变化。
 
 .play methods/methods-funcs.go
 
-* Methods continued
+* 方法（续）
 
-You can declare a method on non-struct types, too.
+你也可以为非结构体类型声明方法。
 
-In this example we see a numeric type `MyFloat` with an `Abs` method.
+在此例中，我们看到了一个带 `Abs` 方法的数值类型 `MyFloat`。
 
-You can only declare a method with a receiver whose type is defined in the same
-package as the method.
-You cannot declare a method with a receiver whose type is defined in another
-package (which includes the built-in types such as `int`).
+你只能为在同一个包中定义的接收者类型声明方法，而不能为其它别的包中定义的类型
+（包括 `int` 之类的内置类型）声明方法。
+
+（译注：就是接收者的类型定义和方法声明必须在同一包内。）
 
 .play methods/methods-continued.go
 
-* Pointer receivers
+* 指针类型的接收者
 
-You can declare methods with pointer receivers.
+你可以为指针类型的接收者声明方法。
 
-This means the receiver type has the literal syntax `*T` for some type `T`.
-(Also, `T` cannot itself be a pointer such as `*int`.)
+这意味着对于某类型 `T`，接收者的类型可以用 `*T` 的文法。
+（此外，`T` 本身不能是指针，比如不能是 `*int`。）
 
-For example, the `Scale` method here is defined on `*Vertex`.
+例如，这里为 `*Vertex` 定义了 `Scale` 方法。
 
-Methods with pointer receivers can modify the value to which the receiver
-points (as `Scale` does here).
-Since methods often need to modify their receiver, pointer receivers are more
-common than value receivers.
+指针接收者的方法可以修改接收者指向的值（如这里的 `Scale` 所示）。
+由于方法经常需要修改它的接收者，指针接收者比值接收者更常用。
 
-Try removing the `*` from the declaration of the `Scale` function on line 16
-and observe how the program's behavior changes.
+试着移除第 16 行 `Scale` 函数声明中的 `*`，观察此程序的行为如何变化。
 
-With a value receiver, the `Scale` method operates on a copy of the original
-`Vertex` value.
-(This is the same behavior as for any other function argument.)
-The `Scale` method must have a pointer receiver to change the `Vertex` value
-declared in the `main` function.
+若使用值接收者，那么 `Scale` 方法会对原始 `Vertex` 值的副本进行操作。（对于函数的其它参数也是如此。）`Scale` 方法必须用指针接收者来更改 `main` 函数中声明的 `Vertex` 的值。
 
 .play methods/methods-pointers.go
 
-* Pointers and functions
+* 指针与函数
 
-Here we see the `Abs` and `Scale` methods rewritten as functions.
+现在我们要把 `Abs` 和 `Scale` 方法重写为函数。
 
-Again, try removing the `*` from line 16.
-Can you see why the behavior changes?
-What else did you need to change for the example to compile?
+同样，先试着移除掉第 16 的 `*`，你能看出程序行为改变的原因吗？
+要怎样做才能让该示例顺利通过编译？
 
-(If you're not sure, continue to the next page.)
+（如果你不确定，继续往下看。）
 
 .play methods/methods-pointers-explained.go
 
-* Methods and pointer indirection
+* 方法与指针重定向
 
-Comparing the previous two programs, you might notice that
-functions with a pointer argument must take a pointer:
+比较前两个程序，你大概会注意到带指针参数的函数必须接受一个指针：
 
 	var v Vertex
-	ScaleFunc(v, 5)  // Compile error!
+	ScaleFunc(v, 5)  // 编译错误！
 	ScaleFunc(&v, 5) // OK
 
-while methods with pointer receivers take either a value or a pointer as the
-receiver when they are called:
+而接收者为指针的的方法被调用时，接收者既能是值又能是指针：
 
 	var v Vertex
 	v.Scale(5)  // OK
 	p := &v
 	p.Scale(10) // OK
 
-For the statement `v.Scale(5)`, even though `v` is a value and not a pointer,
-the method with the pointer receiver is called automatically.
-That is, as a convenience, Go interprets the statement `v.Scale(5)` as
-`(&v).Scale(5)` since the `Scale` method has a pointer receiver.
+对于语句 `v.Scale(5)` 来说，即便 `v` 是一个值而非指针，带指针接收者的方法也能被直接调用。
+也就是说，由于 `Scale` 方法有一个指针接收者，为方便起见，Go 会将语句 `v.Scale(5)`
+解释为 `(&v).Scale(5)`。
 
 .play methods/indirection.go
 
-* Methods and pointer indirection (2)
+* 方法与指针重定向（续）
 
-The equivalent thing happens in the reverse direction.
+反之也一样：
 
-Functions that take a value argument must take a value of that specific type:
+接受一个值作为参数的函数必须接受一个指定类型的值：
 
 	var v Vertex
 	fmt.Println(AbsFunc(v))  // OK
-	fmt.Println(AbsFunc(&v)) // Compile error!
+	fmt.Println(AbsFunc(&v)) // 编译错误！
 
-while methods with value receivers take either a value or a pointer as the
-receiver when they are called:
+而以值为接收者的方法被调用时，接收者既能为值又能为指针：
 
 	var v Vertex
 	fmt.Println(v.Abs()) // OK
 	p := &v
 	fmt.Println(p.Abs()) // OK
 
-In this case, the method call `p.Abs()` is interpreted as `(*p).Abs()`.
+这种情况下，方法调用 `p.Abs()` 会被解释为 `(*p).Abs()`。
 
 .play methods/indirection-values.go
 
-* Choosing a value or pointer receiver
+* 选择值或指针作为接收者
 
-There are two reasons to use a pointer receiver.
+使用指针接收者的原因有二：
 
-The first is so that the method can modify the value that its receiver points to.
+首先，方法能够修改其接收者指向的值。
 
-The second is to avoid copying the value on each method call.
-This can be more efficient if the receiver is a large struct, for example.
+其次，这样可以避免在每次调用方法时复制该值。若值的类型为大型结构体时，这样会更加高效。
 
-In this example, both `Scale` and `Abs` are methods with receiver type `*Vertex`,
-even though the `Abs` method needn't modify its receiver.
+在本例中，`Scale` 和 `Abs` 接收者的类型为 `*Vertex`，即便 `Abs` 并不需要修改其接收者。
 
-In general, all methods on a given type should have either value or pointer
-receivers, but not a mixture of both.
-(We'll see why over the next few pages.)
+通常来说，所有给定类型的方法都应该有值或指针接收者，但并不应该二者混用。
+（我们会在接下来几页中明白为什么。）
 
 .play methods/methods-with-pointer-receivers.go
 
-* Interfaces
+* 接口
 
-An _interface_type_ is defined as a set of method signatures.
+*接口类型* 的定义为一组方法签名。
 
-A value of interface type can hold any value that implements those methods.
+接口类型的变量可以持有任何实现了这些方法的值。
 
-*Note:* There is an error in the example code on line 22.
-`Vertex` (the value type) doesn't implement `Abser` because
-the `Abs` method is defined only on `*Vertex` (the pointer type).
+*注意:* 示例代码的第 22 行存在一个错误。由于 `Abs` 方法只为 `*Vertex`
+（指针类型）定义，因此 `Vertex`（值类型）并未实现 `Abser`。
 
 .play methods/interfaces.go
 
-* Interfaces are implemented implicitly
+* 接口与隐式实现
 
-A type implements an interface by implementing its methods.
-There is no explicit declaration of intent, no "implements" keyword.
+类型通过实现一个接口的所有方法来实现该接口。既然无需专门显式声明，也就没有“implements”关键字。
 
-Implicit interfaces decouple the definition of an interface from its
-implementation, which could then appear in any package without prearrangement.
+隐式接口从接口的实现中解耦了定义，这样接口的实现可以出现在任何包中，无需提前准备。
+
+因此，也就无需在每一个实现上增加新的接口名称，这样同时也鼓励了明确的接口定义。
 
 .play methods/interfaces-are-satisfied-implicitly.go
 
-* Interface values
+* 接口值
 
-Under the hood, interface values can be thought of as a tuple of a value and a
-concrete type:
+接口也是值。它们可以像其它值一样传递。
+
+接口值可以用作函数的参数或返回值。
+
+在内部，接口值可以看做包含值和具体类型的元组：
 
 	(value, type)
 
-An interface value holds a value of a specific underlying concrete type.
+接口值保存了一个具体底层类型的具体值。
 
-Calling a method on an interface value executes the method of the same name on
-its underlying type.
+接口值调用方法时会执行其底层类型的同名方法。
 
 .play methods/interface-values.go
 
-* Interface values with nil underlying values
+* 底层值为 nil 的接口值
 
-If the concrete value inside the interface itself is nil,
-the method will be called with a nil receiver.
+即便接口内的具体值为 nil，方法仍然会被 nil 接收者调用。
 
-In some languages this would trigger a null pointer exception,
-but in Go it is common to write methods that gracefully handle being called
-with a nil receiver (as with the method `M` in this example.)
+在一些语言中，这会触发一个空指针异常，但在 Go 中通常会写一些方法来优雅地处理它（如本例中的 `M` 方法）。
 
-Note that an interface value that holds a nil concrete value is itself non-nil.
+*注意:* 保存了 nil 具体值的接口其自身并不为 nil。
 
 .play methods/interface-values-with-nil.go
 
-* Nil interface values
+* nil 接口值
 
-A nil interface value holds neither value nor concrete type.
+nil 接口值既不保存值也不保存具体类型。
 
-Calling a method on a nil interface is a run-time error because there is no
-type inside the interface tuple to indicate which _concrete_ method to call.
+为 nil 接口调用方法会产生运行时错误，因为接口的元组内并未包含能够指明该调用哪个 *具体* 方法的类型。
 
 .play methods/nil-interface-values.go
 
-* The empty interface
+* 空接口
 
-The interface type that specifies zero methods is known as the _empty_interface_:
+指定了零个方法的接口值被称为 *空接口：*
 
 	interface{}
 
-An empty interface may hold values of any type.
-(Every type implements at least zero methods.)
+空接口可保存任何类型的值。（因为每个类型都至少实现了零个方法。）
 
-Empty interfaces are used by code that handles values of unknown type.
-For example, `fmt.Print` takes any number of arguments of type `interface{}`.
+空接口被用来处理未知类型的值。例如，`fmt.Print` 可接受类型为 `interface{}` 的任意数量的参数。
 
 .play methods/empty-interface.go
 
-* Type assertions
+* 类型断言
 
-A _type_assertion_ provides access to an interface value's underlying concrete value.
+*类型断言* 提供了访问接口值底层具体值的方式。
 
 	t := i.(T)
 
-This statement asserts that the interface value `i` holds the concrete type `T`
-and assigns the underlying `T` value to the variable `t`.
+该语句断言接口值 `i` 保存了具体类型 `T`，并将其底层类型为 `T` 的值赋予变量 `t`。
 
-If `i` does not hold a `T`, the statement will trigger a panic.
+若 `i` 并未保存 `T` 类型的值，该语句就会触发一个 panic。
 
-To _test_ whether an interface value holds a specific type,
-a type assertion can return two values: the underlying value
-and a boolean value that reports whether the assertion succeeded.
+为了 *判断* 一个接口值是否保存了一个特定的类型，类型断言可返回两个值：其底层值以及一个报告断言是否成功的布尔值。
 
 	t, ok := i.(T)
 
-If `i` holds a `T`, then `t` will be the underlying value and `ok` will be true.
+若 `i` 保存了一个 `T`，那么 `t` 将会是其底层值，而 `ok` 为 `true`。
 
-If not, `ok` will be false and `t` will be the zero value of type `T`,
-and no panic occurs.
+否则，`ok` 将为 `false` 而 `t` 将为 `T` 类型的零值，程序并不会产生 panic。
 
-Note the similarity between this syntax and that of reading from a map.
+请注意这种语法和读取一个映射时的相同之处。
 
 .play methods/type-assertions.go
 
-* Type switches
+* 类型选择
 
-A _type_switch_ is a construct that permits several type assertions in series.
+*类型选择* 是一种按顺序从几个类型断言中选择分支的结构。
 
-A type switch is like a regular switch statement, but the cases in a type
-switch specify types (not values), and those values are compared against
-the type of the value held by the given interface value.
+类型选择与一般的 switch 语句相似，不过类型选择中的 case 为类型（而非值），
+它们针对给定接口值所存储的值的类型进行比较。
 
 	switch v := i.(type) {
 	case T:
-		// here v has type T
+		// v 的类型为 T
 	case S:
-		// here v has type S
+		// v 的类型为 S
 	default:
-		// no match; here v has the same type as i
+		// 没有匹配，v 与 i 的类型相同
 	}
 
-The declaration in a type switch has the same syntax as a type assertion `i.(T)`,
-but the specific type `T` is replaced with the keyword `type`.
+类型选择中的声明与类型断言 `i.(T)` 的语法相同，只是具体类型 `T` 被替换成了关键字 `type`。
 
-This switch statement tests whether the interface value `i`
-holds a value of type `T` or `S`.
-In each of the `T` and `S` cases, the variable `v` will be of type
-`T` or `S` respectively and hold the value held by `i`.
-In the default case (where there is no match), the variable `v` is
-of the same interface type and value as `i`.
+此选择语句判断接口值 `i` 保存的值类型是 `T` 还是 `S`。在 `T` 或 `S` 的情况下，变量 `v` 会分别按 `T` 或 `S` 类型保存 `i` 拥有的值。在默认（即没有匹配）的情况下，变量 `v` 与 `i` 的接口类型和值相同。
 
 .play methods/type-switches.go
 
-* Stringers
+* Stringer
 
-One of the most ubiquitous interfaces is [[/pkg/fmt/#Stringer][`Stringer`]] defined by the [[/pkg/fmt/][`fmt`]] package.
+[[/pkg/fmt/][`fmt`]] 包中定义的 [[/pkg/fmt/#Stringer][`Stringer`]] 是最普遍的接口之一。
 
 	type Stringer interface {
 		String() string
 	}
 
-A `Stringer` is a type that can describe itself as a string. The `fmt` package
-(and many others) look for this interface to print values.
+`Stringer` 是一个可以用字符串描述自己的类型。`fmt` 包（还有很多包）都通过此接口来打印值。
 
 .play methods/stringer.go
 
-* Exercise: Stringers
+* 练习：Stringer
 
-Make the `IPAddr` type implement `fmt.Stringer` to print the address as
-a dotted quad.
+通过让 `IPAddr` 类型实现 `fmt.Stringer` 来打印点号分隔的地址。
 
-For instance, `IPAddr{1,`2,`3,`4}` should print as `"1.2.3.4"`.
+例如，`IPAddr{1,`2,`3,`4}` 应当打印为 `"1.2.3.4"`。
 
 .play methods/exercise-stringer.go
 
-* Errors
+* 错误
 
-Go programs express error state with `error` values.
+Go 程序使用 `error` 值来表示错误状态。
 
-The `error` type is a built-in interface similar to `fmt.Stringer`:
+与 `fmt.Stringer` 类似，`error` 类型是一个内建接口：
 
 	type error interface {
 		Error() string
 	}
 
-(As with `fmt.Stringer`, the `fmt` package looks for the `error` interface when
-printing values.)
+（与 `fmt.Stringer` 类似，`fmt` 包也会根据对 `error` 的实现来打印值。）
 
-Functions often return an `error` value, and calling code should handle errors
-by testing whether the error equals `nil`.
+通常函数会返回一个 `error` 值，调用它的代码应当判断这个错误是否等于 `nil` 来进行错误处理。
 
 	i, err := strconv.Atoi("42")
 	if err != nil {
@@ -312,76 +275,70 @@ by testing whether the error equals `nil`.
 	}
 	fmt.Println("Converted integer:", i)
 
-A nil `error` denotes success; a non-nil `error` denotes failure.
+`error` 为 nil 时表示成功；非 nil 的 `error` 表示失败。
 
 .play methods/errors.go
 
-* Exercise: Errors
+* 练习：错误
 
-Copy your `Sqrt` function from the [[/tour/flowcontrol/8][earlier exercise]] and modify it to return an `error` value.
+从[[/tour/flowcontrol/8][之前的练习]]中复制 `Sqrt` 函数，修改它使其返回 `error` 值。
 
-`Sqrt` should return a non-nil error value when given a negative number, as it doesn't support complex numbers.
+`Sqrt` 接受到一个负数时，应当返回一个非 nil 的错误值。复数同样也不被支持。
 
-Create a new type
+创建一个新的类型
 
 	type ErrNegativeSqrt float64
 
-and make it an `error` by giving it a
+并为其实现
 
 	func (e ErrNegativeSqrt) Error() string
 
-method such that `ErrNegativeSqrt(-2).Error()` returns `"cannot`Sqrt`negative`number:`-2"`.
+方法使其拥有 `error` 值，通过 `ErrNegativeSqrt(-2).Error()` 调用该方法应返回 `"cannot`Sqrt`negative`number:`-2"`。
 
-*Note:* A call to `fmt.Sprint(e)` inside the `Error` method will send the program into an infinite loop. You can avoid this by converting `e` first: `fmt.Sprint(float64(e))`. Why?
+*注意:* 在 `Error` 方法内调用 `fmt.Sprint(e)` 会让程序陷入死循环。可以通过先转换 `e`
+来避免这个问题：`fmt.Sprint(float64(e))`。这是为什么呢？
 
-Change your `Sqrt` function to return an `ErrNegativeSqrt` value when given a negative number.
+修改 `Sqrt` 函数，使其接受一个负数时，返回 `ErrNegativeSqrt` 值。
 
 .play methods/exercise-errors.go
 
 * Readers
 
-The `io` package specifies the `io.Reader` interface,
-which represents the read end of a stream of data.
+`io` 包指定了 `io.Reader` 接口，它表示数据流的读取端。
 
-The Go standard library contains [[https://cs.opensource.google/search?q=Read%5C(%5Cw%2B%5Cs%5C%5B%5C%5Dbyte%5C)&ss=go%2Fgo][many implementations]] of this interface, including files, network connections, compressors, ciphers, and others.
+Go 标准库包含了该接口的[[https://cs.opensource.google/search?q=Read%5C(%5Cw%2B%5Cs%5C%5B%5C%5Dbyte%5C)&ss=go%2Fgo][许多实现]]，包括文件、网络连接、压缩和加密等等。
 
-The `io.Reader` interface has a `Read` method:
+`io.Reader` 接口有一个 `Read` 方法：
 
 	func (T) Read(b []byte) (n int, err error)
 
-`Read` populates the given byte slice with data and returns the number of bytes
-populated and an error value. It returns an `io.EOF` error when the stream
-ends.
+`Read` 用数据填充给定的字节切片并返回填充的字节数和错误值。在遇到数据流的结尾时，它会返回一个 `io.EOF` 错误。
 
-The example code creates a
-[[/pkg/strings/#Reader][`strings.Reader`]]
-and consumes its output 8 bytes at a time.
+示例代码创建了一个 [[/pkg/strings/#Reader][`strings.Reader`]] 并以每次 8 字节的速度读取它的输出。
 
 .play methods/reader.go
 
-* Exercise: Readers
+* 练习：Reader
 
-Implement a `Reader` type that emits an infinite stream of the ASCII character
-`'A'`.
+实现一个 `Reader` 类型，它产生一个 ASCII 字符 `'A'` 的无限流。
 
 .play methods/exercise-reader.go
 
-* Exercise: rot13Reader
+* 练习：rot13Reader
 
-A common pattern is an [[/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+有种常见的模式是一个 [[/pkg/io/#Reader][`io.Reader`]] 包装另一个 `io.Reader`，然后通过某种方式修改其数据流。
 
-For example, the [[/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of compressed data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+例如，[[/pkg/compress/gzip/#NewReader][`gzip.NewReader`]] 函数接受一个 `io.Reader`（已压缩的数据流）并返回一个同样实现了 `io.Reader` 的 `*gzip.Reader`（解压后的数据流）。
 
-Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[https://en.wikipedia.org/wiki/ROT13][rot13]] substitution cipher to all alphabetical characters.
+编写一个实现了 `io.Reader` 并从另一个 `io.Reader` 中读取数据的 `rot13Reader`，通过应用 [[https://en.wikipedia.org/wiki/ROT13][rot13]] 代换密码对数据流进行修改。
 
-The `rot13Reader` type is provided for you.
-Make it an `io.Reader` by implementing its `Read` method.
+`rot13Reader` 类型已经提供。实现 `Read` 方法以满足 `io.Reader`。
 
 .play methods/exercise-rot-reader.go
 
-* Images
+* 图像
 
-[[/pkg/image/#Image][Package image]] defines the `Image` interface:
+[[/pkg/image/#Image][`image`]] 包定义了 `Image` 接口：
 
 	package image
 
@@ -391,32 +348,30 @@ Make it an `io.Reader` by implementing its `Read` method.
 		At(x, y int) color.Color
 	}
 
-*Note*: the `Rectangle` return value of the `Bounds` method is actually an
-[[/pkg/image/#Rectangle][`image.Rectangle`]], as the
-declaration is inside package `image`.
+*注意:* `Bounds` 方法的返回值 `Rectangle` 实际上是一个 [[/pkg/image/#Rectangle][`image.Rectangle`]]，它在 `image` 包中声明。
 
-(See [[/pkg/image/#Image][the documentation]] for all the details.)
+（请参阅[[/pkg/image/#Image][文档]]了解全部信息。）
 
-The `color.Color` and `color.Model` types are also interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[/pkg/image/color/][image/color package]]
+`color.Color` 和 `color.Model` 类型也是接口，但是通常因为直接使用预定义的实现 `image.RGBA` 和 `image.RGBAModel` 而被忽视了。这些接口和类型由 [[/pkg/image/color/][`image/color`]] 包定义。
 
 .play methods/images.go
 
-* Exercise: Images
+* 练习：图像
 
-Remember the [[/tour/moretypes/18][picture generator]] you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
+还记得之前编写的[[/tour/moretypes/18][图片生成器]] 吗？我们再来编写另外一个，不过这次它将会返回一个 `image.Image` 的实现而非一个数据切片。
 
-Define your own `Image` type, implement [[/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+定义你自己的 `Image` 类型，实现[[/pkg/image/#Image][必要的方法]]并调用 `pic.ShowImage`。
 
-`Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
+`Bounds` 应当返回一个 `image.Rectangle` ，例如 `image.Rect(0,`0,`w,`h)`。
 
-`ColorModel` should return `color.RGBAModel`.
+`ColorModel` 应当返回 `color.RGBAModel`。
 
-`At` should return a color; the value `v` in the last picture generator corresponds to `color.RGBA{v,`v,`255,`255}` in this one.
+`At` 应当返回一个颜色。上一个图片生成器的值 `v` 对应于此次的 `color.RGBA{v,`v,`255,`255}`。
 
 .play methods/exercise-images.go
 
-* Congratulations!
+* 恭喜！
 
-You finished this lesson!
+你已经完成了本课程！
 
-You can go back to the list of [[/tour/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+你可以返回[[/tour/list][模块]]列表看看接下来学习什么，或者继续[[javascript:click('.next-page')][后面的课程]]。

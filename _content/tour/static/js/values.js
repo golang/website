@@ -54,7 +54,7 @@ value('translation', {
     'submit-feedback': '反馈本页的错误',
 
     // GitHub issue template: update repo and messaging when translating.
-    'github-repo': 'github.com/golang/tour',
+    'github-repo': 'github.com/Go-zh/website',
     'issue-title': 'tour: [REPLACE WITH SHORT DESCRIPTION]',
     'issue-message': 'Change the title above to describe your issue and add your feedback here, including code if necessary',
     'context': 'Context',

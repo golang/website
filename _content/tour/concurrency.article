@@ -34,7 +34,8 @@ Like maps and slices, channels must be created before use:
 
 	ch := make(chan int)
 
-By default, sends and receives block until the other side is ready. This allows goroutines to synchronize without explicit locks or condition variables.
+By default, sends and receives block until the other side is ready.
+这使得 Go 协程可以在没有显式的锁或条件变量的情况下进行同步。
 
 The example code sums the numbers in a slice, distributing the work between two goroutines.
 Once both goroutines have completed their computation, it calculates the final result.
@@ -63,7 +64,7 @@ A sender can `close` a channel to indicate that no more values will be sent. Rec
 
 The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
 
-*Note:* Only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+*注意：* 只应由发送者关闭信道，而不应油接收者关闭。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。
 
 *Another*note:* Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
 
