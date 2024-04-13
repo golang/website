@@ -221,15 +221,7 @@ directive('feedbackButton', ['i18n', function(i18n) {
             scope.feedbackMessage = i18n.l('submit-feedback');
 
             elm.on('click', function() {
-                var context = window.location.pathname === '/tour/list'
-                    ? '/tour/list'
-                    : '/tour/' + scope.params.lessonId + '/' + scope.params.pageNumber;
-	        context = window.location.protocol + '//' + window.location.host + context;
-                // var title = i18n.l('issue-title');
-                // var body = i18n.l('context') + ': '+ context + '\n\n'+ i18n.l('issue-message');
-                var url = 'https://' + i18n.l('github-repo')  // + '/issues/new'
-                    // + '?title=' + encodeURIComponent(title)
-                    // + '&body=' + encodeURIComponent(body);
+                var url = 'https://' + i18n.l('github-repo')
                 window.open(url);
             });
         }

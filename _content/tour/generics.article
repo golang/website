@@ -1,42 +1,38 @@
-Generics
-Go supports generic programming using type parameters. This lesson shows some examples for employing generics in your code.
+泛型
+Go 通过类型参数来支持泛型编程。本节课将展示一些在代码中使用泛型的示例。
 
 项目地址
 https://github.com/Go-zh/website
 
-* Type parameters
+* 类型参数
 
-Go functions can be written to work on multiple types using type parameters. The
-type parameters of a function appear between brackets, before the function's
-arguments.
+可以使用类型参数编写 Go 函数来处理多种类型。
+函数的类型参数出现在函数参数之前的方括号之间。
 
   func Index[T comparable](s []T, x T) int
 
-This declaration means that `s` is a slice of any type `T` that fulfills the
-built-in constraint `comparable`. `x` is also a value of the same type.
+此声明意味着 `s` 是满足内置约束 `comparable` 的任何类型 `T` 的切片。
+`x` 也是相同类型的值。
 
-`comparable` is a useful constraint that makes it possible to use the `==` and
-`!=` operators on values of the type. In this example, we use it to compare a
-value to all slice elements until a match is found. This `Index` function works
-for any type that supports comparison.
+`comparable` 是一个有用的约束，它能让我们对任意满足该类型的值使用 `==`
+和 `!=` 运算符。在此示例中，我们使用它将值与所有切片元素进行比较，直到找到匹配项。
+该 `Index` 函数适用于任何支持比较的类型。
 
 .play generics/index.go
 
-* Generic types
+* 泛型类型
 
-In addition to generic functions, Go also supports generic types. A type can
-be parameterized with a type parameter, which could be useful for implementing
-generic data structures.
+除了泛型函数之外，Go 还支持泛型类型。
+类型可以使用类型参数进行参数化，这对于实现通用数据结构非常有用。
 
-This example demonstrates a simple type declaration for a singly-linked list
-holding any type of value.
+此示例展示了能够保存任意类型值的单链表的简单类型声明。
 
-As an exercise, add some functionality to this list implementation.
+作为练习，请为此链表的实现添加一些功能。
 
 .play generics/list.go
 
-* Congratulations!
+* 恭喜！
 
-You finished this lesson!
+你已经完成了本课程！
 
-You can go back to the list of [[/tour/list][modules]] to find what to learn next, or continue with the [[javascript:click('.next-page')][next lesson]].
+你可以返回[[/tour/list][模块]]列表看看接下来学习什么，或者继续[[javascript:click('.next-page')][后面的课程]]。
