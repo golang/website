@@ -228,7 +228,7 @@ followed by dependencies sorted by module path.
 
 The `golang.org/x/text` version `v0.0.0-20170915032832-14c0d48ead0c`
 is an example of a
-[pseudo-version](/cmd/go/#hdr-Pseudo_versions),
+[pseudo-version](/ref/mod#pseudo-versions),
 which is the `go` command's version syntax
 for a specific untagged commit.
 
