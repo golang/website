@@ -1,107 +1,105 @@
-Concurrency
-Go provides concurrency constructions as part of the core language. This lesson presents them and gives some examples on how they can be used.
+并发
+Go 将并发结构作为核心语言的一部分提供。本节课程通过一些示例介绍并展示了它们的用法。
 
 项目地址
 https://github.com/Go-zh/website
 
-* Goroutines
+* Go 协程
 
 A _goroutine_ is a lightweight thread managed by the Go runtime.
 
 	go f(x, y, z)
 
-starts a new goroutine running
+会启动一个新的 Go 协程并执行
 
 	f(x, y, z)
 
-The evaluation of `f`, `x`, `y`, and `z` happens in the current goroutine and the execution of `f` happens in the new goroutine.
+`f`, `x`, `y` 和 `z` 的求值发生在当前的 Go 协程中，而 `f` 的执行发生在新的 Go 协程中。
 
-Goroutines run in the same address space, so access to shared memory must be synchronized. The [[/pkg/sync/][`sync`]] package provides useful primitives, although you won't need them much in Go as there are other primitives. (See the next slide.)
+Go 程在相同的地址空间中运行，因此在访问共享的内存时必须进行同步。[[https://go-zh.org/pkg/sync/][`sync`]] 包提供了这种能力，不过在 Go 中并不经常用到，因为还有其它的办法（见下一页）。
 
 .play concurrency/goroutines.go
 
-* Channels
+* 信道
 
-Channels are a typed conduit through which you can send and receive values with the channel operator, `<-`.
+信道是带有类型的管道，你可以通过它用信道操作符 `<-` 来发送或者接收值。
 
-	ch <- v    // Send v to channel ch.
-	v := <-ch  // Receive from ch, and
-	           // assign value to v.
+	ch <- v    // 将 v 发送至信道 ch。
+	v := <-ch  // 从 ch 接收值并赋予 v。
 
-(The data flows in the direction of the arrow.)
+（“箭头”就是数据流的方向。）
 
-Like maps and slices, channels must be created before use:
+和映射与切片一样，信道在使用前必须创建：
 
 	ch := make(chan int)
 
-By default, sends and receives block until the other side is ready.
-这使得 Go 协程可以在没有显式的锁或条件变量的情况下进行同步。
+默认情况下，发送和接收操作在另一端准备好之前都会阻塞。这使得 Go 程可以在没有显式的锁或竞态变量的情况下进行同步。
 
-The example code sums the numbers in a slice, distributing the work between two goroutines.
-Once both goroutines have completed their computation, it calculates the final result.
+以下示例对切片中的数进行求和，将任务分配给两个 Go 程。一旦两个 Go 程完成了它们的计算，它就能算出最终的结果。
 
 .play concurrency/channels.go
 
-* Buffered Channels
+* 带缓冲的信道
 
-Channels can be _buffered_.  Provide the buffer length as the second argument to `make` to initialize a buffered channel:
+信道可以是 *带缓冲的*。将缓冲长度作为第二个参数提供给 `make` 来初始化一个带缓冲的信道：
 
 	ch := make(chan int, 100)
 
-Sends to a buffered channel block only when the buffer is full. Receives block when the buffer is empty.
+仅当信道的缓冲区填满后，向其发送数据时才会阻塞。当缓冲区为空时，接受方会阻塞。
 
-Modify the example to overfill the buffer and see what happens.
+修改示例填满缓冲区，然后看看会发生什么。
 
 .play concurrency/buffered-channels.go
 
-* Range and Close
+* range 和 close
 
-A sender can `close` a channel to indicate that no more values will be sent. Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+发送者可通过 `close` 关闭一个信道来表示没有需要发送的值了。接收者可以通过为接收表达式分配第二个参数来测试信道是否被关闭：若没有值可以接收且信道已被关闭，那么在执行完
 
 	v, ok := <-ch
 
-`ok` is `false` if there are no more values to receive and the channel is closed.
+此时 `ok` 会被设置为 `false`。
 
-The loop `for`i`:=`range`c` receives values from the channel repeatedly until it is closed.
+循环 `for`i`:=`range`c` 会不断从信道接收值，直到它被关闭。
 
-*注意：* 只应由发送者关闭信道，而不应油接收者关闭。向一个已经关闭的信道发送数据会引发程序恐慌（panic）。
+*注意：* 只应由发送者关闭信道，而不应油接收者关闭。向一个已经关闭的信道发送数据会引发程序 panic。
 
-*Another*note:* Channels aren't like files; you don't usually need to close them. Closing is only necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+*还要注意：* 信道与文件不同，通常情况下无需关闭它们。只有在必须告诉接收者不再有需要发送的值时才有必要关闭，例如终止一个 `range` 循环。
 
 .play concurrency/range-and-close.go
 
-* Select
+* select 语句
 
-The `select` statement lets a goroutine wait on multiple communication operations.
+`select` 语句使一个 Go 程可以等待多个通信操作。
 
-A `select` blocks until one of its cases can run, then it executes that case.  It chooses one at random if multiple are ready.
+`select` 会阻塞到某个分支可以继续执行为止，这时就会执行该分支。当多个分支都准备好时会随机选择一个执行。
 
 .play concurrency/select.go
 
-* Default Selection
+* 默认选择
 
-The `default` case in a `select` is run if no other case is ready.
+当 `select` 中的其它分支都没有准备好时，`default` 分支就会执行。
 
-Use a `default` case to try a send or receive without blocking:
+为了在尝试发送或者接收时不发生阻塞，可使用 `default` 分支：
 
 	select {
 	case i := <-c:
-		// use i
+		// 使用 i
 	default:
-		// receiving from c would block
+		// 从 c 中接收会阻塞时执行
 	}
 
 .play concurrency/default-selection.go
 
-* Exercise: Equivalent Binary Trees
+* 练习：等价二叉查找树
 
-There can be many different binary trees with the same sequence of values stored in it. For example, here are two binary trees storing the sequence 1, 1, 2, 3, 5, 8, 13.
+不同二叉树的叶节点上可以保存相同的值序列。例如，以下两个二叉树都保存了序列 `1，1，2，3，5，8，13`。
 
 .image /tour/static/img/tree.png
 
-A function to check whether two binary trees store the same sequence is quite complex in most languages. We'll use Go's concurrency and channels to write a simple solution.
+在大多数语言中，检查两个二叉树是否保存了相同序列的函数都相当复杂。
+我们将使用 Go 的并发和信道来编写一个简单的解法。
 
-This example uses the `tree` package, which defines the type:
+本例使用了 `tree` 包，它定义了类型：
 
 	type Tree struct {
 		Left  *Tree
@@ -109,101 +107,88 @@ This example uses the `tree` package, which defines the type:
 		Right *Tree
 	}
 
+点击[[javascript:click('.next-page')][下一页]]继续。
 
-Continue description on [[javascript:click('.next-page')][next page]].
+* 练习：等价二叉查找树
 
-* Exercise: Equivalent Binary Trees
+*1.* 实现 `Walk` 函数。
 
-*1.* Implement the `Walk` function.
+*2.* 测试 `Walk` 函数。
 
-*2.* Test the `Walk` function.
+函数 `tree.New(k)` 用于构造一个随机结构的已排序二叉查找树，它保存了值 `k`, `2k`, `3k`, ..., `10k`。
 
-The function `tree.New(k)` constructs a randomly-structured (but always sorted) binary tree holding the values `k`, `2k`, `3k`, ..., `10k`.
-
-Create a new channel `ch` and kick off the walker:
+创建一个新的信道 `ch` 并且对其进行步进：
 
 	go Walk(tree.New(1), ch)
 
-Then read and print 10 values from the channel. It should be the numbers 1, 2, 3, ..., 10.
+然后从信道中读取并打印 10 个值。应当是数字 1, 2, 3, ..., 10.
 
-*3.* Implement the `Same` function using `Walk` to determine whether `t1` and `t2` store the same values.
+*3.* 用 `Walk` 实现 `Same` 函数来检测 `t1` 和 `t2` 是否存储了相同的值。
 
-*4.* Test the `Same` function.
+*4.* 测试 `Same` 函数。
 
-`Same(tree.New(1),`tree.New(1))` should return true, and `Same(tree.New(1),`tree.New(2))` should return false.
+`Same(tree.New(1),`tree.New(1))` 应当返回 `true`，而 `Same(tree.New(1),`tree.New(2))` 应当返回 `false`。
 
-The documentation for `Tree` can be found [[https://godoc.org/golang.org/x/tour/tree#Tree][here]].
+`Tree` 的文档可在[[https://godoc.org/golang.org/x/tour/tree#Tree][这里]]找到。
 
 .play concurrency/exercise-equivalent-binary-trees.go
 
 * sync.Mutex
 
-We've seen how channels are great for communication among goroutines.
+我们已经看到信道非常适合在各个 Go 程间进行通信。
 
-But what if we don't need communication? What if we just want to make sure only
-one goroutine can access a variable at a time to avoid conflicts?
+但是如果我们并不需要通信呢？比如说，若我们只是想保证每次只有一个 Go 程能够访问一个共享的变量，从而避免冲突？
 
-This concept is called _mutual_exclusion_, and the conventional name for the data structure that provides it is _mutex_.
+这里涉及的概念叫做 *互斥（mutual*exclusion）* ，我们通常使用 *互斥锁（Mutex）* 这一数据结构来提供这种机制。
 
-Go's standard library provides mutual exclusion with
-[[/pkg/sync/#Mutex][`sync.Mutex`]] and its two methods:
+Go 标准库中提供了 [[/pkg/sync/#Mutex][`sync.Mutex`]] 互斥锁类型及其两个方法：
 
 - `Lock`
 - `Unlock`
 
-We can define a block of code to be executed in mutual exclusion by surrounding it
-with a call to `Lock` and `Unlock` as shown on the `Inc` method.
+我们可以通过在代码前调用 `Lock` 方法，在代码后调用 `Unlock` 方法来保证一段代码的互斥执行。参见 `Inc` 方法。
 
-We can also use `defer` to ensure the mutex will be unlocked as in the `Value` method.
+我们也可以用 `defer` 语句来保证互斥锁一定会被解锁。参见 `Value` 方法。
 
 .play concurrency/mutex-counter.go
 
-* Exercise: Web Crawler
+* 练习：Web 爬虫
 
-In this exercise you'll use Go's concurrency features to parallelize a web crawler.
+在这个练习中，我们将会使用 Go 的并发特性来并行化一个 Web 爬虫。
 
-Modify the `Crawl` function to fetch URLs in parallel without fetching the same URL twice.
+修改 `Crawl` 函数来并行地抓取 URL，并且保证不重复。
 
-_Hint_: you can keep a cache of the URLs that have been fetched on a map, but maps alone are not
-safe for concurrent use!
+*提示：* 你可以用一个 map 来缓存已经获取的 URL，但是要注意 map 本身并不是并发安全的！
 
 .play concurrency/exercise-web-crawler.go
 
-* Where to Go from here...
+* 接下来去哪？
 
-#appengine: You can get started by
-#appengine: [[/doc/install/][installing Go]].
+#appengine: 你可以从[[https://go-zh.org/doc/install/][安装 Go]] 开始。
 
-#appengine: Once you have Go installed, the
-The
-[[/doc/][Go Documentation]] is a great place to
-#appengine: continue.
-start.
-It contains references, tutorials, videos, and more.
+#appengine: 一旦安装了 Go，Go
+Go
+[[https://go-zh.org/doc/][文档]]是一个极好的
+#appengine: 应当继续阅读的内容。
+开始。
+它包含了参考、指南、视频等等更多资料。
 
-To learn how to organize and work with Go code, read [[/doc/code][How to Write Go Code]].
+了解如何组织 Go 代码并在其上工作，参阅[[https://www.youtube.com/watch?v=XCsL89YtqCs][此视频]]，或者阅读[[/doc/code.html][如何编写 Go 代码]]。
 
-If you need help with the standard library, see the [[/pkg/][package reference]]. For help with the language itself, you might be surprised to find the [[/ref/spec][Language Spec]] is quite readable.
+如果你需要标准库方面的帮助，请参考[[/pkg/][包手册]]。如果是语言本身的帮助，阅读[[/ref/spec][语言规范]]是件令人愉快的事情。
 
-To further explore Go's concurrency model, watch
-[[https://www.youtube.com/watch?v=f6kdp27TYZs][Go Concurrency Patterns]]
-([[/talks/2012/concurrency.slide][slides]])
-and
-[[https://www.youtube.com/watch?v=QDDwwePbDtw][Advanced Go Concurrency Patterns]]
-([[/talks/2013/advconc.slide][slides]])
-and read the
-[[/doc/codewalk/sharemem/][Share Memory by Communicating]]
-codewalk.
+进一步探索 Go 的并发模型，参阅 [[https://www.youtube.com/watch?v=f6kdp27TYZs][Go 并发模型]]([[https://talks.go-zh.org/2012/concurrency.slide][幻灯片]])以及[[https://www.youtube.com/watch?v=QDDwwePbDtw][深入 Go 并发模型]]([[https://talks.go-zh.org/2013/advconc.slide][幻灯片]])并阅读[[/doc/codewalk/sharemem/][通过通信共享内存]]的代码之旅。
 
-To get started writing web applications, watch
-[[https://vimeo.com/53221558][A simple programming environment]]
-([[/talks/2012/simple.slide][slides]])
-and read the
-[[/doc/articles/wiki/][Writing Web Applications]] tutorial.
+想要开始编写 Web 应用，请参阅[[https://vimeo.com/53221558][一个简单的编程环境]]([[https://talks.go-zh.org/2012/simple.slide][幻灯片]])并阅读[[/doc/articles/wiki/][编写 Web 应用]]的指南。
 
-The [[/doc/codewalk/functions/][First Class Functions in Go]] codewalk gives an interesting perspective on Go's function types.
+[[/doc/codewalk/functions/][函数：Go 中的一等公民]]展示了有趣的函数类型。
 
-The [[/blog/][Go Blog]] has a large archive of informative Go articles.
+[[https://blog.go-zh.org/][Go 博客]]有着众多关于 Go 的文章和信息。
 
-Visit [[/][the Go home page]] for more.
+[[https://learnku.com/go][Go 技术论坛]]有大量关于 Go 的中文文档和 Go 官方博客的翻译。
 
+[[https://www.mikespook.com/tag/golang/][mikespook 的博客]]中有大量中文的关于 Go 的文章和翻译。
+
+开源电子书 [[https://github.com/astaxie/build-web-application-with-golang][Go Web 编程]]和 [[https://github.com/Unknwon/the-way-to-go_ZH_CN][Go 入门指南]]能够帮助你更加深入的了解和学习 Go 语言。
+
+访问 [[https://go-zh.org][go-zh.org]] 了解更多内容。
