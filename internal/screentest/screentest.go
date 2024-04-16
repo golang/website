@@ -344,7 +344,7 @@ func cleanBkts(ctx context.Context, bkts, keepFiles, safeExts map[string]bool) e
 	return client.Close()
 }
 
-// cleanBkts ensures the set of directories in dirs exists and
+// cleanDirs ensures the set of directories in dirs exists and
 // clears dirs of all files not included in the set of keepFiles.
 func cleanDirs(dirs, keepFiles, safeExts map[string]bool) error {
 	for dir := range dirs {
