@@ -1,0 +1,37 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg height="170" width="400" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style type="text/css"><![CDATA[
+      text {
+        font-family: sans-serif, Arial;
+        font-size: 12px;
+      }
+      text.head {
+        font-weight: bold;
+        font-size: 14px;
+      }
+    ]]></style>
+  </defs>
+<text x='0' y='25' class='head'><tspan dx='5' dy='-0.5em'>Apple M1</tspan></text>
+<rect x='5' y='25' height='20' width='62' fill='#ffaaaa' stroke='black' />
+<text x='64' y='45' text-anchor='end'><tspan dy='-0.5em'>2.5ns</tspan></text>
+<text x='72' y='45'><tspan dy='-0.5em'>Go 1: Uint64</tspan></text>
+<rect x='5' y='45' height='20' width='104' fill='#ccccff' stroke='black' />
+<text x='106' y='65' text-anchor='end'><tspan dy='-0.5em'>4.2ns</tspan></text>
+<text x='114' y='65'><tspan dy='-0.5em'>PCG: Uint64</tspan></text>
+<rect x='5' y='65' height='20' width='116' fill='#ffffaa' stroke='black' />
+<text x='118' y='85' text-anchor='end'><tspan dy='-0.5em'>4.6ns</tspan></text>
+<text x='126' y='85'><tspan dy='-0.5em'>ChaCha8: Uint64</tspan></text>
+<rect x='5' y='95' height='20' width='76' fill='#ffaaaa' stroke='black' />
+<text x='78' y='115' text-anchor='end'><tspan dy='-0.5em'>3.1ns</tspan></text>
+<text x='86' y='115'><tspan dy='-0.5em'>Go 1: N(1000)</tspan></text>
+<rect x='5' y='115' height='20' width='102' fill='#ccccff' stroke='black' />
+<text x='104' y='135' text-anchor='end'><tspan dy='-0.5em'>4.1ns</tspan></text>
+<text x='112' y='135'><tspan dy='-0.5em'>PCG: N(1000)</tspan></text>
+<rect x='5' y='135' height='20' width='121' fill='#ffffaa' stroke='black' />
+<text x='123' y='155' text-anchor='end'><tspan dy='-0.5em'>4.9ns</tspan></text>
+<text x='131' y='155'><tspan dy='-0.5em'>ChaCha8: N(1000)</tspan></text>
+</svg>
