@@ -240,14 +240,14 @@ specific database.
     var db *sql.DB
 
     func main() {
-    	// Capture connection properties.
-    	cfg := mysql.Config{
-    		User:   os.Getenv("DBUSER"),
-    		Passwd: os.Getenv("DBPASS"),
-    		Net:    "tcp",
-    		Addr:   "127.0.0.1:3306",
-    		DBName: "recordings",
-    	}
+		// Capture connection properties.
+		cfg := mysql.NewConfig()
+		cfg.User = os.Getenv("DBUSER")
+		cfg.Passwd = os.Getenv("DBPASS")
+		cfg.Net = "tcp"
+		cfg.Addr = "127.0.0.1:3306"
+		cfg.DBName = "recordings"
+
     	// Get a database handle.
     	var err error
     	db, err = sql.Open("mysql", cfg.FormatDSN())
@@ -690,13 +690,13 @@ type Album struct {
 
 func main() {
 	// Capture connection properties.
-	cfg := mysql.Config{
-		User:   os.Getenv("DBUSER"),
-		Passwd: os.Getenv("DBPASS"),
-		Net:    "tcp",
-		Addr:   "127.0.0.1:3306",
-		DBName: "recordings",
-	}
+	cfg := mysql.NewConfig()
+	cfg.User = os.Getenv("DBUSER")
+	cfg.Passwd = os.Getenv("DBPASS")
+	cfg.Net = "tcp"
+	cfg.Addr = "127.0.0.1:3306"
+	cfg.DBName = "recordings"
+
 	// Get a database handle.
 	var err error
 	db, err = sql.Open("mysql", cfg.FormatDSN())
