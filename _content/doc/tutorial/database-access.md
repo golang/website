@@ -240,13 +240,13 @@ specific database.
     var db *sql.DB
 
     func main() {
-		// Capture connection properties.
-		cfg := mysql.NewConfig()
-		cfg.User = os.Getenv("DBUSER")
-		cfg.Passwd = os.Getenv("DBPASS")
-		cfg.Net = "tcp"
-		cfg.Addr = "127.0.0.1:3306"
-		cfg.DBName = "recordings"
+    	// Capture connection properties.
+    	cfg := mysql.NewConfig()
+    	cfg.User = os.Getenv("DBUSER")
+    	cfg.Passwd = os.Getenv("DBPASS")
+    	cfg.Net = "tcp"
+    	cfg.Addr = "127.0.0.1:3306"
+    	cfg.DBName = "recordings"
 
     	// Get a database handle.
     	var err error
@@ -331,7 +331,8 @@ specific database.
 
     ```
     $ go get .
-    go get: added github.com/go-sql-driver/mysql v1.6.0
+    go: added filippo.io/edwards25519 v1.1.0
+    go: added github.com/go-sql-driver/mysql v1.8.1
     ```
 
     Go downloaded this dependency because you added it to the `import`
