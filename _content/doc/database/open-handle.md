@@ -115,13 +115,12 @@ to build a connection string.
 
 ```
 // Specify connection properties.
-cfg := mysql.Config{
-	User:   username,
-	Passwd: password,
-	Net:    "tcp",
-	Addr:   "127.0.0.1:3306",
-	DBName: "jazzrecords",
-}
+cfg := mysql.NewConfig()
+cfg.User = username
+cfg.Passwd = password
+cfg.Net = "tcp"
+cfg.Addr = "127.0.0.1:3306"
+cfg.DBName = "jazzrecords"
 
 // Get a database handle.
 db, err = sql.Open("mysql", cfg.FormatDSN())
@@ -143,13 +142,12 @@ create a handle with code such as the following:
 
 ```
 // Specify connection properties.
-cfg := mysql.Config{
-	User:   username,
-	Passwd: password,
-	Net:    "tcp",
-	Addr:   "127.0.0.1:3306",
-	DBName: "jazzrecords",
-}
+cfg := mysql.NewConfig()
+cfg.User = username
+cfg.Passwd = password
+cfg.Net = "tcp"
+cfg.Addr = "127.0.0.1:3306"
+cfg.DBName = "jazzrecords"
 
 // Get a driver-specific connector.
 connector, err := mysql.NewConnector(&cfg)
