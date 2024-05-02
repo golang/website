@@ -119,7 +119,7 @@ with only 16 bytes of internal state.
 We also wanted to explore using
 Daniel J. Bernstein's [ChaCha stream cipher](https://cr.yp.to/chacha.html)
 as a generator.
-A followup post will discuss that generator specifically.
+A [follow-up post](/blog/chacha8rand) discusses that generator specifically.
 
 ### Source Interface {#problem.source}
 
@@ -493,4 +493,4 @@ When we eventually ship `encoding/json/v2`,
 ensuring that users who don't migrate from v1 still
 benefit from optimizations and security fixes in v2.
 
-A follow-up blog post will present the `ChaCha8` generator in more detail.
+A [follow-up blog post](/blog/chacha8rand) presents the `ChaCha8` generator in more detail.
