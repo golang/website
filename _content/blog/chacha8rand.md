@@ -10,7 +10,7 @@ summary: ChaCha8Rand is a new cryptographically secure pseudorandom number gener
 Computers aren't random.
 On the contrary, hardware designers work very hard to make sure computers run every program the same way every time.
 So when a program does need random numbers, that requires extra effort.
-Traditonally, computer scientists and programming languages
+Traditionally, computer scientists and programming languages
 have distinguished between two different kinds of random numbers:
 statistical and cryptographic randomness.
 In Go, those are provided by [`math/rand`](/pkg/math/rand/)
@@ -162,7 +162,7 @@ on each step. The code looks like:
 
 Generating the next number is quite cheap: two subtractions, two conditional adds, two loads, one add, one store.
 
-Unfortunately, because the generator directly returns one slice element from its its internal state vector,
+Unfortunately, because the generator directly returns one slice element from its internal state vector,
 reading 607 values from the generator completely exposes all its state.
 With those values, you can predict all the future values, by filling in your own `vec`
 and then running the algorithm.
@@ -203,7 +203,7 @@ The entire state is a single 128-bit number,
 and the update is a 128-bit multiply and add.
 In the return statement, the `scramble` function reduces the 128-bit state
 down to a 64-bit state.
-The orginal PCG used (again using a hypothetical `uint128` type):
+The original PCG used (again using a hypothetical `uint128` type):
 
 	func scramble(x uint128) uint64 {
 		return bits.RotateLeft(uint64(x>>64) ^ uint64(x), -int(x>>122))
