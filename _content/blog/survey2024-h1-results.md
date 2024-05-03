@@ -900,10 +900,15 @@ color-coded breakdown of the differences.
 
 And that's it for our semi-annual Go Developer Survey. Many thanks to everyone
 who shared their thoughts on Go and everyone who contributed to making this
-survey happen! It means the world to us and truly helps us improve Go. This
-year we're also excited to announce the forthcoming release of this survey's
+survey happen! It means the world to us and truly helps us improve Go.
+
+This year we're also excited to announce the forthcoming release of this survey's
 dataset. We expect to share this anonymized data by the end of April, allowing
 anyone to slice and dice survey responses as needed to answer their own
 questions about the Go ecosystem.
+
+Updated 2024-05-03: We unfortunately need to delay the release of this
+dataset. We're still working to make this happen, but we don't expect to be
+able to share it until the second half of 2024.
 
 --- Alice and Todd (on behalf of the Go team at Google)
