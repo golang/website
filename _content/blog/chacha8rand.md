@@ -437,6 +437,7 @@ across a variety of hardware, running two operations:
 the primitive operation “Uint64,” which returns the next `uint64` in the random stream,
 and the higher-level operation “N(1000),” which returns a random value in the range [0, 1000).
 
+<div style="background-color: white;">
 <img src="chacha8rand/amd.svg">
 <img src="chacha8rand/intel.svg">
 <img src="chacha8rand/amd32.svg">
@@ -444,6 +445,7 @@ and the higher-level operation “N(1000),” which returns a random value in th
 <img src="chacha8rand/m1.svg">
 <img src="chacha8rand/m3.svg">
 <img src="chacha8rand/taut2a.svg">
+</div>
 
 The “running 32-bit code” graphs show modern 64-bit x86 chips
 executing code built with `GOARCH=386`, meaning they are

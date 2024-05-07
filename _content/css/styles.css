@@ -858,8 +858,7 @@ h1 + h2.subtitle {
   overflow-x: auto;
   padding: 1.5rem;
 }
-.Article pre,
-.Article code {
+.Article pre {
   color: var(--color-text);
 }
 .Article pre {
