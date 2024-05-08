@@ -458,3 +458,9 @@ body contains is:merged author:
 
 GET https://go.dev/CONTRIBUTORS
 redirect == /AUTHORS
+
+GET https://go.dev/doc/next
+body contains <h1>Next Release Notes Draft</h1>
+
+GET https://tip.golang.org/doc/next
+body contains <h1>Next Release Notes Draft</h1>

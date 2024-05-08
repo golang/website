@@ -19,6 +19,7 @@ require (
 	golang.org/x/tools v0.21.0
 	google.golang.org/api v0.136.0
 	gopkg.in/yaml.v3 v3.0.1
+	rsc.io/markdown v0.0.0-20240306144322-0bf8f97ee8ef
 )
 
 require (
