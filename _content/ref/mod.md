@@ -642,6 +642,33 @@ Example:
 toolchain go1.21.0
 ```
 
+### `godebug` directive {#go-mod-file-godebug}
+
+A `godebug` directive declares a single [GODEBUG setting](/doc/godebug)
+to apply when this module is the main module.
+There can be more than one such line, and they can be factored.
+It is an error for the main module to name a GODEBUG key that does not exist.
+The effect of `godebug key=value` is as if every main package being compiled
+contained a source file that listed `//go:debug key=value`.
+
+```
+GodebugDirective = "godebug" ( GodebugSpec | "(" newline { GodebugSpec } ")" newline ) .
+GodebugSpec = GodebugKey "=" GodebugValue newline.
+GodebugKey = GodebugChar { GodebugChar }.
+GodebugValue = GodebugChar { GodebugChar }.
+GodebugChar = any non-space character except , " ` ' (comma and quotes).
+```
+
+Example:
+
+```
+godebug default=go1.21
+godebug (
+	panicnil=1
+	asynctimerchan=0
+)
+```
+
 ### `require` directive {#go-mod-file-require}
 
 A `require` directive declares a minimum required version of a given module
@@ -1263,6 +1290,14 @@ Example:
 ```
 toolchain go1.21.0
 ```
+
+### `godebug` directive {#go-work-file-godebug}
+
+A `godebug` directive declares a single [GODEBUG setting](/doc/godebug)
+to apply when working in this workspace.
+The syntax and effect is the same as the [`go.mod` file's `godebug` directive](#go-mod-file-godebug).
+When a workspace is in use, `godebug` directives in `go.mod` files are ignored.
+
 
 ### `use` directive {#go-work-file-use}
 
