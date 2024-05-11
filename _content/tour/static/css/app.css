@@ -318,7 +318,8 @@ a#run, a#kill {
     background: #fafafa;
     margin: 0;
     overflow: auto;
-    max-height: calc(100% - 52px);
+    max-height: 100%;
+    box-sizing: border-box;
 }
 .output .system {
     color: #888;
@@ -518,6 +519,7 @@ a#run, a#kill {
     }
     #explorer + div {
         top: 32px;
+        height: calc(100% - 32px);
     }
     #file-menu {
         position: absolute;
