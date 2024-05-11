@@ -317,9 +317,7 @@ a#run, a#kill {
     font-family: 'Inconsolata', monospace;
     background: #fafafa;
     margin: 0;
-    overflow: auto;
-    max-height: 100%;
-    box-sizing: border-box;
+    min-width: min-content;
 }
 .output .system {
     color: #888;
