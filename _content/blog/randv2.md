@@ -3,7 +3,7 @@ title: Evolving the Go Standard Library with math/rand/v2
 date: 2024-05-01
 by:
 - Russ Cox
-summary: Go 1.23 adds math/rand/v2 and charts a course for the evolution of the Go standard library.
+summary: Go 1.22 adds math/rand/v2 and charts a course for the evolution of the Go standard library.
 ---
 
 Since Go 1 was [released in March 2012](/blog/go1),
