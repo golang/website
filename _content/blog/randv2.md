@@ -227,7 +227,7 @@ a random integer in the range [0, `n`).
 			panic("invalid argument to Int63n")
 		}
 		max := int64((1<<63 - 1)  - (1<<63)%uint64(n))
-		v := r.src.Int63()
+		v := r.Int63()
 		for v > max {
 			v = r.Int63()
 		}
