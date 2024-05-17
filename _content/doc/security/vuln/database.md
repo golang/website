@@ -189,10 +189,25 @@ array will have these two fields:
 - **goos**: a string array with the execution operating system where the symbols appear, if known
 - **goarch**: a string array with the architecture where the symbols appear, if known
 
-### database_specific.url
+### database_specific
+
+The `database_specific` field contains custom fields specific to the Go vulnerability database.
+
+#### database_specific.url
 
 The `database_specific.url` field is a string representing the fully-qualified
 URL of the Go vulnerability report, e.g, "https://pkg.go.dev/vuln/GO-2023-1621".
+
+#### database_specific.review_status
+
+The `database_specific.review_status` field is a string representing the review
+status of the vulnerability report. If not present, the report should be
+considered `REVIEWED`. The possible values are:
+
+- `UNREVIEWED`: The report was automatically generated based on another source, such as
+a CVE or GHSA. Its data may be limited and has not been verified by the Go team.
+- `REVIEWED`: The report originated from the Go team, or was generated based on an external source.
+A member of the Go team has reviewed the report, and where appropriate, added additional data.
 
 For information on other fields in the schema, refer to the [OSV spec](https://ossf.github.io/osv-schema).
 
