@@ -187,7 +187,7 @@ We'll then add a new function to the `reverse` package that we can use instead o
    )
    ```
 
-   The module now includes both the `example.com/hello` module and the `golang.org/x/example/hello` module,
+   The workspace now includes both the `example.com/hello` module and the `golang.org/x/example/hello` module,
    which provides the `golang.org/x/example/hello/reverse` package.
 
    This will allow us to use the new code we will write in our copy of the `reverse` package
