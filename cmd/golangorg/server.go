@@ -74,16 +74,18 @@ func usage() {
 }
 
 func main() {
-	// Running locally, find the local _content directory,
+	// Running locally, find the local _content directory when it's available nearby,
 	// so that updates to those files appear on the local dev instance without restarting.
 	// On App Engine, leave contentDir empty, so we use the embedded copy,
 	// which is much faster to access than the simulated file system.
 	if *contentDir == "" && !runningOnAppEngine {
-		repoRoot := "../.."
-		if _, err := os.Stat("_content"); err == nil {
-			repoRoot = "."
+		if fi, err := os.Stat(filepath.Join("..", "..", "_content")); err == nil && fi.IsDir() {
+			*contentDir = fi.Name()
+		} else if fi, err := os.Stat("_content"); err == nil && fi.IsDir() {
+			*contentDir = fi.Name()
+		} else {
+			*contentDir = "" // Fall back to using embedded content.
 		}
-		*contentDir = filepath.Join(repoRoot, "_content")
 	}
 
 	if runningOnAppEngine {
@@ -119,6 +121,7 @@ func main() {
 		log.Printf("\tversion = %s", runtime.Version())
 		log.Printf("\taddress = %s", *httpAddr)
 		log.Printf("\tgoroot = %s", *goroot)
+		log.Printf("\tcontent = %s", contentSource())
 		handler = loggingHandler(handler)
 	}
 
@@ -126,6 +129,18 @@ func main() {
 	fmt.Fprintf(os.Stderr, "serving http://%s\n", *httpAddr)
 	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
+	}
+}
+
+// contentSource returns a human-readable description
+// of where the x/website _content dir is coming from.
+func contentSource() string {
+	if *contentDir == "" {
+		return "embedded content"
+	} else if abs, err := filepath.Abs(*contentDir); err == nil {
+		return abs
+	} else {
+		return *contentDir
 	}
 }
 
