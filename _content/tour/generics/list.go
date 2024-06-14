@@ -1,3 +1,5 @@
+// +build OMIT
+
 package main
 
 // List represents a singly-linked list that holds

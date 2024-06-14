@@ -2,13 +2,12 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package content
+package website_test
 
 import (
 	"bytes"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -19,31 +18,25 @@ import (
 	_ "golang.org/x/tour/wc"
 )
 
-// Test that all the .go files inside the content file build
+// Test that all the .go files inside the _content/tour directory build
 // and execute (without checking for output correctness).
 // Files that contain the string "// +build no-build" are not built.
 // Files that contain the string "// +build no-run" are not executed.
-func TestContent(t *testing.T) {
+func TestTourContent(t *testing.T) {
 	if _, err := exec.LookPath("go"); err != nil {
 		t.Skipf("skipping because 'go' executable not available: %v", err)
 	}
 
-	scratch, err := ioutil.TempDir("", "tour-content-test")
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer os.RemoveAll(scratch)
-
-	err = filepath.Walk(".", func(path string, fi os.FileInfo, err error) error {
-		if filepath.Ext(path) != ".go" {
-			return nil
+	err := filepath.Walk(filepath.Join("_content", "tour"), func(path string, fi os.FileInfo, err error) error {
+		if err != nil {
+			return err
 		}
-		if filepath.Base(path) == "content_test.go" {
+		if filepath.Ext(path) != ".go" {
 			return nil
 		}
 		t.Run(path, func(t *testing.T) {
 			t.Parallel()
-			if err := testSnippet(t, filepath.ToSlash(path), scratch); err != nil {
+			if err := testSnippet(filepath.ToSlash(path), t.TempDir()); err != nil {
 				t.Errorf("%v: %v", path, err)
 			}
 		})
@@ -54,8 +47,8 @@ func TestContent(t *testing.T) {
 	}
 }
 
-func testSnippet(t *testing.T, path, scratch string) error {
-	b, err := ioutil.ReadFile(path)
+func testSnippet(path, scratch string) error {
+	b, err := os.ReadFile(path)
 	if err != nil {
 		return err
 	}

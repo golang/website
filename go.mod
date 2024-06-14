@@ -17,6 +17,7 @@ require (
 	golang.org/x/net v0.26.0
 	golang.org/x/sync v0.7.0
 	golang.org/x/tools v0.22.0
+	golang.org/x/tour v0.1.0
 	google.golang.org/api v0.136.0
 	gopkg.in/yaml.v3 v3.0.1
 	rsc.io/markdown v0.0.0-20240306144322-0bf8f97ee8ef
