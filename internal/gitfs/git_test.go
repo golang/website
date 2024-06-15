@@ -6,7 +6,7 @@ package gitfs
 
 import (
 	"io/fs"
-	"io/ioutil"
+	"os"
 	"testing"
 )
 
@@ -49,7 +49,7 @@ func TestGitHub(t *testing.T) {
 }
 
 func TestPack(t *testing.T) {
-	data, err := ioutil.ReadFile("testdata/scratch.pack")
+	data, err := os.ReadFile("testdata/scratch.pack")
 	if err != nil {
 		t.Fatal(err)
 	}

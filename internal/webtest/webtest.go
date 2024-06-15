@@ -153,10 +153,10 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 	"net/url"
+	"os"
 	"path/filepath"
 	"regexp"
 	"strings"
@@ -244,7 +244,7 @@ func test(t *testing.T, glob string, do func(*case_) error) {
 	}
 	for _, file := range files {
 		t.Run(filepath.Base(file), func(t *testing.T) {
-			data, err := ioutil.ReadFile(file)
+			data, err := os.ReadFile(file)
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -345,7 +345,7 @@ func (c *case_) runServer(addr string) error {
 	if err != nil {
 		return fmt.Errorf("%s:%d: %s %s: %s", c.file, c.line, c.method, c.url, err)
 	}
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	resp.Body.Close()
 	if err != nil {
 		return fmt.Errorf("%s:%d: %s %s: reading body: %s", c.file, c.line, c.method, c.url, err)

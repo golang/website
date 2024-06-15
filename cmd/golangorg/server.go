@@ -18,7 +18,6 @@ import (
 	"html/template"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -811,7 +810,7 @@ func (s *seekableFS) Open(name string) (fs.File, error) {
 	if info.IsDir() {
 		return f, nil
 	}
-	data, err := ioutil.ReadAll(f)
+	data, err := io.ReadAll(f)
 	if err != nil {
 		f.Close()
 		return nil, err

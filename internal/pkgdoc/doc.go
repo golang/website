@@ -17,7 +17,6 @@ import (
 	"go/token"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -181,7 +180,7 @@ func (d *docs) open(dir string, mode mode, goos, goarch string) *Page {
 		if err != nil {
 			return nil, err
 		}
-		return ioutil.NopCloser(bytes.NewReader(data)), nil
+		return io.NopCloser(bytes.NewReader(data)), nil
 	}
 
 	// Make the syscall/js package always visible by default.

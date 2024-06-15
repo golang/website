@@ -10,7 +10,7 @@ import (
 	"crypto/sha1"
 	"encoding/binary"
 	"fmt"
-	"io/ioutil"
+	"io"
 )
 
 // unpack parses data, which is a Git pack-formatted archive,
@@ -142,7 +142,7 @@ func unpackObject(s *store, objs []byte, off int) (typ objType, h Hash, content 
 	if err != nil {
 		return fail(fmt.Errorf("invalid object deflate: %v", err))
 	}
-	data, err := ioutil.ReadAll(zr)
+	data, err := io.ReadAll(zr)
 	if err != nil {
 		return fail(fmt.Errorf("invalid object: bad deflate: %v", err))
 	}

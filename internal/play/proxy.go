@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
@@ -117,7 +116,7 @@ func makeCompileRequest(ctx context.Context, backend string, req *Request, res *
 	defer r.Body.Close()
 
 	if r.StatusCode != http.StatusOK {
-		b, _ := ioutil.ReadAll(r.Body)
+		b, _ := io.ReadAll(r.Body)
 		return fmt.Errorf("bad status: %v body:\n%s", r.Status, b)
 	}
 
