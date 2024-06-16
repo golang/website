@@ -4230,15 +4230,15 @@ of all environment variables recognized by the `go` command.
 
 <table class="ModTable">
   <thead>
-    <tr>
-      <th>Variable</th>
-      <th>Description</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Variable</th>
+      <th class="ModTable-cell">Description</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><code>GO111MODULE</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GO111MODULE</code></td>
+      <td class="ModTable-cell">
         <p>
           Controls whether the <code>go</code> command runs in module-aware mode
           or <code>GOPATH</code> mode. Three values are recognized:
@@ -4265,9 +4265,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOMODCACHE</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOMODCACHE</code></td>
+      <td class="ModTable-cell">
         <p>
           The directory where the <code>go</code> command will store downloaded
           modules and related files. See <a href="#module-cache">Module
@@ -4279,9 +4279,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOINSECURE</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOINSECURE</code></td>
+      <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
           <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
@@ -4296,9 +4296,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GONOPROXY</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GONOPROXY</code></td>
+      <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
           <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
@@ -4312,9 +4312,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GONOSUMDB</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GONOSUMDB</code></td>
+      <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
           <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
@@ -4328,9 +4328,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOPATH</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOPATH</code></td>
+      <td class="ModTable-cell">
         <p>
           In <code>GOPATH</code> mode, the <code>GOPATH</code> variable is a
           list of directories that may contain Go code.
@@ -4347,9 +4347,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOPRIVATE</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOPRIVATE</code></td>
+      <td class="ModTable-cell">
         Comma-separated list of glob patterns (in the syntax of Go's
         <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
         prefixes that should be considered private. <code>GOPRIVATE</code>
@@ -4360,9 +4360,9 @@ of all environment variables recognized by the `go` command.
         <code>GOVCS</code>.
       </td>
     </tr>
-    <tr>
-      <td><code>GOPROXY</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOPROXY</code></td>
+      <td class="ModTable-cell">
         <p>
           List of module proxy URLs, separated by commas (<code>,</code>) or
           pipes (<code>|</code>). When the <code>go</code> command looks up
@@ -4417,9 +4417,9 @@ of all environment variables recognized by the `go` command.
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOSUMDB</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOSUMDB</code></td>
+      <td class="ModTable-cell">
         <p>
           Identifies the name of the checksum database to use and optionally
           its public key and URL. For example:
@@ -4459,9 +4459,9 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>GOVCS</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOVCS</code></td>
+      <td class="ModTable-cell">
         <p>
           Controls the set of version control tools the <code>go</code> command
           may use to download public and private modules (defined by whether
@@ -4482,9 +4482,9 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
         </p>
       </td>
     </tr>
-     <tr>
-      <td><code>GOWORK</code></td>
-      <td>
+     <tr class="ModTable-row">
+      <td class="ModTable-cell"><code>GOWORK</code></td>
+      <td class="ModTable-cell">
        <p>
         The `GOWORK` environment variable instructs the `go` command to enter workspace
         mode using the provided [`go.work` file](#go-work-file) to define the workspace.
