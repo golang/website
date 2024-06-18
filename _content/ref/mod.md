@@ -2594,14 +2594,14 @@ disabling module-aware mode.
 
 <table class="ModTable">
   <thead>
-    <tr>
-      <th>Command</th>
-      <th>Behavior</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Command</th>
+      <th class="ModTable-cell">Behavior</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell">
         <code>go build</code><br>
         <code>go doc</code><br>
         <code>go fix</code><br>
@@ -2613,49 +2613,49 @@ disabling module-aware mode.
         <code>go test</code><br>
         <code>go vet</code>
       </td>
-      <td>
+      <td class="ModTable-cell">
         Only packages in the standard library and packages specified as
         <code>.go</code> files on the command line can be loaded, imported, and
         built. Packages from other modules cannot be built, since there is no
         place to record module requirements and ensure deterministic builds.
       </td>
     </tr>
-    <tr>
-      <td><code>go get</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>go get</code></td>
+      <td class="ModTable-cell">
         Packages and executables may be built and installed as usual. Note that
         there is no main module when <code>go get</code> is run without a
         <code>go.mod</code> file, so <code>replace</code> and
         <code>exclude</code> directives are not applied.
       </td>
     </tr>
-    <tr>
-      <td><code>go list -m</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>go list -m</code></td>
+      <td class="ModTable-cell">
         Explicit <a href="#version-queries">version queries</a> are required
         for most arguments, except when the <code>-versions</code> flag is used.
       </td>
     </tr>
-    <tr>
-      <td><code>go mod download</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>go mod download</code></td>
+      <td class="ModTable-cell">
         Explicit <a href="#version-queries">version queries</a> are required
         for most arguments.
       </td>
     </tr>
-    <tr>
-      <td><code>go mod edit</code></td>
-      <td>An explicit file argument is required.</td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>go mod edit</code></td>
+      <td class="ModTable-cell">An explicit file argument is required.</td>
     </tr>
-    <tr>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell">
         <code>go mod graph</code><br>
         <code>go mod tidy</code><br>
         <code>go mod vendor</code><br>
         <code>go mod verify</code><br>
         <code>go mod why</code>
       </td>
-      <td>
+      <td class="ModTable-cell">
         These commands require a <code>go.mod</code> file and will report
         an error if one is not present.
       </td>
@@ -2836,22 +2836,22 @@ both be stored on disk, since the former is encoded as `example.com/!m`.
 
 <table class="ModTable">
   <thead>
-    <tr>
-      <th>Path</th>
-      <th>Description</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Path</th>
+      <th class="ModTable-cell">Description</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><code>$base/$module/@v/list</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/$module/@v/list</code></td>
+      <td class="ModTable-cell">
         Returns a list of known versions of the given module in plain text, one
         per line. This list should not include pseudo-versions.
       </td>
     </tr>
-    <tr>
-      <td><code>$base/$module/@v/$version.info</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/$module/@v/$version.info</code></td>
+      <td class="ModTable-cell">
         <p>
           Returns JSON-formatted metadata about a specific version of a module.
           The response must be a JSON object that corresponds to the Go data
@@ -2884,9 +2884,9 @@ type Info struct {
         </p>
       </td>
     </tr>
-    <tr>
-      <td><code>$base/$module/@v/$version.mod</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/$module/@v/$version.mod</code></td>
+      <td class="ModTable-cell">
         Returns the <code>go.mod</code> file for a specific version of a
         module. If the module does not have a <code>go.mod</code> file at the
         requested version, a file containing only a <code>module</code>
@@ -2894,17 +2894,17 @@ type Info struct {
         the original, unmodified <code>go.mod</code> file must be returned.
       </td>
     </tr>
-    <tr>
-      <td><code>$base/$module/@v/$version.zip</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/$module/@v/$version.zip</code></td>
+      <td class="ModTable-cell">
         Returns a zip file containing the contents of a specific version of
         a module. See <a href="#zip-files">Module zip files</a> for details
         on how this zip file must be formatted.
       </td>
     </tr>
-    <tr>
-      <td><code>$base/$module/@latest</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/$module/@latest</code></td>
+      <td class="ModTable-cell">
         Returns JSON-formatted metadata about the latest known version of a
         module in the same format as
         <code>$base/$module/@v/$version.info</code>. The latest version should
@@ -3165,43 +3165,43 @@ if the module path is matched by the `GOINSECURE` environment variable.
 
 <table id="vcs-support" class="ModTable">
   <thead>
-    <tr>
-      <th>Name</th>
-      <th>Command</th>
-      <th>GOVCS default</th>
-      <th>Secure schemes</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Name</th>
+      <th class="ModTable-cell">Command</th>
+      <th class="ModTable-cell">GOVCS default</th>
+      <th class="ModTable-cell">Secure schemes</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td>Bazaar</td>
-      <td><code>bzr</code></td>
-      <td>Private only</td>
-      <td><code>https</code>, <code>bzr+ssh</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell">Bazaar</td>
+      <td class="ModTable-cell"><code>bzr</code></td>
+      <td class="ModTable-cell">Private only</td>
+      <td class="ModTable-cell"><code>https</code>, <code>bzr+ssh</code></td>
     </tr>
-    <tr>
-      <td>Fossil</td>
-      <td><code>fossil</code></td>
-      <td>Private only</td>
-      <td><code>https</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell">Fossil</td>
+      <td class="ModTable-cell"><code>fossil</code></td>
+      <td class="ModTable-cell">Private only</td>
+      <td class="ModTable-cell"><code>https</code></td>
     </tr>
-    <tr>
-      <td>Git</td>
-      <td><code>git</code></td>
-      <td>Public and private</td>
-      <td><code>https</code>, <code>git+ssh</code>, <code>ssh</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell">Git</td>
+      <td class="ModTable-cell"><code>git</code></td>
+      <td class="ModTable-cell">Public and private</td>
+      <td class="ModTable-cell"><code>https</code>, <code>git+ssh</code>, <code>ssh</code></td>
     </tr>
-    <tr>
-      <td>Mercurial</td>
-      <td><code>hg</code></td>
-      <td>Public and private</td>
-      <td><code>https</code>, <code>ssh</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell">Mercurial</td>
+      <td class="ModTable-cell"><code>hg</code></td>
+      <td class="ModTable-cell">Public and private</td>
+      <td class="ModTable-cell"><code>https</code>, <code>ssh</code></td>
     </tr>
-    <tr>
-      <td>Subversion</td>
-      <td><code>svn</code></td>
-      <td>Private only</td>
-      <td><code>https</code>, <code>svn+ssh</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell">Subversion</td>
+      <td class="ModTable-cell"><code>svn</code></td>
+      <td class="ModTable-cell">Private only</td>
+      <td class="ModTable-cell"><code>https</code>, <code>svn+ssh</code></td>
     </tr>
   </tbody>
 </table>
@@ -3901,24 +3901,24 @@ conflicts on case-insensitive file systems.
 
 <table class="ModTable">
   <thead>
-    <tr>
-      <th>Path</th>
-      <th>Description</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Path</th>
+      <th class="ModTable-cell">Description</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><code>$module@$version/</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$module@$version/</code></td>
+      <td class="ModTable-cell">
         Directory containing extracted contents of a module <code>.zip</code>
         file. This serves as a module root directory for a downloaded module. It
         won't contain a <code>go.mod</code> file if the original module
         didn't have one.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/</code></td>
+      <td class="ModTable-cell">
         Directory containing files downloaded from module proxies and files
         derived from <a href="#vcs">version control systems</a>. The layout of
         this directory follows the
@@ -3927,44 +3927,44 @@ conflicts on case-insensitive file systems.
         server or when referenced with a <code>file://</code> URL.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/$module/@v/list</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/$module/@v/list</code></td>
+      <td class="ModTable-cell">
         List of known versions (see
         <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). This
         may change over time, so the <code>go</code> command usually fetches a
         new copy instead of re-using this file.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/$module/@v/$version.info</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/$module/@v/$version.info</code></td>
+      <td class="ModTable-cell">
         JSON metadata about the version. (see
         <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). This
         may change over time, so the <code>go</code> command usually fetches a
         new copy instead of re-using this file.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/$module/@v/$version.mod</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/$module/@v/$version.mod</code></td>
+      <td class="ModTable-cell">
         The <code>go.mod</code> file for this version (see
         <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a>). If
         the original module did not have a <code>go.mod</code> file, this is
         a synthesized file with no requirements.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/$module/@v/$version.zip</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/$module/@v/$version.zip</code></td>
+      <td class="ModTable-cell">
         The zipped contents of the module (see
         <a href="#goproxy-protocol"><code>GOPROXY</code> protocol</a> and
         <a href="#zip-files">Module zip files</a>).
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/$module/@v/$version.ziphash</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/$module/@v/$version.ziphash</code></td>
+      <td class="ModTable-cell">
         A cryptographic hash of the files in the <code>.zip</code> file.
         Note that the <code>.zip</code> file itself is not hashed, so file
         order, compression, alignment, and metadata don't affect the hash.
@@ -3976,17 +3976,17 @@ conflicts on case-insensitive file systems.
         directories match these files.
       </td>
     </tr>
-    <tr>
-      <td><code>cache/download/sumdb/</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/download/sumdb/</code></td>
+      <td class="ModTable-cell">
         Directory containing files downloaded from a
         <a href="#checksum-database">checksum database</a> (typically
         <code>sum.golang.org</code>).
       </td>
     </tr>
-    <tr>
-      <td><code>cache/vcs/</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>cache/vcs/</code></td>
+      <td class="ModTable-cell">
         Contains cloned version control repositories for modules fetched
         directly from their sources. Directory names are hex-encoded hashes
         derived from the repository type and URL. Repositories are optimized
@@ -4111,15 +4111,15 @@ values.
 
 <table class="ModTable">
   <thead>
-    <tr>
-      <th>Path</th>
-      <th>Description</th>
+    <tr class="ModTable-head">
+      <th class="ModTable-cell">Path</th>
+      <th class="ModTable-cell">Description</th>
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><code>$base/latest</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/latest</code></td>
+      <td class="ModTable-cell">
         Returns a signed, encoded tree description for the latest log. This
         signed description is in the form of a
         <a href="https://pkg.go.dev/golang.org/x/mod/sumdb/note">note</a>,
@@ -4131,10 +4131,9 @@ values.
         golang.org/x/mod/sumdb/tlog#FormatTree</a></code>.
       </td>
     </tr>
-    <tr>
-    <tr>
-      <td><code>$base/lookup/$module@$version</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/lookup/$module@$version</code></td>
+      <td class="ModTable-cell">
         Returns the log record number for the entry about <code>$module</code>
         at <code>$version</code>, followed by the data for the record (that is,
         the <code>go.sum</code> lines for <code>$module</code> at
@@ -4142,10 +4141,9 @@ values.
         contains the record.
       </td>
     </tr>
-    <tr>
-    <tr>
-      <td><code>$base/tile/$H/$L/$K[.p/$W]</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/tile/$H/$L/$K[.p/$W]</code></td>
+      <td class="ModTable-cell">
         Returns a [log tile](https://research.swtch.com/tlog#serving_tiles),
         which is a set of hashes that make up a section of the log. Each tile
         is defined in a two-dimensional coordinate at tile level
@@ -4155,16 +4153,14 @@ values.
         back to fetching the full tile if a partial tile is not found.
       </td>
     </tr>
-    <tr>
-    <tr>
-      <td><code>$base/tile/$H/data/$K[.p/$W]</code></td>
-      <td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>$base/tile/$H/data/$K[.p/$W]</code></td>
+      <td class="ModTable-cell">
         Returns the record data for the leaf hashes in
         <code>/tile/$H/0/$K[.p/$W]</code> (with a literal <code>data</code> path
         element).
       </td>
     </tr>
-    <tr>
   </tbody>
 </table>
 
@@ -4237,7 +4233,7 @@ of all environment variables recognized by the `go` command.
   </thead>
   <tbody>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GO111MODULE</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GO111MODULE</code></td>
       <td class="ModTable-cell">
         <p>
           Controls whether the <code>go</code> command runs in module-aware mode
@@ -4266,7 +4262,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOMODCACHE</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOMODCACHE</code></td>
       <td class="ModTable-cell">
         <p>
           The directory where the <code>go</code> command will store downloaded
@@ -4280,7 +4276,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOINSECURE</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOINSECURE</code></td>
       <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
@@ -4297,7 +4293,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GONOPROXY</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GONOPROXY</code></td>
       <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
@@ -4313,7 +4309,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GONOSUMDB</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GONOSUMDB</code></td>
       <td class="ModTable-cell">
         <p>
           Comma-separated list of glob patterns (in the syntax of Go's
@@ -4329,7 +4325,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOPATH</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOPATH</code></td>
       <td class="ModTable-cell">
         <p>
           In <code>GOPATH</code> mode, the <code>GOPATH</code> variable is a
@@ -4348,7 +4344,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOPRIVATE</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOPRIVATE</code></td>
       <td class="ModTable-cell">
         Comma-separated list of glob patterns (in the syntax of Go's
         <a href="/pkg/path/#Match"><code>path.Match</code></a>) of module path
@@ -4361,7 +4357,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOPROXY</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOPROXY</code></td>
       <td class="ModTable-cell">
         <p>
           List of module proxy URLs, separated by commas (<code>,</code>) or
@@ -4418,7 +4414,7 @@ of all environment variables recognized by the `go` command.
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOSUMDB</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOSUMDB</code></td>
       <td class="ModTable-cell">
         <p>
           Identifies the name of the checksum database to use and optionally
@@ -4460,7 +4456,7 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
       </td>
     </tr>
     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOVCS</code></td>
+      <td class="ModTable-cell ModTable-head-cell"><code>GOVCS</code></td>
       <td class="ModTable-cell">
         <p>
           Controls the set of version control tools the <code>go</code> command
@@ -4482,8 +4478,8 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
         </p>
       </td>
     </tr>
-     <tr class="ModTable-row">
-      <td class="ModTable-cell"><code>GOWORK</code></td>
+    <tr class="ModTable-row">
+      <td class="ModTable-cell ModTable-head-cell"><code>GOWORK</code></td>
       <td class="ModTable-cell">
        <p>
         The `GOWORK` environment variable instructs the `go` command to enter workspace
