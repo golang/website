@@ -439,7 +439,7 @@ Suggested next topics:
 
 <!--TODO: Update text and link after release.-->
 You can run this program in the
-[Go playground](/play/p/apNmfVwogK0?v=gotip). On the
+[Go playground](/play/p/kuUxcdVHtWg?v=gotip). On the
 playground simply click the **Run** button.
 
 ```
