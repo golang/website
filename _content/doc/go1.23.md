@@ -425,6 +425,17 @@ pattern (if any) that matched the request. This field is not set when
 The new [`NewRequestWithContext`](/pkg/net/http/httptest#NewRequestWithContext) method creates an incoming request with
 a [`context.Context`](/pkg/context#Context).
 
+#### [`net/netip`](/pkg/net/netip/)
+
+In Go 1.22 and earlier, using
+[`reflect.DeepEqual`](/pkg/reflect#DeepEqual) to compare an
+[`Addr`](/pkg/net/netip#Addr) holding an IPv4 address to one holding
+the IPv4-mapped IPv6 form of that address incorrectly returned true,
+although the `Addr` values were different when comparing with `==` or
+[`Addr.Compare`](/pkg/net/netip#Addr.Compare).
+This bug is now fixed and all three approaches now report the same
+result.
+
 #### [`os`](/pkg/os/)
 
 The [`Stat`](/pkg/os#Stat) function now sets the [`ModeSocket`](/pkg/os#ModeSocket) bit for
