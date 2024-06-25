@@ -20,8 +20,8 @@ import (
 
 // Test that all the .go files inside the _content/tour directory build
 // and execute (without checking for output correctness).
-// Files that contain the string "// +build no-build" are not built.
-// Files that contain the string "// +build no-run" are not executed.
+// Files that contain the build tag "nobuild" are not built.
+// Files that contain the build tag "norun" are not executed.
 func TestTourContent(t *testing.T) {
 	if _, err := exec.LookPath("go"); err != nil {
 		t.Skipf("skipping because 'go' executable not available: %v", err)
@@ -54,14 +54,14 @@ func testSnippet(path, scratch string) error {
 	}
 
 	build := string(bytes.SplitN(b, []byte{'\n'}, 2)[0])
-	if !strings.HasPrefix(build, "// +build ") {
-		return errors.New("first line is not a +build comment")
+	if !strings.HasPrefix(build, "//go:build ") {
+		return errors.New("first line is not a go:build comment")
 	}
 	if !strings.Contains(build, "OMIT") {
-		return errors.New(`+build comment does not contain "OMIT"`)
+		return errors.New(`build comment does not contain "OMIT"`)
 	}
 
-	if strings.Contains(build, "no-build") {
+	if strings.Contains(build, "nobuild") {
 		return nil
 	}
 	bin := filepath.Join(scratch, filepath.Base(path)+".exe")
@@ -71,7 +71,7 @@ func testSnippet(path, scratch string) error {
 	}
 	defer os.Remove(bin)
 
-	if strings.Contains(build, "no-run") {
+	if strings.Contains(build, "norun") {
 		return nil
 	}
 	out, err = exec.Command(bin).CombinedOutput()
