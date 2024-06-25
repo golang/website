@@ -217,3 +217,7 @@ Please send us your feedback!
 PGO is still in preview and we'd love to hear about anything that is difficult to use, doesn't work correctly, etc.
 Please file issues at [go.dev/issue/new](/issue/new).
 
+## Acknowledgements
+
+Adding profile-guided optimization to Go is a team effort, and I particularly want to call out the contributions from Raj Barik and Jin Lin at Uber, and Cherry Mui and Austin Clements at Google.
+This kind of cross-community collaboration is a key part of making Go great.

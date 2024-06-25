@@ -554,3 +554,7 @@ PGO (and most compiler optimizations) generally yield their benefit in the aggre
 Inlining and devirtualization are the two PGO-driven optimizations available in Go 1.21, but as we’ve seen, these often unlock additional optimizations.
 In addition, future versions of Go will continue to improve PGO with additional optimizations.
 
+## Acknowledgements
+
+Adding profile-guided optimization to Go has been a team effort, and I particularly want to call out the contributions from Raj Barik and Jin Lin at Uber, and Cherry Mui and Austin Clements at Google.
+This kind of cross-community collaboration is a key part of making Go great.
