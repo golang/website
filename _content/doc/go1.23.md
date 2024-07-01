@@ -350,14 +350,6 @@ By default, go/types now produces [`Alias`](/pkg/go/types#Alias) type nodes for 
 This behavior can be controlled by the `GODEBUG` `gotypesalias` flag.
 Its default has changed from 0 in Go 1.22 to 1 in Go 1.23.
 
-#### [`iter`](/pkg/iter/)
-
-<!-- see ../../3-iter.md -->
-
-#### [`maps`](/pkg/maps/)
-
-<!-- see ../../3-iter.md -->
-
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
 
 The [`Uint`](/pkg/math/rand/v2#Uint) function and [`Rand.Uint`](/pkg/math/rand/v2#Rand.Uint) method have been added.
@@ -524,10 +516,6 @@ trace if the program crashes while tracing is active.
 The [`Repeat`](/pkg/slices#Repeat) function returns a new slice that repeats the
 provided slice the given number of times.
 
-#### [`structs`](/pkg/structs/)
-
-<!-- This is a new package; covered in 6-stdlib/3-structs.md. -->
-
 #### [`sync`](/pkg/sync/)
 
 The [`Map.Clear`](/pkg/sync#Map.Clear) method deletes all the entries, resulting in
@@ -565,10 +553,6 @@ offset is out of range.
 The [`RuneLen`](/pkg/unicode/utf16#RuneLen) function returns the number of 16-bit words in
 the UTF-16 encoding of the rune. It returns -1 if the rune
 is not a valid value to encode in UTF-16.
-
-#### [`unique`](/pkg/unique/)
-
-<!-- This is a new package; covered in 6-stdlib/2-unique.md. -->
 
 ## Ports {#ports}
 
