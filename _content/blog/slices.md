@@ -218,7 +218,7 @@ since the function is passed a copy of the slice header, not the original.
 Thus if we want to write a function that modifies the header, we must return it as a result
 parameter, just as we have done here.
 The `slice` variable is unchanged but the returned value has the new length,
-which is then stored in `newSlice`,
+which is then stored in `newSlice`.
 
 ## Pointers to slices: Method receivers
 
