@@ -6,7 +6,7 @@ https://golang.org
 
 * Hello, 世界
 
-Welcome to a tour of the [[/][Go programming language]].
+Welcome to a tour of the [[https://go.dev/][Go programming language]].
 
 The tour is divided into a list of modules that you can
 access by clicking on
@@ -36,7 +36,7 @@ Edit the program and run it again.
 
 When you click on [[javascript:highlightAndClick("#format")][Format]]
 (shortcut: `Ctrl` + `Enter`), the text in the editor is formatted using the
-[[/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
+[[https://go.dev/cmd/gofmt/][gofmt]] tool. You can switch syntax highlighting on and off
 by clicking on the [[javascript:highlightAndClick(".syntax-checkbox")][syntax]] button.
 
 When you're ready to move on, click the [[javascript:highlightAndClick(".next-page")][right arrow]] below or type the `PageDown` key.
