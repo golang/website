@@ -13,7 +13,7 @@ require (
 	github.com/google/go-cmp v0.6.0
 	github.com/n7olkachev/imgdiff v1.0.2
 	github.com/yuin/goldmark v1.6.0
-	golang.org/x/build v0.0.0-20240520181858-75ff9ef337d5
+	golang.org/x/build v0.0.0-20240703214439-7bd85afa0cc0
 	golang.org/x/net v0.26.0
 	golang.org/x/sync v0.7.0
 	golang.org/x/tools v0.22.0
