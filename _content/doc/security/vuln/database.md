@@ -211,6 +211,28 @@ A member of the Go team has reviewed the report, and where appropriate, added ad
 
 For information on other fields in the schema, refer to the [OSV spec](https://ossf.github.io/osv-schema).
 
+## Note on Versions
+
+Our tooling attempts to automatically map modules and versions in
+source advisories to canonical Go modules and versions, in accordance with
+standard [Go module version numbers](/doc/modules/version-numbers). Tools like
+`govulncheck` are designed to rely on these standard versions to determine
+whether a Go project is affected by a vulnerability in a dependency or not.
+
+In some cases, such as when a Go project uses its own versioning scheme,
+the mapping to standard Go versions can fail. When this happens, the Go
+vulnerability database report may conservatively list all Go versions as
+affected. This ensures that tools such as `govulncheck` do not fail to report
+vulnerabilities due to unrecognized version ranges (false negatives).
+However, conservatively listing all versions as affected may cause tools to
+incorrectly report a fixed version of a module as containing the vulnerability
+(false positives).
+
+If you believe `govulncheck` is incorrectly reporting (or failing to report) a
+vulnerability, please
+[suggest an edit](https://github.com/golang/vulndb/issues/new?assignees=&labels=Needs+Triage%2CSuggested+Edit&template=suggest_edit.yaml&title=x%2Fvulndb%3A+suggestion+regarding+GO-2024-2965&report=GO-XXXX-YYYY)
+to the vulnerability report and we will review it.
+
 ## Examples
 
 All vulnerabilities in the Go vulnerability database use the OSV schema
