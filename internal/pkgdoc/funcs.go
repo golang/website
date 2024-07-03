@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"go/ast"
 	"go/doc"
+	"go/doc/comment"
 	"go/format"
 	"go/printer"
 	"go/token"
@@ -154,8 +155,23 @@ func firstIdent(x []byte) string {
 }
 
 // Comment formats the given documentation comment as HTML.
-func (p *Page) Comment(comment string) template.HTML {
-	return template.HTML(p.PDoc.HTML(comment))
+func (p *Page) Comment(text string) template.HTML {
+	pr := p.PDoc.Printer()
+	pr.DocLinkURL = func(link *comment.DocLink) string {
+		url := link.DefaultURL("/pkg/")
+		if strings.HasPrefix(url, "/pkg/cmd/") {
+			url = url[len("/pkg"):]
+		}
+		if p.OldDocs {
+			if base, frag, ok := strings.Cut(url, "#"); ok {
+				url = base + "?m=old#" + frag
+			} else {
+				url += "?m=old"
+			}
+		}
+		return url
+	}
+	return template.HTML(pr.HTML(p.PDoc.Parser().Parse(text)))
 }
 
 // sanitize sanitizes the argument src by replacing newlines with

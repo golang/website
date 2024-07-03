@@ -123,3 +123,14 @@ body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 GET https://go.dev/wiki/Comments
 body contains Go Wiki: Comments
 body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+
+GET https://go.dev/pkg/cmd/go/?m=old
+redirect == /cmd/go/?m=old
+
+GET https://go.dev/pkg/slices/?m=old
+body !contains href="/cmp
+body contains href="/pkg/cmp/?m=old#Compare
+
+GET https://go.dev/cmd/link/internal/ld/?m=old
+body !contains href="/pkg/cmd
+body contains href="/cmd/link/internal/loader/?m=old#Loader

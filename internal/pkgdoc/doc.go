@@ -520,9 +520,14 @@ func (p *Page) ModeQuery() string {
 }
 
 func maybeRedirect(w http.ResponseWriter, r *http.Request) (redirected bool) {
+	r.URL.Host = ""
+	r.URL.Scheme = ""
 	canonical := path.Clean(r.URL.Path)
 	if !strings.HasSuffix(canonical, "/") {
 		canonical += "/"
+	}
+	if strings.HasPrefix(canonical, "/pkg/cmd/") {
+		canonical = canonical[len("/pkg"):]
 	}
 	if r.URL.Path != canonical {
 		url := *r.URL

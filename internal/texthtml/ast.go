@@ -11,6 +11,7 @@ import (
 	"go/doc"
 	"go/token"
 	"strconv"
+	"strings"
 	"unicode"
 	"unicode/utf8"
 )
@@ -24,13 +25,17 @@ type goLink struct {
 }
 
 func (l *goLink) tags() (start, end string) {
+	prefix := "/pkg/"
+	if strings.HasPrefix(l.path, "cmd/") {
+		prefix = "/"
+	}
 	switch {
 	case l.path != "" && l.name == "":
 		// package path
-		return `<a href="/pkg/` + l.path + `/` + l.docSuffix() + `">`, `</a>`
+		return `<a href="` + prefix + l.path + `/` + l.docSuffix() + `">`, `</a>`
 	case l.path != "" && l.name != "":
 		// qualified identifier
-		return `<a href="/pkg/` + l.path + `/` + l.docSuffix() + `#` + l.name + `">`, `</a>`
+		return `<a href="` + prefix + l.path + `/` + l.docSuffix() + `#` + l.name + `">`, `</a>`
 	case l.path == "" && l.name != "":
 		// local identifier
 		if l.isVal {
