@@ -537,7 +537,8 @@ The rest of this section describes these steps in more detail.
 In addition to a recent Go installation, you need to have a local copy of the source
 checked out from the correct repository.
 You can check out the Go source repo onto your local file system anywhere
-you want as long as it's outside your <code>GOPATH</code>.
+you want as long as it's outside your <code>GOPATH</code>
+(defaults to the directory <code>go</code> in your home directory).
 Clone from <code>go.googlesource.com</code> (not GitHub):
 </p>
 
@@ -1018,6 +1019,17 @@ This section collects a number of other comments that are
 outside the issue/edit/code review/submit process itself.
 </p>
 
+<h3 id="gopls">Gopls</h3>
+
+<p>
+When working on the main Go repository and using <code>gopls</code> with your editor,
+the <code>go</code> command invoked by <code>gopls</code>
+must correspond to the version of the source code you are working on.
+The <code>go</code> command can be built with <code>make.bash</code>
+and the <code>bin</code> directory should be added to your <code>PATH</code>.
+See <a href="https://go.googlesource.com/tools/+/refs/heads/master/gopls/doc/advanced.md">
+Gopls: Advanced topics</a> for additional details.
+</p>
 
 <h3 id="copyright">Copyright headers</h3>
 
