@@ -204,7 +204,7 @@ meaning of `[S MySlice]`.
 We could prohibit `[S MySlice]`, or we could say that `[S MySlice]`
 only matches `MySlice`, but either approach runs into trouble with
 predeclared types.
-A predeclared type, like `int` is its own underlying type.
+A predeclared type, like `int`, is its own underlying type.
 We want to permit people to be able to write constraints that accept
 any type argument whose underlying type is `int`.
 In the language today, they can do that by writing `[T ~int]`.
