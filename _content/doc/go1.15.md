@@ -315,7 +315,7 @@ The [objdump](/cmd/objdump/) tool now supports
 disassembling in GNU assembler syntax with the `-gnu`
 flag.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New embedded tzdata package {#time_tzdata}
 

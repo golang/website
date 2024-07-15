@@ -257,7 +257,7 @@ As mentioned in the [Go 1.20 release notes](/doc/go1.20#bootstrap), Go 1.22 now 
 the final point release of Go 1.20 or later for bootstrap.
 We expect that Go 1.24 will require the final point release of Go 1.22 or later for bootstrap.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New math/rand/v2 package {#math_rand_v2}
 

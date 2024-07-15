@@ -432,7 +432,7 @@ when linking a program that uses cgo, and the linker is invoked
 with a `-I` option, the option will now be passed to the
 external linker as a `-Wl,--dynamic-linker` option.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### [Cgo](/pkg/runtime/cgo) {#runtime_cgo}
 

@@ -423,7 +423,7 @@ also smaller as a result of more aggressive symbol pruning.
 On Windows, `go build -buildmode=c-shared` now generates Windows
 ASLR DLLs by default. ASLR can be disabled with `--ldflags=-aslr=false`.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Embedded Files {#library-embed}
 

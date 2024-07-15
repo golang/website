@@ -305,7 +305,7 @@ objects.
 The [`runtime.ReadMemStats`](/pkg/runtime/#ReadMemStats)
 function now takes less than 100µs even for very large heaps.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Transparent Monotonic Time support {#monotonic-time}
 

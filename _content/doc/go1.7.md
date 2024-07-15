@@ -304,7 +304,7 @@ Garbage collection pauses should be significantly shorter than they
 were in Go 1.6 for programs with large numbers of idle goroutines,
 substantial stack size fluctuation, or large package-level variables.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Context {#context}
 

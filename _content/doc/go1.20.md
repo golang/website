@@ -350,7 +350,7 @@ a newer Go toolchain there).
 In the future, we plan to move the bootstrap toolchain forward approximately once a year,
 and in particular we expect that Go 1.22 will require the final point release of Go 1.20 for bootstrap.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New crypto/ecdh package {#crypto_ecdh}
 

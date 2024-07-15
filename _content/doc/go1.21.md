@@ -306,7 +306,7 @@ deleting dead (unreferenced) global map variables, if the number of
 entries in the variable initializer is sufficiently large, and if the
 initializer expressions are side-effect free.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New log/slog package {#slog}
 

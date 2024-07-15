@@ -352,7 +352,7 @@ This API may change in future releases.
 Bounds check elimination now uses information from slice creation and can
 eliminate checks for indexes with types smaller than `int`.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New byte sequence hashing package {#hash_maphash}
 

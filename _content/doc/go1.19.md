@@ -266,7 +266,7 @@ On ELF platforms, the linker now emits compressed DWARF sections in
 the standard gABI format (`SHF_COMPRESSED`), instead of
 the legacy `.zdebug` format.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New atomic types {#atomic_types}
 

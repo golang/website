@@ -533,7 +533,7 @@ We intend for Go 1.19 to require Go 1.17 or later for bootstrap,
 and this change should make the transition smoother.
 For more details, see [go.dev/issue/44505](/issue/44505).
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New `debug/buildinfo` package {#debug_buildinfo}
 

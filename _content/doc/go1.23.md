@@ -167,7 +167,7 @@ this check, for debugging and experimenting purposes.
 When building a dynamically linked ELF binary (including PIE binary), the
 new `-bindnow` flag enables immediate function binding.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Timer changes
 

@@ -194,7 +194,7 @@ to implementations of the
 [`crypto/ecdsa`](/pkg/crypto/ecdsa/), and
 [`sort`](/pkg/sort/) packages.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### HTTP/2 {#http2}
 

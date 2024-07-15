@@ -470,7 +470,7 @@ Further profiling and optimization will continue in Go 1.6 and future releases.
 For more details, see these [slides](/talks/2015/gogo.slide)
 and associated [video](https://www.youtube.com/watch?v=cF1zJYkBW4A).
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Flag {#flag}
 

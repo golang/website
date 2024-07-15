@@ -423,7 +423,7 @@ promptly after the heap shrinks. However, on many OSes, including
 Linux, the OS itself reclaims memory lazily, so process RSS will not
 decrease until the system is under memory pressure.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### TLS 1.3 {#tls_1_3}
 
