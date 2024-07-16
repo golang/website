@@ -62,7 +62,7 @@ This page explains how Go telemetry works, in some detail. For quick answers to
 frequently asked questions, see the [FAQ](#faq).
 
 <div class="DocInfo">
-To <strong>opt-in</strong> to uploading telemetry data to the Go team, run:
+To <strong>opt in</strong> to uploading telemetry data to the Go team, run:
 <pre>
 go run golang.org/x/telemetry/cmd/gotelemetry@latest on
 </pre>
