@@ -5,6 +5,22 @@ breadcrumb: true
 date: 2024-02-07:00:00Z
 ---
 
+<style>
+.DocInfo {
+  background-color: var(--color-background-info);
+  padding: 1.5rem 2rem 1.5rem 4rem;
+  border-left: 0.875rem solid var(--color-border);
+  position: relative;
+}
+.DocInfo:before {
+  content: "ⓘ";
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-size: 2rem;
+}
+</style>
+
 Table of Contents:
 
  [Background](#background)\
@@ -44,6 +60,19 @@ To learn more about telemetry and privacy, please see the
 
 This page explains how Go telemetry works, in some detail. For quick answers to
 frequently asked questions, see the [FAQ](#faq).
+
+<div class="DocInfo">
+To <strong>opt-in</strong> to uploading telemetry data to the Go team, run:
+<pre>
+go run golang.org/x/telemetry/cmd/gotelemetry@latest on
+</pre>
+To completely disable telemetry, including local collection, run:
+<pre>
+go run golang.org/x/telemetry/cmd/gotelemetry@latest off
+</pre>
+Starting with Go 1.23, this can also be done with the <code>go telemetry</code>
+subcommand. See <a href="#config">Configuration</a> for more details.
+</div>
 
 ## Overview {#overview}
 
@@ -105,7 +134,9 @@ The following commands interact with the telemetry mode:
 For the complete usage information of the `gotelemetry` command line tool,
 see its [package documentation](/pkg/golang.org/x/telemetry/cmd/gotelemetry).
 
-Telemetry may also be enabled by accepting an [IDE prompt](#ide).
+Starting with Go 1.23, the telemetry mode can also be managed with the
+`go telemetry` subcommand. Telemetry may also be enabled by accepting an
+[IDE prompt](#ide).
 
 ## Counters {#counters}
 
