@@ -146,7 +146,7 @@ For 386 and amd64, the compiler will use information from PGO to align certain
 hot blocks in loops.  This improves performance an additional 1-1.5% at
 a cost of an additional 0.1% text and binary size.  This is currently only implemented
 on 386 and amd64 because it has not shown an improvement on other platforms.
-Hot block alignment can be disabled with `-gcflags=[<packages>=]-d=alignhot=0`
+Hot block alignment can be disabled with `-gcflags=[<packages>=]-d=alignhot=0`.
 
 ## Linker {#linker}
 
@@ -566,7 +566,7 @@ support for previous versions has been discontinued.
 ### Linux {#linux}
 
 <!-- go.dev/issue/67001 -->
-Go 1.23 is the last release that requires Linux kernel version 2.6.32 or later. Go 1.24 will require Linux kernel version 3.17 or later, with an exception that systems running 3.10 or later will continue to be supported if the kernel has been patched to support the getrandom system call.
+Go 1.23 is the last release that requires Linux kernel version 2.6.32 or later. Go 1.24 will require Linux kernel version 3.17 or later, with an exception that systems running 3.10 or later will continue to be supported if the kernel has been patched to support the `getrandom` system call.
 
 ### OpenBSD {#openbsd}
 
