@@ -35,7 +35,8 @@ For motivation see the 2022 ["range-over-func" discussion](/issue/56413).
 
 <!-- go.dev/issue/46477, CL 566856, CL 586955, CL 586956 -->
 Go 1.23 includes preview support for [generic type aliases](/issue/46477).
-Building the toolchain with `GOEXPERIMENT=aliastypeparams` enables this feature.
+Building the toolchain with `GOEXPERIMENT=aliastypeparams` enables this feature within a package.
+(Using generic alias types across package boundaries is not yet supported.)
 
 ## Tools {#tools}
 
