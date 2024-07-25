@@ -871,6 +871,13 @@ h1 + h2.subtitle {
 .Article img {
   max-width: 100%;
 }
+.Article a.Article-idLink {
+  opacity: 0;
+}
+.Article a.Article-idLink:hover {
+  opacity: 1;
+  padding: 0.2rem;
+}
 .CopyPaste {
   display: flex;
   align-items: center;
