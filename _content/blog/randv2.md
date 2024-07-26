@@ -217,7 +217,7 @@ in programs without concurrent use of `math/rand`.
 ### The `Rand` implementation was missing important optimizations {#problem.rand}
 
 The [`rand.Rand` type](/pkg/math/rand/#Rand) wraps a `Source`
-to implement a richer set of operations
+to implement a richer set of operations.
 For example, here is the Go 1 implementation of `Int63n`, which returns
 a random integer in the range [0, `n`).
 
@@ -243,7 +243,7 @@ than others. (As a simpler example, try converting 4 equally likely values into 
 The code computes `max` such that
 `max+1` is the largest multiple of `n` less than or equal to 2⁶³,
 and then the loop rejects random values greater than or equal to `max+1`.
-Rejecting this too-large values ensures that all `n` outputs are equally likely.
+Rejecting these too-large values ensures that all `n` outputs are equally likely.
 For small `n`, needing to reject any value at all is rare;
 rejection becomes more common and more important for larger values.
 Even without the rejection loop, the two (slow) modulus operations
@@ -276,7 +276,7 @@ along with [adding a top-level `Read` function](/pkg/math/rand/#Read).
 This seemed reasonable at the time,
 but in retrospect we did not pay enough attention to the
 software engineering aspects of this change.
-Now if you want to read random data, now you have
+Now, if you want to read random data, you have
 two choices: `math/rand.Read` and `crypto/rand.Read`.
 If the data is going to be used for key material,
 it is very important to use `crypto/rand`,
