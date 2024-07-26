@@ -54,7 +54,7 @@ Consider the task of deleting a portion of a slice. Prior to generics, the stand
 s = append(s[:2], s[5:]...)
 ```
 
-The syntax was complex and error-prone, involving subslices and a variadic parameter. We added [slice.Delete](/pkg/slices#Delete) to make it easier to delete elements:
+The syntax was complex and error-prone, involving subslices and a variadic parameter. We added [slices.Delete](/pkg/slices#Delete) to make it easier to delete elements:
 
 ```
 func Delete[S ~[]E, E any](s S, i, j int) S {
