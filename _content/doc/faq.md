@@ -1425,19 +1425,17 @@ the language specification.)
 Even in cases where the compiler could take the address of a value
 to pass to the method, if the method modifies the value the changes
 will be lost in the caller.
-As an example, if the `Write` method of
-[`bytes.Buffer`](/pkg/bytes/#Buffer)
-used a value receiver rather than a pointer,
-this code:
+
+As an example, if the code below were valid:
 
 ```
 var buf bytes.Buffer
 io.Copy(buf, os.Stdin)
 ```
 
-would copy standard input into a *copy* of `buf`,
+it would copy standard input into a *copy* of `buf`,
 not into `buf` itself.
-This is almost never the desired behavior.
+This is almost never the desired behavior and is therefore disallowed by the language.
 
 ### What happens with closures running as goroutines? {#closures_and_goroutines}
 
