@@ -3,9 +3,7 @@ Golang-Syd, Oct 17, 2012
 
 Rob Pike
 Google, Inc.
-@rob_pike
-http://golang.org/s/plusrob
-http://golang.org
+https://go.dev
 
 * Documentation
 
@@ -39,7 +37,7 @@ There are many ways to show documentation as text
 
 * Godoc
 
-.link http://golang.org/pkg/utf16
+.link /pkg/utf16 go.dev/pkg/utf16
 
 * blog.golang.org
 
@@ -53,7 +51,7 @@ There are many ways to show documentation as text
 
 * Go wiki
 
-.link http://golang.org/wiki
+.link /wiki go.dev/wiki
 
 .image go-docs/gowiki.png
 
@@ -109,7 +107,7 @@ Docs:
 
 .code go-docs.slide /^\*.*previous/,/^\.code/
 
-* Revenge of the input for the the previous slide 
+* Revenge of the input for the the previous slide
 
 .code go-docs.slide /^\*.*redux/,/^\.code/
 
@@ -132,7 +130,7 @@ Want to edit and play.
 
 * Can run code from the browser
 
-.link http://play.golang.org
+.link /play/ go.dev/play
 
 * The tour
 
@@ -140,7 +138,7 @@ Want to edit and play.
 
 * Can run code from the browser
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 * Use this technology
 
@@ -187,7 +185,7 @@ Input for the previous slide:
 		fmt.Println("You're both boring; I'm leaving.")
 	}
 	// STOP1 OMIT
-	
+
 * faninboring.go (II)
 
 	// START2 OMIT
@@ -239,4 +237,4 @@ Deploy executable examples throughout:
 - Go By Example
 - wiki
 
-.link http://golang.org/pkg/strings/#example_Contains
+.link /pkg/strings/#example_Contains go.dev/pkg/strings/#example_Contains

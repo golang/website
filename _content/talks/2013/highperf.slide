@@ -46,7 +46,7 @@ This talk was presented at Google I/O in May 2013.
 - Half the latency of a Python 2.7 version
 - Launched on google.com front page
 
-[[http://golang.org/s/turkey-doodle][golang.org/s/turkey-doodle]]
+[[/s/turkey-doodle][go.dev/s/turkey-doodle]]
 
 * Santa Tracker (Dec 2012)
 
@@ -219,9 +219,9 @@ Batching:
 
 * Finally...
 
-- [[http://golang.org][golang.org]]
+- [[/][go.dev]]
 - [[http://developers.google.com/appengine/docs/go/][developers.google.com/appengine/docs/go/]]
-- [[http://golang.org/s/io13-ae-talk][golang.org/s/io13-ae-talk]] (this talk, plus gophermart app)
+- [[/s/io13-ae-talk][go.dev/s/io13-ae-talk]] (this talk, plus gophermart app)
 - [[http://github.com/mjibson/appstats][github.com/mjibson/appstats]]
 
 More Go things:

@@ -260,7 +260,7 @@ generates more compact, more efficient code
 and provides a better platform for optimizations
 such as bounds check elimination.
 The new back end reduces the CPU time required by
-[our benchmark programs](/test/bench/go1/) by 20-30%
+our benchmark programs by 20-30%
 on 32-bit ARM systems. For 64-bit x86 systems, which already used the SSA back end in
 Go 1.7, the gains are a more modest 0-10%. Other architectures will likely
 see improvements closer to the 32-bit ARM numbers.
@@ -410,7 +410,7 @@ reading (which includes iterating) or writing the map concurrently.
 If the runtime detects this condition, it prints a diagnosis and crashes the program.
 The best way to find out more about the problem is to run the program
 under the
-[race detector](https://blog.golang.org/race-detector),
+[race detector](/blog/race-detector),
 which will more reliably identify the race
 and give more detail.
 
@@ -627,7 +627,7 @@ The [`ClientHelloInfo`](/pkg/crypto/tls/#ClientHelloInfo)
 struct now has new
 fields `Conn`, `SignatureSchemes` (using
 the new
-type [`SignatureScheme`](/kg/crypto/tls/#SignatureScheme)),
+type [`SignatureScheme`](/pkg/crypto/tls/#SignatureScheme)),
 `SupportedProtos`, and `SupportedVersions`.
 
 <!-- CL 32115 -->

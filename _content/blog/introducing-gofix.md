@@ -16,7 +16,7 @@ Code that [implements an HTTP server handler](http://codereview.appspot.com/4239
 [calls `os.Open`](http://codereview.appspot.com/4357052),
 or [uses the reflect package](http://codereview.appspot.com/4281055) will
 not build unless it is updated to use the new APIs.
-Now that our releases are [more stable and less frequent](https://blog.golang.org/2011/03/go-becomes-more-stable.html),
+Now that our releases are [more stable and less frequent](/blog/go-becomes-more-stable),
 this will be a common situation.
 Each of these API changes happened in a different weekly snapshot and might
 have been manageable on its own;

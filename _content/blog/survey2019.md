@@ -15,11 +15,11 @@ Since 2016, thousands of Gophers around the world have helped the Go project
 by sharing your thoughts via our annual Go Developer Survey.
 Your feedback has played an enormous role in driving changes to our language,
 ecosystem, and community, including [the gopls language server](https://about.sourcegraph.com/go/gophercon-2019-go-pls-stop-breaking-my-editor),
-new [error-handling mechanics](https://blog.golang.org/go1.13-errors),
-the [module mirror](https://blog.golang.org/module-mirror-launch),
-and so much more from the latest [Go 1.13 release](https://blog.golang.org/go1.13).
-And of course, we publicly share [each](https://blog.golang.org/survey2016-results)
-[year's](https://blog.golang.org/survey2017-results) [results](https://blog.golang.org/survey2018-results),
+new [error-handling mechanics](/blog/go1.13-errors),
+the [module mirror](/blog/module-mirror-launch),
+and so much more from the latest [Go 1.13 release](/blog/go1.13).
+And of course, we publicly share [each](/blog/survey2016-results)
+[year's](/blog/survey2017-results) [results](/blog/survey2018-results),
 so we can all benefit from the community's insights.
 
 Today we are launching the 2019 Go Developer Survey.

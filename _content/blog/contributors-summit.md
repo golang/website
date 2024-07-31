@@ -71,7 +71,7 @@ discussion will likely continue on the mailing lists.
 ### The standard library
 
 The discussions we had around the future of the Go language are mostly covered
-in Russ Cox's blog post: [Toward Go 2](https://blog.golang.org//toward-go2), so
+in Russ Cox's blog post: [Toward Go 2](/blog//toward-go2), so
 let's move on to the standard library session.
 
 As a contributor to the standard library and subrepos, this session was
@@ -155,7 +155,7 @@ During the breaks, Go team members dispersed themselves among the contributors
 for discussions both about Go and a little general socialization, which really
 helped to put faces to the names that review our code every day.
 
-As Russ discussed in [Toward Go 2](https://blog.golang.org//toward-go2),
+As Russ discussed in [Toward Go 2](/blog//toward-go2),
 communicating effectively requires knowing your audience.
 Having a broad sample of Go contributors in a room together helped us all to
 understand the Go audience better and start many productive discussions about

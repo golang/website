@@ -717,7 +717,7 @@ UTF-8.
    In addition to the `-fuzz` flag, several new flags have been added to `go
    test` and can be viewed in the [documentation](/security/fuzz/#custom-settings).
 
-   See [Go Fuzzing](https://go.dev/security/fuzz/#command-line-output) for more
+   See [Go Fuzzing](/security/fuzz/#command-line-output) for more
    information on terms used in fuzzing output. For example, "new interesting"
    refers to inputs that expand the code coverage of the existing fuzz test
    corpus. The number of "new interesting" inputs can be expected to increase
@@ -730,10 +730,10 @@ Nicely done! You've just introduced yourself to fuzzing in Go.
 
 The next step is to choose a function in your code that you'd like to fuzz, and
 try it out! If fuzzing finds a bug in your code, consider adding it to the
-[trophy case](https://github.com/golang/go/wiki/Fuzzing-trophy-case).
+[trophy case](/wiki/Fuzzing-trophy-case).
 
 If you experience any problems or have an idea for a feature, [file an
-issue](https://github.com/golang/go/issues/new/?&labels=fuzz).
+issue](/issue/new/?&labels=fuzz).
 
 For discussion and general feedback about the feature, you can also participate
 in the [#fuzzing channel](https://gophers.slack.com/archives/CH5KV1AKE) in

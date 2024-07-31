@@ -26,7 +26,7 @@ This talk was presented at [[http://javasig.com][NYJavaSIG]] on April 23, 2015.
 
 "Go is an open source programming language that makes it easy to build simple, reliable, and efficient software."
 
-.link http://golang.org
+.link / go.dev
 
 * History
 
@@ -92,7 +92,7 @@ The target is networked servers, but it's a great general-purpose language.
 
 * Who uses Go besides Google?
 
-.link http://golang.org/wiki/GoUsers
+.link /wiki/GoUsers go.dev/wiki/GoUsers
 
 Apcera, Bitbucket, bitly, Canonical, CloudFlare, Core OS, Digital Ocean, Docker, Dropbox, Facebook, Getty Images, GitHub, Heroku, Iron.io, Kubernetes, Medium, MongoDB services, Mozilla services, New York Times, pool.ntp.org, Secret, SmugMug, SoundCloud, Stripe, Square, Thomson Reuters, Tumblr, ...
 
@@ -147,7 +147,7 @@ Sometimes this means writing out a loop instead of invoking an obscure function.
 For more background on design:
 
 - [[http://commandcenter.blogspot.com/2012/06/less-is-exponentially-more.html][Less is exponentially more (Pike, 2012)]]
-- [[http://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
+- [[/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering (Pike, 2012)]]
 
 * Examples
 
@@ -404,7 +404,7 @@ Goimports updates import statements based on your workspace.
 
 Most people run these tools on save.
 
-.link http://play.golang.org/p/GPqra77cBK
+.link /play/p/GPqra77cBK go.dev/play/p/GPqra77cBK
 
 * The go tool
 
@@ -423,7 +423,7 @@ Run it:
 
 Generated documentation for the world's open-source Go code:
 
-.link http://godoc.org
+.link https://pkg.go.dev
 
 * IDE and editor support
 
@@ -443,12 +443,12 @@ Go tools meet you where you are.
 
 Take the Go Tour online.
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 Lots more material.
 
-.link http://golang.org/wiki/Learn
+.link /wiki/Learn go.dev/wiki/Learn
 
 Great community.
 
-.link http://golang.org/project
+.link /project go.dev/project

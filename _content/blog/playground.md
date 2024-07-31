@@ -12,7 +12,7 @@ summary: How the Go playground works.
 
 _NOTE: This article does not describe the current version of the Go Playground._
 
-In September 2010 we [introduced the Go Playground](https://blog.golang.org/introducing-go-playground),
+In September 2010 we [introduced the Go Playground](/blog/introducing-go-playground),
 a web service that compiles and executes arbitrary Go code and returns the
 program output.
 
@@ -25,7 +25,7 @@ from the Go documentation.
 You may also have used it by clicking one of the "Run" buttons in a slide
 deck on [go.dev/talks](/talks/) or a post on this
 very blog
-(such as the [recent article on Strings](https://blog.golang.org/strings)).
+(such as the [recent article on Strings](/blog/strings)).
 
 In this article we will take a look at how the playground is implemented
 and integrated with these services.

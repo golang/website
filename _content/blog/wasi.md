@@ -74,7 +74,7 @@ Hello world!
 That’s all it takes to get started with Wasm/WASI! You can expect almost all
 the features of Go to just work with `wasip1`. To learn more about the details
 of how WASI works with Go, please see
-[the proposal](https://go.dev/issue/58141).
+[the proposal](/issue/58141).
 
 ## Running go tests with wasip1
 
@@ -97,8 +97,8 @@ using the environment variable `GOWASIRUNTIME`. Currently supported values
 for this variable are `wazero`, `wasmedge`, `wasmtime`, and `wasmer`. This
 script is subject to breaking changes between Go versions. Note that Go
 `wasip1` binaries don’t execute perfectly on all hosts yet (see
-[#59907](https://go.dev/issue/59907) and
-[#60097](https://go.dev/issue/60097)).
+[#59907](/issue/59907) and
+[#60097](/issue/60097)).
 
 This functionality also works when using `go run`:
 
@@ -145,7 +145,7 @@ eventually make its way to the host-defined `random_get` function. In the same
 way, users can define their own wrappers for host functions.
 
 To learn more about the intricacies of wrapping Wasm functions in Go, please
-see [the `go:wasmimport` proposal](https://go.dev/issue/59149).
+see [the `go:wasmimport` proposal](/issue/59149).
 
 ## Limitations
 

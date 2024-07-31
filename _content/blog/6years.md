@@ -11,13 +11,13 @@ Six years ago today the Go language was released as an open source project.
 Since then, more than 780 contributors have made over 30,000 commits to the
 project's 22 repositories. The ecosystem continues to grow, with GitHub
 reporting more than 90,000 Go repositories. And, offline, we see new Go events
-and user groups pop up [around](https://blog.golang.org/gophercon2015)
-[the](https://blog.golang.org/gouk15)
-[world](https://blog.golang.org/gopherchina) with regularity.
+and user groups pop up [around](/blog/gophercon2015)
+[the](/blog/gouk15)
+[world](/blog/gopherchina) with regularity.
 
 {{image "6years/6years-gopher.png"}}
 
-In August we [released Go 1.5](https://blog.golang.org/go1.5), the most
+In August we [released Go 1.5](/blog/go1.5), the most
 significant release since Go 1. It features a completely
 [redesigned garbage collector](/doc/go1.5#gc) that makes
 the language more suitable for latency-sensitive applications; it marks the

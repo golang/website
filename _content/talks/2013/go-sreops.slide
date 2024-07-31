@@ -84,26 +84,26 @@ reliable, and efficient software." -- golang.org
 
 * Why Go for Ops and SRE? Standard library examples
 
-.link http://golang.org/pkg/fmt fmt
+.link /pkg/fmt fmt
 
-.link http://golang.org/pkg/io/ioutil io/ioutil
+.link /pkg/io/ioutil io/ioutil
 
-.link http://golang.org/pkg/net/http net/http
+.link /pkg/net/http net/http
 
-.link http://golang.org/pkg/os/exec os/exec
+.link /pkg/os/exec os/exec
 
-.link http://golang.org/pkg/path/filepath path/filepath
+.link /pkg/path/filepath path/filepath
 
-.link http://golang.org/pkg/regexp regexp
+.link /pkg/regexp regexp
 
-.link http://golang.org/pkg/strings strings
+.link /pkg/strings strings
 
-.link http://golang.org/pkg/text/tabwriter text/tabwriter
+.link /pkg/text/tabwriter text/tabwriter
 
-.link http://golang.org/pkg/time time
+.link /pkg/time time
 
-[[godoc.org]] to your needs beyond the standard library
- 
+[[https://pkg.go.dev/][pkg.go.dev]] to your needs beyond the standard library
+
 * Why Go for Ops and SRE? Concurrency via Goroutines
 
 .play go-sreops/goroutines.go
@@ -158,7 +158,7 @@ via App Engine
 
  Inter host Goroutines
 
-.link http://juju.ubuntu.com Juju 
+.link http://juju.ubuntu.com Juju
 
  Service orchestration management tool
 
@@ -166,7 +166,7 @@ via App Engine
 
  Containers management tool
 
-.link http://www.packer.io Packer 
+.link http://www.packer.io Packer
 
  Tool for creating identical machine images for multiple platforms
 

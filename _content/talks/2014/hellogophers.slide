@@ -4,9 +4,7 @@ Gophercon Opening Keynote
 
 Rob Pike
 Google, Inc.
-@rob_pike
-http://golang.org/s/plusrob
-http://golang.org
+https://go.dev
 
 * Video
 
@@ -208,7 +206,7 @@ No subpackages.
 Separation of package name and package path.
 Visibility is package-level, not type-level.
 Within a package, you have the whole language, outside only what you permit.
-	
+
 * main
 
 One place where C  legacy shows through.
@@ -313,7 +311,7 @@ UTF-8 input source, so strings as literals are UTF-8 automatically.
 But what is a string?
 One of the first things written in the specification, hardly changed today.
 
-.link http://blog.golang.org/strings
+.link /blog/strings go.dev/blog/strings
 
 * )
 
@@ -362,11 +360,11 @@ Now watch similar evolution of a second program.
 Problem specification from
 _Communicating_Sequential_Processes_, by C. A. R. Hoare, 1978
 
-"Problem: To print in ascending order all primes less than 
-10000. Use an array of processes, SIEVE, in which each 
-process inputs a prime from its predecessor and prints it. 
-The process then inputs an ascending stream of numbers 
-from its predecessor and passes them on to its successor, 
+"Problem: To print in ascending order all primes less than
+10000. Use an array of processes, SIEVE, in which each
+process inputs a prime from its predecessor and prints it.
+The process then inputs an ascending stream of numbers
+from its predecessor and passes them on to its successor,
 suppressing any that are multiples of the original prime. "
 
 * Solution
@@ -520,7 +518,7 @@ coupled to a language designed for today's world.
 * Fitness to purpose
 
 From _Go:_the_emerging_language_of_cloud_infrastructure_ by Donnie Berkholz, March 2014.
-[[http://golang.org/s/emerging]]
+[[/s/emerging]]
 
 .image hellogophers/emerging.png
 

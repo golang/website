@@ -9,16 +9,16 @@ summary: Happy Birthday, Go!
 
 Today we celebrate the eleventh birthday of the Go open source release.
 The parties we had for
-[Go turning 10](https://blog.golang.org/10years)
+[Go turning 10](/blog/10years)
 seem like a distant memory.
 It’s been a tough year, but
 we’ve kept Go development moving forward
 and accumulated quite a few highlights.
 
-In November, we launched [go.dev and pkg.go.dev](https://blog.golang.org/go.dev)
+In November, we launched [go.dev and pkg.go.dev](/blog/go.dev)
 shortly after Go’s 10th birthday.
 
-In February, the [Go 1.14 release](https://blog.golang.org/go1.14)
+In February, the [Go 1.14 release](/blog/go1.14)
 delivered the first officially “production-ready” implementation of Go modules,
 along with many performance improvements,
 including
@@ -29,7 +29,7 @@ to reduce scheduling
 and garbage collection latency.
 
 In early March, we launched a
-[new API for protocol buffers](https://blog.golang.org/protobuf-apiv2),
+[new API for protocol buffers](/blog/protobuf-apiv2),
 [google.golang.org/protobuf](https://pkg.go.dev/google.golang.org/protobuf),
 with much-improved support for protocol buffer reflection and custom messages.
 
@@ -51,15 +51,15 @@ which enables advanced
 [Go-aware support](https://github.com/golang/tools/blob/master/gopls/doc/user.md)
 in many editors.
 In June, the
-[VSCode Go extension officially joined the Go project](https://blog.golang.org/vscode-go)
+[VSCode Go extension officially joined the Go project](/blog/vscode-go)
 and is now maintained by the same developers who work on gopls.
 
 Also in June, thanks to your feedback, we open-sourced
-[the code behind pkg.go.dev](https://blog.golang.org/pkgsite)
+[the code behind pkg.go.dev](/blog/pkgsite)
 as part of the Go project as well.
 
 Later in June, we
-[released the latest design draft for generics](https://blog.golang.org/generics-next-step),
+[released the latest design draft for generics](/blog/generics-next-step),
 along with a prototype tool and [generics playground](https://go2goplay.golang.org/).
 
 In July, we published and discussed three new design drafts for future changes:
@@ -69,13 +69,13 @@ and
 [build-time file embedding](/design/draft-embed).
 (We’ll see all of those in 2021, as noted below.)
 
-In August, the [Go 1.15 release](https://blog.golang.org/go1.15)
+In August, the [Go 1.15 release](/blog/go1.15)
 delivered mainly optimizations and bug fixes rather than new features.
 The most significant was the start of a rewrite of the linker,
 making it run 20% faster and use 30% less memory
 on average for large builds.
 
-Last month, we ran our [annual Go user survey](https://blog.golang.org/survey2020).
+Last month, we ran our [annual Go user survey](/blog/survey2020).
 We will post results on the blog once we’ve analyzed them.
 
 The Go community has adapted to “virtual-first” along with everyone else,
@@ -164,7 +164,7 @@ From the start, the [goal for Go modules](https://research.swtch.com/vgo-intro)
 has been “to add the concept of package versions to the working vocabulary
 of both Go developers and our tools,”
 to enable deep support for modules and versions throughout the Go ecosystem.
-The [Go module mirror, checksum database, and index](https://blog.golang.org/modules2019)
+The [Go module mirror, checksum database, and index](/blog/modules2019)
 were made possible by this ecosystem-wide understanding of what a package version is.
 Over the next year, we will see rich module support added to more tools and systems.
 For example, we plan to investigate new tooling to help module authors publish new versions
@@ -195,7 +195,7 @@ The Go package discovery site
 is another example of a version-aware system enabled by Go modules.
 We’ve been focused on getting the core functionality and user experience right,
 including a
-[redesign launching today](https://blog.golang.org/pkgsite-redesign).
+[redesign launching today](/blog/pkgsite-redesign).
 Over the next year,
 we will be unifying godoc.org into pkg.go.dev.
 We will also be expanding the version timeline for each package,
@@ -212,7 +212,7 @@ that Go modules are enabling.
 
 The next feature on everyone’s minds is of course generics.
 As we mentioned above, we published the
-[latest design draft for generics](https://blog.golang.org/generics-next-step)
+[latest design draft for generics](/blog/generics-next-step)
 back in June.
 Since then, we’ve continued to refine rough edges and have turned our
 attention to the details of implementing a production-ready version.

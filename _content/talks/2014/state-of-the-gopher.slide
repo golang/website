@@ -91,7 +91,7 @@ With gccgo, more.
   // new:
   delete(name, userID)
 
-- [[https://golang.org/doc/go1compat][stability promise]] + API check tool:
+- [[/doc/go1compat][stability promise]] + API check tool:
 
   pkg net/http, const StatusOK = 200
   pkg net/http, const StatusOK ideal-int
@@ -182,9 +182,9 @@ Requires knowing what every position in memory _actually_ is.
 
 * Better docs
 
-- [[http://blog.golang.org][Blog]] articles,
-- Community [[https://golang.org/wiki][Wiki]],
-- [[https://golang.org/wiki/Books][Books]]
+- [[/blog][Blog]] articles,
+- Community [[/wiki][Wiki]],
+- [[/wiki/Books][Books]]
 
 * Users: up and to the right
 
@@ -233,12 +233,12 @@ Requires knowing what every position in memory _actually_ is.
 
 * Better tools
 
-- go/parser: godoc, [[http://godoc.org]], gofmt, gofix →
-- [[http://godoc.org/code.google.com/p/go.tools/cmd/goimports][goimports]]: automatic import lines
-- go/types, gofix+types, 
-- go/ast, go/ssa, [[http://godoc.org/code.google.com/p/go.tools/cmd/oracle][oracle]],
-- [[http://godoc.org/code.google.com/p/go.tools/cmd/eg][eg]], example-based refactoring
-- [[http://godoc.org/code.google.com/p/go.tools/cmd/gorename][gorename]], safe global renaming tool
+- go/parser: godoc, [[https://pkg.go.dev]], gofmt, gofix →
+- [[https://pkg.go.dev/code.google.com/p/go.tools/cmd/goimports][goimports]]: automatic import lines
+- go/types, gofix+types,
+- go/ast, go/ssa, [[https://pkg.go.dev/code.google.com/p/go.tools/cmd/oracle][oracle]],
+- [[https://pkg.go.dev/code.google.com/p/go.tools/cmd/eg][eg]], example-based refactoring
+- [[https://pkg.go.dev/code.google.com/p/go.tools/cmd/gorename][gorename]], safe global renaming tool
 
 Tooling begets better tooling!
 
@@ -260,10 +260,10 @@ Tooling begets better tooling!
 
 * Go 1.4
 
-- [[http://golang.org/s/go14android][GOOS=android]] (Elias Naur, David Crawshaw)
+- [[/s/go14android][GOOS=android]] (Elias Naur, David Crawshaw)
 - GOOS=nacl GOARCH=arm
-- [[http://golang.org/s/go14internal]["internal" packages]]
-- [[http://golang.org/s/go1.4-generate]["go generate"]]
+- [[/s/go14internal]["internal" packages]]
+- [[/s/go1.4-generate]["go generate"]]
 - [[https://docs.google.com/a/golang.org/document/d/1QXzI9I1pOfZPujQzxhyRy6EeHYTQitKKjHfpq0zpxZs][syscall package frozen, go.sys]]
 - "go tool pprof" converted from Perl (!) to Go
 - minor stdlib additions, improvements
@@ -273,7 +273,7 @@ Tooling begets better tooling!
 * Go 1.5 (2014-06-01?)
 
 - Concurrent GC is main theme
-- Roadmap: [[http://golang.org/s/go14gc]] (GC in 1.4, 1.5, 1.6+)
+- Roadmap: [[/s/go14gc]] (GC in 1.4, 1.5, 1.6+)
 
 * Go 1.5: ports
 
@@ -298,7 +298,7 @@ Didn't make Go 1.4:
 - unify all `8g`, `5g`, `6g`, `9g`
 - SSA form, new optimizations
 
-See rsc's GopherCon [[http://go.dev/talks/2014/c2go.slide#1][slides]], [[http://gophercon.sourcegraph.com/post/83820197495/russ-cox-porting-the-go-compiler-from-c-to-go][notes]], [[https://www.youtube.com/watch?v=QIE5nV5fDwA][video]].
+See rsc's GopherCon [[/talks/2014/c2go.slide#1][slides]], [[http://gophercon.sourcegraph.com/post/83820197495/russ-cox-porting-the-go-compiler-from-c-to-go][notes]], [[https://www.youtube.com/watch?v=QIE5nV5fDwA][video]].
 
 * Go 1.5 Tracing
 
@@ -363,7 +363,7 @@ We can't wait to join them.
 - everything is growing on top of everything else,
 - hard to keep up with golang-dev@, golang-nuts@, bugs, wiki, new github projects, code reviews,
 
-* You all are awesome 
+* You all are awesome
 
 - keep being awesome
 - keep making awesome things

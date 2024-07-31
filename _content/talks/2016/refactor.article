@@ -49,7 +49,7 @@ You might think of this as `go` `get`’s codebase.
 In contrast to Google’s codebase,
 `go` `get`’s codebase is completely decentralized,
 so it’s more difficult to get exact numbers.
-In November 2016, there were 140,000 packages known to [[https://godoc.org/][godoc.org]],
+In November 2016, there were 140,000 packages known to godoc.org
 and over 160,000
 [[https://github.com/search?utf8=%E2%9C%93&q=language%3AGo&type=Repositories&ref=searchresults][GitHub repos written in Go]].
 
@@ -61,7 +61,7 @@ We made sure that there weren’t unnecessary dependencies
 between packages, both to simplify programs and to make it
 easier to test and refactor them.
 For more detail about these considerations, see Rob Pike’s 2012 article
-“[[https://go.dev/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]].”
+“[[/talks/2012/splash.article][Go at Google: Language Design in the Service of Software Engineering]].”
 
 Over the past few years we’ve come to realize that there’s
 more that can and should be done to make it easier
@@ -82,17 +82,17 @@ There are a few reasons you might want to change the way
 a codebase is organized into packages.
 
 The first reason is to split a package into more manageable pieces for users.
-For example, most users of [[https://golang.org/pkg/regexp/][package regexp]] don’t need access to the
-regular expression parser, although [[https://godoc.org/github.com/google/codesearch/regexp][advanced uses may]],
-so the parser is exported in [[https://golang.org/pkg/regexp/syntax][a separate regexp/syntax package]].
+For example, most users of [[/pkg/regexp/][package regexp]] don’t need access to the
+regular expression parser, although [[https://pkg.go.dev/github.com/google/codesearch/regexp][advanced uses may]],
+so the parser is exported in [[/pkg/regexp/syntax][a separate regexp/syntax package]].
 
-The second reason is to [[https://blog.golang.org/package-names][improve naming]]. 
+The second reason is to [[/blog/package-names][improve naming]].
 For example, early versions of Go had an `io.ByteBuffer`,
 but we decided `bytes.Buffer` was a better name and package bytes a better place for the code.
 
 The third reason is to lighten dependencies.
 For example, we moved `os.EOF` to `io.EOF` so that code not using the operating system
-can avoid importing the fairly heavyweight [[https://golang.org/pkg/os][package os]].
+can avoid importing the fairly heavyweight [[/pkg/os][package os]].
 
 The fourth reason is to change the dependency graph
 so that one package can import another.
@@ -114,7 +114,7 @@ Before Go 1, the `os.FileInfo` struct contained these fields:
 
 Notice the times `Atime_ns`, `Mtime_ns`, `Ctime_ns` have type int64,
 an `_ns` suffix, and are commented as “nanoseconds since epoch.”
-These fields would clearly be nicer using [[https://golang.org/pkg/time/#Time][`time.Time`]],
+These fields would clearly be nicer using [[/pkg/time/#Time][`time.Time`]],
 but mistakes in the design of the package structure of the codebase
 prevented that.
 To be able to use `time.Time` here, we refactored the codebase.
@@ -132,9 +132,9 @@ As a result, operating system APIs could not use `time.Time`.
 This kind of problem convinced us that
 `os.Error` and its constructor `os.NewError` were so fundamental
 that they should be moved out of package os.
-In the end, we moved `os.Error` into the language as [[https://golang.org/ref/spec/#Errors][`error`]]
-and `os.NewError` into the new 
-[[https://golang.org/pkg/errors][package errors]]
+In the end, we moved `os.Error` into the language as [[/ref/spec/#Errors][`error`]]
+and `os.NewError` into the new
+[[/pkg/errors][package errors]]
 as `errors.New`.
 After this and other refactoring, the import graph in Go 1 looked like:
 
@@ -142,18 +142,18 @@ After this and other refactoring, the import graph in Go 1 looked like:
 
 Package io and package time had few enough dependencies
 to be used by package os, and
-the Go 1 definition of [[https://golang.org/pkg/os/#FileInfo][`os.FileInfo`]] does use `time.Time`.
+the Go 1 definition of [[/pkg/os/#FileInfo][`os.FileInfo`]] does use `time.Time`.
 
 (As a side note, our first idea was to move `os.Error` and `os.NewError`
 to a new package named error (singular) as `error.Value` and `error.New`.
 Feedback from Roger Peppe and others in the Go community helped us
-see that making the error type predefined in the language would 
-allow its use even in low-level contexts like the specification of 
-[[https://golang.org/ref/spec#Run_time_panics][run-time panics]].
+see that making the error type predefined in the language would
+allow its use even in low-level contexts like the specification of
+[[/ref/spec#Run_time_panics][run-time panics]].
 Since the type was named `error`, the package became errors (plural)
 and the constructor `errors.New`.
 Andrew Gerrand’s 2015 talk
-“[[https://go.dev/talks/2015/how-go-was-made.slide#37][How Go was Made]]” has more detail.)
+“[[/talks/2015/how-go-was-made.slide#37][How Go was Made]]” has more detail.)
 
 * Gradual code repair
 
@@ -161,7 +161,7 @@ The benefits of a codebase refactoring apply throughout the codebase.
 Unfortunately, so do the costs:
 often a large number of repairs must be made as a result of the refactoring.
 As codebases grow, it becomes infeasible to do all the repairs at one time.
-The repairs must be done gradually, 
+The repairs must be done gradually,
 and the programming language must make that possible.
 
 As a simple example,
@@ -170,7 +170,7 @@ moved two files, adjusted three makefiles, and repaired 43 other Go source files
 The repairs outweighed the actual API change by a factor of twenty,
 and the entire codebase was only 250 files.
 As codebases grow, so does the repair multiplier.
-Similar changes in large Go codebases, 
+Similar changes in large Go codebases,
 such as Docker, and Juju, and Kubernetes,
 can have repair multipliers ranging from 10X to 100X.
 Inside Google we’ve seen repair multipliers well over 1000X.
@@ -181,7 +181,7 @@ together in one big commit:
 
 .html refactor/atomic.html
 
-The argument in favor of this approach, 
+The argument in favor of this approach,
 which we will call “atomic code repair,”
 is that it is conceptually simple:
 by updating the API and the code repairs in the same commit,
@@ -245,11 +245,11 @@ That stub was in a new file named `io/xxx.go` that read:
 	// so that the protocol compiler's output
 	// still works. Once the protocol compiler
 	// gets fixed, this goes away.
-	
+
 	package io
-	
+
 	import "bytes"
-	
+
 	type ByteBuffer struct {
 		bytes.Buffer;
 	}
@@ -294,7 +294,7 @@ Let’s look at examples of how Go makes that possible (or not).
 
 Let’s start with a simple example of moving a constant.
 
-Package io defines the [[https://golang.org/pkg/io/#Seeker][Seeker interface]],
+Package io defines the [[/pkg/io/#Seeker][Seeker interface]],
 but the named constants that developers prefer to use
 when invoking the `Seek` method came from package os.
 Go 1.7 moved the constants to package io and gave them more idiomatic names;
@@ -305,11 +305,11 @@ when the definitions use the same type and value:
 
 	package io
 	const SeekStart int = 0
-	
+
 	package os
 	const SEEK_SET int = 0
 
-Due to [[https://golang.org/doc/go1compat][Go 1 compatibility]],
+Due to [[/doc/go1compat][Go 1 compatibility]],
 we’re blocked in stage 2 of this gradual code change.
 We can’t delete the old constants,
 but making the new ones available in package io allows
@@ -330,7 +330,7 @@ Now let’s look at moving a function from one package to another.
 As mentioned above,
 in 2011 we replaced `os.Error` with the predefined type `error`
 and moved the constructor `os.NewError` to a new package as
-[[https://golang.org/pkg/errors/#New][`errors.New`]].
+[[/pkg/errors/#New][`errors.New`]].
 
 For a function, one name is interchangeable with another
 when the definitions use the same signature and implementation.
@@ -339,7 +339,7 @@ the new function:
 
 	package errors
 	func New(msg string) error { ... }
-	
+
 	package os
 	func NewError(msg string) os.Error {
 	    return errors.New(msg)
@@ -350,7 +350,7 @@ there is no way to tell these two functions apart.
 The old and new API are interchangeable,
 so we can proceed to stages 2 and 3.
 
-(We are ignoring a small detail here: the original 
+(We are ignoring a small detail here: the original
 `os.NewError` returned an `os.Error`, not an `error`,
 and two functions with different signatures _are_ distinguishable.
 To really make these functions indistinguishable,
@@ -373,11 +373,11 @@ The simplest way to arrange that is to initialize one from the other:
 
 	package io
 	var EOF = ...
-	
+
 	package os
 	var EOF = io.EOF
 
-In this example, io.EOF and os.EOF are the same value. 
+In this example, io.EOF and os.EOF are the same value.
 The variable values are completely interchangeable.
 
 There is one small problem.
@@ -401,20 +401,20 @@ There’s no way in Go to make two names of types interchangeable.
 The closest we can come in Go is to give `os.Error` and `error` the same underlying definition:
 
 	package os
-	type Error error 
+	type Error error
 
 Even with this definition, and even though these are interface types,
-Go still considers these two types [[https://golang.org/ref/spec#Type_identity][different]],
+Go still considers these two types [[/ref/spec#Type_identity][different]],
 so that a function returning an os.Error
 is not the same as a function returning an error.
-Consider the [[https://golang.org/pkg/io/#Reader][`io.Reader`]] interface:
-	
+Consider the [[/pkg/io/#Reader][`io.Reader`]] interface:
+
 	package io
 	type Reader interface {
 	    Read(b []byte) (n int, err error)
 	}
 
-If `io.Reader` is defined using `error`, as above, then a `Read` method 
+If `io.Reader` is defined using `error`, as above, then a `Read` method
 returning `os.Error` will not satisfy the interface.
 
 If there’s no way to make two names for a type interchangeable,
@@ -433,8 +433,8 @@ This problem with moving types is not limited to fundamental changes like `os.Er
 nor is it limited to the Go repository.
 Here’s a change from the [[https://kubernetes.io/][Kubernetes project]].
 Kubernetes has a package util, and at some point the developers
-decided to split out that package’s `IntOrString` type into its own 
-[[https://godoc.org/k8s.io/kubernetes/pkg/util/intstr][package intstr]].
+decided to split out that package’s `IntOrString` type into its own
+[[https://pkg.go.dev/k8s.io/kubernetes/pkg/util/intstr][package intstr]].
 
 Applying the pattern for a gradual code repair,
 the first stage is to establish a way for the two types to be interchangeable.
@@ -447,7 +447,7 @@ assigned has the correct type:
 	type IntOrString intstr.IntOrString
 
 	// Not good enough for:
-	
+
 	// IngressBackend describes ...
 	type IngressBackend struct {
 	    ServiceName string             `json:"serviceName"`
@@ -474,16 +474,16 @@ As another example,
 here’s a change from the [[https://www.docker.com/][Docker project]].
 Docker has a package utils, and at some point the developers
 decided to split out that package’s `JSONError` type into a separate
-[[https://godoc.org/github.com/docker/docker/pkg/jsonmessage#JSONError][jsonmessage package]].
+[[https://pkg.go.dev/github.com/docker/docker/pkg/jsonmessage#JSONError][jsonmessage package]].
 
 Again we have the problem that the old and new types are not interchangeable,
-but it shows up in a different way, namely [[https://golang.org/ref/spec#Type_assertions][type assertions]]:
+but it shows up in a different way, namely [[/ref/spec#Type_assertions][type assertions]]:
 
 	package utils
 	type JSONError jsonmessage.JSONError
 
 	// Not good enough for:
-	
+
 	jsonError, ok := err.(*jsonmessage.JSONError)
 	if !ok {
 		jsonError = &jsonmessage.JSONError{
@@ -494,14 +494,14 @@ but it shows up in a different way, namely [[https://golang.org/ref/spec#Type_as
 If the error `err` not already a `JSONError`, this code wraps it in one,
 but during a gradual repair, this code handles `utils.JSONError` and `jsonmessage.JSONError` differently.
 The two types are not interchangeable.
-(A [[https://golang.org/ref/spec#Type_switches][type switch]] would expose the same problem.)
+(A [[/ref/spec#Type_switches][type switch]] would expose the same problem.)
 
 If this line were the only problem, then you could imagine
 adding a type assertion for `*utils.JSONError`,
 then doing a gradual code repair to remove other uses of `utils.JSONError`,
 and finally removing the additional type guard just before removing the old type.
 But this line is not the only problem.
-The type is also used elsewhere in the API and has all the 
+The type is also used elsewhere in the API and has all the
 problems of the Kubernetes example.
 
 In practice, again the only option here is an atomic code repair
@@ -518,7 +518,7 @@ The patterns for establishing interchangeable old and new API are:
 	func OldAPI() { NewPackage.API() }
 
 	var OldAPI = NewPackage.API
-	
+
 	type OldAPI ... ??? modify compiler or ... ???
 
 For constants and functions, the setup for a gradual code repair is trivial.
@@ -551,7 +551,7 @@ for a constant or a function or (most of the time) a variable,
 there is no way to create an alternate name for a type.
 
 For Go 1.8 we experimented with introducing first-class support
-for these alternate names, called [[https://golang.org/design/16339-alias-decls][_aliases_]].
+for these alternate names, called [[/design/16339-alias-decls][_aliases_]].
 A new declaration syntax, the alias form, would have provided a uniform way
 to create an alternate name for any kind of identifier:
 
@@ -570,7 +570,7 @@ would have used a single mechanism:
 	type  Error    => error
 
 During the Go 1.8 release freeze, we found two small but important unresolved technical details
-in the alias support (issues [[https://golang.org/issue/17746][17746]] and [[https://golang.org/issue/17784][17784]]),
+in the alias support (issues [[/issue/17746][17746]] and [[/issue/17784][17784]]),
 and we decided that it was not possible to resolve them confidently
 in the time remaining before the Go 1.8 release,
 so we held aliases back from Go 1.8.
@@ -611,7 +611,7 @@ before the standard library changes.
 .html refactor/version1.html
 
 There is no compatible set of libraries to build your program:
-you want the latest version of Bar, which requires 
+you want the latest version of Bar, which requires
 standard library 6.0.0,
 but you also need Foo, which is incompatible with standard library 6.0.0.
 The best a versioning system can do in this case is report the failure clearly.
@@ -638,9 +638,9 @@ giving versioning systems a better chance to find a way to build your program.
 ** Type aliases
 
 To enable gradual code repair during codebase refactorings,
-it must be possible to create alternate names for a 
+it must be possible to create alternate names for a
 constant, function, variable, or type.
-Go already allows introducing alternate names for 
+Go already allows introducing alternate names for
 all constants, all functions, and nearly all variables, but no types.
 Put another way,
 the general alias form is never necessary for constants,
@@ -653,7 +653,7 @@ suggests that perhaps the Go 1.8 aliases were an overgeneralization,
 and that we should instead focus on a solution limited to types.
 The obvious solution is type-only aliases,
 for which no new operator is required.
-Following 
+Following
 [[http://www.freepascal.org/docs-html/ref/refse19.html][Pascal]]
 (or, if you prefer, [[https://doc.rust-lang.org/book/type-aliases.html][Rust]]),
 a Go program could introduce a type alias using the assignment operator:
@@ -661,14 +661,14 @@ a Go program could introduce a type alias using the assignment operator:
 	type OldAPI = NewPackage.API
 
 The idea of limiting aliases to types was
-[[https://golang.org/issue/16339#issuecomment-233644777][raised during the Go 1.8 alias discussion]],
+[[/issue/16339#issuecomment-233644777][raised during the Go 1.8 alias discussion]],
 but it seemed worth trying the more general approach, which we did, unsuccessfully.
 In retrospect, the fact that `=` and `=>` have identical meanings for constants
 while they have nearly identical but subtly different meanings for variables
 suggests that the general approach is not worth its complications.
 
 In fact, the idea of adding Pascal-style type aliases
-was [[https://golang.org/issue/16339#issuecomment-233759255][considered in the early design of Go]],
+was [[/issue/16339#issuecomment-233759255][considered in the early design of Go]],
 but until now we didn’t have a strong use case for them.
 
 Type aliases seem like a promising approach to explore,
@@ -693,7 +693,7 @@ I hope we the Go community can fix this together in Go 1.9. Maybe type aliases a
 
 * Acknowledgements
 
-Thanks to the many people who helped us [[https://golang.org/issue/16339][think through the design questions]]
+Thanks to the many people who helped us [[/issue/16339][think through the design questions]]
 that got us this far and led to the alias trial during Go 1.8 development.
 I look forward to the Go community helping us again when we revisit this problem for Go 1.9.
-If you’d like to contribute, please see [[https://golang.org/issue/18130][issue 18130]].
+If you’d like to contribute, please see [[/issue/18130][issue 18130]].

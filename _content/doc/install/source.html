@@ -130,6 +130,19 @@ root of a Go installation to use to build the new Go toolchain;
 <code>$GOROOT_BOOTSTRAP/bin/go</code> should be the go command to use.</p>
 
 <p>
+The minimum version of Go required depends on the target version of Go:
+</p>
+
+<ul>
+<li> Go &lt;= 1.4: a C toolchain.
+<li> 1.5 &lt;= Go &lt;= 1.19: a Go 1.4 compiler.
+<li> 1.20 &lt;= Go &lt;= 1.21: a Go 1.17 compiler.
+<li> 1.22 &lt;= Go &lt;= 1.23: a Go 1.20 compiler.
+<li> Going forward, Go version 1.N will require a Go 1.M compiler, 
+where M is N-2 rounded down to an even number. Example: Go 1.24 and 1.25 require Go 1.22.
+</ul>
+
+<p>
 There are four possible ways to obtain a bootstrap toolchain:
 </p>
 
@@ -149,7 +162,7 @@ These approaches are detailed below.
 <p>
 To use a binary release as a bootstrap toolchain, see
 <a href="/dl/">the downloads page</a> or use any other
-packaged Go distribution.
+packaged Go distribution meeting the minimum version requirements.
 </p>
 
 <h3 id="bootstrapFromCrosscompiledSource">Bootstrap toolchain from cross-compiled source</h3>
@@ -253,7 +266,7 @@ To build without <code>cgo</code>, set the environment variable
 
 <p>Change to the directory where you intend to install Go, and make sure
 the <code>goroot</code> directory does not exist. Then clone the repository
-and check out the latest release tag (<code class="versionTag">go1.12</code>,
+and check out the latest release tag or release branch (<code class="versionTag">go1.22.0</code>, or <code class="versionTag">release-branch.go1.22</code>,
 for example):</p>
 
 <pre>
@@ -495,8 +508,8 @@ you must set <code>GOPATH</code> to another location to avoid conflicts.
 <p>
 The directory where executables outside the Go distribution are installed
 using the <a href="/cmd/go">go command</a>. For example,
-<code>go install golang.org/x/tools/cmd/godoc@latest</code> downloads, builds,
-and installs <code>$GOBIN/godoc</code>. By default, <code>$GOBIN</code> is
+<code>go install golang.org/x/tools/gopls@latest</code> downloads, builds,
+and installs <code>$GOBIN/gopls</code>. By default, <code>$GOBIN</code> is
 <code>$GOPATH/bin</code> (or <code>$HOME/go/bin</code> if <code>GOPATH</code>
 is not set). After installing, you will want to add this directory to
 your <code>$PATH</code> so you can use installed tools.
@@ -703,7 +716,7 @@ This variable controls how gc implements floating point computations.
 </li>
 
 <li><code>$GOARM</code> (for <code>arm</code> only; default is auto-detected if building
-on the target processor, 6 if not)
+on the target processor, 7 if not)
 <p>
 This sets the ARM floating point co-processor architecture version the run-time
 should target. If you are compiling on the target system, its value will be auto-detected.
@@ -728,7 +741,7 @@ default is <code>v1</code>)
 This sets the microarchitecture level for which to compile.
 Valid values are <code>v1</code> (default), <code>v2</code>, <code>v3</code>,
 <code>v4</code>.
-See <a href="https://go.dev/wiki/MinimumRequirements#amd64">the Go wiki
+See <a href="/wiki/MinimumRequirements#amd64">the Go wiki
 MinimumRequirements page</a> for more information.
 </p>
 </li>

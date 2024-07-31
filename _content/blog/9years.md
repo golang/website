@@ -42,7 +42,7 @@ We are excited about all of our new gophers and actively working to improve our 
 It’s hard to believe that it’s only been five years since
 the first Go conferences and Go meetups.
 We’ve seen major growth in this area of community leadership over the last year.
-There are now over 20 [Go conferences](https://github.com/golang/go/wiki/Conferences)
+There are now over 20 [Go conferences](/wiki/Conferences)
 and over 300 [Go-related meetups](https://www.meetup.com/topics/golang/) spanning the globe.
 
 Thanks to the hard work put into these many conferences and meetups,
@@ -55,7 +55,7 @@ and how we can better support gophers worldwide.
   - [The Legacy of Go, Part 2](https://www.youtube.com/watch?v=I_KcpgxcFyU), by Carmen Andoh at GothamGo
   - [Growing a Community of Gophers](https://www.youtube.com/watch?v=dl1mCGKwlYY), by Cassandra Salisbury at Gopherpalooza
 
-On that theme, this year we also [revised our code of conduct](https://blog.golang.org/conduct-2018)
+On that theme, this year we also [revised our code of conduct](/blog/conduct-2018)
 to better support inclusivity in the Go community.
 
 The Go community is truly global.
@@ -71,17 +71,17 @@ After five years of experience with Go 1, we’ve started looking at
 what we should change about Go to better support
 [programming at scale](/talks/2012/splash.article).
 
-Last spring, we published a [draft design for Go modules](https://blog.golang.org/versioning-proposal),
+Last spring, we published a [draft design for Go modules](/blog/versioning-proposal),
 which provide an integrated mechanism for versioning and package distribution.
 The most recent Go release, Go 1.11, included
 [preliminary support for modules](/doc/go1.11#modules).
 
 Last summer we published
-[early draft designs](https://blog.golang.org/go2draft)
+[early draft designs](/blog/go2draft)
 for how Go 2 might better support error values, error handling, and generic programming.
 
 We are excited about refining these designs with the community’s help as we work
-[toward Go 2](https://blog.golang.org/toward-go2).
+[toward Go 2](/blog/toward-go2).
 
 ## Go Contributors
 

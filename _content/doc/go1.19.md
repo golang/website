@@ -26,7 +26,7 @@ We expect almost all Go programs to continue to compile and run as before.
 
 <!-- https://go.dev/issue/52038 -->
 There is only one small change to the language,
-a [very small correction](https://github.com/golang/go/issues/52038)
+a [very small correction](/issue/52038)
 to the [scope of type parameters in method declarations](/ref/spec#Declarations_and_scope).
 Existing programs are unaffected.
 
@@ -167,7 +167,7 @@ a detailed guide explaining the soft memory limit in more detail, as well as
 a variety of common use-cases and scenarios. Please note that small memory
 limits, on the order of tens of megabytes or less, are less likely to be
 respected due to external latency factors, such as OS scheduling. See
-[issue 52433](https://go.dev/issue/52433) for more details. Larger
+[issue 52433](/issue/52433) for more details. Larger
 memory limits, on the order of hundreds of megabytes or more, are stable and
 production-ready.
 
@@ -266,7 +266,7 @@ On ELF platforms, the linker now emits compressed DWARF sections in
 the standard gABI format (`SHF_COMPRESSED`), instead of
 the legacy `.zdebug` format.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New atomic types {#atomic_types}
 

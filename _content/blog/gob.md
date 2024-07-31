@@ -294,7 +294,7 @@ and it does all the work.
 	    fmt.Printf("%q: {%d,%d}\n", q.Name, *q.X, *q.Y)
 	}
 
-You can compile and run this example code in the [Go Playground](http://play.golang.org/p/_-OJV-rwMq).
+You can compile and run this example code in the [Go Playground](/play/p/_-OJV-rwMq).
 
 The [rpc package](/pkg/net/rpc/) builds on gobs to turn
 this encode/decode automation into transport for method calls across the network.

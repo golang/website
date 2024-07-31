@@ -6,19 +6,17 @@ Sydney Go Meetup
 
 Rob Pike
 Google
-@rob_pike
-[[http://golang.org/s/plusrob][+RobPikeTheHuman]]
-http://golang.org/
+https://go.dev/
 
 * Background
 
-Spoke at Gophercon this year: [[https://go.dev/talks/2016/asm.slide]]
+Spoke at Gophercon this year: [[/talks/2016/asm.slide]]
 
 That talk was about system design and portability.
 
 Today's talk is about its lexer.
 
-Spoke about lexing before: [[https://go.dev/talks/2011/lex.slide]]
+Spoke about lexing before: [[/talks/2011/lex.slide]]
 
 That talk showed a way to use concurrency to build a lexer.
 
@@ -58,7 +56,7 @@ The parser then reads these tokens to parse the input into a _parse_tree_.
 
 There is a nice, efficient lexer package in the Go standard library:
 
-- [[https://golang.org/pkg/text/scanner/][`text/scanner`]]
+- [[/pkg/text/scanner/][`text/scanner`]]
 
 It can do this job just fine.
 
@@ -66,10 +64,10 @@ But.... that is not enough for the assembler because of
 
 * Backwards compatibility
 
-The new Go assembler had to be totally compatible with the ones it replaces, which used YACC and were written in C. (See [[https://go.dev/talks/2015/gogo.slide][]].)
+The new Go assembler had to be totally compatible with the ones it replaces, which used YACC and were written in C. (See [[/talks/2015/gogo.slide][]].)
 
 Each assembler (one per architecture) contained these lines at the end of `lex.c`:
-	
+
 	#include "../cc/lexbody"
 	#include "../cc/macbody"
 
@@ -78,15 +76,15 @@ The differences between C tokens and Go tokens are minor and can be handled, but
 
 
 The C lexer brings in something problematic.
- 
+
 * The C preprocessor
 
 The old assemblers had a C preprocessor built in!
 An old-fashioned one, without `#if` and token pasting, but still:
 
-	#include "file" 
-	#define  MAXBUF 512 
-	#define  MULDIV(a, b, c)  ((a)*(b)/(c)) 
+	#include "file"
+	#define  MAXBUF 512
+	#define  MULDIV(a, b, c)  ((a)*(b)/(c))
 	#ifdef   MAXBUF
 	#endif
 

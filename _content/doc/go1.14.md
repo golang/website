@@ -23,7 +23,7 @@ We expect almost all Go programs to continue to compile and run as before.
 
 Module support in the `go` command is now ready for production use,
 and we encourage all users to [migrate to Go
-modules for dependency management](https://blog.golang.org/migrating-to-go-modules). If you are unable to migrate due to a problem in the Go
+modules for dependency management](/blog/migrating-to-go-modules). If you are unable to migrate due to a problem in the Go
 toolchain, please ensure that the problem has an
 [open issue](/issue?q=is%3Aissue+is%3Aopen+label%3Amodules)
 filed. (If the issue is not on the `Go1.15` milestone, please let us
@@ -352,7 +352,7 @@ This API may change in future releases.
 Bounds check elimination now uses information from slice creation and can
 eliminate checks for indexes with types smaller than `int`.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New byte sequence hashing package {#hash_maphash}
 

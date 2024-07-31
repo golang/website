@@ -62,7 +62,7 @@ the form of bug reports,
 of contributions.
 
 The most common type of contribution was an example function to be used in the
-documentation. The [Go User survey](https://blog.golang.org/survey2016-results)
+documentation. The [Go User survey](/blog/survey2016-results)
 identified that our documentation was significantly lacking examples. In the
 presentation, we asked users to find a package they loved and to add an example. In
 the Go project, examples are written as code in Go files

@@ -18,7 +18,6 @@ import (
 	"html/template"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -33,6 +32,7 @@ import (
 	"time"
 
 	"cloud.google.com/go/datastore"
+	"golang.org/x/build/relnote"
 	"golang.org/x/build/repos"
 	"golang.org/x/website"
 	"golang.org/x/website/internal/blog"
@@ -49,6 +49,7 @@ import (
 	"golang.org/x/website/internal/tour"
 	"golang.org/x/website/internal/web"
 	"golang.org/x/website/internal/webtest"
+	"rsc.io/markdown"
 )
 
 var (
@@ -59,7 +60,8 @@ var (
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
 
-	tipFlag = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+	tipFlag  = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+	wikiFlag = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
 
 	googleAnalytics string
 )
@@ -71,16 +73,18 @@ func usage() {
 }
 
 func main() {
-	// Running locally, find the local _content directory,
+	// Running locally, find the local _content directory when it's available nearby,
 	// so that updates to those files appear on the local dev instance without restarting.
 	// On App Engine, leave contentDir empty, so we use the embedded copy,
 	// which is much faster to access than the simulated file system.
 	if *contentDir == "" && !runningOnAppEngine {
-		repoRoot := "../.."
-		if _, err := os.Stat("_content"); err == nil {
-			repoRoot = "."
+		if fi, err := os.Stat(filepath.Join("..", "..", "_content")); err == nil && fi.IsDir() {
+			*contentDir = fi.Name()
+		} else if fi, err := os.Stat("_content"); err == nil && fi.IsDir() {
+			*contentDir = fi.Name()
+		} else {
+			*contentDir = "" // Fall back to using embedded content.
 		}
-		*contentDir = filepath.Join(repoRoot, "_content")
 	}
 
 	if runningOnAppEngine {
@@ -116,6 +120,7 @@ func main() {
 		log.Printf("\tversion = %s", runtime.Version())
 		log.Printf("\taddress = %s", *httpAddr)
 		log.Printf("\tgoroot = %s", *goroot)
+		log.Printf("\tcontent = %s", contentSource())
 		handler = loggingHandler(handler)
 	}
 
@@ -123,6 +128,18 @@ func main() {
 	fmt.Fprintf(os.Stderr, "serving http://%s\n", *httpAddr)
 	if err := http.ListenAndServe(*httpAddr, handler); err != nil {
 		log.Fatalf("ListenAndServe %s: %v", *httpAddr, err)
+	}
+}
+
+// contentSource returns a human-readable description
+// of where the x/website _content dir is coming from.
+func contentSource() string {
+	if *contentDir == "" {
+		return "embedded content"
+	} else if abs, err := filepath.Abs(*contentDir); err == nil {
+		return abs
+	} else {
+		return *contentDir
 	}
 }
 
@@ -157,6 +174,19 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		gorootFS = os.DirFS(goroot)
 	}
 
+	// go.dev/wiki serves content from the very latest Git commit of the wiki repo.
+	// Start with the _content/wiki directory as placeholder until Git loads.
+	var wikiFS atomicFS
+	wikiDefault, err := fs.Sub(contentFS, "wiki")
+	if err != nil {
+		log.Fatalf("loading default wiki content: %v", err)
+	}
+	wikiFS.Set(wikiDefault)
+	if *wikiFlag {
+		go watchGit(&wikiFS, "https://go.googlesource.com/wiki")
+	}
+	contentFS = &mountFS{contentFS, "wiki", &wikiFS}
+
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
 	var tipGoroot atomicFS
@@ -164,7 +194,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		log.Fatalf("loading tip site: %v", err)
 	}
 	if *tipFlag {
-		go watchTip(&tipGoroot)
+		go watchGit(&tipGoroot, "https://go.googlesource.com/go")
 	}
 
 	// beta.golang.org is an old name for tip.
@@ -263,6 +293,7 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 		"rfc3339":         parseRFC3339,
 		"section":         section,
 		"version":         func() string { return runtime.Version() },
+		"docNext":         releaseNotePreview{goroot}.MergedFragments,
 	})
 	docs, err := pkgdoc.NewServer(fsys, site, googleCN)
 	if err != nil {
@@ -276,36 +307,64 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 	return site, nil
 }
 
+// releaseNotePreview implements a preview of upcoming release notes.
+type releaseNotePreview struct {
+	goroot fs.FS // goroot provides the doc/next content to use, if any.
+}
+
+// MergedFragments returns Markdown obtained by merging release note fragments
+// found in the doc/next directory in goroot, to preview relnote generate output.
+// An empty string and no error is returned if the doc/next directory doesn't exist.
+func (p releaseNotePreview) MergedFragments() (markdownWithEmbeddedHTML template.HTML, _ error) {
+	next, err := fs.Sub(p.goroot, "doc/next")
+	if err != nil {
+		return "", err
+	}
+	if _, err := fs.Stat(next, "."); os.IsNotExist(err) || errors.Is(err, errNoFileSystem) {
+		// No next release note fragments.
+		return "", nil
+	}
+	doc, err := relnote.Merge(next)
+	if err != nil {
+		return "", fmt.Errorf("relnote.Merge: %v", err)
+	}
+	// Note: It's possible to render doc, a parsed Markdown document with embedded HTML,
+	// into Markdown or HTML. We choose to render to Markdown and let x/website/internal/web
+	// handle the remaining conversion to HTML. This means the rendering is more consistent
+	// with what'll happen when relnote generate output is added as _content/doc/go1.N.md.
+	return template.HTML(markdown.ToMarkdown(doc)), nil
+}
+
 func parseRFC3339(s string) (time.Time, error) {
 	return time.Parse(time.RFC3339, s)
 }
 
-// watchTip is a background goroutine that watches the main Go repo for updates.
-// When a new commit is available, watchTip downloads the new tree and calls
-// tipGoroot.Set to install the new file system.
-func watchTip(tipGoroot *atomicFS) {
+// watchGit is a background goroutine that watches a Git repo for updates.
+// When a new commit is available, watchGit downloads the new tree and calls
+// fsys.Set to install the new file system.
+func watchGit(fsys *atomicFS, repo string) {
 	for {
-		// watchTip1 runs until it panics (hopefully never).
+		// watchGit1 runs until it panics (hopefully never).
 		// If that happens, sleep 5 minutes and try again.
-		watchTip1(tipGoroot)
+		watchGit1(fsys, repo)
 		time.Sleep(5 * time.Minute)
 	}
 }
 
-// watchTip1 does the actual work of watchTip and recovers from panics.
-func watchTip1(tipGoroot *atomicFS) {
+// watchGit1 does the actual work of watchGit and recovers from panics.
+func watchGit1(afs *atomicFS, repo string) {
 	defer func() {
 		if e := recover(); e != nil {
-			log.Printf("watchTip panic: %v\n%s", e, debug.Stack())
+			log.Printf("watchGit %s panic: %v\n%s", repo, e, debug.Stack())
 		}
 	}()
 
 	var r *gitfs.Repo
 	for {
 		var err error
-		r, err = gitfs.NewRepo("https://go.googlesource.com/go")
+		r, err = gitfs.NewRepo(repo)
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)
 			continue
 		}
@@ -318,11 +377,11 @@ func watchTip1(tipGoroot *atomicFS) {
 		var err error
 		h, fsys, err = r.Clone("HEAD")
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)
 			continue
 		}
-		tipGoroot.Set(fsys)
+		afs.Set(fsys)
 		break
 	}
 
@@ -330,17 +389,17 @@ func watchTip1(tipGoroot *atomicFS) {
 		time.Sleep(5 * time.Minute)
 		h2, err := r.Resolve("HEAD")
 		if err != nil {
-			log.Printf("tip: %v", err)
+			log.Printf("watchGit %s: %v", repo, err)
 			continue
 		}
 		if h2 != h {
 			fsys, err := r.CloneHash(h2)
 			if err != nil {
-				log.Printf("tip: %v", err)
+				log.Printf("watchGit %s: %v", repo, err)
 				time.Sleep(1 * time.Minute)
 				continue
 			}
-			tipGoroot.Set(fsys)
+			afs.Set(fsys)
 			h = h2
 		}
 	}
@@ -715,6 +774,7 @@ func (fsys fixSpecsFS) Open(name string) (fs.File, error) {
 // README.md, and SECURITY.md. The last is particularly problematic
 // when running locally on a Mac, because it can be opened as
 // security.md, which takes priority over _content/security.html.
+// Same for wiki.
 type hideRootMDFS struct {
 	fs fs.FS
 }
@@ -722,6 +782,10 @@ type hideRootMDFS struct {
 func (fsys hideRootMDFS) Open(name string) (fs.File, error) {
 	if !strings.Contains(name, "/") && strings.HasSuffix(name, ".md") {
 		return nil, errors.New(".md file not available")
+	}
+	switch name {
+	case "wiki/README.md", "wiki/CONTRIBUTING.md", "wiki/LICENSE", "wiki/PATENTS", "wiki/codereview.cfg":
+		return nil, errors.New("wiki meta file not available")
 	}
 	return fsys.fs.Open(name)
 }
@@ -746,7 +810,7 @@ func (s *seekableFS) Open(name string) (fs.File, error) {
 	if info.IsDir() {
 		return f, nil
 	}
-	data, err := ioutil.ReadAll(f)
+	data, err := io.ReadAll(f)
 	if err != nil {
 		f.Close()
 		return nil, err
@@ -795,12 +859,31 @@ func (a *atomicFS) Set(fsys fs.FS) {
 	a.v.Store(&fsys)
 }
 
+// A mountFS is a root FS with a second FS mounted at a specific location.
+type mountFS struct {
+	old fs.FS  // root file system
+	dir string // mount point
+	new fs.FS  // fs mounted on dir
+}
+
+func (m *mountFS) Open(name string) (fs.File, error) {
+	if name == m.dir {
+		return m.new.Open(".")
+	}
+	if strings.HasPrefix(name, m.dir) && len(name) > len(m.dir) && name[len(m.dir)] == '/' {
+		return m.new.Open(name[len(m.dir)+1:])
+	}
+	return m.old.Open(name)
+}
+
+var errNoFileSystem = errors.New("no file system")
+
 // Open returns fsys.Open(name) where fsys is the file system passed to the most recent call to Set.
-// If there has been no call to Set, Open returns an error with text “no file system”.
+// If there has been no call to Set, Open returns errNoFileSystem, an error with text “no file system”.
 func (a *atomicFS) Open(name string) (fs.File, error) {
 	fsys, _ := a.v.Load().(*fs.FS)
 	if fsys == nil {
-		return nil, &fs.PathError{Path: name, Op: "open", Err: fmt.Errorf("no file system")}
+		return nil, &fs.PathError{Path: name, Op: "open", Err: errNoFileSystem}
 	}
 	return (*fsys).Open(name)
 }

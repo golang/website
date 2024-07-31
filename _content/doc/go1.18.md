@@ -157,7 +157,7 @@ up with these language changes.
 The Go 1.18 compiler now correctly reports `declared but not used` errors
 for variables that are set inside a function literal but are never used. Before Go 1.18,
 the compiler did not report an error in such cases. This fixes long-outstanding compiler
-issue [#8560](https://golang.org/issue/8560). As a result of this change,
+issue [#8560](/issue/8560). As a result of this change,
 (possibly incorrect) programs may not compile anymore. The necessary fix is
 straightforward: fix the program if it was in fact incorrect, or use the offending
 variable, for instance by assigning it to the blank identifier `_`.
@@ -185,7 +185,7 @@ a minimum target version of the AMD64 architecture. Allowed values are `v1`,
 `v2`, `v3`, or `v4`. Each higher level requires,
 and takes advantage of, additional processor features. A detailed
 description can be found
-[here](https://golang.org/wiki/MinimumRequirements#amd64).
+[here](/wiki/MinimumRequirements#amd64).
 
 The `GOAMD64` environment variable defaults to `v1`.
 
@@ -227,9 +227,9 @@ FreeBSD 13.0+ will require a kernel with the COMPAT\_FREEBSD12 option set (this 
 ### Fuzzing {#fuzzing}
 
 Go 1.18 includes an implementation of fuzzing as described by
-[the fuzzing proposal](https://golang.org/issue/44551).
+[the fuzzing proposal](/issue/44551).
 
-See the [fuzzing landing page](https://go.dev/security/fuzz) to get
+See the [fuzzing landing page](/security/fuzz) to get
 started.
 
 Please be aware that fuzzing can consume a lot of memory and may impact your
@@ -250,8 +250,8 @@ adjusting dependencies in `go.mod`. Effectively, the
 `-d` flag is always enabled. To install the latest version
 of an executable outside the context of the current module, use
 [`go`
-`install` `example.com/cmd@latest`](https://golang.org/ref/mod#go-install). Any
-[version query](https://golang.org/ref/mod#version-queries)
+`install` `example.com/cmd@latest`](/ref/mod#go-install). Any
+[version query](/ref/mod#version-queries)
 may be used instead of `latest`. This form of `go`
 `install` was added in Go 1.16, so projects supporting older
 versions may need to provide install instructions for both `go`
@@ -397,7 +397,7 @@ In Go 1.18, `go` `fix` now removes the now-obsolete
 `//` `+build` lines in modules declaring
 `go` `1.18` or later in their `go.mod` files.
 
-For more information, see <https://go.dev/design/draft-gobuild>.
+For more information, see [go.dev/design/draft-gobuild](/design/draft-gobuild).
 
 ### Gofmt {#gofmt}
 
@@ -415,7 +415,7 @@ The `vet` tool is updated to support generic code. In most cases,
 it reports an error in generic code whenever it would report an error in the
 equivalent non-generic code after substituting for type parameters with a
 type from their
-[type set](https://golang.org/ref/spec#Interface_types).
+[type set](/ref/spec#Interface_types).
 For example, `vet` reports a format error in
 
 	func Print[T ~int|~string](t T) {
@@ -503,7 +503,7 @@ than before. In some cases, pre-Go 1.18 error messages provided more
 detail or were phrased in a more helpful way.
 We intend to address these cases in Go 1.19.
 
-<!-- https://github.com/golang/go/issues/49569 -->
+<!-- /issue/49569 -->
 Because of changes in the compiler related to supporting generics, the
 Go 1.18 compile speed can be roughly 15% slower than the Go 1.17 compile speed.
 The execution time of the compiled code is not affected. We
@@ -531,9 +531,9 @@ Go now looks first for `$HOME/go1.17` or `$HOME/sdk/go1.17`
 before falling back to `$HOME/go1.4`.
 We intend for Go 1.19 to require Go 1.17 or later for bootstrap,
 and this change should make the transition smoother.
-For more details, see [go.dev/issue/44505](https://go.dev/issue/44505).
+For more details, see [go.dev/issue/44505](/issue/44505).
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New `debug/buildinfo` package {#debug_buildinfo}
 

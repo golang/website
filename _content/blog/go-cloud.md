@@ -23,7 +23,7 @@ We estimate there are now [over one million](https://research.swtch.com/gopherco
 Go developers worldwide.
 Go powers many of the most critical cloud infrastructure projects,
 including Kubernetes, Istio, and Docker.
-Companies like Lyft, Capital One, Netflix and [many more](https://github.com/golang/go/wiki/GoUsers)
+Companies like Lyft, Capital One, Netflix and [many more](/wiki/GoUsers)
 are depending on Go in production.
 Over the years, we've found that developers love Go for cloud development
 because of its efficiency,

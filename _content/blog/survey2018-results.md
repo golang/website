@@ -19,8 +19,8 @@ summary: What we learned from the December 2018 Go User Survey.
 </style>
 
 This post summarizes the results of our 2018 user survey and draws comparisons
-between the results of our prior surveys from [2016](https://blog.golang.org/survey2016-results)
-and [2017](https://blog.golang.org/survey2017-results).
+between the results of our prior surveys from [2016](/blog/survey2016-results)
+and [2017](/blog/survey2017-results).
 
 This year we had 5,883 survey respondents from 103 different countries.
 We are grateful to everyone who provided their feedback through this survey

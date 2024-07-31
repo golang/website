@@ -394,7 +394,7 @@ as `s[i-10]` and can recognize more inductive cases in
 loops. Furthermore, the compiler now uses bounds information to more
 aggressively optimize shift operations.
 
-## Core library {#library}
+## Standard library {#library}
 
 All of the changes to the standard library are minor.
 

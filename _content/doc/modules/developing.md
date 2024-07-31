@@ -59,7 +59,7 @@ Also, designing and developing your module with backward compatibility in mind
 helps its users upgrade while minimizing churn to their own code. You can use
 certain techniques in code to avoid releasing a version that breaks backward
 compatibility. For more about those techniques, see [Keeping your modules
-compatible](https://blog.golang.org/module-compatibility) on the Go blog.
+compatible](/blog/module-compatibility) on the Go blog.
 
 Before you publish a module, you can reference it on the local file system using
 the replace directive. This makes it easier to write client code that calls

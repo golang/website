@@ -19,14 +19,14 @@ The compiler must make a best guess based on static heuristics because it can't 
 Or can it?
 
 With no definitive information about how the code is used in a production environment, the compiler can operate only on the source code of packages.
-But we do have a tool to evaluate production behavior: [profiling](https://go.dev/doc/diagnostics#profiling).
+But we do have a tool to evaluate production behavior: [profiling](/doc/diagnostics#profiling).
 If we provide a profile to the compiler, it can make more informed decisions: more aggressively optimizing the most frequently used functions, or more accurately selecting common cases.
 
 Using profiles of application behavior for compiler optimization is known as _Profile-Guided Optimization (PGO)_ (also known as Feedback-Directed Optimization (FDO)).
 
 Go 1.20 includes initial support for PGO as a preview.
-See the [profile-guided optimization user guide](https://go.dev/doc/pgo) for complete documentation.
-There are still some rough edges that may prevent production use, but we would love for you to try it out and [send us any feedback or issues you encounter](https://go.dev/issue/new).
+See the [profile-guided optimization user guide](/doc/pgo) for complete documentation.
+There are still some rough edges that may prevent production use, but we would love for you to try it out and [send us any feedback or issues you encounter](/issue/new).
 
 ## Example
 
@@ -125,7 +125,7 @@ In `main.go`, we imported [net/http/pprof](https://pkg.go.dev/net/http/pprof) wh
 
 Normally you want to collect a profile from your production environment so that the compiler gets a representative view of behavior in production.
 Since this example doesn't have a "production" environment, we will create a simple program to generate load while we collect a profile.
-Copy the source of [this program](https://go.dev/play/p/yYH0kfsZcpL) to `load/main.go` and start the load generator (make sure the server is still running!).
+Copy the source of [this program](/play/p/yYH0kfsZcpL) to `load/main.go` and start the load generator (make sure the server is still running!).
 
 ```
 $ go run example.com/markdown/load
@@ -158,7 +158,7 @@ $ go build -pgo=auto -o markdown.withpgo.exe
 ### Evaluation
 
 We will use a Go benchmark version of the load generator to evaluate the effect of PGO on performance.
-Copy [this benchmark](https://go.dev/play/p/6FnQmHfRjbh) to `load/bench_test.go`.
+Copy [this benchmark](/play/p/6FnQmHfRjbh) to `load/bench_test.go`.
 
 First, we will benchmark the server without PGO. Start that server:
 
@@ -211,8 +211,13 @@ So we may collect a profile from production, which is running last week's code, 
 That is perfectly fine!
 PGO in Go can handle minor changes to source code without issue.
 
-For much more information on using PGO, best practices and caveats to be aware of, please see the [profile-guided optimization user guide](https://go.dev/doc/pgo).
+For much more information on using PGO, best practices and caveats to be aware of, please see the [profile-guided optimization user guide](/doc/pgo).
 
 Please send us your feedback!
 PGO is still in preview and we'd love to hear about anything that is difficult to use, doesn't work correctly, etc.
-Please file issues at https://go.dev/issue/new.
+Please file issues at [go.dev/issue/new](/issue/new).
+
+## Acknowledgements
+
+Adding profile-guided optimization to Go is a team effort, and I particularly want to call out the contributions from Raj Barik and Jin Lin at Uber, and Cherry Mui and Austin Clements at Google.
+This kind of cross-community collaboration is a key part of making Go great.

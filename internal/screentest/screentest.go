@@ -123,7 +123,6 @@ import (
 	"image/png"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -344,7 +343,7 @@ func cleanBkts(ctx context.Context, bkts, keepFiles, safeExts map[string]bool) e
 	return client.Close()
 }
 
-// cleanBkts ensures the set of directories in dirs exists and
+// cleanDirs ensures the set of directories in dirs exists and
 // clears dirs of all files not included in the set of keepFiles.
 func cleanDirs(dirs, keepFiles, safeExts map[string]bool) error {
 	for dir := range dirs {
@@ -742,9 +741,9 @@ func (tc *testcase) screenshot(ctx context.Context, url, file string,
 			return nil, fmt.Errorf("object.NewReader(ctx): %w", err)
 		} else if err == nil {
 			defer r.Close()
-			data, err = ioutil.ReadAll(r)
+			data, err = io.ReadAll(r)
 			if err != nil {
-				return nil, fmt.Errorf("ioutil.ReadAll(...): %w", err)
+				return nil, fmt.Errorf("io.ReadAll(...): %w", err)
 			}
 		}
 	} else if cache {

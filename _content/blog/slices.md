@@ -557,7 +557,7 @@ were added to the language, they provided a model for efficient string handling.
 the benchmarks saw huge speedups as a result.
 
 There's much more to strings, of course, and a
-[separate blog post](https://blog.golang.org/strings) covers them in greater depth.
+[separate blog post](/blog/strings) covers them in greater depth.
 
 ## Conclusion
 
@@ -577,7 +577,7 @@ There's lots to find around the intertubes about slices in Go.
 As mentioned earlier,
 the ["Slice Tricks" Wiki page](/wiki/SliceTricks)
 has many examples.
-The [Go Slices](https://blog.golang.org/go-slices-usage-and-internals) blog post
+The [Go Slices](/blog/go-slices-usage-and-internals) blog post
 describes the memory layout details with clear diagrams.
 Russ Cox's [Go Data Structures](https://research.swtch.com/godata) article includes
 a discussion of slices along with some of Go's other internal data structures.

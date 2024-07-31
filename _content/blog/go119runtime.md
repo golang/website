@@ -15,12 +15,12 @@ Let's catch you up on the highlights!
 ### What's new?
 
 - `sync.Pool`, a GC-aware tool for reusing memory, has a [lower latency
-  impact](https://go.dev/cl/166960) and [recycles memory much more
-  effectively](https://go.dev/cl/166961) than before.
+  impact](/cl/166960) and [recycles memory much more
+  effectively](/cl/166961) than before.
   (Go 1.13)
 
 - The Go runtime returns unneeded memory back to the operating system [much
-  more proactively](https://go.dev/issue/30333), reducing excess memory
+  more proactively](/issue/30333), reducing excess memory
   consumption and the chance of out-of-memory errors.
   This reduces idle memory consumption by up to 20%.
   (Go 1.13 and 1.14)
@@ -32,7 +32,7 @@ Let's catch you up on the highlights!
   (Go 1.14)
 
 - The Go runtime [manages timers more efficiently than
-  before](https://go.dev/cl/171883), especially on machines with many CPU cores.
+  before](/cl/171883), especially on machines with many CPU cores.
   (Go 1.14)
 
 - Function calls that have been deferred with the `defer` statement now cost as
@@ -41,8 +41,8 @@ Let's catch you up on the highlights!
   here.](https://www.youtube.com/watch?v=DHVeUsrKcbM)
   (Go 1.14)
 
-- The memory allocator's slow path [scales](https://go.dev/issue/35112)
-  [better](https://go.dev/issue/37487) with CPU cores, increasing throughput up
+- The memory allocator's slow path [scales](/issue/35112)
+  [better](/issue/37487) with CPU cores, increasing throughput up
   to 10% and decreasing tail latencies up to 30%, especially in highly-parallel
   programs.
   (Go 1.14 and 1.15)
@@ -55,16 +55,16 @@ Let's catch you up on the highlights!
   (Go 1.16)
 
 - The Go scheduler spends up to [30% less CPU time spinning to find new
-  work](https://go.dev/issue/43997).
+  work](/issue/43997).
   (Go 1.17)
 
 - Go code now follows a [register-based calling
-  convention](https://go.dev/issues/40724) on amd64, arm64, and ppc64, improving
+  convention](/issues/40724) on amd64, arm64, and ppc64, improving
   CPU efficiency by up to 15%.
   (Go 1.17 and Go 1.18)
 
 - The Go GC's internal accounting and scheduling has been
-  [redesigned](https://go.dev/issue/44167), resolving a variety of long-standing
+  [redesigned](/issue/44167), resolving a variety of long-standing
   issues related to efficiency and robustness.
   This results in a significant decrease in application tail latency (up to 66%)
   for applications where goroutines stacks are a substantial portion of memory
@@ -72,7 +72,7 @@ Let's catch you up on the highlights!
   (Go 1.18)
 
 - The Go GC now limits [its own CPU use when the application is
-  idle](https://go.dev/issue/44163).
+  idle](/issue/44163).
   This results in 75% lower CPU utilization during a GC cycle in very idle
   applications, reducing CPU spikes that can confuse job shapers.
   (Go 1.19)

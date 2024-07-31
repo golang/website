@@ -124,7 +124,7 @@ generates more compact, more efficient code
 and provides a better platform for optimizations
 such as bounds check elimination.
 The new back end reduces the CPU time required by
-[our benchmark programs](/test/bench/go1/) by 5-35%.
+our benchmark programs by 5-35%.
 
 For this release, the new back end can be disabled by passing
 `-ssa=0` to the compiler.
@@ -304,7 +304,7 @@ Garbage collection pauses should be significantly shorter than they
 were in Go 1.6 for programs with large numbers of idle goroutines,
 substantial stack size fluctuation, or large package-level variables.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### Context {#context}
 
@@ -322,7 +322,7 @@ as noted below.
 For more information about contexts, see the
 [package documentation](/pkg/context/)
 and the Go blog post
-“[Go Concurrent Patterns: Context](https://blog.golang.org/context).”
+“[Go Concurrent Patterns: Context](/blog/context).”
 
 ### HTTP Tracing {#httptrace}
 

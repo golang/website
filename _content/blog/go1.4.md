@@ -8,7 +8,7 @@ summary: Go 1.4 adds support for Android, go generate, optimizations, and more.
 
 
 Today we announce Go 1.4, the fifth major stable release of Go, arriving six
-months after our previous major release [Go 1.3](https://blog.golang.org/go1.3).
+months after our previous major release [Go 1.3](/blog/go1.3).
 It contains a small language change, support for more operating systems
 and processor architectures, and improvements to the tool chain and libraries.
 As always, Go 1.4 keeps the promise of compatibility, and almost everything

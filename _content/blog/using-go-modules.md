@@ -26,7 +26,7 @@ This post is part 1 in a series.
 Go 1.11 and 1.12 include preliminary
 [support for modules](/doc/go1.11#modules),
 Go’s
-[new dependency management system](https://blog.golang.org/versioning-proposal)
+[new dependency management system](/blog/versioning-proposal)
 that makes dependency version information explicit
 and easier to manage.
 This blog post is an introduction to the basic operations needed
@@ -228,7 +228,7 @@ followed by dependencies sorted by module path.
 
 The `golang.org/x/text` version `v0.0.0-20170915032832-14c0d48ead0c`
 is an example of a
-[pseudo-version](/cmd/go/#hdr-Pseudo_versions),
+[pseudo-version](/ref/mod#pseudo-versions),
 which is the `go` command's version syntax
 for a specific untagged commit.
 

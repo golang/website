@@ -11,7 +11,6 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
-	"io/ioutil"
 	"net/http"
 	"strings"
 )
@@ -42,7 +41,8 @@ func (r *Repo) handshake() error {
 	if err != nil {
 		return fmt.Errorf("handshake: %v", err)
 	}
-	data, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	data, err := io.ReadAll(resp.Body)
 	if resp.StatusCode != 200 {
 		return fmt.Errorf("handshake: %v\n%s", resp.Status, data)
 	}
@@ -130,7 +130,7 @@ func (r *Repo) refs(prefixes ...string) ([]ref, error) {
 		return nil, fmt.Errorf("refs: %v", err)
 	}
 	defer resp.Body.Close()
-	data, err := ioutil.ReadAll(resp.Body)
+	data, err := io.ReadAll(resp.Body)
 	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("refs: %v\n%s", resp.Status, data)
 	}
@@ -222,7 +222,7 @@ func (r *Repo) fetch(h Hash) (fs.FS, error) {
 	}
 	defer resp.Body.Close()
 	if resp.StatusCode != 200 {
-		data, _ := ioutil.ReadAll(resp.Body)
+		data, _ := io.ReadAll(resp.Body)
 		return nil, fmt.Errorf("fetch: %v\n%s\n%s", resp.Status, data, hex.Dump(postbody))
 	}
 	if ct := resp.Header.Get("Content-Type"); ct != "application/x-git-upload-pack-result" {

@@ -50,7 +50,7 @@ func canPurchase(id int, quantity int) (bool, error) {
 		if err == sql.ErrNoRows {
 			return false, fmt.Errorf("canPurchase %d: unknown album", id)
 		}
-		return false, fmt.Errorf("canPurchase %d: %v", id)
+		return false, fmt.Errorf("canPurchase %d: %v", id, err)
 	}
 	return enough, nil
 }
@@ -147,7 +147,7 @@ func albumsByArtist(artist string) ([]Album, error) {
 			&alb.Price, &alb.Quantity); err != nil {
 			return albums, err
 		}
-		albums = append(albums, album)
+		albums = append(albums, alb)
 	}
 	if err = rows.Err(); err != nil {
 		return albums, err

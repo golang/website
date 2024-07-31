@@ -91,7 +91,7 @@ included in the chart, in the form "_n = [number of respondents]_".
 ### A note on methodology
 
 Most survey respondents "self-selected" to take the survey, meaning they found
-it on [the Go blog](https://go.dev/blog),   [@golang on
+it on [the Go blog](/blog),   [@golang on
 Twitter](https://twitter.com/golang), or other social Go channels. A potential
 problem with this approach is that people who don't follow these channels are
 less likely to learn about the survey, and might respond differently than
@@ -172,8 +172,8 @@ breach](https://en.wikipedia.org/wiki/2020_United_States_federal_government_data
 the practice of developing software securely has received renewed attention.
 The Go team has prioritized work in this area, including tools for creating [a
 software bill of materials (SBOM)](https://pkg.go.dev/debug/buildinfo), [fuzz
-testing](https://go.dev/doc/fuzz/), and most recently, [vulnerability
-scanning](https://go.dev/blog/vuln/). To support these efforts, this survey
+testing](/doc/fuzz/), and most recently, [vulnerability
+scanning](/blog/vuln/). To support these efforts, this survey
 asked several questions about software development security practices and
 challenges. We specifically wanted to understand:
 
@@ -286,7 +286,7 @@ understanding of _how_ an application uses a vulnerable dependency, are
 crucial for understanding the risk the vulnerability may present to an
 organization, as well as understanding whether a data breach or other security
 compromise occurred. Thus, [we designed
-`govulncheck`](https://go.dev/blog/vuln) to only alert developers when a
+`govulncheck`](/blog/vuln) to only alert developers when a
 vulnerability is invoked, and point developers to the exact places in their
 code using the vulnerable functions. Our hope is that this will make it easier
 for developers to quickly investigate the vulnerabilities that truly matter to
@@ -319,7 +319,7 @@ for the tool used to distribute the invitation, which is exactly what we saw
 (91% of the randomly sampled respondents preferred VS Code).
 
 Following the 2021 switch to [power VS Code's Go support via the gopls
-language server](https://go.dev/blog/gopls-vscode-go), the Go team has been
+language server](/blog/gopls-vscode-go), the Go team has been
 interested in understanding developer pain points related to gopls. While we
 receive a healthy amount of feedback from developers currently using gopls, we
 wondered whether a large proportion of developers had disabled it shortly
@@ -399,7 +399,7 @@ class="chart" />
 
 Overall, the demographics and firmographics of respondents did not
 meaningfully shift since [our 2021
-survey](https://go.dev/blog/survey2021-results). A small majority of
+survey](/blog/survey2021-results). A small majority of
 respondents (53%) have at least two years of experience using Go, while the
 rest are newer to the Go community. About ⅓ of respondents work at small
 businesses (< 100 employees), ¼ work at medium-sized businesses (100 -- 1,000
@@ -467,7 +467,7 @@ of challenges reported by survey respondents" class="chart" />
 ## Survey methodology
 
 We publicly announced this survey on June 1st, 2022 via
-[go.dev/blog](https://go.dev/blog) and [@golang](https://twitter.com/golang)
+[go.dev/blog](/blog) and [@golang](https://twitter.com/golang)
 on Twitter. We also randomly prompted 10% of [VS
 Code](https://code.visualstudio.com/) users via the Go plugin between June 1st
 -- 21st. The survey closed on June 22nd, and partial responses (i.e., people

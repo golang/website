@@ -13,7 +13,7 @@ summary: How strings work in Go, and how to use them.
 
 ## Introduction
 
-The [previous blog post](https://blog.golang.org/slices) explained how slices
+The [previous blog post](/blog/slices) explained how slices
 work in Go, using a number of examples to illustrate the mechanism behind
 their implementation.
 Building on that background, this post discusses strings in Go.
@@ -41,7 +41,7 @@ Let's start with some basics.
 
 In Go, a string is in effect a read-only slice of bytes.
 If you're at all uncertain about what a slice of bytes is or how it works,
-please read the [previous blog post](https://blog.golang.org/slices);
+please read the [previous blog post](/blog/slices);
 we'll assume here that you have.
 
 It's important to state right up front that a string holds _arbitrary_ bytes.

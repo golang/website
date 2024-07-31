@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='504.00pt' height='172.46pt' viewBox='0 0 504.00 172.46'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1MDQuMDB8MC4wMHwxNzIuNDY='>
+    <rect x='0.00' y='0.00' width='504.00' height='172.46' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwxNzIuNDY=)'>
+</g>
+<defs>
+  <clipPath id='cpMjIuNTV8NDk4LjUyfDgxLjY0fDEyNC4wOA=='>
+    <rect x='22.55' y='81.64' width='475.97' height='42.44' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjIuNTV8NDk4LjUyfDgxLjY0fDEyNC4wOA==)'>
+<polyline points='126.02,124.08 126.02,81.64 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='332.96,124.08 332.96,81.64 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='22.55,124.08 22.55,81.64 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='229.49,124.08 229.49,81.64 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='436.44,124.08 436.44,81.64 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='428.22' y='88.71' width='8.22' height='28.29' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<rect x='405.66' y='88.71' width='22.56' height='28.29' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E07996;' />
+<rect x='352.54' y='88.71' width='53.12' height='28.29' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='166.06' y='88.71' width='186.47' height='28.29' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #87E1B0;' />
+<rect x='22.55' y='88.71' width='143.52' height='28.29' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<text x='432.33' y='105.56' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>2%</text>
+<text x='416.94' y='105.56' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>5%</text>
+<text x='379.10' y='105.56' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>13%</text>
+<text x='259.30' y='105.56' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>45%</text>
+<text x='94.31' y='105.56' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>35%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1MDQuMDB8MC4wMHwxNzIuNDY=)'>
+<text x='22.55' y='134.75' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='229.49' y='134.75' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='436.44' y='134.75' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='260.53' y='152.22' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='25.34' y='57.21' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<rect x='99.53' y='57.21' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #87E1B0;' />
+<rect x='182.16' y='57.21' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='299.49' y='57.21' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E07996;' />
+<rect x='392.35' y='57.21' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<text x='42.79' y='66.46' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='52.04px' lengthAdjust='spacingAndGlyphs'>Strongly agree</text>
+<text x='116.98' y='66.46' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='60.49px' lengthAdjust='spacingAndGlyphs'>Somewhat agree</text>
+<text x='199.61' y='66.46' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='95.18px' lengthAdjust='spacingAndGlyphs'>Neither agree nor disagree</text>
+<text x='316.94' y='66.46' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='70.72px' lengthAdjust='spacingAndGlyphs'>Somewhat disagree</text>
+<text x='409.80' y='66.46' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.27px' lengthAdjust='spacingAndGlyphs'>Strongly disagree</text>
+<text x='5.48' y='30.60' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='214.14px' lengthAdjust='spacingAndGlyphs'>I trust the Go team to do what's best for Go users like myself</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='315.63px' lengthAdjust='spacingAndGlyphs'>How much do you agree or disagree with the following statement?</text>
+<text x='498.52' y='165.21' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='35.82px' lengthAdjust='spacingAndGlyphs'>n =  5,540</text>
+</g>
+</svg>

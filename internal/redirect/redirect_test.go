@@ -37,6 +37,34 @@ func TestRedirects(t *testing.T) {
 
 		"/cmd/gofix": {301, "/cmd/fix/"},
 
+		"/testing":           {301, "/testing/"},
+		"/testing/":          {301, "/doc/"},
+		"/testing/coverage":  {301, "/testing/coverage/"},
+		"/testing/coverage/": {301, "/doc/build-cover"},
+
+		"/security":                       {301, "/security/"},
+		"/security/":                      {301, "/doc/security/"},
+		"/security/best-practices":        {301, "/doc/security/best-practices"},
+		"/security/fuzz":                  {301, "/security/fuzz/"},
+		"/security/fuzz/":                 {301, "/doc/security/fuzz/"},
+		"/security/fuzz/example-dark.png": {301, "/doc/security/fuzz/example-dark.png"},
+		"/security/fuzz/example.png":      {301, "/doc/security/fuzz/example.png"},
+		"/security/fuzz/seq-diagram.png":  {301, "/doc/security/fuzz/seq-diagram.png"},
+		"/security/fuzz/technical":        {301, "/doc/security/fuzz/technical"},
+		"/security/policy":                {301, "/doc/security/policy"},
+		"/security/vuln":                  {301, "/security/vuln/"},
+		"/security/vuln/":                 {301, "/doc/security/vuln/"},
+		"/security/vuln/architecture.png": {301, "/doc/security/vuln/architecture.png"},
+		"/security/vuln/cna":              {301, "/doc/security/vuln/cna"},
+		"/security/vuln/database":         {301, "/doc/security/vuln/database"},
+		"/security/vuln/editor":           {301, "/doc/security/vuln/editor"},
+		"/security/vuln/vscode.gif":       {301, "/doc/security/vuln/vscode.gif"},
+		"/security/vulncheck":             {301, "/doc/security/vulncheck"},
+		"/security/vulndb":                {301, "/security/vulndb/"},
+		"/security/vulndb/":               {301, "/doc/security/vulndb/"},
+		"/security/vulndb/api":            {301, "/doc/security/vulndb/api"},
+		"/security/vulndb/policy":         {301, "/doc/security/vulndb/policy"},
+
 		// git commits (/change)
 		// TODO: mercurial tags and LoadChangeMap.
 		"/change":   {301, "https://go.googlesource.com/go"},
@@ -56,9 +84,6 @@ func TestRedirects(t *testing.T) {
 		"/issues/new?title=pkg":     {302, "https://github.com/golang/go/issues/new?title=pkg"},
 		"/issues/new/choose":        errorResult(404),
 		"/issues/1/2/3":             errorResult(404),
-
-		"/wiki/foo":  {302, "https://github.com/golang/go/wiki/foo"},
-		"/wiki/foo/": {302, "https://github.com/golang/go/wiki/foo/"},
 
 		"/design":              {301, "https://go.googlesource.com/proposal/+/master/design"},
 		"/design/":             {302, "/design"},

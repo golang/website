@@ -14,7 +14,7 @@ summary: An updated generics design draft, and a translation tool for experiment
 ## Introduction
 
 It’s been almost a year since we [last wrote about the possibility of
-adding generics to Go](https://blog.golang.org/why-generics).
+adding generics to Go](/blog/why-generics).
 It’s time for an update.
 
 ## Updated design
@@ -114,7 +114,7 @@ specific topics.
 
 If you find bugs in the generics type checker or the translation tool,
 they should be filed in the standard Go issue tracker at
-[https://golang.org/issue](/issue).
+[go.dev/issue](/issue).
 Please start the issue title with `cmd/go2go:`.
 Note that the issue tracker is not the best place to discuss changes
 to the language, because it does not provide threading and it is not

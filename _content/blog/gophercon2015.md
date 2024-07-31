@@ -30,7 +30,7 @@ conference from afar:
 [Day 1](http://gophercon.com/schedule/8july/):
 
   - Go, Open Source, Community — Russ Cox ([video](https://www.youtube.com/watch?v=XvZOdpd_9tc))
-    ([text](https://blog.golang.org/open-source))
+    ([text](/blog/open-source))
   - Go kit: A Standard Library for Distributed Programming — Peter Bourgon
     ([video](https://www.youtube.com/watch?v=1AjaZi4QuGo)) ([slides](https://github.com/gophercon/2015-talks/blob/master/Go%20kit/go-kit.pdf))
   - Delve Into Go — Derek Parker ([video](https://www.youtube.com/watch?v=InG72scKPd4))

@@ -122,8 +122,8 @@ on:
 - App Engine APIs require context plumbing.
 - Ugly hacks avoid context plumbing, but don't.
 .link https://developers.google.com/appengine/docs/go/reference#Context
-.link http://godoc.org/camlistore.org/pkg/context
-.link http://godoc.org/code.google.com/p/go.net/context
+.link https://pkg.go.dev/camlistore.org/pkg/context
+.link https://pkg.go.dev/code.google.com/p/go.net/context
 - Restructure code to not assume long-running goroutines; handlers only
 - No unsafe, syscall, etc: use build tags on files:
 

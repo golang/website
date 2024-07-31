@@ -3,9 +3,7 @@ SPLASH, Tucson, Oct 25, 2012
 
 Rob Pike
 Google, Inc.
-@rob_pike
-http://golang.org/s/plusrob
-http://golang.org
+https://go.dev
 
 * Preamble
 
@@ -22,7 +20,7 @@ Go is:
 - fun
 - boring (to some)
 
-.link http://golang.org http://golang.org
+.link / go.dev
 
 * History
 
@@ -184,7 +182,7 @@ To build a large Google binary on a single computer is impractical.
 In 2007, instrumented the build of a major Google binary:
 
 - 2000 files
-- 4.2 megabytes 
+- 4.2 megabytes
 - 8 gigabytes delivered to compiler
 - 2000 bytes sent to compiler for every C++ source byte
 - it's real work too: `<string>` for example
@@ -276,7 +274,7 @@ Circular imports are illegal in Go.
 The big picture in a nutshell:
 
 - occasional minor pain,
-- but great reduction in annoyance overall 
+- but great reduction in annoyance overall
 - structural typing makes it less important than with type hierarchies
 - keeps us honest!
 
@@ -388,7 +386,7 @@ One nice effect: can drop `var` and derive type of variable from expression:
 
 For more information:
 
-.link http://golang.org/s/decl-syntax
+.link /s/decl-syntax go.dev/s/decl-syntax
 
 * Function syntax
 
@@ -403,7 +401,7 @@ Method of type `T`:
 Variable (closure) of type `T`:
 
 	negAbs := func(t T) float64 { return -Abs(t) }
-	
+
 In Go, functions can return multiple values. Common case: `error`.
 
 	func ReadByte() (c byte, err error)
@@ -826,7 +824,7 @@ Easy tooling (the `go` tool, `gofmt`, `godoc`, `gofix`)
 
 * Try it!
 
-.link http://golang.org http://golang.org
+.link / go.dev
 
 .image splash/appenginegophercolor.jpg
 

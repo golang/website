@@ -28,13 +28,13 @@ We added a package management system
 which eventually became the
 [go command](/cmd/go/).
 We also added
-[support for Go on App Engine](https://blog.golang.org/2011/07/go-for-app-engine-is-now-generally.html).
+[support for Go on App Engine](/blog/go-for-app-engine-is-now-generally).
 Over the past year we've also given [many talks](/doc/#talks), created an [interactive introductory tour](/tour/)
 and recently we added support for [executable examples in package documentation](/pkg/strings/#pkg-examples).
 
 Perhaps the most important development in the past year
 was the launch of the first stable version,
-[Go 1](https://blog.golang.org/2012/03/go-version-1-is-released.html).
+[Go 1](/blog/go1).
 People who write Go 1 programs can now be confident that their programs will
 continue to compile and run without change, in many environments,
 on a time scale of years.
@@ -59,7 +59,7 @@ and of course running the
 [Go home page](/)
 on [App Engine](https://developers.google.com/appengine/docs/go/overview).
 Last year's
-[Thanksgiving Doodle](https://blog.golang.org/2011/12/from-zero-to-go-launching-on-google.html)
+[Thanksgiving Doodle](/blog/from-zero-to-go-launching-on-google)
 and the recent
 [Jam with Chrome](http://www.jamwithchrome.com/technology)
 site are also served by Go programs.
@@ -68,11 +68,11 @@ Other companies and projects are using Go too, including
 [BBC Worldwide](http://www.quora.com/Go-programming-language/Is-Google-Go-ready-for-production-use/answer/Kunal-Anand),
 [Canonical](http://dave.cheney.net/wp-content/uploads/2012/08/august-go-meetup.pdf),
 [CloudFlare](http://blog.cloudflare.com/go-at-cloudflare),
-[Heroku](https://blog.golang.org/2011/04/go-at-heroku.html),
+[Heroku](/blog/go-at-heroku),
 [Novartis](https://plus.google.com/114945221884326152379/posts/d1SVaqkRyTL),
 [SoundCloud](http://backstage.soundcloud.com/2012/07/go-at-soundcloud/),
 [SmugMug](http://sorcery.smugmug.com/2012/04/06/deriving-json-types-in-go/),
-[StatHat](https://blog.golang.org/2011/12/building-stathat-with-go.html),
+[StatHat](/blog/building-stathat-with-go),
 [Tinkercad](https://tinkercad.com/about/jobs),
 and
 [many others](/wiki/GoUsers).

@@ -64,7 +64,7 @@ table {
 <tr>
 	<td><input type="text" name="key"{{with .New}} value="{{.Key}}"{{end}} placeholder="better-linker" required></td>
 	<td><input type="url" name="target" value="{{with .New}}{{.Target}}{{else}}https://{{end}}" required></td>
-	<td><input type="submit" name="do" value="Add">
+	<td><input type="submit" name="do" value="Add"></td>
 </tr>
 </form>
 
@@ -106,3 +106,4 @@ document.querySelectorAll('.delete').forEach(el => {
 	})
 });
 </script>
+</html>

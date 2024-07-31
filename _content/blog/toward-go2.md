@@ -33,14 +33,14 @@ to the [open-source release](https://opensource.googleblog.com/2009/11/hey-ho-le
 
 For the next two years, with the help of the new Go open source
 community, we experimented with changes large and small, refining Go
-and leading to the [plan for Go 1](https://blog.golang.org/preview-of-go-version-1), proposed on October 5, 2011.
+and leading to the [plan for Go 1](/blog/preview-of-go-version-1), proposed on October 5, 2011.
 
 <div style="margin-left: 2em;">
 {{image "toward-go2/go1-preview.png" 560}}
 </div>
 
 With more help from the Go community, we revised and implemented that
-plan, eventually [releasing Go 1](https://blog.golang.org/go1) on March 28, 2012.
+plan, eventually [releasing Go 1](/blog/go1) on March 28, 2012.
 
 <div style="margin-left: 2em;">
 {{image "toward-go2/go1-release.png" 556}}
@@ -55,7 +55,7 @@ In the years leading to Go 1, we changed Go and broke everyone's Go
 programs nearly every week. We understood that this was keeping Go
 from use in production settings, where programs could not be rewritten
 weekly to keep up with language changes.
-As the [blog post announcing Go 1](https://blog.golang.org/go1) says, the driving motivation was to provide a stable foundation
+As the [blog post announcing Go 1](/blog/go1) says, the driving motivation was to provide a stable foundation
 for creating reliable products, projects, and publications (blogs,
 tutorials, conference talks, and books), to make users confident that
 their programs would continue to compile and run without change for
@@ -67,7 +67,7 @@ explicitly away from making language changes toward using Go in our
 own projects and improving the implementation: we ported Go to many
 new systems, we rewrote nearly every performance-critical piece to
 make Go run more efficiently, and we added key tools like the
-[race detector](https://blog.golang.org/race-detector).
+[race detector](/blog/race-detector).
 
 Now we have five years of experience using Go to build large,
 production-quality systems. We have developed a sense of what works
@@ -104,7 +104,7 @@ scale.
 
 (For more about these goals, see
 Rob Pike's 2012 article “[Go at Google: Language Design in the Service of Software Engineering](/talks/2012/splash.article)”
-and my GopherCon 2015 talk “[Go, Open Source, Community](https://blog.golang.org/open-source).”)
+and my GopherCon 2015 talk “[Go, Open Source, Community](/blog/open-source).”)
 
 ## Constraints
 
@@ -206,7 +206,7 @@ explained step 2 in detail, so I'd like to do that now.
 
 (For more about the development of Go 1 and the shift away from
 language changes, see Rob Pike and Andrew Gerrand's
-OSCON 2012 talk “[The Path to Go 1](https://blog.golang.org/the-path-to-go-1).”
+OSCON 2012 talk “[The Path to Go 1](/blog/the-path-to-go-1).”
 For more about the proposal process, see
 Andrew Gerrand's GopherCon 2015 talk “[How Go was Made](https://www.youtube.com/watch?v=0ht89TxZZnk)” and the
 [proposal process documentation](/s/proposal).)
@@ -512,7 +512,7 @@ to find some way to disallow data races, to make it impossible to
 write or at least to compile a program with a data race. How to fit
 that into a language like Go is still an open question in the
 programming language world. Instead we added a tool to the main
-distribution and made it trivial to use: that tool, the [race detector](https://blog.golang.org/race-detector), has become
+distribution and made it trivial to use: that tool, the [race detector](/blog/race-detector), has become
 an indispensable part of the Go experience. Here the best solution was
 a runtime and tooling change, not a language change.
 

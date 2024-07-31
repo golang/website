@@ -11,7 +11,7 @@ Today the Go team is happy to announce the release of Go 1.8.
 You can get it from the [download page](/dl/).
 There are significant performance improvements and changes across the standard library.
 
-The compiler back end introduced in [Go 1.7](https://blog.golang.org/go1.7) for 64-bit x86 is now used
+The compiler back end introduced in [Go 1.7](/blog/go1.7) for 64-bit x86 is now used
 on all architectures, and those architectures should see significant [performance improvements](/doc/go1.8#compiler).
 For instance, the CPU time required by our benchmark programs was reduced by 20-30% on 32-bit ARM systems.
 There are also some modest performance improvements in this release for 64-bit x86 systems.
@@ -45,7 +45,7 @@ Go 1.8 includes many more additions, improvements, and fixes.
 Find the complete set of changes, and more information about the improvements listed above, in the
 [Go 1.8 release notes](/doc/go1.8.html).
 
-To celebrate the release, Go User Groups around the world are holding [release parties](https://github.com/golang/go/wiki/Go-1.8-release-party) this week.
+To celebrate the release, Go User Groups around the world are holding [release parties](/wiki/Go-1.8-release-party) this week.
 Release parties have become a tradition in the Go community, so if you missed out this time, keep an eye out when 1.9 nears.
 
 Thank you to over 200 contributors who helped with this release.

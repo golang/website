@@ -25,7 +25,7 @@ In 2021, we ran the Go Developer Survey from Oct 26th to Nov 16th and had 11,840
 
 ## Who did we hear from? {#demographics}
 
-Our demographics have been pretty stable year over year ([See 2020 results](https://go.dev/blog/survey2020-results)). Consistent with previous years, Go is primarily used in the tech industry. 70% of respondents were software developers, with a few in IT or DevOps and 76% of respondents said they program in Go at work. 
+Our demographics have been pretty stable year over year ([See 2020 results](/blog/survey2020-results)). Consistent with previous years, Go is primarily used in the tech industry. 70% of respondents were software developers, with a few in IT or DevOps and 76% of respondents said they program in Go at work. 
 <img src="survey2021/industry_yoy.svg" alt="Bar chart of industries where respondents work" width="700"/>
 <img src="survey2021/where_yoy.svg" alt="Bar chart showing Go used more at work than outide of work" width="700"/>
 <img src="survey2021/app_yoy.svg" alt="Bar chart of uses for Go where API/RPC services and CLI apps are most common" width="700"/>
@@ -152,7 +152,7 @@ Respondents deploying to AWS saw increases in deploying to a managed Kubernetes 
 
 ## Changes this year {#changes}
 
-Last year we introduced a [modular survey design](https://go.dev/blog/survey2020-results) so that we could ask more questions without lengthening the survey. We continued the modular design this year, although some questions were discontinued and others were added or modified. No respondents saw all the questions on the survey. Additionally, some questions may have much smaller sample sizes because they were asked selectively based on a previous question. 
+Last year we introduced a [modular survey design](/blog/survey2020-results) so that we could ask more questions without lengthening the survey. We continued the modular design this year, although some questions were discontinued and others were added or modified. No respondents saw all the questions on the survey. Additionally, some questions may have much smaller sample sizes because they were asked selectively based on a previous question. 
 
 The most significant change to the survey this year was in how we recruited participants. In previous years, we announced the survey through the Go Blog, where it was picked up on various social channels like Twitter, Reddit, or Hacker News. This year, in addition to the traditional channels, we used the VS Code Go plugin to randomly select users  to be shown a prompt asking if they’d like to participate in the survey. This created a random sample that we used to compare the self-selected respondents from our traditional channels and helped identify potential effects of [self-selection bias](https://en.wikipedia.org/wiki/Self-selection_bias). 
 

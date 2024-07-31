@@ -2,7 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Package history stores historical data for the Go project.
 package history
 
 import "html/template"
@@ -14,6 +13,152 @@ import "html/template"
 //
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
+	{
+		Date: Date{2024, 7, 2}, Version: Version{1, 22, 5},
+		Security: &FixSummary{
+			Packages: []string{"net/http"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "cgo", "the <code>go</code> command", "the linker", "the runtime"},
+			Packages:   []string{"crypto/tls", "go/types", "net", "net/http", "os/exec"},
+		},
+	},
+	{
+		Date: Date{2024, 7, 2}, Version: Version{1, 21, 12},
+		Security: &FixSummary{
+			Packages: []string{"net/http"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime"},
+			Packages:   []string{"crypto/x509", "net/http", "net/netip", "os"},
+		},
+	},
+	{
+		Date: Date{2024, 6, 4}, Version: Version{1, 22, 4},
+		Security: &FixSummary{
+			Packages: []string{"archive/zip", "net/netip"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the linker", "the runtime"},
+			Packages:   []string{"os"},
+		},
+	},
+	{
+		Date: Date{2024, 6, 4}, Version: Version{1, 21, 11},
+		Security: &FixSummary{
+			Packages: []string{"archive/zip", "net/netip"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime"},
+			Packages:   []string{"os"},
+		},
+	},
+	{
+		Date: Date{2024, 5, 7}, Version: Version{1, 22, 3},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"net"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the runtime"},
+			Packages:   []string{"net/http"},
+		},
+	},
+	{
+		Date: Date{2024, 5, 7}, Version: Version{1, 21, 10},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+		},
+		Bug: &FixSummary{
+			Packages: []string{"net/http"},
+		},
+	},
+	{
+		Date: Date{2024, 4, 3}, Version: Version{1, 22, 2},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"net/http"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the linker"},
+			Packages:   []string{"encoding/gob", "go/types", "net/http", "runtime/trace"},
+		},
+	},
+	{
+		Date: Date{2024, 4, 3}, Version: Version{1, 21, 9},
+		Security: &FixSummary{Quantifier: "a", Packages: []string{"net/http"}},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the linker"},
+			Packages:   []string{"go/types", "net/http"},
+		},
+	},
+	{
+		Date: Date{2024, 3, 5}, Version: Version{1, 22, 1},
+		Security: &FixSummary{
+			Packages: []string{"crypto/x509", "html/template", "net/http", "net/http/cookiejar", "net/mail"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime", "the <code>trace</code> command"},
+			Packages:   []string{"go/types", "net/http"},
+		},
+	},
+	{
+		Date: Date{2024, 3, 5}, Version: Version{1, 21, 8},
+		Security: &FixSummary{
+			Packages: []string{"crypto/x509", "html/template", "net/http", "net/http/cookiejar", "net/mail"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command", "the runtime"},
+		},
+	},
+	{
+		Date: Date{2024, 2, 6}, Version: Version{1, 22, 0},
+	},
+	{
+		Date: Date{2024, 2, 6}, Version: Version{1, 21, 7},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime"},
+			Packages:   []string{"crypto/x509"},
+		},
+	},
+	{
+		Date: Date{2024, 2, 6}, Version: Version{1, 20, 14},
+		Bug: &FixSummary{
+			Packages: []string{"crypto/x509"},
+		},
+	},
+	{
+		Date: Date{2024, 1, 9}, Version: Version{1, 21, 6},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the runtime"},
+			Packages:   []string{"crypto/tls", "maps", "runtime/pprof"},
+		},
+	},
+	{
+		Date: Date{2024, 1, 9}, Version: Version{1, 20, 13},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the runtime"},
+			Packages:   []string{"crypto/tls"},
+		},
+	},
+	{
+		Date: Date{2023, 12, 5}, Version: Version{1, 21, 5},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"net/http", "path/filepath"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command", "the runtime"},
+			Packages:   []string{"crypto/rand", "net", "os", "syscall"},
+		},
+	},
+	{
+		Date: Date{2023, 12, 5}, Version: Version{1, 20, 12},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"net/http", "path/filepath"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the <code>go</code> command"},
+		},
+	},
 	{
 		Date: Date{2023, 11, 7}, Version: Version{1, 21, 4},
 		Security: &FixSummary{Packages: []string{"path/filepath"}},

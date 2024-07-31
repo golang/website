@@ -9,7 +9,7 @@ represents has been canceled and is no longer needed. By passing a
 `context.Context` across function calls and services in your application, those
 can stop working early and return an error when their processing is no longer
 needed. For more about `Context`, see
-[Go Concurrency Patterns: Context](https://blog.golang.org/context).
+[Go Concurrency Patterns: Context](/blog/context).
 
 For example, you might want to:
 

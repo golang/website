@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='576.00pt' height='180.00pt' viewBox='0 0 576.00 180.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw1NzYuMDB8MC4wMHwxODAuMDA='>
+    <rect x='0.00' y='0.00' width='576.00' height='180.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHwxODAuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjIuNTV8NTcwLjUyfDc0Ljk3fDEzMS42Mg=='>
+    <rect x='22.55' y='74.97' width='547.97' height='56.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjIuNTV8NTcwLjUyfDc0Ljk3fDEzMS42Mg==)'>
+<polyline points='141.67,131.62 141.67,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='379.92,131.62 379.92,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='22.55,131.62 22.55,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='260.80,131.62 260.80,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='499.05,131.62 499.05,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='22.55' y='84.41' width='68.63' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='91.18' y='84.41' width='71.94' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #8EB2BD;' />
+<rect x='163.12' y='84.41' width='162.45' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #5CA8C1;' />
+<rect x='325.57' y='84.41' width='121.21' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #35A1C5;' />
+<rect x='446.78' y='84.41' width='52.26' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #0099CC;' />
+<text x='56.86' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>14%</text>
+<text x='127.15' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>15%</text>
+<text x='244.35' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>34%</text>
+<text x='386.18' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>25%</text>
+<text x='472.91' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>11%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw1NzYuMDB8MC4wMHwxODAuMDA=)'>
+<text x='22.55' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='260.80' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='499.05' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='296.53' y='159.76' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='68.24' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='157.55' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #8EB2BD;' />
+<rect x='241.07' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #5CA8C1;' />
+<rect x='338.38' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #35A1C5;' />
+<rect x='412.56' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #0099CC;' />
+<text x='85.69' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='67.16px' lengthAdjust='spacingAndGlyphs'>Not at all important</text>
+<text x='175.00' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='61.38px' lengthAdjust='spacingAndGlyphs'>Slightly important</text>
+<text x='258.52' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='75.17px' lengthAdjust='spacingAndGlyphs'>Moderately important</text>
+<text x='355.83' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='52.03px' lengthAdjust='spacingAndGlyphs'>Very important</text>
+<text x='430.01' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='71.16px' lengthAdjust='spacingAndGlyphs'>Extremely important</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='363.43px' lengthAdjust='spacingAndGlyphs'>When working with project templates, is it important to be able to update the</text>
+<text x='5.48' y='28.46' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='325.62px' lengthAdjust='spacingAndGlyphs'>base template and pull those updates into projects built on top of it?</text>
+<text x='570.52' y='172.75' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='35.82px' lengthAdjust='spacingAndGlyphs'>n =  3,027</text>
+</g>
+</svg>

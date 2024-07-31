@@ -45,7 +45,7 @@ factory('run', ['$window', 'editor',
                     }
                 }
                 writer(write);
-                if (write.Kind == 'end') done();
+                if (write.Kind == 'end' || write.Kind == 'system') done();
             };
         };
         return function(code, output, options, done) {

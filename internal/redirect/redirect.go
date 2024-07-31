@@ -111,8 +111,6 @@ var redirects = map[string]string{
 	"/doc/mem":  "/ref/mem",
 	"/doc/spec": "/ref/spec",
 
-	"/wiki": "https://github.com/golang/go/wiki",
-
 	"/doc/articles/c_go_cgo.html":                    "/blog/c-go-cgo",
 	"/doc/articles/concurrency_patterns.html":        "/blog/go-concurrency-patterns-timing-out-and",
 	"/doc/articles/defer_panic_recover.html":         "/blog/defer-panic-and-recover",
@@ -128,6 +126,29 @@ var redirects = map[string]string{
 	"/doc/articles/slices_usage_and_internals.html":  "/blog/go-slices-usage-and-internals",
 	"/doc/go_for_cpp_programmers.html":               "/wiki/GoForCPPProgrammers",
 	"/doc/go_tutorial.html":                          "/tour",
+
+	// These moved.
+	"/testing/":          "/doc/",
+	"/testing/coverage/": "/doc/build-cover",
+
+	"/security/":                      "/doc/security/",
+	"/security/best-practices":        "/doc/security/best-practices",
+	"/security/fuzz/":                 "/doc/security/fuzz/",
+	"/security/fuzz/example-dark.png": "/doc/security/fuzz/example-dark.png",
+	"/security/fuzz/example.png":      "/doc/security/fuzz/example.png",
+	"/security/fuzz/seq-diagram.png":  "/doc/security/fuzz/seq-diagram.png",
+	"/security/fuzz/technical":        "/doc/security/fuzz/technical",
+	"/security/policy":                "/doc/security/policy",
+	"/security/vuln/":                 "/doc/security/vuln/",
+	"/security/vuln/architecture.png": "/doc/security/vuln/architecture.png",
+	"/security/vuln/cna":              "/doc/security/vuln/cna",
+	"/security/vuln/database":         "/doc/security/vuln/database",
+	"/security/vuln/editor":           "/doc/security/vuln/editor",
+	"/security/vuln/vscode.gif":       "/doc/security/vuln/vscode.gif",
+	"/security/vulncheck":             "/doc/security/vulncheck",
+	"/security/vulndb/":               "/doc/security/vulndb/",
+	"/security/vulndb/api":            "/doc/security/vulndb/api",
+	"/security/vulndb/policy":         "/doc/security/vulndb/policy",
 }
 
 var newIssueRedirects = [...]string{
@@ -140,7 +161,6 @@ var newIssueRedirects = [...]string{
 var prefixHelpers = map[string]string{
 	"issue":  "https://github.com/golang/go/issues/",
 	"issues": "https://github.com/golang/go/issues/",
-	"wiki":   "https://github.com/golang/go/wiki/",
 }
 
 func Handler(target string) http.Handler {

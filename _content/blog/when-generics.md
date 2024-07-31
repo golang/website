@@ -249,7 +249,7 @@ methods look exactly the same for all slice types.
 (I should mention that Go 1.19--not 1.18--will most likely include a
 generic function to sort a slice using a comparison function, and that
 generic function will most likely not use `sort.Interface`.
-See [proposal #47619](https://go.dev/issue/47619).
+See [proposal #47619](/issue/47619).
 But the general point is still true even if this specific example will
 most likely not be useful: it's reasonable to use type parameters when
 you need to implement methods that look the same for all the relevant
@@ -335,7 +335,7 @@ so we shouldn't use type parameters.
 Instead, the package uses reflection.
 The code is not simple, but it works.
 For details, see [the source
-code](https://go.dev/src/encoding/json/encode.go).
+code](/src/encoding/json/encode.go).
 
 ## One simple guideline
 

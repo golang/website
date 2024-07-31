@@ -19,7 +19,7 @@ In today's blog post I'd like to highlight a couple of recent articles about Go.
 In October last year, Rob Pike presented a keynote at the ACM [SPLASH](http://splashcon.org/2012/) conference in Tucson.
 The talk, titled [Go at Google](/talks/2012/splash.slide),
 was a comprehensive discussion of the motivations behind Go.
-Rob later expanded on his talk to produce an essay titled [Go at Google: Language Design in the Service of Software Engineering](http://go.dev/talks/2012/splash.article).
+Rob later expanded on his talk to produce an essay titled [Go at Google: Language Design in the Service of Software Engineering](/talks/2012/splash.article).
 Here is the abstract:
 
 	The Go programming language was conceived in late 2007 as an

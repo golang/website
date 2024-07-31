@@ -11,7 +11,7 @@ summary: Happy 8th birthday, Go!
 
 
 Today we celebrate 8 years since Go was released as an open source project.
-During [Go’s 4th anniversary](https://blog.golang.org/4years), Andrew
+During [Go’s 4th anniversary](/blog/4years), Andrew
 finished the post with “Here's to four more years!”. Now that we have reached
 that milestone, I cannot help but reflect on how much the project and
 ecosystem has grown since then. In our post 4 years ago we included a chart
@@ -31,7 +31,7 @@ million users worldwide. In the [freshly published 2017 Octoverse](https://octov
 by GitHub, **Go has become the #9 most popular language**, surpassing C.
 **Go is the fastest growing language on GitHub in 2017** in the top 10 with
 **52% growth over the previous year**. In growth, Go swapped places with
-Javascript, which fell to the second spot with 44%.
+JavaScript, which fell to the second spot with 44%.
 
 {{image "8years/image2.png"}}
 
@@ -74,10 +74,10 @@ alone over 50 scholarships to conferences have been given through efforts of
 Go Bridge and Women Who Go.
 
 This year we had two significant firsts for the Go project. We had our first
-[contributor summit](https://blog.golang.org/contributors-summit) where
+[contributor summit](/blog/contributors-summit) where
 people from across the Go community came together to
 discuss the needs and future of the Go project. Shortly after, we had the
-first [Go contributor workshop](https://blog.golang.org/contributor-workshop)
+first [Go contributor workshop](/blog/contributor-workshop)
 where hundreds of people came to make their first Go contribution.
 
 {{image "8years/photo.jpg"}}
@@ -148,8 +148,8 @@ enthusiasm and support of the Go community.
 Since Go was first open sourced we have had 10 releases of the language,
 libraries and tooling with more than 1680 contributors making over 50,000
 commits to the project's 34 repositories; More than double the number of
-contributors and nearly double the number of commits from only [two years ago](https://blog.golang.org/6years).
-This year we announced that we have begun planning [Go 2](https://blog.golang.org/toward-go2), our first major
+contributors and nearly double the number of commits from only [two years ago](/blog/6years).
+This year we announced that we have begun planning [Go 2](/blog/toward-go2), our first major
 revision of the language and tooling.
 
 The Go team would like to thank everyone who has contributed to the project,

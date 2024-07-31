@@ -32,7 +32,7 @@ Go supports all of the most common relational database management systems,
 including MySQL, Oracle, Postgres, SQL Server, SQLite, and more.
 
 You'll find a complete list of drivers at the
-[SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers) page.
+[SQLDrivers](/wiki/SQLDrivers) page.
 
 ### Functions to execute queries or make database changes {#functions}
 

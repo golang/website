@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='180.00pt' viewBox='0 0 432.00 180.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA='>
+    <rect x='0.00' y='0.00' width='432.00' height='180.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjIuNTV8NDI2LjUyfDc0Ljk3fDEzMS42Mg=='>
+    <rect x='22.55' y='74.97' width='403.97' height='56.65' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjIuNTV8NDI2LjUyfDc0Ljk3fDEzMS42Mg==)'>
+<polyline points='110.37,131.62 110.37,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='286.01,131.62 286.01,74.97 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='22.55,131.62 22.55,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='198.19,131.62 198.19,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='373.83,131.62 373.83,74.97 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='363.68' y='84.41' width='10.15' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<rect x='270.35' y='84.41' width='93.33' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E07996;' />
+<rect x='109.86' y='84.41' width='160.49' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='34.35' y='84.41' width='75.51' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #87E1B0;' />
+<rect x='22.55' y='84.41' width='11.81' height='37.77' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<text x='368.75' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>3%</text>
+<text x='317.01' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>27%</text>
+<text x='190.10' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>46%</text>
+<text x='72.11' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='15.03px' lengthAdjust='spacingAndGlyphs'>21%</text>
+<text x='28.45' y='105.99' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Arial";' textLength='10.85px' lengthAdjust='spacingAndGlyphs'>3%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA=)'>
+<text x='22.55' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='198.19' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='373.83' y='142.29' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='224.53' y='159.76' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='16.25' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<rect x='73.98' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #87E1B0;' />
+<rect x='153.05' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #B4B5B6;' />
+<rect x='261.04' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #E07996;' />
+<rect x='348.12' y='50.54' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<text x='33.70' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='35.58px' lengthAdjust='spacingAndGlyphs'>Very easy</text>
+<text x='91.43' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='56.93px' lengthAdjust='spacingAndGlyphs'>Somewhat easy</text>
+<text x='170.50' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='85.85px' lengthAdjust='spacingAndGlyphs'>Neither easy nor difficult</text>
+<text x='278.49' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='64.94px' lengthAdjust='spacingAndGlyphs'>Somewhat difficult</text>
+<text x='365.57' y='59.79' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='43.59px' lengthAdjust='spacingAndGlyphs'>Very difficult</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='354.03px' lengthAdjust='spacingAndGlyphs'>In your day-to-day experience with Go, how easy or difficult is it to identify</text>
+<text x='5.48' y='28.46' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='162.33px' lengthAdjust='spacingAndGlyphs'>and address performance issues?</text>
+<text x='426.52' y='172.75' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='35.82px' lengthAdjust='spacingAndGlyphs'>n =  4,671</text>
+</g>
+</svg>

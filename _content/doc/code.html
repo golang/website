@@ -175,7 +175,7 @@ easy:
 
 <!-- Note: we can't use $(go env GOBIN) here until https://golang.org/issue/23439 is addressed. -->
 <pre>
-# Windows users should consult https://github.com/golang/go/wiki/SettingGOPATH
+# Windows users should consult /wiki/SettingGOPATH
 # for setting %PATH%.
 $ <b>export PATH=$PATH:$(dirname $(go list -f '{{"{{.Target}}"}}' .))</b>
 $ <b>hello</b>

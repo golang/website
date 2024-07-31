@@ -24,7 +24,7 @@ here's a skeleton implementation of a playground transport.
 	// The output callback is called multiple times, and each time it is
 	// passed an object of this form.
         var write = {
-                Kind: 'string', // 'start', 'stdout', 'stderr', 'end'
+                Kind: 'string', // 'start', 'stdout', 'stderr', 'end', 'system'
                 Body: 'string'  // content of write or end status message
         }
 
@@ -32,7 +32,8 @@ here's a skeleton implementation of a playground transport.
 	// Subsequent calls may be of Kind 'stdout' or 'stderr'
 	// and must have a non-null Body string.
 	// The final call should be of Kind 'end' with an optional
-	// Body string, signifying a failure ("killed", for example).
+	// Body string, signifying a failure ("killed", for example),
+	// or be of Kind 'system'.
 
 	// The output callback must be of this form.
 	// See PlaygroundOutput (below) for an implementation.

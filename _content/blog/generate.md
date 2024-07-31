@@ -34,7 +34,7 @@ There is simply no mechanism to run Yacc from the go tool alone.
 
 Until now, that is.
 
-The [latest Go release](https://blog.golang.org/go1.4), 1.4,
+The [latest Go release](/blog/go1.4), 1.4,
 includes a new command that makes it easier to run such tools.
 It's called `go` `generate`, and it works by scanning for special comments in Go source code
 that identify general commands to run.

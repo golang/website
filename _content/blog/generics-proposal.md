@@ -33,7 +33,7 @@ instance of the data structure.
 Since Go was first released in 2009, support for generics has been one
 of the most commonly requested language features.
 You can read more about why generics are useful in 
-[an earlier blog post](https://blog.golang.org/why-generics).
+[an earlier blog post](/blog/why-generics).
 
 Although generics have clear use cases, fitting them cleanly into a
 language like Go is a difficult task.
@@ -48,7 +48,7 @@ parameters](/design/go2draft-type-parameters).
 This design draft has had a lot of input from the Go programming
 community, and many people have experimented with it using the
 [generics playground](https://go2goplay.golang.org) described in [an
-earlier blog post](https://blog.golang.org/generics-next-step).
+earlier blog post](/blog/generics-next-step).
 Ian Lance Taylor gave [a talk at GopherCon
 2019](https://www.youtube.com/watch?v=WzgLqE-3IhY)
 about why to add generics and the strategy we are now following.

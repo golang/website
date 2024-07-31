@@ -10,7 +10,7 @@ summary: Go 1.6 adds HTTP/2, template blocks, and more.
 Today we release [Go version 1.6](/doc/go1.6),
 the seventh major stable release of Go.
 You can grab it right now from the [download page](/dl/).
-Although [the release of Go 1.5](https://blog.golang.org/go1.5) six months ago
+Although [the release of Go 1.5](/blog/go1.5) six months ago
 contained dramatic implementation changes,
 this release is more incremental.
 
@@ -41,7 +41,7 @@ The runtime has added lightweight, best-effort detection of concurrent misuse of
 As always, if one goroutine is writing to a map, no other goroutine should be reading or writing the map concurrently.
 If the runtime detects this condition, it prints a diagnosis and crashes the program.
 The best way to find out more about the problem is to run it under the
-[race detector](https://blog.golang.org/race-detector),
+[race detector](/blog/race-detector),
 which will more reliably identify the race and give more detail.
 
 The runtime has also changed how it prints program-ending panics.
@@ -81,7 +81,7 @@ And, of course, there are many more additions, improvements, and fixes.
 You can find them all in the comprehensive [release notes](/doc/go1.6).
 
 To celebrate the release,
-[Go User Groups around the world](https://github.com/golang/go/wiki/Go-1.6-release-party)
+[Go User Groups around the world](/wiki/Go-1.6-release-party)
 are holding release parties on the 17th of February.
 Online, the Go contributors are hosting a question and answer session
 on the [golang subreddit](https://reddit.com/r/golang) for the next 24 hours.

@@ -196,7 +196,7 @@ Locate and import a database driver that will translate requests you make
 through functions in the `database/sql` package into requests the database
 understands.
 
-1. In your browser, visit the [SQLDrivers](https://github.com/golang/go/wiki/SQLDrivers)
+1. In your browser, visit the [SQLDrivers](/wiki/SQLDrivers)
     wiki page to identify a driver you can use.
 
     Use the list on the page to identify the driver you'll use. For accessing

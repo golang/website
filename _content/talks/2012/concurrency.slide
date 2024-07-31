@@ -2,9 +2,7 @@ Go Concurrency Patterns
 
 Rob Pike
 Google
-http://golang.org/s/plusrob
-@rob_pike
-http://golang.org
+https://go.dev
 
 * Video
 
@@ -54,7 +52,7 @@ On the other hand, a well-written concurrent program might run efficiently in pa
 
 For more on that distinction, see the link below. Too much to discuss here.
 
-.link http://golang.org/s/concurrency-is-not-parallelism
+.link /s/concurrency-is-not-parallelism go.dev/s/concurrency-is-not-parallelism
 
 * A model for software construction
 
@@ -318,7 +316,7 @@ Go was designed for writing systems software.
 Let's see how the concurrency features come into play.
 
 * Example: Google Search
-	
+
 Q: What does Google search do?
 
 A: Given a query, return a page of search results (and some ads).
@@ -404,19 +402,19 @@ There are endless ways to use these tools, many presented elsewhere.
 
 Chatroulette toy:
 
-.link http://golang.org/s/chat-roulette
+.link /s/chat-roulette go.dev/s/chat-roulette
 
 Load balancer:
 
-.link http://golang.org/s/load-balancer
+.link /s/load-balancer go.dev/s/load-balancer
 
 Concurrent prime sieve:
 
-.link http://golang.org/s/prime-sieve
+.link /s/prime-sieve go.dev/s/prime-sieve
 
 Concurrent power series (by McIlroy):
 
-.link http://golang.org/s/power-series
+.link /s/power-series go.dev/s/power-series
 
 * Don't overdo it
 
@@ -448,20 +446,20 @@ And they're fun to use.
 
 Go Home Page:
 
-.link http://golang.org
+.link / go.dev
 
 Go Tour (learn Go in your browser)
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 Package documentation:
 
-.link http://golang.org/pkg
+.link /pkg go.dev/pkg
 
 Articles galore:
 
-.link http://golang.org/doc
+.link /doc go.dev/doc
 
 Concurrency is not parallelism:
 
-.link http://golang.org/s/concurrency-is-not-parallelism
+.link /s/concurrency-is-not-parallelism go.dev/s/concurrency-is-not-parallelism

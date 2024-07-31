@@ -44,9 +44,12 @@
       .each(function() {
         var node = this;
         if (node.id == '') node.id = 'tmp_' + toc_items.length;
+        // header may contain other elements so we use only the first element text.
+        // e.g. <h2>Title <a href="#title">¶</a></h2>
+        const text = node.firstChild.textContent;
         var link = $('<a/>')
           .attr('href', '#' + node.id)
-          .text($(node).text());
+          .text(text);
         var item;
         if ($(node).is('h2')) {
           item = $('<dt/>');

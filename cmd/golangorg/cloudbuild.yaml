@@ -3,21 +3,36 @@
 # Do not run directly.
 
 steps:
+  # Clone go repo to _goroot.zip for use by uploaded app.
   - name: gcr.io/cloud-builders/git
-    args: ["clone", "--branch=release-branch.go1.21", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
+    args: ["clone", "--branch=release-branch.go1.22", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
   - name: gcr.io/cloud-builders/git
     args: ["archive", "--format=zip", "--output=../_goroot.zip", "HEAD"]
     dir: _gotmp
   - name: golang
     args: ["rm", "-rf", "_gotmp"]
+  # Clone wiki repo into _content/wiki as initial wiki content.
+  # The server will replace this with the wiki repo when it can,
+  # but this provides a good fallback.
+  - name: gcr.io/cloud-builders/git
+    args: ["clone", "--depth=1", "https://go.googlesource.com/wiki", "_wikitmp"]
+  - name: golang
+    args: ["rm", "-rf", "_wikitmp/.git"]
+  - name: golang
+    args: ["sh", "-c", "cp -a _wikitmp/* _content/wiki"]
+  # Run tests.
   - name: golang
     args: ["go", "test", "./..."]
+  # Coordinate with other Cloud Build jobs to deploy only newest commit.
+  # May abort job here.
   - name: golang
     args: ["go", "run", "./cmd/locktrigger", "--project=$PROJECT_ID",
     "--build=$BUILD_ID", "--repo=https://go.googlesource.com/website"]
+  # Deploy site and redirect traffic (maybe; tests again in prod first).
   - name: gcr.io/cloud-builders/gcloud
     entrypoint: bash
     args: ["./go-app-deploy.sh", "cmd/golangorg/app.yaml"]
+  # Clean up stale versions.
   - name: golang
     args: ["go", "run", "./cmd/versionprune", "--dry_run=false", "--project=$PROJECT_ID", "--service=default"]
 

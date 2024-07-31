@@ -464,11 +464,12 @@ Reducer:
 
 - Extensive standard library
 
-.link http://golang.org/pkg/
+.link /pkg/ go.dev/pkg/
 
 - Powerful tools
 
-.link http://play.golang.org/p/Au02fFpYdf
+.link /play/p/Au02fFpYdf go.dev/play/p/Au02fFpYdf
+
 # playground, gofmt
 
 - Multi-platform support
@@ -477,4 +478,4 @@ Reducer:
 
 - Great documentation
 
-.link http://tour.golang.org/#1
+.link /tour/ go.dev/tour

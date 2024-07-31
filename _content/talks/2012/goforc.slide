@@ -425,7 +425,7 @@ Selected commands:
 	test        test packages
 	vet         run go tool vet on packages
 
-.link http://golang.org/cmd/go/
+.link /cmd/go/ go.dev/cmd/go/
 
 * Break
 
@@ -564,7 +564,7 @@ On the other hand, a well-written concurrent program might run efficiently in pa
 
 For more on that distinction, see the link below. Too much to discuss here.
 
-.link http://golang.org/s/concurrency-is-not-parallelism
+.link /s/concurrency-is-not-parallelism go.dev/s/concurrency-is-not-parallelism
 
 * A model for software construction
 
@@ -711,16 +711,16 @@ Don't communicate by sharing memory, share memory by communicating.
 
 Go Home Page:
 
-.link http://golang.org
+.link / go.dev
 
 Go Tour (learn Go in your browser)
 
-.link http://tour.golang.org
+.link /tour/ go.dev/tour
 
 Package documentation:
 
-.link http://golang.org/pkg
+.link /pkg go.dev/pkg
 
 Articles galore:
 
-.link http://golang.org/doc
+.link /doc go.dev/doc

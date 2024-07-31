@@ -154,7 +154,7 @@ and improved handling of issues and code changes in the future.
 
 The tools breakout session during the contributor summit took an extended form,
 with two further sessions on the main conference days organized by the
-[golang-tools](https://github.com/golang/go/wiki/golang-tools) group.
+[golang-tools](/wiki/golang-tools) group.
 This summary is broken down into two parts: the tools session at the contributor workshop,
 and a combined report from the golang-tools sessions on the main conference days.
 
@@ -340,7 +340,7 @@ But we can do more. Many people seek out programming as a way to design
 applications or scratch a particular itch, and they are most likely to want
 to target the interface they are most familiar with: the browser.
 Go does not have a good front-end story yet.
-Javascript is still the only language that really provides
+JavaScript is still the only language that really provides
 both a frontend and a backend environment,
 but WASM is fast becoming a first-order platform,
 and there are so many places we could go with that.

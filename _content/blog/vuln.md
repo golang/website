@@ -36,14 +36,14 @@ and direct reports from Go package maintainers.
 This information is then reviewed by the Go security team and added to the database.
 
 We encourage package maintainers to [contribute](/s/vulndb-report-new)
-information about public vulnerabilities in their own projects and [update](https://go.dev/s/vulndb-report-feedback)
+information about public vulnerabilities in their own projects and [update](/s/vulndb-report-feedback)
 existing information about vulnerabilities in their Go packages.
 We aim to make reporting a low friction process,
-so please [send us your suggestions](https://golang.org/s/vuln-feedback) for
+so please [send us your suggestions](/s/vuln-feedback) for
 any improvements.
 
 The Go vulnerability database can be viewed in your browser at [pkg.go.dev/vuln](https://pkg.go.dev/vuln).
-For more information about the database, see [go.dev/security/vuln/database](https://go.dev/security/vuln/database).
+For more information about the database, see [go.dev/security/vuln/database](/security/vuln/database).
 
 ## Vulnerability detection using govulncheck
 
@@ -93,12 +93,12 @@ You should expect some bugs and [limitations](https://pkg.go.dev/golang.org/x/vu
 We would love for you to contribute and help us make improvements in the
 following ways:
 
-- [Contribute new](https://golang.org/s/vulndb-report-new) and
-  [update existing](https://go.dev/s/vulndb-report-feedback) information about
+- [Contribute new](/s/vulndb-report-new) and
+  [update existing](/s/vulndb-report-feedback) information about
   public vulnerabilities for Go packages that you maintain
-- [Take this survey](https://golang.org/s/govulncheck-feedback) to share your
+- [Take this survey](/s/govulncheck-feedback) to share your
   experience using govulncheck
-- [Send us feedback](https://golang.org/s/vuln-feedback) about issues and
+- [Send us feedback](/s/vuln-feedback) about issues and
   feature requests
 
 We are excited to work with you to build a better and more secure Go ecosystem.

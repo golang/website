@@ -5,9 +5,7 @@ dotGo
 
 Rob Pike
 Google
-@rob_pike
-[[http://golang.org/s/plusrob][+RobPikeTheHuman]]
-http://golang.org/
+https://go.dev/
 
 * Bonjour mes Gophers!
 
@@ -282,7 +280,7 @@ Simple idea took about a year to work out. Difficulties:
 
 Still not totally satisfied, but the effect is that constants feel like numbers, contribute to the ease of using Go. But complicated behind the scenes.
 
-More at [[http://blog.golang.org/constants][this blog post]].
+More at [[/blog/constants][this blog post]].
 
 * Interfaces
 

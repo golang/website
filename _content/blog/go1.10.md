@@ -18,7 +18,7 @@ be that the `go` tool now does
 Of course, one of the hundreds of smaller changes may be **your** favorite.
 
 To celebrate the release, Go User Groups around the world are holding
-[release parties](https://github.com/golang/go/wiki/Go-1.10-Release-Party).
+[release parties](/wiki/Go-1.10-Release-Party).
 See if there's one in your area, or feel free to organize one!
 
 Thanks to everyone who contributed to this release and everyone who

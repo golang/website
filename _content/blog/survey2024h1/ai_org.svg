@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='193.77pt' viewBox='0 0 432.00 193.77'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxOTMuNzc='>
+    <rect x='0.00' y='0.00' width='432.00' height='193.77' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxOTMuNzc=)'>
+</g>
+<defs>
+  <clipPath id='cpMTU3Ljc4fDQyNi41MnwzNS42NnwxNDUuMzg='>
+    <rect x='157.78' y='35.66' width='268.74' height='109.73' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTU3Ljc4fDQyNi41MnwzNS42NnwxNDUuMzg=)'>
+<polyline points='216.20,145.38 216.20,35.66 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='333.04,145.38 333.04,35.66 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='157.78,145.38 157.78,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='274.62,145.38 274.62,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='391.47,145.38 391.47,35.66 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='157.78' y='40.88' width='110.74' height='20.90' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='157.78' y='93.13' width='55.81' height='20.90' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='157.78' y='67.01' width='60.63' height='20.90' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='157.78' y='119.26' width='6.51' height='20.90' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<polyline points='271.67,53.95 271.67,48.72 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='271.67,51.33 265.36,51.33 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='265.36,53.95 265.36,48.72 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='216.29,106.20 216.29,100.97 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='216.29,103.58 210.89,103.58 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='210.89,106.20 210.89,100.97 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='221.18,80.07 221.18,74.85 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='221.18,77.46 215.63,77.46 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='215.63,80.07 215.63,74.85 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='165.33,132.32 165.33,127.10 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='165.33,129.71 163.24,129.71 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='163.24,132.32 163.24,127.10 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<text x='274.52' y='54.02' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>47%</text>
+<text x='219.59' y='106.27' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>24%</text>
+<text x='224.41' y='80.15' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='15.00px' lengthAdjust='spacingAndGlyphs'>26%</text>
+<text x='168.62' y='132.40' style='font-size: 7.50px;fill: #555555; font-family: "Arial";' textLength='10.84px' lengthAdjust='spacingAndGlyphs'>3%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxOTMuNzc=)'>
+<text x='152.85' y='132.58' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.01px' lengthAdjust='spacingAndGlyphs'>Other</text>
+<text x='152.85' y='106.45' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='118.79px' lengthAdjust='spacingAndGlyphs'>Yes, but nothing in production yet</text>
+<text x='152.85' y='76.01' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='135.23px' lengthAdjust='spacingAndGlyphs'>Yes, we have AI-based applications in</text>
+<text x='152.85' y='84.65' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='37.37px' lengthAdjust='spacingAndGlyphs'>production</text>
+<text x='152.85' y='49.88' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='122.33px' lengthAdjust='spacingAndGlyphs'>No, my organization is not building</text>
+<text x='152.85' y='58.52' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='130.77px' lengthAdjust='spacingAndGlyphs'>ML/AI-based services or applications</text>
+<text x='157.78' y='156.05' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='11.56px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='274.62' y='156.05' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='16.01px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='391.47' y='156.05' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='20.46px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='292.15' y='173.53' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Arial";' textLength='62.28px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='5.48' y='17.66' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='357.34px' lengthAdjust='spacingAndGlyphs'>At work, is your organization building or exploring ML/AI-based services or</text>
+<text x='5.48' y='28.46' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Arial";' textLength='64.46px' lengthAdjust='spacingAndGlyphs'>applications?</text>
+<text x='426.52' y='186.52' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Arial";' textLength='35.82px' lengthAdjust='spacingAndGlyphs'>n =  5,242</text>
+</g>
+</svg>

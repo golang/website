@@ -13,7 +13,7 @@ This document is a detailed reference manual for Go's module system. For an
 introduction to creating Go projects, see [How to Write Go
 Code](/doc/code.html). For information on using modules,
 migrating projects to modules, and other topics, see the blog series starting
-with [Using Go Modules](https://blog.golang.org/using-go-modules).
+with [Using Go Modules](/blog/using-go-modules).
 
 ## Modules, packages, and versions {#modules-overview}
 
@@ -71,6 +71,16 @@ If a module might be depended on by other modules, these rules must be followed
 so that the `go` command can find and download the module. There are also
 several [lexical restrictions](#go-mod-file-ident) on characters allowed in
 module paths.
+
+A module that will never be fetched as a dependency of any other module may use
+any valid package path for its module path, but must take care not to collide
+with paths that may be used by the module's dependencies or the Go standard
+library. The Go standard library uses package paths that do not contain a dot in
+the first path element, and the `go` command does not attempt to resolve such
+paths from network servers. The paths `example` and `test` are reserved for
+users: they will not be used in the standard library and are suitable for use in
+self-contained modules, such as those defined in tutorials or example code or
+created and manipulated as part of a test.
 
 ### Versions {#versions}
 
@@ -632,6 +642,33 @@ Example:
 toolchain go1.21.0
 ```
 
+### `godebug` directive {#go-mod-file-godebug}
+
+A `godebug` directive declares a single [GODEBUG setting](/doc/godebug)
+to apply when this module is the main module.
+There can be more than one such line, and they can be factored.
+It is an error for the main module to name a GODEBUG key that does not exist.
+The effect of `godebug key=value` is as if every main package being compiled
+contained a source file that listed `//go:debug key=value`.
+
+```
+GodebugDirective = "godebug" ( GodebugSpec | "(" newline { GodebugSpec } ")" newline ) .
+GodebugSpec = GodebugKey "=" GodebugValue newline.
+GodebugKey = GodebugChar { GodebugChar }.
+GodebugValue = GodebugChar { GodebugChar }.
+GodebugChar = any non-space character except , " ` ' (comma and quotes).
+```
+
+Example:
+
+```
+godebug default=go1.21
+godebug (
+	panicnil=1
+	asynctimerchan=0
+)
+```
+
 ### `require` directive {#go-mod-file-require}
 
 A `require` directive declares a minimum required version of a given module
@@ -1176,6 +1213,28 @@ edits. The
 [`golang.org/x/mod/modfile`](https://pkg.go.dev/golang.org/x/mod/modfile?tab=doc)
 package can be used by Go programs to make the same changes programmatically.
 
+The go command will maintain a `go.work.sum` file that keeps track of hashes used by the workspace
+that are not in collective workspace modules' go.sum files.
+
+It is generally inadvisable to commit go.work files into version control
+systems, for two reasons:
+
+* A checked-in `go.work` file might override a developer's own `go.work` file
+  from a parent directory, causing confusion when their `use` directives don't
+  apply.
+* A checked-in `go.work` file may cause a continuous integration (CI) system to
+  select and thus test the wrong versions of a module's dependencies. CI systems
+  should generally not be allowed to use the `go.work` file so that they can test
+  the behavior of the module as it would be used when required by other modules,
+  where a `go.work` file within the module has no effect.
+
+That said, there are some cases where committing a `go.work` file makes sense.
+For example, when the modules in a repository are developed exclusively with
+each other but not together with external modules, there may not be a reason the
+developer would want to use a different combination of modules in a workspace.
+In that case, the module author should ensure the individual modules are tested
+and released properly.
+
 ### Lexical elements {#go-work-file-lexical}
 
 Lexical elements in `go.work` files are defined in exactly the same way [as for
@@ -1250,6 +1309,14 @@ Example:
 ```
 toolchain go1.21.0
 ```
+
+### `godebug` directive {#go-work-file-godebug}
+
+A `godebug` directive declares a single [GODEBUG setting](/doc/godebug)
+to apply when working in this workspace.
+The syntax and effect is the same as the [`go.mod` file's `godebug` directive](#go-mod-file-godebug).
+When a workspace is in use, `godebug` directives in `go.mod` files are ignored.
+
 
 ### `use` directive {#go-work-file-use}
 
@@ -1369,7 +1436,7 @@ usually release a new major version. In the example above, the author should
 create a module with the path `example.com/m/v5` and should release version
 `v5.0.0`. The author should also update imports of packages in the module to use
 the prefix `example.com/m/v5` instead of `example.com/m`. See [Go Modules: v2
-and Beyond](https://blog.golang.org/v2-go-modules) for a more detailed example.
+and Beyond](/blog/v2-go-modules) for a more detailed example.
 
 Note that the `+incompatible` suffix should not appear on a tag in a repository;
 a tag like `v4.1.2+incompatible` will be ignored. The suffix only appears in
@@ -2697,8 +2764,7 @@ or removed from the `go.work` file if it does not exist on disk.
 
 The `-r` flag searches recursively for modules in the argument
 directories, and the use command operates as if each of the directories
-were specified as arguments: namely, `use` directives will be added for
-directories that exist, and removed for directories that do not exist.
+were specified as arguments.
 
 ### `go work sync` {#go-work-sync}
 
@@ -2861,7 +2927,7 @@ versions, but this is no longer true since Go 1.13.
 A module proxy must always serve the same content for successful
 responses for `$base/$module/$version.mod` and `$base/$module/$version.zip`
 queries. This content is [cryptographically authenticated](#authenticating)
-using [`go.sum` files](go-sum-files) and, by default, the
+using [`go.sum` files](#go-sum-files) and, by default, the
 [checksum database](#checksum-database).
 
 The `go` command caches most content it downloads from module proxies in its
@@ -3903,7 +3969,7 @@ conflicts on case-insensitive file systems.
         order, compression, alignment, and metadata don't affect the hash.
         When using a module, the <code>go</code> command verifies this hash
         matches the corresponding line in
-        <a href="go-sum-files"><code>go.sum</code></a>. The
+        <a href="#go-sum-files"><code>go.sum</code></a>. The
         <a href="#go-mod-verify"><code>go mod verify</code></a> command checks
         that the hashes of module <code>.zip</code> files and extracted
         directories match these files.
@@ -3946,7 +4012,7 @@ not affected by file order, compression, alignment, and other metadata. See
 for hash implementation details.
 
 The `go` command compares each hash with the corresponding line in the main
-module's [`go.sum` file](go-sum-files). If the hash is different from the hash
+module's [`go.sum` file](#go-sum-files). If the hash is different from the hash
 in `go.sum`, the `go` command reports a security error and deletes the
 downloaded file without adding it into the module cache.
 

@@ -11,7 +11,7 @@ summary: Google Cloud is announcing a new Go 1.11 runtime for App Engine, with f
 
 
 [App Engine](https://cloud.google.com/appengine/) launched
-[experimental support for Go](https://blog.golang.org/go-and-google-app-engine)
+[experimental support for Go](/blog/go-and-google-app-engine)
 in 2011. In the subsequent years, the Go community has grown significantly and
 has settled on idiomatic
 patterns for cloud-based applications. Today, Google Cloud is

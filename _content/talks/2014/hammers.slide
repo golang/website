@@ -104,7 +104,7 @@ to
 	strings/reader.go:	Seek				90.9%
 	strings/reader.go:	WriteTo				83.3%
 	...
-	
+
 	$ go tool cover -html=c.out
 	# opens a browser window, shows line-by-line coverage
 

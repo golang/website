@@ -322,7 +322,7 @@ Making `error` a simple interface
 and allowing many different implementations
 means we have the entire Go language
 available to define and inspect errors.
-We like to say that [errors are values](https://blog.golang.org/errors-are-values),
+We like to say that [errors are values](/blog/errors-are-values),
 the same as any other Go value.
 
 Here’s an example.
@@ -856,7 +856,7 @@ We’ll find out.
 At Gophercon 2019, Ian Lance Taylor talked about
 why we might want to add generics to Go
 and briefly previewed the latest design draft.
-For details, see his blog post “[Why Generics?](https://blog.golang.org/why-generics)”
+For details, see his blog post “[Why Generics?](/blog/why-generics)”
 
 ## Dependencies
 

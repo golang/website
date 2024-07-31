@@ -18,7 +18,7 @@ Go 1.6 Candidate Release 1 was released on January 28th
 
 * Notes
 
-The slides are available on [[https://go.dev/talks/2016/state-of-go.slide]]
+The slides are available on [[/talks/2016/state-of-go.slide]]
 
 Most of the code examples won't run except locally and using Go 1.6.
 
@@ -273,7 +273,7 @@ Use `sort.Stable`:
 * Minor changes
 
 .image state-of-go/img/minorchanges.png _ 900
-.caption too many to discuss: find them [[https://golang.org/doc/go1.6#minor_library_changes][here]]
+.caption too many to discuss: find them [[/doc/go1.6#minor_library_changes][here]]
 
 * Let's just discuss one
 
@@ -503,7 +503,7 @@ Women Who Go - 7 chapters already!
 
 Go 1.6 ships soon!
 
-Go meetups are organising to hold a [[https://github.com/golang/go/wiki/Go-1.6-release-party][release party]] on the 17th of February.
+Go meetups are organising to hold a [[/wiki/Go-1.6-release-party][release party]] on the 17th of February.
 
 .image state-of-go/img/party-gopher.png _ 300
 .caption Join the party!!!

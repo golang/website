@@ -337,7 +337,7 @@ compiler-generated initialization functions. Doing a traceback
 during the initialization of a global variable will now show a
 function named `PKG.init.ializers`.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### TLS 1.3 {#tls_1_3}
 

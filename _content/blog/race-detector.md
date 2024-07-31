@@ -155,7 +155,7 @@ Here the main goroutine is wholly responsible for setting and resetting the
 a thread-safe way.
 
 A simpler but less efficient approach is to
-[avoid reusing timers](http://play.golang.org/p/kuWTrY0pS4).
+[avoid reusing timers](/play/p/kuWTrY0pS4).
 
 ### Example 2: ioutil.Discard
 

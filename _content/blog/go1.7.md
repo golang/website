@@ -21,7 +21,7 @@ This new back end generates more compact, more efficient code that includes
 optimizations like
 [bounds check elimination](https://en.wikipedia.org/wiki/Bounds-checking_elimination) and
 [common subexpression elimination](https://en.wikipedia.org/wiki/Common_subexpression_elimination).
-We observed a 5–35% speedup across our [benchmarks](/test/bench/go1/).
+We observed a 5–35% speedup across our benchmarks.
 For now, the new backend is only available for the 64-bit x86 platform ("amd64"),
 but we’re planning to convert more architecture backends to SSA in future releases.
 
@@ -47,7 +47,7 @@ Support for contexts has been added to the
 [net/http](/pkg/net/http/), and
 [os/exec](/pkg/os/exec/) packages.
 For more information about contexts, see the [package documentation](/pkg/context)
-and the Go blog post [_Go Concurrency Patterns: Context_](https://blog.golang.org/context).
+and the Go blog post [_Go Concurrency Patterns: Context_](/blog/context).
 
 Go 1.5 introduced experimental support for a ["vendor" directory](/cmd/go/#hdr-Vendor_Directories),
 enabled by the `GO15VENDOREXPERIMENT` environment variable.

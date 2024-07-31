@@ -87,6 +87,9 @@ The brand guide contains the guidelines for acceptable logo use.
   - [Go Logos (zip)](/s/logos)
   - [Go Slide Masters (Google Slides)](/s/presentation-theme)
 
+_Update, June 2023_:
+The guidelines for acceptable logo use are now at [go.dev/brand](/brand).
+
 ## What’s happening next
 
 The website will be getting a refresh based on the new design. Since we are

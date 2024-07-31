@@ -181,7 +181,7 @@ Here's the code for the request handler with explanatory comments:
 {{raw `
 <pre>
 func handler(w http.ResponseWriter, r *http.Request) {
-    // <a href="https://blog.golang.org/2010/08/defer-panic-and-recover.html">Defer</a> a function to recover from any panics.
+    // <a href="/blog/defer-panic-and-recover.html">Defer</a> a function to recover from any panics.
     // When recovering from a panic, log the error condition to
     // the App Engine dashboard and send the default image to the user.
     defer func() {
@@ -273,7 +273,7 @@ making it easier to learn good style and conventions.
 In writing this application I used just three resources:
 App Engine's [Hello World Go example](http://code.google.com/appengine/docs/go/gettingstarted/helloworld.html),
 [the Go packages documentation](/pkg/),
-and [a blog post showcasing the Draw package](https://blog.golang.org/2011/09/go-imagedraw-package.html).
+and [a blog post showcasing the Draw package](/blog/go-imagedraw-package).
 Thanks to the rapid iteration made possible by the development server and
 the language itself,
 I was able to pick up the language and build a super fast,

@@ -344,8 +344,8 @@ Go is fun.
 
 * For more information
 
-Go: [[http://golang.org]]
+Go: [[/][go.dev]]
 
-New templates: http://golang.org/pkg/exp/template/
+New templates: https://golang.org/pkg/exp/template/
 
 (Next release will move them out of experimental.)

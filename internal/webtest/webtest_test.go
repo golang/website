@@ -6,8 +6,8 @@ package webtest
 
 import (
 	"fmt"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -43,7 +43,7 @@ func testWebtest(t *testing.T, glob string, do func(*case_) error) {
 	}
 	for _, file := range files {
 		t.Run(filepath.Base(file), func(t *testing.T) {
-			data, err := ioutil.ReadFile(file)
+			data, err := os.ReadFile(file)
 			if err != nil {
 				t.Fatal(err)
 			}

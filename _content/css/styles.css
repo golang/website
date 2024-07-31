@@ -858,8 +858,7 @@ h1 + h2.subtitle {
   overflow-x: auto;
   padding: 1.5rem;
 }
-.Article pre,
-.Article code {
+.Article pre {
   color: var(--color-text);
 }
 .Article pre {
@@ -868,6 +867,16 @@ h1 + h2.subtitle {
 .Article pre {
   padding: 0.5rem 1.75rem;
   border-radius: 4px;
+}
+.Article img {
+  max-width: 100%;
+}
+.Article a.Article-idLink {
+  opacity: 0;
+}
+.Article a.Article-idLink:hover {
+  opacity: 1;
+  padding: 0.2rem;
 }
 .CopyPaste {
   display: flex;
@@ -5369,4 +5378,10 @@ a.downloadBox:hover .filename span {
   .Cookie-notice--visible {
     display: none;
   }
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--color-border);
+  height: 1px;
 }

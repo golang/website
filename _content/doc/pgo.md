@@ -21,7 +21,7 @@ For example, the compiler may decide to more aggressively inline functions which
 
 In Go, the compiler uses CPU pprof profiles as the input profile, such as from [runtime/pprof](https://pkg.go.dev/runtime/pprof) or [net/http/pprof](https://pkg.go.dev/net/http/pprof).
 
-As of Go 1.21, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-7%.
+As of Go 1.22, benchmarks for a representative set of Go programs show that building with PGO improves performance by around 2-14%.
 We expect performance gains to generally increase over time as additional optimizations take advantage of PGO in future versions of Go.
 
 
@@ -134,7 +134,7 @@ _Iterative stability_ is the prevention of cycles of variable performance in suc
 We use CPU profiles to identify hot functions to target with optimizations.
 In theory, a hot function could be sped up so much by PGO that it no longer appears hot in the next profile and does not get optimized, making it slow again.
 The Go compiler takes a conservative approach to PGO optimizations, which we believe prevents significant variance.
-If you do observe this kind of instability, please file an issue at https://go.dev/issue/new.
+If you do observe this kind of instability, please file an issue at [go.dev/issue/new](/issue/new).
 
 Together, source and iterative stability eliminate the requirement for two-stage builds where a first, unoptimized build is profiled as a canary, and then rebuilt with PGO for production (unless absolutely peak performance is required).
 
@@ -190,7 +190,7 @@ This means that the unique way your application uses a dependency impacts the op
 
 It should not.
 While a profile that is not representative of production behavior will result in optimizations in cold parts of the application, it should not make hot parts of the application slower.
-If you encounter a program where PGO results in worse performance than disabling PGO, please file an issue at https://go.dev/issue/new.
+If you encounter a program where PGO results in worse performance than disabling PGO, please file an issue at [go.dev/issue/new](/issue/new).
 
 ## Can I use the same profile for different GOOS/GOARCH builds?
 
@@ -229,11 +229,11 @@ Enabling PGO builds will likely cause measurable increases in package build time
 The most noticeable component of this is that PGO profiles apply to all packages in a binary, meaning that the first use of a profile requires a rebuild of every package in the dependency graph.
 These builds are cached like any other, so subsequent incremental builds using the same profile do not require complete rebuilds.
 
-If you experience extreme increases in build time, please file an issue at https://go.dev/issue/new.
+If you experience extreme increases in build time, please file an issue at [go.dev/issue/new](/issue/new).
 
 _Note: Parsing of the profile by the compiler can also add significant overhead, particularly for large profiles.
 Using large profiles with a large dependency graph can significantly increase build times.
-This is tracked by https://go.dev/issue/58102 and will be addressed in a future release._
+This is tracked by [go.dev/issue/58102](/issue/58102) and will be addressed in a future release._
 
 ## How does PGO affect binary size?
 
@@ -263,4 +263,4 @@ Profiles from alternative source may be used with Go PGO if converted to the [pp
 
 _Note: Before Go 1.21, DWARF metadata omits function start lines (`DW_AT_decl_line`), which may make it difficult for tools to determine the start line._
 
-See the [PGO Tools](https://github.com/golang/go/wiki/PGO-Tools) page on the Go Wiki for additional information about PGO compatibility of specific third-party tools.
+See the [PGO Tools](/wiki/PGO-Tools) page on the Go Wiki for additional information about PGO compatibility of specific third-party tools.

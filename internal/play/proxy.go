@@ -10,7 +10,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"regexp"
@@ -46,12 +45,12 @@ var cacheControlHeader = fmt.Sprintf("public, max-age=%d", int(expires.Seconds()
 func RegisterHandlers(mux *http.ServeMux, godevSite, chinaSite *web.Site) {
 	mux.Handle("/play/", playHandler(godevSite))
 	mux.Handle("golang.google.cn/play/", playHandler(chinaSite))
-	for _, host := range []string{"golang.org", "go.dev/_", "golang.google.cn/_"} {
-		mux.HandleFunc(host+"/compile", compile)
-		if host != "golang.google.cn" {
-			mux.HandleFunc(host+"/share", share)
+	for _, pattern := range []string{"golang.org", "go.dev/_", "golang.google.cn/_"} {
+		mux.HandleFunc(pattern+"/compile", compile)
+		if pattern != "golang.google.cn/_" {
+			mux.HandleFunc(pattern+"/share", share)
 		}
-		mux.HandleFunc(host+"/fmt", fmtHandler)
+		mux.HandleFunc(pattern+"/fmt", fmtHandler)
 	}
 }
 
@@ -117,7 +116,7 @@ func makeCompileRequest(ctx context.Context, backend string, req *Request, res *
 	defer r.Body.Close()
 
 	if r.StatusCode != http.StatusOK {
-		b, _ := ioutil.ReadAll(r.Body)
+		b, _ := io.ReadAll(r.Body)
 		return fmt.Errorf("bad status: %v body:\n%s", r.Status, b)
 	}
 

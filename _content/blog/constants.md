@@ -102,7 +102,7 @@ Here is a string constant:
 	"Hello, 世界"
 
 (For much more detail about the representation and interpretation of strings,
-see [this blog post](https://blog.golang.org/strings).)
+see [this blog post](/blog/strings).)
 
 What type does this string constant have?
 The obvious answer is `string`, but that is _wrong_.
@@ -218,7 +218,7 @@ If the constant has a type, that goes into the interface, as this example shows:
 {{play "constants/default3.go" `/START/` `/STOP/`}}
 
 (For more information about how interface values work,
-see the first sections of [this blog post](https://blog.golang.org/laws-of-reflection).)
+see the first sections of [this blog post](/blog/laws-of-reflection).)
 
 In summary, a typed constant obeys all the rules of typed values in Go.
 On the other hand, an untyped constant does not carry a Go type in the same
@@ -462,7 +462,7 @@ Here, then, is our constant:
 {{play "constants/exercise6.go" `/START/` `/STOP/`}}
 
 Whatever the number of bits it takes to represent a `uint` in the current execution environment
-(on the [playground](https://blog.golang.org/playground), it's 32),
+(on the [playground](/blog/playground), it's 32),
 this constant correctly represents the largest value a variable of type `uint` can hold.
 
 If you understand the analysis that got us to this result,

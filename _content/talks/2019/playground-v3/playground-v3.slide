@@ -35,7 +35,7 @@ bradfitz@golang.org
 
 * Fun: clear screen with \f
 
-.link https://play.golang.org/p/lrSX-aXEOMe animation example
+.link /play/p/lrSX-aXEOMe animation example
 
   func main() {
      const x = `.oOo`
@@ -47,7 +47,7 @@ bradfitz@golang.org
 
 * Fun: images
 
-.link https://play.golang.org/p/t9ECgoq0XSD image example
+.link /play/p/t9ECgoq0XSD image example
 
 .image pic.png _ 600
 

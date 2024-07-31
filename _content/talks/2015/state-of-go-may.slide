@@ -10,7 +10,7 @@ adg@golang.org
 
 I gave a similar talk at FOSDEM in February 2015.
 
-.link https://go.dev/talks/2015/state-of-go.slide
+.link /talks/2015/state-of-go.slide go.dev/talks/2015/state-of-go.slide
 
 This talk builds on that talk.
 
@@ -48,7 +48,7 @@ Goals:
 
 .image state-of-go-may/gc.png
 
-.link https://golang.org/s/go14gc
+.link /s/go14gc go.dev/s/go14gc
 
 
 * Concurrent GC trade-offs
@@ -128,7 +128,7 @@ Build a "Hello, world" program that links against the shared libraries:
 Go 1.5 can also build Go programs as C archive files (for static linking)
 or shared libraries (for dynamic linking) that can be consumed by C programs.
 
-.link https://golang.org/s/execmodes
+.link /s/execmodes go.dev/s/execmodes
 
 (Demo)
 
@@ -211,7 +211,7 @@ The new execution tracer collects data to produce diagrams of process execution.
 
 Front end is the Android/Chrome trace-viewer. ([[https://github.com/google/trace-viewer][github.com/google/trace-viewer]])
 
-.link http://golang.org/s/go15trace
+.link /s/go15trace go.dev/s/go15trace
 
 
 * Analysis and Refactoring Tools

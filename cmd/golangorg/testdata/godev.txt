@@ -49,6 +49,12 @@ body contains Sorry, but shared playground snippets are not visible in China.
 body !contains The Go Playground
 body !contains About the Playground
 
+POST https://golang.google.cn/_/share
+code == 404
+
+GET https://golang.google.cn/_/share?id=asdfasdf
+code == 404
+
 GET https://golang.google.cn/play/p/asdfasdf.go
 code == 500
 body contains Sorry, but shared playground snippets are not visible in China.
@@ -100,3 +106,31 @@ redirect == /play/
 
 GET https://go.dev/play/p/
 redirect == /play/
+
+GET https://go.dev/security
+redirect == /security/
+
+GET https://go.dev/security/
+redirect == /doc/security/
+
+GET https://go.dev/doc/security/
+body contains Security
+
+GET https://go.dev/wiki/
+body contains Go Wiki: Home
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+
+GET https://go.dev/wiki/Comments
+body contains Go Wiki: Comments
+body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
+
+GET https://go.dev/pkg/cmd/go/?m=old
+redirect == /cmd/go/?m=old
+
+GET https://go.dev/pkg/slices/?m=old
+body !contains href="/cmp
+body contains href="/pkg/cmp/?m=old#Compare
+
+GET https://go.dev/cmd/link/internal/ld/?m=old
+body !contains href="/pkg/cmd
+body contains href="/cmd/link/internal/loader/?m=old#Loader

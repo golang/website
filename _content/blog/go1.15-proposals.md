@@ -16,7 +16,7 @@ summary: For Go 1.15, we propose three minor language cleanup changes.
 
 We are close to the Go 1.14 release, planned for February assuming all goes
 well, with an RC1 candidate almost ready. Per the process outlined in the
-[Go 2, here we come!](https://blog.golang.org/go2-here-we-come) blog post,
+[Go 2, here we come!](/blog/go2-here-we-come) blog post,
 it is again the time in our development and release cycle to consider if and
 what language or library changes we might want to include for our next release,
 Go 1.15, scheduled for August of this year.
@@ -91,7 +91,7 @@ always a chance that we missed something important. For that reason we plan
 to have the proposals implemented at the beginning of the Go 1.15 release cycle
 (at or shortly after the Go 1.14 release) so that there is plenty of time to
 gather experience and provide feedback. Per the
-[proposal evaluation process](https://blog.golang.org/go2-here-we-come),
+[proposal evaluation process](/blog/go2-here-we-come),
 the final decision will be made at the end of the development cycle, at the
 beginning of May, 2020.
 

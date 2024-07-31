@@ -127,7 +127,7 @@ execute commands in multiple different modules.
 <!-- https://go.dev/issue/41696, CL 416094 -->
 The `go` `build` and `go` `test`
 commands no longer accept the `-i` flag,
-which has been [deprecated since Go 1.16](https://go.dev/issue/41696).
+which has been [deprecated since Go 1.16](/issue/41696).
 
 <!-- https://go.dev/issue/38687, CL 421440 -->
 The `go` `generate` command now accepts
@@ -146,7 +146,7 @@ non-`main` packages to `GOPATH/pkg`,
 and `go` `list` no longer reports a `Target`
 field for such packages. (In module mode, compiled packages are stored in the
 [build cache](https://pkg.go.dev/cmd/go#hdr-Build_and_test_caching)
-only, but [a bug](https://go.dev/issue/37015) had caused
+only, but [a bug](/issue/37015) had caused
 the `GOPATH` install targets to unexpectedly remain in effect.)
 
 <!-- https://go.dev/issue/55022 -->
@@ -228,9 +228,9 @@ To collect coverage data for a program, build it with `go`
 binary with the environment variable `GOCOVERDIR` set
 to an output directory for coverage profiles.
 See the
-['coverage for integration tests' landing page](https://go.dev/testing/coverage) for more on how to get started.
+['coverage for integration tests' landing page](/testing/coverage) for more on how to get started.
 For details on the design and implementation, see the
-[proposal](https://golang.org/issue/51430).
+[proposal](/issue/51430).
 
 ### Vet {#vet}
 
@@ -350,7 +350,7 @@ a newer Go toolchain there).
 In the future, we plan to move the bootstrap toolchain forward approximately once a year,
 and in particular we expect that Go 1.22 will require the final point release of Go 1.20 for bootstrap.
 
-## Core library {#library}
+## Standard library {#library}
 
 ### New crypto/ecdh package {#crypto_ecdh}
 
@@ -424,7 +424,7 @@ Unlike `Director` hooks, which only operate on the outbound request,
 this permits `Rewrite` hooks to avoid certain scenarios where
 a malicious inbound request may cause headers added by the hook
 to be removed before forwarding.
-See [issue #50580](https://go.dev/issue/50580).
+See [issue #50580](/issue/50580).
 
 The [`ProxyRequest.SetURL`](/pkg/net/http/httputil/#ProxyRequest.SetURL)
 method routes the outbound request to a provided destination

@@ -509,7 +509,7 @@ better generated code, and optimizations in the core library.
 
 Many applications should experience significantly lower allocation latency and overall performance overhead when the garbage collector is active.
 
-## Core library {#library}
+## Standard library {#library}
 
 All of the changes to the standard library are minor.
 The changes in [bytes](#bytes)
