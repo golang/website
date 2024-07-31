@@ -292,12 +292,12 @@ The new `x509keypairleaf` [GODEBUG setting](/doc/godebug) is added for this beha
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
-[`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest) now correct supports RSA-PSS signature algorithms.
+[`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest) now correctly supports RSA-PSS signature algorithms.
 
 [`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest) and [`CreateRevocationList`](/pkg/crypto/x509#CreateRevocationList) now verify the generated signature using the signer’s public key. If the signature is invalid, an error is returned. This has been the behavior of [`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) since Go 1.16.
 
 The [`x509sha1` GODEBUG setting](/pkg/crypto/x509#InsecureAlgorithmError) will
-be removed in the next Go major release (Go 1.24). This will mean that crypto/x509
+be removed in the next Go major release (Go 1.24). This will mean that `crypto/x509`
 will no longer support verifying signatures on certificates that use SHA-1 based
 signature algorithms.
 
@@ -424,7 +424,7 @@ In Go 1.22 and earlier, using
 [`reflect.DeepEqual`](/pkg/reflect#DeepEqual) to compare an
 [`Addr`](/pkg/net/netip#Addr) holding an IPv4 address to one holding
 the IPv4-mapped IPv6 form of that address incorrectly returned true,
-although the `Addr` values were different when comparing with `==` or
+even though the `Addr` values were different when comparing with `==` or
 [`Addr.Compare`](/pkg/net/netip#Addr.Compare).
 This bug is now fixed and all three approaches now report the same
 result.
@@ -470,7 +470,7 @@ Previous versions default to `winreadlinkvolume=0`.
 
 #### [`reflect`](/pkg/reflect/)
 
-The new methods synonymous with the method of the same name
+The new methods synonymous with the methods of the same name
 in [`Value`](/pkg/reflect#Value) are added to [`Type`](/pkg/reflect#Type):
 1. [`Type.OverflowComplex`](/pkg/reflect#Type.OverflowComplex)
 2. [`Type.OverflowFloat`](/pkg/reflect#Type.OverflowFloat)
@@ -498,7 +498,7 @@ unexpected crashes, not just those in goroutines that explicitly use
 
 #### [`runtime/pprof`](/pkg/runtime/pprof/)
 
-The maximum stack depth for alloc, mutex, block, threadcreate and goroutine
+The maximum stack depth for `alloc`, `mutex`, `block`, `threadcreate` and `goroutine`
 profiles has been raised from 32 to 128 frames.
 
 #### [`runtime/trace`](/pkg/runtime/trace/)
