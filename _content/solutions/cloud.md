@@ -89,7 +89,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
     desc: Dropbox was built on Python, but in 2013 decided to migrate their performance-critical backends to Go. Today, most of the company’s infrastructure is written in Go.
     ctas:
       - text: Dropbox libraries
-        url: https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/
+        url: https://dropbox.tech/infrastructure/open-sourcing-our-go-libraries
   - company: Mercado Libre
     url: https://www.mercadolibre.com.ar/
     logoSrc: mercadolibre_light.svg
