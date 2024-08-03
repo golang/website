@@ -77,7 +77,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
       - text: GitHub command-line tool
         url: https://github.com/github/hub
   - company: Hugo
-    url: http://gohugo.io/
+    url: https://gohugo.io/
     logoSrc: hugo.svg
     logoSrcDark: hugo.svg
     desc: Hugo is one of the most popular Go CLI applications powering thousands of sites, including this one. One reason for its popularity is its ease of install thanks to Go. Hugo author Bjørn Erik Pedersen writes “The single binary takes most of the pain out of installation and upgrades.”
@@ -101,7 +101,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
       - text: MongoDB Backup Service
         url: https://www.mongodb.com/blog/post/go-agent-go
   - company: Netflix
-    url: http://netflix.com/
+    url: https://netflix.com/
     logoSrc: netflix.svg
     logoSrcDark: netflix.svg
     desc: Netflix uses Go to build the CLI application ChaosMonkey, an application responsible for randomly terminating instances in production to ensure that engineers implement their services to be resilient to instance failures.

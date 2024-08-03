@@ -79,7 +79,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
       - text: IBM Applications in Golang
         url: https://developer.ibm.com/messaging/2019/02/05/simplified-ibm-mq-applications-golang/
   - company: Netflix
-    url: http://netflix.com/
+    url: https://netflix.com/
     logoSrc: netflix.svg
     logoSrcDark: netflix.svg
     desc: Netflix uses Go to handle large scale data caching, with a service called Rend, which manages globally replicated storage for personalization data.

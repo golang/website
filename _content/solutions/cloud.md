@@ -67,13 +67,13 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
 
 {{projects `
   - company: Google
-    url: http://cloud.google.com/go
+    url: https://cloud.google.com/go
     logoSrc: google-cloud.svg
     logoSrcDark: google-cloud.svg
     desc: Google Cloud uses Go across its ecosystem of products and tools, including Kubernetes, gVisor, Knative, Istio, and Anthos. Go is fully supported on Google Cloud across all APIs and runtimes.
     ctas:
       - text: Go on Google Cloud Platform
-        url: http://cloud.google.com/go
+        url: https://cloud.google.com/go
   - company: Capital One
     url: https://www.capitalone.com/
     logoSrc: capitalone_light.svg
@@ -166,7 +166,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
         url: https://gin-gonic.com/
         desc: A web framework written in Go, with a martini-like API.
       - text: Gorilla
-        url: http://www.gorillatoolkit.org/
+        url: https://www.gorillatoolkit.org/
         desc: A web toolkit for the Go programming language.
   - title: Routers
     viewMoreUrl: https://pkg.go.dev/search?q=http%20router
@@ -208,7 +208,7 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
         url: https://gorm.io/
         desc: An ORM library for Go
       - text: Bleve
-        url: http://blevesearch.com/
+        url: https://blevesearch.com/
         desc: Full-text search and indexing for Go
       - text: CockroachDB
         url: https://www.cockroachlabs.com/
