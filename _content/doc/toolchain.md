@@ -162,7 +162,9 @@ that declares `go 1.22.0`, then *M*'s `go.mod` cannot say `go 1.21.3`.
 The `go` line for each module sets the language version the compiler
 enforces when compiling packages in that module.
 The language version can be changed on a per-file basis by using a
-[build constraint](/cmd/go#hdr-Build_constraints).
+[build constraint](/cmd/go#hdr-Build_constraints):
+if a build constraint is present and implies a minimum version of at least `go1.21`,
+the language version used when compiling that file will be that minimum version.
 
 For example, a module containing code that uses the Go 1.21 language version
 should have a `go.mod` file with a `go` line such as `go 1.21` or `go 1.21.3`.
