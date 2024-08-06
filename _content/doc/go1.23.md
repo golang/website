@@ -451,6 +451,13 @@ This behavior is controlled by the `winreadlinkvolume` setting.
 For Go 1.23, it defaults to `winreadlinkvolume=1`.
 Previous versions default to `winreadlinkvolume=0`.
 
+<!-- go.dev/issue/62654, CL 570036, CL 570681 -->
+On Linux with pidfd support (generally Linux v5.4+),
+[`Process`](/pkg/os#Process)-related functions and methods use pidfd (rather
+than PID) internally, eliminating potential mistargeting when a PID is reused
+by the OS. Pidfd support is fully transparent to a user, except for additional
+process file descriptors that a process may have.
+
 #### [`path/filepath`](/pkg/path/filepath/)
 
 The new [`Localize`](/pkg/path/filepath#Localize) function safely converts a slash-separated
@@ -604,7 +611,6 @@ None right now; more may come up later on.
 <!-- Maybe should be documented? Maybe shouldn't? Someone familiar with the change needs to determine.
 
 CL 359594 ("x/website/_content/ref/mod: document dotless module paths") - resolved go.dev/issue/32819 ("cmd/go: document that module names without dots are reserved") and also mentioned accepted proposal go.dev/issue/37641
-CL 570681 ("os: make FindProcess use pidfd on Linux") mentions accepted proposal go.dev/issue/51246 (described as fully implemented in Go 1.22) and NeedsInvestigation continuation issue go.dev/issue/62654.
 CL 555075 ("x/tools/go/ssa: support range-over-func") - x/tools CL implements range-over-func support in x/tools/go/ssa for accepted proposal https://go.dev/issue/66601; this particular proposal and change doesn't seem to need a dedicated mention in Go 1.23 release notes but someone more familiar should take another look
 -->
 
