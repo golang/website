@@ -38,11 +38,17 @@ func TestReleases(t *testing.T) {
 		}
 		lastMinor[major] = r.Version.Z
 		if r.Security != nil {
+			if s := r.Security; s.Quantifier == "" && len(s.Components) == 0 && len(s.Packages) == 0 {
+				t.Errorf("version %v security fix summary is included (non-nil) but summarizes zero security fixes", r.Version)
+			}
 			if p := r.Security.Packages; !sort.StringsAreSorted(p) {
 				t.Errorf("version %v security fix packages out of order: %v vs %v", r.Version, p, sorted(p))
 			}
 		}
 		if r.Bug != nil {
+			if b := r.Bug; b.Quantifier == "" && len(b.Components) == 0 && len(b.Packages) == 0 {
+				t.Errorf("version %v bug fix summary is included (non-nil) but summarizes zero bug fixes", r.Version)
+			}
 			if p := r.Bug.Packages; !sort.StringsAreSorted(p) {
 				t.Errorf("version %v bug fix packages out of order: %v vs %v", r.Version, p, sorted(p))
 			}
