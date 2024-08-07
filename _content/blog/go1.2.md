@@ -1,0 +1,80 @@
+---
+title: Go 1.2 is released
+date: 2013-12-01
+by:
+- Andrew Gerrand
+tags:
+- release
+summary: Go 1.2 adds test coverage results, goroutine preemption, and more.
+---
+
+
+We are pleased to announce the release of Go 1.2, the latest stable version of
+the Go Programming Language.
+
+Binary distributions may be downloaded from the
+[usual place](/doc/install) or if you prefer to
+[compile from source](/doc/install/source) you should use
+the `release` or `go1.2` tags.
+
+This new release comes nearly seven months after the release of Go 1.1 in May,
+a much shorter period than the 14 months between 1.1 and 1.0.
+We anticipate a comparable interval between future major releases.
+
+[Go 1.2](/doc/go1.2) includes a couple of minor
+language changes, several improvements to the language implementation and
+tools, some performance improvements, and many additions and
+(backward-compatible) changes to the standard library.
+
+Please read the [release notes](/doc/go1.2) for all
+the details, as some changes may affect the behavior of existing (buggy) programs.
+What follows is the highlights of the release.
+
+A new [three-index slice syntax](/doc/go1.2#three_index)
+adds the ability to specify capacity as well as length. This allows the
+programmer to pass a slice value that can only access a limited portion of the
+underlying array, a technique that previously required the use of the unsafe
+package.
+
+A major new feature of the tool chain is the facility to compute and display
+[test coverage results](/doc/go1.2#cover).
+See the [`go test`](/cmd/go/#hdr-Description_of_testing_flags)
+and [cover tool](https://golang.org/x/tools/cmd/cover)
+documentation for details. Later this week we will publish an article that
+discusses this new feature in detail.
+
+Goroutines are now [pre-emptively scheduled](/doc/go1.2#preemption),
+in that the scheduler is invoked occasionally upon entry to a function.
+This can prevent busy goroutines from starving other goroutines on the same
+thread.
+
+An increase to the default goroutine stack size should improve the
+performance of some programs. (The old size had a tendency to introduce
+expensive stack-segment switching in performance-critical sections.)
+On the other end, new restrictions on
+[stack sizes](/doc/go1.2#stack_size) and
+[the number of operating system threads](/doc/go1.2#thread_limit)
+should prevent misbehaving programs from consuming all the resources of a
+machine. (These limits may be adjusted using new functions in the
+[`runtime/debug` package](/pkg/runtime/debug).)
+
+Finally, among the [many changes to the standard library](/doc/go1.2#library),
+significant changes include
+the new [`encoding` package](/doc/go1.2#encoding),
+[indexed arguments](/doc/go1.2#fmt_indexed_arguments) in `Printf` format strings, and
+some [convenient additions](/doc/go1.2#text_template) to the template packages.
+
+As part of the release, the [Go Playground](/play/) has been
+updated to Go 1.2. This also affects services that use the Playground, such as
+[the Go Tour](/tour/) and this blog.
+The update also adds the ability to use threads and the `os`, `net`, and
+`unsafe` packages inside the sandbox, making it more like a real Go environment.
+
+To everyone who helped make this release possible, from the many users who
+submitted bug reports to the 116 (!) contributors who committed more than 1600
+changes to the core: Your help is invaluable to the project. Thank you!
+
+_This blog post is the first of the_
+[Go Advent Calendar](http://blog.gopheracademy.com/day-01-go-1.2),
+_a series of daily articles presented by the_
+[Gopher Academy](http://gopheracademy.com/) _from December 1 to 25._
