@@ -2870,8 +2870,7 @@ every incoming request, even though only <code>MaxOutstanding</code>
 of them can run at any moment.
 As a result, the program can consume unlimited resources if the requests come in too fast.
 We can address that deficiency by changing <code>Serve</code> to
-gate the creation of the goroutines.
-Here's an obvious solution, but beware it has a bug we'll fix subsequently:
+gate the creation of the goroutines:
 </p>
 
 <pre>
@@ -2879,69 +2878,20 @@ func Serve(queue chan *Request) {
     for req := range queue {
         sem &lt;- 1
         go func() {
-            process(req) // Buggy; see explanation below.
+            process(req)
             &lt;-sem
         }()
     }
 }</pre>
 
 <p>
-The bug is that in a Go <code>for</code> loop, the loop variable
-is reused for each iteration, so the <code>req</code>
+(Note that in Go versions before 1.22 this code has a bug: the loop
 variable is shared across all goroutines.
-That's not what we want.
-We need to make sure that <code>req</code> is unique for each goroutine.
-Here's one way to do that, passing the value of <code>req</code> as an argument
-to the closure in the goroutine:
-</p>
-
-<pre>
-func Serve(queue chan *Request) {
-    for req := range queue {
-        sem &lt;- 1
-        go func(req *Request) {
-            process(req)
-            &lt;-sem
-        }(req)
-    }
-}</pre>
-
-<p>
-Compare this version with the previous to see the difference in how
-the closure is declared and run.
-Another solution is just to create a new variable with the same
-name, as in this example:
-</p>
-
-<pre>
-func Serve(queue chan *Request) {
-    for req := range queue {
-        req := req // Create new instance of req for the goroutine.
-        sem &lt;- 1
-        go func() {
-            process(req)
-            &lt;-sem
-        }()
-    }
-}</pre>
-
-<p>
-It may seem odd to write
-</p>
-
-<pre>
-req := req
-</pre>
-
-<p>
-but it's legal and idiomatic in Go to do this.
-You get a fresh version of the variable with the same name, deliberately
-shadowing the loop variable locally but unique to each goroutine.
+See the <a href="/wiki/LoopvarExperiment">Go wiki</a> for details.)
 </p>
 
 <p>
-Going back to the general problem of writing the server,
-another approach that manages resources well is to start a fixed
+Another approach that manages resources well is to start a fixed
 number of <code>handle</code> goroutines all reading from the request
 channel.
 The number of goroutines limits the number of simultaneous
