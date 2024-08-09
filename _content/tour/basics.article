@@ -203,7 +203,7 @@ Try changing the initial value of `v` in the example code and observe how its ty
 
 Constants are declared like variables, but with the `const` keyword.
 
-Constants can be character, string, boolean, or numeric values.
+Constants can be string, boolean, or numeric values.
 
 Constants cannot be declared using the `:=` syntax.
 
