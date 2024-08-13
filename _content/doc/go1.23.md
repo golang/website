@@ -13,10 +13,12 @@ set fixed-width phrases with non-fixed-width spaces, as in
   main ul li { margin: 0.5em 0; }
 </style>
 
-## DRAFT RELEASE NOTES — Introduction to Go 1.23 {#introduction}
+## Introduction to Go 1.23 {#introduction}
 
-**Go 1.23 is not yet released. These are work-in-progress release notes.
-Go 1.23 is expected to be released in August 2024.**
+The latest Go release, version 1.23, arrives six months after [Go 1.22](/doc/go1.22).
+Most of its changes are in the implementation of the toolchain, runtime, and libraries.
+As always, the release maintains the Go 1 [promise of compatibility](/doc/go1compat).
+We expect almost all Go programs to continue to compile and run as before.
 
 ## Changes to the language {#language}
 
