@@ -78,17 +78,19 @@ of how WASI works with Go, please see
 
 ## Running go tests with wasip1
 
+> Go 1.24 moved the Wasm support files to `lib/wasm`. For Go 1.21 - 1.23, use the `misc/wasm` directory.
+
 Building and running a binary is easy, but sometimes we want to be able to run
 `go test` directly without having to build and execute the binary manually.
 Similar to the `js/wasm` port, the standard library distribution included
 in your Go installation comes with a file that makes this very easy. Add the
-`misc/wasm` directory to your `PATH` when running Go tests and it will
+`lib/wasm` directory to your `PATH` when running Go tests and it will
 run the tests using the Wasm host of your choice. This works by `go test`
 [automatically executing](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program)
-`misc/wasm/go_wasip1_wasm_exec` when it finds this file in the `PATH`.
+`lib/wasm/go_wasip1_wasm_exec` when it finds this file in the `PATH`.
 
 ```shell
-$ export PATH=$PATH:$(go env GOROOT)/misc/wasm
+$ export PATH=$PATH:$(go env GOROOT)/lib/wasm
 $ GOOS=wasip1 GOARCH=wasm go test ./...
 ```
 
