@@ -259,7 +259,12 @@ In this release, the only such type is
 [`HostLayout`](/pkg/structs#HostLayout)
 which indicates that a structure with a field of that
 type has a layout that conforms to host platform
-expectations.
+expectations.  HostLayout should be used in types that
+are passed to, returned from, or accessed
+via a pointer passed to/from host APIs.
+Without this marker, struct layout order is not
+guaranteed by the language spec, though as of Go 1.23
+the host and language layouts happen to match.
 
 ### Minor changes to the library {#minor_library_changes}
 
