@@ -7,6 +7,7 @@ package blog
 import (
 	"encoding/json"
 	"encoding/xml"
+	"fmt"
 	"html"
 	"io"
 	"net/http"
@@ -49,7 +50,10 @@ func atomFeed(site *web.Site) ([]byte, error) {
 		url, _ := p["URL"].(string)
 		date, _ := p["date"].(time.Time)
 		summary, _ := p["summary"].(string)
-		by, _ := p["by"].([]string)
+		authors, err := authors(p)
+		if err != nil {
+			return nil, fmt.Errorf("there's a problem in the 'by' metadata of the blog post file %v: %v", p["File"], err)
+		}
 		content, err := site.RenderContent(p, "blogfeed.tmpl")
 		if err != nil {
 			return nil, err
@@ -73,7 +77,7 @@ func atomFeed(site *web.Site) ([]byte, error) {
 				Body: string(content),
 			},
 			Author: &atom.Person{
-				Name: authors(by),
+				Name: authors,
 			},
 		}
 		feed.Entry = append(feed.Entry, e)
@@ -105,7 +109,10 @@ func jsonFeed(site *web.Site) ([]byte, error) {
 		url, _ := p["URL"].(string)
 		date, _ := p["date"].(time.Time)
 		summary, _ := p["summary"].(string)
-		by, _ := p["by"].([]string)
+		authors, err := authors(p)
+		if err != nil {
+			return nil, fmt.Errorf("there's a problem in the 'by' metadata of the blog post file %v: %v", p["File"], err)
+		}
 		content, err := site.RenderContent(p, "blogfeed.tmpl")
 		if err != nil {
 			return nil, err
@@ -116,7 +123,7 @@ func jsonFeed(site *web.Site) ([]byte, error) {
 			Time:    date,
 			Summary: summary,
 			Content: string(content),
-			Author:  authors(by),
+			Author:  authors,
 		}
 		feed = append(feed, item)
 	}
@@ -147,16 +154,26 @@ func feedPages(site *web.Site) ([]web.Page, error) {
 	return pages, nil
 }
 
-func authors(by []string) string {
+func authors(p web.Page) (string, error) {
+	byAny, _ := p["by"].([]any)
+	if len(byAny) == 0 {
+		return "", fmt.Errorf("no author specified")
+	}
+	var by []string
+	for _, b := range byAny {
+		s, ok := b.(string)
+		if !ok {
+			return "", fmt.Errorf("author entry %q type is %[1]T, want string", b)
+		}
+		by = append(by, s)
+	}
 	switch len(by) {
-	case 0:
-		return ""
 	case 1:
-		return by[0]
+		return by[0], nil
 	case 2:
-		return by[0] + " and " + by[1]
+		return by[0] + " and " + by[1], nil
 	default:
-		return strings.Join(by[:len(by)-1], ", ") + ", and " + by[len(by)-1]
+		return strings.Join(by[:len(by)-1], ", ") + ", and " + by[len(by)-1], nil
 	}
 }
 
