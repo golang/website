@@ -787,8 +787,9 @@ specific to range over function types.
 As range over function types is new in the Go 1.23 release, using it
 requires specifying at least Go language version 1.23.
 
-There are (at least) three ways to set the language version:
-- On the command line, run `go mod edit -go=1.23`
+There are (at least) four ways to set the language version:
+- On the command line, run `go get go@1.23` (or `go mod edit -go=1.23`
+  to only edit the `go` directive).
 - Manually edit the `go.mod` file and change the `go` line.
 - Keep the older language version for the module as a whole, but use a
   `//go:build go1.23` build tag to permit using range over function
