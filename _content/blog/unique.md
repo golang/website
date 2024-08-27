@@ -31,14 +31,14 @@ var internPool map[string]string
 // Intern returns a string that is equal to s but that may share storage with
 // a string previously passed to Intern.
 func Intern(s string) string {
-	s, ok := internPool[s]
+	pooled, ok := internPool[s]
 	if !ok {
 		// Clone the string in case it's part of some much bigger string.
 		// This should be rare, if interning is being used well.
-		s = strings.Clone(s)
-		internPool[s] = s
+		pooled = strings.Clone(s)
+		internPool[pooled] = pooled
 	}
-	return s
+	return pooled
 }
 ```
 
