@@ -62,16 +62,22 @@ This page explains how Go telemetry works, in some detail. For quick answers to
 frequently asked questions, see the [FAQ](#faq).
 
 <div class="DocInfo">
-To <strong>opt in</strong> to uploading telemetry data to the Go team, run:
+Using Go 1.23 or later, to <strong>opt in</strong> to uploading telemetry data
+to the Go team, run:
 <pre>
-go run golang.org/x/telemetry/cmd/gotelemetry@latest on
+go telemetry on
 </pre>
 To completely disable telemetry, including local collection, run:
 <pre>
-go run golang.org/x/telemetry/cmd/gotelemetry@latest off
+go telemetry off
 </pre>
-Starting with Go 1.23, this can also be done with the <code>go telemetry</code>
-subcommand. See <a href="#config">Configuration</a> for more details.
+To revert to the default mode of local-only telemetry, run:
+<pre>
+go telemetry local
+</pre>
+Prior to Go 1.23, this can also be done with the
+<code>golang.org/x/telemetry/cmd/gotelemetry</code> command. See <a
+href="#config">Configuration</a> for more details.
 </div>
 
 ## Overview {#overview}
@@ -116,27 +122,23 @@ _mode_. The possible values for `mode` are `local` (the default), `on`, or
   [sampling](#uploads).
 - When `mode` is `off`, data is neither collected nor uploaded.
 
-The [`gotelemetry`](/pkg/golang.org/x/telemetry/cmd/gotelemetry) command
-configures the telemetry mode and manages local telemetry data. Use this
-command to install it:
+With Go 1.23 or later, the following commands interact with the telemetry mode:
+
+- `go telemetry`: see the current mode.
+- `go telemetry on`: set the mode to `on`.
+- `go telemetry off`: set the mode to `off`.
+- `go telemetry local`: set the mode to `local`.
+
+The [`gotelemetry`](/pkg/golang.org/x/telemetry/cmd/gotelemetry) command can
+also be used to configure the telemetry mode, as well as to inspect local
+telemetry data. Use this command to install it:
 
 ```
 go install golang.org/x/telemetry/cmd/gotelemetry@latest
 ```
 
-The following commands interact with the telemetry mode:
-
-- `gotelemetry local`: set the mode to `local`.
-- `gotelemetry on`: set the mode to `on`.
-- `gotelemetry off`: set the mode to `off`.
-- `gotelemetry env`: see the current mode.
-
 For the complete usage information of the `gotelemetry` command line tool,
 see its [package documentation](/pkg/golang.org/x/telemetry/cmd/gotelemetry).
-
-Starting with Go 1.23, the telemetry mode can also be managed with the
-`go telemetry` subcommand. Telemetry may also be enabled by accepting an
-[IDE prompt](#ide).
 
 ## Counters {#counters}
 
