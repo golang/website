@@ -138,6 +138,7 @@
     --color-text-subtle: var(--gray-7);
     --color-text-alert: #e67193;
     --color-code-comment: var(--green-light);
+    --color-bright-text-link: var(--turq-med);
   }
 }
 
