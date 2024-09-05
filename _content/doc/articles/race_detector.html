@@ -200,7 +200,8 @@ Here are some typical data races.  All of them can be detected with the race det
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(5)
-	for i := 0; i &lt; 5; i++ {
+	var i int
+	for i = 0; i &lt; 5; i++ {
 		go func() {
 			fmt.Println(i) // Not the 'i' you are looking for.
 			wg.Done()
@@ -221,7 +222,8 @@ The program can be fixed by making a copy of the variable:
 func main() {
 	var wg sync.WaitGroup
 	wg.Add(5)
-	for i := 0; i &lt; 5; i++ {
+	var i int
+	for i = 0; i &lt; 5; i++ {
 		go func(j int) {
 			fmt.Println(j) // Good. Read local copy of the loop counter.
 			wg.Done()
