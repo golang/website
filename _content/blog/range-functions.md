@@ -706,7 +706,9 @@ the lines in a byte slice.
 This is easy to write and fairly efficient.
 
 ```
-	for _, line := range bytes.Split(data, []byte{'\n'}) {
+	nl := []byte{'\n'}
+	// Trim a trailing newline to avoid a final empty blank line.
+	for _, line := range bytes.Split(bytes.TrimSuffix(data, nl), nl) {
 		handleLine(line)
 	}
 ```
