@@ -740,7 +740,7 @@ func Lines(data []byte) iter.Seq[[]byte] {
 Now our code to loop over the lines of a byte slice looks like this.
 
 ```
-	for _, line := range Lines(data) {
+	for line := range Lines(data) {
 		handleLine(line)
 	}
 ```
