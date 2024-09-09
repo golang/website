@@ -237,7 +237,7 @@ In many ways it is an ideal statistical generator.
 Even so, PCG is not unpredictable.
 While the scrambling of bits to prepare the result does not
 expose the state directly like in the LCG and Go 1 generators,
-[PCG-XSL-RR can still be be reversed](https://pdfs.semanticscholar.org/4c5e/4a263d92787850edd011d38521966751a179.pdf),
+[PCG-XSL-RR can still be reversed](https://pdfs.semanticscholar.org/4c5e/4a263d92787850edd011d38521966751a179.pdf),
 and it would not be surprising if PCG-DXSM could too.
 For secrets, we need something different.
 

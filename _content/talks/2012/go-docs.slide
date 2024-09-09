@@ -107,7 +107,7 @@ Docs:
 
 .code go-docs.slide /^\*.*previous/,/^\.code/
 
-* Revenge of the input for the the previous slide
+* Revenge of the input for the previous slide
 
 .code go-docs.slide /^\*.*redux/,/^\.code/
 

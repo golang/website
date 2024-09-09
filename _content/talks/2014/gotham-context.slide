@@ -149,7 +149,7 @@ _After_the_last_value_has_been_received_from_a_closed_channel_c,_any_receive_fro
 
 Any number of goroutines can `select` on `<-ctx.Done()`.
 
-Examples and discussion in in [[/blog/pipelines][blog.golang.org/pipelines]].
+Examples and discussion in [[/blog/pipelines][blog.golang.org/pipelines]].
 
 Using `close` requires care.
 

@@ -28,7 +28,7 @@ A typical change might rewrite some existing function, taking care to
 ensure that its new behavior satisfies the needs of all existing callers.
 Sometimes, after putting in all that effort, we would discover to our
 frustration that one of the callers was never actually reached in any
-execution, so it could safely have been been deleted.
+execution, so it could safely have been deleted.
 If we had known this beforehand our refactoring task would have been
 easier.
 
