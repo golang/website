@@ -37,8 +37,9 @@ Table of Contents:
 Go telemetry is a way for Go toolchain programs to collect data about their
 performance and usage. Here "Go toolchain" means developer tools maintained
 by the Go team, including the `go` command and supplemental tools such as the
-Go language server `gopls` or Go security tool `govulncheck`. Go telemetry is
-only intended for use in programs maintained by the Go team.
+Go language server [`gopls`] or Go security tool [`govulncheck`]. Go telemetry is
+only intended for use in programs maintained by the Go team and their selected
+dependencies like [Delve].
 
 By default, telemetry data is kept only on the local computer, but users may
 opt in to uploading an approved subset of telemetry data to [telemetry.go.dev].
@@ -403,6 +404,8 @@ A: Uploaded data is available as charts or merged summaries at [telemetry.go.dev
 A: At [golang.org/x/telemetry](/pkg/golang.org/x/telemetry).
 
 [`gopls`]: /pkg/golang.org/x/tools/gopls
+[`govulncheck`]: /pkg/golang.org/x/vuln/cmd/govulncheck
+[Delve]: /pkg/github.com/go-delve/delve#section-readme
 [debug.BuildInfo]: /pkg/runtime/debug#BuildInfo
 [proposal]: /issue/new?assignees=&labels=Telemetry-Proposal&projects=golang%2F29&template=12-telemetry.yml&title=x%2Ftelemetry%2Fconfig%3A+proposal+title
 [telemetry.go.dev]: https://telemetry.go.dev
