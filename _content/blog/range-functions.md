@@ -134,7 +134,7 @@ the elements.
 In this case we also need a stop function that can be called when no
 more values are needed.
 
-This implementations uses a pair of channels, one for values in the
+This implementation uses a pair of channels, one for values in the
 set and one to stop returning values.
 We use a goroutine to send values on the channel.
 The `next` function returns an element from the set by reading from
@@ -595,7 +595,7 @@ there should be some way to range over all the values in the tree.
 It turns out that the iterator code is easier to write if it returns a
 bool.
 Since the function types supported by for/range don't return anything,
-the `All` method here return a small function literal that calls the
+the `All` method here returns a small function literal that calls the
 iterator itself, here called `push`, and ignores the bool result.
 
 ```
