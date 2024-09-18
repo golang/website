@@ -263,6 +263,10 @@ Running `go version` prints the selected Go toolchain's version
 
 Running `GOTOOLCHAIN=local go version` prints the bundled Go toolchain's version.
 
+Starting in Go 1.24, you can trace the `go` command's toolchain selection process
+by adding `toolchaintrace=1` to the `GODEBUG` environment variable when you run the
+`go` command.
+
 ## Go toolchain switches {#switch}
 
 For most commands, the workspace's `go.work` or the main module's `go.mod`
