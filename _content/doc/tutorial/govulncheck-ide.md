@@ -11,7 +11,7 @@ Note: for an explanation of the vulnerability fix included in the images below, 
 
 ## Prerequisites:
 
-- **Go 1.18 or later.** Govulncheck is designed to work with Go 1.18 onwards. For installation instructions, see [Installing Go](/doc/install). We recommend using the latest version of Go to follow this tutorial.
+- **Go.** We recommend using the latest version of Go to follow this tutorial. For installation instructions, see [Installing Go](/doc/install).
 - **VS Code**, updated to the latest version. [Download here](https://code.visualstudio.com/). You can also use Vim (see [here](/security/vuln/editor#editor-specific-instructions) for details), but this tutorial focuses on VS Code Go.
 - **VS Code Go extension**, which can be [downloaded here](https://marketplace.visualstudio.com/items?itemName=golang.go).
 - **Editor-specific settings changes.** You will need to modify your IDE settings according to [these specifications](/security/vuln/editor#editor-specific-instructions) before being able to replicate the results below.

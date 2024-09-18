@@ -21,9 +21,8 @@ We'd also love to [hear your feedback](/s/govulncheck-feedback).
 
 ## Prerequisites
 
-- **Go 1.18 or later.** Govulncheck is designed to work with Go 1.18 onwards.
+- **Go.** We recommend using the latest version of Go to follow this tutorial.
   (For installation instructions, see [Installing Go](/doc/install).)
-  We recommend using the latest version of Go to follow this tutorial.
 - **A code editor.** Any editor you have will work fine.
 - **A command terminal.** Go works well using any terminal on Linux and Mac, and on PowerShell or cmd in Windows.
 
