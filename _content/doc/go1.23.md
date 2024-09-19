@@ -564,6 +564,9 @@ Templates now support the new "else with" action, which reduces template complex
 [`Parse`](/pkg/time#Parse) and [`ParseInLocation`](/pkg/time#ParseInLocation) now return an error if the time zone
 offset is out of range.
 
+On Windows, [`Timer`](/pkg/time#Timer), [`Ticker`](/pkg/time#Ticker), and functions that put the goroutine to sleep,
+such as [`Sleep`](/pkg/time#Sleep), got their time resolution improved to 0.5ms instead of 15.6ms.
+
 #### [`unicode/utf16`](/pkg/unicode/utf16/)
 
 The [`RuneLen`](/pkg/unicode/utf16#RuneLen) function returns the number of 16-bit words in
