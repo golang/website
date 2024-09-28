@@ -228,3 +228,8 @@ Their client libraries would then accept a `Context` from the calling code.
 By establishing a common interface for request-scoped data and cancellation,
 `Context` makes it easier for package developers to share code for creating
 scalable services.
+
+## Further reading
+
+- [Go Concurrency Patterns: Pipelines and cancellation (2014 blog post)](pipelines.md)
+- [Contexts and structs (2021 blog post)](context-and-structs.md)

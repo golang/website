@@ -144,3 +144,7 @@ Context makes it easy to propagate important cross-library and cross-API informa
 When passed as the first argument in a method rather than stored in a struct type, users can take full advantage of its extensibility in order to build a powerful tree of cancellation, deadline, and metadata information through the call stack. And, best of all, its scope is clearly understood when it's passed in as an argument, leading to clear comprehension and debuggability up and down the stack.
 
 When designing an API with context, remember the advice: pass `context.Context` in as an argument; don't store it in structs.
+
+## Further reading
+
+- [Go Concurrency Patterns: Context (2014 blog post)](context.md)
