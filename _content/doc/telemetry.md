@@ -130,6 +130,13 @@ With Go 1.23 or later, the following commands interact with the telemetry mode:
 - `go telemetry off`: set the mode to `off`.
 - `go telemetry local`: set the mode to `local`.
 
+Information about telemetry configuration is also available via read-only Go
+environment variables:
+
+- `go env GOTELEMETRY` reports the telemetry mode.
+- `go env GOTELEMETRYDIR` reports the directory holding telemetry configuration
+  and data.
+
 The [`gotelemetry`](/pkg/golang.org/x/telemetry/cmd/gotelemetry) command can
 also be used to configure the telemetry mode, as well as to inspect local
 telemetry data. Use this command to install it:
