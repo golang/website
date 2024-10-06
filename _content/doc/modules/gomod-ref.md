@@ -249,6 +249,47 @@ Go Modules Reference.
 See “[Go toolchains](/doc/toolchain)” for details about how the `toolchain` line
 affects Go toolchain selection.
 
+## godebug {#godebug}
+
+Indicates the default [GODEBUG](/doc/godebug) settings to be applied to the main packages of this module.
+These override any toolchain defaults, and are overridden by explicit `//go:debug` lines in main packages.
+
+### Syntax {#godebug-syntax}
+
+<pre>godebug <var>debug-key</var>=<var>debug-value</var></pre>
+
+<dl>
+    <dt>debug-key</dt>
+    <dd>The name of the setting to be applied.
+      A list of settings and the versions they were introduced in can be found at [
+      GODEBUG History](https://go.dev/doc/godebug#history).
+    </dd>
+    <dt>debug-value</dt>
+    <dd>The value provided to the setting.
+      If not otherwise specified, `0` to disable and `1` to enable the named behavior.</dd>
+</dl>
+
+### Examples {#godebug-examples}
+
+* Use the new 1.23 `asynctimerchan=0` behavior:
+  ```
+  godebug asynctimerchan=0
+  ```
+* Use the default GODEBUGs from Go 1.21, but the old `panicnil=1` behavior:
+  ```
+  godebug (
+      default=go1.21
+      panicnil=1
+  )
+  ```
+
+### Notes {#godebug-notes}
+
+GODEBUG settings only apply for builds of main packages and test binaries in the current module.
+They have no effect when a module is used as a dependency.
+
+See “[Go, Backwards Compatibility, and GODEBUG](/doc/godebug)” for details on backwards compatibility.
+
 ## require {#require}
 
 Declares a module as a dependency of the current module, specifying the
