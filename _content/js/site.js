@@ -351,16 +351,6 @@ window.initFuncs = [];
     }
   }
 
-  // setAnchors adds anchor links to article headers.
-  function setAnchors() {
-    var headers = document.querySelectorAll('.Article h1[id], .Article h2[id], .Article h3[id], .Article h4[id]')
-    if (headers) {
-      headers.forEach(element => {
-        element.insertAdjacentHTML('beforeend', `<a href="#${element.id}" class="Article-idLink" aria-label="Go to ${element.id}">¶</a>`);
-      });
-    }
-  }
-
   initialThemeSetup();
 
   const onPageLoad = () => {
@@ -368,7 +358,6 @@ window.initFuncs = [];
     setDownloadLinks();
     setThemeButtons();
     setVersionSpans();
-    setAnchors();
     registerPortToggles();
     registerCookieNotice();
   };
