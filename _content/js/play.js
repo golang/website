@@ -141,4 +141,4 @@ function initPlayground(transport) {
   }
 }
 
-$(function() { playStart() });
+window.initFuncs.push(playStart);

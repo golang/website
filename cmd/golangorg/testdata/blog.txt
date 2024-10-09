@@ -75,3 +75,8 @@ body contains Go 1.16
 
 GET https://blog.golang.org/?googlecn=1
 redirect == https://golang.google.cn/?googlecn=1
+
+GET https://go.dev/blog/alias-names
+hint the godocs.js script should be loaded once, and no more
+body ~ (<script src="/js/godocs\.js"></script>(.|\n)+){1}
+body !~ (<script src="/js/godocs\.js"></script>(.|\n)+){2}

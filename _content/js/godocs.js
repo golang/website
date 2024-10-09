@@ -380,7 +380,7 @@
     personalizeInstallInstructions();
     updateVersionTags();
 
-    // site.js defines window.initFuncs in the global scope, and root.html and
+    // site.js defines window.initFuncs in the global scope, and play.js and
     // codewalk.js push their on-page-ready functions to the list.
     // We execute those functions here, to avoid loading jQuery until the page
     // content is loaded.
