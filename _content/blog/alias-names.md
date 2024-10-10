@@ -188,7 +188,7 @@ It is not obvious that the minor convenience is worth the complication.
 
 2) If the alias declaration doesn't need to declare its own type parameters and
 instead simply "inherits" them from the aliased type `pkg1.G`, the declaration of
-`A` provides no indication that it is a generic type.
+`G` provides no indication that it is a generic type.
 Its type parameters and constraints would have to be retrieved from the declaration
 of `pkg1.G` (which itself might be an alias).
 Readability will suffer, yet readable code is one of the primary aims of the Go project.
