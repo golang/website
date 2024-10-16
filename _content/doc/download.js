@@ -24,12 +24,15 @@ class DownloadsController {
             this.linuxFileName = file;
           }
         }
+
+        this.setVersion(data[0].version);
+        this.tabs.forEach(el => this.setInstallTabData(el.id));
+
         this.detectOS();
         const osTab = document.getElementById(this.osName);
         if (osTab !== null) {
           osTab.click();
         }
-        this.setVersion(data[0].version);
       })
       .catch(console.error);
       this.setEventListeners();
@@ -70,8 +73,6 @@ class DownloadsController {
       this.osName = 'linux';
     } else if (navigator.userAgent.indexOf('Mac') !== -1) {
       this.osName = 'mac';
-    } else if (navigator.userAgent.indexOf('X11') !== -1) {
-      this.osName = 'unix';
     } else if (navigator.userAgent.indexOf('Win') !== -1) {
       this.osName = 'windows';
     }
@@ -93,7 +94,6 @@ class DownloadsController {
   handleTabClick(e) {
     const el = (e.target);
     this.activateTab(Array.prototype.indexOf.call(this.tabs, el));
-    this.setInstallTabData(el.id);
   }
 
   // get version number.
