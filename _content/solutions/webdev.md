@@ -127,9 +127,6 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
   - title: Web frameworks
     viewMoreUrl: https://pkg.go.dev/search?q=web+framework
     items:
-      - text: Buffalo
-        url: https://gobuffalo.io/en/
-        desc: A framework for rapid web development in Go, curating Go and JS libraries together.
       - text: Echo
         url: https://echo.labstack.com/
         desc: A high performance, extensible, and minimalist Go web framework
