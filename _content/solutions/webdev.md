@@ -142,6 +142,9 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
   - title: Routers
     viewMoreUrl: https://pkg.go.dev/search?q=http%20router
     items:
+      - text: net/http
+        url: https://pkg.go.dev/net/http
+        desc: A standard library HTTP package
       - text: julienschmidt/httprouter
         url: https://pkg.go.dev/github.com/julienschmidt/httprouter?tab=overview
         desc: A lightweight high performance HTTP request router
@@ -151,9 +154,6 @@ Tigran Bayburtsyan, Co-Founder and CTO at Hexact Inc., summarizes five key reaso
       - text: Chi
         url: https://pkg.go.dev/github.com/go-chi/chi?tab=overview
         desc: A lightweight, idiomatic and composable router for building Go HTTP services.
-      - text: net/http
-        url: https://pkg.go.dev/net/http
-        desc: A standard library HTTP package
   - title: Template Engines
     viewMoreUrl: https://pkg.go.dev/search?q=templates
     items:

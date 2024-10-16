@@ -168,6 +168,9 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
   - title: Routers
     viewMoreUrl: https://pkg.go.dev/search?q=http%20router
     items:
+      - text: net/http
+        url: https://pkg.go.dev/net/http
+        desc: A standard library HTTP package
       - text: julienschmidt/httprouter
         url: https://pkg.go.dev/github.com/julienschmidt/httprouter?tab=overview
         desc: A lightweight high performance HTTP request router
@@ -177,9 +180,6 @@ The major Cloud providers ([GCP](https://cloud.google.com/go/home), [AWS](https:
       - text: Chi
         url: https://pkg.go.dev/github.com/go-chi/chi?tab=overview
         desc: A lightweight, idiomatic and composable router for building Go HTTP services.
-      - text: net/http
-        url: https://pkg.go.dev/net/http
-        desc: A standard library HTTP package
   - title: Template Engines
     viewMoreUrl: https://pkg.go.dev/search?q=templates
     items:
