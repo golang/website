@@ -29,6 +29,7 @@ Table of Contents:
  [Counters](#counters)\
  [Reporting and Uploading](#reports)\
  [Charts](#charts) \
+ [Telemetry Proposals](#proposals)\
  [IDE Prompting](#ide) \
  [Frequently Asked Questions](#faq)
 
@@ -271,39 +272,6 @@ Once enough users opt in to uploading telemetry data, the upload process will
 randomly skip uploading for a fraction of reports, to reduce collection amounts
 and increase privacy while maintaining statistical significance.
 
-### The telemetry proposal process {#proposals}
-
-Counters may be added to the upload configuration only through the _telemetry
-proposal process_, which proceeds as follows:
-
-1. The proposer files a [proposal] to upload new data. This is expressed in the
-   form of a specific [chart](#charts) that will be displayed on
-   [telemetry.go.dev].
-2. Once discussion on the issue resolves, the proposal is approved or declined
-   by a member of the Go team.
-3. The proposer sends a CL modifying the internal
-   [chart config](https://go.googlesource.com/telemetry/+/refs/heads/master/internal/chartconfig/config.txt)
-   to include the new chart.
-4. An automatic process regenerates the upload config to allow uploading of the
-   counters required for the new chart. This process will also regularly add
-   new versions of the relevant programs to the upload config as they are
-   released.
-
-In order to be approved, new charts cannot carry sensitive user information,
-and additionally must be both useful and feasible. In order to be _useful_,
-charts must serve a specific purpose, with actionable outcomes, that can't be
-served by other means. For example, in order to collect a counter that measures
-the latency of a given operation, it must be shown that this latency can't
-reasonably be measured via benchmarking, and that knowing the latency
-distribution will help meaningfully improve future versions of the program in
-question. In order to be _feasible_, it must be possible to reliably collect
-the requisite data, and the resulting measurements must be statistically
-significant. To demonstrate feasibility, the proposer may be asked to instrument
-the target program with counters and collect them locally first.
-
-The full set of such proposals is available at the
-[proposal project](https://github.com/orgs/golang/projects/29) on GitHub.
-
 ## Charts {#charts}
 
 In addition to accepting uploads, the [telemetry.go.dev] website makes uploaded
@@ -317,8 +285,8 @@ outputs, which are available on the [telemetry.go.dev] homepage.
   into the chart name `foo` and bucket name `bar`. Each chart aggregates
   counters with the same chart name into the corresponding buckets.
 
-Charts are specified in the [chart config] format. For example, here's the
-chart config for the `gopls/client` chart.
+Charts are specified in the format of the [chartconfig] package. For example,
+here's the chart config for the `gopls/client` chart.
 
     title: Editor Distribution
     counter: gopls/client:{vscode,vscodium,vscode-insiders,code-server,eglot,govim,neovim,coc.nvim,sublimetext,other}
@@ -340,6 +308,40 @@ from that config:
     <img src="/doc/telemetry/gopls-clients.png" />
   </center>
 </div>
+
+## The telemetry proposal process {#proposals}
+
+Changes to the upload configuration or set of charts on [telemetry.go.dev] must
+go through the _telemetry proposal process_, which is intended to ensure
+transparency around changes to the telemetry configuration.
+
+Notably, there is actually no distinction between upload configuration and
+chart configuration in this process. Upload configuration is itself expressed
+in terms of the aggregations that we want to render on telemetry.go.dev, based
+on the principle that we should only collect data that we want to _see_.
+
+The proposal process is as follows:
+
+1. The proposer creates a CL modifying [config.txt] of the [chartconfig]
+   package to contain the desired new counter aggregations.
+2. The proposer files a [proposal] to merge this CL.
+3. Once discussion on the issue resolves, the proposal is approved or declined
+   by a member of the Go team.
+4. An automatic process regenerates the upload config to allow uploading of the
+   counters required for the new chart. This process will also regularly add
+   new versions of the relevant programs to the upload config as they are
+   released.
+
+In order to be approved, new charts can't carry sensitive user information,
+and additionally must be both useful and feasible. In order to be useful,
+charts must serve a specific purpose, with actionable outcomes. In order to be
+feasible, it must be possible to reliably collect the requisite data, and the
+resulting measurements must be statistically significant. To demonstrate
+feasibility, the proposer may be asked to instrument the target program with
+counters and collect them locally first.
+
+The full set of such proposals is available at the
+[proposal project](https://github.com/orgs/golang/projects/29) on GitHub.
 
 ## IDE Prompting {#ide}
 
@@ -416,4 +418,5 @@ A: At [golang.org/x/telemetry](/pkg/golang.org/x/telemetry).
 [debug.BuildInfo]: /pkg/runtime/debug#BuildInfo
 [proposal]: /issue/new?assignees=&labels=Telemetry-Proposal&projects=golang%2F29&template=12-telemetry.yml&title=x%2Ftelemetry%2Fconfig%3A+proposal+title
 [telemetry.go.dev]: https://telemetry.go.dev
-[chart config]: /pkg/golang.org/x/telemetry/internal/chartconfig
+[chartconfig]: /pkg/golang.org/x/telemetry/internal/chartconfig
+[config.txt]: https://go.googlesource.com/telemetry/+/refs/heads/master/internal/chartconfig/config.txt
