@@ -101,7 +101,8 @@
           /etc/profile (for a system-wide installation):
         </p>
         <pre class="CopyPaste">
-          <span>export PATH=$PATH:/usr/local/go/bin</span>
+          <span>echo 'export PATH=$PATH:/usr/local/go/bin' >> $HOME/.profile
+&& source $HOME/.profile</span>
           <button aria-label="Copy and paste the code.">
             <img class="CopyPaste-icon" src="/images/icons/copy-paste.svg" />
             <img class="CopyPaste-icon CopyPaste-icon-dark" src="/images/icons/copy-paste-dark.svg" />
