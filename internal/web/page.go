@@ -128,7 +128,7 @@ var (
 
 // parseMeta extracts top-of-file metadata from the file contents b.
 // If there is no metadata, parseMeta returns Page{}, b, nil.
-// Otherwise, the metdata is extracted, and parseMeta returns
+// Otherwise, the metadata is extracted, and parseMeta returns
 // the metadata and the remainder of the file.
 // The end of the metadata is overwritten in b to preserve
 // the correct number of newlines so that the line numbers in tail

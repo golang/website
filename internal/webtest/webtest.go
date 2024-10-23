@@ -164,7 +164,7 @@ import (
 )
 
 // HandlerWithCheck returns an http.Handler that responds to each request
-// by running the test script files mached by glob against the handler h.
+// by running the test script files matched by glob against the handler h.
 // If the tests pass, the returned http.Handler responds with status code 200.
 // If they fail, it prints the details and responds with status code 503
 // (service unavailable).
