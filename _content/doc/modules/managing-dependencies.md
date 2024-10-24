@@ -378,6 +378,10 @@ external modules as described in [Adding a dependency](#adding_dependency).
 
 For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
+Go 1.18 adds [workspace mode](/blog/get-familiar-with-workspaces) to Go, which
+lets you work on multiple modules simultaneously. See [Tutorial: Getting started
+with multi-module workspaces](/doc/tutorial/workspaces).
+
 ### Requiring external module code from your own repository fork {#external_fork}
 
 When you have forked an external module's repository (such as to fix an issue in
