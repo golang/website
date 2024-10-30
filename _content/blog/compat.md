@@ -461,12 +461,13 @@ For the remaining programs, the new approach is:
     `/godebug/non-default-behavior/http2client:events` counts the
     number of HTTP transports that the program has configured without HTTP/2 support.
 
- 4. A program’s GODEBUG settings are configured to match the Go version
-   listed in the main package’s `go.mod` file.
-   If your program’s `go.mod` file says `go 1.20` and you update to
-   a Go 1.21 toolchain, any GODEBUG-controlled behaviors changed in
-   Go 1.21 will retain their old Go 1.20 behavior until you change the
-   `go.mod` to say `go 1.21`.
+4. A program’s GODEBUG settings are configured to match the Go version
+   listed in either the main package's `go.mod` file or in a `go.work` file,
+   with the `go.work` file taking priority if both are present.
+   If your program's `go.mod` file says `go 1.20` (or the `go.work` file specifies `go 1.20`)
+   and you update to a Go 1.21 toolchain, any GODEBUG-controlled behaviors
+   changed in Go 1.21 will retain their old Go 1.20 behavior until you update
+   the relevant `go.mod` or `go.work` file to say `go 1.21`.
 
  5. A program can change individual GODEBUG settings by using `//go:debug` lines
     in package `main`.
