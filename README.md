@@ -70,6 +70,8 @@ See [cmd/golangorg/README.md](cmd/golangorg/README.md#deploying-to-go_dev-and-go
 This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://go.dev/doc/contribute.
 
+The git repository is https://go.googlesource.com/website.
+
 The main issue tracker for the website repository is located at
-https://github.com/golang/go/issues. Prefix your issue with "x/website:" in the
+https://go.dev/issues. Prefix your issue with "x/website:" in the
 subject line, so it is easy to find.
