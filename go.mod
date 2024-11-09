@@ -1,13 +1,13 @@
 module golang.org/x/website
 
-go 1.22.0
+go 1.23
 
 require (
 	cloud.google.com/go/cloudbuild v1.14.0
 	cloud.google.com/go/datastore v1.13.0
 	cloud.google.com/go/storage v1.31.0
-	github.com/chromedp/cdproto v0.0.0-20211205231339-d2673e93eee4
-	github.com/chromedp/chromedp v0.7.6
+	github.com/chromedp/cdproto v0.0.0-20241022234722-4d5d5faf59fb
+	github.com/chromedp/chromedp v0.11.1
 	github.com/evanw/esbuild v0.18.19
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/google/go-cmp v0.6.0
@@ -28,10 +28,10 @@ require (
 	cloud.google.com/go/compute/metadata v0.3.0 // indirect
 	cloud.google.com/go/iam v1.1.2 // indirect
 	cloud.google.com/go/longrunning v0.5.1 // indirect
-	github.com/chromedp/sysutil v1.0.0 // indirect
+	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/gobwas/httphead v0.1.0 // indirect
 	github.com/gobwas/pool v0.2.1 // indirect
-	github.com/gobwas/ws v1.1.0 // indirect
+	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/google/s2a-go v0.1.4 // indirect
