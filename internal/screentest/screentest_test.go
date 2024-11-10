@@ -411,3 +411,29 @@ func Test_cleanDirs(t *testing.T) {
 		})
 	}
 }
+
+func TestSplitDimensions(t *testing.T) {
+	for _, tc := range []struct {
+		in   string
+		w, h int
+	}{
+		{"1x2", 1, 2},
+		{"23x40", 23, 40},
+	} {
+		gw, gh, err := splitDimensions(tc.in)
+		if err != nil {
+			t.Errorf("%q: %v", tc.in, err)
+		} else if gw != tc.w || gh != tc.h {
+			t.Errorf("%s: got (%d, %d), want (%d, %d)", tc.in, gw, gh, tc.w, tc.h)
+		}
+	}
+
+	// Expect errors.
+	for _, in := range []string{
+		"", "1", "1x2a", "  1x2", "1 x 2", "3x-4",
+	} {
+		if _, _, err := splitDimensions(in); err == nil {
+			t.Errorf("%q: got nil, want error", in)
+		}
+	}
+}

@@ -627,6 +627,9 @@ func splitDimensions(text string) (width, height int, err error) {
 	if err != nil {
 		return 0, 0, err
 	}
+	if width < 0 || height < 0 {
+		return 0, 0, errors.New("negative dimension")
+	}
 	return width, height, nil
 }
 
