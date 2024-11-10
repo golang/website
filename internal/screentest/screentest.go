@@ -46,15 +46,6 @@
 //
 //	block https://codecov.io/* https://travis-ci.com/*
 //
-// Use output DIRECTORY to set the output directory for diffs and cached images.
-//
-//	output testdata/snapshots
-//
-// USE output BUCKETNAME for screentest to upload test output to a Cloud Storage bucket.
-// The bucket must already exist prior to running the tests.
-//
-//	output gs://bucket-name
-//
 // Values set with the keywords above apply to all testcases that follow. Values set with
 // the keywords below reset each time the test keyword is used.
 //
@@ -130,6 +121,7 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"text/template"
@@ -162,6 +154,10 @@ type CheckOptions struct {
 	// If set, only tests for which Filter returns true are included.
 	// Filter is called on the test name.
 	Filter func(string) bool
+
+	// If set, where cached files and diffs are written to.
+	// May be a file: or gs: URL, or a file path.
+	OutputURL string
 }
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
@@ -191,7 +187,7 @@ func CheckHandler(glob string, opts CheckOptions) error {
 	defer cancel()
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, opts.Vars, opts.Filter)
+		tests, err := readTests(file, opts.Vars, opts.Filter, opts.OutputURL)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
@@ -378,7 +374,7 @@ func (t *testcase) String() string {
 }
 
 // readTests parses the testcases from a text file.
-func readTests(file string, vars map[string]string, filter func(string) bool) ([]*testcase, error) {
+func readTests(file string, vars map[string]string, filter func(string) bool, outurl string) ([]*testcase, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -414,8 +410,14 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 	if err != nil {
 		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
 	}
-	dir := filepath.Join(cache, "screentest")
-	out := outDir(dir, file)
+	dir := cmp.Or(outurl, filepath.Join(cache, "screentest"))
+	out, err := outDir(dir, file)
+	if err != nil {
+		return nil, err
+	}
+	if strings.HasPrefix(out, gcsScheme) {
+		gcsBucket = true
+	}
 	scan := bufio.NewScanner(&tmplout)
 	for scan.Scan() {
 		lineNo++
@@ -426,6 +428,9 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 		line = strings.TrimRight(line, " \t")
 		field, args := splitOneField(line)
 		field = strings.ToUpper(field)
+		if testName == "" && !slices.Contains([]string{"", "TEST", "COMPARE", "HEADER", "OUTPUT", "WINDOWSIZE"}, field) {
+			log.Printf("%s:%d: DEPRECATED: %q should only occur in a test", file, lineNo, strings.ToLower(field))
+		}
 		switch field {
 		case "":
 			// We've reached an empty line, reset properties scoped to a single test.
@@ -468,10 +473,14 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
 		case "OUTPUT":
+			log.Printf("DEPRECATED: 'output': set CheckOptions.OutputURL, or provide -o on the command line")
 			if strings.HasPrefix(args, gcsScheme) {
 				gcsBucket = true
 			}
-			out = outDir(args, "")
+			out, err = outDir(args, file)
+			if err != nil {
+				return nil, err
+			}
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
 			if err != nil {
@@ -567,7 +576,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 			}
 			outfile := filepath.Join(out, sanitize(test.name))
 			if gcsBucket {
-				outfile = out + "/" + sanitize(test.name)
+				outfile, err = url.JoinPath(out, sanitize(test.name))
 			}
 			test.outImgA = outfile + ".a.png"
 			test.outImgB = outfile + ".b.png"
@@ -586,14 +595,12 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 // outDir gets a diff output directory for a given testfile.
 // If dir points to a GCS bucket or testfile is empty it just
 // returns dir.
-func outDir(dir, testfile string) string {
+func outDir(dir, testfile string) (string, error) {
+	tf := sanitize(filepath.Base(testfile))
 	if strings.HasPrefix(dir, gcsScheme) {
-		return dir
+		return url.JoinPath(dir, tf)
 	}
-	if testfile != "" {
-		dir = filepath.Join(dir, sanitize(filepath.Base(testfile)))
-	}
-	return filepath.Clean(dir)
+	return filepath.Clean(filepath.Join(dir, tf)), nil
 }
 
 // splitOneField splits text at the first space or tab
@@ -647,8 +654,10 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	if err := cmp.Or(erra, errb); err != nil {
 		return err
 	}
+	sleep := time.Duration(0)
 	if urla.Host == urlb.Host {
 		g.SetLimit(1)
+		sleep = time.Second
 	}
 	g.Go(func() error {
 		screenA, err = tc.screenshot(ctx, tc.urlA, tc.outImgA, tc.cacheA, update)
@@ -657,6 +666,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		}
 		return nil
 	})
+	time.Sleep(sleep)
 	g.Go(func() error {
 		screenB, err = tc.screenshot(ctx, tc.urlB, tc.outImgB, tc.cacheB, update)
 		if err != nil {

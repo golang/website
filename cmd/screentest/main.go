@@ -41,6 +41,7 @@ var (
 	concurrency = flag.Int("c", (runtime.NumCPU()+1)/2, "number of testcases to run concurrently")
 	debuggerURL = flag.String("d", "", "chrome debugger url")
 	run         = flag.String("run", "", "regexp to match test")
+	outputURL   = flag.String("o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 )
 
 func main() {
@@ -74,6 +75,7 @@ func main() {
 		MaxConcurrency: *concurrency,
 		Vars:           parsedVars,
 		DebuggerURL:    *debuggerURL,
+		OutputURL:      *outputURL,
 	}
 	if *run != "" {
 		re, err := regexp.Compile(*run)

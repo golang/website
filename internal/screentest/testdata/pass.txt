@@ -4,10 +4,12 @@ test homepage
 pathname /
 capture viewport
 
+test not found
 pathname /page-not-found
 status 404
 capture
 
+test notfound fragment
 pathname /page-not-found-with-fragment#fragment
 status 404
 capture

@@ -1,0 +1,14 @@
+compare https://pkg.go.dev::cache http://localhost:8080
+header Authorization: {{.Authorization}}
+output gs://bucket/prefix
+windowsize 100x200
+
+test about
+pathname /about
+capture
+
+test eval
+pathname /eval
+eval console.log('hello, world!')
+capture
+

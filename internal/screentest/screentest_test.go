@@ -34,7 +34,7 @@ func TestReadTests(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			name: "test",
+			name: "readtests",
 			args: args{
 				filename: "testdata/readtests.txt",
 			},
@@ -121,6 +121,15 @@ func TestReadTests(t *testing.T) {
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
 				},
+			},
+			wantErr: false,
+		},
+		{
+			name: "readtests2",
+			args: args{
+				filename: "testdata/readtests2.txt",
+			},
+			want: []*testcase{
 				{
 					name:           "about",
 					urlA:           "https://pkg.go.dev/about",
@@ -128,12 +137,13 @@ func TestReadTests(t *testing.T) {
 					urlB:           "http://localhost:8080/about",
 					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "about.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "about.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "about.diff.png"),
+					gcsBucket:      true,
+					outImgA:        "gs://bucket/prefix/readtests2-txt/about.a.png",
+					outImgB:        "gs://bucket/prefix/readtests2-txt/about.b.png",
+					outDiff:        "gs://bucket/prefix/readtests2-txt/about.diff.png",
 					screenshotType: viewportScreenshot,
-					viewportWidth:  1536,
-					viewportHeight: 960,
+					viewportWidth:  100,
+					viewportHeight: 200,
 				},
 				{
 					name:           "eval",
@@ -142,38 +152,23 @@ func TestReadTests(t *testing.T) {
 					urlB:           "http://localhost:8080/eval",
 					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "eval.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "eval.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "eval.diff.png"),
+					gcsBucket:      true,
+					outImgA:        "gs://bucket/prefix/readtests2-txt/eval.a.png",
+					outImgB:        "gs://bucket/prefix/readtests2-txt/eval.b.png",
+					outDiff:        "gs://bucket/prefix/readtests2-txt/eval.diff.png",
 					screenshotType: viewportScreenshot,
-					viewportWidth:  1536,
-					viewportHeight: 960,
+					viewportWidth:  100,
+					viewportHeight: 200,
 					tasks: chromedp.Tasks{
 						chromedp.Evaluate("console.log('Hello, world!')", nil),
 					},
 				},
-				{
-					name:           "gcs-output",
-					urlA:           "https://pkg.go.dev/gcs-output",
-					cacheA:         true,
-					urlB:           "http://localhost:8080/gcs-output",
-					gcsBucket:      true,
-					headers:        map[string]interface{}{"Authorization": "Bearer token"},
-					status:         200,
-					outImgA:        "gs://bucket-name/gcs-output.a.png",
-					outImgB:        "gs://bucket-name/gcs-output.b.png",
-					outDiff:        "gs://bucket-name/gcs-output.diff.png",
-					screenshotType: viewportScreenshot,
-					viewportWidth:  1536,
-					viewportHeight: 960,
-				},
 			},
-			wantErr: false,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"}, nil)
+			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"}, nil, "")
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
