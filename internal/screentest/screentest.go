@@ -132,7 +132,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-	"testing"
 	"text/template"
 	"time"
 
@@ -234,44 +233,6 @@ type TestOpts struct {
 
 	// Vars are accessible as values in the test script templates.
 	Vars map[string]string
-}
-
-// TestHandler runs the test script files matched by glob.
-func TestHandler(t *testing.T, glob string, opts TestOpts) {
-	ctx := context.Background()
-	files, err := filepath.Glob(glob)
-	if err != nil {
-		t.Fatal(err)
-	}
-	if len(files) == 0 {
-		t.Fatal(fmt.Errorf("no files match %#q", glob))
-	}
-	ctx, cancel := chromedp.NewExecAllocator(ctx, append(
-		chromedp.DefaultExecAllocatorOptions[:],
-		chromedp.WindowSize(browserWidth, browserHeight),
-	)...)
-	defer cancel()
-	for _, file := range files {
-		tests, err := readTests(file, opts.Vars, nil)
-		if err != nil {
-			t.Fatal(err)
-		}
-		if err := cleanOutput(ctx, tests); err != nil {
-			t.Fatal(err)
-		}
-		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(t.Logf))
-		defer cancel()
-		for _, tc := range tests {
-			t.Run(tc.name, func(t *testing.T) {
-				if opts.Parallel {
-					t.Parallel()
-				}
-				if err := tc.run(ctx, opts.Update); err != nil {
-					t.Fatal(err)
-				}
-			})
-		}
-	}
 }
 
 // cleanOutput clears the output locations of images not cached
@@ -387,8 +348,6 @@ const (
 	gcsScheme     = "gs://"
 )
 
-var sanitize = regexp.MustCompile("[.*<>?`'|/\\: ]")
-
 type screenshotType int
 
 const (
@@ -401,7 +360,7 @@ type testcase struct {
 	name                      string
 	tasks                     chromedp.Tasks
 	urlA, urlB                string
-	headers                   map[string]interface{}
+	headers                   map[string]any
 	status                    int
 	cacheA, cacheB            bool
 	gcsBucket                 bool
@@ -429,6 +388,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 			return out
 		},
 	})
+
 	_, err := tmpl.ParseFiles(file)
 	if err != nil {
 		return nil, fmt.Errorf("template.ParseFiles(%q): %w", file, err)
@@ -442,7 +402,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 		testName, pathname string
 		tasks              chromedp.Tasks
 		originA, originB   string
-		headers            map[string]interface{}
+		headers            map[string]any
 		status             int = http.StatusOK
 		cacheA, cacheB     bool
 		gcsBucket          bool
@@ -458,7 +418,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 	out := outDir(dir, file)
 	scan := bufio.NewScanner(&tmplout)
 	for scan.Scan() {
-		lineNo += 1
+		lineNo++
 		line := strings.TrimSpace(scan.Text())
 		if strings.HasPrefix(line, "#") {
 			continue
@@ -477,7 +437,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 			originA, originB = origins[0], origins[1]
 			cacheA, cacheB = false, false
 			if headers != nil {
-				headers = make(map[string]interface{})
+				headers = make(map[string]any)
 			}
 			if strings.HasSuffix(originA, cacheSuffix) {
 				originA = strings.TrimSuffix(originA, cacheSuffix)
@@ -495,11 +455,11 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 			}
 		case "HEADER":
 			if headers == nil {
-				headers = make(map[string]interface{})
+				headers = make(map[string]any)
 			}
 			parts := strings.SplitN(args, ":", 2)
 			if len(parts) != 2 {
-				log.Fatalf("invalid header %s on line %d", args, lineNo)
+				return nil, fmt.Errorf("invalid header %s on line %d", args, lineNo)
 			}
 			headers[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		case "STATUS":
@@ -515,14 +475,13 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
 			if err != nil {
-				return nil, fmt.Errorf("splitDimensions(%q): %w", args, err)
+				return nil, err
 			}
 		case "TEST":
 			testName = args
 			for _, t := range tests {
 				if t.name == testName {
-					return nil, fmt.Errorf(
-						"duplicate test name %q on line %d", testName, lineNo)
+					return nil, fmt.Errorf("%s:%d: duplicate test name %q", file, lineNo, testName)
 				}
 			}
 		case "PATHNAME":
@@ -595,7 +554,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 				if args != "" {
 					w, h, err := splitDimensions(args)
 					if err != nil {
-						return nil, fmt.Errorf("splitDimensions(%q): %w", args, err)
+						return nil, err
 					}
 					test.name += fmt.Sprintf(" %dx%d", w, h)
 					test.viewportWidth = w
@@ -606,9 +565,9 @@ func readTests(file string, vars map[string]string, filter func(string) bool) ([
 				test.screenshotType = elementScreenshot
 				test.screenshotElement = args
 			}
-			outfile := filepath.Join(out, sanitized(test.name))
+			outfile := filepath.Join(out, sanitize(test.name))
 			if gcsBucket {
-				outfile = out + "/" + sanitized(test.name)
+				outfile = out + "/" + sanitize(test.name)
 			}
 			test.outImgA = outfile + ".a.png"
 			test.outImgB = outfile + ".b.png"
@@ -632,7 +591,7 @@ func outDir(dir, testfile string) string {
 		return dir
 	}
 	if testfile != "" {
-		dir = filepath.Join(dir, sanitized(filepath.Base(testfile)))
+		dir = filepath.Join(dir, sanitize(filepath.Base(testfile)))
 	}
 	return filepath.Clean(dir)
 }
@@ -650,17 +609,23 @@ func splitOneField(text string) (field, rest string) {
 // splitDimensions parses a window dimension string into int values
 // for width and height.
 func splitDimensions(text string) (width, height int, err error) {
+	defer func() {
+		if err != nil {
+			err = fmt.Errorf("splitDimensions(%q): %w", text, err)
+		}
+	}()
+
 	windowsize := strings.Split(text, "x")
 	if len(windowsize) != 2 {
-		return width, height, fmt.Errorf("syntax error: windowsize %s", text)
+		return 0, 0, errors.New("syntax error")
 	}
 	width, err = strconv.Atoi(windowsize[0])
 	if err != nil {
-		return width, height, fmt.Errorf("strconv.Atoi(%q): %w", windowsize[0], err)
+		return 0, 0, err
 	}
 	height, err = strconv.Atoi(windowsize[1])
 	if err != nil {
-		return width, height, fmt.Errorf("strconv.Atoi(%q): %w", windowsize[1], err)
+		return 0, 0, err
 	}
 	return width, height, nil
 }
@@ -790,8 +755,8 @@ type response struct {
 	Status int
 }
 
-// captureScreenshot runs a series of browser actions and takes a screenshot
-// of the resulting webpage in an instance of headless chrome.
+// captureScreenshot runs a series of browser actions, including navigating to url,
+// and takes a screenshot of the resulting webpage in an instance of headless chrome.
 func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, error) {
 	var buf []byte
 	ctx, cancel := chromedp.NewContext(ctx)
@@ -829,6 +794,7 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	return buf, nil
 }
 
+// reduceMotion returns a chromedp action that will minimize motion during a screen capture.
 func reduceMotion() chromedp.Action {
 	css := `*, ::before, ::after {
 		animation-delay: -1ms !important;
@@ -852,7 +818,7 @@ func reduceMotion() chromedp.Action {
 }
 
 // writePNG writes image data to a png file.
-func writePNG(i *image.Image, filename string) (err error) {
+func writePNG(i *image.Image, filename string) error {
 	var f io.WriteCloser
 	if strings.HasPrefix(filename, gcsScheme) {
 		ctx := context.Background()
@@ -864,13 +830,13 @@ func writePNG(i *image.Image, filename string) (err error) {
 		bkt, obj := gcsParts(filename)
 		f = client.Bucket(bkt).Object(obj).NewWriter(ctx)
 	} else {
+		var err error
 		f, err = os.Create(filename)
 		if err != nil {
-			return fmt.Errorf("os.Create(%q): %w", filename, err)
+			return err
 		}
 	}
-	err = png.Encode(f, *i)
-	if err != nil {
+	if err := png.Encode(f, *i); err != nil {
 		// Ignore f.Close() error, since png.Encode returned an error.
 		_ = f.Close()
 		return fmt.Errorf("png.Encode(...): %w", err)
@@ -881,10 +847,12 @@ func writePNG(i *image.Image, filename string) (err error) {
 	return nil
 }
 
-// sanitized transforms text into a string suitable for use in a
+var sanitizeRegexp = regexp.MustCompile("[.*<>?`'|/\\: ]")
+
+// sanitize transforms text into a string suitable for use in a
 // filename part.
-func sanitized(text string) string {
-	return sanitize.ReplaceAllString(text, "-")
+func sanitize(text string) string {
+	return sanitizeRegexp.ReplaceAllString(text, "-")
 }
 
 // gcsParts splits a Cloud Storage filename into bucket name and
@@ -903,7 +871,7 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		ch := make(chan struct{})
 		cctx, cancel := context.WithCancel(ctx)
-		chromedp.ListenTarget(cctx, func(ev interface{}) {
+		chromedp.ListenTarget(cctx, func(ev any) {
 			switch e := ev.(type) {
 			case *page.EventLifecycleEvent:
 				if e.Name == eventName {
@@ -923,7 +891,7 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 
 func getResponse(u string, res *response) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
-		chromedp.ListenTarget(ctx, func(ev interface{}) {
+		chromedp.ListenTarget(ctx, func(ev any) {
 			// URL fragments are dropped in request targets so we must strip the fragment
 			// from the URL to make a comparison.
 			_u, _ := url.Parse(u)

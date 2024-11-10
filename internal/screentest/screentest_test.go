@@ -262,15 +262,6 @@ func TestCheckHandler(t *testing.T) {
 	}
 }
 
-func TestTestHandler(t *testing.T) {
-	// Skip this test if Google Chrome is not installed.
-	_, err := exec.LookPath("google-chrome")
-	if err != nil {
-		t.Skip()
-	}
-	TestHandler(t, "testdata/pass.txt", TestOpts{})
-}
-
 func TestHeaders(t *testing.T) {
 	// Skip this test if Google Chrome is not installed.
 	_, err := exec.LookPath("google-chrome")
