@@ -13,12 +13,12 @@
 // with the dimensions of the screenshots to be compared. For example, here is
 // a trivial script:
 //
-//	compare https://go.dev {{.ComparisonURL}}
-//	pathname /about
-//	capture fullscreen
+//	 test about
+//		pathname /about
+//		capture fullscreen
 //
-// This script has a single testcase. The first line sets the origin servers to
-// compare. The second line sets the page to visit at each origin. The last line
+// This script has a single testcase. The first line names the test.
+// The second line sets the page to visit at each origin. The last line
 // captures fullpage screenshots of the pages and generates a diff image if they
 // do not match.
 //
@@ -28,19 +28,6 @@
 // that follow.
 //
 //	windowsize 540x1080
-//
-// Use compare ORIGIN ORIGIN to set the origins to compare.
-//
-//	compare https://go.dev http://localhost:6060
-//
-// Use header KEY:VALUE to add headers to requests
-//
-//	header Authorization: Bearer token
-//
-// Add the ::cache suffix to cache the images from an origin for subsequent
-// test runs.
-//
-//	compare https://go.dev::cache http://localhost:6060
 //
 // Use block URL ... to set URL patterns to block. Wildcards ('*') are allowed.
 //
@@ -137,6 +124,12 @@ import (
 )
 
 type CheckOptions struct {
+	// TestURL is the URL or path that is being tested.
+	TestURL string
+
+	// WantURL is the URL or path that the test is being compared with; the "goldens."
+	WantURL string
+
 	// Update is true if cached screenshots should be updated.
 	Update bool
 
@@ -158,6 +151,10 @@ type CheckOptions struct {
 	// If set, where cached files and diffs are written to.
 	// May be a file: or gs: URL, or a file path.
 	OutputURL string
+
+	// Headers to add to HTTP(S) requests.
+	// Each header should be of the form "name:value".
+	Headers []string
 }
 
 // CheckHandler runs the test scripts matched by glob. If any errors are
@@ -187,7 +184,7 @@ func CheckHandler(glob string, opts CheckOptions) error {
 	defer cancel()
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, opts.Vars, opts.Filter, opts.OutputURL)
+		tests, err := readTests(file, opts)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
@@ -356,7 +353,7 @@ type testcase struct {
 	name                      string
 	tasks                     chromedp.Tasks
 	urlA, urlB                string
-	headers                   map[string]any
+	headers                   map[string]any // to match chromedp arg
 	status                    int
 	cacheA, cacheB            bool
 	gcsBucket                 bool
@@ -374,7 +371,7 @@ func (t *testcase) String() string {
 }
 
 // readTests parses the testcases from a text file.
-func readTests(file string, vars map[string]string, filter func(string) bool, outurl string) ([]*testcase, error) {
+func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -390,7 +387,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 		return nil, fmt.Errorf("template.ParseFiles(%q): %w", file, err)
 	}
 	var tmplout bytes.Buffer
-	if err := tmpl.Execute(&tmplout, vars); err != nil {
+	if err := tmpl.Execute(&tmplout, opts.Vars); err != nil {
 		return nil, fmt.Errorf("tmpl.Execute(...): %w", err)
 	}
 	var tests []*testcase
@@ -398,7 +395,6 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 		testName, pathname string
 		tasks              chromedp.Tasks
 		originA, originB   string
-		headers            map[string]any
 		status             int = http.StatusOK
 		cacheA, cacheB     bool
 		gcsBucket          bool
@@ -410,7 +406,31 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 	if err != nil {
 		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
 	}
-	dir := cmp.Or(outurl, filepath.Join(cache, "screentest"))
+	if opts.TestURL != "" {
+		originA = opts.TestURL
+		if strings.HasSuffix(originA, cacheSuffix) {
+			originA = strings.TrimSuffix(originA, cacheSuffix)
+			cacheA = true
+		}
+	}
+	if opts.WantURL != "" {
+		originB = opts.WantURL
+		if strings.HasSuffix(originB, cacheSuffix) {
+			originB = strings.TrimSuffix(originB, cacheSuffix)
+			cacheB = true
+		}
+	}
+	headers := map[string]any{} // any to match chromedp's arg
+	for _, h := range opts.Headers {
+		name, value, ok := strings.Cut(h, ":")
+		name = strings.TrimSpace(name)
+		value = strings.TrimSpace(value)
+		if !ok || name == "" || value == "" {
+			return nil, fmt.Errorf("invalid header %q", h)
+		}
+		headers[name] = value
+	}
+	dir := cmp.Or(opts.OutputURL, filepath.Join(cache, "screentest"))
 	out, err := outDir(dir, file)
 	if err != nil {
 		return nil, err
@@ -428,7 +448,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 		line = strings.TrimRight(line, " \t")
 		field, args := splitOneField(line)
 		field = strings.ToUpper(field)
-		if testName == "" && !slices.Contains([]string{"", "TEST", "COMPARE", "HEADER", "OUTPUT", "WINDOWSIZE"}, field) {
+		if testName == "" && !slices.Contains([]string{"", "COMPARE", "TEST", "HEADER", "OUTPUT", "WINDOWSIZE"}, field) {
 			log.Printf("%s:%d: DEPRECATED: %q should only occur in a test", file, lineNo, strings.ToLower(field))
 		}
 		switch field {
@@ -438,12 +458,13 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 			tasks = nil
 			status = http.StatusOK
 		case "COMPARE":
+			log.Printf("%s:%d: DEPRECATED: instead of 'compare', set the -test and -want flags, or the TestURL and WantURL options", file, lineNo)
+			if originA != "" || originB != "" {
+				log.Printf("%s:%d: DEPRECATED: multiple 'compare's", file, lineNo)
+			}
 			origins := strings.Split(args, " ")
 			originA, originB = origins[0], origins[1]
 			cacheA, cacheB = false, false
-			if headers != nil {
-				headers = make(map[string]any)
-			}
 			if strings.HasSuffix(originA, cacheSuffix) {
 				originA = strings.TrimSuffix(originA, cacheSuffix)
 				cacheA = true
@@ -459,9 +480,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
 			}
 		case "HEADER":
-			if headers == nil {
-				headers = make(map[string]any)
-			}
+			log.Printf("%s:%d: DEPRECATED: instead of 'header', set the -headers flag, or the CheckOptions.Headers option", file, lineNo)
 			parts := strings.SplitN(args, ":", 2)
 			if len(parts) != 2 {
 				return nil, fmt.Errorf("invalid header %s on line %d", args, lineNo)
@@ -533,7 +552,7 @@ func readTests(file string, vars map[string]string, filter func(string) bool, ou
 			if err != nil {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
 			}
-			if filter != nil && !filter(testName) {
+			if opts.Filter != nil && !opts.Filter(testName) {
 				continue
 			}
 			test := &testcase{
@@ -654,10 +673,8 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	if err := cmp.Or(erra, errb); err != nil {
 		return err
 	}
-	sleep := time.Duration(0)
 	if urla.Host == urlb.Host {
 		g.SetLimit(1)
-		sleep = time.Second
 	}
 	g.Go(func() error {
 		screenA, err = tc.screenshot(ctx, tc.urlA, tc.outImgA, tc.cacheA, update)
@@ -666,7 +683,6 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		}
 		return nil
 	})
-	time.Sleep(sleep)
 	g.Go(func() error {
 		screenB, err = tc.screenshot(ctx, tc.urlB, tc.outImgB, tc.cacheB, update)
 		if err != nil {
@@ -687,7 +703,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		fmt.Fprintf(&tc.output, "(%s)\n", since)
 		return nil
 	}
-	fmt.Fprintf(&tc.output, "(%s)\nFAIL %s != %s\n", since, tc.urlA, tc.urlB)
+	fmt.Fprintf(&tc.output, "(%s)\nFAIL %s != %s (%d pixels differ)\n", since, tc.urlA, tc.urlB, result.DiffPixelsCount)
 	g = &errgroup.Group{}
 	g.Go(func() error {
 		return writePNG(&result.Image, tc.outDiff)
@@ -777,7 +793,7 @@ func (tc *testcase) captureScreenshot(ctx context.Context, url string) ([]byte, 
 	ctx, cancel = context.WithTimeout(ctx, time.Minute)
 	defer cancel()
 	var tasks chromedp.Tasks
-	if tc.headers != nil {
+	if len(tc.headers) > 0 {
 		tasks = append(tasks, network.SetExtraHTTPHeaders(tc.headers))
 	}
 	if tc.blockedURLs != nil {

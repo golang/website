@@ -1,5 +1,3 @@
-compare https://go.dev https://go.dev
-
 test homepage
 pathname /
 capture viewport

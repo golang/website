@@ -9,6 +9,14 @@ Command screentest runs the screentest check for a set of scripts.
 
 The flags are:
 
+	-test
+	  URL to test against
+	-want
+	  URL for expected results
+	-headers
+	  HTTP headers to send
+	-o
+	  URL for output
 	-u
 	  update cached screenshots
 	-v
@@ -36,12 +44,15 @@ import (
 )
 
 var (
+	testURL     = flag.String("test", "", "URL or file path to test")
+	wantURL     = flag.String("want", "", "URL or file path with expected results")
 	update      = flag.Bool("u", false, "update cached screenshots")
 	vars        = flag.String("v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	concurrency = flag.Int("c", (runtime.NumCPU()+1)/2, "number of testcases to run concurrently")
 	debuggerURL = flag.String("d", "", "chrome debugger url")
 	run         = flag.String("run", "", "regexp to match test")
 	outputURL   = flag.String("o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
+	headers     = flag.String("headers", "", "HTTP headers: comma-separated list of name:value")
 )
 
 func main() {
@@ -70,12 +81,20 @@ func main() {
 			parsedVars[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		}
 	}
+
+	var splitHeaders []string
+	if len(*headers) > 0 {
+		splitHeaders = strings.Split(*headers, ",")
+	}
 	opts := screentest.CheckOptions{
+		TestURL:        *testURL,
+		WantURL:        *wantURL,
 		Update:         *update,
 		MaxConcurrency: *concurrency,
 		Vars:           parsedVars,
 		DebuggerURL:    *debuggerURL,
 		OutputURL:      *outputURL,
+		Headers:        splitHeaders,
 	}
 	if *run != "" {
 		re, err := regexp.Compile(*run)

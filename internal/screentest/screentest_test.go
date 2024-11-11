@@ -30,7 +30,8 @@ func TestReadTests(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    interface{}
+		opts    CheckOptions
+		want    any
 		wantErr bool
 	}{
 		{
@@ -38,11 +39,16 @@ func TestReadTests(t *testing.T) {
 			args: args{
 				filename: "testdata/readtests.txt",
 			},
+			opts: CheckOptions{
+				Vars:    map[string]string{"Authorization": "Bearer token"},
+				TestURL: "https://go.dev",
+				WantURL: "http://localhost:6060",
+			},
 			want: []*testcase{
 				{
 					name:           "go.dev homepage",
 					urlA:           "https://go.dev/",
-					urlB:           "http://localhost:6060/go.dev/",
+					urlB:           "http://localhost:6060/",
 					status:         200,
 					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.a.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.b.png"),
@@ -50,11 +56,12 @@ func TestReadTests(t *testing.T) {
 					viewportWidth:  1536,
 					viewportHeight: 960,
 					screenshotType: fullScreenshot,
+					headers:        map[string]any{},
 				},
 				{
 					name:           "go.dev homepage 540x1080",
 					urlA:           "https://go.dev/",
-					urlB:           "http://localhost:6060/go.dev/",
+					urlB:           "http://localhost:6060/",
 					status:         200,
 					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.a.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.b.png"),
@@ -62,11 +69,12 @@ func TestReadTests(t *testing.T) {
 					viewportWidth:  540,
 					viewportHeight: 1080,
 					screenshotType: fullScreenshot,
+					headers:        map[string]any{},
 				},
 				{
 					name:           "about page",
 					urlA:           "https://go.dev/about",
-					urlB:           "http://localhost:6060/go.dev/about",
+					urlB:           "http://localhost:6060/about",
 					status:         200,
 					outImgA:        filepath.Join(cache, "readtests-txt", "about-page.a.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "about-page.b.png"),
@@ -74,15 +82,16 @@ func TestReadTests(t *testing.T) {
 					screenshotType: fullScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
+					headers:        map[string]any{},
 				},
 				{
-					name:              "pkg.go.dev homepage .go-Carousel",
-					urlA:              "https://pkg.go.dev/",
-					urlB:              "https://beta.pkg.go.dev/",
+					name:              "homepage element .go-Carousel",
+					urlA:              "https://go.dev/",
+					urlB:              "http://localhost:6060/",
 					status:            200,
-					outImgA:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.a.png"),
-					outImgB:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.b.png"),
-					outDiff:           filepath.Join(cache, "readtests-txt", "pkg-go-dev-homepage--go-Carousel.diff.png"),
+					outImgA:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.a.png"),
+					outImgB:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.b.png"),
+					outDiff:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.diff.png"),
 					screenshotType:    elementScreenshot,
 					screenshotElement: ".go-Carousel",
 					viewportWidth:     1536,
@@ -90,11 +99,12 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.Click(".go-Carousel-dot"),
 					},
+					headers: map[string]any{},
 				},
 				{
 					name:           "net package doc",
-					urlA:           "https://pkg.go.dev/net",
-					urlB:           "https://beta.pkg.go.dev/net",
+					urlA:           "https://go.dev/net",
+					urlB:           "http://localhost:6060/net",
 					status:         200,
 					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc.a.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc.b.png"),
@@ -105,11 +115,12 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
+					headers: map[string]any{},
 				},
 				{
 					name:           "net package doc 540x1080",
-					urlA:           "https://pkg.go.dev/net",
-					urlB:           "https://beta.pkg.go.dev/net",
+					urlA:           "https://go.dev/net",
+					urlB:           "http://localhost:6060/net",
 					status:         200,
 					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.a.png"),
 					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.b.png"),
@@ -120,6 +131,7 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
+					headers: map[string]any{},
 				},
 			},
 			wantErr: false,
@@ -129,13 +141,19 @@ func TestReadTests(t *testing.T) {
 			args: args{
 				filename: "testdata/readtests2.txt",
 			},
+			opts: CheckOptions{
+				TestURL:   "https://pkg.go.dev::cache",
+				WantURL:   "http://localhost:8080",
+				Headers:   []string{"Authorization:Bearer token"},
+				OutputURL: "gs://bucket/prefix",
+			},
 			want: []*testcase{
 				{
 					name:           "about",
 					urlA:           "https://pkg.go.dev/about",
 					cacheA:         true,
 					urlB:           "http://localhost:8080/about",
-					headers:        map[string]interface{}{"Authorization": "Bearer token"},
+					headers:        map[string]any{"Authorization": "Bearer token"},
 					status:         200,
 					gcsBucket:      true,
 					outImgA:        "gs://bucket/prefix/readtests2-txt/about.a.png",
@@ -168,7 +186,7 @@ func TestReadTests(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename, map[string]string{"Authorization": "Bearer token"}, nil, "")
+			got, err := readTests(tt.args.filename, tt.opts)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -203,6 +221,7 @@ func TestCheckHandler(t *testing.T) {
 	var tests = []struct {
 		name      string
 		args      args
+		opts      CheckOptions
 		wantErr   bool
 		wantFiles []string
 	}{
@@ -210,6 +229,10 @@ func TestCheckHandler(t *testing.T) {
 			name: "pass",
 			args: args{
 				glob: "testdata/pass.txt",
+			},
+			opts: CheckOptions{
+				TestURL: "https://go.dev",
+				WantURL: "https://go.dev",
 			},
 			wantErr: false,
 		},
@@ -232,6 +255,11 @@ func TestCheckHandler(t *testing.T) {
 				output: "testdata/screenshots/cached",
 				glob:   "testdata/cached.txt",
 			},
+			opts: CheckOptions{
+				TestURL:   "https://go.dev::cache",
+				WantURL:   "https://go.dev::cache",
+				OutputURL: "testdata/screenshots/cached",
+			},
 			wantFiles: []string{
 				filepath.Join("testdata", "screenshots", "cached", "homepage.a.png"),
 				filepath.Join("testdata", "screenshots", "cached", "homepage.b.png"),
@@ -240,7 +268,7 @@ func TestCheckHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckHandler(tt.args.glob, CheckOptions{}); (err != nil) != tt.wantErr {
+			if err := CheckHandler(tt.args.glob, tt.opts); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if len(tt.wantFiles) != 0 {

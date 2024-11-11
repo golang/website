@@ -1,6 +1,3 @@
-compare https://pkg.go.dev::cache http://localhost:8080
-header Authorization: {{.Authorization}}
-output gs://bucket/prefix
 windowsize 100x200
 
 test about
