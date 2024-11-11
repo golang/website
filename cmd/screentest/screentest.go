@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// TODO(jba): sleep directive
+// TODO(jba): specify percent of image that may differ
+// TODO(jba): remove ints function in template (see cmd/golangorg/testdata/screentest/relnotes.txt)
+
 package main
 
 import (
@@ -36,21 +40,22 @@ import (
 	"google.golang.org/api/iterator"
 )
 
-// run runs the test scripts matched by glob. If any errors are
-// encountered, run returns an error listing the problems.
-func run(ctx context.Context, glob string, opts options) error {
+// run compares testURL and wantURL using the test scripts in files and the options in opts.
+func run(ctx context.Context, testURL, wantURL string, files []string, opts options) error {
 	if opts.maxConcurrency < 1 {
 		opts.maxConcurrency = 1
 	}
 
 	now := time.Now()
 
-	files, err := filepath.Glob(glob)
-	if err != nil {
-		return fmt.Errorf("filepath.Glob(%q): %w", glob, err)
+	if testURL == "" {
+		return errors.New("missing URL or path to test")
+	}
+	if wantURL == "" {
+		return errors.New("missing URL or path with expected results")
 	}
 	if len(files) == 0 {
-		return fmt.Errorf("no files match %q", glob)
+		return errors.New("no files to run")
 	}
 	var cancel context.CancelFunc
 	if opts.debuggerURL != "" {
@@ -62,9 +67,10 @@ func run(ctx context.Context, glob string, opts options) error {
 		)...)
 	}
 	defer cancel()
+
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, opts)
+		tests, err := readTests(file, testURL, wantURL, opts)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
@@ -240,7 +246,7 @@ func (t *testcase) String() string {
 }
 
 // readTests parses the testcases from a text file.
-func readTests(file string, opts options) ([]*testcase, error) {
+func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -281,20 +287,23 @@ func readTests(file string, opts options) ([]*testcase, error) {
 	if err != nil {
 		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
 	}
-	if opts.testURL != "" {
-		originA = opts.testURL
-		if strings.HasSuffix(originA, cacheSuffix) {
-			originA = strings.TrimSuffix(originA, cacheSuffix)
-			cacheA = true
-		}
+	originA = testURL
+	if strings.HasSuffix(originA, cacheSuffix) {
+		originA = strings.TrimSuffix(originA, cacheSuffix)
+		cacheA = true
 	}
-	if opts.wantURL != "" {
-		originB = opts.wantURL
-		if strings.HasSuffix(originB, cacheSuffix) {
-			originB = strings.TrimSuffix(originB, cacheSuffix)
-			cacheB = true
-		}
+	if _, err := url.Parse(originA); err != nil {
+		return nil, fmt.Errorf("url.Parse(%q): %w", originA, err)
 	}
+	originB = wantURL
+	if strings.HasSuffix(originB, cacheSuffix) {
+		originB = strings.TrimSuffix(originB, cacheSuffix)
+		cacheB = true
+	}
+	if _, err := url.Parse(originB); err != nil {
+		return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
+	}
+
 	headers := map[string]any{}
 	hs, err := splitList(opts.headers)
 	if err != nil {
@@ -331,8 +340,8 @@ func readTests(file string, opts options) ([]*testcase, error) {
 		line = strings.TrimRight(line, " \t")
 		field, args := splitOneField(line)
 		field = strings.ToUpper(field)
-		if testName == "" && !slices.Contains([]string{"", "COMPARE", "TEST", "HEADER", "OUTPUT", "WINDOWSIZE"}, field) {
-			log.Printf("%s:%d: DEPRECATED: %q should only occur in a test", file, lineNo, strings.ToLower(field))
+		if testName == "" && !slices.Contains([]string{"", "TEST", "BLOCK", "WINDOWSIZE"}, field) {
+			return nil, fmt.Errorf("%s:%d: the %q directive should only occur in a test", file, lineNo, strings.ToLower(field))
 		}
 		switch field {
 		case "":
@@ -340,48 +349,10 @@ func readTests(file string, opts options) ([]*testcase, error) {
 			testName, pathname = "", ""
 			tasks = nil
 			status = http.StatusOK
-		case "COMPARE":
-			log.Printf("%s:%d: DEPRECATED: instead of 'compare', set the -test and -want flags", file, lineNo)
-			if originA != "" || originB != "" {
-				log.Printf("%s:%d: DEPRECATED: multiple 'compare's", file, lineNo)
-			}
-			origins := strings.Split(args, " ")
-			originA, originB = origins[0], origins[1]
-			cacheA, cacheB = false, false
-			if strings.HasSuffix(originA, cacheSuffix) {
-				originA = strings.TrimSuffix(originA, cacheSuffix)
-				cacheA = true
-			}
-			if strings.HasSuffix(originB, cacheSuffix) {
-				originB = strings.TrimSuffix(originB, cacheSuffix)
-				cacheB = true
-			}
-			if _, err := url.Parse(originA); err != nil {
-				return nil, fmt.Errorf("url.Parse(%q): %w", originA, err)
-			}
-			if _, err := url.Parse(originB); err != nil {
-				return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
-			}
-		case "HEADER":
-			log.Printf("%s:%d: DEPRECATED: instead of 'header', set the -headers flag", file, lineNo)
-			parts := strings.SplitN(args, ":", 2)
-			if len(parts) != 2 {
-				return nil, fmt.Errorf("invalid header %s on line %d", args, lineNo)
-			}
-			headers[strings.TrimSpace(parts[0])] = strings.TrimSpace(parts[1])
 		case "STATUS":
 			status, err = strconv.Atoi(args)
 			if err != nil {
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
-			}
-		case "OUTPUT":
-			log.Printf("DEPRECATED: 'output': provide -o on the command line")
-			if strings.HasPrefix(args, gcsScheme) {
-				gcsBucket = true
-			}
-			out, err = outDir(args, file)
-			if err != nil {
-				return nil, err
 			}
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
@@ -421,9 +392,6 @@ func readTests(file string, opts options) ([]*testcase, error) {
 		case "BLOCK":
 			blockedURLs = append(blockedURLs, strings.Fields(args)...)
 		case "CAPTURE":
-			if originA == "" || originB == "" {
-				return nil, fmt.Errorf("missing compare for capture on line %d", lineNo)
-			}
 			if pathname == "" {
 				return nil, fmt.Errorf("missing pathname for capture on line %d", lineNo)
 			}
@@ -475,6 +443,10 @@ func readTests(file string, opts options) ([]*testcase, error) {
 				test.name += fmt.Sprintf(" %s", args)
 				test.screenshotType = elementScreenshot
 				test.screenshotElement = args
+			case "":
+				// nothing to do
+			default:
+				return nil, fmt.Errorf("first argument to capture must be 'fullscreen', 'viewport' or 'element'")
 			}
 			outfile := filepath.Join(out, sanitize(test.name))
 			if gcsBucket {
@@ -533,7 +505,7 @@ func splitOneField(text string) (field, rest string) {
 	if i < 0 {
 		return text, ""
 	}
-	return text[:i], strings.TrimLeft(text[i:], " \t")
+	return text[:i], strings.TrimSpace(text[i:])
 }
 
 // splitDimensions parses a window dimension string into int values

@@ -20,7 +20,8 @@ import (
 
 func TestReadTests(t *testing.T) {
 	type args struct {
-		filename string
+		testURL, wantURL string
+		filename         string
 	}
 	d, err := os.UserCacheDir()
 	if err != nil {
@@ -37,12 +38,12 @@ func TestReadTests(t *testing.T) {
 		{
 			name: "readtests",
 			args: args{
+				testURL:  "https://go.dev",
+				wantURL:  "http://localhost:6060",
 				filename: "testdata/readtests.txt",
 			},
 			opts: options{
-				vars:    "Authorization:Bearer token",
-				testURL: "https://go.dev",
-				wantURL: "http://localhost:6060",
+				vars: "Authorization:Bearer token",
 			},
 			want: []*testcase{
 				{
@@ -139,11 +140,11 @@ func TestReadTests(t *testing.T) {
 		{
 			name: "readtests2",
 			args: args{
+				testURL:  "https://pkg.go.dev::cache",
+				wantURL:  "http://localhost:8080",
 				filename: "testdata/readtests2.txt",
 			},
 			opts: options{
-				testURL:   "https://pkg.go.dev::cache",
-				wantURL:   "http://localhost:8080",
 				headers:   "Authorization:Bearer token",
 				outputURL: "gs://bucket/prefix",
 			},
@@ -186,7 +187,7 @@ func TestReadTests(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename, tt.opts)
+			got, err := readTests(tt.args.filename, tt.args.testURL, tt.args.wantURL, tt.opts)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -207,11 +208,12 @@ func TestRun(t *testing.T) {
 	// Skip this test if Google Chrome is not installed.
 	_, err := exec.LookPath("google-chrome")
 	if err != nil {
-		t.Skip()
+		t.Skip("google-chrome not installed")
 	}
 	type args struct {
-		glob   string
-		output string
+		testURL, wantURL string
+		output           string
+		file             string
 	}
 	d, err := os.UserCacheDir()
 	if err != nil {
@@ -228,19 +230,20 @@ func TestRun(t *testing.T) {
 		{
 			name: "pass",
 			args: args{
-				glob: "testdata/pass.txt",
-			},
-			opts: options{
 				testURL: "https://go.dev",
 				wantURL: "https://go.dev",
+				file:    "testdata/pass.txt",
 			},
+			opts:    options{},
 			wantErr: false,
 		},
 		{
 			name: "fail",
 			args: args{
-				output: filepath.Join(cache, "fail-txt"),
-				glob:   "testdata/fail.txt",
+				testURL: "https://go.dev",
+				wantURL: "https://pkg.go.dev",
+				file:    "testdata/fail.txt",
+				output:  filepath.Join(cache, "fail-txt"),
 			},
 			wantErr: true,
 			wantFiles: []string{
@@ -252,12 +255,12 @@ func TestRun(t *testing.T) {
 		{
 			name: "cached",
 			args: args{
-				output: "testdata/screenshots/cached",
-				glob:   "testdata/cached.txt",
+				testURL: "https://go.dev::cache",
+				wantURL: "https://go.dev::cache",
+				file:    "testdata/cached.txt",
+				output:  "testdata/screenshots/cached",
 			},
 			opts: options{
-				testURL:   "https://go.dev::cache",
-				wantURL:   "https://go.dev::cache",
 				outputURL: "testdata/screenshots/cached",
 			},
 			wantFiles: []string{
@@ -268,7 +271,7 @@ func TestRun(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := run(context.Background(), tt.args.glob, tt.opts); (err != nil) != tt.wantErr {
+			if err := run(context.Background(), tt.args.testURL, tt.args.wantURL, []string{tt.args.file}, tt.opts); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if len(tt.wantFiles) != 0 {

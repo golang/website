@@ -9,15 +9,14 @@ The comparisons are driven by a script file in a format described below.
 
 # Usage
 
-	screentest [flags] [glob]
+	screentest [flags] testURL wantURL file ...
+
+The first two arguments are the URLs being tested and the URL of the desired result, respectively.
+The remaining arguments are script file pathnames.
 
 The flags are:
 
-	-test URL
-		  URL or path being tested. Required.
-	-want URL
-		  URL or path for expected results. Required.
-	-c
+	 -c
 		  Number of test cases to run concurrently.
 	-d
 		  URL of a Chrome websocket debugger. If omitted, screentest tries to find the
@@ -92,9 +91,17 @@ Use wait SELECTOR to wait for an element to appear.
 
 	wait [role="treeitem"][aria-expanded="true"]
 
+Use eval JS to evaluate JavaScript snippets to hide elements or prepare the page in
+some other way.
+
+	eval 'document.querySelector(".selector").remove();'
+	eval 'window.scrollTo({top: 0});'
+
 Use capture [SIZE] [ARG] to create a test case with the properties
-defined in the test case. If present, the first argument to capture should be one of
-'fullscreen', 'viewport' or 'element'.
+defined in the test case. If present, the first argument to capture must be one of
+'fullscreen', 'viewport' or 'element'. The optional second argument provides
+a viewport size. The defaults are 'viewport' with dimensions specified by the windowsize
+directive.
 
 	capture fullscreen 540x1080
 
@@ -102,13 +109,7 @@ When taking an element screenshot provide a selector.
 
 	capture element header
 
-Use eval JS to evaluate JavaScript snippets to hide elements or prepare the page in
-some other way.
-
-	eval 'document.querySelector(".selector").remove();'
-	eval 'window.scrollTo({top: 0});'
-
-Each capture command to creates a new test case for a single page.
+Each capture directive creates a new test case for a single page.
 
 	windowsize 1536x960
 
@@ -132,15 +133,12 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"path/filepath"
 	"runtime"
 )
 
 var flags options
 
 func init() {
-	flag.StringVar(&flags.testURL, "test", "", "URL or file path to test")
-	flag.StringVar(&flags.wantURL, "want", "", "URL or file path with expected results")
 	flag.BoolVar(&flags.update, "u", false, "update cached screenshots")
 	flag.StringVar(&flags.vars, "v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	flag.IntVar(&flags.maxConcurrency, "c", (runtime.NumCPU()+1)/2, "number of test cases to run concurrently")
@@ -151,10 +149,8 @@ func init() {
 }
 
 // options are the options for the program.
-// See the top command and the flag.XXXVar calls above for documentation.
+// See the top of this file and the flag.XXXVar calls above for documentation.
 type options struct {
-	testURL        string
-	wantURL        string
 	update         bool
 	vars           string
 	maxConcurrency int
@@ -166,22 +162,19 @@ type options struct {
 
 func main() {
 	flag.Usage = func() {
-		fmt.Printf("Usage: screentest [flags] [glob]\n")
+		fmt.Printf("usage: screentest [flags] testURL wantURL path ...\n")
+		fmt.Printf("\ttestURL is the URL or file path to be tested\n")
+		fmt.Printf("\twantURL is the URL or file path to compare it to\n")
+		fmt.Printf("\teach path is a script file to execute\n")
+
 		flag.PrintDefaults()
 	}
 	flag.Parse()
-	args := flag.Args()
-	// Require testdata glob when invoked as an installed command.
-	if len(args) != 1 && os.Args[0] == "screentest" {
+	if flag.NArg() < 3 {
 		flag.Usage()
-		os.Exit(1)
+		os.Exit(2)
 	}
-	glob := filepath.Join("cmd", "screentest", "testdata", "*")
-	if len(args) == 1 {
-		glob = args[0]
-	}
-
-	if err := run(context.Background(), glob, flags); err != nil {
+	if err := run(context.Background(), flag.Arg(0), flag.Arg(1), flag.Args()[2:], flags); err != nil {
 		log.Fatal(err)
 	}
 }
