@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// TODO(jba): incorporate the following comment into the top comment in main.go
+
 // Package screentest implements script-based visual diff testing
 // for webpages.
 //
@@ -89,7 +91,8 @@
 //	capture viewport
 //	capture viewport 540x1080
 //	capture viewport 400x1000
-package screentest
+
+package main
 
 import (
 	"bufio"

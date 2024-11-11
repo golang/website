@@ -39,8 +39,6 @@ import (
 	"regexp"
 	"runtime"
 	"strings"
-
-	"golang.org/x/website/internal/screentest"
 )
 
 var (
@@ -86,7 +84,7 @@ func main() {
 	if len(*headers) > 0 {
 		splitHeaders = strings.Split(*headers, ",")
 	}
-	opts := screentest.CheckOptions{
+	opts := CheckOptions{
 		TestURL:        *testURL,
 		WantURL:        *wantURL,
 		Update:         *update,
@@ -103,7 +101,7 @@ func main() {
 		}
 		opts.Filter = re.MatchString
 	}
-	if err := screentest.CheckHandler(glob, opts); err != nil {
+	if err := CheckHandler(glob, opts); err != nil {
 		log.Fatal(err)
 	}
 }
