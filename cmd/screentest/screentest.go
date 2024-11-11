@@ -2,96 +2,6 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// TODO(jba): incorporate the following comment into the top comment in main.go
-
-// Package screentest implements script-based visual diff testing
-// for webpages.
-//
-// # Scripts
-//
-// A script is a template file containing a sequence of testcases, separated by
-// blank lines. Lines beginning with # characters are ignored as comments. A
-// testcase is a sequence of lines describing actions to take on a page, along
-// with the dimensions of the screenshots to be compared. For example, here is
-// a trivial script:
-//
-//	 test about
-//		pathname /about
-//		capture fullscreen
-//
-// This script has a single testcase. The first line names the test.
-// The second line sets the page to visit at each origin. The last line
-// captures fullpage screenshots of the pages and generates a diff image if they
-// do not match.
-//
-// # Keywords
-//
-// Use windowsize WIDTHxHEIGHT to set the default window size for all testcases
-// that follow.
-//
-//	windowsize 540x1080
-//
-// Use block URL ... to set URL patterns to block. Wildcards ('*') are allowed.
-//
-//	block https://codecov.io/* https://travis-ci.com/*
-//
-// Values set with the keywords above apply to all testcases that follow. Values set with
-// the keywords below reset each time the test keyword is used.
-//
-// Use test NAME to create a name for the testcase.
-//
-//	test about page
-//
-// Use pathname PATH to set the page to visit at each origin. If no
-// test name is set, PATH will be used as the name for the test.
-//
-//	pathname /about
-//
-// Use status CODE to set an expected HTTP status code. The default is 200.
-//
-//	status 404
-//
-// Use click SELECTOR to add a click an element on the page.
-//
-//	click button.submit
-//
-// Use wait SELECTOR to wait for an element to appear.
-//
-//	wait [role="treeitem"][aria-expanded="true"]
-//
-// Use capture [SIZE] [ARG] to create a testcase with the properties
-// defined above.
-//
-//	capture fullscreen 540x1080
-//
-// When taking an element screenshot provide a selector.
-//
-//	capture element header
-//
-// Evaluate JavaScript snippets to hide elements or prepare the page in
-// some other way.
-//
-//	eval 'document.querySelector(".selector").remove();'
-//	eval 'window.scrollTo({top: 0});'
-//
-// Chain capture commands to create multiple testcases for a single page.
-//
-//	windowsize 1536x960
-//	compare https://go.dev::cache http://localhost:6060
-//	output testdata/snapshots
-//
-//	test homepage
-//	pathname /
-//	capture viewport
-//	capture viewport 540x1080
-//	capture viewport 400x1000
-//
-//	test about page
-//	pathname /about
-//	capture viewport
-//	capture viewport 540x1080
-//	capture viewport 400x1000
-
 package main
 
 import (
@@ -126,48 +36,15 @@ import (
 	"google.golang.org/api/iterator"
 )
 
-type CheckOptions struct {
-	// TestURL is the URL or path that is being tested.
-	TestURL string
-
-	// WantURL is the URL or path that the test is being compared with; the "goldens."
-	WantURL string
-
-	// Update is true if cached screenshots should be updated.
-	Update bool
-
-	// MaxConcurrency is the maximum number of testcases to run in parallel.
-	MaxConcurrency int
-
-	// Vars are accessible as values in the test script templates.
-	Vars map[string]string
-
-	// DebuggerURL is the URL to a chrome websocket debugger. If left empty
-	// screentest tries to find the Chrome executable on the system and starts
-	// a new instance.
-	DebuggerURL string
-
-	// If set, only tests for which Filter returns true are included.
-	// Filter is called on the test name.
-	Filter func(string) bool
-
-	// If set, where cached files and diffs are written to.
-	// May be a file: or gs: URL, or a file path.
-	OutputURL string
-
-	// Headers to add to HTTP(S) requests.
-	// Each header should be of the form "name:value".
-	Headers []string
-}
-
-// CheckHandler runs the test scripts matched by glob. If any errors are
-// encountered, CheckHandler returns an error listing the problems.
-func CheckHandler(glob string, opts CheckOptions) error {
-	if opts.MaxConcurrency < 1 {
-		opts.MaxConcurrency = 1
+// run runs the test scripts matched by glob. If any errors are
+// encountered, run returns an error listing the problems.
+func run(ctx context.Context, glob string, opts options) error {
+	if opts.maxConcurrency < 1 {
+		opts.maxConcurrency = 1
 	}
+
 	now := time.Now()
-	ctx := context.Background()
+
 	files, err := filepath.Glob(glob)
 	if err != nil {
 		return fmt.Errorf("filepath.Glob(%q): %w", glob, err)
@@ -176,8 +53,8 @@ func CheckHandler(glob string, opts CheckOptions) error {
 		return fmt.Errorf("no files match %q", glob)
 	}
 	var cancel context.CancelFunc
-	if opts.DebuggerURL != "" {
-		ctx, cancel = chromedp.NewRemoteAllocator(ctx, opts.DebuggerURL)
+	if opts.debuggerURL != "" {
+		ctx, cancel = chromedp.NewRemoteAllocator(ctx, opts.debuggerURL)
 	} else {
 		ctx, cancel = chromedp.NewExecAllocator(ctx, append(
 			chromedp.DefaultExecAllocatorOptions[:],
@@ -191,7 +68,7 @@ func CheckHandler(glob string, opts CheckOptions) error {
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
-		if len(tests) == 0 && opts.Filter == nil {
+		if len(tests) == 0 && opts.run == "" {
 			return fmt.Errorf("no tests found in %q", file)
 		}
 		if err := cleanOutput(ctx, tests); err != nil {
@@ -200,9 +77,9 @@ func CheckHandler(glob string, opts CheckOptions) error {
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
-		runConcurrently(len(tests), opts.MaxConcurrency, func(i int) {
+		runConcurrently(len(tests), opts.maxConcurrency, func(i int) {
 			tc := tests[i]
-			if err := tc.run(ctx, opts.Update); err != nil {
+			if err := tc.run(ctx, opts.update); err != nil {
 				if !hdr {
 					fmt.Fprintf(&buf, "%s\n\n", file)
 					hdr = true
@@ -218,17 +95,6 @@ func CheckHandler(glob string, opts CheckOptions) error {
 		return errors.New(buf.String())
 	}
 	return nil
-}
-
-type TestOpts struct {
-	// Update is true if cached screenshots should be updated.
-	Update bool
-
-	// Parallel runs t.Parallel for each testcase.
-	Parallel bool
-
-	// Vars are accessible as values in the test script templates.
-	Vars map[string]string
 }
 
 // cleanOutput clears the output locations of images not cached
@@ -374,7 +240,7 @@ func (t *testcase) String() string {
 }
 
 // readTests parses the testcases from a text file.
-func readTests(file string, opts CheckOptions) ([]*testcase, error) {
+func readTests(file string, opts options) ([]*testcase, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -389,8 +255,14 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 	if err != nil {
 		return nil, fmt.Errorf("template.ParseFiles(%q): %w", file, err)
 	}
+
+	parsedVars, err := splitList(opts.vars)
+	if err != nil {
+		return nil, err
+	}
+
 	var tmplout bytes.Buffer
-	if err := tmpl.Execute(&tmplout, opts.Vars); err != nil {
+	if err := tmpl.Execute(&tmplout, parsedVars); err != nil {
 		return nil, fmt.Errorf("tmpl.Execute(...): %w", err)
 	}
 	var tests []*testcase
@@ -409,31 +281,29 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 	if err != nil {
 		return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
 	}
-	if opts.TestURL != "" {
-		originA = opts.TestURL
+	if opts.testURL != "" {
+		originA = opts.testURL
 		if strings.HasSuffix(originA, cacheSuffix) {
 			originA = strings.TrimSuffix(originA, cacheSuffix)
 			cacheA = true
 		}
 	}
-	if opts.WantURL != "" {
-		originB = opts.WantURL
+	if opts.wantURL != "" {
+		originB = opts.wantURL
 		if strings.HasSuffix(originB, cacheSuffix) {
 			originB = strings.TrimSuffix(originB, cacheSuffix)
 			cacheB = true
 		}
 	}
-	headers := map[string]any{} // any to match chromedp's arg
-	for _, h := range opts.Headers {
-		name, value, ok := strings.Cut(h, ":")
-		name = strings.TrimSpace(name)
-		value = strings.TrimSpace(value)
-		if !ok || name == "" || value == "" {
-			return nil, fmt.Errorf("invalid header %q", h)
-		}
-		headers[name] = value
+	headers := map[string]any{}
+	hs, err := splitList(opts.headers)
+	if err != nil {
+		return nil, err
 	}
-	dir := cmp.Or(opts.OutputURL, filepath.Join(cache, "screentest"))
+	for k, v := range hs {
+		headers[k] = v
+	}
+	dir := cmp.Or(opts.outputURL, filepath.Join(cache, "screentest"))
 	out, err := outDir(dir, file)
 	if err != nil {
 		return nil, err
@@ -441,6 +311,16 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 	if strings.HasPrefix(out, gcsScheme) {
 		gcsBucket = true
 	}
+
+	filter := func(string) bool { return true }
+	if opts.run != "" {
+		re, err := regexp.Compile(opts.run)
+		if err != nil {
+			return nil, err
+		}
+		filter = re.MatchString
+	}
+
 	scan := bufio.NewScanner(&tmplout)
 	for scan.Scan() {
 		lineNo++
@@ -461,7 +341,7 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 			tasks = nil
 			status = http.StatusOK
 		case "COMPARE":
-			log.Printf("%s:%d: DEPRECATED: instead of 'compare', set the -test and -want flags, or the TestURL and WantURL options", file, lineNo)
+			log.Printf("%s:%d: DEPRECATED: instead of 'compare', set the -test and -want flags", file, lineNo)
 			if originA != "" || originB != "" {
 				log.Printf("%s:%d: DEPRECATED: multiple 'compare's", file, lineNo)
 			}
@@ -483,7 +363,7 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
 			}
 		case "HEADER":
-			log.Printf("%s:%d: DEPRECATED: instead of 'header', set the -headers flag, or the CheckOptions.Headers option", file, lineNo)
+			log.Printf("%s:%d: DEPRECATED: instead of 'header', set the -headers flag", file, lineNo)
 			parts := strings.SplitN(args, ":", 2)
 			if len(parts) != 2 {
 				return nil, fmt.Errorf("invalid header %s on line %d", args, lineNo)
@@ -495,7 +375,7 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
 		case "OUTPUT":
-			log.Printf("DEPRECATED: 'output': set CheckOptions.OutputURL, or provide -o on the command line")
+			log.Printf("DEPRECATED: 'output': provide -o on the command line")
 			if strings.HasPrefix(args, gcsScheme) {
 				gcsBucket = true
 			}
@@ -555,7 +435,7 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 			if err != nil {
 				return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
 			}
-			if opts.Filter != nil && !opts.Filter(testName) {
+			if !filter(testName) {
 				continue
 			}
 			test := &testcase{
@@ -612,6 +492,27 @@ func readTests(file string, opts CheckOptions) ([]*testcase, error) {
 		return nil, fmt.Errorf("scan.Err(): %v", err)
 	}
 	return tests, nil
+}
+
+// splitList splits a list of key:value pairs separated by commas.
+// Whitespace is trimmed around comma-separated elements, keys, and values.
+// Empty names are an error; empty values are OK.
+func splitList(s string) (map[string]string, error) {
+	s = strings.TrimSpace(s)
+	if len(s) == 0 {
+		return nil, nil
+	}
+	m := map[string]string{}
+	for _, h := range strings.Split(s, ",") {
+		name, value, ok := strings.Cut(h, ":")
+		if !ok || name == "" {
+			return nil, fmt.Errorf("invalid name:value pair: %q", h)
+		}
+		name = strings.TrimSpace(name)
+		value = strings.TrimSpace(value)
+		m[name] = value
+	}
+	return m, nil
 }
 
 // outDir gets a diff output directory for a given testfile.

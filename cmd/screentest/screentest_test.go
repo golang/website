@@ -30,7 +30,7 @@ func TestReadTests(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		opts    CheckOptions
+		opts    options
 		want    any
 		wantErr bool
 	}{
@@ -39,10 +39,10 @@ func TestReadTests(t *testing.T) {
 			args: args{
 				filename: "testdata/readtests.txt",
 			},
-			opts: CheckOptions{
-				Vars:    map[string]string{"Authorization": "Bearer token"},
-				TestURL: "https://go.dev",
-				WantURL: "http://localhost:6060",
+			opts: options{
+				vars:    "Authorization:Bearer token",
+				testURL: "https://go.dev",
+				wantURL: "http://localhost:6060",
 			},
 			want: []*testcase{
 				{
@@ -141,11 +141,11 @@ func TestReadTests(t *testing.T) {
 			args: args{
 				filename: "testdata/readtests2.txt",
 			},
-			opts: CheckOptions{
-				TestURL:   "https://pkg.go.dev::cache",
-				WantURL:   "http://localhost:8080",
-				Headers:   []string{"Authorization:Bearer token"},
-				OutputURL: "gs://bucket/prefix",
+			opts: options{
+				testURL:   "https://pkg.go.dev::cache",
+				wantURL:   "http://localhost:8080",
+				headers:   "Authorization:Bearer token",
+				outputURL: "gs://bucket/prefix",
 			},
 			want: []*testcase{
 				{
@@ -203,7 +203,7 @@ func TestReadTests(t *testing.T) {
 	}
 }
 
-func TestCheckHandler(t *testing.T) {
+func TestRun(t *testing.T) {
 	// Skip this test if Google Chrome is not installed.
 	_, err := exec.LookPath("google-chrome")
 	if err != nil {
@@ -221,7 +221,7 @@ func TestCheckHandler(t *testing.T) {
 	var tests = []struct {
 		name      string
 		args      args
-		opts      CheckOptions
+		opts      options
 		wantErr   bool
 		wantFiles []string
 	}{
@@ -230,9 +230,9 @@ func TestCheckHandler(t *testing.T) {
 			args: args{
 				glob: "testdata/pass.txt",
 			},
-			opts: CheckOptions{
-				TestURL: "https://go.dev",
-				WantURL: "https://go.dev",
+			opts: options{
+				testURL: "https://go.dev",
+				wantURL: "https://go.dev",
 			},
 			wantErr: false,
 		},
@@ -255,10 +255,10 @@ func TestCheckHandler(t *testing.T) {
 				output: "testdata/screenshots/cached",
 				glob:   "testdata/cached.txt",
 			},
-			opts: CheckOptions{
-				TestURL:   "https://go.dev::cache",
-				WantURL:   "https://go.dev::cache",
-				OutputURL: "testdata/screenshots/cached",
+			opts: options{
+				testURL:   "https://go.dev::cache",
+				wantURL:   "https://go.dev::cache",
+				outputURL: "testdata/screenshots/cached",
 			},
 			wantFiles: []string{
 				filepath.Join("testdata", "screenshots", "cached", "homepage.a.png"),
@@ -268,7 +268,7 @@ func TestCheckHandler(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CheckHandler(tt.args.glob, tt.opts); (err != nil) != tt.wantErr {
+			if err := run(context.Background(), tt.args.glob, tt.opts); (err != nil) != tt.wantErr {
 				t.Fatalf("CheckHandler() error = %v, wantErr %v", err, tt.wantErr)
 			}
 			if len(tt.wantFiles) != 0 {
