@@ -132,3 +132,6 @@ and thriving community. Fifteen years ago we could only dream of the
 success that Go has become and the community that has developed around
 Go. Thank you to everyone who has played a part, large and small. We
 wish you all the best in the coming year.
+
+_Thanks to Renee French for drawing and animating the gopher doing the “15 puzzle” above._
+
