@@ -4,15 +4,18 @@
 
 /*
 Screentest compares images of rendered web pages.
-It compares images obtained from two sources, one to test and one for the expected result.
-The comparisons are driven by a script file in a format described below.
+It compares images obtained from two sources, one to test and one for the expected
+result. The comparisons are driven by a script file in a format described below.
 
 # Usage
 
 	screentest [flags] testURL wantURL file ...
 
-The first two arguments are the URLs being tested and the URL of the desired result, respectively.
-The remaining arguments are script file pathnames.
+The first two arguments are the URLs being tested and the URL of the desired result,
+respectively. The remaining arguments are script file pathnames.
+
+The URLs can be actual URLs for http:, https:, file: or gs: schemes, or they
+can be slash-separated file paths (even on Windows).
 
 The flags are:
 
@@ -25,12 +28,17 @@ The flags are:
 		  HTTP(S) headers to send with each request, as a comma-separated list of name:value.
 	-run REGEXP
 		  Run only tests matching regexp.
-	-o
-		  URL or path for output files. If omitted, files are written to a subdirectory of the
-		  user's cache directory.
-	-u
-		  Update cached screenshots.
-	-v
+	 -o
+		  URL or slash-separated path for output files. If omitted, files are written
+		  to a subdirectory of the user's cache directory. Each test file is given
+		  its own directory, so test names in two files can be identical. But the directory
+		  name is the basename of the test file with the extension removed. Conflicting
+		  file names will overwrite each other.
+	 -u
+		  Instead of comparing screenshots, use the test screenshots to update the
+		  want screenshots. This only makes sense if wantURL is a storage location
+		  like a file path or GCS bucket.
+	 -v
 		  Variables provided to script templates as comma separated KEY:VALUE pairs.
 
 # Scripts
@@ -139,7 +147,7 @@ import (
 var flags options
 
 func init() {
-	flag.BoolVar(&flags.update, "u", false, "update cached screenshots")
+	flag.BoolVar(&flags.update, "u", false, "update want with test")
 	flag.StringVar(&flags.vars, "v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	flag.IntVar(&flags.maxConcurrency, "c", (runtime.NumCPU()+1)/2, "number of test cases to run concurrently")
 	flag.StringVar(&flags.debuggerURL, "d", "", "chrome debugger URL")

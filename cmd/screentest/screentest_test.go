@@ -6,7 +6,9 @@ package main
 
 import (
 	"context"
+	"flag"
 	"fmt"
+	"image"
 	"net/http"
 	"os"
 	"os/exec"
@@ -16,18 +18,16 @@ import (
 	"github.com/chromedp/chromedp"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
+	"github.com/n7olkachev/imgdiff/pkg/imgdiff"
 )
+
+var bucketPath = flag.String("bucketpath", "", "bucket/prefix to test GCS I/O")
 
 func TestReadTests(t *testing.T) {
 	type args struct {
 		testURL, wantURL string
 		filename         string
 	}
-	d, err := os.UserCacheDir()
-	if err != nil {
-		t.Errorf("os.UserCacheDir(): %v", err)
-	}
-	cache := filepath.Join(d, "screentest")
 	tests := []struct {
 		name    string
 		args    args
@@ -48,12 +48,12 @@ func TestReadTests(t *testing.T) {
 			want: []*testcase{
 				{
 					name:           "go.dev homepage",
-					urlA:           "https://go.dev/",
-					urlB:           "http://localhost:6060/",
+					testURL:        "https://go.dev/",
+					wantURL:        "http://localhost:6060/",
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "go-dev-homepage.diff.png"),
+					testPath:       "readtests/go-dev-homepage.got.png",
+					wantPath:       "readtests/go-dev-homepage.want.png",
+					diffPath:       "readtests/go-dev-homepage.diff.png",
 					viewportWidth:  1536,
 					viewportHeight: 960,
 					screenshotType: fullScreenshot,
@@ -61,12 +61,12 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					name:           "go.dev homepage 540x1080",
-					urlA:           "https://go.dev/",
-					urlB:           "http://localhost:6060/",
+					testURL:        "https://go.dev/",
+					wantURL:        "http://localhost:6060/",
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "go-dev-homepage-540x1080.diff.png"),
+					testPath:       "readtests/go-dev-homepage-540x1080.got.png",
+					wantPath:       "readtests/go-dev-homepage-540x1080.want.png",
+					diffPath:       "readtests/go-dev-homepage-540x1080.diff.png",
 					viewportWidth:  540,
 					viewportHeight: 1080,
 					screenshotType: fullScreenshot,
@@ -74,12 +74,12 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					name:           "about page",
-					urlA:           "https://go.dev/about",
-					urlB:           "http://localhost:6060/about",
+					testURL:        "https://go.dev/about",
+					wantURL:        "http://localhost:6060/about",
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "about-page.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "about-page.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "about-page.diff.png"),
+					testPath:       "readtests/about-page.got.png",
+					wantPath:       "readtests/about-page.want.png",
+					diffPath:       "readtests/about-page.diff.png",
 					screenshotType: fullScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
@@ -87,12 +87,12 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					name:              "homepage element .go-Carousel",
-					urlA:              "https://go.dev/",
-					urlB:              "http://localhost:6060/",
+					testURL:           "https://go.dev/",
+					wantURL:           "http://localhost:6060/",
 					status:            200,
-					outImgA:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.a.png"),
-					outImgB:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.b.png"),
-					outDiff:           filepath.Join(cache, "readtests-txt", "homepage-element--go-Carousel.diff.png"),
+					testPath:          "readtests/homepage-element--go-Carousel.got.png",
+					wantPath:          "readtests/homepage-element--go-Carousel.want.png",
+					diffPath:          "readtests/homepage-element--go-Carousel.diff.png",
 					screenshotType:    elementScreenshot,
 					screenshotElement: ".go-Carousel",
 					viewportWidth:     1536,
@@ -104,12 +104,12 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					name:           "net package doc",
-					urlA:           "https://go.dev/net",
-					urlB:           "http://localhost:6060/net",
+					testURL:        "https://go.dev/net",
+					wantURL:        "http://localhost:6060/net",
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "net-package-doc.diff.png"),
+					testPath:       "readtests/net-package-doc.got.png",
+					wantPath:       "readtests/net-package-doc.want.png",
+					diffPath:       "readtests/net-package-doc.diff.png",
 					screenshotType: viewportScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
@@ -120,12 +120,12 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					name:           "net package doc 540x1080",
-					urlA:           "https://go.dev/net",
-					urlB:           "http://localhost:6060/net",
+					testURL:        "https://go.dev/net",
+					wantURL:        "http://localhost:6060/net",
 					status:         200,
-					outImgA:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.a.png"),
-					outImgB:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.b.png"),
-					outDiff:        filepath.Join(cache, "readtests-txt", "net-package-doc-540x1080.diff.png"),
+					testPath:       "readtests/net-package-doc-540x1080.got.png",
+					wantPath:       "readtests/net-package-doc-540x1080.want.png",
+					diffPath:       "readtests/net-package-doc-540x1080.diff.png",
 					screenshotType: viewportScreenshot,
 					viewportWidth:  540,
 					viewportHeight: 1080,
@@ -140,7 +140,7 @@ func TestReadTests(t *testing.T) {
 		{
 			name: "readtests2",
 			args: args{
-				testURL:  "https://pkg.go.dev::cache",
+				testURL:  "some/directory",
 				wantURL:  "http://localhost:8080",
 				filename: "testdata/readtests2.txt",
 			},
@@ -150,37 +150,33 @@ func TestReadTests(t *testing.T) {
 			},
 			want: []*testcase{
 				{
-					name:           "about",
-					urlA:           "https://pkg.go.dev/about",
-					cacheA:         true,
-					urlB:           "http://localhost:8080/about",
-					headers:        map[string]any{"Authorization": "Bearer token"},
-					status:         200,
-					gcsBucket:      true,
-					outImgA:        "gs://bucket/prefix/readtests2-txt/about.a.png",
-					outImgB:        "gs://bucket/prefix/readtests2-txt/about.b.png",
-					outDiff:        "gs://bucket/prefix/readtests2-txt/about.diff.png",
-					screenshotType: viewportScreenshot,
-					viewportWidth:  100,
-					viewportHeight: 200,
+					name:            "about",
+					wantURL:         "http://localhost:8080/about",
+					headers:         map[string]any{"Authorization": "Bearer token"},
+					status:          200,
+					testPath:        "readtests2/about.got.png",
+					wantPath:        "readtests2/about.want.png",
+					diffPath:        "readtests2/about.diff.png",
+					screenshotType:  viewportScreenshot,
+					viewportWidth:   100,
+					viewportHeight:  200,
+					testImageReader: &dirImageReadWriter{dir: "some/directory"},
 				},
 				{
 					name:           "eval",
-					urlA:           "https://pkg.go.dev/eval",
-					cacheA:         true,
-					urlB:           "http://localhost:8080/eval",
+					wantURL:        "http://localhost:8080/eval",
 					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					status:         200,
-					gcsBucket:      true,
-					outImgA:        "gs://bucket/prefix/readtests2-txt/eval.a.png",
-					outImgB:        "gs://bucket/prefix/readtests2-txt/eval.b.png",
-					outDiff:        "gs://bucket/prefix/readtests2-txt/eval.diff.png",
+					testPath:       "readtests2/eval.got.png",
+					wantPath:       "readtests2/eval.want.png",
+					diffPath:       "readtests2/eval.diff.png",
 					screenshotType: viewportScreenshot,
 					viewportWidth:  100,
 					viewportHeight: 200,
 					tasks: chromedp.Tasks{
 						chromedp.Evaluate("console.log('Hello, world!')", nil),
 					},
+					testImageReader: &dirImageReadWriter{dir: "some/directory"},
 				},
 			},
 		},
@@ -194,9 +190,10 @@ func TestReadTests(t *testing.T) {
 			}
 			if diff := cmp.Diff(tt.want, got,
 				cmp.AllowUnexported(testcase{}),
-				cmpopts.IgnoreFields(testcase{}, "output", "tasks"),
+				cmpopts.IgnoreFields(testcase{}, "output", "tasks", "failImageWriter"),
 				cmp.AllowUnexported(chromedp.Selector{}),
 				cmpopts.IgnoreFields(chromedp.Selector{}, "by", "wait", "after"),
+				cmp.AllowUnexported(dirImageReadWriter{}),
 			); diff != "" {
 				t.Errorf("readTests() mismatch (-want +got):\n%s", diff)
 			}
@@ -243,29 +240,26 @@ func TestRun(t *testing.T) {
 				testURL: "https://go.dev",
 				wantURL: "https://pkg.go.dev",
 				file:    "testdata/fail.txt",
-				output:  filepath.Join(cache, "fail-txt"),
+				output:  filepath.Join(cache, "fail"),
 			},
 			wantErr: true,
 			wantFiles: []string{
-				filepath.Join(cache, "fail-txt", "homepage.a.png"),
-				filepath.Join(cache, "fail-txt", "homepage.b.png"),
-				filepath.Join(cache, "fail-txt", "homepage.diff.png"),
+				filepath.Join(cache, "fail", "homepage.diff.png"),
+				filepath.Join(cache, "fail", "homepage.got.png"),
+				filepath.Join(cache, "fail", "homepage.want.png"),
 			},
 		},
 		{
-			name: "cached",
+			name: "want stored",
 			args: args{
-				testURL: "https://go.dev::cache",
-				wantURL: "https://go.dev::cache",
+				testURL: "https://go.dev",
+				wantURL: "testdata/screenshots",
 				file:    "testdata/cached.txt",
 				output:  "testdata/screenshots/cached",
 			},
-			opts: options{
-				outputURL: "testdata/screenshots/cached",
-			},
+			opts: options{update: true},
 			wantFiles: []string{
-				filepath.Join("testdata", "screenshots", "cached", "homepage.a.png"),
-				filepath.Join("testdata", "screenshots", "cached", "homepage.b.png"),
+				filepath.Join("testdata", "screenshots", "cached", "homepage.want.png"),
 			},
 		},
 	}
@@ -297,13 +291,12 @@ func TestHeaders(t *testing.T) {
 	go headerServer()
 	tc := &testcase{
 		name:              "go.dev homepage",
-		urlA:              "http://localhost:6061",
-		cacheA:            true,
-		urlB:              "http://localhost:6061",
+		testURL:           "http://localhost:6061",
+		wantURL:           "http://localhost:6061",
 		headers:           map[string]interface{}{"Authorization": "Bearer token"},
-		outImgA:           filepath.Join("testdata", "screenshots", "headers", "headers-test.a.png"),
-		outImgB:           filepath.Join("testdata", "screenshots", "headers", "headers-test.b.png"),
-		outDiff:           filepath.Join("testdata", "screenshots", "headers", "headers-test.diff.png"),
+		testPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.got.png"),
+		wantPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.want.png"),
+		diffPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.diff.png"),
 		viewportWidth:     1536,
 		viewportHeight:    960,
 		screenshotType:    elementScreenshot,
@@ -325,117 +318,6 @@ func headerServer() error {
 		</html>`, req.Header.Get("Authorization"))
 	})
 	return http.ListenAndServe(fmt.Sprintf(":%d", 6061), mux)
-}
-
-func Test_gcsParts(t *testing.T) {
-	type args struct {
-		filename string
-	}
-	tests := []struct {
-		name       string
-		args       args
-		wantBucket string
-		wantObject string
-	}{
-		{
-			args: args{
-				filename: "gs://bucket-name/object-name",
-			},
-			wantBucket: "bucket-name",
-			wantObject: "object-name",
-		},
-		{
-			args: args{
-				filename: "gs://bucket-name/subdir/object-name",
-			},
-			wantBucket: "bucket-name",
-			wantObject: "subdir/object-name",
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			gotBucket, gotObject := gcsParts(tt.args.filename)
-			if gotBucket != tt.wantBucket {
-				t.Errorf("gcsParts() gotBucket = %v, want %v", gotBucket, tt.wantBucket)
-			}
-			if gotObject != tt.wantObject {
-				t.Errorf("gcsParts() gotObject = %v, want %v", gotObject, tt.wantObject)
-			}
-		})
-	}
-}
-
-func Test_cleanDirs(t *testing.T) {
-	f, err := os.Create("testdata/screenshots/cached/should-delete.a.png")
-	if err != nil {
-		t.Fatal(err)
-	}
-	if err := f.Close(); err != nil {
-		t.Fatal(err)
-	}
-	type args struct {
-		dirs      map[string]bool
-		keepFiles map[string]bool
-		safeExts  map[string]bool
-	}
-	tests := []struct {
-		name      string
-		args      args
-		wantFiles map[string]bool
-	}{
-		{
-			name: "keeps files in keepFiles",
-			args: args{
-				dirs: map[string]bool{
-					"testdata/screenshots/cached":  true,
-					"testdata/screenshots/headers": true,
-					"testdata":                     true,
-				},
-				keepFiles: map[string]bool{
-					"testdata/screenshots/cached/homepage.a.png":      true,
-					"testdata/screenshots/cached/homepage.b.png":      true,
-					"testdata/screenshots/headers/headers-test.a.png": true,
-				},
-				safeExts: map[string]bool{
-					"a.png": true,
-					"b.png": true,
-				},
-			},
-			wantFiles: map[string]bool{
-				"testdata/screenshots/cached/homepage.a.png":      true,
-				"testdata/screenshots/headers/headers-test.a.png": true,
-			},
-		},
-		{
-			name: "keeps files without matching extension",
-			args: args{
-				dirs: map[string]bool{
-					"testdata": true,
-				},
-				safeExts: map[string]bool{
-					"a.png": true,
-				},
-			},
-			wantFiles: map[string]bool{
-				"testdata/cached.txt":    true,
-				"testdata/fail.txt":      true,
-				"testdata/pass.txt":      true,
-				"testdata/readtests.txt": true,
-			},
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if err := cleanDirs(tt.args.dirs, tt.args.keepFiles, tt.args.safeExts); err != nil {
-				t.Fatal(err)
-			}
-			for file := range tt.wantFiles {
-				if _, err := os.Stat(file); err != nil {
-					t.Errorf("cleanDirs() error = %v, wantErr %v", err, nil)
-				}
-			}
-		})
-	}
 }
 
 func TestSplitDimensions(t *testing.T) {
@@ -460,6 +342,95 @@ func TestSplitDimensions(t *testing.T) {
 	} {
 		if _, _, err := splitDimensions(in); err == nil {
 			t.Errorf("%q: got nil, want error", in)
+		}
+	}
+}
+
+func TestReadWriters(t *testing.T) {
+	img := image.NewGray(image.Rect(0, 0, 10, 10))
+	ctx := context.Background()
+	path := "sub/file.png"
+
+	test := func(t *testing.T, rw imageReadWriter) {
+		if err := rw.writeImage(ctx, path, img); err != nil {
+			t.Fatal(err)
+		}
+		got, err := rw.readImage(ctx, path)
+		if err != nil {
+			t.Fatal(err)
+		}
+		result := imgdiff.Diff(img, got, &imgdiff.Options{})
+		if !result.Equal {
+			t.Error("images not equal")
+		}
+	}
+
+	t.Run("dir", func(t *testing.T) {
+		test(t, &dirImageReadWriter{t.TempDir()})
+	})
+	t.Run("gcs", func(t *testing.T) {
+		if *bucketPath == "" {
+			t.Skip("missing -bucketpath")
+		}
+		rw, err := newGCSImageReadWriter(ctx, "gs://"+*bucketPath)
+		if err != nil {
+			t.Fatal(err)
+		}
+		fmt.Printf("%+v\n", rw)
+		test(t, rw)
+	})
+}
+
+func TestNewImageReadWriter(t *testing.T) {
+	for _, tc := range []struct {
+		in         string
+		wantDir    string // implies dirImageReadWriter
+		wantPrefix string // implies gcsImageReadWriter
+	}{
+		{
+			in:      "unix/path",
+			wantDir: "unix/path",
+		},
+		{
+			in:      "unix/path/../dir",
+			wantDir: "unix/dir",
+		},
+		{
+			in:      "c:/windows/path",
+			wantDir: "c:/windows/path",
+		},
+		{
+			in:      "c:/windows/../dir",
+			wantDir: "c:/dir",
+		},
+		{
+			in:      "file:///file/path",
+			wantDir: "/file/path",
+		},
+		{
+			in:         "gs://bucket/prefix",
+			wantPrefix: "prefix",
+		},
+		{
+			in: "http://example.com",
+		},
+	} {
+		got, err := newImageReadWriter(context.Background(), tc.in)
+		if err != nil {
+			t.Fatal(err)
+		}
+		if tc.wantDir != "" {
+			d, ok := got.(*dirImageReadWriter)
+			if !ok || d.dir != tc.wantDir {
+				t.Errorf("%s: got %+v, want dirImageReadWriter{dir: %q}", tc.in, got, tc.wantDir)
+			}
+		} else if tc.wantPrefix != "" {
+			g, ok := got.(*gcsImageReadWriter)
+			if !ok || g.prefix != tc.wantPrefix {
+				t.Errorf("%s: got %+v, want gcsImageReadWriter{prefix: %q}", tc.in, got, tc.wantPrefix)
+			}
+		} else if got != nil {
+			t.Errorf("%s: got %+v, want nil", tc.in, got)
 		}
 	}
 }
