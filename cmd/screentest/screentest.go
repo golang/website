@@ -5,9 +5,8 @@
 // TODO(jba): sleep directive
 // TODO(jba): specify percent of image that may differ
 // TODO(jba): remove ints function in template (see cmd/golangorg/testdata/screentest/relnotes.txt)
-// TODO(jba): update only tests matching a regexp
-// TODO(jba): write index.html to outdir with a nice view of all the failures (and remember
-//            to clean it up)
+// TODO(jba): write index.html to outdir with a nice view of all the failures
+// TODO(jba): debug -run regexp matching
 
 package main
 
@@ -44,10 +43,6 @@ import (
 
 // run compares testURL and wantURL using the test scripts in files and the options in opts.
 func run(ctx context.Context, testURL, wantURL string, files []string, opts options) error {
-	if opts.maxConcurrency < 1 {
-		opts.maxConcurrency = 1
-	}
-
 	now := time.Now()
 
 	if testURL == "" {
@@ -56,6 +51,13 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 	if wantURL == "" {
 		return errors.New("missing URL or path with expected results")
 	}
+	if _, err := url.Parse(testURL); err != nil {
+		return err
+	}
+	if _, err := url.Parse(wantURL); err != nil {
+		return err
+	}
+
 	if len(files) == 0 {
 		return errors.New("no files to run")
 	}
@@ -79,7 +81,7 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 	for _, file := range files {
 		tests, err := readTests(file, testURL, wantURL, c)
 		if err != nil {
-			return fmt.Errorf("readTestdata(%q): %w", file, err)
+			return err
 		}
 		if len(tests) == 0 && opts.run == "" {
 			return fmt.Errorf("no tests found in %q", file)
@@ -92,6 +94,10 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
+
+		if opts.maxConcurrency < 1 {
+			opts.maxConcurrency = 1
+		}
 		var hdr bool
 		runConcurrently(len(tests), opts.maxConcurrency, func(i int) {
 			tc := tests[i]
@@ -217,47 +223,28 @@ func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c
 
 // readTests parses the testcases from a text file.
 func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err error) {
-	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
-		"ints": func(start, end int) []int {
-			var out []int
-			for i := start; i < end; i++ {
-				out = append(out, i)
-			}
-			return out
-		},
-	})
-
-	if _, err := tmpl.ParseFiles(file); err != nil {
-		return nil, fmt.Errorf("could not parse template: %w", err)
-	}
-
-	var tmplout bytes.Buffer
-	if err := tmpl.Execute(&tmplout, common.vars); err != nil {
-		return nil, fmt.Errorf("tmpl.Execute(...): %w", err)
+	// Test files are templates, so first execute them.
+	data, err := executeFileTemplate(file, common.vars)
+	if err != nil {
+		return nil, err
 	}
 	var tests []*testcase
+	testNames := map[string]bool{}
 	var (
 		testName, pathname string
 		tasks              chromedp.Tasks
-		originA, originB   string
 		status             int = http.StatusOK
 		width, height      int
 		lineNo             int
 		blockedURLs        []string
+		// URLs for HTTP(s) requests
+		testRequestURL string
+		wantRequestURL string
 	)
-
-	originA = testURL
-	if _, err := url.Parse(originA); err != nil {
-		return nil, fmt.Errorf("url.Parse(%q): %w", originA, err)
-	}
-	originB = wantURL
-	if _, err := url.Parse(originB); err != nil {
-		return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
-	}
 
 	defer wrapf(&err, "%s:%d", file, lineNo)
 
-	scan := bufio.NewScanner(&tmplout)
+	scan := bufio.NewScanner(bytes.NewReader(data))
 	for scan.Scan() {
 		lineNo++
 		line := strings.TrimSpace(scan.Text())
@@ -276,81 +263,73 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			testName, pathname = "", ""
 			tasks = nil
 			status = http.StatusOK
+			testRequestURL, wantRequestURL = "", ""
+
 		case "STATUS":
 			status, err = strconv.Atoi(args)
 			if err != nil {
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
+
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
 			if err != nil {
 				return nil, err
 			}
+
 		case "TEST":
 			testName = args
-			for _, t := range tests {
-				if t.name == testName {
-					return nil, fmt.Errorf("duplicate test name %q", testName)
-				}
+			if testNames[testName] {
+				return nil, fmt.Errorf("duplicate test name %q", testName)
 			}
+			testNames[testName] = true
+
 		case "PATHNAME":
-			if _, err := url.Parse(originA + args); err != nil {
-				return nil, fmt.Errorf("url.Parse(%q): %w", originA+args, err)
-			}
-			if _, err := url.Parse(originB + args); err != nil {
-				return nil, fmt.Errorf("url.Parse(%q): %w", originB+args, err)
-			}
 			pathname = args
-			if testName == "" {
-				testName = pathname[1:]
-			}
-			for _, t := range tests {
-				if t.name == testName {
-					return nil, fmt.Errorf(
-						"duplicate test with pathname %q on line %d", pathname, lineNo)
+			// If there is no imageReader, then assume the URL is an http(s) URL.
+			if common.testImageReader == nil {
+				u, err := url.JoinPath(testURL, pathname)
+				if err != nil {
+					return nil, err
 				}
+				testRequestURL = u
 			}
+			if common.wantImageReadWriter == nil {
+				u, err := url.JoinPath(wantURL, pathname)
+				if err != nil {
+					return nil, err
+				}
+				wantRequestURL = u
+			}
+
 		case "CLICK":
 			tasks = append(tasks, chromedp.Click(args))
+
 		case "WAIT":
 			tasks = append(tasks, chromedp.WaitReady(args))
+
 		case "EVAL":
 			tasks = append(tasks, chromedp.Evaluate(args, nil))
+
 		case "BLOCK":
 			blockedURLs = append(blockedURLs, strings.Fields(args)...)
+
 		case "CAPTURE":
 			if pathname == "" {
 				return nil, fmt.Errorf("missing pathname for capture on line %d", lineNo)
-			}
-			var urlA, urlB string
-			if common.testImageReader == nil {
-				u, err := url.Parse(originA + pathname)
-				if err != nil {
-					return nil, fmt.Errorf("url.Parse(%q): %w", originA+pathname, err)
-				}
-				urlA = u.String()
-
-			}
-			if common.wantImageReadWriter == nil {
-				u, err := url.Parse(originB + pathname)
-				if err != nil {
-					return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
-				}
-				urlB = u.String()
 			}
 			if !common.filter(testName) {
 				continue
 			}
 			test := &testcase{
-				common:      common,
-				name:        testName,
-				tasks:       tasks,
-				testURL:     urlA,
-				wantURL:     urlB,
-				status:      status,
-				blockedURLs: blockedURLs,
-				// Default to viewportScreenshot
-				screenshotType: viewportScreenshot,
+				common:         common,
+				name:           testName,
+				tasks:          tasks,
+				status:         status,
+				testURL:        testRequestURL,
+				wantURL:        wantRequestURL,
+				blockedURLs:    blockedURLs,
+				screenshotType: viewportScreenshot, // default to viewportScreenshot
 				viewportWidth:  width,
 				viewportHeight: height,
 			}
@@ -380,21 +359,43 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			default:
 				return nil, fmt.Errorf("first argument to capture must be 'fullscreen', 'viewport' or 'element'")
 			}
-
 			filePath := filepath.ToSlash(fileDir(file))
 			fnPath := path.Join(filePath, sanitize(test.name))
 			test.testPath = fnPath + ".got.png"
 			test.wantPath = fnPath + ".want.png"
 			test.diffPath = fnPath + ".diff.png"
+
 		default:
-			// We should never reach this error.
-			return nil, fmt.Errorf("invalid syntax on line %d: %q", lineNo, line)
+			return nil, fmt.Errorf("unknown directive %q", field)
 		}
 	}
 	if err := scan.Err(); err != nil {
-		return nil, fmt.Errorf("scan.Err(): %v", err)
+		return nil, err
 	}
 	return tests, nil
+}
+
+// executeFileTemplate reads file and executes it with text/template, passing vars as the argument.
+func executeFileTemplate(file string, vars map[string]string) ([]byte, error) {
+	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
+		"ints": func(start, end int) []int {
+			var out []int
+			for i := start; i < end; i++ {
+				out = append(out, i)
+			}
+			return out
+		},
+	})
+
+	if _, err := tmpl.ParseFiles(file); err != nil {
+		return nil, fmt.Errorf("%s: could not parse template: %w", file, err)
+	}
+
+	var buf bytes.Buffer
+	if err := tmpl.Execute(&buf, vars); err != nil {
+		return nil, err
+	}
+	return buf.Bytes(), nil
 }
 
 // fileDir returns the output directory for a test filename, which is the filename
