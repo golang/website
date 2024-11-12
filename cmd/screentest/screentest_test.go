@@ -5,25 +5,31 @@
 package main
 
 import (
+	stdcmp "cmp"
 	"context"
+	"errors"
 	"flag"
 	"fmt"
 	"image"
 	"net/http"
 	"os"
 	"os/exec"
+	"path"
 	"path/filepath"
 	"testing"
+	"time"
 
+	"cloud.google.com/go/storage"
 	"github.com/chromedp/chromedp"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/n7olkachev/imgdiff/pkg/imgdiff"
 )
 
-var bucketPath = flag.String("bucketpath", "", "bucket/prefix to test GCS I/O")
+var bucket = flag.String("bucket", "", "bucket to test GCS I/O")
 
 func TestReadTests(t *testing.T) {
+	ctx := context.Background()
 	type args struct {
 		testURL, wantURL string
 		filename         string
@@ -47,6 +53,9 @@ func TestReadTests(t *testing.T) {
 			},
 			want: []*testcase{
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:           "go.dev homepage",
 					testURL:        "https://go.dev/",
 					wantURL:        "http://localhost:6060/",
@@ -57,9 +66,11 @@ func TestReadTests(t *testing.T) {
 					viewportWidth:  1536,
 					viewportHeight: 960,
 					screenshotType: fullScreenshot,
-					headers:        map[string]any{},
 				},
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:           "go.dev homepage 540x1080",
 					testURL:        "https://go.dev/",
 					wantURL:        "http://localhost:6060/",
@@ -70,9 +81,11 @@ func TestReadTests(t *testing.T) {
 					viewportWidth:  540,
 					viewportHeight: 1080,
 					screenshotType: fullScreenshot,
-					headers:        map[string]any{},
 				},
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:           "about page",
 					testURL:        "https://go.dev/about",
 					wantURL:        "http://localhost:6060/about",
@@ -83,9 +96,11 @@ func TestReadTests(t *testing.T) {
 					screenshotType: fullScreenshot,
 					viewportWidth:  1536,
 					viewportHeight: 960,
-					headers:        map[string]any{},
 				},
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:              "homepage element .go-Carousel",
 					testURL:           "https://go.dev/",
 					wantURL:           "http://localhost:6060/",
@@ -100,9 +115,11 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.Click(".go-Carousel-dot"),
 					},
-					headers: map[string]any{},
 				},
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:           "net package doc",
 					testURL:        "https://go.dev/net",
 					wantURL:        "http://localhost:6060/net",
@@ -116,9 +133,11 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
-					headers: map[string]any{},
 				},
 				{
+					common: common{
+						vars: map[string]string{"Authorization": "Bearer token"},
+					},
 					name:           "net package doc 540x1080",
 					testURL:        "https://go.dev/net",
 					wantURL:        "http://localhost:6060/net",
@@ -132,7 +151,6 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.WaitReady(`[role="treeitem"][aria-expanded="true"]`),
 					},
-					headers: map[string]any{},
 				},
 			},
 			wantErr: false,
@@ -150,22 +168,27 @@ func TestReadTests(t *testing.T) {
 			},
 			want: []*testcase{
 				{
-					name:            "about",
-					wantURL:         "http://localhost:8080/about",
-					headers:         map[string]any{"Authorization": "Bearer token"},
-					status:          200,
-					testPath:        "readtests2/about.got.png",
-					wantPath:        "readtests2/about.want.png",
-					diffPath:        "readtests2/about.diff.png",
-					screenshotType:  viewportScreenshot,
-					viewportWidth:   100,
-					viewportHeight:  200,
-					testImageReader: &dirImageReadWriter{dir: "some/directory"},
+					common: common{
+						testImageReader: &dirImageReadWriter{dir: "some/directory"},
+						headers:         map[string]any{"Authorization": "Bearer token"},
+					},
+					name:           "about",
+					wantURL:        "http://localhost:8080/about",
+					status:         200,
+					testPath:       "readtests2/about.got.png",
+					wantPath:       "readtests2/about.want.png",
+					diffPath:       "readtests2/about.diff.png",
+					screenshotType: viewportScreenshot,
+					viewportWidth:  100,
+					viewportHeight: 200,
 				},
 				{
+					common: common{
+						testImageReader: &dirImageReadWriter{dir: "some/directory"},
+						headers:         map[string]interface{}{"Authorization": "Bearer token"},
+					},
 					name:           "eval",
 					wantURL:        "http://localhost:8080/eval",
-					headers:        map[string]interface{}{"Authorization": "Bearer token"},
 					status:         200,
 					testPath:       "readtests2/eval.got.png",
 					wantPath:       "readtests2/eval.want.png",
@@ -176,21 +199,23 @@ func TestReadTests(t *testing.T) {
 					tasks: chromedp.Tasks{
 						chromedp.Evaluate("console.log('Hello, world!')", nil),
 					},
-					testImageReader: &dirImageReadWriter{dir: "some/directory"},
 				},
 			},
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, err := readTests(tt.args.filename, tt.args.testURL, tt.args.wantURL, tt.opts)
+			comm, err := commonValues(ctx, tt.args.testURL, tt.args.wantURL, tt.opts)
+			got, err := readTests(tt.args.filename, tt.args.testURL, tt.args.wantURL, comm)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
 			}
 			if diff := cmp.Diff(tt.want, got,
 				cmp.AllowUnexported(testcase{}),
-				cmpopts.IgnoreFields(testcase{}, "output", "tasks", "failImageWriter"),
+				cmpopts.IgnoreFields(testcase{}, "output", "tasks"),
+				cmp.AllowUnexported(common{}),
+				cmpopts.IgnoreFields(common{}, "failImageWriter", "filter"),
 				cmp.AllowUnexported(chromedp.Selector{}),
 				cmpopts.IgnoreFields(chromedp.Selector{}, "by", "wait", "after"),
 				cmp.AllowUnexported(dirImageReadWriter{}),
@@ -290,10 +315,12 @@ func TestHeaders(t *testing.T) {
 	}
 	go headerServer()
 	tc := &testcase{
+		common: common{
+			headers: map[string]interface{}{"Authorization": "Bearer token"},
+		},
 		name:              "go.dev homepage",
 		testURL:           "http://localhost:6061",
 		wantURL:           "http://localhost:6061",
-		headers:           map[string]interface{}{"Authorization": "Bearer token"},
 		testPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.got.png"),
 		wantPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.want.png"),
 		diffPath:          filepath.Join("testdata", "screenshots", "headers", "headers-test.diff.png"),
@@ -349,13 +376,14 @@ func TestSplitDimensions(t *testing.T) {
 func TestReadWriters(t *testing.T) {
 	img := image.NewGray(image.Rect(0, 0, 10, 10))
 	ctx := context.Background()
-	path := "sub/file.png"
+	dir := "filedir"
+	fpath := dir + "/file.png"
 
 	test := func(t *testing.T, rw imageReadWriter) {
-		if err := rw.writeImage(ctx, path, img); err != nil {
+		if err := rw.writeImage(ctx, fpath, img); err != nil {
 			t.Fatal(err)
 		}
-		got, err := rw.readImage(ctx, path)
+		got, err := rw.readImage(ctx, fpath)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -363,21 +391,44 @@ func TestReadWriters(t *testing.T) {
 		if !result.Equal {
 			t.Error("images not equal")
 		}
+
+		t.Logf("removing %q", dir)
+		if err := rw.rmdir(ctx, dir); err != nil {
+			t.Fatal(err)
+		}
 	}
 
 	t.Run("dir", func(t *testing.T) {
-		test(t, &dirImageReadWriter{t.TempDir()})
+		tmp := t.TempDir()
+		deldir := filepath.Join(tmp, dir)
+		test(t, &dirImageReadWriter{tmp})
+		if _, err := os.Stat(deldir); !errors.Is(err, os.ErrNotExist) {
+			t.Errorf("directory %s still exists", deldir)
+		}
 	})
 	t.Run("gcs", func(t *testing.T) {
-		if *bucketPath == "" {
-			t.Skip("missing -bucketpath")
+		if *bucket == "" {
+			t.Skip("missing -bucket")
 		}
-		rw, err := newGCSImageReadWriter(ctx, "gs://"+*bucketPath)
+		// Construct a prefix (directory) that does not already exist.
+		prefix := fmt.Sprintf("screentest-test-%s-%s",
+			stdcmp.Or(os.Getenv("USER"), "unknown"), time.Now().Format("2006-01-02-03-04-05"))
+
+		rw, err := newGCSImageReadWriter(ctx, fmt.Sprintf("gs://%s/%s", *bucket, prefix))
 		if err != nil {
 			t.Fatal(err)
 		}
-		fmt.Printf("%+v\n", rw)
+		t.Logf("testing with %s", rw.url)
 		test(t, rw)
+
+		client, err := storage.NewClient(ctx)
+		if err != nil {
+			t.Fatal(err)
+		}
+		deldir := path.Join(rw.prefix, dir)
+		if _, err := client.Bucket(*bucket).Object(deldir).Attrs(ctx); !errors.Is(err, storage.ErrObjectNotExist) {
+			t.Errorf("object %s still exists", deldir)
+		}
 	})
 }
 

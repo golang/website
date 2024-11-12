@@ -39,6 +39,7 @@ import (
 	"github.com/chromedp/chromedp"
 	"github.com/n7olkachev/imgdiff/pkg/imgdiff"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/api/iterator"
 )
 
 // run compares testURL and wantURL using the test scripts in files and the options in opts.
@@ -69,16 +70,26 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 	}
 	defer cancel()
 
+	c, err := commonValues(ctx, testURL, wantURL, opts)
+	if err != nil {
+		return err
+	}
+
 	var buf bytes.Buffer
 	for _, file := range files {
-		tests, err := readTests(file, testURL, wantURL, opts)
+		tests, err := readTests(file, testURL, wantURL, c)
 		if err != nil {
 			return fmt.Errorf("readTestdata(%q): %w", file, err)
 		}
 		if len(tests) == 0 && opts.run == "" {
 			return fmt.Errorf("no tests found in %q", file)
 		}
-		// TODO(jba): clean output directory
+
+		// Remove fail directory and all contents, to avoid confusion with previous runs.
+		if err := c.failImageWriter.rmdir(ctx, fileDir(file)); err != nil {
+			return err
+		}
+
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
 		defer cancel()
 		var hdr bool
@@ -115,33 +126,97 @@ const (
 	elementScreenshot
 )
 
+// common contains values common to all test files.
+type common struct {
+	testImageReader     imageReader       // read images for comparison or update
+	wantImageReadWriter imageReadWriter   // read images for comparison, write them for update
+	failImageWriter     imageWriter       // write images for failed tests
+	headers             map[string]any    // any to match chromedp arg
+	filter              func(string) bool // filter out tests by name, from -run flag
+	vars                map[string]string // variables for template execution
+}
+
+// testcase is a test case.
 type testcase struct {
-	name                string // name of the test (arg to 'test' directive)
-	tasks               chromedp.Tasks
-	testURL, wantURL    string         // URL to visit if the command-line arg is http/https
-	testPath, wantPath  string         // slash-separated path to use if the command-line arg is file, gs or a path
-	diffPath            string         // output path for failed tests
-	headers             map[string]any // to match chromedp arg
-	status              int
-	viewportWidth       int
-	viewportHeight      int
-	screenshotType      screenshotType
-	screenshotElement   string
-	blockedURLs         []string
-	output              bytes.Buffer
-	testImageReader     imageReader     // read images for comparison or update
-	wantImageReadWriter imageReadWriter // read images for comparison, write them for update
-	failImageWriter     imageWriter     // write images for failed tests
+	common
+	name               string // name of the test (arg to 'test' directive)
+	tasks              chromedp.Tasks
+	testURL, wantURL   string // URL to visit if the command-line arg is http/https
+	testPath, wantPath string // slash-separated path to use if the command-line arg is file, gs or a path
+	diffPath           string // output path for failed tests
+	status             int
+	viewportWidth      int
+	viewportHeight     int
+	screenshotType     screenshotType
+	screenshotElement  string
+	blockedURLs        []string
+	output             bytes.Buffer
 }
 
 func (t *testcase) String() string {
 	return t.name
 }
 
-// readTests parses the testcases from a text file.
-func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error) {
-	ctx := context.Background()
+// commonValues returns values common to all test files.
+func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c common, err error) {
+	// The test/want image readers/writers are relative to the test/want URLs, so
+	// they are common to all files. See test/wantPath for the file- and test-relative components.
+	// They may be nil if a URL has an http or https scheme.
+	c.testImageReader, err = newImageReadWriter(ctx, testURL)
+	if err != nil {
+		return common{}, err
+	}
+	c.wantImageReadWriter, err = newImageReadWriter(ctx, wantURL)
+	if err != nil {
+		return common{}, err
+	}
 
+	outPath := opts.outputURL
+	if outPath == "" {
+		cache, err := os.UserCacheDir()
+		if err != nil {
+			return common{}, fmt.Errorf("os.UserCacheDir(): %w", err)
+		}
+		outPath = path.Join(filepath.ToSlash(cache), "screentest")
+	}
+	c.failImageWriter, err = newImageReadWriter(ctx, outPath)
+	if err != nil {
+		return common{}, err
+	}
+	if c.failImageWriter == nil {
+		return common{}, fmt.Errorf("cannot write images to %q", outPath)
+	}
+
+	hs, err := splitList(opts.headers)
+	if err != nil {
+		return common{}, err
+	}
+	if len(hs) > 0 {
+		c.headers = map[string]any{}
+		for k, v := range hs {
+			c.headers[k] = v
+		}
+	}
+
+	c.filter = func(string) bool { return true }
+	if opts.run != "" {
+		re, err := regexp.Compile(opts.run)
+		if err != nil {
+			return common{}, err
+		}
+		c.filter = re.MatchString
+	}
+
+	c.vars, err = splitList(opts.vars)
+	if err != nil {
+		return common{}, err
+	}
+
+	return c, nil
+}
+
+// readTests parses the testcases from a text file.
+func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
 		"ints": func(start, end int) []int {
 			var out []int
@@ -152,18 +227,12 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 		},
 	})
 
-	_, err := tmpl.ParseFiles(file)
-	if err != nil {
-		return nil, fmt.Errorf("template.ParseFiles(%q): %w", file, err)
-	}
-
-	parsedVars, err := splitList(opts.vars)
-	if err != nil {
-		return nil, err
+	if _, err := tmpl.ParseFiles(file); err != nil {
+		return nil, fmt.Errorf("could not parse template: %w", err)
 	}
 
 	var tmplout bytes.Buffer
-	if err := tmpl.Execute(&tmplout, parsedVars); err != nil {
+	if err := tmpl.Execute(&tmplout, common.vars); err != nil {
 		return nil, fmt.Errorf("tmpl.Execute(...): %w", err)
 	}
 	var tests []*testcase
@@ -177,18 +246,6 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 		blockedURLs        []string
 	)
 
-	// The test/want image readers/writers are relative to the test/want URLs, so
-	// they are common to all files. See test/wantPath for the file- and test-relative components.
-	// They may be nil if a URL has an http or https scheme.
-	testImageReader, err := newImageReadWriter(ctx, testURL)
-	if err != nil {
-		return nil, err
-	}
-	wantImageReadWriter, err := newImageReadWriter(ctx, wantURL)
-	if err != nil {
-		return nil, err
-	}
-
 	originA = testURL
 	if _, err := url.Parse(originA); err != nil {
 		return nil, fmt.Errorf("url.Parse(%q): %w", originA, err)
@@ -198,39 +255,7 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 		return nil, fmt.Errorf("url.Parse(%q): %w", originB, err)
 	}
 
-	headers := map[string]any{}
-	hs, err := splitList(opts.headers)
-	if err != nil {
-		return nil, err
-	}
-	for k, v := range hs {
-		headers[k] = v
-	}
-
-	outPath := opts.outputURL
-	if outPath == "" {
-		cache, err := os.UserCacheDir()
-		if err != nil {
-			return nil, fmt.Errorf("os.UserCacheDir(): %w", err)
-		}
-		outPath = path.Join(filepath.ToSlash(cache), "screentest")
-	}
-	failImageWriter, err := newImageReadWriter(ctx, outPath)
-	if err != nil {
-		return nil, err
-	}
-	if failImageWriter == nil {
-		return nil, fmt.Errorf("cannot write images to %q", outPath)
-	}
-
-	filter := func(string) bool { return true }
-	if opts.run != "" {
-		re, err := regexp.Compile(opts.run)
-		if err != nil {
-			return nil, err
-		}
-		filter = re.MatchString
-	}
+	defer wrapf(&err, "%s:%d", file, lineNo)
 
 	scan := bufio.NewScanner(&tmplout)
 	for scan.Scan() {
@@ -243,7 +268,7 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 		field, args := splitOneField(line)
 		field = strings.ToUpper(field)
 		if testName == "" && !slices.Contains([]string{"", "TEST", "BLOCK", "WINDOWSIZE"}, field) {
-			return nil, fmt.Errorf("%s:%d: the %q directive should only occur in a test", file, lineNo, strings.ToLower(field))
+			return nil, fmt.Errorf("the %q directive should only occur in a test", strings.ToLower(field))
 		}
 		switch field {
 		case "":
@@ -265,7 +290,7 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 			testName = args
 			for _, t := range tests {
 				if t.name == testName {
-					return nil, fmt.Errorf("%s:%d: duplicate test name %q", file, lineNo, testName)
+					return nil, fmt.Errorf("duplicate test name %q", testName)
 				}
 			}
 		case "PATHNAME":
@@ -298,7 +323,7 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 				return nil, fmt.Errorf("missing pathname for capture on line %d", lineNo)
 			}
 			var urlA, urlB string
-			if testImageReader == nil {
+			if common.testImageReader == nil {
 				u, err := url.Parse(originA + pathname)
 				if err != nil {
 					return nil, fmt.Errorf("url.Parse(%q): %w", originA+pathname, err)
@@ -306,31 +331,28 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 				urlA = u.String()
 
 			}
-			if wantImageReadWriter == nil {
+			if common.wantImageReadWriter == nil {
 				u, err := url.Parse(originB + pathname)
 				if err != nil {
 					return nil, fmt.Errorf("url.Parse(%q): %w", originB+pathname, err)
 				}
 				urlB = u.String()
 			}
-			if !filter(testName) {
+			if !common.filter(testName) {
 				continue
 			}
 			test := &testcase{
+				common:      common,
 				name:        testName,
 				tasks:       tasks,
 				testURL:     urlA,
 				wantURL:     urlB,
-				headers:     headers,
 				status:      status,
 				blockedURLs: blockedURLs,
 				// Default to viewportScreenshot
-				screenshotType:      viewportScreenshot,
-				viewportWidth:       width,
-				viewportHeight:      height,
-				failImageWriter:     failImageWriter,
-				testImageReader:     testImageReader,
-				wantImageReadWriter: wantImageReadWriter,
+				screenshotType: viewportScreenshot,
+				viewportWidth:  width,
+				viewportHeight: height,
 			}
 			tests = append(tests, test)
 			field, args := splitOneField(args)
@@ -359,8 +381,7 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 				return nil, fmt.Errorf("first argument to capture must be 'fullscreen', 'viewport' or 'element'")
 			}
 
-			fileBase := path.Base(filepath.ToSlash(file))
-			filePath := strings.TrimSuffix(fileBase, path.Ext(fileBase))
+			filePath := filepath.ToSlash(fileDir(file))
 			fnPath := path.Join(filePath, sanitize(test.name))
 			test.testPath = fnPath + ".got.png"
 			test.wantPath = fnPath + ".want.png"
@@ -374,6 +395,13 @@ func readTests(file, testURL, wantURL string, opts options) ([]*testcase, error)
 		return nil, fmt.Errorf("scan.Err(): %v", err)
 	}
 	return tests, nil
+}
+
+// fileDir returns the output directory for a test filename, which is the filename
+// base without the extension.
+func fileDir(filename string) string {
+	base := filepath.Base(filename)
+	return strings.TrimSuffix(base, filepath.Ext(base))
 }
 
 // splitList splits a list of key:value pairs separated by commas.
@@ -648,6 +676,7 @@ type imageReader interface {
 // An imageWriter writes images to slash-separated paths.
 type imageWriter interface {
 	writeImage(ctx context.Context, path string, img image.Image) error
+	rmdir(ctx context.Context, path string) error
 	path() string // return the slash-separated path that this was created with
 }
 
@@ -716,6 +745,10 @@ func (rw *dirImageReadWriter) writeImage(_ context.Context, path string, img ima
 	return png.Encode(f, img)
 }
 
+func (rw *dirImageReadWriter) rmdir(_ context.Context, path string) error {
+	return os.RemoveAll(rw.nativePathname(path))
+}
+
 func (rw *dirImageReadWriter) nativePathname(pth string) string {
 	spath := path.Join(rw.dir, pth)
 	return filepath.FromSlash(spath)
@@ -773,10 +806,39 @@ func (rw *gcsImageReadWriter) writeImage(ctx context.Context, pth string, img im
 	return w.Close()
 }
 
+func (rw *gcsImageReadWriter) rmdir(ctx context.Context, pth string) (err error) {
+	defer wrapf(&err, "rmdir %s", path.Join(rw.url, pth))
+
+	prefix := path.Join(rw.prefix, pth)
+	if !strings.HasSuffix(prefix, "/") {
+		prefix += "/"
+	}
+	it := rw.bucket.Objects(ctx, &storage.Query{
+		Prefix:                   prefix,
+		Projection:               storage.ProjectionNoACL,
+		IncludeTrailingDelimiter: true,
+	})
+	for {
+		attrs, err := it.Next()
+		if err == iterator.Done {
+			break
+		}
+		if err != nil {
+			return fmt.Errorf("iterating over %s: %w", rw.url, err)
+		}
+		err = rw.bucket.Object(attrs.Name).Delete(ctx)
+		if err != nil && !errors.Is(err, storage.ErrObjectNotExist) {
+			return fmt.Errorf("deleting %q from bucket %q: %w", attrs.Name, attrs.Bucket, err)
+		}
+	}
+	return nil
+}
+
 func (rw *gcsImageReadWriter) path() string { return rw.url }
 
 func (rw *gcsImageReadWriter) objectName(pth string) string {
-	return path.Join(rw.prefix, sanitize(pth))
+	// The relevant parts of pth have already been sanitized.
+	return path.Join(rw.prefix, pth)
 }
 
 // runConcurrently calls f on each integer from 0 to n-1,
