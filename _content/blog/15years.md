@@ -9,7 +9,10 @@ tags:
 summary: Happy 15th birthday, Go!
 ---
 
-<img src="/doc/gopher/fifteen.gif" height="245" width="245" align="right" style="margin: 0 0 1em 1em;">
+<div style="float:right; margin: 0 0 1em 1em; width: 245px">
+<img src="/doc/gopher/fifteen.gif" height="245" width="245"><br/>
+<i>Thanks to Renee French for drawing and animating the gopher doing the “15 puzzle”.</i>
+</div>
 
 Happy birthday, Go\!
 
@@ -108,11 +111,12 @@ can and, following the example of `math/rand/v2`, considering where
 new APIs can significantly enhance the ease of writing safe and secure
 Go code.
 
-We're working on making Go better for AI and AI better for Go by
-enhancing its capabilities in AI infrastructure, applications, and
+We're working on making Go better for AI—and AI better for Go—by
+enhancing Go's capabilities in AI infrastructure, applications, and
 developer assistance. Go is a great language for building production
-systems and we want it to be a great language for [building production
-*AI* systems](/blog/llmpowered), too. Go's dependability as a language
+systems, and we want it to be a great language for [building
+production *AI* systems](/blog/llmpowered), too.
+Go's dependability as a language
 for Cloud infrastructure has made it a natural choice for
 [LLM](https://ollama.com/) [infrastructure](https://weaviate.io/)
 [as](https://localai.io/) [well](https://zilliz.com/what-is-milvus).
@@ -132,6 +136,4 @@ and thriving community. Fifteen years ago we could only dream of the
 success that Go has become and the community that has developed around
 Go. Thank you to everyone who has played a part, large and small. We
 wish you all the best in the coming year.
-
-_Thanks to Renee French for drawing and animating the gopher doing the “15 puzzle” above._
 
