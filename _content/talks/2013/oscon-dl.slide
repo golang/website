@@ -295,7 +295,7 @@ $ curl -H "Range: bytes=5-" http://localhost:8080
 * groupcache
 
 - memcached alternative / replacement
-- [[http://github.com/golang/groupcache]]
+- [[https://github.com/golang/groupcache]]
 - _library_ that is both a client & server
 - connects to its peers
 - coordinated cache filling (no thundering herds on miss)

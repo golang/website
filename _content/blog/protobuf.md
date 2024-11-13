@@ -42,8 +42,8 @@ from the standard library to the [x-go-binding](http://code.google.com/p/x-go-bi
 and work has begun on a [Freetype](http://www.freetype.org/) port,
 [freetype-go](http://code.google.com/p/freetype-go/).
 Other popular third-party projects include the lightweight web framework
-[web.go](http://github.com/hoisie/web.go),
-and the Go GTK bindings [gtk-go](http://github.com/mattn/go-gtk).
+[web.go](https://github.com/hoisie/web),
+and the Go GTK bindings [gtk-go](https://github.com/mattn/go-gtk).
 
 We wish to encourage the development of other useful packages by the open source community.
 If you're working on something, don't keep it to yourself - let us know

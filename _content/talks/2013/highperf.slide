@@ -93,7 +93,7 @@ This talk was presented at Google I/O in May 2013.
 * Appstats
 
 - Appstats traces API RPCs, shows timeline
-- [[http://github.com/mjibson/appstats][github.com/mjibson/appstats]]
+- `github.com/mjibson/appstats`
 
 - Gopher Mart baseline:
 .image highperf/appstats1.png
@@ -222,7 +222,7 @@ Batching:
 - [[/][go.dev]]
 - [[http://developers.google.com/appengine/docs/go/][developers.google.com/appengine/docs/go/]]
 - [[/s/io13-ae-talk][go.dev/s/io13-ae-talk]] (this talk, plus gophermart app)
-- [[http://github.com/mjibson/appstats][github.com/mjibson/appstats]]
+- `github.com/mjibson/appstats`
 
 More Go things:
 

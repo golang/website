@@ -25,7 +25,7 @@ Why define a new encoding? It's a lot of work and redundant at that.
 Why not just use one of the existing formats? Well,
 for one thing, we do!
 Go has [packages](/pkg/) supporting all the encodings
-just mentioned (the [protocol buffer package](http://github.com/golang/protobuf)
+just mentioned (the [protocol buffer package](https://github.com/golang/protobuf)
 is in a separate repository but it's one of the most frequently downloaded).
 And for many purposes, including communicating with tools and systems written in other languages,
 they're the right choice.
