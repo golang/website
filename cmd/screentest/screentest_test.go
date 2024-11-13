@@ -163,8 +163,8 @@ func TestReadTests(t *testing.T) {
 				filename: "testdata/readtests2.txt",
 			},
 			opts: options{
-				headers:   "Authorization:Bearer token",
-				outputURL: "gs://bucket/prefix",
+				headers:      "Authorization:Bearer token",
+				outputDirURL: "gs://bucket/prefix",
 			},
 			want: []*testcase{
 				{

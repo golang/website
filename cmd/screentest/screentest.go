@@ -177,20 +177,20 @@ func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c
 		return common{}, err
 	}
 
-	outPath := opts.outputURL
-	if outPath == "" {
+	outDirPath := opts.outputDirURL
+	if outDirPath == "" {
 		cache, err := os.UserCacheDir()
 		if err != nil {
 			return common{}, fmt.Errorf("os.UserCacheDir(): %w", err)
 		}
-		outPath = path.Join(filepath.ToSlash(cache), "screentest")
+		outDirPath = path.Join(filepath.ToSlash(cache), "screentest")
 	}
-	c.failImageWriter, err = newImageReadWriter(ctx, outPath)
+	c.failImageWriter, err = newImageReadWriter(ctx, outDirPath)
 	if err != nil {
 		return common{}, err
 	}
 	if c.failImageWriter == nil {
-		return common{}, fmt.Errorf("cannot write images to %q", outPath)
+		return common{}, fmt.Errorf("cannot write images to %q", outDirPath)
 	}
 
 	hs, err := splitList(opts.headers)

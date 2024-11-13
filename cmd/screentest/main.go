@@ -151,7 +151,7 @@ func init() {
 	flag.StringVar(&flags.vars, "v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	flag.IntVar(&flags.maxConcurrency, "c", (runtime.NumCPU()+1)/2, "number of test cases to run concurrently")
 	flag.StringVar(&flags.debuggerURL, "d", "", "chrome debugger URL")
-	flag.StringVar(&flags.outputURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
+	flag.StringVar(&flags.outputDirURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 	flag.StringVar(&flags.headers, "headers", "", "HTTP headers: comma-separated list of name:value")
 	flag.StringVar(&flags.run, "run", "", "regexp to match test")
 }
@@ -164,7 +164,7 @@ type options struct {
 	maxConcurrency int
 	debuggerURL    string
 	run            string
-	outputURL      string
+	outputDirURL   string
 	headers        string
 }
 
