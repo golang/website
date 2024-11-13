@@ -288,7 +288,7 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
 
-		case "PATHNAME":
+		case "PATH":
 			if test == nil {
 				return nil, errors.New("directive must be in a test")
 			}
@@ -331,7 +331,7 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 				return nil, errors.New("directive must be in a test")
 			}
 			if test.path == "" {
-				return nil, errors.New("missing pathname")
+				return nil, errors.New("missing path")
 			}
 			test.screenshotType = viewportScreenshot // default to viewportScreenshot
 			test.viewportWidth = width

@@ -1,11 +1,11 @@
 windowsize 100x200
 
 test about
-pathname /about
+path /about
 capture
 
 test eval
-pathname /eval
+path /eval
 eval console.log('hello, world!')
 capture
 

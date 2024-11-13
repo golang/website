@@ -1,21 +1,21 @@
 windowsize 1536x960
 
 test go.dev homepage
-pathname /
+path /
 capture fullscreen
 capture fullscreen 540x1080
 
 test about page
-pathname /about
+path /about
 capture fullscreen
 
 test homepage element
-pathname /
+path /
 click .go-Carousel-dot
 capture element .go-Carousel
 
 test net package doc
-pathname /net
+path /net
 wait [role="treeitem"][aria-expanded="true"]
 capture viewport
 capture viewport 540x1080

@@ -12,7 +12,7 @@ result. The comparisons are driven by a script file in a format described below.
 	screentest [flags] testURL wantURL file ...
 
 The first two arguments are the URLs being tested and the URL of the desired result,
-respectively. The remaining arguments are script file pathnames.
+respectively. The remaining arguments are script file paths.
 
 The URLs can be actual URLs for http:, https:, file: or gs: schemes, or they
 can be slash-separated file paths (even on Windows).
@@ -57,7 +57,7 @@ with the dimensions of the screenshots to be compared. For example, here is
 a trivial script:
 
 	test about
-	pathname /about
+	path /about
 	capture fullscreen
 
 This script has a single test case. The first line names the test.
@@ -83,9 +83,9 @@ Use test NAME to create a name for the test case.
 
 	test about page
 
-Use pathname PATH to set the page to visit at each origin.
+Use path PATH to set the page to visit at each origin.
 
-	pathname /about
+	path /about
 
 Use status CODE to set an expected HTTP status code. The default is 200.
 
@@ -122,13 +122,13 @@ Each capture directive creates a new test case for a single page.
 	windowsize 1536x960
 
 	test homepage
-	pathname /
+	path /
 	capture viewport
 	capture viewport 540x1080
 	capture viewport 400x1000
 
 	test about page
-	pathname /about
+	path /about
 	capture viewport
 	capture viewport 540x1080
 	capture viewport 400x1000

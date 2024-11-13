@@ -1,72 +1,72 @@
 windowsize 1536x960
 
 test homepage
-pathname /
+path /
 capture fullscreen
 capture fullscreen 540x1080
 
 test why go case studies
-pathname /solutions/case-studies
+path /solutions/case-studies
 capture fullscreen
 capture fullscreen 540x1080
 
 test why go use cases
-pathname /solutions/use-cases
+path /solutions/use-cases
 capture fullscreen
 capture fullscreen 540x1080
 
 test getting started
-pathname /learn/
+path /learn/
 capture fullscreen
 capture fullscreen 540x1080
 
 test docs
-pathname /doc/
+path /doc/
 capture fullscreen
 capture fullscreen 540x1080
 
 test playground
-pathname /play/
+path /play/
 capture fullscreen
 capture fullscreen 540x1080
 
 test blog
-pathname /blog/
+path /blog/
 capture fullscreen
 capture fullscreen 540x1080
 
 test blog post
-pathname /blog/12years
+path /blog/12years
 capture fullscreen
 capture fullscreen 540x1080
 
 test help
-pathname /help/
+path /help/
 status 301
 capture fullscreen
 capture fullscreen 540x1080
 
 test effective go
-pathname /doc/effective_go
+path /doc/effective_go
 capture fullscreen
 capture fullscreen 540x1080
 
 test release notes
-pathname /doc/devel/release
+path /doc/devel/release
 capture fullscreen
 capture fullscreen 540x1080
 
 test about
-pathname /project
+path /project
 capture fullscreen
 capture fullscreen 540x1080
 
 test tour
-pathname /tour/welcome/1
+path /tour/welcome/1
 capture fullscreen
 capture fullscreen 540x1080
 
 test code of conduct
-pathname /conduct
+path /conduct
 capture fullscreen
 capture fullscreen 540x1080

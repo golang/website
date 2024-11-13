@@ -1,5 +1,5 @@
 test foo
-pathname bar
+path bar
 capture fullscreen
 click something
 

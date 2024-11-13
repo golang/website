@@ -1,5 +1,5 @@
 windowsize 1536x960
 
 test homepage
-pathname /
+path /
 capture viewport

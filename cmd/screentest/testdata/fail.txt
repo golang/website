@@ -1,9 +1,9 @@
 
 test homepage
-pathname /
+path /
 capture viewport
 
 test 404 missing selector
-pathname /404
+path /404
 wait [role='treeitem'][aria-selected='true']
 capture viewport

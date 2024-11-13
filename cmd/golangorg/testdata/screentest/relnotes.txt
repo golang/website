@@ -1,11 +1,11 @@
 windowsize 1536x960
 
 test rl0
-pathname /doc/go1
+path /doc/go1
 capture fullscreen
 
 {{range ints 1 22}}
   test rl{{.}}
-  pathname /doc/go1.{{.}}
+  path /doc/go1.{{.}}
   capture fullscreen
 {{end}}
