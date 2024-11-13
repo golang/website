@@ -35,7 +35,7 @@ func TestReadTests(t *testing.T) {
 		name             string
 		testURL, wantURL string
 		opts             options
-		want             any
+		want             []*testcase
 		wantErr          bool
 	}{
 		{
@@ -51,6 +51,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:           "go.dev homepage",
+					path:           "/",
 					testURL:        "https://go.dev/",
 					wantURL:        "http://localhost:6060/",
 					status:         200,
@@ -66,6 +67,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:           "go.dev homepage 540x1080",
+					path:           "/",
 					testURL:        "https://go.dev/",
 					wantURL:        "http://localhost:6060/",
 					status:         200,
@@ -81,6 +83,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:           "about page",
+					path:           "/about",
 					testURL:        "https://go.dev/about",
 					wantURL:        "http://localhost:6060/about",
 					status:         200,
@@ -96,6 +99,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:              "homepage element .go-Carousel",
+					path:              "/",
 					testURL:           "https://go.dev/",
 					wantURL:           "http://localhost:6060/",
 					status:            200,
@@ -115,6 +119,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:           "net package doc",
+					path:           "/net",
 					testURL:        "https://go.dev/net",
 					wantURL:        "http://localhost:6060/net",
 					status:         200,
@@ -133,6 +138,7 @@ func TestReadTests(t *testing.T) {
 						vars: map[string]string{"Authorization": "Bearer token"},
 					},
 					name:           "net package doc 540x1080",
+					path:           "/net",
 					testURL:        "https://go.dev/net",
 					wantURL:        "http://localhost:6060/net",
 					status:         200,
@@ -163,6 +169,7 @@ func TestReadTests(t *testing.T) {
 						headers:         map[string]any{"Authorization": "Bearer token"},
 					},
 					name:           "about",
+					path:           "/about",
 					wantURL:        "http://localhost:8080/about",
 					status:         200,
 					testPath:       "readtests2/about.got.png",
@@ -178,6 +185,7 @@ func TestReadTests(t *testing.T) {
 						headers:         map[string]interface{}{"Authorization": "Bearer token"},
 					},
 					name:           "eval",
+					path:           "/eval",
 					wantURL:        "http://localhost:8080/eval",
 					status:         200,
 					testPath:       "readtests2/eval.got.png",
@@ -214,6 +222,7 @@ func TestReadTests(t *testing.T) {
 						testImageReader:     &dirImageReadWriter{dir: "."},
 						wantImageReadWriter: &dirImageReadWriter{dir: "."},
 					},
+					path:           "p", // all the tests specify the path "p"
 					status:         200,
 					screenshotType: viewportScreenshot,
 					viewportWidth:  20,

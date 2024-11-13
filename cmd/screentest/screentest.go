@@ -26,7 +26,6 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
-	"slices"
 	"strconv"
 	"strings"
 	"text/template"
@@ -147,6 +146,7 @@ type testcase struct {
 	common
 	name               string // name of the test (arg to 'test' directive)
 	tasks              chromedp.Tasks
+	path               string // path of URL to visit
 	testURL, wantURL   string // URL to visit if the command-line arg is http/https
 	testPath, wantPath string // slash-separated path to use if the command-line arg is file, gs or a path
 	diffPath           string // output path for failed tests
@@ -224,20 +224,16 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 	if err != nil {
 		return nil, err
 	}
-	var tests []*testcase
-	testNames := map[string]bool{}
 	var (
-		testName, pathname string
-		tasks              chromedp.Tasks
-		status             int = http.StatusOK
-		width, height      int
-		lineNo             int
-		blockedURLs        []string
-		// URLs for HTTP(s) requests
-		testRequestURL string
-		wantRequestURL string
-		lastDirective  string
+		tests         []*testcase
+		test          *testcase // test currently being constructed
+		width, height int       // from windowsize directive
+		blockedURLs   []string  // from block directive
+		lineNo        int
+		lastDirective string
 	)
+
+	testNames := map[string]bool{} // to detect duplicates
 
 	defer wrapf(&err, "%s:%d", file, lineNo)
 
@@ -251,26 +247,14 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 		line = strings.TrimRight(line, " \t")
 		directive, args := splitOneField(line)
 		directive = strings.ToUpper(directive)
-		if testName == "" && !slices.Contains([]string{"", "TEST", "BLOCK", "WINDOWSIZE"}, directive) {
-			return nil, fmt.Errorf("the %q directive should only occur in a test", strings.ToLower(directive))
-		}
 		switch directive {
 		case "":
+			// An empty line means the end of a test (if one is active).
 			// A test must end with a capture.
-			if testName != "" && lastDirective != "CAPTURE" {
+			if test != nil && lastDirective != "CAPTURE" {
 				return nil, errors.New("test does not end with capture")
 			}
-			// We've reached an empty line, reset properties scoped to a single test.
-			testName, pathname = "", ""
-			tasks = nil
-			status = http.StatusOK
-			testRequestURL, wantRequestURL = "", ""
-
-		case "STATUS":
-			status, err = strconv.Atoi(args)
-			if err != nil {
-				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
-			}
+			test = nil
 
 		case "WINDOWSIZE":
 			width, height, err = splitDimensions(args)
@@ -278,59 +262,80 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 				return nil, err
 			}
 
-		case "TEST":
-			testName = args
-			if testNames[testName] {
-				return nil, fmt.Errorf("duplicate test name %q", testName)
-			}
-			testNames[testName] = true
-
-		case "PATHNAME":
-			pathname = args
-			// If there is no imageReader, then assume the URL is an http(s) URL.
-			if common.testImageReader == nil {
-				u, err := url.JoinPath(testURL, pathname)
-				if err != nil {
-					return nil, err
-				}
-				testRequestURL = u
-			}
-			if common.wantImageReadWriter == nil {
-				u, err := url.JoinPath(wantURL, pathname)
-				if err != nil {
-					return nil, err
-				}
-				wantRequestURL = u
-			}
-
-		case "CLICK":
-			tasks = append(tasks, chromedp.Click(args))
-
-		case "WAIT":
-			tasks = append(tasks, chromedp.WaitReady(args))
-
-		case "EVAL":
-			tasks = append(tasks, chromedp.Evaluate(args, nil))
-
 		case "BLOCK":
 			blockedURLs = append(blockedURLs, strings.Fields(args)...)
 
+		case "TEST":
+			if test != nil {
+				return nil, errors.New("no blank lines between tests")
+			}
+			test = &testcase{
+				common: common,
+				name:   args,
+				status: http.StatusOK,
+			}
+			if testNames[test.name] {
+				return nil, fmt.Errorf("duplicate test name %q", test.name)
+			}
+			testNames[test.name] = true
+
+		case "STATUS":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.status, err = strconv.Atoi(args)
+			if err != nil {
+				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
+			}
+
+		case "PATHNAME":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.path = args
+			// If there is no imageReader, then assume the URL is an http(s) URL.
+			if common.testImageReader == nil {
+				test.testURL, err = url.JoinPath(testURL, test.path)
+				if err != nil {
+					return nil, err
+				}
+			}
+			// Ditto for want.
+			if common.wantImageReadWriter == nil {
+				test.wantURL, err = url.JoinPath(wantURL, test.path)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+		case "CLICK":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.tasks = append(test.tasks, chromedp.Click(args))
+
+		case "WAIT":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.tasks = append(test.tasks, chromedp.WaitReady(args))
+
+		case "EVAL":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.tasks = append(test.tasks, chromedp.Evaluate(args, nil))
+
 		case "CAPTURE":
-			if pathname == "" {
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			if test.path == "" {
 				return nil, errors.New("missing pathname")
 			}
-			test := &testcase{
-				common:         common,
-				name:           testName,
-				tasks:          tasks,
-				status:         status,
-				testURL:        testRequestURL,
-				wantURL:        wantRequestURL,
-				blockedURLs:    blockedURLs,
-				screenshotType: viewportScreenshot, // default to viewportScreenshot
-				viewportWidth:  width,
-				viewportHeight: height,
-			}
+			test.screenshotType = viewportScreenshot // default to viewportScreenshot
+			test.viewportWidth = width
+			test.viewportHeight = height
 			field, args := splitOneField(args)
 			field = strings.ToUpper(field)
 			switch field {
@@ -364,6 +369,10 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			if common.filter(test.name) {
 				tests = append(tests, test)
 			}
+			// Copy the test in case there's another capture directive.
+			// This is safe because all non-shallow fields are append-only.
+			clone := *test
+			test = &clone
 
 		default:
 			return nil, fmt.Errorf("unknown directive %q", directive)
