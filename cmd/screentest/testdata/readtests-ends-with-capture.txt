@@ -1,0 +1,5 @@
+test foo
+pathname bar
+capture fullscreen
+click something
+

@@ -192,6 +192,14 @@ func TestReadTests(t *testing.T) {
 				},
 			},
 		},
+		{
+			name:    "readtests-no-capture",
+			wantErr: true,
+		},
+		{
+			name:    "readtests-ends-with-capture",
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -199,7 +207,9 @@ func TestReadTests(t *testing.T) {
 			comm, err := commonValues(ctx, tt.testURL, tt.wantURL, tt.opts)
 			got, err := readTests(filename, tt.testURL, tt.wantURL, comm)
 			if (err != nil) != tt.wantErr {
-				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
+				t.Fatalf("readTests() error = %v, wantErr %v", err, tt.wantErr)
+			}
+			if err != nil {
 				return
 			}
 			if diff := cmp.Diff(tt.want, got,

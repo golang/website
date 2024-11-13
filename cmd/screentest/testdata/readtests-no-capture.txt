@@ -1,0 +1,6 @@
+test foo
+pathname /
+
+test bar
+wait foo
+capture viewport

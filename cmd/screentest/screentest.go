@@ -240,6 +240,7 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 		// URLs for HTTP(s) requests
 		testRequestURL string
 		wantRequestURL string
+		lastDirective  string
 	)
 
 	defer wrapf(&err, "%s:%d", file, lineNo)
@@ -252,13 +253,17 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			continue
 		}
 		line = strings.TrimRight(line, " \t")
-		field, args := splitOneField(line)
-		field = strings.ToUpper(field)
-		if testName == "" && !slices.Contains([]string{"", "TEST", "BLOCK", "WINDOWSIZE"}, field) {
-			return nil, fmt.Errorf("the %q directive should only occur in a test", strings.ToLower(field))
+		directive, args := splitOneField(line)
+		directive = strings.ToUpper(directive)
+		if testName == "" && !slices.Contains([]string{"", "TEST", "BLOCK", "WINDOWSIZE"}, directive) {
+			return nil, fmt.Errorf("the %q directive should only occur in a test", strings.ToLower(directive))
 		}
-		switch field {
+		switch directive {
 		case "":
+			// A test must end with a capture.
+			if testName != "" && lastDirective != "CAPTURE" {
+				return nil, errors.New("test does not end with capture")
+			}
 			// We've reached an empty line, reset properties scoped to a single test.
 			testName, pathname = "", ""
 			tasks = nil
@@ -316,7 +321,7 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 
 		case "CAPTURE":
 			if pathname == "" {
-				return nil, fmt.Errorf("missing pathname for capture on line %d", lineNo)
+				return nil, errors.New("missing pathname")
 			}
 			if !common.filter(testName) {
 				continue
@@ -366,11 +371,17 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			test.diffPath = fnPath + ".diff.png"
 
 		default:
-			return nil, fmt.Errorf("unknown directive %q", field)
+			return nil, fmt.Errorf("unknown directive %q", directive)
+		}
+		if directive != "" {
+			lastDirective = directive
 		}
 	}
 	if err := scan.Err(); err != nil {
 		return nil, err
+	}
+	if lastDirective != "CAPTURE" {
+		return nil, errors.New("test file does not end with capture")
 	}
 	return tests, nil
 }
