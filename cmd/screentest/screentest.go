@@ -83,7 +83,7 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 		if err != nil {
 			return err
 		}
-		if len(tests) == 0 && opts.run == "" {
+		if len(tests) == 0 && opts.filterRegexp == "" {
 			return fmt.Errorf("no tests found in %q", file)
 		}
 
@@ -159,10 +159,6 @@ type testcase struct {
 	output             bytes.Buffer
 }
 
-func (t *testcase) String() string {
-	return t.name
-}
-
 // commonValues returns values common to all test files.
 func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c common, err error) {
 	// The test/want image readers/writers are relative to the test/want URLs, so
@@ -205,8 +201,8 @@ func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c
 	}
 
 	c.filter = func(string) bool { return true }
-	if opts.run != "" {
-		re, err := regexp.Compile(opts.run)
+	if opts.filterRegexp != "" {
+		re, err := regexp.Compile(opts.filterRegexp)
 		if err != nil {
 			return common{}, err
 		}
@@ -323,9 +319,6 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			if pathname == "" {
 				return nil, errors.New("missing pathname")
 			}
-			if !common.filter(testName) {
-				continue
-			}
 			test := &testcase{
 				common:         common,
 				name:           testName,
@@ -338,7 +331,6 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 				viewportWidth:  width,
 				viewportHeight: height,
 			}
-			tests = append(tests, test)
 			field, args := splitOneField(args)
 			field = strings.ToUpper(field)
 			switch field {
@@ -369,6 +361,9 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			test.testPath = fnPath + ".got.png"
 			test.wantPath = fnPath + ".want.png"
 			test.diffPath = fnPath + ".diff.png"
+			if common.filter(test.name) {
+				tests = append(tests, test)
+			}
 
 		default:
 			return nil, fmt.Errorf("unknown directive %q", directive)
@@ -542,7 +537,7 @@ func (tc *testcase) screenshot(ctx context.Context, url, pathname string, reader
 	} else {
 		data, err := tc.captureScreenshot(ctx, url)
 		if err != nil {
-			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, tc, err)
+			return nil, fmt.Errorf("captureScreenshot(ctx, %q, %q): %w", url, tc.name, err)
 		}
 		img, _, err := image.Decode(bytes.NewReader(data))
 		return img, err

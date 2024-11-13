@@ -153,7 +153,7 @@ func init() {
 	flag.StringVar(&flags.debuggerURL, "d", "", "chrome debugger URL")
 	flag.StringVar(&flags.outputDirURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 	flag.StringVar(&flags.headers, "headers", "", "HTTP headers: comma-separated list of name:value")
-	flag.StringVar(&flags.run, "run", "", "regexp to match test")
+	flag.StringVar(&flags.filterRegexp, "run", "", "regexp to match test")
 }
 
 // options are the options for the program.
@@ -163,7 +163,7 @@ type options struct {
 	vars           string
 	maxConcurrency int
 	debuggerURL    string
-	run            string
+	filterRegexp   string
 	outputDirURL   string
 	headers        string
 }

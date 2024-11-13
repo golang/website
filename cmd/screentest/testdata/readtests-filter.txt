@@ -1,0 +1,8 @@
+test foo
+pathname p
+capture fullscreen
+capture viewport 20x30
+
+test bar
+pathname p
+capture fullscreen

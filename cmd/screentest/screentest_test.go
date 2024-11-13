@@ -200,6 +200,30 @@ func TestReadTests(t *testing.T) {
 			name:    "readtests-ends-with-capture",
 			wantErr: true,
 		},
+		{
+			name: "readtests-filter",
+			opts: options{
+				filterRegexp: `foo \d`,
+			},
+			// There are three tests, "foo", "foo 20x30" and "bar". The filter
+			// should select only the second.
+			want: []*testcase{
+				{
+					name: "foo 20x30",
+					common: common{
+						testImageReader:     &dirImageReadWriter{dir: "."},
+						wantImageReadWriter: &dirImageReadWriter{dir: "."},
+					},
+					status:         200,
+					screenshotType: viewportScreenshot,
+					viewportWidth:  20,
+					viewportHeight: 30,
+					testPath:       "readtests-filter/foo-20x30.got.png",
+					wantPath:       "readtests-filter/foo-20x30.want.png",
+					diffPath:       "readtests-filter/foo-20x30.diff.png",
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
