@@ -30,24 +30,18 @@ var bucket = flag.String("bucket", "", "bucket to test GCS I/O")
 
 func TestReadTests(t *testing.T) {
 	ctx := context.Background()
-	type args struct {
-		testURL, wantURL string
-		filename         string
-	}
+
 	tests := []struct {
-		name    string
-		args    args
-		opts    options
-		want    any
-		wantErr bool
+		name             string
+		testURL, wantURL string
+		opts             options
+		want             any
+		wantErr          bool
 	}{
 		{
-			name: "readtests",
-			args: args{
-				testURL:  "https://go.dev",
-				wantURL:  "http://localhost:6060",
-				filename: "testdata/readtests.txt",
-			},
+			name:    "readtests",
+			testURL: "https://go.dev",
+			wantURL: "http://localhost:6060",
 			opts: options{
 				vars: "Authorization:Bearer token",
 			},
@@ -153,15 +147,11 @@ func TestReadTests(t *testing.T) {
 					},
 				},
 			},
-			wantErr: false,
 		},
 		{
-			name: "readtests2",
-			args: args{
-				testURL:  "some/directory",
-				wantURL:  "http://localhost:8080",
-				filename: "testdata/readtests2.txt",
-			},
+			name:    "readtests2",
+			testURL: "some/directory",
+			wantURL: "http://localhost:8080",
 			opts: options{
 				headers:      "Authorization:Bearer token",
 				outputDirURL: "gs://bucket/prefix",
@@ -205,8 +195,9 @@ func TestReadTests(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			comm, err := commonValues(ctx, tt.args.testURL, tt.args.wantURL, tt.opts)
-			got, err := readTests(tt.args.filename, tt.args.testURL, tt.args.wantURL, comm)
+			filename := filepath.Join("testdata", tt.name+".txt")
+			comm, err := commonValues(ctx, tt.testURL, tt.wantURL, tt.opts)
+			got, err := readTests(filename, tt.testURL, tt.wantURL, comm)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 				return
