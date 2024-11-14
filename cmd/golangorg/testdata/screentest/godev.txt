@@ -2,11 +2,16 @@ windowsize 1536x960
 
 test homepage
 path /
+# Wait for the playground to run the sample program.
+sleep 4s
 capture fullscreen
 capture fullscreen 540x1080
 
 test why go case studies
 path /solutions/case-studies
+# Scrolling to bottom causes lazy-loading images to load.
+eval window.scrollTo({top: document.body.scrollHeight});
+sleep 1s
 capture fullscreen
 capture fullscreen 540x1080
 
@@ -15,10 +20,14 @@ path /solutions/use-cases
 capture fullscreen
 capture fullscreen 540x1080
 
-test getting started
-path /learn/
-capture fullscreen
-capture fullscreen 540x1080
+# This test will fail because the local server
+# uses fake download information, so the download button
+# will have a different Go version.
+#
+# test getting started
+# path /learn/
+# capture fullscreen
+# capture fullscreen 540x1080
 
 test docs
 path /doc/

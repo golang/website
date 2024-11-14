@@ -7,5 +7,6 @@ capture
 test eval
 path /eval
 eval console.log('hello, world!')
+sleep 2s4ms
 capture
 

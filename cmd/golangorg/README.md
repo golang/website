@@ -31,8 +31,11 @@ The go.dev web site has a suite of visual checks that can be run with:
 	./cmd/golangorg/screentest.sh
 
 These checks can be run locally and will generate visual diffs of web pages
-from the set of testcases in `cmd/golangorg/testdata/screentest/*.txt`, comparing screenshots
+from the set of test cases in `cmd/golangorg/testdata/screentest/*.txt`, comparing screenshots
 of the live server and a locally running instance of cmd/golangorg.
+Screentest will start Chrome locally to render the pages, but that can be unreliable.
+Prefer Chrome headless-shell. See the documentation at the top of cmd/screenshot/main.go
+for more.
 
 ## Deploying to go.dev and golang.org
 

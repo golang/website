@@ -19,27 +19,45 @@ can be slash-separated file paths (even on Windows).
 
 The flags are:
 
-	 -c
-		  Number of test cases to run concurrently.
+	-c
+	  Number of test cases to run concurrently.
 	-d
-		  URL of a Chrome websocket debugger. If omitted, screentest tries to find the
-		  Chrome executable on the system and starts a new instance.
+	  URL of a Chrome websocket debugger. If omitted, screentest uses the
+	  Chrome executable on the command path. It will look first for the
+	  headless-shell binary, which is preferred.
 	-headers
-		  HTTP(S) headers to send with each request, as a comma-separated list of name:value.
+	  HTTP(S) headers to send with each request, as a comma-separated list of name:value.
 	-run REGEXP
-		  Run only tests matching regexp.
-	 -o
-		  URL or slash-separated path for output files. If omitted, files are written
-		  to a subdirectory of the user's cache directory. Each test file is given
-		  its own directory, so test names in two files can be identical. But the directory
-		  name is the basename of the test file with the extension removed. Conflicting
-		  file names will overwrite each other.
-	 -u
-		  Instead of comparing screenshots, use the test screenshots to update the
-		  want screenshots. This only makes sense if wantURL is a storage location
-		  like a file path or GCS bucket.
-	 -v
-		  Variables provided to script templates as comma separated KEY:VALUE pairs.
+	  Run only tests matching regexp.
+	-o
+	  URL or slash-separated path where output files for failing tests are written.
+	  If omitted, files are written to a subdirectory of the user's cache directory.
+	  At the start of each run, existing files are removed.
+	  Each test file is given its own directory, so test names in two files can be identical,
+	  but the directory name is the basename of the test file with the extension removed, so
+	  files with identical basenames will overwrite each other.
+	-u
+	  Instead of comparing screenshots, use the test screenshots to update the
+	  want screenshots. This only makes sense if wantURL is a storage location
+	  like a file path or GCS bucket.
+	-v
+	  Variables provided to script templates as comma-separated KEY:VALUE pairs.
+
+# Headless Chrome
+
+Screentest needs a headless Chrome process to render web pages. Although it can use a full
+Chrome browser, we have found the headless-shell build of Chrome to be more reliable.
+Install headless-shell on your local machine with this command:
+
+	npx @puppeteer/browsers install chrome-headless-shell@VERSION
+
+Put the binary on your path and screentest will find it. Omit the -d flag in this case.
+
+You can also run headless-shell in docker. We use this command:
+
+	docker run --detach --rm --network host --shm-size 8G --name headless-shell chromedp/headless-shell:VERSION
+
+Then pass "-d ws://localhost:9222" to screentest.
 
 # Scripts
 
@@ -105,6 +123,11 @@ some other way.
 	eval 'document.querySelector(".selector").remove();'
 	eval 'window.scrollTo({top: 0});'
 
+Use sleep DURATION to pause the browser for the duration. This is a last resort
+for deflaking; prefer to wait for an element.
+
+	sleep 50ms
+
 Use capture [SIZE] [ARG] to create a test case with the properties
 defined in the test case. If present, the first argument to capture must be one of
 'fullscreen', 'viewport' or 'element'. The optional second argument provides
@@ -169,6 +192,8 @@ type options struct {
 }
 
 func main() {
+	log.SetFlags(0)
+	log.SetPrefix("screentest: ")
 	flag.Usage = func() {
 		fmt.Printf("usage: screentest [flags] testURL wantURL path ...\n")
 		fmt.Printf("\ttestURL is the URL or file path to be tested\n")
@@ -184,5 +209,7 @@ func main() {
 	}
 	if err := run(context.Background(), flag.Arg(0), flag.Arg(1), flag.Args()[2:], flags); err != nil {
 		log.Fatal(err)
+	} else {
+		log.Print("PASS")
 	}
 }

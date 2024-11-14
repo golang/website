@@ -238,6 +238,9 @@ func TestReadTests(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			filename := filepath.Join("testdata", tt.name+".txt")
 			comm, err := commonValues(ctx, tt.testURL, tt.wantURL, tt.opts)
+			if err != nil {
+				t.Fatal(err)
+			}
 			got, err := readTests(filename, tt.testURL, tt.wantURL, comm)
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("readTests() error = %v, wantErr %v", err, tt.wantErr)
