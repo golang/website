@@ -13,7 +13,6 @@ package main
 import (
 	"bufio"
 	"bytes"
-	"cmp"
 	"context"
 	"errors"
 	"fmt"
@@ -485,17 +484,6 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
 	var testScreen, wantScreen image.Image
 	g, ctx := errgroup.WithContext(ctx)
-	// If the hosts are the same, chrome (or chromedp) does not handle concurrent requests well.
-	// This wouldn't make sense in an actual test, but it does happen in this package's tests.
-	urla, erra := url.Parse(tc.testURL)
-	urlb, errb := url.Parse(tc.wantURL)
-	if err := cmp.Or(erra, errb); err != nil {
-		return err
-	}
-	if urla.Host == urlb.Host {
-		g.SetLimit(1)
-	}
-
 	g.Go(func() error {
 		testScreen, err = tc.screenshot(ctx, tc.testURL, tc.testPath, tc.testImageReader)
 		return err

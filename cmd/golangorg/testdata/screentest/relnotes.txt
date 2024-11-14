@@ -7,5 +7,8 @@ capture fullscreen
 {{range ints 1 22}}
   test rl{{.}}
   path /doc/go1.{{.}}
+  # dd.indent is added by one of the last bits of JS to run on the page:
+  # generateTOC in https://go.dev/js/godocs.js.
+  wait dd.indent
   capture fullscreen
 {{end}}
