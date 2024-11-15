@@ -170,7 +170,7 @@ import (
 var flags options
 
 func init() {
-	flag.BoolVar(&flags.update, "u", false, "update want with test")
+	flag.BoolVar(&flags.update, "update", false, "update want with test")
 	flag.StringVar(&flags.vars, "v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
 	flag.IntVar(&flags.maxConcurrency, "c", (runtime.NumCPU()+1)/2, "number of test cases to run concurrently")
 	flag.StringVar(&flags.debuggerURL, "d", "", "chrome debugger URL")
@@ -209,7 +209,5 @@ func main() {
 	}
 	if err := run(context.Background(), flag.Arg(0), flag.Arg(1), flag.Args()[2:], flags); err != nil {
 		log.Fatal(err)
-	} else {
-		log.Print("PASS")
 	}
 }

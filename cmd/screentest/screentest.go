@@ -73,8 +73,14 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 		return err
 	}
 
+	// Remove fail directory and all contents, to avoid confusion with previous runs.
+	if err := c.failImageWriter.rmdir(ctx, "."); err != nil {
+		return err
+	}
+
 	var (
 		summary     bytes.Buffer
+		nTests      int         // number of tests run
 		failedTests []*testcase // tests that failed and wrote diffs
 	)
 	for _, file := range files {
@@ -82,16 +88,14 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 		if err != nil {
 			return err
 		}
-		if len(tests) == 0 && opts.filterRegexp == "" {
-			return fmt.Errorf("no tests found in %q", file)
-		}
 
-		// Remove fail directory and all contents, to avoid confusion with previous runs.
-		if err := c.failImageWriter.rmdir(ctx, fileDir(file)); err != nil {
-			return err
+		if len(tests) == 0 {
+			continue
 		}
+		nTests += len(tests)
 
 		ctx, cancel = chromedp.NewContext(ctx, chromedp.WithLogf(log.Printf))
+		// TODO(jba): cancel after each iteration
 		defer cancel()
 
 		if opts.maxConcurrency < 1 {
@@ -119,7 +123,11 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 			fmt.Println(tc.output.String())
 		})
 	}
-	fmt.Printf("finished in %s\n\n", time.Since(start).Truncate(time.Millisecond))
+	if nTests == 0 {
+		log.Print("no tests to run")
+		return nil
+	}
+	log.Printf("ran %d tests in %s\n\n", nTests, time.Since(start).Truncate(time.Millisecond))
 	if summary.Len() > 0 {
 		os.Stdout.Write(summary.Bytes())
 		if len(failedTests) > 0 {
@@ -129,6 +137,11 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 			}
 		}
 		return fmt.Errorf("FAIL. Output at %s", c.failImageWriter.path())
+	}
+	if opts.update {
+		log.Print("UPDATED")
+	} else {
+		log.Print("PASS")
 	}
 	return nil
 }
@@ -378,17 +391,11 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			test.path = args
 			// If there is no imageReader, then assume the URL is an http(s) URL.
 			if common.testImageReader == nil {
-				test.testURL, err = url.JoinPath(testURL, test.path)
-				if err != nil {
-					return nil, err
-				}
+				test.testURL = joinURL(testURL, test.path)
 			}
 			// Ditto for want.
 			if common.wantImageReadWriter == nil {
-				test.wantURL, err = url.JoinPath(wantURL, test.path)
-				if err != nil {
-					return nil, err
-				}
+				test.wantURL = joinURL(wantURL, test.path)
 			}
 
 		case "CLICK":
@@ -486,6 +493,14 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 	return tests, nil
 }
 
+// joinURL joins the left and right parts of a URL
+// with a slash.
+// Unlike url.JoinPath, it does not escape the URL path.
+// Unlike path.Join, it does not remove doubled slashes.
+func joinURL(left, right string) string {
+	return strings.TrimSuffix(left, "/") + "/" + strings.TrimPrefix(right, "/")
+}
+
 // executeFileTemplate reads file and executes it with text/template, passing vars as the argument.
 func executeFileTemplate(file string, vars map[string]string) ([]byte, error) {
 	tmpl := template.New(filepath.Base(file)).Funcs(template.FuncMap{
@@ -581,14 +596,14 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	now := time.Now()
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
 	var testScreen, wantScreen image.Image
-	g, ctx := errgroup.WithContext(ctx)
+	g, gctx := errgroup.WithContext(ctx)
 	g.Go(func() error {
-		testScreen, err = tc.screenshot(ctx, tc.testURL, tc.testPath, tc.testImageReader)
+		testScreen, err = tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
 		return err
 	})
 	if !update {
 		g.Go(func() error {
-			wantScreen, err = tc.screenshot(ctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
+			wantScreen, err = tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
 			return err
 		})
 	}
@@ -599,7 +614,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 
 	// Update means overwrite the golden with the test result.
 	if update {
-		fmt.Fprintf(&tc.output, "updating %s\n", tc.wantURL)
+		fmt.Fprintf(&tc.output, "- updating %s", tc.wantURL)
 		return tc.wantImageReadWriter.writeImage(ctx, tc.wantPath, testScreen)
 	}
 
@@ -614,7 +629,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	}
 	fmt.Fprintf(&tc.output, "(%s)\n    FAIL %s != %s (%d pixels differ)\n",
 		since, tc.testOrigin(), tc.wantOrigin(), result.DiffPixelsCount)
-	g, gctx := errgroup.WithContext(ctx)
+	g, gctx = errgroup.WithContext(ctx)
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.testPath, testScreen) })
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.wantPath, wantScreen) })
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.diffPath, result.Image) })
@@ -721,11 +736,11 @@ func waitForEvent(eventName string) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		ch := make(chan struct{})
 		cctx, cancel := context.WithCancel(ctx)
+		defer cancel()
 		chromedp.ListenTarget(cctx, func(ev any) {
 			switch e := ev.(type) {
 			case *page.EventLifecycleEvent:
 				if e.Name == eventName {
-					cancel()
 					close(ch)
 				}
 			}
@@ -821,14 +836,16 @@ type dirImageReadWriter struct {
 
 func (rw *dirImageReadWriter) readImage(_ context.Context, path string) (_ image.Image, err error) {
 	path = rw.nativePathname(path)
-	defer wraperr(&err, "reading image from %s", path)
 	f, err := os.Open(path)
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
 	img, _, err := image.Decode(f)
-	return img, err
+	if err != nil {
+		return nil, fmt.Errorf("decoding image from %s: %w", path, err)
+	}
+	return img, nil
 }
 
 func (rw *dirImageReadWriter) writeImage(ctx context.Context, path string, img image.Image) error {
@@ -918,12 +935,8 @@ func (rw *gcsImageReadWriter) writeData(ctx context.Context, pth string, data []
 	cctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 	w := rw.bucket.Object(rw.objectName(pth)).NewWriter(cctx)
-	if _, err := w.Write(data); err != nil {
-		cancel()
-		_ = w.Close()
-		return err
-	}
-	return w.Close()
+	_, err = w.Write(data)
+	return errors.Join(err, w.Close())
 }
 
 func (rw *gcsImageReadWriter) rmdir(ctx context.Context, pth string) (err error) {
