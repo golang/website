@@ -735,13 +735,18 @@ func sanitize(text string) string {
 func waitForEvent(eventName string) chromedp.ActionFunc {
 	return func(ctx context.Context) error {
 		ch := make(chan struct{})
+		closed := false
 		cctx, cancel := context.WithCancel(ctx)
 		defer cancel()
 		chromedp.ListenTarget(cctx, func(ev any) {
+
 			switch e := ev.(type) {
 			case *page.EventLifecycleEvent:
 				if e.Name == eventName {
-					close(ch)
+					if !closed {
+						close(ch)
+						closed = true
+					}
 				}
 			}
 		})
