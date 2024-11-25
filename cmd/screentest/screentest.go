@@ -4,6 +4,13 @@
 
 // TODO(jba): remove ints function in template (see cmd/golangorg/testdata/screentest/relnotes.txt)
 
+// TODO(jba): Provide a way to capture the results of an eval directive.
+// If the second argument to chromedp.Evaluate is a *[]byte, the result will be written
+// there. The problem is that we may screenshot twice, and currently the same list of
+// tasks is used for both, and what's more the evaluations happen concurrently (see testcase.run).
+// We need two locations for Evaluate, not one. Probably the simplest thing would be to build
+// two copies of the tasks slice. But that is a lot of complexity for this one debugging feature.
+
 package main
 
 import (
@@ -413,6 +420,18 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 		case "EVAL":
 			if test == nil {
 				return nil, errors.New("directive must be in a test")
+			}
+			// Warn about a quoted argument to eval.
+			// The quotes are not stripped, so JS sees a string, not an interesting
+			// expression.
+			// It's only a warning, not an error, because without more sophisticated
+			// parsing we can't distinguish 'ab' from 'a' + 'b'.
+			if len(args) >= 2 {
+				s := args[0]
+				e := args[len(args)-1]
+				if (s == '\'' && e == '\'') || (s == '"' && e == '"') {
+					fmt.Printf("WARNING: quoted argument %s to eval will evaluate to itself\n", args)
+				}
 			}
 			test.tasks = append(test.tasks, chromedp.Evaluate(args, nil))
 

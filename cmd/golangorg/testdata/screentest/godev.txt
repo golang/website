@@ -20,14 +20,13 @@ path /solutions/use-cases
 capture fullscreen
 capture fullscreen 540x1080
 
-# This test will fail because the local server
-# uses fake download information, so the download button
-# will have a different Go version.
-#
-# test getting started
-# path /learn/
-# capture fullscreen
-# capture fullscreen 540x1080
+test getting started
+path /learn/
+# The local server uses fake download information, so the download button
+# will have a different Go version. Remove it.
+eval document.querySelector("div.js-latestGoVersion").remove();
+capture fullscreen
+capture fullscreen 540x1080
 
 test docs
 path /doc/
