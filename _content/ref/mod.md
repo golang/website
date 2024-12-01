@@ -471,6 +471,7 @@ for details on EBNF syntax.
 GoMod = { Directive } .
 Directive = ModuleDirective |
             GoDirective |
+            ToolDirective |
             RequireDirective |
             ExcludeDirective |
             ReplaceDirective |
@@ -712,6 +713,35 @@ require golang.org/x/net v1.2.3
 require (
     golang.org/x/crypto v1.4.5 // indirect
     golang.org/x/text v1.6.7
+)
+```
+
+### `tool` directive {#go-mod-file-tool}
+
+A `tool` directive adds a package as a dependency of the current module. It also
+makes it available to run with `go tool` when the current working directory is
+within this module, or within a workspace that contains this module.
+
+If the tool package is not in the current module, a `require`
+directive must be present that specifies the version of the tool to use.
+
+The `tool` meta-pattern resolves to the list of tools defined in the current module's
+`go.mod`, or in workspace mode to the union of all tools defined in all modules in the
+workspace.
+
+```
+ToolDirective = "tool" ( ToolSpec | "(" newline { ToolSpec } ")" newline ) .
+ToolSpec = ModulePath newline .
+```
+
+Example:
+
+```
+tool golang.org/x/tools/cmd/stringer
+
+tool (
+    example.com/module/cmd/a
+    example.com/module/cmd/b
 )
 ```
 
@@ -2079,6 +2109,10 @@ The editing flags specify a sequence of editing operations.
   flag cannot add a rationale comment for the `retract` directive. Rationale
   comments are recommended and may be shown by `go list -m -u` and other
   commands.
+* The `-tool=path` and `-droptool=path` flags add and drop a `tool` directive
+  for the given paths. Note that this will not add necessary dependencies to
+  the build graph. Users should prefer `go get -tool path` to add a tool, or
+  `go get -tool path@none` to remove one.
 
 The editing flags may be repeated. The changes are applied in the order given.
 
@@ -2128,6 +2162,10 @@ type Retract struct {
     Low       string
     High      string
     Rationale string
+}
+
+type Tool struct {
+    Path      string
 }
 ```
 
@@ -2250,7 +2288,7 @@ The `-v` flag causes `go mod tidy` to print information about removed modules
 to standard error.
 
 `go mod tidy` works by loading all of the packages in the [main
-module](#glos-main-module) and all of the packages they import,
+module](#glos-main-module), all of its tools, and all of the packages they import,
 recursively. This includes packages imported by tests (including tests in other
 modules). `go mod tidy` acts as if all build tags are enabled, so it will
 consider platform-specific source files and files that require custom build

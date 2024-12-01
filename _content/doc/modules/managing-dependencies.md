@@ -477,6 +477,66 @@ $ go get example.com/theirmodule@none
 The `go get` command will also downgrade or remove other dependencies that
 depend on the removed module.
 
+## Tool dependencies {#tools}
+
+Tool dependencies let you manage developer tools that are written in Go and used
+when working on your module. For example, you might use
+[`stringer`](https://pkg.go.dev/golang.org/x/tools/cmd/stringer) with [`go
+generate`](/blog/generate), or a specific linter or formatter as part of
+preparing your change for submission.
+
+In Go 1.24 and above, you can add a tool dependency with:
+
+```
+$ go get -tool golang.org/x/tools/cmd/stringer
+```
+
+This will add a [`tool` directive](/ref/mod/#go-mod-file-tool) to your `go.mod` file, and ensure the
+necessary require directives are present. Once this directive is added you can
+run the tool by passing the last fragment of the package path to `go tool`:
+
+```
+$ go tool stringer
+```
+
+In the case that multiple tools share the last path fragment, or the path fragment
+matches one of the tools shipped with the Go distribution, you must pass the full
+package path instead:
+
+```
+$ go tool golang.org/x/tools/cmd/stringer
+```
+
+To see a list of all tools currently available, run `go tool` with no arguments:
+
+```
+$ go tool
+```
+
+You can manually add a `tool` directive to your `go.mod`, but you must ensure
+that there is a `require` directive for the module that defines the tool. The
+easiest way to add any missing `require` directives is to run:
+
+```
+$ go mod tidy
+```
+
+Requirements needed to satisfy tool dependencies behave like any other
+requirements in your [module graph](/ref/mod#glos-module-graph). They
+participate in [minimal version selection](/ref/mod#minimal-version-selection)
+and respect `require`, `replace` and `exclude` directives. Due to module
+pruning, when you depend on a module that itself has a tool dependency,
+requirements that exist to just to satisfy that tool dependency do not usually
+become requirements of your module.
+
+The `tool` [meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) provides a way to perform operations on all tools simultaneously. For example you can upgrade all tools with `go get -u tool`, or install them all to $GOBIN with `go install tool`.
+
+In Go versions before 1.24, you can acheive something similar to a `tool`
+directive by adding a blank import to a go file within the module that is
+excluded from the build using [build
+constraints](/pkg/go/build/#hdr-Build_Constraints). If you do this, you can then
+use `go run` with the full package path to run the tool.
+
 ## Specifying a module proxy server {#proxy_server}
 
 When you use Go tools to work with modules, the tools by default download

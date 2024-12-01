@@ -345,6 +345,53 @@ For more about managing dependencies, see the following:
 * [Upgrading or downgrading a dependency](/doc/modules/managing-dependencies#upgrading)
 * [Synchronizing your code's dependencies](/doc/modules/managing-dependencies#synchronizing)
 
+## tool {#tool}
+
+Adds a package as a dependency of the current module, and makes it available to run with `go tool` when the current working directory is within this module.
+
+### Syntax {#tool-syntax}
+
+<pre>tool <var>package-path</var></pre>
+
+<dl>
+    <dt>package-path</dt>
+    <dd>The tool's package path, a concatenation of the module containing
+        the tool and the (possibly empty) path to the package implementing
+        the tool within the module.</dd>
+</dl>
+
+### Examples {#tool-examples}
+
+* Declaring a tool implemented in the current module:
+    ```
+    module example.com/mymodule
+
+    tool example.com/mymodule/cmd/mytool
+    ```
+* Declaring a tool implemented in a separate module:
+    ```
+    module example.com/mymodule
+
+    tool example.com/atool/cmd/atool
+
+    require example.com/atool v1.2.3
+    ```
+
+### Notes {#tool-notes}
+
+You can use `go tool` to run tools declared in your module by fully qualified package path
+or, if there is no ambiguity, by the last path segment. In the first example
+above you could run `go tool mytool` or `go tool example.com/mymodule/cmd/mytool`.
+
+In workspace mode, you can use `go tool` to run a tool declared in any workspace module.
+
+Tools are built using the same module graph as the module itself. A [`require`
+directive](#require) is needed to select the version of the module that
+implements the tool. Any [`replace` directives](#replace), or [`exclude`
+directives](#exclude) also apply to the tool and its dependencies.
+
+For more information see [Tool dependencies](/doc/modules/managing-dependencies#tools).
+
 ## replace {#replace}
 
 Replaces the content of a module at a specific version (or all versions) with
