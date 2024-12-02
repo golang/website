@@ -623,16 +623,23 @@ tree</i> to make sure the changes don't break other packages or programs.
 
 <h4 id="test-gorepo">In the main Go repository</h4>
 
-<p>This can be done by running <code>all.bash</code>:</p>
+<p>
+For standard library packages, all tests within the package must pass:
+</p>
+
+<pre>
+$ go test
+</pre>
+
+<p>
+The short test suite for the entire tree can be run with <code>all.bash</code>
+(To build under Windows use <code>all.bat</code>):
+</p>
 
 <pre>
 $ cd go/src
 $ ./all.bash
 </pre>
-
-<p>
-(To build under Windows use <code>all.bat</code>)
-</p>
 
 <p>
 After running for a while and printing a lot of testing output, the command should finish
