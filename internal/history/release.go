@@ -14,6 +14,20 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2024, 12, 3}, Version: Version{1, 23, 4},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the runtime", "the <code>trace</code> command"},
+			Packages:   []string{"syscall"},
+		},
+	},
+	{
+		Date: Date{2024, 12, 3}, Version: Version{1, 22, 10},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the runtime"},
+			Packages:   []string{"syscall"},
+		},
+	},
+	{
 		Date: Date{2024, 11, 6}, Version: Version{1, 23, 3},
 		Bug: &FixSummary{
 			Components: []template.HTML{"the linker", "the runtime"},
