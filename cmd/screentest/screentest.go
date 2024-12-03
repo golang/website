@@ -222,6 +222,7 @@ type common struct {
 	headers             map[string]any    // any to match chromedp arg
 	filter              func(string) bool // filter out tests by name, from -run flag
 	vars                map[string]string // variables for template execution
+	retryPixels         int               // retry if difference <= this
 }
 
 // testcase is a test case.
@@ -308,7 +309,7 @@ func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c
 	if err != nil {
 		return common{}, err
 	}
-
+	c.retryPixels = opts.retryPixels
 	return c, nil
 }
 
@@ -608,47 +609,59 @@ func splitDimensions(text string) (width, height int, err error) {
 	return width, height, nil
 }
 
+// Maximum number of retries if diff <= retryPixels.
+const maxRetries = 3
+
 // run generates screenshots for a given test case and a diff if the
 // screenshots do not match.
 func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	defer wraperr(&err, "test %s", tc.name)
 	now := time.Now()
+	var (
+		since                  time.Duration
+		result                 *imgdiff.Result
+		testScreen, wantScreen image.Image
+	)
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
-	var testScreen, wantScreen image.Image
-	g, gctx := errgroup.WithContext(ctx)
-	g.Go(func() error {
-		testScreen, err = tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
-		return err
-	})
-	if !update {
+	for try := 0; try < maxRetries; try++ {
+		g, gctx := errgroup.WithContext(ctx)
 		g.Go(func() error {
-			wantScreen, err = tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
+			testScreen, err = tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
 			return err
 		})
-	}
-	if err := g.Wait(); err != nil {
-		fmt.Fprint(&tc.output, "\n", err)
-		return err
-	}
+		if !update {
+			g.Go(func() error {
+				wantScreen, err = tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
+				return err
+			})
+		}
+		if err := g.Wait(); err != nil {
+			fmt.Fprint(&tc.output, "\n", err)
+			return err
+		}
 
-	// Update means overwrite the golden with the test result.
-	if update {
-		fmt.Fprintf(&tc.output, "- updating %s", tc.wantURL)
-		return tc.wantImageReadWriter.writeImage(ctx, tc.wantPath, testScreen)
-	}
+		// Update means overwrite the golden with the test result.
+		if update {
+			fmt.Fprintf(&tc.output, "- updating %s", tc.wantURL)
+			return tc.wantImageReadWriter.writeImage(ctx, tc.wantPath, testScreen)
+		}
 
-	result := imgdiff.Diff(testScreen, wantScreen, &imgdiff.Options{
-		Threshold: 0.1,
-		DiffImage: true,
-	})
-	since := time.Since(now).Truncate(time.Millisecond)
-	if result.Equal {
-		fmt.Fprintf(&tc.output, "(%s)", since)
-		return nil
+		result = imgdiff.Diff(testScreen, wantScreen, &imgdiff.Options{
+			Threshold: 0.1,
+			DiffImage: true,
+		})
+		since = time.Since(now).Truncate(time.Millisecond)
+		if result.Equal {
+			fmt.Fprintf(&tc.output, "(%s)", since)
+			return nil
+		}
+		if result.DiffPixelsCount <= uint64(tc.retryPixels) {
+			fmt.Fprintf(&tc.output, "difference is <= %d pixels\n", tc.retryPixels)
+		}
 	}
 	fmt.Fprintf(&tc.output, "(%s)\n    FAIL %s != %s (%d pixels differ)\n",
 		since, tc.testOrigin(), tc.wantOrigin(), result.DiffPixelsCount)
-	g, gctx = errgroup.WithContext(ctx)
+	g, gctx := errgroup.WithContext(ctx)
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.testPath, testScreen) })
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.wantPath, wantScreen) })
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.diffPath, result.Image) })

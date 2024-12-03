@@ -27,6 +27,10 @@ The flags are:
 	  headless-shell binary, which is preferred.
 	-headers
 	  HTTP(S) headers to send with each request, as a comma-separated list of name:value.
+	-retrypixels N
+	  If the difference is no more than N pixels, take another screenshot. Repeat up to 3
+	  times. N should be small. This is a last-resort method for handling small, inexplicable
+	  output variations.
 	-run REGEXP
 	  Run only tests matching regexp.
 	-o
@@ -177,6 +181,7 @@ func init() {
 	flag.StringVar(&flags.outputDirURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 	flag.StringVar(&flags.headers, "headers", "", "HTTP headers: comma-separated list of name:value")
 	flag.StringVar(&flags.filterRegexp, "run", "", "regexp to match test")
+	flag.IntVar(&flags.retryPixels, "retrypixels", 0, "repeat up to 3 times if diff is <= this value")
 }
 
 // options are the options for the program.
@@ -189,6 +194,7 @@ type options struct {
 	filterRegexp   string
 	outputDirURL   string
 	headers        string
+	retryPixels    int
 }
 
 func main() {
