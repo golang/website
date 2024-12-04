@@ -292,6 +292,11 @@ func fixURL(u *url.URL) string {
 		if strings.HasPrefix(u.Path, "/golang/go/issues/") {
 			u.Host = "go.dev"
 			u.Path = "/issue/" + strings.TrimPrefix(u.Path, "/golang/go/issues/")
+			if u.Path == "/issue/new/choose" {
+				// A special case to deal with the '/choose' suffix.
+				// See comment in internal/redirect.newIssueHandler.
+				u.Path = "/issue/new"
+			}
 			return u.String()
 		}
 		if strings.HasPrefix(u.Path, "/golang/go/wiki/") {
