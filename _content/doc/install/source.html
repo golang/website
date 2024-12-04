@@ -763,6 +763,15 @@ for which the compiler will target. The default is <code>power8</code>.
 </ul>
 </li>
 
+<li><code>$GORISCV64</code> (for <code>riscv64</code> only)
+<p>
+This variable sets the RISC-V user-mode application profile for which to compile. The default is <code>rva20u64</code>.
+</p>
+<ul>
+	<li><code>GORISCV64=rva20u64</code>: only use RISC-V extensions that are mandatory in the <a href="https://github.com/riscv/riscv-profiles/blob/main/src/profiles.adoc#51-rva20u64-profile">RVA20U64</a> profile</li>
+	<li><code>GORISCV64=rva22u64</code>: only use RISC-V extensions that are mandatory in the <a href="https://github.com/riscv/riscv-profiles/blob/main/src/profiles.adoc#rva22u64-profile">RVA22U64</a> profile</li>
+</ul>
+</li>
 
 <li><code>$GOWASM</code> (for <code>wasm</code> only)
 	<p>
