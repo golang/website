@@ -290,7 +290,8 @@ func fixURL(u *url.URL) string {
 		return u.String()
 	case "github.com":
 		if strings.HasPrefix(u.Path, "/golang/go/issues/") {
-			u.Host = "go.dev"
+			u.Host = ""
+			u.Scheme = ""
 			u.Path = "/issue/" + strings.TrimPrefix(u.Path, "/golang/go/issues/")
 			if u.Path == "/issue/new/choose" {
 				// A special case to deal with the '/choose' suffix.
@@ -300,7 +301,8 @@ func fixURL(u *url.URL) string {
 			return u.String()
 		}
 		if strings.HasPrefix(u.Path, "/golang/go/wiki/") {
-			u.Host = "go.dev"
+			u.Host = ""
+			u.Scheme = ""
 			u.Path = "/wiki/" + strings.TrimPrefix(u.Path, "/golang/go/wiki/")
 			return u.String()
 		}
