@@ -234,8 +234,7 @@ For example,
 
 When invoked with the `-analysis` flag,
 [godoc](https://godoc.org/golang.org/x/tools/cmd/godoc)
-now performs sophisticated [static
-analysis](/lib/godoc/analysis/help.html) of the code it indexes.
+now performs sophisticated static analysis of the code it indexes.
 The results of analysis are presented in both the source view and the
 package documentation view, and include the call graph of each package
 and the relationships between

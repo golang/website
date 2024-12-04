@@ -21,7 +21,6 @@ the Go documentation server, now performs static analysis.
 When enabled with the -analysis flag, analysis results are presented
 in both the source and package documentation views, making it easier
 than ever to navigate and understand Go programs.
-See [the documentation](/lib/godoc/analysis/help.html) for the details.
 
 The gc toolchain now supports the Native Client (NaCl) execution sandbox on the
 32- and 64-bit Intel architectures.

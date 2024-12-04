@@ -46,8 +46,6 @@ Supports interactive, editor-integrated queries:
 
 * Demo: godoc analysis features
 
-.link /lib/godoc/analysis/help.html godoc -analysis=type,pointer
-
 Package view
 - method set and _implements_ relation for every type
 - internal call graph of every package
