@@ -1,13 +1,721 @@
 ---
 title: Go 1.24 Release Notes
-template: true
+template: false
 ---
 
-{{/*
-	This is a placeholder template that makes it possible to preview
-	Go 1.24 release notes draft at https://tip.golang.org/doc/go1.24.
-	Eventually the release note fragments in doc/next will be merged
-	and added here, replacing the "docNext" function call.
-*/}}
+<!--
+NOTE: In this document and others in this directory, the convention is to
+set fixed-width phrases with non-fixed-width spaces, as in
+`hello` `world`.
+-->
 
-{{with docNext}}{{.}}{{else}}No next release note fragments available.{{end}}
+<style>
+  main ul li { margin: 0.5em 0; }
+</style>
+
+## DRAFT RELEASE NOTES — Introduction to Go 1.24 {#introduction}
+
+**Go 1.24 is not yet released. These are work-in-progress release notes.
+Go 1.24 is expected to be released in February 2025.**
+
+## Changes to the language {#language}
+
+<!-- go.dev/issue/46477 -->
+Go 1.24 now fully supports [generic type aliases](/issue/46477): a type alias
+may be parameterized like a defined type.
+See the [language spec](/ref/spec#Alias_declarations) for details.
+For now, the feature can be disabled by setting `GOEXPERIMENT=noaliastypeparams`;
+but the `aliastypeparams` setting will be removed for Go 1.25.
+
+## Tools {#tools}
+
+### Go command {#go-command}
+
+<!-- go.dev/issue/48429 -->
+
+Go modules can now track executable dependencies using `tool` directives in
+go.mod. This removes the need for the previous workaround of adding tools as
+blank imports to a file conventionally named "tools.go". The `go tool`
+command can now run these tools in addition to tools shipped with the Go
+distribution. For more information see [the
+documentation](/doc/modules/managing-dependencies#tools).
+
+The new `-tool` flag for `go get` causes a tool directive to be added to the
+current module for named packages in addition to adding require directives.
+
+The new [`tool` meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) refers to
+all tools in the current module. This can be used to upgrade them all with `go get -u tool` or to install them into your GOBIN directory with `go install tool`.
+
+<!-- go.dev/issue/69290 -->
+
+Executables created by `go run` and the new behavior for `go tool` are now
+cached in the Go build cache. This makes repeated executions faster at the
+expense of making the cache larger. See [#69290](/issue/69290).
+
+<!-- go.dev/issue/62067 -->
+
+The `go build` and `go install` commands now accept a `-json` flag that reports
+build output and failures as structured JSON output on standard output.
+For details of the reporting format, see `go help buildjson`.
+
+Furthermore, `go test -json` now reports build output and failures in JSON,
+interleaved with test result JSON.
+These are distinguished by new `Action` types, but if they cause problems in
+a test integration system, you can revert to the text build output by setting
+`GODEBUG=gotestjsonbuildtext=1`.
+
+### Cgo {#cgo}
+
+<!-- go.dev/issue/56378, CL 579955 -->
+Cgo supports new annotations for C functions to improve run time
+performance.
+`#cgo noescape cFunctionName` tells the compiler that memory passed to
+the C function `cFunctionname` does not escape.
+`#cgo nocallback cFunctionName` tells the compiler that the C function
+`cFunctionName` does not call back to any Go functions.
+For more information, see [the cgo documentation](/pkg/cmd/cgo#hdr-Optimizing_calls_of_C_code).
+
+<!-- go.dev/issue/67699 -->
+Cgo currently refuses to compile calls to a C function which has multiple
+incompatible declarations. For instance, if `f` is declared as both `void f(int)`
+and `void f(double)`, cgo will report an error instead of possibly generating an
+incorrect call sequence for `f(0)`. New in this release is a better detector for
+this error condition when the incompatible declarations appear in different
+files. See [#67699](/issue/67699).
+
+### Vet
+
+<!-- go.dev/issue/44251 -->
+The new `tests` analyzer reports common mistakes in declarations of
+tests, fuzzers, benchmarks, and examples in test packages, such as
+malformed names, incorrect signatures, or examples that document
+non-existent identifiers. Some of these mistakes may cause tests not
+to run.
+This analyzer is among the subset of analyzers that are run by `go test`.
+
+<!-- go.dev/issue/60529 -->
+The existing `printf` analyzer now reports a diagnostic for calls of
+the form `fmt.Printf(s)`, where `s` is a non-constant format string,
+with no other arguments. Such calls are nearly always a mistake
+as the value of `s` may contain the `%` symbol; use `fmt.Print` instead.
+See [#60529](/issue/60529).
+
+<!-- go.dev/issue/64127 -->
+The existing `buildtag` analyzer now reports a diagnostic when
+there is an invalid Go [major version build constraint](/pkg/cmd/go#hdr-Build_constraints)
+within a `//go:build` directive. For example, `//go:build go1.23.1` refers to
+a point release; use `//go:build go1.23` instead.
+See [#64127](/issue/64127).
+
+<!-- go.dev/issue/66387 -->
+The existing `copylock` analyzer now reports a diagnostic when a
+variable declared in a 3-clause "for" loop such as
+`for i := iter(); done(i); i = next(i) { ... }` contains a `sync.Locker`,
+such as a `sync.Mutex`. [Go 1.22](/doc/go1.22#language) changed the behavior
+of these loops to create a new variable for each iteration, copying the
+value from the previous iteration; this copy operation is not safe for locks.
+See [#66387](/issue/66387).
+
+### GOCACHEPROG
+
+<!-- go.dev/issue/64876 -->
+The `cmd/go` internal binary and test caching mechanism can now be implemented
+by child processes implementing a JSON protocol between the `cmd/go` tool
+and the child process named by the `GOCACHEPROG` environment variable.
+This was previously behind a GOEXPERIMENT.
+For protocol details, see [#59719](/issue/59719).
+
+## Runtime {#runtime}
+
+<!-- go.dev/issue/54766 -->
+<!-- go.dev/cl/614795 -->
+<!-- go.dev/issue/68578 -->
+
+Several performance improvements to the runtime have decreased CPU overheads by
+2—3% on average across a suite of representative benchmarks.
+Results may vary by application.
+These improvements include a new builtin `map` implementation based on
+[Swiss Tables](https://abseil.io/about/design/swisstables), more efficient
+memory allocation of small objects, and a new runtime-internal mutex
+implementation.
+
+The new builtin `map` implementation and new runtime-internal mutex may be
+disabled by setting `GOEXPERIMENT=noswissmap` and `GOEXPERIMENT=nospinbitmutex`
+at build time respectively.
+
+## Compiler {#compiler}
+
+<!-- go.dev/issue/60725, go.dev/issue/57926 -->
+The compiler already disallowed defining new methods with receiver types that were
+cgo-generated, but it was possible to circumvent that restriction via an alias type.
+Go 1.24 now always reports an error if a receiver denotes a cgo-generated type,
+whether directly or indirectly (through an alias type).
+
+## Linker {#linker}
+
+<!-- go.dev/issue/68678, go.dev/issue/68652, CL 618598, CL 618601 -->
+The linker now generates a GNU build ID (the ELF `NT_GNU_BUILD_ID` note) on ELF platforms
+and a UUID (the Mach-O `LC_UUID` load command) on macOS by default.
+The build ID or UUID is derived from the Go build ID.
+It can be disabled by the `-B none` linker flag, or overridden by the `-B 0xNNNN` linker
+flag with a user-specified hexadecimal value.
+
+## Bootstrap {#bootstrap}
+
+<!-- go.dev/issue/64751 -->
+As mentioned in the [Go 1.22 release notes](/doc/go1.22#bootstrap), Go 1.24 now requires
+Go 1.22.6 or later for bootstrap.
+We expect that Go 1.26 will require a point release of Go 1.24 or later for bootstrap.
+
+## Standard library {#library}
+
+### Directory-limited filesystem access
+
+<!-- go.dev/issue/67002 -->
+The new [`os.Root`](/pkg/os#Root) type provides the ability to perform filesystem
+operations within a specific directory.
+
+The [`os.OpenRoot`](/pkg/os#OpenRoot) function opens a directory and returns an [`os.Root`](/pkg/os#Root).
+Methods on [`os.Root`](/pkg/os#Root) operate within the directory and do not permit
+paths that refer to locations outside the directory, including
+ones that follow symbolic links out of the directory.
+
+- [`os.Root.Open`](/pkg/os#Root.Open) opens a file for reading.
+- [`os.Root.Create`](/pkg/os#Root.Create) creates a file.
+- [`os.Root.OpenFile`](/pkg/os#Root.OpenFile) is the generalized open call.
+- [`os.Root.Mkdir`](/pkg/os#Root.Mkdir) creates a directory.
+
+A new pbkdf2 [Key] derivation function was added, based on the pre-existing
+`golang.org/x/crypto/pbkdf2` package. <!-- go.dev/issue/69488 -->
+
+A new `crypto/hkdf` package was added based on the pre-existing
+`golang.org/x/crypto/hkdf` package. <!-- go.dev/issue/61477 -->
+
+A new `crypto/mlkem` package was added, implementing ML-KEM (formerly known as
+Kyber), as specified in [NIST FIPS 203](https://doi.org/10.6028/NIST.FIPS.203).
+<!-- go.dev/issue/70122 -->
+
+### New sha3 package
+
+<!-- go.dev/issue/69982, go.dev/issue/65269, CL 629176 -->
+The new [`crypto/sha3`](/pkg/crypto/sha3) package implements the SHA-3 hash function, and SHAKE and
+cSHAKE extendable-output functions.
+
+It was imported from `golang.org/x/crypto/sha3`.
+
+### New benchmark function
+
+Benchmarks may now use the faster and less error-prone [`testing.B.Loop`](/pkg/testing#B.Loop) method to perform benchmark iterations like `for b.Loop() { ... }` in place of the typical loop structures involving `b.N` like `for i := n; i < b.N; i++ { ... }` or `for range b.N`. This offers two significant advantages:
+ - The benchmark function will execute exactly once per -count, so expensive setup and cleanup steps execute only once.
+ - Function call parameters and results are kept alive, preventing the compiler from fully optimizing away the loop body.
+
+### New weak package
+
+The new [weak](/pkg/weak) package provides weak pointers.
+
+Weak pointers are a low-level primitive provided to enable the
+creation of memory-efficient structures, such as weak maps for
+associating values, canonicalization maps for anything not
+covered by package [unique](/pkg/unique), and various kinds
+of caches.
+For supporting these use-cases, this release also provides
+[runtime.AddCleanup](/pkg/runtime#AddCleanup) and
+[maphash.Comparable](/pkg/maphash#Comparable).
+
+### Minor changes to the library {#minor_library_changes}
+
+#### [`archive`](/pkg/archive/)
+
+The `(*Writer).AddFS` implementations in both `archive/zip` and `archive/tar`
+now write a directory header for an empty directory.
+
+#### [`bytes`](/pkg/bytes/)
+
+The [`bytes`](/pkg/bytes) package adds several functions that work with iterators:
+- [`Lines`](/pkg/bytes#Lines) returns an iterator over the
+  newline-terminated lines in the byte slice s.
+- [`SplitSeq`](/pkg/bytes#SplitSeq) returns an iterator over
+  all substrings of s separated by sep.
+- [`SplitAfterSeq`](/pkg/bytes#SplitAfterSeq) returns an iterator
+  over substrings of s split after each instance of sep.
+- [`FieldsSeq`](/pkg/bytes#FieldsSeq) returns an iterator over
+  substrings of s split around runs of whitespace characters,
+  as defined by unicode.IsSpace.
+- [`FieldsFuncSeq`](/pkg/bytes#FieldsFuncSeq) returns an iterator
+  over substrings of s split around runs of Unicode code points satisfying f(c).
+
+#### [`crypto/cipher`](/pkg/crypto/cipher/)
+
+[`NewOFB`](/pkg/crypto/cipher#NewOFB), [`NewCFBEncrypter`](/pkg/crypto/cipher#NewCFBEncrypter), and [`NewCFBDecrypter`](/pkg/crypto/cipher#NewCFBDecrypter) are now deprecated. OFB and
+CFB mode are not authenticated, which generally enables active attacks to
+manipulate and recover the plaintext. It is recommended that applications use
+[`AEAD`](/pkg/crypto/cipher#AEAD) modes instead. If an unauthenticated [`Stream`](/pkg/crypto/cipher#Stream) mode is required, use
+[`NewCTR`](/pkg/crypto/cipher#NewCTR) instead.
+
+The new [`NewGCMWithRandomNonce`](/pkg/crypto/cipher#NewGCMWithRandomNonce) function returns an [`AEAD`](/pkg/crypto/cipher#AEAD) that implements
+AES-GCM by generating a random nonce during Seal and prepending it to the
+ciphertext.
+
+#### [`crypto/fips140`](/pkg/crypto/fips140/)
+
+<!-- FIPS 140 will be covered in its own section. -->
+
+#### [`crypto/hkdf`](/pkg/crypto/hkdf/)
+
+<!-- This is a new package; covered in 6-stdlib/3-hkdf.md. -->
+
+#### [`crypto/md5`](/pkg/crypto/md5/)
+
+The value returned by [`md5.New`](/pkg/md5#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`crypto/mlkem`](/pkg/crypto/mlkem/)
+
+<!-- This is a new package; covered in 6-stdlib/4-mlkem.md. -->
+
+#### [`crypto/pbkdf2`](/pkg/crypto/pbkdf2/)
+
+<!-- This is a new package; covered in 6-stdlib/2-pbkdf2.md. -->
+
+#### [`crypto/rand`](/pkg/crypto/rand/)
+
+The [`Read`](/pkg/crypto/rand#Read) function, and the `Read` method of [`Reader`](/pkg/crypto/rand#Reader), are now
+defined to never fail.
+They will always return `nil` as the `error` result.
+If something somehow goes wrong while reading random numbers,
+the program will irrecoverably crash.
+This change was made because all supported systems now provide
+sources of random bytes that never fail.
+
+The new [`Text`](/pkg/crypto/rand#Text) function can be used to generate cryptographically secure random text strings. <!-- go.dev/issue/67057 -->
+
+#### [`crypto/rsa`](/pkg/crypto/rsa/)
+
+[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) now returns an error if a key of less than 1024 bits is requested.
+All Sign, Verify, Encrypt, and Decrypt methods now return an error if used with
+a key smaller than 1024 bits. Such keys are insecure and should not be used.
+Setting `GODEBUG=rsa1024min=0` or including `//go:debug rsa1024min=0` in a
+source file restores the old behavior, but we recommend doing so only in tests,
+if necessary. A new [`GenerateKey`](/pkg/crypto/rsa#GenerateKey) example provides an easy-to-use standard
+2048-bit test key.
+
+#### [`crypto/sha1`](/pkg/crypto/sha1/)
+
+The value returned by [`sha1.New`](/pkg/sha1#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`crypto/sha256`](/pkg/crypto/sha256/)
+
+The values returned by [`sha256.New`](/pkg/sha256#New) and [`sha256.New224`](/pkg/sha256#New224) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface
+
+#### [`crypto/sha3`](/pkg/crypto/sha3/)
+
+<!-- This is a new package; covered in 6-stdlib/5-sha3.md. -->
+
+#### [`crypto/sha512`](/pkg/crypto/sha512/)
+
+The values returned by [`sha512.New`](/pkg/sha512#New), [`sha512.New384`](/pkg/sha512#New384), [`sha512.New512_224`](/pkg/sha512#New512_224) and [`sha512.New512_256`](/pkg/sha512#New512_256) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`crypto/subtle`](/pkg/crypto/subtle/)
+
+The [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming) function allows the user to run a function with
+architecture specific features enabled which guarantee specific instructions are
+data value timing invariant. This can be used to make sure that code designed to
+run in constant time is not optimized by CPU-level features such that it
+operates in variable time. Currently, [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming) uses the
+PSTATE.DIT bit on arm64, and is a no-op on all other architectures.
+
+#### [`crypto/tls`](/pkg/crypto/tls/)
+
+The [`ClientHelloInfo`](/pkg/crypto/tls#ClientHelloInfo) struct passed to [`Config.GetCertificate`](/pkg/crypto/tls#Config.GetCertificate) now includes an `Extensions` field, which can be useful for fingerprinting TLS clients.<!-- go.dev/issue/32936 -->
+
+The TLS server now supports Encrypted Client Hello (ECH). This feature can be
+enabled by populating the [`Config.EncryptedClientHelloKeys`](/pkg/crypto/tls#Config.EncryptedClientHelloKeys) field.
+
+`crypto/tls` now supports the post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key exchange. Support
+for the experimental X25519Kyber768Draft00 key exchange has been removed.
+
+#### [`crypto/x509`](/pkg/crypto/x509/)
+
+The `x509sha1` GODEBUG setting has been removed. [`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) will no
+longer consider SHA-1 based signatures valid when this GODEBUG setting is set.
+
+[`OID`](/pkg/crypto/x509#OID) now implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and [`encoding.TextAppender`](/pkg/encoding#TextAppender)
+interfaces.
+
+The default certificate policies field has changed from
+[`Certificate.PolicyIdentifiers`](/pkg/crypto/x509#Certificate.PolicyIdentifiers) to [`Certificate.Policies`](/pkg/crypto/x509#Certificate.Policies). When parsing
+certificates, both fields will be populated, but when creating certificates
+policies will now be taken from the [`Certificate.Policies`](/pkg/crypto/x509#Certificate.Policies) field instead of the
+[Certificate.PolicyIdentifiers field]. This change can be reverted by setting
+`GODEBUG=x509usepolicies=0`.
+
+[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) will now generate a serial number using a RFC 5280
+compliant method when passed a template with a nil [`Certificate.SerialNumber`](/pkg/crypto/x509#Certificate.SerialNumber)
+field, instead of failing.
+
+[`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) now supports policy validation, as defined by RFC 5280 and
+RFC 9618. In order to enable policy validation,
+[`VerifyOptions.CertificatePolicies`](/pkg/crypto/x509#VerifyOptions.CertificatePolicies) must be set to an acceptable set of policy
+[`OIDs`](/pkg/crypto/x509#OIDs). When enabled, only certificate chains with valid policy graphs will be
+returned from [`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify).
+
+[`MarshalPKCS8PrivateKey`](/pkg/crypto/x509#MarshalPKCS8PrivateKey) now returns an error instead of marshaling an invalid
+RSA key. ([`MarshalPKCS1PrivateKey`](/pkg/crypto/x509#MarshalPKCS1PrivateKey) doesn't have an error return, and its behavior
+when provided invalid keys continues to be undefined.)
+
+[`ParsePKCS1PrivateKey`](/pkg/crypto/x509#ParsePKCS1PrivateKey) and [`ParsePKCS8PrivateKey`](/pkg/crypto/x509#ParsePKCS8PrivateKey) now use and validate the
+encoded CRT values, so might reject invalid keys that were previously accepted.
+Use `GODEBUG=x509rsacrt=0` to revert to recomputing them.
+
+#### [`debug/elf`](/pkg/debug/elf/)
+
+The [`debug/elf`](/pkg/debug/elf) package adds several new constants, types, and methods to add support for handling dynamic versions and version flags in ELF (Executable and Linkable Format) files:
+
+Several new types have been introduced:
+- [`DynamicVersion`](/pkg/debug/elf#DynamicVersion) struct represents a dynamic version entry in the ELF file.
+- [`DynamicVersionDep`](/pkg/debug/elf#DynamicVersionDep) struct represents a dependency of a dynamic version.
+- [`DynamicVersionNeed`](/pkg/debug/elf#DynamicVersionNeed) struct represents a required dynamic version in the ELF file.
+- [`DynamicVersionFlag`](/pkg/debug/elf#DynamicVersionFlag) is a new type defined as uint16, representing flags for dynamic versions.
+    - [`VER_FLG_BASE`](/pkg/debug/elf#VER_FLG_BASE) version definition of the file.
+    - [`VER_FLG_WEAK`](/pkg/debug/elf#VER_FLG_WEAK) weak version identifier.
+    - [`VER_FLG_INFO`](/pkg/debug/elf#VER_FLG_INFO) reference exists for informational purposes.
+- [`SymbolVersionFlag`](/pkg/debug/elf#SymbolVersionFlag) is a new type defined as uint8, representing version flags for ELF symbols.
+    - [`VerFlagNone`](/pkg/debug/elf#VerFlagNone) no flags.
+    - [`VerFlagLocal`](/pkg/debug/elf#VerFlagLocal) symbol has local scope.
+    - [`VerFlagGlobal`](/pkg/debug/elf#VerFlagGlobal) symbol has global scope.
+    - [`VerFlagHidden`](/pkg/debug/elf#VerFlagHidden) symbol is hidden.
+
+The following methods have been added:
+- [`File.DynamicVersionNeeds`](/pkg/debug/elf#File.DynamicVersionNeeds) method returns a list of dynamic version needs in the ELF file, representing dependencies required by the executable.
+- [`File.DynamicVersions`](/pkg/debug/elf#File.DynamicVersions) retrieves a list of dynamic versions defined in the ELF file.
+<!-- go.dev/issue/63952 -->
+
+#### [`encoding`](/pkg/encoding/)
+
+Two new interfaces, [`TextAppender`](/pkg/encoding#TextAppender) and [`BinaryAppender`](/pkg/encoding#BinaryAppender), have been
+introduced to append the textual or binary representation of an object
+to a byte slice. These interfaces provide the same functionality as
+[`TextMarshaler`](/pkg/encoding#TextMarshaler) and [`BinaryMarshaler`](/pkg/encoding#BinaryMarshaler), but instead of allocating a new slice
+each time, they append the data directly to an existing slice.
+
+#### [`encoding/json`](/pkg/encoding/json/)
+
+When marshaling, a struct field with the new `omitzero` option in the struct field
+tag will be omitted if its value is zero. If the field type has an `IsZero() bool`
+method, that will be used to determine whether the value is zero. Otherwise, the
+value is zero if it is [the zero value for its type](/ref/spec#The_zero_value).
+
+If both `omitempty` and `omitzero` are specified, the field will be omitted if the
+value is either empty or zero (or both).
+
+[`UnmarshalTypeError.Field`](/pkg/encoding/json#UnmarshalTypeError.Field) now includes embedded structs to provide more detailed error messages.
+
+#### [`go/types`](/pkg/go/types/)
+
+All `go/types` data structures that expose sequences using a pair of
+methods such as `Len() int` and `At(int) T` now also have methods that
+return iterators, allowing you to simplify code such as this:
+
+```
+params := fn.Type.(*types.Signature).Params()
+for i := 0; i < params.Len(); i++ {
+   use(params.At(i))
+}
+```
+
+to this:
+
+```
+for param := range fn.Signature().Params().Variables() {
+   use(param)
+}
+```
+
+The methods are:
+[`Interface.EmbeddedTypes`](/pkg/go/types#Interface.EmbeddedTypes),
+[`Interface.ExplicitMethods`](/pkg/go/types#Interface.ExplicitMethods),
+[`Interface.Methods`](/pkg/go/types#Interface.Methods),
+[`MethodSet.Methods`](/pkg/go/types#MethodSet.Methods),
+[`Named.Methods`](/pkg/go/types#Named.Methods),
+[`Scope.Children`](/pkg/go/types#Scope.Children),
+[`Struct.Fields`](/pkg/go/types#Struct.Fields),
+[`Tuple.Variables`](/pkg/go/types#Tuple.Variables),
+[`TypeList.Types`](/pkg/go/types#TypeList.Types),
+[`TypeParamList.TypeParams`](/pkg/go/types#TypeParamList.TypeParams),
+[`Union.Terms`](/pkg/go/types#Union.Terms).
+
+#### [`hash/adler32`](/pkg/hash/adler32/)
+
+The value returned by [`New`](/pkg/hash/adler32#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`hash/crc32`](/pkg/hash/crc32/)
+
+The values returned by [`New`](/pkg/hash/crc32#New) and [`NewIEEE`](/pkg/hash/crc32#NewIEEE) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`hash/crc64`](/pkg/hash/crc64/)
+
+The value returned by [`New`](/pkg/hash/crc64#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`hash/fnv`](/pkg/hash/fnv/)
+
+The values returned by [`New32`](/pkg/hash/fnv#New32), [`New32a`](/pkg/hash/fnv#New32a), [`New64`](/pkg/hash/fnv#New64), [`New64a`](/pkg/hash/fnv#New64a), [`New128`](/pkg/hash/fnv#New128) and [`New128a`](/pkg/hash/fnv#New128a) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`hash/maphash`](/pkg/hash/maphash/)
+
+New function [`Comparable`](/pkg/hash/maphash#Comparable) returns the hash of comparable value v.
+New function [`WriteComparable`](/pkg/hash/maphash#WriteComparable) adds x to the data hashed by [`Hash`](/pkg/hash/maphash#Hash).
+
+#### [`log/slog`](/pkg/log/slog/)
+
+The new [`DiscardHandler`](/pkg/log/slog#DiscardHandler) is a handler that is never enabled and always discards its output.
+
+[`Level`](/pkg/log/slog#Level) and [`LevelVar`](/pkg/log/slog#LevelVar) now implement the [`encoding.TextAppender`](/pkg/encoding#TextAppender) interface.
+
+#### [`math/big`](/pkg/math/big/)
+
+[`Float`](/pkg/math/big#Float), [`Int`](/pkg/math/big#Int) and [`Rat`](/pkg/math/big#Rat) now implement the [`encoding.TextAppender`](/pkg/encoding#TextAppender) interface.
+
+#### [`math/rand`](/pkg/math/rand/)
+
+Calls to the deprecated top-level [`Seed`](/pkg/math/rand#Seed) function no longer have any effect. To
+restore the old behavior set `GODEBUG=randseednop=0`. For more background see
+the proposal [#67273](/issue/67273).
+
+#### [`math/rand/v2`](/pkg/math/rand/v2/)
+
+[`ChaCha8`](/pkg/math/rand/v2#ChaCha8) and [`PCG`](/pkg/math/rand/v2#PCG) now implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`net`](/pkg/net/)
+
+[`ListenConfig`](/pkg/net#ListenConfig) now uses MPTCP by default on systems where it is supported
+(currently on Linux only).
+
+[`IP`](/pkg/net#IP) now implements the [`encoding.TextAppender`](/pkg/encoding#TextAppender) interface.
+
+#### [`net/http`](/pkg/net/http/)
+
+[`Transport`](/pkg/net/http#Transport)'s limit on 1xx informational responses received
+in response to a request has changed.
+It previously aborted a request and returned an error after
+receiving more than 5 1xx responses.
+It now returns an error if the total size of all 1xx responses
+exceeds the [`Transport.MaxResponseHeaderBytes`](/pkg/net/http#Transport.MaxResponseHeaderBytes) configuration setting.
+
+In addition, when a request has a
+[`net/http/httptrace.ClientTrace.Got1xxResponse`](/pkg/net/http/httptrace#ClientTrace.Got1xxResponse)
+trace hook, there is now no limit on the total number of 1xx responses.
+The `Got1xxResponse` hook may return an error to abort a request.
+
+[`Transport`](/pkg/net/http#Transport) and [`Server`](/pkg/net/http#Server) now have an HTTP2 field which permits
+configuring HTTP/2 protocol settings.
+
+The new [`Server.Protocols`](/pkg/net/http#Server.Protocols) and [`Transport.Protocols`](/pkg/net/http#Transport.Protocols) fields provide
+a simple way to configure what HTTP protocols a server or client use.
+
+The server and client may be configured to support unencrypted HTTP/2
+connections.
+
+When [`Server.Protocols`](/pkg/net/http#Server.Protocols) contains UnencryptedHTTP2, the server will accept
+HTTP/2 connections on unencrypted ports. The server can accept both
+HTTP/1 and unencrypted HTTP/2 on the same port.
+
+When [`Transport.Protocols`](/pkg/net/http#Transport.Protocols) contains UnencryptedHTTP2 and does not contain
+HTTP1, the transport will use unencrypted HTTP/2 for http:// URLs.
+If the transport is configured to use both HTTP/1 and unencrypted HTTP/2,
+it will use HTTP/1.
+
+Unencrypted HTTP/2 support uses "HTTP/2 with Prior Knowledge"
+(RFC 9113, section 3.3). The deprecated "Upgrade: h2c" header
+is not supported.
+
+#### [`net/netip`](/pkg/net/netip/)
+
+[`Addr`](/pkg/net/netip#Addr), [`AddrPort`](/pkg/net/netip#AddrPort) and [`Prefix`](/pkg/net/netip#Prefix) now implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and
+[`encoding.TextAppender`](/pkg/encoding#TextAppender) interfaces.
+
+#### [`net/url`](/pkg/net/url/)
+
+[`URL`](/pkg/net/url#URL) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+
+#### [`os`](/pkg/os/)
+
+<!-- os.Root -->
+
+#### [`os/user`](/pkg/os/user/)
+
+On Windows, [`Current`](/pkg/os/user#Current) can now be used in Windows Nano Server.
+The implementation has been updated to avoid using functions
+from the `NetApi32` library, which is not available in Nano Server.
+
+On Windows, [`Current`](/pkg/os/user#Current), [`Lookup`](/pkg/os/user#Lookup) and [`LookupId`](/pkg/os/user#LookupId) now supports the
+following built-in service user accounts:
+- `NT AUTHORITY\SYSTEM`
+- `NT AUTHORITY\LOCAL SERVICE`
+- `NT AUTHORITY\NETWORK SERVICE`
+
+On Windows, [`Current`](/pkg/os/user#Current) has been made considerably faster when
+the current user is joined to a slow domain, which is the
+usual case for many corporate users. The new implementation
+performance is now in the order of milliseconds, compared to
+the previous implementation which could take several seconds,
+or even minutes, to complete.
+
+On Windows, [`Current`](/pkg/os/user#Current) now returns the process owner user when
+the current thread is impersonating another user. Previously,
+it returned an error.
+
+#### [`regexp`](/pkg/regexp/)
+
+[`Regexp`](/pkg/regexp#Regexp) now implements the [`encoding.TextAppender`](/pkg/encoding#TextAppender) interface.
+
+#### [`runtime`](/pkg/runtime/)
+
+The [`GOROOT`](/pkg/runtime#GOROOT) function is now deprecated.
+In new code prefer to use the system path to locate the “go” binary,
+and use `go env GOROOT` to find its GOROOT.
+
+The [`AddCleanup`](/pkg/runtime#AddCleanup) function attaches a function to a pointer. Once the object that
+the pointer points to is no longer reachable, the runtime will call the function.
+[`AddCleanup`](/pkg/runtime#AddCleanup) is a finalization mechanism similar to [`SetFinalizer`](/pkg/runtime#SetFinalizer). Unlike
+[`SetFinalizer`](/pkg/runtime#SetFinalizer), it does not resurrect objects while running the cleanup. Multiple
+cleanups can be attached to a single object. [`AddCleanup`](/pkg/runtime#AddCleanup) is an improvement over
+[`SetFinalizer`](/pkg/runtime#SetFinalizer).
+
+#### [`strings`](/pkg/strings/)
+
+The [`strings`](/pkg/strings) package adds several functions that work with iterators:
+- [`Lines`](/pkg/strings#Lines) returns an iterator over
+  the newline-terminated lines in the string s.
+- [`SplitSeq`](/pkg/strings#SplitSeq) returns an iterator over
+  all substrings of s separated by sep.
+- [`SplitAfterSeq`](/pkg/strings#SplitAfterSeq) returns an iterator
+  over substrings of s split after each instance of sep.
+- [`FieldsSeq`](/pkg/strings#FieldsSeq) returns an iterator over
+  substrings of s split around runs of whitespace characters,
+  as defined by unicode.IsSpace.
+- [`FieldsFuncSeq`](/pkg/strings#FieldsFuncSeq) returns an iterator
+  over substrings of s split around runs of Unicode code points satisfying f(c).
+
+#### [`sync`](/pkg/sync/)
+
+The implementation of [`sync.Map`](/pkg/sync#Map) has been changed, improving overall performance
+and resolving some long-standing issues.
+If you encounter any problems, set `GOEXPERIMENT=nosynchashtriemap` at build
+time to switch back to the old implementation and please [file an
+issue](/issue/new).
+
+#### [`testing`](/pkg/testing/)
+
+The new [`T.Context`](/pkg/testing#T.Context) and [`B.Context`](/pkg/testing#B.Context) methods return a context that's canceled
+after the test completes and before test cleanup functions run.
+
+<!-- testing.B.Loop mentioned in 6-stdlib/6-testing-bloop.md. -->
+
+The new [`T.Chdir`](/pkg/testing#T.Chdir) and [`B.Chdir`](/pkg/testing#B.Chdir) methods can be used to change the working
+directory for the duration of a test or benchmark.
+
+#### [`text/template`](/pkg/text/template/)
+
+Templates now support range-over-func and range-over-int.
+
+#### [`time`](/pkg/time/)
+
+[`Time`](/pkg/time#Time) now implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and [`encoding.TextAppender`](/pkg/encoding#TextAppender) interfaces.
+
+#### [`weak`](/pkg/weak/)
+
+<!-- This is a new package; covered in 6-stdlib/1-weak.md. -->
+
+## Ports {#ports}
+
+### Linux {#linux}
+
+<!-- go.dev/issue/67001 -->
+As [announced](go1.23#linux) in the Go 1.23 release notes, Go 1.24 requires Linux
+kernel version 3.2 or later.
+
+### Darwin {#darwin}
+
+<!-- go.dev/issue/69839 -->
+Go 1.24 is the last release that will run on macOS 11 Big Sur.
+Go 1.25 will require macOS 12 Monterey or later.
+
+### WebAssembly {#wasm}
+
+<!-- go.dev/issue/65199, CL 603055 -->
+The `go:wasmexport` directive is added for Go programs to export functions to the WebAssembly host.
+
+On WebAssembly System Interface Preview 1 (`GOOS=wasip1, GOARCH=wasm`), Go 1.24 supports
+building a Go program as a
+[reactor/library](https://github.com/WebAssembly/WASI/blob/63a46f61052a21bfab75a76558485cf097c0dbba/legacy/application-abi.md#current-unstable-abi),
+by specifying the `-buildmode=c-shared` build flag.
+
+<!-- go.dev/issue/66984, CL 626615 -->
+More types are now permitted as argument or result types for `go:wasmimport` functions.
+Specifically, `bool`, `string`, `uintptr`, and pointers to certain types are allowed
+(see the [proposal](/issue/66984) for detail),
+along with 32-bit and 64-bit integer and float types, and `unsafe.Pointer`, which
+are already allowed.
+These types are also permitted as argument or result types for `go:wasmexport` functions.
+
+<!-- go.dev/issue/68024 -->
+The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`.
+
+<!-- Needs to be documented and tracked via a release-blocking issue.
+
+accepted proposal https://go.dev/issue/26232 (from https://go.dev/cl/605256, https://go.dev/cl/605275, https://go.dev/cl/605298, https://go.dev/cl/625036) - cmd/go's HTTP auth is tracked in proposal 26232 itself as a release blocker
+accepted proposal https://go.dev/issue/48429 (from https://go.dev/cl/521958, https://go.dev/cl/521959, https://go.dev/cl/534817, https://go.dev/cl/563175, https://go.dev/cl/613095, https://go.dev/cl/614555, https://go.dev/cl/630695) - cmd/go support for tracking tool dependencies in go.mod is tracked in proposal 48429 itself as a release blocker
+accepted proposal https://go.dev/issue/50603 (from https://go.dev/cl/595376, https://go.dev/cl/596035, https://go.dev/cl/609155, https://go.dev/cl/611916, https://go.dev/cl/627295) - cmd/go support for stamping pseudo-version in go build is tracked in proposal 50603 itself as a release blocker
+accepted proposal https://go.dev/issue/64127 (from https://go.dev/cl/597576) - mentioning the new vet check to report invalid Go versions in build tags is tracked in proposal 64127 itself as a release blocker
+accepted proposal https://go.dev/issue/66387 (from https://go.dev/cl/569955) - extending the copylock analyzer in cmd/vet is now tracked in proposal 66387 itself as a release blocker
+accepted proposal https://go.dev/issue/69290 (from https://go.dev/cl/613095) - cmd/go caching link output binaries is now tracked in proposal 69290 itself as a release blocker
+accepted proposal https://go.dev/issue/69393 (from https://go.dev/cl/630775) - automatic crypto/tls.CurvePreferences ordering is now tracked in proposal 69393 itself as a release blocker
+-->
+
+<!-- Needs to be documented, but not currently tracked via a release-blocking issue.
+
+accepted proposal https://go.dev/issue/66821 (from https://go.dev/cl/602495, https://go.dev/cl/602497, https://go.dev/cl/608175, https://go.dev/cl/608435, https://go.dev/cl/621979, https://go.dev/cl/622115) - crashing the process on error reading randomness (which should not have a path to happen) might need to be mentioned; commented at https://go.dev/issues/66821#issuecomment-2502069725 for next steps; Ian sent out CL 632036
+-->
+
+<!-- Maybe worth including or maybe fine not to include in Go 1.24 release notes. Someone more familiar with the change makes the call.
+
+accepted proposal https://go.dev/issue/64802 (from https://go.dev/cl/628681) - a crypto/ecdsa change when rand is nil; commented at https://go.dev/issue/64802#issuecomment-2502019212 for next steps
+accepted proposal https://go.dev/issue/25309 (from https://go.dev/cl/594018, https://go.dev/cl/595120, https://go.dev/cl/595564, https://go.dev/cl/601778) - new x/crypto package; doesn't seem to need to be mentioned but asked anyway in https://go.dev/issue/25309#issuecomment-2498747653
+accepted proposal https://go.dev/issue/43744 (from https://go.dev/cl/357530) - unclear if Go 1.24 release notes need anything; pinged it in https://go.dev/issue/43744#issuecomment-2498773718
+accepted proposal https://go.dev/issue/69687 (from https://go.dev/cl/591997, https://go.dev/cl/629735) - experimental package testing/synctest behind an experiment; commented at https://github.com/golang/go/issues/69687#issuecomment-2502179333, leaving to Damien to decide whether to document it or defer that until the package is added as non-experiment
+accepted proposal https://go.dev/issue/51269 (from https://go.dev/cl/627035) - may be worth mentioning in Go 1.24 release notes, or may be fine to leave out; commented at https://go.dev/issue/51269#issuecomment-2501802763
+accepted proposal https://go.dev/issue/60905 (from https://go.dev/cl/610195) - CL 610195 seems like a small performance enhancement that builds on the Go 1.23 proposal to add GOARM64; probably okay without being mentioned in Go 1.24 release notes (also probably okay to mention)
+accepted proposal https://go.dev/issue/61395 (from https://go.dev/cl/594738, https://go.dev/cl/594976) - CL 594738 made sync/atomic AND/OR operations intrinsic on amd64, but the API was already added in Go 1.23; CL 594976 is a fix; probably doesn't require a Go 1.24 release note
+-->
+
+<!-- Items that don't need to be mentioned in Go 1.24 release notes but are picked up by relnote todo.
+
+accepted proposal https://go.dev/issue/66540 (from https://go.dev/cl/603958) - a Go language spec clarification; might not need to be mentioned in Go 1.24 release notes; left a comment at https://go.dev/issue/66540#issuecomment-2502051684; Robert confirmed it indeed doesn't
+accepted proposal https://go.dev/issue/34208 (from https://go.dev/cl/586241) - CL 586241 implements a fix for a Go 1.23 feature, doesn't seem to be need anything in Go 1.24 release notes
+accepted proposal https://go.dev/issue/43993 (from https://go.dev/cl/626116) - CL 626116 prepares the tree towards the vet change but the vet change itself isn't implemented in Go 1.24, so nothing to say in Go 1.24 release notes
+accepted proposal https://go.dev/issue/44505 (from https://go.dev/cl/609955) - CL 609955 is an internal cleanup in x/tools, no need for Go 1.24 release note
+accepted proposal https://go.dev/issue/61476 (from https://go.dev/cl/608255) - CL 608255 builds on GORISCV64 added in Go 1.23; nothing to mention in Go 1.24 release notes
+accepted proposal https://go.dev/issue/66315 (from https://go.dev/cl/577996) - adding Pass.Module field to x/tools/go/analysis doesn't seem like something that needs to be mentioned in Go 1.24 release notes
+accepted proposal https://go.dev/issue/57786 (from https://go.dev/cl/472717) - CL 472717 is in x/net/http2 and mentions a Go 1.21 proposal; it doesn't seem to need anything in Go 1.24 release notes
+accepted proposal https://go.dev/issue/54265 (from https://go.dev/cl/609915, https://go.dev/cl/610675) - CLs that refer to a Go 1.22 proposal, nothing more is needed in Go 1.24 release notes
+accepted proposal https://go.dev/issue/53021 (from https://go.dev/cl/622276) - CL 622276 improves docs; proposal 53021 was in Go 1.20 so nothing more is needed in Go 1.24 release notes
+accepted proposal https://go.dev/issue/51430 (from https://go.dev/cl/613375) - CL 613375 is an internal documentation comment; proposal 51430 happened in Go 1.20/1.21 so nothing more is needed in Go 1.24 release notes
+accepted proposal https://go.dev/issue/38445 (from https://go.dev/cl/626495) - CL 626495 works on proposal 38445, which is about x/tools/go/package, doesn't need anything in Go 1.24 release notes
+accepted proposal https://go.dev/issue/56986 (from https://go.dev/cl/618115) - CL 618115 adds documentation; it doesn't need to be mentioned in Go 1.24 release notes
+accepted proposal https://go.dev/issue/60061 (from https://go.dev/cl/612038) - CL 612038 is a CL that deprecates something in x/tools/go/ast and mentions a Go 1.22 proposal; doesn't need anything in Go 1.24 release notes
+accepted proposal https://go.dev/issue/61324 (from https://go.dev/cl/411907) - CL 411907 is an x/tools CL that implements a proposal for a new package there; doesn't need anything in Go 1.24 release notes
+accepted proposal https://go.dev/issue/61777 (from https://go.dev/cl/601496) - CL 601496 added a WriteByteTimeout field to x/net/http2.Server; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/61940 (from https://go.dev/cl/600997) - CL 600997 deleted obsolete code in x/build and mentioned an accepted proposal; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/62113 (from https://go.dev/cl/594195) - CL 594195 made iterator-related additions in x/net/html; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/62484 (from https://go.dev/cl/600775) - CL 600775 documents CopyFS symlink behavior and mentions the Go 1.23 proposal; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/64207 (from https://go.dev/cl/605875) - an x/website CL that follows up on a Go 1.23 proposal; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/65236 (from https://go.dev/cl/596135) - CL 596135 adds tests for the Go 1.23 proposal 65236; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/67795 (from https://go.dev/cl/616218) - iteratior support for x/tools/go/ast/inspector; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/67812 (from https://go.dev/cl/601497) - configurable server pings for x/net/http2.Server; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/68232 (from https://go.dev/cl/595676) - x/sys/unix additions; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/68898 (from https://go.dev/cl/607495, https://go.dev/cl/620036, https://go.dev/cl/620135, https://go.dev/cl/623638) - a proposal for x/tools/go/gcexportdata to document 2 releases + tip support policy; since the change is in x/tools it doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/69095 (from https://go.dev/cl/593683, https://go.dev/cl/608955, https://go.dev/cl/610716) - a proposal that affects maintenance and support of golang.org/x repositories; doesn't need to be mentioned in Go 1.24 release notes
+accepted proposal https://go.dev/issue/68384 (from https://go.dev/cl/611875) - expanding the scope of Go Telemetry to include Delve isn't directly tied to Go 1.24 and doesn't seem to need to be mentioned in Go 1.24 release notes
+accepted proposal https://go.dev/issue/69291 (from https://go.dev/cl/610939) - CL 610939 refactors code in x/tools and mentions the still-open proposal #69291 to add Reachable to x/tools/go/ssa/ssautil; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/69360 (from https://go.dev/cl/614158, https://go.dev/cl/614159, https://go.dev/cl/614635, https://go.dev/cl/614675) - proposal 69360 is to tag and delete gorename from x/tools; doesn't need a Go 1.24 release note
+accepted proposal https://go.dev/issue/61417 (from https://go.dev/cl/605955) - a new field in x/oauth2; nothing to mention in Go 1.24 release notes
+-->
