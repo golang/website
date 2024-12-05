@@ -14,7 +14,6 @@ import (
 	"errors"
 	"flag"
 	"fmt"
-	"go/format"
 	"html/template"
 	"io"
 	"io/fs"
@@ -405,8 +404,10 @@ func watchGit1(afs *atomicFS, repo string) {
 	}
 }
 
-var datastoreClient *datastore.Client
-var memcacheClient *memcache.Client
+var (
+	datastoreClient *datastore.Client
+	memcacheClient  *memcache.Client
+)
 
 func appEngineSetup(mux *http.ServeMux) {
 	googleAnalytics = os.Getenv("GOLANGORG_ANALYTICS")
@@ -436,20 +437,6 @@ func appEngineSetup(mux *http.ServeMux) {
 type fmtResponse struct {
 	Body  string
 	Error string
-}
-
-// fmtHandler takes a Go program in its "body" form value, formats it with
-// standard gofmt formatting, and writes a fmtResponse as a JSON object.
-func fmtHandler(w http.ResponseWriter, r *http.Request) {
-	resp := new(fmtResponse)
-	body, err := format.Source([]byte(r.FormValue("body")))
-	if err != nil {
-		resp.Error = err.Error()
-	} else {
-		resp.Body = string(body)
-	}
-	w.Header().Set("Content-type", "application/json; charset=utf-8")
-	json.NewEncoder(w).Encode(resp)
 }
 
 var validHosts = map[string]bool{
@@ -842,7 +829,7 @@ type memFile struct {
 
 func (f *memFile) Stat() (fs.FileInfo, error) { return f, nil }
 func (f *memFile) Name() string               { return f.name }
-func (*memFile) Mode() fs.FileMode            { return 0444 }
+func (*memFile) Mode() fs.FileMode            { return 0o444 }
 func (*memFile) ModTime() time.Time           { return time.Time{} }
 func (*memFile) IsDir() bool                  { return false }
 func (*memFile) Sys() interface{}             { return nil }

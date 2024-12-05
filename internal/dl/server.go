@@ -45,11 +45,6 @@ func RegisterHandlers(mux *http.ServeMux, site *web.Site, host string, dc *datas
 	mux.HandleFunc(host+"/dl/mod/golang.org/toolchain/@v/", s.toolchainRedirect)
 	mux.HandleFunc(host+"/dl/mod/golang.org/toolchain/@v/list", s.toolchainList)
 	mux.HandleFunc(host+"/dl/upload", s.uploadHandler)
-
-	// NOTE(cbro): this only needs to be run once per project,
-	// and should be behind an admin login.
-	// TODO(cbro): move into a locally-run program? or remove?
-	// mux.HandleFunc("/dl/init", initHandler)
 }
 
 // rootKey is the ancestor of all File entities.
@@ -303,27 +298,6 @@ func (server) toolchainRedirect(w http.ResponseWriter, r *http.Request) {
 	}
 
 	http.Redirect(w, r, "https://dl.google.com/go/"+file, http.StatusFound)
-}
-
-func (h server) initHandler(w http.ResponseWriter, r *http.Request) {
-	var fileRoot struct {
-		Root string
-	}
-	ctx := r.Context()
-	k := rootKey
-	_, err := h.datastore.RunInTransaction(ctx, func(tx *datastore.Transaction) error {
-		err := tx.Get(k, &fileRoot)
-		if err != nil && err != datastore.ErrNoSuchEntity {
-			return err
-		}
-		_, err = tx.Put(k, &fileRoot)
-		return err
-	}, nil)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-	io.WriteString(w, "OK")
 }
 
 func (h server) userKey(c context.Context, user string) string {

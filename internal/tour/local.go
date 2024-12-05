@@ -8,7 +8,6 @@ import (
 	"flag"
 	"html/template"
 	"io"
-	"io/fs"
 	"log"
 	"net"
 	"net/http"
@@ -86,13 +85,6 @@ type logging struct {
 func (l *logging) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	println(r.URL.Path)
 	l.h.ServeHTTP(w, r)
-}
-
-func must(fsys fs.FS, err error) fs.FS {
-	if err != nil {
-		panic(err)
-	}
-	return fsys
 }
 
 // rootHandler returns a handler for all the requests except the ones for lessons.

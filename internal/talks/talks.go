@@ -62,12 +62,6 @@ func (h *handler) isDoc(name string) bool {
 	return false
 }
 
-func playable(c present.Code) bool {
-	// Restrict playable files to only Go source files when using play.golang.org,
-	// since there is no method to execute shell scripts there.
-	return c.Ext == ".go"
-}
-
 // renderDoc reads the present file, gets its template representation,
 // and executes the template, sending output to w.
 func (h *handler) renderDoc(w http.ResponseWriter, r *http.Request, docFile string) error {

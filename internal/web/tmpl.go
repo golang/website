@@ -79,11 +79,6 @@ func markdown(data interface{}) (template.HTML, error) {
 	return h, nil
 }
 
-func (site *siteDir) readfile(name string) (string, error) {
-	data, err := site.readFile(site.dir, name)
-	return string(data), err
-}
-
 // page returns the page params for the page with a given url u.
 // The url may or may not have its leading slash.
 func (site *siteDir) page(u string) (Page, error) {

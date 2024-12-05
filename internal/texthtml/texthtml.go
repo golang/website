@@ -265,26 +265,6 @@ func (m *merger) next() (index, offs int, start bool) {
 	return
 }
 
-// lineSelection returns the line spans for text as a Selection.
-func lineSelection(text []byte) Selection {
-	i, j := 0, 0
-	return func() (seg Span) {
-		// find next newline, if any
-		for j < len(text) {
-			j++
-			if text[j-1] == '\n' {
-				break
-			}
-		}
-		if i < j {
-			// text[i:j] constitutes a line
-			seg = Span{i, j}
-			i = j
-		}
-		return
-	}
-}
-
 // tokenSelection returns, as a selection, the sequence of
 // consecutive occurrences of token sel in the Go src text.
 func tokenSelection(src []byte, sel token.Token) Selection {

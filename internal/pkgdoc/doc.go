@@ -304,18 +304,6 @@ func simpleImporter(imports map[string]*ast.Object, path string) (*ast.Object, e
 	return pkg, nil
 }
 
-// packageExports is a local implementation of ast.PackageExports
-// which correctly updates each package file's comment list.
-// (The ast.PackageExports signature is frozen, hence the local
-// implementation).
-func packageExports(fset *token.FileSet, pkg *ast.Package) {
-	for _, src := range pkg.Files {
-		cmap := ast.NewCommentMap(fset, src, src.Comments)
-		ast.FileExports(src)
-		src.Comments = cmap.Filter(src).Comments()
-	}
-}
-
 type funcsByName []*doc.Func
 
 func (s funcsByName) Len() int { return len(s) }
