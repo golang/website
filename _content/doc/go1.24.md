@@ -645,6 +645,12 @@ These types are also permitted as argument or result types for `go:wasmexport` f
 <!-- go.dev/issue/68024 -->
 The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`.
 
+### Windows {#windows}
+
+<!-- go.dev/issue/70705 -->
+The windows/arm port (`GOOS=windows` `GOARCH=arm`) has been marked broken.
+See [issue 70705](/issue/70705) for details.
+
 <!-- Needs to be documented and tracked via a release-blocking issue.
 
 accepted proposal https://go.dev/issue/26232 (from https://go.dev/cl/605256, https://go.dev/cl/605275, https://go.dev/cl/605298, https://go.dev/cl/625036) - cmd/go's HTTP auth is tracked in proposal 26232 itself as a release blocker
