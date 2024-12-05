@@ -339,6 +339,8 @@ enabled by populating the [`Config.EncryptedClientHelloKeys`](/pkg/crypto/tls#Co
 `crypto/tls` now supports the post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key exchange. Support
 for the experimental X25519Kyber768Draft00 key exchange has been removed.
 
+Key exchange ordering is now handled entirely by the `crypto/tls` package. The order of [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is now ignored, and the contents are only used to determine which key exchanges to enable when the field is populated.
+
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 The `x509sha1` GODEBUG setting has been removed. [`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) will no
