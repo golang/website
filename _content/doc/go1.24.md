@@ -185,42 +185,51 @@ ones that follow symbolic links out of the directory.
 - [`os.Root.OpenFile`](/pkg/os#Root.OpenFile) is the generalized open call.
 - [`os.Root.Mkdir`](/pkg/os#Root.Mkdir) creates a directory.
 
-A new pbkdf2 [Key] derivation function was added, based on the pre-existing
-`golang.org/x/crypto/pbkdf2` package. <!-- go.dev/issue/69488 -->
-
-A new `crypto/hkdf` package was added based on the pre-existing
-`golang.org/x/crypto/hkdf` package. <!-- go.dev/issue/61477 -->
-
-A new `crypto/mlkem` package was added, implementing ML-KEM (formerly known as
-Kyber), as specified in [NIST FIPS 203](https://doi.org/10.6028/NIST.FIPS.203).
-<!-- go.dev/issue/70122 -->
-
-### New sha3 package
-
-<!-- go.dev/issue/69982, go.dev/issue/65269, CL 629176 -->
-The new [`crypto/sha3`](/pkg/crypto/sha3) package implements the SHA-3 hash function, and SHAKE and
-cSHAKE extendable-output functions.
-
-It was imported from `golang.org/x/crypto/sha3`.
-
 ### New benchmark function
 
 Benchmarks may now use the faster and less error-prone [`testing.B.Loop`](/pkg/testing#B.Loop) method to perform benchmark iterations like `for b.Loop() { ... }` in place of the typical loop structures involving `b.N` like `for i := n; i < b.N; i++ { ... }` or `for range b.N`. This offers two significant advantages:
  - The benchmark function will execute exactly once per -count, so expensive setup and cleanup steps execute only once.
  - Function call parameters and results are kept alive, preventing the compiler from fully optimizing away the loop body.
 
-### New weak package
+### New crypto/hkdf package {#crypto-hkdf}
 
-The new [weak](/pkg/weak) package provides weak pointers.
+<!-- go.dev/issue/61477 -->
+The new [`crypto/hkdf`](/pkg/crypto/hkdf/) package implements the HMAC-based Extract-and-Expand
+Key Derivation Function (HKDF) as defined in RFC 5869. It is based on the pre-existing
+`golang.org/x/crypto/hkdf` package.
+
+### New crypto/mlkem package {#crypto-mlkem}
+
+<!-- go.dev/issue/70122 -->
+The new [`crypto/mlkem`](/pkg/crypto/mlkem/) package implements ML-KEM (formerly known as
+Kyber), as specified in [NIST FIPS 203](https://doi.org/10.6028/NIST.FIPS.203).
+
+### New crypto/pbkdf2 package {#crypto-pbkdf2}
+
+<!-- go.dev/issue/69488 -->
+The new [`crypto/pbkdf2`](/pkg/crypto/pbkdf2/) package implements the key derivation function
+PBKDF2 as defined in RFC 2898 / PKCS #5 v2.0. It is based on the pre-existing
+`golang.org/x/crypto/pbkdf2` package.
+
+### New crypto/sha3 package {#crypto-sha3}
+
+<!-- go.dev/issue/69982, go.dev/issue/65269, CL 629176 -->
+The new [`crypto/sha3`](/pkg/crypto/sha3/) package implements the SHA-3 hash function, and SHAKE and
+cSHAKE extendable-output functions. It is based on the pre-existing
+`golang.org/x/crypto/sha3` package.
+
+### New weak package {#weak}
+
+The new [`weak`](/pkg/weak/) package provides weak pointers.
 
 Weak pointers are a low-level primitive provided to enable the
 creation of memory-efficient structures, such as weak maps for
 associating values, canonicalization maps for anything not
-covered by package [unique](/pkg/unique), and various kinds
+covered by package [`unique`](/pkg/unique/), and various kinds
 of caches.
 For supporting these use-cases, this release also provides
-[runtime.AddCleanup](/pkg/runtime#AddCleanup) and
-[maphash.Comparable](/pkg/maphash#Comparable).
+[`runtime.AddCleanup`](/pkg/runtime/#AddCleanup) and
+[`maphash.Comparable`](/pkg/maphash/#Comparable).
 
 ### Minor changes to the library {#minor_library_changes}
 
@@ -258,23 +267,11 @@ ciphertext.
 
 #### [`crypto/fips140`](/pkg/crypto/fips140/)
 
-<!-- FIPS 140 will be covered in its own section. -->
-
-#### [`crypto/hkdf`](/pkg/crypto/hkdf/)
-
-<!-- This is a new package; covered in 6-stdlib/3-hkdf.md. -->
+TODO: FIPS 140 will be covered in its own section.
 
 #### [`crypto/md5`](/pkg/crypto/md5/)
 
 The value returned by [`md5.New`](/pkg/md5#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
-
-#### [`crypto/mlkem`](/pkg/crypto/mlkem/)
-
-<!-- This is a new package; covered in 6-stdlib/4-mlkem.md. -->
-
-#### [`crypto/pbkdf2`](/pkg/crypto/pbkdf2/)
-
-<!-- This is a new package; covered in 6-stdlib/2-pbkdf2.md. -->
 
 #### [`crypto/rand`](/pkg/crypto/rand/)
 
@@ -305,10 +302,6 @@ The value returned by [`sha1.New`](/pkg/sha1#New) now also implements the [`enco
 #### [`crypto/sha256`](/pkg/crypto/sha256/)
 
 The values returned by [`sha256.New`](/pkg/sha256#New) and [`sha256.New224`](/pkg/sha256#New224) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface
-
-#### [`crypto/sha3`](/pkg/crypto/sha3/)
-
-<!-- This is a new package; covered in 6-stdlib/5-sha3.md. -->
 
 #### [`crypto/sha512`](/pkg/crypto/sha512/)
 
@@ -536,10 +529,6 @@ is not supported.
 
 [`URL`](/pkg/net/url#URL) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
-#### [`os`](/pkg/os/)
-
-<!-- os.Root -->
-
 #### [`os/user`](/pkg/os/user/)
 
 On Windows, [`Current`](/pkg/os/user#Current) can now be used in Windows Nano Server.
@@ -621,10 +610,6 @@ Templates now support range-over-func and range-over-int.
 
 [`Time`](/pkg/time#Time) now implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and [`encoding.TextAppender`](/pkg/encoding#TextAppender) interfaces.
 
-#### [`weak`](/pkg/weak/)
-
-<!-- This is a new package; covered in 6-stdlib/1-weak.md. -->
-
 ## Ports {#ports}
 
 ### Linux {#linux}
@@ -663,11 +648,7 @@ The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`
 <!-- Needs to be documented and tracked via a release-blocking issue.
 
 accepted proposal https://go.dev/issue/26232 (from https://go.dev/cl/605256, https://go.dev/cl/605275, https://go.dev/cl/605298, https://go.dev/cl/625036) - cmd/go's HTTP auth is tracked in proposal 26232 itself as a release blocker
-accepted proposal https://go.dev/issue/48429 (from https://go.dev/cl/521958, https://go.dev/cl/521959, https://go.dev/cl/534817, https://go.dev/cl/563175, https://go.dev/cl/613095, https://go.dev/cl/614555, https://go.dev/cl/630695) - cmd/go support for tracking tool dependencies in go.mod is tracked in proposal 48429 itself as a release blocker
 accepted proposal https://go.dev/issue/50603 (from https://go.dev/cl/595376, https://go.dev/cl/596035, https://go.dev/cl/609155, https://go.dev/cl/611916, https://go.dev/cl/627295) - cmd/go support for stamping pseudo-version in go build is tracked in proposal 50603 itself as a release blocker
-accepted proposal https://go.dev/issue/64127 (from https://go.dev/cl/597576) - mentioning the new vet check to report invalid Go versions in build tags is tracked in proposal 64127 itself as a release blocker
-accepted proposal https://go.dev/issue/66387 (from https://go.dev/cl/569955) - extending the copylock analyzer in cmd/vet is now tracked in proposal 66387 itself as a release blocker
-accepted proposal https://go.dev/issue/69290 (from https://go.dev/cl/613095) - cmd/go caching link output binaries is now tracked in proposal 69290 itself as a release blocker
 accepted proposal https://go.dev/issue/69393 (from https://go.dev/cl/630775) - automatic crypto/tls.CurvePreferences ordering is now tracked in proposal 69393 itself as a release blocker
 -->
 
