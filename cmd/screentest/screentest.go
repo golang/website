@@ -134,7 +134,7 @@ func run(ctx context.Context, testURL, wantURL string, files []string, opts opti
 		log.Print("no tests to run")
 		return nil
 	}
-	log.Printf("ran %d tests in %s\n\n", nTests, time.Since(start).Truncate(time.Millisecond))
+	log.Printf("ran %d tests in %s\n", nTests, time.Since(start).Truncate(time.Millisecond))
 	if summary.Len() > 0 {
 		os.Stdout.Write(summary.Bytes())
 		if len(failedTests) > 0 {
@@ -440,9 +440,6 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			if test == nil {
 				return nil, errors.New("directive must be in a test")
 			}
-			if ns, err := strconv.Atoi(args); err == nil {
-				return nil, fmt.Errorf("sleep argument of %d is in nanoseconds; did you mean %[1]ds?", ns)
-			}
 			dur, err := time.ParseDuration(args)
 			if err != nil {
 				return nil, err
@@ -623,6 +620,7 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 		testScreen, wantScreen image.Image
 	)
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
+	var failReason string
 	for try := 0; try < maxRetries; try++ {
 		g, gctx := errgroup.WithContext(ctx)
 		g.Go(func() error {
@@ -646,6 +644,19 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 			return tc.wantImageReadWriter.writeImage(ctx, tc.wantPath, testScreen)
 		}
 
+		// Expect the images to start at (0, 0).
+		if p := testScreen.Bounds().Min; p != image.ZP {
+			return fmt.Errorf("test image starts at %s, not (0, 0)", p)
+		}
+		if p := wantScreen.Bounds().Min; p != image.ZP {
+			return fmt.Errorf("want image starts at %s, not (0, 0)", p)
+		}
+		// If the images are different sizes, don't even compare them. imgdiff does
+		// not handle differently sized images properly.
+		if tmax, wmax := testScreen.Bounds().Max, wantScreen.Bounds().Max; tmax != wmax {
+			failReason = fmt.Sprintf("test image is %s but want image is %s", tmax, wmax)
+			break
+		}
 		result = imgdiff.Diff(testScreen, wantScreen, &imgdiff.Options{
 			Threshold: 0.1,
 			DiffImage: true,
@@ -655,16 +666,20 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 			fmt.Fprintf(&tc.output, "(%s)", since)
 			return nil
 		}
-		if result.DiffPixelsCount <= uint64(tc.retryPixels) {
-			fmt.Fprintf(&tc.output, "difference is <= %d pixels\n", tc.retryPixels)
+		failReason = fmt.Sprintf("%d pixels differ", result.DiffPixelsCount)
+		if result.DiffPixelsCount > uint64(tc.retryPixels) {
+			break
 		}
+		fmt.Fprintf(&tc.output, "difference is <= %d pixels\n", tc.retryPixels)
 	}
-	fmt.Fprintf(&tc.output, "(%s)\n    FAIL %s != %s (%d pixels differ)\n",
-		since, tc.testOrigin(), tc.wantOrigin(), result.DiffPixelsCount)
+	fmt.Fprintf(&tc.output, "(%s)\n    FAIL %s != %s: %s\n",
+		since, tc.testOrigin(), tc.wantOrigin(), failReason)
 	g, gctx := errgroup.WithContext(ctx)
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.testPath, testScreen) })
 	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.wantPath, wantScreen) })
-	g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.diffPath, result.Image) })
+	if result != nil && result.Image != nil {
+		g.Go(func() error { return tc.failImageWriter.writeImage(gctx, tc.diffPath, result.Image) })
+	}
 	if err := g.Wait(); err != nil {
 		return err
 	}

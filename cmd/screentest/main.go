@@ -168,7 +168,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"runtime"
 )
 
 var flags options
@@ -176,7 +175,7 @@ var flags options
 func init() {
 	flag.BoolVar(&flags.update, "update", false, "update want with test")
 	flag.StringVar(&flags.vars, "v", "", "variables provided to script templates as comma separated KEY:VALUE pairs")
-	flag.IntVar(&flags.maxConcurrency, "c", (runtime.NumCPU()+1)/2, "number of test cases to run concurrently")
+	flag.IntVar(&flags.maxConcurrency, "c", 1, "number of test cases to run concurrently")
 	flag.StringVar(&flags.debuggerURL, "d", "", "chrome debugger URL")
 	flag.StringVar(&flags.outputDirURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 	flag.StringVar(&flags.headers, "headers", "", "HTTP headers: comma-separated list of name:value")
