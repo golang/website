@@ -77,6 +77,11 @@ If no local VCS tag is available, a pseudo-version will be generated.
 A +dirty suffix will be appended if there are uncommitted VCS changes present.
 Use the `-buildvcs=false` flag to omit version control information from the binary.
 
+<!-- go.dev/issue/63939 -->
+
+The new [GODEBUG setting](/doc/godebug) [`toolchaintrace=1`](/doc/toolchain#select)
+can be used to trace the `go` command's toolchain selection process.
+
 ### Cgo {#cgo}
 
 <!-- go.dev/issue/56378, CL 579955 -->
