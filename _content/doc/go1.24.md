@@ -69,6 +69,14 @@ a test integration system, you can revert to the text build output by setting
 The new 'GOAUTH' environment variable provides a flexible way to authenticate
 with private modules. See `go help goauth` for more information.
 
+<!-- go.dev/issue/50603 -->
+
+The `go build` command now includes versioning information in the compiled binary.
+If a local VCS tag is available, the main module's version will be set from that tag.
+If no local VCS tag is available, a pseudo-version will be generated.
+A +dirty suffix will be appended if there are uncommitted VCS changes present.
+Use the `-buildvcs=false` flag to omit version control information from the binary.
+
 ### Cgo {#cgo}
 
 <!-- go.dev/issue/56378, CL 579955 -->
