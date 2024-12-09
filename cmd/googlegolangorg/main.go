@@ -24,6 +24,10 @@ var repoMap = map[string]Repo{
 		VCS: "git",
 		URL: "https://github.com/googleapis/google-cloud-go",
 	},
+	"genai": {
+		VCS: "git",
+		URL: "https://github.com/googleapis/go-genai",
+	},
 	"genproto": {
 		VCS: "git",
 		URL: "https://github.com/googleapis/go-genproto",
