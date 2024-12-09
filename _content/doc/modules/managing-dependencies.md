@@ -526,7 +526,7 @@ requirements in your [module graph](/ref/mod#glos-module-graph). They
 participate in [minimal version selection](/ref/mod#minimal-version-selection)
 and respect `require`, `replace` and `exclude` directives. Due to module
 pruning, when you depend on a module that itself has a tool dependency,
-requirements that exist to just to satisfy that tool dependency do not usually
+requirements that exist just to satisfy that tool dependency do not usually
 become requirements of your module.
 
 The `tool` [meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) provides a way to perform operations on all tools simultaneously. For example you can upgrade all tools with `go get -u tool`, or install them all to $GOBIN with `go install tool`.
