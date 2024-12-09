@@ -493,7 +493,8 @@ $ go get -tool golang.org/x/tools/cmd/stringer
 
 This will add a [`tool` directive](/ref/mod/#go-mod-file-tool) to your `go.mod` file, and ensure the
 necessary require directives are present. Once this directive is added you can
-run the tool by passing the last fragment of the package path to `go tool`:
+run the tool by passing the last [non-major-version](/ref/mod#major-version-suffixes)
+component of the tool's import path to `go tool`:
 
 ```
 $ go tool stringer
