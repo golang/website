@@ -193,6 +193,21 @@ redirect == https://pkg.go.dev/std@master
 GET https://tip.golang.org/dl/
 redirect == https://go.dev/dl/
 
+GET https://tip.golang.org/change/123
+redirect == https://go.dev/change/123
+
+GET https://tip.golang.org/cl/123
+redirect == https://go.dev/cl/123
+
+GET https://tip.golang.org/s/123
+redirect == https://go.dev/s/123
+
+GET https://tip.golang.org/play/
+redirect == https://go.dev/play/?v=gotip
+
+GET https://tip.golang.org/play/p/123
+redirect == https://go.dev/play/p/123?v=gotip
+
 GET https://golang.org/pkg?m=old
 redirect == https://go.dev/pkg?m=old
 

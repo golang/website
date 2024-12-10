@@ -223,9 +223,22 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// which broke the redirect.
 	mux.Handle("m.golang.org/", http.RedirectHandler("https://mail.google.com/a/golang.org/", http.StatusMovedPermanently))
 
-	// Register a redirect handler for tip.golang.org/dl/ to the golang.org download page.
-	// (golang.org/dl and golang.google.cn/dl are registered separately.)
-	mux.Handle("tip.golang.org/dl/", http.RedirectHandler("https://go.dev/dl/", http.StatusFound))
+	// Redirect synthetic subtrees on tip.golang.org over to go.dev.
+	tipRedirects := []string{
+		"blog",
+		"change",
+		"cl",
+		"design",
+		"dl",
+		"s",
+		"talks",
+		"tour",
+	}
+	for _, name := range tipRedirects {
+		mux.Handle("tip.golang.org/"+name+"/", redirectPrefix("https://go.dev/"))
+	}
+	// tip.golang.org/play redirect adds ?v=gotip so the playground defaults to tip.
+	mux.Handle("tip.golang.org/play/", redirectPrefixQuery("https://go.dev/", "v=gotip"))
 
 	// TODO(rsc): The unionFS is a hack until we move the files in a followup CL.
 	siteMux := http.NewServeMux()
@@ -876,10 +889,21 @@ func (a *atomicFS) Open(name string) (fs.File, error) {
 }
 
 func redirectPrefix(prefix string) http.Handler {
+	return redirectPrefixQuery(prefix, "")
+}
+
+func redirectPrefixQuery(prefix, query string) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		url := strings.TrimSuffix(prefix, "/") + "/" + strings.TrimPrefix(r.URL.Path, "/")
-		if r.URL.RawQuery != "" {
-			url += "?" + r.URL.RawQuery
+		if r.URL.RawQuery != "" || query != "" {
+			url += "?"
+			if r.URL.RawQuery != "" {
+				url += r.URL.RawQuery
+				if query != "" {
+					url += "&"
+				}
+			}
+			url += query
 		}
 		http.Redirect(w, r, url, http.StatusMovedPermanently)
 	})
