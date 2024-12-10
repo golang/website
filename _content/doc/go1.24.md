@@ -550,7 +550,7 @@ On Windows, [`Current`](/pkg/os/user#Current) can now be used in Windows Nano Se
 The implementation has been updated to avoid using functions
 from the `NetApi32` library, which is not available in Nano Server.
 
-On Windows, [`Current`](/pkg/os/user#Current), [`Lookup`](/pkg/os/user#Lookup) and [`LookupId`](/pkg/os/user#LookupId) now supports the
+On Windows, [`Current`](/pkg/os/user#Current), [`Lookup`](/pkg/os/user#Lookup) and [`LookupId`](/pkg/os/user#LookupId) now support the
 following built-in service user accounts:
 - `NT AUTHORITY\SYSTEM`
 - `NT AUTHORITY\LOCAL SERVICE`
@@ -644,7 +644,7 @@ Go 1.25 will require macOS 12 Monterey or later.
 <!-- go.dev/issue/65199, CL 603055 -->
 The `go:wasmexport` directive is added for Go programs to export functions to the WebAssembly host.
 
-On WebAssembly System Interface Preview 1 (`GOOS=wasip1, GOARCH=wasm`), Go 1.24 supports
+On WebAssembly System Interface Preview 1 (`GOOS=wasip1`, `GOARCH=wasm`), Go 1.24 supports
 building a Go program as a
 [reactor/library](https://github.com/WebAssembly/WASI/blob/63a46f61052a21bfab75a76558485cf097c0dbba/legacy/application-abi.md#current-unstable-abi),
 by specifying the `-buildmode=c-shared` build flag.
