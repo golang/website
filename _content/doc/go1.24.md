@@ -244,6 +244,23 @@ For supporting these use-cases, this release also provides
 [`runtime.AddCleanup`](/pkg/runtime/#AddCleanup) and
 [`maphash.Comparable`](/pkg/maphash/#Comparable).
 
+### New experimental testing/synctest package {#testing-synctest}
+
+The new experimental [`testing/synctest`](/pkg/testing/synctest/) package
+provides support for testing concurrent code.
+- The [`synctest.Run`](/pkg/testing/synctest/#Run) function starts a
+  group of goroutines in an isolated "bubble".
+  Within the bubble, [`time`](/pkg/time) package functions operate on a
+  fake clock.
+- The [`synctest.Wait`](/pkg/testing/synctest#Wait) function waits for
+  all goroutines in the current bubble to block.
+
+See the package documentation for more details.
+
+The `synctest` package is experimental and must be enabled by
+setting `GOEXPERIMENT=synctest` at build time.
+The package API is subject to change in future releases.
+
 ### Minor changes to the library {#minor_library_changes}
 
 #### [`archive`](/pkg/archive/)
@@ -683,7 +700,6 @@ accepted proposal https://go.dev/issue/66821 (from https://go.dev/cl/602495, htt
 accepted proposal https://go.dev/issue/64802 (from https://go.dev/cl/628681) - a crypto/ecdsa change when rand is nil; commented at https://go.dev/issue/64802#issuecomment-2502019212 for next steps
 accepted proposal https://go.dev/issue/25309 (from https://go.dev/cl/594018, https://go.dev/cl/595120, https://go.dev/cl/595564, https://go.dev/cl/601778) - new x/crypto package; doesn't seem to need to be mentioned but asked anyway in https://go.dev/issue/25309#issuecomment-2498747653
 accepted proposal https://go.dev/issue/43744 (from https://go.dev/cl/357530) - unclear if Go 1.24 release notes need anything; pinged it in https://go.dev/issue/43744#issuecomment-2498773718
-accepted proposal https://go.dev/issue/69687 (from https://go.dev/cl/591997, https://go.dev/cl/629735) - experimental package testing/synctest behind an experiment; commented at https://github.com/golang/go/issues/69687#issuecomment-2502179333, leaving to Damien to decide whether to document it or defer that until the package is added as non-experiment
 accepted proposal https://go.dev/issue/51269 (from https://go.dev/cl/627035) - may be worth mentioning in Go 1.24 release notes, or may be fine to leave out; commented at https://go.dev/issue/51269#issuecomment-2501802763
 accepted proposal https://go.dev/issue/60905 (from https://go.dev/cl/610195) - CL 610195 seems like a small performance enhancement that builds on the Go 1.23 proposal to add GOARM64; probably okay without being mentioned in Go 1.24 release notes (also probably okay to mention)
 accepted proposal https://go.dev/issue/61395 (from https://go.dev/cl/594738, https://go.dev/cl/594976) - CL 594738 made sync/atomic AND/OR operations intrinsic on amd64, but the API was already added in Go 1.23; CL 594976 is a fix; probably doesn't require a Go 1.24 release note
