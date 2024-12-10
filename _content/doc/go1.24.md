@@ -469,8 +469,8 @@ The values returned by [`New32`](/pkg/hash/fnv#New32), [`New32a`](/pkg/hash/fnv#
 
 #### [`hash/maphash`](/pkg/hash/maphash/)
 
-New function [`Comparable`](/pkg/hash/maphash#Comparable) returns the hash of comparable value v.
-New function [`WriteComparable`](/pkg/hash/maphash#WriteComparable) adds x to the data hashed by [`Hash`](/pkg/hash/maphash#Hash).
+New function [`Comparable`](/pkg/hash/maphash#Comparable) returns the hash of a comparable value.
+New function [`WriteComparable`](/pkg/hash/maphash#WriteComparable) adds a comparable value to the data hashed by a [`Hash`](/pkg/hash/maphash#Hash).
 
 #### [`log/slog`](/pkg/log/slog/)
 
