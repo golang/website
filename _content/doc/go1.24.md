@@ -66,7 +66,7 @@ a test integration system, you can revert to the text build output by setting
 
 <!-- go.dev/issue/26232 -->
 
-The new 'GOAUTH' environment variable provides a flexible way to authenticate
+The new `GOAUTH` environment variable provides a flexible way to authenticate
 with private modules. See `go help goauth` for more information.
 
 <!-- go.dev/issue/50603 -->
