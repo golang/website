@@ -161,6 +161,16 @@ The new builtin `map` implementation and new runtime-internal mutex may be
 disabled by setting `GOEXPERIMENT=noswissmap` and `GOEXPERIMENT=nospinbitmutex`
 at build time respectively.
 
+The new [`AddCleanup`](/pkg/runtime#AddCleanup) function attaches a cleanup
+function to a pointer. Once the object that the pointer points to is no longer
+reachable, the runtime will call the function.
+[`AddCleanup`](/pkg/runtime#AddCleanup) is a finalization mechanism that is
+more flexible and less error-prone than [`SetFinalizer`](/pkg/runtime#SetFinalizer).
+Unlike [`SetFinalizer`](/pkg/runtime#SetFinalizer), it does not resurrect the
+object it is attached to for finalization and multiple cleanups may be attached
+to a single object. New code should prefer [`AddCleanup`](/pkg/runtime#AddCleanup)
+over [`SetFinalizer`](/pkg/runtime#SetFinalizer).
+
 ## Compiler {#compiler}
 
 <!-- go.dev/issue/60725, go.dev/issue/57926 -->
@@ -603,13 +613,6 @@ it returned an error.
 The [`GOROOT`](/pkg/runtime#GOROOT) function is now deprecated.
 In new code prefer to use the system path to locate the “go” binary,
 and use `go env GOROOT` to find its GOROOT.
-
-The [`AddCleanup`](/pkg/runtime#AddCleanup) function attaches a function to a pointer. Once the object that
-the pointer points to is no longer reachable, the runtime will call the function.
-[`AddCleanup`](/pkg/runtime#AddCleanup) is a finalization mechanism similar to [`SetFinalizer`](/pkg/runtime#SetFinalizer). Unlike
-[`SetFinalizer`](/pkg/runtime#SetFinalizer), it does not resurrect objects while running the cleanup. Multiple
-cleanups can be attached to a single object. [`AddCleanup`](/pkg/runtime#AddCleanup) is an improvement over
-[`SetFinalizer`](/pkg/runtime#SetFinalizer).
 
 #### [`strings`](/pkg/strings/)
 
