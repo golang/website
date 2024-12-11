@@ -260,6 +260,8 @@ See the package documentation for more details.
 The `synctest` package is experimental and must be enabled by
 setting `GOEXPERIMENT=synctest` at build time.
 The package API is subject to change in future releases.
+See [issue #67434](/issue/67434) for more information and
+to provide feeback.
 
 ### Minor changes to the library {#minor_library_changes}
 
