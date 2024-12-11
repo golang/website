@@ -300,6 +300,7 @@ ciphertext.
 #### [`crypto/fips140`](/pkg/crypto/fips140/)
 
 TODO: FIPS 140 will be covered in its own section.
+TODO: accepted [proposal #70200](/issue/70200) (from [CL 629196](/cl/629196), [CL 629198](/cl/629198), [CL 629201](/cl/629201), [CL 629996](/cl/629996))
 
 #### [`crypto/md5`](/pkg/crypto/md5/)
 
@@ -307,6 +308,7 @@ The value returned by [`md5.New`](/pkg/md5#New) now also implements the [`encodi
 
 #### [`crypto/rand`](/pkg/crypto/rand/)
 
+<!-- go.dev/issue/66821 -->
 The [`Read`](/pkg/crypto/rand#Read) function, and the `Read` method of [`Reader`](/pkg/crypto/rand#Reader), are now
 defined to never fail.
 They will always return `nil` as the `error` result.
@@ -358,6 +360,7 @@ enabled by populating the [`Config.EncryptedClientHelloKeys`](/pkg/crypto/tls#Co
 `crypto/tls` now supports the post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key exchange. Support
 for the experimental X25519Kyber768Draft00 key exchange has been removed.
 
+<!-- go.dev/issue/69393, CL 630775 -->
 Key exchange ordering is now handled entirely by the `crypto/tls` package. The order of [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is now ignored, and the contents are only used to determine which key exchanges to enable when the field is populated.
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
@@ -505,7 +508,7 @@ The new [`DiscardHandler`](/pkg/log/slog#DiscardHandler) is a handler that is ne
 
 Calls to the deprecated top-level [`Seed`](/pkg/math/rand#Seed) function no longer have any effect. To
 restore the old behavior set `GODEBUG=randseednop=0`. For more background see
-the proposal [#67273](/issue/67273).
+the [proposal #67273](/issue/67273).
 
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
 
@@ -683,32 +686,20 @@ The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`
 
 <!-- go.dev/issue/70705 -->
 The windows/arm port (`GOOS=windows` `GOARCH=arm`) has been marked broken.
-See [issue 70705](/issue/70705) for details.
-
-<!-- Needs to be documented and tracked via a release-blocking issue.
-
-accepted proposal https://go.dev/issue/26232 (from https://go.dev/cl/605256, https://go.dev/cl/605275, https://go.dev/cl/605298, https://go.dev/cl/625036) - cmd/go's HTTP auth is tracked in proposal 26232 itself as a release blocker
-accepted proposal https://go.dev/issue/50603 (from https://go.dev/cl/595376, https://go.dev/cl/596035, https://go.dev/cl/609155, https://go.dev/cl/611916, https://go.dev/cl/627295) - cmd/go support for stamping pseudo-version in go build is tracked in proposal 50603 itself as a release blocker
-accepted proposal https://go.dev/issue/69393 (from https://go.dev/cl/630775) - automatic crypto/tls.CurvePreferences ordering is now tracked in proposal 69393 itself as a release blocker
--->
-
-<!-- Needs to be documented, but not currently tracked via a release-blocking issue.
-
-accepted proposal https://go.dev/issue/66821 (from https://go.dev/cl/602495, https://go.dev/cl/602497, https://go.dev/cl/608175, https://go.dev/cl/608435, https://go.dev/cl/621979, https://go.dev/cl/622115) - crashing the process on error reading randomness (which should not have a path to happen) might need to be mentioned; commented at https://go.dev/issues/66821#issuecomment-2502069725 for next steps; Ian sent out CL 632036
--->
+See [issue #70705](/issue/70705) for details.
 
 <!-- Maybe worth including or maybe fine not to include in Go 1.24 release notes. Someone more familiar with the change makes the call.
 
 accepted proposal https://go.dev/issue/64802 (from https://go.dev/cl/628681) - a crypto/ecdsa change when rand is nil; commented at https://go.dev/issue/64802#issuecomment-2502019212 for next steps
 accepted proposal https://go.dev/issue/25309 (from https://go.dev/cl/594018, https://go.dev/cl/595120, https://go.dev/cl/595564, https://go.dev/cl/601778) - new x/crypto package; doesn't seem to need to be mentioned but asked anyway in https://go.dev/issue/25309#issuecomment-2498747653
 accepted proposal https://go.dev/issue/43744 (from https://go.dev/cl/357530) - unclear if Go 1.24 release notes need anything; pinged it in https://go.dev/issue/43744#issuecomment-2498773718
-accepted proposal https://go.dev/issue/51269 (from https://go.dev/cl/627035) - may be worth mentioning in Go 1.24 release notes, or may be fine to leave out; commented at https://go.dev/issue/51269#issuecomment-2501802763
 accepted proposal https://go.dev/issue/60905 (from https://go.dev/cl/610195) - CL 610195 seems like a small performance enhancement that builds on the Go 1.23 proposal to add GOARM64; probably okay without being mentioned in Go 1.24 release notes (also probably okay to mention)
 accepted proposal https://go.dev/issue/61395 (from https://go.dev/cl/594738, https://go.dev/cl/594976) - CL 594738 made sync/atomic AND/OR operations intrinsic on amd64, but the API was already added in Go 1.23; CL 594976 is a fix; probably doesn't require a Go 1.24 release note
 -->
 
 <!-- Items that don't need to be mentioned in Go 1.24 release notes but are picked up by relnote todo.
 
+accepted proposal https://go.dev/issue/51269 (from https://go.dev/cl/627035) - may be worth mentioning in Go 1.24 release notes, or may be fine to leave out; commented at https://go.dev/issue/51269#issuecomment-2501802763; Ian confirmed it's fine to leave out
 accepted proposal https://go.dev/issue/66540 (from https://go.dev/cl/603958) - a Go language spec clarification; might not need to be mentioned in Go 1.24 release notes; left a comment at https://go.dev/issue/66540#issuecomment-2502051684; Robert confirmed it indeed doesn't
 accepted proposal https://go.dev/issue/34208 (from https://go.dev/cl/586241) - CL 586241 implements a fix for a Go 1.23 feature, doesn't seem to be need anything in Go 1.24 release notes
 accepted proposal https://go.dev/issue/43993 (from https://go.dev/cl/626116) - CL 626116 prepares the tree towards the vet change but the vet change itself isn't implemented in Go 1.24, so nothing to say in Go 1.24 release notes
@@ -738,4 +729,5 @@ accepted proposal https://go.dev/issue/68384 (from https://go.dev/cl/611875) - e
 accepted proposal https://go.dev/issue/69291 (from https://go.dev/cl/610939) - CL 610939 refactors code in x/tools and mentions the still-open proposal #69291 to add Reachable to x/tools/go/ssa/ssautil; doesn't need a Go 1.24 release note
 accepted proposal https://go.dev/issue/69360 (from https://go.dev/cl/614158, https://go.dev/cl/614159, https://go.dev/cl/614635, https://go.dev/cl/614675) - proposal 69360 is to tag and delete gorename from x/tools; doesn't need a Go 1.24 release note
 accepted proposal https://go.dev/issue/61417 (from https://go.dev/cl/605955) - a new field in x/oauth2; nothing to mention in Go 1.24 release notes
+accepted proposal https://go.dev/issue/29266 (from https://go.dev/cl/632897) - a documentation-only proposal for go.dev/doc/contribute; doesn't need a Go 1.24 release note
 -->
