@@ -61,8 +61,8 @@ For details of the reporting format, see `go help buildjson`.
 Furthermore, `go test -json` now reports build output and failures in JSON,
 interleaved with test result JSON.
 These are distinguished by new `Action` types, but if they cause problems in
-a test integration system, you can revert to the text build output by setting
-`GODEBUG=gotestjsonbuildtext=1`.
+a test integration system, you can revert to the text build output with
+[GODEBUG setting](/doc/godebug) `gotestjsonbuildtext=1`.
 
 <!-- go.dev/issue/26232 -->
 
@@ -612,7 +612,7 @@ The new [`DiscardHandler`](/pkg/log/slog#DiscardHandler) is a handler that is ne
 #### [`math/rand`](/pkg/math/rand/)
 
 Calls to the deprecated top-level [`Seed`](/pkg/math/rand#Seed) function no longer have any effect. To
-restore the old behavior set `GODEBUG=randseednop=0`. For more background see
+restore the old behavior use [GODEBUG setting](/doc/godebug) `randseednop=0`. For more background see
 [proposal #67273](/issue/67273).
 
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
