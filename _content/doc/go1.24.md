@@ -71,10 +71,10 @@ private module fetches. See `go help goauth` for more information.
 
 <!-- go.dev/issue/50603 -->
 
-The `go build` command now includes versioning information in the compiled binary.
-If a local VCS tag is available, the main module's version will be set from that tag.
-If no local VCS tag is available, a pseudo-version will be generated.
-A +dirty suffix will be appended if there are uncommitted VCS changes present.
+The `go build` command now sets the
+[main module's version](/pkg/runtime/debug#BuildInfo.Main) in the compiled
+binary based on the version control system tag and/or commit.
+A `+dirty` suffix will be appended if there are uncommitted changes.
 Use the `-buildvcs=false` flag to omit version control information from the binary.
 
 <!-- go.dev/issue/63939 -->
