@@ -160,7 +160,7 @@ the following for version v1.2.3:
 *   Module path: `example.com/mymodules/module1`
 *   Version tag: `module1/v1.2.3`
 *   Package path imported by a user: `example.com/mymodules/module1/package1`
-*   Module path as given in a user's require directive: `example.com/mymodules/module1 module1/v1.2.3`
+*   Module path and version as specified in a user's require directive: `example.com/mymodules/module1 v1.2.3`
 
 <img src="images/multiple-modules.png"
      alt="Diagram illustrating two modules in a single repository"
