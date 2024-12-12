@@ -219,32 +219,33 @@ Benchmarks may now use the faster and less error-prone [`testing.B.Loop`](/pkg/t
  - The benchmark function will execute exactly once per -count, so expensive setup and cleanup steps execute only once.
  - Function call parameters and results are kept alive, preventing the compiler from fully optimizing away the loop body.
 
-### New crypto/hkdf package {#crypto-hkdf}
-
-<!-- go.dev/issue/61477 -->
-The new [`crypto/hkdf`](/pkg/crypto/hkdf/) package implements the HMAC-based Extract-and-Expand
-Key Derivation Function (HKDF) as defined in RFC 5869. It is based on the pre-existing
-`golang.org/x/crypto/hkdf` package.
-
 ### New crypto/mlkem package {#crypto-mlkem}
 
 <!-- go.dev/issue/70122 -->
-The new [`crypto/mlkem`](/pkg/crypto/mlkem/) package implements ML-KEM (formerly known as
-Kyber), as specified in [NIST FIPS 203](https://doi.org/10.6028/NIST.FIPS.203).
 
-### New crypto/pbkdf2 package {#crypto-pbkdf2}
+The new [`crypto/mlkem`](/pkg/crypto/mlkem/) package implements
+ML-KEM-768 and ML-KEM-1024.
 
-<!-- go.dev/issue/69488 -->
-The new [`crypto/pbkdf2`](/pkg/crypto/pbkdf2/) package implements the key derivation function
-PBKDF2 as defined in RFC 2898 / PKCS #5 v2.0. It is based on the pre-existing
-`golang.org/x/crypto/pbkdf2` package.
+ML-KEM is a post-quantum key exchange mechanism formerly known as Kyber and
+specified in [FIPS 203](https://doi.org/10.6028/NIST.FIPS.203).
 
-### New crypto/sha3 package {#crypto-sha3}
+### New crypto/hkdf, crypto/pbkdf2, and crypto/sha3 packages {#crypto-packages}
 
-<!-- go.dev/issue/69982, go.dev/issue/65269, CL 629176 -->
-The new [`crypto/sha3`](/pkg/crypto/sha3/) package implements the SHA-3 hash function, and SHAKE and
-cSHAKE extendable-output functions. It is based on the pre-existing
-`golang.org/x/crypto/sha3` package.
+<!-- go.dev/issue/61477, go.dev/issue/69488, go.dev/issue/69982, go.dev/issue/65269, CL 629176 -->
+
+The new [`crypto/hkdf`](/pkg/crypto/hkdf/) package implements
+the HMAC-based Extract-and-Expand key derivation function HKDF,
+as defined in [RFC 5869](https://www.rfc-editor.org/rfc/rfc5869.html).
+
+The new [`crypto/pbkdf2`](/pkg/crypto/pbkdf2/) package implements
+the password-based key derivation function PBKDF2,
+as defined in [RFC 8018](https://www.rfc-editor.org/rfc/rfc8018.html).
+
+The new [`crypto/sha3`](/pkg/crypto/sha3/) package implements
+the SHA-3 hash function and SHAKE and cSHAKE extendable-output functions,
+as defined in [FIPS 202](http://doi.org/10.6028/NIST.FIPS.202).
+
+All three packages are based on pre-existing `golang.org/x/crypto/...` packages.
 
 ### New weak package {#weak}
 
@@ -300,116 +301,205 @@ The [`bytes`](/pkg/bytes) package adds several functions that work with iterator
 - [`FieldsFuncSeq`](/pkg/bytes#FieldsFuncSeq) returns an iterator
   over substrings of s split around runs of Unicode code points satisfying f(c).
 
+#### [`crypto/aes`](/pkg/crypto/aes/)
+
+The value returned by [`NewCipher`](/pkg/crypto/aes#NewCipher) no longer
+implements the `NewCTR`, `NewGCM`, `NewCBCEncrypter`, and `NewCBCDecrypter`
+methods. These methods were undocumented and not available on all architectures.
+Instead, the [`Block`](/pkg/crypto/cipher#Block) value should be passed
+directly to the relevant [`crypto/cipher`](/pkg/crypto/cipher/) functions.
+For now, `crypto/cipher` still checks for those methods on `Block` values,
+even if they are not used by the standard library anymore.
+
 #### [`crypto/cipher`](/pkg/crypto/cipher/)
 
-[`NewOFB`](/pkg/crypto/cipher#NewOFB), [`NewCFBEncrypter`](/pkg/crypto/cipher#NewCFBEncrypter), and [`NewCFBDecrypter`](/pkg/crypto/cipher#NewCFBDecrypter) are now deprecated. OFB and
-CFB mode are not authenticated, which generally enables active attacks to
+The new [`NewGCMWithRandomNonce`](/pkg/crypto/cipher#NewGCMWithRandomNonce)
+function returns an [`AEAD`](/pkg/crypto/cipher#AEAD) that implements AES-GCM by
+generating a random nonce during Seal and prepending it to the ciphertext.
+
+The [`Stream`](/pkg/crypto/cipher#Stream) implementation returned by
+[`NewCTR`](/pkg/crypto/cipher#NewCTR) when used with
+[`crypto/aes`](/pkg/crypto/aes/) is now several times faster on amd64 and arm64.
+
+[`NewOFB`](/pkg/crypto/cipher#NewOFB),
+[`NewCFBEncrypter`](/pkg/crypto/cipher#NewCFBEncrypter), and
+[`NewCFBDecrypter`](/pkg/crypto/cipher#NewCFBDecrypter) are now deprecated.
+OFB and CFB mode are not authenticated, which generally enables active attacks to
 manipulate and recover the plaintext. It is recommended that applications use
-[`AEAD`](/pkg/crypto/cipher#AEAD) modes instead. If an unauthenticated [`Stream`](/pkg/crypto/cipher#Stream) mode is required, use
+[`AEAD`](/pkg/crypto/cipher#AEAD) modes instead. If an unauthenticated
+[`Stream`](/pkg/crypto/cipher#Stream) mode is required, use
 [`NewCTR`](/pkg/crypto/cipher#NewCTR) instead.
 
-The new [`NewGCMWithRandomNonce`](/pkg/crypto/cipher#NewGCMWithRandomNonce) function returns an [`AEAD`](/pkg/crypto/cipher#AEAD) that implements
-AES-GCM by generating a random nonce during Seal and prepending it to the
-ciphertext.
+#### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
-#### [`crypto/fips140`](/pkg/crypto/fips140/)
+<!-- go.dev/issue/64802 -->
+[`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now produces a
+deterministic signature according to
+[RFC 6979](https://www.rfc-editor.org/rfc/rfc6979.html) if rand is nil.
+
+<!-- #### [`crypto/fips140`](/pkg/crypto/fips140/)
 
 TODO: FIPS 140 will be covered in its own section.
 TODO: accepted [proposal #70200](/issue/70200) (from [CL 629196](/cl/629196), [CL 629198](/cl/629198), [CL 629201](/cl/629201), [CL 629996](/cl/629996))
+TODO: crypto/tls FIPS mode from CL 629675. -->
 
 #### [`crypto/md5`](/pkg/crypto/md5/)
 
-The value returned by [`md5.New`](/pkg/md5#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+The value returned by [`md5.New`](/pkg/md5#New) now also implements the
+[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
 #### [`crypto/rand`](/pkg/crypto/rand/)
 
 <!-- go.dev/issue/66821 -->
-The [`Read`](/pkg/crypto/rand#Read) function, and the `Read` method of [`Reader`](/pkg/crypto/rand#Reader), are now
-defined to never fail.
-They will always return `nil` as the `error` result.
-If something somehow goes wrong while reading random numbers,
-the program will irrecoverably crash.
-This change was made because all supported systems now provide
-sources of random bytes that never fail.
+The [`Read`](/pkg/crypto/rand#Read) function is now guaranteed not to fail.
+It will always return `nil` as the `error` result.
+If `Read` were to encounter an error while reading from
+[`Reader`](/pkg/crypto/rand#Reader), the program will irrecoverably crash.
+Note that the platform APIs used by the default `Reader` are documented to
+always succeed, so this change should only affect programs that override the
+`Reader` variable. One exception are Linux kernels before version 3.17, where
+the default `Reader` still opens `/dev/urandom` and may fail.
 
-The new [`Text`](/pkg/crypto/rand#Text) function can be used to generate cryptographically secure random text strings. <!-- go.dev/issue/67057 -->
+<!-- go.dev/issue/69577 -->
+On Linux 6.11 and later, `Reader` now uses the `getrandom` vDSO.
+This is several times faster, especially for small reads.
+
+<!-- CL 608395 -->
+On OpenBSD, `Reader` now uses `arc4random_buf(3)`.
+
+<!-- go.dev/issue/67057 -->
+The new [`Text`](/pkg/crypto/rand#Text) function can be used to generate
+cryptographically secure random text strings.
 
 #### [`crypto/rsa`](/pkg/crypto/rsa/)
 
-[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) now returns an error if a key of less than 1024 bits is requested.
+[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) now returns an error if a key of
+less than 1024 bits is requested.
 All Sign, Verify, Encrypt, and Decrypt methods now return an error if used with
 a key smaller than 1024 bits. Such keys are insecure and should not be used.
-Setting `GODEBUG=rsa1024min=0` or including `//go:debug rsa1024min=0` in a
-source file restores the old behavior, but we recommend doing so only in tests,
-if necessary. A new [`GenerateKey`](/pkg/crypto/rsa#GenerateKey) example provides an easy-to-use standard
-2048-bit test key.
+[GODEBUG setting](/doc/godebug) `rsa1024min=0` restores the old behavior, but we
+recommend doing so only if necessary and only in tests, for example by adding a
+`//go:debug rsa1024min=0` line to a test file.
+A new [`GenerateKey`](/pkg/crypto/rsa#GenerateKey) example provides an
+easy-to-use standard 2048-bit test key.
+
+It is now safe and more efficient to call
+[`PrivateKey.Precompute`](/pkg/crypto/rsa#PrivateKey.Precompute) before
+[`PrivateKey.Validate`](/pkg/crypto/rsa#PrivateKey.Validate).
+
+The package now rejects more invalid keys, and
+[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) may return new errors for broken
+random sources. See also the changes to [`crypto/x509`](#cryptox509pkgcryptox509) below.
+
+<!-- go.dev/issue/43923 -->
+[`SignPKCS1v15`](/pkg/crypto/rsa#SignPKCS1v15) and
+[`VerifyPKCS1v15`](/pkg/crypto/rsa#VerifyPKCS1v15) now support
+SHA-512/224, SHA-512/256, and SHA-3.
+
+<!-- CL 626957 -->
+Public and private key operations are now up to two times faster on wasm.
 
 #### [`crypto/sha1`](/pkg/crypto/sha1/)
 
-The value returned by [`sha1.New`](/pkg/sha1#New) now also implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+The value returned by [`sha1.New`](/pkg/sha1#New) now also implements
+the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
 #### [`crypto/sha256`](/pkg/crypto/sha256/)
 
-The values returned by [`sha256.New`](/pkg/sha256#New) and [`sha256.New224`](/pkg/sha256#New224) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface
+The values returned by [`sha256.New`](/pkg/sha256#New) and
+[`sha256.New224`](/pkg/sha256#New224) now also implement the
+[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface
 
 #### [`crypto/sha512`](/pkg/crypto/sha512/)
 
-The values returned by [`sha512.New`](/pkg/sha512#New), [`sha512.New384`](/pkg/sha512#New384), [`sha512.New512_224`](/pkg/sha512#New512_224) and [`sha512.New512_256`](/pkg/sha512#New512_256) now also implement the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
+The values returned by [`sha512.New`](/pkg/sha512#New),
+[`sha512.New384`](/pkg/sha512#New384),
+[`sha512.New512_224`](/pkg/sha512#New512_224) and
+[`sha512.New512_256`](/pkg/sha512#New512_256) now also implement the
+[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
 #### [`crypto/subtle`](/pkg/crypto/subtle/)
 
-The [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming) function allows the user to run a function with
-architecture specific features enabled which guarantee specific instructions are
-data value timing invariant. This can be used to make sure that code designed to
-run in constant time is not optimized by CPU-level features such that it
-operates in variable time. Currently, [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming) uses the
-PSTATE.DIT bit on arm64, and is a no-op on all other architectures.
+The new [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming)
+function allows the user to run a function with architecture specific features
+enabled which guarantee specific instructions are data value timing invariant.
+This can be used to make sure that code designed to run in constant time is not
+optimized by CPU-level features such that it operates in variable time.
+Currently, `WithDataIndependentTiming` uses the PSTATE.DIT bit on arm64, and is
+a no-op on all other architectures. [GODEBUG setting](/doc/godebug)
+`dataindependenttiming=1` enables the DIT mode for the entire Go program.
+
+<!-- CL 622276 -->
+The [`XORBytes`](/pkg/crypto/subtle#XORBytes) output must overlap exactly or not
+at all with the inputs. Previously, the behavior was otherwise undefined, while
+now `XORBytes` will panic.
 
 #### [`crypto/tls`](/pkg/crypto/tls/)
-
-The [`ClientHelloInfo`](/pkg/crypto/tls#ClientHelloInfo) struct passed to [`Config.GetCertificate`](/pkg/crypto/tls#Config.GetCertificate) now includes an `Extensions` field, which can be useful for fingerprinting TLS clients.<!-- go.dev/issue/32936 -->
 
 The TLS server now supports Encrypted Client Hello (ECH). This feature can be
 enabled by populating the [`Config.EncryptedClientHelloKeys`](/pkg/crypto/tls#Config.EncryptedClientHelloKeys) field.
 
-`crypto/tls` now supports the post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key exchange. Support
-for the experimental X25519Kyber768Draft00 key exchange has been removed.
+The new post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key
+exchange mechanism is now supported and is enabled by default when
+[`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
+[GODEBUG setting](/doc/godebug) `tlsmlkem=0` reverts the default.
+
+Support for the experimental `X25519Kyber768Draft00` key exchange has been removed.
 
 <!-- go.dev/issue/69393, CL 630775 -->
-Key exchange ordering is now handled entirely by the `crypto/tls` package. The order of [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is now ignored, and the contents are only used to determine which key exchanges to enable when the field is populated.
+Key exchange ordering is now handled entirely by the `crypto/tls` package. The
+order of [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is
+now ignored, and the contents are only used to determine which key exchanges to
+enable when the field is populated.
+
+<!-- go.dev/issue/32936 -->
+The new [`ClientHelloInfo.Extensions`](/pkg/crypto/tls#ClientHelloInfo.Extensions)
+field lists the IDs of the extensions received in the Client Hello message.
+This can be useful for fingerprinting TLS clients.
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
-The `x509sha1` GODEBUG setting has been removed. [`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) will no
-longer consider SHA-1 based signatures valid when this GODEBUG setting is set.
+<!-- go.dev/issue/41682 -->
+The `x509sha1` [GODEBUG setting](/doc/godebug) has been removed.
+[`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) no longer
+supports SHA-1 based signatures.
 
-[`OID`](/pkg/crypto/x509#OID) now implements the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and [`encoding.TextAppender`](/pkg/encoding#TextAppender)
-interfaces.
+[`OID`](/pkg/crypto/x509#OID) now implements the
+[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) and
+[`encoding.TextAppender`](/pkg/encoding#TextAppender) interfaces.
 
 The default certificate policies field has changed from
-[`Certificate.PolicyIdentifiers`](/pkg/crypto/x509#Certificate.PolicyIdentifiers) to [`Certificate.Policies`](/pkg/crypto/x509#Certificate.Policies). When parsing
+[`Certificate.PolicyIdentifiers`](/pkg/crypto/x509#Certificate.PolicyIdentifiers)
+to [`Certificate.Policies`](/pkg/crypto/x509#Certificate.Policies). When parsing
 certificates, both fields will be populated, but when creating certificates
-policies will now be taken from the [`Certificate.Policies`](/pkg/crypto/x509#Certificate.Policies) field instead of the
-[Certificate.PolicyIdentifiers field]. This change can be reverted by setting
-`GODEBUG=x509usepolicies=0`.
+policies will now be taken from the `Certificate.Policies` field instead of
+the `Certificate.PolicyIdentifiers` field. This change can be reverted with
+[GODEBUG setting](/doc/godebug) `x509usepolicies=0`.
 
-[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) will now generate a serial number using a RFC 5280
-compliant method when passed a template with a nil [`Certificate.SerialNumber`](/pkg/crypto/x509#Certificate.SerialNumber)
+<!-- go.dev/issue/67675 -->
+[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) will now generate a
+serial number using a RFC 5280 compliant method when passed a template with a
+nil [`Certificate.SerialNumber`](/pkg/crypto/x509#Certificate.SerialNumber)
 field, instead of failing.
 
-[`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) now supports policy validation, as defined by RFC 5280 and
-RFC 9618. In order to enable policy validation,
-[`VerifyOptions.CertificatePolicies`](/pkg/crypto/x509#VerifyOptions.CertificatePolicies) must be set to an acceptable set of policy
-[`OIDs`](/pkg/crypto/x509#OIDs). When enabled, only certificate chains with valid policy graphs will be
-returned from [`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify).
+[`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify) now supports policy
+validation, as defined in RFC 5280 and RFC 9618. The new
+[`VerifyOptions.CertificatePolicies`](/pkg/crypto/x509#VerifyOptions.CertificatePolicies)
+field can be set to an acceptable set of policy [`OIDs`](/pkg/crypto/x509#OID).
+Only certificate chains with valid policy graphs will be returned from
+[`Certificate.Verify`](/pkg/crypto/x509#Certificate.Verify).
 
-[`MarshalPKCS8PrivateKey`](/pkg/crypto/x509#MarshalPKCS8PrivateKey) now returns an error instead of marshaling an invalid
-RSA key. ([`MarshalPKCS1PrivateKey`](/pkg/crypto/x509#MarshalPKCS1PrivateKey) doesn't have an error return, and its behavior
-when provided invalid keys continues to be undefined.)
+[`MarshalPKCS8PrivateKey`](/pkg/crypto/x509#MarshalPKCS8PrivateKey) now returns
+an error instead of marshaling an invalid RSA key.
+([`MarshalPKCS1PrivateKey`](/pkg/crypto/x509#MarshalPKCS1PrivateKey) doesn't
+have an error return, and its behavior when provided invalid keys continues to
+be undefined.)
 
-[`ParsePKCS1PrivateKey`](/pkg/crypto/x509#ParsePKCS1PrivateKey) and [`ParsePKCS8PrivateKey`](/pkg/crypto/x509#ParsePKCS8PrivateKey) now use and validate the
-encoded CRT values, so might reject invalid keys that were previously accepted.
-Use `GODEBUG=x509rsacrt=0` to revert to recomputing them.
+[`ParsePKCS1PrivateKey`](/pkg/crypto/x509#ParsePKCS1PrivateKey) and
+[`ParsePKCS8PrivateKey`](/pkg/crypto/x509#ParsePKCS8PrivateKey) now use and
+validate the encoded CRT values, so might reject invalid RSA keys that were
+previously accepted. Use [GODEBUG setting](/doc/godebug) `x509rsacrt=0` to
+revert to recomputing the CRT values.
 
 #### [`debug/elf`](/pkg/debug/elf/)
 
