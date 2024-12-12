@@ -48,7 +48,7 @@ all tools in the current module. This can be used to upgrade them all with `go g
 
 <!-- go.dev/issue/69290 -->
 
-Executables created by `go run` and the new behavior for `go tool` are now
+Executables created by `go run` and the new behavior of `go tool` are now
 cached in the Go build cache. This makes repeated executions faster at the
 expense of making the cache larger. See [#69290](/issue/69290).
 
@@ -67,7 +67,7 @@ a test integration system, you can revert to the text build output by setting
 <!-- go.dev/issue/26232 -->
 
 The new `GOAUTH` environment variable provides a flexible way to authenticate
-with private modules. See `go help goauth` for more information.
+private module fetches. See `go help goauth` for more information.
 
 <!-- go.dev/issue/50603 -->
 
@@ -613,7 +613,7 @@ The new [`DiscardHandler`](/pkg/log/slog#DiscardHandler) is a handler that is ne
 
 Calls to the deprecated top-level [`Seed`](/pkg/math/rand#Seed) function no longer have any effect. To
 restore the old behavior set `GODEBUG=randseednop=0`. For more background see
-the [proposal #67273](/issue/67273).
+[proposal #67273](/issue/67273).
 
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
 
