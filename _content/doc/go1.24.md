@@ -150,7 +150,7 @@ For protocol details, see [#59719](/issue/59719).
 <!-- go.dev/issue/68578 -->
 
 Several performance improvements to the runtime have decreased CPU overheads by
-2—3% on average across a suite of representative benchmarks.
+2–3% on average across a suite of representative benchmarks.
 Results may vary by application.
 These improvements include a new builtin `map` implementation based on
 [Swiss Tables](https://abseil.io/about/design/swisstables), more efficient
