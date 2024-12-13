@@ -721,8 +721,12 @@ The [`strings`](/pkg/strings) package adds several functions that work with iter
 
 #### [`sync`](/pkg/sync/)
 
-The implementation of [`sync.Map`](/pkg/sync#Map) has been changed, improving overall performance
-and resolving some long-standing issues.
+The implementation of [`sync.Map`](/pkg/sync#Map) has been changed, improving performance,
+particularly for map modifications.
+For instance, modifications of disjoint sets of keys are much less likely to contend on
+larger maps, and there is no longer any ramp-up time required to achieve low-contention
+loads from the map.
+
 If you encounter any problems, set `GOEXPERIMENT=nosynchashtriemap` at build
 time to switch back to the old implementation and please [file an
 issue](/issue/new).
