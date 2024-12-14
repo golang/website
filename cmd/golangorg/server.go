@@ -226,10 +226,10 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	// Redirect synthetic subtrees on tip.golang.org over to go.dev.
 	tipRedirects := []string{
 		"blog",
-		"change",
-		"cl",
+		"cl", "change",
 		"design",
 		"dl",
+		"issue", "issues",
 		"s",
 		"talks",
 		"tour",
