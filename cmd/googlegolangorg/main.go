@@ -41,6 +41,11 @@ var repoMap = map[string]Repo{
 		URL: "https://go.googlesource.com/protobuf",
 		Src: github("protocolbuffers/protobuf-go"),
 	},
+	"open2opaque": {
+		VCS: "git",
+		URL: "https://go.googlesource.com/open2opaque",
+		Src: github("golang/open2opaque"),
+	},
 }
 
 // Repo represents a repository containing Go code.
