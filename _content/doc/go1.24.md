@@ -101,6 +101,12 @@ incorrect call sequence for `f(0)`. New in this release is a better detector for
 this error condition when the incompatible declarations appear in different
 files. See [#67699](/issue/67699).
 
+### Objdump
+
+<!-- go.dev/issue/15255, go.dev/issue/36738 -->
+The [objdump](/cmd/objdump) tool now supports dissassembly on 64-bit
+LoongArch (`GOARCH=loong64`), RISC-V (`GOARCH=riscv64`), and S390X (`GOARCH=s390x`).
+
 ### Vet
 
 <!-- go.dev/issue/44251 -->
