@@ -49,6 +49,10 @@ Do not send CLs removing the interior tags from such phrases.
   display: block;
   text-align: center;
 }
+
+.gc-guide-note {
+  margin-left: 3em;
+}
 </style>
 
 <h2 id="Introduction">Introduction</h2>
@@ -251,7 +255,7 @@ systems.
 It's easy to become mired in detail when trying to understand the GC and
 tweak its behavior.
 This section is intended to provide a framework for reasoning about the cost
-of the Go GC and tuning parameters.
+of the Go GC and its tuning parameters.
 </p>
 
 <p>
@@ -261,7 +265,7 @@ To begin with, consider this model of GC cost based on three simple axioms.
 <ol>
 	<li>
 		<p>
-		The GC involves only two resources: CPU time, and physical memory.
+		The GC involves only two resources: physical memory, and CPU time.
 		</p>
 	</li>
 	<li>
@@ -270,13 +274,17 @@ To begin with, consider this model of GC cost based on three simple axioms.
 		allocated before the mark phase, and space for metadata that, even
 		if proportional to the previous costs, are small in comparison.
 		</p>
-
-		<p>
+		<p class="gc-guide-equation">
 		<i>
-		Note: live heap memory is memory that was determined to be live by the
-		previous GC cycle, while new heap memory is any memory allocated in
-		the current cycle, which may or may not be live by the end.
+		GC memory cost for cycle N = live heap from cycle N-1 + new heap
 		</i>
+		</p>
+		<p>
+		Live heap memory is memory that was determined to be live by the
+		previous GC cycle, while new heap memory is any memory allocated in the
+		current cycle, which may or may not be live by the end.
+		How much memory is live at any given point in time is a property of the
+		program, and not something the GC can directly control.
 		</p>
 	</li>
 	<li>
@@ -285,15 +293,31 @@ To begin with, consider this model of GC cost based on three simple axioms.
 		marginal cost that scales proportionally with the size of the live
 		heap.
 		</p>
-		<p>
+		<p class="gc-guide-equation">
 		<i>
-		Note: Asymptotically speaking, sweeping scales worse than marking and
-		scanning, as it must perform work proportional to the size of the whole
-		heap, including memory that is determined to be not live (i.e. "dead").
-		However, in the current implementation sweeping is so much faster than
-		marking and scanning that its associated costs can be ignored in this
-		discussion.
+		GC CPU time for cycle N = Fixed CPU time cost per cycle + average CPU time cost per byte * live heap memory found in cycle N
 		</i>
+		</p>
+		<p>
+		The fixed CPU time cost per cycle includes things that happen a constant number
+		of times each cycle, like initializing data structures for the next GC cycle.
+		This cost is typically small, and is included just for completeness.
+		</p>
+		<p>
+		Most of the CPU cost of the GC is marking and scanning, which is captured by
+		the marginal cost.
+		The average cost of marking and scanning depends on the GC implementation, but
+		also on the behavior of the program.
+		For example, more pointers means more GC work, because at minimum the GC needs
+		to visit all the pointers in the program.
+		Structures like linked lists and trees are also more difficult for the GC to
+		walk in parallel, increasing the average cost per byte.
+		</p>
+		<p>
+		This model ignores sweeping costs, which are proportional to total heap memory,
+		including memory that is dead (it must be made available for allocation).
+		For Go's current GC implementation, sweeping is so much faster than marking and
+		scanning that the cost is negligible in comparison.
 		</p>
 	</li>
 </ol>
@@ -301,10 +325,16 @@ To begin with, consider this model of GC cost based on three simple axioms.
 <p>
 This model is simple but effective: it accurately categorizes the dominant
 costs of the GC.
-However, this model says nothing about the magnitude of these costs, nor
-how they interact.
-To model that, consider the following situation, referred to from here on as
-the <b>steady-state</b>.
+It also tells us that the <i>total CPU cost</i> of the garbage collector depends on
+the total number of GC cycles in a given time frame.
+Finally, embedded in this model is a fundamental time/space trade-off for the GC.
+</p>
+
+<p>
+To see why, let's explore a constrained but useful scenario: the
+<b>steady state</b>.
+The steady state of an application, from the GC's perspective, is defined by the
+following properties:
 </p>
 
 <ul>
@@ -313,104 +343,59 @@ the <b>steady-state</b>.
 		The rate at which the application allocates new memory (in bytes per
 		second) is constant.
 		</p>
-
 		<p>
-		<i>
-		Note: it's important to understand that this allocation rate is
-		completely separate from whether or not this new memory is live.
-		None of it could be live, all of it could be live, or some of it could
-		be live.
-		(On top of this, some old heap memory could also die, so it's not
-		necessarily the case that if that memory is live, the live heap size
-		grows.)
-		</i>
-		</p>
-
-		<p>
-		<i>
-		To put this more concretely, consider a web service that allocates
-		2 MiB of total heap memory for each request that it handles.
-		During the request, at most 512 KiB of that 2 MiB stays live while
-		the request is in flight, and when the service is finished handling
-		the request, all that memory dies.
-		Now, for the sake of simplicity suppose each request takes about 1
-		second to handle end-to-end.
-		Then, a steady stream of requests, say 100 requests per second,
-		results in an allocation rate of 200 MiB/s and a 50 MiB peak live
-		heap.
-		</i>
+		This means that, from the GC's perspective, the application's workload
+		looks approximately the same over time.
+		For example, for a web service, this would be a constant request rate
+		with, on average, the same kinds of requests being made, with the average
+		lifetime of each request staying roughly constant.
 		</p>
 	</li>
 	<li>
 		<p>
-		The application's object graph looks roughly the same each time
-		(objects are similarly sized, there's a roughly constant number of
-		pointers, the maximum depth of the graph is roughly constant).
+		The marginal costs of the GC are constant.
 		</p>
 		<p>
-		Another way to think about this is that the marginal costs of
-		GC are constant.
+		This means that statistics of the object graph, such as the distribution
+		of object sizes, the number of pointers, and the average depth of data
+		structures, remain the same from cycle to cycle.
 		</p>
 	</li>
 </ul>
 
 <p>
-<i>
-Note: the steady-state may seem contrived, but it's representative of the
-behavior of an application under some constant workload.
-Naturally, workloads can change even while an application is executing, but
-typically application behavior looks like a bunch of these steady-states strung
-together with some transient behavior in between.
-</i>
+Let's work through an example.
+Assume some application allocates 10 MiB/s, the GC can scan at a rate
+of 100 MiB/cpu-second (this is made up), and fixed GC costs are zero.
+The steady state makes no assumptions about the size of the live heap,
+but for simplicity, let's say this application's live heap is always 10 MiB.
+(Note: a constant live heap does not mean that all newly allocated memory is
+dead.
+It means that, after the GC runs, <i>some mix</i> of old and new heap memory
+is live.)
+If each GC cycle happens exactly every 1 cpu-second, then our example
+application, in the steady state, will have a 20 MiB total heap size on each GC
+cycle.
+And with every GC cycle, the GC will need 0.1 cpu-seconds to do its work,
+resulting in a 10% overhead.
 </p>
 
 <p>
-<i>
-Note: the steady-state makes no assumptions about the live heap.
-It may be growing with each subsequent GC cycle, it may shrink, or it may
-stay the same.
-However, trying to encompass all of these situations in the explanations
-to follow is tedious and not very illustrative, so the guide will focus
-on examples where the live heap remains constant.
-The <a href="#GOGC">GOGC section</a> explores the non-constant live heap
-scenario in some more detail.
-</i>
+Now let's say each GC cycle happens less often, once every 2 cpu-seconds.
+Then, our example application, in the steady state, will have a 30 MiB total
+heap size on each GC cycle.
+But with every GC cycle, the GC will <i>still only need 0.1 cpu-seconds</i>
+to do its work.
+So this means that our GC overhead just went down, from 10% to 5%, at the
+cost of 50% more memory being used.
 </p>
 
 <p>
-In the steady-state while the live heap size is constant, every GC cycle is
-going to look identical in the cost model as long as the GC executes after
-the same amount of time has passed.
-That's because in that fixed amount of time, with a fixed rate of allocation
-by the application, a fixed amount of new heap memory will be allocated.
-So with the live heap size constant, and that new heap memory constant,
-memory use is always going to be the same.
-And because the live heap is the same size, the marginal GC CPU costs will
-be the same, and the fixed costs will be incurred at some regular interval.
-</p>
-
-<p>
-Now consider if the GC were to shift the point at which it runs <i>later</i>
-in time.
-Then, more memory would be allocated but each GC cycle would still incur
-the same CPU cost.
-However over some other fixed window of time fewer GC cycles would finish,
-resulting in a lower overall CPU cost.
-The opposite would be true if the GC decided to start <i>earlier</i> in time:
-less memory would be allocated and CPU costs would be incurred more often.
-</p>
-
-<p>
-This situation represents the fundamental trade-off between CPU time and memory
-that a GC can make, controlled by how often the GC actually executes.
-In other words, the trade-off is entirely defined by <b>GC frequency</b>.
-</p>
-
-<p>
-One more detail remains to be defined, and that's when the GC should decide
-to start.
-Note that this directly sets the GC frequency in any particular steady-state,
-defining the trade-off.
+This change in overheads is the fundamental time/space trade-off mentioned 
+earlier.
+And <b>GC frequency</b> is at the center of this trade-off:
+if we execute the GC more frequently, then we use less memory, and vice versa.
+But how often does the GC actually execute?
 In Go, deciding when the GC should start is the main parameter which the user
 has control over.
 </p>
@@ -448,14 +433,12 @@ With a GOGC value of 50, then it'll be 50%, or 5 MiB.
 With a GOGC value of 200, it'll be 200%, or 20 MiB.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: GOGC includes the root set only as of Go 1.18.
 Previously, it would only count the live heap.
 Often, the amount of memory in goroutine stacks is quite small and the live
 heap size dominates all other sources of GC work, but in cases where programs
 had hundreds of thousands of goroutines, the GC was making poor judgements.
-</i>
 </p>
 
 <p>
@@ -470,8 +453,7 @@ roughly halve GC CPU cost</b>, and vice versa.
 <a href="#Additional_notes_on_GOGC">appendix</a>.)
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: the target heap size is just a target, and there are several reasons why
 the GC cycle might not finish right at that target.
 For one, a large enough heap allocation can simply exceed the target.
@@ -480,7 +462,6 @@ However, other reasons appear in GC implementations that go beyond the
 For some more detail, see the <a href="#Latency">latency section</a>, but the
 complete details may be found in the <a href="#Additional_resources">additional
 resources</a>.
-</i>
 </p>
 
 <p>
@@ -505,7 +486,7 @@ visualization below that is built on the
 This visualization depicts the execution of some program whose non-GC work takes
 10 seconds of CPU time to complete.
 In the first second it performs some initialization step (growing its live heap)
-before settling into a steady-state.
+before settling into a steady state.
 The application allocates 200 MiB in total, with 20 MiB live at a time.
 It assumes that the only relevant GC work to complete comes from the live heap,
 and that (unrealistically) the application uses no additional memory.
@@ -550,31 +531,27 @@ As GOGC decreases, the peak memory requirement decreases at the expense of
 additional CPU overhead.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: the graph displays CPU time, not wall-clock time to complete the program.
 If the program runs on 1 CPU and fully utilizes its resources, then these are
 equivalent.
 A real-world program likely runs on a multi-core system and does not 100%
 utilize the CPUs at all times.
 In these cases the wall-time impact of the GC will be lower.
-</i>
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: the Go GC has a minimum total heap size of 4 MiB, so if the GOGC-set
 target is ever below that, it gets rounded up.
 The visualization reflects this detail.
-</i>
 </p>
 
 <p>
 Here's another example that's a little bit more dynamic and realistic.
 Once again, the application takes 10 CPU-seconds to complete without the GC, but
-the steady-state allocation rate increases dramatically half-way through, and
+the steady state allocation rate increases dramatically half-way through, and
 the live heap size shifts around a bit in the first phase.
-This example demonstrates how the steady-state might look when the live heap
+This example demonstrates how the steady state might look when the live heap
 size is actually changing, and how a higher allocation rate leads to more
 frequent GC cycles.
 </p>
@@ -685,7 +662,7 @@ the Go runtime uses.
 </p>
 
 <p>
-The visualization below depicts the same single-phase steady-state workload from
+The visualization below depicts the same single-phase steady state workload from
 the GOGC section, but this time with an extra 10 MiB of overhead from the Go
 runtime and with an adjustable memory limit.
 Try shifting around both GOGC and the memory limit and see what happens.
@@ -777,7 +754,7 @@ invalidate the utility of GOGC.
 <p>
 Consider what happens when the live heap grows large enough to bring total
 memory use close to the memory limit.
-In the steady-state visualization above, try turning GOGC off and then slowly
+In the steady state visualization above, try turning GOGC off and then slowly
 lowering the memory limit further and further to see what happens.
 Notice that the total time the application takes will start to grow in an
 unbounded manner as the GC is constantly executing to maintain an impossible
@@ -829,10 +806,8 @@ low mistakenly, the program will slow down at most by 2x, because the GC
 can't take more than 50% of its CPU time away.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: the visualizations on this page do not simulate the GC CPU limit.
-</i>
 </p>
 
 <h4 id="Suggested_uses">Suggested uses</h4>
@@ -1183,13 +1158,11 @@ them in in order to understand GC impact and behavior.
 		</p>
 
 		<p>
-		<i>
-		Note: the functions listed below are not leaf functions, so they may not show
+		Note that the functions listed below are not leaf functions, so they may not show
 		up in the default the <code>pprof</code> tool provides with the <code>top</code>
 		command.
 		Instead, use the <code>top -cum</code> command or use the <code>list</code>
 		command on these functions directly and focus on the cumulative percent column.
-		</i>
 		</p>
 	</li>
 
@@ -1204,8 +1177,7 @@ them in in order to understand GC impact and behavior.
 			marking and scanning.
 			</p>
 			<p>
-			<i>
-			Note: Within these goroutines, you will find calls to
+			Note that within these goroutines, you will find calls to
 			<code>runtime.gcDrainMarkWorkerDedicated</code>,
 			<code>runtime.gcDrainMarkWorkerFractional</code>, and
 			<code>runtime.gcDrainMarkWorkerIdle</code>,
@@ -1219,8 +1191,7 @@ them in in order to understand GC impact and behavior.
 			If the application becomes more active, CPU time in idle workers
 			will drop.
 			One common reason this can happen is if an application runs entirely
-			in one goroutine but </i><code>GOMAXPROCS</code><i> is &gt;1.
-			</i>
+			in one goroutine but <code>GOMAXPROCS</code> is &gt;1.
 			</p>
 		</li>
 		<li>
@@ -1354,14 +1325,12 @@ the <code>-sample_index</code> flag to the <code>pprof</code> tool, or via the
 <code>sample_index</code> option when the tool is used interactively.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: memory profiles by default only sample a subset of heap objects so they
 will not contain information about every single heap allocation.
 However, this is sufficient to find hot-spots.
 To change the sampling rate, see
 <a href="https://pkg.go.dev/runtime#pkg-variables"><code>runtime.MemProfileRate</code></a>.
-</i>
 </p>
 
 <p>
@@ -1435,14 +1404,12 @@ As a result, the GC contains a few optimizations for specific common structures.
 The most directly useful ones for performance optimization are listed below.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: Applying the optimizations below may reduce the readability of your code
 by obscuring intent, and may fail to hold up across Go releases.
 Prefer to apply these optimizations only in the places they matter most.
 Such places may be identified by using the tools listed in the
 <a href="#Identifying_costs">section on identifying costs</a>.
-</i>
 </p>
 
 <ul>
@@ -1648,8 +1615,8 @@ Note that sweep phase costs are ignored here as mark and scan costs dominate.
 </p>
 
 <p>
-The steady-state is defined by a constant allocation rate and a constant cost
-per byte, so in the steady-state we can derive a GC frequency from this new heap
+The steady state is defined by a constant allocation rate and a constant cost
+per byte, so in the steady state we can derive a GC frequency from this new heap
 memory:
 </p>
 
@@ -1692,19 +1659,17 @@ For more information on how to reduce these costs specifically, see the
 <a href="#Optimization_guide">optimization guide</a>.
 </p>
 
-<p>
-<i>
+<p class="gc-guide-note">
 Note: there exists a discrepancy between the size of the live heap, and the
 amount of that memory the GC actually needs to scan: the same size live heap but
 with a different structure will result in a different CPU cost, but the same
 memory cost, resulting a different trade-off.
 This is why the structure of the heap is part of the definition of the
-steady-state.
+steady state.
 The heap target should arguably only include the scannable live heap as a closer
 approximation of memory the GC needs to scan, but this leads to degenerate
 behavior when there's a very small amount of scannable live heap but the live
 heap is otherwise large.
-</i>
 </p>
 
 <script src="/js/d3.js"></script>
