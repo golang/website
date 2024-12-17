@@ -322,7 +322,7 @@ clear enough to steer developers towards protobuf reflection.
 ### Motivation: Making the ideal memory layout possible {#idealmemory}
 
 The benchmark results from the [More Efficient Memory
-Representation](#efficientmemory) section have already shown that protobuf
+Representation](#lessmemory) section have already shown that protobuf
 performance heavily depends on the specific usage: How are the messages defined?
 Which fields are set?
 
