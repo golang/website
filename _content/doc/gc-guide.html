@@ -37,7 +37,12 @@ Do not send CLs removing the interior tags from such phrases.
   padding-left: 5px;
   padding-right: 5px;
   height: 24px;
-  width: auto;
+}
+
+.gc-guide-counter {
+  display: block;
+  overflow-x: hidden; /* Prevent automatic resizing, which makes the input jittery. */
+  width: 10em; /* Never contains more than 10 characters. */
 }
 
 .gc-guide-equation {
