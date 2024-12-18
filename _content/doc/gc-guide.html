@@ -391,7 +391,7 @@ cost of 50% more memory being used.
 </p>
 
 <p>
-This change in overheads is the fundamental time/space trade-off mentioned 
+This change in overheads is the fundamental time/space trade-off mentioned
 earlier.
 And <b>GC frequency</b> is at the center of this trade-off:
 if we execute the GC more frequently, then we use less memory, and vice versa.
@@ -998,6 +998,182 @@ These latency sources are visible in
 pointer writes requiring additional work.
 </p>
 
+<h3 id="Finalizers_cleanups_and_weak_pointers">Finalizers, cleanups, and weak pointers</h2>
+
+<p>
+Garbage collection provides the illusion of infinite memory using only finite
+memory.
+Memory is allocated but never explicitly freed, which enables simpler APIs and
+concurrent algorithms compared to bare-bones manual memory management.
+(Some languages with manually managed memory use alternative approaches such
+as "smart pointers" and compile-time ownership tracking to ensure that objects
+are freed, but these features are deeply embedded into the API design
+conventions in these languages.)
+</p>
+
+<p>
+Only the live objects&mdash;those reachable from a global variable or a
+computation in some goroutine&mdash;can affect the behavior of the program.
+Any time after an object becomes unreachable ("dead"), it may be safely
+recycled by the GC.
+This allows for a wide variety of GC designs, such as the tracing design used
+by Go today.
+The death of an object is not an observable event at the language level.
+</p>
+
+<p>
+However, Go's runtime library provides three features that break that illusion:
+<a href="/pkg/runtime#SetFinalizer">finalizers</a>,
+<a href="/pkg/runtime#AddCleanup">cleanups</a>,
+and <a href="/pkg/weak#Pointer">weak pointers</a>.
+Each of these features provides some way to observe and react to object death,
+and in the case of finalizers, even reverse it.
+This of course complicates Go programs and adds an additional burden to the GC
+implementation.
+Nonetheless, these features exist because they are useful in a variety of
+circumstances, and Go programs use them and benefit from them all the time.
+</p>
+
+<h4 id="Advice">Advice</h4>
+
+<p>
+For the details of each feature, refer to its package documentation
+(<a href="/pkg/runtime#SetFinalizer">runtime.SetFinalizer</a>,
+<a href="/pkg/runtime#AddCleanup">runtime.AddCleanup</a>,
+<a href="/pkg/weak#Pointer">weak.Pointer</a>).
+Below is some general advice for using these features.
+</p>
+
+<ul>
+	<li>
+		<p>
+		<b>
+		Avoid using these features directly in typical Go code.
+		</b>
+		</p>
+		<p>
+		These are low-level features with subtle restrictions and behaviors.
+		For instance, there's no guarantee cleanups or finalizers will be run
+		at program exit, or at all for that matter.
+		The long comments in their API documentation should be seen as a warning.
+		The vast majority of Go code does not benefit from using these features
+		directly, only indirectly.
+		</p>
+	</li>
+	<li>
+		<p>
+		<b>
+		Encapsulate the use of these mechanisms within a package.
+		</b>
+		</p>
+		<p>
+		Where possible, do not allow the use of these mechanisms to leak into
+		the public API of your package; provide interfaces that make it hard or
+		impossible for users to misuse them.
+		For example, instead of asking the user to set up a cleanup on some
+		C-allocated memory to free it, write a wrapper package and hide that
+		detail inside.
+		</p>
+	</li>
+	<li>
+		<p>
+		<b>
+		Restrict access to objects that have finalizers, cleanups, and weak
+		pointers to the package that created and applied them.
+		</b>
+		</p>
+		<p>
+		This is related to the previous point, but is worth calling out
+		explicitly, since it's a very powerful pattern for using these
+		features in a less error-prone way.
+		For example, the <a href="/pkg/unique">unique package</a> uses
+		weak pointers under the hood, but completely encasulates the objects
+		that are weakly pointed-to.
+		Those values can never be mutated by the rest of the application,
+		it can only be copied through the
+		<a href="/pkg/unique#Handle.Value">Value method</a>, preserving
+		the illusion of infinite memory for package users.
+		</p>
+	</li>
+	<li>
+		<p>
+		<b>
+		Prefer cleaning up non-memory resources deterministically when possible,
+		with finalizers and cleanups as a fallback.
+		</b>
+		</p>
+		<p>
+		Cleanups and finalizers are a good fit for memory resources such as
+		memory allocated externally, like from C, or references to an
+		<code>mmap</code> mapping.
+		Memory allocated by C's malloc must eventually be freed by C's free.
+		A finalizer that calls <code>free</code>, attached to a wrapper object
+		for the C memory, is a reasonable way to ensure that C memory is
+		eventually reclaimed as a consequence of garbage collection.
+		</p>
+		<p>
+		However, non-memory resources, like file descriptors, tend to be subject to
+		system limits that the Go runtime is generally unaware of.
+		In addition, the timing of the garbage collector in a given Go program
+		is usually something a package author has little control over (for instance,
+		how often the GC runs is controlled by <a href="#GOGC">GOGC</a>, which can
+		be set by operators to a variety of different values in practice).
+		These two facts conspire to make cleanups and finalizers a bad fit to use
+		as the only mechanism for releasing non-memory resources.
+		</p>
+		<p>
+		If you're a package author exposing an API that wraps some non-memory
+		resource, consider providing an explicit API for releasing the resource
+		deterministically (through a <code>Close</code> method, or something similar),
+		rather than relying on the garbage collector through cleanups or finalizers.
+		Instead, prefer to use cleanups and finalizers as a best-effort handler for
+		programmer mistakes, either by cleaning up the resource anyway like
+		<a href="/pkg/os#File">os.File</a> does, or by reporting the failure to
+		deterministically clean up back to the user.
+		</p>
+	</li>
+	<li>
+		<p>
+		<b>
+		Prefer cleanups to finalizers.
+		</b>
+		</p>
+		<p>
+		Historically, finalizers were added to simplify the interface between Go code
+		and C code and to clean up non-memory resources.
+		The intended use was to apply them to wrapper objects that owned C memory or
+		some other non-memory resource, so that the resource could be released once
+		Go code was done using it.
+		These reasons at least partially explain why finalizers are narrowly scoped,
+		why any given object can only have one finalizer, and why that finalizer must
+		be attached to the first byte of the object only.
+		This limitation already stifles some use-cases.
+		For example, any package that wishes to internally cache some information about
+		an object passed to it cannot clean up that information once the object is gone.
+		</p>
+		<p>
+		But worse than that, finalizers are inefficient and error-prone due to the fact
+		that they <a href="https://en.wikipedia.org/wiki/Object_resurrection">resurrect
+		the object</a> they're attached to, so that it can be passed to the finalizer
+		function (and even continue to live beyond that, too).
+		This simple fact means that if the object is part of a reference cycle it can
+		never be freed, and the memory backing the object cannot be reused until at
+		least the following garbage collection cycle.
+		</p>
+		<p>
+		Because finalizers resurrect objects, though, they do have a better-defined
+		exection order than cleanups.
+		For this reason, finalizers are still potentially (but rarely) useful for
+		cleaning up structures that have complex destruction ordering requirements.
+		</p>
+		<p>
+		But for all other uses in Go 1.24 and beyond, we recommend you use cleanups
+		because they are more flexible, less error-prone, and more efficient than
+		finalizers.
+		</p>
+	</li>
+</ul>
+
 <!-- TODO: Add a short section about non-steady-state behavior. -->
 
 <h3 id="Additional_resources">Additional resources</h3>
@@ -1238,7 +1414,7 @@ them in in order to understand GC impact and behavior.
 		</p>
 
 		<p>
-		See the <a href="https://pkg.go.dev/runtime/trace">documentation for the 
+		See the <a href="https://pkg.go.dev/runtime/trace">documentation for the
 		<code>runtime/trace</code></a> package for how to get started with
 		execution traces.
 		</p>
