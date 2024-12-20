@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='180.00pt' viewBox='0 0 432.00 180.00'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA='>
+    <rect x='0.00' y='0.00' width='432.00' height='180.00' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA=)'>
+</g>
+<defs>
+  <clipPath id='cpMjIuMzl8NDI2LjUyfDc0Ljc5fDEzMS45Ng=='>
+    <rect x='22.39' y='74.79' width='404.13' height='57.18' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMjIuMzl8NDI2LjUyfDc0Ljc5fDEzMS45Ng==)'>
+<polyline points='110.24,131.96 110.24,74.79 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='285.95,131.96 285.95,74.79 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='22.39,131.96 22.39,74.79 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='198.10,131.96 198.10,74.79 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='373.81,131.96 373.81,74.79 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='47.33' y='84.31' width='326.47' height='38.12' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<rect x='36.43' y='84.31' width='10.91' height='38.12' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #EE9944;' />
+<rect x='22.39' y='84.31' width='14.04' height='38.12' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<text x='210.57' y='106.04' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Roboto";' textLength='14.14px' lengthAdjust='spacingAndGlyphs'>93%</text>
+<text x='41.88' y='106.04' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Roboto";' textLength='9.84px' lengthAdjust='spacingAndGlyphs'>3%</text>
+<text x='29.41' y='106.04' text-anchor='middle' style='font-size: 7.50px; font-weight: bold;fill: #EFEFEF; font-family: "Roboto";' textLength='9.84px' lengthAdjust='spacingAndGlyphs'>4%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxODAuMDA=)'>
+<text x='22.39' y='142.58' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='10.34px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='198.10' y='142.58' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='14.83px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='373.81' y='142.58' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='19.32px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='224.45' y='159.94' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='61.58px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<rect x='81.82' y='50.36' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #AA3355;' />
+<rect x='148.88' y='50.36' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #EE9944;' />
+<rect x='289.27' y='50.36' width='12.76' height='12.76' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #44DD88;' />
+<text x='100.77' y='59.58' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='41.93px' lengthAdjust='spacingAndGlyphs'>Dissatisfied</text>
+<text x='167.82' y='59.58' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='115.26px' lengthAdjust='spacingAndGlyphs'>Neither satisfied nor dissatisfied</text>
+<text x='308.21' y='59.58' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='31.23px' lengthAdjust='spacingAndGlyphs'>Satisfied</text>
+<text x='5.48' y='17.57' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Roboto";' textLength='340.01px' lengthAdjust='spacingAndGlyphs'>Overall, how satisfied or dissatisfied have you felt while using Go during the</text>
+<text x='5.48' y='28.37' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Roboto";' textLength='46.40px' lengthAdjust='spacingAndGlyphs'>past year?</text>
+<text x='426.52' y='172.81' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Roboto";' textLength='34.27px' lengthAdjust='spacingAndGlyphs'>n =  3,705</text>
+</g>
+</svg>

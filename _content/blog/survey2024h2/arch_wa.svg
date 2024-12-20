@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='149.91pt' viewBox='0 0 432.00 149.91'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE='>
+    <rect x='0.00' y='0.00' width='432.00' height='149.91' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+</g>
+<defs>
+  <clipPath id='cpNzguMTJ8NDI2LjUyfDQyLjA0fDEwMS44Nw=='>
+    <rect x='78.12' y='42.04' width='348.40' height='59.83' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpNzguMTJ8NDI2LjUyfDQyLjA0fDEwMS44Nw==)'>
+<polyline points='153.86,101.87 153.86,42.04 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='305.34,101.87 305.34,42.04 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='78.12,101.87 78.12,42.04 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='229.60,101.87 229.60,42.04 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='381.08,101.87 381.08,42.04 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='78.12' y='45.78' width='221.39' height='14.96' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='78.12' y='83.17' width='3.88' height='14.96' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='78.12' y='64.47' width='145.65' height='14.96' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<polyline points='320.60,55.13 320.60,51.39 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='320.60,53.26 278.43,53.26 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='278.43,55.13 278.43,51.39 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='87.36,92.52 87.36,88.78 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='87.36,90.65 78.12,90.65 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='78.12,92.52 78.12,88.78 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='247.53,73.82 247.53,70.08 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='247.53,71.95 200.02,71.95 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='200.02,73.82 200.02,70.08 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<text x='305.07' y='55.92' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>73%</text>
+<text x='85.88' y='93.32' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='9.69px' lengthAdjust='spacingAndGlyphs'>1%</text>
+<text x='229.34' y='74.62' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='13.91px' lengthAdjust='spacingAndGlyphs'>48%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+<text x='73.19' y='93.49' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='21.40px' lengthAdjust='spacingAndGlyphs'>Other:</text>
+<text x='73.19' y='74.80' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='55.74px' lengthAdjust='spacingAndGlyphs'>WASI Preview 1</text>
+<text x='73.19' y='56.10' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='9.17px' lengthAdjust='spacingAndGlyphs'>JS</text>
+<text x='78.12' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='10.34px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='229.60' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='14.83px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='381.08' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='19.32px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='252.32' y='129.85' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='61.58px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='5.48' y='30.37' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='74.08px' lengthAdjust='spacingAndGlyphs'>(select all that apply)</text>
+<text x='5.48' y='17.57' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Roboto";' textLength='299.63px' lengthAdjust='spacingAndGlyphs'>Which architectures do you use when deploying to Web Assembly?</text>
+<text x='426.52' y='142.72' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Roboto";' textLength='28.21px' lengthAdjust='spacingAndGlyphs'>n =  156</text>
+</g>
+</svg>

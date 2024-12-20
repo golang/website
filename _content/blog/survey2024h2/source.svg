@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<svg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='svglite' width='432.00pt' height='149.91pt' viewBox='0 0 432.00 149.91'>
+<defs>
+  <style type='text/css'><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+</defs>
+<rect width='100%' height='100%' style='stroke: none; fill: #FFFFFF;'/>
+<defs>
+  <clipPath id='cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE='>
+    <rect x='0.00' y='0.00' width='432.00' height='149.91' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+</g>
+<defs>
+  <clipPath id='cpMTIxLjU2fDQyNi41MnwyNC42OHwxMDEuODc='>
+    <rect x='121.56' y='24.68' width='304.96' height='77.19' />
+  </clipPath>
+</defs>
+<g clip-path='url(#cpMTIxLjU2fDQyNi41MnwyNC42OHwxMDEuODc=)'>
+<polyline points='187.86,101.87 187.86,24.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='320.45,101.87 320.45,24.68 ' style='stroke-width: 0.53; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='121.56,101.87 121.56,24.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='254.15,101.87 254.15,24.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<polyline points='386.74,101.87 386.74,24.68 ' style='stroke-width: 1.07; stroke: #EBEBEB; stroke-linecap: butt;' />
+<rect x='121.56' y='77.75' width='23.61' height='19.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='121.56' y='53.63' width='89.52' height='19.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<rect x='121.56' y='29.50' width='152.05' height='19.30' style='stroke-width: 1.07; stroke: none; stroke-linecap: butt; stroke-linejoin: miter; fill: #00ADD8;' />
+<polyline points='147.47,89.81 147.47,84.98 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='147.47,87.40 142.87,87.40 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='142.87,89.81 142.87,84.98 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='214.89,65.69 214.89,60.86 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='214.89,63.27 207.27,63.27 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='207.27,65.69 207.27,60.86 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='277.60,41.56 277.60,36.74 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='277.60,39.15 269.63,39.15 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<polyline points='269.63,41.56 269.63,36.74 ' style='stroke-width: 1.07; stroke: #DDDDDD; stroke-linecap: butt;' />
+<text x='149.05' y='90.06' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='9.70px' lengthAdjust='spacingAndGlyphs'>9%</text>
+<text x='216.65' y='65.94' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='13.91px' lengthAdjust='spacingAndGlyphs'>34%</text>
+<text x='279.17' y='41.82' style='font-size: 7.50px;fill: #555555; font-family: "Roboto";' textLength='13.90px' lengthAdjust='spacingAndGlyphs'>57%</text>
+</g>
+<g clip-path='url(#cpMC4wMHw0MzIuMDB8MC4wMHwxNDkuOTE=)'>
+<text x='116.63' y='90.24' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='99.17px' lengthAdjust='spacingAndGlyphs'>Random sample (JetBrains)</text>
+<text x='116.63' y='66.12' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='95.72px' lengthAdjust='spacingAndGlyphs'>Random sample (VS Code)</text>
+<text x='116.63' y='42.00' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='46.00px' lengthAdjust='spacingAndGlyphs'>Self-selected</text>
+<text x='121.56' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='10.34px' lengthAdjust='spacingAndGlyphs'>0%</text>
+<text x='254.15' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='14.83px' lengthAdjust='spacingAndGlyphs'>50%</text>
+<text x='386.74' y='112.49' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='19.32px' lengthAdjust='spacingAndGlyphs'>100%</text>
+<text x='274.04' y='129.85' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='61.58px' lengthAdjust='spacingAndGlyphs'>% of respondents</text>
+<text x='5.48' y='17.57' style='font-size: 10.00px; font-weight: bold;fill: #333333; font-family: "Roboto";' textLength='131.13px' lengthAdjust='spacingAndGlyphs'>Original source of survey link</text>
+<text x='426.52' y='142.72' text-anchor='end' style='font-size: 8.00px;fill: #999999; font-family: "Roboto";' textLength='34.27px' lengthAdjust='spacingAndGlyphs'>n =  4,156</text>
+</g>
+</svg>
