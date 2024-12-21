@@ -446,7 +446,7 @@ were negatively impacted by the absence of native SIMD support were a little
 more likely to use Go for data processing and AI/ML. This suggests that adding
 SIMD support could make Go a better option for these domains.
 
-<img src="survey2024h2/simd_fam.svg" alt= "Impacts of lack of native Go support
+<img src="survey2024h2/simd_impact.svg" alt= "Impacts of lack of native Go support
 for SIMD" class="chart" /> <img src="survey2024h2/what_simd_impact.svg" alt=
 "What impacted respondents build with Go" class="chart" />
 
