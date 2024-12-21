@@ -44,7 +44,7 @@ The new `-tool` flag for `go get` causes a tool directive to be added to the
 current module for named packages in addition to adding require directives.
 
 The new [`tool` meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) refers to
-all tools in the current module. This can be used to upgrade them all with `go get -u tool` or to install them into your GOBIN directory with `go install tool`.
+all tools in the current module. This can be used to upgrade them all with `go get tool` or to install them into your GOBIN directory with `go install tool`.
 
 <!-- go.dev/issue/69290 -->
 
