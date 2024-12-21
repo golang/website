@@ -208,7 +208,7 @@ smaller proportion used custom or other tools, which suggests that most
 respondents prefer common established tools over custom solutions. Only 10% of
 respondents indicated they don't use any code analysis tools.
 
-<img src="survey2024h2/editor.svg" alt="Code editors respondents most prefer to
+<img src="survey2024h2/code_analysis.svg" alt="Code analysis tools respondents
 use with Go" class="chart" />
 
 #### Go in the Clouds {#cloud}
