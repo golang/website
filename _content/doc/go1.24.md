@@ -514,26 +514,18 @@ revert to recomputing the CRT values.
 
 #### [`debug/elf`](/pkg/debug/elf/)
 
-The [`debug/elf`](/pkg/debug/elf) package adds several new constants, types, and methods to add support for handling dynamic versions and version flags in ELF (Executable and Linkable Format) files:
-
-Several new types have been introduced:
-- [`DynamicVersion`](/pkg/debug/elf#DynamicVersion) struct represents a dynamic version entry in the ELF file.
-- [`DynamicVersionDep`](/pkg/debug/elf#DynamicVersionDep) struct represents a dependency of a dynamic version.
-- [`DynamicVersionNeed`](/pkg/debug/elf#DynamicVersionNeed) struct represents a required dynamic version in the ELF file.
-- [`DynamicVersionFlag`](/pkg/debug/elf#DynamicVersionFlag) is a new type defined as uint16, representing flags for dynamic versions.
-    - [`VER_FLG_BASE`](/pkg/debug/elf#VER_FLG_BASE) version definition of the file.
-    - [`VER_FLG_WEAK`](/pkg/debug/elf#VER_FLG_WEAK) weak version identifier.
-    - [`VER_FLG_INFO`](/pkg/debug/elf#VER_FLG_INFO) reference exists for informational purposes.
-- [`SymbolVersionFlag`](/pkg/debug/elf#SymbolVersionFlag) is a new type defined as uint8, representing version flags for ELF symbols.
-    - [`VerFlagNone`](/pkg/debug/elf#VerFlagNone) no flags.
-    - [`VerFlagLocal`](/pkg/debug/elf#VerFlagLocal) symbol has local scope.
-    - [`VerFlagGlobal`](/pkg/debug/elf#VerFlagGlobal) symbol has global scope.
-    - [`VerFlagHidden`](/pkg/debug/elf#VerFlagHidden) symbol is hidden.
-
-The following methods have been added:
-- [`File.DynamicVersionNeeds`](/pkg/debug/elf#File.DynamicVersionNeeds) method returns a list of dynamic version needs in the ELF file, representing dependencies required by the executable.
-- [`File.DynamicVersions`](/pkg/debug/elf#File.DynamicVersions) retrieves a list of dynamic versions defined in the ELF file.
 <!-- go.dev/issue/63952 -->
+
+The [`debug/elf`](/pkg/debug/elf) package adds support for handling symbol
+versions in dynamic ELF (Executable and Linkable Format) files.
+The new [`File.DynamicVersions`](/pkg/debug/elf#File.DynamicVersions) method
+returns a list of dynamic versions defined in the ELF file.
+The new [`File.DynamicVersionNeeds`](/pkg/debug/elf#File.DynamicVersionNeeds)
+method returns a list of dynamic versions required by this ELF file that are
+defined in other ELF objects.
+Finally, the new [`Symbol.HasVersion`](/pkg/debug/elf#Symbol) and
+[`Symbol.VersionIndex`](/pkg/debug/elf#Symbol) fields indicate the version of a
+symbol.
 
 #### [`encoding`](/pkg/encoding/)
 
