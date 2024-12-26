@@ -391,8 +391,8 @@ a key smaller than 1024 bits. Such keys are insecure and should not be used.
 [GODEBUG setting](/doc/godebug) `rsa1024min=0` restores the old behavior, but we
 recommend doing so only if necessary and only in tests, for example by adding a
 `//go:debug rsa1024min=0` line to a test file.
-A new [`GenerateKey`](/pkg/crypto/rsa#GenerateKey) example provides an
-easy-to-use standard 2048-bit test key.
+A new `GenerateKey` [example](/pkg/crypto/rsa#example-GenerateKey-TestKey)
+provides an easy-to-use standard 2048-bit test key.
 
 It is now safe and more efficient to call
 [`PrivateKey.Precompute`](/pkg/crypto/rsa#PrivateKey.Precompute) before
