@@ -167,16 +167,6 @@ The new builtin `map` implementation and new runtime-internal mutex may be
 disabled by setting `GOEXPERIMENT=noswissmap` and `GOEXPERIMENT=nospinbitmutex`
 at build time respectively.
 
-The new [`AddCleanup`](/pkg/runtime#AddCleanup) function attaches a cleanup
-function to a pointer. Once the object that the pointer points to is no longer
-reachable, the runtime will call the function.
-[`AddCleanup`](/pkg/runtime#AddCleanup) is a finalization mechanism that is
-more flexible and less error-prone than [`SetFinalizer`](/pkg/runtime#SetFinalizer).
-Unlike [`SetFinalizer`](/pkg/runtime#SetFinalizer), it does not resurrect the
-object it is attached to for finalization and multiple cleanups may be attached
-to a single object. New code should prefer [`AddCleanup`](/pkg/runtime#AddCleanup)
-over [`SetFinalizer`](/pkg/runtime#SetFinalizer).
-
 ## Compiler {#compiler}
 
 <!-- go.dev/issue/60725, go.dev/issue/57926 -->
@@ -224,6 +214,21 @@ ones that follow symbolic links out of the directory.
 Benchmarks may now use the faster and less error-prone [`testing.B.Loop`](/pkg/testing#B.Loop) method to perform benchmark iterations like `for b.Loop() { ... }` in place of the typical loop structures involving `b.N` like `for range b.N`. This offers two significant advantages:
  - The benchmark function will execute exactly once per -count, so expensive setup and cleanup steps execute only once.
  - Function call parameters and results are kept alive, preventing the compiler from fully optimizing away the loop body.
+
+### Improved finalizers
+
+<!-- go.dev/issue/67535 -->
+The new [`runtime.AddCleanup`](/pkg/runtime#AddCleanup) function is a
+finalization mechanism that is more flexible, more efficient, and less
+error-prone than [`runtime.SetFinalizer`](/pkg/runtime#SetFinalizer).
+`AddCleanup` attaches a cleanup function to an object that will run once
+the object is no longer reachable.
+However, unlike `SetFinalizer`,
+multiple cleanups may be attached to a single object,
+cleanups may be attached to interior pointers,
+cleanups do not generally cause leaks when objects form a cycle, and
+cleanups do not delay the freeing of an object or objects it points to.
+New code should prefer `AddCleanup` over `SetFinalizer`.
 
 ### New crypto/mlkem package {#crypto-mlkem}
 
