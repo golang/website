@@ -69,7 +69,7 @@
 <text x='58.73' y='113.83' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='26.91px' lengthAdjust='spacingAndGlyphs'>custom</text>
 <text x='58.73' y='98.84' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='17.62px' lengthAdjust='spacingAndGlyphs'>none</text>
 <text x='58.73' y='83.85' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='40.90px' lengthAdjust='spacingAndGlyphs'>staticcheck</text>
-<text x='58.73' y='68.86' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='41.27px' lengthAdjust='spacingAndGlyphs'>golangcilint</text>
+<text x='58.73' y='68.86' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='45.27px' lengthAdjust='spacingAndGlyphs'>golangci-lint</text>
 <text x='58.73' y='53.87' text-anchor='end' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='19.61px' lengthAdjust='spacingAndGlyphs'>gopls</text>
 <text x='63.66' y='145.59' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='10.34px' lengthAdjust='spacingAndGlyphs'>0%</text>
 <text x='221.42' y='145.59' text-anchor='middle' style='font-size: 8.00px;fill: #666666; font-family: "Roboto";' textLength='14.83px' lengthAdjust='spacingAndGlyphs'>50%</text>
