@@ -203,11 +203,11 @@ The [`os.OpenRoot`](/pkg/os#OpenRoot) function opens a directory and returns an 
 Methods on [`os.Root`](/pkg/os#Root) operate within the directory and do not permit
 paths that refer to locations outside the directory, including
 ones that follow symbolic links out of the directory.
-
-- [`os.Root.Open`](/pkg/os#Root.Open) opens a file for reading.
-- [`os.Root.Create`](/pkg/os#Root.Create) creates a file.
-- [`os.Root.OpenFile`](/pkg/os#Root.OpenFile) is the generalized open call.
-- [`os.Root.Mkdir`](/pkg/os#Root.Mkdir) creates a directory.
+The methods on `os.Root` mirror most of the file system operations available in the
+`os` package, including for example [`os.Root.Open`](/pkg/os#Root.Open),
+[`os.Root.Create`](/pkg/os#Root.Create),
+[`os.Root.Mkdir`](/pkg/os#Root.Mkdir),
+and [`os.Root.Stat`](/pkg/os#Root.Stat),
 
 ### New benchmark function
 
