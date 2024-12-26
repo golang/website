@@ -537,6 +537,8 @@ introduced to append the textual or binary representation of an object
 to a byte slice. These interfaces provide the same functionality as
 [`TextMarshaler`](/pkg/encoding#TextMarshaler) and [`BinaryMarshaler`](/pkg/encoding#BinaryMarshaler), but instead of allocating a new slice
 each time, they append the data directly to an existing slice.
+These interfaces are now implemented by standard library types that
+already implemented `TextMarshaler` and/or `BinaryMarshaler`.
 
 #### [`encoding/json`](/pkg/encoding/json/)
 
