@@ -141,7 +141,7 @@ The `cmd/go` internal binary and test caching mechanism can now be implemented
 by child processes implementing a JSON protocol between the `cmd/go` tool
 and the child process named by the `GOCACHEPROG` environment variable.
 This was previously behind a GOEXPERIMENT.
-For protocol details, see [#59719](/issue/59719).
+For protocol details, see [the documentation](/cmd/go/internal/cacheprog).
 
 ## Runtime {#runtime}
 
