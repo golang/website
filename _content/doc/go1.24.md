@@ -791,7 +791,7 @@ by specifying the `-buildmode=c-shared` build flag.
 <!-- go.dev/issue/66984, CL 626615 -->
 More types are now permitted as argument or result types for `go:wasmimport` functions.
 Specifically, `bool`, `string`, `uintptr`, and pointers to certain types are allowed
-(see the [proposal](/issue/66984) for detail),
+(see the [documentation](/pkg/cmd/compile#hdr-WebAssembly_Directives) for detail),
 along with 32-bit and 64-bit integer and float types, and `unsafe.Pointer`, which
 are already allowed.
 These types are also permitted as argument or result types for `go:wasmexport` functions.
