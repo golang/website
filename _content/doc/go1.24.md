@@ -3,12 +3,6 @@ title: Go 1.24 Release Notes
 template: false
 ---
 
-<!--
-NOTE: In this document and others in this directory, the convention is to
-set fixed-width phrases with non-fixed-width spaces, as in
-`hello` `world`.
--->
-
 <style>
   main ul li { margin: 0.5em 0; }
 </style>
@@ -780,7 +774,7 @@ Go 1.25 will require macOS 12 Monterey or later.
 <!-- go.dev/issue/65199, CL 603055 -->
 The `go:wasmexport` directive is added for Go programs to export functions to the WebAssembly host.
 
-On WebAssembly System Interface Preview 1 (`GOOS=wasip1`, `GOARCH=wasm`), Go 1.24 supports
+On WebAssembly System Interface Preview 1 (`GOOS=wasip1 GOARCH=wasm`), Go 1.24 supports
 building a Go program as a
 [reactor/library](https://github.com/WebAssembly/WASI/blob/63a46f61052a21bfab75a76558485cf097c0dbba/legacy/application-abi.md#current-unstable-abi),
 by specifying the `-buildmode=c-shared` build flag.
@@ -799,7 +793,7 @@ The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`
 ### Windows {#windows}
 
 <!-- go.dev/issue/70705 -->
-The windows/arm port (`GOOS=windows` `GOARCH=arm`) has been marked broken.
+The windows/arm port (`GOOS=windows GOARCH=arm`) has been marked broken.
 See [issue #70705](/issue/70705) for details.
 
 <!-- Maybe worth including or maybe fine not to include in Go 1.24 release notes. Someone more familiar with the change makes the call.
