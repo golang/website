@@ -465,7 +465,8 @@ func Reverse(s string) string {
 ```
 
 The key difference is that `Reverse` is now iterating over each `rune` in the
-string, rather than each `byte`.
+string, rather than each `byte`. Note that this is just an example, and does not
+handle [combining characters](https://en.wikipedia.org/wiki/Combining_character) correctly.
 
 #### Run the code
 
