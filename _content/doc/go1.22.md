@@ -868,7 +868,7 @@ the Go toolchain already generates PIE by default.
 <!-- go.dev/issue/64207 -->
 Go 1.22 is the last release that will run on macOS 10.15 Catalina. Go 1.23 will require macOS 11 Big Sur or later.
 
-### Arm {#arm}
+### ARM {#arm}
 
 <!-- CL 514907 -->
 The `GOARM` environment variable now allows you to select whether to use software or hardware floating point.

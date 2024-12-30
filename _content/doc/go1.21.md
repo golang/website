@@ -1118,9 +1118,21 @@ As [announced](go1.20#windows) in the Go 1.20 release notes,
 Go 1.21 requires at least Windows 10 or Windows Server 2016;
 support for previous versions has been discontinued.
 
+### ARM
+
 <!-- CL 470695 -->
 
-<!-- cmd/dist: default to GOARM=7 on all non-arm systems -->
+When building the Go distribution with `GOARCH=arm` when not running
+on an ARM system (that is, when building a cross-compiler to ARM), the
+default value for the `GOARM` environment variable is now always set
+to `7`.
+Previously the default depended on characteristics of the build
+system.
+
+When not building a cross-compiler, the default value is determined
+by examining the build system.
+That was true before and remains true in Go 1.21.
+What has changed is the behavior when building a cross-compiler.
 
 ### WebAssembly {#wasm}
 
