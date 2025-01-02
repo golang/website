@@ -115,7 +115,7 @@ In this step, you’ll add a function to reverse a string.
     return the reversed string at the end.
 
     _Note:_ This code is based on the `stringutil.Reverse` function within
-    golang.org/x/example.
+    golang.org/x/example and may not be bug-free (i.e., diacritics).
 
 4.  At the top of main.go, beneath the package declaration, paste the following
     `main` function to initialize a string, reverse it, print the output, and
