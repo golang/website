@@ -2,7 +2,7 @@
 title: "Go Modules: v2 and Beyond"
 date: 2019-11-07
 by:
-- Jean de Klerk
+- Jean Barkhuysen
 - Tyler Bui-Palsulich
 tags:
 - tools

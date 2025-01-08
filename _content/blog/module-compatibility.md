@@ -2,7 +2,7 @@
 title: Keeping Your Modules Compatible
 date: 2020-07-07
 by:
-- Jean de Klerk
+- Jean Barkhuysen
 - Jonathan Amsterdam
 tags:
 - tools

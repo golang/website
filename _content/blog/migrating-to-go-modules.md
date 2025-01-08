@@ -2,7 +2,7 @@
 title: Migrating to Go Modules
 date: 2019-08-21
 by:
-- Jean de Klerk
+- Jean Barkhuysen
 tags:
 - tools
 - versioning

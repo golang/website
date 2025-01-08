@@ -2,7 +2,7 @@
 title: Contexts and structs
 date: 2021-02-24
 by:
-- Jean de Klerk, Matt T. Proud
+- Jean Barkhuysen, Matt T. Proud
 tags:
 - context
 - cancellation
