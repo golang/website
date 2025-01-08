@@ -391,15 +391,30 @@ provides an easy-to-use standard 2048-bit test key.
 It is now safe and more efficient to call
 [`PrivateKey.Precompute`](/pkg/crypto/rsa#PrivateKey.Precompute) before
 [`PrivateKey.Validate`](/pkg/crypto/rsa#PrivateKey.Validate).
+`Precompute` is now faster in the presence of partially filled out
+[`PrecomputedValues`](/pkg/crypto/rsa#PrecomputedValues), such as when
+unmarshaling a key from JSON.
 
-The package now rejects more invalid keys, and
-[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) may return new errors for broken
-random sources. See also the changes to [`crypto/x509`](#cryptox509pkgcryptox509) below.
+The package now rejects more invalid keys, even when `Validate` is not called,
+and [`GenerateKey`](/pkg/crypto/rsa#GenerateKey) may return new errors for
+broken random sources.
+The [`Primes`](/pkg/crypto/rsa#PrivateKey.Primes) and
+[`Precomputed`](/pkg/crypto/rsa#PrivateKey.Precomputed) fields of
+[`PrivateKey`](/pkg/crypto/rsa#PrivateKey) are now used and validated even when
+some values are missing.
+See also the changes to `crypto/x509` parsing and marshaling of RSA keys
+[described below](#cryptox509pkgcryptox509).
 
 <!-- go.dev/issue/43923 -->
 [`SignPKCS1v15`](/pkg/crypto/rsa#SignPKCS1v15) and
 [`VerifyPKCS1v15`](/pkg/crypto/rsa#VerifyPKCS1v15) now support
 SHA-512/224, SHA-512/256, and SHA-3.
+
+<!-- CL 639936 -->
+[`GenerateKey`](/pkg/crypto/rsa#GenerateKey) now uses a slightly different
+method to generate the private exponent (Carmichael's totient instead of Euler's
+totient). Rare applications that externally regenerate keys from only the prime
+factors may produce different but compatible results.
 
 <!-- CL 626957 -->
 Public and private key operations are now up to two times faster on wasm.
