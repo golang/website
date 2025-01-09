@@ -2272,7 +2272,7 @@ requirements and to drop unused requirements.
 Usage:
 
 ```
-go mod tidy [-e] [-v] [-go=version] [-compat=version]
+go mod tidy [-e] [-v] [-x] [-diff] [-go=version] [-compat=version]
 ```
 
 `go mod tidy` ensures that the `go.mod` file matches the source code in the
@@ -2286,6 +2286,12 @@ despite errors encountered while loading packages.
 
 The `-v` flag causes `go mod tidy` to print information about removed modules
 to standard error.
+
+The `-x` flag causes `go mod tidy` to print the commands `tidy` executes.
+
+The `-diff` flag causes `go mod tidy` not to modify go.mod or go.sum but
+instead print the necessary changes as a unified diff. It exits
+with a non-zero code if the diff is not empty.
 
 `go mod tidy` works by loading all of the packages in the [main
 module](#glos-main-module), all of its tools, and all of the packages they import,
