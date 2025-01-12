@@ -228,7 +228,7 @@ To collect coverage data for a program, build it with `go`
 binary with the environment variable `GOCOVERDIR` set
 to an output directory for coverage profiles.
 See the
-['coverage for integration tests' landing page](/testing/coverage) for more on how to get started.
+['coverage for integration tests' landing page](/doc/build-cover) for more on how to get started.
 For details on the design and implementation, see the
 [proposal](/issue/51430).
 

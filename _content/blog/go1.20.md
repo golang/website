@@ -42,7 +42,7 @@ This clarifies what happens in case of panics during comparisons.
 
 ## Tool improvements
 
-- The [`cover` tool](/testing/coverage) now can collect coverage profiles of whole programs,
+- The [`cover` tool](/doc/build-cover) now can collect coverage profiles of whole programs,
 not just of unit tests.
 - The [`go` tool](/cmd/go) no longer relies on pre-compiled standard library
 package archives in the `$GOROOT/pkg` directory, and they are no longer
