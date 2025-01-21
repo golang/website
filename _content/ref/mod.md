@@ -338,7 +338,7 @@ directive, made up of a keyword followed by arguments. For example:
 ```
 module example.com/my/thing
 
-go 1.12
+go 1.23.0
 
 require example.com/other/thing v1.0.2
 require example.com/new/thing/v2 v2.3.4
@@ -546,7 +546,7 @@ major version. Individual minor and patch versions cannot be deprecated;
 
 A `go` directive indicates that a module was written assuming the semantics of a
 given version of Go. The version must be a valid [Go version](/doc/toolchain#version),
-such as `1.9`, `1.14`, or `1.21rc1`.
+such as `1.14`, `1.21rc1`, or `1.23.0`.
 
 The `go` directive sets the minimum version of Go required to use this module.
 Before Go 1.21, the directive was advisory only; now it is a mandatory requirement:
@@ -615,7 +615,7 @@ GoVersion = string | ident .  /* valid release version; see above */
 Example:
 
 ```
-go 1.14
+go 1.23.0
 ```
 
 ### `toolchain` directive {#go-mod-file-toolchain}
@@ -959,7 +959,7 @@ For example, consider this `go.mod` file:
 ```
 module example.com/M
 
-go 1.16
+go 1.23.0
 
 require (
     example.com/A v1
@@ -1218,7 +1218,7 @@ A workspace is defined by a UTF-8 encoded text file named `go.work`. The
 a keyword followed by arguments. For example:
 
 ```
-go 1.18
+go 1.23.0
 
 use ./my/first/thing
 use ./my/second/thing
@@ -1318,7 +1318,7 @@ GoVersion = string | ident .  /* valid release version; see above */
 Example:
 
 ```
-go 1.18
+go 1.23.0
 ```
 
 ### `toolchain` directive {#go-work-file-toolchain}

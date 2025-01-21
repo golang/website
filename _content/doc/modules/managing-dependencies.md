@@ -357,7 +357,7 @@ directory.
 ```
 module example.com/mymodule
 
-go 1.16
+go 1.23.0
 
 require example.com/theirmodule v0.0.0-unpublished
 
@@ -404,7 +404,7 @@ module's own repository.
 ```
 module example.com/mymodule
 
-go 1.16
+go 1.23.0
 
 require example.com/theirmodule v1.2.3
 
