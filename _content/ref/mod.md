@@ -3160,7 +3160,7 @@ If the module path has a VCS qualifier (one of `.bzr`, `.fossil`, `.git`, `.hg`,
 `.svn`) at the end of a path component, the `go` command will use everything up
 to that path qualifier as the repository URL. For example, for the module
 `example.com/foo.git/bar`, the `go` command downloads the repository at
-`example.com/foo.git` using git, expecting to find the module in the `bar`
+`example.com/foo` using git, expecting to find the module in the `bar`
 subdirectory. The `go` command will guess the protocol to use based on the
 protocols supported by the version control tool.
 
