@@ -12,6 +12,8 @@ summary: A description of range over function types, a new feature in Go 1.23.
 
 This is the blog post version of my talk at GopherCon 2024.
 
+{{video "https://www.youtube.com/embed/i9zwUT9dlVc"}}
+
 Range over function types is a new language feature in the Go 1.23
 release.
 This blog post will explain why we are adding this new feature, what
