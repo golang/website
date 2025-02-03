@@ -116,7 +116,10 @@ The existing `printf` analyzer now reports a diagnostic for calls of
 the form `fmt.Printf(s)`, where `s` is a non-constant format string,
 with no other arguments. Such calls are nearly always a mistake
 as the value of `s` may contain the `%` symbol; use `fmt.Print` instead.
-See [#60529](/issue/60529).
+See [#60529](/issue/60529). This check tends to produce findings in existing
+code, and so is only applied when the language version (as specified by the
+go.mod `go` directive or `//go:build` comments) is at least Go 1.24, to avoid
+causing continuous integration failures when updating to the 1.24 Go toolchain.
 
 <!-- go.dev/issue/64127 -->
 The existing `buildtag` analyzer now reports a diagnostic when
