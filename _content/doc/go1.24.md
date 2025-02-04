@@ -268,6 +268,22 @@ as defined in [FIPS 202](http://doi.org/10.6028/NIST.FIPS.202).
 
 All three packages are based on pre-existing `golang.org/x/crypto/...` packages.
 
+### FIPS 140-3 compliance {#fips140}
+
+This release includes [a new set of mechanisms to facilitate FIPS 140-3
+compliance](/security/fips140).
+
+The Go Cryptographic Module is a set of internal standard library packages that
+are transparently used to implement FIPS 140-3 approved algorithms. Applications
+require no changes to use the Go Cryptographic Module for approved algorithms.
+
+The new `GOFIPS140` environment variable can be used to select the Go
+Cryptographic Module version to use in a build. The new `fips140` [GODEBUG
+setting](/doc/godebug) can be used to enable FIPS 140-3 mode at runtime.
+
+Go 1.24 includes Go Cryptographic Module version v1.0.0, which is currently
+under test with a CMVP-accredited laboratory.
+
 ### New experimental testing/synctest package {#testing-synctest}
 
 The new experimental [`testing/synctest`](/pkg/testing/synctest/) package
@@ -344,12 +360,6 @@ manipulate and recover the plaintext. It is recommended that applications use
 [`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now produces a
 deterministic signature according to
 [RFC 6979](https://www.rfc-editor.org/rfc/rfc6979.html) if rand is nil.
-
-<!-- #### [`crypto/fips140`](/pkg/crypto/fips140/)
-
-TODO: FIPS 140 will be covered in its own section.
-TODO: accepted [proposal #70200](/issue/70200) (from [CL 629196](/cl/629196), [CL 629198](/cl/629198), [CL 629201](/cl/629201), [CL 629996](/cl/629996))
-TODO: crypto/tls FIPS mode from CL 629675. -->
 
 #### [`crypto/md5`](/pkg/crypto/md5/)
 
