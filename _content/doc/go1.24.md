@@ -829,17 +829,12 @@ The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`
 The 32-bit windows/arm port (`GOOS=windows GOARCH=arm`) has been marked broken.
 See [issue #70705](/issue/70705) for details.
 
-<!-- Maybe worth including or maybe fine not to include in Go 1.24 release notes. Someone more familiar with the change makes the call.
-
-accepted proposal https://go.dev/issue/64802 (from https://go.dev/cl/628681) - a crypto/ecdsa change when rand is nil; commented at https://go.dev/issue/64802#issuecomment-2502019212 for next steps
-accepted proposal https://go.dev/issue/25309 (from https://go.dev/cl/594018, https://go.dev/cl/595120, https://go.dev/cl/595564, https://go.dev/cl/601778) - new x/crypto package; doesn't seem to need to be mentioned but asked anyway in https://go.dev/issue/25309#issuecomment-2498747653
-accepted proposal https://go.dev/issue/43744 (from https://go.dev/cl/357530) - unclear if Go 1.24 release notes need anything; pinged it in https://go.dev/issue/43744#issuecomment-2498773718
-accepted proposal https://go.dev/issue/60905 (from https://go.dev/cl/610195) - CL 610195 seems like a small performance enhancement that builds on the Go 1.23 proposal to add GOARM64; probably okay without being mentioned in Go 1.24 release notes (also probably okay to mention)
-accepted proposal https://go.dev/issue/61395 (from https://go.dev/cl/594738, https://go.dev/cl/594976) - CL 594738 made sync/atomic AND/OR operations intrinsic on amd64, but the API was already added in Go 1.23; CL 594976 is a fix; probably doesn't require a Go 1.24 release note
--->
-
 <!-- Items that don't need to be mentioned in Go 1.24 release notes but are picked up by relnote todo.
 
+accepted proposal https://go.dev/issue/25309 (from https://go.dev/cl/594018, https://go.dev/cl/595120, https://go.dev/cl/595564, https://go.dev/cl/601778) - new x/crypto package; doesn't seem to need to be mentioned
+accepted proposal https://go.dev/issue/43744 (from https://go.dev/cl/357530) - no change in the standard library
+accepted proposal https://go.dev/issue/60905 (from https://go.dev/cl/610195) - CL 610195 reverted
+accepted proposal https://go.dev/issue/61395 (from https://go.dev/cl/594738, https://go.dev/cl/594976) - CL 594738 made sync/atomic AND/OR operations intrinsic on amd64, but the API was already added in Go 1.23; CL 594976 is a fix; probably doesn't require a Go 1.24 release note (performance change only)
 accepted proposal https://go.dev/issue/51269 (from https://go.dev/cl/627035) - may be worth mentioning in Go 1.24 release notes, or may be fine to leave out; commented at https://go.dev/issue/51269#issuecomment-2501802763; Ian confirmed it's fine to leave out
 accepted proposal https://go.dev/issue/66540 (from https://go.dev/cl/603958) - a Go language spec clarification; might not need to be mentioned in Go 1.24 release notes; left a comment at https://go.dev/issue/66540#issuecomment-2502051684; Robert confirmed it indeed doesn't
 accepted proposal https://go.dev/issue/34208 (from https://go.dev/cl/586241) - CL 586241 implements a fix for a Go 1.23 feature, doesn't seem to be need anything in Go 1.24 release notes
