@@ -314,16 +314,18 @@ now write a directory header for an empty directory.
 
 The [`bytes`](/pkg/bytes) package adds several functions that work with iterators:
 - [`Lines`](/pkg/bytes#Lines) returns an iterator over the
-  newline-terminated lines in the byte slice s.
+  newline-terminated lines in a byte slice.
 - [`SplitSeq`](/pkg/bytes#SplitSeq) returns an iterator over
-  all substrings of s separated by sep.
+  all subslices of a byte slice split around a separator.
 - [`SplitAfterSeq`](/pkg/bytes#SplitAfterSeq) returns an iterator
-  over substrings of s split after each instance of sep.
+  over subslices of a byte slice split after each instance of a
+  separator.
 - [`FieldsSeq`](/pkg/bytes#FieldsSeq) returns an iterator over
-  substrings of s split around runs of whitespace characters,
-  as defined by unicode.IsSpace.
+  subslices of a byte slice split around runs of whitespace characters,
+  as defined by [`unicode.IsSpace`](/pkg/unicode#IsSpace).
 - [`FieldsFuncSeq`](/pkg/bytes#FieldsFuncSeq) returns an iterator
-  over substrings of s split around runs of Unicode code points satisfying f(c).
+  over subslices of a byte slice split around runs of Unicode code points
+  satisfying a predicate.
 
 #### [`crypto/aes`](/pkg/crypto/aes/)
 
@@ -359,7 +361,7 @@ manipulate and recover the plaintext. It is recommended that applications use
 <!-- go.dev/issue/64802 -->
 [`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now produces a
 deterministic signature according to
-[RFC 6979](https://www.rfc-editor.org/rfc/rfc6979.html) if rand is nil.
+[RFC 6979](https://www.rfc-editor.org/rfc/rfc6979.html) if the random source is nil.
 
 #### [`crypto/md5`](/pkg/crypto/md5/)
 
@@ -379,7 +381,7 @@ always succeed, so this change should only affect programs that override the
 the default `Reader` still opens `/dev/urandom` and may fail.
 
 <!-- go.dev/issue/69577 -->
-On Linux 6.11 and later, `Reader` now uses the `getrandom` vDSO.
+On Linux 6.11 and later, `Reader` now uses the `getrandom` system call via vDSO.
 This is several times faster, especially for small reads.
 
 <!-- CL 608395 -->
@@ -441,7 +443,7 @@ the [`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
 The values returned by [`sha256.New`](/pkg/sha256#New) and
 [`sha256.New224`](/pkg/sha256#New224) now also implement the
-[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface
+[`encoding.BinaryAppender`](/pkg/encoding#BinaryAppender) interface.
 
 #### [`crypto/sha512`](/pkg/crypto/sha512/)
 
@@ -742,16 +744,18 @@ and use `go env GOROOT` to find its GOROOT.
 
 The [`strings`](/pkg/strings) package adds several functions that work with iterators:
 - [`Lines`](/pkg/strings#Lines) returns an iterator over
-  the newline-terminated lines in the string s.
+  the newline-terminated lines in a string.
 - [`SplitSeq`](/pkg/strings#SplitSeq) returns an iterator over
-  all substrings of s separated by sep.
+  all substrings of a string split around a separator.
 - [`SplitAfterSeq`](/pkg/strings#SplitAfterSeq) returns an iterator
-  over substrings of s split after each instance of sep.
+  over substrings of a string split after each instance of a
+  separator.
 - [`FieldsSeq`](/pkg/strings#FieldsSeq) returns an iterator over
-  substrings of s split around runs of whitespace characters,
-  as defined by unicode.IsSpace.
+  substrings of a string split around runs of whitespace characters,
+  as defined by [`unicode.IsSpace`](/pkg/unicode#IsSpace).
 - [`FieldsFuncSeq`](/pkg/strings#FieldsFuncSeq) returns an iterator
-  over substrings of s split around runs of Unicode code points satisfying f(c).
+  over substrings of a string split around runs of Unicode code points
+  satisfying a predicate.
 
 #### [`sync`](/pkg/sync/)
 
@@ -800,7 +804,8 @@ Go 1.25 will require macOS 12 Monterey or later.
 ### WebAssembly {#wasm}
 
 <!-- go.dev/issue/65199, CL 603055 -->
-The `go:wasmexport` directive is added for Go programs to export functions to the WebAssembly host.
+The `go:wasmexport` compiler directive is added for Go programs to export functions
+to the WebAssembly host.
 
 On WebAssembly System Interface Preview 1 (`GOOS=wasip1 GOARCH=wasm`), Go 1.24 supports
 building a Go program as a
@@ -821,7 +826,7 @@ The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`
 ### Windows {#windows}
 
 <!-- go.dev/issue/70705 -->
-The windows/arm port (`GOOS=windows GOARCH=arm`) has been marked broken.
+The 32-bit windows/arm port (`GOOS=windows GOARCH=arm`) has been marked broken.
 See [issue #70705](/issue/70705) for details.
 
 <!-- Maybe worth including or maybe fine not to include in Go 1.24 release notes. Someone more familiar with the change makes the call.
