@@ -3,7 +3,7 @@
     "@types/jest": "27.4.0",
     "@typescript-eslint/eslint-plugin": "5.9.0",
     "@typescript-eslint/parser": "5.9.0",
-    "esbuild": "0.14.11",
+    "esbuild": "0.25.0",
     "eslint": "8.6.0",
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "8.3.0",
