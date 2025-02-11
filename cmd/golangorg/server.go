@@ -78,9 +78,9 @@ func main() {
 	// which is much faster to access than the simulated file system.
 	if *contentDir == "" && !runningOnAppEngine {
 		if fi, err := os.Stat(filepath.Join("..", "..", "_content")); err == nil && fi.IsDir() {
-			*contentDir = fi.Name()
+			*contentDir = filepath.Join("..", "..", "_content")
 		} else if fi, err := os.Stat("_content"); err == nil && fi.IsDir() {
-			*contentDir = fi.Name()
+			*contentDir = "_content"
 		} else {
 			*contentDir = "" // Fall back to using embedded content.
 		}
