@@ -273,7 +273,7 @@ All three packages are based on pre-existing `golang.org/x/crypto/...` packages.
 ### FIPS 140-3 compliance {#fips140}
 
 This release includes [a new set of mechanisms to facilitate FIPS 140-3
-compliance](/security/fips140).
+compliance](/doc/security/fips140).
 
 The Go Cryptographic Module is a set of internal standard library packages that
 are transparently used to implement FIPS 140-3 approved algorithms. Applications
