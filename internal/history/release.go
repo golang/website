@@ -14,6 +14,9 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2025, 2, 11}, Version: Version{1, 24, 0},
+	},
+	{
 		Date: Date{2025, 2, 4}, Version: Version{1, 23, 6},
 		Security: &FixSummary{
 			Packages: []string{"crypto/elliptic"},
