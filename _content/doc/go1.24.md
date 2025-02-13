@@ -825,6 +825,10 @@ These types are also permitted as argument or result types for `go:wasmexport` f
 <!-- go.dev/issue/68024 -->
 The support files for WebAssembly have been moved to `lib/wasm` from `misc/wasm`.
 
+<!-- CL 621635, CL 621636 -->
+The initial memory size is significantly reduced, especially for small WebAssembly
+applications.
+
 ### Windows {#windows}
 
 <!-- go.dev/issue/70705 -->
