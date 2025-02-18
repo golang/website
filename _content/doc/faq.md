@@ -1064,6 +1064,9 @@ add these lines to your `~/.gitconfig`:
 	insteadOf = https://github.com/
 ```
 
+When working with private modules, but using a public module proxy for dependencies, you may need to set `GOPRIVATE`.
+See [private modules](/ref/mod#private-modules) for details and additional settings.
+
 ### How should I manage package versions using "go get"? {#get_version}
 
 The Go toolchain has a built-in system for managing versioned sets of related packages, known as *modules*.
