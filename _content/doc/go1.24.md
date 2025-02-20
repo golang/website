@@ -480,8 +480,8 @@ The new post-quantum [`X25519MLKEM768`](/pkg/crypto/tls#X25519MLKEM768) key
 exchange mechanism is now supported and is enabled by default when
 [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
 [GODEBUG setting](/doc/godebug) `tlsmlkem=0` reverts the default.
-This is can be useful when dealing with legacy TLS servers that do not handle large records correctly,
-causing a timeout during the handshake (bug known as [TLS post-quantum TL;DR fail](https://tldr.fail/)).
+This can be useful when dealing with buggy TLS servers that do not handle large records correctly,
+causing a timeout during the handshake (see [TLS post-quantum TL;DR fail](https://tldr.fail/)).
 
 Support for the experimental `X25519Kyber768Draft00` key exchange has been removed.
 
