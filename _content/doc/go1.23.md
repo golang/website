@@ -293,6 +293,8 @@ the GODEBUG environment variable.
 The experimental post-quantum key exchange mechanism X25519Kyber768Draft00
 is now enabled by default when [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
 The default can be reverted by adding `tlskyber=0` to the GODEBUG environment variable.
+This is can be useful when dealing with legacy TLS servers that do not handle large records correctly,
+causing a timeout during the handshake (bug known as [TLS post-quantum TL;DR fail](https://tldr.fail/)).
 
 Go 1.23 changed the behavior of [`X509KeyPair`](/pkg/crypto/tls#X509KeyPair) and [`LoadX509KeyPair`](/pkg/crypto/tls#LoadX509KeyPair)
 to populate the [`Certificate.Leaf`](/pkg/crypto/tls#Certificate.Leaf) field of the returned [`Certificate`](/pkg/crypto/tls#Certificate).
