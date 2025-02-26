@@ -261,12 +261,12 @@ These override any toolchain defaults, and are overridden by explicit `//go:debu
 <dl>
     <dt>debug-key</dt>
     <dd>The name of the setting to be applied.
-      A list of settings and the versions they were introduced in can be found at [
-      GODEBUG History](https://go.dev/doc/godebug#history).
+      A list of settings and the versions they were introduced in can be found at
+      <a href="/doc/godebug#history">GODEBUG History</a>.
     </dd>
     <dt>debug-value</dt>
     <dd>The value provided to the setting.
-      If not otherwise specified, `0` to disable and `1` to enable the named behavior.</dd>
+      If not otherwise specified, <code>0</code> to disable and <code>1</code> to enable the named behavior.</dd>
 </dl>
 
 ### Examples {#godebug-examples}
