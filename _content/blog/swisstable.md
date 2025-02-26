@@ -427,6 +427,6 @@ This would further decrease the average number of probes required for lookups.
 
 A Swiss Table-based Go map implementation has been a long time coming, and involved many contributors.
 I want to thank YunHao Zhang ([@zhangyunhao116](https://github.com/zhangyunhao116)), PJ Malloy ([@thepudds](https://github.com/thepudds)), and [@andy-wm-arthur](https://github.com/andy-wm-arthur) for building initial versions of a Go Swiss Table implementation.
-Peter Mattis ([@petermattis](https://github.com/petermattis)) combined these ideas with solutions to the Go challenges above to build [https://github.com/cockroachdb/swiss](https://github.com/cockroachdb/swiss), a Go-spec compliant Swiss Table implementation.
+Peter Mattis ([@petermattis](https://github.com/petermattis)) combined these ideas with solutions to the Go challenges above to build [`github.com/cockroachdb/swiss`](https://pkg.go.dev/github.com/cockroachdb/swiss), a Go-spec compliant Swiss Table implementation.
 The Go 1.24 built-in map implementation is heavily based on Peter's work.
 Thank you to everyone in the community that contributed!
