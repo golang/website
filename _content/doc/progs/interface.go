@@ -55,7 +55,7 @@ func typeAssertions() (interface{}, error) { // OMIT
 	var empty interface{}
 	empty = w
 	// STOP OMIT
-	return empty, err
+	return empty, nil
 }
 
 func main() {
