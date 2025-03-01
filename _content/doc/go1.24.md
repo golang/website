@@ -9,7 +9,9 @@ template: false
 
 ## Introduction to Go 1.24 {#introduction}
 
-The latest Go release, version 1.24, arrives six months after [Go 1.23](/doc/go1.23).
+The latest Go release, version 1.24,
+arrives in [February 2025](/doc/devel/release#go1.24.0),
+six months after [Go 1.23](/doc/go1.23).
 Most of its changes are in the implementation of the toolchain, runtime, and libraries.
 As always, the release maintains the Go 1 [promise of compatibility](/doc/go1compat).
 We expect almost all Go programs to continue to compile and run as before.

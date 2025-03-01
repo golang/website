@@ -8,6 +8,7 @@ import (
 	"bytes"
 	"fmt"
 	"go/build"
+	"io/fs"
 	"net/http/httptest"
 	"net/url"
 	"os"
@@ -18,6 +19,8 @@ import (
 	"testing"
 
 	"golang.org/x/net/html"
+	"golang.org/x/website"
+	"golang.org/x/website/internal/history"
 	"golang.org/x/website/internal/webtest"
 )
 
@@ -318,4 +321,31 @@ func findAttr(n *html.Node, name string) string {
 		}
 	}
 	return ""
+}
+
+// TestReleaseNotesHaveDate tests that release notes
+// include the date of the corresponding major release.
+// See go.dev/issue/54170.
+func TestReleaseNotesHaveDate(t *testing.T) {
+	for _, r := range history.Majors {
+		if r.Version.Before(history.Version{X: 1, Y: 24}) {
+			// No dates in release notes before Go 1.24.
+			break
+		}
+		maj := r.Version.MajorPrefix()
+		t.Run(maj, func(t *testing.T) {
+			name := fmt.Sprintf("doc/go%s.md", maj)
+			have, err := fs.ReadFile(website.Content(), name)
+			if err != nil {
+				t.Fatalf("Go %s release notes (_content/%s) can't be read: %v", maj, name, err)
+			}
+			want := fmt.Sprintf("[%s %d](/doc/devel/release#go%s)", r.Date.Month, r.Date.Year, r.Version)
+			if r.Future {
+				want = fmt.Sprintf("%s %d", r.Date.Month, r.Date.Year)
+			}
+			if !strings.Contains(string(have), want) {
+				t.Errorf("Go %s release notes (_content/%s) doesn't contain the release date and link to release history page %q", maj, name, want)
+			}
+		})
+	}
 }
