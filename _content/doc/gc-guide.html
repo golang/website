@@ -203,6 +203,11 @@ program's <b>roots</b>, pointers that identify objects that are definitely
 in-use by the program.
 Two examples of roots are local variables and global variables.
 The process of walking the object graph is referred to as <b>scanning</b>.
+Another phrase you might see in the Go documentation is whether an object is
+<b>reachable</b>, which just means that the object can be discovered by the
+scanning process.
+Note also that, <a href="#Finalizers_cleanups_and_weak_pointers">with one
+exception</a>, once memory becomes unreachable, it stays unreachable.
 </p>
 
 <p>
@@ -1023,9 +1028,9 @@ The death of an object is not an observable event at the language level.
 
 <p>
 However, Go's runtime library provides three features that break that illusion:
-<a href="/pkg/runtime#SetFinalizer">finalizers</a>,
 <a href="/pkg/runtime#AddCleanup">cleanups</a>,
-and <a href="/pkg/weak#Pointer">weak pointers</a>.
+<a href="/pkg/weak#Pointer">weak pointers</a>, and
+<a href="/pkg/runtime#SetFinalizer">finalizers</a>.
 Each of these features provides some way to observe and react to object death,
 and in the case of finalizers, even reverse it.
 This of course complicates Go programs and adds an additional burden to the GC
@@ -1034,17 +1039,34 @@ Nonetheless, these features exist because they are useful in a variety of
 circumstances, and Go programs use them and benefit from them all the time.
 </p>
 
-<h4 id="Advice">Advice</h4>
-
 <p>
 For the details of each feature, refer to its package documentation
-(<a href="/pkg/runtime#SetFinalizer">runtime.SetFinalizer</a>,
-<a href="/pkg/runtime#AddCleanup">runtime.AddCleanup</a>,
-<a href="/pkg/weak#Pointer">weak.Pointer</a>).
-Below is some general advice for using these features.
+(<a href="/pkg/runtime#AddCleanup">runtime.AddCleanup</a>,
+<a href="/pkg/weak#Pointer">weak.Pointer</a>,
+<a href="/pkg/runtime#SetFinalizer">runtime.SetFinalizer</a>).
+Below is some general advice for using these features, outlines of common
+issues you can run into with each feature, and advice for testing uses of these
+features.
 </p>
 
+<h4 id="General_advice">General advice</h4>
+
 <ul>
+	<li>
+		<p>
+		<b>
+		Write unit tests.
+		</b>
+		</p>
+		<p>
+		The exact timing of cleanups, weak pointers, and finalizers can be difficult
+		to predict, and it's easy to convince yourself that everything works, even
+		after many consecutive executions.
+		But it's also easy to make subtle mistakes.
+		<a href="#Testing_object_death">Writing tests</a> for them can be tricky, but
+		given that they're so subtle to use, testing is even more important usual.
+		</p>
+	</li>
 	<li>
 		<p>
 		<b>
@@ -1158,7 +1180,7 @@ Below is some general advice for using these features.
 		function (and even continue to live beyond that, too).
 		This simple fact means that if the object is part of a reference cycle it can
 		never be freed, and the memory backing the object cannot be reused until at
-		least the following garbage collection cycle.
+		least until the following garbage collection cycle.
 		</p>
 		<p>
 		Because finalizers resurrect objects, though, they do have a better-defined
@@ -1170,6 +1192,198 @@ Below is some general advice for using these features.
 		But for all other uses in Go 1.24 and beyond, we recommend you use cleanups
 		because they are more flexible, less error-prone, and more efficient than
 		finalizers.
+		</p>
+	</li>
+</ul>
+
+<h4 id="Common_cleanup_issues">Common cleanup issues</h4>
+
+<ul>
+	<li>
+		<p>
+		Objects with attached cleanups must not be reachable from the cleanup
+		function (for example, through a captured local variable).
+		This will prevent the object from being reclaimed and the cleanup from
+		ever running.
+		</p>
+	</li>
+<pre>
+f := new(myFile)
+f.fd = syscall.Open(...)
+runtime.AddCleanup(f, func(fd int) {
+	syscall.Close(f.fd) // Mistake: We reference f, so this cleanup won't run!
+}, f.fd)
+</pre>
+	<li>
+		<p>
+		Objects with attached cleanups must not be reachable from the argument
+		to the cleanup function.
+		This will prevent the object from being reclaimed and the cleanup from
+		ever running.
+		</p>
+	</li>
+<pre>
+f := new(myFile)
+f.fd = syscall.Open(...)
+runtime.AddCleanup(f, func(f *myFile) {
+	syscall.Close(f.fd)
+}, f) // Mistake: We reference f, so this cleanup wouldn't ever run. This specific case also panics.
+</pre>
+	<li>
+		<p>
+		Finalizers have a well-defined execution order, but cleanups do not.
+		Cleanups can also run concurrently with one another.
+		</p>
+	</li>
+	<li>
+		<p>
+		<code>runtime.GC</code> will not wait until cleanups for unreachable
+		objects are executed, only until they are all queued.
+		</p>
+	</li>
+</ul>
+
+<h4 id="Common_weak_pointer_issues">Common weak pointer issues</h4>
+
+<ul>
+	<li>
+		<p>
+		Weak pointers can begin returning <code>nil</code> from their
+		<code>Value</code> method at unexpected times.
+		Always guard the call to <code>Value</code> with a <code>nil</code>
+		check and have a backup plan.
+		</p>
+	</li>
+	<li>
+		<p>
+		When weak pointers are used as map keys, they do not affect the
+		reachability of map values.
+		Therefore, if a weak pointer map key points to an object that is also
+		reachable from the map value, that object will still be considered
+		reachable.
+		</p>
+	</li>
+</ul>
+
+<h4 id="Common_finalizer_issues">Common finalizer issues</h4>
+
+<ul>
+	<li>
+		<p>
+		Objects with attached finalizers must not be reachable from themselves
+		by any path (in other words, they cannot be in a reference cycle).
+		This will prevent the object from being reclaimed and the finalizer from
+		ever running.
+		</p>
+	</li>
+<pre>
+f := new(myCycle)
+f.self = f // Mistake: f is reachable from f, so this finalizer would never run.
+runtime.SetFinalizer(f, func(f *myCycle) {
+	...
+})
+</pre>
+	<li>
+		<p>
+		Objects with attached finalizers must not be reachable from the finalizer
+		function (for example, through a captured local variable).
+		This will prevent the object from being reclaimed and the finalizer from
+		ever running.
+		</p>
+	</li>
+<pre>
+f := new(myFile)
+f.fd = syscall.Open(...)
+runtime.SetFinalizer(f, func(_ *myFile) {
+	syscall.Close(f.fd) // Mistake: We reference the outer f, so this cleanup won't run!
+})
+</pre>
+	<li>
+		<p>
+		Reference chains of objects with attached finalizers (say, in a linked list)
+		take, at minimum, as many GC cycles as there are objects in the chain
+		to clean them all up.
+		Keep finalizers shallow!
+		</p>
+	</li>
+<pre>
+// Mistake: reclaiming this linked list will take at least 10 GC cycles.
+node := new(linkedListNode)
+for range 10 {
+	tmp := new(linkedListNode)
+	tmp.next = node
+	node = tmp
+	runtime.SetFinalizer(node, func(node *linkedListNode) {
+		...
+	})
+}
+</pre>
+	<li>
+		<p>
+		Avoid placing finalizers on objects returned at package boundaries.
+		This makes it possible for users of your package to call
+		<code>runtime.SetFinalizer</code> to mutate the finalizer on the object
+		you return, which can be an unexpected behavior that users of your package
+		may end up relying on.
+		</p>
+	</li>
+	<li>
+		<p>
+		<code>runtime.GC</code> will not wait until finalizers for unreachable
+		objects are executed, only until they are all queued.
+		</p>
+	</li>
+</ul>
+
+<h4 id="Testing_object_death">Testing object death</h4>
+
+<p>
+When using these features, it can sometimes be tricky to write tests for code that
+uses them.
+Here are some tips for writing robust tests for code that uses these features.
+</p>
+
+<ul>
+	<li>
+		Avoid running such tests in parallel with other tests.
+		It helps a lot to increase determinism as much as possible and to have
+		a good handle on the state of the world at any given time.
+	</li>
+	<li>
+		Use <code>runtime.GC</code> to establish a baseline upon entering the
+		test.
+		Use <code>runtime.GC</code> to force weak pointers to <code>nil</code>,
+		and to queue up cleanups and finalizers to run.
+	</li>
+	<li>
+		<p>
+		<code>runtime.GC</code> does not wait for cleanups and finalizers to run,
+		it only queues them.
+		</p>
+		<p>
+		To write the most robust tests possible, inject a way to block on a cleanup
+		or finalizer from your test (for example, pass an optional channel to the
+		cleanup and/or finalizer from the test, and write to the channel once it
+		has finished executing).
+		If this is too hard or impossible, an alternative is to spin on a particular
+		post-cleanup state to be true.
+		For example, the <code>os</code> tests call <code>runtime.Gosched</code> in
+		a loop that checks whether a file has been closed, once it becomes
+		unreachable.
+		</p>
+	</li>
+	<li>
+		<p>
+		If writing tests for using finalizers, and you have a chain of objects
+		that use finalizers, you will need at minimum the length of the deepest
+		chain the test can create of <code>runtime.GC</code> calls to ensure
+		all the finalizers run.
+		</p>
+	</li>
+	<li>
+		<p>
+		Test in race mode to discover races between concurrent cleanups, and
+		between cleanup and finalizer code and the rest of the codebase.
 		</p>
 	</li>
 </ul>
