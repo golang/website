@@ -7,7 +7,6 @@ package main
 import (
 	"bytes"
 	"fmt"
-	"go/build"
 	"io/fs"
 	"net/http/httptest"
 	"net/url"
@@ -32,25 +31,11 @@ func TestWeb(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, file := range files {
-		switch filepath.ToSlash(file) {
-		case "testdata/live.txt":
+		if filepath.ToSlash(file) == "testdata/live.txt" {
 			continue
-		case "testdata/go1.19.txt":
-			if !haveRelease("go1.19") {
-				continue
-			}
 		}
 		webtest.TestHandler(t, file, h)
 	}
-}
-
-func haveRelease(release string) bool {
-	for _, tag := range build.Default.ReleaseTags {
-		if tag == release {
-			return true
-		}
-	}
-	return false
 }
 
 var bads = []string{
@@ -230,11 +215,6 @@ func TestAll(t *testing.T) {
 						if strings.HasPrefix(u.Path, skip) {
 							return
 						}
-					}
-					if u.Path == "/doc/godebug" {
-						// Lives in GOROOT and does not exist in Go 1.20,
-						// so skip the check to avoid failing the test on Go 1.20.
-						return
 					}
 
 					// Clear #fragment and build up fully qualified https://go.dev/ URL and check.
