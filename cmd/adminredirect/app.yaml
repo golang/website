@@ -1,5 +1,5 @@
 service: admin
-runtime: go121
+runtime: go123
 main: ./cmd/adminredirect
 
 env_variables:
