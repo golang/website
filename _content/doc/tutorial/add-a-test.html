@@ -49,7 +49,7 @@ func TestHelloName(t *testing.T) {
     want := regexp.MustCompile(`\b`+name+`\b`)
     msg, err := Hello("Gladys")
     if !want.MatchString(msg) || err != nil {
-        t.Fatalf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
+        t.Errorf(`Hello("Gladys") = %q, %v, want match for %#q, nil`, msg, err, want)
     }
 }
 
@@ -58,7 +58,7 @@ func TestHelloName(t *testing.T) {
 func TestHelloEmpty(t *testing.T) {
     msg, err := Hello("")
     if msg != "" || err == nil {
-        t.Fatalf(`Hello("") = %q, %v, want "", error`, msg, err)
+        t.Errorf(`Hello("") = %q, %v, want "", error`, msg, err)
     }
 }
 </pre
@@ -91,17 +91,16 @@ func TestHelloEmpty(t *testing.T) {
             able to return a valid response message. If the call returns an
             error or an unexpected response message (one that doesn't include
             the name you passed in), you use the <code>t</code> parameter's
-            <a href="https://pkg.go.dev/testing/#T.Fatalf">
-            <code>Fatalf</code> method</a> to print a message to the console
-            and end execution.
+            <a href="https://pkg.go.dev/testing/#T.Errorf">
+            <code>Errorf</code> method</a> to print a message to the console.
           </li>
           <li>
             <code>TestHelloEmpty</code> calls the <code>Hello</code> function
             with an empty string. This test is designed to confirm that your
             error handling works. If the call returns a non-empty string or no
             error, you use the <code>t</code> parameter's
-            <a href="https://pkg.go.dev/testing/#T.Fatalf"><code>Fatalf
-            </code> method</a> to print a message to the console and end execution.
+            <a href="https://pkg.go.dev/testing/#T.Errorf"><code>Errorf
+            </code> method</a> to print a message to the console.
           </li>
         </ul>
       </li>
