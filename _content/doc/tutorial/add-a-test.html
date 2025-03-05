@@ -77,7 +77,7 @@ func TestHelloEmpty(t *testing.T) {
         function. Test function names have the form <code>Test<em>Name</em></code>,
         where <em>Name</em> says something about the specific test. Also, test
         functions take a pointer to the <code>testing</code> package's
-        <a href="https://pkg.go.dev/testing/#T"><code>testing.T</code>
+        <a href="/pkg/testing/#T"><code>testing.T</code>
         type</a> as a parameter. You use this parameter's methods for reporting
         and logging from your test.
       </li>
@@ -91,16 +91,16 @@ func TestHelloEmpty(t *testing.T) {
             able to return a valid response message. If the call returns an
             error or an unexpected response message (one that doesn't include
             the name you passed in), you use the <code>t</code> parameter's
-            <a href="https://pkg.go.dev/testing/#T.Fatalf">
-            <code>Fatalf</code> method</a> to print a message to the console
-            and end execution.
+            <a href="/pkg/testing/#T.Errorf">
+            <code>Errorf</code> method</a> to print a message to the console.
           </li>
           <li>
             <code>TestHelloEmpty</code> calls the <code>Hello</code> function
             with an empty string. This test is designed to confirm that your
             error handling works. If the call returns a non-empty string or no
-            error, you use the <code>t</code> parameter's <code>Fatalf</code>
-            method to print a message to the console and end execution.
+            error, you use the <code>t</code> parameter's
+            <a href="/pkg/testing/#T.Errorf"><code>Errorf
+            </code> method</a> to print a message to the console.
           </li>
         </ul>
       </li>
