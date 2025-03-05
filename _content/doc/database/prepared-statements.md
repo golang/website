@@ -38,6 +38,7 @@ func AlbumByID(id int) (Album, error) {
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer stmt.Close()
 
 	var album Album
 
