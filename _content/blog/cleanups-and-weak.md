@@ -92,7 +92,7 @@ With this code, we can pass around a `*MemoryMappedFile`, and when it's
 no longer referenced, the memory mapping we created will get cleaned up.
 
 Notice that `runtime.AddCleanup` takes three arguments: the address of a
-variable to attach the cleanup to, the cleanup function itslef, and an argument
+variable to attach the cleanup to, the cleanup function itself, and an argument
 to the cleanup function.
 A key difference between this function and `runtime.SetFinalizer` is that the
 cleanup function takes a different argument than the object we're attaching the
