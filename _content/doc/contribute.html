@@ -913,6 +913,11 @@ failure appears in other recent commits on the same platform.
 In this case,
 feel free to write a comment in Gerrit to mention that the failure is
 unrelated to your change, to help maintainers understand the situation.
+You can also search GitHub issues for the failing error message
+or browse <a href="https://github.com/golang/go/issues?q=is%3Aissue%20watchflakes%20sort%3Aupdated-desc">recently updated <code>watchflakes</code> issues</a>.
+If your change is based on an older commit
+or it looks like someone else might have already fixed the problem,
+try rebasing to the latest master commit via <code>git rebase</code>.
 </p>
 
 <h3 id="reviews">Reviews</h3>
