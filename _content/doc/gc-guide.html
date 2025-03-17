@@ -1757,17 +1757,18 @@ $ go build -gcflags=-m=3 [package]
 </pre>
 
 <p>
-This information can also be visualized as an overlay in VS Code.
-This overlay is configured and enabled in the VS Code Go plugin settings.
+This information can also be visualized as an overlay in
+an LSP-capable editor; it is exposed as a code action.
+
+For example, in VS Code, invoke the "Source Action... > Show compiler
+optimization details" command to enable diagnostics for the current package.
+(You can also run the "Go: Toggle compiler optimization details"
+command.)
+
+Use this configuration setting to control which annotations are displayed:
 </p>
 
 <ol>
-	<li>
-	Set the
-	<a href="https://github.com/golang/vscode-go/wiki/settings#uicodelenses">
-	<code>ui.codelenses</code> setting to include <code>gc_details</code>
-	</a>.
-	</li>
 	<li>
 	Enable the overlay for escape analysis by
 	<a href="https://github.com/golang/vscode-go/wiki/settings#uidiagnosticannotations">
