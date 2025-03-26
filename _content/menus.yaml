@@ -115,10 +115,10 @@ footer:
         url: /conduct
 
   - name: Connect
-    url: https://www.twitter.com/golang
+    url: https://x.com/golang
     children:
-      - name: Twitter
-        url: https://www.twitter.com/golang
+      - name: X
+        url: https://x.com/golang
       - name: GitHub
         url: https://github.com/golang
       - name: Slack
