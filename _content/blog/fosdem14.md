@@ -36,7 +36,7 @@ fundamental component of YouTube's MySQL infrastructure.
 
 The talk covers some history about how and why the team chose Go, and how it
 paid off.
-Sugu also talks abou tips and techniques used to scale Vitess using Go.
+Sugu also talks about tips and techniques used to scale Vitess using Go.
 
 {{video "https://www.youtube.com/embed/qATTTSg6zXk"}}
 

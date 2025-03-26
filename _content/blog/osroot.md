@@ -109,7 +109,7 @@ filename within a specific directory.
 ## Introducing `os.Root`
 
 In Go 1.24, we are introducing new APIs in the `os` package to safely open
-a file in a location in a traversal-resistent fashion.
+a file in a location in a traversal-resistant fashion.
 
 The new [`os.Root`](/pkg/os#Root) type represents a directory somewhere
 in the local filesystem. Open a root with the [`os.OpenRoot`](/pkg/os#OpenRoot)
@@ -179,10 +179,10 @@ The open handle prevents that directory from being renamed or deleted until the 
 ### WASI
 
 On WASI, the `os` package uses the WASI preview 1 filesystem API,
-which are intended to provide traversal-resistent filesystem access.
+which are intended to provide traversal-resistant filesystem access.
 Not all WASI implementations fully support filesystem sandboxing,
 however, and `Root`'s defense against traversal is limited to that provided
-by the WASI impementation.
+by the WASI implementation.
 
 ### GOOS=js
 

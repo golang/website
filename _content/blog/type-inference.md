@@ -1034,7 +1034,7 @@ type T[P T[P]] interface{ … }
 ```
 
 where the constraint for `P` is the type being declared.
-Combined with the ablity to have multiple type parameters that may refer to each other
+Combined with the ability to have multiple type parameters that may refer to each other
 in complex recursive fashion, type inference becomes much more complicated and we don't
 fully understand all the implications of that at the moment.
 That said, we believe it shouldn't be too hard to detect cycles and proceed with

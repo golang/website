@@ -106,7 +106,7 @@ in any reference cycles (even a pointer to itself is too much!), otherwise the
 object will never be reclaimed and the finalizer will never run, causing a
 leak.
 Finalizers also significantly delay reclamation of memory.
-It takes at a minumum two full garbage collection cycles to reclaim the
+It takes at a minimum two full garbage collection cycles to reclaim the
 memory for a finalized object: one to determine that it's unreachable, and
 another to determine that it's still unreachable after the finalizer
 executes.

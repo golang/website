@@ -102,7 +102,7 @@ it could be valid.
 - When trying to understand a specific language feature, one may have to learn the intricacies of
 core types even when considering non-generic code.
 Again, for slice expressions, the language spec talks about the core type of the sliced operand,
-rather then just stating that the operand must be an array, slice, or string.
+rather than just stating that the operand must be an array, slice, or string.
 The latter is more direct, simpler, and clearer, and doesn't require knowing another concept that may be
 irrelevant in the concrete case.
 

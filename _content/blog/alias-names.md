@@ -356,7 +356,7 @@ missing for that version.
 Full support (including export) is implemented at tip, and the default
 setting for `GOEXPERIMENT` will soon be switched so that generic type
 aliases are enabled by default.
-Thus, another option is to experiement with the latest version of Go
+Thus, another option is to experiment with the latest version of Go
 at tip.
 
 As always, please let us know if you encounter any problems by filing an
