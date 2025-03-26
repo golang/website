@@ -1,5 +1,5 @@
 ---
-title: Good-bye core types; Hello Go as we know and love it!
+title: Goodbye core types - Hello Go as we know and love it!
 date: 2025-03-26
 by:
 - Robert Griesemer
