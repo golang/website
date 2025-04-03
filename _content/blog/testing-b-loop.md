@@ -126,7 +126,7 @@ func BenchmarkSortInts(b *testing.B) {
   ints := make([]int, N)
   for b.Loop() {
     b.StopTimer()
-    fillRandomInts(int)
+    fillRandomInts(ints)
     b.StartTimer()
     slices.Sort(ints)
   }
