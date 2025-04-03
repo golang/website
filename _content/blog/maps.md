@@ -37,7 +37,7 @@ A nil map behaves like an empty map when reading,
 but attempts to write to a nil map will cause a runtime panic; don't do that.
 To initialize a map, use the built in `make` function:
 
-	m = make(map[string]int)
+	m := make(map[string]int)
 
 The `make` function allocates and initializes a hash map data structure
 and returns a map value that points to it.
