@@ -1,6 +1,6 @@
 ---
 title: "Is Golang Still Growing? Go Language Popularity Trends in 2024"
-date: 2025-04-03
+date: 2025-04-04
 by:
 - Elena Ufliand (JetBrains)
 
@@ -8,13 +8,10 @@ summary: Is Golang Still Growing?
 ---
 As a fast-growing language with a wide range of applications, Go has become increasingly relevant to both new and existing developers. In this blog post, we will share our overview of the current state of Go, its position in the programming landscape, and the strategies for the future of Go. Following an analysis of its market composition and user profile, we will then explore whether Go is still popular and dive into its future evolution.
 
-
-How popular is Golang in 2024? Explore adoption trends, usage stats, and expert insights on Go’s future in backend development.
-
 ## The market for Go
 
-According to the Developer Ecosystem Data Playground, the mean estimate is that 4.1 million Go professionals used Go within the last 12 months, and 1.8 million used it as one of their primary programming languages. According to the SlashData report for Q1 2024, at the beginning of 2024, there were around 4.7 million Go developers worldwide. While these two estimates are close, JetBrains’ figure only includes professionals who earn money (full-time, part-time employed, or freelancers; job roles that include coding duties like Developer, QA, DBA, etc.), while SlashData also counts STEM students and hobbyists.
-And Go’s usage must have grown significantly since then. In his talk from August 2024, Go Language PM Cameron Balahan mentions the number 5.8 million, based on the proportion of respondents who reported using Go on Stack Overflow's latest annual survey and SlashData’s estimate of the number of developers worldwide.
+According to the [Developer Ecosystem Data Playground](https://www.jetbrains.com/lp/devecosystem-data-playground), the mean estimate is that 4.1 million Go professionals used Go within the last 12 months, and 1.8 million used it as one of their primary programming languages. According to the [SlashData report for Q1 2024](https://dashboard-tool-report.cdn.prismic.io/dashboard-tool-report/ZmMmh5m069VX1jxc_-W.Kodluyoruz-Programminglanguagecommunities.pdf), at the beginning of 2024, there were around 4.7 million Go developers worldwide. While these two estimates are close, JetBrains’ figure only includes professionals who earn money (full-time, part-time employed, or freelancers; job roles that include coding duties like Developer, QA, DBA, etc.), while SlashData also counts STEM students and hobbyists.
+And Go’s usage must have grown significantly since then. In his [talk from August 2024](https://www.youtube.com/watch?v=pLvZRnK2WRE&t=1087s), Go Language PM Cameron Balahan mentions the number 5.8 million, based on the proportion of respondents who reported using Go on Stack Overflow's latest annual survey and SlashData’s estimate of the number of developers worldwide.
 
 ## Go developers
 
@@ -98,7 +95,7 @@ With **HCL**, **Go**, and **Dockerfiles** all increasing steadily in popularity,
 
 The [Cloudflare Radar](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity) **Year in Review** highlights patterns and trends across the internet as observed through Cloudflare's global network.
 
-Last year's most notable finding is that **Go** has **surpassed Node.js** as the most popular language for making automated API requests. [Go now tops the list](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity), accounting for approximately [12%](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity) of automated API requests made by Go-based clients, compared to [8.4%](https://radar.cloudflare.com/year-in-review/2023#api-client-language-popularity) last [year](https://radar.cloudflare.com/year-in-review/2023#api-client-language-popularity).
+Last year's most notable finding is that **Go** has **surpassed Node.js** as the most popular language for making automated API requests. [Go now tops the list](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity), accounting for approximately [12%](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity) of automated API requests made by Go-based clients, compared to [8.4%](https://radar.cloudflare.com/year-in-review/2023#api-client-language-popularity) last year.
 
 ![image8](../images/state-of-go/08@2x.png)
 
