@@ -8,9 +8,6 @@ summary: Is Golang Still Growing?
 ---
 As a fast-growing language with a wide range of applications, Go has become increasingly relevant to both new and existing developers. In this blog post, we will share our overview of the current state of Go, its position in the programming landscape, and the strategies for the future of Go. Following an analysis of its market composition and user profile, we will then explore whether Go is still popular and dive into its future evolution.
 
-
-How popular is Golang in 2024? Explore adoption trends, usage stats, and expert insights on Go’s future in backend development.
-
 ## The market for Go
 
 According to the [Developer Ecosystem Data Playground](https://www.jetbrains.com/lp/devecosystem-data-playground/), the mean estimate is that 4.1 million Go professionals used Go within the last 12 months, and 1.8 million used it as one of their primary programming languages. According to the [SlashData report for Q1 2024](https://dashboard-tool-report.cdn.prismic.io/dashboard-tool-report/ZmMmh5m069VX1jxc_-W.Kodluyoruz-Programminglanguagecommunities.pdf), at the beginning of 2024, there were around 4.7 million Go developers worldwide. While these two estimates are close, JetBrains’ figure only includes professionals who earn money (full-time, part-time employed, or freelancers; job roles that include coding duties like Developer, QA, DBA, etc.), while SlashData also counts STEM students and hobbyists.
