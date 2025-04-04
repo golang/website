@@ -17,14 +17,14 @@ And Go’s usage must have grown significantly since then. In his [talk from Aug
 
 In 2024, as the **mainstream cloud market** continues to grow, there are two main categories of professional Go developers according to the [Developer Ecosystem: Data Playground](https://www.jetbrains.com/lp/devecosystem-data-playground/)
 
-![image1](../images/state-of-go/01@2x.png)
+![image1](../images/state-of-go/01.png)
 
 - Professionals who work on web services (744,000), websites (732,000), or business applications (452,000) that are fully or partially composed of microservices written in Go (e.g. routers, proxies, and data transformation services) that help to operate the necessary logic.
 - Professionals who manage cloud services (681,000) or internal IT infrastructure (337,000) platforms (IaaS), which often consist of Kubernetes cluster operators, related Go web microservices, and CLI utilities. They also work on infrastructure as code (e.g. Terraform) and service support.
 
 They often identify either as **Developers / Programmers / Software Engineers, or DevOps Engineers / Infrastructure Developers**:
 
-![image2](../images/state-of-go/02@2x.png)
+![image2](../images/state-of-go/02.png)
 
 Most are software engineering professionals, but the proportion of DevOps engineers and infrastructure developers is also significant, outlining a huge demand for cloud-native infrastructure and operations.
 
@@ -33,7 +33,7 @@ According to the Google Developer Survey 2024, similar to previous years, the mo
 
 The [Developer Ecosystem Survey 2024](https://www.jetbrains.com/lp/devecosystem-2024/#salary_group_share_by_language) and [StackOverflow Survey 2024](https://survey.stackoverflow.co/2024/work/#3-salary-and-experience-by-language) reveal that Go developers are among the **highest-paid in the industry**. [The average salary for Go developers](https://www.jetbrains.com/lp/devecosystem-2024/#pl_dynamics) is about $76,000 a year, while our [IT Salary Calculator](https://www.jetbrains.com/lp/devecosystem-it-salary-calculator/) reveals that Go developers in the United States can make up to $500,000 depending on their experience level.
 
-![image3](../images/state-of-go/03@2x.png)
+![image3](../images/state-of-go/03.png)
 
 
 The salaries of [SREs and cloud infrastructure engineers](https://survey.stackoverflow.co/2024/work/#3-salary-and-experience-by-developer-type) are also well above average.
@@ -64,7 +64,7 @@ In the [JetBrains Language Promise Index](https://www.jetbrains.com/lp/devecosys
 
 It follows the undisputed leaders: **TypeScript**, **Rust**, and **Python**.
 
-![image4](../images/state-of-go/04@2x.png)
+![image4](../images/state-of-go/04.png)
 
 According to the **Developer Ecosystem Survey**, the programming languages most respondents plan to adopt are **Go** and **Rust**. While **Rust** continues to grow in popularity, the share of **Go** developers has remained stable.
 
@@ -74,7 +74,7 @@ The [Admired and Desired](https://survey.stackoverflow.co/2024/technology#admire
 
 In this ranking, **Go** surpassed **C#** and shell scripting languages, moving up from **ninth** to **seventh** place last year. Rust remains ahead of Go, with a significantly higher "Desired" rate and an even higher "Admired" rate.
 
-![image5](../images/state-of-go/05@2x.png)
+![image5](../images/state-of-go/05.png)
 
 ## Github Octoverse: Operations and IaC
 
@@ -82,14 +82,14 @@ The **[GitHub Octoverse](https://github.blog/news-insights/octoverse/octoverse-2
 
 In 2022, **Go** surpassed **Ruby** for the first time to join the ranks of the **GitHub Top 10 languages**. In 2024, its position remains stable. Although it is growing significantly slower than **Python** and **TypeScript**, **Go** is still among the **top three fastest-growing languages** in terms of open-source project activity.
 
-![image6](../images/state-of-go/06@2x.png)
+![image6](../images/state-of-go/06.png)
 
 
 Ever since cloud-native development exploded onto the scene in 2019, **infrastructure as code (IaC)** has enjoyed vigorous growth within the open-source ecosystem.
 
 With **HCL**, **Go**, and **Dockerfiles** all increasing steadily in popularity, there’s clear evidence of an upward trend in cloud-native applications. Furthermore, the fast pace at which Terraform is being adopted by developers everywhere aligns with the growing use of Dockerfiles and other cloud-native technologies over the past decade.
 
-![image7](../images/state-of-go/07@2x.png)
+![image7](../images/state-of-go/07.png)
 
 ## Cloudflare Radar 2024: API Client Language popularity
 
@@ -97,7 +97,7 @@ The [Cloudflare Radar](https://radar.cloudflare.com/year-in-review/2024#api-clie
 
 Last year's most notable finding is that **Go** has **surpassed Node.js** as the most popular language for making automated API requests. [Go now tops the list](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity), accounting for approximately [12%](https://radar.cloudflare.com/year-in-review/2024#api-client-language-popularity) of automated API requests made by Go-based clients, compared to [8.4%](https://radar.cloudflare.com/year-in-review/2023#api-client-language-popularity) last year.
 
-![image8](../images/state-of-go/08@2x.png)
+![image8](../images/state-of-go/08.png)
 
 ## TIOBE index
 
@@ -105,7 +105,7 @@ The [TIOBE Programming Language Index](https://www.tiobe.com/tiobe-index/) is re
 
 That said, compared to 2023, **Go has risen from thirteenth to seventh position**, achieving its highest ranking since 2009.
 
-![image9](../images/state-of-go/09@2x.png)
+![image9](../images/state-of-go/09.png)
 
 ## Summary
 
