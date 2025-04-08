@@ -117,10 +117,14 @@ compatible with previous versions.
   `v1.2.3`.
 * The build metadata suffix is ignored for the purpose of comparing versions.
   The go command accepts versions with build metadata and converts them to
-  pseudo-versions to maintain the total ordering between versions. The special
-  suffix `+incompatible` denotes a version released before migrating to modules
-  version major version 2 or later (see [Compatibility with non-module
-  repositories](#non-module-compat)).
+  pseudo-versions to maintain the total ordering between versions.
+  * The special suffix `+incompatible` denotes a version released before
+    migrating to modules version major version 2 or later (see [Compatibility
+    with non-module repositories](#non-module-compat)).
+  * The special suffix `+dirty` is appended to the version information of a
+    binary when it's built with a Go toolchain 1.24 or later within a valid
+    local Version Control System (VCS) repository that contains uncommitted
+    changes in the working directory.
 
 A version is considered unstable if its major version is 0 or it has a
 pre-release suffix. Unstable versions are not subject to compatibility
