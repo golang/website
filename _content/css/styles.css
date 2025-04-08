@@ -875,6 +875,10 @@ h1 + h2.subtitle {
 .Article a.Article-idLink {
   opacity: 0;
 }
+.Article h1:hover a.Article-idLink,
+.Article h2:hover a.Article-idLink,
+.Article h3:hover a.Article-idLink,
+.Article h4:hover a.Article-idLink,
 .Article a.Article-idLink:hover {
   opacity: 1;
   padding: 0.2rem;
