@@ -4,6 +4,17 @@ layout: article
 date: 2022-06-01T00:00:00Z
 ---
 
+Table of Contents:
+
+ [Packages](#package)\
+ [Commands](#cmd)\
+ [Types](#type)\
+ [Funcs](#func)\
+ [Consts](#const)\
+ [Vars](#var)\
+ [Syntax](#syntax)\
+ [Common mistakes and pitfalls](#mistakes)
+
 “Doc comments” are comments that appear immediately before top-level package,
 const, func, type, and var declarations with no intervening newlines.
 Every exported (capitalized) name should have a doc comment.
