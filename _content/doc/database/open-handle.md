@@ -121,6 +121,7 @@ cfg := mysql.Config{
 	Net:    "tcp",
 	Addr:   "127.0.0.1:3306",
 	DBName: "jazzrecords",
+        AllowNativePasswords: true,
 }
 
 // Get a database handle.
