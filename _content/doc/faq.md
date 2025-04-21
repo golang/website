@@ -33,7 +33,7 @@ And to make resource management tractable in a large concurrent program,
 garbage collection, or at least some sort of safe automatic memory management was required.
 
 These considerations led to
-[a series of discussions](https://commandcenter.blogspot.com/2017/09/go-ten-years-and-climbing.html")
+[a series of discussions](https://commandcenter.blogspot.com/2017/09/go-ten-years-and-climbing.html)
 from which Go arose, first as a set of ideas and
 desiderata, then as a language.
 An overarching goal was that Go do more to help the working programmer
