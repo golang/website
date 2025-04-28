@@ -63,10 +63,9 @@ The <a href="https://reddit.com/r/golang" aria-describedby="help-description">go
 for Go news and discussion.
 </p>
 
-<h3 id="gotime"><a href="https://changelog.com/gotime" aria-describedby="help-description">Go Time Podcast</a></h3>
+<h3 id="cupogo"><a href="https://cupogo.dev/" aria-describedby="help-description">Cup o’ Go</a></h3>
 <p>
-The <a href="https://changelog.com/gotime" aria-describedby="help-description">Go Time podcast</a> is a panel of Go experts and special guests
-discussing the Go programming language, the community, and everything in between.
+The <a href="https://cupogo.dev/" aria-describedby="help-description">Cup o’ Go</a> - Stay up to date with the Go community in just 15 minutes per week.
 </p>
 </section>
 
