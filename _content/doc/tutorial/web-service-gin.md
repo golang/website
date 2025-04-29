@@ -4,7 +4,7 @@
 }-->
 
 This tutorial introduces the basics of writing a RESTful web service API with Go
-and the [Gin Web Framework](https://gin-gonic.com/docs/) (Gin).
+and the [Gin Web Framework](https://gin-gonic.com/en/docs/) (Gin).
 
 You'll get the most out of this tutorial if you have a basic familiarity with Go
 and its tooling. If this is your first exposure to Go, please see
@@ -581,7 +581,7 @@ Suggested next topics:
 *   The [Go Tour](/tour/) is a great step-by-step
     introduction to Go fundamentals.
 *   For more about Gin, see the [Gin Web Framework package documentation](https://pkg.go.dev/github.com/gin-gonic/gin)
-    or the [Gin Web Framework docs](https://gin-gonic.com/docs/).
+    or the [Gin Web Framework docs](https://gin-gonic.com/en/docs/).
 
 ## Completed code {#completed_code}
 
