@@ -128,7 +128,6 @@
 		{{range .Funcs}}
 			{{/* Name is a string - no need for FSet */}}
 			<h2 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
-				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
 				{{$since := $pkg.Since "func" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
@@ -139,7 +138,6 @@
 		{{range .Types}}
 			{{$typeName := .Name}}
 			<h2 id="{{.Name}}">type <a href="{{$pkg.SrcPosLink .Decl}}">{{$typeName}}</a>
-				<a class="permalink" href="#{{.Name}}">&#xb6;</a>
 				{{$since := $pkg.Since "type" "" .Name}}
 				{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 			</h2>
@@ -160,7 +158,6 @@
 
 			{{range .Funcs}}
 				<h3 id="{{.Name}}">func <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
-					<a class="permalink" href="#{{.Name}}">&#xb6;</a>
 					{{$since := $pkg.Since "func" "" .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
@@ -171,7 +168,6 @@
 
 			{{range .Methods}}
 				<h3 id="{{$typeName}}.{{.Name}}">func ({{html .Recv}}) <a href="{{$pkg.SrcPosLink .Decl}}">{{.Name}}</a>
-					<a class="permalink" href="#{{$typeName}}.{{.Name}}">&#xb6;</a>
 					{{$since := $pkg.Since "method" .Recv .Name}}
 					{{if $since}}<span title="Added in Go {{$since}}">{{$since}}</span>{{end}}
 				</h3>
