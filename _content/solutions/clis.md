@@ -75,7 +75,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
     desc: GitHub uses Go for a command-line tool that makes it easier to work with GitHub, wrapping git in order to extend it with extra features and commands.
     ctas:
       - text: GitHub command-line tool
-        url: https://github.com/github/hub
+        url: https://github.com/cli/cli
   - company: Hugo
     url: https://gohugo.io/
     logoSrc: hugo.svg
