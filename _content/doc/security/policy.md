@@ -90,6 +90,10 @@ golang-announce, announcing the presence of one or more security fixes in the
 upcoming releases, and whether the issues affect the standard library, the
 toolchain, or both, as well as reserved CVE IDs for each of the fixes.
 
+For issues that are present in a [major version release candidate](/s/release),
+we follow the same process, including fixes in the next scheduled release
+candidate.
+
 Some examples of past PRIVATE issues include:
 
 - [#53416](/issue/53416): path/filepath: stack exhaustion in Glob
