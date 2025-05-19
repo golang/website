@@ -2,7 +2,7 @@
 title: "Go Cryptography Security Audit"
 date: 2025-05-19
 by:
-- Roland Shoemaker
+- Roland Shoemaker and Filippo Valsorda
 summary: Go's cryptography libraries underwent an audit by Trail of Bits.
 ---
 
