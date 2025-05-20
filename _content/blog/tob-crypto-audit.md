@@ -36,7 +36,7 @@ All usages of this method operated on public inputs which are not considered sec
 
 ### `crypto/ecdsa`: P-256 conditional negation is not constant time in Power ISA assembly (TOB-GOCL-2, CVE-2025-22866)
 
-Beyond the [first class Go platforms](/wiki/PortingPolicy#first-class-ports), Go also supports a number of additional platforms, including some less common architectures. During the review of our assembly implementations of various underlying cryptographic primitives, the Trail of Bits team found one issue that affected the ECDSA implementation on the ppcs64 and ppc64le architectures.
+Beyond the [first class Go platforms](/wiki/PortingPolicy#first-class-ports), Go also supports a number of additional platforms, including some less common architectures. During the review of our assembly implementations of various underlying cryptographic primitives, the Trail of Bits team found one issue that affected the ECDSA implementation on the ppc64 and ppc64le architectures.
 
 Due to the usage of a conditional branching instruction in the implementation of the conditional negation of P-256 points, the function operated in variable-time, rather than constant-time, as expected. The fix for this was relatively simple, [replacing the conditional branching instruction](/cl/643735) with a pattern we already use elsewhere to conditionally select the correct result in constant time. We assigned this issue CVE-2025-22866.
 
