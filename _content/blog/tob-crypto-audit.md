@@ -14,13 +14,13 @@ We are proud of the security track record of the Go cryptography packages, and o
 
 ## One low-severity finding
 
-The only potentially exploitable issue, TOB-GOCL-3, has *low severity*, meaning it had minor impact and was difficult to trigger. This issue has been fixed in the Go 1.25 development tree.
+The only potentially exploitable issue, TOB-GOCL-3, has *low severity*, meaning it had minor impact and was difficult to trigger. This issue has been fixed in the Go 1.24 development tree.
 
 Crucially, TOB-GOCL-3 ([discussed further below](#cgo-memory-management)) concerns memory management in the [legacy Go+BoringCrypto GOEXPERIMENT](/doc/security/fips140#goboringcrypto), which is not enabled by default and unsupported for use outside of Google.
 
 ## Five informational findings
 
-The remaining findings are *informational*, meaning they do not pose an immediate risk but are relevant to security best practices. We addressed these in the current Go 1.25 development tree.
+The remaining findings are *informational*, meaning they do not pose an immediate risk but are relevant to security best practices. We addressed these in the then-current Go 1.24 development tree.
 
 Findings TOB-GOCL-1, TOB-GOCL-2, and TOB-GOCL-6 concern possible timing side-channels in various cryptographic operations. Of these three findings, only TOB-GOCL-2 affects operations that were expected to be constant time due to operating on secret values, but it only affects Power ISA targets (GOARCH ppc64 and ppc64le). TOB-GOCL-4 highlights misuse risk in an internal API, should it be repurposed beyond its current use case. TOB-GOCL-5 points out a missing check for a limit that is impractical to reach.
 
@@ -56,7 +56,7 @@ Finding TOB-GOCL-3 concerns a memory management issue in the Go+BoringCrypto int
 
 During the review, there were a number of questions about our cgo-based Go+BoringCrypto integration, which provides a FIPS 140-2 compliant cryptography mode for internal usage at Google. The Go+BoringCrypto code is not supported by the Go team for external use, but has been critical for Google’s internal usage of Go.
 
-The Trail of Bits team found one vulnerability and one [non-security relevant bug](/cl/644120), both of which were results of the manual memory management required to interact with a C library. Since the Go team does not support usage of this code outside of Google, we have chosen not to issue a CVE or Go vulnerability database entry for this issue, but we [fixed it in the Go 1.25 development tree](/cl/644119).
+The Trail of Bits team found one vulnerability and one [non-security relevant bug](/cl/644120), both of which were results of the manual memory management required to interact with a C library. Since the Go team does not support usage of this code outside of Google, we have chosen not to issue a CVE or Go vulnerability database entry for this issue, but we [fixed it in the Go 1.24 development tree](/cl/644119).
 
 This kind of pitfall is one of the many reasons that we decided to move away from the Go+BoringCrypto integration. We have been working on a [native FIPS 140-3 mode](/doc/security/fips140) that uses the regular pure Go cryptography packages, allowing us to avoid the complex cgo semantics in favor of the traditional Go memory model.
 
