@@ -58,6 +58,24 @@ To uninstall a downloaded version, just remove the directory specified by its <c
 You can remove Go from your system using the steps described in this topic.
 </p>
 
+<h3 id="remove-config">Removing user config and data</h3>
+
+<p>
+Go stores user configuration in the <code>go</code> directory within the user configuration directory,
+as returned by <a href="/pkg/os#UserConfigDir"><code>os.UserConfigDir</code></a>.
+This can also be found as the directory containing the config file returned by <code>go env GOENV</code>.
+</p>
+
+<p>
+Go stores intermediate build artifacts in the directory returned by <code>go env GOCACHE</code>.
+These can be removed with <code>go clean -cache</code>.
+</p>
+
+<p>
+Go stores downloaded dependencies in the directory returned by <code>go env GOMODCACHE</code>.
+These can be removed with <code>go clean -modcache</code>.
+</p>
+
 <h3 id="linux-mac-bsd">Linux / macOS / FreeBSD</h3>
 
 <ol>
