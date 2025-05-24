@@ -269,7 +269,7 @@ of the same interface type and value as `i`.
 
 * Stringers
 
-One of the most ubiquitous interfaces is [[/pkg/fmt/#Stringer][`Stringer`]] defined by the [[/pkg/fmt/][`fmt`]] package.
+One of the most ubiquitous interfaces is [[https://go.dev/pkg/fmt/#Stringer][`Stringer`]] defined by the [[https://go.dev/pkg/fmt/][`fmt`]] package.
 
 	type Stringer interface {
 		String() string
@@ -354,7 +354,7 @@ populated and an error value. It returns an `io.EOF` error when the stream
 ends.
 
 The example code creates a
-[[/pkg/strings/#Reader][`strings.Reader`]]
+[[https://go.dev/pkg/strings/#Reader][`strings.Reader`]]
 and consumes its output 8 bytes at a time.
 
 .play methods/reader.go
@@ -368,9 +368,9 @@ Implement a `Reader` type that emits an infinite stream of the ASCII character
 
 * Exercise: rot13Reader
 
-A common pattern is an [[/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
+A common pattern is an [[https://go.dev/pkg/io/#Reader][io.Reader]] that wraps another `io.Reader`, modifying the stream in some way.
 
-For example, the [[/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of compressed data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
+For example, the [[https://go.dev/pkg/compress/gzip/#NewReader][gzip.NewReader]] function takes an `io.Reader` (a stream of compressed data) and returns a `*gzip.Reader` that also implements `io.Reader` (a stream of the decompressed data).
 
 Implement a `rot13Reader` that implements `io.Reader` and reads from an `io.Reader`, modifying the stream by applying the [[https://en.wikipedia.org/wiki/ROT13][rot13]] substitution cipher to all alphabetical characters.
 
@@ -381,7 +381,7 @@ Make it an `io.Reader` by implementing its `Read` method.
 
 * Images
 
-[[/pkg/image/#Image][Package image]] defines the `Image` interface:
+[[https://go.dev/pkg/image/#Image][Package image]] defines the `Image` interface:
 
 	package image
 
@@ -392,12 +392,12 @@ Make it an `io.Reader` by implementing its `Read` method.
 	}
 
 *Note*: the `Rectangle` return value of the `Bounds` method is actually an
-[[/pkg/image/#Rectangle][`image.Rectangle`]], as the
+[[https://go.dev/pkg/image/#Rectangle][`image.Rectangle`]], as the
 declaration is inside package `image`.
 
-(See [[/pkg/image/#Image][the documentation]] for all the details.)
+(See [[https://go.dev/pkg/image/#Image][the documentation]] for all the details.)
 
-The `color.Color` and `color.Model` types are also interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[/pkg/image/color/][image/color package]]
+The `color.Color` and `color.Model` types are also interfaces, but we'll ignore that by using the predefined implementations `color.RGBA` and `color.RGBAModel`. These interfaces and types are specified by the [[https://go.dev/pkg/image/color/][image/color package]]
 
 .play methods/images.go
 
@@ -405,7 +405,7 @@ The `color.Color` and `color.Model` types are also interfaces, but we'll ignore 
 
 Remember the [[/tour/moretypes/18][picture generator]] you wrote earlier? Let's write another one, but this time it will return an implementation of `image.Image` instead of a slice of data.
 
-Define your own `Image` type, implement [[/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
+Define your own `Image` type, implement [[https://go.dev/pkg/image/#Image][the necessary methods]], and call `pic.ShowImage`.
 
 `Bounds` should return a `image.Rectangle`, like `image.Rect(0,`0,`w,`h)`.
 
