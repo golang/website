@@ -353,7 +353,7 @@ If the handle provided to [`NewFile`](/pkg/os#NewFile) is already associated wit
 the returned [`File`](/pkg/os#File) is downgraded to synchronous I/O mode.
 In this case, I/O methods will block an OS thread, and the deadline methods have no effect.
 
-The filesystem returned by [`DirFS`](/pkg/os#DirFS) implements the new [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface.
+The filesystems returned by [`DirFS`](/pkg/os#DirFS) and [`*Root.FS`](/pkg/os#Root.FS) implement the new [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface.
 [`CopyFS`](/pkg/os#CopyFS) supports symlinks when copying filesystems that implement [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS).
 
 The [`os.Root`](/pkg/os#Root) type supports the following additional methods:
