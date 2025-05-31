@@ -16,9 +16,9 @@ main:
   - name: Docs
     url: /doc/
     children:
-      - name: Effective Go
-        explanation: Tips for writing clear, performant, and idiomatic Go code
-        url: /doc/effective_go
+      - name: Go Spec
+        explanation: The official Go language specification
+        url: /ref/spec
       - name: Go User Manual
         explanation: A complete introduction to building software with Go
         url: /doc
@@ -28,6 +28,9 @@ main:
       - name: Release Notes
         explanation: Learn what's new in each Go release
         url: /doc/devel/release
+      - name: Effective Go
+        explanation: Tips for writing clear, performant, and idiomatic Go code
+        url: /doc/effective_go
   - name: Packages
     url: https://pkg.go.dev
   - name: Community
