@@ -132,7 +132,7 @@ func BenchmarkSortInts(b *testing.B) {
   }
 }
 ```
-In this example, to benchmark the in-place sorting performance of `slices.Sort`,a
+In this example, to benchmark the in-place sorting performance of `slices.Sort`, a
 randomly initialized array is required for each iteration. The user must still
 manually manage the timer in such cases.
 
