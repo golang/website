@@ -421,12 +421,18 @@ gone.
 #### [`runtime/trace`](/pkg/runtime/trace/)
 
 <!-- go.dev/issue/63185 -->
-TODO The flight recorder has been added to the runtime/trace package.
+The new [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) provides a
+lightweight way to capture a trace of last few seconds of execution at a
+specific moment in time. When a significant event occurs, a program may call
+[`FlightRecorder.WriteTo`](/pkg/runtime/trac#FlightRecorder.WriteTo) to
+snapshot available trace data. The length of time and amount of data captured
+by a [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) may be configured
+within the [`FlightRecorderConfig`](/pkg/runtime/trace#FlightRecorderConfig).
 
 #### [`sync`](/pkg/sync/)
 
-[`WaitGroup`](/pkg/sync#WaitGroup) has added a new method [`WaitGroup.Go`](/pkg/sync#WaitGroup.Go),
-that makes the common pattern of creating and counting goroutines more convenient.
+The new method on [`WaitGroup`](/pkg/sync#WaitGroup), [`WaitGroup.Go`](/pkg/sync#WaitGroup.Go),
+makes the common pattern of creating and counting goroutines more convenient.
 
 #### [`testing`](/pkg/testing/)
 
@@ -598,50 +604,50 @@ encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
 <!-- TODO: accepted proposal https://go.dev/issue/71867 (from https://go.dev/cl/666476, https://go.dev/cl/666755, https://go.dev/cl/673119, https://go.dev/cl/673696) -->
 cmd/go, cmd/distpack: build and run tools that are not necessary for builds as needed and don't include in binary distribution
 
-<!-- Items that don't need to be mentioned in Go 1.25 release notes but are picked up by relnote todo 
+<!-- Items that don't need to be mentioned in Go 1.25 release notes but are picked up by relnote todo
 
 TODO: accepted proposal https://go.dev/issue/30999 (from https://go.dev/cl/671795)
-net: reject leading zeros in IP address parsers  
-net: don't test with leading 0 in ipv4 addresses  
+net: reject leading zeros in IP address parsers
+net: don't test with leading 0 in ipv4 addresses
 Updates \#30999
 Fixes \#73378
 
 TODO: accepted proposal https://go.dev/issue/36532 (from https://go.dev/cl/647555)
-testing: reconsider adding Context method to testing.T  
-database/sql: use t.Context in tests  
-Replace "context.WithCancel(context.Background())" with "t.Context()".  
+testing: reconsider adding Context method to testing.T
+database/sql: use t.Context in tests
+Replace "context.WithCancel(context.Background())" with "t.Context()".
 Updates \#36532
 
 TODO: accepted proposal https://go.dev/issue/48429 (from https://go.dev/cl/648577)
-cmd/go: track tool dependencies in go.mod  
-cmd/go: document -modfile and other flags for 'go tool'  
+cmd/go: track tool dependencies in go.mod
+cmd/go: document -modfile and other flags for 'go tool'
 Mention -modfile, -C, -overlay, and -modcacherw in the 'go tool'
 documentation. We let a reference to 'go help build' give a pointer to
 more detailed information.
 The -modfile flag in particular is newly useful with the Go 1.24 support
-for user-defined tools with 'go tool'.  
-Updates \#48429  
-Updates \#33926  
-Updates \#71663  
+for user-defined tools with 'go tool'.
+Updates \#48429
+Updates \#33926
+Updates \#71663
 Fixes \#71502
 
 TODO: accepted proposal https://go.dev/issue/51572 (from https://go.dev/cl/651996)
-cmd/go: add 'unix' build tag but not \*\_unix.go file support  
-os, syscall: use unix build tag where appropriate  
+cmd/go: add 'unix' build tag but not \*\_unix.go file support
+os, syscall: use unix build tag where appropriate
 These newly added files may use the unix build tag instead of explitly
-listing all unix-like GOOS values.  
+listing all unix-like GOOS values.
 For \#51572
 
 TODO: accepted proposal https://go.dev/issue/53757 (from https://go.dev/cl/644575)
-x/sync/errgroup: propagate panics and Goexits through Wait  
-errgroup: propagate panic and Goexit through Wait  
+x/sync/errgroup: propagate panics and Goexits through Wait
+errgroup: propagate panic and Goexit through Wait
 Recovered panic values are wrapped and saved in Group.
 Goexits are detected by a sentinel value set after the given function
 returns normally. Wait propagates the first instance of a panic or
 Goexit.
 According to the runtime.Goexit after the code will not be executed,
 with a bool, if f not call runtime.Goexit, is true,
-determine whether to propagate runtime.Goexit.  
+determine whether to propagate runtime.Goexit.
 Fixes golang/go#53757
 
 TODO: accepted proposal https://go.dev/issue/54743 (from https://go.dev/cl/532415)
@@ -651,41 +657,41 @@ TODO: accepted proposal https://go.dev/issue/57792 (from https://go.dev/cl/64971
 x/crypto/x509roots: new module
 
 TODO: accepted proposal https://go.dev/issue/58523 (from https://go.dev/cl/538235)
-ssh: expose negotiated algorithms  
-Fixes golang/go#58523  
+ssh: expose negotiated algorithms
+Fixes golang/go#58523
 Fixes golang/go#46638
 
 TODO: accepted proposal https://go.dev/issue/61537 (from https://go.dev/cl/531935)
-ssh: export supported algorithms  
+ssh: export supported algorithms
 Fixes golang/go#61537
 
 TODO: accepted proposal https://go.dev/issue/61901 (from https://go.dev/cl/647875)
 bytes, strings: add iterator forms of existing functions
 
 TODO: accepted proposal https://go.dev/issue/61940 (from https://go.dev/cl/650235)
-all: fix links to Go wiki  
+all: fix links to Go wiki
 The Go wiki on GitHub has moved to go.dev in golang/go#61940.
 
 TODO: accepted proposal https://go.dev/issue/64207 (from https://go.dev/cl/647015, https://go.dev/cl/652235)
 all: end support for macOS 10.15 in Go 1.23
 
 TODO: accepted proposal https://go.dev/issue/67839 (from https://go.dev/cl/646535)
-x/sys/unix: access to ELF auxiliary vector  
-runtime: adjust comments for auxv getAuxv  
+x/sys/unix: access to ELF auxiliary vector
+runtime: adjust comments for auxv getAuxv
 github.com/cilium/ebpf no longer accesses getAuxv using linkname but now
 uses the golang.org/x/sys/unix.Auxv wrapper introduced in
 go.dev/cl/644295.
-Also adjust the list of users to include x/sys/unix.  
-Updates \#67839  
+Also adjust the list of users to include x/sys/unix.
+Updates \#67839
 Updates \#67401
 
 TODO: accepted proposal https://go.dev/issue/68780 (from https://go.dev/cl/659835)
-x/term: support pluggable history  
-term: support pluggable history  
+x/term: support pluggable history
+term: support pluggable history
 Expose a new History interface that allows replacement of the default
 ring buffer to customize what gets added or not; as well as to allow
 saving/restoring history on either the default ringbuffer or a custom
-replacement.  
+replacement.
 Fixes golang/go#68780
 
 TODO: accepted proposal https://go.dev/issue/69095 (from https://go.dev/cl/649320, https://go.dev/cl/649321, https://go.dev/cl/649337, https://go.dev/cl/649376, https://go.dev/cl/649377, https://go.dev/cl/649378, https://go.dev/cl/649379, https://go.dev/cl/649380, https://go.dev/cl/649397, https://go.dev/cl/649398, https://go.dev/cl/649419, https://go.dev/cl/649497, https://go.dev/cl/649498, https://go.dev/cl/649618, https://go.dev/cl/649675, https://go.dev/cl/649676, https://go.dev/cl/649677, https://go.dev/cl/649695, https://go.dev/cl/649696, https://go.dev/cl/649697, https://go.dev/cl/649698, https://go.dev/cl/649715, https://go.dev/cl/649717, https://go.dev/cl/649718, https://go.dev/cl/649755, https://go.dev/cl/649775, https://go.dev/cl/649795, https://go.dev/cl/649815, https://go.dev/cl/649835, https://go.dev/cl/651336, https://go.dev/cl/651736, https://go.dev/cl/651737, https://go.dev/cl/658018)
