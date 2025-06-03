@@ -83,8 +83,7 @@ the `try` built-in function and the `handle` part was omitted.
 To explore the impact of the `try` built-in, we wrote a simple tool
 ([tryhard](https://github.com/griesemer/tryhard))
 that rewrites existing error handling code using `try`.
-The proposal was argued over intensively, approaching 900 comments on the GitHub issue
-([#32437](/issue/32437)).
+The proposal was argued over intensively, approaching 900 comments on the [GitHub issue](/issue/32437).
 
 ```Go
 // printSum implementation using the proposed try mechanism.
@@ -135,7 +134,7 @@ It's amazing to see the sheer volume of them all, for instance in Sean K. H. Lia
 The complaints about the verbosity of error handling persisted
 (see [Go Developer Survey 2024 H1 Results](/blog/survey2024-h1-results)),
 and so, after a series of increasingly refined Go team internal proposals, Ian Lance Taylor published
-["Reduce error handling boilerplate using `?`"](/issue/71203) in 2024.
+["reduce error handling boilerplate using `?`"](/issue/71203) in 2024.
 This time the idea was to borrow from a construct implemented in
 [Rust](https://www.rust-lang.org/), specifically the
 [`?` operator](https://doc.rust-lang.org/std/result/index.html#the-question-mark-operator-).
@@ -218,7 +217,7 @@ virtually everybody will need to start using it, lest their code become unidioma
 do not provide multiple ways of doing the same thing.
 There are exceptions to this rule in areas with high "foot traffic": assignments come to mind.
 Ironically, the ability to _redeclare_ a variable in
-[short variable declarations](/ref/spec#Short) (`:=`) was introduced to address a problem
+[short variable declarations](/ref/spec#Short_variable_declarations) (`:=`) was introduced to address a problem
 that arose because of error handling:
 without redeclarations, sequences of error checks require a differently named `err` variable for
 each check (or additional separate variable declarations).
