@@ -24,6 +24,30 @@ These new error reports may be disabled by setting
 `ASAN_OPTIONS=detect_leaks=0` in the environment when running the
 program.
 
+<!-- go.dev/issue/71867 -->
+The Go distribution will include fewer prebuilt tool binaries. Core
+toolchain binaries such as the compiler and linker will still be
+included, but tools not invoked by build or test operations will be built
+and run by `go tool` as needed.
+
+<!-- go.dev/issue/42965 -->
+The new `go.mod` `ignore` directive can be used to specify directories
+the `go` command should ignore. Files in these directories and their subdirectories
+will be ignored by the `go` command when matching package patterns,
+such as `all` or `./...`, but will still be included in module zip files.
+
+<!-- go.dev/issue/68106 -->
+The new `go doc` `-http` option will start a documentation server showing
+documentation for the requested object, and open the documentation in a browser
+window.
+
+<!-- go.dev/issue/34055 -->
+The `go` command now supports using a subdirectory of a repository as the
+path for a module root, using the syntax
+`<meta name="go-import" content="root-path vcs repo-url subdir">` to indicate
+that the `root-path` corresponds to the `subdir` of the `repo-url` with
+version control system `vcs`.
+
 <!-- go.dev/issue/71294 -->
 
 The new `work` package pattern matches all packages in the work (formerly called main)
@@ -521,20 +545,6 @@ Output from relnote todo that was generated and reviewed on 2025-05-23, plus sum
 <!-- TODO: accepted proposal https://go.dev/issue/32816 (from https://go.dev/cl/645155, https://go.dev/cl/645455, https://go.dev/cl/645955, https://go.dev/cl/646255, https://go.dev/cl/646455, https://go.dev/cl/646495, https://go.dev/cl/646655, https://go.dev/cl/646875, https://go.dev/cl/647298, https://go.dev/cl/647299, https://go.dev/cl/647736, https://go.dev/cl/648581, https://go.dev/cl/648715, https://go.dev/cl/648976, https://go.dev/cl/648995, https://go.dev/cl/649055, https://go.dev/cl/649056, https://go.dev/cl/649057, https://go.dev/cl/649456, https://go.dev/cl/649476, https://go.dev/cl/650755, https://go.dev/cl/651615, https://go.dev/cl/651617, https://go.dev/cl/651655, https://go.dev/cl/653436) -->
 cmd/fix: automate migrations for simple deprecations
 
-<!-- TODO: accepted proposal https://go.dev/issue/34055 (from https://go.dev/cl/625577) -->
-cmd/go: allow serving module under the subdirectory of git repository\
-cmd/go: add subdirectory support to go-import meta tag\
-This CL adds ability to specify a subdirectory in the go-import meta tag.
-A go-import meta tag now will support:
-\<meta name="go-import" content="root-path vcs repo-url subdir">\
-Fixes: \#34055
-
-<!-- TODO: accepted proposal https://go.dev/issue/42965 (from https://go.dev/cl/643355, https://go.dev/cl/670656, https://go.dev/cl/670975, https://go.dev/cl/674076) -->
-cmd/go: add global ignore mechanism for Go tooling ecosystem
-
-<!-- TODO: accepted proposal https://go.dev/issue/68106 (from https://go.dev/cl/628175, https://go.dev/cl/674158, https://go.dev/cl/674436, https://go.dev/cl/674437, https://go.dev/cl/674555, https://go.dev/cl/674556, https://go.dev/cl/674575, https://go.dev/cl/675075, https://go.dev/cl/675076, https://go.dev/cl/675155, https://go.dev/cl/675235) -->
-cmd/go: doc -http should start a pkgsite instance and open a browser
-
 <!-- TODO: accepted proposal https://go.dev/issue/69712 (from https://go.dev/cl/619955) -->
 cmd/go: -json flag for go version -m\
 cmd/go: support -json flag in go version\
@@ -562,9 +572,6 @@ Fixes \#70464.
 
 <!-- TODO: accepted proposal https://go.dev/issue/71845 (from https://go.dev/cl/665796, https://go.dev/cl/666935) -->
 encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
-
-<!-- TODO: accepted proposal https://go.dev/issue/71867 (from https://go.dev/cl/666476, https://go.dev/cl/666755, https://go.dev/cl/673119, https://go.dev/cl/673696) -->
-cmd/go, cmd/distpack: build and run tools that are not necessary for builds as needed and don't include in binary distribution
 
 <!-- Items that don't need to be mentioned in Go 1.25 release notes but are picked up by relnote todo
 Just updating old prposals
