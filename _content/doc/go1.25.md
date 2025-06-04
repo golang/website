@@ -498,6 +498,10 @@ Go 1.25 is the last release that contains the [broken](/doc/go1.24#windows) 32-b
 <!-- CL 420114 -->
 The linux/riscv64 port now supports the `plugin` build mode.
 
+<!-- https://go.dev/issue/61476, CL 633417 -->
+The `GORISCV64` environment variable now accepts a new value `rva23u64`,
+which selects the RVA23U64 user-mode application profile.
+
 <!--
 Output from relnote todo that was generated and reviewed on 2025-05-23, plus summary info from bug/CL: -->
 
@@ -525,25 +529,6 @@ Fixes: \#34055
 <!-- TODO: accepted proposal https://go.dev/issue/42965 (from https://go.dev/cl/643355, https://go.dev/cl/670656, https://go.dev/cl/670975, https://go.dev/cl/674076) -->
 cmd/go: add global ignore mechanism for Go tooling ecosystem
 
-
-<!-- TODO: accepted proposal https://go.dev/issue/61476 (from https://go.dev/cl/633417) -->
-all: add GORISCV64 environment variable\
-cmd/go: add rva23u64 as a valid value for GORISCV64\
-The RVA23 profile was ratified on the 21st of October 2024.
-https://riscv.org/announcements/2024/10/risc-v-announces-ratification-of-the-rva23-profile-standard/
-Now that it's ratified we can add rva23u64 as a valid value for the
-GORISCV64 environment variable. This will allow the compiler and
-assembler to generate instructions made mandatory by the new profile
-without a runtime check.  Examples of such instructions include those
-introduced by the Vector and Zicond extensions.
-Setting GORISCV64=rva23u64 defines the riscv64.rva20u64,
-riscv64.rva22u64 and riscv64.rva23u64 build tags, sets the internal
-variable buildcfg.GORISCV64 to 23 and defines the macros
-GORISCV64_rva23u64, hasV, hasZba, hasZbb, hasZbs, hasZfa, and
-hasZicond for use in assembly language code.\
-Updates \#61476
-
-
 <!-- TODO: accepted proposal https://go.dev/issue/68106 (from https://go.dev/cl/628175, https://go.dev/cl/674158, https://go.dev/cl/674436, https://go.dev/cl/674437, https://go.dev/cl/674555, https://go.dev/cl/674556, https://go.dev/cl/674575, https://go.dev/cl/675075, https://go.dev/cl/675076, https://go.dev/cl/675155, https://go.dev/cl/675235) -->
 cmd/go: doc -http should start a pkgsite instance and open a browser
 
@@ -556,7 +541,6 @@ It supports features described in the issue:
 - report an error when specifying -json flag without -m.
 - print build settings on seperated line for each binary\
   Fixes \#69712
-
 
 <!-- TODO: accepted proposal https://go.dev/issue/70128 (from https://go.dev/cl/645716, https://go.dev/cl/647455, https://go.dev/cl/651215, https://go.dev/cl/651256, https://go.dev/cl/652136, https://go.dev/cl/652215, https://go.dev/cl/653095, https://go.dev/cl/653139, https://go.dev/cl/653156, https://go.dev/cl/654395) -->
 spec: remove notion of core types
