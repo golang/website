@@ -482,8 +482,15 @@ For example, in a test named `TestAttr`,
 
 <!-- go.dev/issue/59928 -->
 
-The new [`Output`](/pkg/testing#Output) method of [`testing.T`](/pkg/testing#T), [`testing.B`](/pkg/testing#B) and [`testing.F`](/pkg/testing#F) provides a Writer
+The new [`Output`](/pkg/testing#T.Output) method of [`testing.T`](/pkg/testing#T), [`testing.B`](/pkg/testing#B) and [`testing.F`](/pkg/testing#F) provides a Writer
 that writes to the same test output stream as [`TB.Log`](/pkg/testing#TB.Log), but omits the file and line number.
+
+<!-- https://go.dev/issue/70464, CL 630137 -->
+The [`AllocsPerRun`](/pkg/testing#AllocsPerRun) function now panics
+if parallel tests are running.
+The result of [`AllocsPerRun`](/pkg/testing#AllocsPerRun) is inherently
+flaky if other tests are running.
+The new panicking behavior helps catch such bugs.
 
 #### [`testing/fstest`](/pkg/testing/fstest/)
 
@@ -538,7 +545,7 @@ which selects the RVA23U64 user-mode application profile.
 <!--
 Output from relnote todo that was generated and reviewed on 2025-05-23, plus summary info from bug/CL: -->
 
-### TODO
+## TODO
 
 **Please turn these into proper release notes**
 
@@ -561,14 +568,6 @@ spec: remove notion of core types
 <!-- TODO: accepted proposal https://go.dev/issue/70200 (from https://go.dev/cl/674916) -->
 cmd/go: add fips140 module selection mechanism\
 lib/fips140: set inprocess.txt to v1.0.0
-
-<!-- TODO: accepted proposal https://go.dev/issue/70464 (from https://go.dev/cl/630137) -->
-testing: panic in AllocsPerRun during parallel test\
-testing: panic in AllocsPerRun if parallel tests are running\
-If other tests are running, AllocsPerRun's result will be inherently flaky.
-Saw this with CL 630136 and \#70327.\
-Proposed in \#70464.\
-Fixes \#70464.
 
 <!-- TODO: accepted proposal https://go.dev/issue/71845 (from https://go.dev/cl/665796, https://go.dev/cl/666935) -->
 encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
