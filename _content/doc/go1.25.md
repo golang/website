@@ -178,6 +178,15 @@ used to find the allocation causing trouble using the
 `-compile=variablemake` flag. All such new stack allocations can also
 be turned off using `-gcflags=all=-d=variablemakehash=n`.
 
+## Linker {#linker}
+
+<!-- CL 660996 -->
+
+The linker now accepts a `-funcalign=N` command line option, which
+specifies the alignment of function entries.
+The default value is platform-dependent, and is unchanged in this
+release.
+
 ## Standard library {#library}
 
 ### New testing/synctest package
@@ -508,12 +517,6 @@ Output from relnote todo that was generated and reviewed on 2025-05-23, plus sum
 ### TODO
 
 **Please turn these into proper release notes**
-
-<!-- TODO: CL 660996 has a RELNOTE comment without a suggested text (from RELNOTE comment in https://go.dev/cl/660996) -->
-cmd/link/internal/ld: introduce -funcalign=N option\
-This patch adds linker option -funcalign=N that allows to set alignment
-for function entries.\
-For \#72130.
 
 <!-- TODO: accepted proposal https://go.dev/issue/32816 (from https://go.dev/cl/645155, https://go.dev/cl/645455, https://go.dev/cl/645955, https://go.dev/cl/646255, https://go.dev/cl/646455, https://go.dev/cl/646495, https://go.dev/cl/646655, https://go.dev/cl/646875, https://go.dev/cl/647298, https://go.dev/cl/647299, https://go.dev/cl/647736, https://go.dev/cl/648581, https://go.dev/cl/648715, https://go.dev/cl/648976, https://go.dev/cl/648995, https://go.dev/cl/649055, https://go.dev/cl/649056, https://go.dev/cl/649057, https://go.dev/cl/649456, https://go.dev/cl/649476, https://go.dev/cl/650755, https://go.dev/cl/651615, https://go.dev/cl/651617, https://go.dev/cl/651655, https://go.dev/cl/653436) -->
 cmd/fix: automate migrations for simple deprecations
