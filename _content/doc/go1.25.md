@@ -195,11 +195,11 @@ release.
 The new [testing/synctest](/pkg/testing/synctest) package
 provides support for testing concurrent code.
 
-The [`synctest.Test`](/pkg/synctest#Test) function runs a test function in an isolated
+The [`synctest.Test`](/pkg/testing/synctest#Test) function runs a test function in an isolated
 "bubble". Within the bubble, [time](/pkg/time) package functions
 operate on a fake clock.
 
-The [`synctest.Wait`](/pkg/synctest#Wait) function waits for all goroutines in the
+The [`synctest.Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
 current bubble to block.
 
 ### Minor changes to the library {#minor_library_changes}
@@ -433,7 +433,7 @@ gone.
 The new [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) provides a
 lightweight way to capture a trace of last few seconds of execution at a
 specific moment in time. When a significant event occurs, a program may call
-[`FlightRecorder.WriteTo`](/pkg/runtime/trac#FlightRecorder.WriteTo) to
+[`FlightRecorder.WriteTo`](/pkg/runtime/trace#FlightRecorder.WriteTo) to
 snapshot available trace data. The length of time and amount of data captured
 by a [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) may be configured
 within the [`FlightRecorderConfig`](/pkg/runtime/trace#FlightRecorderConfig).
