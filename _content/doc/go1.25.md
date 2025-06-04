@@ -169,11 +169,13 @@ memory. This can be disabled with the [GODEBUG setting](/doc/godebug)
 <!-- https://go.dev/issue/26379 -->
 
 The compiler and linker in Go 1.25 now generate debug information
-using [DWARF version 5](https://dwarfstd.org/dwarf5std.html); the
+using [DWARF version 5](https://dwarfstd.org/dwarf5std.html). The
 newer DWARF version reduces the space required for debugging
-information in Go binaries.
-DWARF 5 generation is gated by the "dwarf5" GOEXPERIMENT; this
-functionality can be disabled (for now) using GOEXPERIMENT=nodwarf5.
+information in Go binaries, and reduces the time for linking,
+especially for large Go binaries.
+DWARF 5 generation can be disabled by setting the environment
+variable `GOEXPERIMENT=nodwarf5` at build time
+(for now, which may be removed in a future Go release).
 
 <!-- https://go.dev/issue/72860, CL 657715 -->
 
