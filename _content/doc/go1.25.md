@@ -12,6 +12,15 @@ template: false
 **Go 1.25 is not yet released. These are work-in-progress release notes.
 Go 1.25 is expected to be released in August 2025.**
 
+## Changes to the language {#language}
+
+<!-- go.dev/issue/70128 -->
+
+There are no languages changes that affect Go programs in Go 1.25.
+However, in the [language specification](/ref/spec) the notion of core types
+has been removed in favor of dedicated prose.
+See the respective [blog post](/blog/coretypes) for more information.
+
 ## Tools {#tools}
 
 ### Go command {#go-command}
@@ -553,9 +562,6 @@ Output from relnote todo that was generated and reviewed on 2025-05-23, plus sum
 ## TODO
 
 **Please turn these into proper release notes**
-
-<!-- TODO: accepted proposal https://go.dev/issue/70128 (from https://go.dev/cl/645716, https://go.dev/cl/647455, https://go.dev/cl/651215, https://go.dev/cl/651256, https://go.dev/cl/652136, https://go.dev/cl/652215, https://go.dev/cl/653095, https://go.dev/cl/653139, https://go.dev/cl/653156, https://go.dev/cl/654395) -->
-spec: remove notion of core types
 
 <!-- TODO: accepted proposal https://go.dev/issue/71845 (from https://go.dev/cl/665796, https://go.dev/cl/666935) -->
 encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
