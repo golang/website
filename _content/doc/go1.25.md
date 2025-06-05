@@ -232,11 +232,11 @@ release.
 ### New testing/synctest package
 
 <!-- go.dev/issue/67434, go.dev/issue/73567 -->
-The new [testing/synctest](/pkg/testing/synctest) package
+The new [`testing/synctest`](/pkg/testing/synctest) package
 provides support for testing concurrent code.
 
 The [`synctest.Test`](/pkg/testing/synctest#Test) function runs a test function in an isolated
-"bubble". Within the bubble, [time](/pkg/time) package functions
+"bubble". Within the bubble, [`time`](/pkg/time) package functions
 operate on a fake clock.
 
 The [`synctest.Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
@@ -246,18 +246,18 @@ current bubble to block.
 
 #### [`archive/tar`](/pkg/archive/tar/)
 
-The [`*Writer.AddFS`](/pkg/archive/tar#Writer.AddFS) implementation now supports symbolic links
+The [`Writer.AddFS`](/pkg/archive/tar#Writer.AddFS) implementation now supports symbolic links
 for filesystems that implement [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS).
 
 #### [`crypto`](/pkg/crypto/)
 
-[`MessageSigner`](/pkg/crypto#MessageSigner) is a new signing interface that can be implemented by signers that wish to hash the message to be signed themselves. A new function is also introduced, [`SignMessage`](/pkg/crypto#SignMessage) which attempts to update a [`Signer`](/pkg/crypto#Signer) interface to [`MessageSigner`](/pkg/crypto#MessageSigner), using the [`MessageSigner.SignMessage`](/pkg/crypto#MessageSigner.SignMessage) method if successful, and [`Signer.Sign`](/pkg/crypto#Signer.Sign) if not. This can be used when code wishes to support both [`Signer`](/pkg/crypto#Signer) and [`MessageSigner`](/pkg/crypto#MessageSigner).
+[`MessageSigner`](/pkg/crypto#MessageSigner) is a new signing interface that can be implemented by signers that wish to hash the message to be signed themselves. A new function is also introduced, [`SignMessage`](/pkg/crypto#SignMessage), which attempts to update a [`Signer`](/pkg/crypto#Signer) interface to [`MessageSigner`](/pkg/crypto#MessageSigner), using the [`MessageSigner.SignMessage`](/pkg/crypto#MessageSigner.SignMessage) method if successful, and [`Signer.Sign`](/pkg/crypto#Signer.Sign) if not. This can be used when code wishes to support both [`Signer`](/pkg/crypto#Signer) and [`MessageSigner`](/pkg/crypto#MessageSigner).
 
 #### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
 The new [`ParseRawPrivateKey`](/pkg/crypto/ecdsa#ParseRawPrivateKey), [`ParseUncompressedPublicKey`](/pkg/crypto/ecdsa#ParseUncompressedPublicKey), [`PrivateKey.Bytes`](/pkg/crypto/ecdsa#PrivateKey.Bytes),
 and [`PublicKey.Bytes`](/pkg/crypto/ecdsa#PublicKey.Bytes) functions and methods implement low-level encodings,
-replacing the need to use crypto/elliptic or math/big functions and methods.
+replacing the need to use [`crypto/elliptic`](/pkg/crypto/elliptic) or [`math/big`](/pkg/math/big) functions and methods.
 
 #### [`crypto/elliptic`](/pkg/crypto/elliptic/)
 
@@ -266,7 +266,7 @@ implementations have been removed.
 
 #### [`crypto/sha3`](/pkg/crypto/sha3/)
 
-The new [`SHA3.Clone`](/pkg/crypto/sha3#SHA3.Clone) method implements [hash.Cloner](/pkg/hash#Cloner).
+The new [`SHA3.Clone`](/pkg/crypto/sha3#SHA3.Clone) method implements [`hash.Cloner`](/pkg/hash#Cloner).
 
 #### [`crypto/tls`](/pkg/crypto/tls/)
 
@@ -274,12 +274,12 @@ The new [`ConnectionState.CurveID`](/pkg/crypto/tls#ConnectionState.CurveID) fie
 to establish the connection.
 
 The new [`Config.GetEncryptedClientHelloKeys`](/pkg/crypto/tls#Config.GetEncryptedClientHelloKeys) callback can be used to set the
-[EncryptedClientHelloKey]s for a server to use when a client sends an Encrypted
+[`EncryptedClientHelloKey`](/pkg/crypto/tls#EncryptedClientHelloKey)s for a server to use when a client sends an Encrypted
 Client Hello extension.
 
 SHA-1 signature algorithms are now disallowed in TLS 1.2 handshakes, per
 [RFC 9155](https://www.rfc-editor.org/rfc/rfc9155.html).
-They can be re-enabled with the `tlssha1=1` GODEBUG option.
+They can be re-enabled with the `tlssha1=1` [GODEBUG option](/doc/godebug).
 
 When [FIPS 140-3 mode](/doc/security/fips140) is enabled, Extended Master Secret
 is now required in TLS 1.2, and Ed25519 and X25519MLKEM768 are now allowed.
@@ -291,7 +291,7 @@ TLS servers now prefer the highest supported protocol version, even if it isn't 
 [`CreateCertificate`](/pkg/crypto/x509#CreateCertificate), [`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest), and [`CreateRevocationList`](/pkg/crypto/x509#CreateRevocationList) can now accept a [`crypto.MessageSigner`](/pkg/crypto#MessageSigner) signing interface as well as [`crypto.Signer`](/pkg/crypto#Signer). This allows these functions to use signers which implement "one-shot" signing interfaces, where hashing is done as part of the signing operation, instead of by the caller.
 
 [`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) now uses truncated SHA-256 to populate the `SubjectKeyId` if
-it is missing. The GODEBUG setting `x509sha256skid=0` reverts to SHA-1.
+it is missing. The [GODEBUG setting](/doc/godebug) `x509sha256skid=0` reverts to SHA-1.
 
 #### [`debug/elf`](/pkg/debug/elf/)
 
@@ -302,10 +302,10 @@ The [`debug/elf`](/pkg/debug/elf) package adds two new constants:
 
 #### [`go/ast`](/pkg/go/ast/)
 
-The [`ast.FilterPackage`](/pkg/ast#FilterPackage), [`ast.PackageExports`](/pkg/ast#PackageExports), and
-[`ast.MergePackageFiles`](/pkg/ast#MergePackageFiles) functions, and the [`MergeMode`](/pkg/go/ast#MergeMode) type and its
+The [`FilterPackage`](/pkg/ast#FilterPackage), [`PackageExports`](/pkg/ast#PackageExports), and
+[`MergePackageFiles`](/pkg/ast#MergePackageFiles) functions, and the [`MergeMode`](/pkg/go/ast#MergeMode) type and its
 constants, are all deprecated, as they are for use only with the
-long-deprecated [`ast.Object`](/pkg/ast#Object) and [`ast.Package`](/pkg/ast#Package) machinery.
+long-deprecated [`Object`](/pkg/ast#Object) and [`Package`](/pkg/ast#Package) machinery.
 
 The new [`PreorderStack`](/pkg/go/ast#PreorderStack) function, like [`Inspect`](/pkg/go/ast#Inspect), traverses a syntax
 tree and provides control over descent into subtrees, but as a
@@ -318,10 +318,11 @@ The [`ParseDir`](/pkg/go/parser#ParseDir) function is deprecated.
 
 #### [`go/token`](/pkg/go/token/)
 
-The new [`FileSet.AddExistingFiles`](/pkg/go/token#FileSet.AddExistingFiles) method enables existing Files to be
-added to a FileSet, or a FileSet to be constructed for an arbitrary
-set of Files, alleviating the problems associated with a single global
-FileSet in long-lived applications.
+The new [`FileSet.AddExistingFiles`](/pkg/go/token#FileSet.AddExistingFiles) method enables existing
+[`File`](/pkg/go/token#File)s to be added to a [`FileSet`](/pkg/go/token#FileSet),
+or a [`FileSet`](/pkg/go/token#FileSet) to be constructed for an arbitrary
+set of [`File`](/pkg/go/token#File)s, alleviating the problems associated with a single global
+[`FileSet`](/pkg/go/token#FileSet) in long-lived applications.
 
 #### [`go/types`](/pkg/go/types/)
 
@@ -335,9 +336,9 @@ function, but returns the result in the form of a [`Selection`](/pkg/go/types#Se
 
 #### [`hash`](/pkg/hash/)
 
-The new [XOF](/pkg/hash#XOF) interface can be implemented by "extendable output
+The new [`XOF`](/pkg/hash#XOF) interface can be implemented by "extendable output
 functions", which are hash functions with arbitrary or unlimited output length
-such as [SHAKE](https://pkg.go.dev/crypto/sha3#SHAKE).
+such as [SHAKE](/pkg/crypto/sha3#SHAKE).
 
 Hashes implementing the new [`Cloner`](/pkg/hash#Cloner) interface can return a copy of their state.
 All standard library [`Hash`](/pkg/hash#Hash) implementations now implement [`Cloner`](/pkg/hash#Cloner).
@@ -354,7 +355,8 @@ A new [`ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface provides the ability to re
 
 [`GroupAttrs`](/pkg/log/slog#GroupAttrs) creates a group [`Attr`](/pkg/log/slog#Attr) from a slice of [`Attr`](/pkg/log/slog#Attr) values.
 
-[`Record`](/pkg/log/slog#Record) now has a Source() method, returning its source location or nil if unavailable.
+[`Record`](/pkg/log/slog#Record) now has a [`Source`](/pkg/log/slog#Record.Source) method,
+returning its source location or nil if unavailable.
 
 #### [`mime/multipart`](/pkg/mime/multipart/)
 
@@ -367,10 +369,10 @@ On Windows, the [`TCPConn.File`](/pkg/net#TCPConn.File), [`UDPConn.File`](/pkg/n
 [`IPConn.File`](/pkg/net#IPConn.File), [`TCPListener.File`](/pkg/net#TCPListener.File), and [`UnixListener.File`](/pkg/net#UnixListener.File)
 methods are now supported.
 
-[`LookupMX`](/pkg/net#LookupMX) and [`*Resolver.LookupMX`](/pkg/net#Resolver.LookupMX) now return DNS names that look
+[`LookupMX`](/pkg/net#LookupMX) and [`Resolver.LookupMX`](/pkg/net#Resolver.LookupMX) now return DNS names that look
 like valid IP address, as well as valid domain names.
 Previously if a name server returned an IP address as a DNS name,
-LookupMX would discard it, as required by the RFCs.
+[`LookupMX`](/pkg/net#LookupMX) would discard it, as required by the RFCs.
 However, name servers in practice do sometimes return IP addresses.
 
 On Windows, the [`ListenMulticastUDP`](/pkg/net#ListenMulticastUDP) now supports IPv6 addresses.
@@ -402,23 +404,23 @@ If the handle provided to [`NewFile`](/pkg/os#NewFile) is already associated wit
 the returned [`File`](/pkg/os#File) is downgraded to synchronous I/O mode.
 In this case, I/O methods will block an OS thread, and the deadline methods have no effect.
 
-The filesystems returned by [`DirFS`](/pkg/os#DirFS) and [`*Root.FS`](/pkg/os#Root.FS) implement the new [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface.
+The filesystems returned by [`DirFS`](/pkg/os#DirFS) and [`Root.FS`](/pkg/os#Root.FS) implement the new [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface.
 [`CopyFS`](/pkg/os#CopyFS) supports symlinks when copying filesystems that implement [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS).
 
-The [`os.Root`](/pkg/os#Root) type supports the following additional methods:
+The [`Root`](/pkg/os#Root) type supports the following additional methods:
 
-  * [`os.Root.Chmod`](/pkg/os#Root.Chmod)
-  * [`os.Root.Chown`](/pkg/os#Root.Chown)
-  * [`os.Root.Chtimes`](/pkg/os#Root.Chtimes)
-  * [`os.Root.Lchown`](/pkg/os#Root.Lchown)
-  * [`os.Root.Link`](/pkg/os#Root.Link)
-  * [`os.Root.MkdirAll`](/pkg/os#Root.MkdirAll)
-  * [`os.Root.ReadFile`](/pkg/os#Root.ReadFile)
-  * [`os.Root.Readlink`](/pkg/os#Root.Readlink)
-  * [`os.Root.RemoveAll`](/pkg/os#Root.RemoveAll)
-  * [`os.Root.Rename`](/pkg/os#Root.Rename)
-  * [`os.Root.Symlink`](/pkg/os#Root.Symlink)
-  * [`os.Root.WriteFile`](/pkg/os#Root.WriteFile)
+  * [`Root.Chmod`](/pkg/os#Root.Chmod)
+  * [`Root.Chown`](/pkg/os#Root.Chown)
+  * [`Root.Chtimes`](/pkg/os#Root.Chtimes)
+  * [`Root.Lchown`](/pkg/os#Root.Lchown)
+  * [`Root.Link`](/pkg/os#Root.Link)
+  * [`Root.MkdirAll`](/pkg/os#Root.MkdirAll)
+  * [`Root.ReadFile`](/pkg/os#Root.ReadFile)
+  * [`Root.Readlink`](/pkg/os#Root.Readlink)
+  * [`Root.RemoveAll`](/pkg/os#Root.RemoveAll)
+  * [`Root.Rename`](/pkg/os#Root.Rename)
+  * [`Root.Symlink`](/pkg/os#Root.Symlink)
+  * [`Root.WriteFile`](/pkg/os#Root.WriteFile)
 
 <!-- go.dev/issue/73126 is documented as part of 67002 -->
 
@@ -514,9 +516,7 @@ The new panicking behavior helps catch such bugs.
 [`TestFS`](/pkg/testing/fstest#TestFS) will verify the functionality of the [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS) interface if implemented.
 [`TestFS`](/pkg/testing/fstest#TestFS) will no longer follow symlinks to avoid unbounded recursion.
 
-#### [`testing/synctest`](/pkg/testing/synctest/)
-
-<!-- testing/synctest -->
+<!-- #### [`testing/synctest`](/pkg/testing/synctest/) mentioned above -->
 
 #### [`unicode`](/pkg/unicode/)
 
@@ -532,7 +532,7 @@ more efficiently, and in parallel. As a consequence, applications using
 [`Make`](/pkg/unique#Make) are now less likely to experience memory blow-up when lots of
 truly unique values are interned.
 
-Values passed to [`Make`](/pkg/unique#Make) containing [Handle]s previously required multiple
+Values passed to [`Make`](/pkg/unique#Make) containing [`Handle`](/pkg/unique#Handle)s previously required multiple
 garbage collection cycles to collect, proportional to the depth of the chain
 of [`Handle`](/pkg/unique#Handle) values. Now, they are collected promptly in a single cycle, once
 unused.
