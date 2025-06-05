@@ -41,6 +41,11 @@ The new `go doc` `-http` option will start a documentation server showing
 documentation for the requested object, and open the documentation in a browser
 window.
 
+<!-- go.dev/issue/69712 -->
+
+The new `go version -m -json` option will print the JSON encodings of the
+`runtime/debug.BuildInfo` structures embedded in the given Go binary files.
+
 <!-- go.dev/issue/34055 -->
 The `go` command now supports using a subdirectory of a repository as the
 path for a module root, using the syntax
@@ -551,16 +556,6 @@ Output from relnote todo that was generated and reviewed on 2025-05-23, plus sum
 
 <!-- TODO: accepted proposal https://go.dev/issue/32816 (from https://go.dev/cl/645155, https://go.dev/cl/645455, https://go.dev/cl/645955, https://go.dev/cl/646255, https://go.dev/cl/646455, https://go.dev/cl/646495, https://go.dev/cl/646655, https://go.dev/cl/646875, https://go.dev/cl/647298, https://go.dev/cl/647299, https://go.dev/cl/647736, https://go.dev/cl/648581, https://go.dev/cl/648715, https://go.dev/cl/648976, https://go.dev/cl/648995, https://go.dev/cl/649055, https://go.dev/cl/649056, https://go.dev/cl/649057, https://go.dev/cl/649456, https://go.dev/cl/649476, https://go.dev/cl/650755, https://go.dev/cl/651615, https://go.dev/cl/651617, https://go.dev/cl/651655, https://go.dev/cl/653436) -->
 cmd/fix: automate migrations for simple deprecations
-
-<!-- TODO: accepted proposal https://go.dev/issue/69712 (from https://go.dev/cl/619955) -->
-cmd/go: -json flag for go version -m\
-cmd/go: support -json flag in go version\
-It supports features described in the issue:
-- add -json flag for 'go version -m' to print json encoding of
-  runtime/debug.BuildSetting to standard output.
-- report an error when specifying -json flag without -m.
-- print build settings on seperated line for each binary\
-  Fixes \#69712
 
 <!-- TODO: accepted proposal https://go.dev/issue/70128 (from https://go.dev/cl/645716, https://go.dev/cl/647455, https://go.dev/cl/651215, https://go.dev/cl/651256, https://go.dev/cl/652136, https://go.dev/cl/652215, https://go.dev/cl/653095, https://go.dev/cl/653139, https://go.dev/cl/653156, https://go.dev/cl/654395) -->
 spec: remove notion of core types
