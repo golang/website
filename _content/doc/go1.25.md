@@ -565,10 +565,6 @@ It supports features described in the issue:
 <!-- TODO: accepted proposal https://go.dev/issue/70128 (from https://go.dev/cl/645716, https://go.dev/cl/647455, https://go.dev/cl/651215, https://go.dev/cl/651256, https://go.dev/cl/652136, https://go.dev/cl/652215, https://go.dev/cl/653095, https://go.dev/cl/653139, https://go.dev/cl/653156, https://go.dev/cl/654395) -->
 spec: remove notion of core types
 
-<!-- TODO: accepted proposal https://go.dev/issue/70200 (from https://go.dev/cl/674916) -->
-cmd/go: add fips140 module selection mechanism\
-lib/fips140: set inprocess.txt to v1.0.0
-
 <!-- TODO: accepted proposal https://go.dev/issue/71845 (from https://go.dev/cl/665796, https://go.dev/cl/666935) -->
 encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
 
@@ -585,6 +581,7 @@ accepted proposal https://go.dev/issue/64876 (from https://go.dev/cl/649435)
 accepted proposal https://go.dev/issue/70123 (from https://go.dev/cl/657116)
 accepted proposal https://go.dev/issue/61901 (from https://go.dev/cl/647875)
 accepted proposal https://go.dev/issue/64207 (from https://go.dev/cl/647015, https://go.dev/cl/652235)
+accepted proposal https://go.dev/issue/70200 (from https://go.dev/cl/674916)
 
 For subrepos:
 accepted proposal https://go.dev/issue/53757 (from https://go.dev/cl/644575)
