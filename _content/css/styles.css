@@ -4581,6 +4581,8 @@ a.error {
   border-top-left-radius: 0.3125rem;
   border-top-right-radius: 0.3125rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 .PlayPage {
   color: var(--color-text);
@@ -4611,6 +4613,7 @@ a.error {
 }
 .Playground-inputContainer #wrap {
   height: 100%;
+  min-height: 0; /* prevent #wrap from overflowing the container */
 }
 .Playground-outputContainer {
   border-bottom-right-radius: 0.3125rem;
