@@ -476,6 +476,7 @@ GoMod = { Directive } .
 Directive = ModuleDirective |
             GoDirective |
             ToolDirective |
+            IgnoreDirective |
             RequireDirective |
             ExcludeDirective |
             ReplaceDirective |
@@ -746,6 +747,36 @@ tool golang.org/x/tools/cmd/stringer
 tool (
     example.com/module/cmd/a
     example.com/module/cmd/b
+)
+```
+
+### `ignore` directive {#go-mod-file-ignore}
+
+An `ignore` directive will cause the go command ignore the slash-separated
+directory paths, and any files or directories recursively contained in them,
+when matching package patterns.
+
+If the path starts with `./`, the path is interpreted relative to the
+module root directory, and that directory and any directories or files
+recursively contained in it will be ignored when matching package patterns.
+
+Otherwise, any directories with the path at any depth in the module, and
+any directories or files recursively contained in them will be ignored.
+
+```
+IgnoreDirective = "ignore" ( IgnoreSpec | "(" newline { IgnoreSpec } ")" newline ) .
+IgnoreSpec = RelativeFilePath newline .
+RelativeFilePath = /* slash-separated relative file path */ .
+```
+
+Example
+```
+ignore ./node_modules
+
+ignore (
+    static
+    content/html
+    ./third_party/javascript
 )
 ```
 
@@ -1850,7 +1881,7 @@ arguments must satisfy the following constraints:
 
 * Arguments must be package paths or package patterns (with "`...`" wildcards).
   They must not be standard packages (like `fmt`), meta-patterns (`std`, `cmd`,
-  `all`), or relative or absolute file paths.
+  `all`, `work`, `tool`), or relative or absolute file paths.
 * All arguments must have the same version suffix. Different queries are not
   allowed, even if they refer to the same version.
 * All arguments must refer to packages in the same module at the same version.
@@ -3167,13 +3198,15 @@ avoid confusing the `go` command's restricted parser. In particular, it should
 appear before any raw JavaScript or CSS. The `<meta>` tag must have the form:
 
 ```
-<meta name="go-import" content="root-path vcs repo-url">
+<meta name="go-import" content="root-path vcs repo-url [subdirectory]">
 ```
 
 `root-path` is the repository root path, the portion of the module path that
-corresponds to the repository's root directory. It must be a prefix or an exact
-match of the requested module path. If it's not an exact match, another request
-is made for the prefix to verify the `<meta>` tags match.
+corresponds to the repository's root directory, or to the `subdirectory`,
+if present and using Go 1.25 or later (see the section on `subdirectory` below).
+It must be a prefix or an exact  match of the requested module path. If it's
+not an exact match, another request is made for the prefix to verify the `<meta>`
+tags match.
 
 `vcs` is the version control system. It must be one of the tools listed in the
 table below or the keyword `mod`, which instructs the `go` command to download
@@ -3187,6 +3220,13 @@ scheme), the `go` command will try each protocol supported by the version
 control system. For example, with Git, the `go` command will try `https://` then
 `git+ssh://`. Insecure protocols (like `http://` and `git://`) may only be used
 if the module path is matched by the `GOINSECURE` environment variable.
+
+`subdirectory`, if present, is the slash-separated subdirectory of the repository
+that the `root-path` corresponds to, overriding the default of the repository's
+root directory. `go-import` meta tags providing a `subdirectory` are only recognized
+by Go 1.25 and later. Attempts to fetch resolve modules on earlier versions of
+Go will ignore the meta tag and result in a resolution failure if the module can
+not be resolved elsewhere.
 
 <table id="vcs-support" class="ModTable">
   <thead>

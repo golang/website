@@ -40,10 +40,10 @@ included, but tools not invoked by build or test operations will be built
 and run by `go tool` as needed.
 
 <!-- go.dev/issue/42965 -->
-The new `go.mod` `ignore` directive can be used to specify directories
-the `go` command should ignore. Files in these directories and their subdirectories
-will be ignored by the `go` command when matching package patterns,
-such as `all` or `./...`, but will still be included in module zip files.
+The new `go.mod` `ignore` [directive](/ref/mod#go-mod-file-ignore) can be used to
+specify directories the `go` command should ignore. Files in these directories
+and their subdirectories  will be ignored by the `go` command when matching package
+patterns, such as `all` or `./...`, but will still be included in module zip files.
 
 <!-- go.dev/issue/68106 -->
 The new `go doc` `-http` option will start a documentation server showing
@@ -57,7 +57,7 @@ The new `go version -m -json` option will print the JSON encodings of the
 
 <!-- go.dev/issue/34055 -->
 The `go` command now supports using a subdirectory of a repository as the
-path for a module root, using the syntax
+path for a module root, when [resolving a module path](/ref/mod#vcs-find) using the syntax
 `<meta name="go-import" content="root-path vcs repo-url subdir">` to indicate
 that the `root-path` corresponds to the `subdir` of the `repo-url` with
 version control system `vcs`.
