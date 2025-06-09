@@ -7,7 +7,7 @@ template: false
   main ul li { margin: 0.5em 0; }
 </style>
 
-## DRAFT RELEASE NOTES — Introduction to Go 1.N {#introduction}
+## DRAFT RELEASE NOTES — Introduction to Go 1.25 {#introduction}
 
 **Go 1.25 is not yet released. These are work-in-progress release notes.
 Go 1.25 is expected to be released in August 2025.**
@@ -158,7 +158,7 @@ This program will now print:
 
 <!-- go.dev/issue/71546 -->
 
-On Linux systems with kernel support for anonymous VMA names
+On Linux systems with kernel support for anonymous virtual memory area (VMA) names
 (`CONFIG_ANON_VMA_NAME`), the Go runtime will annotate anonymous memory
 mappings with context about their purpose. e.g., `[anon: Go: heap]` for heap
 memory. This can be disabled with the [GODEBUG setting](/doc/godebug)
@@ -235,11 +235,11 @@ release.
 The new [`testing/synctest`](/pkg/testing/synctest) package
 provides support for testing concurrent code.
 
-The [`synctest.Test`](/pkg/testing/synctest#Test) function runs a test function in an isolated
+The [`Test`](/pkg/testing/synctest#Test) function runs a test function in an isolated
 "bubble". Within the bubble, [`time`](/pkg/time) package functions
 operate on a fake clock.
 
-The [`synctest.Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
+The [`Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
 current bubble to block.
 
 ### Minor changes to the library {#minor_library_changes}
@@ -500,7 +500,7 @@ For example, in a test named `TestAttr`,
 
 <!-- go.dev/issue/59928 -->
 
-The new [`Output`](/pkg/testing#T.Output) method of [`testing.T`](/pkg/testing#T), [`testing.B`](/pkg/testing#B) and [`testing.F`](/pkg/testing#F) provides a Writer
+The new [`Output`](/pkg/testing#T.Output) method of [`T`](/pkg/testing#T), [`B`](/pkg/testing#B) and [`F`](/pkg/testing#F) provides an [`io.Writer`](/pkg/io#Writer)
 that writes to the same test output stream as [`TB.Log`](/pkg/testing#TB.Log), but omits the file and line number.
 
 <!-- https://go.dev/issue/70464, CL 630137 -->
