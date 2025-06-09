@@ -365,10 +365,6 @@ Content-Disposition header fields.
 
 #### [`net`](/pkg/net/)
 
-On Windows, the [`TCPConn.File`](/pkg/net#TCPConn.File), [`UDPConn.File`](/pkg/net#UDPConn.File), [`UnixConn.File`](/pkg/net#UnixConn.File),
-[`IPConn.File`](/pkg/net#IPConn.File), [`TCPListener.File`](/pkg/net#TCPListener.File), and [`UnixListener.File`](/pkg/net#UnixListener.File)
-methods are now supported.
-
 [`LookupMX`](/pkg/net#LookupMX) and [`Resolver.LookupMX`](/pkg/net#Resolver.LookupMX) now return DNS names that look
 like valid IP address, as well as valid domain names.
 Previously if a name server returned an IP address as a DNS name,
@@ -377,8 +373,12 @@ However, name servers in practice do sometimes return IP addresses.
 
 On Windows, the [`ListenMulticastUDP`](/pkg/net#ListenMulticastUDP) now supports IPv6 addresses.
 
-On Windows, the [`FileConn`](/pkg/net#FileConn), [`FilePacketConn`](/pkg/net#FilePacketConn), [`FileListener`](/pkg/net#FileListener)
-functions are now supported.
+On Windows, convertions between an [`os.File`](/pkg/os#File) and a network connection is now supported.
+Specifcally, the [`FileConn`](/pkg/net#FileConn), [`FilePacketConn`](/pkg/net#FilePacketConn), [`FileListener`](/pkg/net#FileListener)
+functions are now implemented, allowing getting the network connection or listener corresponding to an open file.
+The [`TCPConn.File`](/pkg/net#TCPConn.File), [`UDPConn.File`](/pkg/net#UDPConn.File), [`UnixConn.File`](/pkg/net#UnixConn.File),
+[`IPConn.File`](/pkg/net#IPConn.File), [`TCPListener.File`](/pkg/net#TCPListener.File), and [`UnixListener.File`](/pkg/net#UnixListener.File)
+methods are now also available, allowing access to the underlying [`os.File`](/pkg/os#File) of the connection.
 
 #### [`net/http`](/pkg/net/http/)
 
