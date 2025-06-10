@@ -242,6 +242,44 @@ operate on a fake clock.
 The [`Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
 current bubble to block.
 
+### New experimental encoding/json/v2 package {#json_v2}
+
+Go 1.25 includes a new, experimental JSON implementation,
+which can be enabled by setting the environment variable
+`GOEXPERIMENT=jsonv2` at build time.
+
+When enabled, two new packages are available:
+- The [`encoding/json/v2`](/pkg/encoding/json/v2) package is
+  a major revision of the `encoding/json` package.
+- The [`encoding/json/jsontext`](/pkg/encoding/json/jsontext) package
+  provides lower-level processing of JSON syntax.
+
+In addition, when the "jsonv2" GOEXPERIMENT is enabled:
+- The [`encoding/json`](/pkg/encoding/json) package
+  uses the new JSON implemenation.
+  Marshalling and unmarshalling behavior is unaffected,
+  but the text of errors returned by package function may change.
+- The [`encoding/json`](/pkg/encoding/json) package contains
+  a number of new options which may be used
+  to configure the marshaller and unmarshaller.
+
+The new implementation performs substantially better than
+the existing one under many scenarios. In general,
+encoding performance is at parity between the implementations
+and decoding is substantially faster in the new one.
+See the [github.com/go-json-experiment/jsonbench](https://github.com/go-json-experiment/jsonbench)
+repository for more detailed analysis.
+
+See the [proposal issue](/issue/71497) for more details.
+
+We encourage users of [`encoding/json`](/pkg/encoding/json) to test
+their programs with `GOEXPERIMENT=jsonv2` enabled to help detect
+any compatibility issues with the new implementation.
+
+We expect the design of [`encoding/json/v2`](/pkg/encoding/json/v2)
+to continue to evolve. We encourage developers to try out the new
+API and provide feedback on the [proposal issue](/issue/71497).
+
 ### Minor changes to the library {#minor_library_changes}
 
 #### [`archive/tar`](/pkg/archive/tar/)
@@ -560,13 +598,6 @@ which selects the RVA23U64 user-mode application profile.
 
 <!--
 Output from relnote todo that was generated and reviewed on 2025-05-23, plus summary info from bug/CL: -->
-
-## TODO
-
-**Please turn these into proper release notes**
-
-<!-- TODO: accepted proposal https://go.dev/issue/71845 (from https://go.dev/cl/665796, https://go.dev/cl/666935) -->
-encoding/json/v2: add new JSON API behind a GOEXPERIMENT=jsonv2 guard
 
 <!-- Items that don't need to be mentioned in Go 1.25 release notes but are picked up by relnote todo
 Just updating old prposals
