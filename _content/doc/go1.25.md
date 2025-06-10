@@ -257,11 +257,11 @@ When enabled, two new packages are available:
 In addition, when the "jsonv2" GOEXPERIMENT is enabled:
 - The [`encoding/json`](/pkg/encoding/json) package
   uses the new JSON implemenation.
-  Marshalling and unmarshalling behavior is unaffected,
+  Marshaling and unmarshaling behavior is unaffected,
   but the text of errors returned by package function may change.
 - The [`encoding/json`](/pkg/encoding/json) package contains
   a number of new options which may be used
-  to configure the marshaller and unmarshaller.
+  to configure the marshaler and unmarshaler.
 
 The new implementation performs substantially better than
 the existing one under many scenarios. In general,
