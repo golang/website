@@ -175,7 +175,7 @@ var featuredFiles = []Feature{
 	},
 	{
 		Platform:     "Linux",
-		Requirements: "Linux 2.6.32 or later, Intel 64-bit processor",
+		Requirements: "Linux 3.2 or later, Intel 64-bit processor",
 		fileRE:       regexp.MustCompile(`\.linux-amd64\.tar\.gz$`),
 	},
 	{
