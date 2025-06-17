@@ -587,6 +587,13 @@ As [announced](/doc/go1.24#darwin) in the Go 1.24 release notes, Go 1.25 require
 <!-- go.dev/issue/71671 -->
 Go 1.25 is the last release that contains the [broken](/doc/go1.24#windows) 32-bit windows/arm port (`GOOS=windows` `GOARCH=arm`). It will be removed in Go 1.26.
 
+### Loong64
+
+<!-- CLs 533717, 533716, 543316, 604176 -->
+The linux/loong64 port now supports the race detector, gathering traceback information from C code
+using [`runtime.SetCgoTraceback`](/pkg/runtime#SetCgoTraceback), and linking cgo programs with the
+internal link mode.
+
 ### RISC-V
 
 <!-- CL 420114 -->
