@@ -124,6 +124,14 @@ GET https://go.dev/wiki/Comments
 body contains Go Wiki: Comments
 body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 
+GET https://go.dev/gopls/
+body contains Gopls: Home
+body contains Gopls documentation is still loading
+
+GET https://go.dev/gopls/dummy
+body contains Gopls: Dummy
+body contains placeholder
+
 GET https://go.dev/pkg/cmd/go/?m=old
 redirect == /cmd/go/?m=old
 

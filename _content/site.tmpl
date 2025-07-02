@@ -479,6 +479,13 @@
 <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 </p>
 {{end}}
+{{if strings.HasPrefix .URL "/gopls/"}}
+<hr>
+<p>
+<i>The source files for this documentation can be found beneath <a href="https://cs.opensource.google/go/x/tools/+/master:gopls/doc/">golang.org/x/tools/gopls/doc</a>.</i>
+</p>
+{{end}}
+
 </article>
 
 {{end}}

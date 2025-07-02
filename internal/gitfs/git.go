@@ -11,8 +11,14 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"log"
+	"maps"
 	"net/http"
+	pathpkg "path"
+	"slices"
 	"strings"
+
+	"golang.org/x/mod/semver"
 )
 
 // A Repo is a connection to a remote repository served over HTTP or HTTPS.
@@ -74,6 +80,10 @@ func (r *Repo) handshake() error {
 }
 
 // Resolve looks up the given ref and returns the corresponding Hash.
+//
+// As a special case (to support gopls), a ref of the form
+// "dir/latest" returns the latest semver release tag
+// "refs/tags/dir/vX.Y.Z..." according to Go module version semantics.
 func (r *Repo) Resolve(ref string) (Hash, error) {
 	if h, err := parseHash(ref); err == nil {
 		return h, nil
@@ -82,28 +92,58 @@ func (r *Repo) Resolve(ref string) (Hash, error) {
 	fail := func(err error) (Hash, error) {
 		return Hash{}, fmt.Errorf("resolve %s: %v", ref, err)
 	}
+
+	// "gopls/latest" -> latest of "refs/tags/gopls/vX.Y.Z"
+	if pathpkg.Base(ref) == "latest" {
+		// Find release tags.
+		pre := fmt.Sprintf("refs/tags/%s/", pathpkg.Dir(ref))
+		refs, err := r.refs(pre + "v")
+		if err != nil {
+			return fail(err)
+		}
+
+		// Extract semvers in ascending order.
+		names := slices.Collect(maps.Keys(refs))
+		slices.Sort(names)
+		var versions []string // "vX.Y.Z"
+		for _, name := range names {
+			versions = append(versions, strings.TrimPrefix(name, pre))
+		}
+		semver.Sort(versions)
+
+		// Choose latest release.
+		var latest string
+		for _, v := range versions {
+			if semver.Prerelease(v) != "" {
+				continue // skip prereleases
+			}
+			latest = pre + v
+		}
+		if latest == "" {
+			return fail(fmt.Errorf("no release tag matching %q", pre))
+		}
+		log.Printf("resolved %s -> %s (%s)", ref, latest, refs[latest])
+		return refs[latest], nil
+	}
+
 	refs, err := r.refs(ref)
 	if err != nil {
 		return fail(err)
 	}
-	for _, known := range refs {
-		if known.name == ref {
-			return known.hash, nil
-		}
+	hash, ok := refs[ref]
+	if !ok {
+		return fail(fmt.Errorf("unknown ref: %v", ref))
 	}
-	return fail(fmt.Errorf("unknown ref"))
-}
-
-// A ref is a single Git reference, like refs/heads/main, refs/tags/v1.0.0, or HEAD.
-type ref struct {
-	name string // "refs/heads/main", "refs/tags/v1.0.0", "HEAD"
-	hash Hash   // hexadecimal hash
+	return hash, nil
 }
 
 // refs executes an ls-refs command on the remote server
 // to look up refs with the given prefixes.
 // See https://git-scm.com/docs/protocol-v2#_ls_refs.
-func (r *Repo) refs(prefixes ...string) ([]ref, error) {
+//
+// The result maps a Git reference such as "refs/heads/main",
+// "refs/tags/v1.0.0", or "HEAD" to a hexadecimal commit hash.
+func (r *Repo) refs(prefixes ...string) (map[string]Hash, error) {
 	if _, ok := r.caps["ls-refs"]; !ok {
 		return nil, fmt.Errorf("refs: server does not support ls-refs")
 	}
@@ -141,7 +181,7 @@ func (r *Repo) refs(prefixes ...string) ([]ref, error) {
 		return nil, fmt.Errorf("refs: invalid response Content-Type: %v", ct)
 	}
 
-	var refs []ref
+	refs := make(map[string]Hash)
 	lines, err := newPktLineReader(bytes.NewReader(data)).Lines()
 	if err != nil {
 		return nil, fmt.Errorf("refs: parsing response: %v %d\n%s\n%s", err, len(data), hex.Dump(postbody), hex.Dump(data))
@@ -156,7 +196,7 @@ func (r *Repo) refs(prefixes ...string) ([]ref, error) {
 			return nil, fmt.Errorf("refs: parsing response: invalid line: %q", line)
 		}
 		name, _, _ := strings.Cut(rest, " ")
-		refs = append(refs, ref{hash: h, name: name})
+		refs[name] = h
 	}
 	return refs, nil
 }

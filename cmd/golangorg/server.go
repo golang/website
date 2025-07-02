@@ -28,6 +28,7 @@ import (
 	"strings"
 	"sync"
 	"sync/atomic"
+	"testing/fstest"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -59,8 +60,9 @@ var (
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
 
-	tipFlag  = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
-	wikiFlag = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
+	tipFlag   = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
+	wikiFlag  = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
+	goplsFlag = flag.Bool("gopls", runningOnAppEngine, "load git content for go.dev/gopls")
 
 	googleAnalytics string
 )
@@ -182,19 +184,24 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	}
 	wikiFS.Set(wikiDefault)
 	if *wikiFlag {
-		go watchGit(&wikiFS, "https://go.googlesource.com/wiki")
+		go watchGit(&wikiFS, "https://go.googlesource.com/wiki", "HEAD")
 	}
 	contentFS = &mountFS{contentFS, "wiki", &wikiFS}
 
 	// tip.golang.org serves content from the very latest Git commit
 	// of the main Go repo, instead of the one the app is bundled with.
+	//
+	// tip.golang.org/gopls serves the latest commit of golang.org/x/tools/gopls/doc.
 	var tipGoroot atomicFS
-	if _, err := newSite(mux, "tip.golang.org", contentFS, &tipGoroot); err != nil {
+	if _, err := newSite(mux, "tip.golang.org", addGopls(contentFS, "HEAD"), &tipGoroot); err != nil {
 		log.Fatalf("loading tip site: %v", err)
 	}
 	if *tipFlag {
-		go watchGit(&tipGoroot, "https://go.googlesource.com/go")
+		go watchGit(&tipGoroot, "https://go.googlesource.com/go", "HEAD")
 	}
+
+	// go.dev/gopls serves the latest gopls release of golang.org/x/tools/gopls/doc.
+	contentFS = addGopls(contentFS, "gopls/latest")
 
 	// beta.golang.org is an old name for tip.
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
@@ -286,6 +293,58 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	return h
 }
 
+// addGopls registers the /gopls endpoint to serve
+// golang.org/x/tools/gopls/doc, depending on ref, at either the
+// latest Gopls release or the latest x/tools commit.
+func addGopls(contentFS fs.FS, ref string) fs.FS {
+	var toolsFS atomicFS
+
+	// Before the first git clone completes,
+	// serve _content/gopls/doc as placeholder.
+	toolsFS.Set(contentFS)
+
+	// To load file content from a local x/tools directory
+	// for ease of debugging, set this env var.
+	if dir, ok := os.LookupEnv("GOLANGORG_LOCAL_X_TOOLS"); ok {
+		log.Printf("using local golang.org/x/tools dir %s", dir)
+		toolsFS.Set(os.DirFS(dir))
+
+	} else if !*tipFlag && ref == "HEAD" {
+		// The intent of -tip=false is to avoid fetching repos
+		// not needed tip.golang.org. We assume here that
+		// ref=HEAD means we're working for tip.golang.org/gopls;
+		// don't fetch x/tools in that case.
+
+	} else if *goplsFlag {
+		go watchGit(&toolsFS, "https://go.googlesource.com/tools", ref)
+	}
+
+	// Inject gopls/doc/default.tmpl into the FS, since
+	// unlike wiki, x/tools/gopls/doc doesn't have the
+	// default.tmpl needed by the markdown renderer.
+	// TODO(adonovan): remove once CL 686595 has been released in gopls/v0.20.0.
+	overlay := fstest.MapFS{
+		"gopls/doc/default.tmpl": {
+			Data: []byte(`
+{{define "layout"}}
+{{doclayout .}}
+{{end}})}`[1:]),
+		},
+	}
+	tools2FS := fnFS(func(name string) (fs.File, error) {
+		if _, ok := overlay[name]; ok {
+			return overlay.Open(name)
+		}
+		return toolsFS.Open(name) // delegate
+	})
+
+	goplsDocFS, err := fs.Sub(tools2FS, "gopls/doc")
+	if err != nil {
+		log.Fatalf("can't restrict to gopls/doc tree: %v", err)
+	}
+	return &mountFS{contentFS, "gopls", goplsDocFS}
+}
+
 var gorebuild = NewCachedURL("https://gorebuild.storage.googleapis.com/gorebuild.json", 5*time.Minute)
 
 // newSite creates a new site for a given content and goroot file system pair
@@ -352,19 +411,19 @@ func parseRFC3339(s string) (time.Time, error) {
 }
 
 // watchGit is a background goroutine that watches a Git repo for updates.
-// When a new commit is available, watchGit downloads the new tree and calls
+// When the ref (e.g. "HEAD") refers to a new commit, watchGit downloads the new tree and calls
 // fsys.Set to install the new file system.
-func watchGit(fsys *atomicFS, repo string) {
+func watchGit(fsys *atomicFS, repo, ref string) {
 	for {
 		// watchGit1 runs until it panics (hopefully never).
 		// If that happens, sleep 5 minutes and try again.
-		watchGit1(fsys, repo)
+		watchGit1(fsys, repo, ref)
 		time.Sleep(5 * time.Minute)
 	}
 }
 
 // watchGit1 does the actual work of watchGit and recovers from panics.
-func watchGit1(afs *atomicFS, repo string) {
+func watchGit1(afs *atomicFS, repo, ref string) {
 	defer func() {
 		if e := recover(); e != nil {
 			log.Printf("watchGit %s panic: %v\n%s", repo, e, debug.Stack())
@@ -387,7 +446,7 @@ func watchGit1(afs *atomicFS, repo string) {
 	for {
 		var fsys fs.FS
 		var err error
-		h, fsys, err = r.Clone("HEAD")
+		h, fsys, err = r.Clone(ref)
 		if err != nil {
 			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)
@@ -399,7 +458,7 @@ func watchGit1(afs *atomicFS, repo string) {
 
 	for {
 		time.Sleep(5 * time.Minute)
-		h2, err := r.Resolve("HEAD")
+		h2, err := r.Resolve(ref)
 		if err != nil {
 			log.Printf("watchGit %s: %v", repo, err)
 			continue
@@ -971,3 +1030,10 @@ func jsonUnmarshal(data []byte) (any, error) {
 	err := json.Unmarshal(data, &x)
 	return x, err
 }
+
+// A fnFS is a closure that defines an [fs.FS].
+type fnFS func(name string) (fs.File, error)
+
+var _ fs.FS = fnFS(nil)
+
+func (f fnFS) Open(name string) (fs.File, error) { return f(name) }

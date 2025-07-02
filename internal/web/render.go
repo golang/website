@@ -128,8 +128,8 @@ func (site *Site) renderHTML(p Page, tmpl string, r *http.Request) ([]byte, erro
 		// which is treated as a template by default.
 		isTemplate, explicit := p["template"].(bool)
 
-		// The wiki is not templated by default.
-		if !explicit && strings.HasPrefix(file, "wiki/") {
+		// Neither gopls nor the wiki are templated by default.
+		if !explicit && (strings.HasPrefix(file, "wiki/") || strings.HasPrefix(file, "gopls/")) {
 			isTemplate, explicit = false, true
 		}
 

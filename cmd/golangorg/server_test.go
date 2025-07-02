@@ -6,6 +6,7 @@ package main
 
 import (
 	"bytes"
+	"errors"
 	"fmt"
 	"io/fs"
 	"net/http/httptest"
@@ -24,6 +25,8 @@ import (
 )
 
 func TestWeb(t *testing.T) {
+	needsGorootDocDir(t)
+
 	h := NewHandler("../../_content", runtime.GOROOT())
 
 	files, err := filepath.Glob("testdata/*.txt")
@@ -75,6 +78,8 @@ Lines:
 }
 
 func TestAll(t *testing.T) {
+	needsGorootDocDir(t)
+
 	h := NewHandler("../../_content", runtime.GOROOT())
 
 	get := func(url string) (code int, body string, err error) {
@@ -96,14 +101,17 @@ func TestAll(t *testing.T) {
 		"/issue/",
 		"/pkg/",
 		"/s/",
+		"/gopls/",
 		"/wiki/",
 		"/play/p/",
 	}
 
 	// Do not process these paths or path prefixes.
 	ignores := []string{
-		// Wiki is in a different repo; errors there should not block production push.
+		// The Wiki and gopls are in different repos;
+		// errors there should not block production push.
 		"/wiki/",
+		"/gopls/",
 
 		// Support files not meant to be served directly.
 		"/doc/articles/wiki/",
@@ -327,5 +335,15 @@ func TestReleaseNotesHaveDate(t *testing.T) {
 				t.Errorf("Go %s release notes (_content/%s) doesn't contain the release date and link to release history page %q", maj, name, want)
 			}
 		})
+	}
+}
+
+func needsGorootDocDir(t *testing.T) {
+	_, err := os.Stat(filepath.Join(runtime.GOROOT(), "doc"))
+	if errors.Is(err, fs.ErrNotExist) {
+		if name, ok := os.LookupEnv("GO_BUILDER_NAME"); ok {
+			t.Fatalf("builder %q has missing GOROOT/doc directory (%v), perhaps due to use of downloaded GOTOOLCHAIN", name, err)
+		}
+		t.Skipf("skipping: downloaded GOTOOLCHAIN does not include GOROOT/doc directory")
 	}
 }
