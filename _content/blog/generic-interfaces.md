@@ -507,12 +507,12 @@ This is a general pattern, and worth remembering: for when you encounter it in s
 
 If you have two type parameters, where one is constrained to be a pointer to the other, the constraint ensures that the relevant methods use a pointer receiver.
 
-## Should you constrain to pointer receivers? {#pointer-receivers}
+## Should you constrain to pointer receivers?
 
 At this point, you might feel pretty overwhelmed.
 This is rather complicated and it seems unreasonable to expect every Go programmer to understand what is going on in this function signature.
 We also had to introduce yet more names into our API.
-When people cautioned against adding generics to Go in the first place, this is one of the things they where worried about.
+When people cautioned against adding generics to Go in the first place, this is one of the things they were worried about.
 
 So if you find yourself entangled in these problems, it is worth taking a step back.
 We can often avoid this complexity by thinking about our problem in a different way.
@@ -566,6 +566,6 @@ The primary take-aways are:
 1. Use generic interfaces to express constraints on the receiver by using them self-referentially.
 2. Use them to create constrained relationships between different type parameters.
 3. Use them to abstract over different implementations with different kinds of constraints.
-4. When you find yourself in a situation where you need to constrain to pointer receivers, consider whether you can refactor your code to avoid the extra complexity. See ["Should you constrain to pointer receivers?"](#pointer-receivers).
+4. When you find yourself in a situation where you need to constrain to pointer receivers, consider whether you can refactor your code to avoid the extra complexity. See ["Should you constrain to pointer receivers?"](#should-you-constrain-to-pointer-receivers).
 
 As always, do not over-engineer things: a less flexible but simpler and more readable solution may ultimately be the wiser choice.
