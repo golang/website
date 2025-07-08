@@ -16,18 +16,15 @@ var Releases = []*Release{
 	{
 		Date: Date{2025, 7, 8}, Version: Version{1, 24, 5},
 		Security: &FixSummary{
-			Packages:   []string{},
 			Components: []template.HTML{"the <code>go</code> command"},
 		},
 		Bug: &FixSummary{
-			Packages:   []string{},
 			Components: []template.HTML{"the compiler", "the linker", "the runtime", "the <code>go</code> command"},
 		},
 	},
 	{
 		Date: Date{2025, 7, 8}, Version: Version{1, 23, 11},
 		Security: &FixSummary{
-			Packages:   []string{},
 			Components: []template.HTML{"the <code>go</code> command"},
 		},
 		Bug: &FixSummary{
