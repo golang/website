@@ -398,7 +398,7 @@ returning its source location or nil if unavailable.
 
 #### [`mime/multipart`](/pkg/mime/multipart/)
 
-The new helper function [`FieldContentDisposition`](/pkg/mime/multipart#FieldContentDisposition) builds multipart
+The new helper function [`FileContentDisposition`](/pkg/mime/multipart#FileContentDisposition) builds multipart
 Content-Disposition header fields.
 
 #### [`net`](/pkg/net/)
