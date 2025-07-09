@@ -139,7 +139,7 @@ body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 # body contains Gopls: Settings
 
 GET https://tip.golang.org/gopls/
-body contains Gopls: Home
+body contains Gopls: The language server for Go
 
 GET https://tip.golang.org/gopls/settings
 body contains Gopls: Settings

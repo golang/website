@@ -1,5 +1,5 @@
 ---
-title: "Gopls: Home"
+title: "Gopls: The language server for Go"
 ---
 
 <!-- This page is a placeholder before the first watchGit cycle completes -->
