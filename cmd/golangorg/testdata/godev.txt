@@ -126,11 +126,22 @@ body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 
 # These assertions should work both with the dummy docs in _content
 # and the real x/tools, since the deployment tests run them too.
+#
+# TODO(adonovan): when gopls/v0.20.0 is released, the new gopls/doc/ file
+# locations tree will allow the assertions below to pass with the actual
+# contents of x/tools as exercised by the deployment tests.
+# Until then, we must test against tip.golang.org.
+#
+# GET https://go.dev/gopls/
+# body contains Gopls: Home
+#
+# GET https://go.dev/gopls/settings
+# body contains Gopls: Settings
 
-GET https://go.dev/gopls/
+GET https://tip.golang.org/gopls/
 body contains Gopls: Home
 
-GET https://go.dev/gopls/settings
+GET https://tip.golang.org/gopls/settings
 body contains Gopls: Settings
 
 GET https://go.dev/pkg/cmd/go/?m=old
