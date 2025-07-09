@@ -124,13 +124,14 @@ GET https://go.dev/wiki/Comments
 body contains Go Wiki: Comments
 body contains <i>This content is part of the <a href="/wiki/">Go Wiki</a>.</i>
 
+# These assertions should work both with the dummy docs in _content
+# and the real x/tools, since the deployment tests run them too.
+
 GET https://go.dev/gopls/
 body contains Gopls: Home
-body contains Gopls documentation is still loading
 
-GET https://go.dev/gopls/dummy
-body contains Gopls: Dummy
-body contains placeholder
+GET https://go.dev/gopls/settings
+body contains Gopls: Settings
 
 GET https://go.dev/pkg/cmd/go/?m=old
 redirect == /cmd/go/?m=old
