@@ -289,47 +289,102 @@ for filesystems that implement [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS).
 
 #### [`crypto`](/pkg/crypto/)
 
-[`MessageSigner`](/pkg/crypto#MessageSigner) is a new signing interface that can be implemented by signers that wish to hash the message to be signed themselves. A new function is also introduced, [`SignMessage`](/pkg/crypto#SignMessage), which attempts to update a [`Signer`](/pkg/crypto#Signer) interface to [`MessageSigner`](/pkg/crypto#MessageSigner), using the [`MessageSigner.SignMessage`](/pkg/crypto#MessageSigner.SignMessage) method if successful, and [`Signer.Sign`](/pkg/crypto#Signer.Sign) if not. This can be used when code wishes to support both [`Signer`](/pkg/crypto#Signer) and [`MessageSigner`](/pkg/crypto#MessageSigner).
+[`MessageSigner`](/pkg/crypto#MessageSigner) is a new signing interface that can
+be implemented by signers that wish to hash the message to be signed themselves.
+A new function is also introduced, [`SignMessage`](/pkg/crypto#SignMessage),
+which attempts to upgrade a [`Signer`](/pkg/crypto#Signer) interface to
+[`MessageSigner`](/pkg/crypto#MessageSigner), using the
+[`MessageSigner.SignMessage`](/pkg/crypto#MessageSigner.SignMessage) method if
+successful, and [`Signer.Sign`](/pkg/crypto#Signer.Sign) if not. This can be
+used when code wishes to support both [`Signer`](/pkg/crypto#Signer) and
+[`MessageSigner`](/pkg/crypto#MessageSigner).
+
+Changing the `fips140` [GODEBUG setting](/doc/godebug) after the program has started is now a no-op.
+Previously, it was documented as not allowed, and could cause a panic if changed.
+
+SHA-1, SHA-256, and SHA-512 are now slower on amd64 when AVX2 instructions are not available.
+All server processors (and most others) produced since 2015 support AVX2.
 
 #### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
-The new [`ParseRawPrivateKey`](/pkg/crypto/ecdsa#ParseRawPrivateKey), [`ParseUncompressedPublicKey`](/pkg/crypto/ecdsa#ParseUncompressedPublicKey), [`PrivateKey.Bytes`](/pkg/crypto/ecdsa#PrivateKey.Bytes),
-and [`PublicKey.Bytes`](/pkg/crypto/ecdsa#PublicKey.Bytes) functions and methods implement low-level encodings,
-replacing the need to use [`crypto/elliptic`](/pkg/crypto/elliptic) or [`math/big`](/pkg/math/big) functions and methods.
+The new [`ParseRawPrivateKey`](/pkg/crypto/ecdsa#ParseRawPrivateKey),
+[`ParseUncompressedPublicKey`](/pkg/crypto/ecdsa#ParseUncompressedPublicKey),
+[`PrivateKey.Bytes`](/pkg/crypto/ecdsa#PrivateKey.Bytes), and
+[`PublicKey.Bytes`](/pkg/crypto/ecdsa#PublicKey.Bytes) functions and methods
+implement low-level encodings, replacing the need to use
+[`crypto/elliptic`](/pkg/crypto/elliptic) or [`math/big`](/pkg/math/big)
+functions and methods.
+
+When FIPS 140-3 mode is enabled, signing is now four times faster, matching the
+performance of non-FIPS mode.
+
+#### [`crypto/ed25519`](/pkg/crypto/ed25519/)
+
+When FIPS 140-3 mode is enabled, signing is now four times faster, matching the
+performance of non-FIPS mode.
 
 #### [`crypto/elliptic`](/pkg/crypto/elliptic/)
 
-The hidden and undocumented `Inverse` and `CombinedMult` methods on some [`Curve`](/pkg/crypto/elliptic#Curve)
-implementations have been removed.
+The hidden and undocumented `Inverse` and `CombinedMult` methods on some
+[`Curve`](/pkg/crypto/elliptic#Curve) implementations have been removed.
+
+#### [`crypto/rsa`](/pkg/crypto/rsa/)
+
+[`PublicKey`](/pkg/crypto/rsa#PublicKey) no longer claims that the modulus value
+is treated as secret. [`VerifyPKCS1v15`](/pkg/crypto/rsa#VerifyPKCS1v15) and
+[`VerifyPSS`](/pkg/crypto/rsa#VerifyPSS) already warned that all inputs are
+public and could be leaked, and there are mathematical attacks that can recover
+the modulus from other public values.
+
+Key generation is now three times faster.
+
+#### [`crypto/sha1`](/pkg/crypto/sha1/)
+
+Hashing is now two times faster on amd64 when SHA-NI instructions are available.
 
 #### [`crypto/sha3`](/pkg/crypto/sha3/)
 
 The new [`SHA3.Clone`](/pkg/crypto/sha3#SHA3.Clone) method implements [`hash.Cloner`](/pkg/hash#Cloner).
 
+Hashing is now two times faster on Apple M processors.
+
 #### [`crypto/tls`](/pkg/crypto/tls/)
 
-The new [`ConnectionState.CurveID`](/pkg/crypto/tls#ConnectionState.CurveID) field exposes the key exchange mechanism used
-to establish the connection.
+The new [`ConnectionState.CurveID`](/pkg/crypto/tls#ConnectionState.CurveID)
+field exposes the key exchange mechanism used to establish the connection.
 
-The new [`Config.GetEncryptedClientHelloKeys`](/pkg/crypto/tls#Config.GetEncryptedClientHelloKeys) callback can be used to set the
-[`EncryptedClientHelloKey`](/pkg/crypto/tls#EncryptedClientHelloKey)s for a server to use when a client sends an Encrypted
-Client Hello extension.
+The new [`Config.GetEncryptedClientHelloKeys`](/pkg/crypto/tls#Config.GetEncryptedClientHelloKeys)
+callback can be used to set the [`EncryptedClientHelloKey`](/pkg/crypto/tls#EncryptedClientHelloKey)s
+for a server to use when a client sends an Encrypted Client Hello extension.
 
 SHA-1 signature algorithms are now disallowed in TLS 1.2 handshakes, per
 [RFC 9155](https://www.rfc-editor.org/rfc/rfc9155.html).
-They can be re-enabled with the `tlssha1=1` [GODEBUG option](/doc/godebug).
+They can be re-enabled with the [GODEBUG setting](/doc/godebug) `tlssha1=1`.
 
 When [FIPS 140-3 mode](/doc/security/fips140) is enabled, Extended Master Secret
 is now required in TLS 1.2, and Ed25519 and X25519MLKEM768 are now allowed.
 
-TLS servers now prefer the highest supported protocol version, even if it isn't the client's most preferred protocol version.
+TLS servers now prefer the highest supported protocol version, even if it isn't
+the client's most preferred protocol version.
+
+<!-- CL 687855 -->
+Both TLS clients and servers are now stricter in following the specifications
+and in rejecting off-spec behavior. Connections with compliant peers should be
+unaffected.
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
-[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate), [`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest), and [`CreateRevocationList`](/pkg/crypto/x509#CreateRevocationList) can now accept a [`crypto.MessageSigner`](/pkg/crypto#MessageSigner) signing interface as well as [`crypto.Signer`](/pkg/crypto#Signer). This allows these functions to use signers which implement "one-shot" signing interfaces, where hashing is done as part of the signing operation, instead of by the caller.
+[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate),
+[`CreateCertificateRequest`](/pkg/crypto/x509#CreateCertificateRequest), and
+[`CreateRevocationList`](/pkg/crypto/x509#CreateRevocationList) can now accept a
+[`crypto.MessageSigner`](/pkg/crypto#MessageSigner) signing interface as well as
+[`crypto.Signer`](/pkg/crypto#Signer). This allows these functions to use
+signers which implement "one-shot" signing interfaces, where hashing is done as
+part of the signing operation, instead of by the caller.
 
-[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) now uses truncated SHA-256 to populate the `SubjectKeyId` if
-it is missing. The [GODEBUG setting](/doc/godebug) `x509sha256skid=0` reverts to SHA-1.
+[`CreateCertificate`](/pkg/crypto/x509#CreateCertificate) now uses truncated
+SHA-256 to populate the `SubjectKeyId` if it is missing.
+The [GODEBUG setting](/doc/godebug) `x509sha256skid=0` reverts to SHA-1.
 
 #### [`debug/elf`](/pkg/debug/elf/)
 
