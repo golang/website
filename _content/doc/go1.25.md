@@ -386,6 +386,9 @@ part of the signing operation, instead of by the caller.
 SHA-256 to populate the `SubjectKeyId` if it is missing.
 The [GODEBUG setting](/doc/godebug) `x509sha256skid=0` reverts to SHA-1.
 
+[`ParseCertificate`](/pkg/crypto/x509#ParseCertificate) now rejects certificates
+which contain a BasicConstraints extension that contains a negative pathLenConstraint.
+
 #### [`debug/elf`](/pkg/debug/elf/)
 
 The [`debug/elf`](/pkg/debug/elf) package adds two new constants:
