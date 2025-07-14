@@ -287,6 +287,12 @@ API and provide feedback on the [proposal issue](/issue/71497).
 The [`Writer.AddFS`](/pkg/archive/tar#Writer.AddFS) implementation now supports symbolic links
 for filesystems that implement [`io/fs.ReadLinkFS`](/pkg/io/fs#ReadLinkFS).
 
+#### [`encoding/asn1`](/pkg/encoding/asn1/)
+
+[`Unmarshal`](/pkg/encoding/asn1#Unmarshal) and [`UnmarshalWithParams`](/pkg/encoding/asn1#UnmarshalWithParams)
+now parse the ASN.1 types T61String and BMPString more consistently. This may
+result in some previously accepted malformed encodings now being rejected.
+
 #### [`crypto`](/pkg/crypto/)
 
 [`MessageSigner`](/pkg/crypto#MessageSigner) is a new signing interface that can
@@ -388,6 +394,10 @@ The [GODEBUG setting](/doc/godebug) `x509sha256skid=0` reverts to SHA-1.
 
 [`ParseCertificate`](/pkg/crypto/x509#ParseCertificate) now rejects certificates
 which contain a BasicConstraints extension that contains a negative pathLenConstraint.
+
+[`ParseCertificate`](/pkg/crypto/x509#ParseCertificate) now handles strings encoded
+with the ASN.1 T61String and BMPString types more consistently. This may result in
+some previously accepted malformed encodings now being rejected.
 
 #### [`debug/elf`](/pkg/debug/elf/)
 
