@@ -12,13 +12,21 @@ Cryptographic Module.
 
 NIST FIPS 140-3 is a U.S. Government compliance regime for cryptography
 applications that amongst other things requires the use of a set of approved
-algorithms, and the use of CMVP-validated cryptographic modules tested in the
-target operating environments.
+algorithms, and the use of
+[CMVP](https://csrc.nist.gov/projects/cryptographic-module-validation-program)-validated
+cryptographic modules tested in the target operating environments.
 
 The mechanisms described in this page facilitate compliance for Go applications.
 
 Applications that have no need for FIPS 140-3 compliance can safely ignore them,
 and should not enable FIPS 140-3 mode.
+
+**NOTE:** Simply using a FIPS 140-3 compliant and validated cryptographic module
+may not—on its own—satisfy all relevant regulatory requirements. The Go team cannot provide any
+guarantees or support around how usage of the provided FIPS 140-3
+mode may, or may not, satisfy specific regulatory requirements for individual
+users. Care should be taken in determining if usage of this module satisfies
+your specific requirements.
 
 ## The Go Cryptographic Module
 
@@ -28,9 +36,6 @@ algorithms.
 
 Public API packages such as `crypto/ecdsa` and `crypto/rand` transparently use
 the Go Cryptographic Module to implement FIPS 140-3 algorithms.
-
-Go Cryptographic Module version v1.0.0 is currently under test with a
-CMVP-accredited laboratory.
 
 ## FIPS 140-3 mode
 
@@ -53,12 +58,12 @@ When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
 
  - [`crypto/rand.Reader`](/pkg/crypto/rand/#Reader) is implemented in terms of a
    NIST SP 800-90A DRBG. To guarantee the same level of security as
-   `GODEBUG=fips140=off`, random bytes are sourced from the platform's CSPRNG at
+   `GODEBUG=fips140=off`, random bytes are also sourced from the platform's CSPRNG at
    every `Read` and mixed into the output as uncredited additional data.
 
  - The [`crypto/tls`](/pkg/crypto/tls/) package will ignore and not negotiate
    any protocol version, cipher suite, signature algorithm, or key exchange
-   mechanism that is not compliant with NIST SP 800-52r2.
+   mechanism that is not FIPS 140-3 approved.
 
  - [`crypto/rsa.SignPSS`](/pkg/crypto/rsa/#SignPSS) with
    [`PSSSaltLengthAuto`](/pkg/crypto/rsa/#PSSSaltLengthAuto) will cap the length
@@ -90,6 +95,38 @@ into the executable program.
 
  - `v1.0.0` uses Go Cryptographic Module version v1.0.0, frozen in early 2025
    and first shipped with Go 1.24. It enables FIPS 140-3 mode by default.
+
+## Module Validations
+
+Google currently has a contractual relationship with [Geomys](https://geomys.org/)
+to facilitate at least yearly CMVP validations of the Go Cryptographic Module.
+At the time of validation we will freeze the Go Cryptographic Module and create
+a new module version for submission.
+
+These validations are tested on a comprehensive set of Operating
+Environments, supporting many popular operating system and hardware platform
+combinations.
+
+Off-cycle validations may be performed if security issues are discovered in
+the module.
+
+###  Validated Module Versions
+
+List of module versions which have completed [CMVP validation](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search?SearchMode=Basic&ModuleName=Go+Cryptographic+Module&CertificateStatus=Active&ValidationYear=0):
+
+_There are currently no module versions which have completed validation._
+
+### In Process Module Versions
+
+List of module versions which are currently in the [CMVP Modules In Process List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list):
+
+* v1.0.0 ([CAVP Certificate A6650](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=39260)), Review Pending, available in Go 1.24+
+
+### Implementation Under Test Module Versions
+
+List of module versions which are currently in the [CMVP Implementation Under Test List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/iut-list):
+
+_There are currently no module versions under test._
 
 ## Go+BoringCrypto
 
