@@ -33,9 +33,6 @@ of the Go community. Google and other industry stakeholders have a contractual
 relationship with Geomys to include specific Operating Environments in the
 certificate.
 
-We believe this to be the first non-JVM memory-safe library to get FIPS 140
-validated.
-
 Further details on the module are available in the
 [documentation](/doc/security/fips140).
 
