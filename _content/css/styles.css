@@ -5393,3 +5393,27 @@ hr {
   border-top: 1px solid var(--color-border);
   height: 1px;
 }
+
+/* Table in mod topics. */
+.ModTable {
+  border-collapse: collapse;
+}
+.ModTable-row {
+  border-bottom: var(--border);
+  vertical-align: top;
+}
+.ModTable-head {
+  background: var(--color-background-accented);
+  border-bottom: var(--border);
+  border-top: var(--border);
+  height: 3rem;
+}
+.ModTable-head-cell {
+  white-space: nowrap;
+}
+.ModTable-cell {
+  padding: 0.4375rem 0.4375rem 0.875rem;
+}
+.ModTable-cell p {
+  margin: 0rem;
+}
