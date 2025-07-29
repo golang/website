@@ -5393,3 +5393,17 @@ hr {
   border-top: 1px solid var(--color-border);
   height: 1px;
 }
+
+/* default styles for markdown tables */
+div.markdown table {
+  border-collapse: collapse;
+}
+div.markdown th,
+div.markdown td {
+  border:	1px solid #ccc;
+  padding: 	0.1em 2em 0.1em 2em;
+}
+div.markdown th {
+  background-color: var(--color-background-accented);
+}
+

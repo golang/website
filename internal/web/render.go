@@ -203,9 +203,11 @@ func markdownToHTML(markdown string) (template.HTML, error) {
 		),
 	)
 	var buf bytes.Buffer
+	buf.WriteString("<div class='markdown'>\n")
 	if err := md.Convert(replaceTabs([]byte(markdown)), &buf); err != nil {
 		return "", err
 	}
+	buf.WriteString("</div>\n")
 	return template.HTML(buf.Bytes()), nil
 }
 

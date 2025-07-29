@@ -28,7 +28,6 @@ import (
 	"strings"
 	"sync"
 	"sync/atomic"
-	"testing/fstest"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -320,26 +319,7 @@ func addGopls(contentFS fs.FS, ref string) fs.FS {
 		go watchGit(&toolsFS, "https://go.googlesource.com/tools", ref)
 	}
 
-	// Inject gopls/doc/default.tmpl into the FS, since
-	// unlike wiki, x/tools/gopls/doc doesn't have the
-	// default.tmpl needed by the markdown renderer.
-	// TODO(adonovan): remove once CL 686595 has been released in gopls/v0.20.0.
-	overlay := fstest.MapFS{
-		"gopls/doc/default.tmpl": {
-			Data: []byte(`
-{{define "layout"}}
-{{doclayout .}}
-{{end}})}`[1:]),
-		},
-	}
-	tools2FS := fnFS(func(name string) (fs.File, error) {
-		if _, ok := overlay[name]; ok {
-			return overlay.Open(name)
-		}
-		return toolsFS.Open(name) // delegate
-	})
-
-	goplsDocFS, err := fs.Sub(tools2FS, "gopls/doc")
+	goplsDocFS, err := fs.Sub(&toolsFS, "gopls/doc")
 	if err != nil {
 		log.Fatalf("can't restrict to gopls/doc tree: %v", err)
 	}
@@ -1031,10 +1011,3 @@ func jsonUnmarshal(data []byte) (any, error) {
 	err := json.Unmarshal(data, &x)
 	return x, err
 }
-
-// A fnFS is a closure that defines an [fs.FS].
-type fnFS func(name string) (fs.File, error)
-
-var _ fs.FS = fnFS(nil)
-
-func (f fnFS) Open(name string) (fs.File, error) { return f(name) }
