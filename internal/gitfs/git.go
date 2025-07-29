@@ -12,10 +12,8 @@ import (
 	"io"
 	"io/fs"
 	"log"
-	"maps"
 	"net/http"
 	pathpkg "path"
-	"slices"
 	"strings"
 
 	"golang.org/x/mod/semver"
@@ -81,9 +79,8 @@ func (r *Repo) handshake() error {
 
 // Resolve looks up the given ref and returns the corresponding Hash.
 //
-// As a special case (to support gopls), a ref of the form
-// "dir/latest" returns the latest semver release tag
-// "refs/tags/dir/vX.Y.Z..." according to Go module version semantics.
+// As a special case, a ref of "gopls/latest-release-branch" returns
+// the tip commit on the latest release branch of gopls.
 func (r *Repo) Resolve(ref string) (Hash, error) {
 	if h, err := parseHash(ref); err == nil {
 		return h, nil
@@ -93,20 +90,24 @@ func (r *Repo) Resolve(ref string) (Hash, error) {
 		return Hash{}, fmt.Errorf("resolve %s: %v", ref, err)
 	}
 
-	// "gopls/latest" -> latest of "refs/tags/gopls/vX.Y.Z"
-	if pathpkg.Base(ref) == "latest" {
-		// Find release tags.
-		pre := fmt.Sprintf("refs/tags/%s/", pathpkg.Dir(ref))
+	// gopls/latest-release-branch means (a) resolve
+	// gopls@latest by sorting tags "refs/tags/gopls/vX.Y.Z" in
+	// the usual way, then (b) find the latest commit on its
+	// release branch "gopls-release-branch.X.Y".
+	//
+	// This avoids the need to release gopls just to pick up doc
+	// changes that have been cherrypicked to the release branch.
+	if ref == "gopls/latest-release-branch" {
+		// Find gopls release tags.
+		const pre = "refs/tags/gopls/"
 		refs, err := r.refs(pre + "v")
 		if err != nil {
 			return fail(err)
 		}
 
 		// Extract semvers in ascending order.
-		names := slices.Collect(maps.Keys(refs))
-		slices.Sort(names)
 		var versions []string // "vX.Y.Z"
-		for _, name := range names {
+		for name := range refs {
 			versions = append(versions, strings.TrimPrefix(name, pre))
 		}
 		semver.Sort(versions)
@@ -122,8 +123,26 @@ func (r *Repo) Resolve(ref string) (Hash, error) {
 		if latest == "" {
 			return fail(fmt.Errorf("no release tag matching %q", pre))
 		}
-		log.Printf("resolved %s -> %s (%s)", ref, latest, refs[latest])
-		return refs[latest], nil
+		log.Printf("resolved %s to %s (%s)", ref, latest, refs[latest])
+
+		// Parse latest as vX.Y.
+		majmin := semver.MajorMinor(pathpkg.Base(latest))
+		if !strings.HasPrefix(majmin, "v") {
+			return fail(fmt.Errorf("can't parse latest version %q as vX.Y", majmin))
+		}
+
+		// Resolve gopls release branch to tip commit.
+		branch := fmt.Sprintf("refs/heads/gopls-release-branch.%s", strings.TrimPrefix(majmin, "v"))
+		refs2, err := r.refs(branch)
+		if err != nil {
+			return fail(err)
+		}
+		branchHash, ok := refs2[branch]
+		if !ok {
+			return fail(fmt.Errorf("cannot resolve %q", branch))
+		}
+		log.Printf("resolved %s to %s", branch, branchHash)
+		return branchHash, nil
 	}
 
 	refs, err := r.refs(ref)

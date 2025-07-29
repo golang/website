@@ -200,8 +200,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		go watchGit(&tipGoroot, "https://go.googlesource.com/go", "HEAD")
 	}
 
-	// go.dev/gopls serves the latest gopls release of golang.org/x/tools/gopls/doc.
-	contentFS = addGopls(contentFS, "gopls/latest")
+	// go.dev/gopls serves golang.org/x/tools/gopls/doc from the
+	// tip commit on the latest release branch.
+	contentFS = addGopls(contentFS, "gopls/latest-release-branch")
 
 	// beta.golang.org is an old name for tip.
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
