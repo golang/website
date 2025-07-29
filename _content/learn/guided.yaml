@@ -3,6 +3,11 @@
       how to use Go for web development.
     url: https://gowebexamples.com
     cta: Learn more
+  - title: Go Interview Challenges
+    content: 30+ hands-on interactive coding challenges covering Go fundamentals and practical 
+      implementations for technical interview preparation.
+    url: https://github.com/RezaSi/go-interview-practice
+    cta: Practice now
   - title: CLIs
     content: This workshop will walk you through building a CLI app with Go,
       introducing you to basic Go principles and CLI frameworks along the way.
