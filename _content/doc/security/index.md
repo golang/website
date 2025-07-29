@@ -81,3 +81,9 @@ standard toolchain beginning in Go 1.18.  Native Go fuzz tests are
 Go’s cryptography libraries aim to help developers build secure applications.
 See documentation for the [crypto packages](https://pkg.go.dev/golang.org/x/crypto)
 and [golang.org/x/crypto/](https://pkg.go.dev/golang.org/x/crypto).
+
+## FIPS 140-3 compliant cryptography
+
+Go's cryptography libraries can be used in a FIPS 140-3 compliant mode for use
+in regulated environments. See the [FIPS 140-3 Compliance](/doc/security/fips140) documentation
+for more information.
