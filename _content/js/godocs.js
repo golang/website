@@ -41,6 +41,8 @@
     var toc_items = [];
     $(nav)
       .nextAll('h2, h3')
+      /* Headings may be nested within div.markdown. */
+      .add($(nav).nextAll('div.markdown').find('h2, h3'))
       .each(function() {
         var node = this;
         if (node.id == '') node.id = 'tmp_' + toc_items.length;
