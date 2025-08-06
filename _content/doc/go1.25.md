@@ -166,16 +166,7 @@ memory. This can be disabled with the [GODEBUG setting](/doc/godebug)
 
 ## Compiler {#compiler}
 
-<!-- https://go.dev/issue/26379 -->
-
-The compiler and linker in Go 1.25 now generate debug information
-using [DWARF version 5](https://dwarfstd.org/dwarf5std.html). The
-newer DWARF version reduces the space required for debugging
-information in Go binaries, and reduces the time for linking,
-especially for large Go binaries.
-DWARF 5 generation can be disabled by setting the environment
-variable `GOEXPERIMENT=nodwarf5` at build time
-(this fallback may be removed in a future Go release).
+### nil pointer bug
 
 <!-- https://go.dev/issue/72860, CL 657715 -->
 
@@ -207,6 +198,21 @@ causing the program to execute successfully, in violation of the Go spec. In Go
 1.25, it will no longer run successfully. If this change is affecting your code,
 the solution is to put the non-nil error check earlier in your code, preferably
 immediately after the error-generating statement.
+
+### DWARF5 support
+
+<!-- https://go.dev/issue/26379 -->
+
+The compiler and linker in Go 1.25 now generate debug information
+using [DWARF version 5](https://dwarfstd.org/dwarf5std.html). The
+newer DWARF version reduces the space required for debugging
+information in Go binaries, and reduces the time for linking,
+especially for large Go binaries.
+DWARF 5 generation can be disabled by setting the environment
+variable `GOEXPERIMENT=nodwarf5` at build time
+(this fallback may be removed in a future Go release).
+
+### Faster slices
 
 <!-- CLs 653856, 657937, 663795, 664299 -->
 
