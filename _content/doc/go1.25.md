@@ -175,13 +175,14 @@ information in Go binaries, and reduces the time for linking,
 especially for large Go binaries.
 DWARF 5 generation can be disabled by setting the environment
 variable `GOEXPERIMENT=nodwarf5` at build time
-(for now, which may be removed in a future Go release).
+(this fallback may be removed in a future Go release).
 
 <!-- https://go.dev/issue/72860, CL 657715 -->
 
-The compiler [has been fixed](/cl/657715)
-to ensure that nil pointer checks are performed promptly. Programs like the following,
-which used to execute successfully, will now panic with a nil-pointer exception:
+This release fixes a [compiler bug](/issue/72860), introduced in Go 1.21, that
+could incorrectly delay nil pointer checks. Programs like the following, which
+used to execute successfully (incorrectly), will now (correctly) panic with a
+nil-pointer exception:
 
 ```
 package main
@@ -198,13 +199,14 @@ func main() {
 }
 ```
 
-This program is incorrect in that it uses the result of `os.Open` before checking
-the error. The main result of `os.Open` can be a nil pointer if the error result is non-nil.
-But because of [a compiler bug](/issue/72860), this program ran successfully under
-Go versions 1.21 through 1.24 (in violation of the Go spec). It will no longer run
-successfully in Go 1.25. If this change is affecting your code, the solution is to put
-the non-nil error check earlier in your code, preferably immediately after
-the error-generating statement.
+This program is incorrect because it uses the result of `os.Open` before
+checking the error. If `err` is non-nil, then the `f` result may be nil, in
+which case `f.Name()` should panic. However, in Go versions 1.21 through 1.24,
+the compiler incorrectly delayed the nil check until *after* the error check,
+causing the program to execute successfully, in violation of the Go spec. In Go
+1.25, it will no longer run successfully. If this change is affecting your code,
+the solution is to put the non-nil error check earlier in your code, preferably
+immediately after the error-generating statement.
 
 <!-- CLs 653856, 657937, 663795, 664299 -->
 
@@ -236,11 +238,17 @@ The new [`testing/synctest`](/pkg/testing/synctest) package
 provides support for testing concurrent code.
 
 The [`Test`](/pkg/testing/synctest#Test) function runs a test function in an isolated
-"bubble". Within the bubble, [`time`](/pkg/time) package functions
-operate on a fake clock.
+"bubble". Within the bubble, time is virtualized: [`time`](/pkg/time) package
+functions operate on a fake clock and the clock moves forward instantaneously if
+all goroutines in the bubble are blocked.
 
 The [`Wait`](/pkg/testing/synctest#Wait) function waits for all goroutines in the
 current bubble to block.
+
+This package was first available in Go 1.24 under `GOEXPERIMENT=synctest`, with
+a slightly different API. The experiment has now graduated to general
+availability. The old API is still present if `GOEXPERIMENT=synctest` is set,
+but will be removed in Go 1.26.
 
 ### New experimental encoding/json/v2 package {#json_v2}
 
@@ -433,7 +441,7 @@ set of [`File`](/pkg/go/token#File)s, alleviating the problems associated with a
 #### [`go/types`](/pkg/go/types/)
 
 [`Var`](/pkg/go/types#Var) now has a [`Var.Kind`](/pkg/go/types#Var.Kind) method that classifies the variable as one
-of: package-level, receiver, parameter, result, or local variable, or
+of: package-level, receiver, parameter, result, local variable, or
 a struct field.
 
 The new [`LookupSelection`](/pkg/go/types#LookupSelection) function looks up the field or method of a
@@ -451,7 +459,7 @@ All standard library [`Hash`](/pkg/hash#Hash) implementations now implement [`Cl
 
 #### [`hash/maphash`](/pkg/hash/maphash/)
 
-The new [`Hash.Clone`](/pkg/hash/maphash#Hash.Clone) method implements [hash.Cloner](/pkg/hash#Cloner).
+The new [`Hash.Clone`](/pkg/hash/maphash#Hash.Clone) method implements [`hash.Cloner`](/pkg/hash#Cloner).
 
 #### [`io/fs`](/pkg/io/fs/)
 
@@ -477,14 +485,18 @@ Previously if a name server returned an IP address as a DNS name,
 [`LookupMX`](/pkg/net#LookupMX) would discard it, as required by the RFCs.
 However, name servers in practice do sometimes return IP addresses.
 
-On Windows, the [`ListenMulticastUDP`](/pkg/net#ListenMulticastUDP) now supports IPv6 addresses.
+On Windows, [`ListenMulticastUDP`](/pkg/net#ListenMulticastUDP) now supports IPv6 addresses.
 
-On Windows, conversions between an [`os.File`](/pkg/os#File) and a network connection are now supported.
-Specifcally, the [`FileConn`](/pkg/net#FileConn), [`FilePacketConn`](/pkg/net#FilePacketConn), [`FileListener`](/pkg/net#FileListener)
-functions are now implemented, allowing getting the network connection or listener corresponding to an open file.
-The [`TCPConn.File`](/pkg/net#TCPConn.File), [`UDPConn.File`](/pkg/net#UDPConn.File), [`UnixConn.File`](/pkg/net#UnixConn.File),
-[`IPConn.File`](/pkg/net#IPConn.File), [`TCPListener.File`](/pkg/net#TCPListener.File), and [`UnixListener.File`](/pkg/net#UnixListener.File)
-methods are now also available, allowing access to the underlying [`os.File`](/pkg/os#File) of the connection.
+On Windows, it is now possible to convert between an [`os.File`](/pkg/os#File)
+and a network connection. Specifcally, the [`FileConn`](/pkg/net#FileConn),
+[`FilePacketConn`](/pkg/net#FilePacketConn), and
+[`FileListener`](/pkg/net#FileListener) functions are now implemented, and
+return a network connection or listener corresponding to an open file.
+Similarly, the `File` methods of [`TCPConn`](/pkg/net#TCPConn.File),
+[`UDPConn`](/pkg/net#UDPConn.File), [`UnixConn`](/pkg/net#UnixConn.File),
+[`IPConn`](/pkg/net#IPConn.File), [`TCPListener`](/pkg/net#TCPListener.File),
+and [`UnixListener`](/pkg/net#UnixListener.File) are now implemented, and return
+the underlying [`os.File`](/pkg/os#File) of a network connection.
 
 #### [`net/http`](/pkg/net/http/)
 
@@ -551,18 +563,19 @@ use like the [`unique`](/pkg/unique) package. Note that individual cleanups shou
 still shunt their work to a new goroutine if they must execute or
 block for a long time to avoid blocking the cleanup queue.
 
-When `GODEBUG=checkfinalizers=1` is set, the runtime will run
-diagnostics on each garbage collection cycle to find common issues
-with how the program might use finalizers and cleanups, such as those
-described [in the GC
-guide](/doc/gc-guide#Finalizers_cleanups_and_weak_pointers). In this
-mode, the runtime will also regularly report the finalizer and
+A new `GODEBUG=checkfinalizers=1` setting helps find common issues with
+finalizers and cleanups, such as those described [in the GC
+guide](/doc/gc-guide#Finalizers_cleanups_and_weak_pointers).
+In this mode, the runtime runs diagnostics on each garbage collection cycle,
+and will also regularly report the finalizer and
 cleanup queue lengths to stderr to help identify issues with
 long-running finalizers and/or cleanups.
+See the [GODEBUG documentation](https://pkg.go.dev/runtime#hdr-Environment_Variables)
+for more details.
 
 The new [`SetDefaultGOMAXPROCS`](/pkg/runtime#SetDefaultGOMAXPROCS) function sets `GOMAXPROCS` to the runtime
 default value, as if the `GOMAXPROCS` environment variable is not set. This is
-useful for enabling the [new `GOMAXPROCS` default](#runtime) if it has been
+useful for enabling the [new `GOMAXPROCS` default](#container-aware-gomaxprocs) if it has been
 disabled by the `GOMAXPROCS` environment variable or a prior call to
 [`GOMAXPROCS`](/pkg/runtime#GOMAXPROCS).
 
@@ -588,7 +601,7 @@ within the [`FlightRecorderConfig`](/pkg/runtime/trace#FlightRecorderConfig).
 
 #### [`sync`](/pkg/sync/)
 
-The new method on [`WaitGroup`](/pkg/sync#WaitGroup), [`WaitGroup.Go`](/pkg/sync#WaitGroup.Go),
+The new [`WaitGroup.Go`](/pkg/sync#WaitGroup.Go) method
 makes the common pattern of creating and counting goroutines more convenient.
 
 #### [`testing`](/pkg/testing/)
@@ -597,17 +610,20 @@ The new methods [`T.Attr`](/pkg/testing#T.Attr), [`B.Attr`](/pkg/testing#B.Attr)
 attribute to the test log. An attribute is an arbitrary
 key and value associated with a test.
 
-For example, in a test named `TestAttr`,
+For example, in a test named `TestF`,
 `t.Attr("key", "value")` emits:
 
 ```
-=== ATTR  TestAttr key value
+=== ATTR  TestF key value
 ```
+
+With the `-json` flag, attributes appear as a new "attr" action.
 
 <!-- go.dev/issue/59928 -->
 
 The new [`Output`](/pkg/testing#T.Output) method of [`T`](/pkg/testing#T), [`B`](/pkg/testing#B) and [`F`](/pkg/testing#F) provides an [`io.Writer`](/pkg/io#Writer)
-that writes to the same test output stream as [`TB.Log`](/pkg/testing#TB.Log), but omits the file and line number.
+that writes to the same test output stream as [`TB.Log`](/pkg/testing#TB.Log).
+Like `TB.Log`, the output is indented, but it does not include the file and line number.
 
 <!-- https://go.dev/issue/70464, CL 630137 -->
 The [`AllocsPerRun`](/pkg/testing#AllocsPerRun) function now panics
@@ -627,6 +643,7 @@ The new panicking behavior helps catch such bugs.
 #### [`unicode`](/pkg/unicode/)
 
 The new [`CategoryAliases`](/pkg/unicode#CategoryAliases) map provides access to category alias names, such as “Letter” for “L”.
+
 The new categories [`Cn`](/pkg/unicode#Cn) and [`LC`](/pkg/unicode#LC) define unassigned codepoints and cased letters, respectively.
 These have always been defined by Unicode but were inadvertently omitted in earlier versions of Go.
 The [`C`](/pkg/unicode#C) category now includes [`Cn`](/pkg/unicode#Cn), meaning it has added all unassigned code points.
@@ -640,15 +657,16 @@ truly unique values are interned.
 
 Values passed to [`Make`](/pkg/unique#Make) containing [`Handle`](/pkg/unique#Handle)s previously required multiple
 garbage collection cycles to collect, proportional to the depth of the chain
-of [`Handle`](/pkg/unique#Handle) values. Now, they are collected promptly in a single cycle, once
-unused.
+of [`Handle`](/pkg/unique#Handle) values. Now, once
+unused, they are collected promptly in a single cycle.
 
 ## Ports {#ports}
 
 ### Darwin
 
 <!-- go.dev/issue/69839 -->
-As [announced](/doc/go1.24#darwin) in the Go 1.24 release notes, Go 1.25 requires macOS 12 Monterey or later; support for previous versions has been discontinued.
+As [announced](/doc/go1.24#darwin) in the Go 1.24 release notes, Go 1.25 requires macOS 12 Monterey or later.
+Support for previous versions has been discontinued.
 
 ### Windows
 
