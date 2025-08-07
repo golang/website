@@ -189,7 +189,7 @@ memory. This can be disabled with the [GODEBUG setting](/doc/godebug)
 
 ## Compiler {#compiler}
 
-### nil pointer bug
+### `nil` pointer bug
 
 <!-- https://go.dev/issue/72860, CL 657715 -->
 
