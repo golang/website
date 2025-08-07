@@ -135,6 +135,29 @@ end, we encourage Go developers to try it out and report back their experiences.
 See the [GitHub issue](/issue/73581) for more details on the design and
 instructions for sharing feedback.
 
+### Trace flight recorder
+
+<!-- go.dev/issue/63185 -->
+
+[Runtime execution traces](/pkg/runtime/trace) have long provided a powerful,
+but expensive way to understand and debug the low-level behavior of an
+application. Unfortunately, because of their size and the cost of continuously
+writing an execution trace, they were generally impractical for debugging rare
+events.
+
+The new [`runtime/trace.FlightRecorder`](/pkg/runtime/trace#FlightRecorder) API
+provides a lightweight way to capture a runtime execution trace by continuously
+recording the trace into an in-memory ring buffer. When a significant event
+occurs, a program can call
+[`FlightRecorder.WriteTo`](/pkg/runtime/trace#FlightRecorder.WriteTo) to
+snapshot the last few seconds of the trace to a file. This approach produces a
+much smaller trace by enabling applications to capture only the traces that
+matter.
+
+The length of time and amount of data captured by a
+[`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) may be configured within
+the [`FlightRecorderConfig`](/pkg/runtime/trace#FlightRecorderConfig).
+
 ### Change to unhandled panic output
 
 <!-- go.dev/issue/71517 -->
@@ -593,17 +616,6 @@ profile's behavior for contention on `sync.Mutex` values. The
 `runtimecontentionstacks` setting for `GODEBUG`, which allowed opting in to the
 unusual behavior of Go 1.22 through 1.24 for this part of the profile, is now
 gone.
-
-#### [`runtime/trace`](/pkg/runtime/trace/)
-
-<!-- go.dev/issue/63185 -->
-The new [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) provides a
-lightweight way to capture a trace of last few seconds of execution at a
-specific moment in time. When a significant event occurs, a program may call
-[`FlightRecorder.WriteTo`](/pkg/runtime/trace#FlightRecorder.WriteTo) to
-snapshot available trace data. The length of time and amount of data captured
-by a [`FlightRecorder`](/pkg/runtime/trace#FlightRecorder) may be configured
-within the [`FlightRecorderConfig`](/pkg/runtime/trace#FlightRecorderConfig).
 
 #### [`sync`](/pkg/sync/)
 
