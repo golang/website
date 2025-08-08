@@ -312,6 +312,7 @@ a#run, a#kill {
     font-family: 'Inconsolata', monospace;
     background: #fafafa;
     margin: 0;
+    min-width: min-content;
 }
 .output .system {
     color: #888;
@@ -511,6 +512,7 @@ a#run, a#kill {
     }
     #explorer + div {
         top: 32px;
+        height: calc(100% - 32px);
     }
     #file-menu {
         position: absolute;
