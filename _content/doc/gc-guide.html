@@ -1234,6 +1234,13 @@ runtime.AddCleanup(f, func(f *myFile) {
 		Finalizers have a well-defined execution order, but cleanups do not.
 		Cleanups can also run concurrently with one another.
 		</p>
+
+    </li>
+    <li>
+        <p>
+        Long running cleanups should create a goroutine to avoid
+        blocking the execution of other cleanups.
+        </p>
 	</li>
 	<li>
 		<p>
@@ -1327,6 +1334,12 @@ for range 10 {
 		may end up relying on.
 		</p>
 	</li>
+    <li>
+        <p>
+        Long running finalizers should create a new goroutine
+        to avoid blocking the execution of other finalizers.
+        </p>
+    </li>
 	<li>
 		<p>
 		<code>runtime.GC</code> will not wait until finalizers for unreachable
