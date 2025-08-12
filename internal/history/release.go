@@ -14,6 +14,9 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2025, 8, 12}, Version: Version{1, 25, 0},
+	},
+	{
 		Date: Date{2025, 8, 6}, Version: Version{1, 24, 6},
 		Security: &FixSummary{
 			Packages: []string{"database/sql", "os/exec"},
