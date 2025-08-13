@@ -1,6 +1,6 @@
 module golang.org/x/website
 
-go 1.23.0
+go 1.24.0
 
 require (
 	cloud.google.com/go/cloudbuild v1.14.0
