@@ -519,7 +519,7 @@ However, name servers in practice do sometimes return IP addresses.
 On Windows, [`ListenMulticastUDP`](/pkg/net#ListenMulticastUDP) now supports IPv6 addresses.
 
 On Windows, it is now possible to convert between an [`os.File`](/pkg/os#File)
-and a network connection. Specifcally, the [`FileConn`](/pkg/net#FileConn),
+and a network connection. Specifically, the [`FileConn`](/pkg/net#FileConn),
 [`FilePacketConn`](/pkg/net#FilePacketConn), and
 [`FileListener`](/pkg/net#FileListener) functions are now implemented, and
 return a network connection or listener corresponding to an open file.
