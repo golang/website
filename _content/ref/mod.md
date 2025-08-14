@@ -632,9 +632,6 @@ The `toolchain` directive
 only has an effect when the module is the main module and the default toolchain's
 version is less than the suggested toolchain's version.
 
-For reproducibility, the `go` command writes its own toolchain name in a `toolchain` line any time
-it is updating the `go` version in the `go.mod` file (usually during `go get`).
-
 For details, see “[Go toolchains](/doc/toolchain)”.
 
 ```
