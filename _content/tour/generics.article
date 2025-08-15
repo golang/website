@@ -28,6 +28,9 @@ In addition to generic functions, Go also supports generic types. A type can
 be parameterized with a type parameter, which could be useful for implementing
 generic data structures.
 
+(To learn more about generics, read the [[https://go.dev/blog/intro-generics][An Introduction To Generics]]
+and [[https://go.dev/blog/when-generics][When To Use Generics]] articles.)
+
 This example demonstrates a simple type declaration for a singly-linked list
 holding any type of value.
 
