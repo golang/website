@@ -1,6 +1,6 @@
 ---
 title: Container-aware GOMAXPROCS
-date: 2025-08-19
+date: 2025-08-20
 by:
 - Michael Pratt
 - Carlos Amedee
