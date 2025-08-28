@@ -1,5 +1,5 @@
 ---
-title: Testing Time (and other asyncronicities)
+title: Testing Time (and other asynchronicities)
 date: 2025-08-26
 by:
 - Damien Neil
