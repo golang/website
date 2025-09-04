@@ -948,7 +948,7 @@ where a durably blocked goroutine can be unblocked from outside its bubble.
 ### Better stack traces
 
 We made improvements to the information printed in stack traces.
-When a bubble deadlocks, we by default now only print stacks for the goroutines in tha bubble.
+When a bubble deadlocks, we by default now only print stacks for the goroutines in that bubble.
 Stack traces also clearly indicate which goroutines in a bubble are durably blocked.
 
 ### Randomized events happening at the same time
