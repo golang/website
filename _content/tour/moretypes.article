@@ -138,9 +138,9 @@ then builds a slice that references it:
 
 When slicing, you may omit the high or low bounds to use their defaults instead.
 
-The default is zero for the low bound and the length of the slice for the high bound.
+The default is zero for the low bound and the length of the sliced operand for the high bound.
 
-For the array
+Given a slice operand of this array
 
 	var a [10]int
 
@@ -150,6 +150,8 @@ these slice expressions are equivalent:
 	a[:10]
 	a[0:]
 	a[:]
+
+In the program to the right the slice operands are themselves also slices.
 
 .play moretypes/slice-bounds.go
 
