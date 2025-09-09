@@ -144,7 +144,7 @@ making them practically impossible to fix within the [Go 1 compatibility promise
 We could in principle declare separate names, such as `MarshalV2` or `UnmarshalV2`,
 but that is tantamount to creating a parallel namespace within the same package.
 This leads us to `encoding/json/v2` (henceforth called `v2`),
-where we can make these changes within a seperate `v2` namespace
+where we can make these changes within a separate `v2` namespace
 in contrast to `encoding/json` (henceforth called `v1`).
 
 ## Planning for `encoding/json/v2`
