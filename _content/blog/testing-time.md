@@ -7,7 +7,7 @@ tags:
 - concurrency
 - testing
 - synctest
-summary: A discussion of testing asyncronous code
+summary: A discussion of testing asynchronous code
   and an exploration of the `testing/synctest` package.
   Based on the GopherCon Europe 2025 talk with the same title.
 ---
@@ -83,7 +83,7 @@ Testing a synchronous function is straightforward:
 - the function does something and returns;
 - you verify the result.
 
-Testing an asyncronous function, however, is tricky:
+Testing an asynchronous function, however, is tricky:
 
 - You call the function;
 - it returns;
@@ -189,9 +189,9 @@ which brings us here today.
 
 ## Write synchronous functions?
 
-The simplest way to test an asyncronous function is not to do it.
+The simplest way to test an asynchronous function is not to do it.
 Synchronous functions are easy to test.
-If you can transform an asyncronous function into a synchronous one,
+If you can transform an asynchronous function into a synchronous one,
 it will be easier to test.
 
 For example, if we consider our cache cleanup functions from earlier,
