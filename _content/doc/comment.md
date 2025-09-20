@@ -498,25 +498,6 @@ are written in source code but will adjust presentation to make
 the semantic meaning of a particular comment clearer,
 analogous to reformatting `1+2 * 3` to `1 + 2*3` in ordinary source code.
 
-Directive comments such as `//go:generate` are not
-considered part of a doc comment and are omitted from
-rendered documentation.
-Gofmt moves directive comments to the end of the doc comment,
-preceded by a blank line.
-For example:
-
-	package regexp
-
-	// An Op is a single regular expression operator.
-	//
-	//go:generate stringer -type Op -trimprefix Op
-	type Op uint8
-
-A directive comment is a line matching the regular expression
-`//(line |extern |export |[a-z0-9]+:[a-z0-9])`.
-Tools that define their own directives should use the form
-`//toolname:directive`.
-
 Gofmt removes leading and trailing blank lines in doc comments.
 If all lines in a doc comment begin with the same sequence of
 spaces and tabs, gofmt removes that prefix.
@@ -870,6 +851,40 @@ Gofmt indents all lines in a code block by a single tab,
 replacing any other indentation the non-blank lines have in common.
 Gofmt also inserts a blank line before and after each code block,
 distinguishing the code block clearly from the surrounding paragraph text.
+
+### Directives {#directives}
+
+Directive comments such as `//go:generate` are not
+considered part of a doc comment and are omitted from
+rendered documentation.
+Gofmt moves directive comments to the end of the doc comment,
+preceded by a blank line.
+For example:
+
+	package regexp
+
+	// An Op is a single regular expression operator.
+	//
+	//go:generate stringer -type Op -trimprefix Op
+	type Op uint8
+
+A directive comment is a line starting with the regular expression
+`//(line |extern |export |[a-z0-9]+:[a-z0-9])`.
+
+Tools may define their own directive comments using the form
+`//toolname:directive arguments`.
+Tool directives match the regular expression
+`//([a-z0-9]+):([a-z0-9]\PZ*)($|\pZ+)(.*)`, where the first group
+is the tool name and the second group is the directive name.
+Optional arguments are separated from the directive name by
+one or more Unicode whitespace characters.
+Each tool may define its own argument syntax, but a common convention is a
+sequence of space-separated arguments, where an argument may be
+a bare word, or a double-quoted or backtick-quoted Go string.
+The tool name `go` is reserved for use by the Go toolchain.
+
+The [`go/ast.ParseDirective`](/pkg/go/ast#ParseDirective) function and its
+related types parse the tool directive syntax.
 
 ## Common mistakes and pitfalls {#mistakes}
 
