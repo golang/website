@@ -693,6 +693,16 @@ Support for previous versions has been discontinued.
 <!-- go.dev/issue/71671 -->
 Go 1.25 is the last release that contains the [broken](/doc/go1.24#windows) 32-bit windows/arm port (`GOOS=windows` `GOARCH=arm`). It will be removed in Go 1.26.
 
+### AMD64
+
+<!-- go.dev/issue/71204 -->
+In `GOAMD64=v3` mode or higher, the compiler will now use fused
+multiply-add instructions to make floating-point arithmetic faster and
+more accurate. This may change the exact floating-point values that a
+program generates.
+
+To avoid fusing use an explicit `float64` cast, like `float64(a*b)+c`.
+
 ### Loong64
 
 <!-- CLs 533717, 533716, 543316, 604176 -->
