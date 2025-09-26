@@ -315,12 +315,15 @@ of hindsight. It lets us capture just what went wrong, after it's already happen
 and quickly zero in on the cause.
 
 The flight recorder is just the latest addition to the Go developer's toolbox for
-diagnosing the inner workings of running applications. Open-source tools like
-[gotraceui](https://gotraceui.dev/), and the
-[forthcoming ability to programmatically parse execution traces](/issue/62627)
-are more ways to leverage the power of execution traces. The
-[Diagnostics page](/doc/diagnostics) lists many additional tools at your disposal.
-We hope you make use of them as you write and refine your Go applications.
+diagnosing the inner workings of running applications. We've steadily been improving
+tracing over the past couple of releases. Go 1.21 greatly reduced the run-time overhead
+of tracing. The trace format became more robust and also splittable in the Go 1.22
+release, leading to features like the flight recorder. Open-source tools like
+[gotraceui](https://gotraceui.dev/), and the [forthcoming ability to programmatically
+parse execution traces](/issue/62627) are more ways to leverage the power of
+execution traces. The [Diagnostics page](/doc/diagnostics) lists many additional
+tools at your disposal. We hope you make use of them as you write and refine
+your Go applications.
 
 ## Thanks
 
