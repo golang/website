@@ -1,6 +1,6 @@
 ---
 title: Flight Recorder in Go 1.25
-date: 2025-09-25
+date: 2025-09-26
 by:
 - Carlos Amedee
 - Michael Knyszek
@@ -279,7 +279,7 @@ goroutine was scheduled to run. And the end stack trace shows that the `sendRepo
 had already returned and it was waiting for the ticker for the next scheduled time to send
 the report.
 
-<a href="flight-recorder/flight_recorder_4.png"><img src="flight-recorder/flight_recorder_4.png" width=100%></a>
+<a href="flight-recorder/flight_recorder_4.png"><img src="flight-recorder/flight_recorder_4.png" style="padding: inherit;margin:auto;display: block;"></a>
 
 Between the start and the end of this goroutine running, we see a huge number of
 "outgoing flows," where it interacts with other goroutines. Clicking on one of the
