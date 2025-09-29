@@ -103,7 +103,7 @@ Thus, this function returns 2:
 
 	func c() (i int) {
 	    defer func() { i++ }()
-	    return 1
+	    return i
 	}
 
 This is convenient for modifying the error return value of a function; we will see an example of this shortly.
