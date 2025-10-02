@@ -1,0 +1,354 @@
+<svg version="1.1" width="660" height="600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="zoom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#444" />
+      <stop offset="100%" stop-color="#bbb" />
+    </linearGradient>
+  </defs>
+  <path d="M 254.125,43.75 L 260.375,43.75 L 260.375,50.0 L 254.125,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 247.875,43.75 L 254.125,43.75 L 254.125,50.0 L 247.875,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 241.625,43.75 L 247.875,43.75 L 247.875,50.0 L 241.625,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 231.375,43.75 L 237.625,43.75 L 237.625,50.0 L 231.375,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 225.125,43.75 L 231.375,43.75 L 231.375,50.0 L 225.125,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 218.875,43.75 L 225.125,43.75 L 225.125,50.0 L 218.875,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 212.625,43.75 L 218.875,43.75 L 218.875,50.0 L 212.625,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 206.375,43.75 L 212.625,43.75 L 212.625,50.0 L 206.375,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 200.125,43.75 L 206.375,43.75 L 206.375,50.0 L 200.125,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 193.875,43.75 L 200.125,43.75 L 200.125,50.0 L 193.875,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 187.625,43.75 L 193.875,43.75 L 193.875,50.0 L 187.625,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 187.625,40.75 L 260.375,40.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 224.0,20.0 L 224.0,20.0 L 224.0,20.0 L 224.0,40.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <rect x="189.0" y="12.0" width="70.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,20.0)" text-anchor="middle" dominant-baseline="central">load</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(174.0,46.0)" text-anchor="end" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">"seen" bits</text>
+  <path d="M 431.75,43.75 L 438.0,43.75 L 438.0,50.0 L 431.75,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 425.5,43.75 L 431.75,43.75 L 431.75,50.0 L 425.5,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 419.25,43.75 L 425.5,43.75 L 425.5,50.0 L 419.25,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 409.0,43.75 L 415.25,43.75 L 415.25,50.0 L 409.0,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 402.75,43.75 L 409.0,43.75 L 409.0,50.0 L 402.75,50.0 Z" fill="#000" stroke="#888" />
+  <path d="M 396.5,43.75 L 402.75,43.75 L 402.75,50.0 L 396.5,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 390.25,43.75 L 396.5,43.75 L 396.5,50.0 L 390.25,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 384.0,43.75 L 390.25,43.75 L 390.25,50.0 L 384.0,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 377.75,43.75 L 384.0,43.75 L 384.0,50.0 L 377.75,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 371.5,43.75 L 377.75,43.75 L 377.75,50.0 L 371.5,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 365.25,43.75 L 371.5,43.75 L 371.5,50.0 L 365.25,50.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 365.25,40.75 L 438.0,40.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 401.625,20.0 L 401.625,20.0 L 401.625,20.0 L 401.625,40.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <rect x="366.625" y="12.0" width="70.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(401.625,20.0)" text-anchor="middle" dominant-baseline="central">load</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,46.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">"scanned" bits</text>
+  <path d="M 254.125,103.75 L 260.375,103.75 L 260.375,110.0 L 254.125,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 247.875,103.75 L 254.125,103.75 L 254.125,110.0 L 247.875,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 241.625,103.75 L 247.875,103.75 L 247.875,110.0 L 241.625,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 231.375,103.75 L 237.625,103.75 L 237.625,110.0 L 231.375,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 225.125,103.75 L 231.375,103.75 L 231.375,110.0 L 225.125,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 218.875,103.75 L 225.125,103.75 L 225.125,110.0 L 218.875,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 212.625,103.75 L 218.875,103.75 L 218.875,110.0 L 212.625,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 206.375,103.75 L 212.625,103.75 L 212.625,110.0 L 206.375,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 200.125,103.75 L 206.375,103.75 L 206.375,110.0 L 200.125,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 193.875,103.75 L 200.125,103.75 L 200.125,110.0 L 193.875,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 187.625,103.75 L 193.875,103.75 L 193.875,110.0 L 187.625,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 187.625,53.0 L 260.375,53.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 187.625,100.75 L 260.375,100.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 224.0,53.0 L 224.0,53.0 Q 224.0 58.0,224.0 63.0 L 224.0,76.875 L 224.0,100.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 365.25,53.0 L 438.0,53.0" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 401.625,53.0 L 401.625,53.0 Q 401.625 58.0,396.6529928199303 58.52834136818475 L 224.0,76.875" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <circle cx="224.0" cy="76.875" r="10.0" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,76.875) skewY(0.0)" text-anchor="middle" dominant-baseline="central">&amp;^</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(174.0,106.0)" text-anchor="end" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">active objects bits</text>
+  <path d="M 431.75,103.75 L 438.0,103.75 L 438.0,110.0 L 431.75,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 425.5,103.75 L 431.75,103.75 L 431.75,110.0 L 425.5,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 419.25,103.75 L 425.5,103.75 L 425.5,110.0 L 419.25,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 409.0,103.75 L 415.25,103.75 L 415.25,110.0 L 409.0,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 402.75,103.75 L 409.0,103.75 L 409.0,110.0 L 402.75,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 396.5,103.75 L 402.75,103.75 L 402.75,110.0 L 396.5,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 390.25,103.75 L 396.5,103.75 L 396.5,110.0 L 390.25,110.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 384.0,103.75 L 390.25,103.75 L 390.25,110.0 L 384.0,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 377.75,103.75 L 384.0,103.75 L 384.0,110.0 L 377.75,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 371.5,103.75 L 377.75,103.75 L 377.75,110.0 L 371.5,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 365.25,103.75 L 371.5,103.75 L 371.5,110.0 L 365.25,110.0 Z" fill="#000" stroke="#888" />
+  <path d="M 187.625,53.0 L 260.375,53.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 365.25,100.75 L 438.0,100.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 224.0,53.0 L 224.0,53.0 Q 224.0 58.0,228.9720071800697 58.52834136818475 L 401.625,76.875 L 401.625,100.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 365.25,53.0 L 438.0,53.0" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 401.625,53.0 L 401.625,53.0 Q 401.625 58.0,401.625 63.0 L 401.625,76.875" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <circle cx="401.625" cy="76.875" r="10.0" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(401.625,76.875) skewY(0.0)" text-anchor="middle" dominant-baseline="central">|</text>
+  <path d="M 365.25,113.0 L 438.0,113.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 401.625,113.0 L 401.625,140.0 L 401.625,140.0 L 401.625,140.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <rect x="366.625" y="132.0" width="70.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(401.625,140.0)" text-anchor="middle" dominant-baseline="central">store</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,106.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">new "scanned" bits</text>
+  <path d="M 431.75,213.75 L 438.0,213.75 L 438.0,220.0 L 431.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 425.5,213.75 L 431.75,213.75 L 431.75,220.0 L 425.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 419.25,213.75 L 425.5,213.75 L 425.5,220.0 L 419.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 413.0,213.75 L 419.25,213.75 L 419.25,220.0 L 413.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 406.75,213.75 L 413.0,213.75 L 413.0,220.0 L 406.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 400.5,213.75 L 406.75,213.75 L 406.75,220.0 L 400.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 394.25,213.75 L 400.5,213.75 L 400.5,220.0 L 394.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 388.0,213.75 L 394.25,213.75 L 394.25,220.0 L 388.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 377.75,213.75 L 384.0,213.75 L 384.0,220.0 L 377.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 371.5,213.75 L 377.75,213.75 L 377.75,220.0 L 371.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 365.25,213.75 L 371.5,213.75 L 371.5,220.0 L 365.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 359.0,213.75 L 365.25,213.75 L 365.25,220.0 L 359.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 352.75,213.75 L 359.0,213.75 L 359.0,220.0 L 352.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 346.5,213.75 L 352.75,213.75 L 352.75,220.0 L 346.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 340.25,213.75 L 346.5,213.75 L 346.5,220.0 L 340.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 334.0,213.75 L 340.25,213.75 L 340.25,220.0 L 334.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 323.75,213.75 L 330.0,213.75 L 330.0,220.0 L 323.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 317.5,213.75 L 323.75,213.75 L 323.75,220.0 L 317.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 311.25,213.75 L 317.5,213.75 L 317.5,220.0 L 311.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 305.0,213.75 L 311.25,213.75 L 311.25,220.0 L 305.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 298.75,213.75 L 305.0,213.75 L 305.0,220.0 L 298.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 292.5,213.75 L 298.75,213.75 L 298.75,220.0 L 292.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 286.25,213.75 L 292.5,213.75 L 292.5,220.0 L 286.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 280.0,213.75 L 286.25,213.75 L 286.25,220.0 L 280.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 269.75,213.75 L 276.0,213.75 L 276.0,220.0 L 269.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 263.5,213.75 L 269.75,213.75 L 269.75,220.0 L 263.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 257.25,213.75 L 263.5,213.75 L 263.5,220.0 L 257.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 251.0,213.75 L 257.25,213.75 L 257.25,220.0 L 251.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 244.75,213.75 L 251.0,213.75 L 251.0,220.0 L 244.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 238.5,213.75 L 244.75,213.75 L 244.75,220.0 L 238.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 232.25,213.75 L 238.5,213.75 L 238.5,220.0 L 232.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 226.0,213.75 L 232.25,213.75 L 232.25,220.0 L 226.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 215.75,213.75 L 222.0,213.75 L 222.0,220.0 L 215.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 209.5,213.75 L 215.75,213.75 L 215.75,220.0 L 209.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 203.25,213.75 L 209.5,213.75 L 209.5,220.0 L 203.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 197.0,213.75 L 203.25,213.75 L 203.25,220.0 L 197.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 190.75,213.75 L 197.0,213.75 L 197.0,220.0 L 190.75,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 184.5,213.75 L 190.75,213.75 L 190.75,220.0 L 184.5,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 178.25,213.75 L 184.5,213.75 L 184.5,220.0 L 178.25,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 172.0,213.75 L 178.25,213.75 L 178.25,220.0 L 172.0,220.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 161.75,213.75 L 168.0,213.75 L 168.0,220.0 L 161.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 155.5,213.75 L 161.75,213.75 L 161.75,220.0 L 155.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 149.25,213.75 L 155.5,213.75 L 155.5,220.0 L 149.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 143.0,213.75 L 149.25,213.75 L 149.25,220.0 L 143.0,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 136.75,213.75 L 143.0,213.75 L 143.0,220.0 L 136.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 130.5,213.75 L 136.75,213.75 L 136.75,220.0 L 130.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 124.25,213.75 L 130.5,213.75 L 130.5,220.0 L 124.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 118.0,213.75 L 124.25,213.75 L 124.25,220.0 L 118.0,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 107.75,213.75 L 114.0,213.75 L 114.0,220.0 L 107.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 101.5,213.75 L 107.75,213.75 L 107.75,220.0 L 101.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 95.25,213.75 L 101.5,213.75 L 101.5,220.0 L 95.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 89.0,213.75 L 95.25,213.75 L 95.25,220.0 L 89.0,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 82.75,213.75 L 89.0,213.75 L 89.0,220.0 L 82.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 76.5,213.75 L 82.75,213.75 L 82.75,220.0 L 76.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 70.25,213.75 L 76.5,213.75 L 76.5,220.0 L 70.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 64.0,213.75 L 70.25,213.75 L 70.25,220.0 L 64.0,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 53.75,213.75 L 60.0,213.75 L 60.0,220.0 L 53.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 47.5,213.75 L 53.75,213.75 L 53.75,220.0 L 47.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 41.25,213.75 L 47.5,213.75 L 47.5,220.0 L 41.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 35.0,213.75 L 41.25,213.75 L 41.25,220.0 L 35.0,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 28.75,213.75 L 35.0,213.75 L 35.0,220.0 L 28.75,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 22.5,213.75 L 28.75,213.75 L 28.75,220.0 L 22.5,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 16.25,213.75 L 22.5,213.75 L 22.5,220.0 L 16.25,220.0 Z" fill="#000" stroke="#888" />
+  <path d="M 10.0,213.75 L 16.25,213.75 L 16.25,220.0 L 10.0,220.0 Z" fill="#000" stroke="#888" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,216.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">active words bits</text>
+  <path d="M 187.625,110.0 L 193.875,110.0 L 193.875,115.0 L 47.5,208.75 L 47.5,213.75 L 10.0,213.75 L 10.0,208.75 L 187.625,115.0 Z" fill="#729fcf" stroke="none" />
+  <path d="M 193.875,110.0 L 200.125,110.0 L 200.125,115.0 L 89.0,208.75 L 89.0,213.75 L 47.5,213.75 L 47.5,208.75 L 193.875,115.0 Z" fill="#e9b96e" stroke="none" />
+  <path d="M 200.125,110.0 L 206.375,110.0 L 206.375,115.0 L 130.5,208.75 L 130.5,213.75 L 89.0,213.75 L 89.0,208.75 L 200.125,115.0 Z" fill="#729fcf" stroke="none" />
+  <path d="M 206.375,110.0 L 212.625,110.0 L 212.625,115.0 L 168.0,208.75 L 168.0,213.75 L 130.5,213.75 L 130.5,208.75 L 206.375,115.0 Z" fill="#e9b96e" stroke="none" />
+  <path d="M 212.625,110.0 L 218.875,110.0 L 218.875,115.0 L 209.5,208.75 L 209.5,213.75 L 172.0,213.75 L 172.0,208.75 L 212.625,115.0 Z" fill="#729fcf" stroke="none" />
+  <path d="M 218.875,110.0 L 225.125,110.0 L 225.125,115.0 L 251.0,208.75 L 251.0,213.75 L 209.5,213.75 L 209.5,208.75 L 218.875,115.0 Z" fill="#e9b96e" stroke="none" />
+  <path d="M 225.125,110.0 L 231.375,110.0 L 231.375,115.0 L 292.5,208.75 L 292.5,213.75 L 251.0,213.75 L 251.0,208.75 L 225.125,115.0 Z" fill="#729fcf" stroke="none" />
+  <path d="M 231.375,110.0 L 237.625,110.0 L 237.625,115.0 L 330.0,208.75 L 330.0,213.75 L 292.5,213.75 L 292.5,208.75 L 231.375,115.0 Z" fill="#e9b96e" stroke="none" />
+  <path d="M 241.625,110.0 L 247.875,110.0 L 247.875,115.0 L 371.5,208.75 L 371.5,213.75 L 334.0,213.75 L 334.0,208.75 L 241.625,115.0 Z" fill="#729fcf" stroke="none" />
+  <path d="M 247.875,110.0 L 254.125,110.0 L 254.125,115.0 L 413.0,208.75 L 413.0,213.75 L 371.5,213.75 L 371.5,208.75 L 247.875,115.0 Z" fill="#e9b96e" stroke="none" />
+  <path d="M 254.125,110.0 L 260.375,110.0 L 260.375,115.0 L 438.0,208.75 L 438.0,213.75 L 413.0,213.75 L 413.0,208.75 L 254.125,115.0 Z" fill="#729fcf" stroke="none" />
+  <rect x="181.2" y="172.0" width="85.60000000000002" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,180.0)" text-anchor="middle" dominant-baseline="central">A*x in GF(2)⁸</text>
+  <path d="M 431.75,273.75 L 438.0,273.75 L 438.0,280.0 L 431.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 425.5,273.75 L 431.75,273.75 L 431.75,280.0 L 425.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 419.25,273.75 L 425.5,273.75 L 425.5,280.0 L 419.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 413.0,273.75 L 419.25,273.75 L 419.25,280.0 L 413.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 406.75,273.75 L 413.0,273.75 L 413.0,280.0 L 406.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 400.5,273.75 L 406.75,273.75 L 406.75,280.0 L 400.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 394.25,273.75 L 400.5,273.75 L 400.5,280.0 L 394.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 388.0,273.75 L 394.25,273.75 L 394.25,280.0 L 388.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 377.75,273.75 L 384.0,273.75 L 384.0,280.0 L 377.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 371.5,273.75 L 377.75,273.75 L 377.75,280.0 L 371.5,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 365.25,273.75 L 371.5,273.75 L 371.5,280.0 L 365.25,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 359.0,273.75 L 365.25,273.75 L 365.25,280.0 L 359.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 352.75,273.75 L 359.0,273.75 L 359.0,280.0 L 352.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 346.5,273.75 L 352.75,273.75 L 352.75,280.0 L 346.5,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 340.25,273.75 L 346.5,273.75 L 346.5,280.0 L 340.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 334.0,273.75 L 340.25,273.75 L 340.25,280.0 L 334.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 323.75,273.75 L 330.0,273.75 L 330.0,280.0 L 323.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 317.5,273.75 L 323.75,273.75 L 323.75,280.0 L 317.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 311.25,273.75 L 317.5,273.75 L 317.5,280.0 L 311.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 305.0,273.75 L 311.25,273.75 L 311.25,280.0 L 305.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 298.75,273.75 L 305.0,273.75 L 305.0,280.0 L 298.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 292.5,273.75 L 298.75,273.75 L 298.75,280.0 L 292.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 286.25,273.75 L 292.5,273.75 L 292.5,280.0 L 286.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 280.0,273.75 L 286.25,273.75 L 286.25,280.0 L 280.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 269.75,273.75 L 276.0,273.75 L 276.0,280.0 L 269.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 263.5,273.75 L 269.75,273.75 L 269.75,280.0 L 263.5,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 257.25,273.75 L 263.5,273.75 L 263.5,280.0 L 257.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 251.0,273.75 L 257.25,273.75 L 257.25,280.0 L 251.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 244.75,273.75 L 251.0,273.75 L 251.0,280.0 L 244.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 238.5,273.75 L 244.75,273.75 L 244.75,280.0 L 238.5,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 232.25,273.75 L 238.5,273.75 L 238.5,280.0 L 232.25,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 226.0,273.75 L 232.25,273.75 L 232.25,280.0 L 226.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 215.75,273.75 L 222.0,273.75 L 222.0,280.0 L 215.75,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 209.5,273.75 L 215.75,273.75 L 215.75,280.0 L 209.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 203.25,273.75 L 209.5,273.75 L 209.5,280.0 L 203.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 197.0,273.75 L 203.25,273.75 L 203.25,280.0 L 197.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 190.75,273.75 L 197.0,273.75 L 197.0,280.0 L 190.75,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 184.5,273.75 L 190.75,273.75 L 190.75,280.0 L 184.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 178.25,273.75 L 184.5,273.75 L 184.5,280.0 L 178.25,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 172.0,273.75 L 178.25,273.75 L 178.25,280.0 L 172.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 161.75,273.75 L 168.0,273.75 L 168.0,280.0 L 161.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 155.5,273.75 L 161.75,273.75 L 161.75,280.0 L 155.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 149.25,273.75 L 155.5,273.75 L 155.5,280.0 L 149.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 143.0,273.75 L 149.25,273.75 L 149.25,280.0 L 143.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 136.75,273.75 L 143.0,273.75 L 143.0,280.0 L 136.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 130.5,273.75 L 136.75,273.75 L 136.75,280.0 L 130.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 124.25,273.75 L 130.5,273.75 L 130.5,280.0 L 124.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 118.0,273.75 L 124.25,273.75 L 124.25,280.0 L 118.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 107.75,273.75 L 114.0,273.75 L 114.0,280.0 L 107.75,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 101.5,273.75 L 107.75,273.75 L 107.75,280.0 L 101.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 95.25,273.75 L 101.5,273.75 L 101.5,280.0 L 95.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 89.0,273.75 L 95.25,273.75 L 95.25,280.0 L 89.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 82.75,273.75 L 89.0,273.75 L 89.0,280.0 L 82.75,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 76.5,273.75 L 82.75,273.75 L 82.75,280.0 L 76.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 70.25,273.75 L 76.5,273.75 L 76.5,280.0 L 70.25,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 64.0,273.75 L 70.25,273.75 L 70.25,280.0 L 64.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 53.75,273.75 L 60.0,273.75 L 60.0,280.0 L 53.75,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 47.5,273.75 L 53.75,273.75 L 53.75,280.0 L 47.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 41.25,273.75 L 47.5,273.75 L 47.5,280.0 L 41.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 35.0,273.75 L 41.25,273.75 L 41.25,280.0 L 35.0,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 28.75,273.75 L 35.0,273.75 L 35.0,280.0 L 28.75,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 22.5,273.75 L 28.75,273.75 L 28.75,280.0 L 22.5,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 16.25,273.75 L 22.5,273.75 L 22.5,280.0 L 16.25,280.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 10.0,273.75 L 16.25,273.75 L 16.25,280.0 L 10.0,280.0 Z" fill="#000" stroke="#888" />
+  <path d="M 10.0,270.75 L 438.0,270.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 116.0,250.0 L 116.0,250.0 L 116.0,250.0 L 116.0,270.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <rect x="43.5" y="242.0" width="145.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(116.0,250.0)" text-anchor="middle" dominant-baseline="central">load</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,276.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">pointer/scalar bits</text>
+  <path d="M 431.75,333.75 L 438.0,333.75 L 438.0,340.0 L 431.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 425.5,333.75 L 431.75,333.75 L 431.75,340.0 L 425.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 419.25,333.75 L 425.5,333.75 L 425.5,340.0 L 419.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 413.0,333.75 L 419.25,333.75 L 419.25,340.0 L 413.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 406.75,333.75 L 413.0,333.75 L 413.0,340.0 L 406.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 400.5,333.75 L 406.75,333.75 L 406.75,340.0 L 400.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 394.25,333.75 L 400.5,333.75 L 400.5,340.0 L 394.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 388.0,333.75 L 394.25,333.75 L 394.25,340.0 L 388.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 377.75,333.75 L 384.0,333.75 L 384.0,340.0 L 377.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 371.5,333.75 L 377.75,333.75 L 377.75,340.0 L 371.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 365.25,333.75 L 371.5,333.75 L 371.5,340.0 L 365.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 359.0,333.75 L 365.25,333.75 L 365.25,340.0 L 359.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 352.75,333.75 L 359.0,333.75 L 359.0,340.0 L 352.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 346.5,333.75 L 352.75,333.75 L 352.75,340.0 L 346.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 340.25,333.75 L 346.5,333.75 L 346.5,340.0 L 340.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 334.0,333.75 L 340.25,333.75 L 340.25,340.0 L 334.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 323.75,333.75 L 330.0,333.75 L 330.0,340.0 L 323.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 317.5,333.75 L 323.75,333.75 L 323.75,340.0 L 317.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 311.25,333.75 L 317.5,333.75 L 317.5,340.0 L 311.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 305.0,333.75 L 311.25,333.75 L 311.25,340.0 L 305.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 298.75,333.75 L 305.0,333.75 L 305.0,340.0 L 298.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 292.5,333.75 L 298.75,333.75 L 298.75,340.0 L 292.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 286.25,333.75 L 292.5,333.75 L 292.5,340.0 L 286.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 280.0,333.75 L 286.25,333.75 L 286.25,340.0 L 280.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 269.75,333.75 L 276.0,333.75 L 276.0,340.0 L 269.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 263.5,333.75 L 269.75,333.75 L 269.75,340.0 L 263.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 257.25,333.75 L 263.5,333.75 L 263.5,340.0 L 257.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 251.0,333.75 L 257.25,333.75 L 257.25,340.0 L 251.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 244.75,333.75 L 251.0,333.75 L 251.0,340.0 L 244.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 238.5,333.75 L 244.75,333.75 L 244.75,340.0 L 238.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 232.25,333.75 L 238.5,333.75 L 238.5,340.0 L 232.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 226.0,333.75 L 232.25,333.75 L 232.25,340.0 L 226.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 215.75,333.75 L 222.0,333.75 L 222.0,340.0 L 215.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 209.5,333.75 L 215.75,333.75 L 215.75,340.0 L 209.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 203.25,333.75 L 209.5,333.75 L 209.5,340.0 L 203.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 197.0,333.75 L 203.25,333.75 L 203.25,340.0 L 197.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 190.75,333.75 L 197.0,333.75 L 197.0,340.0 L 190.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 184.5,333.75 L 190.75,333.75 L 190.75,340.0 L 184.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 178.25,333.75 L 184.5,333.75 L 184.5,340.0 L 178.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 172.0,333.75 L 178.25,333.75 L 178.25,340.0 L 172.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 161.75,333.75 L 168.0,333.75 L 168.0,340.0 L 161.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 155.5,333.75 L 161.75,333.75 L 161.75,340.0 L 155.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 149.25,333.75 L 155.5,333.75 L 155.5,340.0 L 149.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 143.0,333.75 L 149.25,333.75 L 149.25,340.0 L 143.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 136.75,333.75 L 143.0,333.75 L 143.0,340.0 L 136.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 130.5,333.75 L 136.75,333.75 L 136.75,340.0 L 130.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 124.25,333.75 L 130.5,333.75 L 130.5,340.0 L 124.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 118.0,333.75 L 124.25,333.75 L 124.25,340.0 L 118.0,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 107.75,333.75 L 114.0,333.75 L 114.0,340.0 L 107.75,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 101.5,333.75 L 107.75,333.75 L 107.75,340.0 L 101.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 95.25,333.75 L 101.5,333.75 L 101.5,340.0 L 95.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 89.0,333.75 L 95.25,333.75 L 95.25,340.0 L 89.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 82.75,333.75 L 89.0,333.75 L 89.0,340.0 L 82.75,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 76.5,333.75 L 82.75,333.75 L 82.75,340.0 L 76.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 70.25,333.75 L 76.5,333.75 L 76.5,340.0 L 70.25,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 64.0,333.75 L 70.25,333.75 L 70.25,340.0 L 64.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 53.75,333.75 L 60.0,333.75 L 60.0,340.0 L 53.75,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 47.5,333.75 L 53.75,333.75 L 53.75,340.0 L 47.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 41.25,333.75 L 47.5,333.75 L 47.5,340.0 L 41.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 35.0,333.75 L 41.25,333.75 L 41.25,340.0 L 35.0,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 28.75,333.75 L 35.0,333.75 L 35.0,340.0 L 28.75,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 22.5,333.75 L 28.75,333.75 L 28.75,340.0 L 22.5,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 16.25,333.75 L 22.5,333.75 L 22.5,340.0 L 16.25,340.0 Z" fill="#fff" stroke="#888" />
+  <path d="M 10.0,333.75 L 16.25,333.75 L 16.25,340.0 L 10.0,340.0 Z" fill="#000" stroke="#888" />
+  <path d="M 10.0,223.0 L 438.0,223.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 10.0,330.75 L 438.0,330.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 224.0,223.0 L 224.0,306.875 L 224.0,306.875 L 224.0,330.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 10.0,283.0 L 438.0,283.0" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 204.0,283.0 L 204.0,306.875 L 224.0,306.875" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <circle cx="224.0" cy="306.875" r="10.0" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,306.875) skewY(0.0)" text-anchor="middle" dominant-baseline="central">&amp;</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,336.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">active pointer bits</text>
+  <path d="M 10.0,413.75 L 60.0,413.75 L 60.0,420.0 L 10.0,420.0 Z" fill="rgb(49,178,88)" stroke="#888" />
+  <path d="M 64.0,413.75 L 114.0,413.75 L 114.0,420.0 L 64.0,420.0 Z" fill="rgb(142,146,244)" stroke="#888" />
+  <path d="M 118.0,413.75 L 168.0,413.75 L 168.0,420.0 L 118.0,420.0 Z" fill="rgb(246,112,136)" stroke="#888" />
+  <path d="M 172.0,413.75 L 222.0,413.75 L 222.0,420.0 L 172.0,420.0 Z" fill="rgb(245,102,198)" stroke="#888" />
+  <path d="M 226.0,413.75 L 276.0,413.75 L 276.0,420.0 L 226.0,420.0 Z" fill="rgb(225,133,49)" stroke="#888" />
+  <path d="M 280.0,413.75 L 330.0,413.75 L 330.0,420.0 L 280.0,420.0 Z" fill="rgb(57,166,214)" stroke="#888" />
+  <path d="M 334.0,413.75 L 384.0,413.75 L 384.0,420.0 L 334.0,420.0 Z" fill="rgb(218,112,244)" stroke="#888" />
+  <path d="M 388.0,413.75 L 438.0,413.75 L 438.0,420.0 L 388.0,420.0 Z" fill="rgb(54,171,178)" stroke="#888" />
+  <path d="M 10.0,410.75 L 438.0,410.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <path d="M 116.0,390.0 L 116.0,390.0 L 116.0,390.0 L 116.0,410.75" fill="none" stroke="#e9b96e" stroke-width="1.5" />
+  <rect x="43.5" y="382.0" width="145.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(116.0,390.0)" text-anchor="middle" dominant-baseline="central">load 64 bytes</text>
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,416.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">page memory</text>
+  <path d="M 10.0,493.75 L 60.0,493.75 L 60.0,500.0 L 10.0,500.0 Z" fill="rgb(49,178,88)" stroke="#888" />
+  <path d="M 64.0,493.75 L 114.0,493.75 L 114.0,500.0 L 64.0,500.0 Z" fill="rgb(245,102,198)" stroke="#888" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,496.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">new pointers</text>
+  <path d="M 35.0,420.0 L 35.0,474.875 L 35.0,493.75 L 35.0,496.75" fill="none" stroke="rgb(49,178,88)" stroke-width="3" />
+  <path d="M 89.0,420.0 L 89.0,474.875" fill="none" stroke="rgb(142,146,244)" stroke-width="3" />
+  <path d="M 143.0,420.0 L 143.0,474.875" fill="none" stroke="rgb(246,112,136)" stroke-width="3" />
+  <path d="M 197.0,420.0 L 197.0,474.875 L 89.0,493.75 L 89.0,496.75" fill="none" stroke="rgb(245,102,198)" stroke-width="3" />
+  <path d="M 251.0,420.0 L 251.0,474.875" fill="none" stroke="rgb(225,133,49)" stroke-width="3" />
+  <path d="M 305.0,420.0 L 305.0,474.875" fill="none" stroke="rgb(57,166,214)" stroke-width="3" />
+  <path d="M 359.0,420.0 L 359.0,474.875" fill="none" stroke="rgb(218,112,244)" stroke-width="3" />
+  <path d="M 413.0,420.0 L 413.0,474.875" fill="none" stroke="rgb(54,171,178)" stroke-width="3" />
+  <rect x="10.0" y="458.875" width="428.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,466.875)" text-anchor="middle" dominant-baseline="central">compress</text>
+  <path d="M 384.5,437.625 L 438.0,437.625 L 438.0,443.875 L 384.5,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 331.0,437.625 L 384.5,437.625 L 384.5,443.875 L 331.0,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 277.5,437.625 L 331.0,437.625 L 331.0,443.875 L 277.5,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 224.0,437.625 L 277.5,437.625 L 277.5,443.875 L 224.0,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 170.5,437.625 L 224.0,437.625 L 224.0,443.875 L 170.5,443.875 Z" fill="#000" stroke="#888" />
+  <path d="M 117.0,437.625 L 170.5,437.625 L 170.5,443.875 L 117.0,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 63.5,437.625 L 117.0,437.625 L 117.0,443.875 L 63.5,443.875 Z" fill="#fff" stroke="#888" />
+  <path d="M 10.0,437.625 L 63.5,437.625 L 63.5,443.875 L 10.0,443.875 Z" fill="#000" stroke="#888" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,439.875)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">active pointer mask</text>
+  <path d="M 10.0,343.0 L 60.0,343.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 10.0,434.625 L 438.0,434.625" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 35.0,343.0 L 35.0,360.0 L 224.0,360.0 L 224.0,434.625" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <rect x="189.0" y="352.0" width="70.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,360.0)" text-anchor="middle" dominant-baseline="central">load mask</text>
+  <path d="M 10.0,543.75 L 60.0,543.75 L 60.0,550.0 L 10.0,550.0 Z" fill="rgb(52,174,148)" stroke="#888" opacity="0.5" />
+  <path d="M 64.0,543.75 L 114.0,543.75 L 114.0,550.0 L 64.0,550.0 Z" fill="rgb(138,166,49)" stroke="#888" opacity="0.5" />
+  <path d="M 118.0,543.75 L 168.0,543.75 L 168.0,550.0 L 118.0,550.0 Z" fill="rgb(181,154,49)" stroke="#888" opacity="0.5" />
+  <path d="M 172.0,543.75 L 222.0,543.75 L 222.0,550.0 L 172.0,550.0 Z" fill="rgb(49,178,88)" stroke="#888" />
+  <path d="M 226.0,543.75 L 276.0,543.75 L 276.0,550.0 L 226.0,550.0 Z" fill="rgb(245,102,198)" stroke="#888" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(448.0,546.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">output buffer</text>
+  <path d="M 10.0,503.0 L 114.0,503.0" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 172.0,540.75 L 276.0,540.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <path d="M 62.0,503.0 L 62.0,520.0 L 224.0,520.0 L 224.0,540.75" fill="none" stroke="#729fcf" stroke-width="1.5" />
+  <rect x="151.5" y="512.0" width="145.0" height="16.0" rx="8" fill="#fff" stroke="#000" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(224.0,520.0)" text-anchor="middle" dominant-baseline="central">append</text>
+  <path d="M 578.0,366.0 L 588.0,366.0 L 588.0,544.0 L 578.0,544.0" fill="none" stroke="#729fcf" stroke-width="3.0" />
+  <text font-family="'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" transform="translate(603.0,459.0)" text-anchor="start" dominant-baseline="central" paint-order="stroke" stroke-width="4" stroke-linejoin="round" stroke="white">×128</text>
+</svg>
