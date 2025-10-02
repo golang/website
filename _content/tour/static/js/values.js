@@ -54,6 +54,8 @@ value('translation', {
     'submit-feedback': 'Send feedback about this page',
 
     // GitHub issue template: update repo and messaging when translating.
+    // If a custom-feedback-url is set, it takes higher precedence over other fields.
+    'custom-feedback-url': '/doc/contribute#check_tracker',
     'github-repo': 'github.com/golang/go',
     'issue-title': 'x/website/_content/tour: [REPLACE WITH SHORT DESCRIPTION]',
     'issue-message': 'Change the title above to describe your issue and add your feedback here, including code if necessary',
