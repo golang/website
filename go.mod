@@ -10,14 +10,14 @@ require (
 	github.com/chromedp/chromedp v0.11.1
 	github.com/evanw/esbuild v0.18.19
 	github.com/gomodule/redigo v2.0.0+incompatible
-	github.com/google/go-cmp v0.6.0
+	github.com/google/go-cmp v0.7.0
 	github.com/n7olkachev/imgdiff v1.0.2
 	github.com/yuin/goldmark v1.6.0
-	golang.org/x/build v0.0.0-20250902193327-e6a76329f415
-	golang.org/x/mod v0.28.0
-	golang.org/x/net v0.44.0
+	golang.org/x/build v0.0.0-20251007194244-0bced2e98e20
+	golang.org/x/mod v0.29.0
+	golang.org/x/net v0.46.0
 	golang.org/x/sync v0.17.0
-	golang.org/x/tools v0.37.0
+	golang.org/x/tools v0.38.0
 	golang.org/x/tour v0.1.0
 	google.golang.org/api v0.136.0
 	gopkg.in/yaml.v3 v3.0.1
@@ -43,10 +43,10 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
 	go.opencensus.io v0.24.0 // indirect
-	golang.org/x/crypto v0.42.0 // indirect
-	golang.org/x/oauth2 v0.31.0 // indirect
-	golang.org/x/sys v0.36.0 // indirect
-	golang.org/x/text v0.29.0 // indirect
+	golang.org/x/crypto v0.43.0 // indirect
+	golang.org/x/oauth2 v0.32.0 // indirect
+	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/text v0.30.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240903120638-7835f813f4da // indirect
 	google.golang.org/appengine v1.6.8-0.20221117013220-504804fb50de // indirect
 	google.golang.org/genproto v0.0.0-20230822172742-b8732ec3820d // indirect
