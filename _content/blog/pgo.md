@@ -350,7 +350,7 @@ Showing nodes accounting for -3.72s, 3.13% of 118.73s total
 ```
 
 So `runtime.scanobject` is ultimately coming from `runtime.gcBgMarkWorker`.
-The [Go GC Guide](/doc/gc-guide#Identiying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
+The [Go GC Guide](/doc/gc-guide#Identifying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
 What about `nextFreeFast` and other `runtime` functions?
 
 ```
