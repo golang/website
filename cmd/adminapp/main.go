@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+// Require go1.25+ for http.CrossOriginProtection.
+// (This can be deleted when go.mod is at 1.25.0+.)
+//go:build go1.25
+
 // The admingolangorg command serves an administrative interface for owners of
 // the golang-org Google Cloud project.
 package main
@@ -32,7 +36,6 @@ func main() {
 	mux.Handle("/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		w.Write([]byte(index))
-		return
 	}))
 	mux.Handle("/shortlink", short.AdminHandler(dsClient, mcClient))
 	mux.Handle("/snippet", &snippetHandler{dsClient})
@@ -41,9 +44,11 @@ func main() {
 		port = "8080"
 		log.Printf("Defaulting to port %s", port)
 	}
+	handler := iapAuth(audience, mux)
+	handler = http.NewCrossOriginProtection().Handler(handler)
 
 	log.Printf("Listening on port %s", port)
-	log.Fatal(http.ListenAndServe(":"+port, iapAuth(audience, mux)))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
 
 type snippetHandler struct {
@@ -69,8 +74,8 @@ func (h *snippetHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 	var snippetID string
 	for _, p := range prefixes {
-		if strings.HasPrefix(snippetLink, p) {
-			snippetID = strings.TrimPrefix(snippetLink, p)
+		if id, ok := strings.CutPrefix(snippetLink, p); ok {
+			snippetID = id
 			break
 		}
 	}
