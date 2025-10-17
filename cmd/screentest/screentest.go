@@ -166,7 +166,7 @@ func failedImagesPage(failedTests []*testcase) []byte {
       <head>
         <style>
           table { border: 0 }
-          /* image widths are 30% of the viewport width */
+          /* image widths are 30%% of the viewport width */
           img { width: 30vw }
           td { font-size: 1.2rem }
         </style>
