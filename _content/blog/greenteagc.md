@@ -23,7 +23,6 @@ summary: Go 1.25 includes a new experimental garbage collector, Green Tea.
 	height: auto;
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
-	-webkit-overflow-scrolling: touch;
 	padding-bottom: 1.1em;
   }
   .hide-overflow {
