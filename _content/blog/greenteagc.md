@@ -246,7 +246,7 @@ which will better highlight differences between the diagrams.
 	<figure class="carouselitem">
 		<img src="greenteagc/marksweep-011.png" />
 		<figcaption>
-		In addition to the objects of type T, you'll also notice that we have array objects containing star-Ts.
+		In addition to the objects of type T, you'll also notice that we have array objects containing *Ts.
 		These are pointed to by the "children" field of objects of type T.
 		</figcaption>
 	</figure>
@@ -534,7 +534,7 @@ and is worth a look if you want to dive deeper.
 
 But for now let's focus only on the second part, the cost per cycle.
 
-From years of poring over CPU profiles to try and improve performance, we know two big things
+From years of poring over CPU profiles to try to improve performance, we know two big things
 about Go's garbage collector.
 
 The first is that about 90% of the cost of the garbage collector is spent marking,
@@ -1038,10 +1038,10 @@ The upshot of this is that we can define a few 8x8 bit matrices for each
 object size that perform exactly the 1:n bit expansion we need.
 
 For the full assembly code, see [this
-file](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/scan_amd64.s;l=23;drc=889ab74169db2c8758f51c1a199a90266b16669b).
+file](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/scan_amd64.s;l=23;drc=041f564b3e6fa3f4af13a01b94db14c1ee8a42e0).
 The "expanders" use different matrices and different permutations for each size class,
-so they're in a [separate file](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/expand_amd64.s;drc=889ab74169db2c8758f51c1a199a90266b16669b)
-that's written by a [code generator](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/mkasm.go;drc=889ab74169db2c8758f51c1a199a90266b16669b).
+so they're in a [separate file](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/expand_amd64.s;drc=041f564b3e6fa3f4af13a01b94db14c1ee8a42e0)
+that's written by a [code generator](https://cs.opensource.google/go/go/+/master:src/internal/runtime/gc/scan/mkasm.go;drc=041f564b3e6fa3f4af13a01b94db14c1ee8a42e0).
 Aside from the expansion functions, it's really not a lot of code.
 Most of it is dramatically simplified by the fact that we can perform most of the above
 operations on data that sits purely in registers.
