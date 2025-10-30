@@ -1024,7 +1024,7 @@ For now, let's just break it down at a high level:
    in just a couple instructions.
 
 Part of what makes this fast is the `VGF2P8AFFINEQB` instruction,
-part of the "Galios Field New Instructions" x86 extension,
+part of the "Galois Field New Instructions" x86 extension,
 and the bit manipulation Swiss army knife we referred to above.
 It's the real star of the show, since it lets us do step (3) in the scanning kernel very, very
 efficiently.
