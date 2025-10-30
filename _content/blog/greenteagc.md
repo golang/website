@@ -274,7 +274,10 @@ which will better highlight differences between the diagrams.
 		<img src="greenteagc/marksweep-015.png" />
 		<figcaption>
 		You'll also notice that objects are grouped together by these labeled, dotted rounded rectangles.
-		Each of these represents a page: a contiguous block of memory.
+		Each of these represents a <i>page</i>, which is a contiguous
+		block of fixed-size, aligned memory.
+		In Go, pages are 8 KiB (regardless of the hardware virtual
+		memory page size).
 		These pages are labeled A, B, C, and D, and I'll refer to them that way.
 		</figcaption>
 	</figure>
