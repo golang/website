@@ -138,7 +138,7 @@ The minimum version of Go required depends on the target version of Go:
 <li> 1.5 &lt;= Go &lt;= 1.19: a Go 1.4 compiler.
 <li> 1.20 &lt;= Go &lt;= 1.21: a Go 1.17 compiler.
 <li> 1.22 &lt;= Go &lt;= 1.23: a Go 1.20 compiler.
-<li> Going forward, Go version 1.N will require a Go 1.M compiler, 
+<li> Going forward, Go version 1.N will require a Go 1.M compiler,
 where M is N-2 rounded down to an even number. Example: Go 1.24 and 1.25 require Go 1.22.
 </ul>
 
@@ -313,11 +313,11 @@ To build the Go distribution, run
 
 <pre>
 $ cd src
-$ ./all.bash
+$ ./make.bash
 </pre>
 
 <p>
-(To build under Windows use <code>all.bat</code>.)
+(To build under Windows use <code>make.bat</code>.)
 </p>
 
 <p>
@@ -325,8 +325,6 @@ If all goes well, it will finish by printing output like:
 </p>
 
 <pre>
-ALL TESTS PASSED
-
 ---
 Installed Go for linux/amd64 in /home/you/go.
 Installed commands in /home/you/go/bin.
@@ -342,10 +340,8 @@ architecture, and root directory used during the install.
 <p>
 For more information about ways to control the build, see the discussion of
 <a href="#environment">environment variables</a> below.
-<code>all.bash</code> (or <code>all.bat</code>) runs important tests for Go,
-which can take more time than simply building Go. If you do not want to run
-the test suite use <code>make.bash</code> (or <code>make.bat</code>)
-instead.
+You can also run <code>all.bash</code> (or <code>all.bat</code>) to run
+important tests for Go, which can take more time than simply building Go.
 </p>
 </div>
 
