@@ -370,27 +370,35 @@ following properties:
 
 <p>
 Let's work through an example.
-Assume some application allocates 10 MiB/s, the GC can scan at a rate
-of 100 MiB/cpu-second (this is made up), and fixed GC costs are zero.
+Assume some application is operating in a steady-state, allocating 10 MiB/s,
+while the GC can scan memory at a rate of 100 MiB/cpu-second (this is made up).
 The steady state makes no assumptions about the size of the live heap,
 but for simplicity, let's say this application's live heap is always 10 MiB.
-(Note: a constant live heap does not mean that all newly allocated memory is
-dead.
-It means that, after the GC runs, <i>some mix</i> of old and new heap memory
-is live.)
-If each GC cycle happens exactly every 1 cpu-second, then our example
-application, in the steady state, will have a 20 MiB total heap size on each GC
-cycle.
-And with every GC cycle, the GC will need 0.1 cpu-seconds to do its work,
-resulting in a 10% overhead.
+Let's also assume, again, for simplicity, that the fixed GC costs are zero.
+Let's play around with the GC cycle period.
 </p>
 
 <p>
-Now let's say each GC cycle happens less often, once every 2 cpu-seconds.
+Suppose each GC cycle happens after exactly 1 cpu-second.
+Then, by the end of each GC cycle our example application will have allocated
+10 MiB of additional memory, resulting in a 20 MiB total heap size.
+And with every GC cycle, the GC will spend 0.1 cpu-seconds scanning the
+10 MiB live heap, resulting in a 10% CPU overhead.
+Recall that the GC only needs to walk the live heap, not the whole heap.
+(Note: a constant live heap does not mean that all newly allocated memory is
+dead.
+It means that, after the GC runs, <i>some mix</i> of old and new heap memory
+dies, and only that the end result is 10 MiB found live each cycle.)
+</p>
+
+<p>
+Now suppose each GC cycle happens less often, once every 2 cpu-seconds.
 Then, our example application, in the steady state, will have a 30 MiB total
-heap size on each GC cycle.
+heap size on each GC cycle, since it'll allocate 20 MiB in that time.
 But with every GC cycle, the GC will <i>still only need 0.1 cpu-seconds</i>
-to do its work.
+to scan the 10 MiB of live memory.
+Again, we're assuming the live heap size stays the same, regardless of how
+much memory is allocated.
 So this means that our GC overhead just went down, from 10% to 5%, at the
 cost of 50% more memory being used.
 </p>
