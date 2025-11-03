@@ -85,6 +85,13 @@ summary: Go 1.25 includes a new experimental garbage collector, Green Tea.
   }
 </style>
 
+<noscript>
+    <center>
+    <i>For the best experience, view <a href="/blog/greenteagc">this blog post</a>
+    in a browser with JavaScript enabled.</i>
+    </center>
+</noscript>
+
 Go 1.25 includes a new experimental garbage collector called Green Tea,
 available by setting `GOEXPERIMENT=greenteagc` at build time.
 Many workloads spend around 10% less time in the garbage collector, but some
