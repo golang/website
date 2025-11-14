@@ -6,7 +6,7 @@ by:
 tags:
 - community
 - birthday
-summary: Happy Birthday, Go\!
+summary: Happy Birthday, Go!
 ---
 
 This past Monday, November 10th, we celebrated the 16th anniversary of Go’s
@@ -69,7 +69,7 @@ significant strides in its native cryptography packages and evolving its
 standard library for enhanced safety.
 
 Go ships with a full suite of native cryptography packages in the standard
-library, which reached two major milestones over the past year. An security
+library, which reached two major milestones over the past year. A security
 audit conducted by independent security firm [Trail of
 Bits](https://www.trailofbits.com/) yielded [excellent
 results](/blog/tob-crypto-audit), with only a single low-severity finding.
