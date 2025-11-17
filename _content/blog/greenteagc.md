@@ -109,7 +109,8 @@ To report back with any successes, reply to [the existing Green Tea issue](
 /issue/73581).
 
 What follows is a blog post based on Michael Knyszek's GopherCon 2025 talk.
-We'll update this blog post with a link to the talk once it's available online.
+
+{{video "https://www.youtube.com/embed/gPJkM95KpKo"}}
 
 ## Tracing garbage collection
 
