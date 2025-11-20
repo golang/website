@@ -108,6 +108,16 @@ func TestRedirects(t *testing.T) {
 		// And verify we're using the "bigEnoughAssumeRietveld" value:
 		"/cl/3999999": {302, "https://go-review.googlesource.com/3999999"},
 		"/cl/4000000": {302, "https://codereview.appspot.com/4000000"},
+
+		"/cs":           {301, "https://cs.opensource.google/go"},
+		"/cs/":          {302, "/cs"},
+		"/cs/x/pkgsite": {302, "https://cs.opensource.google/go/x/pkgsite"},
+		"/cs/x/net/+/master:http/httpguts/httplex.go;l=57-69;drc=0a24555f5cc06e8caf23d84a4f8b7102dcab838e": {302, "https://cs.opensource.google/go/x/net/+/master:http/httpguts/httplex.go;l=57-69;drc=0a24555f5cc06e8caf23d84a4f8b7102dcab838e"},
+
+		"/cs/search/":                          {302, "https://cs.opensource.google/search?ss=go"},
+		"/cs/search/f:test.go":                 {302, "https://cs.opensource.google/search?ss=go&q=f%3Atest.go"},
+		"/cs/search/func:Bench AND f:bench.go": {302, "https://cs.opensource.google/search?ss=go&q=func%3ABench+AND+f%3Abench.go"},
+		"/cs/search/\"&\"":                     {302, "https://cs.opensource.google/search?ss=go&q=%22%26%22"},
 	}
 
 	mux := http.NewServeMux()
