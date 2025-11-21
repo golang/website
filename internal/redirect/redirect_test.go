@@ -29,7 +29,7 @@ func TestRedirects(t *testing.T) {
 
 		"/pkg/asn1":           {301, "/pkg/encoding/asn1/"},
 		"/pkg/template/parse": {301, "/pkg/text/template/parse/"},
-		"/pkg/C":              {301, "/pkg/C/"},
+		"/pkg/C":              {307, "/pkg/C/"},
 		"/pkg/C/":             {301, "/cmd/cgo/"},
 		"/pkg/C/foo":          {301, "/cmd/cgo/"}, // historical
 
@@ -37,22 +37,22 @@ func TestRedirects(t *testing.T) {
 
 		"/cmd/gofix": {301, "/cmd/fix/"},
 
-		"/testing":           {301, "/testing/"},
+		"/testing":           {307, "/testing/"},
 		"/testing/":          {301, "/doc/"},
-		"/testing/coverage":  {301, "/testing/coverage/"},
+		"/testing/coverage":  {307, "/testing/coverage/"},
 		"/testing/coverage/": {301, "/doc/build-cover"},
 
-		"/security":                       {301, "/security/"},
+		"/security":                       {307, "/security/"},
 		"/security/":                      {301, "/doc/security/"},
 		"/security/best-practices":        {301, "/doc/security/best-practices"},
-		"/security/fuzz":                  {301, "/security/fuzz/"},
+		"/security/fuzz":                  {307, "/security/fuzz/"},
 		"/security/fuzz/":                 {301, "/doc/security/fuzz/"},
 		"/security/fuzz/example-dark.png": {301, "/doc/security/fuzz/example-dark.png"},
 		"/security/fuzz/example.png":      {301, "/doc/security/fuzz/example.png"},
 		"/security/fuzz/seq-diagram.png":  {301, "/doc/security/fuzz/seq-diagram.png"},
 		"/security/fuzz/technical":        {301, "/doc/security/fuzz/technical"},
 		"/security/policy":                {301, "/doc/security/policy"},
-		"/security/vuln":                  {301, "/security/vuln/"},
+		"/security/vuln":                  {307, "/security/vuln/"},
 		"/security/vuln/":                 {301, "/doc/security/vuln/"},
 		"/security/vuln/architecture.png": {301, "/doc/security/vuln/architecture.png"},
 		"/security/vuln/cna":              {301, "/doc/security/vuln/cna"},
@@ -60,7 +60,7 @@ func TestRedirects(t *testing.T) {
 		"/security/vuln/editor":           {301, "/doc/security/vuln/editor"},
 		"/security/vuln/vscode.gif":       {301, "/doc/security/vuln/vscode.gif"},
 		"/security/vulncheck":             {301, "/doc/security/vulncheck"},
-		"/security/vulndb":                {301, "/security/vulndb/"},
+		"/security/vulndb":                {307, "/security/vulndb/"},
 		"/security/vulndb/":               {301, "/doc/security/vulndb/"},
 		"/security/vulndb/api":            {301, "/doc/security/vulndb/api"},
 		"/security/vulndb/policy":         {301, "/doc/security/vulndb/policy"},
@@ -143,12 +143,19 @@ func TestRedirects(t *testing.T) {
 			continue
 		}
 
-		if resp.StatusCode != want.status {
+		if want.status == 307 {
+			// Go 1.26 changed the default redirect to 307.
+			// Allow both the old (301) and new (307) codes.
+			if resp.StatusCode != want.status && resp.StatusCode != 301 {
+				t.Errorf("(path: %q) got status %d, want %d", path, resp.StatusCode, want.status)
+				continue
+			}
+		} else if resp.StatusCode != want.status {
 			t.Errorf("(path: %q) got status %d, want %d", path, resp.StatusCode, want.status)
 			continue
 		}
 
-		if want.status != 301 && want.status != 302 {
+		if want.status < 300 || want.status > 399 {
 			// Not a redirect. Just check status.
 			continue
 		}
