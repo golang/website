@@ -59,7 +59,7 @@ you cannot insert struct types, like [time.Time](/pkg/time#Time).
 We can remedy that by requiring the user to provide a comparison function:
 
 {{raw `
-    // A FuncTree must be created with NewTreeFunc.
+    // A FuncTree must be created with NewFuncTree.
     type FuncTree[E any] struct {
         root *funcNode[E]
         cmp  func(E, E) int
