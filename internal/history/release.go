@@ -14,9 +14,27 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2025, 12, 2}, Version: Version{1, 25, 5},
+		Security: &FixSummary{
+			Quantifier: "two", Packages: []string{"crypto/x509"},
+		},
+		Bug: &FixSummary{
+			Packages: []string{"mime", "os"},
+		},
+	},
+	{
+		Date: Date{2025, 12, 2}, Version: Version{1, 24, 11},
+		Security: &FixSummary{
+			Quantifier: "two", Packages: []string{"crypto/x509"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the runtime"},
+		},
+	},
+	{
 		Date: Date{2025, 11, 5}, Version: Version{1, 25, 4},
 		Bug: &FixSummary{
-			Packages: []string{"crypto/subtle", "encoding/pem", "net/url", "os"},
+			Packages:   []string{"crypto/subtle", "encoding/pem", "net/url", "os"},
 			Components: []template.HTML{"the compiler", "the runtime"},
 		},
 	},
