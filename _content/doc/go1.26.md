@@ -99,6 +99,84 @@ performance or behavior, please [file an issue](/issue/new).
 
 The baseline runtime overhead of cgo calls has been reduced by ~30%.
 
+### Goroutine leak profiles {#goroutineleak-profiles}
+
+<!-- CL 688335 -->
+
+A new profile type that reports leaked goroutines is now available as an
+experiment.
+The new profile type, named `goroutineleak` in the
+[runtime/pprof](/pkg/runtime/pprof) package, may be enabled by setting
+`GOEXPERIMENT=goroutineleakprofile` at build time.
+Enabling the experiment also makes the profile available as a
+[net/http/pprof](/pkg/net/http/pprof) endpoint,
+`/debug/pprof/goroutineleak`.
+
+The following example showcases a real-world goroutine leak that
+can be revealed by the new profile:
+
+```go
+type result struct {
+	res workResult
+	err error
+}
+
+func processWorkItems(ws []workItem) ([]workResult, error) {
+	// Process work items in parallel, aggregating results in ch.
+	ch := make(chan result)
+	for _, w := range ws {
+		go func() {
+			res, err := processWorkItem(w)
+			ch <- result{res, err}
+		}()
+	}
+
+	// Collect the results from ch, or return an error if one is found.
+	var results []workResult
+	for range len(ws) {
+		r := <-ch
+		if r.err != nil {
+			// This early return may cause goroutine leaks.
+			return nil, r.err
+		}
+		results = append(results, r.res)
+	}
+	return results, nil
+}
+```
+
+Because `ch` is unbuffered, if `processWorkItems` returns early due to
+an error, all remaining `processWorkItem` goroutines will leak.
+However, `ch` also becomes unreachable to all other goroutines
+not involved in the leak soon after the leak itself occurs.
+In general, the runtime is now equipped to identify and report on
+any goroutines blocked on operations over concurrency primitives
+(for example, channels, [sync.Mutex](/pkg/sync#Mutex),
+[sync.Cond](/pkg/sync#Cond), and so forth) that are not reachable
+from runnable goroutines.
+
+Note, however, that the runtime may fail to identify leaks caused by
+blocking on operations over concurrency primitives reachable
+through global variables or the local variables of runnable goroutines.
+
+Special thanks to Vlad Saioc at Uber for contributing this work.
+The underlying theory is presented in detail [a publication by
+Saioc et al.](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
+
+The implementation is production-ready, and is only considered an
+experiment for the purposes of collecting feedback on the API,
+specifically the choice to make it a new profile.
+The feature is also designed to not incur any additional run-time
+overheads unless it is actively in-use.
+
+We encourage users to try out the new feature in [the Go
+playground](/play/p/3C71z4Dpav-?v=gotip),
+in tests, in continuous integration, and in production.
+We welcome additional feedback on the [proposal
+issue](/issue/74609).
+
+We aim to enable goroutine leak profiles by default in Go 1.27.
+
 ## Compiler {#compiler}
 
 <!-- CLs 707755, 722440 -->
