@@ -355,7 +355,7 @@ Starting in Go 1.27, the new behavior will apply regardless of GODEBUG setting o
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) and [`KeyUsage`](/pkg/crypto/x509#KeyUsage) types now have String methods that return the
-correspodning OID names as defined in RFC 5280 and other registries.
+corresponding OID names as defined in RFC 5280 and other registries.
 
 The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) type now has an OID method that returns the corresponding OID for the EKU.
 
@@ -399,10 +399,11 @@ The new [`File.End`](/pkg/go/token#File.End) convenience method returns the file
 
 #### [`go/types`](/pkg/go/types/)
 
-The `asynctimerchan` GODEBUG setting introduced in [Go 1.23](/doc/godebug#go-123)
+The `gotypesalias` GODEBUG setting introduced in [Go 1.22](/doc/godebug#go-122)
 will be removed in the next major Go release.
-Starting in Go 1.27, the [time](/pkg/time) package will always use unbuffered
-(synchronous) channels for timers regardless of GODEBUG setting or go.mod language version.
+Starting in Go 1.27, the [go/types](/pkg/go/types) package will always produce an
+[Alias type](/pkg/go/types#Alias) for the representation of [type aliases](/ref/spec#Type_declarations)
+regardless of GODEBUG setting or go.mod language version.
 
 #### [`image/jpeg`](/pkg/image/jpeg/)
 
@@ -437,8 +438,8 @@ if an existing HTTP/2 connection has exceeded its stream limit.
 The new [`Transport.NewClientConn`](/pkg/net/http#Transport.NewClientConn) method returns a client connection
 to an HTTP server.
 Most users should continue to use [`Transport.RoundTrip`](/pkg/net/http#Transport.RoundTrip) to make requests,
-which manages a pool of connection.
-`NewClientConn` is useful for users who need to implement their own conection management.
+which manages a pool of connections.
+`NewClientConn` is useful for users who need to implement their own connection management.
 
 #### [`net/http/httptest`](/pkg/net/http/httptest/)
 
@@ -533,11 +534,10 @@ crypto/rand, and all implicit sources of cryptographic randomness in the
 
 #### [`time`](/pkg/time/)
 
-The `gotypesalias` GODEBUG setting introduced in [Go 1.22](/doc/godebug#go-122)
+The `asynctimerchan` GODEBUG setting introduced in [Go 1.23](/doc/godebug#go-123)
 will be removed in the next major Go release.
-Starting in Go 1.27, the [go/types](/pkg/go/types) package will always produce an
-[Alias type](/pkg/go/types#Alias) for the representation of [type aliases](/ref/spec#Type_declarations)
-regardless of GODEBUG setting or go.mod language version.
+Starting in Go 1.27, the [time](/pkg/time) package will always use unbuffered
+(synchronous) channels for timers regardless of GODEBUG setting or go.mod language version.
 
 ## Ports {#ports}
 
