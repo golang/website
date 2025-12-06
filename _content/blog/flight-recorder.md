@@ -269,7 +269,7 @@ visualization of all flow events often provides clues that hint at the source of
 In this case, we can see that many of the goroutines have a direct connection to a single
 goroutine right after the pause in activity.
 
-Clicking on the the single goroutine shows an event table filled with outgoing flow events, which
+Clicking on the single goroutine shows an event table filled with outgoing flow events, which
 matches what we saw when the flow view was enabled.
 
 What happened when this goroutine ran? Part of the information stored in the trace is a view
@@ -290,11 +290,12 @@ Between the start and the end of this goroutine running, we see a huge number of
 This flow implicates the `Unlock` in `sendReport`:
 
 ```go
-for index, b := range buckets {
+for index := range buckets {
+	b := &buckets[index]
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
-	counts[index] = b.value
+	counts[index] = b.guesses
 }
 ```
 
