@@ -173,14 +173,14 @@ blocking on operations over concurrency primitives reachable
 through global variables or the local variables of runnable goroutines.
 
 Special thanks to Vlad Saioc at Uber for contributing this work.
-The underlying theory is presented in detail [a publication by
+The underlying theory is presented in detail in [a publication by
 Saioc et al.](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
 
 The implementation is production-ready, and is only considered an
 experiment for the purposes of collecting feedback on the API,
 specifically the choice to make it a new profile.
 The feature is also designed to not incur any additional run-time
-overheads unless it is actively in-use.
+overhead unless it is actively in-use.
 
 We encourage users to try out the new feature in [the Go
 playground](/play/p/3C71z4Dpav-?v=gotip),
