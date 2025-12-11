@@ -410,6 +410,12 @@ Additional `R_LARCH_*` constants from [LoongArch ELF psABI v20250521](https://gi
 The new [`AsType`](/pkg/errors#AsType) function is a generic version of [`As`](/pkg/errors#As). It is type-safe, faster,
 and, in most cases, easier to use.
 
+#### [`fmt`](/pkg/fmt/)
+
+<!-- go.dev/cl/708836 -->
+For unformatted strings, `fmt.Errorf("x")` now allocates less and generally matches
+the allocations for `errors.New("x")`.
+
 #### [`go/ast`](/pkg/go/ast/)
 
 The new [`ParseDirective`](/pkg/go/ast#ParseDirective) function parses [directive
@@ -444,6 +450,13 @@ regardless of GODEBUG setting or go.mod language version.
 
 The JPEG encoder and decoder have been replaced with new, faster, more accurate implementations.
 Code that expects specific bit-for-bit outputs from the encoder or decoder may need to be updated.
+
+#### [`io`](/pkg/io/)
+
+<!-- go.dev/cl/722500 -->
+[ReadAll](/pkg/io#ReadAll) now allocates less intermediate memory and returns a minimally sized
+final slice. It is often about two times faster while typically allocating around half
+as much total memory, with more benefit for larger inputs.
 
 #### [`log/slog`](/pkg/log/slog/)
 
