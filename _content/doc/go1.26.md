@@ -207,6 +207,34 @@ On 64-bit ARM-based Windows (the `windows/arm64` port), the linker now supports 
 linking mode of cgo programs, which can be requested with the
 `-ldflags=-linkmode=internal` flag.
 
+There are several minor changes to executable files. These changes do
+not affect running Go programs. They may affect programs that analyze
+Go executables, and they may affect people who use external linking
+mode with custom linker scripts.
+
+ - The `moduledata` structure is now in its own section, named
+   `go.module`.
+ - The `moduledata` `cutab` field, which is a slice, now has the
+   correct length; previously the length was four times too large.
+ - The `pcHeader` found at the start of the `.gopclntab` section no
+   longer records the start of the text section. That field is now
+   always zero.
+ - That `pcHeader` change was made so that the `.gopclntab` section
+   no longer contains any relocations. On platforms that support
+   relro, the section has moved from the relro segment to the rodata
+   segment.
+ - The funcdata symbols and the findfunctab have moved from the
+   `.rodata` section to the `.gopclntab` section.
+ - The `.gosymtab` section has been removed. It was previously always
+   present but empty.
+ - When using internal linking, ELF sections now appear in the
+   section header list sorted by address. The previous order was
+   somewhat unpredictable.
+
+The references to section names here use the ELF names as seen on
+Linux and other systems. The Mach-O names as seen on Darwin start with
+a double underscore and do not contain any dots.
+
 ## Bootstrap {#bootstrap}
 
 <!-- go.dev/issue/69315 -->
