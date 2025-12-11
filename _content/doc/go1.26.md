@@ -243,6 +243,17 @@ The new [`crypto/hpke`](/pkg/crypto/hpke) package implements Hybrid Public Key E
 (HPKE) as specified in [RFC 9180](https://rfc-editor.org/rfc/rfc9180.html), including support for post-quantum
 hybrid KEMs.
 
+### New experimental simd/archsimd package {#simd}
+
+Go 1.26 introduces a new experimental [`simd/archsimd`](/pkg/simd/archsimd/)
+package, which can be enabled by setting the environment variable
+`GOEXPERIMENT=simd` at build time.
+This package provides access to architecture-specific SIMD operations.
+It is currently available on the AMD64 architecture, supporting
+128-bit, 256-bit, and 512-bit vectors.
+
+See the [proposal issue](/issue/73787) for more details.
+
 ### Minor changes to the library {#minor_library_changes}
 
 #### [`bytes`](/pkg/bytes/)
