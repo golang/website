@@ -305,10 +305,6 @@ in `GODEBUG=fips140=only` mode while selectively disabling the strict FIPS 140-3
 
 [`Version`](/pkg/crypto/fips140#Version) returns the resolved FIPS 140-3 Go Cryptographic Module version when building against a frozen module with GOFIPS140.
 
-#### [`crypto/hpke`](/pkg/crypto/hpke/)
-
-<!-- crypto/hpke is documented in its own section. -->
-
 #### [`crypto/mlkem`](/pkg/crypto/mlkem/)
 
 The new [`DecapsulationKey768.Encapsulator`](/pkg/crypto/mlkem#DecapsulationKey768.Encapsulator) and
@@ -377,10 +373,10 @@ Starting in Go 1.27, the new behavior will apply regardless of GODEBUG setting o
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
-The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) and [`KeyUsage`](/pkg/crypto/x509#KeyUsage) types now have String methods that return the
+The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) and [`KeyUsage`](/pkg/crypto/x509#KeyUsage) types now have `String` methods that return the
 corresponding OID names as defined in RFC 5280 and other registries.
 
-The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) type now has an OID method that returns the corresponding OID for the EKU.
+The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) type now has an `OID` method that returns the corresponding OID for the EKU.
 
 The new [`OIDFromASN1OID`](/pkg/crypto/x509#OIDFromASN1OID) function allows converting an [`encoding/asn1.ObjectIdentifier`](/pkg/encoding/asn1#ObjectIdentifier) into
 an [`OID`](/pkg/crypto/x509#OID).
@@ -402,6 +398,7 @@ comments](/doc/comment#Syntax), which are comments such as `//go:generate`.
 Source code tools can support their own directive comments and this new API
 should help them implement the conventional syntax.
 
+<!-- go.dev/issue/76395 -->
 The new [`BasicLit.ValueEnd`](/pkg/go/ast#BasicLit.ValueEnd) field records the precise end position of
 a literal so that the [`BasicLit.End`](/pkg/go/ast#BasicLit.End) method can now always return the
 correct answer. (Previously it was computed using a heuristic that was
@@ -410,7 +407,7 @@ due to removal of carriage returns.)
 
 Programs that update the `ValuePos` field of `BasicLit`s produced by
 the parser may need to also update or clear the `ValueEnd` field to
-avoid minor differences in formatted output. <!-- #76395 --->
+avoid minor differences in formatted output.
 
 #### [`go/token`](/pkg/go/token/)
 
@@ -440,17 +437,17 @@ on each of the enabled handlers.
 
 #### [`net`](/pkg/net/)
 
-The new <code>Dialer</code> methods
-<a href="/pkg/net/#Dialer.DialIP"><code>DialIP</code></a>,
-<a href="/pkg/net/#Dialer.DialTCP"><code>DialTCP</code></a>,
-<a href="/pkg/net/#Dialer.DialUDP"><code>DialUDP</code></a>, and
-<a href="/pkg/net/#Dialer.DialUnix"><code>DialUnix</code></a>
+The new [`Dialer`](/pkg/net/#Dialer) methods
+[`DialIP`](/pkg/net/#Dialer.DialIP),
+[`DialTCP`](/pkg/net/#Dialer.DialTCP),
+[`DialUDP`](/pkg/net/#Dialer.DialUDP), and
+[`DialUnix`](/pkg/net/#Dialer.DialUnix)
 permit dialing specific network types with context values.
 
 #### [`net/http`](/pkg/net/http/)
 
 The new
-[HTTP2Config.StrictMaxConcurrentRequests](/pkg/net/http#HTTP2Config.StrictMaxConcurrentRequests)
+[`HTTP2Config.StrictMaxConcurrentRequests`](/pkg/net/http#HTTP2Config.StrictMaxConcurrentRequests)
 field controls whether a new connection should be opened
 if an existing HTTP/2 connection has exceeded its stream limit.
 
@@ -488,13 +485,13 @@ The new [`Prefix.Compare`](/pkg/net/netip#Prefix.Compare) method compares two pr
 [`Parse`](/pkg/net/url#Parse) now rejects malformed URLs containing colons in the host subcomponent,
 such as `http://::1/` or `http://localhost:80:80/`.
 URLs containing bracketed IPv6 addresses, such as `http://[::1]/` are still accepted.
-The new GODEBUG=urlstrictcolons=0 setting restores the old behavior.
+The new GODEBUG setting `urlstrictcolons=0` restores the old behavior.
 
 #### [`os`](/pkg/os/)
 
 The new [`Process.WithHandle`](/pkg/os#Process.WithHandle) method provides access to an internal process
-handle on supported platforms (Linux 5.4 or later and Windows). On Linux,
-the process handle is a pidfd. The method returns [`ErrNoHandle`](/pkg/os#ErrNoHandle) on unsupported
+handle on supported platforms (Linux 5.4 or later, and Windows). On Linux,
+the process handle is a `pidfd`. The method returns [`ErrNoHandle`](/pkg/os#ErrNoHandle) on unsupported
 platforms or when no process handle is available.
 
 On Windows, the [`OpenFile`](/pkg/os#OpenFile) `flag` parameter can now contain any combination of
