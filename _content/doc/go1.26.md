@@ -216,28 +216,7 @@ We expect that Go 1.28 will require a minor release of Go 1.26 or later for boot
 
 ## Standard library {#library}
 
-### New secret package
-
-<!-- https://go.dev/issue/21865 --->
-
-The new [secret](/pkg/runtime/secret) package is available as an experiment.
-It provides a facility for securely erasing temporaries used in
-code that manipulates secret information, typically cryptographic in nature.
-Users can access it by passing `GOEXPERIMENT=runtimesecret` at build time.
-
-<!-- if we land any code that uses runtimesecret for forward secrecy
-like crypto/tls, mention them here too -->
-
-The secret.Do function runs its function argument and then erases all
-temporary storage (registers, stack, new heap allocations) used by
-that function argument. Heap storage is not erased until that storage
-is deemed unreachable by the garbage collector, which might take some
-time after secret.Do completes.
-
-This package is intended to make it easier to ensure [forward
-secrecy](https://en.wikipedia.org/wiki/Forward_secrecy).
-
-### crypto/hpke
+### New crypto/hpke package
 
 The new [`crypto/hpke`](/pkg/crypto/hpke) package implements Hybrid Public Key Encryption
 (HPKE) as specified in [RFC 9180](https://rfc-editor.org/rfc/rfc9180.html), including support for post-quantum
@@ -253,6 +232,26 @@ It is currently available on the AMD64 architecture, supporting
 128-bit, 256-bit, and 512-bit vectors.
 
 See the [proposal issue](/issue/73787) for more details.
+
+### New experimental runtime/secret package
+
+<!-- https://go.dev/issue/21865 --->
+
+The new [`runtime/secret`](/pkg/runtime/secret) package is available as an experiment,
+which can be enabled by setting the environment variable
+`GOEXPERIMENT=runtimesecret` at build time.
+It provides a facility for securely erasing temporaries used in
+code that manipulates secret information, typically cryptographic in nature.
+It currently supports the AMD64 and ARM64 architectures on Linux.
+
+The [`secret.Do`](/pkg/runtime/secret#Do) function runs its function argument and then erases all
+temporary storage (registers, stack, new heap allocations) used by
+that function argument. Heap storage is not erased until that storage
+is deemed unreachable by the garbage collector, which might take some
+time after `secret.Do` completes.
+
+This package is intended to make it easier to ensure [forward
+secrecy](https://en.wikipedia.org/wiki/Forward_secrecy).
 
 ### Minor changes to the library {#minor_library_changes}
 
