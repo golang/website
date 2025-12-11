@@ -385,10 +385,6 @@ The [`ExtKeyUsage`](/pkg/crypto/x509#ExtKeyUsage) type now has an OID method tha
 The new [`OIDFromASN1OID`](/pkg/crypto/x509#OIDFromASN1OID) function allows converting an [`encoding/asn1.ObjectIdentifier`](/pkg/encoding/asn1#ObjectIdentifier) into
 an [`OID`](/pkg/crypto/x509#OID).
 
-#### [`database/sql/driver`](/pkg/database/sql/driver/)
-
-A database driver may implement [`RowsColumnScanner`](/pkg/database/sql/driver#RowsColumnScanner) to entirely override `Scan` behavior.
-
 #### [`debug/elf`](/pkg/debug/elf/)
 
 Additional `R_LARCH_*` constants from [LoongArch ELF psABI v20250521](https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc)
