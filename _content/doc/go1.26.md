@@ -566,10 +566,19 @@ and an error indicating which signal was received.
 
 #### [`reflect`](/pkg/reflect/)
 
-[`reflect.Type`](/pkg/reflect#Type) includes new methods that return iterators for a type's fields, methods, inputs and outputs.
-Similarly, [`reflect.Value`](/pkg/reflect#Value) includes two new methods that return iterators over a value's fields or methods,
-each element being a pair of the value ([`reflect.Value`](/pkg/reflect#Value)) and its type information ([`reflect.StructField`](/pkg/reflect#StructField) or
-[`reflect.Method`](/pkg/reflect#Method)).
+The new methods [`Type.Fields`](/pkg/reflect#Type.Fields),
+[`Type.Methods`](/pkg/reflect#Type.Methods),
+[`Type.Ins`](/pkg/reflect#Type.Ins)
+and [`Type.Outs`](/pkg/reflect#Type.Outs)
+return iterators for a type's fields (for a struct type), methods,
+inputs and outputs parameters (for a function type), respectively.
+
+Similarly, the new methods [`Value.Fields`](/pkg/reflect#Value.Fields)
+and [`Value.Methods`](/pkg/reflect#Value.Methods) return iterators over
+a value's fields or methods, respectively.
+Each iteration yields the type information ([`StructField`](/pkg/reflect#StructField) or
+[`Method`](/pkg/reflect#Method)) of a field or method,
+along with the field or method [`Value`](/pkg/reflect#Value).
 
 #### [`runtime/metrics`](/pkg/runtime/metrics/)
 
@@ -605,7 +614,7 @@ For example, in a test named `TestArtifacts`,
 
 The new [`SetGlobalRandom`](/pkg/testing/cryptotest#SetGlobalRandom) function configures a global, deterministic
 cryptographic randomness source for the duration of the test. It affects
-crypto/rand, and all implicit sources of cryptographic randomness in the
+`crypto/rand`, and all implicit sources of cryptographic randomness in the
 `crypto/...` packages.
 
 #### [`time`](/pkg/time/)
