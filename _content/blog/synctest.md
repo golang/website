@@ -104,9 +104,9 @@ The `testing/synctest` package solves this problem.
 It allows us to rewrite this test to be simple, fast, and reliable,
 without any changes to the code being tested.
 
-The package contains only two functions: `Run` and `Wait`.
+The package contains only two functions: `Test` and `Wait`.
 
-`Run` calls a function in a new goroutine.
+`Test` calls a function in a new goroutine.
 This goroutine and any goroutines started by it
 exist in an isolated environment which we call a *bubble*.
 `Wait` waits for every goroutine in the current goroutine's bubble
@@ -116,7 +116,7 @@ Let's rewrite our test above using the `testing/synctest` package.
 
 {{raw `
     func TestAfterFunc(t *testing.T) {
-        synctest.Run(func() {
+        synctest.Test(t, func(t *testing.T) {
             ctx, cancel := context.WithCancel(context.Background())
 
             funcCalled := false
@@ -140,7 +140,7 @@ Let's rewrite our test above using the `testing/synctest` package.
 `}}
 
 This is almost identical to our original test,
-but we have wrapped the test in a `synctest.Run` call
+but we have wrapped the test in a `synctest.Test` call
 and we call `synctest.Wait` before asserting that the function has been called or not.
 
 The `Wait` function waits for every goroutine in the caller's bubble to block.
@@ -173,7 +173,7 @@ an optional fake clock.
 
 The `testing/synctest` package makes it simpler to test code that uses time.
 
-Goroutines in the bubble started by `Run` use a fake clock.
+Goroutines in the bubble started by `Test` use a fake clock.
 Within the bubble, functions in the `time` package operate on the
 fake clock. Time advances in the bubble when all goroutines are
 blocked.
@@ -185,7 +185,7 @@ which expires after a given timeout.
 
 {{raw `
     func TestWithTimeout(t *testing.T) {
-        synctest.Run(func() {
+        synctest.Test(t, func(t *testing.T) {
             const timeout = 5 * time.Second
             ctx, cancel := context.WithTimeout(context.Background(), timeout)
             defer cancel()
@@ -208,7 +208,7 @@ which expires after a given timeout.
 `}}
 
 We write this test just as if we were working with real time.
-The only difference is that we wrap the test function in `synctest.Run`,
+The only difference is that we wrap the test function in `synctest.Test`,
 and call `synctest.Wait` after each `time.Sleep` call to wait for the context
 package's timers to finish running.
 
@@ -222,7 +222,7 @@ When a bubble is durably blocked:
 
   - If there is an outstanding `Wait` call, it returns.
   - Otherwise, time advances to the next time that could unblock a goroutine, if any.
-  - Otherwise, the bubble is deadlocked and `Run` panics.
+  - Otherwise, the bubble is deadlocked and `Test` panics.
 
 A bubble is not durably blocked if any goroutine is blocked
 but might be woken by some event from outside the bubble.
@@ -281,12 +281,12 @@ and can be used in synctest tests.
 
 ## Bubble lifetime
 
-The `Run` function starts a goroutine in a new bubble.
+The `Test` function starts a goroutine in a new bubble.
 It returns when every goroutine in the bubble has exited.
 It panics if the bubble is durably blocked
 and cannot be unblocked by advancing time.
 
-The requirement that every goroutine in the bubble exit before Run returns
+The requirement that every goroutine in the bubble exit before Test returns
 means that tests must be careful to clean up any background goroutines
 before completing.
 
@@ -319,7 +319,7 @@ an in-memory network connection created by [`net.Pipe`](/pkg/net#Pipe).
 
 {{raw `
     func Test(t *testing.T) {
-        synctest.Run(func() {
+        synctest.Test(t, func(t *testing.T) {
             srvConn, cliConn := net.Pipe()
             defer srvConn.Close()
             defer cliConn.Close()
@@ -394,7 +394,7 @@ request body.
 And finally, we finish up by sending the "200 OK" response to conclude the request.
 
 We have started several goroutines during this test.
-The `synctest.Run` call will wait for all of them to exit before returning.
+The `synctest.Test` call will wait for all of them to exit before returning.
 
 {{raw `
             srvConn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
