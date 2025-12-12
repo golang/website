@@ -644,5 +644,11 @@ Go 1.26 is the last release that supports the big-endian 64-bit PowerPC
 port on Linux (`GOOS=linux` `GOARCH=ppc64`).
 The port will be removed in Go 1.27.
 
+### S390X
+
+<!-- CL 719482 -->
+
+The `s390x` port now supports passing function arguments and results using registers.
+
 [laelf-20250521]: https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc
 [rfc 9180]: https://rfc-editor.org/rfc/rfc9180.html
