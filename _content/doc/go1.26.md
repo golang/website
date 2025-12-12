@@ -636,5 +636,13 @@ See [issue 76475](/issue/76475) for details.
 
 As [announced](/doc/go1.25#windows) in the Go 1.25 release notes, the [broken](/doc/go1.24#windows) 32-bit windows/arm port (`GOOS=windows` `GOARCH=arm`) is removed.
 
+### PowerPC
+
+<!-- go.dev/issue/76244 -->
+
+Go 1.26 is the last release that supports the big-endian 64-bit PowerPC
+port on Linux (`GOOS=linux` `GOARCH=ppc64`).
+The port will be removed in Go 1.27.
+
 [laelf-20250521]: https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc
 [rfc 9180]: https://rfc-editor.org/rfc/rfc9180.html
