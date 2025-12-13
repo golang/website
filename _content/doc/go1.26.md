@@ -659,5 +659,11 @@ The port will be removed in Go 1.27.
 
 The `s390x` port now supports passing function arguments and results using registers.
 
+### RISC-V
+
+<!-- CL 690497 -->
+
+The `linux/riscv64` port now supports the race detector.
+
 [laelf-20250521]: https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc
 [rfc 9180]: https://rfc-editor.org/rfc/rfc9180.html
