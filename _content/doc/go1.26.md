@@ -517,6 +517,10 @@ Most users should continue to use [`Transport.RoundTrip`](/pkg/net/http#Transpor
 which manages a pool of connections.
 `NewClientConn` is useful for users who need to implement their own connection management.
 
+[`Client`](/pkg/net/http#Client) now uses and sets cookies scoped to URLs with the host portion matching
+[`Request.Host`](/pkg/net/http#Request.Host) when available.
+Previously, the connection address host was always used.
+
 #### [`net/http/httptest`](/pkg/net/http/httptest/)
 
 The HTTP client returned by [`Server.Client`](/pkg/net/http/httptest#Server.Client) will now redirect requests for
