@@ -402,7 +402,7 @@ was sent in response to a HelloRetryRequest message. The new
 sent a HelloRetryRequest, or if the client received a HelloRetryRequest,
 depending on connection role.
 
-The [`QUICConn`](/pkg/crypto/tls#QUICConn) type used by QUIC implementations includes new event
+The [`QUICConn`](/pkg/crypto/tls#QUICConn) type used by QUIC implementations includes a new event
 for reporting TLS handshake errors.
 
 If [`Certificate.PrivateKey`](/pkg/crypto/tls#Certificate.PrivateKey) implements [`crypto.MessageSigner`](/pkg/crypto#MessageSigner), its SignMessage
