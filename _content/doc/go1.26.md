@@ -49,6 +49,17 @@ func yearsSince(t time.Time) int {
 
 ### Go command {#go-command}
 
+<!-- go.dev/issue/74748 -->
+`go mod init` now defaults to a lower `go` version in new `go.mod` files. `go mod init`
+using a toolchain of version `1.N.X` will create a `go.mod` file
+specifying the Go version `go 1.(N-1).0`. Pre-release versions of `1.N` will
+create `go.mod` files specifying `go 1.(N-2).0`. In practice, this means Go 1.26
+release candidates will create `go.mod` files with `go 1.24.0`, and Go 1.26
+and its minor releases will create `go.mod` files with `go 1.25.0`. This is intended
+to encourage the creation of modules that are compatible with currently supported
+versions of Go. For additional control over the `go` version in new modules,
+`go mod init` can be followed up with `go get go@version`.
+
 <!-- go.dev/issue/74667 -->
 `cmd/doc`, and `go tool doc` have been deleted. `go doc` can be used as
 a replacement for `go tool doc`: it takes the same flags and arguments and
