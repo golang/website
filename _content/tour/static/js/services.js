@@ -60,8 +60,9 @@ factory('run', ['$window', 'editor',
             if (!hasGoMod) {
                 code += '\n' +
                     '-- go.mod --\n' +
-                    'module example\n' +
-                    'require golang.org/x/tour v0.0.0-20201207214521-004403599411\n' +
+                    'module example\n\n' +
+                    'go 1.25\n\n' +
+                    'require golang.org/x/tour v0.1.0\n' +
                     '-- go.sum --\n' +
                     'golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=\n' +
                     'golang.org/x/net v0.0.0-20190311183353-d8887717615a/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=\n' +
