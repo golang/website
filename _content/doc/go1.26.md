@@ -680,5 +680,14 @@ The `s390x` port now supports passing function arguments and results using regis
 
 The `linux/riscv64` port now supports the race detector.
 
+### WebAssembly {#wasm}
+
+<!-- CL 707855 -->
+
+The compiler now unconditionally makes use of the sign extension
+and non-trapping floating-point to integer conversion instructions.
+These features have been standardized since at least Wasm 2.0.
+The corresponding `GOWASM` settings, `signext` and `satconv`, are now ignored.
+
 [laelf-20250521]: https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc
 [rfc 9180]: https://rfc-editor.org/rfc/rfc9180.html
