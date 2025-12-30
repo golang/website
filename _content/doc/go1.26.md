@@ -122,6 +122,7 @@ expected to be ~1% in real allocation-heavy programs.
 Please [file an issue](/issue/new) if you notice any regressions.
 You may set `GOEXPERIMENT=nosizespecializedmalloc` at build time to disable
 it.
+This opt-out setting is expected to be removed in Go 1.27.
 
 ### Goroutine leak profiles {#goroutineleak-profiles}
 
