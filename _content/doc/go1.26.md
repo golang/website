@@ -269,9 +269,18 @@ package, which can be enabled by setting the environment variable
 `GOEXPERIMENT=simd` at build time.
 This package provides access to architecture-specific SIMD operations.
 It is currently available on the AMD64 architecture, supporting
-128-bit, 256-bit, and 512-bit vectors.
+128-bit, 256-bit, and 512-bit vector types, such as
+[`Int8x16`](/pkg/simd/archsimd#Int8x16) and
+[`Float64x8`](/pkg/simd/archsimd#Float64x8), with operations such as
+[`Int8x16.Add`](/pkg/simd/archsimd#Int8x16.Add).
 
-See the [proposal issue](/issue/73787) for more details.
+This package is architecture-specific, and the API may not be portable
+across all architectures.
+Building on top of this, we plan to develop a high-level portable SIMD
+package in the future.
+
+See the package documentation and the [proposal issue](/issue/73787)
+for more details.
 
 ### New experimental runtime/secret package
 
