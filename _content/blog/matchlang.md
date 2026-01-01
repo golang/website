@@ -11,6 +11,7 @@ tags:
 - 47
 - matching
 summary: How to internationalize your web site with Go's language and locale matching.
+template: true
 ---
 
 ## Introduction

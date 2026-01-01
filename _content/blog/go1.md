@@ -7,6 +7,7 @@ tags:
 - release
 - go1
 summary: "A major milestone: announcing Go 1, the first stable version of Go."
+template: true
 ---
 
 

@@ -5,6 +5,7 @@ logoSrc: chrome.svg
 logoSrcDark: chrome.svg
 heroImgSrc: go_chrome_case_study.png
 series: Case Studies
+template: true
 quote: |
   Google Chrome is a more simple, secure, and faster web browser than ever,
   with Google's smarts built-in.

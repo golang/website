@@ -6,6 +6,7 @@ by:
 tags:
 - constants
 summary: An introduction to constants in Go.
+template: true
 ---
 
 ## Introduction

@@ -4,6 +4,7 @@ date: 2014-11-10
 by:
 - Andrew Gerrand
 summary: Happy 5th birthday, Go!
+template: true
 ---
 
 

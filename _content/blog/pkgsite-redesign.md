@@ -4,6 +4,7 @@ date: 2020-11-10T12:00:00Z
 by:
 - Julie Qiu
 summary: Announcing a new user experience on pkg.go.dev.
+template: true
 ---
 
 

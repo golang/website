@@ -8,6 +8,7 @@ tags:
 - cancellation
 - context
 summary: An introduction to the Go context package.
+template: true
 ---
 
 ## Introduction

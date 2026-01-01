@@ -5,6 +5,7 @@ tags:
 - community
 - video
 summary: Announcing the draft designs for the major Go 2 changes.
+template: true
 ---
 
 

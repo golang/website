@@ -3,6 +3,7 @@ title: "Go Telemetry"
 layout: article
 breadcrumb: true
 date: 2024-02-07:00:00Z
+template: true
 ---
 
 <style>

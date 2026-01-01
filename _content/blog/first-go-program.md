@@ -6,6 +6,7 @@ by:
 tags:
 - history
 summary: Rob Pike dug up the first Go program ever written.
+template: true
 ---
 
 

@@ -4,6 +4,7 @@ date: 2013-06-12
 by:
 - Andrew Gerrand
 summary: Two talks about using Go with the Google Cloud Platform, from Google I/O 2013.
+template: true
 ---
 
 ## Introduction

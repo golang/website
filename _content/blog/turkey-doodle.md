@@ -8,6 +8,7 @@ tags:
 - google
 - guest
 summary: How Go helped launch the Google Doodle for Thanksgiving 2011.
+template: true
 ---
 
 ## Introduction

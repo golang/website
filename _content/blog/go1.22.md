@@ -4,6 +4,7 @@ date: 2024-02-06
 by:
 - Eli Bendersky, on behalf of the Go team
 summary: Go 1.22 enhances for loops, brings new standard library functionality and improves performance.
+template: true
 ---
 
 Today the Go team is thrilled to release Go 1.22,

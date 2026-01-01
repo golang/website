@@ -7,6 +7,7 @@ tags:
 - http
 - technical
 summary: How to use Go 1.7's HTTP tracing to understand your client requests.
+template: true
 ---
 
 ## Introduction

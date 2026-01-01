@@ -2,6 +2,7 @@
 title: "Go Doc Comments"
 layout: article
 date: 2022-06-01T00:00:00Z
+template: true
 ---
 
 Table of Contents:

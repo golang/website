@@ -7,6 +7,7 @@ tags:
 - concurrency
 - testing
 summary: Go 1.24 contains an experimental package to aid in testing concurrent code.
+template: true
 ---
 
 One of Go's signature features is built-in support for concurrency.

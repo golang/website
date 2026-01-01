@@ -8,6 +8,7 @@ tags:
 - go2
 - generics
 summary: An introduction to generics in Go.
+template: true
 ---
 
 ## Introduction

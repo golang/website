@@ -4,6 +4,7 @@ date: 2015-01-09
 by:
 - Francesc Campoy
 summary: Reporting from GothamGo 2015, the first full-day Go conference in New York City.
+template: true
 ---
 
 

@@ -10,6 +10,7 @@ tags:
 - tracing
 - flight recorder
 summary: Go 1.25 introduces a new tool in the diagnostic toolbox, flight recording.
+template: true
 ---
 
 In 2024 we introduced the world to

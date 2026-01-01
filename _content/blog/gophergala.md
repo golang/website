@@ -4,6 +4,7 @@ date: 2015-01-07
 by:
   - Francesc Campoy
 summary: The Gopher Gala, the first global Go hackathon, will take place January 23-25, 2015.
+template: true
 ---
 
 The [Gopher Gala](http://gophergala.com/) is the first Go hackathon at a

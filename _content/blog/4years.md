@@ -7,6 +7,7 @@ tags:
 - community
 - birthday
 summary: Happy 4th birthday, Go!
+template: true
 ---
 
 

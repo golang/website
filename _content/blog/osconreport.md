@@ -7,6 +7,7 @@ tags:
 - conference
 - oscon
 summary: Reporting from OSCON 2014.
+template: true
 ---
 
 ## Introduction

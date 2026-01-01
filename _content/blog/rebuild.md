@@ -4,6 +4,7 @@ date: 2023-08-28
 by:
 - Russ Cox
 summary: Go 1.21 is the first perfectly reproducible Go toolchain.
+template: true
 ---
 
 One of the key benefits of open-source software is that anyone can read

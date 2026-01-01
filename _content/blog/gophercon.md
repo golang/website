@@ -4,6 +4,7 @@ date: 2014-05-28
 by:
 - Andrew Gerrand
 summary: Reporting from GopherCon 2014.
+template: true
 ---
 
 

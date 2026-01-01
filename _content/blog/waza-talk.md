@@ -8,6 +8,7 @@ tags:
 - talk
 - video
 summary: Watch Rob Pike's talk, _Concurrency is not parallelism._
+template: true
 ---
 
 

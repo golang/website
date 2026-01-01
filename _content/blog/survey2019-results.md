@@ -7,6 +7,7 @@ tags:
 - survey
 - community
 summary: An analysis of the results from the 2019 Go Developer Survey.
+template: true
 ---
 
 ## What a response!

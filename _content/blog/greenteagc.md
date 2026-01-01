@@ -8,6 +8,7 @@ tags:
 - garbage collection
 - performance
 summary: Go 1.25 includes a new experimental garbage collector, Green Tea.
+template: true
 ---
 
 <style type="text/css" scoped>

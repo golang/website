@@ -7,6 +7,7 @@ tags:
 - tools
 - versioning
 summary: The Go module mirror and checksum database provide faster, verified downloads of your Go dependencies.
+template: true
 ---
 
 

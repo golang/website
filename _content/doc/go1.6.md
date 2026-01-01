@@ -1,5 +1,4 @@
 ---
-template: false
 title: Go 1.6 Release Notes
 ---
 

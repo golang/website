@@ -8,6 +8,7 @@ tags:
 - generics
 - interfaces
 summary: Adding type parameters to interface types is surprisingly powerful
+template: true
 ---
 
 There is an idea that is not obvious until you hear about it for the first time: as interfaces are types themselves, they too can have type parameters.

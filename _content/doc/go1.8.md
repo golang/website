@@ -1,5 +1,4 @@
 ---
-template: false
 title: Go 1.8 Release Notes
 ---
 

@@ -8,6 +8,7 @@ tags:
 - video
 - go1
 summary: Watch Rob Pike and Andrew Gerrand's talk, The Path to Go 1.
+template: true
 ---
 
 

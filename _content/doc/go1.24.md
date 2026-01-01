@@ -1,6 +1,5 @@
 ---
 title: Go 1.24 Release Notes
-template: false
 ---
 
 <style>

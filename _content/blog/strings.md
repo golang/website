@@ -9,6 +9,7 @@ tags:
 - runes
 - characters
 summary: How strings work in Go, and how to use them.
+template: true
 ---
 
 ## Introduction

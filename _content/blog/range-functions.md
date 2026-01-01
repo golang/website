@@ -6,6 +6,7 @@ by:
 tags:
 - iterators
 summary: A description of range over function types, a new feature in Go 1.23.
+template: true
 ---
 
 ## Introduction

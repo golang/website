@@ -1,6 +1,5 @@
 ---
 title: Go 1.23 Release Notes
-template: false
 ---
 
 <!--

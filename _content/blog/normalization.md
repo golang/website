@@ -9,6 +9,7 @@ tags:
 - runes
 - characters
 summary: How and why to normalize UTF-8 text in Go.
+template: true
 ---
 
 ## Introduction

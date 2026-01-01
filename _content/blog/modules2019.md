@@ -7,6 +7,7 @@ tags:
 - tools
 - versioning
 summary: What the Go team is planning for Go modules in 2019.
+template: true
 ---
 
 ## What a year!

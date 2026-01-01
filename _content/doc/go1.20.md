@@ -1,6 +1,5 @@
 ---
 path: /doc/go1.20
-template: false
 title: Go 1.20 Release Notes
 ---
 

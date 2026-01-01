@@ -7,6 +7,7 @@ by:
 tags:
 - appengine
 summary: Google Cloud is announcing a new Go 1.11 runtime for App Engine, with fewer limits on app structure.
+template: true
 ---
 
 

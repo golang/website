@@ -1,4 +1,5 @@
 <!--{
+  "Template": true,
   "Title": "Go Modules Reference"
 }-->
 <!-- TODO(golang.org/issue/33637): Write focused "guide" articles on specific

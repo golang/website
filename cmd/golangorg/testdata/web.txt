@@ -392,6 +392,11 @@ body !contains []byte(&amp;#34;orders&amp;#34;)
 body contains <span class="comment">
 body !contains &lt;span class=&#34;comment&#34;&gt;
 
+# Issue 75552.
+GET https://go.dev/src/cmd/compile/internal/ssa/README
+body contains Addr &lt;*int&gt;
+body !contains Addr &amp;lt;*int&gt;
+
 GET https://m.golang.org/
 redirect == https://mail.google.com/a/golang.org/
 

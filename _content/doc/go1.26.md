@@ -1,6 +1,5 @@
 ---
 title: Go 1.26 Release Notes
-template: false
 ---
 
 <style>

@@ -2,6 +2,7 @@
 title: A conversation with the Go team
 date: 2013-06-06
 summary: At Google I/O 2013, several members of the Go team hosted a "Fireside chat."
+template: true
 ---
 
 

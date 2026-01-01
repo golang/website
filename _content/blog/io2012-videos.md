@@ -10,6 +10,7 @@ tags:
 - appengine
 - ethos
 summary: Talks about Go from Google I/O 2012.
+template: true
 ---
 
 ## Introduction

@@ -1,6 +1,7 @@
 ---
 title: The Go Programming Language
 summary: Go is an open source programming language that makes it simple to build secure, scalable systems.
+template: true
 ---
 
 {{$canShare := not googleCN}}

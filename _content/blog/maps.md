@@ -7,6 +7,7 @@ tags:
 - map
 - technical
 summary: How and when to use Go maps.
+template: true
 ---
 
 ## Introduction

@@ -9,6 +9,7 @@ tags:
 - libraries
 - technical
 summary: An introduction to image compositing in Go using the image/draw package.
+template: true
 ---
 
 ## Introduction

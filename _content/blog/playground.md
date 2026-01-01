@@ -6,6 +6,7 @@ by:
 tags:
 - playground
 summary: How the Go playground works.
+template: true
 ---
 
 ## Introduction

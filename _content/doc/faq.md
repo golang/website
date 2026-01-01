@@ -2,6 +2,7 @@
 title: "Frequently Asked Questions (FAQ)"
 sidebar: "faq"
 breadcrumb: true
+template: true
 ---
 
 ## Origins {#Origins}

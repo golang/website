@@ -10,6 +10,7 @@ tags:
 - copy
 - append
 summary: How Go arrays and slices work, and how to use copy and append.
+template: true
 ---
 
 ## Introduction

@@ -7,6 +7,7 @@ tags:
 - go2
 - generics
 summary: When to use generics when writing Go code, and when not to use them.
+template: true
 ---
 
 ## Introduction

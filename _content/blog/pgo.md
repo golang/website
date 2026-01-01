@@ -4,6 +4,7 @@ date: 2023-09-05
 by:
 - Michael Pratt
 summary: Introduction to profile-guided optimization, generally available in Go 1.21.
+template: true
 ---
 
 Earlier in 2023, Go 1.20 [shipped a preview of profile-guided optimization (PGO)](/blog/pgo-preview) for users to test.

@@ -7,6 +7,7 @@ tags:
 - tools
 - gopls
 summary: Gopls, which provides IDE features for Go to many editors, is now used by default in VS Code Go.
+template: true
 ---
 
 

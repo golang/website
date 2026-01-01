@@ -4,6 +4,7 @@ date: 2021-11-09
 by:
 - Julie Qiu
 summary: Package search on pkg.go.dev has been updated, and you can now search for symbols!
+template: true
 ---
 
 We are excited to launch a new search experience on [pkg.go.dev](https://pkg.go.dev/).

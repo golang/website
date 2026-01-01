@@ -6,6 +6,7 @@ by:
 tags:
 - brand
 summary: Go’s new look and logo (don't worry, the mascot isn’t changing!).
+template: true
 ---
 
 ## Introduction

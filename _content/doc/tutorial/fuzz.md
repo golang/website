@@ -1,4 +1,5 @@
 <!--{
+  "Template": true,
   "Title": "Tutorial: Getting started with fuzzing",
   "HideTOC": true,
   "Breadcrumb": true

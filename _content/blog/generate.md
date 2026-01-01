@@ -7,6 +7,7 @@ tags:
 - programming
 - technical
 summary: How to use go generate.
+template: true
 ---
 
 

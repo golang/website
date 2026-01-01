@@ -5,6 +5,7 @@ logoSrc: firebase.svg
 logoSrcDark: firebase.svg
 heroImgSrc: go_firebase_case_study.png
 series: Case Studies
+template: true
 quote: |
   Firebase is Google’s mobile platform that helps you quickly develop high-quality
   apps and grow your business.

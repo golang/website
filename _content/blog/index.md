@@ -1,5 +1,6 @@
 ---
 title: The Go Blog
+template: true
 ---
 
 <div id="blogindex">

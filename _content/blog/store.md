@@ -4,6 +4,7 @@ date: 2019-07-18
 by:
 - Cassandra Salisbury
 summary: Unfortunately, the Go store is offline.
+template: true
 ---
 
 

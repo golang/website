@@ -6,6 +6,7 @@ by:
 tags:
 - guest
 summary: How StatHat uses Go, and why they chose it.
+template: true
 ---
 
 ## Introduction

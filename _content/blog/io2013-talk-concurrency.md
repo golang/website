@@ -8,6 +8,7 @@ tags:
 - video
 - concurrency
 summary: Watch Sameer Ajmani's talk, “Advanced Go Concurrency Patterns,” from Google I/O 2013.
+template: true
 ---
 
 
