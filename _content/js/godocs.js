@@ -72,6 +72,11 @@
     for (var i = 0; i < split_index; i++) {
       dl1.append(toc_items[i]);
     }
+    // Do not start the 2nd column with indented subheadings, which can be
+    // visually confusing.
+    for (; i < toc_items.length && toc_items[i].hasClass("indent"); i++) {
+      dl1.append(toc_items[i]);
+    }
     for (; /* keep using i */ i < toc_items.length; i++) {
       dl2.append(toc_items[i]);
     }
