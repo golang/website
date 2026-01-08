@@ -202,6 +202,18 @@ issue](/issue/74609).
 
 We aim to enable goroutine leak profiles by default in Go 1.27.
 
+### Heap base address randomization
+
+<!-- CL 674835 -->
+
+On 64-bit platforms, the runtime now randomizes the heap base address
+at startup.
+This is a security enhancement that makes it harder for attackers to
+predict memory addresses and exploit vulnerabilities when using cgo.
+This feature may be disabled by setting
+`GOEXPERIMENT=norandomizedheapbase64` at build time.
+This opt-out setting is expected to be removed in a future Go release.
+
 ## Compiler {#compiler}
 
 <!-- CLs 707755, 722440 -->
