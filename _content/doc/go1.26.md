@@ -237,7 +237,7 @@ Go executables, and they may affect people who use external linking
 mode with custom linker scripts.
 
  - The `moduledata` structure is now in its own section, named
-   `go.module`.
+   `.go.module`.
  - The `moduledata` `cutab` field, which is a slice, now has the
    correct length; previously the length was four times too large.
  - The `pcHeader` found at the start of the `.gopclntab` section no
