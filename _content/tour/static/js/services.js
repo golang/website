@@ -56,21 +56,22 @@ factory('run', ['$window', 'editor',
             // The exercises use golang.org/x/tour/{pic,reader,tree,wc}
             // packages, so include the golang.org/x/tour module in the
             // build list.
-            const hasGoMod = code.indexOf('\n-- go.mod --\n') !== -1 || code.startsWith('-- go.mod --\n');
+            const hasGoMod = code.includes('\n-- go.mod --\n') || code.startsWith('-- go.mod --\n');
             if (!hasGoMod) {
-                code += '\n' +
-                    '-- go.mod --\n' +
-                    'module example\n\n' +
-                    'go 1.25\n\n' +
-                    'require golang.org/x/tour v0.0.0-20201207214521-004403599411\n' +
-                    '-- go.sum --\n' +
-                    'golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=\n' +
-                    'golang.org/x/net v0.0.0-20190311183353-d8887717615a/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=\n' +
-                    'golang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=\n' +
-                    'golang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=\n' +
-                    'golang.org/x/tools v0.0.0-20190312164927-7b79afddac43/go.mod h1:LCzVGOaR6xXOjkQ3onu1FJEFr0SW1gC7cKk1uF8kGRs=\n' +
-                    'golang.org/x/tour v0.0.0-20201207214521-004403599411 h1:dJ4kVwSGlrLZXW6eo2IOer4Pm3wl2GIG4fytRziMgL8=\n' +
-                    'golang.org/x/tour v0.0.0-20201207214521-004403599411/go.mod h1:qMugOFWX59KzC8Nx7f2uvXxKxAqJfi1J6ZUHAWKnrRA=\n';
+                code += '\n-- go.mod --' +
+                    '\nmodule example' +
+                    '\n' +
+                    '\ngo 1.25' +
+                    '\n' +
+                    '\nrequire golang.org/x/tour v0.1.0' +
+                    '\n--go.sum --' +
+                    '\ngolang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=' +
+                    '\ngolang.org/x/net v0.0.0-20190311183353-d8887717615a/go.mod h1:t9HGtf8HONx5eT2rtn7q6eTqICYqUVnKs3thJo3Qplg=' +
+                    '\ngolang.org/x/sys v0.0.0-20190215142949-d0b11bdaac8a/go.mod h1:STP8DvDyc/dI5b8T5hshtkjS+E42TnysNCUPdjciGhY=' +
+                    '\ngolang.org/x/text v0.3.0/go.mod h1:NqM8EUOU14njkJ3fqMW+pc6Ldnwhi/IjpwHt7yyuwOQ=' +
+                    '\ngolang.org/x/tools v0.0.0-20190312164927-7b79afddac43/go.mod h1:LCzVGOaR6xXOjkQ3onu1FJEFr0SW1gC7cKk1uF8kGRs=' +
+                    '\ngolang.org/x/tour v0.1.0 h1:OWzbINRoGf1wwBhKdFDpYwM88NM0d1SL/Nj6PagS6YE=' +
+                    '\ngolang.org/x/tour v0.1.0/go.mod h1:DUZC6G8mR1AXgXy73r8qt/G5RsefKIlSj6jBMc8b9Wc='
             }
 
             // PlaygroundOutput is defined in playground.js which is prepended
