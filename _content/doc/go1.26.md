@@ -45,6 +45,28 @@ func yearsSince(t time.Time) int {
 }
 ```
 
+<!-- https://go.dev/issue/75883 --->
+
+The restriction that a generic type may not refer to itself in its type parameter list
+has been lifted.
+It is now possible to specify type constraints that refer to the generic type being
+constrained.
+For instance, a generic type `Adder` may require that it be instantiated with a
+type that is like itself:
+
+```go
+type Adder[A Adder[A]] interface {
+	Add(A) A
+}
+
+func algo[A Adder[A]](x, y A) A {
+	return x.Add(y)
+}
+```
+
+Besides making type constraints more powerful, this change also simplifies the spec
+rules for type parameters ever so slightly.
+
 ## Tools {#tools}
 
 ### Go command {#go-command}
