@@ -25,7 +25,7 @@ packages such as `encoding/json` or protocol buffers that use a
 pointer to represent an optional value, as it enables an optional
 field to be populated in a simple expression, for example:
 
-```
+```go
 import "encoding/json"
 
 type Person struct {
