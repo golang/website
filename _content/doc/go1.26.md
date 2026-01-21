@@ -710,21 +710,23 @@ As [announced](/doc/go1.25#windows) in the Go 1.25 release notes, the [broken](/
 
 <!-- go.dev/issue/76244 -->
 
-Go 1.26 is the last release that supports the big-endian 64-bit PowerPC
-port on Linux (`GOOS=linux` `GOARCH=ppc64`).
-The port will be removed in Go 1.27.
-
-### S390X
-
-<!-- CL 719482 -->
-
-The `s390x` port now supports passing function arguments and results using registers.
+Go 1.26 is the last release that supports the ELFv1 ABI on the big-endian
+64-bit PowerPC port on Linux (`GOOS=linux` `GOARCH=ppc64`).
+It will switch to the ELFv2 ABI in Go 1.27.
+As the port does not currently support linking against other ELF objects,
+we expect this change to be transparent to users.
 
 ### RISC-V
 
 <!-- CL 690497 -->
 
 The `linux/riscv64` port now supports the race detector.
+
+### S390X
+
+<!-- CL 719482 -->
+
+The `s390x` port now supports passing function arguments and results using registers.
 
 ### WebAssembly {#wasm}
 
