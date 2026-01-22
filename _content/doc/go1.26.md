@@ -654,6 +654,14 @@ For example, in a test named `TestArtifacts`,
 === ARTIFACTS TestArtifacts /path/to/artifact/dir
 ```
 
+<!-- go.dev/issue/73137 -->
+
+The [`B.Loop`](/pkg/testing#B.Loop) method no longer prevents inlining in
+the loop body.
+Within the body of a `for b.Loop() { ... }` loop, function call parameters, results,
+and assigned variables are still kept alive, preventing the compiler from
+optimizing away the loop body.
+
 #### [`testing/cryptotest`](/pkg/testing/cryptotest/)
 
 The new [`SetGlobalRandom`](/pkg/testing/cryptotest#SetGlobalRandom) function configures a global, deterministic
