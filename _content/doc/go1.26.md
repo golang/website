@@ -743,6 +743,3 @@ For WebAssembly applications, the runtime now manages chunks of
 heap memory in much smaller increments, leading to significantly
 reduced memory usage for applications with heaps less than around
 16 MiB in size.
-
-[laelf-20250521]: https://github.com/loongson/la-abi-specs/blob/v2.40/laelf.adoc
-[rfc 9180]: https://rfc-editor.org/rfc/rfc9180.html
