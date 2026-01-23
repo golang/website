@@ -132,22 +132,6 @@ performance or behavior, please [file an issue](/issue/new).
 
 The baseline runtime overhead of cgo calls has been reduced by ~30%.
 
-### Faster memory allocation
-
-<!-- CL 665835 -->
-
-The compiler will now generate calls to size-specialized memory allocation
-routines, reducing the cost of some small (<512 byte) memory allocations by
-up to 30%.
-Improvements vary depending on the workload, but the overall improvement is
-expected to be ~1% in real allocation-heavy programs.
-This causes the binary size to increase by about 300 KB (independent of the
-workload).
-Please [file an issue](/issue/new) if you notice any regressions.
-You may set `GOEXPERIMENT=nosizespecializedmalloc` at build time to disable
-it.
-This opt-out setting is expected to be removed in Go 1.27.
-
 ### Goroutine leak profiles {#goroutineleak-profiles}
 
 <!-- CL 688335 -->
