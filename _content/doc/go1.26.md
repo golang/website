@@ -530,9 +530,9 @@ as much total memory, with more benefit for larger inputs.
 
 The [`NewMultiHandler`](/pkg/log/slog#NewMultiHandler) function creates a
 [`MultiHandler`](/pkg/log/slog#MultiHandler) that invokes all the given Handlers.
-Its `Enable` method reports whether any of the handlers' `Enabled` methods
+Its `Enabled` method reports whether any of the handlers' `Enabled` methods
 return true.
-Its `Handle`, `WithAttr` and `WithGroup` methods call the corresponding method
+Its `Handle`, `WithAttrs` and `WithGroup` methods call the corresponding method
 on each of the enabled handlers.
 
 #### [`net`](/pkg/net/)
