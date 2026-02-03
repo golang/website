@@ -135,12 +135,25 @@ option <code>--with-arch-32=i586</code>.
 <h3 id="Gold">Gold</h3>
 
 <p>
+<b>Note:</b> The gold linker is deprecated as of GNU Binutils 2.44 (February 2025)
+and may be removed in future releases. Consider using
+<a href="https://lld.llvm.org/">lld</a> (LLVM's linker) as an alternative,
+which also supports split stacks on x86_64.
+</p>
+
+<p>
 On x86 GNU/Linux systems the gccgo compiler is able to
 use a small discontiguous stack for goroutines. This permits programs
 to run many more goroutines, since each goroutine can use a relatively
-small stack. Doing this requires using the gold linker version 2.22
-or later. You can either install GNU binutils 2.22 or later, or you
-can build gold yourself.
+small stack. Doing this requires using a linker that supports split stacks.
+The gold linker version 2.22 or later supports this feature,
+as does lld.
+</p>
+
+<p>
+If you still need to use gold, you can either install GNU binutils 2.22 or later
+(note: as of binutils 2.44, gold is in a separate binutils-with-gold tarball),
+or you can build gold yourself.
 </p>
 
 <p>
@@ -164,6 +177,7 @@ make install
 <p>
 However you install gold, when you configure gccgo, use the
 option <code>--with-ld=<var>GOLD_BINARY</var></code>.
+Similarly, for lld use <code>--with-ld=/path/to/ld.lld</code>.
 </p>
 
 <h3 id="Prerequisites">Prerequisites</h3>
