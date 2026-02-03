@@ -651,7 +651,7 @@ For example, in a test named `TestArtifacts`,
 `t.ArtifactDir()` emits:
 
 ```
-=== ARTIFACTS Test /path/to/artifact/dir
+=== ARTIFACTS TestArtifacts /path/to/artifact/dir
 ```
 
 #### [`testing/cryptotest`](/pkg/testing/cryptotest/)
