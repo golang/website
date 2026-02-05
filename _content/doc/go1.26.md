@@ -198,7 +198,7 @@ Saioc et al.](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
 The implementation is production-ready, and is only considered an
 experiment for the purposes of collecting feedback on the API,
 specifically the choice to make it a new profile.
-The feature is also designed to not incur any additional run-time
+The feature is also designed to not incur any additional runtime
 overhead unless it is actively in-use.
 
 We encourage users to try out the new feature in [the Go
@@ -416,7 +416,7 @@ Unsafe PKCS #1 v1.5 encryption padding (implemented by [`EncryptPKCS1v15`](/pkg/
 The [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming)
 function no longer locks the calling goroutine to the OS thread while executing
 the passed function. Additionally, any goroutines which are spawned during the
-executed of the passed function and their descendents now inherit the properties of
+execution of the passed function and their descendants now inherit the properties of
 WithDataIndependentTiming for their lifetime. This change also affects cgo in
 the following ways:
 
