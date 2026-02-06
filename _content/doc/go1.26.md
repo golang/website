@@ -131,6 +131,18 @@ performance or behavior, please [file an issue](/issue/new).
 
 The baseline runtime overhead of cgo calls has been reduced by ~30%.
 
+### Heap base address randomization
+
+<!-- CL 674835 -->
+
+On 64-bit platforms, the runtime now randomizes the heap base address
+at startup.
+This is a security enhancement that makes it harder for attackers to
+predict memory addresses and exploit vulnerabilities when using cgo.
+This feature may be disabled by setting
+`GOEXPERIMENT=norandomizedheapbase64` at build time.
+This opt-out setting is expected to be removed in a future Go release.
+
 ### Goroutine leak profiles {#goroutineleak-profiles}
 
 <!-- CL 688335 -->
@@ -209,18 +221,6 @@ issue](/issue/74609).
 
 We aim to enable goroutine leak profiles by default in Go 1.27.
 
-### Heap base address randomization
-
-<!-- CL 674835 -->
-
-On 64-bit platforms, the runtime now randomizes the heap base address
-at startup.
-This is a security enhancement that makes it harder for attackers to
-predict memory addresses and exploit vulnerabilities when using cgo.
-This feature may be disabled by setting
-`GOEXPERIMENT=norandomizedheapbase64` at build time.
-This opt-out setting is expected to be removed in a future Go release.
-
 ## Compiler {#compiler}
 
 <!-- CLs 707755, 722440 -->
@@ -231,6 +231,7 @@ situations, which improves performance. If this change is causing trouble, the
 find the allocation causing trouble using the `-compile=variablemake` flag. All
 such new stack allocations can also be turned off using
 `-gcflags=all=-d=variablemakehash=n`.
+If you encounter issues with this optimization, please [file an issue](/issue/new).
 
 ## Linker {#linker}
 
@@ -298,8 +299,7 @@ across all architectures.
 Building on top of this, we plan to develop a high-level portable SIMD
 package in the future.
 
-See the package documentation and the [proposal issue](/issue/73787)
-for more details.
+See the [package documentation](/pkg/simd/archsimd) and the [proposal issue](/issue/73787) for more details.
 
 ### New experimental runtime/secret package
 
