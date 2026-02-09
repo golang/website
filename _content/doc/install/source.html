@@ -456,9 +456,15 @@ Where <code>&lt;tag&gt;</code> is the version string of the release.
 <h2 id="environment">Optional environment variables</h2>
 
 <p>
-The Go compilation environment can be customized by environment variables.
+The Go tools can be customized by environment variables.
 <i>None is required by the build</i>, but you may wish to set some
 to override the defaults.
+Setting these environment variables while running make.bash will set
+the default for the newly built tools.
+When using the tools, you may override these defaults for a particular
+build, as described
+by <a href="https://pkg.go.dev/cmd/go#hdr-Environment_variables">the
+go command documentation</a>.
 </p>
 
 <ul>
@@ -472,59 +478,13 @@ local copies of the repository.
 </p>
 </li>
 
-<li><code>$GOROOT_FINAL</code>
-<p>
-The value assumed by installed binaries and scripts when
-<code>$GOROOT</code> is not set explicitly.
-It defaults to the value of <code>$GOROOT</code>.
-If you want to build the Go tree in one location
-but move it elsewhere after the build, set
-<code>$GOROOT_FINAL</code> to the eventual location.
-</p>
-</li>
-
-<li id="gopath"><code>$GOPATH</code>
-<p>
-The directory where Go projects outside the Go distribution are typically
-checked out. For example, <code>golang.org/x/tools</code> might be checked out
-to <code>$GOPATH/src/golang.org/x/tools</code>. Executables outside the
-Go distribution are installed in <code>$GOPATH/bin</code> (or
-<code>$GOBIN</code>, if set). Modules are downloaded and cached in
-<code>$GOPATH/pkg/mod</code>.
-</p>
-
-<p>The default location of <code>$GOPATH</code> is <code>$HOME/go</code>,
-and it's not usually necessary to set <code>GOPATH</code> explicitly. However,
-if you have checked out the Go distribution to <code>$HOME/go</code>,
-you must set <code>GOPATH</code> to another location to avoid conflicts.
-</p>
-</li>
-
-<li><code>$GOBIN</code>
-<p>
-The directory where executables outside the Go distribution are installed
-using the <a href="/cmd/go">go command</a>. For example,
-<code>go install golang.org/x/tools/gopls@latest</code> downloads, builds,
-and installs <code>$GOBIN/gopls</code>. By default, <code>$GOBIN</code> is
-<code>$GOPATH/bin</code> (or <code>$HOME/go/bin</code> if <code>GOPATH</code>
-is not set). After installing, you will want to add this directory to
-your <code>$PATH</code> so you can use installed tools.
-</p>
-
-<p>
-Note that the Go distribution's executables are installed in
-<code>$GOROOT/bin</code> (for executables invoked by people) or
-<code>$GOTOOLDIR</code> (for executables invoked by the go command;
-defaults to <code>$GOROOT/pkg/$GOOS_$GOARCH</code>) instead of
-<code>$GOBIN</code>.
-</p>
-</li>
-
 <li><code>$GOOS</code> and <code>$GOARCH</code>
 <p>
 The name of the target operating system and compilation architecture.
-These default to the values of <code>$GOHOSTOS</code> and
-<code>$GOHOSTARCH</code> respectively (described below).
+<code>$GOOS</code> defaults to the value of <code>runtime.GOOS</code>
+in the bootstrap toolchain.
+<code>$GOARCH</code> defaults to the value
+of <code>$GOHOSTARCH</code>, described below.
 </p>
 
 <p>
@@ -686,16 +646,14 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 </tr>
 </table>
 
-<li><code>$GOHOSTOS</code> and <code>$GOHOSTARCH</code>
+<li><code>$GOHOSTARCH</code>
 <p>
-The name of the host operating system and compilation architecture.
-These default to the local system's operating system and
-architecture.
+The name of the host compilation architecture.
+This defaults to the local system's architecture.
 </p>
 
 <p>
-Valid choices are the same as for <code>$GOOS</code> and
-<code>$GOARCH</code>, listed above.
+Valid choices are the same as for <code>$GOARCH</code>, listed above.
 The specified values must be compatible with the local system.
 For example, you should not set <code>$GOHOSTARCH</code> to
 <code>arm</code> on an x86 system.
@@ -795,18 +753,6 @@ not <code>amd64</code>.
 </p>
 
 <p>
-If you choose to override the defaults,
-set these variables in your shell profile (<code>$HOME/.bashrc</code>,
-<code>$HOME/.profile</code>, or equivalent). The settings might look
-something like this:
-</p>
-
-<pre>
-export GOARCH=amd64
-export GOOS=linux
-</pre>
-
-<p>
-although, to reiterate, none of these variables needs to be set to build,
+To reiterate, none of these variables needs to be set to build,
 install, and develop the Go tree.
 </p>
