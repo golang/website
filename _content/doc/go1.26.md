@@ -63,6 +63,7 @@ func algo[A Adder[A]](x, y A) A {
 }
 ```
 
+Previously, the self-reference to `Adder` on the first line was not allowed.
 Besides making type constraints more powerful, this change also simplifies the spec
 rules for type parameters ever so slightly.
 
@@ -70,11 +71,33 @@ rules for type parameters ever so slightly.
 
 ### Go command {#go-command}
 
+<!-- go.dev/issue/75432 -->
+The venerable `go fix` command has been completely revamped and is now the home
+of Go's *modernizers*. It provides a dependable, push-button way to update Go
+code bases to the latest idioms and core library APIs. The initial suite of
+modernizers includes dozens of fixers to make use of modern features of the Go
+language and library, as well a source-level inliner that allows users to
+automate their own API migrations using `//go:fix inline` directives.
+These fixers should not change the behavior of your program, so if you encounter
+any issues with a fix performed by `go fix`, please [report it](/issue/new).
+
+The rewritten `go fix` command builds atop the exact same [Go analysis
+framework](https://pkg.go.dev/golang.org/x/tools/go/analysis) as `go vet`.
+This means the same analyzers that provide diagnostics in `go vet`
+can be used to suggest and apply fixes in `go fix`.
+The `go fix` command's historical fixers, all of which were obsolete,
+have been removed.
+
+An upcoming Go blog post will go into more detail on this initiative and how to
+get the most out of `go fix`.
+<!-- TODO(adonovan): link to blog post once live. -->
+
 <!-- go.dev/issue/74748 -->
-`go mod init` now defaults to a lower `go` version in new `go.mod` files. `go mod init`
+`go mod init` now defaults to a lower `go` version in new `go.mod` files.
+Running `go mod init`
 using a toolchain of version `1.N.X` will create a `go.mod` file
 specifying the Go version `go 1.(N-1).0`. Pre-release versions of `1.N` will
-create `go.mod` files specifying `go 1.(N-2).0`. In practice, this means Go 1.26
+create `go.mod` files specifying `go 1.(N-2).0`. For example, the Go 1.26
 release candidates will create `go.mod` files with `go 1.24.0`, and Go 1.26
 and its minor releases will create `go.mod` files with `go 1.25.0`. This is intended
 to encourage the creation of modules that are compatible with currently supported
@@ -85,16 +108,6 @@ versions of Go. For additional control over the `go` version in new modules,
 `cmd/doc`, and `go tool doc` have been deleted. `go doc` can be used as
 a replacement for `go tool doc`: it takes the same flags and arguments and
 has the same behavior.
-
-<!-- go.dev/issue/75432 -->
-The `go fix` command, following the pattern of `go vet` in Go 1.10,
-now uses the Go analysis framework (`golang.org/x/tools/go/analysis`).
-This means the same analyzers that provide diagnostics in `go vet`
-can be used to suggest and apply fixes in `go fix`.
-The `go fix` command's historical fixers, all of which were obsolete,
-have been removed and replaced by a suite of new analyzers that
-offer fixes to use newer features of the language and library.
-<!-- I'll write a blog post that discusses this at length. --adonovan -->
 
 ### Pprof {#pprof}
 
@@ -109,9 +122,9 @@ The previous graph view is available in the "View -> Graph" menu, or via `/ui/gr
 The Green Tea garbage collector, previously available as an experiment in
 Go 1.25, is now enabled by default after incorporating feedback.
 
-This garbage collector’s design improves the performance of marking and
+This garbage collector's design improves the performance of marking and
 scanning small objects through better locality and CPU scalability.
-Benchmark results vary, but we expect somewhere between a 10—40% reduction
+Benchmark results vary, but we expect somewhere between a 10–40% reduction
 in garbage collection overhead in real-world programs that heavily use the
 garbage collector.
 Further improvements, on the order of 10% in garbage collection overhead,
@@ -143,7 +156,7 @@ This feature may be disabled by setting
 `GOEXPERIMENT=norandomizedheapbase64` at build time.
 This opt-out setting is expected to be removed in a future Go release.
 
-### Goroutine leak profiles {#goroutineleak-profiles}
+### Experimental goroutine leak profile {#goroutineleak-profiles}
 
 <!-- CL 688335 -->
 
@@ -155,6 +168,16 @@ The new profile type, named `goroutineleak` in the
 Enabling the experiment also makes the profile available as a
 [net/http/pprof](/pkg/net/http/pprof) endpoint,
 `/debug/pprof/goroutineleak`.
+
+A *leaked* goroutine is a goroutine blocked on some concurrency primitive
+(channels, [sync.Mutex](/pkg/sync#Mutex), [sync.Cond](/pkg/sync#Cond), etc) that
+cannot possibly become unblocked.
+The runtime detects leaked goroutines using the garbage collector: if a
+goroutine G is blocked on concurrency primitive P, and P is unreachable from
+any runnable goroutine or any goroutine that *those* could unblock, then P
+cannot be unblocked, so goroutine G can never wake up.
+While it is impossible to detect permanently blocked goroutines in all cases,
+this approach detects a large class of such leaks.
 
 The following example showcases a real-world goroutine leak that
 can be revealed by the new profile:
@@ -191,21 +214,17 @@ func processWorkItems(ws []workItem) ([]workResult, error) {
 
 Because `ch` is unbuffered, if `processWorkItems` returns early due to
 an error, all remaining `processWorkItem` goroutines will leak.
-However, `ch` also becomes unreachable to all other goroutines
-not involved in the leak soon after the leak itself occurs.
-In general, the runtime is now equipped to identify and report on
-any goroutines blocked on operations over concurrency primitives
-(for example, channels, [sync.Mutex](/pkg/sync#Mutex),
-[sync.Cond](/pkg/sync#Cond), and so forth) that are not reachable
-from runnable goroutines.
+Soon after this happens, `ch` will become unreachable to all other
+goroutines not involved in the leak, allowing the runtime to detect
+and report the leaked goroutines.
 
-Note, however, that the runtime may fail to identify leaks caused by
-blocking on operations over concurrency primitives reachable
-through global variables or the local variables of runnable goroutines.
+Because this technique builds on reachability, the runtime may fail to identify
+leaks caused by blocking on concurrency primitives reachable through global
+variables or the local variables of runnable goroutines.
 
 Special thanks to Vlad Saioc at Uber for contributing this work.
 The underlying theory is presented in detail in [a publication by
-Saioc et al.](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
+Saioc et al](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
 
 The implementation is production-ready, and is only considered an
 experiment for the purposes of collecting feedback on the API,
@@ -288,15 +307,16 @@ Go 1.26 introduces a new experimental [`simd/archsimd`](/pkg/simd/archsimd/)
 package, which can be enabled by setting the environment variable
 `GOEXPERIMENT=simd` at build time.
 This package provides access to architecture-specific SIMD operations.
-It is currently available on the AMD64 architecture, supporting
+It is currently available on the amd64 architecture and supports
 128-bit, 256-bit, and 512-bit vector types, such as
 [`Int8x16`](/pkg/simd/archsimd#Int8x16) and
 [`Float64x8`](/pkg/simd/archsimd#Float64x8), with operations such as
 [`Int8x16.Add`](/pkg/simd/archsimd#Int8x16.Add).
+The API is not yet considered stable.
 
-This package is architecture-specific, and the API may not be portable
-across all architectures.
-Building on top of this, we plan to develop a high-level portable SIMD
+We intend to provide support for other architectures in future versions, but the
+API intentionally architecture-specific and thus non-portable.
+In addition, we plan to develop a high-level portable SIMD
 package in the future.
 
 See the [package documentation](/pkg/simd/archsimd) and the [proposal issue](/issue/73787) for more details.
@@ -309,17 +329,11 @@ The new [`runtime/secret`](/pkg/runtime/secret) package is available as an exper
 which can be enabled by setting the environment variable
 `GOEXPERIMENT=runtimesecret` at build time.
 It provides a facility for securely erasing temporaries used in
-code that manipulates secret information, typically cryptographic in nature.
-It currently supports the AMD64 and ARM64 architectures on Linux.
-
-The [`secret.Do`](/pkg/runtime/secret#Do) function runs its function argument and then erases all
-temporary storage (registers, stack, new heap allocations) used by
-that function argument. Heap storage is not erased until that storage
-is deemed unreachable by the garbage collector, which might take some
-time after `secret.Do` completes.
-
+code that manipulates secret information—typically cryptographic in nature—such
+as registers, stack, new heap allocations.
 This package is intended to make it easier to ensure [forward
 secrecy](https://en.wikipedia.org/wiki/Forward_secrecy).
+It currently supports the amd64 and arm64 architectures on Linux.
 
 ### Minor changes to the library {#minor_library_changes}
 
@@ -593,10 +607,9 @@ The new GODEBUG setting `urlstrictcolons=0` restores the old behavior.
 
 #### [`os`](/pkg/os/)
 
-The new [`Process.WithHandle`](/pkg/os#Process.WithHandle) method provides access to an internal process
-handle on supported platforms (Linux 5.4 or later, and Windows). On Linux,
-the process handle is a `pidfd`. The method returns [`ErrNoHandle`](/pkg/os#ErrNoHandle) on unsupported
-platforms or when no process handle is available.
+The new [`Process.WithHandle`](/pkg/os#Process.WithHandle) method provides
+access to an internal process handle on supported platforms (pidfd on Linux 5.4
+or later, Handle on Windows).
 
 On Windows, the [`OpenFile`](/pkg/os#OpenFile) `flag` parameter can now contain any combination of
 Windows-specific file flags, such as `FILE_FLAG_OVERLAPPED` and
@@ -657,10 +670,12 @@ For example, in a test named `TestArtifacts`,
 <!-- go.dev/issue/73137 -->
 
 The [`B.Loop`](/pkg/testing#B.Loop) method no longer prevents inlining in
-the loop body.
+the loop body, which could lead to unanticipated allocation and slower benchmarks.
+With this fix, we expect that all benchmarks can be converted from the old
+[`B.N`](/pkg/testing#B) style to the new `B.Loop` style with no ill effects.
 Within the body of a `for b.Loop() { ... }` loop, function call parameters, results,
 and assigned variables are still kept alive, preventing the compiler from
-optimizing away the loop body.
+optimizing away entire parts of the benchmark.
 
 #### [`testing/cryptotest`](/pkg/testing/cryptotest/)
 
@@ -688,14 +703,16 @@ Go 1.26 is the last release that will run on macOS 12 Monterey. Go 1.27 will req
 
 <!-- go.dev/issue/76475 -->
 
-The freebsd/riscv64 port (`GOOS=freebsd GOARCH=riscv64`) has been marked broken.
+The freebsd/riscv64 port (`GOOS=freebsd GOARCH=riscv64`) has been marked [broken](/wiki/PortingPolicy#broken-ports).
 See [issue 76475](/issue/76475) for details.
 
 ### Windows
 
 <!-- go.dev/issue/71671 -->
 
-As [announced](/doc/go1.25#windows) in the Go 1.25 release notes, the [broken](/doc/go1.24#windows) 32-bit windows/arm port (`GOOS=windows` `GOARCH=arm`) is removed.
+As [announced](/doc/go1.25#windows) in the Go 1.25 release notes, the
+[broken](/doc/go1.24#windows) 32-bit windows/arm port (`GOOS=windows`
+`GOARCH=arm`) has been removed.
 
 ### PowerPC
 
