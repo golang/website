@@ -6,10 +6,12 @@ title: Go 1.26 Release Notes
   main ul li { margin: 0.5em 0; }
 </style>
 
-## DRAFT RELEASE NOTES — Introduction to Go 1.26 {#introduction}
+## Introduction to Go 1.26 {#introduction}
 
-**Go 1.26 is not yet released. These are work-in-progress release notes.
-Go 1.26 is expected to be released in February 2026.**
+The latest Go release, version 1.26, arrives in [February 2026](/doc/devel/release#go1.26.0), six months after [Go 1.25](/doc/go1.25).
+Most of its changes are in the implementation of the toolchain, runtime, and libraries.
+As always, the release maintains the Go 1 promise of compatibility.
+We expect almost all Go programs to continue to compile and run as before.
 
 ## Changes to the language {#language}
 
