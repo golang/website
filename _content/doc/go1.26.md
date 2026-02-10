@@ -77,7 +77,8 @@ of Go's *modernizers*. It provides a dependable, push-button way to update Go
 code bases to the latest idioms and core library APIs. The initial suite of
 modernizers includes dozens of fixers to make use of modern features of the Go
 language and library, as well a source-level inliner that allows users to
-automate their own API migrations using `//go:fix inline` directives.
+automate their own API migrations using
+[`//go:fix inline` directives](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/inline#hdr-Analyzer_inline).
 These fixers should not change the behavior of your program, so if you encounter
 any issues with a fix performed by `go fix`, please [report it](/issue/new).
 
@@ -88,9 +89,9 @@ can be used to suggest and apply fixes in `go fix`.
 The `go fix` command's historical fixers, all of which were obsolete,
 have been removed.
 
-An upcoming Go blog post will go into more detail on this initiative and how to
-get the most out of `go fix`.
-<!-- TODO(adonovan): link to blog post once live. -->
+Two upcoming Go blog posts will go into more detail on modernizers, the inliner,
+and how to get the most out of `go fix`.
+<!-- TODO(adonovan): link to blog posts once live. -->
 
 <!-- go.dev/issue/74748 -->
 `go mod init` now defaults to a lower `go` version in new `go.mod` files.
