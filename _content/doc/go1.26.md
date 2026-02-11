@@ -166,14 +166,14 @@ This opt-out setting is expected to be removed in a future Go release.
 A new profile type that reports leaked goroutines is now available as an
 experiment.
 The new profile type, named `goroutineleak` in the
-[runtime/pprof](/pkg/runtime/pprof) package, may be enabled by setting
+[`runtime/pprof`](/pkg/runtime/pprof) package, may be enabled by setting
 `GOEXPERIMENT=goroutineleakprofile` at build time.
 Enabling the experiment also makes the profile available as a
-[net/http/pprof](/pkg/net/http/pprof) endpoint,
+[`net/http/pprof`](/pkg/net/http/pprof) endpoint,
 `/debug/pprof/goroutineleak`.
 
 A *leaked* goroutine is a goroutine blocked on some concurrency primitive
-(channels, [sync.Mutex](/pkg/sync#Mutex), [sync.Cond](/pkg/sync#Cond), etc) that
+(channels, [`sync.Mutex`](/pkg/sync#Mutex), [`sync.Cond`](/pkg/sync#Cond), etc) that
 cannot possibly become unblocked.
 The runtime detects leaked goroutines using the garbage collector: if a
 goroutine G is blocked on concurrency primitive P, and P is unreachable from
@@ -434,16 +434,16 @@ The [`WithDataIndependentTiming`](/pkg/crypto/subtle#WithDataIndependentTiming)
 function no longer locks the calling goroutine to the OS thread while executing
 the passed function. Additionally, any goroutines which are spawned during the
 execution of the passed function and their descendants now inherit the properties of
-WithDataIndependentTiming for their lifetime. This change also affects cgo in
+`WithDataIndependentTiming` for their lifetime. This change also affects cgo in
 the following ways:
 
 - Any C code called via cgo from within the function passed to
-  WithDataIndependentTiming, or from a goroutine spawned by the function passed
-  to WithDataIndependentTiming and its descendants, will also have data
+  `WithDataIndependentTiming`, or from a goroutine spawned by the function passed
+  to `WithDataIndependentTiming` and its descendants, will also have data
   independent timing enabled for the duration of the call. If the C code
   disables data independent timing, it will be re-enabled on return to Go.
 - If C code called via cgo, from the function passed to
-  WithDataIndependentTiming or elsewhere, enables or disables data independent
+  `WithDataIndependentTiming` or elsewhere, enables or disables data independent
   timing then calling into Go will preserve that state for the duration of the
   call.
 
@@ -527,7 +527,7 @@ The new [`File.End`](/pkg/go/token#File.End) convenience method returns the file
 
 The `gotypesalias` GODEBUG setting introduced in [Go 1.22](/doc/godebug#go-122)
 will be removed in the next major Go release.
-Starting in Go 1.27, the [go/types](/pkg/go/types) package will always produce an
+Starting in Go 1.27, the [`go/types`](/pkg/go/types) package will always produce an
 [Alias type](/pkg/go/types#Alias) for the representation of [type aliases](/ref/spec#Type_declarations)
 regardless of GODEBUG setting or go.mod language version.
 
@@ -539,7 +539,7 @@ Code that expects specific bit-for-bit outputs from the encoder or decoder may n
 #### [`io`](/pkg/io/)
 
 <!-- go.dev/cl/722500 -->
-[ReadAll](/pkg/io#ReadAll) now allocates less intermediate memory and returns a minimally sized
+[`ReadAll`](/pkg/io#ReadAll) now allocates less intermediate memory and returns a minimally sized
 final slice. It is often about two times faster while typically allocating around half
 as much total memory, with more benefit for larger inputs.
 
@@ -691,7 +691,7 @@ cryptographic randomness source for the duration of the test. It affects
 
 The `asynctimerchan` GODEBUG setting introduced in [Go 1.23](/doc/godebug#go-123)
 will be removed in the next major Go release.
-Starting in Go 1.27, the [time](/pkg/time) package will always use unbuffered
+Starting in Go 1.27, the [`time`](/pkg/time) package will always use unbuffered
 (synchronous) channels for timers regardless of GODEBUG setting or go.mod language version.
 
 ## Ports {#ports}
