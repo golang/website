@@ -385,6 +385,8 @@ temporarily restores the old behavior.
 
 #### [`crypto/fips140`](/pkg/crypto/fips140/)
 
+[FIPS 140-3 Go Cryptographic Module](/doc/security/fips140) v1.26.0 includes changes made to the `crypto/internal/fips140/...` packages up to this release, and can now be selected with GOFIPS140.
+
 The new [`WithoutEnforcement`](/pkg/crypto/fips140#WithoutEnforcement) and [`Enforced`](/pkg/crypto/fips140#Enforced) functions now allow running
 in `GODEBUG=fips140=only` mode while selectively disabling the strict FIPS 140-3 checks.
 
@@ -395,6 +397,8 @@ in `GODEBUG=fips140=only` mode while selectively disabling the strict FIPS 140-3
 The new [`DecapsulationKey768.Encapsulator`](/pkg/crypto/mlkem#DecapsulationKey768.Encapsulator) and
 [`DecapsulationKey1024.Encapsulator`](/pkg/crypto/mlkem#DecapsulationKey1024.Encapsulator) methods implement the new
 [`crypto.Decapsulator`](/pkg/crypto#Decapsulator) interface.
+
+Encapsulation and decapsultion operations are now approximately 18% faster.
 
 #### [`crypto/mlkem/mlkemtest`](/pkg/crypto/mlkem/mlkemtest/)
 
@@ -427,6 +431,10 @@ it is not used.
 
 Unsafe PKCS #1 v1.5 encryption padding (implemented by [`EncryptPKCS1v15`](/pkg/crypto/rsa#EncryptPKCS1v15),
 [`DecryptPKCS1v15`](/pkg/crypto/rsa#DecryptPKCS1v15), and [`DecryptPKCS1v15SessionKey`](/pkg/crypto/rsa#DecryptPKCS1v15SessionKey)) is now deprecated.
+
+#### [`crypto/sha3`](/pkg/crypto/sha3/)
+
+The zero value of [`SHA3`](/pkg/crypto/sha3#SHA3) is now a usable SHA3-256 instance, and the zero value of [`SHAKE`](/pkg/crypto/sha3#SHAKE) is now a usable SHAKE256 instance.
 
 #### [`crypto/subtle`](/pkg/crypto/subtle)
 
