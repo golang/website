@@ -1,6 +1,6 @@
 ---
 title: "Using go fix to modernize Go code"
-date: 2026-03-17
+date: 2026-02-17
 by:
 - Alan Donovan
 tags:
@@ -111,10 +111,10 @@ Over the past year, we have built [dozens of analyzers](https://pkg.go.dev/golan
 <pre>
 x := f()
 if x &lt; 0 {
-    x = 0
+	x = 0
 }
 if x > 100 {
-    x = 100
+	x = 100
 }
 </pre>
 <div class="beforeafter-arrow"></div>
@@ -143,7 +143,7 @@ for range n {
 
 <div class="beforeafter">
 <pre>
-i := strings.Index(s, ":"
+i := strings.Index(s, ":")
 if i >= 0 {
 	 return s[:i]
 }
@@ -177,13 +177,13 @@ ptr := new("go1.26")
 This feature filled a gap that had been discussed for over a decade and resolved one of the most popular [proposals](/issue/45624) for a change to the language. It is especially convenient in code that uses a pointer type `*T` to indicate an optional value of type `T`, as is common when working with serialization packages such as [json.Marshal](https://pkg.go.dev/encoding/json#Marshal) or [protocol buffers](https://protobuf.dev/getting-started/gotutorial/). This is such a common pattern that people often capture it in a helper, such as the `newInt` function below, saving the caller from the need to break out of an expression context to introduce additional statements:
 ```
 type RequestJSON struct {
-	URL  	 	string
-	Attempts  	*int  // (optional)
+	URL      string
+	Attempts *int  // (optional)
 }
 
 data, err := json.Marshal(&RequestJSON{
-	URL:    	url,
-	Attempts: 	newInt(10),
+	URL:      url,
+	Attempts: newInt(10),
 })
 
 func newInt(x int) *int { return &x }
@@ -192,8 +192,8 @@ func newInt(x int) *int { return &x }
 Helpers such as `newInt` are so frequently needed with protocol buffers that the `proto` API itself provides them as [`proto.Int64`](https://pkg.go.dev/google.golang.org/protobuf/proto#Int64), [`proto.String`](https://pkg.go.dev/google.golang.org/protobuf/proto#String), and so on. But Go 1.26 makes all these helpers unnecessary:
 ```
 data, err := json.Marshal(&RequestJSON{
-	URL:    	url,
-	Repeat: 	new(10),
+	URL:      url,
+	Attempts: new(10),
 })
 ```
 To help you take advantage of this feature, the `go fix` command now includes a fixer, [newexpr](https://tip.golang.org/src/cmd/vendor/golang.org/x/tools/go/analysis/passes/modernize/newexpr.go), that recognizes “new-like” functions such as `newInt` and suggests fixes to replace the function body with `return new(x)` and to replace every call, whether in the same package or an importing package, with a direct use of `new(expr)`.
@@ -226,7 +226,7 @@ x := min(max(f(), 0), 100)
 </pre>
 </div>
 
-Synergies may also occur between different analyzers. For example, a common mistake is to repeatedly concatenate strings within a loop, resulting in quadratic time complexity—a bug and a potential vector for a denial-of-service attack. The `stringsbuilder` modernizer recognizes the problem and suggests using Go 1.10’s strings.Builder:
+Synergies may also occur between different analyzers. For example, a common mistake is to repeatedly concatenate strings within a loop, resulting in quadratic time complexity—a bug and a potential vector for a denial-of-service attack. The `stringsbuilder` modernizer recognizes the problem and suggests using Go 1.10’s `strings.Builder`:
 
 <div class="beforeafter">
 <pre>
@@ -242,7 +242,7 @@ var s strings.Builder
 for _, b := range bytes {
 	s.WriteString(fmt.Sprintf("%02x", b))
 }
-use(b.String())
+use(s.String())
 </pre>
 </div>
 
@@ -267,7 +267,7 @@ Let’s now delve into the infrastructure beneath these tools.
 <a name='go/analysis'></a>
 ## The Go analysis framework
 
-Since the earliest days of Go, the `go` command has had two subcommands for static analysis, go vet and `go fix`, each with its own suite of algorithms: “checkers” and “fixers”. A checker reports likely mistakes in your code, such as passing a string instead of an integer as the operand of a `fmt.Printf("%d")` conversion. A fixer safely edits your code to fix a bug or to express the same thing in a better way, perhaps more clearly, concisely, or efficiently. Sometimes the same algorithm appears in both suites when it can both report a mistake and safely fix it.
+Since the earliest days of Go, the `go` command has had two subcommands for static analysis, `go vet` and `go fix`, each with its own suite of algorithms: “checkers” and “fixers”. A checker reports likely mistakes in your code, such as passing a string instead of an integer as the operand of a `fmt.Printf("%d")` conversion. A fixer safely edits your code to fix a bug or to express the same thing in a better way, perhaps more clearly, concisely, or efficiently. Sometimes the same algorithm appears in both suites when it can both report a mistake and safely fix it.
 
 In 2017 we redesigned the then-monolithic `go vet` program to separate the checker algorithms (now called “analyzers”) from the “driver”, the program that runs them; the result was the [Go analysis framework](https://pkg.go.dev/golang.org/x/tools/go/analysis). This separation enables an analyzer to be written once then run in a diverse range of drivers for different environments, such as:
 
@@ -275,10 +275,10 @@ In 2017 we redesigned the then-monolithic `go vet` program to separate the check
 - [nogo](https://github.com/bazel-contrib/rules_go/blob/master/go/nogo.rst), the analogous driver for alternative build systems such as Bazel and Blaze.
 - [singlechecker](https://pkg.go.dev/golang.org/x/tools/go/analysis/singlechecker), which turns an analyzer into a standalone command that loads, parses, and type-checks a set of packages (perhaps a whole program) and then analyzes them. We often use it for ad hoc experiments and measurements over the module mirror ([proxy.golang.org](https://proxy.golang.org/)) corpus.
 - [multichecker](https://pkg.go.dev/golang.org/x/tools/go/analysis/multichecker), which does the same thing for a suite of analyzers with a ‘swiss-army knife’ CLI.
-- [gopls](/gopls), the [language server](https://microsoft.github.io/language-server-protocol/) behind VS Code and other editors, which provides real-time diagnostics from analyzers after each editor keystroke;
+- [gopls](/gopls), the [language server](https://microsoft.github.io/language-server-protocol/) behind VS Code and other editors, which provides real-time diagnostics from analyzers after each editor keystroke.
 - the highly configurable driver used by the [staticcheck](https://staticcheck.dev/) tool. (Staticcheck also provides a large suite of analyzers that can be run in other drivers.)
-- [Tricorder](https://research.google/pubs/tricorder-building-a-program-analysis-ecosystem/), the batch static analysis pipeline used by Google’s monorepo and integrated with its code review system;
-- gopls’ [MCP server](/gopls/features/mcp), which makes diagnostics available to LLM-based coding agents, providing more robust “guardrails”; and
+- [Tricorder](https://research.google/pubs/tricorder-building-a-program-analysis-ecosystem/), the batch static analysis pipeline used by Google’s monorepo and integrated with its code review system.
+- gopls’ [MCP server](/gopls/features/mcp), which makes diagnostics available to LLM-based coding agents, providing more robust “guardrails”.
 - [analysistest](https://pkg.go.dev/golang.org/x/tools/go/analysis/analysistest), the analysis framework’s test harness.
 
 One benefit of the framework is its ability to express helper analyzers that don’t report diagnostics or suggest fixes of their own but instead compute some intermediate data structure that may be useful to many other analyzers, amortizing the costs of its construction. Examples include [control-flow graphs](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/ctrlflow), the [SSA representation](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/buildssa) of function bodies, and data structures for [optimized AST navigation](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/inspect).
@@ -333,7 +333,7 @@ More fundamentally, we are turning our attention in 2026 to a “self-service”
 
 The `newexpr` analyzer we saw earlier is a typical modernizer: a bespoke algorithm tailored to a particular feature. The bespoke model works well for features of the language and standard library, but it doesn’t really help update uses of third-party packages. Although there’s nothing to stop you from writing a modernizer for your own public APIs and running it on your own project, there’s no automatic way to get users of your API to run it too. Your modernizer probably wouldn’t belong in gopls or the `go vet` suite unless your API is particularly widely used across the Go ecosystem. Even in that case you would have to obtain code reviews and approvals and then wait for the next release.
 
-Under the self-service paradigm, Go programmers would be able to define modernizations for their own APIs that their users can apply without all the bottlenecks of the current centralized paradigm. This is especially important as the Go community and global Go corpus is growing much faster than the ability of our team to review analyzer contributions.
+Under the self-service paradigm, Go programmers would be able to define modernizations for their own APIs that their users can apply without all the bottlenecks of the current centralized paradigm. This is especially important as the Go community and global Go corpus are growing much faster than the ability of our team to review analyzer contributions.
 
 The `go fix` command in Go 1.26 includes a preview of the first fruits of this new paradigm: the **annotation-driven source-level inliner**, which we’ll describe in an upcoming companion blog post next week. In the coming year, we plan to investigate two more approaches within this paradigm.
 
