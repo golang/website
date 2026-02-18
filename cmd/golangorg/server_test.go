@@ -118,6 +118,11 @@ func TestAll(t *testing.T) {
 		"/talks/2013/highperf/",
 		"/talks/2016/refactor/",
 		"/tour/static/partials/",
+
+		// The "next" directory in GOROOT/doc goes through
+		// a fragment merging process, not served directly.
+		// See https://go.dev/cs/go/+/HEAD:doc/README.md.
+		"/doc/next/",
 	}
 
 	// Only check and report a URL the first time we see it.
@@ -251,6 +256,7 @@ func TestAll(t *testing.T) {
 	}
 
 	testTree("../../_content", "https://go.dev")
+	testTree(filepath.Join(runtime.GOROOT(), "doc"), "https://go.dev/doc")
 }
 
 // fixURL returns the corrected URL for u,
