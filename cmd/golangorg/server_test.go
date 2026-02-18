@@ -48,6 +48,7 @@ var bads = []string{
 	" < ",
 	"<-",
 	"& ",
+	"{{raw <code>",
 }
 
 var ignoreBads = []string{
@@ -55,8 +56,8 @@ var ignoreBads = []string{
 	`window["location"] && window["location"]["hostname"] == "go.dev/talks"`,
 }
 
-// findBad returns (only) the lines containing badly escaped HTML in body.
-// If findBad returns the empty string, there is no badly escaped HTML.
+// findBad returns (only) the lines containing badly escaped sequences in the given HTML body.
+// If findBad returns the empty string, there were no badly escaped sequences detected.
 func findBad(body string) string {
 	lines := strings.SplitAfter(body, "\n")
 	var out []string
