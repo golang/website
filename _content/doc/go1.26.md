@@ -585,6 +585,8 @@ which manages a pool of connections.
 [`Client`](/pkg/net/http#Client) now uses and sets cookies scoped to URLs with the host portion matching
 [`Request.Host`](/pkg/net/http#Request.Host) when available.
 Previously, the connection address host was always used.
+[`ServeMux`](/pkg/net/http#ServeMux) trailing slash redirects now use HTTP status 307
+(Temporary Redirect) instead of 301 (Moved Permanently).
 
 #### [`net/http/httptest`](/pkg/net/http/httptest/)
 
