@@ -276,6 +276,13 @@ adding dependencies first, then the code that depends on them.
 
     Go resolved and downloaded this dependency to satisfy the `import`
     declaration you added in the previous step.
+    
+    If you receive errors when issuing `go get .` you may be using a newer version of Go. In this case, use `go mod tidy` to add the `github.com/gin-gonic/gin`
+    module.
+    
+    ```
+    go mod tidy
+    ```
 
 2. From the command line in the directory containing main.go, run the code.
     Use a dot argument to mean "run code in the current directory."
