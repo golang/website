@@ -276,7 +276,7 @@ the heap copy.
 This ensures that for our original `extract` code, if the number of
 items fits in our small stack-allocated buffer, we perform exactly 1
 allocation of exactly the right size. If the number of items exceeds
-the capacity our small stack-allocated buffer, we do our normal
+the capacity of our small stack-allocated buffer, we do our normal
 doubling-allocation once the stack-allocated buffer overflows.
 
 The optimization that Go 1.26 does is actually better than the
@@ -287,7 +287,7 @@ operated on a stack-backed slice up to the return point.
 
 We do pay the cost for a copy, but that cost is almost completely
 offset by the copies in the startup phase that we no longer have to
-do. (In fact, the the new scheme at worst has to copy one more element
+do. (In fact, the new scheme at worst has to copy one more element
 than the old scheme.)
 
 ## Wrapping up
