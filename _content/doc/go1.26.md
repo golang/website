@@ -78,7 +78,7 @@ The venerable `go fix` command has been completely revamped and is now the home
 of Go's *modernizers*. It provides a dependable, push-button way to update Go
 code bases to the latest idioms and core library APIs. The initial suite of
 modernizers includes dozens of fixers to make use of modern features of the Go
-language and library, as well a source-level inliner that allows users to
+language and library, as well as a source-level inliner that allows users to
 automate their own API migrations using
 [`//go:fix inline` directives](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/inline#hdr-Analyzer_inline).
 These fixers should not change the behavior of your program, so if you encounter
@@ -232,7 +232,7 @@ Saioc et al](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990).
 The implementation is production-ready, and is only considered an
 experiment for the purposes of collecting feedback on the API,
 specifically the choice to make it a new profile.
-The feature is also designed to not incur any additional run-time
+The feature is also designed to not incur any additional runtime
 overhead unless it is actively in-use.
 
 We encourage users to try out the new feature in [the Go
@@ -318,7 +318,7 @@ It is currently available on the amd64 architecture and supports
 The API is not yet considered stable.
 
 We intend to provide support for other architectures in future versions, but the
-API intentionally architecture-specific and thus non-portable.
+API is intentionally architecture-specific and thus non-portable.
 In addition, we plan to develop a high-level portable SIMD
 package in the future.
 
@@ -639,7 +639,7 @@ The new methods [`Type.Fields`](/pkg/reflect#Type.Fields),
 [`Type.Ins`](/pkg/reflect#Type.Ins)
 and [`Type.Outs`](/pkg/reflect#Type.Outs)
 return iterators for a type's fields (for a struct type), methods,
-inputs and outputs parameters (for a function type), respectively.
+input and output parameters (for a function type), respectively.
 
 Similarly, the new methods [`Value.Fields`](/pkg/reflect#Value.Fields)
 and [`Value.Methods`](/pkg/reflect#Value.Methods) return iterators over
