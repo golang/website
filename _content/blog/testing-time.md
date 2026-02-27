@@ -360,7 +360,7 @@ So we asked ourselves what we can do to make this better.
 As we saw earlier, the two fundamental features required to write testable concurrent code are
 fake time and a way to wait for quiescence.
 
-We need a better way to to wait for quiescence.
+We need a better way to wait for quiescence.
 We should be able to ask the runtime when background goroutines have finished their work.
 We also want to be able to limit the scope of this query to a single test,
 so that unrelated tests do not interfere with each other.

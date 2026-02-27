@@ -287,7 +287,7 @@ operated on a stack-backed slice up to the return point.
 
 We do pay the cost for a copy, but that cost is almost completely
 offset by the copies in the startup phase that we no longer have to
-do. (In fact, the the new scheme at worst has to copy one more element
+do. (In fact, the new scheme at worst has to copy one more element
 than the old scheme.)
 
 ## Wrapping up
