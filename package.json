@@ -8,7 +8,7 @@
     "eslint-config-google": "0.14.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "4.0.0",
-    "jest": "27.4.7",
+    "jest": "30.2.0",
     "prettier": "2.5.1",
     "stylelint": "14.2.0",
     "stylelint-config-prettier": "9.0.3",
