@@ -672,9 +672,9 @@ Only a few key modifications were needed:
 	in the future.
 3. Finalizing the marking phase now involves an additional task: checking
 	whether any blocked goroutines are now "maybe-live" owing to one of their
-	blocking concurrency primitives having been marked. If such a goroutine is found,
-	it is added as a mark root, and the GC resumes the marking phase to mark
-	its reachable memory. This coincides with the inductive step in the definition
+	blocking concurrency primitives having been marked. All such goroutines are
+	added as mark roots, and the GC resumes the marking phase to mark
+	the added reachable memory. This coincides with the inductive step in the definition
 	of maybe-liveness.
 4. Once all maybe-live goroutines have been discovered, the only remaining
 	goroutines are obviously leaked, so they can be reported. In our case, their
