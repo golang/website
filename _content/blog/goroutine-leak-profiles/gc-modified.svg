@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 700" width="650" height="700">
+  <!-- White background -->
+  <rect width="650" height="700" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="325" y="30" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#000">
+    Goroutine Leak Detection GC Phases
+  </text>
+
+  <!-- Step 1: Prepare mark roots (MODIFIED - light cyan) -->
+  <rect x="40" y="60" width="220" height="60" fill="#cfe2f3" stroke="#3d85c6" stroke-width="2" rx="8"/>
+  <text x="150" y="85" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    1. Prepare mark roots
+  </text>
+  <text x="150" y="105" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">
+    includes <tspan font-weight="bold">NON-BLOCKED</tspan> goroutines
+  </text>
+
+  <!-- Arrow down -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  <line x1="150" y1="120" x2="150" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 2: Initiate mark workers -->
+  <rect x="40" y="150" width="220" height="60" fill="#eeeeee" stroke="#666" stroke-width="2" rx="8"/>
+  <text x="150" y="182" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    2. Initiate mark workers
+  </text>
+
+  <!-- Fan out to workers (elbow connectors to north anchors) -->
+  <line x1="150" y1="210" x2="150" y2="250" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 150 210 L 150 226 L 350 226 L 350 250" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 150 210 L 150 226 L 550 226 L 550 250" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Worker boxes -->
+  <rect x="100" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="150" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker 1
+  </text>
+  <text x="150" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <rect x="300" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="350" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker 2
+  </text>
+  <text x="350" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <!-- Ellipsis between Worker 2 and Worker N -->
+  <text x="450" y="280" text-anchor="middle" font-family="Arial" font-size="20" fill="#666" font-weight="bold">
+    ...
+  </text>
+
+  <rect x="500" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="550" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker N
+  </text>
+  <text x="550" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <!-- Arrow from Worker 1 to new step 3 -->
+  <line x1="150" y1="300" x2="150" y2="335" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="160" y="315" font-family="Arial" font-size="11" fill="#666" font-weight="bold">
+    last worker
+  </text>
+  <text x="160" y="328" font-family="Arial" font-size="11" fill="#666" font-weight="bold">
+    terminates
+  </text>
+
+  <!-- NEW Step 3: Add Mark Roots (light cyan) -->
+  <rect x="40" y="335" width="220" height="50" fill="#cfe2f3" stroke="#3d85c6" stroke-width="2" rx="8"/>
+  <text x="150" y="365" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    3. Find maybe-live goroutines
+  </text>
+
+  <!-- Explanatory text to the east of box 3 -->
+  <text x="270" y="345" font-family="Arial" font-size="15" fill="#666">
+    Goroutines which are blocked over at least one
+  </text>
+  <text x="270" y="363" font-family="Arial" font-size="15" fill="#666">
+    marked concurrency primitive are added
+  </text>
+  <text x="270" y="381" font-family="Arial" font-size="15" fill="#666">
+    as mark roots.
+  </text>
+
+  <!-- Arrow from step 3 to decision -->
+  <line x1="150" y1="385" x2="150" y2="415" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Decision diamond (now step 4) -->
+  <polygon points="150,415 250,445 150,475 50,445" fill="#eeeeee" stroke="#666" stroke-width="2"/>
+  <text x="150" y="450" text-anchor="middle" font-family="Arial" font-size="13" fill="#000" font-weight="bold">
+    4. More mark work?
+  </text>
+
+  <!-- Yes arrow back to step 2 (elbow connector from West anchor) -->
+  <path d="M 50 445 L 10 445 L 10 180 L 40 180" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="15" y="310" font-family="Arial" font-size="12" fill="#666" font-weight="bold">
+    Yes
+  </text>
+
+  <!-- No arrow to new step 5 (from south anchor) - before leak detection -->
+  <line x1="150" y1="475" x2="150" y2="515" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="160" y="495" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    No (before leak detection)
+  </text>
+
+  <!-- NEW Step 5: Report Goroutine Leaks (light cyan) -->
+  <rect x="40" y="515" width="220" height="50" fill="#cfe2f3" stroke="#3d85c6" stroke-width="2" rx="8"/>
+  <text x="150" y="545" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    5. Report Goroutine Leaks
+  </text>
+
+  <!-- Explanatory text below box 5 -->
+  <text x="40" y="585" font-family="Arial" font-size="15" fill="#666">
+    Goroutines blocked over only unmarked primitives
+  </text>
+  <text x="40" y="603" font-family="Arial" font-size="15" fill="#666">
+    are never selected as roots; this indicates that
+  </text>
+  <text x="40" y="621" font-family="Arial" font-size="15" fill="#666">
+    they have leaked.
+  </text>
+
+  <!-- Elbow from west anchor of box 5 back to west anchor of box 2 -->
+  <path d="M 40 540 L 10 540 L 10 180 L 40 180" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="15" y="480" font-family="Arial" font-size="12" fill="#666" font-weight="bold">
+    Add leaks
+  </text>
+  <text x="15" y="495" font-family="Arial" font-size="12" fill="#666" font-weight="bold">
+    as mark roots
+  </text>
+
+  <!-- No arrow to sweep (after leak detection) - from east anchor of diamond -->
+  <path d="M 250 445 L 375 445 L 375 515" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="270" y="435" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    No (after leak detection)
+  </text>
+
+  <!-- Sweep (now step 6) - moved to the right -->
+  <rect x="300" y="515" width="150" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="8"/>
+  <text x="375" y="537" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    6. Sweep
+  </text>
+  <text x="375" y="553" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">
+    reclaim memory
+  </text>
+
+</svg>
