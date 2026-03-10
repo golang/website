@@ -335,7 +335,7 @@ The `newexpr` analyzer we saw earlier is a typical modernizer: a bespoke algorit
 
 Under the self-service paradigm, Go programmers would be able to define modernizations for their own APIs that their users can apply without all the bottlenecks of the current centralized paradigm. This is especially important as the Go community and global Go corpus are growing much faster than the ability of our team to review analyzer contributions.
 
-The `go fix` command in Go 1.26 includes a preview of the first fruits of this new paradigm: the **annotation-driven source-level inliner**, which we’ll describe in an upcoming companion blog post next week. In the coming year, we plan to investigate two more approaches within this paradigm.
+The `go fix` command in Go 1.26 includes a preview of the first fruits of this new paradigm: the **annotation-driven source-level inliner**, which is described in [a follow-up post](inliner). In the coming year, we plan to investigate two more approaches within this paradigm.
 
 <!-- TODO(adonovan): update the reference above when this post is ready: [//go:fix inline and source-level inliner](https://docs.google.com/document/d/16n29TcxMnZoEZtIo8BZcz6PSnh2dakWLSaa6UkROIEQ/edit?resourcekey=0-8QYiy7RDd2QbVAgKDOycoQ) -->
 
