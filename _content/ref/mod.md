@@ -3215,11 +3215,8 @@ the module from the given URL using the [`GOPROXY`
 protocol](#goproxy-protocol). See [Serving modules directly from a
 proxy](#serving-from-proxy) for details.
 
-`repo-url` is the repository's URL. If the URL does not include a scheme (either
-because the module path has a VCS qualifier or because the `<meta>` tag lacks a
-scheme), the `go` command will try each protocol supported by the version
-control system. For example, with Git, the `go` command will try `https://` then
-`git+ssh://`. Insecure protocols (like `http://` and `git://`) may only be used
+`repo-url` is the repository's URL, containing a scheme and not containing
+a .vcs qualifier.  Insecure protocols (like `http://` and `git://`) may only be used
 if the module path is matched by the `GOINSECURE` environment variable.
 
 `subdirectory`, if present, is the slash-separated subdirectory of the repository
