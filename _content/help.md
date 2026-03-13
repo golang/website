@@ -37,6 +37,9 @@ Get live support and talk with other gophers on the Go Discord.
 <p>Get live support at <code>#go-nuts</code> on <code>irc.libera.chat</code>,
 the Go IRC channel.</p>
 
+<h3 id="matrix"><a href="https://matrix.to/#/#gophers:dendrite.matrix.org" aria-describedby="help-description">Gopher Matrix Space</a></h3>
+<p>Get live support and talk with other gophers on the Go Matrix Space.</p>
+
 <h3 id="faq"><a href="/doc/faq" aria-describedby="help-description">Frequently Asked Questions (FAQ)</a></h3>
 <p>Answers to common questions about Go.</p>
 </section>
