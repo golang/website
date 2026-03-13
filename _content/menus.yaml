@@ -61,7 +61,9 @@ main:
               name: google-groups,
               url: 'https://groups.google.com/g/golang-nuts',
             },
-            {img: github.svg, darkImg: github-light.svg, name: github, url: 'https://github.com/golang',},
+            {img: github.svg, darkImg: github-light.svg, name: github, url: 'https://github.com/golang'},
+            {img: bluesky.svg, name: bluesky, url: 'https://bsky.app/profile/golang.org'},
+            {img: mastodon.svg, name: mastodon, url: 'https://hachyderm.io/@golang'},
             {img: twitter.svg, name: twitter, url: 'https://twitter.com/golang'},
             {img: reddit.svg, name: reddit ,url: 'https://www.reddit.com/r/golang/'},
             {img: slack.svg, name: slack, url: 'https://invite.slack.golangbridge.org/'},
@@ -118,8 +120,12 @@ footer:
         url: /conduct
 
   - name: Connect
-    url: https://www.twitter.com/golang
+    url: /wiki/#the-go-community
     children:
+      - name: Bluesky
+        url: https://bsky.app/profile/golang.org
+      - name: Mastodon
+        url: https://hachyderm.io/@golang
       - name: Twitter
         url: https://www.twitter.com/golang
       - name: GitHub
