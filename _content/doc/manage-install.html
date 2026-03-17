@@ -76,59 +76,126 @@ Go stores downloaded dependencies in the directory returned by <code>go env GOMO
 These can be removed with <code>go clean -modcache</code>.
 </p>
 
-<h3 id="linux-mac-bsd">Linux / macOS / FreeBSD</h3>
+<div id="os-install-tabs" class="TabSection js-tabSection">
+  <div id="os-install-tablist" class="TabSection-tabList" role="tablist">
+    <button
+      role="tab"
+      aria-selected="true"
+      aria-controls="linux-tab"
+      id="linux"
+      tabindex="0"
+      class="TabSection-tab active"
+    >
+      Linux
+      <img class="TabSection-underline" src="/images/icons/underline.svg" width="51" height="4" aria-hidden="true" />
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="mac-tab"
+      id="mac"
+      tabindex="-1"
+      class="TabSection-tab"
+    >
+      Mac
+      <img class="TabSection-underline" src="/images/icons/underline.svg" width="51" height="4" aria-hidden="true" />
+    </button>
+    <button
+      role="tab"
+      aria-selected="false"
+      aria-controls="windows-tab"
+      id="windows"
+      tabindex="-1"
+      class="TabSection-tab"
+    >
+      Windows
+      <img class="TabSection-underline" src="/images/icons/underline.svg" width="51" height="4" aria-hidden="true" />
+    </button>
+  </div>
 
-<ol>
+  <div
+    role="tabpanel"
+    id="linux-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="linux"
+  >
+    <ol>
+      <li>Remove <code>/usr/local/go</code>.
+        <p>This is the default installation directory.</p>
+      </li>
+      <li>Remove <code>/usr/local/go</code> from your <code>PATH</code> environment variable.
+        <p>Under Linux and FreeBSD, edit <code>/etc/profile</code> or <code>$HOME/.profile</code>.</p>
+      </li>
+      <li>If you manually added the Go bin directory (typically <code>$HOME/go/bin</code>) to your shell profile, for example by adding <code>export PATH="$PATH:$(go env GOPATH)/bin"</code>, remove that entry.</li>
+      <li>
+        Restart any open Terminal sessions for the changes to take effect.
+        <p><!-- for consistent spacing --></p>
+      </li>
+    </ol>
+  </div>
 
-<li>Delete the go directory.
+  <div
+    role="tabpanel"
+    id="mac-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="mac"
+    hidden
+  >
+    <ol>
+      <li>Remove <code>/usr/local/go</code>.
+        <p>This is the default installation directory.</p>
+      </li>
+      <li>Remove <code>/usr/local/go</code> from your <code>PATH</code> environment variable.
+        <p>If you installed Go with the macOS package, do this by removing the <code>/etc/paths.d/go</code> file.</p>
+      </li>
+      <li>If you manually added the Go bin directory (typically <code>$HOME/go/bin</code>) to your shell profile, for example by adding <code>export PATH="$PATH:$(go env GOPATH)/bin"</code>, remove that entry.</li>
+      <li>
+        Restart any open Terminal sessions for the changes to take effect.
+        <p><!-- for consistent spacing --></p>
+      </li>
+    </ol>
+  </div>
 
-<p>
-This is usually /usr/local/go.
-</p>
+  <div
+    role="tabpanel"
+    id="windows-tab"
+    class="TabSection-tabPanel"
+    aria-labelledby="windows"
+    hidden
+  >
+    <p>You can remove Go from Windows using one of the following methods:</p>
 
-</li>
+    <div class="windows-uninstall-method">
+      <h4>Method 1: Control Panel (Simplest)</h4>
+      <ol>
+        <li>Open Control Panel and double-click <strong>Add/Remove Programs</strong>.</li>
+        <li>Select <strong>Go Programming Language</strong>, click Uninstall, then follow the prompts.</li>
+      </ol>
+    </div>
 
-<li>Remove the Go bin directory from your <code>PATH</code> environment variable.
+    <div class="windows-uninstall-method">
+      <h4>Method 2: Command Line</h4>
+      <p>Uninstall using the command line by running the following command:</p>
+      <pre>msiexec /x go{{version}}.windows-{{cpu-arch}}.msi /q</pre>
+      <p>
+        <strong>Note:</strong> Using this process automatically removes Windows environment variables created by the original installation.
+      </p>
+    </div>
+  </div>
+</div>
 
-<p>
-Under Linux and FreeBSD, edit /etc/profile or $HOME/.profile. If you installed Go with the macOS package, remove the /etc/paths.d/go file.
-</p>
+<style>
+  #windows-tab {
+    padding: 1rem 1.5rem;
+  }
+  .windows-uninstall-method {
+    margin-bottom: 1.5rem;
+  }
+  .windows-uninstall-method h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
+</style>
 
-</li>
-
-</ol>
-
-<h3 id="windows">Windows</h3>
-
-<p>
-The simplest way to remove Go is via Add/Remove Programs in the Windows control panel:
-</p>
-
-<ol>
-
-<li>In Control Panel, double-click <strong>Add/Remove Programs</strong>.</li>
-<li>In <strong>Add/Remove Programs</strong>, select <strong>Go Programming Language,</strong> click Uninstall, then follow the prompts.</li>
-
-</ol>
-
-<p>
-For removing Go with tools, you can also use the command line:
-</p>
-
-<ul>
-
-<li>Uninstall using the command line by running the following command:
-
-<pre>
-msiexec /x go{{version}}.windows-{{cpu-arch}}.msi /q
-</pre>
-
-<p>
-
-<strong>Note:</strong> Using this uninstall process for Windows will automatically remove Windows environment variables created by the original installation.
-</p>
-
-</li>
-
-</ul>
+<script src="/doc/manage-install.js"></script>
 
