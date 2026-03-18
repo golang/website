@@ -106,7 +106,7 @@ func TestAll(t *testing.T) {
 		"/play/p/",
 	}
 
-	// Do not process these paths or path prefixes.
+	// Do not process these path prefixes.
 	ignores := []string{
 		// The Wiki and gopls are in different repos;
 		// errors there should not block production push.
@@ -124,25 +124,30 @@ func TestAll(t *testing.T) {
 	// Otherwise we recheck all the URLs in the page frames for every page.
 	checked := make(map[string]bool)
 
-	testTree := func(dir, prefix string) {
+	testTree := func(dir, baseURL string) {
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				t.Fatal(err)
 			}
-			path = filepath.ToSlash(path)
-			siteURL := strings.TrimPrefix(path, dir)
+			rel, err := filepath.Rel(dir, path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			siteURL, err := url.JoinPath(baseURL, filepath.ToSlash(rel))
+			if err != nil {
+				t.Fatal(err)
+			}
 			for _, ig := range ignores {
-				if strings.HasPrefix(siteURL, ig) {
+				if strings.HasPrefix(siteURL, "https://go.dev"+ig) {
 					return nil
 				}
 			}
-			siteURL = prefix + siteURL // add https://go.dev/
 
 			if strings.HasSuffix(path, ".md") ||
 				strings.HasSuffix(path, ".html") ||
 				strings.HasSuffix(path, ".article") ||
 				strings.HasSuffix(path, ".slide") {
-				if !strings.Contains(path, "/talks/") {
+				if !strings.Contains(filepath.ToSlash(path), "/talks/") {
 					siteURL = strings.TrimSuffix(siteURL, pathpkg.Ext(path))
 				}
 				if strings.HasSuffix(siteURL, "/index") {
