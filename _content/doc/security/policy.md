@@ -42,7 +42,12 @@ issues will be issued CVE numbers.
 
 The Go Security team does not assign traditional fine-grained severity labels
 (e.g CRITICAL, HIGH, MEDIUM, LOW) to security issues because severity depends
-highly on how a user is using the affected API or functionality.
+highly on how a user is using the affected API or functionality. Additionally,
+when issuing CVEs for Go security issues we do not assign CVSS scores, as we
+fundamentally disagree with the applicability of the scoring system to Go for
+the same reasons. Third parties, such as MITRE or NIST, via the NVD, may assign
+CVSS scores to our vulnerabilities, but we do not endorse these scores as
+accurate reflections of their impact.
 
 For example, the impact of a resource exhaustion issue in the `encoding/json`
 parser depends on what is being parsed. If the user is parsing trusted JSON
