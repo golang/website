@@ -10,38 +10,78 @@ tags:
 summary: Go 1.26 includes new experimental goroutine leak profiles.
 ---
 
-## Background
+Go's concurrency features are powerful and easy to use, but
+that same ease can sometimes lead even seasoned developers to make
+mistakes.
+Fortunately, the Go ecosystem comes equipped with useful tools for
+debugging, e.g., the deadlock and
+the [data race](/doc/articles/race_detector) detectors.
 
-Goroutine leaks are a common concurrency error that occurs when misusing
-blocking concurrency features in Go.
-A goroutine is _leaked_ once it is permanently blocked at an operation over one or
-more concurrency primitives, i.e., it cannot be unblocked regardless of the
-execution moving forward.
+However, existing tools may still miss some concurrency bugs,
+the most prominent of which is the _goroutine leak_.
+Goroutines synchronize or exchange information
+via shared concurrency primitives, e.g., channels, locks, wait groups.
+In the process, goroutines often _block_, i.e., are
+put into a waiting state;
+ubiquitous examples include waiting to acquire a held mutex,
+or receive a message over a channel.
 
-This behavior is clearly undesirable, especially in long-running systems,
-where the accumulation of goroutine leaks degrades performance.
-It consumes a significant amount of memory, in the form of the goroutine stacks
-and any heap resources they may transitively point to, up to the point of
-out-of-memory exceptions.
-CPU performance is likewise degraded, through the unnecessary burdening of the
-garbage collector with the task of marking wasted memory.
+A goroutine is only _leaked_ if it is
+blocked permanently, irrespective of what the other
+goroutines are doing (plenty of examples below).
+For the purposes of this article, we further limit ourserlves
+to blocking behavior of channels or primitives in the
+[`sync`](/pkg/sync) package.
+The definition of goroutine leaks can be broadened
+to include goroutines that are blocked for an unreasonable
+amount of time, as well as networking or IO operations.
+However, these fall outside the scope of the approach presented here.
 
-While the Go runtime is equipped to signal global deadlocks if all
-goroutines are simultaneously blocked,
-goroutine leaks have, so far, been difficult to detect and diagnose.
-Existing goroutine profiles take a snapshot of all goroutines, but
-do not distinguish between leaked goroutines and those which are
-blocked legitimately.
+Regardless, goroutine leaks are undesirable, especially in long-running systems,
+where their accumulation degrades performance.
+Leaked goroutines and any heap objects
+they reference use a signficant amount of memory,
+and may even cause the system to run out, eventually.
+CPU performance is likewise degraded, as the garbage collector
+needlessly inspects unused memory and may trigger more frequently.
 
-To compensate, Go 1.26 introduces experimental, specialized goroutine leak profiles.
-In the following article, we showcase their use, examples of leaks that they can detect
-and the underlying implementation and trade-offs.
-While we will explain nuances, some familiarity with basic Go
-[concurrency features](/tour/concurrency/1) is expected.
+Goroutine leaks can be notoriously difficult to detect.
+In unit testing, the most significant breakthroughs include
+the open-source library [`goleak`](https://github.com/uber-go/goleak),
+which can instrument individual tests to signal any
+un-terminated goroutines after the test wraps up as suspicious.
+Similarly, Go 1.24 introduced [`synctest`](/blog/synctest) to
+the standard library; it can significantly improve
+the quality of concurrent code unit tests by giving
+Go developers more control over the ordering of events in
+concurrent code, allowing them to reliably test
+hard-to-reproduce scenarios.
+
+However, neither approach can check for goroutine leaks
+in production systems, especially at larger scales,
+which exercise scenarios that tests might not have accounted for.
+So far, goroutine profiles can be used to check for operations with a
+high concentrations of blocked goroutines, or analyze growth
+trends, if extracted periodically.
+However, goroutine profiles cannot distinguish between
+goroutines which are leaked, and those which are only blocked legitimately.
+A high number of blocked goroutines in, e.g., a microservice,
+can either be indicative of a real leak, or simply have coincided with
+a temporary increase in traffic.
+Likewise, leaks low in number may slip by undetected for many years.
+
+Finally, Go 1.26 introduces specialized goroutine
+leak profiles, a flexible and lightweigth mechanism for finding
+goroutine leaks in running Go programs, including production systems.
+In the followsings sections, we showcase how to use them and some examples
+of detectable leaks, followed by a description of the underlying implementation
+and trade-offs.
 
 ## Example: A common goroutine leak
 
-Let's look at a realistic example of code that contains a goroutine leak.
+Let's look at a realistic goroutine leak example.
+While we will explain nuances, some familiarity with basic Go
+[concurrency features](/tour/concurrency/1) is encouraged.
 Consider a function that processes work items in parallel:
 
 ```go
@@ -73,8 +113,10 @@ func processWorkItems(ws []workItem) ([]workResult, error) {
 	return results, nil
 }
 ```
-Because `ch` is an unbuffered channel, each worker goroutine blocks when sending its result until the main goroutine receives from the channel.
-If `processWorkItems` returns early due to an error, the receiving loop terminates, and all remaining worker goroutines will block forever trying to send to `ch`.
+Because `ch` is an unbuffered channel, each worker goroutine blocks when sending
+its result until the main goroutine receives from the channel.
+If `processWorkItems` returns early due to an error, the receiving loop terminates,
+and all remaining sender goroutines block forever.
 
 ## Enabling goroutine leak profiles
 
@@ -82,10 +124,12 @@ Goroutine leak profiles are available as an experiment in Go 1.26.
 To enable it, build your program with:
 
 ```
-$ GOEXPERIMENT=goroutineleakprofile go build .
+$ GOEXPERIMENT=goroutineleakprofile go build [...]
 ```
 
-Once enabled, the profile becomes available through the [`runtime/pprof`](/pkg/runtime/pprof) package, as the `goroutineleak` profile type, or by exposing an HTTP endpoint with [`net/http/pprof`](/pkg/net/http/pprof).
+Once enabled, the profile becomes available through the [`runtime/pprof`](/pkg/runtime/pprof)
+package, as the `goroutineleak` profile type, or by exposing an
+HTTP endpoint with [`net/http/pprof`](/pkg/net/http/pprof).
 
 ### Example set up
 
@@ -191,7 +235,7 @@ ROUTINE ======================== main.processWorkItems.func1 in .../main.go
          .        116     33:                   ch <- result{res, err}
          .          .     34:           }()
 ```
-The profile clearly shows that 116 goroutines are leaked at
+The profile reveals the goroutines leaked at
 `ch <- result{res, err}` (line 33), pinpointing the culprit operation.
 Notably, the longer the program is running, the larger the number of leaked
 goroutines.
@@ -220,10 +264,12 @@ experiment with your own leaks.
 
 Some of the simplest leaks occur when more messages
 are sent over a channel than expected.
-Below, a goroutine sends messages to the main goroutine
+Below, a goroutine is expected to send one message to the main goroutine
 over an unbuffered channel.
-However, in case of an error, the return statement is missing,
-causing two messages to be sent, and leading to the leak.
+However, the `return` statement is missing after a the send operation
+in the error case.
+For every error, the sender will, therefore, attempt to send two messages,
+which causes a leak.
 ```go
 func DoubleSend() {
 	ch := make(chan any)
@@ -241,8 +287,9 @@ func DoubleSend() {
 	<-ch
 }
 ```
-While the profile will not explicitly highlight the cause,
-it directs you to the send operation.
+While the profile does not explicitly highlight the missing `return`
+as the cause, it at least directs you to the faulty function, by
+highlighting the leaking send operation.
 ```
 (pprof) list DoubleSend
 Total: 1
@@ -262,8 +309,8 @@ send operation in the error case.
 ### Early return
 
 The inverse situation is just as common, where the receiver
-omits communication on some control flow paths.
-This is effectively a simplification of the introductory example.
+omits communication on some control flow paths,
+in what is effectively a simplified version of the introductory example.
 ```go
 // Incoming error simulates an error produced internally.
 func EarlyReturn(err error) {
@@ -277,12 +324,12 @@ func EarlyReturn(err error) {
 	}()
 
 	if err != nil {
-		// Interrupt evaluation of parent early in case of error.
+		// The parent goroutine quits too early in case of an error.
 		// Sender leaks.
 		return
 	}
 
-	// Only receive if there is no error.
+	// Receive is only executed if there is no error.
 	<-ch
 }
 ```
@@ -296,7 +343,7 @@ ROUTINE ======================== main.EarlyReturn.func1 in .../main.go
          .          .    145:
          .          .    146:   if err != nil {
 ```
-The leak can be addressed by increasing the buffer size of `ch` to 1.
+The leak can be addressed by giving `ch` a buffer of size 1.
 
 ### Timeout
 
@@ -335,16 +382,16 @@ ROUTINE ======================== main.Timeout.func1.1 in .../main.go
          .         10    201:                   ch <- struct{}{}
          .          .    202:           }()
 ```
-As in the previous example, the fix is to increase the channel
-buffer: `ch = make(chan any, 1)`.
+As in the previous example, the fix is to give the channel
+buffer of size 1.
 
 ### Range over channel without closing
 
 One slightly esoteric concurrency feature is
 [iterating over channels](/tour/concurrency/4) by using `range`.
 This allows you to repeatedly receive values from a channel in a loop,
-automatically extracting each sent value until the channel is closed and
-all buffered values have been received, upon which the loop exits.
+until the channel is closed and all values that have been enqueued
+in the channel's buffer have been received, upon which the loop exits.
 
 Importantly, **if the channel is never closed**, a `range` loop will block
 the executing goroutine forever.
@@ -378,9 +425,7 @@ func noCloseRange(list []any, workers int) {
 }
 
 ...
-// Example calls
 go noCloseRange([]any{1, 2, 3}, 3) // Leaks all 3 workers
-go noCloseRange([]any{1, 2, 3}, 0) // Leaks caused by 0 workers
 ```
 A goroutine leak profile for such a program would include the following:
 ```
@@ -398,9 +443,12 @@ ROUTINE ======================== main.noCloseRange.func1 in .../main.go
 We see the 3 workers blocked at the `range ch` operation, which
 gives an ample hint as to the cause of the leak.
 
-There is a bonus leak scenario in this case,
+**Bonus!** This particular leak is another leak scenario in this case,
 if the number of workers is mistakenly set to zero,
-wherein the parent sender will leak.
+which will lead the parent sender to leak:
+```go
+go noCloseRange([]any{1, 2, 3}, 0) // Sender leaks with 0 workers
+```
 This is also captured by the profile:
 ```
 (pprof) list noCloseRange$
@@ -423,7 +471,7 @@ all messages have been sent:
 	// All items have been sent. It is now safe to close.
 	close(ch)
 ```
-While `workers > 0` can be assumed to be an invariant in a realistic production system,
+While `workers > 0` can be assumed to hold in realistic production systems,
 goroutine leak profiles can nevertheless be used to implicitly monitor for off-chance
 violations without conservative `workers <= 0` checks.
 
@@ -431,7 +479,7 @@ violations without conservative `workers <= 0` checks.
 
 The patterns seen so far have been relatively constrained in their lexical scope.
 However, as functionality is spread out across functions, methods and packages, and
-implementations are obfuscated by interfaces, the difficulty of manually diagnosing
+implementations are obfuscated by interfaces, the difficulty of manually detecting
 leaks drastically increases.
 
 Such a case is exemplified in this section, with the custom `worker` type that embeds two channel
@@ -444,7 +492,7 @@ The `Start` method can be invoked any number of times, but if it is invoked
 at least once, `Stop` should eventually be called.
 
 As a result, `Start` and `Stop` form an implicit contract that dictates the order
-in which, and number of times each method should be invoked.
+in which the methods should be invoked.
 Breaking that contract can lead to undesirable behavior,
 in this case, goroutine leaks:
 ```go
@@ -509,8 +557,8 @@ func (w *worker) AddToQueue(item any) {
 	w.ch <- item
 }
 ```
-This issue is further exacerbated in practice, where such custom types are exposed
-as APIs through interfaces, in this case, through the non-descript
+This issue is further exacerbated in practice, where such custom types are only
+exported as interfaces, in this case, through the non-descript
 `Worker` type.
 Clients may not even be aware of the underlying implementation and,
 consequently, violate the implicit contract without realizing.
