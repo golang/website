@@ -42,7 +42,7 @@ where their accumulation degrades performance.
 Leaked goroutines and all their referenced heap objects
 can turn a signficant amount of memory unusable,
 to the point of eventually running the system dry.
-CPU performance is likewise degraded, as the garbage collector
+Excessive CPU utilization is also a possibility, as the garbage collector
 needlessly inspects unused memory and may trigger more frequently.
 
 Goroutine leaks can be notoriously difficult to detect.
