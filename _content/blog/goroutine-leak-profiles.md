@@ -1,11 +1,12 @@
 ---
 title: Goroutine Leak Profiles
-date: 2026-03-03
+date: 2026-03-24
 by:
 - Vlad Saioc
 tags:
+- goroutine leaks
 - pprof
-- profiles
+- profiling
 - performance
 summary: Go 1.26 includes new experimental goroutine leak profiles.
 ---
