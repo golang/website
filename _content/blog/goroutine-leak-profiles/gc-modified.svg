@@ -78,7 +78,7 @@
   <!-- NEW Step 3: Add Mark Roots (light cyan) -->
   <rect x="40" y="335" width="220" height="50" fill="#cfe2f3" stroke="#3d85c6" stroke-width="2" rx="8"/>
   <text x="150" y="365" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
-    3. Find maybe-live goroutines
+    3. Find maybe-runnable goroutines
   </text>
 
   <!-- Explanatory text to the east of box 3 -->
