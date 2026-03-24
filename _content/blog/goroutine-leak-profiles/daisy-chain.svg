@@ -92,13 +92,13 @@
   <!-- Bracket 1: G1 to Gn - "n rounds" (pincers facing UP) -->
   <path d="M 190 110 L 190 120 L 795 120 L 795 110" fill="none" stroke="#666" stroke-width="2"/>
   <text x="795" y="135" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
-    Marking round 1: check n goroutines for maybe-liveness
+    Marking round 1: check n goroutines for maybe-runnability
   </text>
 
   <!-- Bracket 2: G2 to Gn - "n-1 checks" (pincers facing UP) -->
   <path d="M 350 145 L 350 155 L 795 155 L 795 145" fill="none" stroke="#666" stroke-width="2"/>
   <text x="795" y="170" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
-    Marking round 2: check n-1 goroutines for maybe-liveness
+    Marking round 2: check n-1 goroutines for maybe-runnability
   </text>
 
   <!-- Ellipsis -->
@@ -109,7 +109,7 @@
   <!-- Bracket n: Just Gn - "last goroutine" (pincers facing UP) -->
   <path d="M 735 200 L 735 210 L 795 210 L 795 200" fill="none" stroke="#666" stroke-width="2"/>
   <text x="795" y="225" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
-    Marking round n: check last goroutine for maybe-liveness
+    Marking round n: check last goroutine for maybe-runnability
   </text>
 
   <!-- Legend -->
