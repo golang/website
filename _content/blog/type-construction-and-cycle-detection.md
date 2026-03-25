@@ -256,7 +256,7 @@ conveys no (underlying) type information at all.
 #### Where to do it
 
 Up to now we’ve focused on `unsafe.Sizeof` directly operating on potentially
-incomplete values. In `type T [unsafe.Sizeof(T{})]`, the call to `unsafe.Sizeof`
+incomplete values. In `type T [unsafe.Sizeof(T{})]int`, the call to `unsafe.Sizeof`
 is just the "root" of the array length expression. We can readily imagine the
 incomplete value `T{}` as an operand in some other value expression.
 
