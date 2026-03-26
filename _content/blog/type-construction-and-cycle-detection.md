@@ -204,7 +204,7 @@ Let's consider this example:
 type T [unsafe.Sizeof(T{})]int
 ```
 
-In the same way as before, we'll reach a state like the below:
+In the same way as before, we'll reach a state like the one below:
 
 <img style="background-color:#f3f3f3" src="type-construction-and-cycle-detection/09.svg" />
 
