@@ -66,7 +66,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/appengine-gopath.md`
 - [x] `blog/appengine-scalable.md`
 - [x] `blog/appengine.md`
-- [ ] `blog/bossie.md`
+- [x] `blog/bossie.md`
 - [ ] `blog/building-stathat-with-go.md`
 - [ ] `blog/c-go-cgo.md`
 - [ ] `blog/cgo.md`
