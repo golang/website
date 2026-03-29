@@ -101,7 +101,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/deadcode.md`
 - [x] `blog/debug-gdb.md`
 - [x] `blog/debug-opt.md`
-- [ ] `blog/debug-status.md`
+- [x] `blog/debug-status.md`
 - [ ] `blog/debugging-go-code-status-report.md`
 - [ ] `blog/debugging-go-programs-with-gnu-debugger.md`
 - [ ] `blog/debugging-what-you-deploy.md`
