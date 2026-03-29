@@ -110,7 +110,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/default.tmpl`
 - [x] `blog/defer-panic-and-recover.md`
 - [x] `blog/developer-experience.md`
-- [ ] `blog/docker.md`
+- [x] `blog/docker.md`
 - [ ] `blog/error-handling-and-go.md`
 - [ ] `blog/error-syntax.md`
 - [ ] `blog/errors-are-values.md`
