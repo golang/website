@@ -137,7 +137,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/getthee-to-go-meetup.md`
 - [x] `blog/getting-to-know-go-community.md`
 - [x] `blog/gif-decoder-exercise-in-go-interfaces.md`
-- [ ] `blog/gif-decoder.md`
+- [x] `blog/gif-decoder.md`
 - [x] `blog/go-11-is-released.md`
 - [ ] `blog/go-and-google-app-engine.md`
 - [ ] `blog/go-and-google-cloud-platform.md`
