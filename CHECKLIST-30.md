@@ -12,7 +12,7 @@ Nguyên tắc sử dụng:
 
 ## Batch hiện tại
 
-- [ ] `blog/14years.md`
+- [x] `blog/14years.md`
 - [ ] `blog/15years.md`
 - [ ] `blog/16years.md`
 - [ ] `blog/1year.md`
