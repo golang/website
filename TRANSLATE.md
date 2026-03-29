@@ -32,7 +32,7 @@ Each checklist item is a relative path from `_content/`. The translated or copie
 
 ### (root)
 
-- [ ] `AUTHORS.md`
+- [x] `AUTHORS.md`
 - [ ] `CONTRIBUTORS.md`
 - [ ] `about.md`
 - [ ] `article.tmpl`
