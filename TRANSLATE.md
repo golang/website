@@ -68,7 +68,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/appengine.md`
 - [x] `blog/bossie.md`
 - [x] `blog/building-stathat-with-go.md`
-- [ ] `blog/c-go-cgo.md`
+- [x] `blog/c-go-cgo.md`
 - [ ] `blog/cgo.md`
 - [ ] `blog/chacha8rand.md`
 - [ ] `blog/chacha8rand/amd.txt`
