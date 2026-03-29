@@ -92,11 +92,11 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/container-aware-gomaxprocs.md`
 - [x] `blog/context-and-structs.md`
 - [x] `blog/context.md`
-- [ ] `blog/contributor-workshop.md`
-- [ ] `blog/contributors-summit-2019.md`
-- [ ] `blog/contributors-summit.md`
-- [ ] `blog/coretypes.md`
-- [ ] `blog/cover.md`
+- [x] `blog/contributor-workshop.md`
+- [x] `blog/contributors-summit-2019.md`
+- [x] `blog/contributors-summit.md`
+- [x] `blog/coretypes.md`
+- [x] `blog/cover.md`
 - [x] `blog/cwg.md`
 - [x] `blog/deadcode.md`
 - [ ] `blog/debug-gdb.md`
