@@ -127,7 +127,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/functions-codewalk.md`
 - [ ] `blog/fuzz-beta.md`
 - [x] `blog/gccgo-in-gcc-471.md`
-- [ ] `blog/gcdk-whats-new-in-march-2019.md`
+- [x] `blog/gcdk-whats-new-in-march-2019.md`
 - [ ] `blog/generate.md`
 - [ ] `blog/generic-interfaces.md`
 - [ ] `blog/generic-slice-functions.md`
