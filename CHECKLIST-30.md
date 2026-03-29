@@ -21,7 +21,7 @@ Nguyên tắc sử dụng:
 - [x] `blog/4years.md`
 - [x] `blog/5years.md`
 - [x] `blog/6years.md`
-- [ ] `blog/7years.md`
+- [x] `blog/7years.md`
 - [ ] `blog/8years.md`
 - [ ] `blog/9years.md`
 - [ ] `blog/README.md`
