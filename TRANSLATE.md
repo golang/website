@@ -142,7 +142,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [ ] `blog/go-and-google-app-engine.md`
 - [ ] `blog/go-and-google-cloud-platform.md`
 - [ ] `blog/go-app-engine-sdk-155-released.md`
-- [ ] `blog/go-at-google-io-2011-videos.md`
+- [x] `blog/go-at-google-io-2011-videos.md`
 - [ ] `blog/go-at-heroku.md`
 - [ ] `blog/go-at-io-frequently-asked-questions.md`
 - [ ] `blog/go-becomes-more-stable.md`
