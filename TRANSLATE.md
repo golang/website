@@ -129,7 +129,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/gccgo-in-gcc-471.md`
 - [x] `blog/gcdk-whats-new-in-march-2019.md`
 - [x] `blog/generate.md`
-- [ ] `blog/generic-interfaces.md`
+- [x] `blog/generic-interfaces.md`
 - [x] `blog/generic-slice-functions.md`
 - [x] `blog/generics-next-step.md`
 - [x] `blog/generics-proposal.md`
