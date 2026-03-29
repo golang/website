@@ -84,7 +84,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/company-questionnaire2018.md`
 - [ ] `blog/comparable.md`
 - [ ] `blog/compat.md`
-- [ ] `blog/concurrency-is-not-parallelism.md`
+- [x] `blog/concurrency-is-not-parallelism.md`
 - [ ] `blog/concurrency-timeouts.md`
 - [ ] `blog/conduct-2018.md`
 - [ ] `blog/conduct-2021.md`
