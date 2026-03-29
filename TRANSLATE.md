@@ -123,7 +123,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [ ] `blog/first-go-program.md`
 - [ ] `blog/flight-recorder.md`
 - [ ] `blog/fosdem14.md`
-- [ ] `blog/from-zero-to-go-launching-on-google.md`
+- [x] `blog/from-zero-to-go-launching-on-google.md`
 - [ ] `blog/functions-codewalk.md`
 - [ ] `blog/fuzz-beta.md`
 - [ ] `blog/gccgo-in-gcc-471.md`
