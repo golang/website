@@ -58,6 +58,12 @@ Cập nhật bảng thuật ngữ này trong quá trình dịch:
 | generics | generics | Keep the feature name unchanged for now. |
 | production-ready | sẵn sàng cho môi trường production | Preferred phrase in release notes. |
 | editor-neutral | trung lập với trình soạn thảo | For tooling compatibility context. |
+| workspace | workspace | Keep unchanged in Go feature naming. |
+| soft memory limit | giới hạn bộ nhớ mềm | Runtime and GC context. |
+| supply chain security | bảo mật chuỗi cung ứng | Security context. |
+| false positive | dương tính giả | Security and tooling context. |
+| structured logging | structured logging | Keep unchanged for now. |
+| profile-guided optimization | tối ưu hóa dựa trên hồ sơ thực thi | Compiler and performance context. |
 
 ## Quyết định đang áp dụng
 
