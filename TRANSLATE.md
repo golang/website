@@ -111,7 +111,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/defer-panic-and-recover.md`
 - [x] `blog/developer-experience.md`
 - [x] `blog/docker.md`
-- [ ] `blog/error-handling-and-go.md`
+- [x] `blog/error-handling-and-go.md`
 - [ ] `blog/error-syntax.md`
 - [x] `blog/errors-are-values.md`
 - [x] `blog/examples.md`
