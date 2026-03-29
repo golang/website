@@ -125,7 +125,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/fosdem14.md`
 - [x] `blog/from-zero-to-go-launching-on-google.md`
 - [x] `blog/functions-codewalk.md`
-- [ ] `blog/fuzz-beta.md`
+- [x] `blog/fuzz-beta.md`
 - [x] `blog/gccgo-in-gcc-471.md`
 - [x] `blog/gcdk-whats-new-in-march-2019.md`
 - [ ] `blog/generate.md`
