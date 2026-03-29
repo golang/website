@@ -14,7 +14,7 @@ Nguyên tắc sử dụng:
 
 - [x] `blog/14years.md`
 - [x] `blog/15years.md`
-- [ ] `blog/16years.md`
+- [x] `blog/16years.md`
 - [ ] `blog/1year.md`
 - [ ] `blog/2years.md`
 - [ ] `blog/3years.md`
