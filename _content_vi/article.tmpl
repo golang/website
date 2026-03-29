@@ -1,0 +1,24 @@
+{{define "layout"}}
+  <article class="Article {{with section .}}Article--{{strings.Trim . "/"}}{{end}}">
+
+    {{if .sidebar }}
+    <div class="Article-columns">
+    <div class="Article-content">
+    {{end}}
+    {{- if .breadcrumb}}
+      {{ breadcrumbs . }}
+    {{- end}}
+    <h1>{{.title}}</h1>
+    {{.Content}}
+
+    {{if .sidebar }}
+    </div>
+    {{if eq .sidebar "faq"}}
+      {{ faqsidebar .}}
+    {{else if eq .sidebar "bug"}}
+      {{ bugsidebar .}}
+    {{end}}
+    </div>
+    {{end}}
+  </article>
+{{end}}

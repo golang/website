@@ -1,0 +1,775 @@
+# Translation Checklist
+
+Generated from `_content/` on 2026-03-29.
+
+This checklist tracks files that likely require localization work. It excludes static assets and implementation files that can usually be reused as-is, such as images, fonts, code samples, CSS, JavaScript, and downloadable binaries.
+
+- Source root: `_content/`
+- Target root: `_content_vi/`
+- Included file types: `.md`, `.html`, `.tmpl`, `.yaml`, `.article`, `.slide`, `.txt`
+- Total files to track: 697
+- Status convention: mark an item complete only after the corresponding file exists under `_content_vi/` and is reviewed.
+
+## Coverage Summary
+
+- `(root)`: 27 files
+- `blog`: 360 files
+- `doc`: 127 files
+- `gopls`: 3 files
+- `learn`: 8 files
+- `ref`: 3 files
+- `solutions`: 43 files
+- `src`: 1 file
+- `talks`: 107 files
+- `tour`: 15 files
+- `wiki`: 3 files
+
+## Checklist
+
+### (root)
+
+- [x] `AUTHORS.md`
+- [x] `CONTRIBUTORS.md`
+- [x] `about.md`
+- [x] `article.tmpl`
+
+### blog
+
+- [x] `blog/10years.md`
+- [x] `blog/11years.md`
+- [x] `blog/12years.md`
+- [x] `blog/13years.md`
+- [x] `blog/14years.md`
+- [x] `blog/15years.md`
+- [x] `blog/16years.md`
+- [x] `blog/1year.md`
+- [x] `blog/2years.md`
+- [x] `blog/3years.md`
+- [x] `blog/4years.md`
+- [x] `blog/5years.md`
+- [x] `blog/6years.md`
+- [x] `blog/7years.md`
+- [x] `blog/8years.md`
+- [x] `blog/9years.md`
+- [x] `blog/README.md`
+- [x] `blog/a-conversation-with-the-go-team.md`
+- [x] `blog/a-new-go-api-for-protocol-buffers.md`
+- [x] `blog/advanced-go-concurrency-patterns.md`
+- [x] `blog/alias-names.md`
+- [x] `blog/all.md`
+- [x] `blog/allocation-optimizations.md`
+- [x] `blog/appengine-155.md`
+- [x] `blog/appengine-171.md`
+- [x] `blog/appengine-dec2013.md`
+- [x] `blog/appengine-ga.md`
+- [x] `blog/appengine-go111.md`
+- [x] `blog/appengine-gopath.md`
+- [x] `blog/appengine-scalable.md`
+- [x] `blog/appengine.md`
+- [x] `blog/bossie.md`
+- [x] `blog/building-stathat-with-go.md`
+- [x] `blog/c-go-cgo.md`
+- [x] `blog/cgo.md`
+- [x] `blog/chacha8rand.md`
+- [ ] `blog/chacha8rand/amd.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/amd32.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/intel.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/intel32.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/m1.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/m3.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/taut2a.txt` (skipped: raw benchmark data)
+- [x] `blog/cleanups-and-weak.md`
+- [x] `blog/codelab-share.md`
+- [x] `blog/community-outreach-working-group.md`
+- [x] `blog/company-questionnaire2018.md`
+- [x] `blog/comparable.md`
+- [x] `blog/compat.md`
+- [x] `blog/concurrency-is-not-parallelism.md`
+- [x] `blog/concurrency-timeouts.md`
+- [x] `blog/conduct-2018.md`
+- [x] `blog/conduct-2021.md`
+- [x] `blog/constants.md`
+- [x] `blog/container-aware-gomaxprocs.md`
+- [x] `blog/context-and-structs.md`
+- [x] `blog/context.md`
+- [x] `blog/contributor-workshop.md`
+- [x] `blog/contributors-summit-2019.md`
+- [x] `blog/contributors-summit.md`
+- [x] `blog/coretypes.md`
+- [x] `blog/cover.md`
+- [x] `blog/cwg.md`
+- [x] `blog/deadcode.md`
+- [x] `blog/debug-gdb.md`
+- [x] `blog/debug-opt.md`
+- [x] `blog/debug-status.md`
+- [x] `blog/debugging-go-code-status-report.md`
+- [x] `blog/debugging-go-programs-with-gnu-debugger.md`
+- [x] `blog/debugging-what-you-deploy.md`
+- [x] `blog/declaration-syntax.md`
+- [x] `blog/deconstructing-type-parameters.md`
+- [x] `blog/default.tmpl`
+- [x] `blog/defer-panic-and-recover.md`
+- [x] `blog/developer-experience.md`
+- [x] `blog/docker.md`
+- [x] `blog/error-handling-and-go.md`
+- [x] `blog/error-syntax.md`
+- [x] `blog/errors-are-values.md`
+- [x] `blog/examples.md`
+- [x] `blog/execution-traces-2024.md`
+- [x] `blog/experiment.md`
+- [x] `blog/external-libraries.md`
+- [x] `blog/fips140.md`
+- [x] `blog/first-class-functions-in-go-and-new-go.md`
+- [x] `blog/first-go-program.md`
+- [x] `blog/flight-recorder.md`
+- [x] `blog/fosdem14.md`
+- [x] `blog/from-zero-to-go-launching-on-google.md`
+- [x] `blog/functions-codewalk.md`
+- [x] `blog/fuzz-beta.md`
+- [x] `blog/gccgo-in-gcc-471.md`
+- [x] `blog/gcdk-whats-new-in-march-2019.md`
+- [x] `blog/generate.md`
+- [x] `blog/generic-interfaces.md`
+- [x] `blog/generic-slice-functions.md`
+- [x] `blog/generics-next-step.md`
+- [x] `blog/generics-proposal.md`
+- [x] `blog/get-familiar-with-workspaces.md`
+- [x] `blog/getthee-to-go-meetup.md`
+- [x] `blog/getting-to-know-go-community.md`
+- [x] `blog/gif-decoder-exercise-in-go-interfaces.md`
+- [x] `blog/gif-decoder.md`
+- [x] `blog/go-11-is-released.md`
+- [ ] `blog/go-and-google-app-engine.md`
+- [ ] `blog/go-and-google-cloud-platform.md`
+- [ ] `blog/go-app-engine-sdk-155-released.md`
+- [x] `blog/go-at-google-io-2011-videos.md`
+- [ ] `blog/go-at-heroku.md`
+- [ ] `blog/go-at-io-frequently-asked-questions.md`
+- [ ] `blog/go-becomes-more-stable.md`
+- [ ] `blog/go-brand.md`
+- [ ] `blog/go-brand/Go-Logo/copyright.txt`
+- [ ] `blog/go-cloud.md`
+- [ ] `blog/go-cloud2019.md`
+- [ ] `blog/go-concurrency-patterns-timing-out-and.md`
+- [ ] `blog/go-developer-network.md`
+- [ ] `blog/go-fmt-your-code.md`
+- [ ] `blog/go-fonts.md`
+- [ ] `blog/go-for-app-engine-is-now-generally.md`
+- [ ] `blog/go-image-package.md`
+- [ ] `blog/go-imagedraw-package.md`
+- [ ] `blog/go-maps-in-action.md`
+- [ ] `blog/go-one-year-ago-today.md`
+- [ ] `blog/go-programming-language-turns-two.md`
+- [ ] `blog/go-programming-session-video-from.md`
+- [ ] `blog/go-slices-usage-and-internals.md`
+- [ ] `blog/go-turns-three.md`
+- [ ] `blog/go-updates-in-app-engine-171.md`
+- [ ] `blog/go-videos-from-google-io-2012.md`
+- [ ] `blog/go-whats-new-in-march-2010.md`
+- [ ] `blog/go-wins-2010-bossie-award.md`
+- [ ] `blog/go.dev.md`
+- [ ] `blog/go1-path.md`
+- [ ] `blog/go1-preview.md`
+- [ ] `blog/go1.1.md`
+- [ ] `blog/go1.10.md`
+- [ ] `blog/go1.11.md`
+- [ ] `blog/go1.12.md`
+- [ ] `blog/go1.13-errors.md`
+- [ ] `blog/go1.13.md`
+- [ ] `blog/go1.14.md`
+- [ ] `blog/go1.15-proposals.md`
+- [ ] `blog/go1.15.md`
+- [ ] `blog/go1.16.md`
+- [ ] `blog/go1.17.md`
+- [ ] `blog/go1.18.md`
+- [ ] `blog/go1.18beta1.md`
+- [ ] `blog/go1.18beta2.md`
+- [ ] `blog/go1.19.md`
+- [ ] `blog/go1.2.md`
+- [ ] `blog/go1.20.md`
+- [ ] `blog/go1.21.md`
+- [ ] `blog/go1.21rc.md`
+- [ ] `blog/go1.22.md`
+- [ ] `blog/go1.23.md`
+- [ ] `blog/go1.24.md`
+- [ ] `blog/go1.25.md`
+- [ ] `blog/go1.26.md`
+- [ ] `blog/go1.3.md`
+- [ ] `blog/go1.4.md`
+- [ ] `blog/go1.5.md`
+- [ ] `blog/go1.6.md`
+- [ ] `blog/go1.7-binary-size.md`
+- [ ] `blog/go1.7.md`
+- [ ] `blog/go1.8.md`
+- [ ] `blog/go1.9.md`
+- [ ] `blog/go1.md`
+- [ ] `blog/go116-module-changes.md`
+- [ ] `blog/go119runtime.md`
+- [ ] `blog/go12.md`
+- [ ] `blog/go15gc.md`
+- [ ] `blog/go2-here-we-come.md`
+- [ ] `blog/go2-next-steps.md`
+- [ ] `blog/go2draft.md`
+- [ ] `blog/gob.md`
+- [ ] `blog/gobs-of-data.md`
+- [ ] `blog/godoc-documenting-go-code.md`
+- [ ] `blog/godoc.md`
+- [ ] `blog/godoc.org-redirect.md`
+- [ ] `blog/gofix.md`
+- [ ] `blog/gofmt.md`
+- [ ] `blog/gonew.md`
+- [ ] `blog/gopher.md`
+- [ ] `blog/gopherchina.md`
+- [ ] `blog/gophercon.md`
+- [ ] `blog/gophercon2015.md`
+- [ ] `blog/gophergala.md`
+- [ ] `blog/gopls-scalability.md`
+- [ ] `blog/gopls-vscode-go.md`
+- [ ] `blog/gos-declaration-syntax.md`
+- [ ] `blog/gotelemetry.md`
+- [ ] `blog/gothamgo.md`
+- [ ] `blog/gouk15.md`
+- [ ] `blog/govulncheck.md`
+- [ ] `blog/greenteagc.md`
+- [ ] `blog/h2push.md`
+- [ ] `blog/hello-china.md`
+- [ ] `blog/hello-world.md`
+- [ ] `blog/heroku.md`
+- [ ] `blog/http-tracing.md`
+- [ ] `blog/image-draw.md`
+- [ ] `blog/image.md`
+- [ ] `blog/index.md`
+- [ ] `blog/inliner.md`
+- [ ] `blog/integration-test-coverage.md`
+- [ ] `blog/intro-generics.md`
+- [ ] `blog/introducing-go-playground.md`
+- [ ] `blog/introducing-gofix.md`
+- [ ] `blog/io2010-faq.md`
+- [ ] `blog/io2010-preview.md`
+- [ ] `blog/io2010.md`
+- [ ] `blog/io2011.md`
+- [ ] `blog/io2012-videos.md`
+- [ ] `blog/io2013-chat.md`
+- [ ] `blog/io2013-talk-concurrency.md`
+- [ ] `blog/io2013-talks-cloud.md`
+- [ ] `blog/io2014.md`
+- [ ] `blog/ismmkeynote.md`
+- [ ] `blog/json-and-go.md`
+- [ ] `blog/json-rpc-tale-of-interfaces.md`
+- [ ] `blog/json-rpc.md`
+- [ ] `blog/json.md`
+- [ ] `blog/jsonv2-exp.md`
+- [ ] `blog/laws-of-reflection.md`
+- [ ] `blog/learn-go-from-your-browser.md`
+- [ ] `blog/llmpowered.md`
+- [ ] `blog/loopvar-preview.md`
+- [ ] `blog/maps.md`
+- [ ] `blog/matchlang.md`
+- [ ] `blog/matchlang/tags.html`
+- [ ] `blog/meetups.md`
+- [ ] `blog/migrating-to-go-modules.md`
+- [ ] `blog/module-compatibility.md`
+- [ ] `blog/module-mirror-launch.md`
+- [ ] `blog/modules2019.md`
+- [ ] `blog/new-talk-and-tutorials.md`
+- [ ] `blog/normalization.md`
+- [ ] `blog/normalization/table1.html`
+- [ ] `blog/normalization/table2.html`
+- [ ] `blog/open-source.md`
+- [ ] `blog/organizing-go-code.md`
+- [ ] `blog/oscon.md`
+- [ ] `blog/osconreport.md`
+- [ ] `blog/osroot.md`
+- [ ] `blog/package-names.md`
+- [ ] `blog/pandemic.md`
+- [ ] `blog/path-security.md`
+- [ ] `blog/pgo-preview.md`
+- [ ] `blog/pgo.md`
+- [ ] `blog/pipelines.md`
+- [ ] `blog/pkg.go.dev-2020.md`
+- [ ] `blog/pkgsite-redesign.md`
+- [ ] `blog/pkgsite-search-redesign.md`
+- [ ] `blog/pkgsite.md`
+- [ ] `blog/playground-intro.md`
+- [ ] `blog/playground.md`
+- [ ] `blog/ports.md`
+- [ ] `blog/pprof.md`
+- [ ] `blog/preview-of-go-version-1.md`
+- [ ] `blog/profiling-go-programs.md`
+- [ ] `blog/protobuf-apiv2.md`
+- [ ] `blog/protobuf-opaque.md`
+- [ ] `blog/protobuf.md`
+- [ ] `blog/publishing-go-modules.md`
+- [ ] `blog/qihoo.md`
+- [ ] `blog/race-detector.md`
+- [ ] `blog/randv2.md`
+- [ ] `blog/range-functions.md`
+- [ ] `blog/real-go-projects-smarttwitter-and-webgo.md`
+- [ ] `blog/rebuild.md`
+- [ ] `blog/routing-enhancements.md`
+- [ ] `blog/share-memory-by-communicating.md`
+- [ ] `blog/slices-intro.md`
+- [ ] `blog/slices.md`
+- [ ] `blog/slog.md`
+- [ ] `blog/smarttwitter.md`
+- [ ] `blog/spotlight-on-external-go-libraries.md`
+- [ ] `blog/stable-releases.md`
+- [ ] `blog/stackoverflow.md`
+- [ ] `blog/stathat.md`
+- [ ] `blog/store.md`
+- [ ] `blog/strings.md`
+- [ ] `blog/subtests.md`
+- [ ] `blog/supply-chain.md`
+- [ ] `blog/survey2011.md`
+- [ ] `blog/survey2016-results.md`
+- [ ] `blog/survey2016.md`
+- [ ] `blog/survey2016/background.html`
+- [ ] `blog/survey2016/community.html`
+- [ ] `blog/survey2016/dev.html`
+- [ ] `blog/survey2016/effective.html`
+- [ ] `blog/survey2016/project.html`
+- [ ] `blog/survey2016/quotes.html`
+- [ ] `blog/survey2016/usage.html`
+- [ ] `blog/survey2017-results.md`
+- [ ] `blog/survey2017.md`
+- [ ] `blog/survey2017/background.html`
+- [ ] `blog/survey2017/community.html`
+- [ ] `blog/survey2017/dev.html`
+- [ ] `blog/survey2017/effective.html`
+- [ ] `blog/survey2017/project.html`
+- [ ] `blog/survey2017/usage.html`
+- [ ] `blog/survey2018-company.md`
+- [ ] `blog/survey2018-results.md`
+- [ ] `blog/survey2018.md`
+- [ ] `blog/survey2019-results.md`
+- [ ] `blog/survey2019.md`
+- [ ] `blog/survey2020-results.md`
+- [ ] `blog/survey2020.md`
+- [ ] `blog/survey2021-results.md`
+- [ ] `blog/survey2021.md`
+- [ ] `blog/survey2022-q2-results.md`
+- [ ] `blog/survey2022-q2.md`
+- [ ] `blog/survey2023-h2-results.md`
+- [ ] `blog/survey2023-h2.md`
+- [ ] `blog/survey2023-q1-results.md`
+- [ ] `blog/survey2023-q1.md`
+- [ ] `blog/survey2024-h1-results.md`
+- [ ] `blog/survey2024-h1.md`
+- [ ] `blog/survey2024-h2-results.md`
+- [ ] `blog/survey2024-h2.md`
+- [ ] `blog/survey2025-announce.md`
+- [ ] `blog/survey2025.md`
+- [ ] `blog/swisstable.md`
+- [ ] `blog/sydney-gtug.md`
+- [ ] `blog/synctest.md`
+- [ ] `blog/testing-b-loop.md`
+- [ ] `blog/testing-time.md`
+- [ ] `blog/the-app-engine-sdk-and-workspaces-gopath.md`
+- [ ] `blog/the-path-to-go-1.md`
+- [ ] `blog/the-vs-code-go-extension-joins-the-go-project.md`
+- [ ] `blog/third-party-libraries-goprotobuf-and.md`
+- [ ] `blog/tidy-web.md`
+- [ ] `blog/tls-cipher-suites.md`
+- [ ] `blog/tob-crypto-audit.md`
+- [ ] `blog/toolchain.md`
+- [ ] `blog/tour.md`
+- [ ] `blog/toward-go2.md`
+- [ ] `blog/turkey-doodle.md`
+- [ ] `blog/tutorials-go1.18.md`
+- [ ] `blog/two-go-talks-lexical-scanning-in-go-and.md`
+- [ ] `blog/two-recent-go-articles.md`
+- [ ] `blog/two-recent-go-talks.md`
+- [ ] `blog/type-construction-and-cycle-detection.md`
+- [ ] `blog/type-inference.md`
+- [ ] `blog/unique.md`
+- [ ] `blog/upcoming-google-io-go-events.md`
+- [ ] `blog/using-go-modules.md`
+- [ ] `blog/v2-go-modules.md`
+- [ ] `blog/versioning-proposal.md`
+- [ ] `blog/vscode-go.md`
+- [ ] `blog/vuln.md`
+- [ ] `blog/wasi.md`
+- [ ] `blog/wasmexport.md`
+- [ ] `blog/waza-talk.md`
+- [ ] `blog/when-generics.md`
+- [ ] `blog/why-generics.md`
+- [ ] `blog/wire.md`
+- [ ] `blog/writing-scalable-app-engine.md`
+
+### (root)
+
+- [ ] `blogfeed.tmpl`
+- [ ] `brand.md`
+- [ ] `codewalk.tmpl`
+- [ ] `codewalkdir.tmpl`
+- [ ] `conduct.html`
+- [ ] `copyright.md`
+- [ ] `dir.tmpl`
+- [ ] `dl.tmpl`
+
+### doc
+
+- [ ] `doc/articles/go_command.html`
+- [ ] `doc/articles/index.html`
+- [ ] `doc/articles/race_detector.html`
+- [ ] `doc/articles/wiki/edit.html`
+- [ ] `doc/articles/wiki/index.html`
+- [ ] `doc/articles/wiki/view.html`
+- [ ] `doc/build-cover.md`
+- [ ] `doc/cmd.html`
+- [ ] `doc/code.html`
+- [ ] `doc/comment.md`
+- [ ] `doc/conduct.md`
+- [ ] `doc/contrib.md`
+- [ ] `doc/contribute.html`
+- [ ] `doc/copyright.md`
+- [ ] `doc/database/cancel-operations.md`
+- [ ] `doc/database/change-data.md`
+- [ ] `doc/database/execute-transactions.md`
+- [ ] `doc/database/index.md`
+- [ ] `doc/database/manage-connections.md`
+- [ ] `doc/database/open-handle.md`
+- [ ] `doc/database/prepared-statements.md`
+- [ ] `doc/database/querying.md`
+- [ ] `doc/database/sql-injection.md`
+- [ ] `doc/debugging_with_gdb.md`
+- [ ] `doc/default.tmpl`
+- [ ] `doc/devel/pre_go1.html`
+- [ ] `doc/devel/release.html`
+- [ ] `doc/devel/weekly.html`
+- [ ] `doc/diagnostics.html`
+- [ ] `doc/docs.md`
+- [ ] `doc/editors.html`
+- [ ] `doc/effective_go.html`
+- [ ] `doc/faq.md`
+- [ ] `doc/fuzz.md`
+- [ ] `doc/gc-guide.html`
+- [ ] `doc/gccgo_contribute.html`
+- [ ] `doc/gccgo_install.md`
+- [ ] `doc/gdb.html`
+- [ ] `doc/go-get-install-deprecation.md`
+- [ ] `doc/go1.1.md`
+- [ ] `doc/go1.10.md`
+- [ ] `doc/go1.11.md`
+- [ ] `doc/go1.12.md`
+- [ ] `doc/go1.13.md`
+- [ ] `doc/go1.14.md`
+- [ ] `doc/go1.15.md`
+- [ ] `doc/go1.16.md`
+- [ ] `doc/go1.17.md`
+- [ ] `doc/go1.18.md`
+- [ ] `doc/go1.19.md`
+- [ ] `doc/go1.2.md`
+- [ ] `doc/go1.20.md`
+- [ ] `doc/go1.21.md`
+- [ ] `doc/go1.22.md`
+- [ ] `doc/go1.23.md`
+- [ ] `doc/go1.24.md`
+- [ ] `doc/go1.25.md`
+- [ ] `doc/go1.26.md`
+- [ ] `doc/go1.3.md`
+- [ ] `doc/go1.4.md`
+- [ ] `doc/go1.5.md`
+- [ ] `doc/go1.6.md`
+- [ ] `doc/go1.7.md`
+- [ ] `doc/go1.8.md`
+- [ ] `doc/go1.9.md`
+- [ ] `doc/go1.md`
+- [ ] `doc/go1compat.html`
+- [ ] `doc/go_faq.md`
+- [ ] `doc/gopath_code.html`
+- [ ] `doc/gopher/index.md`
+- [ ] `doc/help.md`
+- [ ] `doc/index.html`
+- [ ] `doc/install-source.md`
+- [ ] `doc/install.html`
+- [ ] `doc/install/gccgo.html`
+- [ ] `doc/install/source.html`
+- [ ] `doc/manage-install.html`
+- [ ] `doc/modules/developing.md`
+- [ ] `doc/modules/gomod-ref.md`
+- [ ] `doc/modules/layout.md`
+- [ ] `doc/modules/major-version.md`
+- [ ] `doc/modules/managing-dependencies.md`
+- [ ] `doc/modules/managing-source.md`
+- [ ] `doc/modules/pruning.md`
+- [ ] `doc/modules/publishing.md`
+- [ ] `doc/modules/release-workflow.md`
+- [ ] `doc/modules/version-numbers.md`
+- [ ] `doc/next.md`
+- [ ] `doc/pgo.md`
+- [ ] `doc/play/index-dev.txt`
+- [ ] `doc/play/multi.txt`
+- [ ] `doc/root.md`
+- [ ] `doc/security/best-practices.md`
+- [ ] `doc/security/fips140.md`
+- [ ] `doc/security/fuzz/index.md`
+- [ ] `doc/security/fuzz/technical.md`
+- [ ] `doc/security/index.md`
+- [ ] `doc/security/policy.md`
+- [ ] `doc/security/vuln/cna.md`
+- [ ] `doc/security/vuln/database.md`
+- [ ] `doc/security/vuln/editor.md`
+- [ ] `doc/security/vuln/index.md`
+- [ ] `doc/security/vuln/vulncheck.md`
+- [ ] `doc/security/vulncheck.md`
+- [ ] `doc/security/vulndb/api.md`
+- [ ] `doc/security/vulndb/index.md`
+- [ ] `doc/security/vulndb/policy.md`
+- [ ] `doc/telemetry.md`
+- [ ] `doc/toolchain.md`
+- [ ] `doc/tos.html`
+- [ ] `doc/tutorial/add-a-test.html`
+- [ ] `doc/tutorial/call-module-code.html`
+- [ ] `doc/tutorial/compile-install.html`
+- [ ] `doc/tutorial/create-module.html`
+- [ ] `doc/tutorial/database-access.md`
+- [ ] `doc/tutorial/fuzz.md`
+- [ ] `doc/tutorial/generics.md`
+- [ ] `doc/tutorial/getting-started.html`
+- [ ] `doc/tutorial/govulncheck-ide.md`
+- [ ] `doc/tutorial/govulncheck.md`
+- [ ] `doc/tutorial/greetings-multiple-people.html`
+- [ ] `doc/tutorial/handle-errors.html`
+- [ ] `doc/tutorial/index.html`
+- [ ] `doc/tutorial/module-conclusion.html`
+- [ ] `doc/tutorial/random-greeting.html`
+- [ ] `doc/tutorial/web-service-gin.md`
+- [ ] `doc/tutorial/workspaces.md`
+
+### (root)
+
+- [ ] `error.tmpl`
+
+### gopls
+
+- [ ] `gopls/doc/default.tmpl`
+- [ ] `gopls/doc/index.md`
+- [ ] `gopls/doc/settings.md`
+
+### (root)
+
+- [ ] `help.md`
+- [ ] `index.md`
+
+### learn
+
+- [ ] `learn/books.yaml`
+- [ ] `learn/cloud.yaml`
+- [ ] `learn/courses.yaml`
+- [ ] `learn/guided.yaml`
+- [ ] `learn/index.md`
+- [ ] `learn/quickstart.yaml`
+- [ ] `learn/training.yaml`
+- [ ] `learn/tutorials.yaml`
+
+### (root)
+
+- [ ] `menus.yaml`
+- [ ] `pkg.tmpl`
+- [ ] `pkgroot.tmpl`
+- [ ] `play.tmpl`
+- [ ] `project.html`
+- [ ] `rebuild.html`
+
+### ref
+
+- [ ] `ref/default.tmpl`
+- [ ] `ref/index.md`
+- [ ] `ref/mod.md`
+
+### (root)
+
+- [ ] `resources.yaml`
+- [ ] `robots.txt`
+- [ ] `site.tmpl`
+
+### solutions
+
+- [ ] `solutions/allegro.md`
+- [ ] `solutions/americanexpress.md`
+- [ ] `solutions/armut.md`
+- [ ] `solutions/bitly.md`
+- [ ] `solutions/bytedance.md`
+- [ ] `solutions/capital-one.md`
+- [ ] `solutions/case-studies.md`
+- [ ] `solutions/chrome.md`
+- [ ] `solutions/clis.md`
+- [ ] `solutions/cloud.md`
+- [ ] `solutions/cloudflare.md`
+- [ ] `solutions/cockroachlabs.md`
+- [ ] `solutions/coredata.md`
+- [ ] `solutions/curve.md`
+- [ ] `solutions/default.tmpl`
+- [ ] `solutions/devops.md`
+- [ ] `solutions/dropbox.md`
+- [ ] `solutions/facebook.md`
+- [ ] `solutions/firebase.md`
+- [ ] `solutions/google/chrome.md`
+- [ ] `solutions/google/coredata.md`
+- [ ] `solutions/google/firebase.md`
+- [ ] `solutions/google/index.md`
+- [ ] `solutions/google/sitereliability.md`
+- [ ] `solutions/grail.md`
+- [ ] `solutions/index.md`
+- [ ] `solutions/mercadolibre.md`
+- [ ] `solutions/microsoft.md`
+- [ ] `solutions/monzo.md`
+- [ ] `solutions/netflix.md`
+- [ ] `solutions/paypal.md`
+- [ ] `solutions/riotgames.md`
+- [ ] `solutions/salesforce.md`
+- [ ] `solutions/sitereliability.md`
+- [ ] `solutions/sixt.md`
+- [ ] `solutions/stream.md`
+- [ ] `solutions/trivago.md`
+- [ ] `solutions/twitch.md`
+- [ ] `solutions/uber.md`
+- [ ] `solutions/use-cases.md`
+- [ ] `solutions/webdev.md`
+- [ ] `solutions/wildlifestudios.md`
+- [ ] `solutions/x.md`
+
+### src
+
+- [ ] `src/default.tmpl`
+
+### talks
+
+- [ ] `talks/2010/go_talk-20100112.html`
+- [ ] `talks/2010/go_talk-20100121.html`
+- [ ] `talks/2010/go_talk-20100323.html`
+- [ ] `talks/2011/lex.slide`
+- [ ] `talks/2012/10things.slide`
+- [ ] `talks/2012/chat.slide`
+- [ ] `talks/2012/chat/support/markov.txt`
+- [ ] `talks/2012/concurrency.slide`
+- [ ] `talks/2012/go-docs.slide`
+- [ ] `talks/2012/go1.slide`
+- [ ] `talks/2012/goforc.slide`
+- [ ] `talks/2012/insidepresent.slide`
+- [ ] `talks/2012/insidepresent/wire.html`
+- [ ] `talks/2012/simple.slide`
+- [ ] `talks/2012/simple/webfront/testdata/index.html`
+- [ ] `talks/2012/splash.article`
+- [ ] `talks/2012/splash.slide`
+- [ ] `talks/2012/tutorial.slide`
+- [ ] `talks/2012/waza.slide`
+- [ ] `talks/2012/zen.slide`
+- [ ] `talks/2013/advconc.slide`
+- [ ] `talks/2013/bestpractices.slide`
+- [ ] `talks/2013/distsys.slide`
+- [ ] `talks/2013/go-sreops.slide`
+- [ ] `talks/2013/go1.1.slide`
+- [ ] `talks/2013/go4python.slide`
+- [ ] `talks/2013/highperf.slide`
+- [ ] `talks/2013/highperf/cachingembed.html`
+- [ ] `talks/2013/highperf/mart/1/app.yaml`
+- [ ] `talks/2013/highperf/mart/2/app.yaml`
+- [ ] `talks/2013/highperf/mart/3/app.yaml`
+- [ ] `talks/2013/highperf/santaembed.html`
+- [ ] `talks/2013/oscon-dl.slide`
+- [ ] `talks/2014/c2go.slide`
+- [ ] `talks/2014/camlistore.slide`
+- [ ] `talks/2014/compiling.slide`
+- [ ] `talks/2014/droidcon.slide`
+- [ ] `talks/2014/go1.3.slide`
+- [ ] `talks/2014/go4gophers.slide`
+- [ ] `talks/2014/go4gophers/gophertraining.html`
+- [ ] `talks/2014/go4java.slide`
+- [ ] `talks/2014/gocon-tokyo.slide`
+- [ ] `talks/2014/gotham-context.slide`
+- [ ] `talks/2014/gothamgo-android.slide`
+- [ ] `talks/2014/hammers.slide`
+- [ ] `talks/2014/hellogophers.slide`
+- [ ] `talks/2014/names.slide`
+- [ ] `talks/2014/organizeio.slide`
+- [ ] `talks/2014/playground.slide`
+- [ ] `talks/2014/readability.slide`
+- [ ] `talks/2014/research.slide`
+- [ ] `talks/2014/research2.slide`
+- [ ] `talks/2014/state-of-go.slide`
+- [ ] `talks/2014/state-of-the-gopher.slide`
+- [ ] `talks/2014/static-analysis.slide`
+- [ ] `talks/2014/taste.slide`
+- [ ] `talks/2014/testing.slide`
+- [ ] `talks/2015/dynamic-tools.slide`
+- [ ] `talks/2015/go-for-java-programmers.slide`
+- [ ] `talks/2015/go4cpp.slide`
+- [ ] `talks/2015/gofmt-cn.slide`
+- [ ] `talks/2015/gofmt-en.slide`
+- [ ] `talks/2015/gogo.slide`
+- [ ] `talks/2015/gophercon-go-on-mobile.slide`
+- [ ] `talks/2015/gophercon-goevolution.slide`
+- [ ] `talks/2015/gotham-grpc.slide`
+- [ ] `talks/2015/how-go-was-made.slide`
+- [ ] `talks/2015/json.slide`
+- [ ] `talks/2015/keeping-up.slide`
+- [ ] `talks/2015/keeping-up/gource_explosion.html`
+- [ ] `talks/2015/simplicity-is-complicated.slide`
+- [ ] `talks/2015/state-of-go-may.slide`
+- [ ] `talks/2015/state-of-go.slide`
+- [ ] `talks/2015/tricks.slide`
+- [ ] `talks/2015/using-go-types-for-tools.html`
+- [ ] `talks/2016/applicative.slide`
+- [ ] `talks/2016/asm.slide`
+- [ ] `talks/2016/asm/360.s.txt`
+- [ ] `talks/2016/asm/386.s.txt`
+- [ ] `talks/2016/asm/68000.s.txt`
+- [ ] `talks/2016/asm/amd64.s.txt`
+- [ ] `talks/2016/asm/apollo.s.txt`
+- [ ] `talks/2016/asm/arm.s.txt`
+- [ ] `talks/2016/asm/arm64.s.txt`
+- [ ] `talks/2016/asm/cray1.s.txt`
+- [ ] `talks/2016/asm/mips64.s.txt`
+- [ ] `talks/2016/asm/pdp10.s.txt`
+- [ ] `talks/2016/asm/pdp11.s.txt`
+- [ ] `talks/2016/asm/ppc64le.s.txt`
+- [ ] `talks/2016/asm/s390x.s.txt`
+- [ ] `talks/2016/prototype-your-design.txt`
+- [ ] `talks/2016/refactor.article`
+- [ ] `talks/2016/refactor/atomic.html`
+- [ ] `talks/2016/refactor/gradual.html`
+- [ ] `talks/2016/refactor/import1.html`
+- [ ] `talks/2016/refactor/import2.html`
+- [ ] `talks/2016/refactor/template.html`
+- [ ] `talks/2016/refactor/version1.html`
+- [ ] `talks/2016/refactor/version2.html`
+- [ ] `talks/2016/state-of-go.slide`
+- [ ] `talks/2016/token.slide`
+- [ ] `talks/2017/state-of-go-may.slide`
+- [ ] `talks/2017/state-of-go.slide`
+- [ ] `talks/2019/playground-v3/playground-v3.slide`
+- [ ] `talks/article.tmpl`
+- [ ] `talks/dir.tmpl`
+- [ ] `talks/slide.tmpl`
+
+### (root)
+
+- [ ] `testimonials.yaml`
+- [ ] `texthtml.tmpl`
+- [ ] `tos.md`
+
+### tour
+
+- [ ] `tour/basics.article`
+- [ ] `tour/concurrency.article`
+- [ ] `tour/flowcontrol.article`
+- [ ] `tour/generics.article`
+- [ ] `tour/methods.article`
+- [ ] `tour/moretypes.article`
+- [ ] `tour/static/partials/editor.html`
+- [ ] `tour/static/partials/feedback-button.html`
+- [ ] `tour/static/partials/lesson.html`
+- [ ] `tour/static/partials/list.html`
+- [ ] `tour/static/partials/toc-button.html`
+- [ ] `tour/static/partials/toc.html`
+- [ ] `tour/template/action.tmpl`
+- [ ] `tour/template/index.tmpl`
+- [ ] `tour/welcome.article`
+
+### wiki
+
+- [ ] `wiki/Comments.md`
+- [ ] `wiki/default.tmpl`
+- [ ] `wiki/index.md`
