@@ -82,7 +82,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/codelab-share.md`
 - [x] `blog/community-outreach-working-group.md`
 - [x] `blog/company-questionnaire2018.md`
-- [ ] `blog/comparable.md`
+- [x] `blog/comparable.md`
 - [ ] `blog/compat.md`
 - [x] `blog/concurrency-is-not-parallelism.md`
 - [x] `blog/concurrency-timeouts.md`
