@@ -133,7 +133,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/generic-slice-functions.md`
 - [x] `blog/generics-next-step.md`
 - [x] `blog/generics-proposal.md`
-- [ ] `blog/get-familiar-with-workspaces.md`
+- [x] `blog/get-familiar-with-workspaces.md`
 - [x] `blog/getthee-to-go-meetup.md`
 - [x] `blog/getting-to-know-go-community.md`
 - [x] `blog/gif-decoder-exercise-in-go-interfaces.md`
