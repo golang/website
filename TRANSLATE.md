@@ -134,7 +134,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [ ] `blog/generics-next-step.md`
 - [ ] `blog/generics-proposal.md`
 - [ ] `blog/get-familiar-with-workspaces.md`
-- [ ] `blog/getthee-to-go-meetup.md`
+- [x] `blog/getthee-to-go-meetup.md`
 - [ ] `blog/getting-to-know-go-community.md`
 - [ ] `blog/gif-decoder-exercise-in-go-interfaces.md`
 - [ ] `blog/gif-decoder.md`
