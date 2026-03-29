@@ -55,7 +55,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/a-conversation-with-the-go-team.md`
 - [x] `blog/a-new-go-api-for-protocol-buffers.md`
 - [x] `blog/advanced-go-concurrency-patterns.md`
-- [ ] `blog/alias-names.md`
+- [x] `blog/alias-names.md`
 - [ ] `blog/all.md`
 - [ ] `blog/allocation-optimizations.md`
 - [ ] `blog/appengine-155.md`
