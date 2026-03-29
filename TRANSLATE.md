@@ -51,7 +51,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/7years.md`
 - [x] `blog/8years.md`
 - [x] `blog/9years.md`
-- [ ] `blog/README.md`
+- [x] `blog/README.md`
 - [ ] `blog/a-conversation-with-the-go-team.md`
 - [ ] `blog/a-new-go-api-for-protocol-buffers.md`
 - [ ] `blog/advanced-go-concurrency-patterns.md`
