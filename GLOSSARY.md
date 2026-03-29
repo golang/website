@@ -44,6 +44,14 @@ Update this glossary as translation progresses:
 | Go's Gerrit instance | may chu Gerrit cua Go | Keep `Gerrit` as a product name. |
 | search for changes | tim kiem cac thay doi | General action phrase. |
 | redirect | chuyen huong | For front matter semantics and prose. |
+| ecosystem | he sinh thai | Prefer this in Go platform context. |
+| community | cong dong | General community term. |
+| open-source | ma nguon mo | Use in general prose. |
+| anniversary | ky niem | Use for anniversary or milestone context. |
+| birthday | sinh nhat | Use for celebratory wording. |
+| cloud software | phan mem dam may | Prefer this in infra context. |
+| garbage collector | bo gom rac | Preferred runtime term. |
+| tooling | he thong cong cu | Use for developer-tooling context. |
 
 ## Open Decisions
 
