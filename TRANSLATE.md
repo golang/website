@@ -122,7 +122,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/first-class-functions-in-go-and-new-go.md`
 - [ ] `blog/first-go-program.md`
 - [ ] `blog/flight-recorder.md`
-- [ ] `blog/fosdem14.md`
+- [x] `blog/fosdem14.md`
 - [x] `blog/from-zero-to-go-launching-on-google.md`
 - [x] `blog/functions-codewalk.md`
 - [ ] `blog/fuzz-beta.md`
