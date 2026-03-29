@@ -131,7 +131,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/generate.md`
 - [ ] `blog/generic-interfaces.md`
 - [ ] `blog/generic-slice-functions.md`
-- [ ] `blog/generics-next-step.md`
+- [x] `blog/generics-next-step.md`
 - [x] `blog/generics-proposal.md`
 - [ ] `blog/get-familiar-with-workspaces.md`
 - [x] `blog/getthee-to-go-meetup.md`
