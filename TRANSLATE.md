@@ -58,7 +58,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/alias-names.md`
 - [x] `blog/all.md`
 - [x] `blog/allocation-optimizations.md`
-- [ ] `blog/appengine-155.md`
+- [x] `blog/appengine-155.md`
 - [ ] `blog/appengine-171.md`
 - [ ] `blog/appengine-dec2013.md`
 - [ ] `blog/appengine-ga.md`
