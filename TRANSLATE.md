@@ -30,7 +30,7 @@ This checklist tracks files that likely require localization work. It excludes s
 
 - [x] `AUTHORS.md`
 - [x] `CONTRIBUTORS.md`
-- [ ] `about.md`
+- [x] `about.md`
 - [ ] `article.tmpl`
 
 ### blog
