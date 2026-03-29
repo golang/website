@@ -78,7 +78,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [ ] `blog/chacha8rand/m1.txt` (skipped: raw benchmark data)
 - [ ] `blog/chacha8rand/m3.txt` (skipped: raw benchmark data)
 - [ ] `blog/chacha8rand/taut2a.txt` (skipped: raw benchmark data)
-- [ ] `blog/cleanups-and-weak.md`
+- [x] `blog/cleanups-and-weak.md`
 - [ ] `blog/codelab-share.md`
 - [ ] `blog/community-outreach-working-group.md`
 - [ ] `blog/company-questionnaire2018.md`
