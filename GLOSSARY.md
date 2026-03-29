@@ -52,6 +52,12 @@ Cập nhật bảng thuật ngữ này trong quá trình dịch:
 | cloud software | phần mềm đám mây | Prefer this in infra context. |
 | garbage collector | bộ gom rác | Preferred runtime term. |
 | tooling | hệ thống công cụ | Use for developer-tooling context. |
+| release | bản phát hành | Use for product or language releases. |
+| vulnerability | lỗ hổng bảo mật | Security context. |
+| dependency | dependency | Keep this term in technical prose when clearer. |
+| generics | generics | Keep the feature name unchanged for now. |
+| production-ready | sẵn sàng cho môi trường production | Preferred phrase in release notes. |
+| editor-neutral | trung lập với trình soạn thảo | For tooling compatibility context. |
 
 ## Quyết định đang áp dụng
 
