@@ -88,7 +88,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/concurrency-timeouts.md`
 - [x] `blog/conduct-2018.md`
 - [x] `blog/conduct-2021.md`
-- [ ] `blog/constants.md`
+- [x] `blog/constants.md`
 - [ ] `blog/container-aware-gomaxprocs.md`
 - [ ] `blog/context-and-structs.md`
 - [ ] `blog/context.md`
