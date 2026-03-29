@@ -1,59 +1,59 @@
 # Translation Glossary
 
-This file defines preferred Vietnamese translations and style decisions for
+Tệp này xác định các bản dịch tiếng Việt ưu tiên và các quyết định văn phong cho
 `_content_vi/`.
 
-Update this glossary as translation progresses:
+Cập nhật bảng thuật ngữ này trong quá trình dịch:
 
-- Add terms when a source phrase is repeated or domain-specific.
-- Prefer one approved translation per concept unless context requires otherwise.
-- Keep product names, repository names, filenames, and query syntax unchanged.
-- Keep code, URLs, and command snippets unchanged.
-- When a term is intentionally left untranslated, record that decision here.
+- Thêm thuật ngữ khi một cụm từ lặp lại nhiều lần hoặc mang tính chuyên ngành.
+- Ưu tiên một bản dịch thống nhất cho mỗi khái niệm, trừ khi ngữ cảnh đòi hỏi khác đi.
+- Giữ nguyên tên sản phẩm, tên kho lưu trữ, tên tệp và cú pháp truy vấn.
+- Giữ nguyên mã nguồn, URL và các đoạn lệnh.
+- Khi chủ ý giữ nguyên một thuật ngữ không dịch, hãy ghi rõ quyết định đó tại đây.
 
-## Style
+## Quy ước
 
-- Tone: clear, technical, neutral.
-- Product name: `Go`
-- Project name: `du an Go`
-- Repository: `kho luu tru`
-- Source control history: `lich su quan ly ma nguon`
-- Author: `tac gia`
-- Contributor: `nguoi dong gop`
+- Văn phong: rõ ràng, kỹ thuật, trung tính.
+- Tên sản phẩm: `Go`
+- Tên dự án: `dự án Go`
+- Kho lưu trữ: `kho lưu trữ`
+- Lịch sử quản lý mã nguồn: `lịch sử quản lý mã nguồn`
+- Tác giả: `tác giả`
+- Người đóng góp: `người đóng góp`
 - Commit: `commit`
-- Change: `thay doi`
-- Search: `tim kiem`
-- Redirect: `chuyen huong`
-- Instance: `may chu`
-- Authoritative source: `nguon thong tin chinh xac nhat`
+- Thay đổi: `thay đổi`
+- Tìm kiếm: `tìm kiếm`
+- Chuyển hướng: `chuyển hướng`
+- Máy chủ: `máy chủ`
+- Nguồn tham chiếu chính: `nguồn thông tin chính xác nhất`
 
-## Approved Terms
+## Thuật ngữ đã chốt
 
-| Source term | Preferred Vietnamese | Notes |
+| Thuật ngữ gốc | Bản dịch ưu tiên | Ghi chú |
 | --- | --- | --- |
-| Authors of Go | Tac gia cua Go | Page title in `_content_vi/AUTHORS.md`. |
-| Go project | du an Go | Keep `Go` untranslated. |
+| Authors of Go | Tác giả của Go | Page title in `_content_vi/AUTHORS.md`. |
+| Go project | dự án Go | Keep `Go` untranslated. |
 | AUTHORS | AUTHORS | Filename, do not translate. |
 | CONTRIBUTORS | CONTRIBUTORS | Filename, do not translate. |
-| author | tac gia | Use for people credited for commits or changes. |
-| contributor | nguoi dong gop | Use when the source explicitly says contributor. |
+| author | tác giả | Use for people credited for commits or changes. |
+| contributor | người đóng góp | Use when the source explicitly says contributor. |
 | commit | commit | Keep the Git term unchanged. |
-| repository | kho luu tru | Use in general prose. |
-| source control history | lich su quan ly ma nguon | Prefer this over shorter paraphrases. |
-| authoritative source | nguon thong tin chinh xac nhat | Matches current translation. |
-| Go's Gerrit instance | may chu Gerrit cua Go | Keep `Gerrit` as a product name. |
-| search for changes | tim kiem cac thay doi | General action phrase. |
-| redirect | chuyen huong | For front matter semantics and prose. |
-| ecosystem | he sinh thai | Prefer this in Go platform context. |
-| community | cong dong | General community term. |
-| open-source | ma nguon mo | Use in general prose. |
-| anniversary | ky niem | Use for anniversary or milestone context. |
-| birthday | sinh nhat | Use for celebratory wording. |
-| cloud software | phan mem dam may | Prefer this in infra context. |
-| garbage collector | bo gom rac | Preferred runtime term. |
-| tooling | he thong cong cu | Use for developer-tooling context. |
+| repository | kho lưu trữ | Use in general prose. |
+| source control history | lịch sử quản lý mã nguồn | Prefer this over shorter paraphrases. |
+| authoritative source | nguồn thông tin chính xác nhất | Matches current translation. |
+| Go's Gerrit instance | máy chủ Gerrit của Go | Keep `Gerrit` as a product name. |
+| search for changes | tìm kiếm các thay đổi | General action phrase. |
+| redirect | chuyển hướng | For front matter semantics and prose. |
+| ecosystem | hệ sinh thái | Prefer this in Go platform context. |
+| community | cộng đồng | General community term. |
+| open-source | mã nguồn mở | Use in general prose. |
+| anniversary | kỷ niệm | Use for anniversary or milestone context. |
+| birthday | sinh nhật | Use for celebratory wording. |
+| cloud software | phần mềm đám mây | Prefer this in infra context. |
+| garbage collector | bộ gom rác | Preferred runtime term. |
+| tooling | hệ thống công cụ | Use for developer-tooling context. |
 
-## Open Decisions
+## Quyết định đang áp dụng
 
-- Decide later whether to consistently use ASCII-only Vietnamese or add full
-  diacritics across `_content_vi/`.
+- Dùng tiếng Việt có dấu nhất quán trong toàn bộ `_content_vi/`.
+- Ưu tiên cách diễn đạt tự nhiên trong tiếng Việt thay vì bám sát từng từ tiếng Anh.
