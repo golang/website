@@ -40,7 +40,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/12years.md`
 - [x] `blog/13years.md`
 - [x] `blog/14years.md`
-- [ ] `blog/15years.md`
+- [x] `blog/15years.md`
 - [ ] `blog/16years.md`
 - [ ] `blog/1year.md`
 - [ ] `blog/2years.md`
