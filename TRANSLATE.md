@@ -106,7 +106,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/debugging-go-programs-with-gnu-debugger.md`
 - [x] `blog/debugging-what-you-deploy.md`
 - [x] `blog/declaration-syntax.md`
-- [ ] `blog/deconstructing-type-parameters.md`
+- [x] `blog/deconstructing-type-parameters.md`
 - [ ] `blog/default.tmpl`
 - [ ] `blog/defer-panic-and-recover.md`
 - [ ] `blog/developer-experience.md`
