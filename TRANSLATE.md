@@ -119,7 +119,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [ ] `blog/experiment.md`
 - [ ] `blog/external-libraries.md`
 - [ ] `blog/fips140.md`
-- [ ] `blog/first-class-functions-in-go-and-new-go.md`
+- [x] `blog/first-class-functions-in-go-and-new-go.md`
 - [ ] `blog/first-go-program.md`
 - [ ] `blog/flight-recorder.md`
 - [ ] `blog/fosdem14.md`
