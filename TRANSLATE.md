@@ -70,14 +70,14 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/building-stathat-with-go.md`
 - [x] `blog/c-go-cgo.md`
 - [x] `blog/cgo.md`
-- [ ] `blog/chacha8rand.md`
-- [ ] `blog/chacha8rand/amd.txt`
-- [ ] `blog/chacha8rand/amd32.txt`
-- [ ] `blog/chacha8rand/intel.txt`
-- [ ] `blog/chacha8rand/intel32.txt`
-- [ ] `blog/chacha8rand/m1.txt`
-- [ ] `blog/chacha8rand/m3.txt`
-- [ ] `blog/chacha8rand/taut2a.txt`
+- [x] `blog/chacha8rand.md`
+- [ ] `blog/chacha8rand/amd.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/amd32.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/intel.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/intel32.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/m1.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/m3.txt` (skipped: raw benchmark data)
+- [ ] `blog/chacha8rand/taut2a.txt` (skipped: raw benchmark data)
 - [ ] `blog/cleanups-and-weak.md`
 - [ ] `blog/codelab-share.md`
 - [ ] `blog/community-outreach-working-group.md`
