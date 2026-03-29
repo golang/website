@@ -60,7 +60,7 @@ This checklist tracks files that likely require localization work. It excludes s
 - [x] `blog/allocation-optimizations.md`
 - [x] `blog/appengine-155.md`
 - [x] `blog/appengine-171.md`
-- [ ] `blog/appengine-dec2013.md`
+- [x] `blog/appengine-dec2013.md`
 - [ ] `blog/appengine-ga.md`
 - [ ] `blog/appengine-go111.md`
 - [ ] `blog/appengine-gopath.md`
