@@ -48,7 +48,7 @@ var bads = []string{
 	" < ",
 	"<-",
 	"& ",
-	"{{raw <code>",
+	//"{{raw <code>", // TODO(go.dev/issue/78211,dmitshur): Disabled because it breaks testing during the deploy process (the _goroot.zip file isn't passed to tests).
 }
 
 var ignoreBads = []string{
