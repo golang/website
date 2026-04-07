@@ -27,7 +27,11 @@ import (
 func TestWeb(t *testing.T) {
 	needsGorootDocDir(t)
 
-	h := NewHandler("../../_content", runtime.GOROOT())
+	goroot := *goroot
+	if forceGorootZip {
+		goroot = "../../_goroot.zip"
+	}
+	h := NewHandler("../../_content", goroot)
 
 	files, err := filepath.Glob("testdata/*.txt")
 	if err != nil {
@@ -48,7 +52,7 @@ var bads = []string{
 	" < ",
 	"<-",
 	"& ",
-	//"{{raw <code>", // TODO(go.dev/issue/78211,dmitshur): Disabled because it breaks testing during the deploy process (the _goroot.zip file isn't passed to tests).
+	"{{raw <code>",
 }
 
 var ignoreBads = []string{
@@ -81,7 +85,11 @@ Lines:
 func TestAll(t *testing.T) {
 	needsGorootDocDir(t)
 
-	h := NewHandler("../../_content", runtime.GOROOT())
+	goroot := *goroot
+	if forceGorootZip {
+		goroot = "../../_goroot.zip"
+	}
+	h := NewHandler("../../_content", goroot)
 
 	get := func(url string) (code int, body string, err error) {
 		if url == "https://go.dev/rebuild" {

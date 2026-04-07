@@ -20,8 +20,9 @@ steps:
     args: ["rm", "-rf", "_wikitmp/.git"]
   - name: golang
     args: ["sh", "-c", "cp -a _wikitmp/* _content/wiki"]
-  # Run tests.
+  # Run tests with GOROOT content from _goroot.zip.
   - name: golang
+    env: ["GOLANGORG_FORCE_GOROOT_ZIP=true"]
     args: ["go", "test", "./..."]
   # Coordinate with other Cloud Build jobs to deploy only newest commit.
   # May abort job here.

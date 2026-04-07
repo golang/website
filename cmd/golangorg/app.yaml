@@ -8,6 +8,7 @@ main: ./cmd/golangorg
 env_variables:
   GOLANGORG_REQUIRE_DL_SECRET_KEY: true
   GOLANGORG_ENFORCE_HOSTS: true
+  GOLANGORG_FORCE_GOROOT_ZIP: true
   GOLANGORG_REDIS_ADDR: 10.0.0.4:6379 # instance "gophercache"
   GOLANGORG_ANALYTICS: UA-11222381-2
   DATASTORE_PROJECT_ID: golang-org

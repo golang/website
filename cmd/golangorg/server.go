@@ -25,6 +25,7 @@ import (
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
@@ -58,6 +59,7 @@ var (
 	contentDir = flag.String("content", "", "path to _content directory")
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
+	forceGorootZip, _  = strconv.ParseBool(os.Getenv("GOLANGORG_FORCE_GOROOT_ZIP"))
 
 	tipFlag   = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
 	wikiFlag  = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
@@ -73,6 +75,9 @@ func usage() {
 }
 
 func main() {
+	flag.Usage = usage
+	flag.Parse()
+
 	// Running locally, find the local _content directory when it's available nearby,
 	// so that updates to those files appear on the local dev instance without restarting.
 	// On App Engine, leave contentDir empty, so we use the embedded copy,
@@ -87,9 +92,12 @@ func main() {
 		}
 	}
 
+	if forceGorootZip {
+		*goroot = "_goroot.zip"
+	}
+
 	if runningOnAppEngine {
 		log.Print("golang.org server starting")
-		*goroot = "_goroot.zip"
 		log.SetFlags(log.Lshortfile | log.LstdFlags)
 		port := "8080"
 		if p := os.Getenv("PORT"); p != "" {
@@ -97,9 +105,6 @@ func main() {
 		}
 		*httpAddr = ":" + port
 	}
-
-	flag.Usage = usage
-	flag.Parse()
 
 	// Check usage.
 	if flag.NArg() > 0 {
