@@ -614,14 +614,14 @@ func (g *Gossip) manage() {
 	}
 }
 
-...
+func Cockroach584() {
 	g := &Gossip{
 		closed: true,
 	}
 	// ...
 	g.bootstrap()
 	g.manage()
-...
+}
 ```
 In such a case, the goroutine will leak when failing to acquire the lock.
 ```
@@ -637,6 +637,141 @@ ROUTINE ======================== main.(*Gossip).bootstrap in .../main.go
          .          .    171:           }
          .          .    172:           g.mu.Unlock()
 ```
+Adding a call to `Unlock` before the `break` addresses the issue.
+
+### Example: Etcd/6857
+
+This example, found in [etcd](https://github.com/etcd-io/etcd/pull/6857),
+shows how an unexpected communicatio
+operation order can lead to a goroutine leak:
+```go
+type node struct {
+	status chan chan struct{}
+	stop   chan struct{}
+	done   chan struct{}
+}
+
+func (n *node) Status() struct{} {
+	c := make(chan struct{})
+	n.status <- c
+	return <-c
+}
+
+func (n *node) run() {
+	for {
+		select {
+		case c := <-n.status:
+			c <- struct{}{}
+		case <-n.stop:
+			close(n.done)
+			return
+		}
+	}
+}
+
+func (n *node) Stop() {
+	select {
+	case n.stop <- struct{}{}:
+	case <-n.done:
+		return
+	}
+	<-n.done
+}
+
+func Etcd6857() {
+	n := &node{
+		status: make(chan chan struct{}),
+		stop:   make(chan struct{}),
+		done:   make(chan struct{}),
+	}
+	go n.run()    // G1
+	go n.Status() // G2
+	go n.Stop()   // G3
+}
+```
+The `run` method runs a loop in which it expects to 
+repeatedly receive messages over the `status` channel,
+which are sent by invoking `Status` method.
+At the same time, it can also receive one message over the
+`stop` channel, which can be sent by invoking the `Stop` method,
+at which point it closes the `done` channel and exists.
+The `Stop` method itself waits on a receive operation
+over `done`, which is unblocked once `done` is closed.
+
+However, a leak occurs if the `run`, `Status`, and `Stop` methods 
+run concurrently.
+The `Stop` and `run` goroutines can synchronize
+and exit without receiving the message issued
+by `Status`, and causing it to block forever.
+
+``` (pprof) list Status
+Total: 8
+ROUTINE ======================== main.(*node).Status in .../main.go
+         0          8 (flat, cum)   100% of Total
+         .          .     16:func (n *node) Status() struct{} {
+         .          .     17:   c := make(chan struct{})
+         .          8     18:   n.status <- c
+         .          .     19:   return <-c
+         .          .     20:}
+```
+Wrapping the send to `status` in a `select` statement
+where the other `case` branch tries to receive a message
+over `done` allows the goroutine running to `Status`
+to gracefully exit if it lost the race with a `Stop`
+call.
+
+### Example: Moby/25384
+
+The following example in [moby](https://github.com/moby/moby/pull/25384)
+is caused by an unfortunate case of wait group misuse.
+```go
+type Manager struct {
+	plugins []int
+}
+
+func (pm *Manager) init() {
+	var group sync.WaitGroup
+	group.Add(len(pm.plugins))
+	for _, p := range pm.plugins {
+		go func(p int) {
+			defer group.Done()
+		}(p)
+		group.Wait() // Block here
+	}
+}
+
+func Moby25348() {
+	pm := &Manager{
+		plugins: []int{1, 2},
+	}
+	go pm.init()
+}
+```
+The wait group `group` increments its counter
+depending on the number of plugins held by the
+plugin manager `pm`, then iterates over each plugin
+and spawns a goroutine.
+Each goroutine decrements the counter once it finishes
+its task with the `Done` method.
+However, group erroneously invokes `Wait` inside
+the loop body, instead of after it!
+This will cause any goroutine running the `init` method
+when the manager has more than one plugin to leak.
+```
+(pprof) list init
+Total: 1
+ROUTINE ======================== main.(*Manager).init in .../main.go
+         0          1 (flat, cum)   100% of Total
+         .          .     17:   group.Add(len(pm.plugins))
+         .          .     18:   for _, p := range pm.plugins {
+         .          .     19:           go func(p int) {
+         .          .     20:                   defer group.Done()
+         .          .     21:           }(p)
+         .          1     22:           group.Wait() // Block here
+         .          .     23:   }
+```
+This can be easily addressed by moving the `Wait` outside
+the loop.
 
 ### Example: Moby/28462
 
@@ -727,6 +862,7 @@ ROUTINE ======================== main.(*Health).CloseMonitorChannel in .../main.
          .          .     67:   if s.stop != nil {
          .          1     68:           s.stop <- struct{}{}
          .          .     69:   }
+         .          .     70:}
 (pprof) list main.handleProbeResult
 Total: 2
 ROUTINE ======================== main.handleProbeResult in .../main.go
@@ -739,10 +875,11 @@ ROUTINE ======================== main.handleProbeResult in .../main.go
 
 ## Implementation {#implementation}
 
-This section is for those interested in the underlying machinations
-of the leak detector.
-If you are, instead, looking for capabilities and performance,
-skip ahead to [limitations](/blog/goroutine-leak-profiles#limitations).
+This section is for those interested in the underlying 
+leak detection mechanism of the goroutine leak profiler.
+If you are, instead, looking for more details
+about performance overhead and limitations,
+skip ahead to [this section](/blog/goroutine-leak-profiles#limitations).
 
 ### Core concept
 
