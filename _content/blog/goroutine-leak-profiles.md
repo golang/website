@@ -881,6 +881,7 @@ ROUTINE ======================== main.handleProbeResult in .../main.go
          .          .     85:   defer c.Unlock()
          .          .     86:}
 ```
+We leave the fix as an exercise to the reader.
 
 ## Implementation {#implementation}
 
