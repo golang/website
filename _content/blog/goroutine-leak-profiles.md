@@ -850,9 +850,18 @@ func Moby28462() {
 	go d.StateChanged()
 }
 ```
-In this case, one goroutine may acquire a lock and try to send a message
-over channel `stop`, while the other will try to acquire the same lock.
-With the wrong ordering, both goroutines will leak:
+The goroutine invoking `StateChanged` may acquire the lock
+of the container stored by the daemon, then invoke
+the `updateHealthMonitorElseBranch` method on
+the daemon, which attempts to send a message over
+the `stop` channel of the container.
+However, the goroutine running `monitor`
+may fail to receive a message over `stop`, if the message
+is not already in-flight, and instead unblock by picking
+the `default` case of the `select` statement.
+This will lead to try to acquire the same container
+lock that is already held by the `StateChanged`
+goroutine, leading both goroutines to leak.
 ```
 (pprof) list .CloseMonitorChannel 
 Total: 2
