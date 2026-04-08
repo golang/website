@@ -886,7 +886,9 @@ of just sending a message over it.
 Since closing a channel is not a blocking operation,
 the `StateChanged` goroutine is then able to release
 the lock, which also unblocks the `monitor` goroutine,
-by allowing it acquire it.
+by allowing it acquire it, and then eventually
+return by picking the now unblocked `<-stop` case
+branch in the `select` statement.
 
 ## Implementation {#implementation}
 
