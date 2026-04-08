@@ -28,31 +28,22 @@ ubiquitous examples include waiting to acquire a held mutex,
 or receive a message over a channel.
 Goroutines can also block on operating system operations, like reading from a network socket or a file.
 
-A goroutine is considered _leaked_ if it is
-blocked permanently, irrespective of what the other
-goroutines are doing.
-For the purposes of this article, we further limit ourselves
-to blocking behavior of channels or primitives in the
-[`sync` package](/pkg/sync).
-The definition of goroutine leaks can be broadened
-to include goroutines that are blocked for an unreasonable
-amount of time, as well as networking or IO operations.
-However, these fall outside the scope of the approach presented here.
-
-Regardless, goroutine leaks are undesirable, especially in long-running systems,
-where their accumulation degrades performance.
-Leaked goroutines and all their referenced heap objects
-can turn a significant amount of memory unusable,
-to the point of eventually running the system dry.
-Excessive CPU utilization is also a possibility, as the garbage collector
-needlessly inspects unused memory and may trigger more frequently.
+Broadly speaking, a goroutine is considered _leaked_ if it
+is part of an unexpected accumulation of blocked goroutines
+that ultimately degrades performance.
+This performance degradation typically manifests
+as excessive memory usage, from the goroutines
+themselves or the memory they reference.
+However, it can also manifest as excessive
+CPU usage from the garbage collector, especially
+if `GOMEMLIMIT` is in use.
 
 Goroutine leaks can be notoriously difficult to detect.
 In unit testing, the most significant breakthroughs include
-the open-source library [`goleak`](https://github.com/uber-go/goleak),
+the [open-source library  `goleak`](https://github.com/uber-go/goleak),
 which can instrument individual tests to signal any
 un-terminated goroutines after the test wraps up as suspicious.
-Similarly, Go 1.24 introduced [`synctest`](/blog/synctest) to
+Similarly, Go 1.24 introduced the [`synctest` package](/blog/synctest) to
 the standard library; it can significantly improve
 the quality of unit tests in concurrent code by giving
 Go developers more control over the ordering of concurrent events
@@ -61,27 +52,32 @@ in order to reliably test hard-to-reproduce scenarios.
 Unfortunately, neither approach can check for goroutine leaks
 in production systems, especially at larger scales,
 which might behave in ways tests might not have accounted for.
-So far, goroutine profiles have been used to check for operations with a
-high concentrations of blocked goroutines, or analyze growth
-trends.
+So far, goroutine profiles have been used to check for operations 
+that block too many goroutines, or analyze growth trends.
 However, goroutine profiles cannot distinguish between
-goroutines which are leaked, and those which are blocked by design.
-A high number of blocked goroutines in, e.g., a microservice,
-can either indicate a real leak, or simply have coincided with
-a temporary increase in traffic.
+goroutines which are leaked, and those which might only
+temporarily block in high numbers by design, e.g., as
+a result of increased traffic in a microservice.
 Likewise, leaks which are low in number may slip by undetected for many years.
 
 Finally, Go 1.26 introduces the **goroutine leak profiler**,
 a flexible and lightweight mechanism for finding
 goroutine leaks in running Go programs, including production systems.
+Unlike previous approaches, which tend to require human analysis,
+this mechanism is precise and generates little-to-no false positives.
+The trade-off is that it is limited to a subset of goroutine leaks:
+goroutines permanently blocked on channels or primitives
+in the [`sync` package](/pkg/sync).
+Luckily for us, this already covers a very large subset of goroutine leaks,
+as we'll see in our examples.
+
 In the followings sections, we showcase how to use the feature, followed by
 some additional examples of detectable leaks, and a description of the
 underlying implementation and trade-offs.
 
-## Example: A common goroutine leak
+## Example: concurrent workers
 
-Let's look at a realistic goroutine leak example.
-Consider a function that processes work items in parallel:
+Consider a function that processes work items concurrently:
 
 ```go
 type result struct {
@@ -117,25 +113,31 @@ its result until the main goroutine receives from the channel.
 If `processWorkItems` returns early due to an error, the receiving loop terminates,
 and all remaining sender goroutines block forever.
 
-## Enabling goroutine leak profiles
+This example is emblematic of a common mistake discovered in real Go programs,
+including Uber production services.
+Let's see how we can find these leaks by using the
+new goroutine leak profiler.
 
-Goroutine leak profiles are available as an experiment in Go 1.26.
-To enable it, build your program with:
+### Debugging with the goroutine leak profiler
+
+In Go 1.26, the goroutine leak profiler is available as an experiment,
+which you can enable by building your program with:
 
 ```
 $ GOEXPERIMENT=goroutineleakprofile go build [...]
 ```
 
-Once enabled, the profile becomes available through the [`runtime/pprof`](/pkg/runtime/pprof)
-package, as the `goroutineleak` profile type, or by exposing an
-HTTP endpoint with the [`net/http/pprof` package](/pkg/net/http/pprof).
+Once enabled, the profile becomes available through the
+[`runtime/pprof` package](/pkg/runtime/pprof), as the
+`goroutineleak` profile type, or by installing the profile handlers defined
+by the [`net/http/pprof` package](/pkg/net/http/pprof).
+If you already have `net/http/pprof` set up in your service,
+then you don't need to do anything else! The profile will be
+automatically made available for collection at the `/debug/pprof/goroutineleak`
+endpoint on whatever host and port the handlers are installed.
 
-### Example set up
-
-In the following section, we demonstrate how to use the goroutine leak profile to
-detect the leak in the example above.
-
-Copy the following simple program in `main.go`:
+Let's put our concurrency bug in context and set up the `net/http/pprof` package.
+This way, you can try it yourself!
 
 ```go
 package main
@@ -204,7 +206,7 @@ func main() {
 }
 ```
 
-Build and run with the experiment enabled:
+Build the program above with the experiment enabled, then run it:
 
 ```
 $ GOEXPERIMENT=goroutineleakprofile go build -o leaky
@@ -386,7 +388,7 @@ buffer of size 1.
 
 ### Example: Range over channel without closing
 
-One slightly esoteric concurrency feature is
+More advanced concurrency features include
 [iterating over channels](/tour/concurrency/4) by using `range`.
 This allows you to repeatedly receive values from a channel in a loop,
 until the channel is closed and all values that have been enqueued
