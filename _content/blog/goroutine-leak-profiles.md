@@ -881,7 +881,12 @@ ROUTINE ======================== main.handleProbeResult in .../main.go
          .          .     85:   defer c.Unlock()
          .          .     86:}
 ```
-We leave the fix as an exercise to the reader.
+The fix is to close the `stop` channel instead
+of just sending a message over it.
+Since closing a channel is not a blocking operation,
+the `StateChanged` goroutine is then able to release
+the lock, which also unblocks the `monitor` goroutine,
+by allowing it acquire it.
 
 ## Implementation {#implementation}
 
