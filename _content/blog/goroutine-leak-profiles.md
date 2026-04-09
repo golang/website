@@ -582,9 +582,12 @@ and adding an invocation of `Stop`.
 
 ### Example: Cockroach/584
 
-The following real-world example is taken from the open-source
-project [cockroachdb](https://github.com/cockroachdb/cockroach/pull/584).
-It involves acquiring and releasing a lock in a loop, but forgetting to unlock it
+The following real-world
+[example](https://github.com/cockroachdb/cockroach/pull/584)
+is taken from the open-source
+project [cockroachdb](https://github.com/cockroachdb/cockroach).
+It involves acquiring and releasing a lock in a loop,
+but forgetting to unlock it
 before executing a `break` statement:
 ```go
 type Gossip struct {
@@ -641,7 +644,8 @@ Adding a call to `Unlock` before the `break` addresses the issue.
 
 ### Example: Etcd/6857
 
-This example, found in [etcd](https://github.com/etcd-io/etcd/pull/6857),
+This [example](https://github.com/etcd-io/etcd/pull/6857),
+found in [etcd](https://github.com/etcd-io/etcd),
 shows how an unexpected ordering between communication
 operations can lead to a goroutine leak:
 ```go
@@ -983,51 +987,48 @@ on the next loop iteration.
 
 ## Implementation {#implementation}
 
-This section is for those interested in the underlying 
-leak detection mechanism of the goroutine leak profiler.
-If you are, instead, looking for more details
-about performance overhead and limitations,
+This section is for those interested how leak detection
+works under the hood of the goroutine leak profiler.
+For details strictly pertaining to performance overhead and limitations,
 skip ahead to [this section](/blog/goroutine-leak-profiles#limitations).
 
 ### Core concept
 
 Let's start with an initial observation: if a goroutine
-is blocked over some concurrency primitive that no other goroutine has access to,
-then it is obviously leaked.
+is blocked over some concurrency primitive that no other goroutine has access to
+(in this case, via a reference in memory), then it is obviously leaked.
 
 This observation, while simplified, already gives us a strong lead on how to
 reliably detect goroutine leaks at runtime.
-Our goal now is to achieve it in practice, by expanding upon
-this observation and generalizing it into a proper definition.
+Our goal now is to achieve it in practice, and expand upon
+and generalize it into a proper definition.
 We, therefore, define _maybe-runnability_, as an inductive property
 of goroutines, defined thusly:
 > A goroutine is maybe-runnable if:
-> 1. it is not blocked, or
+> 1. it is not blocked by a concurrency primitive, or
 > 2. at least one concurrency primitive that blocks it is referenced
 	by another maybe-runnable goroutine.
 
-In the first case, goroutines which are not blocked are obviously
+In the trivial case, goroutines which are not blocked are obviously
 not leaked.
-For a goroutine that matches the second case, the assumption is that
-it may be unblocked if another goroutine that references the blocking
+For a goroutine that matches the inductive case, the assumption is that
+it may be unblocked later if another goroutine that references the blocking
 primitive uses it.
 
 As a corollary, any goroutine which is not maybe-runnable is definitely leaked.
 
-Our goal is, therefore, to determine which goroutines in the system
-are maybe-runnable.
-The core strategy is to, starting from non-blocked goroutines,
-incrementally check whether blocked goroutines are maybe-runnable.
-This can be simply achieved by tracing references from a goroutine's
-stacks, i.e., local variables, to concurrency primitives,
-effectively reducing the problem to memory reachability.
+Our goal is, therefore, to discover all maybe-runnable
+goroutines in the system and signal the rest as leaked.
+This achieved by using the non-blocked goroutines as a starting
+point from which to then incrementally check whether
+the blocked goroutines are maybe-runnable.
+To do this, we simply trace a goroutine's references, i.e.,
+its local variables, to see which concurrency primitives
+might still be usable.
 
 Fortunately for us, the Go runtime already computes memory reachability
-through the [garbage collector](/doc/gc-guide) (GC).
-The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
-now with the [Green Tea](/blog/greenteagc) variant!
-
-Considering all this, the next step is to adapt the GC to suit our purposes.
+through the [garbage collector](/doc/gc-guide) (GC),
+so the next step is to adapt the GC to suit our purposes.
 You can quickly compare the two GCs with the following diagrams:
 
 <div class="centered">
@@ -1043,33 +1044,36 @@ You can quickly compare the two GCs with the following diagrams:
 </div>
 </div>
 
-Fortunately for us, a complete overhaul of the GC is not necessary, as
-its MO already neatly aligns with our goals.
+Fortunately for us, a complete overhaul of the GC is not necessary.
+The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
+(now with the [Green Tea](/blog/greenteagc) variant!),
+so its core MO already neatly aligns with our goals for the most part.
 Only a few key changes were needed:
-1. In the initial phases, the regular GC uses all goroutines (and global variables)
-	as mark roots, i.e., objects which are never considered garbage.
-	We instead change it to only include non-blocked goroutines,
-	as these are the only goroutine which are guaranteed to be maybe-runnable,
+1. In the initial phases, the regular GC marks **all** goroutines (and global variables)
+	as reachable, i.e., they are _mark roots_, such that they would never be considered garbage.
+	We change it to instead **only** include non-blocked goroutines,
+	as these are the only ones which are guaranteed to be maybe-runnable,
 	initially.
 2. This is followed by the marking phase, where the GC traces objects referenced
-	(transitively) by the marking roots, and "marks" them as usable memory.
+	(transitively) by the mark roots, and _marks_ them as usable memory.
 	Even though we do not modify this phase directly, the changes in step 1. ensure that
 	the GC only marks memory referenced by maybe-runnable goroutines.
-3. The marking phase is finalized by checking for more maybe-runnable goroutines.
-	These are goroutines that are blocked by at least one concurrency
-	primitive that has been marked in step 2. All newly discovered maybe-runnable
-	goroutines are added as mark roots, in which case, the GC resumes the marking phase.
+3. The marking phase is finalized by inspecting all the blocked
+	goroutines which were not included as mark roots in step 1.
+	If a goroutine is blocked by at least one concurrency
+	primitive that has been marked in step 2., it is added as a mark root,
+	and the GC resumes the marking phase from step 2.
 	This coincides with the inductive step in the definition
 	of maybe-runnability.
-4. Once all maybe-runnable goroutines have been discovered, the only remaining
-	goroutines are leaked, because they are blocked by concurrency primitives that
-	no maybe-runnable goroutine has access to, so they can be reported. In our case, their
-	status is set to leaked, such that they may be included in the
-	goroutine leak profile.
+4. Once all maybe-runnable goroutines have been discovered, any goroutine
+	which has not been added as a mark root has its status set to leaked.
 5. The marking phase then resumes one last time with all the leaked goroutines
-	added	as mark roots. All the remaining memory is marked, the same as
-	the GC in the regular runtime.
+	added	as mark roots, allowing the GC to mark all the memory it would have
+	marked in a regular run, such that it would not erroneously collect garbage.
 
+Once the GC phase is complete, the goroutine leak profiler picks up
+like in a regular goroutine profile, except that it filters for strictly
+leaked goroutines.
 
 ### Limitations {#limitations}
 
@@ -1080,34 +1084,34 @@ that may lead it to miss leaks:
 1. **Memory overreach**: if a concurrency primitive is
 	consistently reachable through **global variables** or **runnable goroutines**,
 	then goroutines blocking on it are never reported as leaked, even if
-	that is the case in practice.
+	that concurrency primitive is never used in the future.
 	
-	This can be alleviated by better delineating the lifecycle of
-	concurrency resources, and more strictly regimenting which
-	parties may acquire their references.
+	This can be alleviated by better regimenting access to
+	concurrency primitive references, and more clearly
+	delineating their lifecycle.
 
 2. **Non-standard blocking**:
 	For the sake of correctness, goroutine leak detection is strictly limited
-	to Go first-class concurrency primitives, which includes: channel-based
-	concurrency, such as send and receive operations, including
-	over `nil` channels, as well as blocking `select` statements (i.e., without a
-	`default` case), including with no cases, and specific members of the
+	to Go first-class concurrency primitives, which includes: 
+	channel send and receive operations (including over `nil` channels),
+	blocking `select` statements, i.e., with no `default` case, up to, and including
+	`select` statements with no cases, and members of the
 	[`sync`](/pkg/sync) package, specifically `Mutex`,
 	`RWMutex`, `WaitGroup` and `Cond`.
-	
-	Goroutines blocked for any reason that
-	does not involve first-class concurrency primitives, e.g.,
-	netpollers or semaphores internal to the runtime, are never considered as leaking.
-	This likewise applies for custom, user-defined concurrency operations
-	(e.g., spin locks), unless they rely on the primitives outlined above.
+
+	Goroutines blocked for any other reason, e.g.,
+	netpollers, semaphores internal to the Go runtime, or are never considered as leaked.
+	This likewise applies for custom, user-defined concurrency
+	(e.g., spin locks), except if they rely on the primitives outlined above
+	in their implementation.
 
 3. **Non-determinism**: leaks can only be detected after
-they have occurred; they cannot be predicted.
-		Reproducing and diagnosing leaks in flaky programs
-		continues to be a challenge.
-		For the best results, we encourage mixing approaches, by strategically using
-		both goroutine leak profiles at various layers, including production, as well
-		as comprehensive test suites instrumented with `goleak` and `synctest`.
+	they have occurred, but cannot be otherwise predicted.
+	Reproducing and diagnosing leaks in flaky programs
+	continues to be a challenge.
+	For the best results, we encourage mixing approaches, by using
+	both goroutine leak profiles at various layers, up to, and including production,
+	as well as comprehensive test suites instrumented with `goleak` and `synctest`.
 
 ### Performance impact {#performance}
 
@@ -1119,16 +1123,16 @@ performance impact, but there are, nevertheless, some costs.
 Leak detection predominantly minimizes memory overhead through
 constant-sized additions required for book-keeping.
 However, one scaling factor is the introduction of _maybe-traceable pointers_,
-which prevent some references from being traced prematurely,
-and ensures that the GC behaves according to our specifications.
+which prevent some references from being traced prematurely by the GC,
+according to our specifications.
 
 These are objects that carry the same reference twice: once as an
 untraceable pointer-as-an-integer value, `vu`, and once as an
 actual reference that is understood as such by the GC, `vp`.
-A maybe-traceable pointer, therefore, doubles the size of
+A maybe-traceable pointer is, therefore, double the size of
 its regular counterpart.
 
-Untraceable pointers come in 3 valid states:
+Maybe-traceable pointers come in 3 valid states:
 1. `vu` and `vp` are unset, which is analogous to a `nil` pointer,
 2. `vu` and `vp` are set (and equal), which is analogous to a regular reference
 that can be traced by the GC,
@@ -1138,49 +1142,43 @@ that can be traced by the GC,
 Maybe-traceable pointers are relevant for `sudog`s,
 objects which pair individual goroutines and concurrency primitives.
 One concurrency primitive can block multiple goroutines,
-and, likewise, one goroutine can be blocked on multiple concurrency primitives
-(because of `select` statements).
+and, likewise, one goroutine can be simultaneously blocked by multiple
+concurrency primitives (because of `select` statements).
 Therefore, the maximum number of active `sudog` objects at any given point is
 the product of the number of goroutines and concurrency primitives on the heap.
 
-Each `sudog` holds, among other things, references to its
-blocking concurrency primitive.
-However, `sudog`s are also globally reachable through the `sudog`
-cache, which exposes these references to the GC during the marking phase,
-as well as the globally available list of all goroutines.
-This goes against our goal of only tracing these references
-reachable from a maybe-runnable goroutine.
-Therefore, in order to prevent the GC from tracing them, we update
-these references in `sudog` to be maybe-traceable pointers.
-Maybe-traceable pointers are set as untraceable at the start of
+Since `sudog` objects hold references to blocking concurrency primitives,
+but they are also globally reachable in the Go runtime, we change
+these references in `sudog` to maybe-traceable pointers.
+The maybe-traceable pointers are set as untraceable at the start of
 goroutine leak detection, and only updated to traceable once
 the goroutine paired to the same `sudog` is scheduled for marking.
 
 While the asymptotic complexity remains unchanged, a modest cost
-is nevertheless incurred, which is at its worst when every goroutine
-is blocked on every concurrency primitive in the system.
-Fortunately, this is pathological case that rarely
-applies to realistic Go programs.
+is nevertheless incurred.
+A pathological case involves having every goroutine
+blocked on every concurrency primitive simultaneously.
+Fortunately, this rarely the case in realistic Go programs.
 
 #### Computational overhead
 
-The current implementation of goroutine leak detection is more
-computationally expensive than the regular GC.
+The current implementation of goroutine leak detection can
+be slower than the regular GC.
 This is best illustrated by looking at a pathological case we
-will call the "daisy-chain":
+call the "daisy-chain":
 <img src="goroutine-leak-profiles/daisy-chain.svg" />
 In this example without leaks, runnable goroutine G₀ has a
-reference to primitive P₁ which blocks G₁, and so on in a daisy chain
-pattern.
+reference to primitive P₁ which blocks G₁, and so on.
 
 This implies that proving maybe-runnability for some Pᵢ₊₁,
 requires proving maybe-runnability for Pᵢ, which introduces
 two costs:
-1. The marking phase is effectively serialized relative to the
+1. The GC marking phase is effectively serialized relative to the
 	order in which goroutines can be scanned, as all the memory reachable
 	from some Pᵢ must be marked before Pᵢ₊₁ can be added as a root.
-2. The inspection currently traverses the entire tail of blocked goroutines
-	at the end of each marking round, which takes O(n²) steps.
+2. The inspection currently checks all blocked goroutines
+	at the end of each marking round, for a worst-case of O(n²) steps for one
+	GC cycle, where n is the total number of goroutines.
 
 The second point can be addressed over time, but the first point of contention
 is an intrinsic limitation that cannot be circumvented.
@@ -1196,11 +1194,10 @@ overhead.
 ## Next steps
 
 The goroutine leak profile is available as an experiment in Go 1.26, enabled with `GOEXPERIMENT=goroutineleakprofile`.
-We encourage developers to try it in testing, continuous integration, and production environments.
-
 The implementation is production-ready; the experimental status is solely to gather feedback on the API design.
-We plan to enable goroutine leak profiles by default in Go 1.27, making automatic leak detection available to all Go programs without any build flags.
+We plan to enable goroutine leak profiles by default in Go 1.27.
 
+We encourage developers to try it in testing, continuous integration, and production environments.
 Please share your experiences and feedback on the [proposal issue](/issue/74609)!
 
 ## Acknowledgements
