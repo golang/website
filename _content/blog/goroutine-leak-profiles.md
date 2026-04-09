@@ -583,12 +583,12 @@ and adding an invocation of `Stop`.
 ### Example: Cockroach/584
 
 The following real-world example is taken from the open-source
-project [cockroachdb](https://github.com/cockroachdb/cockroach/pull/584/files).
+project [cockroachdb](https://github.com/cockroachdb/cockroach/pull/584).
 It involves acquiring and releasing a lock in a loop, but forgetting to unlock it
 before executing a `break` statement:
 ```go
 type Gossip struct {
-	mu     sync.Mutex // L1
+	mu     sync.Mutex
 	closed bool
 }
 
@@ -642,8 +642,8 @@ Adding a call to `Unlock` before the `break` addresses the issue.
 ### Example: Etcd/6857
 
 This example, found in [etcd](https://github.com/etcd-io/etcd/pull/6857),
-shows how an unexpected communicatio
-operation order can lead to a goroutine leak:
+shows how an unexpected ordering between communication
+operations can lead to a goroutine leak:
 ```go
 type node struct {
 	status chan chan struct{}
@@ -684,9 +684,9 @@ func Etcd6857() {
 		stop:   make(chan struct{}),
 		done:   make(chan struct{}),
 	}
-	go n.run()    // G1
-	go n.Status() // G2
-	go n.Stop()   // G3
+	go n.run()
+	go n.Status()
+	go n.Stop()
 }
 ```
 The `run` method runs a loop in which it expects to 
@@ -720,10 +720,100 @@ over `done` allows the goroutine running to `Status`
 to gracefully exit if it lost the race with a `Stop`
 call.
 
+### Example: Kubernetes/6632
+
+This [example](https://github.com/kubernetes/kubernetes/pull/6632)
+occurs in [kubernetes](https://github.com/kubernetes/kubernetes),
+as a result of mixing channels and locks:
+```go
+type Connection struct {
+	closeChan chan bool
+}
+
+type idleAwareFramer struct {
+	resetChan chan bool
+	writeLock sync.Mutex
+	conn      *Connection
+}
+
+func (i *idleAwareFramer) monitor() {
+	var resetChan = i.resetChan
+	for range i.conn.closeChan {
+		i.writeLock.Lock()
+		close(resetChan)
+		i.resetChan = nil
+		i.writeLock.Unlock()
+		break
+	}
+}
+
+func (i *idleAwareFramer) WriteFrame() {
+	i.writeLock.Lock()
+	defer i.writeLock.Unlock()
+	if i.resetChan == nil {
+		return
+	}
+	i.resetChan <- true
+}
+
+func NewIdleAwareFramer() *idleAwareFramer {
+	return &idleAwareFramer{
+		resetChan: make(chan bool),
+		conn: &Connection{
+			closeChan: make(chan bool),
+		},
+	}
+}
+
+func Kubernetes6632() {
+	i := NewIdleAwareFramer()
+
+	go func() {
+		i.conn.closeChan <- true
+	}()
+	go i.monitor()
+	go i.WriteFrame()
+}
+```
+The goroutine running `WriteFrame` may acquire the
+idle-aware framer lock, followed by a message being
+sent to the `resetChan` channel, while the `monitor` goroutine
+waits to receive a message over the `closeChan` channel.
+Once a message has been dispatched, the `monitor` goroutine
+will then attempt to acquire the same lock.
+However, there isn't any traffic over `resetChan`, causing
+its send operation to block forever, and preventing the
+`monitor` goroutine from releasing the lock, causing
+both goroutines to leak.
+```
+(pprof) list AwareFramer
+Total: 200
+ROUTINE ======================== main.(*idleAwareFramer).WriteFrame in .../main.go
+         0        100 (flat, cum) 50.00% of Total
+         .          .     32:func (i *idleAwareFramer) WriteFrame() {
+         .          .     33:   i.writeLock.Lock()
+         .          .     34:   defer i.writeLock.Unlock()
+         .          .     35:   if i.resetChan == nil {
+         .          .     36:           return
+         .          .     37:   }
+         .        100     38:   i.resetChan <- true
+         .          .     39:}
+ROUTINE ======================== main.(*idleAwareFramer).monitor in .../main.go
+         0        100 (flat, cum) 50.00% of Total
+         .          .     21:func (i *idleAwareFramer) monitor() {
+         .          .     22:   var resetChan = i.resetChan
+         .          .     23:   for range i.conn.closeChan {
+         .        100     24:           i.writeLock.Lock()
+         .          .     25:           close(resetChan)
+```
+The fix is to set up a separate goroutine after a message is received
+over `closeChan` in the `monitor` goroutine that drains the `resetChan`
+before attempting to acquire the lock.
+
 ### Example: Moby/25384
 
-The following example in [moby](https://github.com/moby/moby/pull/25384)
-is caused by an unfortunate case of wait group misuse.
+The [following example](https://github.com/moby/moby/pull/25384) in
+[moby](https://github.com/moby/moby) is caused by wait group misuse:
 ```go
 type Manager struct {
 	plugins []int
@@ -747,7 +837,7 @@ func Moby25348() {
 	go pm.init()
 }
 ```
-The wait group `group` increments its counter
+The `group` wait group increments its counter
 depending on the number of plugins held by the
 plugin manager `pm`, then iterates over each plugin
 and spawns a goroutine.
@@ -775,9 +865,9 @@ the loop.
 
 ### Example: Moby/28462
 
-Another real-world example in [moby](https://github.com/moby/moby/pull/28462)
-showcases how leaks can appear as a result of the
-interplay between channels and locks.
+Another [example](https://github.com/moby/moby/pull/28462)
+in [moby](https://github.com/moby/moby)
+showcases a mixed channel-lock leak:
 ```go
 type (
 	State struct {
@@ -846,7 +936,7 @@ func NewDaemonAndContainer() (*Daemon, *Container) {
 
 func Moby28462() {
 	d, c := NewDaemonAndContainer()
-	go monitor(c, c.State.Health.stop) // G1
+	go monitor(c, c.State.Health.stop)
 	go d.StateChanged()
 }
 ```
@@ -882,13 +972,14 @@ ROUTINE ======================== main.handleProbeResult in .../main.go
          .          .     86:}
 ```
 The fix is to close the `stop` channel instead
-of just sending a message over it.
+of sending a message over it.
 Since closing a channel is not a blocking operation,
 the `StateChanged` goroutine is then able to release
-the lock, in turn unblocking the `monitor` goroutine.
-The `monitor` goroutine may then terminate by picking
-the now unblocked `<-stop` case branch in the `select`
-statement.
+the lock.
+In turn, this unblocks the `monitor` goroutine,
+which may now terminate by picking unblocked
+`<-stop` case branch in the `select` statement
+on the next loop iteration.
 
 ## Implementation {#implementation}
 
