@@ -52,7 +52,7 @@ in order to reliably test hard-to-reproduce scenarios.
 Unfortunately, neither approach can check for goroutine leaks
 in production systems, especially at larger scales,
 which might behave in ways tests might not have accounted for.
-So far, goroutine profiles have been used to check for operations 
+So far, goroutine profiles have been used to check for operations
 that block too many goroutines, or analyze growth trends.
 However, goroutine profiles cannot distinguish between
 goroutines which are leaked, and those which might only
@@ -693,7 +693,7 @@ func Etcd6857() {
 	go n.Stop()
 }
 ```
-The `run` method runs a loop in which it expects to 
+The `run` method runs a loop in which it expects to
 repeatedly receive messages over the `status` channel,
 which are sent by invoking `Status` method.
 At the same time, it can also receive one message over the
@@ -702,7 +702,7 @@ at which point it closes the `done` channel and exists.
 The `Stop` method itself waits on a receive operation
 over `done`, which is unblocked once `done` is closed.
 
-However, a leak occurs if the `run`, `Status`, and `Stop` methods 
+However, a leak occurs if the `run`, `Status`, and `Stop` methods
 run concurrently.
 The `Stop` and `run` goroutines can synchronize
 and exit without receiving the message issued
@@ -957,7 +957,7 @@ This will lead to try to acquire the same container
 lock that is already held by the `StateChanged`
 goroutine, leading both goroutines to leak.
 ```
-(pprof) list .CloseMonitorChannel 
+(pprof) list .CloseMonitorChannel
 Total: 2
 ROUTINE ======================== main.(*Health).CloseMonitorChannel in .../main.go
          0          1 (flat, cum) 50.00% of Total
@@ -1092,7 +1092,7 @@ that may lead it to miss leaks:
 
 2. **Non-standard blocking**:
 	For the sake of correctness, goroutine leak detection is strictly limited
-	to Go first-class concurrency primitives, which includes: 
+	to Go first-class concurrency primitives, which includes:
 	channel send and receive operations (including over `nil` channels),
 	blocking `select` statements, i.e., with no `default` case, up to, and including
 	`select` statements with no cases, and members of the
