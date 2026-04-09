@@ -388,9 +388,8 @@ buffer of size 1.
 
 ### Example: Range over channel without closing
 
-More advanced concurrency features include
-[iterating over channels](/tour/concurrency/4) by using `range`.
-This allows you to repeatedly receive values from a channel in a loop,
+[Iterating over channels](/tour/concurrency/4) by using `range`
+allows you to repeatedly receive values from a channel in a loop,
 until the channel is closed and all values that have been enqueued
 in the channel's buffer have been received, upon which the loop exits.
 
@@ -1085,7 +1084,7 @@ that may lead it to miss leaks:
 	consistently reachable through **global variables** or **runnable goroutines**,
 	then goroutines blocking on it are never reported as leaked, even if
 	that concurrency primitive is never used in the future.
-	
+
 	This can be alleviated by better regimenting access to
 	concurrency primitive references, and more clearly
 	delineating their lifecycle.
