@@ -389,9 +389,9 @@ buffer of size 1.
 ### Example: Range over channel without closing
 
 [Iterating over channels](/tour/concurrency/4) by using `range`
-allows you to repeatedly receive values from a channel in a loop,
-until the channel is closed and all values that have been enqueued
-in the channel's buffer have been received, upon which the loop exits.
+allows you to repeatedly receive values from a channel in a loop.
+Once the channel is closed and all values that have been enqueued
+in the channel's buffer have been received, the loop exits.
 
 Importantly, **if the channel is never closed**, a `range` loop will block
 the executing goroutine forever.
