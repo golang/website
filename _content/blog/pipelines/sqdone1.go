@@ -1,3 +1,4 @@
+//go:build OMIT
 // +build OMIT
 
 package main
@@ -41,10 +42,12 @@ func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
 	// copies values from c to out until c is closed or it receives a value
 	// from done, then output calls wg.Done.
 	output := func(c <-chan int) {
+	loop:
 		for n := range c {
 			select {
 			case out <- n:
 			case <-done: // HL
+				break loop // HL
 			}
 		}
 		wg.Done()
@@ -66,7 +69,7 @@ func merge(done <-chan struct{}, cs ...<-chan int) <-chan int {
 }
 
 func main() {
-	in := gen(2, 3)
+	in := gen(2, 3, 5)
 
 	// Distribute the sq work across two goroutines that both read from in.
 	c1 := sq(in)
@@ -75,7 +78,7 @@ func main() {
 	// Consume the first value from output.
 	done := make(chan struct{}, 2) // HL
 	out := merge(done, c1, c2)
-	fmt.Println(<-out) // 4 or 9
+	fmt.Println(<-out) // 4, 9, or 25
 
 	// Tell the remaining senders we're leaving.
 	done <- struct{}{} // HL
