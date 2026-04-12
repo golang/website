@@ -1,6 +1,7 @@
 ---
 title: Coverage profiling support for integration tests
 layout: article
+template: true
 ---
 
 Table of Contents:

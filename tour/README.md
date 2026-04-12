@@ -29,11 +29,11 @@ Your browser should now open. If not, please visit [http://localhost:3999/](http
 
 ## Report Issues
 
-The issue tracker for the tour's code is located at https://github.com/golang/go/issues.
-Prefix your issue with "x/website/tour:" in the subject line, so it is easy to find.
-
-Issues with the tour's content itself should be reported in the issue tracker
-at https://github.com/golang/tour/issues.
+The main issue tracker for the tour is located at
+https://go.dev/issues. Prefix your issue
+with "x/website/tour:" (for issues with tour code) or
+with "x/website/\_content/tour:" (for issues with tour content)
+in the subject line, so it is easy to find.
 
 ## Deploying
 

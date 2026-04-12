@@ -138,7 +138,7 @@ The minimum version of Go required depends on the target version of Go:
 <li> 1.5 &lt;= Go &lt;= 1.19: a Go 1.4 compiler.
 <li> 1.20 &lt;= Go &lt;= 1.21: a Go 1.17 compiler.
 <li> 1.22 &lt;= Go &lt;= 1.23: a Go 1.20 compiler.
-<li> Going forward, Go version 1.N will require a Go 1.M compiler, 
+<li> Going forward, Go version 1.N will require a Go 1.M compiler,
 where M is N-2 rounded down to an even number. Example: Go 1.24 and 1.25 require Go 1.22.
 </ul>
 
@@ -313,11 +313,11 @@ To build the Go distribution, run
 
 <pre>
 $ cd src
-$ ./all.bash
+$ ./make.bash
 </pre>
 
 <p>
-(To build under Windows use <code>all.bat</code>.)
+(To build under Windows use <code>make.bat</code>.)
 </p>
 
 <p>
@@ -325,8 +325,6 @@ If all goes well, it will finish by printing output like:
 </p>
 
 <pre>
-ALL TESTS PASSED
-
 ---
 Installed Go for linux/amd64 in /home/you/go.
 Installed commands in /home/you/go/bin.
@@ -342,10 +340,8 @@ architecture, and root directory used during the install.
 <p>
 For more information about ways to control the build, see the discussion of
 <a href="#environment">environment variables</a> below.
-<code>all.bash</code> (or <code>all.bat</code>) runs important tests for Go,
-which can take more time than simply building Go. If you do not want to run
-the test suite use <code>make.bash</code> (or <code>make.bat</code>)
-instead.
+You can also run <code>all.bash</code> (or <code>all.bat</code>) to run
+important tests for Go, which can take more time than simply building Go.
 </p>
 </div>
 
@@ -460,9 +456,15 @@ Where <code>&lt;tag&gt;</code> is the version string of the release.
 <h2 id="environment">Optional environment variables</h2>
 
 <p>
-The Go compilation environment can be customized by environment variables.
+The Go tools can be customized by environment variables.
 <i>None is required by the build</i>, but you may wish to set some
 to override the defaults.
+Setting these environment variables while running make.bash will set
+the default for the newly built tools.
+When using the tools, you may override these defaults for a particular
+build, as described
+by <a href="https://pkg.go.dev/cmd/go#hdr-Environment_variables">the
+go command documentation</a>.
 </p>
 
 <ul>
@@ -476,59 +478,13 @@ local copies of the repository.
 </p>
 </li>
 
-<li><code>$GOROOT_FINAL</code>
-<p>
-The value assumed by installed binaries and scripts when
-<code>$GOROOT</code> is not set explicitly.
-It defaults to the value of <code>$GOROOT</code>.
-If you want to build the Go tree in one location
-but move it elsewhere after the build, set
-<code>$GOROOT_FINAL</code> to the eventual location.
-</p>
-</li>
-
-<li id="gopath"><code>$GOPATH</code>
-<p>
-The directory where Go projects outside the Go distribution are typically
-checked out. For example, <code>golang.org/x/tools</code> might be checked out
-to <code>$GOPATH/src/golang.org/x/tools</code>. Executables outside the
-Go distribution are installed in <code>$GOPATH/bin</code> (or
-<code>$GOBIN</code>, if set). Modules are downloaded and cached in
-<code>$GOPATH/pkg/mod</code>.
-</p>
-
-<p>The default location of <code>$GOPATH</code> is <code>$HOME/go</code>,
-and it's not usually necessary to set <code>GOPATH</code> explicitly. However,
-if you have checked out the Go distribution to <code>$HOME/go</code>,
-you must set <code>GOPATH</code> to another location to avoid conflicts.
-</p>
-</li>
-
-<li><code>$GOBIN</code>
-<p>
-The directory where executables outside the Go distribution are installed
-using the <a href="/cmd/go">go command</a>. For example,
-<code>go install golang.org/x/tools/gopls@latest</code> downloads, builds,
-and installs <code>$GOBIN/gopls</code>. By default, <code>$GOBIN</code> is
-<code>$GOPATH/bin</code> (or <code>$HOME/go/bin</code> if <code>GOPATH</code>
-is not set). After installing, you will want to add this directory to
-your <code>$PATH</code> so you can use installed tools.
-</p>
-
-<p>
-Note that the Go distribution's executables are installed in
-<code>$GOROOT/bin</code> (for executables invoked by people) or
-<code>$GOTOOLDIR</code> (for executables invoked by the go command;
-defaults to <code>$GOROOT/pkg/$GOOS_$GOARCH</code>) instead of
-<code>$GOBIN</code>.
-</p>
-</li>
-
 <li><code>$GOOS</code> and <code>$GOARCH</code>
 <p>
 The name of the target operating system and compilation architecture.
-These default to the values of <code>$GOHOSTOS</code> and
-<code>$GOHOSTARCH</code> respectively (described below).
+<code>$GOOS</code> defaults to the value of <code>runtime.GOOS</code>
+in the bootstrap toolchain.
+<code>$GOARCH</code> defaults to the value
+of <code>$GOHOSTARCH</code>, described below.
 </p>
 
 <p>
@@ -690,16 +646,14 @@ The valid combinations of <code>$GOOS</code> and <code>$GOARCH</code> are:
 </tr>
 </table>
 
-<li><code>$GOHOSTOS</code> and <code>$GOHOSTARCH</code>
+<li><code>$GOHOSTARCH</code>
 <p>
-The name of the host operating system and compilation architecture.
-These default to the local system's operating system and
-architecture.
+The name of the host compilation architecture.
+This defaults to the local system's architecture.
 </p>
 
 <p>
-Valid choices are the same as for <code>$GOOS</code> and
-<code>$GOARCH</code>, listed above.
+Valid choices are the same as for <code>$GOARCH</code>, listed above.
 The specified values must be compatible with the local system.
 For example, you should not set <code>$GOHOSTARCH</code> to
 <code>arm</code> on an x86 system.
@@ -732,6 +686,15 @@ when you first run the Go executable.
 The <a href="/wiki/GoArm">GoARM</a> page
 on the <a href="/wiki">Go community wiki</a>
 contains further details regarding Go's ARM support.
+</p>
+</li>
+
+<li><code>$GOARM64</code> (for <code>arm64</code> only;
+default is <code>v8.0</code>)
+<p>
+This sets the ARM64 architecture version for which to compile.
+See <a href="/wiki/MinimumRequirements#arm64">the Go wiki
+MinimumRequirements page</a> for allowed options.
 </p>
 </li>
 
@@ -770,6 +733,7 @@ This variable sets the RISC-V user-mode application profile for which to compile
 <ul>
 	<li><code>GORISCV64=rva20u64</code>: only use RISC-V extensions that are mandatory in the <a href="https://github.com/riscv/riscv-profiles/blob/main/src/profiles.adoc#51-rva20u64-profile">RVA20U64</a> profile</li>
 	<li><code>GORISCV64=rva22u64</code>: only use RISC-V extensions that are mandatory in the <a href="https://github.com/riscv/riscv-profiles/blob/main/src/profiles.adoc#rva22u64-profile">RVA22U64</a> profile</li>
+	<li><code>GORISCV64=rva23u64</code>: only use RISC-V extensions that are mandatory in the <a href="https://github.com/riscv/riscv-profiles/blob/main/src/rva23-profile.adoc#rva23u64-profile">RVA23U64</a> profile</li>
 </ul>
 </li>
 
@@ -798,18 +762,6 @@ not <code>amd64</code>.
 </p>
 
 <p>
-If you choose to override the defaults,
-set these variables in your shell profile (<code>$HOME/.bashrc</code>,
-<code>$HOME/.profile</code>, or equivalent). The settings might look
-something like this:
-</p>
-
-<pre>
-export GOARCH=amd64
-export GOOS=linux
-</pre>
-
-<p>
-although, to reiterate, none of these variables needs to be set to build,
+To reiterate, none of these variables needs to be set to build,
 install, and develop the Go tree.
 </p>

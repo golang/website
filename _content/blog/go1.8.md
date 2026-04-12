@@ -4,6 +4,7 @@ date: 2017-02-16
 by:
 - Chris Broadfoot
 summary: Go 1.8 adds faster non-x86 compiled code, sub-millisecond garbage collection pauses, HTTP/2 push, and more.
+template: true
 ---
 
 

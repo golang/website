@@ -1,4 +1,5 @@
 <!--{
+  "Template": true,
   "Title": "Go Modules Reference"
 }-->
 <!-- TODO(golang.org/issue/33637): Write focused "guide" articles on specific
@@ -723,7 +724,7 @@ require (
 
 ### `tool` directive {#go-mod-file-tool}
 
-A `tool` directive adds a package as a dependency of the current module. It also
+Since Go 1.24, a `tool` directive adds a package as a dependency of the current module. It also
 makes it available to run with `go tool` when the current working directory is
 within this module, or within a workspace that contains this module.
 
@@ -1701,7 +1702,7 @@ zip files](#zip-files) (but see known bugs
 Usage:
 
 ```
-go get [-d] [-t] [-u] [build flags] [packages]
+go get [-d] [-t] [-u] [-tool] [build flags] [packages]
 ```
 
 Examples:
@@ -1828,6 +1829,8 @@ the `GOBIN` environment variable, which defaults to `$GOPATH/bin` or
   insecure schemes such as HTTP. The `GOINSECURE` [environment
   variable](#environment-variables) provides more fine-grained control and
   should be used instead.
+* The `-tool` flag instructs go to add a matching tool line to `go.mod` for each
+  listed package. If `-tool` is used with `@none`, the line will be removed.
 
 Since Go 1.16, [`go install`](#go-install) is the recommended command for
 building and installing programs. When used with a version suffix (like
@@ -1836,7 +1839,7 @@ ignoring the `go.mod` file in the current directory or any parent directory,
 if there is one.
 
 `go get` is more focused on managing requirements in `go.mod`. The `-d` flag
-is deprecated, and in Go 1.18, it will always be enabled.
+is deprecated, and since Go 1.18, it is always enabled.
 
 ### `go install` {#go-install}
 
@@ -1876,12 +1879,14 @@ Since Go 1.16, if the arguments have version suffixes (like `@latest` or
 one. This is useful for installing executables without affecting the
 dependencies of the main module.
 
-To eliminate ambiguity about which module versions are used in the build, the
-arguments must satisfy the following constraints:
+To eliminate ambiguity about which module versions are used in the build, if any
+of the arguments have version suffixes, the arguments must satisfy the following
+constraints:
 
 * Arguments must be package paths or package patterns (with "`...`" wildcards).
   They must not be standard packages (like `fmt`), meta-patterns (`std`, `cmd`,
-  `all`, `work`, `tool`), or relative or absolute file paths.
+  `all`, `work`, `tool`), or relative or absolute file paths. Note that `go install tool`
+  can be used without a version suffix: see below.
 * All arguments must have the same version suffix. Different queries are not
   allowed, even if they refer to the same version.
 * All arguments must refer to packages in the same module at the same version.
@@ -1904,7 +1909,30 @@ module-aware mode or `GOPATH` mode, depending on the `GO111MODULE` environment
 variable and the presence of a `go.mod` file. See [Module-aware
 commands](#mod-commands) for details. If module-aware mode is enabled, `go
 install` runs in the context of the main module, which may be different from the
-module containing the package being installed.
+module containing the package being installed. In module-aware mode,
+`go install tool` can be used from a module to install all the tools in the module.
+
+### `go tool` {#go-tool}
+
+Usage:
+
+```
+go tool [-n] command [args...]
+```
+
+Example:
+
+```
+$ go tool golang.org/x/tools/cmd/stringer
+$ go tool stringer
+```
+
+In module mode, the `go tool` command can be used to build and run tools
+declared in `go.mod` files using a [`tool` directive](#go-mod-file-tool).
+The command can be specified using the full package path to a tool declared using
+a tool directive. The default binary name of the tool, which is the last component of
+the package path, excluding the major version suffix, can also be used if it is unique
+among installed tools.
 
 ### `go list -m` {#go-list-m}
 
@@ -3214,11 +3242,8 @@ the module from the given URL using the [`GOPROXY`
 protocol](#goproxy-protocol). See [Serving modules directly from a
 proxy](#serving-from-proxy) for details.
 
-`repo-url` is the repository's URL. If the URL does not include a scheme (either
-because the module path has a VCS qualifier or because the `<meta>` tag lacks a
-scheme), the `go` command will try each protocol supported by the version
-control system. For example, with Git, the `go` command will try `https://` then
-`git+ssh://`. Insecure protocols (like `http://` and `git://`) may only be used
+`repo-url` is the repository's URL, containing a scheme and not containing
+a .vcs qualifier.  Insecure protocols (like `http://` and `git://`) may only be used
 if the module path is matched by the `GOINSECURE` environment variable.
 
 `subdirectory`, if present, is the slash-separated subdirectory of the repository

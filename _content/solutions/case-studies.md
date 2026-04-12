@@ -1,6 +1,7 @@
 ---
 title: Case Studies
 layout: none
+template: true
 ---
 
 {{$solutions := pages "/solutions/*"}}

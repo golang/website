@@ -5,6 +5,7 @@ by:
 - Russ Cox
 - Filippo Valsorda
 summary: ChaCha8Rand is a new cryptographically secure pseudorandom number generator used in Go 1.22.
+template: true
 ---
 
 Computers aren't random.

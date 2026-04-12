@@ -8,6 +8,7 @@ tags:
 - libraries
 - technical
 summary: An introduction to 2-D image processing with the Go image package.
+template: true
 ---
 
 ## Introduction

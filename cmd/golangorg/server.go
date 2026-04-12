@@ -25,10 +25,10 @@ import (
 	"path/filepath"
 	"runtime"
 	"runtime/debug"
+	"strconv"
 	"strings"
 	"sync"
 	"sync/atomic"
-	"testing/fstest"
 	"time"
 
 	"cloud.google.com/go/datastore"
@@ -59,6 +59,7 @@ var (
 	contentDir = flag.String("content", "", "path to _content directory")
 
 	runningOnAppEngine = os.Getenv("PORT") != ""
+	forceGorootZip, _  = strconv.ParseBool(os.Getenv("GOLANGORG_FORCE_GOROOT_ZIP"))
 
 	tipFlag   = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
 	wikiFlag  = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
@@ -74,6 +75,9 @@ func usage() {
 }
 
 func main() {
+	flag.Usage = usage
+	flag.Parse()
+
 	// Running locally, find the local _content directory when it's available nearby,
 	// so that updates to those files appear on the local dev instance without restarting.
 	// On App Engine, leave contentDir empty, so we use the embedded copy,
@@ -88,9 +92,12 @@ func main() {
 		}
 	}
 
+	if forceGorootZip {
+		*goroot = "_goroot.zip"
+	}
+
 	if runningOnAppEngine {
 		log.Print("golang.org server starting")
-		*goroot = "_goroot.zip"
 		log.SetFlags(log.Lshortfile | log.LstdFlags)
 		port := "8080"
 		if p := os.Getenv("PORT"); p != "" {
@@ -98,9 +105,6 @@ func main() {
 		}
 		*httpAddr = ":" + port
 	}
-
-	flag.Usage = usage
-	flag.Parse()
 
 	// Check usage.
 	if flag.NArg() > 0 {
@@ -200,8 +204,9 @@ func NewHandler(contentDir, goroot string) http.Handler {
 		go watchGit(&tipGoroot, "https://go.googlesource.com/go", "HEAD")
 	}
 
-	// go.dev/gopls serves the latest gopls release of golang.org/x/tools/gopls/doc.
-	contentFS = addGopls(contentFS, "gopls/latest")
+	// go.dev/gopls serves golang.org/x/tools/gopls/doc from the
+	// tip commit on the latest release branch.
+	contentFS = addGopls(contentFS, "gopls/latest-release-branch")
 
 	// beta.golang.org is an old name for tip.
 	mux.Handle("beta.golang.org/", redirectPrefix("https://tip.golang.org/"))
@@ -319,26 +324,7 @@ func addGopls(contentFS fs.FS, ref string) fs.FS {
 		go watchGit(&toolsFS, "https://go.googlesource.com/tools", ref)
 	}
 
-	// Inject gopls/doc/default.tmpl into the FS, since
-	// unlike wiki, x/tools/gopls/doc doesn't have the
-	// default.tmpl needed by the markdown renderer.
-	// TODO(adonovan): remove once CL 686595 has been released in gopls/v0.20.0.
-	overlay := fstest.MapFS{
-		"gopls/doc/default.tmpl": {
-			Data: []byte(`
-{{define "layout"}}
-{{doclayout .}}
-{{end}})}`[1:]),
-		},
-	}
-	tools2FS := fnFS(func(name string) (fs.File, error) {
-		if _, ok := overlay[name]; ok {
-			return overlay.Open(name)
-		}
-		return toolsFS.Open(name) // delegate
-	})
-
-	goplsDocFS, err := fs.Sub(tools2FS, "gopls/doc")
+	goplsDocFS, err := fs.Sub(&toolsFS, "gopls/doc")
 	if err != nil {
 		log.Fatalf("can't restrict to gopls/doc tree: %v", err)
 	}
@@ -1030,10 +1016,3 @@ func jsonUnmarshal(data []byte) (any, error) {
 	err := json.Unmarshal(data, &x)
 	return x, err
 }
-
-// A fnFS is a closure that defines an [fs.FS].
-type fnFS func(name string) (fs.File, error)
-
-var _ fs.FS = fnFS(nil)
-
-func (f fnFS) Open(name string) (fs.File, error) { return f(name) }

@@ -6,6 +6,7 @@ by:
 tags:
 - community
 summary: Reporting from the Go Contributor Summit at GopherCon 2019.
+template: true
 ---
 
 ## Introduction

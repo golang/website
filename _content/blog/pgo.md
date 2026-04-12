@@ -4,6 +4,7 @@ date: 2023-09-05
 by:
 - Michael Pratt
 summary: Introduction to profile-guided optimization, generally available in Go 1.21.
+template: true
 ---
 
 Earlier in 2023, Go 1.20 [shipped a preview of profile-guided optimization (PGO)](/blog/pgo-preview) for users to test.
@@ -350,7 +351,7 @@ Showing nodes accounting for -3.72s, 3.13% of 118.73s total
 ```
 
 So `runtime.scanobject` is ultimately coming from `runtime.gcBgMarkWorker`.
-The [Go GC Guide](/doc/gc-guide#Identiying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
+The [Go GC Guide](/doc/gc-guide#Identifying_costs) tells us that `runtime.gcBgMarkWorker` is part of the garbage collector, so `runtime.scanobject` savings must be GC savings.
 What about `nextFreeFast` and other `runtime` functions?
 
 ```

@@ -4,6 +4,7 @@ date: 2016-08-18
 by:
 - David Crawshaw
 summary: Go 1.7 includes some binary size reductions important for small devices.
+template: true
 ---
 
 ## Introduction

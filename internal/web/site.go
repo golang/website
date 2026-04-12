@@ -51,9 +51,9 @@
 // The key-value pair “layout: name” selects the page layout template with the given name.
 // See the next section, “Page Rendering”, for details about layout and rendering.
 //
-// The key-value pair “template: bool” controls whether the page is treated as an HTML template
-// (see the next section, “Page Rendering”). The default is false for HTML
-// and true for markdown.
+// The key-value pair "template: bool" controls whether the page is treated as an HTML template
+// (see the next section, "Page Rendering"). The default is false.
+// Pages that use template functions (like {{code}}) must set "template: true".
 //
 // In addition to these explicit key-value pairs, pages loaded from the file system
 // have a few implicit key-value pairs added by the page loading process:
@@ -69,10 +69,12 @@
 //
 // A Page's content is rendered in two steps: conversion to content, and framing of content.
 //
-// To convert a page to content, the page's file body (its FileData key, a []byte) is parsed
-// and executed as an HTML template, with the page itself passed as the template input data.
-// The template output is then interpreted as Markdown (perhaps with embedded HTML),
-// and converted to HTML. The result is stored in the page under the key “Content”,
+// To convert a page to content, the page's file body (its FileData key, a string) is
+// optionally parsed and executed as an HTML template, with the page itself passed as the
+// template input data. This template processing only happens if the page has
+// "template: true" in its metadata. The result (or the original file body, if not
+// templated) is then interpreted as Markdown (perhaps with embedded HTML) for .md files,
+// and converted to HTML. The result is stored in the page under the key "Content",
 // with type template.HTML.
 //
 // A page's conversion to content can be skipped entirely in dynamically-generated pages
@@ -533,8 +535,9 @@ func (s *Site) serveHTML(w http.ResponseWriter, r *http.Request, p *pageFile) {
 		src = buf.String()
 	}
 
-	// If the file doesn't ask to be treated as a template and isn't Markdown,
-	// set the page's content to skip templating later, in Site.renderHTML.
+	// For non-Markdown files without "template: true", set Content here to
+	// skip renderHTML processing. Markdown files must always go through
+	// renderHTML for Markdown-to-HTML conversion.
 	isTemplate, _ := p.page["template"].(bool)
 	if !isTemplate && !isMarkdown {
 		p.page["Content"] = template.HTML(src)

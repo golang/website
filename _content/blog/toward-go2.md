@@ -6,6 +6,7 @@ by:
 tags:
 - community
 summary: How we will all work together toward Go 2.
+template: true
 ---
 
 ## Introduction

@@ -9,6 +9,7 @@ tags:
 - type
 - technical
 summary: An introduction to Go errors.
+template: true
 ---
 
 ## Introduction

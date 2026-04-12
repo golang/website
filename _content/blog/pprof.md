@@ -9,6 +9,7 @@ tags:
 - profiling
 - technical
 summary: How to use Go's built-in profiler to understand and optimize your programs.
+template: true
 ---
 
 

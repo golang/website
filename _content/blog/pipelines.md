@@ -8,6 +8,7 @@ tags:
 - pipelines
 - cancellation
 summary: How to use Go's concurrency to build data-processing pipelines.
+template: true
 ---
 
 ## Introduction

@@ -4,6 +4,7 @@ date: 2019-11-13
 by:
 - Steve Francia and Julie Qiu
 summary: "Announcing go.dev, which answers: who else is using Go, what do they use it for, and how can I find useful Go packages?"
+template: true
 ---
 
 

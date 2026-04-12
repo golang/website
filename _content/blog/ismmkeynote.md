@@ -4,6 +4,7 @@ date: 2018-07-12
 by:
 - Rick Hudson
 summary: A technical talk about the structure and details of the new, low-latency Go garbage collector.
+template: true
 ---
 
 

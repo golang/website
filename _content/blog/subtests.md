@@ -10,6 +10,7 @@ tags:
 - subtests
 - sub-benchmarks
 summary: How to use Go 1.7's new subtests and sub-benchmarks.
+template: true
 ---
 
 ## Introduction

@@ -9,6 +9,7 @@ tags:
 - type
 - technical
 summary: How reflections works in Go, how to think about it, and how to use it.
+template: true
 ---
 
 ## Introduction

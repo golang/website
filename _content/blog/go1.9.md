@@ -4,6 +4,7 @@ date: 2017-08-24
 by:
 - Francesc Campoy
 summary: Go 1.9 adds type aliases, bit intrinsics, optimizations, and more.
+template: true
 ---
 
 

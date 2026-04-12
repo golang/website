@@ -4,6 +4,7 @@ date: 2024-05-01
 by:
 - Russ Cox
 summary: Go 1.22 adds math/rand/v2 and charts a course for the evolution of the Go standard library.
+template: true
 ---
 
 Since Go 1 was [released in March 2012](/blog/go1),

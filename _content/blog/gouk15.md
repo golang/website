@@ -7,6 +7,7 @@ tags:
 - conference
 - golanguk
 summary: Reporting from GolangUK 2015, the first London Go conference.
+template: true
 ---
 
 

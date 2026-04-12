@@ -10,6 +10,7 @@ tags:
 - technical
 - function
 summary: An introduction to the Go's defer, panic, and recover control flow mechanisms.
+template: true
 ---
 
 

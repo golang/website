@@ -7,6 +7,7 @@ tags:
 - godoc
 - testing
 summary: How to add examples, which double as tests, to your packages.
+template: true
 ---
 
 ## Introduction

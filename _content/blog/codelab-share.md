@@ -7,6 +7,7 @@ tags:
 - concurrency
 - technical
 summary: A preview of the new Go codelab, Share Memory by Communicating.
+template: true
 ---
 
 

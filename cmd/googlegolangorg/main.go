@@ -10,6 +10,10 @@ import (
 )
 
 var repoMap = map[string]Repo{
+	"adk": {
+		VCS: "git",
+		URL: "https://github.com/google/adk-go",
+	},
 	"api": {
 		VCS: "git",
 		URL: "https://github.com/googleapis/google-api-go-client",

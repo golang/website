@@ -55,19 +55,23 @@ func TestMarkdown(t *testing.T) {
 	site := NewSite(fstest.MapFS{
 		"site.tmpl":    {Data: []byte(`{{.Content}}`)},
 		"doc/test.md":  {Data: []byte("**bold**")},
-		"doc/test2.md": {Data: []byte(`{{"*template*"}}`)},
+		"doc/test2.md": {Data: []byte("---\ntemplate: true\n---\n{{\"*template*\"}}")},
 		"doc/test3.md": {Data: []byte("---\ntemplate: false\n---\n{{x}}")},
+		"doc/test4.md": {Data: []byte("{{x}}")},
 	})
 
 	testServeBody(t, site, "/doc/test", "<strong>bold</strong>")
 	testServeBody(t, site, "/doc/test2", "<em>template</em>")
 	testServeBody(t, site, "/doc/test3", `{{x}}`)
+	testServeBody(t, site, "/doc/test4", `{{x}}`)
 }
 
 func TestCode(t *testing.T) {
 	site := NewSite(fstest.MapFS{
 		"site.tmpl": {Data: []byte(`{{.Content}}`)},
-		"doc/code.md": {Data: []byte(`
+		"doc/code.md": {Data: []byte(`---
+template: true
+---
 # hi
 whole file
 {{code "_code/prog.go"}}

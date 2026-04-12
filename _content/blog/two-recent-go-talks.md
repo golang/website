@@ -8,6 +8,7 @@ tags:
 - video
 - ethos
 summary: "Two Go talks: “Go: A Simple Programming Environment” and “Go: Code That Grows With Grace”."
+template: true
 ---
 
 ## Introduction

@@ -7,6 +7,7 @@ tags:
 - slice
 - technical
 summary: How to use Go slices, and how they work.
+template: true
 ---
 
 ## Introduction

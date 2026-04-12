@@ -8,6 +8,7 @@ tags:
 - youtube
 - talk
 summary: Reporting from the Go Devroom at FOSDEM 2014.
+template: true
 ---
 
 ## Introduction

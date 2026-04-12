@@ -221,10 +221,16 @@ directive('feedbackButton', ['i18n', function(i18n) {
             scope.feedbackMessage = i18n.l('submit-feedback');
 
             elm.on('click', function() {
+                var customURL = i18n.l('custom-feedback-url');
+                if (customURL && customURL !== '(no translation for custom-feedback-url)') {
+                    window.open(customURL);
+                    return;
+                }
+
                 var context = window.location.pathname === '/tour/list'
                     ? '/tour/list'
                     : '/tour/' + scope.params.lessonId + '/' + scope.params.pageNumber;
-	        context = window.location.protocol + '//' + window.location.host + context;
+                context = window.location.protocol + '//' + window.location.host + context;
                 var title = i18n.l('issue-title');
                 var body = i18n.l('context') + ': '+ context + '\n\n'+ i18n.l('issue-message');
                 var url = 'https://' + i18n.l('github-repo') + '/issues/new'

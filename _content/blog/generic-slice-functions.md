@@ -4,6 +4,7 @@ date: 2024-02-22
 by:
 - Valentin Deleplace
 summary: Avoiding memory leaks in the slices package.
+template: true
 ---
 
 The [slices](/pkg/slices) package provides functions that work for slices of any type.

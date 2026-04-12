@@ -14,6 +14,7 @@ tags:
 - rodent
 - technical
 summary: How Go's interfaces work nicely in the Go GIF decoder.
+template: true
 ---
 
 ## Introduction

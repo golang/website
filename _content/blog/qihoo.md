@@ -4,6 +4,7 @@ date: 2015-07-06
 by:
 - Yang Zhou
 summary: How Qihoo 360 uses Go.
+template: true
 ---
 
 

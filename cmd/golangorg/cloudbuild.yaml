@@ -5,7 +5,7 @@
 steps:
   # Clone go repo to _goroot.zip for use by uploaded app.
   - name: gcr.io/cloud-builders/git
-    args: ["clone", "--branch=release-branch.go1.24", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
+    args: ["clone", "--branch=release-branch.go1.26", "--depth=1", "https://go.googlesource.com/go", "_gotmp"]
   - name: gcr.io/cloud-builders/git
     args: ["archive", "--format=zip", "--output=../_goroot.zip", "HEAD"]
     dir: _gotmp
@@ -20,8 +20,9 @@ steps:
     args: ["rm", "-rf", "_wikitmp/.git"]
   - name: golang
     args: ["sh", "-c", "cp -a _wikitmp/* _content/wiki"]
-  # Run tests.
+  # Run tests with GOROOT content from _goroot.zip.
   - name: golang
+    env: ["GOLANGORG_FORCE_GOROOT_ZIP=true"]
     args: ["go", "test", "./..."]
   # Coordinate with other Cloud Build jobs to deploy only newest commit.
   # May abort job here.

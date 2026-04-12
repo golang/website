@@ -8,6 +8,7 @@ tags:
 - go2
 - proposals
 summary: How we develop Go, a talk from GopherCon 2019.
+template: true
 ---
 
 ## Introduction

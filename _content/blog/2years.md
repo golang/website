@@ -8,6 +8,7 @@ tags:
 - community
 - gopher
 summary: Happy 2nd birthday, Go!
+template: true
 ---
 
 

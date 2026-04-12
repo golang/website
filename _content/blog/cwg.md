@@ -6,6 +6,7 @@ by:
 tags:
 - community
 summary: Announcing the Go Community Outreach Working Group (CWG).
+template: true
 ---
 
 ## Announcing the Go Community Outreach Working Group

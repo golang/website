@@ -1,6 +1,7 @@
 ---
 title: "Get Started"
 breadcrumbTitle: "Learn"
+template: true
 ---
 
 <section class="Learn-hero">

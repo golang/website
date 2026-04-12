@@ -4,6 +4,7 @@ date: 2023-03-08
 by:
 - Than McIntosh
 summary:  Code coverage for integration tests, available in Go 1.20.
+template: true
 ---
 
 Code coverage tools help developers determine what fraction of a source code base is executed (covered) when a given test suite is executed.

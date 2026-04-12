@@ -8,6 +8,7 @@ tags:
 - report
 - gopher
 summary: Reporting from GopherCon 2015.
+template: true
 ---
 
 

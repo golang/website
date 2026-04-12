@@ -8,6 +8,7 @@ tags:
 - technical
 - tracing
 summary: "New features and improvements to execution traces from the last year."
+template: true
 ---
 
 The [runtime/trace](/pkg/runtime/trace) package contains a powerful tool for understanding and

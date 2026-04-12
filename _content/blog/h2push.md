@@ -8,6 +8,7 @@ tags:
 - http
 - technical
 summary: How to use HTTP/2 server push to reduce page load times.
+template: true
 ---
 
 ## Introduction

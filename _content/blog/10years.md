@@ -4,6 +4,7 @@ date: 2019-11-08
 by:
 - Russ Cox, for the Go team
 summary: Happy 10th birthday, Go!
+template: true
 ---
 
 

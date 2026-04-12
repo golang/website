@@ -9,6 +9,7 @@ by:
 tags:
 - community
 summary: The Go contributor workshop trained new contributors at GopherCon.
+template: true
 ---
 
 ## Event Overview

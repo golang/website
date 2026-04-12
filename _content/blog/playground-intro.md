@@ -6,6 +6,7 @@ by:
 tags:
 - playground
 summary: "Announcing the Go Playground, https://play.golang.org/."
+template: true
 ---
 
 

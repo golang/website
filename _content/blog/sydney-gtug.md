@@ -9,6 +9,7 @@ tags:
 - talk
 - video
 summary: "Two talks about Go from the Sydney GTUG: Rob Pike explains lexical scanning, and Andrew Gerrand builds a simple real-time chat using App Engine."
+template: true
 ---
 
 

@@ -7,6 +7,7 @@ tags:
 - survey
 - community
 summary: What we learned from the December 2018 Go User Survey.
+template: true
 ---
 
 ## Thank you

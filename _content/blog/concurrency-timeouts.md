@@ -7,6 +7,7 @@ tags:
 - concurrency
 - technical
 summary: How to implement timeouts using Go's concurrency support.
+template: true
 ---
 
 

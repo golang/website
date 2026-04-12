@@ -5,6 +5,7 @@ by:
 - Robert Griesemer
 summary: A description of how type inference for Go works.
   Based on the GopherCon 2023 talk with the same title.
+template: true
 ---
 
 This is the blog version of my talk on type inference at GopherCon 2023 in San Diego,

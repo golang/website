@@ -7,6 +7,7 @@ by:
 tags:
 - gopher
 summary: The backstory of the Go gopher.
+template: true
 ---
 
 

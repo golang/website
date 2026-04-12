@@ -279,6 +279,7 @@ Reports may be excluded for these reasons:
   vulnerability entirely superseded by the report for A.
 - `NOT_A_VULNERABILITY`: While a CVE ID or GHSA has been assigned, there is no
   known vulnerability associated with it.
+- `WITHDRAWN`: The vulnerability has been withdrawn by its source.
 
 At the moment, excluded reports are not served via
 [vuln.go.dev](https://vuln.go.dev) API. However, if you have

@@ -7,6 +7,7 @@ tags:
 - community
 - china
 summary: Reporting from GopherChina 2015, the first Go conference in China.
+template: true
 ---
 
 

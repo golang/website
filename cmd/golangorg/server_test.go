@@ -27,7 +27,11 @@ import (
 func TestWeb(t *testing.T) {
 	needsGorootDocDir(t)
 
-	h := NewHandler("../../_content", runtime.GOROOT())
+	goroot := *goroot
+	if forceGorootZip {
+		goroot = "../../_goroot.zip"
+	}
+	h := NewHandler("../../_content", goroot)
 
 	files, err := filepath.Glob("testdata/*.txt")
 	if err != nil {
@@ -48,6 +52,7 @@ var bads = []string{
 	" < ",
 	"<-",
 	"& ",
+	"{{raw <code>",
 }
 
 var ignoreBads = []string{
@@ -55,8 +60,8 @@ var ignoreBads = []string{
 	`window["location"] && window["location"]["hostname"] == "go.dev/talks"`,
 }
 
-// findBad returns (only) the lines containing badly escaped HTML in body.
-// If findBad returns the empty string, there is no badly escaped HTML.
+// findBad returns (only) the lines containing badly escaped sequences in the given HTML body.
+// If findBad returns the empty string, there were no badly escaped sequences detected.
 func findBad(body string) string {
 	lines := strings.SplitAfter(body, "\n")
 	var out []string
@@ -80,7 +85,11 @@ Lines:
 func TestAll(t *testing.T) {
 	needsGorootDocDir(t)
 
-	h := NewHandler("../../_content", runtime.GOROOT())
+	goroot := *goroot
+	if forceGorootZip {
+		goroot = "../../_goroot.zip"
+	}
+	h := NewHandler("../../_content", goroot)
 
 	get := func(url string) (code int, body string, err error) {
 		if url == "https://go.dev/rebuild" {
@@ -106,7 +115,7 @@ func TestAll(t *testing.T) {
 		"/play/p/",
 	}
 
-	// Do not process these paths or path prefixes.
+	// Do not process these path prefixes.
 	ignores := []string{
 		// The Wiki and gopls are in different repos;
 		// errors there should not block production push.
@@ -118,31 +127,41 @@ func TestAll(t *testing.T) {
 		"/talks/2013/highperf/",
 		"/talks/2016/refactor/",
 		"/tour/static/partials/",
+
+		// The "next" directory in GOROOT/doc goes through
+		// a fragment merging process, not served directly.
+		// See https://go.dev/cs/go/+/HEAD:doc/README.md.
+		"/doc/next/",
 	}
 
 	// Only check and report a URL the first time we see it.
 	// Otherwise we recheck all the URLs in the page frames for every page.
 	checked := make(map[string]bool)
 
-	testTree := func(dir, prefix string) {
+	testTree := func(dir, baseURL string) {
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				t.Fatal(err)
 			}
-			path = filepath.ToSlash(path)
-			siteURL := strings.TrimPrefix(path, dir)
+			rel, err := filepath.Rel(dir, path)
+			if err != nil {
+				t.Fatal(err)
+			}
+			siteURL, err := url.JoinPath(baseURL, filepath.ToSlash(rel))
+			if err != nil {
+				t.Fatal(err)
+			}
 			for _, ig := range ignores {
-				if strings.HasPrefix(siteURL, ig) {
+				if strings.HasPrefix(siteURL, "https://go.dev"+ig) {
 					return nil
 				}
 			}
-			siteURL = prefix + siteURL // add https://go.dev/
 
 			if strings.HasSuffix(path, ".md") ||
 				strings.HasSuffix(path, ".html") ||
 				strings.HasSuffix(path, ".article") ||
 				strings.HasSuffix(path, ".slide") {
-				if !strings.Contains(path, "/talks/") {
+				if !strings.Contains(filepath.ToSlash(path), "/talks/") {
 					siteURL = strings.TrimSuffix(siteURL, pathpkg.Ext(path))
 				}
 				if strings.HasSuffix(siteURL, "/index") {
@@ -246,6 +265,7 @@ func TestAll(t *testing.T) {
 	}
 
 	testTree("../../_content", "https://go.dev")
+	testTree(filepath.Join(runtime.GOROOT(), "doc"), "https://go.dev/doc")
 }
 
 // fixURL returns the corrected URL for u,

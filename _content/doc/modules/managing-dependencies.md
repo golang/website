@@ -378,6 +378,10 @@ external modules as described in [Adding a dependency](#adding_dependency).
 
 For more about version numbers, see [Module version numbering](/doc/modules/version-numbers).
 
+Go 1.18 adds [workspace mode](/blog/get-familiar-with-workspaces) to Go, which
+lets you work on multiple modules simultaneously. See [Tutorial: Getting started
+with multi-module workspaces](/doc/tutorial/workspaces).
+
 ### Requiring external module code from your own repository fork {#external_fork}
 
 When you have forked an external module's repository (such as to fix an issue in
@@ -530,9 +534,12 @@ pruning, when you depend on a module that itself has a tool dependency,
 requirements that exist just to satisfy that tool dependency do not usually
 become requirements of your module.
 
-The `tool` [meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) provides a way to perform operations on all tools simultaneously. For example you can upgrade all tools with `go get -u tool`, or install them all to $GOBIN with `go install tool`.
+The `tool` [meta-pattern](/cmd/go#hdr-Package_lists_and_patterns) provides a way to perform operations on all
+tools simultaneously. For example you can upgrade all tools with `go get tool`,
+which is equivalent to `go get tool@upgrade`, or install them all to $GOBIN
+with `go install tool`.
 
-In Go versions before 1.24, you can acheive something similar to a `tool`
+In Go versions before 1.24, you can achieve something similar to a `tool`
 directive by adding a blank import to a go file within the module that is
 excluded from the build using [build
 constraints](/pkg/go/build/#hdr-Build_Constraints). If you do this, you can then

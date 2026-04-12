@@ -41,6 +41,8 @@
     var toc_items = [];
     $(nav)
       .nextAll('h2, h3')
+      /* Headings may be nested within div.markdown. */
+      .add($(nav).nextAll('div.markdown').find('h2, h3'))
       .each(function() {
         var node = this;
         if (node.id == '') node.id = 'tmp_' + toc_items.length;
@@ -68,6 +70,11 @@
       split_index = toc_items.length;
     }
     for (var i = 0; i < split_index; i++) {
+      dl1.append(toc_items[i]);
+    }
+    // Do not start the 2nd column with indented subheadings, which can be
+    // visually confusing.
+    for (; i < toc_items.length && toc_items[i].hasClass("indent"); i++) {
       dl1.append(toc_items[i]);
     }
     for (; /* keep using i */ i < toc_items.length; i++) {

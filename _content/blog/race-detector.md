@@ -8,6 +8,7 @@ tags:
 - concurrency
 - technical
 summary: How and why to use the Go race detector to improve your programs.
+template: true
 ---
 
 ## Introduction

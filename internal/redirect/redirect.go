@@ -13,6 +13,7 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"net/url"
 	"regexp"
 	"strconv"
 	"strings"
@@ -44,6 +45,7 @@ func Register(mux *http.ServeMux) {
 	// NB: /src/pkg (sans trailing slash) is the index of packages.
 	mux.HandleFunc("/src/pkg/", srcPkgHandler)
 	mux.HandleFunc("/cl/", clHandler)
+	mux.HandleFunc("/cs/", csHandler)
 	mux.HandleFunc("/change/", changeHandler)
 	mux.HandleFunc("/design/", designHandler)
 }
@@ -101,6 +103,7 @@ var redirects = map[string]string{
 	"/build":      "https://build.golang.org",
 	"/change":     "https://go.googlesource.com/go",
 	"/cl":         "https://go-review.googlesource.com",
+	"/cs":         "https://cs.opensource.google/go",
 	"/cmd/godoc/": "https://pkg.go.dev/golang.org/x/tools/cmd/godoc",
 	"/issue":      "https://github.com/golang/go/issues",
 	"/issues":     "https://github.com/golang/go/issues",
@@ -370,5 +373,35 @@ func designHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	name := r.URL.Path[len(prefix):]
 	target := "https://go.googlesource.com/proposal/+/master/design/" + name + ".md"
+	http.Redirect(w, r, target, http.StatusFound)
+}
+
+func csHandler(w http.ResponseWriter, r *http.Request) {
+	path, ok := strings.CutPrefix(r.URL.Path, "/cs/")
+	if !ok || path == "" {
+		http.Redirect(w, r, "/cs", http.StatusFound)
+		return
+	}
+
+	// /cs/search/<query> redirects to cs.opensource.google/search. <query>
+	// represents Code Search syntax which we will automatically put as part of
+	// the URL query parameter for convenience. The search will always be
+	// scoped to "go".
+	if query, ok := strings.CutPrefix(path, "search/"); ok {
+		target := "https://cs.opensource.google/search?ss=go"
+		if query != "" {
+			target += "&q=" + url.QueryEscape(query)
+		}
+		http.Redirect(w, r, target, http.StatusFound)
+		return
+	}
+
+	// Any other /cs/ redirects to cs.opensource.google/go while keeping the
+	// path and URL query intact.
+	target := "https://cs.opensource.google/go/"
+	target += path
+	if query := r.URL.RawQuery; query != "" {
+		target += "?" + query
+	}
 	http.Redirect(w, r, target, http.StatusFound)
 }

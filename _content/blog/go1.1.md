@@ -6,6 +6,7 @@ by:
 tags:
 - release
 summary: Go 1.1 is faster, less picky about return statements, and adds method expressions.
+template: true
 ---
 
 

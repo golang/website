@@ -231,10 +231,6 @@ These builds are cached like any other, so subsequent incremental builds using t
 
 If you experience extreme increases in build time, please file an issue at [go.dev/issue/new](/issue/new).
 
-_Note: Parsing of the profile by the compiler can also add significant overhead, particularly for large profiles.
-Using large profiles with a large dependency graph can significantly increase build times.
-This is tracked by [go.dev/issue/58102](/issue/58102) and will be addressed in a future release._
-
 ## How does PGO affect binary size?
 
 PGO can result in slightly larger binaries due to additional function inlining.

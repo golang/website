@@ -4,6 +4,7 @@ date: 2016-02-17
 by:
 - Andrew Gerrand
 summary: Go 1.6 adds HTTP/2, template blocks, and more.
+template: true
 ---
 
 

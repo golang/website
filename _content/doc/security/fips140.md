@@ -96,6 +96,9 @@ into the executable program.
  - `v1.0.0` uses Go Cryptographic Module version v1.0.0, frozen in early 2025
    and first shipped with Go 1.24. It enables FIPS 140-3 mode by default.
 
+ - `v1.26.0` uses Go Cryptographic Module version v1.26.0, frozen in early 2026
+   and first shipped with Go 1.26. It enables FIPS 140-3 mode by default.
+
 ## Module Validations
 
 Google currently has a contractual relationship with [Geomys](https://geomys.org/)
@@ -120,13 +123,13 @@ _There are currently no module versions which have completed validation._
 
 List of module versions which are currently in the [CMVP Modules In Process List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list):
 
-* v1.0.0 ([CAVP Certificate A6650](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=39260)), Review Pending, available in Go 1.24+
+* v1.0.0 ([CAVP Certificate A6650](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=39260)), In Review, available in Go 1.24+
 
 ### Implementation Under Test Module Versions
 
 List of module versions which are currently in the [CMVP Implementation Under Test List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/iut-list):
 
-_There are currently no module versions under test._
+* v1.26.0, available in Go 1.26+
 
 ## Go+BoringCrypto
 

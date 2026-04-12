@@ -4,11 +4,21 @@
 	"Breadcrumb": true
 }-->
 
+<div class="Note">
+<strong>Note:</strong> This document was written for Go's release in 2009 and
+is not actively updated. While it remains a good guide for using the core language,
+it does not cover significant changes to the language (generics), ecosystem (modules),
+or libraries added since. See <a href="/issue/28782">issue 28782</a> for context.
+For a complete list of changes,
+see the <a href="/doc/devel/release">release notes</a>.
+</div>
+
 <h2 id="introduction">Introduction</h2>
 
 <p>
-Go is a new language.  Although it borrows ideas from
-existing languages,
+Go is an open-source programming language that focuses on simplicity, reliability,
+and efficiency, specifically designed to make it easy to build software at scale.
+Although it borrows ideas from existing languages,
 it has unusual properties that make effective Go programs
 different in character from programs written in its relatives.
 A straightforward translation of a C++ or Java program into Go
@@ -35,23 +45,7 @@ all of which you
 should read first.
 </p>
 
-<p>
-Note added January, 2022:
-This document was written for Go's
-release in 2009, and has not been updated significantly since.
-Although it is a good guide to understand how to use the language
-itself, thanks to the stability of the language, it says little
-about the libraries and nothing about significant changes to the
-Go ecosystem since it was written, such as the build system, testing,
-modules, and polymorphism.
-There are no plans to update it, as so much has happened and a large
-and growing set of documents, blogs, and books do a fine job of
-describing modern Go usage.
-Effective Go continues to be useful, but the reader should
-understand it is far from a complete guide.
-See <a href="/issue/28782">issue
-28782</a> for context.
-</p>
+
 
 <h3 id="examples">Examples</h3>
 
@@ -1006,10 +1000,17 @@ It's a built-in function that allocates memory, but unlike its namesakes
 in some other languages it does not <em>initialize</em> the memory,
 it only <em>zeros</em> it.
 That is,
-<code>new(T)</code> allocates zeroed storage for a new item of type
+<code>new(T)</code> allocates zeroed storage for a new variable of type
 <code>T</code> and returns its address, a value of type <code>*T</code>.
 In Go terminology, it returns a pointer to a newly allocated zero value of type
 <code>T</code>.
+</p>
+
+<p>
+Starting with Go 1.26, <code>new</code> also accepts an (value) expression as
+an argument, which specifies the initial value of the variable.
+For example, <code>new(int64(300))</code> allocates a new variable of type <code>int64</code>,
+initialized to 300, and returns its address.
 </p>
 
 <p>

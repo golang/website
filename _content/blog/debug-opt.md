@@ -7,6 +7,7 @@ tags:
 - debug
 - technical
 summary: Go 1.12 improves support for debugging optimized binaries.
+template: true
 ---
 
 ## Introduction

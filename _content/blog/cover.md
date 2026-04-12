@@ -8,6 +8,7 @@ tags:
 - coverage
 - testing
 summary: Introducing Go 1.12's code coverage tool.
+template: true
 ---
 
 ## Introduction

@@ -4,6 +4,7 @@ date: 2014-09-26
 by:
 - Andrew Gerrand
 summary: How to use Docker's new official base images for Go.
+template: true
 ---
 
 ## Introduction

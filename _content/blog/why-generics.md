@@ -8,6 +8,7 @@ tags:
 - proposals
 - generics
 summary: Why should we add generics to Go, and what might they look like?
+template: true
 ---
 
 ## Introduction

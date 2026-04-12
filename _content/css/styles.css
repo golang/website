@@ -63,6 +63,8 @@
   --color-text-alert: #aa536c;
   --color-code-comment: var(--green);
   --color-bright-text-link: var(--turq-bright);
+  --color-diff-old: #ffe0e0;
+  --color-diff-new: #e0ffe0;
 
   /* Interactive Colors */
   --color-input: var(--color-background);
@@ -108,6 +110,8 @@
   --color-text-alert: #e67193;
   --color-code-comment: var(--green-light);
   --color-bright-text-link: var(--turq-med);
+  --color-diff-old: #703030;
+  --color-diff-new: #306030;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
@@ -139,6 +143,8 @@
     --color-text-alert: #e67193;
     --color-code-comment: var(--green-light);
     --color-bright-text-link: var(--turq-med);
+    --color-diff-old: #703030;
+    --color-diff-new: #306030;
   }
 }
 
@@ -5393,3 +5399,17 @@ hr {
   border-top: 1px solid var(--color-border);
   height: 1px;
 }
+
+/* default styles for markdown tables */
+div.markdown table {
+  border-collapse: collapse;
+}
+div.markdown th,
+div.markdown td {
+  border:	1px solid #ccc;
+  padding: 	0.1em 2em 0.1em 2em;
+}
+div.markdown th {
+  background-color: var(--color-background-accented);
+}
+

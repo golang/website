@@ -6,6 +6,7 @@ by:
 - Chuck Bigelow
 - Rob Pike
 summary: Announcing the Go font family, by Bigelow & Holmes.
+template: true
 ---
 
 <link rel="stylesheet" href="/css/fonts.css">

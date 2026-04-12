@@ -8,6 +8,7 @@ tags:
 - generics
 - interfaces
 summary: Adding type parameters to interface types is surprisingly powerful
+template: true
 ---
 
 There is an idea that is not obvious until you hear about it for the first time: as interfaces are types themselves, they too can have type parameters.
@@ -59,7 +60,7 @@ you cannot insert struct types, like [time.Time](/pkg/time#Time).
 We can remedy that by requiring the user to provide a comparison function:
 
 {{raw `
-    // A FuncTree must be created with NewTreeFunc.
+    // A FuncTree must be created with NewFuncTree.
     type FuncTree[E any] struct {
         root *funcNode[E]
         cmp  func(E, E) int

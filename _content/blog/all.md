@@ -1,5 +1,6 @@
 ---
 title: Blog Index
+template: true
 ---
 
 <div id="blogindex">
