@@ -16,8 +16,9 @@ all packages in the module. For more about how Go locates the module, see the
 * The minimum **version of Go** required by the current module.
 * A list of minimum versions of other **modules required** by the current module.
 * Instructions, optionally, to **replace** a required module with another
-  module version or a local directory, or to **exclude** a specific version of
-  a required module.
+  module version or a local directory, to **exclude** a specific version of
+  a required module, or to **ignore** specific directories within the module
+  when matching package patterns.
 
 Go generates a go.mod file when you run the [`go mod init`
 command](/ref/mod#go-mod-init). The following example creates a go.mod file,
@@ -666,3 +667,61 @@ database](/ref/mod#checksum-database).
 Retracted versions of a module do not normally appear in the output of
 `go list -m -versions`, but you can use the `-retracted` to show them.
 For more, see [`go list -m`](/ref/mod#go-list-m) in the Go Modules Reference.
+
+## ignore {#ignore}
+
+Specifies directory paths within the module that the `go` command should
+ignore when matching package patterns.
+
+For more, see [`ignore` directive](/ref/mod#go-mod-file-ignore) in the
+Go Modules Reference.
+
+### Syntax {#ignore-syntax}
+
+<pre>
+ignore <var>path</var>
+</pre>
+
+<dl>
+  <dt>path</dt>
+  <dd>
+    A slash-separated path to ignore. If the path starts with <code>./</code>,
+    it is interpreted relative to the module root directory. Otherwise, any
+    directory with that name at any depth within the module is ignored.
+  </dd>
+</dl>
+
+### Examples {#ignore-examples}
+
+* Ignore a local directory relative to the module root
+
+  ```
+  ignore ./node_modules
+  ```
+
+* Ignore all directories named `generated` anywhere in the module
+
+  ```
+  ignore generated
+  ```
+
+* Ignore multiple paths using a block
+
+  ```
+  ignore (
+      static
+      content/html
+      ./third_party/javascript
+  )
+  ```
+
+### Notes {#ignore-notes}
+
+Use the `ignore` directive to prevent the `go` command from matching
+packages in generated or non-Go directories when using
+wildcard patterns like `./...`. Ignored directories and their contents
+are excluded from package patterns but are still present in the module
+file tree.
+
+The `ignore` directive only applies in the main module's `go.mod` file.
+It has no effect in `go.mod` files of dependencies.
