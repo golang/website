@@ -39,11 +39,7 @@ the Go Cryptographic Module to implement FIPS 140-3 algorithms.
 
 ## FIPS 140-3 mode
 
-The run-time `fips140` [GODEBUG](/doc/godebug) option controls whether the Go
-Cryptographic Module operates in FIPS 140-3 mode. It defaults to `off`. It can't
-be changed after the program has started.
-
-When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
+When operating in FIPS 140-3 mode:
 
  - The Go Cryptographic Module automatically performs an integrity self-check at
    `init` time, comparing the checksum of the module's object file computed at
@@ -57,9 +53,10 @@ When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
    is especially relevant for ephemeral keys.
 
  - [`crypto/rand.Reader`](/pkg/crypto/rand/#Reader) is implemented in terms of a
-   NIST SP 800-90A DRBG. To guarantee the same level of security as
-   `GODEBUG=fips140=off`, random bytes are also sourced from the platform's CSPRNG at
-   every `Read` and mixed into the output as uncredited additional data.
+   NIST SP 800-90A DRBG. To guarantee the same level of security as programs not
+   running in FIPS 140-3 mode, random bytes are also sourced from the platform's
+   CSPRNG at every `Read` and mixed into the output as uncredited additional
+   data.
 
  - The [`crypto/tls`](/pkg/crypto/tls/) package will ignore and not negotiate
    any protocol version, cipher suite, signature algorithm, or key exchange
@@ -70,15 +67,7 @@ When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
    [`PSSSaltLengthAuto`](/pkg/crypto/rsa/#PSSSaltLengthAuto) will cap the length
    of the salt at the length of the hash.
 
-When `GODEBUG=fips140=only` is used, in addition to the above, cryptographic
-algorithms that are not FIPS 140-3 compliant will return an error or panic. Note
-that this is a best effort mode meant for testing, assessment, and debugging.
-*It is not intended to be used in production*, it is not required by the
-Security Policy, it introduces crashes and potentially unhandled errors by
-design, and it is not guaranteed not to have false positives or false negatives.
-
-`GODEBUG=fips140=on` and `only` are not supported on OpenBSD, Wasm, AIX, and
-32-bit Windows platforms.
+FIPS 140-3 mode is not supported on OpenBSD, Wasm, AIX, and 32-bit Windows.
 
 ## The `crypto/fips140` package
 
@@ -89,7 +78,7 @@ whether FIPS 140-3 mode is active.
 
 The `GOFIPS140` environment variable can be used with `go build`, `go install`,
 and `go test` to select the version of the Go Cryptographic Module to be linked
-into the executable program.
+into the executable program, and to enable FIPS 140-3 mode by default.
 
  - `off` is the default, and uses the `crypto/internal/fips140/...` packages in
    the standard library tree in use.
@@ -101,6 +90,27 @@ into the executable program.
 
  - `v1.26.0` uses Go Cryptographic Module version v1.26.0, frozen in early 2026
    and first shipped with Go 1.26. It enables FIPS 140-3 mode by default.
+
+## The `fips140` GODEBUG option
+
+The run-time `fips140` [GODEBUG](/doc/godebug) option controls whether the Go
+Cryptographic Module operates in FIPS 140-3 mode. It can't be changed after the
+program has started.
+
+It defaults to `off` unless `GOFIPS140` is set at build time.
+
+If set to `on`, FIPS 140-3 mode is enabled. This is possible even if `GOFIPS140`
+was not set at build time.
+
+If set to `only`, cryptographic algorithms that are not FIPS 140-3 compliant
+will return an error or panic. Note that this is a best effort mode meant for
+testing, assessment, and debugging. *It is not intended to be used in
+production*, it is not required by the Security Policy, it introduces crashes
+and potentially unhandled errors by design, and it may have false positives or
+false negatives.
+
+Most programs should not set this option directly, and should instead use
+`GOFIPS140` at build time.
 
 ## Module Validations
 
