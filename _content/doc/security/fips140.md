@@ -63,7 +63,8 @@ When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
 
  - The [`crypto/tls`](/pkg/crypto/tls/) package will ignore and not negotiate
    any protocol version, cipher suite, signature algorithm, or key exchange
-   mechanism that is not FIPS 140-3 approved.
+   mechanism that is not FIPS 140-3 approved. (This is equivalent to the legacy
+   opt-in `crypto/tls/fipsonly` Go+BoringCrypto mechanism.)
 
  - [`crypto/rsa.SignPSS`](/pkg/crypto/rsa/#SignPSS) with
    [`PSSSaltLengthAuto`](/pkg/crypto/rsa/#PSSSaltLengthAuto) will cap the length
@@ -71,8 +72,10 @@ When operating in FIPS 140-3 mode (the `fips140` GODEBUG setting is `on`):
 
 When `GODEBUG=fips140=only` is used, in addition to the above, cryptographic
 algorithms that are not FIPS 140-3 compliant will return an error or panic. Note
-that this mode is a best effort and can't guarantee compliance with all FIPS
-140-3 requirements.
+that this is a best effort mode meant for testing, assessment, and debugging.
+*It is not intended to be used in production*, it is not required by the
+Security Policy, it introduces crashes and potentially unhandled errors by
+design, and it is not guaranteed not to have false positives or false negatives.
 
 `GODEBUG=fips140=on` and `only` are not supported on OpenBSD, Wasm, AIX, and
 32-bit Windows platforms.
