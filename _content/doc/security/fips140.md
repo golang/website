@@ -74,6 +74,9 @@ FIPS 140-3 mode is not supported on OpenBSD, Wasm, AIX, and 32-bit Windows.
 The [`crypto/fips140.Enabled`](/pkg/crypto/fips140/#Enabled) function reports
 whether FIPS 140-3 mode is active.
 
+The [`crypto/fips140.Version`](/pkg/crypto/fips140/#Version) function returns
+the version of the Go Cryptographic Module in use.
+
 ## The `GOFIPS140` environment variable
 
 The `GOFIPS140` environment variable can be used with `go build`, `go install`,
