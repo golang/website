@@ -94,6 +94,13 @@ into the executable program, and to enable FIPS 140-3 mode by default.
  - `v1.26.0` uses Go Cryptographic Module version v1.26.0, frozen in early 2026
    and first shipped with Go 1.26. It enables FIPS 140-3 mode by default.
 
+ - `inprocess` uses the latest version of the Go Cryptographic Module that
+   reached CMVP Modules In Process List. It enables FIPS 140-3 mode by default.
+
+ - `certified` uses the latest version of the Go Cryptographic Module that
+   obtained a CMVP validation certificate. It enables FIPS 140-3 mode by
+   default.
+
 ## The `fips140` GODEBUG option
 
 The run-time `fips140` [GODEBUG](/doc/godebug) option controls whether the Go
