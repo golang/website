@@ -88,18 +88,15 @@ into the executable program, and to enable FIPS 140-3 mode by default.
 
  - `latest` is like `off`, but enables FIPS 140-3 mode by default.
 
- - `v1.0.0` uses Go Cryptographic Module version v1.0.0, frozen in early 2025
-   and first shipped with Go 1.24. It enables FIPS 140-3 mode by default.
+ - `v1.0.0` or `v1.26.0` select the specific respective Go Cryptographic Module
+   versions. They enable FIPS 140-3 mode by default.
 
- - `v1.26.0` uses Go Cryptographic Module version v1.26.0, frozen in early 2026
-   and first shipped with Go 1.26. It enables FIPS 140-3 mode by default.
+ - `inprocess` and `certified` are equivalent to specifying the latest version
+   that reached the [CMVP Modules In Process List][] and the latest version that
+   obtained a [CMVP validation certificate][], respectively.
 
- - `inprocess` uses the latest version of the Go Cryptographic Module that
-   reached CMVP Modules In Process List. It enables FIPS 140-3 mode by default.
-
- - `certified` uses the latest version of the Go Cryptographic Module that
-   obtained a CMVP validation certificate. It enables FIPS 140-3 mode by
-   default.
+[CMVP Modules In Process List]: https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list
+[CMVP validation certificate]: https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search?SearchMode=Basic&ModuleName=Go+Cryptographic+Module&CertificateStatus=Active&ValidationYear=0
 
 ## The `fips140` GODEBUG option
 
@@ -122,7 +119,7 @@ false negatives.
 Most programs should not set this option directly, and should instead use
 `GOFIPS140` at build time.
 
-## Module Validations
+## Module versions, validations, and compatibility
 
 Google currently has a contractual relationship with [Geomys](https://geomys.org/)
 to facilitate at least yearly CMVP validations of the Go Cryptographic Module.
@@ -133,26 +130,46 @@ These validations are tested on a comprehensive set of Operating
 Environments, supporting many popular operating system and hardware platform
 combinations.
 
-Off-cycle validations may be performed if security issues are discovered in
-the module.
+Older Go Cryptographic Module versions continue to be supported and available
+for as long as a more recent version has not obtained a CMVP validation
+certificate. Once a more recent version has obtained a CMVP validation
+certificate, older versions will be removed.
 
-###  Validated Module Versions
+Some standard library features may be unavailable and return errors if using a
+Go Cryptographic Module that was frozen from an older version of Go.
 
-List of module versions which have completed [CMVP validation](https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search?SearchMode=Basic&ModuleName=Go+Cryptographic+Module&CertificateStatus=Active&ValidationYear=0):
+### Go Cryptographic Module v1.26.0
 
-* v1.0.0 ([CMVP Certificate #5247](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247)), available in Go 1.24+
+Go Cryptographic Module v1.26.0 was frozen in early 2026 from Go 1.26.
 
-### In Process Module Versions
+It is available in Go 1.26+.
 
-List of module versions which are currently in the [CMVP Modules In Process List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list):
+As of 2026-04-28, it is Pending Review in the CMVP Modules In Process List.
+It is covered by [CAVP Certificate A8028](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=40638).
 
-* v1.26.0 ([CAVP Certificate A8028](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=40638)), Pending Review, available in Go 1.26+
+#### Changes from v1.0.0
 
-### Implementation Under Test Module Versions
+  - Implemented ML-DSA.
 
-List of module versions which are currently in the [CMVP Implementation Under Test List](https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/iut-list):
+  - [testing/cryptotest.SetGlobalRandom](/pkg/testing/cryptotest#SetGlobalRandom) is now supported.
 
-_None at this time._
+  - Introduced new AES-GCM compliance APIs, for use in `crypto/hpke` and future exposed APIs.
+
+  - The Go Cryptographic Module now uses a CPU jitter Entropy Source, with
+  [ESV Certificate #E318](https://csrc.nist.gov/projects/cryptographic-module-validation-program/entropy-validations/certificate/318)
+  and [CAVP Certificate A7715](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?product=20498).
+  (The platform CSPRNG is still used as an uncredited additional data source for all random bytes.)
+
+  - Various safety and performance improvements.
+
+### Go Cryptographic Module v1.0.0
+
+Go Cryptographic Module v1.0.0 was frozen in early 2024 from Go 1.24.
+
+It is available in Go 1.24+.
+
+It is covered by [CMVP Certificate #5247](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247)
+and [CAVP Certificate A6650](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?product=19371).
 
 ## Go+BoringCrypto
 
