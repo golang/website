@@ -14,6 +14,68 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2026, 5, 7}, Version: Version{1, 26, 3},
+		Security: &FixSummary{
+			Components: []template.HTML{
+				"the <code>go</code> command",
+				"the <code>pack</code> tool",
+			},
+			Packages: []string{
+				"html/template",
+				"net",
+				"net/http",
+				"net/http/httputil",
+				"net/mail",
+				"syscall",
+			},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{
+				"the <code>go</code> command",
+				"the <code>go fix</code> command",
+				"the compiler",
+				"the linker",
+				"the runtime",
+			},
+			Packages: []string{
+				"crypto/fips140",
+				"crypto/tls",
+				"go/types",
+				"os",
+			},
+		},
+	},
+	{
+		Date: Date{2026, 5, 7}, Version: Version{1, 25, 10},
+		Security: &FixSummary{
+			Components: []template.HTML{
+				"the <code>go</code> command",
+				"the <code>pack</code> tool",
+			},
+			Packages: []string{
+				"html/template",
+				"net",
+				"net/http",
+				"net/http/httputil",
+				"net/mail",
+				"syscall",
+			},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{
+				"the <code>go</code> command",
+				"the compiler",
+				"the linker",
+				"the runtime",
+			},
+			Packages: []string{
+				"crypto/fips140",
+				"go/types",
+				"os",
+			},
+		},
+	},
+	{
 		Date: Date{2026, 4, 7}, Version: Version{1, 26, 2},
 		Security: &FixSummary{
 			Components: []template.HTML{
