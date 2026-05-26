@@ -33,8 +33,8 @@ types to be added in the future.
 
 ## Prerequisites
 
-- **An installation of Go 1.18 or later.** For installation instructions, see
-  [Installing Go](/doc/install).
+- **Go.** We recommend using the latest version of Go to follow this tutorial.
+  For installation instructions, see [Installing Go](/doc/install).
 - **A tool to edit your code.** Any text editor you have will work fine.
 - **A command terminal.** Go works well using any terminal on Linux and Mac, and
   on PowerShell or cmd in Windows.
