@@ -47,15 +47,19 @@ The format is compatible with GCC's response file implementation to ensure inter
 
 ### Go command {#go-command}
 
-`go test` now invokes the stdversion vet check by default.
+`go test` now invokes the `stdversion` vet check by default.
 This reports the use of standard library symbols that are too new
 for the Go version in force in the referring file,
 as determined by `go` directive in `go.mod` and build tags on the file.
 
 <!-- go.dev/issue/78090 -->
 
-The `go` command no longer has support for the bzr version control system.
-It will no longer be able to directly fetch modules hosted on bzr servers.
+The `go` command no longer has support for the `bzr` version control system.
+It will no longer be able to directly fetch modules hosted on `bzr` servers.
+
+The `go fix` command contains several new modernizers (`atomictypes`, `embedlit`, `slicesbackward`, and `unsafefuncs`).
+The existing `fmtappendf` analyzer was removed due to stylistic concerns. <!-- #77581 -->
+The existing `waitgroup` analyzer was renamed to `waitgroupgo` to avoid ambiguity.
 
 <!-- go.dev/issue/56471 -->
 
@@ -427,12 +431,6 @@ positives from automation.
 
 - `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
 
-### TODO: accepted proposal [/issue/17747](/issue/17747) (from [/cl/730480](/cl/730480), [/cl/783961](/cl/783961))
-
-- `cmd/vet: check for missing Err calls for bufio.Scanner [done] and sql.Rows [done]`
-- `go/analysis/passes/scannererr: report failure to check bufio.Scanner.Err`
-- `go/analysis/passes/sqlrowserr: report missing sql.Rows.Err calls`
-
 ### TODO: accepted proposal [/issue/26715](/issue/26715) (from [/cl/445116](/cl/445116))
 
 - `cmd/doc: add example support`
@@ -443,12 +441,6 @@ positives from automation.
 - `x/crypto/ssh: add NewControlClientConn`
 - `ssh: add openssh controlmaster socket support`
 
-### TODO: accepted proposal [/issue/35487](/issue/35487) (from [/cl/780780](/cl/780780), [/cl/780900](/cl/780900))
-
-- `x/tools/go/analysis/vet: export cmd/vet and cmd/fix's []*Analyzer suites`
-- `go/analysis/suite/{fix,vet}: publish analyzer suites`
-- `cmd/{vet,fix}: use new constants from /x/tools/go/analysis/suite`
-
 ### TODO: accepted proposal [/issue/41184](/issue/41184) (from [/cl/773822](/cl/773822))
 
 - `cmd/go: continue conversion to bug-resistant //go:build constraints`
@@ -458,12 +450,6 @@ positives from automation.
 
 - `all: document uses of context.Background by APIs`
 - `log/slog: document context.Background use in non-Context methods`
-
-### TODO: accepted proposal [/issue/50447](/issue/50447) (from [/cl/783322](/cl/783322), [/cl/783440](/cl/783440))
-
-- `x/exp/typeparams: a new module with a transitional API for tools`
-- `typeparams: consider String methods optional`
-- `typeparams: simplify now that minimum required Go is 1.25.0`
 
 ### TODO: accepted proposal [/issue/50603](/issue/50603) (from [/cl/751920](/cl/751920))
 
@@ -479,11 +465,6 @@ positives from automation.
 
 - `testing: add testing.B.Loop for iteration`
 - `log/slog: use B.Loop to simplify the code`
-
-### TODO: accepted proposal [/issue/61902](/issue/61902) (from [/cl/742801](/cl/742801))
-
-- `regexp: add iterator forms of matching methods`
-- `regexp: reimplement API using iterators, revise doc comments`
 
 ### TODO: accepted proposal [/issue/62047](/issue/62047) (from [/cl/743341](/cl/743341))
 
@@ -532,11 +513,6 @@ positives from automation.
 - `crypto/tls: add X25519MLKEM768 and use by default; remove x25519Kyber768Draft00`
 - `crypto/tls: let Config.CurvePreferences override GODEBUG options`
 
-### TODO: accepted proposal [/issue/70872](/issue/70872) (from [/cl/755580](/cl/755580))
-
-- `x/tools/cmd/auth: tag and delete`
-- `cmd/auth: tag and delete deprecated auth module`
-
 ### TODO: accepted proposal [/issue/71206](/issue/71206) (from [/cl/777220](/cl/777220))
 
 - `crypto/tls: add support for NIST curve based ML-KEM hybrids`
@@ -553,15 +529,6 @@ positives from automation.
 
 - `cmd/go, cmd/distpack: build and run tools that are not necessary for builds as needed and don't include in binary distribution`
 - `cmd/go: specify full path to go command when running go tool covdata`
-
-### TODO: accepted proposal [/issue/73878](/issue/73878) (from [/cl/676455](/cl/676455), [/cl/754520](/cl/754520), [/cl/765402](/cl/765402), [/cl/766880](/cl/766880), [/cl/767100](/cl/767100))
-
-- `x/tools/go/analysis: add GoMod, ... fields to Module`
-- `go/analysis: expose GoMod etc. to Pass.Module`
-- `go/analysis/checker: suppress TestPassModule on WASI`
-- `go/analysis/unitchecker: add Config.Module`
-- `all: update to x/tools@55fb96f`
-- `gopls/internal/cache: set Pass.Module`
 
 ### TODO: accepted proposal [/issue/74609](/issue/74609) (from [/cl/774620](/cl/774620), [/cl/774621](/cl/774621), [/cl/775621](/cl/775621))
 
@@ -584,20 +551,10 @@ positives from automation.
 - `crypto/tls: remove the tls10server GODEBUG setting`
 - `crypto/tls: remove the x509keypairleaf GODEBUG setting`
 
-### TODO: accepted proposal [/issue/76031](/issue/76031) (from [/cl/738701](/cl/738701))
-
-- `go/ast: add BasicLit.ValueEnd field`
-- `go/parser: use (*Scanner).End instead of scannerhooks`
-
 ### TODO: accepted proposal [/issue/76146](/issue/76146) (from [/cl/717140](/cl/717140))
 
 - `x/crypto/ssh: add AuthCallback to ClientConfig`
 - `ssh: add AuthCallback to ClientConfig`
-
-### TODO: accepted proposal [/issue/76361](/issue/76361) (from [/cl/738821](/cl/738821))
-
-- `x/tools/go/ast/inspector: add (*Cursor).Valid() bool method`
-- `go/ast/inspector: add Cursor.Valid method`
 
 ### TODO: accepted proposal [/issue/76477](/issue/76477) (from [/cl/728922](/cl/728922))
 
@@ -609,13 +566,7 @@ positives from automation.
 - `x/net/html: add NodeType.String() method`
 - `html: add NodeType.String() method`
 
-### TODO: accepted proposal [/issue/77195](/issue/77195) (from [/cl/740280](/cl/740280))
-
-- `x/tools/go/astutil/inspector: add Cursor.ParentEdge{Kind,Index} convenience accessors`
-- `go/ast/inspector: add Cursor.ParentEdge{Kind,Index} methods`
-
 ### TODO: accepted proposal [/issue/77653](/issue/77653) (from [/cl/749980](/cl/749980))
-
 - ``cmd/go: change `go mod init` default go directive back to 1.N``
 - `cmd/go: revert update default go directive in mod or work init`
 
@@ -623,14 +574,3 @@ positives from automation.
 
 - `doc: clarify if simple helper methods on x/sys syscall data structures require a proposal`
 - `README: clarify rules about golang.org/x/sys/windows contributions`
-
-### TODO: accepted proposal [/issue/77986](/issue/77986) (from [/cl/774360](/cl/774360))
-
-- `x/tools/go/analysis/passes/modernize: vars for atomic, embedlit, errorsastype, plusbuild, stringscut, stditerators`
-- `go/analysis/passes/modernize: publish modernizers`
-
-### TODO: accepted proposal [/issue/79139](/issue/79139) (from [/cl/773040](/cl/773040), [/cl/774881](/cl/774881))
-
-- `go/importer: documentation of lookup parameter of ForCompiler can be clarified`
-- `go/importer: un-deprecate importer.ForCompiler`
-- `cmd/api: fix false positive and false negative in isDeprecated`
