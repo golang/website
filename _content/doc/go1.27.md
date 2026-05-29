@@ -57,6 +57,25 @@ as determined by `go` directive in `go.mod` and build tags on the file.
 The `go` command no longer has support for the bzr version control system.
 It will no longer be able to directly fetch modules hosted on bzr servers.
 
+<!-- go.dev/issue/56471 -->
+
+For modules specifying `go 1.27` or later in their `go.mod` file, `go mod tidy`
+now automatically merges duplicate require blocks. This ensures the file
+maintains a clean, standard structure containing at most two require blocks:
+one for direct dependencies and one for indirect dependencies.
+
+Existing comment blocks attached to dependencies are preserved during this
+consolidation. If a comment block is associated with a mixed set of directives
+(containing both direct and indirect dependencies), the comment block is merged
+and attached to the new direct dependency block.
+
+Previously, if a `go.mod` file accumulated multiple disjoint require blocks
+(often due to manual edits, unresolved Git merge conflicts, or legacy upgrades)
+`go mod tidy` would leave the extra blocks intact or inadvertently create new
+ones. The tool now strictly enforces the two-block layout, consolidating
+disparate requirements into their respective blocks and cleaning up the
+structure of the module file automatically.
+
 ### Trace
 
 <!-- go.dev/issue/78921 -->
@@ -130,6 +149,7 @@ scheme specified in FIPS 204.
 #### [`bytes`](/pkg/bytes/)
 
 <!-- 6-stdlib/99-minor/bytes/71151.md -->
+
 The new [`CutLast`](/pkg/bytes#CutLast) function slices a []byte
 around the last occurrence of a separator.
 It can replace and simplify some common uses of LastIndex.
@@ -137,12 +157,14 @@ It can replace and simplify some common uses of LastIndex.
 #### [`crypto`](/pkg/crypto/)
 
 <!-- 6-stdlib/99-minor/crypto/77626.md -->
+
 The new [`MLDSAMu`](/pkg/crypto#MLDSAMu) [`Hash`](/pkg/crypto#Hash) value is meant to be used as a signaling mechanism for
 External μ ML-DSA signing.
 
 #### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
 <!-- 6-stdlib/99-minor/crypto/ecdsa/hashlen.md -->
+
 [`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now checks that the length of the hash is correct, if opts is
 not nil.
 
@@ -154,10 +176,12 @@ not nil.
 #### [`crypto/tls`](/pkg/crypto/tls/)
 
 <!-- 6-stdlib/99-minor/crypto/tls/77363.md -->
+
 The new [`QUICConfig.ClientHelloInfoConn`](/pkg/crypto/tls#QUICConfig.ClientHelloInfoConn) field specifies the [`net.Conn`](/pkg/net#Conn) to use
 for the [`ClientHelloInfo.Conn`](/pkg/crypto/tls#ClientHelloInfo.Conn) field during QUIC server handshakes.
 
 <!-- 6-stdlib/99-minor/crypto/tls/78543.md -->
+
 The [`MLKEM1024`](/pkg/crypto/tls#MLKEM1024) key exchange is now supported. It can be enabled by adding it to
 [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences).
 
@@ -165,10 +189,12 @@ The [`MLKEM1024`](/pkg/crypto/tls#MLKEM1024) key exchange is now supported. It c
 <!-- crypto/tls ML-DSA support is documented in doc/next/6-stdlib/70-mldsa.md. -->
 
 <!-- 6-stdlib/99-minor/crypto/tls/79367.md -->
+
 [`Config.Rand`](/pkg/crypto/tls#Config.Rand) is now deprecated.
 For deterministic testing, use [`testing/cryptotest.SetGlobalRandom`](/pkg/testing/cryptotest#SetGlobalRandom).
 
 <!-- 6-stdlib/99-minor/crypto/tls/tlsmlkem.md -->
+
 Post-quantum hybrid key exchanges can now be explicitly enabled in
 [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) even if the `tlsmlkem=0` or `tlssecpmlkem=0` GODEBUG
 options are used. Those options were always meant to only apply to the default
@@ -177,17 +203,20 @@ set used when [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreference
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 <!-- 6-stdlib/99-minor/crypto/x509/75260.md -->
+
 When parsing into [`pkix.Name`](/pkg/pkix#Name) fields, a wider range of
 [`pkix.AttributeTypeAndValue.Value`](/pkg/pkix#AttributeTypeAndValue.Value) types is now supported, and unknown types are
 parsed into [`asn1.RawValue`](/pkg/asn1#RawValue).
 
 <!-- 6-stdlib/99-minor/crypto/x509/76133.md -->
+
 The new [`Certificate.RawSignatureAlgorithm`](/pkg/crypto/x509#Certificate.RawSignatureAlgorithm), [`CertificateRequest.RawSignatureAlgorithm`](/pkg/crypto/x509#CertificateRequest.RawSignatureAlgorithm),
 and [`RevocationList.RawSignatureAlgorithm`](/pkg/crypto/x509#RevocationList.RawSignatureAlgorithm) fields expose the DER-encoded
 AlgorithmIdentifier of the signature algorithm, including when the
 SignatureAlgorithm field is [`UnknownSignatureAlgorithm`](/pkg/crypto/x509#UnknownSignatureAlgorithm).
 
 <!-- 6-stdlib/99-minor/crypto/x509/77865.md -->
+
 [`SystemCertPool`](/pkg/crypto/x509#SystemCertPool) now respects SSL_CERT_FILE and SSL_CERT_DIR on Windows and
 Darwin. When these environment variables are set, roots are loaded from disk and
 instead of using the platform certificate verification APIs, the native Go
@@ -200,6 +229,7 @@ verifier is used. This behavior can be disabled with
 #### [`crypto/x509/pkix`](/pkg/crypto/x509/pkix/)
 
 <!-- 6-stdlib/99-minor/crypto/x509/pkix/33093.md -->
+
 [`RDNSequence.String`](/pkg/crypto/x509/pkix#RDNSequence.String) (and therefore [`Name.String`](/pkg/crypto/x509/pkix#Name.String)) now renders string-typed
 attribute values as strings even when the attribute's OID is unrecognized.
 Previously such values were always hex-encoded in their DER form.
@@ -208,33 +238,39 @@ See [#33093](/issue/33093).
 #### [`database/sql`](/pkg/database/sql/)
 
 <!-- 6-stdlib/99-minor/database/sql/67546.md -->
+
 The new [`ConvertAssign`](/pkg/database/sql#ConvertAssign) function gives database drivers access
 to the type conversions performed by [`Rows.Scan`](/pkg/database/sql#Rows.Scan).
 
 #### [`database/sql/driver`](/pkg/database/sql/driver/)
 
 <!-- 6-stdlib/99-minor/database/sql/driver/67546.md -->
+
 Drivers may implement the new [`RowsColumnScanner`](/pkg/database/sql/driver#RowsColumnScanner) interface
 to scan directly into user-provided destinations.
 
 #### [`go/constant`](/pkg/go/constant/)
 
 <!-- 6-stdlib/99-minor/go/constant/79042.md -->
+
 The new [`StringLen`](/pkg/go/constant#StringLen) function returns the length of a string [`Value`](/pkg/go/constant#Value). For an [`Unknown`](/pkg/go/constant#Unknown) value, the length is 0.
 
 #### [`go/scanner`](/pkg/go/scanner/)
 
 <!-- 6-stdlib/99-minor/go/scanner/74958.md -->
+
 The scanner now allows retrieving the end position of a token via the new [`Scanner.End`](/pkg/go/scanner#Scanner.End) method.
 
 #### [`go/token`](/pkg/go/token/)
 
 <!-- 6-stdlib/99-minor/go/token/76285.md -->
+
 [`File`](/pkg/go/token#File) now has a String method.
 
 #### [`go/types`](/pkg/go/types/)
 
 <!-- 6-stdlib/99-minor/go/types/69420.md -->
+
 The [`Hasher`](/pkg/go/types#Hasher) type is an implementation of `maphash.Hasher` for [Type]s
 that respects the [`Identical`](/pkg/go/types#Identical) equivalence relation, allowing `Types`
 to be used in hash tables and similar data structures (see `container/hash`).
@@ -254,6 +290,7 @@ now always produces an [Alias](https://pkg.go.dev/go/types#Alias) type node for
 #### [`hash/maphash`](/pkg/hash/maphash/)
 
 <!-- 6-stdlib/99-minor/hash/maphash/70471.md -->
+
 The [`Hasher`](/pkg/hash/maphash#Hasher) interface type defines the contract between values of a
 particular type and future hash-based data structures such as hash
 tables and Bloom filters; see [#70471](/issue/70471).
@@ -262,33 +299,39 @@ tables and Bloom filters; see [#70471](/issue/70471).
 
 <!-- 6-stdlib/99-minor/math/big/76821.md -->
 <!-- go.dev/issue/76821 -->
+
 [`Int`](/pkg/math/big#Int) now has method [`Int.Divide`](/pkg/math/big#Int.Divide) to compute quotient and remainder of two [`Int`](/pkg/math/big#Int) values.
 It supports rounding modes [`Trunc`](/pkg/math/big#Trunc), [`Floor`](/pkg/math/big#Floor), [`Round`](/pkg/math/big#Round) and [`Ceil`](/pkg/math/big#Ceil).
 
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
 
 <!-- 6-stdlib/99-minor/math/rand/v2/77853.md -->
+
 add the generic method [`*Rand`](/pkg/math/rand/v2#Rand).N, matching the behavior of the top-level N function.
 
 #### [`net`](/pkg/net/)
 
 <!-- 6-stdlib/99-minor/net/78137.md -->
+
 [`UnixConn`](/pkg/net#UnixConn) read methods now return [`io.EOF`](/pkg/io#EOF) directly instead of wrapping it in [`net.OpError`](/pkg/net#OpError) when the underlying read returns EOF.
 
 #### [`net/http`](/pkg/net/http/)
 
 <!-- 6-stdlib/99-minor/net/http/21753.md -->
+
 [`Transport`](/pkg/net/http#Transport) and [`Server`](/pkg/net/http#Server) support TLS ALPN protocol negotiation on
 user-provided [`net.Conn`](/pkg/net#Conn) connections which implement a
 `ConnectionState() tls.ConnectionState` method.
 
 <!-- 6-stdlib/99-minor/net/http/75500.md -->
+
 HTTP/2 server now accepts client priority signals, as defined in RFC 9218,
 allowing it to prioritize serving HTTP/2 streams with higher priority. If the
 old behavior is preferred, where streams are served in a round-robin manner
 regardless of priority, [`Server.DisableClientPriority`](/pkg/net/http#Server.DisableClientPriority) can be set to `true`.
 
 <!-- 6-stdlib/99-minor/net/http/77370.md -->
+
 HTTP/1 [`Response.Body`](/pkg/net/http#Response.Body) now automatically drains any unread content upon being
 closed, up to a conservative limit, to allow better connection reuse. For most
 programs, this change should be a no-op, or result in a performance improvement.
@@ -305,18 +348,21 @@ likely be beneficial.
 #### [`net/http/httptest`](/pkg/net/http/httptest/)
 
 <!-- 6-stdlib/99-minor/net/http/httptest/76608.md -->
+
 [`NewTestServer`](/pkg/net/http/httptest#NewTestServer) creates a [`Server`](/pkg/net/http/httptest#Server) configured to use an in-memory
 fake network suitable for use with the [`testing/synctest`](/pkg/testing/synctest) package.
 
 #### [`net/url`](/pkg/net/url/)
 
 <!-- 6-stdlib/99-minor/net/url/73450.md -->
+
 The new [`URL.Clone`](/pkg/net/url#URL.Clone) method creates a deep copy of a URL.
 The new [`Values.Clone`](/pkg/net/url#Values.Clone) method creates a deep copy of Values.
 
 #### [`strings`](/pkg/strings/)
 
 <!-- 6-stdlib/99-minor/strings/71151.md -->
+
 The new [`CutLast`](/pkg/strings#CutLast) function slices a string
 around the last occurrence of a separator.
 It can replace and simplify some common uses of LastIndex.
@@ -324,11 +370,13 @@ It can replace and simplify some common uses of LastIndex.
 #### [`testing/synctest`](/pkg/testing/synctest/)
 
 <!-- 6-stdlib/99-minor/testing/synctest/77169.md -->
+
 The new [`Sleep`](/pkg/testing/synctest#Sleep) helper function combines [`time.Sleep`](/pkg/time#Sleep) and [`testing/synctest.Wait`](/pkg/testing/synctest#Wait).
 
 #### [`unicode`](/pkg/unicode/)
 
 <!-- 6-stdlib/99-minor/unicode/77266.md -->
+
 The unicode package and associated support throughout the system has been upgraded from Unicode 15 to Unicode 17.
 See the [Unicode 16.0.0](https://www.unicode.org/versions/Unicode16.0.0/) and
 [Unicode 17.0.0](https://www.unicode.org/versions/Unicode17.0.0/)
@@ -344,12 +392,15 @@ release notes for information about the changes.
 ### Darwin {#darwin}
 
 <!-- go.dev/issue/75836 -->
+
 As [announced](go1.26#darwin) in the Go 1.26 release notes,
 Go 1.27 requires macOS 13 Ventura or later;
 support for previous versions has been discontinued.
 
 ### Linux {#linux}
+
 <!-- go.dev/issue/76244 -->
+
 On ppc64, the ABI has been migrated to ELFv2. This change
 has no effect for those building and running pure Go
 binaries.
@@ -359,123 +410,152 @@ supported. Using these features requires an ELFv2 compatible
 runtime (libc, kernel, and all linked and loaded libraries).
 
 ## TODO
+
 Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
 
 ### TODO: CL 734540 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/734540](/cl/734540))
+
 - `all: switch linux-ppc64 target to ELFv2 ABI`
 
 ### TODO: CL 751260 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/751260](/cl/751260))
+
 - `cmd/link: add -macos and -macsdk flags to set LC_BUILD_VERSION`
 
 ### TODO: CL 774621 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/774621](/cl/774621))
+
 - `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
 
 ### TODO: accepted proposal [/issue/17747](/issue/17747) (from [/cl/730480](/cl/730480), [/cl/783961](/cl/783961))
+
 - `cmd/vet: check for missing Err calls for bufio.Scanner [done] and sql.Rows [done]`
 - `go/analysis/passes/scannererr: report failure to check bufio.Scanner.Err`
 - `go/analysis/passes/sqlrowserr: report missing sql.Rows.Err calls`
 
 ### TODO: accepted proposal [/issue/26715](/issue/26715) (from [/cl/445116](/cl/445116))
+
 - `cmd/doc: add example support`
 - `cmd/go: add example support to go doc output`
 
 ### TODO: accepted proposal [/issue/32958](/issue/32958) (from [/cl/733040](/cl/733040))
+
 - `x/crypto/ssh: add NewControlClientConn`
 - `ssh: add openssh controlmaster socket support`
 
 ### TODO: accepted proposal [/issue/35487](/issue/35487) (from [/cl/780780](/cl/780780), [/cl/780900](/cl/780900))
+
 - `x/tools/go/analysis/vet: export cmd/vet and cmd/fix's []*Analyzer suites`
 - `go/analysis/suite/{fix,vet}: publish analyzer suites`
 - `cmd/{vet,fix}: use new constants from /x/tools/go/analysis/suite`
 
 ### TODO: accepted proposal [/issue/41184](/issue/41184) (from [/cl/773822](/cl/773822))
+
 - `cmd/go: continue conversion to bug-resistant //go:build constraints`
 - `cmd/dist: use go/build/constraint to parse build constraints`
 
 ### TODO: accepted proposal [/issue/44143](/issue/44143) (from [/cl/752620](/cl/752620))
+
 - `all: document uses of context.Background by APIs`
 - `log/slog: document context.Background use in non-Context methods`
 
 ### TODO: accepted proposal [/issue/50447](/issue/50447) (from [/cl/783322](/cl/783322), [/cl/783440](/cl/783440))
+
 - `x/exp/typeparams: a new module with a transitional API for tools`
 - `typeparams: consider String methods optional`
 - `typeparams: simplify now that minimum required Go is 1.25.0`
 
 ### TODO: accepted proposal [/issue/50603](/issue/50603) (from [/cl/751920](/cl/751920))
+
 - ``cmd/go: stamp the pseudo-version in builds generated by `go build` ``
 - `extension/src/language: update developer version detection logic`
 
 ### TODO: accepted proposal [/issue/60641](/issue/60641) (from [/cl/754400](/cl/754400))
+
 - `runtime: enforce standard descriptors are open on initialization`
 - `runtime: std FDs are always opened, not only when AT_SECURE is set`
 
 ### TODO: accepted proposal [/issue/61515](/issue/61515) (from [/cl/744881](/cl/744881))
+
 - `testing: add testing.B.Loop for iteration`
 - `log/slog: use B.Loop to simplify the code`
 
 ### TODO: accepted proposal [/issue/61902](/issue/61902) (from [/cl/742801](/cl/742801))
+
 - `regexp: add iterator forms of matching methods`
 - `regexp: reimplement API using iterators, revise doc comments`
 
 ### TODO: accepted proposal [/issue/62047](/issue/62047) (from [/cl/743341](/cl/743341))
+
 - `cmd: drop support for GOROOT_FINAL`
 - `internal/relui: leave out GOROOT_FINAL when building distpacks`
 
 ### TODO: accepted proposal [/issue/62121](/issue/62121) (from [/cl/753741](/cl/753741))
+
 - `reflect: add TypeAssert`
 - `reflect: document corner cases of TypeAssert`
 
 ### TODO: accepted proposal [/issue/62728](/issue/62728) (from [/cl/601535](/cl/601535), [/cl/628615](/cl/628615), [/cl/751940](/cl/751940))
+
 - `testing: annotate output text type`
 - `testing: annotate output text type`
 - `cmd/internal/test2json: generate and validate test artifacts`
 - `testing: escapes framing markers`
 
 ### TODO: accepted proposal [/issue/63131](/issue/63131) (from [/cl/746380](/cl/746380))
+
 - `cmd/compile: create GOARCH=wasm32`
 - `cmd/compile: use HasPointers in memcombine to match write barrier check`
 
 ### TODO: accepted proposal [/issue/63696](/issue/63696) (from [/cl/747380](/cl/747380))
+
 - `cmd/doc: support 'go doc package@version' syntax`
 - `cmd/go/internal/doc: support @version suffix on first argument`
 
 ### TODO: accepted proposal [/issue/63741](/issue/63741) (from [/cl/723102](/cl/723102))
+
 - `doc/godebug: allow carve out for GODEBUGs introduced in security releases`
 - `doc: document GODEBUG carve out for security releases`
 
 ### TODO: accepted proposal [/issue/67001](/issue/67001) (from [/cl/746602](/cl/746602))
+
 - `all: require Linux 3.2 kernel for Go 1.24`
 - `Linux: update requirements to kernel 3.2 or later`
 
 ### TODO: accepted proposal [/issue/67817](/issue/67817) (from [/cl/751640](/cl/751640))
+
 - `x/net/http2: deprecate WriteScheduler`
 - `http2: deprecate write schedulers`
 
 ### TODO: accepted proposal [/issue/69985](/issue/69985) (from [/cl/777220](/cl/777220))
+
 - `crypto/tls: add X25519MLKEM768 and use by default; remove x25519Kyber768Draft00`
 - `crypto/tls: let Config.CurvePreferences override GODEBUG options`
 
 ### TODO: accepted proposal [/issue/70872](/issue/70872) (from [/cl/755580](/cl/755580))
+
 - `x/tools/cmd/auth: tag and delete`
 - `cmd/auth: tag and delete deprecated auth module`
 
 ### TODO: accepted proposal [/issue/71206](/issue/71206) (from [/cl/777220](/cl/777220))
+
 - `crypto/tls: add support for NIST curve based ML-KEM hybrids`
 - `crypto/tls: let Config.CurvePreferences override GODEBUG options`
 
 ### TODO: accepted proposal [/issue/71497](/issue/71497) (from [/cl/773962](/cl/773962), [/cl/775180](/cl/775180), [/cl/779302](/cl/779302))
+
 - `encoding/json/v2: new API for encoding/json`
 - `internal/buildcfg: enable JSONv2 as baseline`
 - `encoding/json: clarify that v1 Marshal calls MarshalerTo methods`
 - `encoding/json/internal/jsontest: rename testdata to _embed`
 
 ### TODO: accepted proposal [/issue/71867](/issue/71867) (from [/cl/756220](/cl/756220))
+
 - `cmd/go, cmd/distpack: build and run tools that are not necessary for builds as needed and don't include in binary distribution`
 - `cmd/go: specify full path to go command when running go tool covdata`
 
 ### TODO: accepted proposal [/issue/73878](/issue/73878) (from [/cl/676455](/cl/676455), [/cl/754520](/cl/754520), [/cl/765402](/cl/765402), [/cl/766880](/cl/766880), [/cl/767100](/cl/767100))
+
 - `x/tools/go/analysis: add GoMod, ... fields to Module`
 - `go/analysis: expose GoMod etc. to Pass.Module`
 - `go/analysis/checker: suppress TestPassModule on WASI`
@@ -484,16 +564,19 @@ positives from automation.
 - `gopls/internal/cache: set Pass.Module`
 
 ### TODO: accepted proposal [/issue/74609](/issue/74609) (from [/cl/774620](/cl/774620), [/cl/774621](/cl/774621), [/cl/775621](/cl/775621))
+
 - `runtime/pprof,runtime: new goroutine leak profile`
 - `internal/buildcfg: enable goroutineleakprofile GOEXPERIMENT by default`
 - `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
 - `internal/goexperiment: actually delete goroutineleakprofile experiment`
 
 ### TODO: accepted proposal [/issue/75154](/issue/75154) (from [/cl/747160](/cl/747160))
+
 - `crypto/sha3: make the zero value of SHA3 useable`
 - `crypto/sha3: ensure unwrapped *sha3.Digest are usable`
 
 ### TODO: accepted proposal [/issue/75316](/issue/75316) (from [/cl/777380](/cl/777380), [/cl/777381](/cl/777381), [/cl/777382](/cl/777382), [/cl/777383](/cl/777383), [/cl/777384](/cl/777384))
+
 - `crypto: remove in Go 1.27 GODEBUGs introduced in Go 1.23 and earlier`
 - `crypto/tls: remove the tlsunsafeekm GODEBUG setting`
 - `crypto/tls: remove tlsrsakex GODEBUG setting`
@@ -502,42 +585,52 @@ positives from automation.
 - `crypto/tls: remove the x509keypairleaf GODEBUG setting`
 
 ### TODO: accepted proposal [/issue/76031](/issue/76031) (from [/cl/738701](/cl/738701))
+
 - `go/ast: add BasicLit.ValueEnd field`
 - `go/parser: use (*Scanner).End instead of scannerhooks`
 
 ### TODO: accepted proposal [/issue/76146](/issue/76146) (from [/cl/717140](/cl/717140))
+
 - `x/crypto/ssh: add AuthCallback to ClientConfig`
 - `ssh: add AuthCallback to ClientConfig`
 
 ### TODO: accepted proposal [/issue/76361](/issue/76361) (from [/cl/738821](/cl/738821))
+
 - `x/tools/go/ast/inspector: add (*Cursor).Valid() bool method`
 - `go/ast/inspector: add Cursor.Valid method`
 
 ### TODO: accepted proposal [/issue/76477](/issue/76477) (from [/cl/728922](/cl/728922))
+
 - `secret,crypto/subtle: make all "bubbles" inherited across goroutines`
 - `runtime/secret: implement goroutine inheriting secret state`
 
 ### TODO: accepted proposal [/issue/77006](/issue/77006) (from [/cl/738100](/cl/738100))
+
 - `x/net/html: add NodeType.String() method`
 - `html: add NodeType.String() method`
 
 ### TODO: accepted proposal [/issue/77195](/issue/77195) (from [/cl/740280](/cl/740280))
+
 - `x/tools/go/astutil/inspector: add Cursor.ParentEdge{Kind,Index} convenience accessors`
 - `go/ast/inspector: add Cursor.ParentEdge{Kind,Index} methods`
 
 ### TODO: accepted proposal [/issue/77653](/issue/77653) (from [/cl/749980](/cl/749980))
+
 - ``cmd/go: change `go mod init` default go directive back to 1.N``
 - `cmd/go: revert update default go directive in mod or work init`
 
 ### TODO: accepted proposal [/issue/77887](/issue/77887) (from [/cl/769300](/cl/769300))
+
 - `doc: clarify if simple helper methods on x/sys syscall data structures require a proposal`
 - `README: clarify rules about golang.org/x/sys/windows contributions`
 
 ### TODO: accepted proposal [/issue/77986](/issue/77986) (from [/cl/774360](/cl/774360))
+
 - `x/tools/go/analysis/passes/modernize: vars for atomic, embedlit, errorsastype, plusbuild, stringscut, stditerators`
 - `go/analysis/passes/modernize: publish modernizers`
 
 ### TODO: accepted proposal [/issue/79139](/issue/79139) (from [/cl/773040](/cl/773040), [/cl/774881](/cl/774881))
+
 - `go/importer: documentation of lookup parameter of ForCompiler can be clarified`
 - `go/importer: un-deprecate importer.ForCompiler`
 - `cmd/api: fix false positive and false negative in isDeprecated`
