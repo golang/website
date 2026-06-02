@@ -426,6 +426,13 @@ On ppc64, the ABI has been migrated to ELFv2. This change
 has no effect for those building and running pure Go
 binaries.
 
+On ppc64, for maximum backward compatibility, existing users
+should explicitly disable cgo, external linking, and use the
+default build mode. That is, set `CGO_ENABLED=0` in the
+environment, and pass the option `-ldflags="-linkmode=internal"`
+to go build and similar. Linux ELFv2 support was added in
+3.13, RHEL7 backported this support to its 3.10 kernel.
+
 On ppc64, external linking, cgo, and PIE binaries are now
 supported. Using these features requires an ELFv2 compatible
 runtime (libc, kernel, and all linked and loaded libraries).
@@ -435,10 +442,6 @@ runtime (libc, kernel, and all linked and loaded libraries).
 Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
-
-### TODO: CL 734540 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/734540](/cl/734540))
-
-- `all: switch linux-ppc64 target to ELFv2 ABI`
 
 ### TODO: CL 751260 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/751260](/cl/751260))
 
