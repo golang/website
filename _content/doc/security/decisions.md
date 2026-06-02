@@ -34,6 +34,14 @@ Not covered:
 
 ## Non-Vulnerabilities
 
+### Attacker-controlled environment
+
+If an attack relies on the attacker having control over the environment
+a program runs in, it is not a vulnerability.
+
+This includes, but is not restricted to, an attacker with the ability to
+add programs to `$PATH` or set arbitrary environment variables.
+
 ### image, x/image: Large images
 
 Parsing a large image can allocate a large amount of memory.
