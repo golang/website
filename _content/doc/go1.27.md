@@ -16,7 +16,7 @@ Go 1.27 is expected to be released in August 2026.**
 
 <!-- go.dev/issue/9859 -->
 
-A key in a [struct literal](/ref/spec#Composite_literals) may be any
+A key in a [struct literal](/ref/spec#Composite_literals) may now be any
 valid [field selector](/issue/9859) for the struct type, not just a
 (top-level) field name of the struct.
 
@@ -29,7 +29,7 @@ This widely anticipated change allows adding generic functions within
 the namespace of a particular data type where before one had to declare
 such functions with a scope of the entire package.
 Note that methods of [interfaces](/ref/spec#Interface_types) may not declare
-type parameters nor can interface types be implemented by generic methods.
+type parameters nor can interface methods be implemented by generic methods.
 
 <!-- go.dev/issue/77245 -->
 
@@ -60,6 +60,18 @@ It will no longer be able to directly fetch modules hosted on `bzr` servers.
 The `go fix` command contains several new modernizers (`atomictypes`, `embedlit`, `slicesbackward`, and `unsafefuncs`).
 The existing `fmtappendf` analyzer was removed due to stylistic concerns. <!-- #77581 -->
 The existing `waitgroup` analyzer was renamed to `waitgroupgo` to avoid ambiguity.
+
+<!-- go.dev/issue/79422 -->
+
+Starting with the Go 1.27 tool chain, the `go` command now recognizes a `GODEBUG` setting
+for which support was removed (such as `asynctimerchan`, see below) if it appears in `go.mod`
+files (`go debug` entries) and `.go` source files (`//go:debug` comments).
+It accepts these settings if they are set to the final default value established before
+the setting was removed.
+If they are set to an old value, the `go` command will fail.
+This change is in the spirit of the [Go 1 compatibility guarantee](/doc/go1compat)
+and allows existing programs that set supported `GODEBUG` settings to continue to
+build and run without changes even when the respective setting support has been removed.
 
 <!-- go.dev/issue/56471 -->
 
@@ -101,9 +113,9 @@ shouldn't be made available in tracebacks.
 
 <!-- CL 781580 -->
 
-The `asynctimerchan` GODEBUG setting (added in [Go 1.23](/doc/godebug#go-123))
+The `asynctimerchan` `GODEBUG` setting (added in [Go 1.23](/doc/godebug#go-123))
 has been removed permanently. Channels created by package [time](https://pkg.go.dev/time)
-are now always unbuffered (synchronous), irrespective of GODEBUG settings.
+are now always unbuffered (synchronous), irrespective of `GODEBUG` settings.
 
 ### Faster memory allocation
 
@@ -200,7 +212,7 @@ For deterministic testing, use [`testing/cryptotest.SetGlobalRandom`](/pkg/testi
 <!-- 6-stdlib/99-minor/crypto/tls/tlsmlkem.md -->
 
 Post-quantum hybrid key exchanges can now be explicitly enabled in
-[`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) even if the `tlsmlkem=0` or `tlssecpmlkem=0` GODEBUG
+[`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) even if the `tlsmlkem=0` or `tlssecpmlkem=0` `GODEBUG`
 options are used. Those options were always meant to only apply to the default
 set used when [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
 
@@ -283,10 +295,10 @@ to be used in hash tables and similar data structures (see `container/hash`).
 <!-- 6-stdlib/99-minor/go/types/76472.md -->
 <!-- CL 736441 -->
 
-The `gotypesalias` GODEBUG setting (added in [Go 1.22](/doc/godebug#go-122))
+The `gotypesalias` `GODEBUG` setting (added in [Go 1.22](/doc/godebug#go-122))
 has been removed permanently and the package [go/types](https://pkg.go.dev/go/types)
 now always produces an [Alias](https://pkg.go.dev/go/types#Alias) type node for
-[alias declarations](/ref/spec#Alias_declarations) irrespective of GODEBUG settings.
+[alias declarations](/ref/spec#Alias_declarations) irrespective of `GODEBUG` settings.
 
 <!-- 6-stdlib/99-minor/go/types/79287.md -->
 <!-- nothing to see here but some String methods -->
