@@ -375,6 +375,11 @@ fake network suitable for use with the [`testing/synctest`](/pkg/testing/synctes
 The new [`URL.Clone`](/pkg/net/url#URL.Clone) method creates a deep copy of a URL.
 The new [`Values.Clone`](/pkg/net/url#Values.Clone) method creates a deep copy of Values.
 
+#### [`runtime/secret`](/pkg/runtime/secret/)
+
+Goroutines that are created while in [`secret mode`](/pkg/runtime/secret#Do)
+will now themselves execute in secret mode.
+
 #### [`strings`](/pkg/strings/)
 
 <!-- 6-stdlib/99-minor/strings/71151.md -->
@@ -547,11 +552,6 @@ positives from automation.
 
 - `x/crypto/ssh: add AuthCallback to ClientConfig`
 - `ssh: add AuthCallback to ClientConfig`
-
-### TODO: accepted proposal [/issue/76477](/issue/76477) (from [/cl/728922](/cl/728922))
-
-- `secret,crypto/subtle: make all "bubbles" inherited across goroutines`
-- `runtime/secret: implement goroutine inheriting secret state`
 
 ### TODO: accepted proposal [/issue/77006](/issue/77006) (from [/cl/738100](/cl/738100))
 
