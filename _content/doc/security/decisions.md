@@ -32,6 +32,30 @@ Not covered:
 - The `go test` command runs tests. Running `go test` on attacker-controlled
   tests is not within our threat model.
 
+### Panics
+
+A panic when processing attacker-controlled input may be a vulnerability.
+
+A panic in a server expected to handle attacker-controlled requests,
+such as a `net/http` server, is usually a PRIVATE-track vulnerability.
+
+A panic in a client, such as a `net/http` client, is usually a PUBLIC-track
+vulnerability.
+
+A panic in a parse function in a package which handles plausibly
+malicious input, such as `archive/zip` or `image/png`,
+is usually a PUBLIC-track vulnerablity.
+
+An input which causes a panic due to its natural size,
+such as a very large image, is usually not classified as a vulnerability.
+
+Invalid inputs to functions which are not clearly designed to parse
+potentially malicious data are not in our threat model and
+generally out of scope as security bugs. For example, image *parsers*
+are expected to defend against invalid inputs, but a panic in
+an image *encoder* might be a bug but would not be handled
+as a vulnerability.
+
 ## Non-Vulnerabilities
 
 ### Attacker-controlled environment
