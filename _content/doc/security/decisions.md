@@ -33,3 +33,20 @@ Not covered:
   tests is not within our threat model.
 
 ## Non-Vulnerabilities
+
+### image, x/image: Large images
+
+Parsing a large image can allocate a large amount of memory.
+For example, a 65536x65536 32-bit color image requires 16MiB
+to store uncompressed.
+
+Many image compression formats can reduce a large, simple image
+to a very small file size. Decoding the small file may allocate
+a large amount of memory.
+
+Users parsing untrusted images should verify the image size prior
+to parsing, using a function such as
+[image.DecodeConfig](https://pkg.go.dev/image#DecodeConfig).
+
+We do not consider it to be a vulnerability for an image parsing
+function to decode a large, well-compressed image.
