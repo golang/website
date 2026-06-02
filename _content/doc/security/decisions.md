@@ -50,3 +50,35 @@ to parsing, using a function such as
 
 We do not consider it to be a vulnerability for an image parsing
 function to decode a large, well-compressed image.
+
+### net/http: Redirects
+
+The `net/http` package's HTTP client handles redirects.
+It implements security-relevant behavior in redirect handling.
+For example, it strips the "Authorization" header when following
+a redirect to a domain that is not a subdomain or exact match
+for the initial request's domain.
+
+Header stripping is a defense-in-depth measure,
+avoiding the case where a misconfigured or compromised server
+inadvertently forwards a client request containing sensitive headers
+to an untrusted destination.
+Failure to strip headers on redirect does not, by itself, permit
+an attacker to acquire credentials passed in header.
+However, it may be combined with other vulnerabilities
+(for example, a server with an open redirect vulnerability)
+to do so.
+
+Changing the HTTP client's behavior runs a high risk of breaking
+existing users who depend on the current behavior.
+For example, the client's same origin policy currently permits subdomains
+(a redirect from example.com to www.example.com will preserve headers),
+while the WHATWG Fetch standard does not.
+Aligning the client with the standard may be worthwhile,
+but doing so in a security release is more likely to cause
+pain to existing users than it is to address real vulnerabilities.
+
+Since redirect sanitization is a defense-in-depth measure,
+and making changes to it is risky,
+we consider all aspects of the HTTP client redirects
+to be out of scope for the security bug process.
