@@ -461,11 +461,6 @@ positives from automation.
 - `runtime: enforce standard descriptors are open on initialization`
 - `runtime: std FDs are always opened, not only when AT_SECURE is set`
 
-### TODO: accepted proposal [/issue/61515](/issue/61515) (from [/cl/744881](/cl/744881))
-
-- `testing: add testing.B.Loop for iteration`
-- `log/slog: use B.Loop to simplify the code`
-
 ### TODO: accepted proposal [/issue/62047](/issue/62047) (from [/cl/743341](/cl/743341))
 
 - `cmd: drop support for GOROOT_FINAL`
@@ -487,11 +482,6 @@ positives from automation.
 
 - `doc/godebug: allow carve out for GODEBUGs introduced in security releases`
 - `doc: document GODEBUG carve out for security releases`
-
-### TODO: accepted proposal [/issue/67001](/issue/67001) (from [/cl/746602](/cl/746602))
-
-- `all: require Linux 3.2 kernel for Go 1.24`
-- `Linux: update requirements to kernel 3.2 or later`
 
 ### TODO: accepted proposal [/issue/67817](/issue/67817) (from [/cl/751640](/cl/751640))
 
@@ -559,8 +549,3 @@ positives from automation.
 ### TODO: accepted proposal [/issue/77653](/issue/77653) (from [/cl/749980](/cl/749980))
 - ``cmd/go: change `go mod init` default go directive back to 1.N``
 - `cmd/go: revert update default go directive in mod or work init`
-
-### TODO: accepted proposal [/issue/77887](/issue/77887) (from [/cl/769300](/cl/769300))
-
-- `doc: clarify if simple helper methods on x/sys syscall data structures require a proposal`
-- `README: clarify rules about golang.org/x/sys/windows contributions`
