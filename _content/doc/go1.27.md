@@ -471,22 +471,12 @@ positives from automation.
 - `cmd: drop support for GOROOT_FINAL`
 - `internal/relui: leave out GOROOT_FINAL when building distpacks`
 
-### TODO: accepted proposal [/issue/62121](/issue/62121) (from [/cl/753741](/cl/753741))
-
-- `reflect: add TypeAssert`
-- `reflect: document corner cases of TypeAssert`
-
 ### TODO: accepted proposal [/issue/62728](/issue/62728) (from [/cl/601535](/cl/601535), [/cl/628615](/cl/628615), [/cl/751940](/cl/751940))
 
 - `testing: annotate output text type`
 - `testing: annotate output text type`
 - `cmd/internal/test2json: generate and validate test artifacts`
 - `testing: escapes framing markers`
-
-### TODO: accepted proposal [/issue/63131](/issue/63131) (from [/cl/746380](/cl/746380))
-
-- `cmd/compile: create GOARCH=wasm32`
-- `cmd/compile: use HasPointers in memcombine to match write barrier check`
 
 ### TODO: accepted proposal [/issue/63696](/issue/63696) (from [/cl/747380](/cl/747380))
 
