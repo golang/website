@@ -456,11 +456,6 @@ positives from automation.
 - `cmd/doc: add example support`
 - `cmd/go: add example support to go doc output`
 
-### TODO: accepted proposal [/issue/32958](/issue/32958) (from [/cl/733040](/cl/733040))
-
-- `x/crypto/ssh: add NewControlClientConn`
-- `ssh: add openssh controlmaster socket support`
-
 ### TODO: accepted proposal [/issue/41184](/issue/41184) (from [/cl/773822](/cl/773822))
 
 - `cmd/go: continue conversion to bug-resistant //go:build constraints`
@@ -502,11 +497,6 @@ positives from automation.
 
 - `doc/godebug: allow carve out for GODEBUGs introduced in security releases`
 - `doc: document GODEBUG carve out for security releases`
-
-### TODO: accepted proposal [/issue/67817](/issue/67817) (from [/cl/751640](/cl/751640))
-
-- `x/net/http2: deprecate WriteScheduler`
-- `http2: deprecate write schedulers`
 
 ### TODO: accepted proposal [/issue/69985](/issue/69985) (from [/cl/777220](/cl/777220))
 
@@ -550,16 +540,6 @@ positives from automation.
 - `crypto/tls: remove tls3des GODEBUG setting`
 - `crypto/tls: remove the tls10server GODEBUG setting`
 - `crypto/tls: remove the x509keypairleaf GODEBUG setting`
-
-### TODO: accepted proposal [/issue/76146](/issue/76146) (from [/cl/717140](/cl/717140))
-
-- `x/crypto/ssh: add AuthCallback to ClientConfig`
-- `ssh: add AuthCallback to ClientConfig`
-
-### TODO: accepted proposal [/issue/77006](/issue/77006) (from [/cl/738100](/cl/738100))
-
-- `x/net/html: add NodeType.String() method`
-- `html: add NodeType.String() method`
 
 ### TODO: accepted proposal [/issue/77653](/issue/77653) (from [/cl/749980](/cl/749980))
 - ``cmd/go: change `go mod init` default go directive back to 1.N``
