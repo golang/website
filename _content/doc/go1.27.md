@@ -492,24 +492,26 @@ As [announced](go1.26#darwin) in the Go 1.26 release notes,
 Go 1.27 requires macOS 13 Ventura or later;
 support for previous versions has been discontinued.
 
-### Linux {#linux}
+### PowerPC {#ppc64}
 
 <!-- go.dev/issue/76244 -->
 
-On ppc64, the ABI has been migrated to ELFv2. This change
-has no effect for those building and running pure Go
-binaries.
+On the big-endian 64-bit PowerPC port on Linux (`GOOS=linux` `GOARCH=ppc64`),
+the Go toolchain now generates binaries that use the ELFv2
+system ABI.
+ELFv2 support requires Linux kernel 3.13 or later.
+RHEL7 backported this support to its 3.10 kernel.
 
-On ppc64, for maximum backward compatibility, existing users
-should explicitly disable cgo, external linking, and use the
-default build mode. That is, set `CGO_ENABLED=0` in the
-environment, and pass the option `-ldflags="-linkmode=internal"`
-to go build and similar. Linux ELFv2 support was added in
-3.13, RHEL7 backported this support to its 3.10 kernel.
+Cgo, position-independent executables (PIE), and external linking
+are now supported.
+Using these features requires an ELFv2 compatible runtime
+(libc and all linked and loaded libraries).
 
-On ppc64, external linking, cgo, and PIE binaries are now
-supported. Using these features requires an ELFv2 compatible
-runtime (libc, kernel, and all linked and loaded libraries).
+For programs that do not use cgo, the Go toolchain still
+generates static binaries with internal linking by default.
+For programs that have cgo options, if a static, pure-Go binary
+is needed, one can set the environment variable `CGO_ENABLED=0`
+when running `go build`.
 
 ## TODO
 
