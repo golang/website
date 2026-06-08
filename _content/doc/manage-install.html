@@ -76,6 +76,14 @@ Go stores downloaded dependencies in the directory returned by <code>go env GOMO
 These can be removed with <code>go clean -modcache</code>.
 </p>
 
+<p>
+Go stores binaries installed with <code>go install</code> in the Go bin directory,
+as returned by <code>go env GOBIN</code> (which defaults to <code>$HOME/go/bin</code>).
+These can be removed by deleting that directory. If you added this directory to your
+<code>PATH</code> environment variable, you should also remove it.
+</p>
+
+
 <div id="os-install-tabs" class="TabSection js-tabSection">
   <div id="os-install-tablist" class="TabSection-tabList" role="tablist">
     <button
@@ -128,7 +136,7 @@ These can be removed with <code>go clean -modcache</code>.
       </li>
       <li>If you manually added the Go bin directory (typically <code>$HOME/go/bin</code>) to your shell profile, for example by adding <code>export PATH="$PATH:$(go env GOPATH)/bin"</code>, remove that entry.</li>
       <li>
-        Restart any open Terminal sessions for the changes to take effect.
+        Restart any open terminal sessions for the changes to take effect.
         <p><!-- for consistent spacing --></p>
       </li>
     </ol>
@@ -150,7 +158,7 @@ These can be removed with <code>go clean -modcache</code>.
       </li>
       <li>If you manually added the Go bin directory (typically <code>$HOME/go/bin</code>) to your shell profile, for example by adding <code>export PATH="$PATH:$(go env GOPATH)/bin"</code>, remove that entry.</li>
       <li>
-        Restart any open Terminal sessions for the changes to take effect.
+        Restart any open terminal sessions for the changes to take effect.
         <p><!-- for consistent spacing --></p>
       </li>
     </ol>
