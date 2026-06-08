@@ -192,6 +192,25 @@ directive against the directory of the file containing the directive,
 matching [`go/scanner`](/pkg/go/scanner). Absolute filenames are unaffected.
 See [#70478](/issue/70478).
 
+<!-- go.dev/issue/60324, CL 770200 -->
+
+The compiler now generates simpler names for function literals
+(closures).
+Previously, when the containing function is inlined, the function
+literal's name can get quite long.
+Now the compiler chooses the same name for the function literal
+regardless of inlining.
+It may also combine multiple instances of the same function literal
+(as its containing function is inlined) to share the same code in
+the compiled binary.
+This change does not affect the functionality of Go code.
+Tests that check symbol names may need update, although it is
+recommended to not depend on the names of function literals.
+For programs that [incorrectly](/pkg/reflect#Value.Pointer) compare
+function code pointer for equality, the issue may be more exposed
+with Go 1.27, as function literals with different captured closure
+data may have equal code pointers in more cases.
+
 ## Linker {#linker}
 
 <!-- CL 751260, go.dev/issue/58722 -->
