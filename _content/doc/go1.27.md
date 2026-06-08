@@ -140,6 +140,16 @@ directive against the directory of the file containing the directive,
 matching [`go/scanner`](/pkg/go/scanner). Absolute filenames are unaffected.
 See [#70478](/issue/70478).
 
+## Linker {#linker}
+
+<!-- CL 751260, go.dev/issue/58722 -->
+
+When targeting macOS, the linker now accepts `-macos` and `-macsdk`
+command-line options, which specify the OS and SDK versions in the
+`LC_BUILD_VERSION` load command.
+By default, it selects the oldest supported macOS version (currently
+[13.0.0](#darwin)) and a recent SDK version (currently 26.2.0).
+
 ## Standard library {#library}
 
 ### uuid
@@ -442,10 +452,6 @@ runtime (libc, kernel, and all linked and loaded libraries).
 Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
-
-### TODO: CL 751260 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/751260](/cl/751260))
-
-- `cmd/link: add -macos and -macsdk flags to set LC_BUILD_VERSION`
 
 ### TODO: CL 774621 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/774621](/cl/774621))
 
