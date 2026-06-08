@@ -165,13 +165,64 @@ By default, it selects the oldest supported macOS version (currently
 
 ## Standard library {#library}
 
-### uuid
+### New encoding/json/v2 and encoding/json/jsontext packages
+
+<!-- go.dev/issue/71497 -->
+
+Two new packages are now available:
+
+  - The [`encoding/json/v2`](/pkg/encoding/json/v2) package is a major
+    revision of [`encoding/json`](/pkg/encoding/json). It provides
+    [`Marshal`](/pkg/encoding/json/v2#Marshal),
+    [`MarshalWrite`](/pkg/encoding/json/v2#MarshalWrite),
+    [`MarshalEncode`](/pkg/encoding/json/v2#MarshalEncode),
+    [`Unmarshal`](/pkg/encoding/json/v2#Unmarshal),
+    [`UnmarshalRead`](/pkg/encoding/json/v2#UnmarshalRead), and
+    [`UnmarshalDecode`](/pkg/encoding/json/v2#UnmarshalDecode),
+    all of which accept variadic [`Options`](/pkg/encoding/json/v2#Options)
+    arguments to configure marshaling and unmarshaling behavior.
+
+  - The [`encoding/json/jsontext`](/pkg/encoding/json/jsontext) package
+    provides lower-level syntactic processing of JSON.
+    The [`Encoder`](/pkg/encoding/json/jsontext#Encoder) and
+    [`Decoder`](/pkg/encoding/json/jsontext#Decoder) types operate on
+    JSON as a sequence of
+    [`Token`](/pkg/encoding/json/jsontext#Token) and
+    [`Value`](/pkg/encoding/json/jsontext#Value),
+    maintaining a state machine to ensure the produced or consumed
+    sequence is valid JSON text.
+
+The v2 package chooses stricter, more interoperable defaults than v1:
+it rejects invalid UTF-8 in JSON strings and rejects duplicate names within
+a JSON object. See the v1 [`encoding/json`](/pkg/encoding/json#hdr-Migrating_to_v2) package
+documentation for the complete set of behavioral differences and
+the options available to adjust them.
+
+The [`encoding/json`](/pkg/encoding/json) package is now backed by the
+v2 implementation. Marshaling and unmarshaling behavior is preserved, but
+the exact text of error messages may differ. The package also gains a number of
+new [`Options`](/pkg/encoding/json#Options) that can configure v2 to operate
+with v1 semantics to avoid requiring a full migration to the new API.
+The v1 API will continue to be supported and users are not required to migrate.
+
+Marshal performance is broadly at parity with the previous implementation,
+while unmarshal performance is significantly faster.
+
+Users who encounter compatibility problems with the new implementation
+may disable it by setting `GOEXPERIMENT=nojsonv2` at build time,
+restoring the original v1 implementation.
+This opt-out is expected to be removed in a future release.
+
+See the [proposal issue](/issue/71497) for background and additional detail.
+If you need to disable the new implementation, [please file an issue](/issue/new).
+
+### New uuid package
 
 <!-- https://go.dev/issue/62026 --->
 
 The new [`uuid`](/pkg/uuid) package generates and parses UUIDs.
 
-### crypto/mldsa
+### New crypto/mldsa package
 
 <!-- https://go.dev/issue/77626, https://go.dev/issue/78888 --->
 
@@ -491,13 +542,6 @@ positives from automation.
 
 - `crypto/tls: add support for NIST curve based ML-KEM hybrids`
 - `crypto/tls: let Config.CurvePreferences override GODEBUG options`
-
-### TODO: accepted proposal [/issue/71497](/issue/71497) (from [/cl/773962](/cl/773962), [/cl/775180](/cl/775180), [/cl/779302](/cl/779302))
-
-- `encoding/json/v2: new API for encoding/json`
-- `internal/buildcfg: enable JSONv2 as baseline`
-- `encoding/json: clarify that v1 Marshal calls MarshalerTo methods`
-- `encoding/json/internal/jsontest: rename testdata to _embed`
 
 ### TODO: accepted proposal [/issue/74609](/issue/74609) (from [/cl/774620](/cl/774620), [/cl/774621](/cl/774621), [/cl/775621](/cl/775621))
 
