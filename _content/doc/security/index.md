@@ -66,6 +66,8 @@ disclosing them to the public. See the
 fixes. Per the [release policy](/doc/devel/release#policy),
 we issue security fixes to the two most recent major releases of Go.
 
+- [Classification decisions about commonly-reported vulnerabilities](/security/decisions)
+
 ## Test unexpected inputs with fuzzing
 
 Go native fuzzing provides a type of automated testing which continuously
