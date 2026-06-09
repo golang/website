@@ -56,6 +56,12 @@ are expected to defend against invalid inputs, but a panic in
 an image *encoder* might be a bug but would not be handled
 as a vulnerability.
 
+### Excessive resource consumption
+
+We generally treat excessive CPU or memory consumption,
+such as a function with a runtime that is O(n²) in terms of its input size,
+as equivalent to a panic.
+
 ## Non-Vulnerabilities
 
 ### Attacker-controlled environment
