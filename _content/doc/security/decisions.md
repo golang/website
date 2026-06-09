@@ -4,7 +4,7 @@ layout: article
 breadcrumb: true
 ---
 
-## Overview
+## Overview {#overview}
 
 This document includes decisions the Go Security team has made about
 various commonly-reported issues. It mostly serves as a reference
@@ -12,9 +12,9 @@ for things we do not consider to be a vulnerability.
 
 This list is not comprehensive.
 
-## Vulnerabilities
+## Vulnerabilities {#vulns}
 
-### Remote Code Execution
+### Remote Code Execution {#rce}
 
 A scenario which permits an attacker to execute code in a situation
 where code execution is not expected is a PRIVATE-track vulnerability.
@@ -32,7 +32,7 @@ Not covered:
 - The `go test` command runs tests. Running `go test` on attacker-controlled
   tests is not within our threat model.
 
-### Panics
+### Panics {#panics}
 
 A panic when processing attacker-controlled input may be a vulnerability.
 
@@ -56,15 +56,15 @@ are expected to defend against invalid inputs, but a panic in
 an image *encoder* might be a bug but would not be handled
 as a vulnerability.
 
-### Excessive resource consumption
+### Excessive resource consumption {#quadratic}
 
 We generally treat excessive CPU or memory consumption,
 such as a function with a runtime that is O(n²) in terms of its input size,
 as equivalent to a panic.
 
-## Non-Vulnerabilities
+## Non-Vulnerabilities {#non-vuln}
 
-### Attacker-controlled environment
+### Attacker-controlled environment {#attacker-control}
 
 If an attack relies on the attacker having control over the environment
 a program runs in, it is not a vulnerability.
@@ -72,7 +72,7 @@ a program runs in, it is not a vulnerability.
 This includes, but is not restricted to, an attacker with the ability to
 add programs to `$PATH` or set arbitrary environment variables.
 
-### image, x/image: Large images
+### image, x/image: Large images {#large-image}
 
 Parsing a large image can allocate a large amount of memory.
 For example, a 65536x65536 32-bit color image requires 16MiB
@@ -89,7 +89,7 @@ to parsing, using a function such as
 We do not consider it to be a vulnerability for an image parsing
 function to decode a large, well-compressed image.
 
-### net/http: Redirects
+### net/http: Redirects {#http-redirect}
 
 The `net/http` package's HTTP client handles redirects.
 It implements security-relevant behavior in redirect handling.
