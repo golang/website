@@ -146,6 +146,38 @@ You may set `GOEXPERIMENT=nosizespecializedmalloc` at build time to disable
 it.
 This opt-out setting is expected to be removed in Go 1.28.
 
+### Goroutine leak profile {#goroutineleak-profiles}
+
+<!-- go.dev/issue/74609 -->
+
+A new profile type that reports leaked goroutines, previously available
+as an experiment in [Go 1.26](/doc/go1.26#goroutineleak-profiles), is now
+generally available.
+The new profile type, named `goroutineleak`, is supported in the
+[`runtime/pprof`](/pkg/runtime/pprof) package.
+It is also available as the [`net/http/pprof`](/pkg/net/http/pprof)
+endpoint `/debug/pprof/goroutineleak`.
+
+A *leaked* goroutine is a goroutine blocked on some concurrency primitive
+(channels, [`sync.Mutex`](/pkg/sync#Mutex), [`sync.Cond`](/pkg/sync#Cond), etc)
+that cannot possibly become unblocked.
+The runtime detects leaked goroutines using the garbage collector: if a
+goroutine G is blocked on concurrency primitive P, and P is unreachable from
+any runnable goroutine or any goroutine that *those* could unblock, then P
+cannot be unblocked, so goroutine G can never wake up.
+While it is impossible to detect permanently blocked goroutines in all cases,
+this approach detects a large class of such leaks.
+
+Because this technique builds on reachability, the runtime may fail to identify
+leaks caused by blocking on concurrency primitives reachable through global
+variables or the local variables of runnable goroutines.
+
+See [Go 1.26 release notes](/doc/go1.26#goroutineleak-profiles) for an example.
+
+Special thanks to Vlad Saioc at Uber for contributing this work.
+
+The `goroutineleakprofile` `GOEXPERIMENT` setting is now deleted.
+
 ## Compiler {#compiler}
 
 The compiler now resolves a relative filename in a `//line` or `/*line*/`
@@ -519,10 +551,6 @@ Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
 
-### TODO: CL 774621 has a RELNOTE comment without a suggested text (from RELNOTE comment in [/cl/774621](/cl/774621))
-
-- `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
-
 ### TODO: accepted proposal [/issue/62728](/issue/62728) (from [/cl/601535](/cl/601535), [/cl/628615](/cl/628615), [/cl/751940](/cl/751940))
 
 - `testing: annotate output text type`
@@ -544,13 +572,6 @@ positives from automation.
 
 - `crypto/tls: add support for NIST curve based ML-KEM hybrids`
 - `crypto/tls: let Config.CurvePreferences override GODEBUG options`
-
-### TODO: accepted proposal [/issue/74609](/issue/74609) (from [/cl/774620](/cl/774620), [/cl/774621](/cl/774621), [/cl/775621](/cl/775621))
-
-- `runtime/pprof,runtime: new goroutine leak profile`
-- `internal/buildcfg: enable goroutineleakprofile GOEXPERIMENT by default`
-- `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
-- `internal/goexperiment: actually delete goroutineleakprofile experiment`
 
 ### TODO: accepted proposal [/issue/75154](/issue/75154) (from [/cl/747160](/cl/747160))
 
