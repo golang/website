@@ -382,64 +382,13 @@ before they can be accepted.
 Sensitive security-related issues (only!) should be reported to <a href="mailto:security@golang.org">security@golang.org</a>.
 </p>
 
-<h2 id="sending_a_change_github">Sending a change via GitHub</h2>
-
-<p>
-First-time contributors that are already familiar with the
-<a href="https://guides.github.com/introduction/flow/">GitHub flow</a>
-are encouraged to use the same process for Go contributions.
-Even though Go
-maintainers use Gerrit for code review, a bot called Gopherbot has been created to sync
-GitHub pull requests to Gerrit.
-</p>
-
-<p>
-Open a GitHub pull request as you normally would.
-Gopherbot will create a corresponding Gerrit change list (a "CL") and post a link to
-it on your GitHub pull request; updates to the pull request will also
-get reflected in the Gerrit CL.
-When somebody comments on the CL, their comment will be also
-posted in your pull request, so you will get a notification.
-</p>
-
-<p>
-Some things to keep in mind:
-</p>
-
-<ul>
-<li>
-You will need a <a href="https://go-review.googlesource.com/login/">Gerrit account</a>
-to respond to your reviewers, including to <a href="#reviews">mark feedback as 'Done'</a>
-if implemented as suggested.
-It is a good idea to familiarize yourself with Gerrit, such as by
-<a href="https://go-review.googlesource.com/q/status:open+-is:wip">skimming the open CLs</a>,
-subscribing to updates on interesting CLs (via the star icon),
-or <a href="/wiki/Gardening#pending-cls">reviewing or giving a +1</a> to other people's CLs.
-</li>
-<li>
-To update the pull request with new code, just push it to the branch; you can either
-add more commits, or rebase and force-push (both styles are accepted).
-</li>
-<li>
-If the request is accepted, all commits will be squashed, and the final
-commit description will be composed by concatenating the pull request's
-title and description.
-The individual commits' descriptions will be discarded.
-See <a href="#commit_messages">Writing good commit messages</a> for some
-suggestions.
-</li>
-<li>
-See the <a href="/wiki/GerritBot#frequently-asked-questions">FAQ</a> for more details.
-</li>
-</ul>
-
 <h2 id="sending_a_change_gerrit">Sending a change via Gerrit</h2>
 
 <p>
-It is not possible to fully sync Gerrit and GitHub, at least at the moment,
-so we recommend learning Gerrit.
-It's different but powerful and familiarity with it will help you understand
-the flow.
+We encourage using Gerrit to send changes for review. While there is a bit of
+a learning curve for users who have only used the GitHub workflow, it is the
+primary workflow used by contributors to the Go project and is a smoother and
+more full-featured workflow.
 </p>
 
 <p>
@@ -765,6 +714,59 @@ commits by mistake, you can use <code>git rebase</code> to
 <a href="https://stackoverflow.com/questions/31668794/squash-all-your-commits-in-one-before-a-pull-request-in-github">squash them together</a>
 into a single one.
 </p>
+
+
+<h2 id="sending_a_change_github">Sending a change via GitHub</h2>
+
+<p>
+	Although the Gerrit flow is recommended and better supported,
+	contributors that are already familiar with the
+	<a href="https://guides.github.com/introduction/flow/">GitHub flow</a>
+	are able to use the same process for Go contributions.
+	Even though Go maintainers use Gerrit for code review,
+	a tool called [GerritBot](/wiki/GerritBot) has been created to sync
+	GitHub pull requests to Gerrit.
+</p>
+
+<p>
+	Open a GitHub pull request as you normally would.
+	GerritBot will create a corresponding Gerrit change list (a "CL") and post a link to
+	it on your GitHub pull request; updates to the pull request will also
+	get reflected in the Gerrit CL.
+	When somebody comments on the CL, their comment will be also
+	posted in your pull request, so you will get a notification.
+</p>
+
+<p>
+	Some things to keep in mind:
+</p>
+
+<ul>
+	<li>
+		You will need a <a href="https://go-review.googlesource.com/login/">Gerrit account</a>
+		to respond to your reviewers, including to <a href="#reviews">mark feedback as 'Done'</a>
+		if implemented as suggested.
+		It is a good idea to familiarize yourself with Gerrit, such as by
+		<a href="https://go-review.googlesource.com/q/status:open+-is:wip">skimming the open CLs</a>,
+		subscribing to updates on interesting CLs (via the star icon),
+		or <a href="/wiki/Gardening#pending-cls">reviewing or giving a +1</a> to other people's CLs.
+	</li>
+	<li>
+		To update the pull request with new code, just push it to the branch; you can either
+		add more commits, or rebase and force-push (both styles are accepted).
+	</li>
+	<li>
+		If the request is accepted, all commits will be squashed, and the final
+		commit description will be composed by concatenating the pull request's
+		title and description.
+		The individual commits' descriptions will be discarded.
+		See <a href="#commit_messages">Writing good commit messages</a> for some
+		suggestions.
+	</li>
+	<li>
+		See the <a href="/wiki/GerritBot#frequently-asked-questions">GerritBot FAQ</a> for more details.
+	</li>
+</ul>
 
 <h2 id="commit_messages">Good commit messages</h2>
 
