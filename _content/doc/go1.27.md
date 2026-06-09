@@ -52,6 +52,13 @@ This reports the use of standard library symbols that are too new
 for the Go version in force in the referring file,
 as determined by `go` directive in `go.mod` and build tags on the file.
 
+<!-- go.dev/issue/62728 -->
+
+`go test -json` now annotates `"Action":"output"` lines with an optional
+new field `"OutputType"`, specifying the type of output.
+Currently, the possible values include "error", "error-continue", and "frame".
+See [cmd/test2json help](/cmd/test2json#hdr-Output_Format) for details.
+
 <!-- go.dev/issue/78090 -->
 
 The `go` command no longer has support for the `bzr` version control system.
@@ -550,13 +557,6 @@ when running `go build`.
 Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
-
-### TODO: accepted proposal [/issue/62728](/issue/62728) (from [/cl/601535](/cl/601535), [/cl/628615](/cl/628615), [/cl/751940](/cl/751940))
-
-- `testing: annotate output text type`
-- `testing: annotate output text type`
-- `cmd/internal/test2json: generate and validate test artifacts`
-- `testing: escapes framing markers`
 
 ### TODO: accepted proposal [/issue/63741](/issue/63741) (from [/cl/723102](/cl/723102))
 
