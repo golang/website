@@ -61,6 +61,19 @@ The `go fix` command contains several new modernizers (`atomictypes`, `embedlit`
 The existing `fmtappendf` analyzer was removed due to stylistic concerns. <!-- #77581 -->
 The existing `waitgroup` analyzer was renamed to `waitgroupgo` to avoid ambiguity.
 
+<!-- go.dev/issue/63696 -->
+
+The `go doc` command now supports `package@version` syntax, such as
+`go doc example.com/pkg@v1.2.3`.
+
+<!-- go.dev/issue/26715 -->
+
+The `go doc` command now accepts the `-ex` command-line option to
+list executable examples of the given package or symbol.
+When an example name is passed on the command line (such as
+`go doc bytes.ExampleBuffer`), `go doc` now prints the example source
+code along with comments.
+
 <!-- go.dev/issue/79422 -->
 
 Starting with the Go 1.27 tool chain, the `go` command now recognizes a `GODEBUG` setting
@@ -457,22 +470,12 @@ positives from automation.
 
 - `internal/goexperiment,runtime: drop goroutineleakprofile experiment`
 
-### TODO: accepted proposal [/issue/26715](/issue/26715) (from [/cl/445116](/cl/445116))
-
-- `cmd/doc: add example support`
-- `cmd/go: add example support to go doc output`
-
 ### TODO: accepted proposal [/issue/62728](/issue/62728) (from [/cl/601535](/cl/601535), [/cl/628615](/cl/628615), [/cl/751940](/cl/751940))
 
 - `testing: annotate output text type`
 - `testing: annotate output text type`
 - `cmd/internal/test2json: generate and validate test artifacts`
 - `testing: escapes framing markers`
-
-### TODO: accepted proposal [/issue/63696](/issue/63696) (from [/cl/747380](/cl/747380))
-
-- `cmd/doc: support 'go doc package@version' syntax`
-- `cmd/go/internal/doc: support @version suffix on first argument`
 
 ### TODO: accepted proposal [/issue/63741](/issue/63741) (from [/cl/723102](/cl/723102))
 
