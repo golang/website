@@ -47,34 +47,64 @@ The values are not shown, as they are not relevant to this example.
 
 <style>
 /*
-go.dev .Article max-width is 55em. Only enable horizontal scrolling if the
-screen is narrow enough to require scrolling (narrower than article width)
-because otherwise some platforms (e.g., Chrome on macOS) display a scrollbar
-even when the screen is wide enough.
+Keep the table within the prose column. overflow-x: auto adds a horizontal
+scrollbar only when the table is wider than the column (e.g. on narrow
+viewports), so the right columns are never clipped.
 */
-@media screen and (max-width: 55em) {
-    .swisstable-table-container {
-        /* Scroll horizontally on overflow (likely on mobile) */
-        overflow: scroll;
-    }
+.swisstable-table-container {
+    overflow-x: auto;
 }
 
 .swisstable-table {
-    /* Combine table inner borders (1px total rather than 2px, one for cell above and one for cell below. */
+    /* Combine table inner borders (1px total rather than 2px, one for the cell above and one for the cell below). */
     border-collapse: collapse;
-    /* All column widths equal. */
+    /* Fixed layout: the data columns share the remaining width equally after the
+       wider first (label) column below. */
     table-layout: fixed;
-    /* Center table within container div */
-    margin: 0 auto;
+    /* Match the width of the surrounding text column. */
+    width: 100%;
+    /*
+    Keep columns comfortable on phones (scroll instead of squishing them).
+    Computed as 3em label + 16 data columns at ~2.5em each. Not max-content:
+    with fixed layout that is derived from the first row, so the colspan header
+    rows of the group/control-word tables would shrink the data columns.
+    */
+    min-width: 44em;
 }
 
-.swisstable-table-cell {
+/*
+The descendant selector raises specificity above the site-wide
+"div.markdown th, div.markdown td" rule, which otherwise overrides the padding
+below with a wide 2em horizontal padding and stretches the cells.
+*/
+.swisstable-table .swisstable-table-cell {
     /* Black border between cells. */
     border: 1px solid;
     /* Add visual spacing around contents. */
-    padding: 0.5em 1em 0.5em 1em;
+    padding: 0.5em 0.6em 0.5em 0.6em;
     /* Center within cell. */
     text-align: center;
+}
+
+/* Give the label column ("Slot", "Key", "h2") slightly more room than the data columns. */
+.swisstable-table .swisstable-table-cell:first-child {
+    width: 3em;
+}
+
+/*
+The SIMD comparison table has long row labels ("Comparison", "Control word"), so
+its rules below override the base .swisstable-table widths above (equal
+specificity, later in source order wins).
+
+Same data-column width as the other tables: 8em label + 8 data columns at ~2.5em each.
+*/
+.swisstable-table-simd-comparison {
+    min-width: 28em;
+}
+
+/* Widen the first column to at least the largest label so it isn't clipped. */
+.swisstable-table-simd-comparison .swisstable-table-cell:first-child {
+    width: 8em;
 }
 </style>
 
@@ -293,7 +323,7 @@ For example, if we are looking for key 32, where `h2 = 89`, the operation we wan
 
 <!-- Visualization of SIMD comparison -->
 <div class="swisstable-table-container">
-    <table class="swisstable-table">
+    <table class="swisstable-table swisstable-table-simd-comparison">
         <tbody>
             <tr>
                 <td class="swisstable-table-cell"><strong>Test word</strong></td>
