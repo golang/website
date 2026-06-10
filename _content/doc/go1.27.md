@@ -311,6 +311,43 @@ and [`MLDSA87`](/pkg/crypto/tls#MLDSA87) [`SignatureScheme`](/pkg/crypto/tls#Sig
 
 The new [`uuid`](/pkg/uuid) package generates and parses UUIDs.
 
+
+### New experimental simd package {#simd}
+
+Go 1.27 introduces a new experimental [`simd`](/pkg/simd)
+package that provides portable and vector-size-agnostic SIMD
+support. It will make use of the hardware instructions
+if they are available.
+This package is enabled by setting the environment variable
+`GOEXPERIMENT=simd` at build time.
+
+The `simd` package is available on all architectures, and provides
+vector types of unspecified size such as `Int8s` and `Float32s`.
+It supports a "scalable" subset of the operations present in the
+[`simd/archsimd`](/pkg/simd/archsimd) package
+that are hardware-supported or easily emulated across architectures
+and vector widths.
+
+See the [proposal issue](/issue/78902) for more details.
+
+### Experimental simd/archsimd package {#archsimd}
+
+Go 1.27 continues the experimental support for SIMD operations in
+the [`simd/archsimd`](/pkg/simd/archsimd/) package that began in [Go1.26](/doc/go1.26#simd).
+This release revises the amd64 API and adds support for arm64 "Neon" 128-bit SIMD and WebAssembly 128-bit SIMD.
+The `simd/archsimd` package is enabled by setting the environment variable
+`GOEXPERIMENT=simd` at build time.
+
+This package provides access to architecture-specific SIMD operations.
+It supports 128-bit vector types on wasm, arm64, and amd64,
+and 256-bit and 512-bit vector types on some amd64 processors.
+The API is not yet considered stable.
+
+See the [package documentation](/pkg/simd/archsimd) and the [proposal issue](/issue/73787) for more details.
+
+We intend to provide support for additional architectures in future versions, but the
+API is intentionally architecture-specific and thus non-portable.
+
 ### Minor changes to the library {#minor_library_changes}
 
 #### [`bytes`](/pkg/bytes/)
