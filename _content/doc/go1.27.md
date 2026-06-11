@@ -558,11 +558,6 @@ Please convert these into documentation in the right places.
 Some of them may not need any documentation or may be false
 positives from automation.
 
-### TODO: accepted proposal [/issue/63741](/issue/63741) (from [/cl/723102](/cl/723102))
-
-- `doc/godebug: allow carve out for GODEBUGs introduced in security releases`
-- `doc: document GODEBUG carve out for security releases`
-
 ### TODO: accepted proposal [/issue/69985](/issue/69985) (from [/cl/777220](/cl/777220))
 
 - `crypto/tls: add X25519MLKEM768 and use by default; remove x25519Kyber768Draft00`
