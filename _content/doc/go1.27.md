@@ -47,6 +47,27 @@ The format is compatible with GCC's response file implementation to ensure inter
 
 ### Go command {#go-command}
 
+<!-- go.dev/issue/78090 -->
+
+The `go` command no longer has support for the `bzr` version control system.
+It will no longer be able to directly fetch modules hosted on `bzr` servers.
+
+#### `GODEBUG`
+
+<!-- go.dev/issue/79422 -->
+
+Starting with Go 1.27, the `go` command now recognizes a `GODEBUG` setting
+for which support was removed (such as `asynctimerchan`, see [below](#runtime)) if it appears in `go.mod`
+files (`godebug` entries) and `.go` source files (`//go:debug` comments).
+It accepts these settings if they are set to the final default value established before
+the setting was removed.
+If they are set to an old value, the `go` command will fail.
+This change is in the spirit of the [Go 1 compatibility guarantee](/doc/go1compat)
+and allows existing programs that set supported `GODEBUG` settings to continue to
+build and run without changes even when the respective setting support has been removed.
+
+#### `go test`
+
 `go test` now invokes the `stdversion` vet check by default.
 This reports the use of standard library symbols that are too new
 for the Go version in force in the referring file,
@@ -59,14 +80,7 @@ new field `"OutputType"`, specifying the type of output.
 Currently, the possible values include "error", "error-continue", and "frame".
 See [cmd/test2json help](/cmd/test2json#hdr-Output_Format) for details.
 
-<!-- go.dev/issue/78090 -->
-
-The `go` command no longer has support for the `bzr` version control system.
-It will no longer be able to directly fetch modules hosted on `bzr` servers.
-
-The `go fix` command contains several new modernizers (`atomictypes`, `embedlit`, `slicesbackward`, and `unsafefuncs`).
-The existing `fmtappendf` analyzer was removed due to stylistic concerns. <!-- #77581 -->
-The existing `waitgroup` analyzer was renamed to `waitgroupgo` to avoid ambiguity.
+#### `go doc`
 
 <!-- go.dev/issue/63696 -->
 
@@ -81,17 +95,17 @@ When an example name is passed on the command line (such as
 `go doc bytes.ExampleBuffer`), `go doc` now prints the example source
 code along with comments.
 
-<!-- go.dev/issue/79422 -->
+#### `go fix`
 
-Starting with the Go 1.27 tool chain, the `go` command now recognizes a `GODEBUG` setting
-for which support was removed (such as `asynctimerchan`, see below) if it appears in `go.mod`
-files (`go debug` entries) and `.go` source files (`//go:debug` comments).
-It accepts these settings if they are set to the final default value established before
-the setting was removed.
-If they are set to an old value, the `go` command will fail.
-This change is in the spirit of the [Go 1 compatibility guarantee](/doc/go1compat)
-and allows existing programs that set supported `GODEBUG` settings to continue to
-build and run without changes even when the respective setting support has been removed.
+The `go fix` command contains several new modernizers (`atomictypes`, `embedlit`, `slicesbackward`, and `unsafefuncs`).
+
+<!-- go.dev/issue/77581 -->
+
+The existing `fmtappendf` analyzer was removed due to stylistic concerns.
+
+The existing `waitgroup` analyzer was renamed to `waitgroupgo` to avoid ambiguity.
+
+#### `go mod tidy`
 
 <!-- go.dev/issue/56471 -->
 
