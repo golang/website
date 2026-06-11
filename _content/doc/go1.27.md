@@ -329,6 +329,15 @@ Post-quantum hybrid key exchanges can now be explicitly enabled in
 options are used. Those options were always meant to only apply to the default
 set used when [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
 
+<!-- go.dev/issue/75316 -->
+
+The `tlsunsafeekm` (added in [Go 1.22](/doc/godebug#go-122)),
+`tlsrsakex` (added in [Go 1.22](/doc/godebug#go-122)),
+`tls3des` (added in [Go 1.23](/doc/godebug#go-123)),
+`tls10server` (added in [Go 1.22](/doc/godebug#go-122)),
+and `x509keypairleaf` (added in [Go 1.23](/doc/godebug#go-123))
+`GODEBUG` settings have been removed permanently.
+
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 <!-- 6-stdlib/99-minor/crypto/x509/75260.md -->
@@ -573,11 +582,3 @@ positives from automation.
 - `crypto/sha3: make the zero value of SHA3 useable`
 - `crypto/sha3: ensure unwrapped *sha3.Digest are usable`
 
-### TODO: accepted proposal [/issue/75316](/issue/75316) (from [/cl/777380](/cl/777380), [/cl/777381](/cl/777381), [/cl/777382](/cl/777382), [/cl/777383](/cl/777383), [/cl/777384](/cl/777384))
-
-- `crypto: remove in Go 1.27 GODEBUGs introduced in Go 1.23 and earlier`
-- `crypto/tls: remove the tlsunsafeekm GODEBUG setting`
-- `crypto/tls: remove tlsrsakex GODEBUG setting`
-- `crypto/tls: remove tls3des GODEBUG setting`
-- `crypto/tls: remove the tls10server GODEBUG setting`
-- `crypto/tls: remove the x509keypairleaf GODEBUG setting`
