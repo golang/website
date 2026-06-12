@@ -593,25 +593,3 @@ generates static binaries with internal linking by default.
 For programs that have cgo options, if a static, pure-Go binary
 is needed, one can set the environment variable `CGO_ENABLED=0`
 when running `go build`.
-
-## TODO
-
-Please convert these into documentation in the right places.
-Some of them may not need any documentation or may be false
-positives from automation.
-
-### TODO: accepted proposal [/issue/69985](/issue/69985) (from [/cl/777220](/cl/777220))
-
-- `crypto/tls: add X25519MLKEM768 and use by default; remove x25519Kyber768Draft00`
-- `crypto/tls: let Config.CurvePreferences override GODEBUG options`
-
-### TODO: accepted proposal [/issue/71206](/issue/71206) (from [/cl/777220](/cl/777220))
-
-- `crypto/tls: add support for NIST curve based ML-KEM hybrids`
-- `crypto/tls: let Config.CurvePreferences override GODEBUG options`
-
-### TODO: accepted proposal [/issue/75154](/issue/75154) (from [/cl/747160](/cl/747160))
-
-- `crypto/sha3: make the zero value of SHA3 useable`
-- `crypto/sha3: ensure unwrapped *sha3.Digest are usable`
-
