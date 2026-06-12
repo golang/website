@@ -14,12 +14,6 @@ Go 1.27 is expected to be released in August 2026.**
 
 ## Changes to the language {#language}
 
-<!-- go.dev/issue/9859 -->
-
-A key in a [struct literal](/ref/spec#Composite_literals) may now be any
-valid [field selector](/issue/9859) for the struct type, not just a
-(top-level) field name of the struct.
-
 <!-- go.dev/issue/77273 -->
 
 Go 1.27 now supports [generic methods](/issue/77273):
@@ -30,6 +24,12 @@ the namespace of a particular data type where before one had to declare
 such functions with a scope of the entire package.
 Note that methods of [interfaces](/ref/spec#Interface_types) may not declare
 type parameters nor can interface methods be implemented by generic methods.
+
+<!-- go.dev/issue/9859 -->
+
+A key in a [struct literal](/ref/spec#Composite_literals) may now be any
+valid [field selector](/issue/9859) for the struct type, not just a
+(top-level) field name of the struct.
 
 <!-- go.dev/issue/77245 -->
 
@@ -130,9 +130,12 @@ structure of the module file automatically.
 
 <!-- go.dev/issue/78921 -->
 
-`go tool trace`'s `-http` argument now restricts the listen address to localhost when passed only a port (e.g., `-http=:6060`).
-This change makes `go tool trace` consistent with the behavior of `go tool pprof`'s `-http` flag.
-To listen on all addresses, explicitly include the specified address (e.g., `-http=0.0.0.0:6060`).
+`go tool trace`'s `-http` command-line option now restricts the listen
+address to localhost when passed only a port (e.g., `-http=:6060`).
+This change makes `go tool trace` consistent with the behavior of
+`go tool pprof`'s `-http` flag.
+To listen on all addresses, explicitly include the specified address
+(e.g., `-http=0.0.0.0:6060`).
 
 ## Runtime {#runtime}
 
@@ -140,7 +143,7 @@ To listen on all addresses, explicitly include the specified address (e.g., `-ht
 
 Tracebacks for modules with `go` directives configuring Go 1.27 or later will now
 include [runtime/pprof](https://pkg.go.dev/runtime/pprof) goroutine labels in
-the header line. This behavior can be disabled with `GODEBUG=tracebacklabels=0`
+the header line. This behavior can be disabled with `tracebacklabels=0` `GODEBUG` setting
 (added in [Go 1.26](/doc/godebug#go-126)). This opt-out is expected to be
 kept indefinitely in case goroutine labels acquire sensitive information that
 shouldn't be made available in tracebacks.
@@ -155,7 +158,7 @@ are now always unbuffered (synchronous), irrespective of `GODEBUG` settings.
 
 <!-- go.dev.issue/79286 -->
 
-The compiler will now generate calls to size-specialized memory allocation
+The compiler now generates calls to size-specialized memory allocation
 routines, reducing the cost of some small (<80 byte) memory allocations by
 up to 30%.
 Improvements vary depending on the workload, but the overall improvement is
@@ -203,7 +206,8 @@ The `goroutineleakprofile` `GOEXPERIMENT` setting is now deleted.
 
 The compiler now resolves a relative filename in a `//line` or `/*line*/`
 directive against the directory of the file containing the directive,
-matching [`go/scanner`](/pkg/go/scanner). Absolute filenames are unaffected.
+matching the behavior of [`go/scanner`](/pkg/go/scanner).
+Absolute filenames are unaffected.
 See [#70478](/issue/70478).
 
 <!-- go.dev/issue/60324, CL 770200 -->
@@ -237,7 +241,7 @@ By default, it selects the oldest supported macOS version (currently
 
 ## Standard library {#library}
 
-### New encoding/json/v2 and encoding/json/jsontext packages
+### New encoding/json/v2 and encoding/json/jsontext packages {#jsonv2}
 
 <!-- go.dev/issue/71497 -->
 
@@ -288,15 +292,9 @@ This opt-out is expected to be removed in a future release.
 See the [proposal issue](/issue/71497) for background and additional detail.
 If you need to disable the new implementation, [please file an issue](/issue/new).
 
-### New uuid package
+### New crypto/mldsa package {#crypto_mldsa}
 
-<!-- https://go.dev/issue/62026 --->
-
-The new [`uuid`](/pkg/uuid) package generates and parses UUIDs.
-
-### New crypto/mldsa package
-
-<!-- https://go.dev/issue/77626, https://go.dev/issue/78888 --->
+<!-- https://go.dev/issue/77626, https://go.dev/issue/78888 -->
 
 The new [`crypto/mldsa`](/pkg/crypto/mldsa) package implements the post-quantum ML-DSA signature
 scheme specified in FIPS 204.
@@ -304,7 +302,14 @@ scheme specified in FIPS 204.
 [`crypto/x509`](/pkg/crypto/x509) now supports ML-DSA private keys, public keys, and signatures.
 
 [`crypto/tls`](/pkg/crypto/tls) now supports ML-DSA signatures in TLS 1.3, with the new
-[MLDSA44], [MLDSA65], and [MLDSA87] [SignatureScheme] values.
+[`MLDSA44`](/pkg/crypto/tls#MLDSA44), [`MLDSA65`](/pkg/crypto/tls#MLDSA65),
+and [`MLDSA87`](/pkg/crypto/tls#MLDSA87) [`SignatureScheme`](/pkg/crypto/tls#SignatureScheme) values.
+
+### New uuid package {#uuid}
+
+<!-- https://go.dev/issue/62026 -->
+
+The new [`uuid`](/pkg/uuid) package generates and parses UUIDs.
 
 ### Minor changes to the library {#minor_library_changes}
 
@@ -312,28 +317,23 @@ scheme specified in FIPS 204.
 
 <!-- 6-stdlib/99-minor/bytes/71151.md -->
 
-The new [`CutLast`](/pkg/bytes#CutLast) function slices a []byte
+The new [`CutLast`](/pkg/bytes#CutLast) function slices a `[]byte`
 around the last occurrence of a separator.
-It can replace and simplify some common uses of LastIndex.
+It can replace and simplify some common uses of [`LastIndex`](/pkg/bytes#LastIndex).
 
 #### [`crypto`](/pkg/crypto/)
 
 <!-- 6-stdlib/99-minor/crypto/77626.md -->
 
-The new [`MLDSAMu`](/pkg/crypto#MLDSAMu) [`Hash`](/pkg/crypto#Hash) value is meant to be used as a signaling mechanism for
-External μ ML-DSA signing.
+The new [`MLDSAMu`](/pkg/crypto#MLDSAMu) [`Hash`](/pkg/crypto#Hash) value
+is meant to be used as a signaling mechanism for External μ ML-DSA signing.
 
 #### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
 <!-- 6-stdlib/99-minor/crypto/ecdsa/hashlen.md -->
 
-[`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now checks that the length of the hash is correct, if opts is
-not nil.
-
-#### [`crypto/mldsa`](/pkg/crypto/mldsa/)
-
-<!-- 6-stdlib/99-minor/crypto/mldsa/77626.md -->
-<!-- crypto/mldsa is documented in doc/next/6-stdlib/70-mldsa.md. -->
+[`PrivateKey.Sign`](/pkg/crypto/ecdsa#PrivateKey.Sign) now checks that the length of the hash is correct,
+if a non-nil [`SignerOpts`](/pkg/crypto#SignerOpts) is provided.
 
 #### [`crypto/tls`](/pkg/crypto/tls/)
 
@@ -375,9 +375,10 @@ and `x509keypairleaf` (added in [Go 1.23](/doc/godebug#go-123))
 
 <!-- 6-stdlib/99-minor/crypto/x509/75260.md -->
 
-When parsing into [`pkix.Name`](/pkg/pkix#Name) fields, a wider range of
-[`pkix.AttributeTypeAndValue.Value`](/pkg/pkix#AttributeTypeAndValue.Value) types is now supported, and unknown types are
-parsed into [`asn1.RawValue`](/pkg/asn1#RawValue).
+When parsing into [`pkix.Name`](/pkg/crypto/x509/pkix#Name) fields,
+a wider range of [`pkix.AttributeTypeAndValue.Value`](/pkg/crypto/x509/pkix#AttributeTypeAndValue.Value)
+types is now supported, and unknown types are parsed into
+[`asn1.RawValue`](/pkg/encoding/asn1#RawValue).
 
 <!-- 6-stdlib/99-minor/crypto/x509/76133.md -->
 
@@ -436,23 +437,24 @@ The scanner now allows retrieving the end position of a token via the new [`Scan
 
 <!-- 6-stdlib/99-minor/go/token/76285.md -->
 
-[`File`](/pkg/go/token#File) now has a String method.
+[`File`](/pkg/go/token#File) now has a `String` method.
 
 #### [`go/types`](/pkg/go/types/)
 
 <!-- 6-stdlib/99-minor/go/types/69420.md -->
 
-The [`Hasher`](/pkg/go/types#Hasher) type is an implementation of `maphash.Hasher` for [Type]s
+The [`Hasher`](/pkg/go/types#Hasher) type is an implementation of `maphash.Hasher` for
+[`Type`](/pkg/go/types#Type)s
 that respects the [`Identical`](/pkg/go/types#Identical) equivalence relation, allowing `Types`
-to be used in hash tables and similar data structures (see `container/hash`).
+to be used in hash tables and similar data structures.
 [`HasherIgnoreTags`](/pkg/go/types#HasherIgnoreTags) is the analogous hasher for [`IdenticalIgnoreTags`](/pkg/go/types#IdenticalIgnoreTags).
 
 <!-- 6-stdlib/99-minor/go/types/76472.md -->
 <!-- CL 736441 -->
 
 The `gotypesalias` `GODEBUG` setting (added in [Go 1.22](/doc/godebug#go-122))
-has been removed permanently and the package [go/types](https://pkg.go.dev/go/types)
-now always produces an [Alias](https://pkg.go.dev/go/types#Alias) type node for
+has been removed permanently and the package [`go/types`](/pkg/go/types)
+now always produces an [`Alias`](/pkg/go/types#Alias) type node for
 [alias declarations](/ref/spec#Alias_declarations) irrespective of `GODEBUG` settings.
 
 <!-- 6-stdlib/99-minor/go/types/79287.md -->
@@ -471,14 +473,18 @@ tables and Bloom filters; see [#70471](/issue/70471).
 <!-- 6-stdlib/99-minor/math/big/76821.md -->
 <!-- go.dev/issue/76821 -->
 
-[`Int`](/pkg/math/big#Int) now has method [`Int.Divide`](/pkg/math/big#Int.Divide) to compute quotient and remainder of two [`Int`](/pkg/math/big#Int) values.
-It supports rounding modes [`Trunc`](/pkg/math/big#Trunc), [`Floor`](/pkg/math/big#Floor), [`Round`](/pkg/math/big#Round) and [`Ceil`](/pkg/math/big#Ceil).
+[`Int`](/pkg/math/big#Int) now has a [`Divide`](/pkg/math/big#Int.Divide) method
+to compute quotient and remainder of two [`Int`](/pkg/math/big#Int) values.
+It supports rounding modes [`Trunc`](/pkg/math/big#Trunc), [`Floor`](/pkg/math/big#Floor),
+[`Round`](/pkg/math/big#Round), and [`Ceil`](/pkg/math/big#Ceil).
 
 #### [`math/rand/v2`](/pkg/math/rand/v2/)
 
 <!-- 6-stdlib/99-minor/math/rand/v2/77853.md -->
 
-add the generic method [`*Rand`](/pkg/math/rand/v2#Rand).N, matching the behavior of the top-level N function.
+[`Rand`](/pkg/math/rand/v2#Rand) now supports a generic method
+[`N`](/pkg/math/rand/v2#Rand.N),
+matching the behavior of the top-level [`N`](/pkg/math/rand/v2#N) function.
 
 #### [`net`](/pkg/net/)
 
@@ -509,7 +515,7 @@ programs, this change should be a no-op, or result in a performance improvement.
 In rare cases, programs that do not benefit from connection reuse might
 experience performance degradation if they had been improperly allowing an
 excessive amount of idle connections to linger; usually by setting
-[`Transport.MaxIdleConns`](/pkg/net/http#Transport.MaxIdleConns) to `0` or using different [Client]s for different
+[`Transport.MaxIdleConns`](/pkg/net/http#Transport.MaxIdleConns) to `0` or using different [`Client`](/pkg/net/http#Client)s for different
 requests, thereby bypassing [`Transport.MaxIdleConns`](/pkg/net/http#Transport.MaxIdleConns) limit. In these cases,
 setting [`Transport.DisableKeepAlives`](/pkg/net/http#Transport.DisableKeepAlives) to `true` will disable connection reuse.
 However, such performance degradation usually indicates improper configuration
@@ -532,7 +538,7 @@ The new [`Values.Clone`](/pkg/net/url#Values.Clone) method creates a deep copy o
 
 #### [`runtime/secret`](/pkg/runtime/secret/)
 
-Goroutines that are created while in [`secret mode`](/pkg/runtime/secret#Do)
+Goroutines that are created while in [secret mode](/pkg/runtime/secret#Do)
 will now themselves execute in secret mode.
 
 #### [`strings`](/pkg/strings/)
@@ -541,27 +547,22 @@ will now themselves execute in secret mode.
 
 The new [`CutLast`](/pkg/strings#CutLast) function slices a string
 around the last occurrence of a separator.
-It can replace and simplify some common uses of LastIndex.
+It can replace and simplify some common uses of [`LastIndex`](/pkg/strings#LastIndex).
 
 #### [`testing/synctest`](/pkg/testing/synctest/)
 
 <!-- 6-stdlib/99-minor/testing/synctest/77169.md -->
 
-The new [`Sleep`](/pkg/testing/synctest#Sleep) helper function combines [`time.Sleep`](/pkg/time#Sleep) and [`testing/synctest.Wait`](/pkg/testing/synctest#Wait).
+The new [`Sleep`](/pkg/testing/synctest#Sleep) helper function combines [`time.Sleep`](/pkg/time#Sleep) and [`synctest.Wait`](/pkg/testing/synctest#Wait).
 
 #### [`unicode`](/pkg/unicode/)
 
 <!-- 6-stdlib/99-minor/unicode/77266.md -->
 
-The unicode package and associated support throughout the system has been upgraded from Unicode 15 to Unicode 17.
+The unicode package and associated support throughout the system have been upgraded from Unicode 15 to Unicode 17.
 See the [Unicode 16.0.0](https://www.unicode.org/versions/Unicode16.0.0/) and
 [Unicode 17.0.0](https://www.unicode.org/versions/Unicode17.0.0/)
 release notes for information about the changes.
-
-#### [`uuid`](/pkg/uuid/)
-
-<!-- 6-stdlib/99-minor/uuid/62026.md -->
-<!-- uuid is documented in its own section. -->
 
 ## Ports {#ports}
 
