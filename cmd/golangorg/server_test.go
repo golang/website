@@ -53,6 +53,7 @@ var bads = []string{
 	"<-",
 	"& ",
 	"{{raw <code>",
+	//"](/", "](http", // Uncomment to catch accidental Markdown syntax for links in .html files (and some false positives).
 }
 
 var ignoreBads = []string{

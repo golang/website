@@ -48,7 +48,7 @@ before the timeout is reached.
 The `timeout` channel will eventually be deallocated by the garbage collector.
 
 (In this example we used `time.Sleep` to demonstrate the mechanics of goroutines and channels.
-In real programs you should use ` [time.After](/pkg/time/#After)`,
+In real programs you should use [`time.After`](/pkg/time/#After),
 a function that returns a channel and sends on that channel after the specified duration.)
 
 Let's look at another variation of this pattern.
