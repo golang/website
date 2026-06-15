@@ -399,6 +399,11 @@ Post-quantum hybrid key exchanges can now be explicitly enabled in
 options are used. Those options were always meant to only apply to the default
 set used when [`Config.CurvePreferences`](/pkg/crypto/tls#Config.CurvePreferences) is nil.
 
+<!-- go.dev/issue/24673 -->
+
+The new [`ConnectionState.LocalCertificate`](/pkg/crypto/tls#ConnectionState.LocalCertificate)
+field contains the certificate chain presented to the connection peer during the handshake.
+
 <!-- go.dev/issue/75316 -->
 
 The `tlsunsafeekm` (added in [Go 1.22](/doc/godebug#go-122)),
