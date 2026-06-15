@@ -690,6 +690,7 @@ func xHandler(w http.ResponseWriter, r *http.Request) {
 
 var xTemplate = template.Must(template.New("x").Parse(`<!DOCTYPE html>
 <html lang="en">
+<head>
 <title>The Go Programming Language</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta name="go-import" content="golang.org/x/{{.Proj}} git https://go.googlesource.com/{{.Proj}}">
