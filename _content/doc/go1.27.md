@@ -142,7 +142,7 @@ To listen on all addresses, explicitly include the specified address
 <!-- CL 742580 -->
 
 Tracebacks for modules with `go` directives configuring Go 1.27 or later will now
-include [runtime/pprof](https://pkg.go.dev/runtime/pprof) goroutine labels in
+include [`runtime/pprof`](https://pkg.go.dev/runtime/pprof) goroutine labels in
 the header line. This behavior can be disabled with `tracebacklabels=0` `GODEBUG` setting
 (added in [Go 1.26](/doc/godebug#go-126)). This opt-out is expected to be
 kept indefinitely in case goroutine labels acquire sensitive information that
@@ -322,7 +322,7 @@ This package is enabled by setting the environment variable
 `GOEXPERIMENT=simd` at build time.
 
 The `simd` package is available on all architectures, and provides
-vector types of unspecified size such as `Int8s` and `Float32s`.
+vector types of unspecified size such as [`Int8s`](/pkg/simd#Int8s) and [`Float32s`](/pkg/simd#Float32s).
 It supports a "scalable" subset of the operations present in the
 [`simd/archsimd`](/pkg/simd/archsimd) package
 that are hardware-supported or easily emulated across architectures
@@ -333,7 +333,7 @@ See the [proposal issue](/issue/78902) for more details.
 ### Experimental simd/archsimd package {#archsimd}
 
 Go 1.27 continues the experimental support for SIMD operations in
-the [`simd/archsimd`](/pkg/simd/archsimd/) package that began in [Go1.26](/doc/go1.26#simd).
+the [`simd/archsimd`](/pkg/simd/archsimd/) package that began in [Go 1.26](/doc/go1.26#simd).
 This release revises the amd64 API and adds support for arm64 "Neon" 128-bit SIMD and WebAssembly 128-bit SIMD.
 The `simd/archsimd` package is enabled by setting the environment variable
 `GOEXPERIMENT=simd` at build time.
@@ -363,7 +363,7 @@ It can replace and simplify some common uses of [`LastIndex`](/pkg/bytes#LastInd
 <!-- 6-stdlib/99-minor/crypto/77626.md -->
 
 The new [`MLDSAMu`](/pkg/crypto#MLDSAMu) [`Hash`](/pkg/crypto#Hash) value
-is meant to be used as a signaling mechanism for External μ ML-DSA signing.
+is added for use as a signaling mechanism for External μ ML-DSA signing.
 
 #### [`crypto/ecdsa`](/pkg/crypto/ecdsa/)
 
@@ -467,7 +467,9 @@ to scan directly into user-provided destinations.
 
 <!-- 6-stdlib/99-minor/go/constant/79042.md -->
 
-The new [`StringLen`](/pkg/go/constant#StringLen) function returns the length of a string [`Value`](/pkg/go/constant#Value). For an [`Unknown`](/pkg/go/constant#Unknown) value, the length is 0.
+The new [`StringLen`](/pkg/go/constant#StringLen) function returns
+the length of a string [`Value`](/pkg/go/constant#Value) without
+fully constructing the `Value`.
 
 #### [`go/scanner`](/pkg/go/scanner/)
 
@@ -485,8 +487,8 @@ The scanner now allows retrieving the end position of a token via the new [`Scan
 
 <!-- 6-stdlib/99-minor/go/types/69420.md -->
 
-The [`Hasher`](/pkg/go/types#Hasher) type is an implementation of `maphash.Hasher` for
-[`Type`](/pkg/go/types#Type)s
+The [`Hasher`](/pkg/go/types#Hasher) type is an implementation of
+[`maphash.Hasher`](/pkg/maphash#Hasher) for [`Type`](/pkg/go/types#Type)s
 that respects the [`Identical`](/pkg/go/types#Identical) equivalence relation, allowing `Types`
 to be used in hash tables and similar data structures.
 [`HasherIgnoreTags`](/pkg/go/types#HasherIgnoreTags) is the analogous hasher for [`IdenticalIgnoreTags`](/pkg/go/types#IdenticalIgnoreTags).
@@ -509,6 +511,10 @@ now always produces an [`Alias`](/pkg/go/types#Alias) type node for
 The [`Hasher`](/pkg/hash/maphash#Hasher) interface type defines the contract between values of a
 particular type and future hash-based data structures such as hash
 tables and Bloom filters; see [#70471](/issue/70471).
+
+The [`ComparableHasher`](/pkg/hash/maphash#ComparableHasher) type provides a
+convenient implementation of [`Hasher`](/pkg/hash/maphash#Hasher) for
+comparable types where the `Eqaul` method is defined as `==`.
 
 #### [`math/big`](/pkg/math/big/)
 
@@ -568,7 +574,8 @@ likely be beneficial.
 
 <!-- 6-stdlib/99-minor/net/http/httptest/76608.md -->
 
-[`NewTestServer`](/pkg/net/http/httptest#NewTestServer) creates a [`Server`](/pkg/net/http/httptest#Server) configured to use an in-memory
+The new [`NewTestServer`](/pkg/net/http/httptest#NewTestServer) function
+creates a [`Server`](/pkg/net/http/httptest#Server) configured to use an in-memory
 fake network suitable for use with the [`testing/synctest`](/pkg/testing/synctest) package.
 
 #### [`net/url`](/pkg/net/url/)
