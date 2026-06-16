@@ -358,6 +358,16 @@ The new [`CutLast`](/pkg/bytes#CutLast) function slices a `[]byte`
 around the last occurrence of a separator.
 It can replace and simplify some common uses of [`LastIndex`](/pkg/bytes#LastIndex).
 
+#### [`compress/flate`](/pkg/compress/flate/)
+
+<!-- go.dev/issue/75532, CL 707355 -->
+
+Compression speed is improved in Go 1.27.
+The exact encoded output from [`Writer`](/pkg/compress/flate#Writer) may be different from Go 1.26
+as a result of the encoder implementation change.
+Since DEFLATE is the underlying compression used in [`archive/zip`](/pkg/archive/zip), [`compress/gzip`](/pkg/compress/gzip), [`compress/zlib`](/pkg/compress/zlib), and [`image/png`](/pkg/image/png),
+the outputs from those packages may also have changed.
+
 #### [`crypto`](/pkg/crypto/)
 
 <!-- 6-stdlib/99-minor/crypto/77626.md -->
