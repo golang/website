@@ -102,6 +102,8 @@ footer:
         url: /pkg/
       - name: About Go Packages
         url: https://pkg.go.dev/about
+      - name: pkg.go.dev API
+        url: https://pkg.go.dev/api
 
   - name: About
     url: /project
