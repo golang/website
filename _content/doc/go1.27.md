@@ -524,7 +524,7 @@ tables and Bloom filters; see [#70471](/issue/70471).
 
 The [`ComparableHasher`](/pkg/hash/maphash#ComparableHasher) type provides a
 convenient implementation of [`Hasher`](/pkg/hash/maphash#Hasher) for
-comparable types where the `Eqaul` method is defined as `==`.
+comparable types where the `Equal` method is defined as `==`.
 
 #### [`math/big`](/pkg/math/big/)
 
