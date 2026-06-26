@@ -12,6 +12,38 @@ for things we do not consider to be a vulnerability.
 
 This list is not comprehensive.
 
+## General principles {#principles}
+
+Not every bug is a vulnerability.
+
+For any bug, it is almost always possible to construct
+a hypothetical scenario in which it causes a vulnerability.
+
+For example, imagine a bug in an image decoder which causes it to
+incorrectly decode some inputs. Now imagine a hypothetical system
+which accepts pictures of written cheques and makes bank transfers
+to satisfy the cheques. If this system contains a gateway which validates
+the request and a backend which performs the transfer, a parser
+differential in the image decoders used by the gateway and backend
+could result in the gateway passing a malicious operation on to the
+backend.
+
+Classifying an image misparsing bug as a vulnerability based on this
+scenario does not serve any useful purpose. Warning users that they
+are affected by a "vulnerability" of this nature is just noise,
+since few to no users will actually be affected. Calling this a
+vulnerability is detrimental to security, since it trains users to
+ignore reports as mostly meaningless.
+
+This scenario is also an example of why we do not assign severity
+labels to security issues: To the hypothetical cheques processor
+this may be a high-severity issue, but to most users it is not an
+issue at all.
+
+As a general principle, simply being able to construct a
+hypothetical scenario in which a bug causes a security issue
+is not sufficient cause for us to handle it as a security issue itself.
+
 ## Vulnerabilities {#vulns}
 
 ### Remote Code Execution {#rce}
