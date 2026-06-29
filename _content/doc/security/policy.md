@@ -23,7 +23,7 @@ Please keep reports succint, including a description of the issue you've found,
 the way in which you believe it can be exploited, and a small reproduction test
 case or program which demonstrates the issue.
 
-We have a [list of decisions](/security/decisions) about commonly-reported
+We have a [list of decisions](/doc/security/decisions) about commonly-reported
 categories of issues.
 
 Your email will be acknowledged within 7 days, and you'll be kept up to date
