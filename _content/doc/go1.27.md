@@ -608,6 +608,16 @@ The new [`CutLast`](/pkg/strings#CutLast) function slices a string
 around the last occurrence of a separator.
 It can replace and simplify some common uses of [`LastIndex`](/pkg/strings#LastIndex).
 
+#### [`syscall`](/pkg/syscall/)
+
+<!-- CL 750680 -->
+
+On Plan 9, the [`Errno`](/pkg/syscall#Errno) type is now defined and
+implements the `error` interface, as on other platforms. Plan 9 system
+calls return `ErrorString` values, so `Errno` is never returned by this
+package on Plan 9. It is defined so that portable code referring to
+`syscall.Errno` builds on Plan 9 without build constraints.
+
 #### [`testing/synctest`](/pkg/testing/synctest/)
 
 <!-- 6-stdlib/99-minor/testing/synctest/77169.md -->
