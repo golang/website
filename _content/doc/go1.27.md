@@ -580,6 +580,14 @@ However, such performance degradation usually indicates improper configuration
 or usage of [`Transport`](/pkg/net/http#Transport) or [`Client`](/pkg/net/http#Client) in the first place, and a deeper look would
 likely be beneficial.
 
+<!-- go.dev/issue/79936 -->
+
+The new [`Server.MaxHeaderValueCount`](/pkg/net/http#Server.MaxHeaderValueCount)
+field allows HTTP servers to control the number of header values that they are
+willing to accept. If unset,
+[`DefaultMaxHeaderValueCount`](/pkg/net/http#DefaultMaxHeaderValueCount) is
+used.
+
 #### [`net/http/httptest`](/pkg/net/http/httptest/)
 
 <!-- 6-stdlib/99-minor/net/http/httptest/76608.md -->
