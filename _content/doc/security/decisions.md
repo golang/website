@@ -62,6 +62,33 @@ We generally treat excessive CPU or memory consumption,
 such as a function with a runtime that is O(n²) in terms of its input size,
 as equivalent to a panic.
 
+### Building malicious code {#malicious-build}
+
+Building an attacker-controlled program should be safe, even when
+running it is not. For example, we intend it to be safe to build
+untrusted code which is then run in a sandbox.
+We strongly recommend that anyone building untrusted code consider
+this a defense-in-depth measure, and that builds of untrusted code
+also be performed in an unprivileged sandbox environment.
+
+Data exfiltation is not in our threat model.
+Building an attacker-controlled program may produce output which
+contains the contents of arbitrary local files.
+
+*Executing* malicious code is also not in our threat model.
+Running a malicious program obviously permits it to do malicious things.
+
+A vulnerability, usually PRIVATE track:
+
+- A malicious module can cause "go build" to execute arbitrary code.
+
+Not handled as a security issue:
+
+- "go build" produces an error containing text from an arbitrary local file.
+- A compiled executable contains the contents from an arbitrary local file.
+- A malicious program can corrupt the runtime's state and execute arbitrary code.
+- A compilation bug allows obfuscating malicious code.
+
 ## Non-Vulnerabilities {#non-vuln}
 
 ### Attacker-controlled environment {#attacker-control}
