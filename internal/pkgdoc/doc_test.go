@@ -75,3 +75,43 @@ func F()
 		t.Errorf("pInfo.PDoc.Funcs[0].Doc = %q; want %q", got, want)
 	}
 }
+
+func TestGenericMethodWithMultipleTypeParams(t *testing.T) {
+	const packagePath = "example.com/p"
+	fs := fstest.MapFS{
+		"lib/godoc/x.html": {},
+		"src/" + packagePath + "/p.go": {Data: []byte(`package p
+type T[A, B any] struct{}
+func (T[A, B]) M() {}
+`)},
+	}
+
+	site := web.NewSite(fs)
+	h, err := NewServer(fs, site, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	d := h.(*docs)
+
+	pInfo := d.open("src/"+packagePath, 0, "linux", "amd64") // must not panic
+	if pInfo.Err != nil {
+		t.Fatal(pInfo.Err)
+	}
+	if pInfo.PDoc == nil {
+		t.Fatal("pInfo.PDoc = nil; want non-nil")
+	}
+	if len(pInfo.PDoc.Types) != 1 {
+		t.Fatalf("len(pInfo.PDoc.Types) = %d; want 1", len(pInfo.PDoc.Types))
+	}
+	typ := pInfo.PDoc.Types[0]
+	if got, want := typ.Name, "T"; got != want {
+		t.Errorf("typ.Name = %q; want %q", got, want)
+	}
+	if len(typ.Methods) != 1 {
+		t.Fatalf("len(typ.Methods) = %d; want 1", len(typ.Methods))
+	}
+	meth := typ.Methods[0]
+	if got, want := meth.Name, "M"; got != want {
+		t.Errorf("meth.Name = %q; want %q", got, want)
+	}
+}
