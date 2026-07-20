@@ -113,6 +113,10 @@ Use status CODE to set an expected HTTP status code. The default is 200.
 
 	status 404
 
+Use retrypixels N to override the value of the -retrypixels flag for this test.
+
+	retrypixels 80
+
 Use click SELECTOR to add a click an element on the page.
 
 	click button.submit

@@ -392,6 +392,15 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
 
+		case "RETRYPIXELS":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			test.retryPixels, err = strconv.Atoi(args)
+			if err != nil {
+				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
+			}
+
 		case "PATH":
 			if test == nil {
 				return nil, errors.New("directive must be in a test")

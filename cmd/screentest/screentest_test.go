@@ -43,7 +43,8 @@ func TestReadTests(t *testing.T) {
 			testURL: "https://go.dev",
 			wantURL: "http://localhost:6060",
 			opts: options{
-				vars: "Authorization:Bearer token",
+				vars:        "Authorization:Bearer token",
+				retryPixels: 0,
 			},
 			want: []*testcase{
 				{
@@ -80,7 +81,8 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					common: common{
-						vars: map[string]string{"Authorization": "Bearer token"},
+						vars:        map[string]string{"Authorization": "Bearer token"},
+						retryPixels: 44, // overrides 0 in options
 					},
 					name:           "about page",
 					path:           "/about",
