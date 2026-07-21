@@ -228,6 +228,7 @@ func NewHandler(contentDir, goroot string) http.Handler {
 	mux.Handle("play.go.dev/", redirectPrefix("https://go.dev/play/"))
 	mux.Handle("talks.go.dev/", redirectPrefix("https://go.dev/talks/"))
 	mux.Handle("tour.go.dev/", redirectPrefix("https://go.dev/tour/"))
+	mux.Handle("go2goplay.golang.org/", redirectPrefix("https://go.dev/play/"))
 
 	// m.golang.org is an old shortcut for golang.org mail.
 	// Gmail itself can serve this redirect, but only on HTTP (not HTTPS).
@@ -498,14 +499,15 @@ type fmtResponse struct {
 }
 
 var validHosts = map[string]bool{
-	"golang.org":       true,
-	"golang.google.cn": true,
-	"beta.golang.org":  true,
-	"blog.golang.org":  true,
-	"m.golang.org":     true,
-	"talks.golang.org": true,
-	"tip.golang.org":   true,
-	"tour.golang.org":  true,
+	"golang.org":           true,
+	"golang.google.cn":     true,
+	"beta.golang.org":      true,
+	"blog.golang.org":      true,
+	"m.golang.org":         true,
+	"talks.golang.org":     true,
+	"tip.golang.org":       true,
+	"tour.golang.org":      true,
+	"go2goplay.golang.org": true,
 
 	"go.dev":       true,
 	"blog.go.dev":  true,

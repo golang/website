@@ -493,3 +493,12 @@ body contains <h1>Next Release Notes Draft</h1>
 
 GET https://tip.golang.org/doc/next
 body contains <h1>Next Release Notes Draft</h1>
+
+GET https://go2goplay.golang.org/
+code == 301
+redirect == https://go.dev/play/
+
+GET https://go2goplay.golang.org/p/abc
+code == 301
+redirect == https://go.dev/play/p/abc
+
