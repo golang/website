@@ -1,60 +1,63 @@
-  - title: Cloud & Network Services
-    description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
-    link: /solutions/cloud/
-    icon: /images/icons/sphere.svg
-    iconDark: /images/icons/sphere-dark.svg
-    iconName: Sphere
-    packages:
-    - title: cloud.google.com/go
+- title: Cloud & Network Services
+  description: "With a strong ecosystem of tools and APIs on major cloud providers, it is easier than ever to build services with Go."
+  link: /solutions/cloud/
+  icon: /images/icons/sphere.svg
+  iconDark: /images/icons/sphere-dark.svg
+  iconName: Sphere
+  packages:
+    - title: Google Cloud
       url: https://cloud.google.com/go/home
-    - title: aws/client
+    - title: AWS SDK for Go
       url: https://aws.amazon.com/sdk-for-go/
-    - title: Azure/azure-sdk-for-go
+    - title: Azure SDK for Go
       url: https://github.com/Azure/azure-sdk-for-go
-  - title: Command-line Interfaces
-    description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
-    link: /solutions/clis/
-    icon: /images/icons/command-folder.svg
-    iconDark: /images/icons/command-folder-dark.svg
-    iconName: Command Line
-    packages:
-    - title: spf13/cobra
+
+- title: Command-line Interfaces
+  description: "With popular open source packages and a robust standard library, use Go to create fast and elegant CLIs."
+  link: /solutions/clis/
+  icon: /images/icons/command-folder.svg
+  iconDark: /images/icons/command-folder-dark.svg
+  iconName: Command Line
+  packages:
+    - title: Cobra
       url: https://github.com/spf13/cobra
-    - title: spf13/viper
+    - title: Viper
       url: https://github.com/spf13/viper
-    - title: urfave/cli
+    - title: CLI
       url: https://github.com/urfave/cli
-    - title: delve
+    - title: Delve
       url: https://github.com/go-delve/delve
-    - title: chzyer/readline
+    - title: Readline
       url: https://github.com/chzyer/readline
-  - title: Web Development
-    description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
-    link: /solutions/webdev/
-    icon: /images/icons/code.svg
-    iconDark: /images/icons/code-dark.svg
-    iconName: Code
-    packages:
-    - title: net/http
+
+- title: Web Development
+  description: "With enhanced memory performance and support for several IDEs, Go powers fast and scalable web applications."
+  link: /solutions/webdev/
+  icon: /images/icons/code.svg
+  iconDark: /images/icons/code-dark.svg
+  iconName: Code
+  packages:
+    - title: HTTP
       url: /pkg/net/http/
-    - title: html/template
+    - title: HTML Templates
       url: /pkg/html/template/
-    - title: flosch/pongo2
+    - title: Pongo2
       url: https://github.com/flosch/pongo2
-    - title: database/sql
+    - title: SQL
       url: /pkg/database/sql/
-    - title: elastic/go-elasticsearch
+    - title: Elasticsearch
       url: https://github.com/elastic/go-elasticsearch
-  - title: DevOps & Site Reliability
-    description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
-    link: /solutions/devops/
-    icon: /images/icons/gear.svg
-    iconDark: /images/icons/gear-dark.svg
-    iconName: Sphere
-    packages:
-    - title: open-telemetry/opentelemetry-go
+
+- title: DevOps & Site Reliability
+  description: "With fast build times, lean syntax, an automatic formatter and doc generator, Go is built to support both DevOps and SRE."
+  link: /solutions/devops/
+  icon: /images/icons/gear.svg
+  iconDark: /images/icons/gear-dark.svg
+  iconName: Gear
+  packages:
+    - title: OpenTelemetry
       url: https://github.com/open-telemetry/opentelemetry-go
-    - title: istio/istio
+    - title: Istio
       url: https://github.com/istio/istio
-    - title: urfave/cli
+    - title: CLI
       url: https://github.com/urfave/cli
