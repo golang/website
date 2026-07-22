@@ -157,7 +157,7 @@ Viper [supports nested structures](https://scene-si.org/2017/04/20/managing-conf
         url: https://pkg.go.dev/github.com/spf13/viper?tab=overview
         desc: A complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats
       - text: urfave/cli
-        url: https://pkg.go.dev/github.com/urfave/cli?tab=overview
+        url: https://github.com/urfave/cli
         desc: A minimal framework for creating and organizing command line Go applications
       - text: delve
         url: https://pkg.go.dev/github.com/go-delve/delve?tab=overview

@@ -168,7 +168,7 @@ Go’s garbage collector means DevOps/SRE teams don’t have to worry about memo
         url: https://pkg.go.dev/github.com/spf13/viper?tab=overview
         desc: A complete configuration solution for Go applications, designed to work within an app to handle configuration needs and formats
       - text: urfave/cli
-        url: https://pkg.go.dev/github.com/urfave/cli?tab=overview
+        url: https://github.com/urfave/cli
         desc: A minimal framework for creating and organizing command line Go applications
   - title: Other projects
     items:
