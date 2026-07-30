@@ -9,22 +9,25 @@ angular.module('tour', ['ui', 'tour.services', 'tour.controllers', 'tour.directi
 config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
         $routeProvider.
-        when('/tour/', {
-            redirectTo: '/tour/welcome/1'
-        }).
-        when('/tour/list', {
-            templateUrl: '/tour/static/partials/list.html',
-        }).
-        when('/tour/:lessonId/:pageNumber', {
-            templateUrl: '/tour/static/partials/editor.html',
-            controller: 'EditorCtrl'
-        }).
-        when('/tour/:lessonId', {
-            redirectTo: '/tour/:lessonId/1'
-        }).
-        otherwise({
-            redirectTo: '/tour/'
-        });
+            when('/tour/', {
+                redirectTo: '/tour/welcome/1'
+            }).
+            when('/tour/list', {
+                templateUrl: '/tour/static/partials/list.html',
+            }).
+            when('/tour/notfound', {
+                templateUrl: '/tour/static/partials/notfound.html',
+            }).
+            when('/tour/:lessonId/:pageNumber', {
+                templateUrl: '/tour/static/partials/editor.html',
+                controller: 'EditorCtrl'
+            }).
+            when('/tour/:lessonId', {
+                redirectTo: '/tour/:lessonId/1'
+            }).
+            otherwise({
+                redirectTo: '/tour/notfound'
+            });
 
         $locationProvider.html5Mode(true).hashPrefix('!');
     }

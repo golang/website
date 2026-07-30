@@ -26,6 +26,7 @@ import (
 var (
 	uiContent      []byte
 	lessons        = make(map[string][]byte)
+	lessonPages    = make(map[string]int)
 	lessonNotFound = fmt.Errorf("lesson not found")
 )
 
@@ -81,12 +82,13 @@ func initLessons(tmpl *template.Template) error {
 		if path.Ext(f.Name()) != ".article" {
 			continue
 		}
-		content, err := parseLesson(f.Name(), tmpl)
+		content, pages, err := parseLesson(f.Name(), tmpl)
 		if err != nil {
 			return fmt.Errorf("parsing %v: %v", f.Name(), err)
 		}
 		name := strings.TrimSuffix(f.Name(), ".article")
 		lessons[name] = content
+		lessonPages[name] = pages
 	}
 	return nil
 }
@@ -114,10 +116,11 @@ type lesson struct {
 
 // parseLesson parses and returns a lesson content given its path
 // relative to root ('/'-separated) and the template to render it.
-func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
+// It also returns the number of sub-pages in the lesson.
+func parseLesson(path string, tmpl *template.Template) ([]byte, int, error) {
 	f, err := contentTour.Open("tour/" + path)
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 	defer f.Close()
 	ctx := &present.Context{
@@ -127,7 +130,7 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 	}
 	doc, err := ctx.Parse(prepContent(f), path, 0)
 	if err != nil {
-		return nil, err
+		return nil, 0, err
 	}
 
 	lesson := lesson{
@@ -140,7 +143,7 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 		p := &lesson.Pages[i]
 		w := new(bytes.Buffer)
 		if err := sec.Render(w, tmpl); err != nil {
-			return nil, fmt.Errorf("render section: %v", err)
+			return nil, 0, fmt.Errorf("render section: %v", err)
 		}
 		p.Title = sec.Title
 		p.Content = w.String()
@@ -157,9 +160,9 @@ func parseLesson(path string, tmpl *template.Template) ([]byte, error) {
 
 	w := new(bytes.Buffer)
 	if err := json.NewEncoder(w).Encode(lesson); err != nil {
-		return nil, fmt.Errorf("encode lesson: %v", err)
+		return nil, 0, fmt.Errorf("encode lesson: %v", err)
 	}
-	return w.Bytes(), nil
+	return w.Bytes(), len(lesson.Pages), nil
 }
 
 // findPlayCode returns a slide with all the Code elements in the given
