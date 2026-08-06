@@ -16,6 +16,7 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"slices"
 	"testing"
 	"time"
 
@@ -371,6 +372,65 @@ func TestHeaders(t *testing.T) {
 	if err := tc.run(context.Background(), false); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestTestcaseRunScreenshotErrors(t *testing.T) {
+	img := image.NewGray(image.Rect(0, 0, 1, 1))
+	testErr := errors.New("test screenshot failed")
+	wantErr := errors.New("want screenshot failed")
+	tests := []struct {
+		name     string
+		test     testImageReadWriter
+		want     testImageReadWriter
+		wantErrs []error
+	}{
+		{
+			name:     "test fails",
+			test:     testImageReadWriter{err: testErr},
+			want:     testImageReadWriter{img: img},
+			wantErrs: []error{testErr},
+		},
+		{
+			name:     "want fails",
+			test:     testImageReadWriter{img: img},
+			want:     testImageReadWriter{err: wantErr},
+			wantErrs: []error{wantErr},
+		},
+		{
+			name:     "both fail",
+			test:     testImageReadWriter{err: testErr},
+			want:     testImageReadWriter{err: wantErr},
+			wantErrs: []error{testErr, wantErr},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			tc := &testcase{
+				common: common{
+					testImageReader:     tt.test,
+					wantImageReadWriter: tt.want,
+				},
+				name: "screenshot error",
+			}
+			err := tc.run(context.Background(), false)
+			if !slices.ContainsFunc(tt.wantErrs, func(target error) bool {
+				return errors.Is(err, target)
+			}) {
+				t.Fatalf("run() error = %v, want one of %v", err, tt.wantErrs)
+			}
+		})
+	}
+}
+
+type testImageReadWriter struct {
+	img image.Image
+	err error
+	imageWriter
+}
+
+func (rw testImageReadWriter) readImage(context.Context, string) (image.Image, error) {
+	return rw.img, rw.err
 }
 
 func headerServer() error {

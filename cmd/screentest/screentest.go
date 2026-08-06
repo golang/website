@@ -631,15 +631,24 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
 	var failReason string
 	for try := 0; try < maxRetries; try++ {
+		testScreen, wantScreen = nil, nil
 		g, gctx := errgroup.WithContext(ctx)
 		g.Go(func() error {
-			testScreen, err = tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
-			return err
+			screen, err := tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
+			if err != nil {
+				return err
+			}
+			testScreen = screen
+			return nil
 		})
 		if !update {
 			g.Go(func() error {
-				wantScreen, err = tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
-				return err
+				screen, err := tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
+				if err != nil {
+					return err
+				}
+				wantScreen = screen
+				return nil
 			})
 		}
 		if err := g.Wait(); err != nil {
