@@ -9,6 +9,9 @@ tags:
 summary: How to generate and consume JSON-formatted data in Go.
 ---
 
+[_**Note, August 2026**: Go 1.27 introduces a new `encoding/json/v2` package.
+For an updated introduction to working with JSON in Go, see “[Tutorial: Working with JSON](/doc/tutorial/json).”_]
+
 ## Introduction
 
 JSON (JavaScript Object Notation) is a simple data interchange format.
