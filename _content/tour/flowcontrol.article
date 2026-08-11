@@ -148,6 +148,7 @@ does not call `f` if `i==0`.)
 Switch without a condition is the same as `switch`true`.
 
 This construct can be a clean way to write long if-then-else chains.
+The cases can test conditions involving different variables; the first true case is selected.
 
 .play flowcontrol/switch-with-no-condition.go
 
