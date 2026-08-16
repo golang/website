@@ -17,6 +17,7 @@ import (
 	"path"
 	"path/filepath"
 	"slices"
+	"strings"
 	"testing"
 	"time"
 
@@ -38,6 +39,7 @@ func TestReadTests(t *testing.T) {
 		opts             options
 		want             []*testcase
 		wantErr          bool
+		wantErrText      string
 	}{
 		{
 			name:    "readtests",
@@ -212,6 +214,11 @@ func TestReadTests(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name:        "readtests-negative-retrypixels",
+			wantErr:     true,
+			wantErrText: "RETRYPIXELS must be non-negative, got -1",
+		},
+		{
 			name: "readtests-filter",
 			opts: options{
 				filterRegexp: `foo \d`,
@@ -248,6 +255,9 @@ func TestReadTests(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 			}
+			if err != nil && tt.wantErrText != "" && !strings.Contains(err.Error(), tt.wantErrText) {
+				t.Fatalf("readTests() error = %q, want error containing %q", err, tt.wantErrText)
+			}
 			if err != nil {
 				return
 			}
@@ -263,6 +273,17 @@ func TestReadTests(t *testing.T) {
 				t.Errorf("readTests() mismatch (-want +got):\n%s", diff)
 			}
 		})
+	}
+}
+
+func TestCommonValuesRejectsNegativeRetryPixels(t *testing.T) {
+	const want = "-retrypixels must be non-negative, got -1"
+	_, err := commonValues(context.Background(), "", "", options{retryPixels: -1})
+	if err == nil {
+		t.Fatalf("commonValues() error = nil, want %q", want)
+	}
+	if got := err.Error(); got != want {
+		t.Fatalf("commonValues() error = %q, want %q", got, want)
 	}
 }
 
