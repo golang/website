@@ -42,6 +42,8 @@ func TestFileOrder(t *testing.T) {
 		{Filename: "go1.16beta1.linux-amd64.tar.gz", Version: "go1.16beta1", OS: "linux", Arch: "amd64", Kind: "archive"},
 		{Filename: "go1.16beta2.linux-amd64.tar.gz", Version: "go1.16beta2", OS: "linux", Arch: "amd64", Kind: "archive"},
 		{Filename: "go1.16rc1.linux-amd64.tar.gz", Version: "go1.16rc1", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16rc9.linux-amd64.tar.gz", Version: "go1.16rc9", OS: "linux", Arch: "amd64", Kind: "archive"},
+		{Filename: "go1.16rc10.linux-amd64.tar.gz", Version: "go1.16rc10", OS: "linux", Arch: "amd64", Kind: "archive"},
 		{Filename: "go1.15.linux-amd64.tar.gz", Version: "go1.15", OS: "linux", Arch: "amd64", Kind: "archive"},
 		{Filename: "go1.15.2.linux-amd64.tar.gz", Version: "go1.15.2", OS: "linux", Arch: "amd64", Kind: "archive"},
 	}
@@ -62,6 +64,8 @@ func TestFileOrder(t *testing.T) {
 		"go1.16.linux-amd64.tar.gz",
 		"go1.15.2.linux-amd64.tar.gz",
 		"go1.15.linux-amd64.tar.gz",
+		"go1.16rc10.linux-amd64.tar.gz",
+		"go1.16rc9.linux-amd64.tar.gz",
 		"go1.16rc1.linux-amd64.tar.gz",
 		"go1.16beta2.linux-amd64.tar.gz",
 		"go1.16beta1.linux-amd64.tar.gz",

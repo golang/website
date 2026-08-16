@@ -13,11 +13,12 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	"go/version"
 	"html"
 	"io"
 	"log"
 	"net/http"
-	"sort"
+	"slices"
 	"strings"
 	"sync"
 	"time"
@@ -170,8 +171,8 @@ func serveJSON(w http.ResponseWriter, r *http.Request, d *listTemplateData) {
 	switch r.URL.Query().Get("include") {
 	case "all":
 		releases = append(append(d.Unstable, d.Stable...), d.Archive...)
-		sort.Slice(releases, func(i, j int) bool {
-			return versionLess(releases[i].Version, releases[j].Version)
+		slices.SortFunc(releases, func(a, b Release) int {
+			return version.Compare(b.Version, a.Version)
 		})
 	default:
 		releases = d.Stable

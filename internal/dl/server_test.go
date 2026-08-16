@@ -94,20 +94,38 @@ func TestServeJSON(t *testing.T) {
 }
 
 func TestSortedJSON(t *testing.T) {
-	// sortedVersion is populated with versions sorted from newest to oldest.
+	// sortedVersions is populated with versions sorted from newest to oldest.
 	var sortedVersions []File
-	for maj := 30; maj >= 0; maj-- {
-		for min := 30; min >= 0; min-- {
-			minStr := ""
-			if min > 0 {
-				minStr = fmt.Sprintf(".%d", min)
-			}
-			for _, tail := range []string{"", "rc2", "rc1", "beta2", "beta1"} {
-				version := fmt.Sprintf("go1.%d%s%s", maj, minStr, tail)
-				sortedVersions = append(sortedVersions, File{Version: version})
-			}
+
+	// Populate Go 1.21.0 onwards.
+	for maj := 30; maj >= 21; maj-- {
+		for min := 30; min >= 1; min-- {
+			version := fmt.Sprintf("go1.%d.%d", maj, min)
+			sortedVersions = append(sortedVersions, File{Version: version})
+		}
+		for _, tail := range []string{".0", "rc2", "rc1", "beta2", "beta1"} {
+			version := fmt.Sprintf("go1.%d%s", maj, tail)
+			sortedVersions = append(sortedVersions, File{Version: version})
 		}
 	}
+	// Populate Go 1.20 through Go 1.1.
+	for maj := 20; maj >= 1; maj-- {
+		for min := 30; min >= 1; min-- {
+			version := fmt.Sprintf("go1.%d.%d", maj, min)
+			sortedVersions = append(sortedVersions, File{Version: version})
+		}
+		for _, tail := range []string{"", "rc2", "rc1", "beta2", "beta1"} {
+			version := fmt.Sprintf("go1.%d%s", maj, tail)
+			sortedVersions = append(sortedVersions, File{Version: version})
+		}
+	}
+	// Populate Go 1 and its minor releases.
+	for min := 3; min >= 1; min-- {
+		version := fmt.Sprintf("go1.0.%d", min)
+		sortedVersions = append(sortedVersions, File{Version: version})
+	}
+	sortedVersions = append(sortedVersions, File{Version: "go1"})
+
 	shuffledVersions := append([]File{}, sortedVersions...)
 	rand.Shuffle(len(shuffledVersions), func(i, j int) {
 		shuffledVersions[i], shuffledVersions[j] = shuffledVersions[j], shuffledVersions[i]
