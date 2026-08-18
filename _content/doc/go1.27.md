@@ -22,6 +22,9 @@ a [method declaration](/ref/spec#Method_declarations) may declare its own
 This widely anticipated change allows adding generic functions within
 the namespace of a particular data type where before one had to declare
 such functions with a scope of the entire package.
+As an example, `math/rand/v2` now also declares a generic method with signature
+`(*Rand) N[Int intType](Int) Int`, whereas previously it had just a
+generic function `N[Int intType](Int) Int` (see [below](#rand) for details).
 Note that methods of [interfaces](/ref/spec#Interface_types) may not declare
 type parameters nor can interface methods be implemented by generic methods.
 
@@ -536,7 +539,7 @@ to compute quotient and remainder of two [`Int`](/pkg/math/big#Int) values.
 It supports rounding modes [`Trunc`](/pkg/math/big#Trunc), [`Floor`](/pkg/math/big#Floor),
 [`Round`](/pkg/math/big#Round), and [`Ceil`](/pkg/math/big#Ceil).
 
-#### [`math/rand/v2`](/pkg/math/rand/v2/)
+#### [`math/rand/v2`](/pkg/math/rand/v2/) {#rand}
 
 <!-- 6-stdlib/99-minor/math/rand/v2/77853.md -->
 
