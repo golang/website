@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 830 250" width="830" height="250">
+  <!-- White background -->
+  <rect width="830" height="250" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="400" y="25" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#000">
+    Daisy-Chain Worst Case Scenario
+  </text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrow-solid" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrow-dashed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#cc0000"/>
+    </marker>
+  </defs>
+
+  <!-- G0 (runnable) -->
+  <rect x="30" y="50" width="60" height="40" fill="#d9ead3" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="60" y="67" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">G₀</text>
+  <text x="60" y="81" text-anchor="middle" font-family="Arial" font-size="10" fill="#666">runnable</text>
+
+  <!-- Solid arrow: has reference to -->
+  <line x1="90" y1="70" x2="115" y2="70" stroke="#666" stroke-width="2" marker-end="url(#arrow-solid)"/>
+
+  <!-- P1 -->
+  <rect x="115" y="50" width="50" height="40" fill="#fff4cc" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="140" y="75" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">P₁</text>
+
+  <!-- Dashed arrow: blocks -->
+  <line x1="165" y1="70" x2="190" y2="70" stroke="#cc0000" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- G1 (blocked) -->
+  <rect x="190" y="50" width="60" height="40" fill="#e6b8af" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="220" y="67" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">G₁</text>
+  <text x="220" y="81" text-anchor="middle" font-family="Arial" font-size="10" fill="#666">blocked</text>
+
+  <!-- Solid arrow -->
+  <line x1="250" y1="70" x2="275" y2="70" stroke="#666" stroke-width="2" marker-end="url(#arrow-solid)"/>
+
+  <!-- P2 -->
+  <rect x="275" y="50" width="50" height="40" fill="#fff4cc" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="300" y="75" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">P₂</text>
+
+  <!-- Dashed arrow -->
+  <line x1="325" y1="70" x2="350" y2="70" stroke="#cc0000" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- G2 (blocked) -->
+  <rect x="350" y="50" width="60" height="40" fill="#e6b8af" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="380" y="67" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">G₂</text>
+  <text x="380" y="81" text-anchor="middle" font-family="Arial" font-size="10" fill="#666">blocked</text>
+
+  <!-- Solid arrow -->
+  <line x1="410" y1="70" x2="435" y2="70" stroke="#666" stroke-width="2" marker-end="url(#arrow-solid)"/>
+
+  <!-- P3 -->
+  <rect x="435" y="50" width="50" height="40" fill="#fff4cc" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="460" y="75" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">P₃</text>
+
+  <!-- Dashed arrow -->
+  <line x1="485" y1="70" x2="510" y2="70" stroke="#cc0000" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- G3 (blocked) -->
+  <rect x="510" y="50" width="60" height="40" fill="#e6b8af" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="540" y="67" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">G₃</text>
+  <text x="540" y="81" text-anchor="middle" font-family="Arial" font-size="10" fill="#666">blocked</text>
+
+  <!-- Solid arrow -->
+  <line x1="570" y1="70" x2="595" y2="70" stroke="#666" stroke-width="2" marker-end="url(#arrow-solid)"/>
+
+  <!-- ... ellipsis -->
+  <text x="615" y="75" text-anchor="middle" font-family="Arial" font-size="20" fill="#666" font-weight="bold">...</text>
+
+  <!-- Solid arrow -->
+  <line x1="635" y1="70" x2="660" y2="70" stroke="#666" stroke-width="2" marker-end="url(#arrow-solid)"/>
+
+  <!-- Pn -->
+  <rect x="660" y="50" width="50" height="40" fill="#fff4cc" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="685" y="75" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">Pₙ</text>
+
+  <!-- Dashed arrow -->
+  <line x1="710" y1="70" x2="735" y2="70" stroke="#cc0000" stroke-width="2" stroke-dasharray="4,3"/>
+
+  <!-- Gn (blocked) -->
+  <rect x="735" y="50" width="60" height="40" fill="#e6b8af" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="765" y="67" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">Gₙ</text>
+  <text x="765" y="81" text-anchor="middle" font-family="Arial" font-size="10" fill="#666">blocked</text>
+
+  <!-- Bracket 1: G1 to Gn - "n rounds" (pincers facing UP) -->
+  <path d="M 190 110 L 190 120 L 795 120 L 795 110" fill="none" stroke="#666" stroke-width="2"/>
+  <text x="795" y="135" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
+    Marking round 1: check n goroutines for maybe-runnability
+  </text>
+
+  <!-- Bracket 2: G2 to Gn - "n-1 checks" (pincers facing UP) -->
+  <path d="M 350 145 L 350 155 L 795 155 L 795 145" fill="none" stroke="#666" stroke-width="2"/>
+  <text x="795" y="170" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
+    Marking round 2: check n-1 goroutines for maybe-runnability
+  </text>
+
+  <!-- Ellipsis -->
+  <text x="795" y="187" text-anchor="end" font-family="Arial" font-size="20" fill="#666" font-weight="bold">
+    ...
+  </text>
+
+  <!-- Bracket n: Just Gn - "last goroutine" (pincers facing UP) -->
+  <path d="M 735 200 L 735 210 L 795 210 L 795 200" fill="none" stroke="#666" stroke-width="2"/>
+  <text x="795" y="225" text-anchor="end" font-family="Arial" font-size="13" fill="#666" font-weight="bold">
+    Marking round n: check last goroutine for maybe-runnability
+  </text>
+
+  <!-- Legend -->
+  <rect x="20" y="215" width="20" height="2" fill="#666"/>
+  <polygon points="40,214 45,216.5 40,219" fill="#666"/>
+  <text x="50" y="220" font-family="Arial" font-size="11" fill="#666">
+    has reference to
+  </text>
+
+  <line x1="160" y1="216.5" x2="180" y2="216.5" stroke="#cc0000" stroke-width="2" stroke-dasharray="4,3"/>
+  <polygon points="180,215 185,216.5 180,218" fill="#cc0000"/>
+  <text x="190" y="220" font-family="Arial" font-size="11" fill="#cc0000">
+    blocks
+  </text>
+</svg>

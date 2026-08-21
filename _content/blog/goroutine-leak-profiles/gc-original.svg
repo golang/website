@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 700" width="650" height="700">
+  <!-- White background -->
+  <rect width="650" height="700" fill="#ffffff"/>
+
+  <!-- Title -->
+  <text x="325" y="30" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="#000">
+    Go Mark-and-Sweep GC Phases
+  </text>
+
+  <!-- Step 1: Prepare mark roots -->
+  <rect x="50" y="60" width="200" height="60" fill="#eeeeee" stroke="#666" stroke-width="2" rx="8"/>
+  <text x="150" y="85" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    1. Prepare Mark Roots
+  </text>
+  <text x="150" y="105" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">
+    includes <tspan font-weight="bold">ALL</tspan> goroutines
+  </text>
+
+  <!-- Arrow down -->
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#666"/>
+    </marker>
+  </defs>
+  <line x1="150" y1="120" x2="150" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Step 2: Initiate mark workers -->
+  <rect x="50" y="150" width="200" height="60" fill="#eeeeee" stroke="#666" stroke-width="2" rx="8"/>
+  <text x="150" y="182" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    2. Initiate Mark Workers
+  </text>
+
+  <!-- Fan out to workers (elbow connectors to north anchors) -->
+  <line x1="150" y1="210" x2="150" y2="250" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 150 210 L 150 226 L 350 226 L 350 250" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 150 210 L 150 226 L 550 226 L 550 250" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- Worker boxes -->
+  <rect x="100" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="150" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker 1
+  </text>
+  <text x="150" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <rect x="300" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="350" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker 2
+  </text>
+  <text x="350" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <!-- Ellipsis between Worker 2 and Worker N -->
+  <text x="450" y="280" text-anchor="middle" font-family="Arial" font-size="20" fill="#666" font-weight="bold">
+    ...
+  </text>
+
+  <rect x="500" y="250" width="100" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="5"/>
+  <text x="550" y="270" text-anchor="middle" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    Worker N
+  </text>
+  <text x="550" y="287" text-anchor="middle" font-family="Arial" font-size="11" fill="#666">
+    marking
+  </text>
+
+  <!-- Arrow from Worker 1 to decision -->
+  <line x1="150" y1="300" x2="150" y2="345" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="160" y="315" font-family="Arial" font-size="11" fill="#666" font-weight="bold">
+    last worker
+  </text>
+  <text x="160" y="330" font-family="Arial" font-size="11" fill="#666" font-weight="bold">
+    terminates
+  </text>
+
+  <!-- Decision diamond -->
+  <polygon points="150,345 250,375 150,405 50,375" fill="#eeeeee" stroke="#666" stroke-width="2"/>
+  <text x="150" y="380" text-anchor="middle" font-family="Arial" font-size="13" fill="#000" font-weight="bold">
+    3. More mark work?
+  </text>
+
+  <!-- Yes arrow back to step 2 (elbow connector from West anchor) -->
+  <path d="M 50 375 L 20 375 L 20 180 L 50 180" fill="none" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="25" y="275" font-family="Arial" font-size="12" fill="#666" font-weight="bold">
+    Yes
+  </text>
+
+  <!-- No arrow to sweep (from south anchor) -->
+  <line x1="150" y1="405" x2="150" y2="435" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+  <text x="120" y="425" font-family="Arial" font-size="12" fill="#000" font-weight="bold">
+    No
+  </text>
+
+  <!-- Sweep -->
+  <rect x="75" y="435" width="150" height="50" fill="#eeeeee" stroke="#666" stroke-width="2" rx="8"/>
+  <text x="150" y="457" text-anchor="middle" font-family="Arial" font-size="14" fill="#000" font-weight="bold">
+    4. Sweep
+  </text>
+  <text x="150" y="473" text-anchor="middle" font-family="Arial" font-size="12" fill="#333">
+    reclaim memory
+  </text>
+
+</svg>
