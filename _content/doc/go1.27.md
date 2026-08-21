@@ -294,6 +294,20 @@ may disable it by setting `GOEXPERIMENT=nojsonv2` at build time,
 restoring the original v1 implementation.
 This opt-out is expected to be removed in a future release.
 
+Some notable changes to `encoding/json/v2` over the course of the `GOEXPERIMENT` include
+the following removals:
+the `format` tag option ([#79071](/issue/79071)),
+the `unknown` tag option ([#77271](/issue/77271)),
+the `DiscardUnknownMembers` marshal option ([#77271](/issue/77271)),
+and the `SkipFunc` sentinel error ([#74324](/issue/74324)).
+In addition, the `inline` tag option was renamed to `embed` ([#79985](/issue/79985)), and
+behavior was updated for the [`string`](/pkg/encoding/json/v2#hdr-JSON_Representation_of_Go_structs)
+tag option ([#79065](/issue/79065))
+and the [`MatchCaseInsensitiveNames`](/pkg/encoding/json/v2#MatchCaseInsensitiveNames)
+option ([CL 792780](/cl/792780)).
+In `encoding/json/jsontext`, the numeric [`Token`](/pkg/encoding/json/jsontext#Token)
+accessors were changed to also return errors ([#77666](/issue/77666)).
+
 See the [proposal issue](/issue/71497) for background and additional detail.
 If you need to disable the new implementation, [please file an issue](/issue/new).
 
