@@ -1,6 +1,6 @@
 ---
 title: Goroutine Leak Profiles
-date: 2026-03-24
+date: 2026-09-02
 by:
 - Vlad Saioc
 tags:
@@ -15,10 +15,9 @@ Go's [concurrency features](/tour/concurrency/1) are powerful and easy to use, b
 that same ease can sometimes lead even seasoned developers to make
 mistakes.
 Fortunately, the Go ecosystem comes equipped with useful tools for
-debugging, e.g., the [race detectors](/doc/articles/race_detector).
-
-The existing tools may, nevertheless, miss some concurrency bugs,
-the most prominent of which is the _goroutine leak_.
+debugging, e.g., the [race detector](/doc/articles/race_detector),
+but even existing tools may miss some concurrency bugs,
+such as the topic of this article, the _goroutine leak_.
 
 Goroutines synchronize or exchange information
 via shared concurrency primitives, e.g., channels, locks, and wait groups.
@@ -28,22 +27,20 @@ ubiquitous examples include waiting to acquire a held mutex,
 or receive a message over a channel.
 Goroutines can also block on operating system operations, like reading from a network socket or a file.
 
-Broadly speaking, a goroutine is considered _leaked_ if it
-is part of an unexpected accumulation of blocked goroutines
-that ultimately degrades performance.
-This performance degradation typically manifests
-as excessive memory usage, from the goroutines
-themselves or the memory they reference.
-However, it can also manifest as excessive
+We may consider a goroutine leaked if it is blocked,
+but the conditions needed to unblock it can never be met.
+Over time, an accumulation of leaked goroutines degrades
+performance through excessive memory usage (by the leaked
+goroutines themselves or the memory they reference), as well as
 CPU usage from the garbage collector, especially
 if `GOMEMLIMIT` is in use.
 
 Goroutine leaks can be notoriously difficult to detect.
 In unit testing, the most significant breakthroughs include
-the [open-source library  `goleak`](https://github.com/uber-go/goleak),
+the [open-source library `goleak`](https://github.com/uber-go/goleak),
 which can instrument individual tests to signal any
 un-terminated goroutines after the test wraps up as suspicious.
-Similarly, Go 1.24 introduced the [`synctest` package](/blog/synctest) to
+Similarly, Go 1.25 introduced the [`synctest` package](/blog/testing-time) to
 the standard library; it can significantly improve
 the quality of unit tests in concurrent code by giving
 Go developers more control over the ordering of concurrent events
@@ -51,19 +48,19 @@ in order to reliably test hard-to-reproduce scenarios.
 
 Unfortunately, neither approach can check for goroutine leaks
 in production systems, especially at larger scales,
-which might behave in ways tests might not have accounted for.
-So far, goroutine profiles have been used to check for operations
+which may behave in ways unaccounted for by tests.
+Goroutine profiles are a rudimentary way to check for operations
 that block too many goroutines, or analyze growth trends.
 However, goroutine profiles cannot distinguish between
-goroutines which are leaked, and those which might only
-temporarily block in high numbers by design, e.g., as
-a result of increased traffic in a microservice.
+goroutines which are leaked, and those which are temporarily blocked
+in high numbers by design, e.g., as caused by increased
+traffic in a microservice.
 Likewise, leaks which are low in number may slip by undetected for many years.
 
-Finally, Go 1.26 introduces the **goroutine leak profiler**,
+Go 1.27 introduces the **goroutine leak profiler**,
 a flexible and lightweight mechanism for finding
 goroutine leaks in running Go programs, including production systems.
-Unlike previous approaches, which tend to require human analysis,
+Unlike previous approaches, which require human analysis,
 this mechanism is precise and generates little-to-no false positives.
 The trade-off is that it is limited to a subset of goroutine leaks:
 goroutines permanently blocked on channels or primitives
@@ -71,7 +68,7 @@ in the [`sync` package](/pkg/sync).
 Luckily for us, this already covers a very large subset of goroutine leaks,
 as we'll see in our examples.
 
-In the followings sections, we showcase how to use the feature, followed by
+In the following sections, we showcase how to use the feature, followed by
 some additional examples of detectable leaks, and a description of the
 underlying implementation and trade-offs.
 
@@ -120,14 +117,7 @@ new goroutine leak profiler.
 
 ### Debugging with the goroutine leak profiler
 
-In Go 1.26, the goroutine leak profiler is available as an experiment,
-which you can enable by building your program with:
-
-```
-$ GOEXPERIMENT=goroutineleakprofile go build [...]
-```
-
-Once enabled, the profile becomes available through the
+The profile is available through the
 [`runtime/pprof` package](/pkg/runtime/pprof), as the
 `goroutineleak` profile type, or by installing the profile handlers defined
 by the [`net/http/pprof` package](/pkg/net/http/pprof).
@@ -169,7 +159,6 @@ type result struct {
 func processWorkItems(ws []workItem) ([]workResult, error) {
 	ch := make(chan result)
 	for _, w := range ws {
-		w := w // capture for closure
 		go func() {
 			res, err := processWorkItem(w)
 			ch <- result{res, err}
@@ -253,12 +242,12 @@ in the event of a premature return of `processWorkItems`.
 ## Other examples
 
 Goroutine leaks come in various forms, so in the following section,
-we present a few common examples of coding patterns that lead to leaks
+we present a few common coding patterns that lead to leaks
 observed in industrial-scale codebases and open source projects,
 in ascending order of complexity.
 
 You can quickly test drive the goroutine leak detector on them in
-[the Go playground](/play/p/3C71z4Dpav-?v=gotip), and even
+[the Go playground](/play/p/S4Uw66sMbpj-), and even
 experiment with your own leaks.
 
 ### Example: Double send
@@ -284,7 +273,7 @@ func DoubleSend() {
 		// This send is still executed, which causes a leak in the error case.
 		ch <- struct{}{}
 	}(fmt.Errorf("error"))
-	// Retrieve only one message.
+	// Receive only one message.
 	<-ch
 }
 ```
@@ -368,7 +357,7 @@ func Timeout(ctx context.Context) {
 	case <-ch: // Receive message from worker
 	case <-ctx.Done():
 		// Sender leaks because there is no
-		// future rendez-vous over the channel.
+		// future rendezvous over the channel.
 	}
 }
 ```
@@ -441,10 +430,18 @@ ROUTINE ======================== main.noCloseRange.func1 in .../main.go
          .          .     88:           }()
 ```
 We see the 3 workers blocked at the `range ch` operation, which
-gives an ample hint as to the cause of the leak.
+gives an ample hint as to the cause of the leak. The leak can be
+addressed by simply closing the channel once all messages have been sent:
+```go
+	for _, item := range list {
+		ch <- item
+	}
+	// All items have been sent. It is now safe to close.
+	close(ch)
+```
 
-**Bonus!** There is another potential leak in this example,
-if the number of workers is mistakenly set to zero,
+**Bonus!** Eagle-eyed readers may have spotted another potential
+leak in this example, if the number of workers is mistakenly set to zero,
 which will lead the parent sender to leak:
 ```go
 go noCloseRange([]any{1, 2, 3}, 0) // Sender leaks with 0 workers
@@ -460,16 +457,6 @@ ROUTINE ======================== main.noCloseRange in .../main.go
          .          .     92:   for _, item := range list {
          .          1     95:           ch <- item
          .          .     96:   }
-```
-
-The `range` leak can be addressed by simply closing the channel once
-all messages have been sent:
-```go
-	for _, item := range list {
-		ch <- item
-	}
-	// All items have been sent. It is now safe to close.
-	close(ch)
 ```
 While `workers > 0` can be assumed to hold in realistic production systems,
 goroutine leak profiles can nevertheless be used to implicitly monitor for off-chance
@@ -512,8 +499,6 @@ func MethodContractViolation() {
 }
 
 type worker struct {
-	once *sync.Once
-
 	ch   chan any
 	done chan any
 }
@@ -526,7 +511,7 @@ type Worker interface {
 
 func NewWorker() Worker {
 	return &worker{
-		once: &sync.Once{},
+		once: sync.Once{},
 
 		ch:   make(chan any),
 		done: make(chan any),
@@ -548,9 +533,7 @@ func (w *worker) Start() {
 
 func (w *worker) Stop() {
 	// Allows goroutine created by Start to terminate
-	w.once.Do(func() {
-		close(w.done)
-	})
+	close(w.done)
 }
 
 func (w *worker) AddToQueue(item any) {
@@ -579,12 +562,11 @@ ROUTINE ======================== main.(*worker).Start.func1 in .../main.go
 Naturally, the fix involves following the trail to the `Start` call
 and adding an invocation of `Stop`.
 
-### Example: Cockroach/584
+### Example: Cockroach/584 missing unlock
 
 The following real-world
 [example](https://github.com/cockroachdb/cockroach/pull/584)
-is taken from the open-source
-project [cockroachdb](https://github.com/cockroachdb/cockroach).
+is taken from [CockroachDB](https://github.com/cockroachdb/cockroach).
 It involves acquiring and releasing a lock in a loop,
 but forgetting to unlock it
 before executing a `break` statement:
@@ -605,24 +587,13 @@ func (g *Gossip) bootstrap() {
 	}
 }
 
-func (g *Gossip) manage() {
-	for {
-		g.mu.Lock()
-		if g.closed {
-			// Missing g.mu.Unlock
-			break
-		}
-		g.mu.Unlock()
-	}
-}
-
 func Cockroach584() {
 	g := &Gossip{
 		closed: true,
 	}
 	// ...
 	g.bootstrap()
-	g.manage()
+	g.bootstrap() // Causes a leak
 }
 ```
 In such a case, the goroutine will leak when failing to acquire the lock.
@@ -641,11 +612,11 @@ ROUTINE ======================== main.(*Gossip).bootstrap in .../main.go
 ```
 Adding a call to `Unlock` before the `break` addresses the issue.
 
-### Example: Etcd/6857
+### Example: Etcd/6857 channel operation ordering
 
 This [example](https://github.com/etcd-io/etcd/pull/6857),
-found in [etcd](https://github.com/etcd-io/etcd),
-shows how an unexpected ordering between communication
+found in [ETCD](https://github.com/etcd-io/etcd),
+shows how an unexpected ordering between channel
 operations can lead to a goroutine leak:
 ```go
 type node struct {
@@ -692,22 +663,23 @@ func Etcd6857() {
 	go n.Stop()
 }
 ```
-The `run` method runs a loop in which it expects to
-repeatedly receive messages over the `status` channel,
-which are sent by invoking `Status` method.
+The `run` method fires a loop which expects to
+repeatedly receive messages over the `status` channel
+(sent by invoking the `Status` method).
 At the same time, it can also receive one message over the
-`stop` channel, which can be sent by invoking the `Stop` method,
-at which point it closes the `done` channel and exists.
-The `Stop` method itself waits on a receive operation
+`stop` channel (sent via the `Stop` method),
+at which point it closes the `done` channel and exits.
+The `Stop` method itself then waits to receive message
 over `done`, which is unblocked once `done` is closed.
 
-However, a leak occurs if the `run`, `Status`, and `Stop` methods
+A leak may occur if the `run`, `Status`, and `Stop` methods
 run concurrently.
 The `Stop` and `run` goroutines can synchronize
 and exit without receiving the message issued
-by `Status`, and causing it to block forever.
+by `Status`, causing it to block forever.
 
-``` (pprof) list Status
+```
+(pprof) list Status
 Total: 8
 ROUTINE ======================== main.(*node).Status in .../main.go
          0          8 (flat, cum)   100% of Total
@@ -723,10 +695,10 @@ over `done` allows the goroutine running to `Status`
 to gracefully exit if it lost the race with a `Stop`
 call.
 
-### Example: Kubernetes/6632
+### Example: Kubernetes/6632 mixing locks and channels
 
 This [example](https://github.com/kubernetes/kubernetes/pull/6632)
-occurs in [kubernetes](https://github.com/kubernetes/kubernetes),
+occurs in [Kubernetes](https://github.com/kubernetes/kubernetes),
 as a result of mixing channels and locks:
 ```go
 type Connection struct {
@@ -779,15 +751,15 @@ func Kubernetes6632() {
 }
 ```
 The goroutine running `WriteFrame` may acquire the
-idle-aware framer lock, followed by a message being
-sent to the `resetChan` channel, while the `monitor` goroutine
+idle-aware framer lock, followed by sending a message over the
+`resetChan` channel, while the `monitor` goroutine
 waits to receive a message over the `closeChan` channel.
 Once a message has been dispatched, the `monitor` goroutine
-will then attempt to acquire the same lock.
-However, there isn't any traffic over `resetChan`, causing
-its send operation to block forever, and preventing the
-`monitor` goroutine from releasing the lock, causing
-both goroutines to leak.
+will attempt to acquire the same lock.
+However, since there isn't any traffic over `resetChan`, the send operation
+blocks forever, preventing the `monitor` goroutine from releasing
+the lock.
+This, in turn, causes both goroutines to leak.
 ```
 (pprof) list AwareFramer
 Total: 200
@@ -813,10 +785,11 @@ The fix is to set up a separate goroutine after a message is received
 over `closeChan` in the `monitor` goroutine that drains the `resetChan`
 before attempting to acquire the lock.
 
-### Example: Moby/25384
+### Example: Moby/25384 `sync.WaitGroup` misuse
 
 The [following example](https://github.com/moby/moby/pull/25384) in
-[moby](https://github.com/moby/moby) is caused by wait group misuse:
+[Moby](https://github.com/moby/moby) showcases how wait groups may
+cause leaks:
 ```go
 type Manager struct {
 	plugins []int
@@ -833,7 +806,7 @@ func (pm *Manager) init() {
 	}
 }
 
-func Moby25348() {
+func Moby25384() {
 	pm := &Manager{
 		plugins: []int{1, 2},
 	}
@@ -846,7 +819,7 @@ plugin manager `pm`, then iterates over each plugin
 and spawns a goroutine.
 Each goroutine decrements the counter once it finishes
 its task with the `Done` method.
-However, group erroneously invokes `Wait` inside
+However, `group` erroneously invokes `Wait` inside
 the loop body, instead of after it!
 This will cause any goroutine running the `init` method
 when the manager has more than one plugin to leak.
@@ -869,7 +842,7 @@ the loop.
 ### Example: Moby/28462
 
 Another [example](https://github.com/moby/moby/pull/28462)
-in [moby](https://github.com/moby/moby)
+in [Moby](https://github.com/moby/moby)
 showcases a mixed channel-lock leak:
 ```go
 type (
@@ -924,6 +897,7 @@ func monitor(c *Container, stop chan struct{}) {
 
 func handleProbeResult(c *Container) {
 	c.Lock()
+	// Additional work...
 	defer c.Unlock()
 }
 
@@ -952,7 +926,7 @@ However, the goroutine running `monitor`
 may fail to receive a message over `stop`, if the message
 is not already in-flight, and instead unblock by picking
 the `default` case of the `select` statement.
-This will lead to try to acquire the same container
+This will lead it to try to acquire the same container
 lock that is already held by the `StateChanged`
 goroutine, leading both goroutines to leak.
 ```
@@ -971,8 +945,9 @@ ROUTINE ======================== main.handleProbeResult in .../main.go
          0          1 (flat, cum) 50.00% of Total
          .          .     83:func handleProbeResult(c *Container) {
          .          1     84:   c.Lock()
-         .          .     85:   defer c.Unlock()
-         .          .     86:}
+         .          .     85:   // Additional work...
+         .          .     86:   defer c.Unlock()
+         .          .     87:}
 ```
 The fix is to close the `stop` channel instead
 of sending a message over it.
@@ -996,34 +971,29 @@ skip ahead to [this section](/blog/goroutine-leak-profiles#limitations).
 Let's start with an initial observation: if a goroutine
 is blocked over some concurrency primitive that no other goroutine has access to
 (in this case, via a reference in memory), then it is obviously leaked.
-
-This observation, while simplified, already gives us a strong lead on how to
-reliably detect goroutine leaks at runtime.
-Our goal now is to achieve it in practice, and expand upon
-and generalize it into a proper definition.
-We, therefore, define _maybe-runnability_, as an inductive property
-of goroutines, defined thusly:
-> A goroutine is maybe-runnable if:
+This is already a strong lead, we can generalize it further into a definition
+for when a goroutine is _not_ leaked, a property we term as _liveness_.
+We formally define liveness as an inductive property
+as follows:
+> A goroutine is _live_ if:
 > 1. it is not blocked by a concurrency primitive, or
 > 2. at least one concurrency primitive that blocks it is referenced
-	by another maybe-runnable goroutine.
+	by another live goroutine.
 
 In the trivial case, goroutines which are not blocked are obviously
 not leaked.
-For a goroutine that matches the inductive case, the assumption is that
-it may be unblocked later if another goroutine that references the blocking
-primitive uses it.
+In the inductive case, the underlying assumption is that
+any goroutine which is not leaked may eventually use
+concurrency primitives it references to unblock any
+other goroutines blocked by those primitives.
 
-As a corollary, any goroutine which is not maybe-runnable is definitely leaked.
-
-Our goal is, therefore, to discover all maybe-runnable
-goroutines in the system and signal the rest as leaked.
-This achieved by using the non-blocked goroutines as a starting
-point from which to then incrementally check whether
-the blocked goroutines are maybe-runnable.
-To do this, we simply trace a goroutine's references, i.e.,
-its local variables, to see which concurrency primitives
-might still be usable.
+To find all live goroutines, we start from the obviously live,
+unblocked goroutines and trace any references 
+they hold, i.e., through their local variables, to see
+which concurrency primitives they have access to.
+We then incrementally include any goroutines blocked over those
+primitives as live, and repeat the process until no
+more live goroutines are discovered.
 
 Fortunately for us, the Go runtime already computes memory reachability
 through the [garbage collector](/doc/gc-guide) (GC),
@@ -1031,8 +1001,6 @@ so the next step is to adapt the GC to suit our purposes.
 You can quickly compare the two GCs with the following diagrams:
 
 <div class="centered">
-<button type="button" id="greentea-prev" class="scroll-button scroll-button-left" hidden disabled>← Prev</button>
-<button type="button" id="greentea-next" class="scroll-button scroll-button-right" hidden>Next →</button>
 <div id="goroutineleakgc" class="carousel">
 	<figure class="carouselitem">
 		<img src="goroutine-leak-profiles/gc-original.svg" />
@@ -1043,42 +1011,42 @@ You can quickly compare the two GCs with the following diagrams:
 </div>
 </div>
 
-Fortunately for us, a complete overhaul of the GC is not necessary.
+A complete overhaul of the GC is not necessary.
 The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
 (now with the [Green Tea](/blog/greenteagc) variant!),
-so its core MO already neatly aligns with our goals for the most part.
+so its MO already neatly aligns with our goals.
 Only a few key changes were needed:
 1. In the initial phases, the regular GC marks **all** goroutines (and global variables)
 	as reachable, i.e., they are _mark roots_, such that they would never be considered garbage.
-	We change it to instead **only** include non-blocked goroutines,
-	as these are the only ones which are guaranteed to be maybe-runnable,
+	We change it to instead **only** include unblocked goroutines,
+	as these are the only ones which are guaranteed to be live,
 	initially.
 2. This is followed by the marking phase, where the GC traces objects referenced
 	(transitively) by the mark roots, and _marks_ them as usable memory.
 	Even though we do not modify this phase directly, the changes in step 1. ensure that
-	the GC only marks memory referenced by maybe-runnable goroutines.
+	the GC only marks memory referenced by live goroutines.
 3. The marking phase is finalized by inspecting all the blocked
-	goroutines which were not included as mark roots in step 1.
+	goroutines not included as mark roots in step 1.
 	If a goroutine is blocked by at least one concurrency
 	primitive that has been marked in step 2., it is added as a mark root,
 	and the GC resumes the marking phase from step 2.
 	This coincides with the inductive step in the definition
-	of maybe-runnability.
-4. Once all maybe-runnable goroutines have been discovered, any goroutine
+	of liveness.
+4. Once all live goroutines have been discovered, any goroutine
 	which has not been added as a mark root has its status set to leaked.
 5. The marking phase then resumes one last time with all the leaked goroutines
 	added	as mark roots, allowing the GC to mark all the memory it would have
-	marked in a regular run, such that it would not erroneously collect garbage.
+	marked during a regular run.
 
-Once the GC phase is complete, the goroutine leak profiler picks up
-like in a regular goroutine profile, except that it filters for strictly
+Once the GC cycle is complete, the goroutine leak profiler picks up
+like in a regular goroutine profile, and filters for strictly
 leaked goroutines.
 
 ### Limitations {#limitations}
 
 The examples above demonstrate the usefulness of goroutine leak profiles.
-Nevertheless, relying on the garbage collector does impose some limitations
-that may lead it to miss leaks:
+Nevertheless, the garbage collector has some limitations that may lead
+it to miss leaks:
 
 1. **Memory overreach**: if a concurrency primitive is
 	consistently reachable through **global variables** or **runnable goroutines**,
@@ -1099,17 +1067,18 @@ that may lead it to miss leaks:
 	`RWMutex`, `WaitGroup` and `Cond`.
 
 	Goroutines blocked for any other reason, e.g.,
-	netpollers, semaphores internal to the Go runtime, or are never considered as leaked.
-	This likewise applies for custom, user-defined concurrency
-	(e.g., spin locks), except if they rely on the primitives outlined above
-	in their implementation.
+	file or network IO or semaphores internal to the Go runtime
+	are never considered as leaked.
+	This likewise applies for custom, user-defined concurrency,
+	e.g., spin locks, unless they rely on the primitives outlined above
+	for their underlying implementation.
 
-3. **Non-determinism**: leaks can only be detected after
-	they have occurred, but cannot be otherwise predicted.
-	Reproducing and diagnosing leaks in flaky programs
+3. **Non-determinism**: leaks can be detected only after
+	they have occurred, but cannot be otherwise predicted,
+	so reproducing and diagnosing leaks in flaky programs
 	continues to be a challenge.
 	For the best results, we encourage mixing approaches, by using
-	both goroutine leak profiles at various layers, up to, and including production,
+	goroutine leak profiles at various layers, up to, and including production,
 	as well as comprehensive test suites instrumented with `goleak` and `synctest`.
 
 ### Performance impact {#performance}
@@ -1117,60 +1086,17 @@ that may lead it to miss leaks:
 Goroutine leak detection is carefully designed to minimize
 performance impact, but there are, nevertheless, some costs.
 
-#### Memory
-
-Leak detection predominantly minimizes memory overhead through
-constant-sized additions required for book-keeping.
-However, one scaling factor is the introduction of _maybe-traceable pointers_,
-which prevent some references from being traced prematurely by the GC,
-according to our specifications.
-
-These are objects that carry the same reference twice: once as an
-untraceable pointer-as-an-integer value, `vu`, and once as an
-actual reference that is understood as such by the GC, `vp`.
-A maybe-traceable pointer is, therefore, double the size of
-its regular counterpart.
-
-Maybe-traceable pointers come in 3 valid states:
-1. `vu` and `vp` are unset, which is analogous to a `nil` pointer,
-2. `vu` and `vp` are set (and equal), which is analogous to a regular reference
-that can be traced by the GC,
-3. `vu` is set, but `vp` is unset (`nil`), which preserves the reference,
-	but "hides" it from the GC.
-
-Maybe-traceable pointers are relevant for `sudog`s,
-objects which pair individual goroutines and concurrency primitives.
-One concurrency primitive can block multiple goroutines,
-and, likewise, one goroutine can be simultaneously blocked by multiple
-concurrency primitives (because of `select` statements).
-Therefore, the maximum number of active `sudog` objects at any given point is
-the product of the number of goroutines and concurrency primitives on the heap.
-
-Since `sudog` objects hold references to blocking concurrency primitives,
-but they are also globally reachable in the Go runtime, we change
-these references in `sudog` to maybe-traceable pointers.
-The maybe-traceable pointers are set as untraceable at the start of
-goroutine leak detection, and only updated to traceable once
-the goroutine paired to the same `sudog` is scheduled for marking.
-
-While the asymptotic complexity remains unchanged, a modest cost
-is nevertheless incurred.
-A pathological case involves having every goroutine
-blocked on every concurrency primitive simultaneously.
-Fortunately, this rarely the case in realistic Go programs.
-
-#### Computational overhead
-
-The current implementation of goroutine leak detection can
-be slower than the regular GC.
-This is best illustrated by looking at a pathological case we
+While memory overhead is negligible, only limited to small additions
+required for bookkeeping, goroutine leak detection can be slower
+than the regular GC.
+This is best illustrated through a pathological case we
 call the "daisy-chain":
 <img src="goroutine-leak-profiles/daisy-chain.svg" />
-In this example without leaks, runnable goroutine G₀ has a
+In this leak-free example, runnable goroutine G₀ has a
 reference to primitive P₁ which blocks G₁, and so on.
 
-This implies that proving maybe-runnability for some Pᵢ₊₁,
-requires proving maybe-runnability for Pᵢ, which introduces
+This implies that proving liveness for some Pᵢ₊₁,
+requires proving liveness for Pᵢ, which introduces
 two costs:
 1. The GC marking phase is effectively serialized relative to the
 	order in which goroutines can be scanned, as all the memory reachable
@@ -1179,25 +1105,16 @@ two costs:
 	at the end of each marking round, for a worst-case of O(n²) steps for one
 	GC cycle, where n is the total number of goroutines.
 
-The second point can be addressed over time, but the first point of contention
-is an intrinsic limitation that cannot be circumvented.
+While the second point can eventually be optimized for, 
+the first point is an intrinsic limitation that cannot be circumvented.
 
-Regardless, if a goroutine leak can be observed at some point in time, then it
-can also be observed at any future point in the same Go program's execution.
-
+Regardless, we remind the reader that, unless configured otherwise
+via runtime flags, the GC still operates concurrently with user code.
+Furthermore, if a goroutine leak can be observed at some point in time, then it
+can also be observed at any future point during the same execution.
 Periodic profiling infrastructures can therefore tune profiling frequency,
-e.g., every 4 hours, for virtually no loss in leak detection capabilities,
-while simultaneously only sporadically incurring the execution
-overhead.
-
-## Next steps
-
-The goroutine leak profile is available as an experiment in Go 1.26, enabled with `GOEXPERIMENT=goroutineleakprofile`.
-The implementation is production-ready; the experimental status is solely to gather feedback on the API design.
-We plan to enable goroutine leak profiles by default in Go 1.27.
-
-We encourage developers to try it in testing, continuous integration, and production environments.
-Please share your experiences and feedback on the [proposal issue](/issue/74609)!
+e.g., every 4 hours, to minimize overhead at virtually no cost in
+leak detection capabilities,
 
 ## Acknowledgements
 
@@ -1207,7 +1124,7 @@ Aarhus University, Washington University in St. Louis, and Uber, as presented in
 (Saioc et al., ASPLOS 2025).
 
 The transition from academic prototype to actual Go feature was made possible
-with the guidance of Michael Knyszek and Michael Pratt in the Go team at Google, and
+with the guidance of Michael Knyszek and Michael Pratt on the Go team at Google, and
 [@thepudds](https://github.com/thepudds).
 
 <script src="greenteagc/carousel.js"></script>
