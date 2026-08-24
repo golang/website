@@ -299,14 +299,14 @@ The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
 so its MO already neatly aligns with our goals.
 Only a few key changes are needed:
 1. In the initial phases, the regular GC marks **all** goroutines (and global variables)
-	as reachable, i.e., they are _mark roots_, such that they would never be considered garbage.
+	as reachable, such that they would never be considered garbage,
+	i.e., they are _mark roots_.
 	We change it to instead **only** include unblocked goroutines,
-	as these are the only ones which are guaranteed to be live,
-	initially.
+	since these are guaranteed to be live.
 2. This is followed by the marking phase, where the GC traces objects referenced
 	(transitively) by the mark roots, and _marks_ them as usable memory.
-	Even though we do not modify this phase directly, the changes in step 1. ensure that
-	the GC only marks memory referenced by live goroutines.
+	Even though we do not modify this phase directly, the changes in step 1.
+	implicitly ensure that the GC only marks memory referenced by live goroutines.
 3. The marking phase is finalized by inspecting all the blocked
 	goroutines not included as mark roots in step 1.
 	If a goroutine is blocked by at least one concurrency
