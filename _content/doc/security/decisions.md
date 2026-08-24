@@ -56,6 +56,9 @@ are expected to defend against invalid inputs, but a panic in
 an image *encoder* might be a bug but would not be handled
 as a vulnerability.
 
+A panic in a deprecated function is not a vulnerability;
+see the decision on [deprecated APIs](#deprecated) below.
+
 ### Excessive resource consumption {#quadratic}
 
 We generally treat excessive CPU or memory consumption,
@@ -98,6 +101,15 @@ a program runs in, it is not a vulnerability.
 
 This includes, but is not restricted to, an attacker with the ability to
 add programs to `$PATH` or set arbitrary environment variables.
+
+### Deprecated APIs {#deprecated}
+
+The bar for a bug in a deprecated API to be considered a security issue
+is higher than it is for a supported API.
+
+In particular, a panic or excessive resource consumption in a deprecated API
+is never handled as a vulnerability. Users who require security hardening
+should use supported APIs.
 
 ### image, x/image: Large images {#large-image}
 
