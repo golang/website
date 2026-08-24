@@ -442,6 +442,13 @@ The `tlsunsafeekm` (added in [Go 1.22](/doc/godebug#go-122)),
 and `x509keypairleaf` (added in [Go 1.23](/doc/godebug#go-123))
 `GODEBUG` settings have been removed permanently.
 
+<!-- go.dev/issue/72111 -->
+
+The `tlskyber` `GODEBUG` setting (added in [Go 1.23](/doc/godebug#go-123))
+was removed in [Go 1.24](/doc/godebug#go-124) but the removal was not
+documented in the [release notes for Go 1.24](/doc/go1.24.md) at that time;
+it is documented now.
+
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 <!-- 6-stdlib/99-minor/crypto/x509/75260.md -->
