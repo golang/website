@@ -497,6 +497,11 @@ The new [`ClientHelloInfo.Extensions`](/pkg/crypto/tls#ClientHelloInfo.Extension
 field lists the IDs of the extensions received in the Client Hello message.
 This can be useful for fingerprinting TLS clients.
 
+<!-- go.dev/issue/72111, documented retro-actively after Go 1.27 release -->
+
+The `tlskyber` `GODEBUG` setting (added in [Go 1.23](/doc/godebug#go-123))
+has been removed.
+
 #### [`crypto/x509`](/pkg/crypto/x509/)
 
 <!-- go.dev/issue/41682 -->
