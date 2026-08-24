@@ -239,15 +239,185 @@ ch := make(chan result, len(ws))
 This allows all the work item goroutines to send a message without blocking
 in the event of a premature return of `processWorkItems`.
 
-## Other examples
+We list more real-world examples in [this section](/blog/goroutine-leak-profiles#examples).
 
-Goroutine leaks come in various forms, so in the following section,
-we present a few common coding patterns that lead to leaks
+## Implementation {#implementation}
+
+This section is for those interested how leak detection
+works under the hood of the goroutine leak profiler.
+For details strictly pertaining to performance overhead and limitations,
+skip ahead to [this section](/blog/goroutine-leak-profiles#limitations).
+
+### Core concept
+
+Let's start with an initial observation: if a goroutine
+is blocked over some concurrency primitive that no other goroutine has access to
+(in this case, via a reference in memory), then it is obviously leaked.
+This is already a strong lead, we can generalize it further into a definition
+for when a goroutine is _not_ leaked, a property we term as _liveness_.
+We formally define liveness, an inductive property
+as follows:
+> A goroutine is _live_ if:
+> 1. it is not blocked by a concurrency primitive, or
+> 2. at least one concurrency primitive that blocks it is referenced
+	by another live goroutine.
+
+In the trivial case, goroutines which are not blocked are obviously
+not leaked.
+In the inductive case, the underlying assumption is that
+any goroutine which is not leaked may eventually use
+concurrency primitives it references to unblock any
+other goroutines blocked by those primitives.
+
+To find all live goroutines, we start from the obviously live
+unblocked goroutines and trace any references 
+they hold, i.e., through their local variables, to find
+the concurrency primitives they have access to.
+We then incrementally include any goroutines blocked over those
+primitives as live, and repeat the process until no
+additional live goroutines are discovered.
+
+Fortunately for us, the Go runtime already computes memory reachability
+through the [garbage collector](/doc/gc-guide) (GC),
+so the next step is to adapt the GC to suit our purposes.
+You can quickly compare the two GCs with the following diagrams:
+
+<div class="centered">
+<div id="goroutineleakgc" class="carousel">
+	<figure class="carouselitem">
+		<img src="goroutine-leak-profiles/gc-original.svg" />
+	</figure>
+	<figure class="carouselitem">
+		<img src="goroutine-leak-profiles/gc-modified.svg" />
+	</figure>
+</div>
+</div>
+
+A complete overhaul of the GC is not necessary.
+The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
+(now with the [Green Tea](/blog/greenteagc) variant!),
+so its MO already neatly aligns with our goals.
+Only a few key changes are needed:
+1. In the initial phases, the regular GC marks **all** goroutines (and global variables)
+	as reachable, i.e., they are _mark roots_, such that they would never be considered garbage.
+	We change it to instead **only** include unblocked goroutines,
+	as these are the only ones which are guaranteed to be live,
+	initially.
+2. This is followed by the marking phase, where the GC traces objects referenced
+	(transitively) by the mark roots, and _marks_ them as usable memory.
+	Even though we do not modify this phase directly, the changes in step 1. ensure that
+	the GC only marks memory referenced by live goroutines.
+3. The marking phase is finalized by inspecting all the blocked
+	goroutines not included as mark roots in step 1.
+	If a goroutine is blocked by at least one concurrency
+	primitive that has been marked in step 2., it is added as a mark root,
+	and the GC resumes the marking phase from step 2.
+	This coincides with the inductive step in the definition
+	of liveness.
+4. Once all live goroutines have been discovered, any goroutine
+	which has not been added as a mark root has its status set to leaked.
+5. The marking phase then resumes one last time with all the leaked goroutines
+	added	as mark roots, allowing the GC to mark all the memory it would have
+	marked during a regular run.
+
+Once the GC cycle is complete, the goroutine leak profiler picks up
+like in a regular goroutine profile, and filters for strictly
+leaked goroutines.
+
+### Limitations {#limitations}
+
+The examples above demonstrate the usefulness of goroutine leak profiles.
+Nevertheless, the garbage collector has some limitations that may lead
+it to miss leaks:
+
+1. **Memory overreach**: if a concurrency primitive is
+	consistently reachable through **global variables** or **runnable goroutines**,
+	then goroutines blocking on it are never reported as leaked, even if
+	that concurrency primitive is never used in the future.
+
+	This can be alleviated by better regimenting access to
+	concurrency primitive references, and more clearly
+	delineating their lifecycle.
+
+2. **Non-standard blocking**:
+	For the sake of correctness, goroutine leak detection is strictly limited
+	to Go first-class concurrency primitives, which includes:
+	channel send and receive operations (including over `nil` channels),
+	blocking `select` statements, i.e., with no `default` case, up to, and including
+	`select` statements with no cases, and members of the
+	[`sync`](/pkg/sync) package, specifically `Mutex`,
+	`RWMutex`, `WaitGroup` and `Cond`.
+
+	Goroutines blocked for any other reason, e.g.,
+	file or network IO or semaphores internal to the Go runtime
+	are never considered as leaked.
+	This likewise applies for custom, user-defined concurrency,
+	e.g., spin locks, unless they rely on the primitives outlined above
+	for their underlying implementation.
+
+3. **Non-determinism**: leaks can be detected only after
+	they have occurred, but cannot be otherwise predicted,
+	so reproducing and diagnosing leaks in flaky programs
+	continues to be a challenge.
+	For the best results, we encourage mixing approaches, by using
+	goroutine leak profiles at various layers, up to, and including production,
+	as well as comprehensive test suites instrumented with `goleak` and `synctest`.
+
+### Performance impact {#performance}
+
+Goroutine leak detection is carefully designed to minimize
+performance impact, but there are, nevertheless, some costs.
+
+While memory overhead is negligible, only limited to small additions
+required for bookkeeping, goroutine leak detection can be slower
+than the regular GC.
+This is best illustrated through a pathological case we
+call the "daisy-chain":
+<img src="goroutine-leak-profiles/daisy-chain.svg" />
+In this leak-free example, runnable goroutine G₀ has a
+reference to primitive P₁ which blocks G₁, and so on.
+
+This implies that proving liveness for some Pᵢ₊₁,
+requires proving liveness for Pᵢ, which introduces
+two costs:
+1. The GC marking phase is effectively serialized relative to the
+	order in which goroutines can be scanned, as all the memory reachable
+	from some Pᵢ must be marked before Pᵢ₊₁ can be added as a root.
+2. The inspection currently checks all blocked goroutines
+	at the end of each marking round, for a worst-case of O(n²) steps for one
+	GC cycle, where n is the total number of goroutines.
+
+While the second point can eventually be optimized for, 
+the first point is an intrinsic limitation of leak detection
+that cannot be circumvented.
+
+Regardless, we remind the reader that, unless configured otherwise
+via runtime flags, the GC still operates concurrently with user code.
+Furthermore, if a goroutine leak can be observed at some point in time, then it
+can also be observed at any future point during the same execution.
+Periodic profiling infrastructures can therefore tune profiling frequency,
+e.g., every 4 hours, to minimize overhead at virtually no cost in
+leak detection capabilities.
+
+## Acknowledgements
+
+Goroutine leak detection is the result of a research collaboration between
+Aarhus University, Washington University in St. Louis, and Uber, as presented in
+["Dynamic Partial Deadlock Detection and Recovery via Garbage Collection"](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990)
+(Saioc et al., ASPLOS 2025).
+
+The transition from academic prototype to actual Go feature was made possible
+with the guidance of Michael Knyszek and Michael Pratt on the Go team at Google, and
+[@thepudds](https://github.com/thepudds).
+
+## Additional examples {#examples}
+
+The following are coding patterns that lead to leaks, as
 observed in industrial-scale codebases and open source projects,
 in ascending order of complexity.
 
 You can quickly test drive the goroutine leak detector on them in
-[the Go playground](/play/p/S4Uw66sMbpj-), and even
+[the Go playground](/play/p/S4Uw66sMbpj-), as well as
 experiment with your own leaks.
 
 ### Example: Double send
@@ -564,8 +734,7 @@ and adding an invocation of `Stop`.
 
 ### Example: Cockroach/584 missing unlock
 
-The following real-world
-[example](https://github.com/cockroachdb/cockroach/pull/584)
+The following [example](https://github.com/cockroachdb/cockroach/pull/584)
 is taken from [CockroachDB](https://github.com/cockroachdb/cockroach).
 It involves acquiring and releasing a lock in a loop,
 but forgetting to unlock it
@@ -958,173 +1127,3 @@ In turn, this unblocks the `monitor` goroutine,
 which may now terminate by picking unblocked
 `<-stop` case branch in the `select` statement
 on the next loop iteration.
-
-## Implementation {#implementation}
-
-This section is for those interested how leak detection
-works under the hood of the goroutine leak profiler.
-For details strictly pertaining to performance overhead and limitations,
-skip ahead to [this section](/blog/goroutine-leak-profiles#limitations).
-
-### Core concept
-
-Let's start with an initial observation: if a goroutine
-is blocked over some concurrency primitive that no other goroutine has access to
-(in this case, via a reference in memory), then it is obviously leaked.
-This is already a strong lead, we can generalize it further into a definition
-for when a goroutine is _not_ leaked, a property we term as _liveness_.
-We formally define liveness as an inductive property
-as follows:
-> A goroutine is _live_ if:
-> 1. it is not blocked by a concurrency primitive, or
-> 2. at least one concurrency primitive that blocks it is referenced
-	by another live goroutine.
-
-In the trivial case, goroutines which are not blocked are obviously
-not leaked.
-In the inductive case, the underlying assumption is that
-any goroutine which is not leaked may eventually use
-concurrency primitives it references to unblock any
-other goroutines blocked by those primitives.
-
-To find all live goroutines, we start from the obviously live,
-unblocked goroutines and trace any references 
-they hold, i.e., through their local variables, to see
-which concurrency primitives they have access to.
-We then incrementally include any goroutines blocked over those
-primitives as live, and repeat the process until no
-more live goroutines are discovered.
-
-Fortunately for us, the Go runtime already computes memory reachability
-through the [garbage collector](/doc/gc-guide) (GC),
-so the next step is to adapt the GC to suit our purposes.
-You can quickly compare the two GCs with the following diagrams:
-
-<div class="centered">
-<div id="goroutineleakgc" class="carousel">
-	<figure class="carouselitem">
-		<img src="goroutine-leak-profiles/gc-original.svg" />
-	</figure>
-	<figure class="carouselitem">
-		<img src="goroutine-leak-profiles/gc-modified.svg" />
-	</figure>
-</div>
-</div>
-
-A complete overhaul of the GC is not necessary.
-The Go runtime uses a concurrent tri-color mark-and-sweep garbage collector,
-(now with the [Green Tea](/blog/greenteagc) variant!),
-so its MO already neatly aligns with our goals.
-Only a few key changes were needed:
-1. In the initial phases, the regular GC marks **all** goroutines (and global variables)
-	as reachable, i.e., they are _mark roots_, such that they would never be considered garbage.
-	We change it to instead **only** include unblocked goroutines,
-	as these are the only ones which are guaranteed to be live,
-	initially.
-2. This is followed by the marking phase, where the GC traces objects referenced
-	(transitively) by the mark roots, and _marks_ them as usable memory.
-	Even though we do not modify this phase directly, the changes in step 1. ensure that
-	the GC only marks memory referenced by live goroutines.
-3. The marking phase is finalized by inspecting all the blocked
-	goroutines not included as mark roots in step 1.
-	If a goroutine is blocked by at least one concurrency
-	primitive that has been marked in step 2., it is added as a mark root,
-	and the GC resumes the marking phase from step 2.
-	This coincides with the inductive step in the definition
-	of liveness.
-4. Once all live goroutines have been discovered, any goroutine
-	which has not been added as a mark root has its status set to leaked.
-5. The marking phase then resumes one last time with all the leaked goroutines
-	added	as mark roots, allowing the GC to mark all the memory it would have
-	marked during a regular run.
-
-Once the GC cycle is complete, the goroutine leak profiler picks up
-like in a regular goroutine profile, and filters for strictly
-leaked goroutines.
-
-### Limitations {#limitations}
-
-The examples above demonstrate the usefulness of goroutine leak profiles.
-Nevertheless, the garbage collector has some limitations that may lead
-it to miss leaks:
-
-1. **Memory overreach**: if a concurrency primitive is
-	consistently reachable through **global variables** or **runnable goroutines**,
-	then goroutines blocking on it are never reported as leaked, even if
-	that concurrency primitive is never used in the future.
-
-	This can be alleviated by better regimenting access to
-	concurrency primitive references, and more clearly
-	delineating their lifecycle.
-
-2. **Non-standard blocking**:
-	For the sake of correctness, goroutine leak detection is strictly limited
-	to Go first-class concurrency primitives, which includes:
-	channel send and receive operations (including over `nil` channels),
-	blocking `select` statements, i.e., with no `default` case, up to, and including
-	`select` statements with no cases, and members of the
-	[`sync`](/pkg/sync) package, specifically `Mutex`,
-	`RWMutex`, `WaitGroup` and `Cond`.
-
-	Goroutines blocked for any other reason, e.g.,
-	file or network IO or semaphores internal to the Go runtime
-	are never considered as leaked.
-	This likewise applies for custom, user-defined concurrency,
-	e.g., spin locks, unless they rely on the primitives outlined above
-	for their underlying implementation.
-
-3. **Non-determinism**: leaks can be detected only after
-	they have occurred, but cannot be otherwise predicted,
-	so reproducing and diagnosing leaks in flaky programs
-	continues to be a challenge.
-	For the best results, we encourage mixing approaches, by using
-	goroutine leak profiles at various layers, up to, and including production,
-	as well as comprehensive test suites instrumented with `goleak` and `synctest`.
-
-### Performance impact {#performance}
-
-Goroutine leak detection is carefully designed to minimize
-performance impact, but there are, nevertheless, some costs.
-
-While memory overhead is negligible, only limited to small additions
-required for bookkeeping, goroutine leak detection can be slower
-than the regular GC.
-This is best illustrated through a pathological case we
-call the "daisy-chain":
-<img src="goroutine-leak-profiles/daisy-chain.svg" />
-In this leak-free example, runnable goroutine G₀ has a
-reference to primitive P₁ which blocks G₁, and so on.
-
-This implies that proving liveness for some Pᵢ₊₁,
-requires proving liveness for Pᵢ, which introduces
-two costs:
-1. The GC marking phase is effectively serialized relative to the
-	order in which goroutines can be scanned, as all the memory reachable
-	from some Pᵢ must be marked before Pᵢ₊₁ can be added as a root.
-2. The inspection currently checks all blocked goroutines
-	at the end of each marking round, for a worst-case of O(n²) steps for one
-	GC cycle, where n is the total number of goroutines.
-
-While the second point can eventually be optimized for, 
-the first point is an intrinsic limitation that cannot be circumvented.
-
-Regardless, we remind the reader that, unless configured otherwise
-via runtime flags, the GC still operates concurrently with user code.
-Furthermore, if a goroutine leak can be observed at some point in time, then it
-can also be observed at any future point during the same execution.
-Periodic profiling infrastructures can therefore tune profiling frequency,
-e.g., every 4 hours, to minimize overhead at virtually no cost in
-leak detection capabilities,
-
-## Acknowledgements
-
-Goroutine leak detection is the result of a research collaboration between
-Aarhus University, Washington University in St. Louis, and Uber, as presented in
-["Dynamic Partial Deadlock Detection and Recovery via Garbage Collection"](https://dl.acm.org/doi/pdf/10.1145/3676641.3715990)
-(Saioc et al., ASPLOS 2025).
-
-The transition from academic prototype to actual Go feature was made possible
-with the guidance of Michael Knyszek and Michael Pratt on the Go team at Google, and
-[@thepudds](https://github.com/thepudds).
-
-<script src="greenteagc/carousel.js"></script>
