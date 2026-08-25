@@ -8,7 +8,7 @@ tags:
 - pprof
 - profiling
 - performance
-summary: Go 1.26 includes new experimental goroutine leak profiles.
+summary: Go 1.27 includes new goroutine leak profiles.
 ---
 
 Go's [concurrency features](/tour/concurrency/1) are powerful and easy to use, but
@@ -195,10 +195,9 @@ func main() {
 }
 ```
 
-Build the program above with the experiment enabled, then run it:
-
+Build the program above, then run it:
 ```
-$ GOEXPERIMENT=goroutineleakprofile go build -o leaky
+$ go build -o leaky
 $ ./leaky
 ```
 
@@ -270,7 +269,7 @@ concurrency primitives it references to unblock any
 other goroutines blocked by those primitives.
 
 To find all live goroutines, we start from the obviously live
-unblocked goroutines and trace any references 
+unblocked goroutines and trace any references
 they hold, i.e., through their local variables, to find
 the concurrency primitives they have access to.
 We then incrementally include any goroutines blocked over those
@@ -284,10 +283,10 @@ You can quickly compare the two GCs with the following diagrams:
 
 <div class="centered">
 <div id="goroutineleakgc" class="carousel">
-	<figure class="carouselitem">
+	<figure>
 		<img src="goroutine-leak-profiles/gc-original.svg" />
 	</figure>
-	<figure class="carouselitem">
+	<figure>
 		<img src="goroutine-leak-profiles/gc-modified.svg" />
 	</figure>
 </div>
@@ -349,7 +348,7 @@ it to miss leaks:
 	`RWMutex`, `WaitGroup` and `Cond`.
 
 	Goroutines blocked for any other reason, e.g.,
-	file or network IO or semaphores internal to the Go runtime
+	file and network IO, or direct system calls
 	are never considered as leaked.
 	This likewise applies for custom, user-defined concurrency,
 	e.g., spin locks, unless they rely on the primitives outlined above
@@ -387,7 +386,7 @@ two costs:
 	at the end of each marking round, for a worst-case of O(n²) steps for one
 	GC cycle, where n is the total number of goroutines.
 
-While the second point can eventually be optimized for, 
+While the second point can eventually be optimized for,
 the first point is an intrinsic limitation of leak detection
 that cannot be circumvented.
 
@@ -681,8 +680,6 @@ type Worker interface {
 
 func NewWorker() Worker {
 	return &worker{
-		once: sync.Once{},
-
 		ch:   make(chan any),
 		done: make(chan any),
 	}
@@ -732,7 +729,7 @@ ROUTINE ======================== main.(*worker).Start.func1 in .../main.go
 Naturally, the fix involves following the trail to the `Start` call
 and adding an invocation of `Stop`.
 
-### Example: Cockroach/584 missing unlock
+### Example (Cockroach): Missing unlock
 
 The following [example](https://github.com/cockroachdb/cockroach/pull/584)
 is taken from [CockroachDB](https://github.com/cockroachdb/cockroach).
@@ -781,10 +778,10 @@ ROUTINE ======================== main.(*Gossip).bootstrap in .../main.go
 ```
 Adding a call to `Unlock` before the `break` addresses the issue.
 
-### Example: Etcd/6857 channel operation ordering
+### Example (etcd): Unexpected channel operation orderings
 
 This [example](https://github.com/etcd-io/etcd/pull/6857),
-found in [ETCD](https://github.com/etcd-io/etcd),
+found in [etcd](https://github.com/etcd-io/etcd),
 shows how an unexpected ordering between channel
 operations can lead to a goroutine leak:
 ```go
@@ -864,7 +861,7 @@ over `done` allows the goroutine running to `Status`
 to gracefully exit if it lost the race with a `Stop`
 call.
 
-### Example: Kubernetes/6632 mixing locks and channels
+### Example (Kubernetes): Mutual blocking between channels and mutexes
 
 This [example](https://github.com/kubernetes/kubernetes/pull/6632)
 occurs in [Kubernetes](https://github.com/kubernetes/kubernetes),
@@ -954,7 +951,7 @@ The fix is to set up a separate goroutine after a message is received
 over `closeChan` in the `monitor` goroutine that drains the `resetChan`
 before attempting to acquire the lock.
 
-### Example: Moby/25384 `sync.WaitGroup` misuse
+### Example (Moby): Misusing `sync.WaitGroup`
 
 The [following example](https://github.com/moby/moby/pull/25384) in
 [Moby](https://github.com/moby/moby) showcases how wait groups may
@@ -1008,7 +1005,7 @@ ROUTINE ======================== main.(*Manager).init in .../main.go
 This can be easily addressed by moving the `Wait` outside
 the loop.
 
-### Example: Moby/28462
+### Example (Moby): Mutual blocking between channels and mutexes
 
 Another [example](https://github.com/moby/moby/pull/28462)
 in [Moby](https://github.com/moby/moby)
@@ -1066,8 +1063,8 @@ func monitor(c *Container, stop chan struct{}) {
 
 func handleProbeResult(c *Container) {
 	c.Lock()
-	// Additional work...
 	defer c.Unlock()
+	// Additional work...
 }
 
 func NewDaemonAndContainer() (*Daemon, *Container) {
