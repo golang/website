@@ -19,19 +19,18 @@ Please format the subject of your email as "Vulnerability: {package name}:
 {one-line summary}", and avoid sending attachments in your email unless strictly
 necessary in order to avoid your message being marked as spam.
 
-Please keep reports succint, including a description of the issue you've found,
+If desired, please include your preferred attribution as part of the report.
+This attribution will be added to the CVE, if one is published.
+
+Please keep reports succinct, including a description of the issue you've found,
 the way in which you believe it can be exploited, and a small reproduction test
 case or program which demonstrates the issue.
 
 We have a [list of decisions](/doc/security/decisions) about commonly-reported
 categories of issues.
 
-Your email will be acknowledged within 7 days, and you'll be kept up to date
-with the progress until resolution. Your issue will be fixed or made public
-within 90 days.
-
-If you have not received a reply to your email within 7 days, please follow up
-with the Go Security team again at
+Your email will be acknowledged within 7 days. If you have not received a reply
+by then, please follow up with the Go Security team again at
 [security@golang.org](mailto:security@golang.org). Please make sure the word
 **vulnerability** is in your email.
 
@@ -40,6 +39,9 @@ report, it is possible that your email might have been marked as spam. In that
 case, please [file an issue here](https://g.co/vulnz). Select _"I want to
 report a technical security or an abuse risk related bug in a Google product
 (SQLi, XSS, etc.)"_, and list _"Go"_ as the affected product.
+
+Your issue will be fixed or made public within 90 days after our initial
+acknowledgement.
 
 ## Tracks
 
