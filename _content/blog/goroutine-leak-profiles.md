@@ -407,7 +407,7 @@ Aarhus University, Washington University in St. Louis, and Uber, as presented in
 
 The transition from academic prototype to actual Go feature was made possible
 with the guidance of Michael Knyszek and Michael Pratt on the Go team at Google, and
-[@thepudds](https://github.com/thepudds).
+PJ Malloy ([@thepudds](https://github.com/thepudds)).
 
 ## Additional examples {#examples}
 
