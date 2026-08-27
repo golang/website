@@ -282,14 +282,12 @@ so the next step is to adapt the GC to suit our purposes.
 You can quickly compare the two GCs with the following diagrams:
 
 <div class="centered">
-<div id="goroutineleakgc">
 	<figure>
 		<img src="goroutine-leak-profiles/gc-original.svg" />
 	</figure>
 	<figure>
 		<img src="goroutine-leak-profiles/gc-modified.svg" />
 	</figure>
-</div>
 </div>
 
 A complete overhaul of the GC is not necessary.
