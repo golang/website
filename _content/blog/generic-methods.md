@@ -98,8 +98,8 @@ For a `List[[]byte]`, more options come to mind (depending on the use case):
 ```go
 func main() {
 	l := NewList([]byte("Hallo Welt"), []byte("Helló világ"))
-	fmt.Println(l).ToString(hex.EncodeToString)					// [48616c6c6f2057656c74 48656c6cc3b32076696cc3a167]
-	fmt.Println(l).ToString(base64.StdEncoding.EncodeToString)	// [SGFsbG8gV2VsdA== SGVsbMOzIHZpbMOhZw==]
+	fmt.Println(l.ToString(hex.EncodeToString))					// [48616c6c6f2057656c74 48656c6cc3b32076696cc3a167]
+	fmt.Println(l.ToString(base64.StdEncoding.EncodeToString))	// [SGFsbG8gV2VsdA== SGVsbMOzIHZpbMOhZw==]
 }
 ```
 
@@ -190,7 +190,7 @@ declare `T.M[int]`, but rather its generic (and thus uninstantiated) counterpart
 `T.M`.
 
 For `T.M` to participate in interface implementation, there would need to exist
-a suitable generic method on `I.M`:
+a suitable generic method `I.M`:
 
 ```go
 type I interface {
