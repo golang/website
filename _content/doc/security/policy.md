@@ -43,6 +43,9 @@ report a technical security or an abuse risk related bug in a Google product
 Your issue will be fixed or made public within 90 days after our initial
 acknowledgement.
 
+Emails reporting security issues will be retained indefinitely
+to track remediation status and correctly attribute discoveries.
+
 ## Tracks
 
 Depending on the nature of your issue, it will be categorized by the Go
