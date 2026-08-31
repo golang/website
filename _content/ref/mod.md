@@ -3779,9 +3779,9 @@ prompts by setting `GIT_TERMINAL_PROMPT=0`, but it respects explicit settings.
 
 ### Passing credentials to private proxies {#private-module-proxy-auth}
 
-The `go` command supports HTTP [basic
-authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) when
-communicating with proxy servers.
+The `go` command can authenticate to proxy servers using HTTP [basic
+authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) or
+request headers supplied by `GOAUTH`.
 
 Credentials may be specified in a [`.netrc`
 file](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html).
@@ -3803,6 +3803,16 @@ Fields in `.netrc` are separated with spaces, tabs, and newlines. Unfortunately,
 these characters cannot be used in usernames or passwords. Note also that the
 machine name cannot be a full URL, so it's not possible to specify different
 usernames and passwords for different paths on the same machine.
+
+In Go 1.24 and later, `GOAUTH` may use `.netrc`, run `git credential fill` in
+a specified working directory, or invoke a custom command. A custom command
+can provide arbitrary HTTP request headers, such as a Bearer token, for one
+or more HTTPS URL prefixes. This allows credentials to be scoped to a path on
+a proxy host, which `.netrc` cannot do. See `go help goauth` for the command
+protocol and configuration options.
+
+The `go` command only applies credentials obtained through `GOAUTH`, including
+its default `netrc` method, to HTTPS requests.
 
 Alternatively, credentials may be specified directly in `GOPROXY` URLs. For
 example:
