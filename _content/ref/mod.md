@@ -3779,9 +3779,9 @@ prompts by setting `GIT_TERMINAL_PROMPT=0`, but it respects explicit settings.
 
 ### Passing credentials to private proxies {#private-module-proxy-auth}
 
-The `go` command supports HTTP [basic
-authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) when
-communicating with proxy servers.
+The `go` command can authenticate to proxy servers using HTTP [basic
+authentication](https://en.wikipedia.org/wiki/Basic_access_authentication) or
+request headers supplied by `GOAUTH`.
 
 Credentials may be specified in a [`.netrc`
 file](https://www.gnu.org/software/inetutils/manual/html_node/The-_002enetrc-file.html).
@@ -3803,6 +3803,16 @@ Fields in `.netrc` are separated with spaces, tabs, and newlines. Unfortunately,
 these characters cannot be used in usernames or passwords. Note also that the
 machine name cannot be a full URL, so it's not possible to specify different
 usernames and passwords for different paths on the same machine.
+
+In Go 1.24 and later, `GOAUTH` may use `.netrc`, run `git credential fill` in
+a specified working directory, or invoke a custom command. A custom command
+can provide arbitrary HTTP request headers, such as a Bearer token, for one
+or more HTTPS URL prefixes. This allows credentials to be scoped to a path on
+a proxy host, which `.netrc` cannot do. See `go help goauth` for the command
+protocol and configuration options.
+
+The `go` command only applies credentials obtained through `GOAUTH`, including
+its default `netrc` method, to HTTPS requests.
 
 Alternatively, credentials may be specified directly in `GOPROXY` URLs. For
 example:
@@ -4236,7 +4246,7 @@ values.
     <tr>
       <td><code>$base/tile/$H/$L/$K[.p/$W]</code></td>
       <td>
-        Returns a [log tile](https://research.swtch.com/tlog#serving_tiles),
+        Returns a <a href="https://research.swtch.com/tlog#serving_tiles">log tile</a>,
         which is a set of hashes that make up a section of the log. Each tile
         is defined in a two-dimensional coordinate at tile level
         <code>$L</code>, <code>$K</code>th from the left, with a tile height of
@@ -4576,12 +4586,12 @@ GOSUMDB="sum.golang.org+&lt;publickey&gt; https://sum.golang.org"
       <td><code>GOWORK</code></td>
       <td>
        <p>
-        The `GOWORK` environment variable instructs the `go` command to enter workspace
-        mode using the provided [`go.work` file](#go-work-file) to define the workspace.
-        If `GOWORK` is set to `off` workspace mode is disabled. This can be used to run
-        the `go` command in single module mode: for example, `GOWORK=off go build .` builds
-        the `.` package in single-module mode.`If `GOWORK` is empty, the
-        `go` command will search for a `go.work` file as described in the [Workspaces](#workspaces)
+        The <code>GOWORK</code> environment variable instructs the <code>go</code> command to enter workspace
+        mode using the provided <a href="#go-work-file"><code>go.work</code> file</a> to define the workspace.
+        If <code>GOWORK</code> is set to <code>off</code> workspace mode is disabled. This can be used to run
+        the <code>go</code> command in single module mode: for example, <code>GOWORK=off go build .</code> builds
+        the <code>.</code> package in single-module mode. If <code>GOWORK</code> is empty, the
+        <code>go</code> command will search for a <code>go.work</code> file as described in the <a href="#workspaces">Workspaces</a>
         section.
        </p>
       </td>

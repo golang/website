@@ -88,7 +88,7 @@ func handleSearch(w http.ResponseWriter, req *http.Request) {
 
 var resultsTemplate = template.Must(template.New("results").Parse(`
 <html>
-<head/>
+<head></head>
 <body>
   <ol>
   {{range .Results}}

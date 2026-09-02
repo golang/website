@@ -254,6 +254,10 @@ func (tc *testcase) wantOrigin() string { return cmp.Or(tc.wantURL, tc.wantPath)
 
 // commonValues returns values common to all test files.
 func commonValues(ctx context.Context, testURL, wantURL string, opts options) (c common, err error) {
+	if opts.retryPixels < 0 {
+		return common{}, fmt.Errorf("-retrypixels must be non-negative, got %d", opts.retryPixels)
+	}
+
 	// The test/want image readers/writers are relative to the test/want URLs, so
 	// they are common to all files. See test/wantPath for the file- and test-relative components.
 	// They may be nil if a URL has an http or https scheme.
@@ -391,6 +395,19 @@ func readTests(file, testURL, wantURL string, common common) (_ []*testcase, err
 			if err != nil {
 				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
 			}
+
+		case "RETRYPIXELS":
+			if test == nil {
+				return nil, errors.New("directive must be in a test")
+			}
+			retryPixels, err := strconv.Atoi(args)
+			if err != nil {
+				return nil, fmt.Errorf("strconv.Atoi(%q): %w", args, err)
+			}
+			if retryPixels < 0 {
+				return nil, fmt.Errorf("RETRYPIXELS must be non-negative, got %d", retryPixels)
+			}
+			test.retryPixels = retryPixels
 
 		case "PATH":
 			if test == nil {
@@ -622,15 +639,24 @@ func (tc *testcase) run(ctx context.Context, update bool) (err error) {
 	fmt.Fprintf(&tc.output, "test %s ", tc.name)
 	var failReason string
 	for try := 0; try < maxRetries; try++ {
+		testScreen, wantScreen = nil, nil
 		g, gctx := errgroup.WithContext(ctx)
 		g.Go(func() error {
-			testScreen, err = tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
-			return err
+			screen, err := tc.screenshot(gctx, tc.testURL, tc.testPath, tc.testImageReader)
+			if err != nil {
+				return err
+			}
+			testScreen = screen
+			return nil
 		})
 		if !update {
 			g.Go(func() error {
-				wantScreen, err = tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
-				return err
+				screen, err := tc.screenshot(gctx, tc.wantURL, tc.wantPath, tc.wantImageReadWriter)
+				if err != nil {
+					return err
+				}
+				wantScreen = screen
+				return nil
 			})
 		}
 		if err := g.Wait(); err != nil {

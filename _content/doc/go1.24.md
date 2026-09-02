@@ -304,7 +304,7 @@ The `synctest` package is experimental and must be enabled by
 setting `GOEXPERIMENT=synctest` at build time.
 The package API is subject to change in future releases.
 See [issue #67434](/issue/67434) for more information and
-to provide feeback.
+to provide feedback.
 
 ### Minor changes to the library {#minor_library_changes}
 
@@ -496,6 +496,11 @@ enable when the field is populated.
 The new [`ClientHelloInfo.Extensions`](/pkg/crypto/tls#ClientHelloInfo.Extensions)
 field lists the IDs of the extensions received in the Client Hello message.
 This can be useful for fingerprinting TLS clients.
+
+<!-- go.dev/issue/72111, documented retro-actively after Go 1.27 release -->
+
+The `tlskyber` `GODEBUG` setting (added in [Go 1.23](/doc/godebug#go-123))
+has been removed.
 
 #### [`crypto/x509`](/pkg/crypto/x509/)
 

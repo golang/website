@@ -356,6 +356,8 @@ func addNames(names map[string]bool, decl ast.Decl) {
 			}
 			if index, ok := r.(*ast.IndexExpr); ok { // Name[T]
 				r = index.X
+			} else if indexList, ok := r.(*ast.IndexListExpr); ok { // Name[T1, T2]
+				r = indexList.X
 			}
 			name = r.(*ast.Ident).Name + "_" + name
 		}
