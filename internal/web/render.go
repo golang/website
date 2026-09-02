@@ -19,7 +19,9 @@ import (
 	"github.com/yuin/goldmark"
 	"github.com/yuin/goldmark/ast"
 	"github.com/yuin/goldmark/extension"
+	extast "github.com/yuin/goldmark/extension/ast"
 	"github.com/yuin/goldmark/parser"
+	"github.com/yuin/goldmark/renderer"
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"github.com/yuin/goldmark/util"
@@ -196,6 +198,7 @@ func markdownToHTML(markdown string) (template.HTML, error) {
 			),
 			extension.DefinitionList,
 			extension.NewTable(),
+			tableWrapper{},
 		),
 	)
 	var buf bytes.Buffer
@@ -277,4 +280,33 @@ func replaceTabs(text []byte) []byte {
 		}
 	}
 	return buf.Bytes()
+}
+
+// This is a goldmark extension for wrapping tables written in markdown.
+// Tables overflow on narrow screens, so it's necessary to wrap them in a div
+// with overflow-x: auto to trigger scroll bars.
+type tableWrapper struct{}
+
+func (t tableWrapper) Extend(m goldmark.Markdown) {
+	m.Renderer().AddOptions(
+		renderer.WithNodeRenderers(
+			util.Prioritized(t, 0),
+		),
+	)
+}
+
+func (t tableWrapper) RegisterFuncs(reg renderer.NodeRendererFuncRegisterer) {
+	reg.Register(extast.KindTable, t.renderTable)
+}
+func (tableWrapper) renderTable(w util.BufWriter, source []byte, n ast.Node, entering bool) (ast.WalkStatus, error) {
+	if entering {
+		_, _ = w.WriteString(`<div style="overflow-x:auto"><table`)
+		if n.Attributes() != nil {
+			html.RenderAttributes(w, n, extension.TableAttributeFilter)
+		}
+		_, _ = w.WriteString(">\n")
+	} else {
+		_, _ = w.WriteString("</table></div>\n")
+	}
+	return ast.WalkContinue, nil
 }

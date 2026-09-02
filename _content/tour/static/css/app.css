@@ -313,6 +313,9 @@ a#run, a#kill {
     background: #fafafa;
     margin: 0;
 }
+.output > pre > span {
+	text-wrap: wrap;
+}
 .output .system {
     color: #888;
 }

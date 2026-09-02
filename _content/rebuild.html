@@ -27,12 +27,14 @@ using this script:
 apt-get update &&
 apt-get -y install software-properties-common &&
 add-apt-repository universe &&
-apt-get -y install golang-go msitools &&
+apt-get -y install golang-go git msitools &&
 go run golang.org/x/build/cmd/gorebuild@latest -p=4
 </pre>
 
 <p>
-The installation of <code>msitools</code> lets <code>gorebuild</code>
+The installation of <code>git</code> enables <code>gorebuild</code>
+to fetch Go source code from its canonical Git repository, and
+the installation of <code>msitools</code> lets <code>gorebuild</code>
 check the contents of the Windows MSI installation file.
 The <code>-p=4</code> means to run up to four builds in parallel.
 </p>

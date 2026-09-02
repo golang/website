@@ -136,6 +136,7 @@ var redirects = map[string]string{
 
 	"/security/":                      "/doc/security/",
 	"/security/best-practices":        "/doc/security/best-practices",
+	"/security/decisions":             "/doc/security/decisions",
 	"/security/fuzz/":                 "/doc/security/fuzz/",
 	"/security/fuzz/example-dark.png": "/doc/security/fuzz/example-dark.png",
 	"/security/fuzz/example.png":      "/doc/security/fuzz/example.png",

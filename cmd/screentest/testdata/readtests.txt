@@ -7,6 +7,7 @@ capture fullscreen 540x1080
 
 test about page
 path /about
+retrypixels 44
 capture fullscreen
 
 test homepage element

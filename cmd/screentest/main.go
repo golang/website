@@ -30,7 +30,7 @@ The flags are:
 	-retrypixels N
 	  If the difference is no more than N pixels, take another screenshot. Repeat up to 3
 	  times. N should be small. This is a last-resort method for handling small, inexplicable
-	  output variations.
+	  output variations. N must be non-negative.
 	-run REGEXP
 	  Run only tests matching regexp.
 	-o
@@ -113,6 +113,11 @@ Use status CODE to set an expected HTTP status code. The default is 200.
 
 	status 404
 
+Use retrypixels N to override the value of the -retrypixels flag for this test.
+N must be non-negative.
+
+	retrypixels 80
+
 Use click SELECTOR to add a click an element on the page.
 
 	click button.submit
@@ -180,7 +185,7 @@ func init() {
 	flag.StringVar(&flags.outputDirURL, "o", "", "path for output: file path or URL with 'file' or 'gs' scheme")
 	flag.StringVar(&flags.headers, "headers", "", "HTTP headers: comma-separated list of name:value")
 	flag.StringVar(&flags.filterRegexp, "run", "", "regexp to match test")
-	flag.IntVar(&flags.retryPixels, "retrypixels", 0, "repeat up to 3 times if diff is <= this value")
+	flag.IntVar(&flags.retryPixels, "retrypixels", 0, "repeat up to 3 times if diff is <= this non-negative value")
 }
 
 // options are the options for the program.

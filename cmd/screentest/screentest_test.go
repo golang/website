@@ -16,6 +16,8 @@ import (
 	"os/exec"
 	"path"
 	"path/filepath"
+	"slices"
+	"strings"
 	"testing"
 	"time"
 
@@ -37,13 +39,15 @@ func TestReadTests(t *testing.T) {
 		opts             options
 		want             []*testcase
 		wantErr          bool
+		wantErrText      string
 	}{
 		{
 			name:    "readtests",
 			testURL: "https://go.dev",
 			wantURL: "http://localhost:6060",
 			opts: options{
-				vars: "Authorization:Bearer token",
+				vars:        "Authorization:Bearer token",
+				retryPixels: 0,
 			},
 			want: []*testcase{
 				{
@@ -80,7 +84,8 @@ func TestReadTests(t *testing.T) {
 				},
 				{
 					common: common{
-						vars: map[string]string{"Authorization": "Bearer token"},
+						vars:        map[string]string{"Authorization": "Bearer token"},
+						retryPixels: 44, // overrides 0 in options
 					},
 					name:           "about page",
 					path:           "/about",
@@ -209,6 +214,11 @@ func TestReadTests(t *testing.T) {
 			wantErr: true,
 		},
 		{
+			name:        "readtests-negative-retrypixels",
+			wantErr:     true,
+			wantErrText: "RETRYPIXELS must be non-negative, got -1",
+		},
+		{
 			name: "readtests-filter",
 			opts: options{
 				filterRegexp: `foo \d`,
@@ -245,6 +255,9 @@ func TestReadTests(t *testing.T) {
 			if (err != nil) != tt.wantErr {
 				t.Fatalf("readTests() error = %v, wantErr %v", err, tt.wantErr)
 			}
+			if err != nil && tt.wantErrText != "" && !strings.Contains(err.Error(), tt.wantErrText) {
+				t.Fatalf("readTests() error = %q, want error containing %q", err, tt.wantErrText)
+			}
 			if err != nil {
 				return
 			}
@@ -260,6 +273,17 @@ func TestReadTests(t *testing.T) {
 				t.Errorf("readTests() mismatch (-want +got):\n%s", diff)
 			}
 		})
+	}
+}
+
+func TestCommonValuesRejectsNegativeRetryPixels(t *testing.T) {
+	const want = "-retrypixels must be non-negative, got -1"
+	_, err := commonValues(context.Background(), "", "", options{retryPixels: -1})
+	if err == nil {
+		t.Fatalf("commonValues() error = nil, want %q", want)
+	}
+	if got := err.Error(); got != want {
+		t.Fatalf("commonValues() error = %q, want %q", got, want)
 	}
 }
 
@@ -369,6 +393,65 @@ func TestHeaders(t *testing.T) {
 	if err := tc.run(context.Background(), false); err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestTestcaseRunScreenshotErrors(t *testing.T) {
+	img := image.NewGray(image.Rect(0, 0, 1, 1))
+	testErr := errors.New("test screenshot failed")
+	wantErr := errors.New("want screenshot failed")
+	tests := []struct {
+		name     string
+		test     testImageReadWriter
+		want     testImageReadWriter
+		wantErrs []error
+	}{
+		{
+			name:     "test fails",
+			test:     testImageReadWriter{err: testErr},
+			want:     testImageReadWriter{img: img},
+			wantErrs: []error{testErr},
+		},
+		{
+			name:     "want fails",
+			test:     testImageReadWriter{img: img},
+			want:     testImageReadWriter{err: wantErr},
+			wantErrs: []error{wantErr},
+		},
+		{
+			name:     "both fail",
+			test:     testImageReadWriter{err: testErr},
+			want:     testImageReadWriter{err: wantErr},
+			wantErrs: []error{testErr, wantErr},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			t.Parallel()
+			tc := &testcase{
+				common: common{
+					testImageReader:     tt.test,
+					wantImageReadWriter: tt.want,
+				},
+				name: "screenshot error",
+			}
+			err := tc.run(context.Background(), false)
+			if !slices.ContainsFunc(tt.wantErrs, func(target error) bool {
+				return errors.Is(err, target)
+			}) {
+				t.Fatalf("run() error = %v, want one of %v", err, tt.wantErrs)
+			}
+		})
+	}
+}
+
+type testImageReadWriter struct {
+	img image.Image
+	err error
+	imageWriter
+}
+
+func (rw testImageReadWriter) readImage(context.Context, string) (image.Image, error) {
+	return rw.img, rw.err
 }
 
 func headerServer() error {

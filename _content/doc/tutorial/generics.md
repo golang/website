@@ -20,14 +20,10 @@ You'll progress through the following sections:
 
 **Note:** For other tutorials, see [Tutorials](/doc/tutorial/index.html).
 
-**Note:** If you prefer, you can use
-[the Go playground in “Go dev branch” mode](/play/?v=gotip)
-to edit and run your program instead.
-
 ## Prerequisites
 
-*   **An installation of Go 1.18 or later.** For installation instructions, see
-    [Installing Go](/doc/install).
+*   **Go.** We recommend using the latest version of Go to follow this tutorial.
+    For installation instructions, see [Installing Go](/doc/install).
 *   **A tool to edit your code.** Any text editor you have will work fine.
 *   **A command terminal.** Go works well using any terminal on Linux and Mac,
     and on PowerShell or cmd in Windows.
@@ -437,9 +433,8 @@ Suggested next topics:
 
 ## Completed code {#completed_code}
 
-<!--TODO: Update text and link after release.-->
 You can run this program in the
-[Go playground](/play/p/apNmfVwogK0?v=gotip). On the
+[Go playground](/play/p/apNmfVwogK0). On the
 playground simply click the **Run** button.
 
 ```
@@ -509,7 +504,7 @@ func SumIntsOrFloats[K comparable, V int64 | float64](m map[K]V) V {
 	return s
 }
 
-// SumNumbers sums the values of map m. Its supports both integers
+// SumNumbers sums the values of map m. It supports both integers
 // and floats as map values.
 func SumNumbers[K comparable, V Number](m map[K]V) V {
 	var s V
