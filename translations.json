@@ -1,5 +1,453 @@
 {
   "records": {
+    "AUTHORS.md": {
+      "english_sha256": "4294c210e26fd688c11dd588ed7c49468ea74a2cebee8904414c213adab894b9",
+      "at": "2026-03-29"
+    },
+    "blog/10years.md": {
+      "english_sha256": "e6ea6fdbe9cce7d17f5b93d41f08e81f688431611a8f7508dba961accf3c6e6f",
+      "at": "2026-03-29"
+    },
+    "blog/11years.md": {
+      "english_sha256": "c848dad00bd3a3075b3aa732ab146acf3acff2212c558871c0a366791fe7182e",
+      "at": "2026-03-29"
+    },
+    "blog/12years.md": {
+      "english_sha256": "6973509511ff59d07ecf57b79753a07aa0225e071f2cda3031cec81c1af70275",
+      "at": "2026-03-29"
+    },
+    "blog/13years.md": {
+      "english_sha256": "d4a29951dfd81f00048a47f9fd2321d4d305dfed96105ef5abd38cf38742bdbf",
+      "at": "2026-03-29"
+    },
+    "blog/14years.md": {
+      "english_sha256": "3a7ca845a401b7ddfe19d02386d034d43e776c2d30a115aff9b7600128c3600c",
+      "at": "2026-03-29"
+    },
+    "blog/15years.md": {
+      "english_sha256": "7c81cf2e831f61383b0e4365ac12641255639bf7a40373dfaf8fba79b090ae53",
+      "at": "2026-03-29"
+    },
+    "blog/16years.md": {
+      "english_sha256": "d4c0377c770852842659a47ca3da37d1b0ede45761b413652756b6262472e0f5",
+      "at": "2026-03-31"
+    },
+    "blog/1year.md": {
+      "english_sha256": "b29b95b1f9c29f4a7f6a4fadb53e1bd1f5e41413491087cd822451bd64f8ef7f",
+      "at": "2026-03-29"
+    },
+    "blog/2years.md": {
+      "english_sha256": "246be518eecb8c07c2111df84542da7467a120a4c553792bedf30af6c2eba7b2",
+      "at": "2026-03-29"
+    },
+    "blog/3years.md": {
+      "english_sha256": "0ce6adb67b954820e563b9d680539dfc03e2dc35cfc59fe219ac0695bdafc31a",
+      "at": "2026-03-29"
+    },
+    "blog/4years.md": {
+      "english_sha256": "8329f655ef5ed8fcb6b4608a704730ae876bbe8992b7267021c2446aae8fba87",
+      "at": "2026-03-29"
+    },
+    "blog/5years.md": {
+      "english_sha256": "a6da914034b1d62abb9334e61e717cda4ed1637247381e6e6395c93823308222",
+      "at": "2026-03-29"
+    },
+    "blog/6years.md": {
+      "english_sha256": "302b9b5f13082fca44b3ac7431395aee7f09c684159306b4f878d2966234de9a",
+      "at": "2026-03-29"
+    },
+    "blog/7years.md": {
+      "english_sha256": "73f7a16d207d2c9e56384f1555176c51e80ee443fdbcbe4591a7e68f441983de",
+      "at": "2026-03-29"
+    },
+    "blog/8years.md": {
+      "english_sha256": "c14987a2149a410ecab2e8c58acc2fe54a06a1a66d5b37ea06c3752f94dfc2e6",
+      "at": "2026-03-29"
+    },
+    "blog/9years.md": {
+      "english_sha256": "71d85648d27fc78cdb68c8cfd0e6e6eb866c9009a73167ce8b91791032860677",
+      "at": "2026-03-29"
+    },
+    "blog/README.md": {
+      "english_sha256": "5bb6d4aeef8e9d3bef7ef49664d33a8635ac018682aeb2def8892dd5fd9c057d",
+      "at": "2026-03-29"
+    },
+    "blog/alias-names.md": {
+      "english_sha256": "e187236252fcaa5b2f648e6aee61be2ad5c123a5a03af522bc02b87300c8f6c8",
+      "at": "2026-03-29"
+    },
+    "blog/all.md": {
+      "english_sha256": "55b35f98634b5033781a689192cb5a115bafda8b5bdd9e6e45ea177c2c95c830",
+      "at": "2026-03-29"
+    },
+    "blog/allocation-optimizations.md": {
+      "english_sha256": "826dee245920a941b035b2c05ab038c6be5abec32b265776f7d40d03324434c8",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-155.md": {
+      "english_sha256": "6692b0eea4d6e915143f1de70f55778f96ef7d23c70d7fd236bb8bff41f50946",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-171.md": {
+      "english_sha256": "ac9ff95e7b66752e4c6b72d553fe4f2aecbe2a60e9adb4ca18fbcf3b3edccb24",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-dec2013.md": {
+      "english_sha256": "3c29c0d27caf05e3524e0a122f3f8dae523126822cdf956415dea7ed86fd934c",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-ga.md": {
+      "english_sha256": "909b272a73fee99cb45787b13f0a9a2092a011bf162397c1feab35c180e19299",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-go111.md": {
+      "english_sha256": "57bc127df3f960ba5bf8c0814a258874e43e54c523e8ee58d453bdd470a9bebc",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-gopath.md": {
+      "english_sha256": "748de3c68271b742a947796308982e9dbc4ad5d2ce985cae237640207480d1c1",
+      "at": "2026-03-29"
+    },
+    "blog/appengine-scalable.md": {
+      "english_sha256": "4985f936ff170d46af0caa6e6db31d86569435006fdb08ba6f19127a418bab55",
+      "at": "2026-03-29"
+    },
+    "blog/appengine.md": {
+      "english_sha256": "5c12c551d622a2d6ce47f39e735968f0ff88b3ef2bc3240571747d8eb6dcdcb2",
+      "at": "2026-03-29"
+    },
+    "blog/bossie.md": {
+      "english_sha256": "e2abf7ecd3d89f47802a6e20b0b312fa6305247615e665627a97a189ade74707",
+      "at": "2026-03-29"
+    },
+    "blog/cgo.md": {
+      "english_sha256": "5bec3aa4cd97110c086c2000df45e9a709007ab13232f1d78765c29fe7fca2bd",
+      "at": "2026-03-29"
+    },
+    "blog/chacha8rand.md": {
+      "english_sha256": "79c6ffdebd6c7c0f1f7bc91437dd19320fd1eb80ad6c84ce51179a9de73192a9",
+      "at": "2026-03-29"
+    },
+    "blog/cleanups-and-weak.md": {
+      "english_sha256": "84da743f7a7157ce46e42e951953d5bea2fceb81e20e01acfbfc1d39c23a680f",
+      "at": "2026-03-29"
+    },
+    "blog/codelab-share.md": {
+      "english_sha256": "c542a8ccf48c9e018c81d4c2cb917e3cdfaffb13261664a577d2eb775c7f8d05",
+      "at": "2026-03-29"
+    },
+    "blog/comparable.md": {
+      "english_sha256": "3d18c4a9a5a0aee54bc02a6e5992d4f3d1dd0334006146cba7b5bcec72b3a1a8",
+      "at": "2026-03-29"
+    },
+    "blog/compat.md": {
+      "english_sha256": "4f134f853aa2675c70d3f0c10ce28dda9fdd5a9970084143fec6133bf970fa5b",
+      "at": "2026-03-29"
+    },
+    "blog/concurrency-timeouts.md": {
+      "english_sha256": "4b80dea59ad33278780717e66cba7380b4dacd2d2df9b0fd0abc45532798f887",
+      "at": "2026-03-29"
+    },
+    "blog/conduct-2018.md": {
+      "english_sha256": "c7e8582e4da8439c4cbb668df928edd870aed1a454212af282fd87e58570d658",
+      "at": "2026-03-29"
+    },
+    "blog/conduct-2021.md": {
+      "english_sha256": "9f34d0edc1e0c16b4d61466bfbc1e5c5cbc18df92d11df74ac1dfb4882afc738",
+      "at": "2026-03-29"
+    },
+    "blog/constants.md": {
+      "english_sha256": "219f9315c104a559e25e4ed1e4c748775a27c26f931f59fee5c0df6bb10a737c",
+      "at": "2026-03-29"
+    },
+    "blog/container-aware-gomaxprocs.md": {
+      "english_sha256": "c40313c878751d22b1994afb3b1ce9e2574f8f5f619957a3c131e26b6f395230",
+      "at": "2026-03-29"
+    },
+    "blog/context-and-structs.md": {
+      "english_sha256": "65d4e3c81c5882e52b5bf5f341fabc6e0ba6217a455958ee8b3c30517a468cb4",
+      "at": "2026-03-29"
+    },
+    "blog/context.md": {
+      "english_sha256": "0c3f2aa568c2ebb8a8a3bfe2e2a15e757bc459e201f1ce5ab451ce9dddb9ff48",
+      "at": "2026-03-29"
+    },
+    "blog/contributor-workshop.md": {
+      "english_sha256": "1ef273fa576b45e1e17328d8388f7cc09fee8cff345485688bebd111c0f37f88",
+      "at": "2026-03-31"
+    },
+    "blog/contributors-summit-2019.md": {
+      "english_sha256": "03c2904b1fc3c7b641dcfe5e825d7025ea32ac948f1e95957c3e30ca322d83b3",
+      "at": "2026-03-31"
+    },
+    "blog/contributors-summit.md": {
+      "english_sha256": "a53a9b3456662ca21f63b829ad653bcce2d481ab70d288d44079a2d7ec5beda4",
+      "at": "2026-03-31"
+    },
+    "blog/coretypes.md": {
+      "english_sha256": "5aef1a8320910473b8258c106885f619d4572e92d4bba51feac400ad66684294",
+      "at": "2026-03-29"
+    },
+    "blog/cover.md": {
+      "english_sha256": "47be087be5c6581e64f17112f313712343975c75c878e85d51c557eb7a059758",
+      "at": "2026-03-31"
+    },
+    "blog/cwg.md": {
+      "english_sha256": "541888352dafb7fb8b753436fa932675e6ddabcaa166a47f82aae4083e7a0725",
+      "at": "2026-03-29"
+    },
+    "blog/deadcode.md": {
+      "english_sha256": "7fe32a759fe97d43b1e5923521a4f350d2a0b24c5c6d611a6205f0728e6c70a5",
+      "at": "2026-03-29"
+    },
+    "blog/debug-gdb.md": {
+      "english_sha256": "5e916f2347a107469dfe55955ff09a6df5a05f45a48638607fe73d25202e5bf4",
+      "at": "2026-03-29"
+    },
+    "blog/debug-opt.md": {
+      "english_sha256": "b07e0af43a34d98fd8dc45be1105c39beeee6d0becaa82b249484bd830abb106",
+      "at": "2026-03-29"
+    },
+    "blog/debug-status.md": {
+      "english_sha256": "61cb5a49e632ddcd9d7f58f559ca57af85395fd12990888eae180ac8dc1a52fb",
+      "at": "2026-03-29"
+    },
+    "blog/declaration-syntax.md": {
+      "english_sha256": "7f40498f21ccbbe1681e10568aca15a63fff38877c330a4a1f2100ba7f7bf92f",
+      "at": "2026-03-29"
+    },
+    "blog/deconstructing-type-parameters.md": {
+      "english_sha256": "674862f1dc6f3c0e069284f6631dc2a50b387afce718c8bbdcd2ac038fe04e81",
+      "at": "2026-03-29"
+    },
+    "blog/default.tmpl": {
+      "english_sha256": "9f42db4a2e1e9870274a6f78e7e021c98a5e91f1241f3415964ea02477ac664a",
+      "at": "2026-03-29"
+    },
+    "blog/defer-panic-and-recover.md": {
+      "english_sha256": "895a0333217da2c57e38ff92d7bd3381fa65133eec5c17c19e0e341387253dd0",
+      "at": "2026-03-29"
+    },
+    "blog/developer-experience.md": {
+      "english_sha256": "352b7e667510b5e5285d8b53996c2bc1c234c02ba0d8532a6a40d6eac903cee1",
+      "at": "2026-03-29"
+    },
+    "blog/docker.md": {
+      "english_sha256": "e26c18426ec6d9c1272c1f328c350dd79a1f009c149fec99358d60bdf783be2a",
+      "at": "2026-03-29"
+    },
+    "blog/error-handling-and-go.md": {
+      "english_sha256": "187d2b6a4825946dc6b7baa2ae41f99178b2c49dde06380f1c8cd8d779dff6b9",
+      "at": "2026-03-29"
+    },
+    "blog/error-syntax.md": {
+      "english_sha256": "1319d724612c49d101bc1076a7daa24fe9149660c9a0df9b0ce4374cffd6ad2e",
+      "at": "2026-03-29"
+    },
+    "blog/errors-are-values.md": {
+      "english_sha256": "b2e594a6814c087c0b2021659888ca4d9fdf07c023255b8e53cf6d956a21bb58",
+      "at": "2026-03-29"
+    },
+    "blog/examples.md": {
+      "english_sha256": "b9ebe6a3ffbb473adb7d2a4b7820da939cabe85210be103ec92e1abefe880fa7",
+      "at": "2026-03-29"
+    },
+    "blog/execution-traces-2024.md": {
+      "english_sha256": "18729f0b336e27b896264e1a5b7cb387f1da90818612440cf80c8241b53767c6",
+      "at": "2026-03-29"
+    },
+    "blog/experiment.md": {
+      "english_sha256": "8ec86e15939bc5bb8b3e794db4f955276ed4ea1ad8cec9a749c1ceeac36f654c",
+      "at": "2026-03-29"
+    },
+    "blog/external-libraries.md": {
+      "english_sha256": "d97503e1dbe8751b81e739ddee0cf7a47a600c83479d0500deb3d9cb0492d536",
+      "at": "2026-03-29"
+    },
+    "blog/fips140.md": {
+      "english_sha256": "cc0aa90af6ac64131749eb5fbf0882adca728b01e07f2fdbcb5bfb8bee4f51ac",
+      "at": "2026-03-29"
+    },
+    "blog/first-go-program.md": {
+      "english_sha256": "18ea53b32ccc3dd1d1daf1a972869b9d8681ad98275da5ac3bd25d76405d5392",
+      "at": "2026-03-29"
+    },
+    "blog/flight-recorder.md": {
+      "english_sha256": "3d3a7d621ce8e3d5fecdd63b25f6dd7a7388ba0c02584bfc008d5c908ba20c95",
+      "at": "2026-03-31"
+    },
+    "blog/fosdem14.md": {
+      "english_sha256": "b8366bfa2ce0cadf3df598d93fdc1fdd05f8ff40f11db4d8c020029422ad4d62",
+      "at": "2026-03-29"
+    },
+    "blog/functions-codewalk.md": {
+      "english_sha256": "88bddcbe3679945f2eed82ee23dafd2ed011e2d4f0a9a7f363090fcfb9592b65",
+      "at": "2026-03-29"
+    },
+    "blog/fuzz-beta.md": {
+      "english_sha256": "3a65e58307515f417bda5529afa76625cc5f60b230b50e9a39bbe448bfbf576f",
+      "at": "2026-03-29"
+    },
+    "blog/gccgo-in-gcc-471.md": {
+      "english_sha256": "8a1b4be7f1e87c008ea6edcc6292882167d42feaaf8e968461f6d091cc45f099",
+      "at": "2026-03-29"
+    },
+    "blog/generate.md": {
+      "english_sha256": "1d29e75fada67d24bcc323b725d16a5c204a1123f206a9fac663a4d0e244ceee",
+      "at": "2026-03-29"
+    },
+    "blog/generic-interfaces.md": {
+      "english_sha256": "422da7d01099adaf76d468795d434bde3f337e6fdbe04d39704727aca4336f88",
+      "at": "2026-03-29"
+    },
+    "blog/generic-slice-functions.md": {
+      "english_sha256": "dc2d3a7a3774e4ec8b6107b39d48a43d9d892a6924b2462eb6ea4ea1ff7e1516",
+      "at": "2026-03-31"
+    },
+    "blog/generics-next-step.md": {
+      "english_sha256": "7dd5b3b575922147a2bffead4ef70e6e7e3393eb87f2b5c4f9126a505f600d3e",
+      "at": "2026-03-29"
+    },
+    "blog/generics-proposal.md": {
+      "english_sha256": "1c1d6965117e6326bf57a45606d0860fef6c83cd594a94511aed2e367295b7a2",
+      "at": "2026-03-29"
+    },
+    "blog/get-familiar-with-workspaces.md": {
+      "english_sha256": "85d445a1ddb85c3831235b1e631b024d17b78f338b34d8706c286c3cec13e7f1",
+      "at": "2026-03-29"
+    },
+    "blog/gif-decoder.md": {
+      "english_sha256": "a3fc4c092f2e3eae025664d866be9d8e5eb7bc40ba6425e88c3430240c60b3c4",
+      "at": "2026-03-29"
+    },
+    "blog/go-brand.md": {
+      "english_sha256": "c33e1fad9eeff9914a7dab04d76ae743fb66ccf9f1ac460ae150e5a8da798aa5",
+      "at": "2026-03-29"
+    },
+    "blog/go-cloud.md": {
+      "english_sha256": "3f115ceb49a1aa2e3c4b3bc9404daee1c9d4777b7cf7cdf40fd02b8d530dbdfd",
+      "at": "2026-03-29"
+    },
+    "blog/go-cloud2019.md": {
+      "english_sha256": "5922c97b540049705e988ec06b666d32cbfa39cf714f67175ce1d71e593afbcf",
+      "at": "2026-03-29"
+    },
+    "blog/go-developer-network.md": {
+      "english_sha256": "525ceaf3a7c94f146a1b63d517ddba26bd2231743082394225cdb8fecbc59216",
+      "at": "2026-03-29"
+    },
+    "blog/go-fonts.md": {
+      "english_sha256": "746a7414f03b63f4ff64370d21f9b15fe553d1bed696d09d5f2be43c95ca4314",
+      "at": "2026-03-29"
+    },
+    "blog/go.dev.md": {
+      "english_sha256": "2996e5adadb1e2b558f6249cff4c1cd9a9b4530f6a5535d88dae402379aa83b2",
+      "at": "2026-03-29"
+    },
+    "blog/go1-path.md": {
+      "english_sha256": "155b045c9d1c10cf5987ad6c0c44a214909400476143d5689af0e65c443c445e",
+      "at": "2026-03-29"
+    },
+    "blog/go1-preview.md": {
+      "english_sha256": "713cef62d5ee359719f5a2e3bbe77949addb87c75098524c358715e767f4b712",
+      "at": "2026-03-29"
+    },
+    "blog/go1.1.md": {
+      "english_sha256": "4dd38673add029a76454a9b21e03d7b83cb2d585878ec8431ddb68c04b2c517a",
+      "at": "2026-03-29"
+    },
+    "blog/go1.10.md": {
+      "english_sha256": "cfa971b9e5216324e31a4f56379fe5d952080b0df396891dd24e3520075c9c83",
+      "at": "2026-03-29"
+    },
+    "blog/go1.11.md": {
+      "english_sha256": "5724580500a9665024f9e6868dd0da1c3d77be4a290c36c05d6962771f98a2a0",
+      "at": "2026-03-29"
+    },
+    "blog/go1.12.md": {
+      "english_sha256": "5d636b8d48513429b26b3f9068a83fd7b0e676655763460ee1c84891806b60fa",
+      "at": "2026-03-29"
+    },
+    "blog/go1.13-errors.md": {
+      "english_sha256": "cbea4c2a1a4fa40dac589ad171808bd285f03fb23e0a906b1e795e2172a3fcec",
+      "at": "2026-03-30"
+    },
+    "blog/go1.13.md": {
+      "english_sha256": "440f4812bb535de89489eca822acae918dbfca273ed8dc3c3ec1778180bd042c",
+      "at": "2026-03-29"
+    },
+    "blog/go1.14.md": {
+      "english_sha256": "47a77fabf3414f46ff21d417b8bad4aba2509b6a5feaf4fa258c8ed2729aa9de",
+      "at": "2026-03-29"
+    },
+    "blog/go1.15-proposals.md": {
+      "english_sha256": "915779c3039149f28b0dc476ef68479ba3686cf570cc7ddf61771b3fccc36f29",
+      "at": "2026-03-30"
+    },
+    "blog/go1.15.md": {
+      "english_sha256": "6c3188c3888f013f779f4332b33e647a79343e6f3f74dbea6fca59fea13465bc",
+      "at": "2026-03-29"
+    },
+    "blog/go1.16.md": {
+      "english_sha256": "45c76731f178cda45a7ed9aa541e34513d04c873ec53d37918bd3c5e732c63b4",
+      "at": "2026-03-29"
+    },
+    "blog/go1.17.md": {
+      "english_sha256": "ac67081ad77b9b91ff00a4f5302774625bd6ca83ee309d58cb1426fe4eaf4654",
+      "at": "2026-03-29"
+    },
+    "blog/go1.18.md": {
+      "english_sha256": "5514f180b184eca551b642f9c9ca7a6fb0a98265e6e057599c051eb2647d53e6",
+      "at": "2026-03-29"
+    },
+    "blog/go1.18beta1.md": {
+      "english_sha256": "1506f77afc52177831edc430d713ce83ea9ab1dc742630610eb8e2ea22a445f8",
+      "at": "2026-03-29"
+    },
+    "blog/go1.18beta2.md": {
+      "english_sha256": "20f4c3761290297c18fc9657a60d1479f63c1a94a3a942af1bed731dd798b13b",
+      "at": "2026-03-29"
+    },
+    "blog/go1.19.md": {
+      "english_sha256": "a653ef3b4016476eedfee387c4a69476242b99bb019769f9724dffd5bfa0a76d",
+      "at": "2026-03-29"
+    },
+    "blog/go1.2.md": {
+      "english_sha256": "38b5966ac8a39e05ea83c0837cfd6cebc23319f110668d45a81865c6f45902e3",
+      "at": "2026-03-29"
+    },
+    "blog/go1.20.md": {
+      "english_sha256": "c94bd5cdfb7c9d6aa50908644c18c4e8a04d81fa768a20fb67d6f4ebc9aa8513",
+      "at": "2026-03-29"
+    },
+    "blog/go1.21.md": {
+      "english_sha256": "5b91af91873a8c144d1bd76dd37fffdf4c128b07b4b73454124ea3c276940668",
+      "at": "2026-03-29"
+    },
+    "blog/go1.21rc.md": {
+      "english_sha256": "68e1dc1645cb21de562ee06e4d21d7cfd6a17b71d26762897c49a2584aaf7e41",
+      "at": "2026-03-29"
+    },
+    "blog/go1.22.md": {
+      "english_sha256": "1d6788caf2db2440f165368204473434a26fab2792754a6e7e0f747effaa4d66",
+      "at": "2026-03-29"
+    },
+    "blog/go1.23.md": {
+      "english_sha256": "0b0f9eafccb500f01995139259d8999f68822ab4522d3fc12a2e4fd54a841c50",
+      "at": "2026-03-30"
+    },
+    "blog/go1.24.md": {
+      "english_sha256": "65e8370036adffd3de218730b22be7f2dee89fa16814e8e3547017645a461f3f",
+      "at": "2026-03-30"
+    },
+    "blog/go1.25.md": {
+      "english_sha256": "e5bd8e60fc2009ae85fed1fe18a849fe731876f8c38fe0a480d4302b94517e38",
+      "at": "2026-03-30"
+    },
+    "blog/go1.26.md": {
+      "english_sha256": "95b5a76ff1954a10771a93f020b5ca8ae5c159731fa109881d5f23d0393e2a7c",
+      "at": "2026-03-30"
+    },
     "blog/go1.27.md": {
       "english_sha256": "07f3f84e942d6183fd3ee7ddd3fc352a6aed464370ebaf30fe70ce65d4a19231",
       "prompt_sha256": "146e73c2257244304a9faab2f1ddb89499f7ea5685607078e111de70e36944fc",
@@ -7,6 +455,1786 @@
       "model": "gpt-5",
       "at": "2026-09-02",
       "chunks": 3
+    },
+    "blog/go1.3.md": {
+      "english_sha256": "5cb08b3bb1c1cc6406b6f2c8c98f20ba187ab54e24aaf5aafd44bbe274156abb",
+      "at": "2026-03-30"
+    },
+    "blog/go1.4.md": {
+      "english_sha256": "dffc6784d6275853b7118b10246a375afd70ca2e3984df49a673957f942901fe",
+      "at": "2026-03-30"
+    },
+    "blog/go1.5.md": {
+      "english_sha256": "59a9703091e864acef5fae35e45064aa34e23afe7710a61f8f3e99c00305180d",
+      "at": "2026-03-30"
+    },
+    "blog/go1.6.md": {
+      "english_sha256": "7e1ea1901ae56dd09de56b7c460e6a6be91fbf644bf2c48f396af688e32f2d16",
+      "at": "2026-03-30"
+    },
+    "blog/go1.7-binary-size.md": {
+      "english_sha256": "fc65aebeacd6d028c81707348d6ea6e274b5f7503550afd5771c278bb6484a6b",
+      "at": "2026-03-30"
+    },
+    "blog/go1.7.md": {
+      "english_sha256": "4cf69a31ec0be7d5c3fb564eb1c8a644584e8c9a4acf8818ddd81f2b1725f262",
+      "at": "2026-03-30"
+    },
+    "blog/go1.8.md": {
+      "english_sha256": "7e347b41b6c0fe666787c7819a046691ced1fe0c1e085852a9aa387473397de2",
+      "at": "2026-03-30"
+    },
+    "blog/go1.9.md": {
+      "english_sha256": "b3432ee1814dc18bdf32674ecbe43825158df48f26c5639d69824e6b4ccf1ad9",
+      "at": "2026-03-30"
+    },
+    "blog/go1.md": {
+      "english_sha256": "094601e127d3983f0679c286ad5fa9e6419247af59f8278f69d505684e8b9110",
+      "at": "2026-03-30"
+    },
+    "blog/go116-module-changes.md": {
+      "english_sha256": "c27dc5187fb0abfb6b144ddd1e769fa16f0806c4fc850469b1b32a39046a03a4",
+      "at": "2026-03-30"
+    },
+    "blog/go119runtime.md": {
+      "english_sha256": "922bf310ca8391871c31734c3fc64545bdf6ae6b48a1b3ba24ac58622890cdb0",
+      "at": "2026-03-30"
+    },
+    "blog/go15gc.md": {
+      "english_sha256": "9dd631ef1d1408e546e136ab5436b438256972881857169ac95f823f5e9e56d6",
+      "at": "2026-03-30"
+    },
+    "blog/go2-here-we-come.md": {
+      "english_sha256": "96655df0db62ec4e7d9a5efc70fcaa2d082109f216e5c277d18f4d80ca8f286c",
+      "at": "2026-03-30"
+    },
+    "blog/go2-next-steps.md": {
+      "english_sha256": "63d5d067fb680c15726b6d81672321499b555de9dcc080f12b37aec08f4b6c27",
+      "at": "2026-03-30"
+    },
+    "blog/go2draft.md": {
+      "english_sha256": "cafceb1b1a9237dd24b7526fe87c27652271eadbcdf9b428e4e80fbad8cf7b43",
+      "at": "2026-03-30"
+    },
+    "blog/gob.md": {
+      "english_sha256": "4ada68a20c2d761a3bcd2734972dcf962f4bb1bb34462c8c3d83c32a56cc280c",
+      "at": "2026-03-30"
+    },
+    "blog/godoc.md": {
+      "english_sha256": "f2b7a4c110430e89eb259516ac4207bd4d3b7c4c1584e81028e64ff104807145",
+      "at": "2026-03-30"
+    },
+    "blog/godoc.org-redirect.md": {
+      "english_sha256": "6933fcdb2e6a21d8305138581ed2fd1bcc1a9790c3ddea222c8f630037e1c9cc",
+      "at": "2026-03-30"
+    },
+    "blog/gofix.md": {
+      "english_sha256": "9057654b1cea3ef94d601358604bf53ce341c1d18ef829d87977a7271a565152",
+      "at": "2026-03-31"
+    },
+    "blog/gofmt.md": {
+      "english_sha256": "0cbf45007244147fb25e571fd9925d37c4ad7cca859bb56e3c175532072b2fcc",
+      "at": "2026-03-30"
+    },
+    "blog/gonew.md": {
+      "english_sha256": "dc5baa736991bd2d981378c2edfb9bafc9f027b7f03b526d103a182565dd06fa",
+      "at": "2026-03-30"
+    },
+    "blog/gopher.md": {
+      "english_sha256": "a128dc1a0cb7d89677032e244102a771dc68732560242dc0db16313f37cfca47",
+      "at": "2026-03-30"
+    },
+    "blog/gopherchina.md": {
+      "english_sha256": "277ecfb587c20d9acd455521e70a8fe03de9c9fd785aac2e17de549af3871e70",
+      "at": "2026-03-30"
+    },
+    "blog/gophercon.md": {
+      "english_sha256": "03558b3cb276650430d0803106bcde5cfc3f983592e8c39cf7f912e62a6a6efe",
+      "at": "2026-03-30"
+    },
+    "blog/gophercon2015.md": {
+      "english_sha256": "fb1aca7a192c8dbd8eedbe55649d5956b4595e01b5defcc5fd44451bd1c71baa",
+      "at": "2026-03-30"
+    },
+    "blog/gophergala.md": {
+      "english_sha256": "2a806db38f5a320219e81eac76811a79599e43cbacf1481726e7a768713428ac",
+      "at": "2026-03-30"
+    },
+    "blog/gopls-scalability.md": {
+      "english_sha256": "18b0f41b985d224fcf68aa3c50f5d8eb1ca73a7ba4f8f93a78a5d4e008006a4e",
+      "at": "2026-03-30"
+    },
+    "blog/gopls-vscode-go.md": {
+      "english_sha256": "0952fda10dc44d1115fc05ed975fce9bbe3a64b9c2737d8cc8229a34a2a8e540",
+      "at": "2026-03-30"
+    },
+    "blog/gotelemetry.md": {
+      "english_sha256": "01f328c380f4068f790f97a9b590cde8a2e780a74a044fdd642a85247ae07e2e",
+      "at": "2026-03-30"
+    },
+    "blog/gothamgo.md": {
+      "english_sha256": "3daf74c1a2581989c59d7e59bff4f2c971bf45439b58570b4b76205b71ee885f",
+      "at": "2026-03-30"
+    },
+    "blog/gouk15.md": {
+      "english_sha256": "08dfff6d16dbe4852c8be74fefa52cfdfa8094357ea2228ea0c6d5b904c18837",
+      "at": "2026-03-30"
+    },
+    "blog/govulncheck.md": {
+      "english_sha256": "20ef3cd0ddcf36b267b014c528d4c19f7482f331d94c0f5992313a9f245f5be4",
+      "at": "2026-03-30"
+    },
+    "blog/greenteagc.md": {
+      "english_sha256": "1f6de98822cd5fce279462fa8799da4d287224c90a168092ce9a61500b8f996a",
+      "at": "2026-03-30"
+    },
+    "blog/h2push.md": {
+      "english_sha256": "5b188e1efbaa58f185dd230a3a6ef3f78aa1d9daafbf60ef0c1300398b74bb79",
+      "at": "2026-03-30"
+    },
+    "blog/hello-china.md": {
+      "english_sha256": "c0bbba6d5da6e25800c82bc02c599f72efe2833180f84d67bcc903a0b19b6ed3",
+      "at": "2026-03-30"
+    },
+    "blog/hello-world.md": {
+      "english_sha256": "96dfe1de6b697c7ef6d62c0d4276f0f27d648ed23c361b3f340d5a87d8e553bc",
+      "at": "2026-03-30"
+    },
+    "blog/heroku.md": {
+      "english_sha256": "96a2a90ae298970e4810f7830ae7b93924de97feb85e7f5d7f9dc384563b32f6",
+      "at": "2026-03-30"
+    },
+    "blog/http-tracing.md": {
+      "english_sha256": "092304d48ca0b898a27724b1cfc56c131672f6c164c2b334cdfe9609fb2f485f",
+      "at": "2026-03-30"
+    },
+    "blog/image-draw.md": {
+      "english_sha256": "1c809c88452286f52393bba1b439f7a3903695067c0bdaa83411353a28f94a44",
+      "at": "2026-03-30"
+    },
+    "blog/image.md": {
+      "english_sha256": "9d5ae8218f446c51b1e2c391d2e2dfe0fdde50d8035efcd9d53a25b14791d9d8",
+      "at": "2026-03-30"
+    },
+    "blog/index.md": {
+      "english_sha256": "0c822885da5d8b4d4f9a55ab51fa6cab9fea23e82c4cc0f31fdb7b9bdb50c12a",
+      "at": "2026-03-30"
+    },
+    "blog/inliner.md": {
+      "english_sha256": "d3aee01d621f2ee948e4c9a1d9100222f5d74304310b6d265038c672816445a5",
+      "at": "2026-04-14"
+    },
+    "blog/integration-test-coverage.md": {
+      "english_sha256": "c704094b3319b07e9fe39996d27590cb059e98531a8647803c3ec1e57b1ff993",
+      "at": "2026-03-30"
+    },
+    "blog/intro-generics.md": {
+      "english_sha256": "66e85d205b97be575157a7994594ea54515cef6fc0b4243eb13e1292a4b46173",
+      "at": "2026-03-30"
+    },
+    "blog/introducing-gofix.md": {
+      "english_sha256": "f3244a578fb342a99a18d15deda58458951a11229c6e24046463874ecd4aa61f",
+      "at": "2026-03-30"
+    },
+    "blog/io2010-faq.md": {
+      "english_sha256": "cfcfe1a9f4290bdde874776e6d58440a8c032d2f85058ef1f0e1b9e0c99244d1",
+      "at": "2026-03-30"
+    },
+    "blog/io2010-preview.md": {
+      "english_sha256": "8e95db6fb4eff5dd1d15ee9120af55e2efae3d7a38485f1fd20a1dc16fef3df5",
+      "at": "2026-03-30"
+    },
+    "blog/io2010.md": {
+      "english_sha256": "b75abcd58c4ace9d2b93e05b4f027bc09168d8c78a3d844d3d83037a5eb96e7f",
+      "at": "2026-03-30"
+    },
+    "blog/io2011.md": {
+      "english_sha256": "a9d56906dcffbe61745309be20a1e7187db7d14c13416eca7eefd6102ce1cd85",
+      "at": "2026-03-30"
+    },
+    "blog/io2012-videos.md": {
+      "english_sha256": "086fbbc4def0fafc193c01f6a7d5d7ee2d627a62b1b34d4e3e025c763864a464",
+      "at": "2026-03-30"
+    },
+    "blog/io2013-chat.md": {
+      "english_sha256": "c8cc01d4e5c072ad6c32ca51fd88d42e03ebd5760ba5205d471f26870e0eb3b5",
+      "at": "2026-03-30"
+    },
+    "blog/io2013-talk-concurrency.md": {
+      "english_sha256": "e1068cba294876728a462fc01d01a7ea2c030b50eb9abb26af071bca0880fbbb",
+      "at": "2026-03-30"
+    },
+    "blog/io2013-talks-cloud.md": {
+      "english_sha256": "5d91431cc6d205ce166a5edfaeb9877e10ca0cdbdc5c6d8bdca8de8f8aa5353c",
+      "at": "2026-03-30"
+    },
+    "blog/io2014.md": {
+      "english_sha256": "4f75e5c3bf291d716693a1aa2008773a1583a354594ff83a5bd23ab4db7b512d",
+      "at": "2026-03-30"
+    },
+    "blog/ismmkeynote.md": {
+      "english_sha256": "c538d85b1791cb3eced4a5b59c145b5a5bdc248ab96180cb2f0575b18c03f005",
+      "at": "2026-03-30"
+    },
+    "blog/json-rpc.md": {
+      "english_sha256": "97a03827d24272c69f9ee064e205bdf5dc09fffe565374fc35c2e18b50a0ccf4",
+      "at": "2026-03-30"
+    },
+    "blog/json.md": {
+      "english_sha256": "bbd3ef8db8b9b8560be434af922918da6d55f2e724dede169510f265f3f88ba4",
+      "at": "2026-03-30"
+    },
+    "blog/jsonv2-exp.md": {
+      "english_sha256": "abb4013a85aead1657fd4a85b5ea2938c8c5225e088127f16b63523709d51f60",
+      "at": "2026-03-30"
+    },
+    "blog/laws-of-reflection.md": {
+      "english_sha256": "7d07f756ee899db64d93d73e34408f1ecfb1594ea7077919c05152dc4f2655d5",
+      "at": "2026-03-30"
+    },
+    "blog/llmpowered.md": {
+      "english_sha256": "06cf0efcc0aa2e9b0e9ce8c19817eb84a2943b68a309de16996808fa45000b49",
+      "at": "2026-03-30"
+    },
+    "blog/loopvar-preview.md": {
+      "english_sha256": "b37a46dde0d92effafdaa6cfe976aac71b0b6a1fce681c6af775822d3f023955",
+      "at": "2026-03-30"
+    },
+    "blog/maps.md": {
+      "english_sha256": "f5fc738d9c74597f5d637610d9de1d853b2384679dac0b0bd0c0e87bb1e96f00",
+      "at": "2026-03-30"
+    },
+    "blog/matchlang.md": {
+      "english_sha256": "569ff6d0b4185bf8d1ac003fa355fbbf6a55231e4903eff89db06ed4430c84a5",
+      "at": "2026-03-30"
+    },
+    "blog/matchlang/tags.html": {
+      "english_sha256": "1e9a076ab535d346408c899044ebb6ec56f784677c1469420cef2e56b5d77a38",
+      "at": "2026-03-30"
+    },
+    "blog/meetups.md": {
+      "english_sha256": "3b10a1f74d455a41ab8ede0694f64b6cc3678137005ee495a3457e404728931e",
+      "at": "2026-03-30"
+    },
+    "blog/migrating-to-go-modules.md": {
+      "english_sha256": "35c9f83074d192e6033dbf40782909502456b7c3a6996a88e390de26ba73269e",
+      "at": "2026-03-30"
+    },
+    "blog/module-compatibility.md": {
+      "english_sha256": "d227306918522faa89d4e05f8d68c4e5e1759de375b4fbe33c89aebedb924467",
+      "at": "2026-03-30"
+    },
+    "blog/module-mirror-launch.md": {
+      "english_sha256": "a802fea349473b99a9748491af7f2fd13bbc34cf8454196400fc32a53a50b671",
+      "at": "2026-03-30"
+    },
+    "blog/modules2019.md": {
+      "english_sha256": "72739d2ab7181ed87b5623bd3b423fa6b768cd76e6fb5ef8ea863440466612fa",
+      "at": "2026-03-30"
+    },
+    "blog/new-talk-and-tutorials.md": {
+      "english_sha256": "87c56caebb63bd7b86716c5d5b5db40571633f6eba2c206b6cde6a8436c9455c",
+      "at": "2026-03-30"
+    },
+    "blog/normalization.md": {
+      "english_sha256": "faf49e9323496f4e658129c14495beab8a1507a5af4c148466441b80c55dd77f",
+      "at": "2026-03-30"
+    },
+    "blog/normalization/table1.html": {
+      "english_sha256": "871c444e81790964b4499c16d444019f2444aac7a0e8e8a3a40217cee8771b8b",
+      "at": "2026-03-30"
+    },
+    "blog/normalization/table2.html": {
+      "english_sha256": "739b28643b7bb8352a9aa223011e9a851ce987e104e27ac51590f62221d26e96",
+      "at": "2026-03-30"
+    },
+    "blog/open-source.md": {
+      "english_sha256": "ec474d8a09e4bffa897f419937d6a56b512bff980ceeb29e0e9282ce6b1cf736",
+      "at": "2026-03-31"
+    },
+    "blog/organizing-go-code.md": {
+      "english_sha256": "ec0c2ff29aa073ba2711d6fc9dc15e9434c4190bd30878602cac9d501413bb30",
+      "at": "2026-03-30"
+    },
+    "blog/oscon.md": {
+      "english_sha256": "f2e0bea9e67092d6b3047b96afb149d80f539737983a3811245f225e1814d7c3",
+      "at": "2026-03-30"
+    },
+    "blog/osconreport.md": {
+      "english_sha256": "2dd051fa30d8d1c4304328c8c51544f4f52a16a20438cb106dbb20fa116140b7",
+      "at": "2026-03-30"
+    },
+    "blog/osroot.md": {
+      "english_sha256": "a2e04f9921fe3ed9b3fb84adb2ac2d40e0e2174702a3cb60ad319ca81918bd37",
+      "at": "2026-03-30"
+    },
+    "blog/package-names.md": {
+      "english_sha256": "b1e96f378f5a9a2b3b99469ba0cd718e154563e451722061d9495eb751983a52",
+      "at": "2026-03-30"
+    },
+    "blog/pandemic.md": {
+      "english_sha256": "d9bd0226a2ac534a0cb42adbff12ea8f6d81eacbadbc807e0d9ab79fd645a7f7",
+      "at": "2026-03-30"
+    },
+    "blog/path-security.md": {
+      "english_sha256": "aa0bce607735241f1e94799904236a7a66859ebab0397a523ed3bfccd57e85b1",
+      "at": "2026-03-30"
+    },
+    "blog/pgo-preview.md": {
+      "english_sha256": "d73d0fc97ce6ad544b1a97fd9c0d006ec66f1ada5e4d0af073f9173c938b2c5e",
+      "at": "2026-03-31"
+    },
+    "blog/pgo.md": {
+      "english_sha256": "b24a2f1a5daae89f3d5a2c3bab2b6cf59804ad83dddec09e4b5d7ef56f8977b7",
+      "at": "2026-03-31"
+    },
+    "blog/pipelines.md": {
+      "english_sha256": "429c29388afd6f7661026e7fb3841d179f4c5b5f68b299f9b24c57ccb24ecddf",
+      "at": "2026-03-30"
+    },
+    "blog/pkg.go.dev-2020.md": {
+      "english_sha256": "382b82b6747aaa8b4c12b814d8375d48e75e18796d4284d5092aca2cc77ebf32",
+      "at": "2026-03-30"
+    },
+    "blog/pkgsite-redesign.md": {
+      "english_sha256": "c644c6e177293e8c95696ba74f6eff4749a9c02acd639a619532bbfab780910d",
+      "at": "2026-03-30"
+    },
+    "blog/pkgsite-search-redesign.md": {
+      "english_sha256": "389081ec75748af8cea2de9d68dc597869884eca3fc3bbf4e13ca3be95f15e04",
+      "at": "2026-03-30"
+    },
+    "blog/pkgsite.md": {
+      "english_sha256": "5375d19c152fe959f1cf2fcf88daefebb4b936d32634965ae923a39928e63dbb",
+      "at": "2026-03-30"
+    },
+    "blog/playground-intro.md": {
+      "english_sha256": "b31207b72e231eac6a7f6357820f477380522ddd4d9406f0910daec3894b6688",
+      "at": "2026-03-30"
+    },
+    "blog/playground.md": {
+      "english_sha256": "001bbf4d874e5874eb5d1e156d50c13db0a80cc609d21c2526776a947b42a834",
+      "at": "2026-03-30"
+    },
+    "blog/ports.md": {
+      "english_sha256": "fba26cdebb1d1ba68180ec56d53c3e73cb7045ef61bad78f65facf94484e44f6",
+      "at": "2026-03-30"
+    },
+    "blog/pprof.md": {
+      "english_sha256": "2b7aba4410b2a0e5ac54cc45ac84e731ae730961451e7d0aae687739c06738d4",
+      "at": "2026-03-30"
+    },
+    "blog/protobuf-apiv2.md": {
+      "english_sha256": "85d4b050e5b2636e8da2cded7a8e079ecc587fe8a2dc68d275953ec22a481d0b",
+      "at": "2026-03-30"
+    },
+    "blog/protobuf-opaque.md": {
+      "english_sha256": "af1768e40554f511232bc0e9310e7e6d6760bf6756a6dec630e229acf8bbd2e6",
+      "at": "2026-03-30"
+    },
+    "blog/protobuf.md": {
+      "english_sha256": "fd4cf8888986ff3d0525dd420856bacd4088334ccc18d3b78099d8ae49363257",
+      "at": "2026-03-30"
+    },
+    "blog/publishing-go-modules.md": {
+      "english_sha256": "e5c18ec89241fd1b415213f39ef4c6118fd45a4b27c3229c65f72de69b3513ff",
+      "at": "2026-03-30"
+    },
+    "blog/qihoo.md": {
+      "english_sha256": "a1946ea6608135540decba9971ce0d63e0a61539308098acfa4e3f5ed265a777",
+      "at": "2026-03-31"
+    },
+    "blog/race-detector.md": {
+      "english_sha256": "553d61acfe76107613414e241cb55f6a23dfc32b59cc9ca081e3012836ffc8b6",
+      "at": "2026-03-30"
+    },
+    "blog/randv2.md": {
+      "english_sha256": "6d878b2b686fa3621763f1cdbbfe06adcc12650029d63da8f7149f881b850e4e",
+      "at": "2026-03-30"
+    },
+    "blog/range-functions.md": {
+      "english_sha256": "f90d56dc180278130926b207b1ba41ac3f50b198f8354681e39d5ffa6f8cf388",
+      "at": "2026-03-30"
+    },
+    "blog/rebuild.md": {
+      "english_sha256": "288085e790ee8911d7b85b7ba64836f4df8da48da9e5082413fd30d830b778d8",
+      "at": "2026-03-30"
+    },
+    "blog/routing-enhancements.md": {
+      "english_sha256": "5d0495bc7023b15c82642703fe022475424bc8bf5b300621c0397e7a7b2a862a",
+      "at": "2026-03-30"
+    },
+    "blog/share-memory-by-communicating.md": {
+      "english_sha256": "36403676b1f69f4d8ef5189c6b6a48907a02b6b35f940d6e06920dfbcbeb2d37",
+      "at": "2026-03-30"
+    },
+    "blog/slices-intro.md": {
+      "english_sha256": "a8a3031b2673c4becb354ce3fb1c9f34061f0f9ee89af21cd5aeb5a7071e3399",
+      "at": "2026-03-30"
+    },
+    "blog/slices.md": {
+      "english_sha256": "1def5becbfa01276f31e602972ced8af8471a992ea8ca34647a3edd90dae4c49",
+      "at": "2026-03-30"
+    },
+    "blog/slog.md": {
+      "english_sha256": "d6b5150434bb6e8489f920b96a2a14811f165a4e47b3cf9461f1e9e910357521",
+      "at": "2026-03-30"
+    },
+    "blog/smarttwitter.md": {
+      "english_sha256": "8d61db34d00caa30d35570f1645a8562e865456fd46609bc033d04e1e9c8c707",
+      "at": "2026-03-30"
+    },
+    "blog/stable-releases.md": {
+      "english_sha256": "ca7e906def086805a619b4d3ef1a0caeafc2330bfd9fd309cf658f77597fe9b6",
+      "at": "2026-03-30"
+    },
+    "blog/stackoverflow.md": {
+      "english_sha256": "a6eb1530462f610d196e73f0e7cb509c9833f4e09de60a0eccb65a617dd4e040",
+      "at": "2026-03-30"
+    },
+    "blog/stathat.md": {
+      "english_sha256": "6ae1dce7987df8f33ef77471e4676106be906e2e8a8607396a6baba6dfdaa866",
+      "at": "2026-03-30"
+    },
+    "blog/store.md": {
+      "english_sha256": "88ed32ef5046e99adb28139fdff9242d6f3e546867ce9e11487be8487a7f1baf",
+      "at": "2026-03-30"
+    },
+    "blog/strings.md": {
+      "english_sha256": "5483e0316bbd92bc6228d33b42ec6618c3d1cb40aa7a644f34ca678b86595574",
+      "at": "2026-03-30"
+    },
+    "blog/subtests.md": {
+      "english_sha256": "cb83acf754e5d0d9cffcce7de00bf6a8c7667004a22a7cd7270181956b7b41db",
+      "at": "2026-03-30"
+    },
+    "blog/supply-chain.md": {
+      "english_sha256": "5c72437c12a1ee814f836ba7fdf9261ad28e212b7c1424208bf4f541a8a4f4e9",
+      "at": "2026-03-30"
+    },
+    "blog/survey2011.md": {
+      "english_sha256": "edd73251e1ae931efdab90a06725e91ab68ce3b380baf8642a264121ceac292d",
+      "at": "2026-03-30"
+    },
+    "blog/survey2016-results.md": {
+      "english_sha256": "64e16d5a08976cc9db081f2ca1fd6987141c98f7d93b294641e3f47bd8f09924",
+      "at": "2026-03-30"
+    },
+    "blog/survey2016.md": {
+      "english_sha256": "ed46a2cfc70d780ce1ba18de94b22145065e6f3a9c13cba2e38c8cea2c45f5c2",
+      "at": "2026-03-30"
+    },
+    "blog/survey2017-results.md": {
+      "english_sha256": "7f05581da4df80e497037455ab33cc82eb1a0792cb9725281d2b6ba9b01ab838",
+      "at": "2026-03-30"
+    },
+    "blog/survey2017.md": {
+      "english_sha256": "51aafb9e1dad8ea8b69c78f810d9acb2be93994f8b2c838ac088fcfbe5323c72",
+      "at": "2026-03-30"
+    },
+    "blog/survey2018-company.md": {
+      "english_sha256": "0a5c0475e9c2432fcc2b8b2619f396fc805025fd402669256b51ca21b43ae908",
+      "at": "2026-03-30"
+    },
+    "blog/survey2018-results.md": {
+      "english_sha256": "6c68bdfb19685cede563af1f602835c0d93accefe34ffb1401ed2ff52a7f6e99",
+      "at": "2026-03-30"
+    },
+    "blog/survey2018.md": {
+      "english_sha256": "2e40446c46307b1faed8660e00f3408f419c289b039cf588fb4fd38fd03ce566",
+      "at": "2026-03-30"
+    },
+    "blog/survey2019-results.md": {
+      "english_sha256": "fb80ae3de7b1027a58a8f2f427c66d0cc4b8eb9cafd1738448f1937420c25a98",
+      "at": "2026-03-30"
+    },
+    "blog/survey2019.md": {
+      "english_sha256": "0fb162aac13676f610887a06c3ce9480bb6f8a4e12591b95a2d6148db1402f65",
+      "at": "2026-03-30"
+    },
+    "blog/survey2020-results.md": {
+      "english_sha256": "dfe2c1d9e1739fc5ced403dae9583c6d2faa4240ee4315cb3ddb3e277070a21d",
+      "at": "2026-03-30"
+    },
+    "blog/survey2020.md": {
+      "english_sha256": "c5f1ca10cd88638c7f02a6caf375555bde7b930c8aeec0d68e26f4df150e06b2",
+      "at": "2026-03-30"
+    },
+    "blog/survey2021-results.md": {
+      "english_sha256": "71c346f0c1df2a7bd591ed8fbab05d970aab19527feaf60fd4bd0b67a75d0f9b",
+      "at": "2026-03-30"
+    },
+    "blog/survey2021.md": {
+      "english_sha256": "53e3bcdb877f8d05878f29bef2dda4a4797af7073fada8c0a8ea304300f7fd2c",
+      "at": "2026-03-30"
+    },
+    "blog/survey2022-q2-results.md": {
+      "english_sha256": "4ef8d9fe4858884424d7a09a2d25c8bcf7ccd54a68126d3f4ef0eb3a3efe338c",
+      "at": "2026-03-30"
+    },
+    "blog/survey2022-q2.md": {
+      "english_sha256": "2184e44b6f08f28c62fb956c4ad1c1c1e0eb196330cf41760113805bd904f4da",
+      "at": "2026-03-30"
+    },
+    "blog/survey2023-h2-results.md": {
+      "english_sha256": "99e44465130e7e4a2b64f008a7ea20ac1b23c420f06e3aeb5c4fb005134db052",
+      "at": "2026-03-30"
+    },
+    "blog/survey2023-h2.md": {
+      "english_sha256": "2cebb2e9c9505572b14a85e6192f42d0da4ef6313c6de6dd5a17dba9e3fa204c",
+      "at": "2026-03-30"
+    },
+    "blog/survey2023-q1-results.md": {
+      "english_sha256": "fa21e82f602c4defc7c2c467900132a64513a408b78417d4acc4c315476a0db9",
+      "at": "2026-03-31"
+    },
+    "blog/survey2023-q1.md": {
+      "english_sha256": "821af6207f0da53de2cc081098d459f0a929cef14142312abca3ba235f8bfcdf",
+      "at": "2026-03-30"
+    },
+    "blog/survey2024-h1-results.md": {
+      "english_sha256": "dc6001967bb8e0a7b0dc1b544ba57c67189037ca127d83a619302e5a5cf682b3",
+      "at": "2026-03-30"
+    },
+    "blog/survey2024-h1.md": {
+      "english_sha256": "689398661602e41a6701fc2e913f4573b6afa83559899037e534e6eb0e7f7798",
+      "at": "2026-03-30"
+    },
+    "blog/survey2024-h2-results.md": {
+      "english_sha256": "6e08155f60ef61a6a54555e081c2b5786e44c7112c0414ecbebcf1e8b090968f",
+      "at": "2026-03-30"
+    },
+    "blog/survey2024-h2.md": {
+      "english_sha256": "2c5a043b278b24f103ed16aa6114470b0c946c9edf18607fe65d5397bf3f7a36",
+      "at": "2026-03-30"
+    },
+    "blog/survey2025-announce.md": {
+      "english_sha256": "f3d3cb899f9f0620c62f623a6ffabfdfbd9216b9348abb9fd1ffa637356c7521",
+      "at": "2026-03-30"
+    },
+    "blog/survey2025.md": {
+      "english_sha256": "2b3c6776360f566372647dbf8e6fbe6cdee05cf3e79a58fe3ac0e3b79a078e87",
+      "at": "2026-03-30"
+    },
+    "blog/swisstable.md": {
+      "english_sha256": "d0a4c8efd2901b428e7b1ae0cf3ae850c8bdb9f16649308e5c0305bff5f3a90c",
+      "at": "2026-03-30"
+    },
+    "blog/sydney-gtug.md": {
+      "english_sha256": "4b63ee04c33c7fb7464d6f632c7f7103a604af6bec7f6f082b5019518a4ddc2c",
+      "at": "2026-03-30"
+    },
+    "blog/synctest.md": {
+      "english_sha256": "9dac99ea2b347c25a282245faf9283afc941d689005ab5d88e57dc3ced1235bd",
+      "at": "2026-03-30"
+    },
+    "blog/testing-b-loop.md": {
+      "english_sha256": "8b69490c3f0327b6632149be07dc0c44eb7c055b1343aa87d1f6ea1135ff8838",
+      "at": "2026-03-30"
+    },
+    "blog/testing-time.md": {
+      "english_sha256": "530e2d4c7df680ce3f3ed977aa473392458df07e0083c74abde0d09174a6c465",
+      "at": "2026-03-30"
+    },
+    "blog/tidy-web.md": {
+      "english_sha256": "c4783ac60b7ef3239b41fdabaa6cb5043e7c85d0ac5be5e2f98ed135b2999080",
+      "at": "2026-03-30"
+    },
+    "blog/tls-cipher-suites.md": {
+      "english_sha256": "49ea098f598a8366713118b0bcbf95c2bfaf4132b4719b703636dbbd3b05564b",
+      "at": "2026-03-30"
+    },
+    "blog/tob-crypto-audit.md": {
+      "english_sha256": "dfc0f268c73bb1ec388a1c10997d4d9d6b6d0e3259c2ae41522d0424574dd1e7",
+      "at": "2026-03-30"
+    },
+    "blog/toolchain.md": {
+      "english_sha256": "c8c2f8a471ccf7c5c18f61fdec4219c80ec616a3555b223882925f3e15f23a69",
+      "at": "2026-03-30"
+    },
+    "blog/tour.md": {
+      "english_sha256": "5a0fe92812ba15080b4cda36097eb882532959304fde29cbaa2ae790cd9f7a4e",
+      "at": "2026-03-30"
+    },
+    "blog/toward-go2.md": {
+      "english_sha256": "e13196332e3ebd6dde1a7ba7e532c28309abed156ec9f69445f44bc744dcb99b",
+      "at": "2026-03-30"
+    },
+    "blog/turkey-doodle.md": {
+      "english_sha256": "6eea91e1ee7bbe4b43e338cdbaadca0d7093732763b8605ecb4cf4e1aacb4a5b",
+      "at": "2026-03-30"
+    },
+    "blog/tutorials-go1.18.md": {
+      "english_sha256": "e922342ead2d91fd56f6b62d9ea27693f2fb85e989905c3e297afc20d1aad4d9",
+      "at": "2026-03-30"
+    },
+    "blog/two-recent-go-articles.md": {
+      "english_sha256": "1fea0d0d0be848a75fb4d30a81637705210b42a8c32e9f2ad73606e9662e1684",
+      "at": "2026-03-30"
+    },
+    "blog/two-recent-go-talks.md": {
+      "english_sha256": "ec640150d5c181e9c4150a27b1f9a54741eee6531abba2f68186e8bb43257a8a",
+      "at": "2026-03-30"
+    },
+    "blog/type-construction-and-cycle-detection.md": {
+      "english_sha256": "cb5396d86dc7a9af5163cd4185e4dda1ea04167aba8246a36d8d9eaed6c6ec5b",
+      "at": "2026-03-30"
+    },
+    "blog/type-inference.md": {
+      "english_sha256": "b71fbb6e9cafe7a509d3a17a092c23603a96e7572394cfb377657b416832a740",
+      "at": "2026-03-30"
+    },
+    "blog/unique.md": {
+      "english_sha256": "c8a3b35e802030efcae2322fa0715698de3338d1feb3782b734b2b997d3fa138",
+      "at": "2026-03-30"
+    },
+    "blog/using-go-modules.md": {
+      "english_sha256": "838ad2e1848ff107cc306641d35045ea2094f37c9aee7d3a5d32f785839a10be",
+      "at": "2026-03-30"
+    },
+    "blog/v2-go-modules.md": {
+      "english_sha256": "221e1442d8f93daf1031d8ac7625f6aa967d88e4dbe19582b900884ee0e44228",
+      "at": "2026-03-30"
+    },
+    "blog/versioning-proposal.md": {
+      "english_sha256": "62178042b187aa69c17a8c495b84a3ce2359527493adc60771cd173d392a5d3a",
+      "at": "2026-03-30"
+    },
+    "blog/vscode-go.md": {
+      "english_sha256": "b67f4ca6189fd1f5797b3210de3ae5df14fa0ac17c52ff6101d671c6643b0f79",
+      "at": "2026-03-30"
+    },
+    "blog/vuln.md": {
+      "english_sha256": "effeb13801ff9a21dfe9f8e36f87332c7977f749667d5b9f7ac95a6435397988",
+      "at": "2026-03-30"
+    },
+    "blog/wasi.md": {
+      "english_sha256": "bac0e0f1308e67d48502a2c382e0f6336de141c5889a6f75cfa7eefc4e669260",
+      "at": "2026-03-30"
+    },
+    "blog/wasmexport.md": {
+      "english_sha256": "6b501dae21270cf982ec526bd24c2d34a1bd47efd6eefb200b58a913c6543cef",
+      "at": "2026-03-30"
+    },
+    "blog/waza-talk.md": {
+      "english_sha256": "5a01eebe258a7c3132e7821122e307d957bb1ff8902bf5fc1f83f301273f9beb",
+      "at": "2026-03-30"
+    },
+    "blog/when-generics.md": {
+      "english_sha256": "ed6ddd322864c93ed2a95382a9aa660f6b4aeaaa3534f2f07f7c583a5aa80987",
+      "at": "2026-03-30"
+    },
+    "blog/why-generics.md": {
+      "english_sha256": "c8b6cc725ee7f411e38e22a82d0eb089d21cc6ac045a2719509cf0786b53f0b6",
+      "at": "2026-03-30"
+    },
+    "blog/wire.md": {
+      "english_sha256": "23478a723b56b165fb702d1b09cfd11f09a25b92ca98535e84c640b8c63e6ee4",
+      "at": "2026-03-31"
+    },
+    "brand.md": {
+      "english_sha256": "df67727e15c84c0888bc6124509926e781b785c16172a00bf7de8f022f573bc0",
+      "at": "2026-03-30"
+    },
+    "codewalk.tmpl": {
+      "english_sha256": "86333f06858bfe3b74530d761294d1270f1e6c643c695e42e9d7178f6b313b90",
+      "at": "2026-03-30"
+    },
+    "conduct.html": {
+      "english_sha256": "b8f51f634f18710eb4f75fa3190fc7fb4c94585bcdf3a6355d3adb77f9695225",
+      "at": "2026-03-30"
+    },
+    "copyright.md": {
+      "english_sha256": "546797691dfeec328b1fb1faa9629e96473b86ad2f3153f7436626e4cd73a4b7",
+      "at": "2026-03-30"
+    },
+    "dir.tmpl": {
+      "english_sha256": "e08c7af44cdc0f04e488404f966ea76a9559666f625f542f9ae75ea52ffd459b",
+      "at": "2026-03-30"
+    },
+    "dl.tmpl": {
+      "english_sha256": "249bceb994c302301a68ce8f807ccad2e9b5a98ef78d81df2756cd832295f252",
+      "at": "2026-03-30"
+    },
+    "doc/articles/go_command.html": {
+      "english_sha256": "af1f86126664691478876909788b332cf34b78ecc145fd589b76c383e3dd0b35",
+      "at": "2026-03-30"
+    },
+    "doc/articles/index.html": {
+      "english_sha256": "34590ac43dd787f25d2f605072aa684c342fcbe0c6d4ef72522f071710e8275b",
+      "at": "2026-03-30"
+    },
+    "doc/articles/race_detector.html": {
+      "english_sha256": "8f5ff5a04485cc62766b42db0d4b9dce1c5475e71929134bb9e7c2743a7b1c53",
+      "at": "2026-03-30"
+    },
+    "doc/articles/wiki/edit.html": {
+      "english_sha256": "223522ae44df2b55b86f235d18a32f06f3c5314b71f7f0911f148a75804daca8",
+      "at": "2026-03-30"
+    },
+    "doc/articles/wiki/index.html": {
+      "english_sha256": "9912534a3137513fb3ec966ebd9f646a5d7e515b0a76de88307ac77247a6e749",
+      "at": "2026-03-30"
+    },
+    "doc/articles/wiki/view.html": {
+      "english_sha256": "318df5475958fceee0fe1385ac7d035819e6a9258bc14192f6e45e3df061d4d4",
+      "at": "2026-03-30"
+    },
+    "doc/build-cover.md": {
+      "english_sha256": "7923d284dd6d95b42f3de8977fad7d5f70dfc4bfcc921cf72975cc5cc8a65fde",
+      "at": "2026-03-30"
+    },
+    "doc/cmd.html": {
+      "english_sha256": "be1149342ca7039071975ce2e7aef49f61426f6e0f6235c1db12e324b0b83fa4",
+      "at": "2026-03-30"
+    },
+    "doc/code.html": {
+      "english_sha256": "2c0ef735c9c709ee6c10b6b49d10f094c6a8aa326a6cb5afde64f4f911fd1404",
+      "at": "2026-03-30"
+    },
+    "doc/comment.md": {
+      "english_sha256": "c6785a74749946634204859ff60833db87127872990ce17e7f80ae29b8b64d38",
+      "at": "2026-03-30"
+    },
+    "doc/contribute.html": {
+      "english_sha256": "a7d096a6cf7c3b685f50fd0e2cfb6bdb1d8d037277e19e066172ec8736654f92",
+      "at": "2026-03-30"
+    },
+    "doc/database/cancel-operations.md": {
+      "english_sha256": "c71ef831003d93f55e7ffb503aadb883797e574b21d905caa42c783cf02ff683",
+      "at": "2026-03-30"
+    },
+    "doc/database/change-data.md": {
+      "english_sha256": "7d33ffb1904495008147b115fbace5f82640e209c492b13f406363a61837bb55",
+      "at": "2026-03-30"
+    },
+    "doc/database/execute-transactions.md": {
+      "english_sha256": "3e8e4ee1071772b796cf0e467f4a2cc8065e866385604116a6ddd3d0b07ee59f",
+      "at": "2026-03-30"
+    },
+    "doc/database/index.md": {
+      "english_sha256": "8335626ef100c20d927f52d02c60850eca7b0e9d4c097c796484529a7f3dd3c9",
+      "at": "2026-03-30"
+    },
+    "doc/database/manage-connections.md": {
+      "english_sha256": "c0af88c4644c5118003126a32219fd786b47ae719f267d9b22cbc4954628ee0d",
+      "at": "2026-03-30"
+    },
+    "doc/database/open-handle.md": {
+      "english_sha256": "544c86d9189672ad1008bed23999c977e1013042cb5d3d30a145b0efb6bcf58c",
+      "at": "2026-03-30"
+    },
+    "doc/database/prepared-statements.md": {
+      "english_sha256": "37854cb2a8e7ef640129566162422472821faadcbab8dd2a7514513d40eff004",
+      "at": "2026-03-30"
+    },
+    "doc/database/querying.md": {
+      "english_sha256": "02e399c4e8b9895689676f976ce052da6d6efa6f6bed3c7368314a47e3314864",
+      "at": "2026-03-30"
+    },
+    "doc/database/sql-injection.md": {
+      "english_sha256": "b8dac8aa9f02e71bd0b5dda8f6e26706ff22e19c0a3149aae53946b2b10f864a",
+      "at": "2026-03-30"
+    },
+    "doc/devel/pre_go1.html": {
+      "english_sha256": "105c69f72a732d934da922d6e1d1d5cf14a36788f02432ece263f760ef87dc9e",
+      "at": "2026-03-30"
+    },
+    "doc/devel/release.html": {
+      "english_sha256": "2973a1e0868a60fd5ebbcc750318404ba29b559caac717d8e41dbb3d8b073f93",
+      "at": "2026-03-30"
+    },
+    "doc/diagnostics.html": {
+      "english_sha256": "9275fe1379c53f57c102c2db32c08e888736df64e8343c71aeb1bf34ea162820",
+      "at": "2026-03-30"
+    },
+    "doc/editors.html": {
+      "english_sha256": "0bd0d11f080515552499437fc41ee5d5cbf0ec704c87b70b178684f30baf9c61",
+      "at": "2026-03-30"
+    },
+    "doc/effective_go.html": {
+      "english_sha256": "4474fe9af52601421a48e6c63df3d393bec74a68a7bd136cb4f9bf1d863d9885",
+      "at": "2026-04-14"
+    },
+    "doc/faq.md": {
+      "english_sha256": "df2ca902ebe7bd8c547ec47f7d25f5f18f80062e577468ace384e9e74f690419",
+      "at": "2026-03-30"
+    },
+    "doc/gc-guide.html": {
+      "english_sha256": "8ae1b5b7e53466aaa27ac5f2fc46f74e617362c02f6c419d352c4f7389558ba3",
+      "at": "2026-03-30"
+    },
+    "doc/gccgo_contribute.html": {
+      "english_sha256": "8fbeb599aa2fd7862dbe51db38d20270ec6a7b678a7152e49be985a6b38a7aba",
+      "at": "2026-03-30"
+    },
+    "doc/gdb.html": {
+      "english_sha256": "c4f4e2be929bba6140caa0b306bdc13d7077706636ffe92f5c81dbed30266d34",
+      "at": "2026-03-30"
+    },
+    "doc/go-get-install-deprecation.md": {
+      "english_sha256": "ddf3c6d1791689536edbf6c89a75844dd644f65434647f49dda4a1769737b0d5",
+      "at": "2026-03-30"
+    },
+    "doc/go1.1.md": {
+      "english_sha256": "afa589d61f0fb6750a1df1070419a4ca9de5a2a0c78d4625b2339e88eed17a96",
+      "at": "2026-03-30"
+    },
+    "doc/go1.10.md": {
+      "english_sha256": "7f8161a2e9207b5231ff6b91cc11a97283dd3fdf46f8aa569fdb806bab94b174",
+      "at": "2026-03-30"
+    },
+    "doc/go1.11.md": {
+      "english_sha256": "4722922f78ff8f14ac279e3c3544a78e4fd51ae61f4229224b51a00eb04ecf37",
+      "at": "2026-03-30"
+    },
+    "doc/go1.12.md": {
+      "english_sha256": "765b052c744626ddbe67797ba0879f87cfee55b635f433d0356540a0ba8b03f4",
+      "at": "2026-03-31"
+    },
+    "doc/go1.13.md": {
+      "english_sha256": "1ed6d119ad1aceffe1accdb2b5cfec389d5aa3815afc91f9417e711d9628d0a7",
+      "at": "2026-03-30"
+    },
+    "doc/go1.14.md": {
+      "english_sha256": "dcde046ec30d542b85b860af4f3928ddf1c1e8c6abc2be54167bfd4dfced087e",
+      "at": "2026-03-30"
+    },
+    "doc/go1.15.md": {
+      "english_sha256": "a164c340b1492d725e15aa4e9e953d1bd19cb783b39bedbe5a7f58c472aa96ec",
+      "at": "2026-03-30"
+    },
+    "doc/go1.16.md": {
+      "english_sha256": "fc3630f00699c1b08c282176da09a7c94671d8ae868dd11629079585690ad1fa",
+      "at": "2026-03-30"
+    },
+    "doc/go1.17.md": {
+      "english_sha256": "0b02ed2ebe1fcca61b40e01cb7e2fe88fb12971c5661a48dfd6cf081d87565ca",
+      "at": "2026-03-30"
+    },
+    "doc/go1.18.md": {
+      "english_sha256": "63a0b61595f6a485a816bcb419e7925745c37bd317dc60d4802a0da6389fc8c1",
+      "at": "2026-03-30"
+    },
+    "doc/go1.19.md": {
+      "english_sha256": "e3572f85f64378dd01602dcc8bc0eba3f7f40879f29756cb2b6ddc0024b0cae5",
+      "at": "2026-03-30"
+    },
+    "doc/go1.2.md": {
+      "english_sha256": "bd6a407c86aedf5bc1cef1682308b308a722f89bf6677bf6ba62419c63abdd69",
+      "at": "2026-03-30"
+    },
+    "doc/go1.20.md": {
+      "english_sha256": "e3b45c6c1eab20e7fff439c6b5885bef6f109153a6d25a4fdc36e41df0fc2423",
+      "at": "2026-03-30"
+    },
+    "doc/go1.21.md": {
+      "english_sha256": "b1cb63257bca96116c53a3499189b72a458ac2cab27d34d359e97a5793cc67e4",
+      "at": "2026-03-30"
+    },
+    "doc/go1.22.md": {
+      "english_sha256": "e968bd94b820bf7b85d97cfac0f06d5dc33ae4861c9979c73c631aa68aabcf42",
+      "at": "2026-03-31"
+    },
+    "doc/go1.23.md": {
+      "english_sha256": "96fd1dad4f9e717aa7a62eee1fe51e4f618b3ab5cbf9cc36011b3d8c2a0cacf5",
+      "at": "2026-03-31"
+    },
+    "doc/go1.24.md": {
+      "english_sha256": "11e12ba3b26ebe51331b5296f4c6f78b614d55e5e53f9a1cda41666d409989df",
+      "at": "2026-03-30"
+    },
+    "doc/go1.25.md": {
+      "english_sha256": "4f8b2b97af4e48574d539b0a3036d6828ba0b22216c34dd0058ee4cf55e71db2",
+      "at": "2026-03-30"
+    },
+    "doc/go1.26.md": {
+      "english_sha256": "800fc6bbe84ea56e40dd0c1c593caecd7127145175ac8d92f8d242e406a6d1f0",
+      "at": "2026-03-31"
+    },
+    "doc/go1.3.md": {
+      "english_sha256": "55496dc2773c6c8c75b445afcca402181806cc7b3f6c68880ec2fcf44ff22f36",
+      "at": "2026-03-30"
+    },
+    "doc/go1.4.md": {
+      "english_sha256": "92ba948e129c7040e39883f41550b5b3cbd89f2d33b8715ee73f96e6d089e61c",
+      "at": "2026-03-30"
+    },
+    "doc/go1.5.md": {
+      "english_sha256": "4220d7f4b0372eff78914fd02f262c78c019c8957d86e7f291d402006f1256ca",
+      "at": "2026-03-30"
+    },
+    "doc/go1.6.md": {
+      "english_sha256": "28e9056823f55d4b582f3fdcc5262a091cdf6d0fc7fb0f1399cd4c3898bb1193",
+      "at": "2026-03-30"
+    },
+    "doc/go1.7.md": {
+      "english_sha256": "10bb082abf9ac01af68f110a9ed8bab52be0edef3b57f073d95db1ffcdfe59d3",
+      "at": "2026-03-30"
+    },
+    "doc/go1.8.md": {
+      "english_sha256": "35608046aa7a694040cb9328b23f02b9db1e502a44700353c215ec5def89ae29",
+      "at": "2026-03-30"
+    },
+    "doc/go1.9.md": {
+      "english_sha256": "2bb68426ec406dd0aa2060727493b094172f08ef353e415a2c57fe46354a6989",
+      "at": "2026-03-30"
+    },
+    "doc/go1.md": {
+      "english_sha256": "044430b7807999f8c062be905a67ff465b1d30c86e52d44200dad5ae92f4c503",
+      "at": "2026-03-30"
+    },
+    "doc/go1compat.html": {
+      "english_sha256": "b04b42e4f5e5fbf1d1a1f86bd1b6d2d8c04f0997bfd35776e3ddb00e604f25ed",
+      "at": "2026-03-30"
+    },
+    "doc/index.html": {
+      "english_sha256": "8d1d818633be27d876a279105617838b076a46a63352e11956d08301bf435e33",
+      "at": "2026-03-30"
+    },
+    "doc/install.html": {
+      "english_sha256": "e6f4aabf90d56d1d9e74aec3e6595ac00a38dbcae8e3f1d7191c80a5d9a9a317",
+      "at": "2026-03-30"
+    },
+    "doc/install/gccgo.html": {
+      "english_sha256": "844a9d0ad6c61586e79d61dcac98d0b6a40c76e10c6e74444e41373e3dc2ca4c",
+      "at": "2026-03-30"
+    },
+    "doc/install/source.html": {
+      "english_sha256": "351bf756f31073cc2ccf7f1ee0eb076572dbc6090b729debce59db3b39a861b7",
+      "at": "2026-03-30"
+    },
+    "doc/manage-install.html": {
+      "english_sha256": "f3e9d47764bc1f537acdec9510e326ba623a14caaec2f25edb795a23882eb091",
+      "at": "2026-03-30"
+    },
+    "doc/modules/developing.md": {
+      "english_sha256": "b536e09618906a025e579d4715c3218dd4cc32ba4b1a4554d8dd6e582a7f8ed8",
+      "at": "2026-03-30"
+    },
+    "doc/modules/gomod-ref.md": {
+      "english_sha256": "ab299a0b577e4266c1998859c63be10588825f7897f5a7f8594c52ed3f7bd73d",
+      "at": "2026-03-30"
+    },
+    "doc/modules/layout.md": {
+      "english_sha256": "3cf064a34e84e48dc66ffdf9277fea2b2c9fdc52d0b5dd7d4de506fb8eeba4a5",
+      "at": "2026-03-30"
+    },
+    "doc/modules/major-version.md": {
+      "english_sha256": "7d052c1b96c1d537cfede56c69dc92684344172ff03ef2bc87c33d2271c5d36c",
+      "at": "2026-03-30"
+    },
+    "doc/modules/managing-dependencies.md": {
+      "english_sha256": "0d0ba363e0214a23116f0d4e6e016968a31412674970839d0caa7957e17b1ee7",
+      "at": "2026-03-31"
+    },
+    "doc/modules/managing-source.md": {
+      "english_sha256": "9edc5cfdd586954d36a2851147eff163cf3e71aaebf3c3499a1a3934245b6a5b",
+      "at": "2026-03-30"
+    },
+    "doc/modules/pruning.md": {
+      "english_sha256": "a991714bb6d58eb3874bb08311c2a6c29f381fc9a15a6694d093bbf35705e8b0",
+      "at": "2026-03-30"
+    },
+    "doc/modules/publishing.md": {
+      "english_sha256": "b01eeb7a552c865ef4333be351060487e835185b1345b6d378e26f4e46c46b9f",
+      "at": "2026-03-30"
+    },
+    "doc/modules/release-workflow.md": {
+      "english_sha256": "27cf24c2eb872b60acadfd57f3a39fffdd3bb01ef35880cb640a6724864b6b6d",
+      "at": "2026-03-30"
+    },
+    "doc/modules/version-numbers.md": {
+      "english_sha256": "43668bda4143e7107f12dc3b3d9a49a1b15f96e1ba1c93c1a6a464b7fbfabbd5",
+      "at": "2026-03-30"
+    },
+    "doc/next.md": {
+      "english_sha256": "8fcb2a5cb3bc6ed9719f658719867a60e7b97b23ee22cc98156aecf4905bb91f",
+      "at": "2026-03-30"
+    },
+    "doc/pgo.md": {
+      "english_sha256": "925a2b840ebf324c98af2e222092f0b9ea79b2e5091d9be9abadd66a84e01966",
+      "at": "2026-03-30"
+    },
+    "doc/security/best-practices.md": {
+      "english_sha256": "9f1184cde64388824a4d5cb19ee5938b3fe75ce5b5378ee2475552b8da6dcbe4",
+      "at": "2026-03-30"
+    },
+    "doc/security/fips140.md": {
+      "english_sha256": "9c52a0a8849a429d17f7cbdc96224b208bc2e3640460e298b7571c202082b32f",
+      "at": "2026-03-30"
+    },
+    "doc/security/fuzz/index.md": {
+      "english_sha256": "69bd18d0702cab7d9f3a9a4e1fb20f316cbefc518d0e804c7e753a538bd15bbb",
+      "at": "2026-03-30"
+    },
+    "doc/security/fuzz/technical.md": {
+      "english_sha256": "30f0008d41be96f888cf08aaa8b7cf9101b93d1438ad17d8838016f74fc263b6",
+      "at": "2026-03-30"
+    },
+    "doc/security/index.md": {
+      "english_sha256": "bcee2d6017b9f4d4921504e0c3753bedcb2b589088aaddde77de4f0ad3029623",
+      "at": "2026-03-30"
+    },
+    "doc/security/policy.md": {
+      "english_sha256": "2a4c81061774ac6e75a929835ee4f835785c74143d38eaf1c4db6e29226299b4",
+      "at": "2026-03-30"
+    },
+    "doc/security/vuln/cna.md": {
+      "english_sha256": "baeefa9cc4fcf4983062a2012ebdf4940357d7084333bf470a27a7d00f6e1a73",
+      "at": "2026-03-30"
+    },
+    "doc/security/vuln/database.md": {
+      "english_sha256": "57d52ce73fb1eb5d02a6889de1604bdd9e0edd8617d507a575acf401c228c1a7",
+      "at": "2026-03-30"
+    },
+    "doc/security/vuln/editor.md": {
+      "english_sha256": "0b494da11a9af83183ed913e3c72f4bd8e9a7b7a9359a3b5d66a1abbf6145363",
+      "at": "2026-03-30"
+    },
+    "doc/security/vuln/index.md": {
+      "english_sha256": "67c5adf783fd88accf098042728568e8c9ad3e2a04fb390ba147678a38a2a823",
+      "at": "2026-03-30"
+    },
+    "doc/security/vuln/vulncheck.md": {
+      "english_sha256": "ada3b285c0acb5ab7cecb24db413de2e57bd0614954ab56811be47e49e5e42bf",
+      "at": "2026-03-30"
+    },
+    "doc/security/vulncheck.md": {
+      "english_sha256": "f0307648bddcb6de5406453d3e3ba456f609d90487369376b5dbaf4b5635d656",
+      "at": "2026-03-30"
+    },
+    "doc/security/vulndb/api.md": {
+      "english_sha256": "ee2ec0360acd97a64cf903deb6524b487b6e1d31899ad0d7200255f85c7de259",
+      "at": "2026-03-30"
+    },
+    "doc/security/vulndb/index.md": {
+      "english_sha256": "a3484b5aadcb45ddf1d22c4cc07a0e6b0831d84bdd5a6fc95f1674c587753d7b",
+      "at": "2026-03-30"
+    },
+    "doc/security/vulndb/policy.md": {
+      "english_sha256": "a418e363b1a9bf36c88e2813b2c00ebfb22ea17927ae032138ddc9b5be1387d4",
+      "at": "2026-03-30"
+    },
+    "doc/telemetry.md": {
+      "english_sha256": "e6480b5ffa9e2d194a2b68fa3de1c146ab490e96b791717cc8423d5bbfe26fcd",
+      "at": "2026-03-30"
+    },
+    "doc/toolchain.md": {
+      "english_sha256": "5f419cbb7776cac472e74f6ca67827e8a2cb6bb1e3e93946f9b9c9ac9a79f78f",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/add-a-test.html": {
+      "english_sha256": "d5ea155f25736df5051fddc35df81af3600b57700972d8fde4c344345c9a0ca0",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/call-module-code.html": {
+      "english_sha256": "e15097929f143836d6b0ba6f7ed56b1a6f61fec64d8e4fbab78407af439a2460",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/compile-install.html": {
+      "english_sha256": "207de8898ceffd8fe454d8d94ffabe348b1579dd0c5dbd31cd5625f39291d3a0",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/create-module.html": {
+      "english_sha256": "d536737a58d558ae20e3829d4a98d378243e2986a97b3ebed60a39f568856486",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/database-access.md": {
+      "english_sha256": "006b82bedadb9fbf37ab24e3e7e09ae8f86abc8870d0b1df45e67b4d6ea337e1",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/fuzz.md": {
+      "english_sha256": "850a40a8fdc9dcf8823481eab0efba385e39d96e7451c10b503c9a169abf1907",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/generics.md": {
+      "english_sha256": "9a51bf1c956c76ed855374cb98495af41f68cafd1d4cf0f3cdbacd13ad77231d",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/getting-started.html": {
+      "english_sha256": "b4794678dc335ab850ceb21bc7b3a9896a401717d906a5242758803b444d45bd",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/govulncheck-ide.md": {
+      "english_sha256": "b0173a57e407fe2937c85ed434dee7037eee0a9d91f495cb4d43a4e6f7dabd35",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/govulncheck.md": {
+      "english_sha256": "098853e158c8bdd657bead25e999b8cc9a5f1ab07ee7ec7bd6d2a0e0ac7558b0",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/greetings-multiple-people.html": {
+      "english_sha256": "8119036dcc03148e6bdadf5c5e5f39a1b01d1175b4875ff04ce9591636e3e84b",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/handle-errors.html": {
+      "english_sha256": "10e61d7f50095845bd2e313add841500b189bb7ddda6c3b7fee248f8cdc53a89",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/index.html": {
+      "english_sha256": "e2a51401106637ed8d6387496174d67a7e14f14c2fec30868defe0ab5bceeac9",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/module-conclusion.html": {
+      "english_sha256": "94311530fc64ba2d3f5d25e60f68df4d37248d255ecde743214d22d786f70f40",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/random-greeting.html": {
+      "english_sha256": "9951ede236291e2db0beaa868159e101bc2983f9754c587c3ab3954fa26cdfbe",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/web-service-gin.md": {
+      "english_sha256": "9adb1b6bdb775fd8ab35c4bd370f75e9c6de33b8e4e5208adeecc4d493bfcd2d",
+      "at": "2026-03-30"
+    },
+    "doc/tutorial/workspaces.md": {
+      "english_sha256": "dc5c4bc8bec33089c65f231c14b0c8dba19002308d3d4f8216460a76bf6b05aa",
+      "at": "2026-03-30"
+    },
+    "gopls/doc/index.md": {
+      "english_sha256": "f36df19b317e3216a5c27320f530cd0f8ceb6f5df3a83068592a6e52b71716ff",
+      "at": "2026-03-30"
+    },
+    "gopls/doc/settings.md": {
+      "english_sha256": "58f5700331f095cb268a660da8ddedd2e80c6e7b6ba56ff144a982a7d7ab388d",
+      "at": "2026-03-30"
+    },
+    "help.md": {
+      "english_sha256": "4cfe96f9a4f1c62ec5dcdcd3f227aea345cec572a870b7a7d4d5465ffe12bd38",
+      "at": "2026-03-30"
+    },
+    "index.md": {
+      "english_sha256": "7765e289fc5abccf8b786fa408c9d60078e2c27168e66778d060590e3c6ba986",
+      "at": "2026-03-30"
+    },
+    "learn/books.yaml": {
+      "english_sha256": "929aff40ecf99c211788d4edc7bd88697e290a3f7976559f39ba6403dcc8f19a",
+      "at": "2026-03-30"
+    },
+    "learn/cloud.yaml": {
+      "english_sha256": "7cdd8b50ec77c3207c7edbcb2cd8920f5180a0937054b5d91f30104da8f83347",
+      "at": "2026-03-30"
+    },
+    "learn/courses.yaml": {
+      "english_sha256": "41e32c5136468d2cafed0876c0fddae0c909d408b30616850858f66af5b4b425",
+      "at": "2026-03-30"
+    },
+    "learn/guided.yaml": {
+      "english_sha256": "6df4750d39a30238a3bb460caa0fd59865d7d84f8e36278a1a92e668deb4935b",
+      "at": "2026-03-30"
+    },
+    "learn/index.md": {
+      "english_sha256": "0fde7be422a294f252116fe27325131192cd6931aa1ea84779f2e1d5c0fface9",
+      "at": "2026-03-30"
+    },
+    "learn/quickstart.yaml": {
+      "english_sha256": "89e1c3cd9ccefbb21ef3f83a167924df22dcd51a8412b3e4a9d258dddff45cc7",
+      "at": "2026-03-30"
+    },
+    "learn/training.yaml": {
+      "english_sha256": "f471d8a25ff9751ce9d7e5f260e3e2d3f7a89f969b8dcd09d8cc5485ebbdb9b3",
+      "at": "2026-03-30"
+    },
+    "learn/tutorials.yaml": {
+      "english_sha256": "c6bcce772bcc13f0efd1aeb027b48651da5aef2a8ee654ec7d46938b5dc18120",
+      "at": "2026-03-30"
+    },
+    "menus.yaml": {
+      "english_sha256": "b2a293b1fe73b65982abc4be1d7cb7da9f1f4a76789b7685164a151693a116b3",
+      "at": "2026-03-30"
+    },
+    "pkg.tmpl": {
+      "english_sha256": "1c1c588783df49cb1ec273f1b014a8170e708491790f6972392bcd92ba8603d8",
+      "at": "2026-03-30"
+    },
+    "pkgroot.tmpl": {
+      "english_sha256": "75a4b49b5ac91ad231085726992d188a13cbe240fd4fe1e5a7f30584004d9fe8",
+      "at": "2026-03-30"
+    },
+    "play.tmpl": {
+      "english_sha256": "7b049e7bf05edeb0eb0bb86c5c06e0788051972da8b15bc26399f52d963bb028",
+      "at": "2026-03-30"
+    },
+    "project.html": {
+      "english_sha256": "6f1e2e0b461806b218ccb1cde732bd7e50afbb280a6e0601c94c228e7c4ef222",
+      "at": "2026-03-30"
+    },
+    "rebuild.html": {
+      "english_sha256": "b575c158e0904d89299d61dad7ea3d0d8b8d7f34e22e9462efb44f17d16a09c7",
+      "at": "2026-03-30"
+    },
+    "ref/index.md": {
+      "english_sha256": "aba1a687ba5dda4a429baf135519c770b27cce6f84a555e54920083265db3936",
+      "at": "2026-03-30"
+    },
+    "ref/mod.md": {
+      "english_sha256": "3ebb719ef9c7bfad51379749633abbb820994fe116c32f391c0039cdd5da0f4a",
+      "at": "2026-03-31"
+    },
+    "resources.yaml": {
+      "english_sha256": "03bf7818f86cc4b873badc61b3b993642e1cb5daf80b38366865ecabed0b2a53",
+      "at": "2026-03-30"
+    },
+    "site.tmpl": {
+      "english_sha256": "88d7b52a319081fa9bf5a93143f152d83fc1f22465a39c5f553ff99c86ad754c",
+      "at": "2026-03-30"
+    },
+    "solutions/allegro.md": {
+      "english_sha256": "abfb670bccb16ac6fd70b747f58571083217c8881a020a74135fcde2792303ff",
+      "at": "2026-03-30"
+    },
+    "solutions/americanexpress.md": {
+      "english_sha256": "7939c3ccf2d82d0be4e14e99ebb2a4d0f8ae4752fe853db64219a70476b3a949",
+      "at": "2026-03-30"
+    },
+    "solutions/armut.md": {
+      "english_sha256": "a7e269bee8eb1a11b6e984a8f7ad2a9d443ab137496687121f341e6e1b6f6695",
+      "at": "2026-03-30"
+    },
+    "solutions/bitly.md": {
+      "english_sha256": "a5ab9a92a2f0db3c5d7c0ebd153765f19b7eb0dbd3ed148790294258ec3e9718",
+      "at": "2026-03-30"
+    },
+    "solutions/bytedance.md": {
+      "english_sha256": "fb4fa49b29dc03badc627bce49e25caec4f63bfc220643ff481d4b13fde1ebf6",
+      "at": "2026-03-30"
+    },
+    "solutions/capital-one.md": {
+      "english_sha256": "377d2fe935f3a42497ca1c34378405a108096b67f07aa6fbcbccca43d9d3bdf5",
+      "at": "2026-03-30"
+    },
+    "solutions/case-studies.md": {
+      "english_sha256": "4834cb1ea8ea51a68976221df5234c1c302e5c3d28b20dd2bdad959762812fa2",
+      "at": "2026-03-30"
+    },
+    "solutions/clis.md": {
+      "english_sha256": "c31f745bd27af57efaecb6f94282968c54300f5ae0db8a60d944caac423d64b9",
+      "at": "2026-03-30"
+    },
+    "solutions/cloud.md": {
+      "english_sha256": "93b3194f2f2ea55dcf5e8cbadfb45e958dec9735c1e420bf2060600b3eebdc1f",
+      "at": "2026-03-30"
+    },
+    "solutions/cloudflare.md": {
+      "english_sha256": "02233812c53ac0dbeb2f9994c972ad87be2909d85f1d7969c3e2ed462a7176f0",
+      "at": "2026-03-30"
+    },
+    "solutions/cockroachlabs.md": {
+      "english_sha256": "32a7c7c8fd42eb3d7513d7328d930b2b4c89542f2aaabc7a9cd5bde087b9c63f",
+      "at": "2026-03-30"
+    },
+    "solutions/curve.md": {
+      "english_sha256": "0c9ea23dbb1e42cddea5066892509acc051c9773845aff87230a29212f4c2438",
+      "at": "2026-03-30"
+    },
+    "solutions/default.tmpl": {
+      "english_sha256": "bcb150d82376c52b1f0b26d5d6c74281ff4fb5277aab163d82936f744a26c164",
+      "at": "2026-03-30"
+    },
+    "solutions/devops.md": {
+      "english_sha256": "d404f8c24e9373a10b845fc55205d155b1cafeb5bd2d81e5af33eab881bde6f4",
+      "at": "2026-03-30"
+    },
+    "solutions/dropbox.md": {
+      "english_sha256": "d6ec2ab7fa28aa09255e57d987bc86526a1fff8accf000c340fa1eec34ffb2f8",
+      "at": "2026-03-30"
+    },
+    "solutions/facebook.md": {
+      "english_sha256": "263229be8b32d97b0f44608d97f4a955dd2d5bfb5249f74434cebebc61e6b30f",
+      "at": "2026-03-30"
+    },
+    "solutions/google/chrome.md": {
+      "english_sha256": "1d11f2f9d5309dc84869a3828a51c3237d650c22bf924d43e225205b207e03bd",
+      "at": "2026-03-30"
+    },
+    "solutions/google/coredata.md": {
+      "english_sha256": "9ddd4965cdbc4a6521859bf5155b1083c87d2e0dde9637cdc75075cb299400cf",
+      "at": "2026-03-30"
+    },
+    "solutions/google/firebase.md": {
+      "english_sha256": "2e7b926b24709c4d08e9f701384ef8d0b55d951b4db0bd42e5de814cd8c3d062",
+      "at": "2026-03-30"
+    },
+    "solutions/google/index.md": {
+      "english_sha256": "fb78ddf53a247a000224da9b5883bc6da86b3ef5b8b85fd6ed0fddb760df248f",
+      "at": "2026-03-30"
+    },
+    "solutions/google/sitereliability.md": {
+      "english_sha256": "80e05426cfc8c22caef49d345b754280b2edef4f6e0637249d2e1473125a5510",
+      "at": "2026-03-30"
+    },
+    "solutions/grail.md": {
+      "english_sha256": "d77b5cf57c5f5a39a07c79bd726805c877b9086d27e736d9667c8b7ec9a4922b",
+      "at": "2026-03-30"
+    },
+    "solutions/index.md": {
+      "english_sha256": "309e8f31c59e76c540e9ef3f6c9d06beea7332811e346afd5f0bfdf685bc555f",
+      "at": "2026-03-30"
+    },
+    "solutions/mercadolibre.md": {
+      "english_sha256": "a515039ae61234690dafda345bdbb442ecf1560fc4063132461cccbe9be44c21",
+      "at": "2026-03-31"
+    },
+    "solutions/microsoft.md": {
+      "english_sha256": "235d1adc8ddba5ab320bbfd5852bc00f3f062a9f5cb18c77a4497a60bef8914f",
+      "at": "2026-03-30"
+    },
+    "solutions/monzo.md": {
+      "english_sha256": "9b24f0ac8b955a06a9bfe7ba7850884d4536bb27ab585d792ff438a1bf47d13b",
+      "at": "2026-03-30"
+    },
+    "solutions/netflix.md": {
+      "english_sha256": "87be02b54bdf40f256c416a709ad3eae2c93a1a2fed9f8646773163481f2ca95",
+      "at": "2026-03-30"
+    },
+    "solutions/paypal.md": {
+      "english_sha256": "20dc127fae5fcc4d64a85f83b8cfe41da0f539ce8868c7c69f1e7444dc44f3e2",
+      "at": "2026-03-30"
+    },
+    "solutions/riotgames.md": {
+      "english_sha256": "0a3b94b8c1555568834a41cbd3d8a31b6565b7ec8d4168c7b192540ea26717a9",
+      "at": "2026-03-30"
+    },
+    "solutions/salesforce.md": {
+      "english_sha256": "903331b072f657593c2de1a0f203a8c62c991d396af6c1abe74e89096bd055ff",
+      "at": "2026-03-30"
+    },
+    "solutions/sixt.md": {
+      "english_sha256": "9f70f332d712c5ea0932e7548a6ad1967df2cfac51cd0e11db9999bf76b49f70",
+      "at": "2026-03-30"
+    },
+    "solutions/stream.md": {
+      "english_sha256": "4aa3585633b581b050628ad02d69ad29ce6a01577e376a1748802568b75f58b1",
+      "at": "2026-03-30"
+    },
+    "solutions/trivago.md": {
+      "english_sha256": "a47f77c4813a332ddc487b42aadd13bd18b6a064dd34abd22e409953a0a1f1bb",
+      "at": "2026-03-30"
+    },
+    "solutions/twitch.md": {
+      "english_sha256": "940746c314c88fcf5ceb891510437c824b104ed5a30295cd0d1dd680fafb35cb",
+      "at": "2026-03-30"
+    },
+    "solutions/uber.md": {
+      "english_sha256": "0264d6b18cf5376c8903c3ebbb71c63cb7d8c191cc48a4aca91619304620ee92",
+      "at": "2026-03-30"
+    },
+    "solutions/use-cases.md": {
+      "english_sha256": "31e0811962fd33d02ffbc0e67e620178edf631c13642a2f61936740d7d4173ea",
+      "at": "2026-03-30"
+    },
+    "solutions/webdev.md": {
+      "english_sha256": "4fb1ca182d184f2e24ebc1e8a0ea9b0cde9d22bd4a459a2a62ac18a1fdf6f2c0",
+      "at": "2026-03-30"
+    },
+    "solutions/wildlifestudios.md": {
+      "english_sha256": "5c6d46880e671d976e60c822de001b621cb32a1e1e3def0dc196561cbc13ee94",
+      "at": "2026-03-30"
+    },
+    "solutions/x.md": {
+      "english_sha256": "6cb9e134e93f5e217fbc6436e88c5f88d0934028dbe150f327e6595904a2437d",
+      "at": "2026-03-30"
+    },
+    "talks/2010/go_talk-20100112.html": {
+      "english_sha256": "8379fbae352857c4feab263ad1b95dd6c9c2a524b80fd5ba34c7c5568f0be501",
+      "at": "2026-03-30"
+    },
+    "talks/2010/go_talk-20100121.html": {
+      "english_sha256": "7e2e871507cb58840df443bfa09c639cad10d169b977a4778527dbd2852b032c",
+      "at": "2026-03-30"
+    },
+    "talks/2010/go_talk-20100323.html": {
+      "english_sha256": "c34758607d2855d48e332d186c13f993c35729d334339bcc38901a95aaef6a58",
+      "at": "2026-03-30"
+    },
+    "talks/2011/lex.slide": {
+      "english_sha256": "6fddb69a063f76b6480d40fa147fb21d23953e506bbaacda6f1506e6cfce9f83",
+      "at": "2026-03-30"
+    },
+    "talks/2012/10things.slide": {
+      "english_sha256": "861740bb97c7c8a687641f9fb544283e293aa44a745a3b93b05b291bb9690715",
+      "at": "2026-03-30"
+    },
+    "talks/2012/chat.slide": {
+      "english_sha256": "230e08a0b62c58621c9ab31cb2796fa545ce03df957e9e1146929e84152eb93e",
+      "at": "2026-03-30"
+    },
+    "talks/2012/concurrency.slide": {
+      "english_sha256": "785fadaa0a41c20095bee3dca4f5b4222e0fd21c56b377132cd31d65486e8ea6",
+      "at": "2026-03-30"
+    },
+    "talks/2012/go-docs.slide": {
+      "english_sha256": "5386eb3fdda8fadf883f55ef1ea440c1cb12554d28bde0d48e788c0f952af397",
+      "at": "2026-03-30"
+    },
+    "talks/2012/go1.slide": {
+      "english_sha256": "91c76aeff8dd6089021c431361b54917b3da49416c829f0217ee4d5612dcec57",
+      "at": "2026-03-30"
+    },
+    "talks/2012/goforc.slide": {
+      "english_sha256": "81448bb1959e0183cc80349bbb43db769c20672269eb40f39d589cfd562e47bd",
+      "at": "2026-03-30"
+    },
+    "talks/2012/insidepresent.slide": {
+      "english_sha256": "05f57c59663057403c1ce1f87fa60c4e04797c9890666ed71717692747fe51db",
+      "at": "2026-03-30"
+    },
+    "talks/2012/simple.slide": {
+      "english_sha256": "0f3f623e99bc9de28bb9dc6f0e2f862f5a0da865dee17fd5e260a6821e783233",
+      "at": "2026-03-30"
+    },
+    "talks/2012/splash.article": {
+      "english_sha256": "3b04689be31dfdd472ed1612a9b261c9323730d94be712894581c47c1e7e64b6",
+      "at": "2026-03-30"
+    },
+    "talks/2012/splash.slide": {
+      "english_sha256": "d84d7583f5addeb01b3f07ebd5b29d3b4abcdfb22bbab3a29e9983bc1cdf51d4",
+      "at": "2026-03-30"
+    },
+    "talks/2012/tutorial.slide": {
+      "english_sha256": "325316ce8fb433bbf1d77c711151b84c059173e1233b602e10d463ce238e9459",
+      "at": "2026-03-30"
+    },
+    "talks/2012/waza.slide": {
+      "english_sha256": "e1b71ca6dd50ee985dfe4ef24c391346369c1bbabc64b394477b740f3388d085",
+      "at": "2026-03-30"
+    },
+    "talks/2012/zen.slide": {
+      "english_sha256": "a82cc6e867ef404ed27f2c2b29f61327aa58f053ae6994a932618ae83c0cdbd4",
+      "at": "2026-03-30"
+    },
+    "talks/2013/advconc.slide": {
+      "english_sha256": "c4a18c16fa30bbfddc1b18e281f55821ae4f0aa18b2432442e4bb0e7de547ea0",
+      "at": "2026-03-30"
+    },
+    "talks/2013/bestpractices.slide": {
+      "english_sha256": "e8909778b5f49760d9fd11491d48b8f85aba46affa1fa8988a587febad68cfd8",
+      "at": "2026-03-30"
+    },
+    "talks/2013/distsys.slide": {
+      "english_sha256": "c10cd094b9f27cf2dd0ac473b0cde2134ffc9e3ee07118ff394c14f976bb75bc",
+      "at": "2026-03-30"
+    },
+    "talks/2013/go-sreops.slide": {
+      "english_sha256": "1bd61d8231b847d868f56037169a3bfa4b3e8cc504d1433d957172bfec745221",
+      "at": "2026-03-30"
+    },
+    "talks/2013/go1.1.slide": {
+      "english_sha256": "1f8fbb585ba8b73d3d78661b2d2ccd7e1d83415b64c759c3a09df572feda9af4",
+      "at": "2026-03-30"
+    },
+    "talks/2013/go4python.slide": {
+      "english_sha256": "c91d587db11fa0e0a6519bccc895039f53448c262fe60586dddfa25369ba62c9",
+      "at": "2026-03-30"
+    },
+    "talks/2013/highperf.slide": {
+      "english_sha256": "e1625929b66cc03f024203197632fc3774b2c4ee13d3981a7b176ddf5caf0068",
+      "at": "2026-03-30"
+    },
+    "talks/2013/highperf/cachingembed.html": {
+      "english_sha256": "502287972b22aac577377a80ff581b9fea9543d114f41b3930ed72b420f550c2",
+      "at": "2026-03-30"
+    },
+    "talks/2013/oscon-dl.slide": {
+      "english_sha256": "37dc39cc844ee1580fabe0dce4154aaacef1d2abd50ebb2af868f1aa36f67637",
+      "at": "2026-03-30"
+    },
+    "talks/2014/c2go.slide": {
+      "english_sha256": "9baab64318e50e0514853469455e351a3641170ee10e084a6eb0226ec94d25bd",
+      "at": "2026-03-30"
+    },
+    "talks/2014/camlistore.slide": {
+      "english_sha256": "da5acd34ead111e5f53caa236c66a37d670b920c16e23e76938a4599cfae33f2",
+      "at": "2026-03-30"
+    },
+    "talks/2014/compiling.slide": {
+      "english_sha256": "e4b8c440a157b3ada279203eb209d6cc849b27d4d5b32307f323be2bb51ca872",
+      "at": "2026-03-30"
+    },
+    "talks/2014/droidcon.slide": {
+      "english_sha256": "6dbea77f4d3cb5e1db2374351f088446cf2b39db474d826253fd49e12bfb3a97",
+      "at": "2026-03-30"
+    },
+    "talks/2014/go1.3.slide": {
+      "english_sha256": "6db3d5a5531d25eea3984fa75e4e01f24642bb09d6bd3c5965bebe6c0a2aeec5",
+      "at": "2026-03-30"
+    },
+    "talks/2014/go4gophers.slide": {
+      "english_sha256": "2d32e0248f375be0337b8e41f2cb90fe8281cd05e842be6dce0f2c21df64f7a8",
+      "at": "2026-03-30"
+    },
+    "talks/2014/go4gophers/gophertraining.html": {
+      "english_sha256": "84117786aaf88211e96017b51fca0a5cbc4710b8c2fad10e33841e1ae280b84f",
+      "at": "2026-03-30"
+    },
+    "talks/2014/go4java.slide": {
+      "english_sha256": "280f36896bd97429774d53f97768bbc7f8b2805548878bffe2571f43c28d1d33",
+      "at": "2026-03-30"
+    },
+    "talks/2014/gocon-tokyo.slide": {
+      "english_sha256": "bd4e23dc42840ec97ad4be0d774516545e3ee33a399c75ee0faac53743b67b6d",
+      "at": "2026-03-30"
+    },
+    "talks/2014/gotham-context.slide": {
+      "english_sha256": "36860a20706454a1d8e8be6d024825771830b512f4305e57a745cde42679bb74",
+      "at": "2026-03-30"
+    },
+    "talks/2014/gothamgo-android.slide": {
+      "english_sha256": "8ae5ed3ab8b0cab3543b53175f41f84e7f9cf30bd73348a76ff3ac55aa057376",
+      "at": "2026-03-30"
+    },
+    "talks/2014/hammers.slide": {
+      "english_sha256": "3b4a39b026d1b50d137d2c1da03078ad74dcd834279e1dd95f476aa8b5327010",
+      "at": "2026-03-30"
+    },
+    "talks/2014/hellogophers.slide": {
+      "english_sha256": "8e1ce2472ae97524e123d4c111db9e8fc6d21ffa93054ac58a4fd55de556c5a1",
+      "at": "2026-03-30"
+    },
+    "talks/2014/names.slide": {
+      "english_sha256": "88df3b0e55ae570477887ed4766c2421f48001d608a98bc7b034d6a3fecfd4cd",
+      "at": "2026-03-30"
+    },
+    "talks/2014/organizeio.slide": {
+      "english_sha256": "fd90a047f20b11744aea385483596ad5060806aba9581c40b8bfc883a99adb2f",
+      "at": "2026-03-30"
+    },
+    "talks/2014/playground.slide": {
+      "english_sha256": "9136686008914772715b0bd7d99bdd92cafb9c0c91a623e1be42574033db7bec",
+      "at": "2026-03-30"
+    },
+    "talks/2014/readability.slide": {
+      "english_sha256": "815e11ca287f3a355274cb67b5a672a2fe1ad56f76be6e8e31c3b84b9fb67468",
+      "at": "2026-03-30"
+    },
+    "talks/2014/research.slide": {
+      "english_sha256": "cac50c898c2a1f6da15bbe47be1fc92012b3f1140e8d3703ec7dc40d093651b4",
+      "at": "2026-03-30"
+    },
+    "talks/2014/research2.slide": {
+      "english_sha256": "e40b97f65d7603d5291c040dcd1dec5274c734c588cea46b0cf27efe5b7e43d8",
+      "at": "2026-03-30"
+    },
+    "talks/2014/state-of-go.slide": {
+      "english_sha256": "25f8905fe9e66b5e94b889c2dc57cad3b99b414c3c77d5854a6eb6652b99321f",
+      "at": "2026-03-30"
+    },
+    "talks/2014/state-of-the-gopher.slide": {
+      "english_sha256": "aa451463cc3a0213268159c84decae3c2df4424decb514828e2807e189e412ad",
+      "at": "2026-03-30"
+    },
+    "talks/2014/static-analysis.slide": {
+      "english_sha256": "1d62f3b35e458feed920c4d88c47d2eb0f8e9f7493c47de8abee1a31f597ed2a",
+      "at": "2026-03-30"
+    },
+    "talks/2014/taste.slide": {
+      "english_sha256": "97ac6eb49eb540e8abc673125519d5de854873dcb92fe142b070a0b5c0b8811d",
+      "at": "2026-03-30"
+    },
+    "talks/2014/testing.slide": {
+      "english_sha256": "2b2c73be904ed82a4491fe805f5c85ee69b22d325f05656a0241efd6403d92a3",
+      "at": "2026-03-30"
+    },
+    "talks/2015/dynamic-tools.slide": {
+      "english_sha256": "ab0e006bede34072310c6fff4597ccc8f111577ef330eb8155530e12762ee5ed",
+      "at": "2026-03-30"
+    },
+    "talks/2015/go-for-java-programmers.slide": {
+      "english_sha256": "d43adaaf73234e33faae96c6674324cb4b4e8f19ef9140a774cea32772608140",
+      "at": "2026-03-30"
+    },
+    "talks/2015/go4cpp.slide": {
+      "english_sha256": "045bccabc0c44093642850f8411d7acae146899cd0c39f9731fd5b04accf14c1",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gofmt-cn.slide": {
+      "english_sha256": "029c68f764139d696d9c065ac077ae7f4546652d5189ae8114531b3d1871d1d7",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gofmt-en.slide": {
+      "english_sha256": "3d455555d0b66103762d537d8f6391586a2089856d119a56355bba4ecef5cb78",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gogo.slide": {
+      "english_sha256": "4eaae89d7135ab5290444bdf6ecea9936af684f129d6aceee079a5bb7b50178f",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gophercon-go-on-mobile.slide": {
+      "english_sha256": "d4e53d4544c7e16ad9b4d980c9ba6236dfc841926c4b44cc48e46a2ddc63bbba",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gophercon-goevolution.slide": {
+      "english_sha256": "ab1632494d1aa34174c6122b64a5d89140a9b5ebf10546bbe5839b68a6854210",
+      "at": "2026-03-30"
+    },
+    "talks/2015/gotham-grpc.slide": {
+      "english_sha256": "05c22d7255ab67bbf4bdeeff21ea83922bb4fc5ae044fde17d4ecb8c6174ab67",
+      "at": "2026-03-30"
+    },
+    "talks/2015/how-go-was-made.slide": {
+      "english_sha256": "ca6248436da17aa962331ececaa124470183c6001965babea0be5ccf813cff41",
+      "at": "2026-03-30"
+    },
+    "talks/2015/json.slide": {
+      "english_sha256": "b96f864edcc3a9496e92d6b86b7f0591e0ccf56f9fe381ac0f849b12bb0fe625",
+      "at": "2026-03-30"
+    },
+    "talks/2015/keeping-up.slide": {
+      "english_sha256": "6f4dcc4c1aae1cf3d204772358cb68cfb4df5ffdc7200d76756bcd429062280e",
+      "at": "2026-03-30"
+    },
+    "talks/2015/simplicity-is-complicated.slide": {
+      "english_sha256": "b47478af1955b594112789763d2ddfc40b4f4d53fddca919ac7c5e1d808d5c40",
+      "at": "2026-03-30"
+    },
+    "talks/2015/state-of-go-may.slide": {
+      "english_sha256": "e355094d9cf8a3ec4b74cef30bb8552f74efe9637495fccbc15ac633ff842fd3",
+      "at": "2026-03-30"
+    },
+    "talks/2015/state-of-go.slide": {
+      "english_sha256": "a50d2e3aab95cad32a502aa67e87d8354bc75c91be32ce5f17947852b879f82a",
+      "at": "2026-03-30"
+    },
+    "talks/2015/tricks.slide": {
+      "english_sha256": "d442397ad2c0edc6dc8a78e88bcfe2da7674803934279cf9ac5f03242423b328",
+      "at": "2026-03-30"
+    },
+    "talks/2016/applicative.slide": {
+      "english_sha256": "686b930b48ee86ad37b843df48308dd0df6de72b1cb733f0986a6622872a0d50",
+      "at": "2026-03-30"
+    },
+    "talks/2016/asm.slide": {
+      "english_sha256": "b24a1347f2ade709e1416540f42896a6e909d982ee03ff14b46e5d81f804341d",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor.article": {
+      "english_sha256": "31f76830068c939ad9b7901440c9e09771ff3f091019328f7b93cb84f32bda32",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/atomic.html": {
+      "english_sha256": "d47c1775a848a214accf231bb254546a5410a58c0a80ee30052c25e0e137ca36",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/gradual.html": {
+      "english_sha256": "d465e095ab8e16e8a7654ff7bb259aec167d78d751297356124df513541d31c1",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/import1.html": {
+      "english_sha256": "f0a8263dfa34ac69c8a91bc26872d48f7bc6b3adbfca1f3bf4ad60d9c82a21ab",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/import2.html": {
+      "english_sha256": "caddf3075b62662179a6eb641f4707ad558e7cfc048a77ef3a0d010ac1035476",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/template.html": {
+      "english_sha256": "a6affac5e7e0470c8f0199053962792268e7b02ff67e80f8f73bfe649f9c2fc4",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/version1.html": {
+      "english_sha256": "9aa908eccbc550a62754f481b42de4b72147fa41ddd6b60b68b06d8bf9dc77b2",
+      "at": "2026-03-30"
+    },
+    "talks/2016/refactor/version2.html": {
+      "english_sha256": "78af58145bb66ec3cf7a5381cb82c6086d7c6600b8851704174fd99cad84e299",
+      "at": "2026-03-30"
+    },
+    "talks/2016/state-of-go.slide": {
+      "english_sha256": "8c25901e6d1c14d145520212473282a5e3db9372a6ec84879feb28a3db32952a",
+      "at": "2026-03-30"
+    },
+    "talks/2016/token.slide": {
+      "english_sha256": "099fe679de14a16876a9d823fcd5b7dea31060156098aea711f339295ad11016",
+      "at": "2026-03-30"
+    },
+    "talks/2017/state-of-go-may.slide": {
+      "english_sha256": "a7a411558fecf90530dbd88a4f52b3d300b4e6a85d58d0ff4baad5f79d902394",
+      "at": "2026-03-30"
+    },
+    "talks/2017/state-of-go.slide": {
+      "english_sha256": "c59673293c43205e40f228090823e526dd8a918198dd5eeb5c0313383e1fec63",
+      "at": "2026-03-30"
+    },
+    "talks/2019/playground-v3/playground-v3.slide": {
+      "english_sha256": "d2451434eb734b040de6fd1cff9a398c2b0e696637d50bd5e1443988c0e7169b",
+      "at": "2026-03-30"
+    },
+    "talks/dir.tmpl": {
+      "english_sha256": "e7b84799fba8aa656d05c46f77b7877388cd30b8b46ad3e247eeb21b433688f6",
+      "at": "2026-03-30"
+    },
+    "talks/slide.tmpl": {
+      "english_sha256": "3ef01a3886f77d6b868622f1f370cdc50595c69fc6f61420c566e1391dd998f3",
+      "at": "2026-03-30"
+    },
+    "testimonials.yaml": {
+      "english_sha256": "ac356b5080759a9d26aec839339263ad05fed58131a4ba9eeea174af6066e13a",
+      "at": "2026-03-30"
+    },
+    "texthtml.tmpl": {
+      "english_sha256": "0d011b3910cab4cb6e86ce1e3e43ada4863710b262983e0cc0f09308bd2febb5",
+      "at": "2026-03-30"
+    },
+    "tos.md": {
+      "english_sha256": "c962b1a7a4d7b362ceea5e090d967b21aff23a9ddca6dd298edb3eee1fb55456",
+      "at": "2026-03-30"
+    },
+    "tour/basics.article": {
+      "english_sha256": "16fdded44f3c3acd8fdea03eef9913333a2850396e119dd0d464ae01abf9837c",
+      "at": "2026-03-30"
+    },
+    "tour/concurrency.article": {
+      "english_sha256": "83e3871d1591d90c14ac6538d9a737fa17c85f63077b18d3cb50d958df63a515",
+      "at": "2026-03-30"
+    },
+    "tour/flowcontrol.article": {
+      "english_sha256": "4b3fb3f99df5f7231fba86f1646c58ff4e6b8a391c106301de604b215cb5766e",
+      "at": "2026-03-30"
+    },
+    "tour/generics.article": {
+      "english_sha256": "8182e3b9d553bc1cb3757104a2efb50adaa50d2edf6bc5071beee810f11186df",
+      "at": "2026-03-30"
+    },
+    "tour/methods.article": {
+      "english_sha256": "c080bf24bc92086aceeffe07332116bb39010e1e8a518237c0420b50c04ae68f",
+      "at": "2026-03-30"
+    },
+    "tour/moretypes.article": {
+      "english_sha256": "6dd6157e7da29fdc33cce521daf0e57594ca43e90693ec7f5f1be5a3011c85ce",
+      "at": "2026-03-30"
+    },
+    "tour/static/partials/editor.html": {
+      "english_sha256": "a4c198ff7bb24bd02aeb5e682e9fe2198742d47ddd3de291554c1c178c4a9308",
+      "at": "2026-04-14"
+    },
+    "tour/static/partials/feedback-button.html": {
+      "english_sha256": "13c33a8869b9afeb14f7d6b6ca769d023e84343886e13a5e0c9504e23b449ed7",
+      "at": "2026-03-30"
+    },
+    "tour/static/partials/list.html": {
+      "english_sha256": "7b977137723d2be9b8dc3023f9c9817f6319057c086291dca52eb0e5fa103370",
+      "at": "2026-03-30"
+    },
+    "tour/static/partials/toc-button.html": {
+      "english_sha256": "58966d1f04de1bd90a8489efdec9232cb6f212a5ef6e1c260b4b1028bd95e604",
+      "at": "2026-03-30"
+    },
+    "tour/template/index.tmpl": {
+      "english_sha256": "9df52fbb399bba7cb10ca739a0c6dc703c8f8011c41e8399ea283299243382a2",
+      "at": "2026-03-30"
+    },
+    "tour/welcome.article": {
+      "english_sha256": "c58a8032c5be523406e25925a930eb44dabc96e57b14c344beedf61347707d23",
+      "at": "2026-03-30"
+    },
+    "wiki/Comments.md": {
+      "english_sha256": "878f32cf21a94b12708da76e40a1dc4b96ded5fb7a90946d037f7b452675f104",
+      "at": "2026-03-30"
+    },
+    "wiki/index.md": {
+      "english_sha256": "ed54513c18dfa01c959bce60bccbb865e8d4b31aa542e24267abaf769576879a",
+      "at": "2026-03-30"
     }
   }
 }
