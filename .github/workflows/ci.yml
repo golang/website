@@ -1,0 +1,101 @@
+name: ci
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  # The Go the site is built and tested with. go.mod stays on upstream's
+  # version on purpose: it is a minimum language version, changing it in the
+  # fork puts a seventh file into the divergence and makes every upstream sync
+  # conflict on go.mod, and it says nothing about what CI runs. This does.
+  GO_VERSION: '1.27.0'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache: true
+
+      - name: vet
+        run: go vet ./...
+
+      - name: build
+        run: go build ./...
+
+      # GODEV_CONTENT=en turns the Vietnamese overlay off.
+      #
+      # This suite is upstream's and it asserts English strings: cmd/golangorg
+      # checks that every release notes page carries its release date, and
+      # internal/tour checks for `>A Tour of Go<`. Neither goes through the
+      # server's -content flag, so with the overlay on they get Vietnamese and
+      # fail, and they are not wrong to. What they are testing is the renderer,
+      # and the fork has to not break the renderer.
+      #
+      # Whether the translation is any good is a different question with a
+      # different answer, and that is the audit job below.
+      #
+      # cmd/screentest is excluded because it dials Google Cloud Storage for
+      # screenshot baselines and cannot pass without credentials. That is true
+      # upstream too.
+      - name: test
+        env:
+          GODEV_CONTENT: en
+        run: go test $(go list ./... | grep -v /cmd/screentest)
+
+      # The overlay is the fork, so it is tested with the overlay on.
+      - name: test the overlay
+        run: go test -run 'TestOverlay|TestGODEVCONTENT' -v .
+
+  # The quality gates, from tamnd/godev-vn-translator, run against this
+  # checkout. Fourteen deterministic rules over every English and Vietnamese
+  # pair: dropped links, invented heading anchors, edited code blocks,
+  # translated template actions, front matter that moved, and whether each
+  # translation still matches the English it was made from.
+  #
+  # -max is a ratchet and not a target. The corpus has 227 refusals today, so a
+  # gate demanding zero would be red on every pull request including the ones
+  # fixing it, and a check that is always red is a check somebody turns off.
+  # This one fails at 228. The number comes down in the same diff as the work
+  # that lowers it, which makes it a reviewable claim, and the day it reaches
+  # zero the flag comes off.
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          path: godev-vn
+      - uses: actions/checkout@v7
+        with:
+          repository: tamnd/godev-vn-translator
+          path: translator
+      - uses: actions/setup-go@v7
+        with:
+          go-version: ${{ env.GO_VERSION }}
+          cache-dependency-path: translator/go.sum
+
+      - name: audit
+        working-directory: translator
+        run: go run ./cmd/godev -C ../godev-vn audit -max 227
+
+      # No -max here on purpose. This step runs even when the gate above failed,
+      # which is exactly when the report is worth reading, so it must not fail
+      # for the same reason twice.
+      - name: write the report
+        if: always()
+        working-directory: translator
+        run: go run ./cmd/godev -C ../godev-vn audit -quiet -report audit.md
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: audit
+          path: godev-vn/audit.md

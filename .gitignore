@@ -1,0 +1,7 @@
+# Upstream has no .gitignore, so this file is the fork's and it is short on
+# purpose. Only things this fork's own tooling drops into the tree.
+
+# The audit report, written by `godev audit -report` and uploaded by CI.
+audit.md
+
+.DS_Store
