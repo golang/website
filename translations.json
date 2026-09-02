@@ -1,0 +1,12 @@
+{
+  "records": {
+    "blog/go1.27.md": {
+      "english_sha256": "07f3f84e942d6183fd3ee7ddd3fc352a6aed464370ebaf30fe70ce65d4a19231",
+      "prompt_sha256": "146e73c2257244304a9faab2f1ddb89499f7ea5685607078e111de70e36944fc",
+      "route": "server3",
+      "model": "gpt-5",
+      "at": "2026-09-02",
+      "chunks": 3
+    }
+  }
+}
