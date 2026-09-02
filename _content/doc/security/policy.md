@@ -46,6 +46,30 @@ acknowledgement.
 Emails reporting security issues will be retained indefinitely
 to track remediation status and correctly attribute discoveries.
 
+### LLM-Generated Reports
+
+Please do not send LLM-generated reports without proper curation.
+
+Modern LLMs are very good at finding real and important security bugs.
+Unfortunately, they are also very good at finding imaginary issues, or real
+issues that are [not security bugs](/doc/security/decisions#non-vuln). LLM
+output is often verbose, buries important information in irrelevant text, and
+contains grandiose and unsupportable claims.
+
+For LLM-generated reports, the value lies in curation. Sending us dozens of
+possible security issues while relying on us to find the one significant result
+hidden among them asks us to do the curation, and ultimately hinders our goal of
+making Go secure. For this reason, we only attribute discoveries to reporters
+with a substantial percentage of real findings.
+
+While there are no hard and fast rules, as a general guideline, if most of your
+reports are not designated as security issues, and we do not believe that you
+are providing useful curation, we will not credit you for any discoveries in the
+remainder. We deliberately do not define a concrete threshold for "most" or what
+"curation" entails. However, our intent is that a good-faith reporter providing
+meaningful value will always receive credit, while a reporter forwarding large
+quantities of LLM output indiscriminately will not.
+
 ## Tracks
 
 Depending on the nature of your issue, it will be categorized by the Go
