@@ -921,7 +921,7 @@ waits to receive a message over the `closeChan` channel.
 Once a message has been dispatched, the `monitor` goroutine
 will attempt to acquire the same lock.
 However, since there isn't any traffic over `resetChan`, the send operation
-blocks forever, preventing the `monitor` goroutine from releasing
+blocks forever, preventing the `WriteFrame` goroutine from releasing
 the lock.
 This, in turn, causes both goroutines to leak.
 ```
