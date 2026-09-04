@@ -602,7 +602,10 @@ a.Footer-link--primary {
   right: 0;
   top: 0;
   transform: translateX(100%);
-  transition: transform 100ms ease-in-out;
+  transition:
+    transform 100ms ease-in-out,
+    visibility 0s linear 100ms;
+  visibility: hidden;
   width: 85%;
   z-index: 20;
 }
@@ -623,6 +626,8 @@ a.Footer-link--primary {
 
 .NavigationDrawer.is-active {
   transform: translateX(0);
+  transition: transform 100ms ease-in-out;
+  visibility: visible;
 }
 .NavigationDrawer-header {
   align-items: center;
