@@ -53,7 +53,7 @@ pre, code {
     color: #333;
     background-color: #fafafa;
 }
-[data-theme='dark'] code, [data-theme='dark'] .info {
+[data-theme='dark'] code, [data-theme='dark'] .info, [data-theme='dark'] #left-side pre {
     background-color: #2B2D2F !important;
     color: #BABABA;
 }
