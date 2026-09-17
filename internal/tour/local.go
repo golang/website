@@ -95,10 +95,14 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if !validTourPath(r.URL.Path) {
-		// Serve the tour UI, which renders its own not found page,
-		// but report the status so that crawlers do not treat
+		// Serve the tour UI showing its not found page at this URL,
+		// and report the status so that crawlers do not treat
 		// nonexistent lessons as valid pages.
 		w.WriteHeader(http.StatusNotFound)
+		if err := renderNotFoundUI(w); err != nil {
+			log.Println(err)
+		}
+		return
 	}
 	if err := renderUI(w); err != nil {
 		log.Println(err)

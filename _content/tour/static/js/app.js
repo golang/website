@@ -8,6 +8,27 @@ angular.module('tour', ['ui', 'tour.services', 'tour.controllers', 'tour.directi
 
 config(['$routeProvider', '$locationProvider',
     function($routeProvider, $locationProvider) {
+        var notFound = {
+            templateUrl: '/tour/static/partials/notfound.html',
+        };
+
+        // The server sets window.tourNotFound when the requested URL is not a
+        // tour page, in which case it also responds with a 404 status. Show the
+        // not found page at that URL, instead of redirecting elsewhere, so that
+        // the address bar keeps matching the response.
+        if (window.tourNotFound) {
+            var path = window.location.pathname;
+            try {
+                // Routes are matched against the decoded path.
+                path = decodeURIComponent(path);
+            } catch (e) {
+                // Leave the path as is if it is not validly encoded.
+            }
+            // Registered first so that it takes precedence over the
+            // lesson routes below.
+            $routeProvider.when(path, notFound);
+        }
+
         $routeProvider.
             when('/tour/', {
                 redirectTo: '/tour/welcome/1'
@@ -15,9 +36,7 @@ config(['$routeProvider', '$locationProvider',
             when('/tour/list', {
                 templateUrl: '/tour/static/partials/list.html',
             }).
-            when('/tour/notfound', {
-                templateUrl: '/tour/static/partials/notfound.html',
-            }).
+            when('/tour/notfound', notFound).
             when('/tour/:lessonId/:pageNumber', {
                 templateUrl: '/tour/static/partials/editor.html',
                 controller: 'EditorCtrl'
@@ -25,9 +44,7 @@ config(['$routeProvider', '$locationProvider',
             when('/tour/:lessonId', {
                 redirectTo: '/tour/:lessonId/1'
             }).
-            otherwise({
-                redirectTo: '/tour/notfound'
-            });
+            otherwise(notFound);
 
         $locationProvider.html5Mode(true).hashPrefix('!');
     }

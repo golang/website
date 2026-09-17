@@ -24,10 +24,13 @@ import (
 )
 
 var (
-	uiContent      []byte
-	lessons        = make(map[string][]byte)
-	lessonPages    = make(map[string]int)
-	lessonNotFound = fmt.Errorf("lesson not found")
+	uiContent []byte
+	// uiNotFoundContent is the tour UI rendered so that it displays the
+	// "page not found" page at whatever URL was requested.
+	uiNotFoundContent []byte
+	lessons           = make(map[string][]byte)
+	lessonPages       = make(map[string]int)
+	lessonNotFound    = fmt.Errorf("lesson not found")
 )
 
 var contentTour = website.TourOnly()
@@ -53,16 +56,27 @@ func initTour(mux *http.ServeMux, transport string) error {
 	if err != nil {
 		return fmt.Errorf("parse index.tmpl: %v", err)
 	}
-	buf := new(bytes.Buffer)
 
-	data := struct {
-		AnalyticsHTML template.HTML
-	}{analyticsHTML}
-
-	if err := ui.Execute(buf, data); err != nil {
-		return fmt.Errorf("render UI: %v", err)
+	// The UI is rendered twice: once as usual, and once flagged as not found,
+	// so that the client-side router displays the "page not found" page at
+	// the requested URL instead of routing to a lesson.
+	render := func(notFound bool) ([]byte, error) {
+		data := struct {
+			AnalyticsHTML template.HTML
+			NotFound      bool
+		}{analyticsHTML, notFound}
+		buf := new(bytes.Buffer)
+		if err := ui.Execute(buf, data); err != nil {
+			return nil, fmt.Errorf("render UI: %v", err)
+		}
+		return buf.Bytes(), nil
 	}
-	uiContent = buf.Bytes()
+	if uiContent, err = render(false); err != nil {
+		return err
+	}
+	if uiNotFoundContent, err = render(true); err != nil {
+		return err
+	}
 
 	mux.HandleFunc("/tour/", rootHandler)
 	mux.HandleFunc("/tour/lesson/", lessonHandler)
@@ -224,6 +238,16 @@ func renderUI(w io.Writer) error {
 		panic("renderUI called before successful initTour")
 	}
 	_, err := w.Write(uiContent)
+	return err
+}
+
+// renderNotFoundUI writes the tour UI to the provided Writer, in the form
+// that displays the "page not found" page at the requested URL.
+func renderNotFoundUI(w io.Writer) error {
+	if uiNotFoundContent == nil {
+		panic("renderNotFoundUI called before successful initTour")
+	}
+	_, err := w.Write(uiNotFoundContent)
 	return err
 }
 

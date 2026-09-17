@@ -7,27 +7,36 @@ body contains >A Tour of Go<
 GET https://any/tour/concurrency/1
 code == 200
 body contains >A Tour of Go<
+body contains window.tourNotFound = false
 
 # The lesson text itself is served as JSON, not in the page.
 GET https://any/tour/lesson/concurrency
 body contains is a lightweight thread managed by the Go runtime.
 
+# Pages that are not part of the tour are served, with a 404 status,
+# as the tour UI displaying its not found page at the requested URL.
 GET https://any/tour/notfound
 code == 404
+body contains window.tourNotFound = true
 
 GET https://any/tour/welcome/1Patience
 code == 404
+body contains window.tourNotFound = true
 
 GET https://any/tour/%C2%A0
 code == 404
+body contains window.tourNotFound = true
 
 GET https://any/tour/welcome/1
 code == 200
+body contains window.tourNotFound = false
 
 # No negative page numbers
 GET https://any/tour/welcome/-1
 code == 404
+body contains window.tourNotFound = true
 
 # The page number is way too high
 GET https://any/tour/welcome/101
 code == 404
+body contains window.tourNotFound = true
