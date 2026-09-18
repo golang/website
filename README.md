@@ -66,6 +66,7 @@ Each time a CL is reviewed and submitted, the code is deployed to App Engine.
 See [cmd/golangorg/README.md](cmd/golangorg/README.md#deploying-to-go_dev-and-golang_org) for details.
 
 ## Report Issues / Send Patches
+run repository and suggest changes
 
 This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://go.dev/doc/contribute.
