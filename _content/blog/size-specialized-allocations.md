@@ -6,7 +6,7 @@ by:
 summary: Go 1.27 improves performance of small allocations using size-specialized allocation functions.
 ---
 
-Go 1.27 includes faster memory allocation for allocations of fewer than 80 bytes.
+Go 1.27 includes faster memory allocation for allocations of 80 bytes or fewer.
 Allocations can be up to 20-30% faster, making allocation-heavy programs up to 1% faster.
 The Go runtime improves the performance of those allocations by adding specialized
 functions that are used to allocate certain sizes. These specialized functions
@@ -17,7 +17,7 @@ Heap allocations are created by the runtime's `mallocgc` function, which require
 of the allocation and whether it contains pointers. When the compiler determines that an
 object escapes to the heap or otherwise needs to be dynamically
 allocated, it inserts a call to `newobject`, which is a simple wrapper function that extracts
-the size of the object and whether it contains pointers and passes those to mallocgc.
+the size of the object and whether it contains pointers and passes those to `mallocgc`.
 
 These two pieces of information determine
 most of the work that the allocator needs to do. The size is important because the allocator
@@ -103,16 +103,16 @@ in the specialized functions: Since they are specialized per span-class, the fun
 to calculate the span class when retrieving the span. And because the size of the allocation
 is a constant, the compiler is able to do some optimizations to speed up the bookkeeping necessary for
 the allocation. One such case is with marking where the pointers are in the allocated memory.
-The specialized functions could also manually inline several of its helper functions. The go compiler
+The specialized functions could also manually inline several of their helper functions. The Go compiler
 can inline code, but it avoids inlining functions that it considers too large. We can override that
 in the generated code by inserting the function bodies into the callers. With the generator we can produce
 copies of each of the bodies without needing to worry about each of the copies drifting. And we could move code that
 handled less common cases, such as the runtime debugging flags, into the slow path functions to
 make the specialized functions smaller.
 
-While we hope this explanation of size-specialzed allocation is interesting, you as a Go programmer
+While we hope this explanation of size-specialized allocation is interesting, you as a Go programmer
 don't need to think about any of this when writing your code. Memory allocations will just be
-a little faster, with the biggest benefits going to some of the most common allocations sizes,
+a little faster, with the biggest benefits going to some of the most common allocation sizes,
 especially the 16 and 24 byte allocations. These allocations are some of the most common because
 they consist of two or three 64-bit values, so they include allocations for things such as interface
 values and strings which have two values, or slices which have three. We spent a lot of time tuning
