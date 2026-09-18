@@ -35,7 +35,9 @@ In this example we see a numeric type `MyFloat` with an `Abs` method.
 You can only declare a method with a receiver whose type is defined in the same
 package as the method.
 You cannot declare a method with a receiver whose type is defined in another
-package (which includes the built-in types such as `int`).
+package (which includes the built-in types such as `int` or `float64`).
+Notice that the type of var `f` has been converted to type `MyFloat` so that
+the `Abs` method can be called with receiver `f`.
 
 .play methods/methods-continued.go
 
