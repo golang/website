@@ -90,6 +90,8 @@ Use a `default` case to try a send or receive without blocking:
 		// receiving from c would block
 	}
 
+The [[https://pkg.go.dev/time#pkg-functions][`time` package documentation]] may be helpful.
+
 .play concurrency/default-selection.go
 
 * Exercise: Equivalent Binary Trees
