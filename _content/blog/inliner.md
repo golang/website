@@ -13,6 +13,18 @@ tags:
 summary: "How Go 1.26's source-level inliner works, and how it can help you with self-service API migrations."
 ---
 
+<!--
+The before/after code examples below are Markdown ```go fences
+inside HTML <div> elements. This works only because CommonMark ends
+a raw HTML block at the first blank line, so:
+
+  - each fence must be preceded and followed by a blank line;
+  - each <div ...> or </div> must be on a line of its own.
+
+Otherwise the fence becomes part of the raw HTML and is shown
+verbatim. Code within a fence is written as-is, without HTML escaping.
+-->
+
 <style>
 .beforeafter {
   justify-content: center;
@@ -235,19 +247,28 @@ Let’s look at six aspects of the problem that make it so tricky.
 One of the inliner’s most important tasks is to attempt to replace each occurrence of a parameter in the callee by its corresponding argument from the call. In the simplest case, the argument is a trivial literal such as `0` or `""`, so the replacement is straightforward and the parameter can be eliminated.
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre lang=go>
+
+<div class="beforeafter-context">
+
+```go
 //go:fix inline
 func show(prefix, item string) {
 	fmt.Println(prefix, item)
 }
-</pre></div>
-<pre lang=go>
+```
+
+</div>
+
+```go
 show("", "hello")
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 fmt.Println("", "hello")
-</pre>
+```
+
 </div>
 
 For less trivial literals such as `404` or `"go.dev"`, the replacement is equally straightforward, so long as the parameter appears in the callee at most once. But if it appears multiple times, it would be bad style to sprinkle copies of these magic values throughout the code as it would obscure the relationship between them; a later change to only one of them might create an inconsistency.
@@ -255,23 +276,32 @@ For less trivial literals such as `404` or `"go.dev"`, the replacement is equall
 In such cases the inliner must tread carefully and emit a more conservative result. Whenever one or more parameters cannot be completely substituted for any reason, the inliner inserts an explicit “parameter binding” declaration:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre lang=go>
+
+<div class="beforeafter-context">
+
+```go
 //go:fix inline
 func printPair(before, x, y, after string) {
 	fmt.Println(before, x, after)
 	fmt.Println(before, y, after)
 }
-</pre></div>
-<pre lang=go>
+```
+
+</div>
+
+```go
 printPair("[", "one", "two", "]")
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 // a “parameter binding” declaration
 var before, after = "[", "]"
 fmt.Println(before, "one", after)
 fmt.Println(before, "two", after)
-</pre>
+```
+
 </div>
 
 ### 2. Side effects
@@ -353,19 +383,27 @@ Consequently, the inliner must keep track of all expressions and their operands 
 Typical argument expressions contain one or more identifiers that refer to symbols (variables, functions, and so on) in the caller’s file. The inliner must make sure that each name in the argument expression would refer to the same symbol after parameter substitution; in other words, none of the caller’s names is *shadowed* in the callee. If this fails, the inliner must again insert parameter bindings, as in this example:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre lang=go>
+
+<div class="beforeafter-context">
+
+```go
 //go:fix inline
 func f(val string) {
 	x := 123
 	fmt.Println(val, x)
 }
-</pre></div>
-<pre lang=go>
+```
+
+</div>
+
+```go
 x := "hello"
 f(x)
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 x := "hello"
 {
 	// another “parameter binding” declaration
@@ -374,7 +412,8 @@ x := "hello"
 	x := 123
 	fmt.Println(val, x)
 }
-</pre>
+```
+
 </div>
 
 Conversely, the inliner must also check that each name in the *callee* function body would refer to the same thing when it is spliced into the call site. In other words, none of the callee’s names is shadowed or missing in the caller. For missing names, the inliner may need to insert additional imports.
@@ -384,19 +423,28 @@ Conversely, the inliner must also check that each name in the *callee* function 
 When an argument expression has no effects and its corresponding parameter is never used, the expression may be eliminated. However, if the expression contains the last reference to a local variable at the caller, this may cause a compile error because the variable is now unused.
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre lang=go>
+
+<div class="beforeafter-context">
+
+```go
 //go:fix inline
 func f(_ int) { print("hello") }
-</pre></div>
-<pre lang=go>
+```
+
+</div>
+
+```go
 x := 42
 f(x)
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 x := 42 // error: unused variable: x
 print("hello")
-</pre>
+```
+
 </div>
 
 So the inliner must account for references to local variables and avoid removing the last one. (Of course it is still possible that two different inliner fixes each remove the *second*-to-last reference to a variable, so the two fixes are valid in isolation but not together; see the discussion of [semantic conflicts](gofix#merging-fixes-and-conflicts) in the previous post. Unfortunately manual cleanup is inevitably required in this case.)
@@ -413,23 +461,32 @@ This function literal, `func() { … }()`, delimits the lifetime of the
 `defer` statement, as in this example:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre lang=go>
+
+<div class="beforeafter-context">
+
+```go
 //go:fix inline
 func callee() {
 	defer f()
 	…
 }
-</pre></div>
-<pre lang=go>
+```
+
+</div>
+
+```go
 callee()
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 func() {
 	defer f()
 	…
 }()
-</pre>
+```
+
 </div>
 
 If you invoke the inliner in gopls, you’ll see that it makes the change shown above and introduces the function literal. This result may be appropriate in an interactive setting, since you are likely to immediately tweak the code (or undo the fix) as you prefer, but it is rarely desirable in a batch tool, so as a matter of policy the analyzer in `go fix` refuses to inline such “literalized” calls.

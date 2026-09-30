@@ -12,6 +12,18 @@ tags:
 summary: "Go 1.26 includes a new implementation of go fix that can help you use more modern features of Go."
 ---
 
+<!--
+The before/after code examples below are Markdown ```go fences
+inside HTML <div> elements. This works only because CommonMark ends
+a raw HTML block at the first blank line, so:
+
+  - each fence must be preceded and followed by a blank line;
+  - each <div ...> or </div> must be on a line of its own.
+
+Otherwise the fence becomes part of the raw HTML and is shown
+verbatim. Code within a fence is written as-is, without HTML escaping.
+-->
+
 <style>
 .beforeafter {
   display: grid;
@@ -108,53 +120,65 @@ Over the past year, we have built [dozens of analyzers](https://pkg.go.dev/golan
 **minmax** replaces an `if` statement by a use of Go 1.21’s `min` or `max` functions:
 
 <div class="beforeafter">
-<pre lang=go>
+
+```go
 x := f()
-if x &lt; 0 {
+if x < 0 {
 	x = 0
 }
 if x > 100 {
 	x = 100
 }
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 x := min(max(f(), 0), 100)
-</pre>
+```
+
 </div>
 
 **rangeint** replaces a 3-clause `for` loop by a Go 1.22 `range`-over-int loop:
 
 <div class="beforeafter">
-<pre lang=go>
-for i := 0; i &lt; n; i++ {
+
+```go
+for i := 0; i < n; i++ {
 	f()
 }
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 for range n {
 	f()
 }
-</pre>
+```
+
 </div>
 
 **stringscut** (whose `-diff` output we saw earlier) replaces uses of `strings.Index` and slicing by Go 1.18’s `strings.Cut`:
 
 <div class="beforeafter">
-<pre lang=go>
+
+```go
 i := strings.Index(s, ":")
 if i >= 0 {
 	 return s[:i]
 }
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 before, _, ok := strings.Cut(s, ":")
 if ok {
 	return before
 }
-</pre>
+```
+
 </div>
 
 These modernizers are included in [gopls](/gopls), to provide instant feedback as you type, and in `go fix`, so that you can modernize several entire packages at once in a single command. In addition to making code clearer, modernizers may help Go programmers learn about newer features. As part of the process of approving each new change to the language and standard library, the [proposal](https://go.googlesource.com/proposal/+/master/README.md) review group now considers whether it should be accompanied by a modernizer. We expect to add more modernizers with each release.
@@ -164,14 +188,18 @@ These modernizers are included in [gopls](/gopls), to provide instant feedback a
 Go 1.26 includes a small but widely useful change to the language specification. The built-in `new` function creates a new variable and returns its address. Historically, its sole argument was required to be a type, such as `new(string)`, and the new variable was initialized to its “zero” value, such as `""`. In Go 1.26, the `new` function may be called with any value, causing it to create a variable initialized to that value, avoiding the need for an additional statement. For example:
 
 <div class="beforeafter">
-<pre lang=go>
+
+```go
 ptr := new(string)
 *ptr = "go1.25"
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 ptr := new("go1.26")
-</pre>
+```
+
 </div>
 
 This feature filled a gap that had been discussed for over a decade and resolved one of the most popular [proposals](/issue/45624) for a change to the language. It is especially convenient in code that uses a pointer type `*T` to indicate an optional value of type `T`, as is common when working with serialization packages such as [json.Marshal](https://pkg.go.dev/encoding/json#Marshal) or [protocol buffers](https://protobuf.dev/getting-started/gotutorial/). This is such a common pattern that people often capture it in a helper, such as the `newInt` function below, saving the caller from the need to break out of an expression context to introduce additional statements:
@@ -211,39 +239,47 @@ At this point, with luck, all of your `newInt`-like helper functions will have b
 Applying one modernization may create opportunities to apply another. For example, this snippet of code, which clamps `x` to the range 0–100, causes the minmax modernizer to suggest a fix to use `max`. Once that fix is applied it suggests a second fix, this time to use `min`.
 
 <div class="beforeafter">
-<pre lang=go>
+
+```go
 x := f()
-if x &lt; 0 {
+if x < 0 {
 	x = 0
 }
 if x > 100 {
 	x = 100
 }
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 x := min(max(f(), 0), 100)
-</pre>
+```
+
 </div>
 
 Synergies may also occur between different analyzers. For example, a common mistake is to repeatedly concatenate strings within a loop, resulting in quadratic time complexity—a bug and a potential vector for a denial-of-service attack. The `stringsbuilder` modernizer recognizes the problem and suggests using Go 1.10’s `strings.Builder`:
 
 <div class="beforeafter">
-<pre lang=go>
+
+```go
 s := ""
 for _, b := range bytes {
 	s += fmt.Sprintf("%02x", b)
 }
 use(s)
-</pre>
+```
+
 <div class="beforeafter-arrow"></div>
-<pre lang=go>
+
+```go
 var s strings.Builder
 for _, b := range bytes {
 	s.WriteString(fmt.Sprintf("%02x", b))
 }
 use(s.String())
-</pre>
+```
+
 </div>
 
 Once this fix is applied, a second analyzer may recognize that the `WriteString` and `Sprintf` operations can be combined as `fmt.Fprintf(&s, "%02x", b)`, which is both cleaner and more efficient, and offer a second fix. (This second analyzer is [QF1012](https://staticcheck.dev/docs/checks#QF1012) from Dominik Honnef’s [staticcheck](https://staticcheck.dev/), which is already enabled in gopls but not yet in `go fix`, though we [plan](/issue/76918) to add staticcheck analyzers to the go command starting in Go 1.27.)
