@@ -23,33 +23,35 @@ A simple option is to use the [cmp.Ordered](/pkg/cmp#Ordered) constraint, introd
 It restricts a type parameter to ordered types (strings and numbers) and allows methods of the type to use the built-in ordering operators.
 
 {{raw `
-    // The zero value of a Tree is a ready-to-use empty tree.
-    type Tree[E cmp.Ordered] struct {
-        root *node[E]
-    }
+~~~go
+// The zero value of a Tree is a ready-to-use empty tree.
+type Tree[E cmp.Ordered] struct {
+    root *node[E]
+}
 
-    func (t *Tree[E]) Insert(element E) {
-        t.root = t.root.insert(element)
-    }
+func (t *Tree[E]) Insert(element E) {
+    t.root = t.root.insert(element)
+}
 
-    type node[E cmp.Ordered] struct {
-        value E
-        left  *node[E]
-        right *node[E]
-    }
+type node[E cmp.Ordered] struct {
+    value E
+    left  *node[E]
+    right *node[E]
+}
 
-    func (n *node[E]) insert(element E) *node[E] {
-        if n == nil {
-            return &node[E]{value: element}
-        }
-        switch {
-        case element < n.value:
-            n.left = n.left.insert(element)
-        case element > n.value:
-            n.right = n.right.insert(element)
-        }
-        return n
+func (n *node[E]) insert(element E) *node[E] {
+    if n == nil {
+        return &node[E]{value: element}
     }
+    switch {
+    case element < n.value:
+        n.left = n.left.insert(element)
+    case element > n.value:
+        n.right = n.right.insert(element)
+    }
+    return n
+}
+~~~
 `}}
 
 ([playground](/play/p/H7-n33X7P2h))
@@ -60,39 +62,41 @@ you cannot insert struct types, like [time.Time](/pkg/time#Time).
 We can remedy that by requiring the user to provide a comparison function:
 
 {{raw `
-    // A FuncTree must be created with NewFuncTree.
-    type FuncTree[E any] struct {
-        root *funcNode[E]
-        cmp  func(E, E) int
-    }
+~~~go
+// A FuncTree must be created with NewFuncTree.
+type FuncTree[E any] struct {
+    root *funcNode[E]
+    cmp  func(E, E) int
+}
 
-    func NewFuncTree[E any](cmp func(E, E) int) *FuncTree[E] {
-        return &FuncTree[E]{cmp: cmp}
-    }
+func NewFuncTree[E any](cmp func(E, E) int) *FuncTree[E] {
+    return &FuncTree[E]{cmp: cmp}
+}
 
-    func (t *FuncTree[E]) Insert(element E) {
-        t.root = t.root.insert(t.cmp, element)
-    }
+func (t *FuncTree[E]) Insert(element E) {
+    t.root = t.root.insert(t.cmp, element)
+}
 
-    type funcNode[E any] struct {
-        value E
-        left  *funcNode[E]
-        right *funcNode[E]
-    }
+type funcNode[E any] struct {
+    value E
+    left  *funcNode[E]
+    right *funcNode[E]
+}
 
-    func (n *funcNode[E]) insert(cmp func(E, E) int, element E) *funcNode[E] {
-        if n == nil {
-            return &funcNode[E]{value: element}
-        }
-        sign := cmp(element, n.value)
-        switch {
-        case sign < 0:
-            n.left = n.left.insert(cmp, element)
-        case sign > 0:
-            n.right = n.right.insert(cmp, element)
-        }
-        return n
+func (n *funcNode[E]) insert(cmp func(E, E) int, element E) *funcNode[E] {
+    if n == nil {
+        return &funcNode[E]{value: element}
     }
+    sign := cmp(element, n.value)
+    switch {
+    case sign < 0:
+        n.left = n.left.insert(cmp, element)
+    case sign > 0:
+        n.right = n.right.insert(cmp, element)
+    }
+    return n
+}
+~~~
 `}}
 
 ([playground](/play/p/tiEjuxCHtFF))
@@ -110,9 +114,11 @@ But how can we express the constraint to require that element types provide the 
 The first approach we might try is to define a plain old interface with a `Compare` method:
 
 {{raw `
-    type Comparer interface {
-        Compare(Comparer) int
-    }
+~~~go
+type Comparer interface {
+    Compare(Comparer) int
+}
+~~~
 `}}
 
 However, we quickly realize that this does not work well.
@@ -123,9 +129,11 @@ That is not very orthogonal.
 A better approach is to make the `Comparer` interface itself generic:
 
 {{raw `
-    type Comparer[T any] interface {
-        Compare(T) int
-    }
+~~~go
+type Comparer[T any] interface {
+    Compare(T) int
+}
+~~~
 `}}
 
 This `Comparer` now describes a whole family of interfaces, one for each type that `Comparer` may be instantiated with.
@@ -133,8 +141,10 @@ A type that implements `Comparer[T]` declares "I can compare myself to a `T`".
 For instance, `time.Time` naturally implements `Comparer[time.Time]` because [it has a matching `Compare` method](/pkg/time#Time.Compare):
 
 {{raw `
-    // Implements Comparer[Time]
-    func (t Time) Compare(u Time) int
+~~~go
+// Implements Comparer[Time]
+func (t Time) Compare(u Time) int
+~~~
 `}}
 
 This is better, but not enough.
@@ -143,34 +153,36 @@ The subtle insight is that the self-referential aspect does not have to be part 
 Instead, it is a consequence of how we use `Comparer` as a constraint for the type parameter of `MethodTree`:
 
 {{raw `
-    // The zero value of a MethodTree is a ready-to-use empty tree.
-    type MethodTree[E Comparer[E]] struct {
-        root *methodNode[E]
-    }
+~~~go
+// The zero value of a MethodTree is a ready-to-use empty tree.
+type MethodTree[E Comparer[E]] struct {
+    root *methodNode[E]
+}
 
-    func (t *MethodTree[E]) Insert(element E) {
-        t.root = t.root.insert(element)
-    }
+func (t *MethodTree[E]) Insert(element E) {
+    t.root = t.root.insert(element)
+}
 
-    type methodNode[E Comparer[E]] struct {
-        value E
-        left  *methodNode[E]
-        right *methodNode[E]
-    }
+type methodNode[E Comparer[E]] struct {
+    value E
+    left  *methodNode[E]
+    right *methodNode[E]
+}
 
-    func (n *methodNode[E]) insert(element E) *methodNode[E] {
-        if n == nil {
-            return &methodNode[E]{value: element}
-        }
-        sign := element.Compare(n.value)
-        switch {
-        case sign < 0:
-            n.left = n.left.insert(element)
-        case sign > 0:
-            n.right = n.right.insert(element)
-        }
-        return n
+func (n *methodNode[E]) insert(element E) *methodNode[E] {
+    if n == nil {
+        return &methodNode[E]{value: element}
     }
+    sign := element.Compare(n.value)
+    switch {
+    case sign < 0:
+        n.left = n.left.insert(element)
+    case sign > 0:
+        n.right = n.right.insert(element)
+    }
+    return n
+}
+~~~
 `}}
 
 ([playground](/play/p/LuhzYej_2SP))
@@ -178,8 +190,10 @@ Instead, it is a consequence of how we use `Comparer` as a constraint for the ty
 Because `time.Time` implements `Comparer[time.Time]` it is now a valid type argument for this container, and we can still use the zero value as an empty container:
 
 {{raw `
-    var t MethodTree[time.Time]
-    t.Insert(time.Now())
+~~~go
+var t MethodTree[time.Time]
+t.Insert(time.Now())
+~~~
 `}}
 
 For full flexibility, a library can provide all three API versions.
@@ -187,40 +201,42 @@ If we want to minimize repetition, all versions could use a shared implementatio
 We could use the function version for that, as it is the most general:
 
 {{raw `
-    type node[E any] struct {
-        value E
-        left  *node[E]
-        right *node[E]
-    }
+~~~go
+type node[E any] struct {
+    value E
+    left  *node[E]
+    right *node[E]
+}
 
-    func (n *node[E]) insert(cmp func(E, E) int, element E) *node[E] {
-        if n == nil {
-            return &node[E]{value: element}
-        }
-        sign := cmp(element, n.value)
-        switch {
-        case sign < 0:
-            n.left = n.left.insert(cmp, element)
-        case sign > 0:
-            n.right = n.right.insert(cmp, element)
-        }
-        return n
+func (n *node[E]) insert(cmp func(E, E) int, element E) *node[E] {
+    if n == nil {
+        return &node[E]{value: element}
     }
+    sign := cmp(element, n.value)
+    switch {
+    case sign < 0:
+        n.left = n.left.insert(cmp, element)
+    case sign > 0:
+        n.right = n.right.insert(cmp, element)
+    }
+    return n
+}
 
-    // Insert inserts element into the tree, if E implements cmp.Ordered.
-    func (t *Tree[E]) Insert(element E) {
-        t.root = t.root.insert(cmp.Compare[E], element)
-    }
+// Insert inserts element into the tree, if E implements cmp.Ordered.
+func (t *Tree[E]) Insert(element E) {
+    t.root = t.root.insert(cmp.Compare[E], element)
+}
 
-    // Insert inserts element into the tree, using the provided comparison function.
-    func (t *FuncTree[E]) Insert(element E) {
-        t.root = t.root.insert(t.cmp, element)
-    }
+// Insert inserts element into the tree, using the provided comparison function.
+func (t *FuncTree[E]) Insert(element E) {
+    t.root = t.root.insert(t.cmp, element)
+}
 
-    // Insert inserts element into the tree, if E implements Comparer[E].
-    func (t *MethodTree[E]) Insert(element E) {
-        t.root = t.root.insert(E.Compare, element)
-    }
+// Insert inserts element into the tree, if E implements Comparer[E].
+func (t *MethodTree[E]) Insert(element E) {
+    t.root = t.root.insert(E.Compare, element)
+}
+~~~
 `}}
 
 ([playground](/play/p/jzmoaH5eaIv))
@@ -241,35 +257,37 @@ Let's now imagine we need to make lookup run in constant time; we might try to d
 
 
 {{raw `
-    type OrderedSet[E Comparer[E]] struct {
-        tree     MethodTree[E] // for efficient iteration in order
-        elements map[E]bool    // for (near) constant time lookup
-    }
+~~~go
+type OrderedSet[E Comparer[E]] struct {
+    tree     MethodTree[E] // for efficient iteration in order
+    elements map[E]bool    // for (near) constant time lookup
+}
 
-    func (s *OrderedSet[E]) Has(e E) bool {
-        return s.elements[e]
-    }
+func (s *OrderedSet[E]) Has(e E) bool {
+    return s.elements[e]
+}
 
-    func (s *OrderedSet[E]) Insert(e E) {
-        if s.elements == nil {
-            s.elements = make(map[E]bool)
-        }
-        if s.elements[e] {
-            return
-        }
-        s.elements[e] = true
-        s.tree.Insert(e)
+func (s *OrderedSet[E]) Insert(e E) {
+    if s.elements == nil {
+        s.elements = make(map[E]bool)
     }
+    if s.elements[e] {
+        return
+    }
+    s.elements[e] = true
+    s.tree.Insert(e)
+}
 
-    func (s *OrderedSet[E]) All() iter.Seq[E] {
-        return func(yield func(E) bool) {
-            s.tree.root.all(yield)
-        }
+func (s *OrderedSet[E]) All() iter.Seq[E] {
+    return func(yield func(E) bool) {
+        s.tree.root.all(yield)
     }
+}
 
-    func (n *node[E]) all(yield func(E) bool) bool {
-        return n == nil || (n.left.all(yield) && yield(n.value) && n.right.all(yield))
-    }
+func (n *node[E]) all(yield func(E) bool) bool {
+    return n == nil || (n.left.all(yield) && yield(n.value) && n.right.all(yield))
+}
+~~~
 `}}
 
 ([playground](/play/p/TANUnnSnDqf))
@@ -287,10 +305,12 @@ We have three options to add this constraint to our type parameter, all with dif
 1.  We can [embed](/ref/spec#Embedded_interfaces) `comparable` into our original `Comparer` definition ([playground](/play/p/g8NLjZCq97q)):
 
     {{raw `
-        type Comparer[E any] interface {
-            comparable
-            Compare(E) int
-        }
+    ~~~go
+    type Comparer[E any] interface {
+        comparable
+        Compare(E) int
+    }
+    ~~~
     `}}
 
     This has the downside that it would also make our `Tree` types only usable with types that are `comparable`.
@@ -298,27 +318,31 @@ We have three options to add this constraint to our type parameter, all with dif
 2.  We can add a new constraint definition ([playground](/play/p/Z2eg4X8xK5Z)).
 
     {{raw `
-        type Comparer[E any] interface {
-            Compare(E) int
-        }
+    ~~~go
+    type Comparer[E any] interface {
+        Compare(E) int
+    }
 
-        type ComparableComparer[E any] interface {
-            comparable
-            Comparer[E]
-        }
+    type ComparableComparer[E any] interface {
+        comparable
+        Comparer[E]
+    }
+    ~~~
     `}}
 
     This is tidy, but it introduces a new identifier (`ComparableComparer`) into our API, and naming is hard.
 3.  We can add the constraint inline into our more constrained type ([playground](/play/p/ZfggVma_jNc)):
 
     {{raw `
-        type OrderedSet[E interface {
-            comparable
-            Comparer[E]
-        }] struct {
-            tree     Tree[E]
-            elements map[E]struct{}
-        }
+    ~~~go
+    type OrderedSet[E interface {
+        comparable
+        Comparer[E]
+    }] struct {
+        tree     Tree[E]
+        elements map[E]struct{}
+    }
+    ~~~
     `}}
 
     This can become a bit hard to read, especially if it needs to happen often.
@@ -335,12 +359,14 @@ There are many different kinds of set implementations with different tradeoffs.
 Defining an interface for the set operations you require can add flexibility to your package, leaving the decision of what tradeoffs are right for the specific application to the user:
 
 {{raw `
-    type Set[E any] interface {
-        Insert(E)
-        Delete(E)
-        Has(E) bool
-        All() iter.Seq[E]
-    }
+~~~go
+type Set[E any] interface {
+    Insert(E)
+    Delete(E)
+    Has(E) bool
+    All() iter.Seq[E]
+}
+~~~
 `}}
 
 A natural question here is what the constraint on this interface should be.
@@ -359,22 +385,24 @@ Let us try to use the `Set` interface in an example.
 Consider a function that removes duplicate elements in a sequence:
 
 {{raw `
-    // Unique removes duplicate elements from the input sequence, yielding only
-    // the first instance of any element.
-    func Unique[E comparable](input iter.Seq[E]) iter.Seq[E] {
-        return func(yield func(E) bool) {
-            seen := make(map[E]bool)
-            for v := range input {
-                if seen[v] {
-                    continue
-                }
-                if !yield(v) {
-                    return
-                }
-                seen[v] = true
+~~~go
+// Unique removes duplicate elements from the input sequence, yielding only
+// the first instance of any element.
+func Unique[E comparable](input iter.Seq[E]) iter.Seq[E] {
+    return func(yield func(E) bool) {
+        seen := make(map[E]bool)
+        for v := range input {
+            if seen[v] {
+                continue
             }
+            if !yield(v) {
+                return
+            }
+            seen[v] = true
         }
     }
+}
+~~~
 `}}
 
 ([playground](/play/p/hsYoFjkU9kA))
@@ -384,22 +412,24 @@ Consequently, it works only for types that are `comparable` and which therefore 
 If we want to generalize this to arbitrary types, we need to replace that with a generic set:
 
 {{raw `
-    // Unique removes duplicate elements from the input sequence, yielding only
-    // the first instance of any element.
-    func Unique[E any](input iter.Seq[E]) iter.Seq[E] {
-        return func(yield func(E) bool) {
-            var seen Set[E]
-            for v := range input {
-                if seen.Has(v) {
-                    continue
-                }
-                if !yield(v) {
-                    return
-                }
-                seen.Insert(v)
+~~~go
+// Unique removes duplicate elements from the input sequence, yielding only
+// the first instance of any element.
+func Unique[E any](input iter.Seq[E]) iter.Seq[E] {
+    return func(yield func(E) bool) {
+        var seen Set[E]
+        for v := range input {
+            if seen.Has(v) {
+                continue
             }
+            if !yield(v) {
+                return
+            }
+            seen.Insert(v)
         }
     }
+}
+~~~
 `}}
 
 ([playground](/play/p/FZYPNf56nnY))
@@ -412,22 +442,24 @@ But as we have seen in this post, there is no general implementation of a set th
 We have to ask the user to provide a concrete implementation we can use, as an extra type parameter:
 
 {{raw `
-    // Unique removes duplicate elements from the input sequence, yielding only
-    // the first instance of any element.
-    func Unique[E any, S Set[E]](input iter.Seq[E]) iter.Seq[E] {
-        return func(yield func(E) bool) {
-            var seen S
-            for v := range input {
-                if seen.Has(v) {
-                    continue
-                }
-                if !yield(v) {
-                    return
-                }
-                seen.Insert(v)
+~~~go
+// Unique removes duplicate elements from the input sequence, yielding only
+// the first instance of any element.
+func Unique[E any, S Set[E]](input iter.Seq[E]) iter.Seq[E] {
+    return func(yield func(E) bool) {
+        var seen S
+        for v := range input {
+            if seen.Has(v) {
+                continue
             }
+            if !yield(v) {
+                return
+            }
+            seen.Insert(v)
         }
     }
+}
+~~~
 `}}
 
 ([playground](/play/p/kjkGy5cNz8T))
@@ -435,10 +467,12 @@ We have to ask the user to provide a concrete implementation we can use, as an e
 However, if we instantiate this with our set implementation, we run into another problem:
 
 {{raw `
-    // OrderedSet[E] does not satisfy Set[E] (method All has pointer receiver)
-    Unique[E, OrderedSet[E]](slices.Values(s))
-    // panic: invalid memory address or nil pointer dereference
-    Unique[E, *OrderedSet[E]](slices.Values(s))
+~~~go
+// OrderedSet[E] does not satisfy Set[E] (method All has pointer receiver)
+Unique[E, OrderedSet[E]](slices.Values(s))
+// panic: invalid memory address or nil pointer dereference
+Unique[E, *OrderedSet[E]](slices.Values(s))
+~~~
 `}}
 
 The first problem is clear from the error message: Our type constraint says that the type argument for `S` needs to implement the `Set[E]` interface.
@@ -448,7 +482,9 @@ When trying to do that, we run into the second problem.
 This stems from the fact that we declare a variable in the implementation:
 
 {{raw `
-    var seen S
+~~~go
+var seen S
+~~~
 `}}
 
 If `S` is `*OrderedSet[E]`, the variable is initialized with `nil`, as before.
@@ -460,30 +496,32 @@ The consequence is that we need both the value *and* the pointer type.
 So we have to introduce an additional type parameter `PS` with a new constraint `PtrToSet`:
 
 {{raw `
-    // PtrToSet is implemented by a pointer type implementing the Set[E] interface.
-    type PtrToSet[S, E any] interface {
-        *S
-        Set[E]
-    }
+~~~go
+// PtrToSet is implemented by a pointer type implementing the Set[E] interface.
+type PtrToSet[S, E any] interface {
+    *S
+    Set[E]
+}
 
-    // Unique removes duplicate elements from the input sequence, yielding only
-    // the first instance of any element.
-    func Unique[E, S any, PS PtrToSet[S, E]](input iter.Seq[E]) iter.Seq[E] {
-        return func(yield func(E) bool) {
-            // We convert to PS, as only that is constrained to have the methods.
-            // The conversion is allowed, because the type set of PS only contains *S.
-            seen := PS(new(S))
-            for v := range input {
-                if seen.Has(v) {
-                    continue
-                }
-                if !yield(v) {
-                    return
-                }
-                seen.Insert(v)
+// Unique removes duplicate elements from the input sequence, yielding only
+// the first instance of any element.
+func Unique[E, S any, PS PtrToSet[S, E]](input iter.Seq[E]) iter.Seq[E] {
+    return func(yield func(E) bool) {
+        // We convert to PS, as only that is constrained to have the methods.
+        // The conversion is allowed, because the type set of PS only contains *S.
+        seen := PS(new(S))
+        for v := range input {
+            if seen.Has(v) {
+                continue
             }
+            if !yield(v) {
+                return
+            }
+            seen.Insert(v)
         }
     }
+}
+~~~
 `}}
 
 ([playground](/play/p/Kp1jJRVjmYa))
@@ -496,14 +534,18 @@ While the definition of a function with this kind of constraint requires an addi
 as long as this extra type parameter is at the end of the type parameter list, it [can be inferred](/blog/type-inference):
 
 {{raw `
-    // The third type argument is inferred to be *OrderedSet[int]
-    Unique[int, OrderedSet[int]](slices.Values(s))
+~~~go
+// The third type argument is inferred to be *OrderedSet[int]
+Unique[int, OrderedSet[int]](slices.Values(s))
+~~~
 `}}
 
 This is a general pattern, and worth remembering: for when you encounter it in someone else's work, or when you want to use it in your own.
 
 {{raw `
-    func SomeFunction[T any, PT interface{ *T; SomeMethods }]()
+~~~go
+func SomeFunction[T any, PT interface{ *T; SomeMethods }]()
+~~~
 `}}
 
 If you have two type parameters, where one is constrained to be a pointer to the other, the constraint ensures that the relevant methods use a pointer receiver.
@@ -524,12 +566,14 @@ And as this requires us to allocate the space for the entire result, we do not r
 If we rethink this problem, we can avoid the extra type parameter altogether by using `Set[E]` as a regular interface value:
 
 {{raw `
-    // InsertAll adds all unique elements from seq into set.
-    func InsertAll[E any](set Set[E], seq iter.Seq[E]) {
-        for v := range seq {
-            set.Insert(v)
-        }
+~~~go
+// InsertAll adds all unique elements from seq into set.
+func InsertAll[E any](set Set[E], seq iter.Seq[E]) {
+    for v := range seq {
+        set.Insert(v)
     }
+}
+~~~
 `}}
 
 ([playground](/play/p/woZcHodAgaa))
@@ -543,12 +587,14 @@ remember that we started with a `map[E]bool` as a simple set type.
 It is easy to implement the `Set[E]` interface on that basis:
 
 {{raw `
-    type HashSet[E comparable] map[E]bool
+~~~go
+type HashSet[E comparable] map[E]bool
 
-    func (s HashSet[E]) Insert(v E)       { s[v] = true }
-    func (s HashSet[E]) Delete(v E)       { delete(s, v) }
-    func (s HashSet[E]) Has(v E) bool     { return s[v] }
-    func (s HashSet[E]) All() iter.Seq[E] { return maps.Keys(s) }
+func (s HashSet[E]) Insert(v E)       { s[v] = true }
+func (s HashSet[E]) Delete(v E)       { delete(s, v) }
+func (s HashSet[E]) Has(v E) bool     { return s[v] }
+func (s HashSet[E]) All() iter.Seq[E] { return maps.Keys(s) }
+~~~
 `}}
 
 ([playground](/play/p/KPPpWa7M93d))

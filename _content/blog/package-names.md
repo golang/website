@@ -90,24 +90,30 @@ Client code refers to this type as `http.Server`, so there is no ambiguity.
 When a function in package pkg returns a value of type `pkg.Pkg` (or
 `*pkg.Pkg`), the function name can often omit the type name without confusion:
 
-	start := time.Now()                                  // start is a time.Time
-	t, err := time.Parse(time.Kitchen, "6:06PM")         // t is a time.Time
-	ctx = context.WithTimeout(ctx, 10*time.Millisecond)  // ctx is a context.Context
-	ip, ok := userip.FromContext(ctx)                    // ip is a net.IP
+```go
+start := time.Now()                                  // start is a time.Time
+t, err := time.Parse(time.Kitchen, "6:06PM")         // t is a time.Time
+ctx = context.WithTimeout(ctx, 10*time.Millisecond)  // ctx is a context.Context
+ip, ok := userip.FromContext(ctx)                    // ip is a net.IP
+```
 
 A function named `New` in package `pkg` returns a value of type `pkg.Pkg`.
 This is a standard entry point for client code using that type:
 
-	 q := list.New()  // q is a *list.List
+```go
+ q := list.New()  // q is a *list.List
+```
 
 When a function returns a value of type `pkg.T`, where `T` is not `Pkg`, the
 function name may include `T` to make client code easier to understand.
 A common situation is a package with multiple New-like functions:
 
-	d, err := time.ParseDuration("10s")  // d is a time.Duration
-	elapsed := time.Since(start)         // elapsed is a time.Duration
-	ticker := time.NewTicker(d)          // ticker is a *time.Ticker
-	timer := time.NewTimer(d)            // timer is a *time.Timer
+```go
+d, err := time.ParseDuration("10s")  // d is a time.Duration
+elapsed := time.Since(start)         // elapsed is a time.Duration
+ticker := time.NewTicker(d)          // ticker is a *time.Ticker
+timer := time.NewTimer(d)            // timer is a *time.Timer
+```
 
 Types in different packages can have the same name, because from the client's
 point of view such names are discriminated by the package name.
@@ -130,12 +136,14 @@ client code uses it as the prefix for the package's exported names.
 Client code uses the package path when importing the package.
 By convention, the last element of the package path is the package name:
 
-	import (
-		"context"                // package context
-		"fmt"                    // package fmt
-		"golang.org/x/time/rate" // package rate
-		"os/exec"                // package exec
-	)
+```go
+import (
+	"context"                // package context
+	"fmt"                    // package fmt
+	"golang.org/x/time/rate" // package rate
+	"os/exec"                // package exec
+)
+```
 
 Build tools map package paths onto directories.
 The go tool uses the [GOPATH](/doc/code.html#GOPATH)
@@ -187,38 +195,50 @@ To fix such packages, look for types and functions with common name elements and
 pull them into their own package.
 For example, if you have
 
-	package util
-	func NewStringSet(...string) map[string]bool {...}
-	func SortStringSet(map[string]bool) []string {...}
+```go
+package util
+func NewStringSet(...string) map[string]bool {...}
+func SortStringSet(map[string]bool) []string {...}
+```
 
 then client code looks like
 
-	set := util.NewStringSet("c", "a", "b")
-	fmt.Println(util.SortStringSet(set))
+```go
+set := util.NewStringSet("c", "a", "b")
+fmt.Println(util.SortStringSet(set))
+```
 
 Pull these functions out of `util` into a new package, choosing a name that fits
 the contents:
 
-	package stringset
-	func New(...string) map[string]bool {...}
-	func Sort(map[string]bool) []string {...}
+```go
+package stringset
+func New(...string) map[string]bool {...}
+func Sort(map[string]bool) []string {...}
+```
 
 then the client code becomes
 
-	set := stringset.New("c", "a", "b")
-	fmt.Println(stringset.Sort(set))
+```go
+set := stringset.New("c", "a", "b")
+fmt.Println(stringset.Sort(set))
+```
 
 Once you've made this change, it's easier to see how to improve the new package:
 
-	package stringset
-	type Set map[string]bool
-	func New(...string) Set {...}
-	func (s Set) Sort() []string {...}
+```go
+package stringset
+type Set map[string]bool
+func New(...string) Set {...}
+func (s Set) Sort() []string {...}
+```
 
 which yields even simpler client code:
 
-	set := stringset.New("c", "a", "b")
-	fmt.Println(set.Sort())
+```go
+set := stringset.New("c", "a", "b")
+fmt.Println(set.Sort())
+```
 
 The name of the package is a critical piece of its design.
 Work to eliminate meaningless package names from your projects.

@@ -22,7 +22,7 @@ This article expands on that advice with reasons and examples describing why it'
 
 To understand the advice to not store context in structs, let's consider the preferred context-as-argument approach:
 
-```
+```go
 // Worker fetches and adds works to a remote work orchestration server.
 type Worker struct { /* … */ }
 
@@ -47,7 +47,7 @@ Here, the `(*Worker).Fetch` and `(*Worker).Process` methods both accept a contex
 
 Let's inspect again the `Worker` example above with the disfavored context-in-struct approach. The problem with it is that when you store the context in a struct, you obscure lifetime to the callers, or worse intermingle two scopes together in unpredictable ways:
 
-```
+```go
 type Worker struct {
   ctx context.Context
 }
@@ -84,21 +84,21 @@ There are two approaches for adding support for `context.Context` in backwards c
 
 The `net/http` package chose the context-in-struct approach, which provides a useful case study. Let's look at `net/http`'s `Do`. Prior to the introduction of `context.Context`, `Do` was defined as follows:
 
-```
+```go
 // Do sends an HTTP request and returns an HTTP response [...]
 func (c *Client) Do(req *Request) (*Response, error)
 ```
 
 After Go 1.7, `Do` might have looked like the following, if not for the fact that it would break backwards compatibility:
 
-```
+```go
 // Do sends an HTTP request and returns an HTTP response [...]
 func (c *Client) Do(ctx context.Context, req *Request) (*Response, error)
 ```
 
 But, preserving the backwards compatibility and adhering to the [Go 1 promise of compatibility](/doc/go1compat) is crucial for the standard library. So, instead, the maintainers chose to add a `context.Context` on the `http.Request` struct in order to allow support `context.Context` without breaking backwards compatibility:
 
-```
+```go
 // A Request represents an HTTP request received by a server or to be sent by a client.
 // ...
 type Request struct {
@@ -125,7 +125,7 @@ func (c *Client) Do(req *Request) (*Response, error)
 
 When retrofitting your API to support context, it may make sense to add a `context.Context` to a struct, as above. However, remember to first consider duplicating your functions, which allows retrofitting `context.Context` in a backwards compatibility without sacrificing utility and comprehension. For example:
 
-```
+```go
 // Call uses context.Background internally; to specify the context, use
 // CallContext.
 func (c *Client) Call() error {

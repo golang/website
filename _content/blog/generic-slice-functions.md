@@ -12,7 +12,7 @@ In this blog post we'll discuss how you can use these functions more effectively
 
 With [Type parameters](/blog/deconstructing-type-parameters) we can write functions like [slices.Index](/pkg/slices#Index) once for all types of slices of comparable elements:
 
-```
+```go
 // Index returns the index of the first occurrence of v in s,
 // or -1 if not present.
 func Index[S ~[]E, E comparable](s S, v E) int {
@@ -29,7 +29,7 @@ It is no longer necessary to implement `Index` again for each different type of 
 
 The [slices](/pkg/slices) package contains many such helpers to perform common operations on slices:
 
-```
+```go
 	s := []string{"Bat", "Fox", "Owl", "Fox"}
 	s2 := slices.Clone(s)
 	slices.Sort(s2)
@@ -51,13 +51,13 @@ If a function changes the length of a slice passed as a parameter, then it needs
 
 Consider the task of deleting a portion of a slice. Prior to generics, the standard way to delete the portion `s[2:5]` from the slice `s` was to call the [append](/ref/spec#Appending_and_copying_slices) function to copy the end portion over the middle portion:
 
-```
+```go
 s = append(s[:2], s[5:]...)
 ```
 
 The syntax was complex and error-prone, involving subslices and a variadic parameter. We added [slices.Delete](/pkg/slices#Delete) to make it easier to delete elements:
 
-```
+```go
 func Delete[S ~[]E, E any](s S, i, j int) S {
        return append(s[:i], s[j:]...)
 }
@@ -69,7 +69,7 @@ The one-line function `Delete` more clearly expresses the programmer's intent. L
 
 This call deletes the elements at `s[2]`, `s[3]`, `s[4]`  from the slice `s`:
 
-```
+```go
 s = slices.Delete(s, 2, 5)
 ```
 
@@ -81,7 +81,7 @@ The gap at the indices 2, 3, 4 is filled by shifting the element `s[5]` to the l
 
 When calling these functions we must consider the original slice invalid, because the underlying array has been modified. It would be a mistake to call the function but ignore the return value:
 
-```
+```go
 	slices.Delete(s, 2, 5) // incorrect!
 	// s still has the same length, but modified contents
 ```
@@ -121,7 +121,7 @@ This change has led to some tests that passed in Go 1.21 now failing in Go 1.22,
 
 If you ignore the return value of `Delete`:
 
-```
+```go
 slices.Delete(s, 2, 3)  // !! INCORRECT !!
 ```
 
@@ -129,7 +129,7 @@ then you may incorrectly assume that `s` does not contain any nil pointer. [Exam
 
 If you ignore the return value of `Compact`:
 
-```
+```go
 slices.Sort(s) // correct
 slices.Compact(s) // !! INCORRECT !!
 ```
@@ -138,7 +138,7 @@ then you may incorrectly assume that `s` is properly sorted and compacted. [Exam
 
 If you assign the return value of `Delete` to another variable, and keep using the original slice:
 
-```
+```go
 u := slices.Delete(s, 2, 3)  // !! INCORRECT, if you keep using s !!
 ```
 
@@ -146,7 +146,7 @@ then you may incorrectly assume that `s` does not contain any nil pointer. [Exam
 
 If you accidentally shadow the slice variable, and keep using the original slice:
 
-```
+```go
 s := slices.Delete(s, 2, 3)  // !! INCORRECT, using := instead of = !!
 ```
 

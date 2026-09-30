@@ -30,15 +30,19 @@ incompatible types).
 Arrays can be indexed in the usual way, so the expression `s[n]` accesses
 the nth element, starting from zero.
 
-	var a [4]int
-	a[0] = 1
-	i := a[0]
-	// i == 1
+```go
+var a [4]int
+a[0] = 1
+i := a[0]
+// i == 1
+```
 
 Arrays do not need to be initialized explicitly;
 the zero value of an array is a ready-to-use array whose elements are themselves zeroed:
 
-	// a[2] == 0, the zero value of the int type
+```go
+// a[2] == 0, the zero value of the int type
+```
 
 The in-memory representation of `[4]int` is just four integer values laid out sequentially:
 
@@ -55,11 +59,15 @@ a fixed-size composite value.
 
 An array literal can be specified like so:
 
-	b := [2]string{"Penn", "Teller"}
+```go
+b := [2]string{"Penn", "Teller"}
+```
 
 Or, you can have the compiler count the array elements for you:
 
-	b := [...]string{"Penn", "Teller"}
+```go
+b := [...]string{"Penn", "Teller"}
+```
 
 In both cases, the type of `b` is `[2]string`.
 
@@ -75,30 +83,40 @@ Unlike an array type, a slice type has no specified length.
 
 A slice literal is declared just like an array literal, except you leave out the element count:
 
-	letters := []string{"a", "b", "c", "d"}
+```go
+letters := []string{"a", "b", "c", "d"}
+```
 
 A slice can be created with the built-in function called `make`, which has the signature,
 
-	func make([]T, len, cap) []T
+```go
+func make([]T, len, cap) []T
+```
 
 where T stands for the element type of the slice to be created.
 The `make` function takes a type, a length,
 and an optional capacity.
 When called, `make` allocates an array and returns a slice that refers to that array.
 
-	var s []byte
-	s = make([]byte, 5, 5)
-	// s == []byte{0, 0, 0, 0, 0}
+```go
+var s []byte
+s = make([]byte, 5, 5)
+// s == []byte{0, 0, 0, 0, 0}
+```
 
 When the capacity argument is omitted, it defaults to the specified length.
 Here's a more succinct version of the same code:
 
-	s := make([]byte, 5)
+```go
+s := make([]byte, 5)
+```
 
 The length and capacity of a slice can be inspected using the built-in `len` and `cap` functions.
 
-	len(s) == 5
-	cap(s) == 5
+```go
+len(s) == 5
+cap(s) == 5
+```
 
 The next two sections discuss the relationship between length and capacity.
 
@@ -109,19 +127,25 @@ Slicing is done by specifying a half-open range with two indices separated by a 
 For example, the expression `b[1:4]` creates a slice including elements
 1 through 3 of `b` (the indices of the resulting slice will be 0 through 2).
 
-	b := []byte{'g', 'o', 'l', 'a', 'n', 'g'}
-	// b[1:4] == []byte{'o', 'l', 'a'}, sharing the same storage as b
+```go
+b := []byte{'g', 'o', 'l', 'a', 'n', 'g'}
+// b[1:4] == []byte{'o', 'l', 'a'}, sharing the same storage as b
+```
 
 The start and end indices of a slice expression are optional; they default to zero and the slice's length respectively:
 
-	// b[:2] == []byte{'g', 'o'}
-	// b[2:] == []byte{'l', 'a', 'n', 'g'}
-	// b[:] == b
+```go
+// b[:2] == []byte{'g', 'o'}
+// b[2:] == []byte{'l', 'a', 'n', 'g'}
+// b[:] == b
+```
 
 This is also the syntax to create a slice given an array:
 
-	x := [3]string{"Лайка", "Белка", "Стрелка"}
-	s := x[:] // a slice referencing the storage of x
+```go
+x := [3]string{"Лайка", "Белка", "Стрелка"}
+s := x[:] // a slice referencing the storage of x
+```
 
 ## Slice internals
 
@@ -143,7 +167,9 @@ through the next few examples.
 
 As we slice `s`, observe the changes in the slice data structure and their relation to the underlying array:
 
-	s = s[2:4]
+```go
+s = s[2:4]
+```
 
 {{image "slices-intro/slice-2.png"}}
 
@@ -153,16 +179,20 @@ This makes slice operations as efficient as manipulating array indices.
 Therefore, modifying the _elements_ (not the slice itself) of a re-slice
 modifies the elements of the original slice:
 
-	d := []byte{'r', 'o', 'a', 'd'}
-	e := d[2:]
-	// e == []byte{'a', 'd'}
-	e[1] = 'm'
-	// e == []byte{'a', 'm'}
-	// d == []byte{'r', 'o', 'a', 'm'}
+```go
+d := []byte{'r', 'o', 'a', 'd'}
+e := d[2:]
+// e == []byte{'a', 'd'}
+e[1] = 'm'
+// e == []byte{'a', 'm'}
+// d == []byte{'r', 'o', 'a', 'm'}
+```
 
 Earlier we sliced `s` to a length shorter than its capacity. We can grow s to its capacity by slicing it again:
 
-	s = s[:cap(s)]
+```go
+s = s[:cap(s)]
+```
 
 {{image "slices-intro/slice-3.png"}}
 
@@ -181,17 +211,21 @@ The next example doubles the capacity of `s` by making a new slice,
 `t`, copying the contents of `s` into `t`,
 and then assigning the slice value `t` to `s`:
 
-	t := make([]byte, len(s), (cap(s)+1)*2) // +1 in case cap(s) == 0
-	for i := range s {
-	        t[i] = s[i]
-	}
-	s = t
+```go
+t := make([]byte, len(s), (cap(s)+1)*2) // +1 in case cap(s) == 0
+for i := range s {
+        t[i] = s[i]
+}
+s = t
+```
 
 The looping piece of this common operation is made easier by the built-in copy function.
 As the name suggests, copy copies data from a source slice to a destination slice.
 It returns the number of elements copied.
 
-	func copy(dst, src []T) int
+```go
+func copy(dst, src []T) int
+```
 
 The `copy` function supports copying between slices of different lengths
 (it will copy only up to the smaller number of elements).
@@ -201,33 +235,39 @@ handling overlapping slices correctly.
 
 Using `copy`, we can simplify the code snippet above:
 
-	t := make([]byte, len(s), (cap(s)+1)*2)
-	copy(t, s)
-	s = t
+```go
+t := make([]byte, len(s), (cap(s)+1)*2)
+copy(t, s)
+s = t
+```
 
 A common operation is to append data to the end of a slice.
 This function appends byte elements to a slice of bytes,
 growing the slice if necessary, and returns the updated slice value:
 
-	func AppendByte(slice []byte, data ...byte) []byte {
-	    m := len(slice)
-	    n := m + len(data)
-	    if n > cap(slice) { // if necessary, reallocate
-	        // allocate double what's needed, for future growth.
-	        newSlice := make([]byte, (n+1)*2)
-	        copy(newSlice, slice)
-	        slice = newSlice
-	    }
-	    slice = slice[0:n]
-	    copy(slice[m:n], data)
-	    return slice
-	}
+```go
+func AppendByte(slice []byte, data ...byte) []byte {
+    m := len(slice)
+    n := m + len(data)
+    if n > cap(slice) { // if necessary, reallocate
+        // allocate double what's needed, for future growth.
+        newSlice := make([]byte, (n+1)*2)
+        copy(newSlice, slice)
+        slice = newSlice
+    }
+    slice = slice[0:n]
+    copy(slice[m:n], data)
+    return slice
+}
+```
 
 One could use `AppendByte` like this:
 
-	p := []byte{2, 3, 5}
-	p = AppendByte(p, 7, 11, 13)
-	// p == []byte{2, 3, 5, 7, 11, 13}
+```go
+p := []byte{2, 3, 5}
+p = AppendByte(p, 7, 11, 13)
+// p == []byte{2, 3, 5, 7, 11, 13}
+```
 
 Functions like `AppendByte` are useful because they offer complete control
 over the way the slice is grown.
@@ -239,37 +279,45 @@ But most programs don't need complete control,
 so Go provides a built-in `append` function that's good for most purposes;
 it has the signature
 
-	func append(s []T, x ...T) []T
+```go
+func append(s []T, x ...T) []T
+```
 
 The `append` function appends the elements `x` to the end of the slice `s`,
 and grows the slice if a greater capacity is needed.
 
-	a := make([]int, 1)
-	// a == []int{0}
-	a = append(a, 1, 2, 3)
-	// a == []int{0, 1, 2, 3}
+```go
+a := make([]int, 1)
+// a == []int{0}
+a = append(a, 1, 2, 3)
+// a == []int{0, 1, 2, 3}
+```
 
 To append one slice to another, use `...` to expand the second argument to a list of arguments.
 
-	a := []string{"John", "Paul"}
-	b := []string{"George", "Ringo", "Pete"}
-	a = append(a, b...) // equivalent to "append(a, b[0], b[1], b[2])"
-	// a == []string{"John", "Paul", "George", "Ringo", "Pete"}
+```go
+a := []string{"John", "Paul"}
+b := []string{"George", "Ringo", "Pete"}
+a = append(a, b...) // equivalent to "append(a, b[0], b[1], b[2])"
+// a == []string{"John", "Paul", "George", "Ringo", "Pete"}
+```
 
 Since the zero value of a slice (`nil`) acts like a zero-length slice,
 you can declare a slice variable and then append to it in a loop:
 
-	// Filter returns a new slice holding only
-	// the elements of s that satisfy fn()
-	func Filter(s []int, fn func(int) bool) []int {
-	    var p []int // == nil
-	    for _, v := range s {
-	        if fn(v) {
-	            p = append(p, v)
-	        }
-	    }
-	    return p
-	}
+```go
+// Filter returns a new slice holding only
+// the elements of s that satisfy fn()
+func Filter(s []int, fn func(int) bool) []int {
+    var p []int // == nil
+    for _, v := range s {
+        if fn(v) {
+            p = append(p, v)
+        }
+    }
+    return p
+}
+```
 
 ## A possible "gotcha"
 
@@ -282,12 +330,14 @@ For example, this `FindDigits` function loads a file into memory and searches
 it for the first group of consecutive numeric digits,
 returning them as a new slice.
 
-	var digitRegexp = regexp.MustCompile("[0-9]+")
+```go
+var digitRegexp = regexp.MustCompile("[0-9]+")
 
-	func FindDigits(filename string) []byte {
-	    b, _ := ioutil.ReadFile(filename)
-	    return digitRegexp.Find(b)
-	}
+func FindDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename)
+    return digitRegexp.Find(b)
+}
+```
 
 This code behaves as advertised, but the returned `[]byte` points into an
 array containing the entire file.
@@ -297,13 +347,15 @@ the few useful bytes of the file keep the entire contents in memory.
 
 To fix this problem one can copy the interesting data to a new slice before returning it:
 
-	func CopyDigits(filename string) []byte {
-	    b, _ := ioutil.ReadFile(filename)
-	    b = digitRegexp.Find(b)
-	    c := make([]byte, len(b))
-	    copy(c, b)
-	    return c
-	}
+```go
+func CopyDigits(filename string) []byte {
+    b, _ := ioutil.ReadFile(filename)
+    b = digitRegexp.Find(b)
+    c := make([]byte, len(b))
+    copy(c, b)
+    return c
+}
+```
 
 A more concise version of this function could be constructed by using `append`.
 This is left as an exercise for the reader.

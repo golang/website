@@ -278,11 +278,13 @@ the start time from the end time. If the event took ten milliseconds,
 the subtraction gives a result of ten milliseconds, perhaps plus or
 minus a small measurement error.
 
-	start := time.Now()       // 3:04:05.000
-	event()
-	end := time.Now()         // 3:04:05.010
+```go
+start := time.Now()       // 3:04:05.000
+event()
+end := time.Now()         // 3:04:05.010
 
-	elapsed := end.Sub(start) // 10 ms
+elapsed := end.Sub(start) // 10 ms
+```
 
 This obvious procedure can fail during a [leap second](https://en.wikipedia.org/wiki/Leap_second). When our clocks
 are not quite in sync with the daily rotation of the Earth, a leap
@@ -296,11 +298,13 @@ and 59 seconds happens twice. This clock reset makes time appear to
 move backward, so that our ten-millisecond event might be timed as
 taking negative 990 milliseconds.
 
-	start := time.Now()       // 11:59:59.995
-	event()
-	end := time.Now()         // 11:59:59.005 (really 11:59:60.005)
+```go
+start := time.Now()       // 11:59:59.995
+event()
+end := time.Now()         // 11:59:59.005 (really 11:59:60.005)
 
-	elapsed := end.Sub(start) // –990 ms
+elapsed := end.Sub(start) // –990 ms
+```
 
 Because the time-of-day clock is inaccurate for timing events across
 clock resets like this, operating systems now provide a second clock,
@@ -485,16 +489,18 @@ we [recorded the potential solution](/issue/6815) but didn't implement it. We wa
 More recently, we designed for Go 1.9 a [math/bits package](https://beta.golang.org/doc/go1.9#math-bits) that
 contains various bit manipulation functions:
 
-	package bits // import "math/bits"
+```go
+package bits // import "math/bits"
 
-	func LeadingZeros32(x uint32) int
-	func Len32(x uint32) int
-	func OnesCount32(x uint32) int
-	func Reverse32(x uint32) uint32
-	func ReverseBytes32(x uint32) uint32
-	func RotateLeft32(x uint32, k int) uint32
-	func TrailingZeros32(x uint32) int
-	...
+func LeadingZeros32(x uint32) int
+func Len32(x uint32) int
+func OnesCount32(x uint32) int
+func Reverse32(x uint32) uint32
+func ReverseBytes32(x uint32) uint32
+func RotateLeft32(x uint32, k int) uint32
+func TrailingZeros32(x uint32) int
+...
+```
 
 The package has good Go
 implementations of each function, but the compilers also substitute

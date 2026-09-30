@@ -21,7 +21,9 @@ Go provides a built-in map type that implements a hash table.
 
 A Go map type looks like this:
 
-	map[KeyType]ValueType
+```go
+map[KeyType]ValueType
+```
 
 where `KeyType` may be any type that is [comparable](/ref/spec#Comparison_operators)
 (more on this later),
@@ -29,7 +31,9 @@ and `ValueType` may be any type at all, including another map!
 
 This variable `m` is a map of string keys to int values:
 
-	var m map[string]int
+```go
+var m map[string]int
+```
 
 Map types are reference types, like pointers or slices,
 and so the value of `m` above is `nil`;
@@ -38,7 +42,9 @@ A nil map behaves like an empty map when reading,
 but attempts to write to a nil map will cause a runtime panic; don't do that.
 To initialize a map, use the built in `make` function:
 
-	m = make(map[string]int)
+```go
+m = make(map[string]int)
+```
 
 The `make` function allocates and initializes a hash map data structure
 and returns a map value that points to it.
@@ -51,31 +57,43 @@ not their implementation.
 
 Go provides a familiar syntax for working with maps. This statement sets the key `"route"` to the value `66`:
 
-	m["route"] = 66
+```go
+m["route"] = 66
+```
 
 This statement retrieves the value stored under the key `"route"` and assigns it to a new variable i:
 
-	i := m["route"]
+```go
+i := m["route"]
+```
 
 If the requested key doesn't exist, we get the value type's _zero value_.
 In this case the value type is `int`, so the zero value is `0`:
 
-	j := m["root"]
-	// j == 0
+```go
+j := m["root"]
+// j == 0
+```
 
 The built in `len` function returns on the number of items in a map:
 
-	n := len(m)
+```go
+n := len(m)
+```
 
 The built in `delete` function removes an entry from the map:
 
-	delete(m, "route")
+```go
+delete(m, "route")
+```
 
 The `delete` function doesn't return anything, and will do nothing if the specified key doesn't exist.
 
 A two-value assignment tests for the existence of a key:
 
-	i, ok := m["route"]
+```go
+i, ok := m["route"]
+```
 
 In this statement, the first value (`i`) is assigned the value stored under the key `"route"`.
 If that key doesn't exist, `i` is the value type's zero value (`0`).
@@ -84,26 +102,34 @@ the map, and `false` if not.
 
 To test for a key without retrieving the value, use an underscore in place of the first value:
 
-	_, ok := m["route"]
+```go
+_, ok := m["route"]
+```
 
 To iterate over the contents of a map, use the `range` keyword:
 
-	for key, value := range m {
-	    fmt.Println("Key:", key, "Value:", value)
-	}
+```go
+for key, value := range m {
+    fmt.Println("Key:", key, "Value:", value)
+}
+```
 
 To initialize a map with some data, use a map literal:
 
-	commits := map[string]int{
-	    "rsc": 3711,
-	    "r":   2138,
-	    "gri": 1908,
-	    "adg": 912,
-	}
+```go
+commits := map[string]int{
+    "rsc": 3711,
+    "r":   2138,
+    "gri": 1908,
+    "adg": 912,
+}
+```
 
 The same syntax may be used to initialize an empty map, which is functionally identical to using the `make` function:
 
-	m = map[string]int{}
+```go
+m = map[string]int{}
+```
 
 ## Exploiting zero values
 
@@ -160,44 +186,56 @@ but perhaps unexpected are struct keys.
 Struct can be used to key data by multiple dimensions.
 For example, this map of maps could be used to tally web page hits by country:
 
-	hits := make(map[string]map[string]int)
+```go
+hits := make(map[string]map[string]int)
+```
 
 This is map of string to (map of `string` to `int`).
 Each key of the outer map is the path to a web page with its own inner map.
 Each inner map key is a two-letter country code.
 This expression retrieves the number of times an Australian has loaded the documentation page:
 
-	n := hits["/doc/"]["au"]
+```go
+n := hits["/doc/"]["au"]
+```
 
 Unfortunately, this approach becomes unwieldy when adding data,
 as for any given outer key you must check if the inner map exists,
 and create it if needed:
 
-	func add(m map[string]map[string]int, path, country string) {
-	    mm, ok := m[path]
-	    if !ok {
-	        mm = make(map[string]int)
-	        m[path] = mm
-	    }
-	    mm[country]++
-	}
-	add(hits, "/doc/", "au")
+```go
+func add(m map[string]map[string]int, path, country string) {
+    mm, ok := m[path]
+    if !ok {
+        mm = make(map[string]int)
+        m[path] = mm
+    }
+    mm[country]++
+}
+add(hits, "/doc/", "au")
+```
 
 On the other hand, a design that uses a single map with a struct key does away with all that complexity:
 
-	type Key struct {
-	    Path, Country string
-	}
-	hits := make(map[Key]int)
+```go
+type Key struct {
+    Path, Country string
+}
+hits := make(map[Key]int)
+```
 
 When a Vietnamese person visits the home page,
 incrementing (and possibly creating) the appropriate counter is a one-liner:
 
-	hits[Key{"/", "vn"}]++
+```go
+hits[Key{"/", "vn"}]++
+```
 
 And it's similarly straightforward to see how many Swiss people have read the spec:
 
-	n := hits[Key{"/ref/spec", "ch"}]
+```go
+n := hits[Key{"/ref/spec", "ch"}]
+```
 
 ## Concurrency
 
@@ -210,23 +248,29 @@ One common way to protect maps is with [sync.RWMutex](/pkg/sync/#RWMutex).
 This statement declares a `counter` variable that is an anonymous struct
 containing a map and an embedded `sync.RWMutex`.
 
-	var counter = struct{
-	    sync.RWMutex
-	    m map[string]int
-	}{m: make(map[string]int)}
+```go
+var counter = struct{
+    sync.RWMutex
+    m map[string]int
+}{m: make(map[string]int)}
+```
 
 To read from the counter, take the read lock:
 
-	counter.RLock()
-	n := counter.m["some_key"]
-	counter.RUnlock()
-	fmt.Println("some_key:", n)
+```go
+counter.RLock()
+n := counter.m["some_key"]
+counter.RUnlock()
+fmt.Println("some_key:", n)
+```
 
 To write to the counter, take the write lock:
 
-	counter.Lock()
-	counter.m["some_key"]++
-	counter.Unlock()
+```go
+counter.Lock()
+counter.m["some_key"]++
+counter.Unlock()
+```
 
 ## Iteration order
 
@@ -236,14 +280,16 @@ from one iteration to the next.
 If you require a stable iteration order you must maintain a separate data structure that specifies that order.
 This example uses a separate sorted slice of keys to print a `map[int]string` in key order:
 
-	import "sort"
+```go
+import "sort"
 
-	var m map[int]string
-	var keys []int
-	for k := range m {
-	    keys = append(keys, k)
-	}
-	sort.Ints(keys)
-	for _, k := range keys {
-	    fmt.Println("Key:", k, "Value:", m[k])
-	}
+var m map[int]string
+var keys []int
+for k := range m {
+    keys = append(keys, k)
+}
+sort.Ints(keys)
+for _, k := range keys {
+    fmt.Println("Key:", k, "Value:", m[k])
+}
+```

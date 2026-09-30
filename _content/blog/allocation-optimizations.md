@@ -27,13 +27,15 @@ also enable prompt reuse, which is very cache friendly.
 
 Consider the task of building a slice of tasks to process:
 {{raw `
-	func process(c chan task) {
-		var tasks []task
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		processAll(tasks)
+~~~go
+func process(c chan task) {
+	var tasks []task
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	processAll(tasks)
+}
+~~~
 `}}
 
 Let's walk through what happens at runtime when pulling tasks from the
@@ -75,13 +77,15 @@ tempted to start the slice out at a larger size, to avoid all of these
 allocations.
 
 {{raw `
-	func process2(c chan task) {
-		tasks := make([]task, 0, 10) // probably at most 10 tasks
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		processAll(tasks)
+~~~go
+func process2(c chan task) {
+	tasks := make([]task, 0, 10) // probably at most 10 tasks
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	processAll(tasks)
+}
+~~~
 `}}
 
 This is a reasonable optimization to do. It is never incorrect; your
@@ -111,13 +115,15 @@ But of course, hard coding a size guess is a bit rigid.
 Maybe we can pass in an estimated length?
 
 {{raw `
-	func process3(c chan task, lengthGuess int) {
-		tasks := make([]task, 0, lengthGuess)
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		processAll(tasks)
+~~~go
+func process3(c chan task, lengthGuess int) {
+	tasks := make([]task, 0, lengthGuess)
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	processAll(tasks)
+}
+~~~
 `}}
 
 This lets the caller pick a good size for the `tasks` slice, which may
@@ -135,18 +141,20 @@ Imagine you decide to do the following, to get the stack allocation
 only in cases where the guess is small:
 
 {{raw `
-	func process4(c chan task, lengthGuess int) {
-		var tasks []task
-		if lengthGuess <= 10 {
-			tasks = make([]task, 0, 10)
-		} else {
-			tasks = make([]task, 0, lengthGuess)
-		}
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		processAll(tasks)
+~~~go
+func process4(c chan task, lengthGuess int) {
+	var tasks []task
+	if lengthGuess <= 10 {
+		tasks = make([]task, 0, 10)
+	} else {
+		tasks = make([]task, 0, lengthGuess)
 	}
+	for t := range c {
+		tasks = append(tasks, t)
+	}
+	processAll(tasks)
+}
+~~~
 `}}
 
 Kind of ugly, but it would work. When the guess is small, you use a
@@ -179,13 +187,15 @@ weird length guess. Anything else you could do?
 Upgrade to Go 1.26!
 
 {{raw `
-	func process(c chan task) {
-		var tasks []task
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		processAll(tasks)
+~~~go
+func process(c chan task) {
+	var tasks []task
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	processAll(tasks)
+}
+~~~
 `}}
 
 In Go 1.26, we allocate the same kind of small, speculative backing
@@ -217,13 +227,15 @@ can't be allocated on the stack, because the stack frame for `extract`
 disappears when `extract` returns.
 
 {{raw `
-	func extract(c chan task) []task {
-		var tasks []task
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		return tasks
+~~~go
+func extract(c chan task) []task {
+	var tasks []task
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	return tasks
+}
+~~~
 `}}
 
 But you might think, the *returned* slice can't be allocated on the
@@ -231,15 +243,17 @@ stack. But what about all those intermediate slices that just become
 garbage? Maybe we can allocate those on the stack?
 
 {{raw `
-	func extract2(c chan task) []task {
-		var tasks []task
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		tasks2 := make([]task, len(tasks))
-		copy(tasks2, tasks)
-		return tasks2
+~~~go
+func extract2(c chan task) []task {
+	var tasks []task
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	tasks2 := make([]task, len(tasks))
+	copy(tasks2, tasks)
+	return tasks2
+}
+~~~
 `}}
 
 Then the `tasks` slice never escapes `extract2`. It can benefit from
@@ -257,14 +271,16 @@ For escaping slices, the compiler will transform the original `extract`
 code to something like this:
 
 {{raw `
-	func extract3(c chan task) []task {
-		var tasks []task
-		for t := range c {
-			tasks = append(tasks, t)
-		}
-		tasks = runtime.move2heap(tasks)
-		return tasks
+~~~go
+func extract3(c chan task) []task {
+	var tasks []task
+	for t := range c {
+		tasks = append(tasks, t)
 	}
+	tasks = runtime.move2heap(tasks)
+	return tasks
+}
+~~~
 `}}
 
 `runtime.move2heap` is a special compiler+runtime function that is the

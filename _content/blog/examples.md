@@ -41,18 +41,20 @@ The [`reverse` package](https://pkg.go.dev/golang.org/x/example/hello/reverse/)
 is part of the [Go example repository](https://cs.opensource.google/go/x/example).
 Here's an example that demonstrates its `String` function:
 
-	package reverse_test
+```go
+package reverse_test
 
-	import (
-		"fmt"
+import (
+	"fmt"
 
-		"golang.org/x/example/hello/reverse"
-	)
+	"golang.org/x/example/hello/reverse"
+)
 
-	func ExampleString() {
-		fmt.Println(reverse.String("hello"))
-		// Output: olleh
-	}
+func ExampleString() {
+	fmt.Println(reverse.String("hello"))
+	// Output: olleh
+}
+```
 
 This code might live in `example_test.go` in the `reverse` directory.
 
@@ -84,10 +86,12 @@ The test passes if the test's output matches its output comment.
 To see a failing example we can change the output comment text to something
 obviously incorrect
 
-	func ExampleString() {
-		fmt.Println(reverse.String("hello"))
-		// Output: golly
-	}
+```go
+func ExampleString() {
+	fmt.Println(reverse.String("hello"))
+	// Output: golly
+}
+```
 
 and run the tests again:
 
@@ -101,9 +105,11 @@ and run the tests again:
 
 If we remove the output comment entirely
 
-	func ExampleString() {
-		fmt.Println(reverse.String("hello"))
-	}
+```go
+func ExampleString() {
+	fmt.Println(reverse.String("hello"))
+}
+```
 
 then the example function is compiled but not executed:
 
@@ -122,9 +128,11 @@ while guaranteeing the example at least compiles.
 Godoc uses a naming convention to associate an example function with a
 package-level identifier.
 
-	func ExampleFoo()     // documents the Foo function or type
-	func ExampleBar_Qux() // documents the Qux method of type Bar
-	func Example()        // documents the package as a whole
+```go
+func ExampleFoo()     // documents the Foo function or type
+func ExampleBar_Qux() // documents the Qux method of type Bar
+func Example()        // documents the package as a whole
+```
 
 Following this convention, godoc displays the `ExampleString` example
 alongside the documentation for the `String` function.
@@ -133,9 +141,11 @@ Multiple examples can be provided for a given identifier by using a suffix
 beginning with an underscore followed by a lowercase letter.
 Each of these examples documents the `String` function:
 
-	func ExampleString()
-	func ExampleString_second()
-	func ExampleString_third()
+```go
+func ExampleString()
+func ExampleString_second()
+func ExampleString_third()
+```
 
 ## Larger examples
 
@@ -155,46 +165,48 @@ When displaying such examples godoc will show the entire file.
 Here is a whole file example from the `sort` package:
 
 {{raw `
-	package sort_test
+~~~go
+package sort_test
 
-	import (
-		"fmt"
-		"sort"
-	)
+import (
+	"fmt"
+	"sort"
+)
 
-	type Person struct {
-		Name string
-		Age  int
+type Person struct {
+	Name string
+	Age  int
+}
+
+func (p Person) String() string {
+	return fmt.Sprintf("%s: %d", p.Name, p.Age)
+}
+
+// ByAge implements sort.Interface for []Person based on
+// the Age field.
+type ByAge []Person
+
+func (a ByAge) Len() int           { return len(a) }
+func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a ByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
+
+func Example() {
+	people := []Person{
+		{"Bob", 31},
+		{"John", 42},
+		{"Michael", 17},
+		{"Jenny", 26},
 	}
 
-	func (p Person) String() string {
-		return fmt.Sprintf("%s: %d", p.Name, p.Age)
-	}
+	fmt.Println(people)
+	sort.Sort(ByAge(people))
+	fmt.Println(people)
 
-	// ByAge implements sort.Interface for []Person based on
-	// the Age field.
-	type ByAge []Person
-
-	func (a ByAge) Len() int           { return len(a) }
-	func (a ByAge) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
-	func (a ByAge) Less(i, j int) bool { return a[i].Age < a[j].Age }
-
-	func Example() {
-		people := []Person{
-			{"Bob", 31},
-			{"John", 42},
-			{"Michael", 17},
-			{"Jenny", 26},
-		}
-
-		fmt.Println(people)
-		sort.Sort(ByAge(people))
-		fmt.Println(people)
-
-		// Output:
-		// [Bob: 31 John: 42 Michael: 17 Jenny: 26]
-		// [Michael: 17 Jenny: 26 Bob: 31 John: 42]
-	}
+	// Output:
+	// [Bob: 31 John: 42 Michael: 17 Jenny: 26]
+	// [Michael: 17 Jenny: 26 Bob: 31 John: 42]
+}
+~~~
 `}}
 
 A package can contain multiple whole file examples; one example per file.

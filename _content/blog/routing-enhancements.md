@@ -35,7 +35,9 @@ has an integer identifier. A request like `GET /posts/234` retrieves the post wi
 ID 234. Before Go 1.22, the code for handling those requests would start with a
 line like this:
 
-    http.HandleFunc("/posts/", handlePost)
+```go
+http.HandleFunc("/posts/", handlePost)
+```
 
 The trailing slash routes all requests beginning `/posts/` to the `handlePost`
 function, which would have to check that the HTTP method was GET, extract
@@ -46,7 +48,9 @@ is surprising at the least.
 
 In Go 1.22, the existing code will continue to work, or you could instead write this:
 
-    http.HandleFunc("GET /posts/{id}", handlePost2)
+```go
+http.HandleFunc("GET /posts/{id}", handlePost2)
+```
 
 This pattern matches a GET request whose path begins "/posts/" and has two
 segments. (As a special case, GET also matches HEAD; all the other methods match
@@ -54,7 +58,9 @@ exactly.) The `handlePost2` function no longer needs to check the method, and
 extracting the identifier string can be written using the new `PathValue` method
 on `Request`:
 
-    idString := req.PathValue("id")
+```go
+idString := req.PathValue("id")
+```
 
 The rest of `handlePost2` would behave like `handlePost`, converting the string
 identifier to an integer and fetching the post.

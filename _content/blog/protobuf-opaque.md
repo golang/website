@@ -56,18 +56,20 @@ Then, you [run the protocol compiler
 (`protoc`)](https://protobuf.dev/getting-started/gotutorial/) to generate code
 like the following (in a `.pb.go` file):
 
-    package logpb
+```go
+package logpb
 
-    type LogEntry struct {
-      BackendServer *string
-      RequestSize   *uint32
-      IPAddress     *string
-      // …internal fields elided…
-    }
+type LogEntry struct {
+  BackendServer *string
+  RequestSize   *uint32
+  IPAddress     *string
+  // …internal fields elided…
+}
 
-    func (l *LogEntry) GetBackendServer() string { … }
-    func (l *LogEntry) GetRequestSize() uint32   { … }
-    func (l *LogEntry) GetIPAddress() string     { … }
+func (l *LogEntry) GetBackendServer() string { … }
+func (l *LogEntry) GetRequestSize() uint32   { … }
+func (l *LogEntry) GetIPAddress() string     { … }
+```
 
 Now you can import the generated `logpb` package from your Go code and call
 functions like
@@ -110,9 +112,11 @@ it allows programs direct access to the protobuf message memory. For example,
 one could use the `flag` package to parse command-line flag values into protobuf
 message fields:
 
-    var req logpb.LogEntry
-    flag.StringVar(&req.BackendServer, "backend", os.Getenv("HOST"), "…")
-    flag.Parse() // fills the BackendServer field from -backend flag
+```go
+var req logpb.LogEntry
+flag.StringVar(&req.BackendServer, "backend", os.Getenv("HOST"), "…")
+flag.Parse() // fills the BackendServer field from -backend flag
+```
 
 The problem with such a tight coupling is that we can never change how we lay
 out protobuf messages in memory. Lifting this restriction enables many
@@ -121,20 +125,22 @@ implementation improvements, which we'll see below.
 What changes with the new Opaque API? Here is how the generated code from the
 above example would change:
 
-    package logpb
+```go
+package logpb
 
-    type LogEntry struct {
-      xxx_hidden_BackendServer *string // no longer exported
-      xxx_hidden_RequestSize   uint32  // no longer exported
-      xxx_hidden_IPAddress     *string // no longer exported
-      // …internal fields elided…
-    }
+type LogEntry struct {
+  xxx_hidden_BackendServer *string // no longer exported
+  xxx_hidden_RequestSize   uint32  // no longer exported
+  xxx_hidden_IPAddress     *string // no longer exported
+  // …internal fields elided…
+}
 
-    func (l *LogEntry) GetBackendServer() string { … }
-    func (l *LogEntry) HasBackendServer() bool   { … }
-    func (l *LogEntry) SetBackendServer(string)  { … }
-    func (l *LogEntry) ClearBackendServer()      { … }
-    // …
+func (l *LogEntry) GetBackendServer() string { … }
+func (l *LogEntry) HasBackendServer() bool   { … }
+func (l *LogEntry) SetBackendServer(string)  { … }
+func (l *LogEntry) ClearBackendServer()      { … }
+// …
+```
 
 With the Opaque API, the struct fields are hidden and can no longer be
 directly accessed. Instead, the new accessor methods allow for getting, setting,
@@ -243,13 +249,17 @@ Consider an enum, declared within the `LogEntry` message:
 
 A simple mistake is to compare the `device_type` enum field like so:
 
-    if cv.DeviceType == logpb.LogEntry_DESKTOP.Enum() { // incorrect!
+```go
+if cv.DeviceType == logpb.LogEntry_DESKTOP.Enum() { // incorrect!
+```
 
 Did you spot the bug? The condition compares the memory address instead of the
 value. Because the `Enum()` accessor allocates a new variable on each call, the
 condition can never be true. The check should have read:
 
-    if cv.GetDeviceType() == logpb.LogEntry_DESKTOP {
+```go
+if cv.GetDeviceType() == logpb.LogEntry_DESKTOP {
+```
 
 The new Opaque API prevents this mistake: Because fields are hidden, all access
 must go through the getter.
@@ -261,26 +271,32 @@ trying to stabilize an RPC service that fails under high load. The following
 part of the request middleware looks correct, but still the entire service goes
 down whenever just one customer sends a high volume of requests:
 
-	logEntry.IPAddress = req.IPAddress
-	logEntry.BackendServer = proto.String(hostname)
-	// The redactIP() function redacts IPAddress to 127.0.0.1,
-	// unexpectedly not just in logEntry *but also* in req!
-	go auditlog(redactIP(logEntry))
-	if quotaExceeded(req) {
-		// BUG: All requests end up here, regardless of their source.
-		return fmt.Errorf("server overloaded")
-	}
+```go
+logEntry.IPAddress = req.IPAddress
+logEntry.BackendServer = proto.String(hostname)
+// The redactIP() function redacts IPAddress to 127.0.0.1,
+// unexpectedly not just in logEntry *but also* in req!
+go auditlog(redactIP(logEntry))
+if quotaExceeded(req) {
+	// BUG: All requests end up here, regardless of their source.
+	return fmt.Errorf("server overloaded")
+}
+```
 
 Did you spot the bug? The first line accidentally copied the pointer (thereby
 sharing the pointed-to variable between the `logEntry` and `req` messages)
 instead of its value. It should have read:
 
-	logEntry.IPAddress = proto.String(req.GetIPAddress())
+```go
+logEntry.IPAddress = proto.String(req.GetIPAddress())
+```
 
 The new Opaque API prevents this problem as the setter takes a value
 (`string`) instead of a pointer:
 
-	logEntry.SetIPAddress(req.GetIPAddress())
+```go
+logEntry.SetIPAddress(req.GetIPAddress())
+```
 
 
 ### Motivation: Fix Sharp Edges: reflection {#reflection}

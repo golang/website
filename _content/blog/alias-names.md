@@ -87,14 +87,14 @@ a new type that has a different identity.
 
 In contrast to a regular [type definition](/ref/spec#Type_definitions)
 
-```
+```go
 type T T0
 ```
 
 which declares a _new type_ that is never identical to the type on the right-hand side
 of the declaration, an [alias declaration](/ref/spec#Alias_declarations)
 
-```
+```go
 type A = T  // the "=" indicates an alias declaration
 ```
 declares only a _new name_ `A` for the type on the right-hand side:
@@ -103,7 +103,7 @@ here, `A` and `T` denote the same and thus identical type `T`.
 Alias declarations make it possible to provide a new name (in a new package!)
 for a given type while retaining type identity:
 
-```
+```go
 package pkg2
 
 import "path/to/pkg1"
@@ -136,13 +136,13 @@ The new syntax follows the same pattern as it does for type definitions and func
 with an optional type parameter list following the identifier (the alias name) on the left-hand side.
 Before this change one could only write:
 
-```
+```go
 type Alias = someType
 ```
 
 but now we can also declare type parameters with the alias declaration:
 
-```
+```go
 type Alias[P1 C1, P2 C2] = someType
 ```
 
@@ -150,7 +150,7 @@ Consider the previous example, now with generic types.
 The original package `pkg1` declared and exported a generic type `G` with a type parameter `P`
 that is suitably constrained:
 
-```
+```go
 package pkg1
 
 type Constraint      someConstraint
@@ -160,7 +160,7 @@ type G[P Constraint] someType
 If the need arises to provide access to the same type `G` from a new package `pkg2`,
 a generic alias type is just the ticket [(playground)](/play/p/wKOf6NbVtdw?v=gotip):
 
-```
+```go
 package pkg2
 
 import "path/to/pkg1"
@@ -171,7 +171,7 @@ type G[P Constraint] = pkg1.G[P]
 
 Note that one **cannot** simply write
 
-```
+```go
 type G = pkg1.G
 ```
 
@@ -199,13 +199,13 @@ For one, the number of type parameters declared by the alias type doesn't have t
 match the number of type parameters of the aliased type.
 Consider a generic map type:
 
-```
+```go
 type Map[K comparable, V any] mapImplementation
 ```
 
 If uses of `Map` as sets are common, the alias
 
-```
+```go
 type Set[K comparable] = Map[K, bool]
 ```
 
@@ -221,7 +221,7 @@ constraints of the aliased type, they only have to
 For instance, reusing the set example above, one could define
 an `IntSet` as follows:
 
-```
+```go
 type integers interface{ ~int | ~int8 | ~int16 | ~int32 | ~int64 }
 type IntSet[K integers] = Set[K]
 ```
@@ -236,7 +236,7 @@ Finally, because an alias may also denote a type literal, parameterized aliases
 make it possible to create generic type literals
 [(playground)](/play/p/wql3NJaUs0o?v=gotip):
 
-```
+```go
 type Point3D[E any] = struct{ x, y, z E }
 ```
 
@@ -250,7 +250,7 @@ spec is the ability to declare type parameters in an alias declaration.
 
 Before the introduction of alias types, Go had only one form of type declarations:
 
-```
+```go
 type TypeName existingType
 ```
 
@@ -263,7 +263,7 @@ in contrast to unnamed [type literals](/ref/spec#Types) such as
 With the introduction of alias types in Go 1.9 it became possible to give
 a name (an alias) to type literals, too. For instance, consider:
 
-```
+```go
 type Point2D = struct{ x, y int }
 ```
 

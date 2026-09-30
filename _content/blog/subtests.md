@@ -30,27 +30,29 @@ way of writing tests in Go.
 A series of related checks can be implemented by looping over a slice of test
 cases:
 
-	func TestTime(t *testing.T) {
-		testCases := []struct {
-			gmt  string
-			loc  string
-			want string
-		}{
-			{"12:31", "Europe/Zuri", "13:31"},     // incorrect location name
-			{"12:31", "America/New_York", "7:31"}, // should be 07:31
-			{"08:08", "Australia/Sydney", "18:08"},
+```go
+func TestTime(t *testing.T) {
+	testCases := []struct {
+		gmt  string
+		loc  string
+		want string
+	}{
+		{"12:31", "Europe/Zuri", "13:31"},     // incorrect location name
+		{"12:31", "America/New_York", "7:31"}, // should be 07:31
+		{"08:08", "Australia/Sydney", "18:08"},
+	}
+	for _, tc := range testCases {
+		loc, err := time.LoadLocation(tc.loc)
+		if err != nil {
+			t.Fatalf("could not load location %q", tc.loc)
 		}
-		for _, tc := range testCases {
-			loc, err := time.LoadLocation(tc.loc)
-			if err != nil {
-				t.Fatalf("could not load location %q", tc.loc)
-			}
-			gmt, _ := time.Parse("15:04", tc.gmt)
-			if got := gmt.In(loc).Format("15:04"); got != tc.want {
-				t.Errorf("In(%s, %s) = %s; want %s", tc.gmt, tc.loc, got, tc.want)
-			}
+		gmt, _ := time.Parse("15:04", tc.gmt)
+		if got := gmt.In(loc).Format("15:04"); got != tc.want {
+			t.Errorf("In(%s, %s) = %s; want %s", tc.gmt, tc.loc, got, tc.want)
 		}
 	}
+}
+```
 
 This approach, commonly referred to as table-driven tests, reduces the amount
 of repetitive code compared to repeating the same code for each test
@@ -69,50 +71,54 @@ For instance, before 1.7 the `strconv` package's benchmarks for `AppendFloat`
 looked something like this:
 
 {{raw `
-	func benchmarkAppendFloat(b *testing.B, f float64, fmt byte, prec, bitSize int) {
-		dst := make([]byte, 30)
-		b.ResetTimer() // Overkill here, but for illustrative purposes.
-		for i := 0; i < b.N; i++ {
-			AppendFloat(dst[:0], f, fmt, prec, bitSize)
-		}
+~~~go
+func benchmarkAppendFloat(b *testing.B, f float64, fmt byte, prec, bitSize int) {
+	dst := make([]byte, 30)
+	b.ResetTimer() // Overkill here, but for illustrative purposes.
+	for i := 0; i < b.N; i++ {
+		AppendFloat(dst[:0], f, fmt, prec, bitSize)
 	}
+}
 
-	func BenchmarkAppendFloatDecimal(b *testing.B) { benchmarkAppendFloat(b, 33909, 'g', -1, 64) }
-	func BenchmarkAppendFloat(b *testing.B)        { benchmarkAppendFloat(b, 339.7784, 'g', -1, 64) }
-	func BenchmarkAppendFloatExp(b *testing.B)     { benchmarkAppendFloat(b, -5.09e75, 'g', -1, 64) }
-	func BenchmarkAppendFloatNegExp(b *testing.B)  { benchmarkAppendFloat(b, -5.11e-95, 'g', -1, 64) }
-	func BenchmarkAppendFloatBig(b *testing.B)     { benchmarkAppendFloat(b, 123456789123456789123456789, 'g', -1, 64) }
-	...
+func BenchmarkAppendFloatDecimal(b *testing.B) { benchmarkAppendFloat(b, 33909, 'g', -1, 64) }
+func BenchmarkAppendFloat(b *testing.B)        { benchmarkAppendFloat(b, 339.7784, 'g', -1, 64) }
+func BenchmarkAppendFloatExp(b *testing.B)     { benchmarkAppendFloat(b, -5.09e75, 'g', -1, 64) }
+func BenchmarkAppendFloatNegExp(b *testing.B)  { benchmarkAppendFloat(b, -5.11e-95, 'g', -1, 64) }
+func BenchmarkAppendFloatBig(b *testing.B)     { benchmarkAppendFloat(b, 123456789123456789123456789, 'g', -1, 64) }
+...
+~~~
 `}}
 
 Using the `Run` method available in Go 1.7, the same set of benchmarks is now
 expressed as a single top-level benchmark:
 
 {{raw `
-	func BenchmarkAppendFloat(b *testing.B) {
-		benchmarks := []struct{
-			name    string
-			float   float64
-			fmt     byte
-			prec    int
-			bitSize int
-		}{
-			{"Decimal", 33909, 'g', -1, 64},
-			{"Float", 339.7784, 'g', -1, 64},
-			{"Exp", -5.09e75, 'g', -1, 64},
-			{"NegExp", -5.11e-95, 'g', -1, 64},
-			{"Big", 123456789123456789123456789, 'g', -1, 64},
-			...
-		}
-		dst := make([]byte, 30)
-		for _, bm := range benchmarks {
-			b.Run(bm.name, func(b *testing.B) {
-				for i := 0; i < b.N; i++ {
-					AppendFloat(dst[:0], bm.float, bm.fmt, bm.prec, bm.bitSize)
-				}
-			})
-		}
+~~~go
+func BenchmarkAppendFloat(b *testing.B) {
+	benchmarks := []struct{
+		name    string
+		float   float64
+		fmt     byte
+		prec    int
+		bitSize int
+	}{
+		{"Decimal", 33909, 'g', -1, 64},
+		{"Float", 339.7784, 'g', -1, 64},
+		{"Exp", -5.09e75, 'g', -1, 64},
+		{"NegExp", -5.11e-95, 'g', -1, 64},
+		{"Big", 123456789123456789123456789, 'g', -1, 64},
+		...
 	}
+	dst := make([]byte, 30)
+	for _, bm := range benchmarks {
+		b.Run(bm.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				AppendFloat(dst[:0], bm.float, bm.fmt, bm.prec, bm.bitSize)
+			}
+		})
+	}
+}
+~~~
 `}}
 
 Each invocation of the `Run` method creates a separate benchmark.
@@ -129,29 +135,31 @@ need to reset the timer.
 Go 1.7 also introduces a `Run` method for creating subtests.
 This test is a rewritten version of our earlier example using subtests:
 
-	func TestTime(t *testing.T) {
-		testCases := []struct {
-			gmt  string
-			loc  string
-			want string
-		}{
-			{"12:31", "Europe/Zuri", "13:31"},
-			{"12:31", "America/New_York", "7:31"},
-			{"08:08", "Australia/Sydney", "18:08"},
-		}
-		for _, tc := range testCases {
-			t.Run(fmt.Sprintf("%s in %s", tc.gmt, tc.loc), func(t *testing.T) {
-				loc, err := time.LoadLocation(tc.loc)
-				if err != nil {
-					t.Fatal("could not load location")
-				}
-				gmt, _ := time.Parse("15:04", tc.gmt)
-				if got := gmt.In(loc).Format("15:04"); got != tc.want {
-					t.Errorf("got %s; want %s", got, tc.want)
-				}
-			})
-		}
+```go
+func TestTime(t *testing.T) {
+	testCases := []struct {
+		gmt  string
+		loc  string
+		want string
+	}{
+		{"12:31", "Europe/Zuri", "13:31"},
+		{"12:31", "America/New_York", "7:31"},
+		{"08:08", "Australia/Sydney", "18:08"},
 	}
+	for _, tc := range testCases {
+		t.Run(fmt.Sprintf("%s in %s", tc.gmt, tc.loc), func(t *testing.T) {
+			loc, err := time.LoadLocation(tc.loc)
+			if err != nil {
+				t.Fatal("could not load location")
+			}
+			gmt, _ := time.Parse("15:04", tc.gmt)
+			if got := gmt.In(loc).Format("15:04"); got != tc.want {
+				t.Errorf("got %s; want %s", got, tc.want)
+			}
+		})
+	}
+}
+```
 
 The first thing to note is the difference in output from the two implementations.
 The original implementation prints:
@@ -252,17 +260,19 @@ can easily be identified by their sequence number.
 Subtests and sub-benchmarks can be used to manage common setup and tear-down code:
 
 {{raw `
-	func TestFoo(t *testing.T) {
-		// <setup code>
-		t.Run("A=1", func(t *testing.T) { ... })
-		t.Run("A=2", func(t *testing.T) { ... })
-		t.Run("B=1", func(t *testing.T) {
-			if !test(foo{B:1}) {
-				t.Fail()
-			}
-		})
-		// <tear-down code>
-	}
+~~~go
+func TestFoo(t *testing.T) {
+	// <setup code>
+	t.Run("A=1", func(t *testing.T) { ... })
+	t.Run("A=2", func(t *testing.T) { ... })
+	t.Run("B=1", func(t *testing.T) {
+		if !test(foo{B:1}) {
+			t.Fail()
+		}
+	})
+	// <tear-down code>
+}
+~~~
 `}}
 
 The setup and tear-down code will run if any of the enclosed subtests are run
@@ -298,18 +308,20 @@ a hidden master test.
 The above semantics allows for running a group of tests in parallel with
 each other but not with other parallel tests:
 
-	func TestGroupedParallel(t *testing.T) {
-		for _, tc := range testCases {
-			tc := tc // capture range variable
-			t.Run(tc.Name, func(t *testing.T) {
-				t.Parallel()
-				if got := foo(tc.in); got != tc.out {
-					t.Errorf("got %v; want %v", got, tc.out)
-				}
-				...
-			})
-		}
+```go
+func TestGroupedParallel(t *testing.T) {
+	for _, tc := range testCases {
+		tc := tc // capture range variable
+		t.Run(tc.Name, func(t *testing.T) {
+			t.Parallel()
+			if got := foo(tc.in); got != tc.out {
+				t.Errorf("got %v; want %v", got, tc.out)
+			}
+			...
+		})
 	}
+}
+```
 
 The outer test will not complete until all parallel tests started by `Run`
 have completed.
@@ -326,16 +338,18 @@ The same technique can be used to clean up after a group of parallel tests
 that share common resources:
 
 {{raw `
-	func TestTeardownParallel(t *testing.T) {
-		// <setup code>
-		// This Run will not return until its parallel subtests complete.
-		t.Run("group", func(t *testing.T) {
-			t.Run("Test1", parallelTest1)
-			t.Run("Test2", parallelTest2)
-			t.Run("Test3", parallelTest3)
-		})
-		// <tear-down code>
-	}
+~~~go
+func TestTeardownParallel(t *testing.T) {
+	// <setup code>
+	// This Run will not return until its parallel subtests complete.
+	t.Run("group", func(t *testing.T) {
+		t.Run("Test1", parallelTest1)
+		t.Run("Test2", parallelTest2)
+		t.Run("Test3", parallelTest3)
+	})
+	// <tear-down code>
+}
+~~~
 `}}
 
 The behavior of waiting on a group of parallel tests is identical to that

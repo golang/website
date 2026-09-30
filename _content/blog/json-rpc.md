@@ -22,23 +22,29 @@ We first defined a pair of interfaces to describe the functionality of the
 existing wire format,
 one for the client, and one for the server (depicted below).
 
-	type ServerCodec interface {
-	 ReadRequestHeader(*Request) error
-	 ReadRequestBody(interface{}) error
-	 WriteResponse(*Response, interface{}) error
-	 Close() error
-	}
+```go
+type ServerCodec interface {
+ ReadRequestHeader(*Request) error
+ ReadRequestBody(interface{}) error
+ WriteResponse(*Response, interface{}) error
+ Close() error
+}
+```
 
 On the server side, we then changed two internal function signatures to
 accept the `ServerCodec` interface instead of our existing `gob.Encoder`. Here's one of them:
 
-	func sendResponse(sending *sync.Mutex, req *Request,
-	 reply interface{}, enc *gob.Encoder, errmsg string)
+```go
+func sendResponse(sending *sync.Mutex, req *Request,
+ reply interface{}, enc *gob.Encoder, errmsg string)
+```
 
 became
 
-	func sendResponse(sending *sync.Mutex, req *Request,
-	  reply interface{}, enc ServerCodec, errmsg string)
+```go
+func sendResponse(sending *sync.Mutex, req *Request,
+  reply interface{}, enc ServerCodec, errmsg string)
+```
 
 We then wrote a trivial `gobServerCodec` wrapper to reproduce the original functionality.
 From there it is simple to build a `jsonServerCodec`.

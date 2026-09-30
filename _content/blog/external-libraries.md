@@ -65,12 +65,14 @@ you can install them all with a single command:
 
 Once goinstalled, the packages can be imported using those same paths:
 
-	import (
-	    "launchpad.net/mgo"
-	    "github.com/dchest/authcookie"
-	    "go-charset.googlecode.com/hg/charset"
-	    "github.com/madari/go-socket.io"
-	)
+```go
+import (
+    "launchpad.net/mgo"
+    "github.com/dchest/authcookie"
+    "go-charset.googlecode.com/hg/charset"
+    "github.com/madari/go-socket.io"
+)
+```
 
 Also, as they are now a part of the local Go system,
 we can inspect their documentation with [godoc](/cmd/godoc/):

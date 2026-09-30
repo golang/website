@@ -14,7 +14,7 @@ summary: Go team plans around error handling support
 One of the oldest and most persistent complaints about Go concerns the verbosity of error handling.
 We are all intimately (some may say painfully) familiar with this code pattern:
 
-```Go
+```go
 x, err := call()
 if err != nil {
         // handle err
@@ -26,7 +26,7 @@ This typically happens in programs that do a lot of API calls, and where handlin
 is rudimentary and they are simply returned.
 Some programs end up with code that looks like this:
 
-```Go
+```go
 func printSum(a, b string) error {
 	x, err := strconv.Atoi(a)
 	if err != nil {
@@ -63,7 +63,7 @@ approaches taken by other languages.
 If you're wondering if your particular error handling idea was previously considered,
 read this document!
 
-```Go
+```go
 // printSum implementation using the proposed check/handle mechanism.
 func printSum(a, b string) error {
 	handle err { return err }
@@ -85,7 +85,7 @@ To explore the impact of the `try` built-in, we wrote a simple tool
 that rewrites existing error handling code using `try`.
 The proposal was argued over intensively, approaching 900 comments on the [GitHub issue](/issue/32437).
 
-```Go
+```go
 // printSum implementation using the proposed try mechanism.
 func printSum(a, b string) error {
 	// use a defer statement to augment errors before returning
@@ -147,7 +147,7 @@ To be able to see the impact of the change, Ian wrote a tool that converts ordin
 into code that uses the proposed new syntax, and we also prototyped the feature in the
 compiler.
 
-```Go
+```go
 // printSum implementation using the proposed "?" statements.
 func printSum(a, b string) error {
 	x := strconv.Atoi(a) ?
@@ -234,7 +234,7 @@ This could be addressed with support functions that produce and return an augmen
 error.
 In this (admittedly contrived) example, the relative amount of boilerplate is much smaller:
 
-	```Go
+	```go
 	func printSum(a, b string) error {
 		x, err := strconv.Atoi(a)
 		if err != nil {
@@ -255,7 +255,7 @@ very much in the vein of Rob Pike's 2015 blog post
 For instance, in some cases [`cmp.Or`](/pkg/cmp#Or) may be used to deal with a
 series of errors all at once:
 
-	```Go
+	```go
 	func printSum(a, b string) error {
 		x, err1 := strconv.Atoi(a)
 		y, err2 := strconv.Atoi(b)

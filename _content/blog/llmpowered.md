@@ -119,7 +119,7 @@ and the clients are stored in a state value that's passed to HTTP handlers.
 using the [routing enhancements](/blog/routing-enhancements) introduced in
 Go 1.22:
 
-```Go
+```go
 mux := http.NewServeMux()
 mux.HandleFunc("POST /add/", server.addDocumentsHandler)
 mux.HandleFunc("POST /query/", server.queryHandler)
@@ -163,7 +163,7 @@ supports the new vector DB we're interested in, we should be able to replace
 just a few lines of code in our server, since all the DBs implement a
 [common interface](https://pkg.go.dev/github.com/tmc/langchaingo@v0.1.12/vectorstores#VectorStore):
 
-```Go
+```go
 type VectorStore interface {
 	AddDocuments(ctx context.Context, docs []schema.Document, options ...Option) ([]string, error)
 	SimilaritySearch(ctx context.Context, query string, numDocuments int, options ...Option) ([]schema.Document, error)

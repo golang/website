@@ -72,7 +72,9 @@ send/receive operator. For example, the `WhiteSpace` function takes the integer
 `c` and returns a boolean.
 
 {{raw `
-	function WhiteSpace(bool <- c int)
+~~~go
+function WhiteSpace(bool <- c int)
+~~~
 `}}
 
 This arrow was a stop-gap measure until a better syntax arose for declaring
@@ -81,18 +83,22 @@ multiple return values.
 Methods were distinct from functions and had their own keyword.
 
 {{raw `
-	method (this *Slist) Car(*Slist <-) {
-		return this.list.car;
-	}
+~~~go
+method (this *Slist) Car(*Slist <-) {
+	return this.list.car;
+}
+~~~
 `}}
 
 And methods were pre-declared in the struct definition, although that changed soon.
 
 {{raw `
-	type Slist struct {
-		...
-		Car method(*Slist <-);
-	}
+~~~go
+type Slist struct {
+	...
+	Car method(*Slist <-);
+}
+~~~
 `}}
 
 There were no strings, although they were in the spec.
@@ -101,18 +107,22 @@ a clumsy construction. (Arrays were rudimentary and slices hadn't been designed
 yet, let alone implemented, although there was the unimplemented concept of an
 "open array".)
 
-	input[i] = '('; i = i + 1;
-	input[i] = 'd'; i = i + 1;
-	input[i] = 'e'; i = i + 1;
-	input[i] = 'f'; i = i + 1;
-	input[i] = 'n'; i = i + 1;
-	input[i] = ' '; i = i + 1;
-	...
+```go
+input[i] = '('; i = i + 1;
+input[i] = 'd'; i = i + 1;
+input[i] = 'e'; i = i + 1;
+input[i] = 'f'; i = i + 1;
+input[i] = 'n'; i = i + 1;
+input[i] = ' '; i = i + 1;
+...
+```
 
 Both `panic` and `print` were built-in keywords, not pre-declared functions.
 
-	print "parse error: expected ", c, "\n";
-	panic "parse";
+```go
+print "parse error: expected ", c, "\n";
+panic "parse";
+```
 
 And there are many other little differences; see if you can identify some others.
 

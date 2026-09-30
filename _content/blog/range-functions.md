@@ -27,7 +27,7 @@ types in Go.
 For example, let's consider this very simple `Set` type, a generic
 type implemented on top of a map.
 
-```
+```go
 // Set holds a set of elements.
 type Set[E comparable] struct {
 	m map[E]struct{}
@@ -42,7 +42,7 @@ func New[E comparable]() *Set[E] {
 Naturally a set type has a way to add elements and a way to check
 whether elements are present.  The details here don't matter.
 
-```
+```go
 // Add adds an element to a set.
 func (s *Set[E]) Add(v E) {
 	s.m[v] = struct{}{}
@@ -58,7 +58,7 @@ func (s *Set[E]) Contains(v E) bool {
 And among other things we will want a function to return the union of
 two sets.
 
-```
+```go
 // Union returns the union of two sets.
 func Union[E comparable](s1, s2 *Set[E]) *Set[E] {
 	r := New[E]()
@@ -96,7 +96,7 @@ We'll call this `Push`, because the `Set` pushes every value to the
 function.
 Here if the function returns false, we stop calling it.
 
-```
+```go
 func (s *Set[E]) Push(f func(E) bool) {
 	for v := range s.m {
 		if !f(v) {
@@ -117,7 +117,7 @@ This is what it looks like to use the `Push` method to print all the
 elements of a set: you call `Push` with a function that does what you
 want with the element.
 
-```
+```go
 func PrintAllElementsPush[E comparable](s *Set[E]) {
 	s.Push(func(v E) bool {
 		fmt.Println(v)
@@ -147,36 +147,38 @@ We need the `stop` function to make sure that the goroutine exits when
 no more values are needed.
 
 {{raw `
-	// Pull returns a next function that returns each
-	// element of s with a bool for whether the value
-	// is valid. The stop function should be called
-	// when finished calling the next function.
-	func (s *Set[E]) Pull() (func() (E, bool), func()) {
-		ch := make(chan E)
-		stopCh := make(chan bool)
+~~~go
+// Pull returns a next function that returns each
+// element of s with a bool for whether the value
+// is valid. The stop function should be called
+// when finished calling the next function.
+func (s *Set[E]) Pull() (func() (E, bool), func()) {
+	ch := make(chan E)
+	stopCh := make(chan bool)
 
-		go func() {
-			defer close(ch)
-			for v := range s.m {
-				select {
-				case ch <- v:
-				case <-stopCh:
-					return
-				}
+	go func() {
+		defer close(ch)
+		for v := range s.m {
+			select {
+			case ch <- v:
+			case <-stopCh:
+				return
 			}
-		}()
-
-		next := func() (E, bool) {
-			v, ok := <-ch
-			return v, ok
 		}
+	}()
 
-		stop := func() {
-			close(stopCh)
-		}
-
-		return next, stop
+	next := func() (E, bool) {
+		v, ok := <-ch
+		return v, ok
 	}
+
+	stop := func() {
+		close(stopCh)
+	}
+
+	return next, stop
+}
+~~~
 `}}
 
 Nothing in the standard library works exactly this way.  Both
@@ -191,7 +193,7 @@ elements of a `Set`.
 You call `Pull` to get a function, and you repeatedly call that
 function in a for loop.
 
-```
+```go
 func PrintAllElementsPull[E comparable](s *Set[E]) {
 	next, stop := s.Pull()
 	defer stop()
@@ -280,7 +282,7 @@ The single argument must itself be a function that takes zero to two
 arguments and returns a bool; by convention, we call it the yield
 function.
 
-```
+```go
 func(yield func() bool)
 
 func(yield func(V) bool)
@@ -306,7 +308,7 @@ used with the for/range statement.
 The name `Seq` is short for sequence, as iterators loop through a
 sequence of values.
 
-```
+```go
 package iter
 
 type Seq[V any] func(yield func(V) bool)
@@ -326,7 +328,7 @@ Here the `Set` method `All` returns a function.
 The return type of `All` is `iter.Seq[E]`, so we know that it returns
 an iterator.
 
-```
+```go
 // All is an iterator over the elements of s.
 func (s *Set[E]) All() iter.Seq[E] {
 	return func(yield func(E) bool) {
@@ -362,7 +364,7 @@ The first is that once you get past the first line of this function's
 code, the actual implementation of the iterator is pretty simple: call
 yield with every element of the set, stopping if yield returns false.
 
-```
+```go
 		for v := range s.m {
 			if !yield(v) {
 				return
@@ -376,7 +378,7 @@ loop over all the elements in `s`.
 The for/range statement supports any iterator, and this shows how easy
 that is to use.
 
-```
+```go
 func PrintAllElements[E comparable](s *Set[E]) {
 	for v := range s.All() {
 		fmt.Println(v)
@@ -483,7 +485,7 @@ sequences in parallel.
 This function reports whether two arbitrary sequences contain the same
 elements in the same order.
 
-```
+```go
 // EqSeq reports whether two iterators contain the same
 // elements in the same order.
 func EqSeq[E comparable](s1, s2 iter.Seq[E]) bool {
@@ -539,7 +541,7 @@ new iterator.
 The other argument is a filter function that decides which values
 should be in the new iterator that `Filter` returns.
 
-```
+```go
 // Filter returns a sequence that contains the elements
 // of s for which f returns true.
 func Filter[V any](f func(V) bool, s iter.Seq[V]) iter.Seq[V] {
@@ -560,7 +562,7 @@ when you first see them.
 Once you get past the signatures, the implementation is
 straightforward.
 
-```
+```go
 		for v := range s {
 			if f(v) {
 				if !yield(v) {
@@ -584,7 +586,7 @@ one may be added in future releases.)
 As an example of how convenient a push iterator can be to loop over a
 container type, let's consider this simple binary tree type.
 
-```
+```go
 // Tree is a binary tree.
 type Tree[E any] struct {
 	val         E
@@ -601,7 +603,7 @@ Since the function types supported by for/range don't return anything,
 the `All` method here returns a small function literal that calls the
 iterator itself, here called `push`, and ignores the bool result.
 
-```
+```go
 // All returns an iterator over the values in t.
 func (t *Tree[E]) All() iter.Seq[E] {
 	return func(yield func(E) bool) {
@@ -673,7 +675,7 @@ the `Filter` function we saw earlier.
 This function takes a map from int to string and returns a slice
 holding just the values in the map that are longer than some argument `n`.
 
-```
+```go
 // LongStrings returns a slice of just the values
 // in m whose length is n or more.
 func LongStrings(m map[int]string, n int) []string {
@@ -708,7 +710,7 @@ Consider this simple code, which doesn't use iterators, to loop over
 the lines in a byte slice.
 This is easy to write and fairly efficient.
 
-```
+```go
 	nl := []byte{'\n'}
 	// Trim a trailing newline to avoid a final empty blank line.
 	for _, line := range bytes.Split(bytes.TrimSuffix(data, nl), nl) {
@@ -727,7 +729,7 @@ After the usual iterator signatures, the function is pretty simple.
 We keep picking lines out of data until there is nothing left, and we
 pass each line to the yield function.
 
-```
+```go
 // Lines returns an iterator over lines in data.
 func Lines(data []byte) iter.Seq[[]byte] {
 	return func(yield func([]byte) bool) {
@@ -744,7 +746,7 @@ func Lines(data []byte) iter.Seq[[]byte] {
 
 Now our code to loop over the lines of a byte slice looks like this.
 
-```
+```go
 	for line := range Lines(data) {
 		handleLine(line)
 	}
@@ -768,7 +770,7 @@ iterator which is itself a function, and we call that function with
 our hand-written yield function.
 
 
-```
+```go
 func PrintAllElements[E comparable](s *Set[E]) {
 	s.All()(func(v E) bool {
 		fmt.Println(v)

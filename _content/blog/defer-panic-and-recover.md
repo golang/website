@@ -26,22 +26,24 @@ Defer is commonly used to simplify functions that perform various clean-up actio
 
 For example, let's look at a function that opens two files and copies the contents of one file to the other:
 
-	func CopyFile(dstName, srcName string) (written int64, err error) {
-	    src, err := os.Open(srcName)
-	    if err != nil {
-	        return
-	    }
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+    src, err := os.Open(srcName)
+    if err != nil {
+        return
+    }
 
-	    dst, err := os.Create(dstName)
-	    if err != nil {
-	        return
-	    }
+    dst, err := os.Create(dstName)
+    if err != nil {
+        return
+    }
 
-	    written, err = io.Copy(dst, src)
-	    dst.Close()
-	    src.Close()
-	    return
-	}
+    written, err = io.Copy(dst, src)
+    dst.Close()
+    src.Close()
+    return
+}
+```
 
 This works, but there is a bug. If the call to os.Create fails,
 the function will return without closing the source file.
@@ -50,21 +52,23 @@ but if the function were more complex the problem might not be so easily
 noticed and resolved.
 By introducing defer statements we can ensure that the files are always closed:
 
-	func CopyFile(dstName, srcName string) (written int64, err error) {
-	    src, err := os.Open(srcName)
-	    if err != nil {
-	        return
-	    }
-	    defer src.Close()
+```go
+func CopyFile(dstName, srcName string) (written int64, err error) {
+    src, err := os.Open(srcName)
+    if err != nil {
+        return
+    }
+    defer src.Close()
 
-	    dst, err := os.Create(dstName)
-	    if err != nil {
-	        return
-	    }
-	    defer dst.Close()
+    dst, err := os.Create(dstName)
+    if err != nil {
+        return
+    }
+    defer dst.Close()
 
-	    return io.Copy(dst, src)
-	}
+    return io.Copy(dst, src)
+}
+```
 
 Defer statements allow us to think about closing each file right after opening it,
 guaranteeing that, regardless of the number of return statements in the function,
@@ -77,23 +81,27 @@ The behavior of defer statements is straightforward and predictable. There are t
 In this example, the expression "i" is evaluated when the Println call is deferred.
 The deferred call will print "0" after the function returns.
 
-	func a() {
-	    i := 0
-	    defer fmt.Println(i)
-	    i++
-	    return
-	}
+```go
+func a() {
+    i := 0
+    defer fmt.Println(i)
+    i++
+    return
+}
+```
 
 2. _Deferred function calls are executed in Last In First Out order after the surrounding function returns._
 
 This function prints "3210":
 
 {{raw `
-	func b() {
-	    for i := 0; i < 4; i++ {
-	        defer fmt.Print(i)
-	    }
-	}
+~~~go
+func b() {
+    for i := 0; i < 4; i++ {
+        defer fmt.Print(i)
+    }
+}
+~~~
 `}}
 
 3. _Deferred functions may read and assign to the returning function's named return values._
@@ -102,10 +110,12 @@ In this example, a deferred function increments the return value i _after_
 the surrounding function returns.
 Thus, this function returns 2:
 
-	func c() (i int) {
-	    defer func() { i++ }()
-	    return 1
-	}
+```go
+func c() (i int) {
+    defer func() { i++ }()
+    return 1
+}
+```
 
 This is convenient for modifying the error return value of a function; we will see an example of this shortly.
 
@@ -128,35 +138,37 @@ value given to panic and resume normal execution.
 
 Here's an example program that demonstrates the mechanics of panic and defer:
 
-	package main
+```go
+package main
 
-	import "fmt"
+import "fmt"
 
-	func main() {
-	    f()
-	    fmt.Println("Returned normally from f.")
-	}
+func main() {
+    f()
+    fmt.Println("Returned normally from f.")
+}
 
-	func f() {
-	    defer func() {
-	        if r := recover(); r != nil {
-	            fmt.Println("Recovered in f", r)
-	        }
-	    }()
-	    fmt.Println("Calling g.")
-	    g(0)
-	    fmt.Println("Returned normally from g.")
-	}
+func f() {
+    defer func() {
+        if r := recover(); r != nil {
+            fmt.Println("Recovered in f", r)
+        }
+    }()
+    fmt.Println("Calling g.")
+    g(0)
+    fmt.Println("Returned normally from g.")
+}
 
-	func g(i int) {
-	    if i > 3 {
-	        fmt.Println("Panicking!")
-	        panic(fmt.Sprintf("%v", i))
-	    }
-	    defer fmt.Println("Defer in g", i)
-	    fmt.Println("Printing in g", i)
-	    g(i + 1)
-	}
+func g(i int) {
+    if i > 3 {
+        fmt.Println("Panicking!")
+        panic(fmt.Sprintf("%v", i))
+    }
+    defer fmt.Println("Defer in g", i)
+    fmt.Println("Printing in g", i)
+    g(i + 1)
+}
+```
 
 The function g takes the int i, and panics if i is greater than 3,
 or else it calls itself with the argument i+1.
@@ -213,13 +225,17 @@ its external API still presents explicit error return values.
 
 Other uses of **defer** (beyond the file.Close example given earlier) include releasing a mutex:
 
-	mu.Lock()
-	defer mu.Unlock()
+```go
+mu.Lock()
+defer mu.Unlock()
+```
 
 printing a footer:
 
-	printHeader()
-	defer printFooter()
+```go
+printHeader()
+defer printFooter()
+```
 
 and more.
 

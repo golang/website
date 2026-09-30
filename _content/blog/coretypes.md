@@ -39,7 +39,7 @@ and that are included in the enumerated types.
 
 For instance, the type set described by the interface
 
-```Go
+```go
 type Constraint interface {
 	~[]byte | ~string
 	Hash() uint64
@@ -58,7 +58,7 @@ for an operand `a` of type parameter type `P`:
 
 These rules make it possible to index the generic variable `s` below ([playground](/play/p/M1LYKm3x3IB)):
 
-```Go
+```go
 func at[bytestring Constraint](s bytestring, i int) byte {
 	return s[i]
 }

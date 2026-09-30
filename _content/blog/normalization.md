@@ -140,14 +140,18 @@ To write your text as NFC, use the
 [unicode/norm](https://pkg.go.dev/golang.org/x/text/unicode/norm) package
 to wrap your `io.Writer` of choice:
 
-	wc := norm.NFC.Writer(w)
-	defer wc.Close()
-	// write as before...
+```go
+wc := norm.NFC.Writer(w)
+defer wc.Close()
+// write as before...
+```
 
 If you have a small string and want to do a quick conversion, you can use this
 simpler form:
 
-	norm.NFC.Bytes(b)
+```go
+norm.NFC.Bytes(b)
+```
 
 Package norm provides various other methods for normalizing text.
 Pick the one that suits your needs best.
@@ -173,18 +177,22 @@ The norm package might also come to the rescue when one needs to modify text.
 Consider a case where you want to search and replace the word "cafe" with its
 plural form "cafes".  A code snippet could look like this.
 
-	s := "We went to eat at multiple cafe"
-	cafe := "cafe"
-	if p := strings.Index(s, cafe); p != -1 {
-		p += len(cafe)
-		s = s[:p] + "s" + s[p:]
-	}
-	fmt.Println(s)
+```go
+s := "We went to eat at multiple cafe"
+cafe := "cafe"
+if p := strings.Index(s, cafe); p != -1 {
+	p += len(cafe)
+	s = s[:p] + "s" + s[p:]
+}
+fmt.Println(s)
+```
 
 This prints "We went to eat at multiple cafes" as desired and expected. Now
 consider our text contains the French spelling "café" in NFD form:
 
-	s := "We went to eat at multiple cafe\u0301"
+```go
+s := "We went to eat at multiple cafe\u0301"
+```
 
 Using the same code from above, the plural "s" would still be inserted after
 the 'e', but before the acute, resulting in  "We went to eat at multiple
@@ -194,16 +202,18 @@ The problem is that the code does not respect the boundaries between multi-rune
 characters and inserts a rune in the middle of a character.  Using the norm
 package, we can rewrite this piece of code as follows:
 
-	s := "We went to eat at multiple cafe\u0301"
-	cafe := "cafe"
-	if p := strings.Index(s, cafe); p != -1 {
-		p += len(cafe)
-		if bp := norm.FirstBoundary(s[p:]); bp > 0 {
-			p += bp
-		}
-		s = s[:p] + "s" + s[p:]
+```go
+s := "We went to eat at multiple cafe\u0301"
+cafe := "cafe"
+if p := strings.Index(s, cafe); p != -1 {
+	p += len(cafe)
+	if bp := norm.FirstBoundary(s[p:]); bp > 0 {
+		p += bp
 	}
-	fmt.Println(s)
+	s = s[:p] + "s" + s[p:]
+}
+fmt.Println(s)
+```
 
 This may be a contrived example, but the gist should be clear. Be mindful of
 the fact that characters can span multiple runes. Generally these kinds of
@@ -227,23 +237,27 @@ example, the following piece of code creates a `transform.Transformer` that
 decomposes text into its smallest parts, removes all accents, and then
 recomposes the text into NFC:
 
-	import (
-		"unicode"
+```go
+import (
+	"unicode"
 
-		"golang.org/x/text/transform"
-		"golang.org/x/text/unicode/norm"
-	)
+	"golang.org/x/text/transform"
+	"golang.org/x/text/unicode/norm"
+)
 
-	isMn := func(r rune) bool {
-		return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
-	}
-	t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+isMn := func(r rune) bool {
+	return unicode.Is(unicode.Mn, r) // Mn: nonspacing marks
+}
+t := transform.Chain(norm.NFD, transform.RemoveFunc(isMn), norm.NFC)
+```
 
 The resulting `Transformer` can be used to remove accents from an `io.Reader`
 of choice as follows:
 
-	r = transform.NewReader(r, t)
-	// read as before ...
+```go
+r = transform.NewReader(r, t)
+// read as before ...
+```
 
 This will, for example, convert any mention of "cafés" in the text to "cafes",
 regardless of the normal form in which the original text was encoded.

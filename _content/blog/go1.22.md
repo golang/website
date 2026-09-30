@@ -21,22 +21,24 @@ between iterations is now resolved. Starting with Go 1.22, the following code
 will print "a", "b", and "c" in some order:
 
 {{raw `
-	func main() {
-		done := make(chan bool)
+~~~go
+func main() {
+	done := make(chan bool)
 
-		values := []string{"a", "b", "c"}
-		for _, v := range values {
-			go func() {
-				fmt.Println(v)
-				done <- true
-			}()
-		}
-
-		// wait for all goroutines to complete before exiting
-		for _ = range values {
-			<-done
-		}
+	values := []string{"a", "b", "c"}
+	for _, v := range values {
+		go func() {
+			fmt.Println(v)
+			done <- true
+		}()
 	}
+
+	// wait for all goroutines to complete before exiting
+	for _ = range values {
+		<-done
+	}
+}
+~~~
 `}}
 
 For more information about this change and the tooling that helps keep code from
@@ -46,16 +48,18 @@ post](/blog/loopvar-preview).
 The second language change is support for ranging over integers:
 
 {{raw `
-	package main
+~~~go
+package main
 
-	import "fmt"
+import "fmt"
 
-	func main() {
-		for i := range 10 {
-			fmt.Println(10 - i)
-		}
-		fmt.Println("go1.22 has lift-off!")
+func main() {
+	for i := range 10 {
+		fmt.Println(10 - i)
 	}
+	fmt.Println("go1.22 has lift-off!")
+}
+~~~
 `}}
 
 The values of `i` in this countdown program go from 0 to 9, inclusive. For more

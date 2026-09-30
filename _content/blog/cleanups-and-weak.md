@@ -39,7 +39,7 @@ At a high level, cleanups work the same way.
 Let's consider an application that makes use of a memory-mapped file, and see
 how cleanups can help.
 
-```
+```go
 //go:build unix
 
 type MemoryMappedFile struct {
@@ -166,7 +166,7 @@ If we instead maintain a map that only *weakly* points to the memory-mapped
 file, we can clean up the map entry when nobody's using it anymore!
 Let's see what this looks like.
 
-```
+```go
 var cache sync.Map // map[string]weak.Pointer[MemoryMappedFile]
 
 func NewCachedMemoryMappedFile(filename string) (*MemoryMappedFile, error) {
@@ -245,7 +245,7 @@ have them share a cleanup.
 However, the advantage of the code we wrote above is that it can be rewritten
 in a generic way!
 
-```
+```go
 type Cache[K comparable, V any] struct {
 	create func(K) (*V, error)
 	m     sync.Map

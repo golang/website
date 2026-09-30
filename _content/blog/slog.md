@@ -34,7 +34,7 @@ that all the other structured logging packages can share.
 
 Here is the simplest program that uses `slog`:
 
-```
+```go
 package main
 
 import "log/slog"
@@ -64,7 +64,7 @@ has a level in between those, you can use 2 for it.
 Unlike with the `log` package, we can easily add key-value pairs to our output
 by writing them after the message:
 
-```
+```go
 slog.Info("hello, world", "user", os.Getenv("USER"))
 ```
 
@@ -75,7 +75,7 @@ The output now looks like this:
 As we mentioned, `slog`'s top-level functions use the default logger.
 We can get this logger explicitly, and call its methods:
 
-```
+```go
 logger := slog.Default()
 logger.Info("hello, world", "user", os.Getenv("USER"))
 ```
@@ -91,7 +91,7 @@ A `TextHandler` emits all log information in the form `key=value`.
 This program creates a new logger using a `TextHandler` and
 makes the same call to the `Info` method:
 
-```
+```go
 logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 logger.Info("hello, world", "user", os.Getenv("USER"))
 ```
@@ -104,7 +104,7 @@ Everything has been turned into a key-value pair, with strings quoted as needed 
 
 For JSON output, install the built-in `JSONHandler` instead:
 
-```
+```go
 logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
 logger.Info("hello, world", "user", os.Getenv("USER"))
 ```
@@ -126,7 +126,7 @@ These work together to minimize memory allocations.
 There are functions for building `Attr`s out of strings, numbers, and other common
 types. This call to `LogAttrs` produces the same output as above, but does it faster:
 
-```
+```go
 slog.LogAttrs(context.Background(), slog.LevelInfo, "hello, world",
     slog.String("user", os.Getenv("USER")))
 ```
@@ -239,13 +239,17 @@ with a context and one without.
 One change we did not make concerned the alternating key-and-value syntax for
 expressing attributes:
 
-    slog.Info("message", "k1", v1, "k2", v2)
+```go
+slog.Info("message", "k1", v1, "k2", v2)
+```
 
 Many felt strongly that this was a bad idea. They found it hard to read
 and easy to get wrong by omitting a key or value. They preferred explicit
 attributes for expressing structure:
 
-    slog.Info("message", slog.Int("k1", v1), slog.String("k2", v2))
+```go
+slog.Info("message", slog.Int("k1", v1), slog.String("k2", v2))
+```
 
 But we felt that the lighter syntax was important to keeping Go easy and fun to
 use, especially for new Go programmers. We also knew that several Go logging

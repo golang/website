@@ -63,13 +63,15 @@ is that we can’t take away API, or else programs using it will break.
 For example, here’s a program someone has written
 that we can’t break:
 
-	package main
+```go
+package main
 
-	import "os"
+import "os"
 
-	func main() {
-		os.Stdout.WriteString("hello, world\n")
-	}
+func main() {
+	os.Stdout.WriteString("hello, world\n")
+}
+```
 
 We can’t remove the package `os`;
 we can’t remove the global variable `os.Stdout`, which is an `*os.File`;
@@ -81,17 +83,19 @@ It’s perhaps less clear that we can’t change the type of `os.Stdout` at all.
 Suppose we want to make it an interface with the same methods.
 The program we just saw wouldn’t break, but this one would:
 
-	package main
+```go
+package main
 
-	import "os"
+import "os"
 
-	func main() {
-		greet(os.Stdout)
-	}
+func main() {
+	greet(os.Stdout)
+}
 
-	func greet(f *os.File) {
-		f.WriteString(“hello, world\n”)
-	}
+func greet(f *os.File) {
+	f.WriteString(“hello, world\n”)
+}
+```
 
 This program passes `os.Stdout` to a function named `greet`
 that requires an argument of type `*os.File`.
@@ -148,14 +152,16 @@ we found by testing Go inside Google but still included in Go 1.1.
 
 Here is some code that runs fine in Go 1:
 
-	package main
+```go
+package main
 
-	import "net"
+import "net"
 
-	var myAddr = &net.TCPAddr{
-		net.IPv4(18, 26, 4, 9),
-		80,
-	}
+var myAddr = &net.TCPAddr{
+	net.IPv4(18, 26, 4, 9),
+	80,
+}
+```
 
 Package `main` declares a global variable `myAddr`,
 which is a composite literal of type `net.TCPAddr`.
@@ -171,10 +177,12 @@ and this program is missing the value for that third field.
 The fix is to rewrite the program using tagged literals,
 so that it builds in both versions of Go:
 
-	var myAddr = &net.TCPAddr{
-		IP:   net.IPv4(18, 26, 4, 9),
-		Port: 80,
-	}
+```go
+var myAddr = &net.TCPAddr{
+	IP:   net.IPv4(18, 26, 4, 9),
+	Port: 80,
+}
+```
 
 Since this literal doesn’t specify a value for `Zone`, it will use the
 zero value (an empty string in this case).
@@ -205,13 +213,15 @@ So we made that change.
 That broke a handful of tests inside Google that
 were schematically like this one:
 
-	func TestSaveTime(t *testing.T) {
-		t1 := time.Now()
-		save(t1)
-		if t2 := load(); t2 != t1 {
-			t.Fatalf("load() = %v, want %v", t1, t2)
-		}
+```go
+func TestSaveTime(t *testing.T) {
+	t1 := time.Now()
+	save(t1)
+	if t2 := load(); t2 != t1 {
+		t.Fatalf("load() = %v, want %v", t1, t2)
 	}
+}
+```
 
 This code calls `time.Now`
 and then round-trips the result
@@ -269,13 +279,15 @@ to run about 10% faster.
 Here's an example program
 that sorts a list of colors by length of name:
 
-	colors := strings.Fields(
-		`black white red orange yellow green blue indigo violet`)
-	sort.Sort(ByLen(colors))
-	fmt.Println(colors)
+```go
+colors := strings.Fields(
+	`black white red orange yellow green blue indigo violet`)
+sort.Sort(ByLen(colors))
+fmt.Println(colors)
 
-	Go 1.5:  [red blue green white black yellow orange indigo violet]
-	Go 1.6:  [red blue white green black orange yellow indigo violet]
+Go 1.5:  [red blue green white black yellow orange indigo violet]
+Go 1.6:  [red blue white green black orange yellow indigo violet]
+```
 
 Changing sort algorithms often changes
 how equal elements are ordered,
@@ -487,7 +499,9 @@ on the main package’s `go.mod`’s `go` line: if it says `go 1.20` or earlier,
 If it says `go 1.21` or later, `panic(nil)` turns into a panic with a `runtime.PanicNilError`.
 And the version-based default can be overridden explicitly by adding a line like this to package main:
 
-	//go:debug panicnil=1
+```go
+//go:debug panicnil=1
+```
 
 This combination of features means that programs can update to newer toolchains
 while preserving the behaviors of the earlier toolchains they used,

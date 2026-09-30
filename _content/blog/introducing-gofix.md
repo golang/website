@@ -64,35 +64,39 @@ to build against a new Go release.
 
 As an example, gofix can rewrite code like [this snippet from `fmt/print.go`](http://codereview.appspot.com/4353043/diff/10001/src/pkg/fmt/print.go#newcode657):
 
-	switch f := value.(type) {
-	case *reflect.BoolValue:
-	    p.fmtBool(f.Get(), verb, field)
-	case *reflect.IntValue:
-	    p.fmtInt64(f.Get(), verb, field)
-	// ...
-	case reflect.ArrayOrSliceValue:
-	    // Byte slices are special.
-	    if f.Type().(reflect.ArrayOrSliceType).Elem().Kind() == reflect.Uint8 {
-	        // ...
-	    }
-	// ...
-	}
+```go
+switch f := value.(type) {
+case *reflect.BoolValue:
+    p.fmtBool(f.Get(), verb, field)
+case *reflect.IntValue:
+    p.fmtInt64(f.Get(), verb, field)
+// ...
+case reflect.ArrayOrSliceValue:
+    // Byte slices are special.
+    if f.Type().(reflect.ArrayOrSliceType).Elem().Kind() == reflect.Uint8 {
+        // ...
+    }
+// ...
+}
+```
 
 to adapt it to the new reflect API:
 
-	switch f := value; f.Kind() {
-	case reflect.Bool:
-	    p.fmtBool(f.Bool(), verb, field)
-	case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-	    p.fmtInt64(f.Int(), verb, field)
-	// ...
-	case reflect.Array, reflect.Slice:
-	    // Byte slices are special.
-	    if f.Type().Elem().Kind() == reflect.Uint8 {
-	        // ...
-	    }
-	// ...
-	}
+```go
+switch f := value; f.Kind() {
+case reflect.Bool:
+    p.fmtBool(f.Bool(), verb, field)
+case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+    p.fmtInt64(f.Int(), verb, field)
+// ...
+case reflect.Array, reflect.Slice:
+    // Byte slices are special.
+    if f.Type().Elem().Kind() == reflect.Uint8 {
+        // ...
+    }
+// ...
+}
+```
 
 Nearly every line above changed in some small way.
 The changes involved in the rewrite are extensive but nearly entirely mechanical,

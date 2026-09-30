@@ -35,20 +35,22 @@ arranges for a function to be called in its own goroutine after a context is can
 Here is a possible test for `AfterFunc`:
 
 {{raw `
-    func TestAfterFunc(t *testing.T) {
-        ctx, cancel := context.WithCancel(context.Background())
+~~~go
+func TestAfterFunc(t *testing.T) {
+    ctx, cancel := context.WithCancel(context.Background())
 
-        calledCh := make(chan struct{}) // closed when AfterFunc is called
-        context.AfterFunc(ctx, func() {
-            close(calledCh)
-        })
+    calledCh := make(chan struct{}) // closed when AfterFunc is called
+    context.AfterFunc(ctx, func() {
+        close(calledCh)
+    })
 
-        // TODO: Assert that the AfterFunc has not been called.
+    // TODO: Assert that the AfterFunc has not been called.
 
-        cancel()
+    cancel()
 
-        // TODO: Assert that the AfterFunc has been called.
-    }
+    // TODO: Assert that the AfterFunc has been called.
+}
+~~~
 `}}
 
 We want to check two conditions in this test:
@@ -64,25 +66,27 @@ concluding that an event will not happen.
 Let's try introducing a helper function to our test which does this.
 
 {{raw `
-    // funcCalled reports whether the function was called.
-    funcCalled := func() bool {
-        select {
-        case <-calledCh:
-            return true
-        case <-time.After(10 * time.Millisecond):
-            return false
-        }
+~~~go
+// funcCalled reports whether the function was called.
+funcCalled := func() bool {
+    select {
+    case <-calledCh:
+        return true
+    case <-time.After(10 * time.Millisecond):
+        return false
     }
+}
 
-    if funcCalled() {
-        t.Fatalf("AfterFunc function called before context is canceled")
-    }
+if funcCalled() {
+    t.Fatalf("AfterFunc function called before context is canceled")
+}
 
-    cancel()
+cancel()
 
-    if !funcCalled() {
-        t.Fatalf("AfterFunc function not called after context is canceled")
-    }
+if !funcCalled() {
+    t.Fatalf("AfterFunc function not called after context is canceled")
+}
+~~~
 `}}
 
 This test is slow:
@@ -116,28 +120,30 @@ to block on another goroutine in the bubble.
 Let's rewrite our test above using the `testing/synctest` package.
 
 {{raw `
-    func TestAfterFunc(t *testing.T) {
-        synctest.Run(func() {
-            ctx, cancel := context.WithCancel(context.Background())
+~~~go
+func TestAfterFunc(t *testing.T) {
+    synctest.Run(func() {
+        ctx, cancel := context.WithCancel(context.Background())
 
-            funcCalled := false
-            context.AfterFunc(ctx, func() {
-                funcCalled = true
-            })
-
-            synctest.Wait()
-            if funcCalled {
-                t.Fatalf("AfterFunc function called before context is canceled")
-            }
-
-            cancel()
-
-            synctest.Wait()
-            if !funcCalled {
-                t.Fatalf("AfterFunc function not called after context is canceled")
-            }
+        funcCalled := false
+        context.AfterFunc(ctx, func() {
+            funcCalled = true
         })
-    }
+
+        synctest.Wait()
+        if funcCalled {
+            t.Fatalf("AfterFunc function called before context is canceled")
+        }
+
+        cancel()
+
+        synctest.Wait()
+        if !funcCalled {
+            t.Fatalf("AfterFunc function not called after context is canceled")
+        }
+    })
+}
+~~~
 `}}
 
 This is almost identical to our original test,
@@ -185,27 +191,29 @@ To demonstrate, let's write a test for the
 which expires after a given timeout.
 
 {{raw `
-    func TestWithTimeout(t *testing.T) {
-        synctest.Run(func() {
-            const timeout = 5 * time.Second
-            ctx, cancel := context.WithTimeout(context.Background(), timeout)
-            defer cancel()
+~~~go
+func TestWithTimeout(t *testing.T) {
+    synctest.Run(func() {
+        const timeout = 5 * time.Second
+        ctx, cancel := context.WithTimeout(context.Background(), timeout)
+        defer cancel()
 
-            // Wait just less than the timeout.
-            time.Sleep(timeout - time.Nanosecond)
-            synctest.Wait()
-            if err := ctx.Err(); err != nil {
-                t.Fatalf("before timeout, ctx.Err() = %v; want nil", err)
-            }
+        // Wait just less than the timeout.
+        time.Sleep(timeout - time.Nanosecond)
+        synctest.Wait()
+        if err := ctx.Err(); err != nil {
+            t.Fatalf("before timeout, ctx.Err() = %v; want nil", err)
+        }
 
-            // Wait the rest of the way until the timeout.
-            time.Sleep(time.Nanosecond)
-            synctest.Wait()
-            if err := ctx.Err(); err != context.DeadlineExceeded {
-                t.Fatalf("after timeout, ctx.Err() = %v; want DeadlineExceeded", err)
-            }
-        })
-    }
+        // Wait the rest of the way until the timeout.
+        time.Sleep(time.Nanosecond)
+        synctest.Wait()
+        if err := ctx.Err(); err != context.DeadlineExceeded {
+            t.Fatalf("after timeout, ctx.Err() = %v; want DeadlineExceeded", err)
+        }
+    })
+}
+~~~
 `}}
 
 We write this test just as if we were working with real time.
@@ -319,47 +327,53 @@ We'll start this test by creating an `http.Transport` (an HTTP client) that uses
 an in-memory network connection created by [`net.Pipe`](/pkg/net#Pipe).
 
 {{raw `
-    func Test(t *testing.T) {
-        synctest.Run(func() {
-            srvConn, cliConn := net.Pipe()
-            defer srvConn.Close()
-            defer cliConn.Close()
-            tr := &http.Transport{
-                DialContext: func(ctx context.Context, network, address string) (net.Conn, error) {
-                    return cliConn, nil
-                },
-                // Setting a non-zero timeout enables "Expect: 100-continue" handling.
-                // Since the following test does not sleep,
-                // we will never encounter this timeout,
-                // even if the test takes a long time to run on a slow machine.
-                ExpectContinueTimeout: 5 * time.Second,
-            }
+~~~go
+func Test(t *testing.T) {
+    synctest.Run(func() {
+        srvConn, cliConn := net.Pipe()
+        defer srvConn.Close()
+        defer cliConn.Close()
+        tr := &http.Transport{
+            DialContext: func(ctx context.Context, network, address string) (net.Conn, error) {
+                return cliConn, nil
+            },
+            // Setting a non-zero timeout enables "Expect: 100-continue" handling.
+            // Since the following test does not sleep,
+            // we will never encounter this timeout,
+            // even if the test takes a long time to run on a slow machine.
+            ExpectContinueTimeout: 5 * time.Second,
+        }
+~~~
 `}}
 
 We send a request on this transport with the "Expect: 100-continue" header set.
 The request is sent in a new goroutine, since it won't complete until the end of the test.
 
 {{raw `
-            body := "request body"
-            go func() {
-                req, _ := http.NewRequest("PUT", "http://test.tld/", strings.NewReader(body))
-                req.Header.Set("Expect", "100-continue")
-                resp, err := tr.RoundTrip(req)
-                if err != nil {
-                    t.Errorf("RoundTrip: unexpected error %v", err)
-                } else {
-                    resp.Body.Close()
-                }
-            }()
+~~~go
+        body := "request body"
+        go func() {
+            req, _ := http.NewRequest("PUT", "http://test.tld/", strings.NewReader(body))
+            req.Header.Set("Expect", "100-continue")
+            resp, err := tr.RoundTrip(req)
+            if err != nil {
+                t.Errorf("RoundTrip: unexpected error %v", err)
+            } else {
+                resp.Body.Close()
+            }
+        }()
+~~~
 `}}
 
 We read the request headers sent by the client.
 
 {{raw `
-            req, err := http.ReadRequest(bufio.NewReader(srvConn))
-            if err != nil {
-                t.Fatalf("ReadRequest: %v", err)
-            }
+~~~go
+        req, err := http.ReadRequest(bufio.NewReader(srvConn))
+        if err != nil {
+            t.Fatalf("ReadRequest: %v", err)
+        }
+~~~
 `}}
 
 Now we come to the heart of the test.
@@ -373,23 +387,27 @@ If we forget the `synctest.Wait` call, the race detector will correctly complain
 about a data race, but with the `Wait` this is safe.
 
 {{raw `
-            var gotBody strings.Builder
-            go io.Copy(&gotBody, req.Body)
-            synctest.Wait()
-            if got := gotBody.String(); got != "" {
-                t.Fatalf("before sending 100 Continue, unexpectedly read body: %q", got)
-            }
+~~~go
+        var gotBody strings.Builder
+        go io.Copy(&gotBody, req.Body)
+        synctest.Wait()
+        if got := gotBody.String(); got != "" {
+            t.Fatalf("before sending 100 Continue, unexpectedly read body: %q", got)
+        }
+~~~
 `}}
 
 We write a "100 Continue" response to the client and verify that it now sends the
 request body.
 
 {{raw `
-            srvConn.Write([]byte("HTTP/1.1 100 Continue\r\n\r\n"))
-            synctest.Wait()
-            if got := gotBody.String(); got != body {
-                t.Fatalf("after sending 100 Continue, read body %q, want %q", got, body)
-            }
+~~~go
+        srvConn.Write([]byte("HTTP/1.1 100 Continue\r\n\r\n"))
+        synctest.Wait()
+        if got := gotBody.String(); got != body {
+            t.Fatalf("after sending 100 Continue, read body %q, want %q", got, body)
+        }
+~~~
 `}}
 
 And finally, we finish up by sending the "200 OK" response to conclude the request.
@@ -398,9 +416,11 @@ We have started several goroutines during this test.
 The `synctest.Run` call will wait for all of them to exit before returning.
 
 {{raw `
-            srvConn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
-        })
-    }
+~~~go
+        srvConn.Write([]byte("HTTP/1.1 200 OK\r\n\r\n"))
+    })
+}
+~~~
 `}}
 
 This test can be easily extended to test other behaviors,

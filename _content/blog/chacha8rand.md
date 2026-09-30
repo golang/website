@@ -144,21 +144,23 @@ and moves the tap and feed positions backward
 on each step. The code looks like:
 
 {{raw `
-	func (r *rngSource) Uint64() uint64 {
-		r.tap--
-		if r.tap < 0 {
-			r.tap += len(r.vec)
-		}
-
-		r.feed--
-		if r.feed < 0 {
-			r.feed += len(r.vec)
-		}
-
-		x := r.vec[r.feed] + r.vec[r.tap]
-		r.vec[r.feed] = x
-		return uint64(x)
+~~~go
+func (r *rngSource) Uint64() uint64 {
+	r.tap--
+	if r.tap < 0 {
+		r.tap += len(r.vec)
 	}
+
+	r.feed--
+	if r.feed < 0 {
+		r.feed += len(r.vec)
+	}
+
+	x := r.vec[r.feed] + r.vec[r.tap]
+	r.vec[r.feed] = x
+	return uint64(x)
+}
+~~~
 `}}
 
 Generating the next number is quite cheap: two subtractions, two conditional adds, two loads, one add, one store.
@@ -186,19 +188,21 @@ PCG is a post-processed 128-bit LCG.
 
 If the state `p.x` were a `uint128` (hypothetically), the code to compute the next value would be:
 
-	const (
-		pcgM = 0x2360ed051fc65da44385df649fccf645
-		pcgA = 0x5851f42d4c957f2d14057b7ef767814f
-	)
+```go
+const (
+	pcgM = 0x2360ed051fc65da44385df649fccf645
+	pcgA = 0x5851f42d4c957f2d14057b7ef767814f
+)
 
-	type PCG struct {
-		x uint128
-	}
+type PCG struct {
+	x uint128
+}
 
-	func (p *PCG) Uint64() uint64 {
-		p.x = p.x * pcgM + pcgA
-		return scramble(p.x)
-	}
+func (p *PCG) Uint64() uint64 {
+	p.x = p.x * pcgM + pcgA
+	return scramble(p.x)
+}
+```
 
 The entire state is a single 128-bit number,
 and the update is a 128-bit multiply and add.
@@ -206,9 +210,11 @@ In the return statement, the `scramble` function reduces the 128-bit state
 down to a 64-bit state.
 The original PCG used (again using a hypothetical `uint128` type):
 
-	func scramble(x uint128) uint64 {
-		return bits.RotateLeft(uint64(x>>64) ^ uint64(x), -int(x>>122))
-	}
+```go
+func scramble(x uint128) uint64 {
+	return bits.RotateLeft(uint64(x>>64) ^ uint64(x), -int(x>>122))
+}
+```
 
 This code XORs the two halves of the 128-bit state together
 and then rotates the result according to the top six bits of the state.
@@ -218,13 +224,15 @@ Based on a [suggestion from O'Neill during proposal discussion](/issue/21835#iss
 Go's PCG uses a new scramble function based on multiplication,
 which mixes the bits more aggressively:
 
-	func scramble(x uint128) uint64 {
-		hi, lo := uint64(x>>64), uint64(x)
-		hi ^= hi >> 32
-		hi *= 0xda942042e4dd58b5
-		hi ^= hi >> 48
-		hi *= lo | 1
-	}
+```go
+func scramble(x uint128) uint64 {
+	hi, lo := uint64(x>>64), uint64(x)
+	hi ^= hi >> 32
+	hi *= 0xda942042e4dd58b5
+	hi ^= hi >> 48
+	hi *= lo | 1
+}
+```
 
 O'Neill calls PCG with this scrambler PCG-DXSM, for “double xorshift multiply.”
 Numpy uses this form of PCG as well.

@@ -144,8 +144,10 @@ Again, this allows for flexibility.
 Flexibility also happens because, when decoding a struct,
 only those fields that are sent by the encoder are stored in the destination. Given the value
 
-	type T struct{ X, Y, Z int } // Only exported fields are encoded and decoded.
-	var t = T{X: 7, Y: 0, Z: 8}
+```go
+type T struct{ X, Y, Z int } // Only exported fields are encoded and decoded.
+var t = T{X: 7, Y: 0, Z: 8}
+```
 
 the encoding of `t` sends only the 7 and 8.
 Because it's zero, the value of `Y` isn't even sent;
@@ -153,8 +155,10 @@ there's no need to send a zero value.
 
 The receiver could instead decode the value into this structure:
 
-	type U struct{ X, Y *int8 } // Note: pointers to int8s
-	var u U
+```go
+type U struct{ X, Y *int8 } // Note: pointers to int8s
+var u U
+```
 
 and acquire a value of `u` with only `X` set (to the address of an `int8` variable set to 7);
 the `Z` field is ignored - where would you put it? When decoding structs,
@@ -208,10 +212,12 @@ These type numbers make it possible to describe recursive types and send
 values of those types.
 Thus gobs can encode types such as trees:
 
-	type Node struct {
-	    Value       int
-	    Left, Right *Node
-	}
+```go
+type Node struct {
+    Value       int
+    Left, Right *Node
+}
+```
 
 (It's an exercise for the reader to discover how the zero-defaulting rule makes this work,
 even though gobs don't represent pointers.)
@@ -254,45 +260,47 @@ Note how easy it is to send and receive values;
 all you need to do is present values and variables to the [gob package](/pkg/encoding/gob/)
 and it does all the work.
 
-	package main
+```go
+package main
 
-	import (
-	    "bytes"
-	    "encoding/gob"
-	    "fmt"
-	    "log"
-	)
+import (
+    "bytes"
+    "encoding/gob"
+    "fmt"
+    "log"
+)
 
-	type P struct {
-	    X, Y, Z int
-	    Name    string
-	}
+type P struct {
+    X, Y, Z int
+    Name    string
+}
 
-	type Q struct {
-	    X, Y *int32
-	    Name string
-	}
+type Q struct {
+    X, Y *int32
+    Name string
+}
 
-	func main() {
-	    // Initialize the encoder and decoder.  Normally enc and dec would be
-	    // bound to network connections and the encoder and decoder would
-	    // run in different processes.
-	    var network bytes.Buffer        // Stand-in for a network connection
-	    enc := gob.NewEncoder(&network) // Will write to network.
-	    dec := gob.NewDecoder(&network) // Will read from network.
-	    // Encode (send) the value.
-	    err := enc.Encode(P{3, 4, 5, "Pythagoras"})
-	    if err != nil {
-	        log.Fatal("encode error:", err)
-	    }
-	    // Decode (receive) the value.
-	    var q Q
-	    err = dec.Decode(&q)
-	    if err != nil {
-	        log.Fatal("decode error:", err)
-	    }
-	    fmt.Printf("%q: {%d,%d}\n", q.Name, *q.X, *q.Y)
-	}
+func main() {
+    // Initialize the encoder and decoder.  Normally enc and dec would be
+    // bound to network connections and the encoder and decoder would
+    // run in different processes.
+    var network bytes.Buffer        // Stand-in for a network connection
+    enc := gob.NewEncoder(&network) // Will write to network.
+    dec := gob.NewDecoder(&network) // Will read from network.
+    // Encode (send) the value.
+    err := enc.Encode(P{3, 4, 5, "Pythagoras"})
+    if err != nil {
+        log.Fatal("encode error:", err)
+    }
+    // Decode (receive) the value.
+    var q Q
+    err = dec.Decode(&q)
+    if err != nil {
+        log.Fatal("decode error:", err)
+    }
+    fmt.Printf("%q: {%d,%d}\n", q.Name, *q.X, *q.Y)
+}
+```
 
 You can compile and run this example code in the [Go Playground](/play/p/_-OJV-rwMq).
 

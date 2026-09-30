@@ -15,7 +15,7 @@ Surprisingly, before Go 1.20, some comparable types did not satisfy `comparable`
 If you're confused, you've come to the right place.
 Consider the valid map declaration
 
-```Go
+```go
 var lookupTable map[any]string
 ```
 
@@ -24,14 +24,14 @@ where the map's key type is `any` (which is a
 This works perfectly fine in Go.
 On the other hand, before Go 1.20, the seemingly equivalent generic map type
 
-```Go
+```go
 type genericLookupTable[K comparable, V any] map[K]V
 ```
 
 could be used just like a regular map type, but produced a compile-time error when
 `any` was used as the key type:
 
-```Go
+```go
 var lookupTable genericLookupTable[any, string] // ERROR: any does not implement comparable (Go 1.18 and Go 1.19)
 ```
 
@@ -42,7 +42,7 @@ prevented us from writing the kind of generic libraries we were hoping to write 
 generics in the first place.
 The proposed [`maps.Clone`](/issue/57436) function
 
-```Go
+```go
 func Clone[M ~map[K]V, K comparable, V any](m M) M { … }
 ```
 can be written but could not be used for a map such as `lookupTable` for the same reason
@@ -85,7 +85,7 @@ the union notation `A|B` means "type `A` or type `B`",
 and the `~T` notation stands for "all types that have the underlying type `T`".
 For instance, the interface
 
-```Go
+```go
 interface {
 	~int | ~string
 	io.Writer
@@ -100,7 +100,7 @@ But because they describe type sets they are used as type constraints, which
 are sets of types.
 For instance, we can write a generic `min` function
 
-```Go
+```go
 func min[P interface{ ~int64 | ~float64 }](x, y P) P
 ```
 
@@ -113,7 +113,7 @@ a little bit of [syntactic sugar](https://en.wikipedia.org/wiki/Syntactic_sugar)
 allows us to [omit the enclosing `interface{}`](/ref/spec#General_interfaces),
 leading to the compact and more idiomatic
 
-```Go
+```go
 func min[P ~int64 | ~float64](x, y P) P { … }
 ```
 
@@ -181,7 +181,7 @@ Consider our original `lookupTable` example: it accepts arbitrary values as keys
 But if we try to enter a value with a key that does not support `==`, say
 a slice value, we get a run-time panic:
 
-```Go
+```go
 lookupTable[[]int{}] = "slice"  // PANIC: runtime error: hash of unhashable type []int
 ```
 
@@ -199,7 +199,7 @@ for `any` to be an acceptable argument type, `any` must satisfy (and therefore i
 But the type set of `any` is larger than (not a subset of) the type set of `comparable`
 and therefore does not implement `comparable`.
 
-```Go
+```go
 var lookupTable GenericLookupTable[any, string] // ERROR: any does not implement comparable (Go 1.18 and Go 1.19)
 ```
 
@@ -218,7 +218,7 @@ The "obvious" solution was simply to include even non-strictly comparable types 
 But this leads to inconsistencies with the type set model.
 Consider the following example:
 
-```Go
+```go
 func f[Q comparable]() { … }
 
 func g[P any]() {
@@ -288,7 +288,7 @@ Only if that rule fails do we need to consider the exception.
 
 Let's revisit our previous example:
 
-```Go
+```go
 func f[Q comparable]() { … }
 
 func g[P any]() {
@@ -349,7 +349,7 @@ multiple generic functions or types by way of a single non-strictly
 comparable type argument and cause a panic.
 In Go 1.20 we can now declare
 
-```Go
+```go
 var lookupTable genericLookupTable[any, string]
 ```
 
@@ -369,14 +369,14 @@ and so `P` does not satisfy `comparable`.
 We can use this knowledge to craft a compile-time assertion of sorts for
 a given type `T`:
 
-```Go
+```go
 type T struct { … }
 ```
 
 We want to assert that `T` is strictly comparable.
 It's tempting to write something like:
 
-```Go
+```go
 // isComparable may be instantiated with any type that supports ==
 // including types that are not strictly comparable because of the
 // exception for constraint satisfaction.
@@ -394,7 +394,7 @@ it will succeed if `T` supports `==`.
 We can work around this problem by using `T` not as a type argument,
 but as a type constraint:
 
-```Go
+```go
 func _[P T]() {
 	_ = isComparable[P] // P supports == only if T is strictly comparable
 }

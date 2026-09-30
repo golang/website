@@ -18,7 +18,9 @@ which makes for a less exciting announcement, but nonetheless a great release.
 The most important change to the language is the introduction of type aliases: a feature
 created to support gradual code repair. A type alias declaration has the form:
 
-	type T1 = T2
+```go
+type T1 = T2
+```
 
 This declaration introduces an alias name `T1` for the type `T2`, in the same way that `byte` has
 always been an alias for `uint8`.
@@ -53,9 +55,11 @@ The `time` package now transparently tracks monotonic time in each `Time` value,
 making computing durations between two `Time` values a safe operation in the presence of wall clock adjustments.
 For example, this code now computes the right elapsed time even across a leap second clock reset:
 
-	start := time.Now()
-	f()
-	elapsed := time.Since(start)
+```go
+start := time.Now()
+f()
+elapsed := time.Since(start)
+```
 
 See the [package docs](http://beta.golang.org/pkg/time/#hdr-Monotonic_Clocks) and
 [design document](https://github.com/golang/proposal/blob/master/design/12914-monotonic.md) for details.

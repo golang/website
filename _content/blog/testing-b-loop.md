@@ -17,7 +17,7 @@ as easy to use, but at the same time far more robust:
 [`testing.B.Loop`](https://pkg.go.dev/testing#B.Loop).
 
 Traditionally, Go benchmarks are written using a loop from 0 to `b.N`:
-```
+```go
 func Benchmark(b *testing.B) {
   for range b.N {
     ... code to measure ...
@@ -25,7 +25,7 @@ func Benchmark(b *testing.B) {
 }
 ```
 Using `b.Loop` instead is a trivial change:
-```
+```go
 func Benchmark(b *testing.B) {
   for b.Loop() {
     ... code to measure ...
@@ -49,7 +49,7 @@ Let's explore the advantages of `testing.B.Loop` and how to effectively utilize 
 
 Before Go 1.24, while the basic structure of a benchmark was simple, more sophisticated
 benchmarks required more care:
-```
+```go
 func Benchmark(b *testing.B) {
   ... setup ...
   b.ResetTimer() // if setup may be expensive
@@ -75,7 +75,7 @@ time measurement, silently skewing the final benchmark result.
 There is another, more subtle pitfall that requires deeper understanding:
 ([Example source](https://eli.thegreenplace.net/2023/common-pitfalls-in-go-benchmarking/))
 
-```
+```go
 func isCond(b byte) bool {
   if b%3 == 1 && b%7 == 2 && b%17 == 11 && b%31 == 9 {
     return true
@@ -121,7 +121,7 @@ loop. It remains the user's responsibility to manage the timer within the benchm
 when necessary:
 ([Example source](https://eli.thegreenplace.net/2023/common-pitfalls-in-go-benchmarking/))
 
-```
+```go
 func BenchmarkSortInts(b *testing.B) {
   ints := make([]int, N)
   for b.Loop() {
@@ -143,7 +143,7 @@ loop should do the same thing.
 ## When to use
 
 The `testing.B.Loop` method is now the preferred way to write benchmarks:
-```
+```go
 func Benchmark(b *testing.B) {
   ... setup ...
   for b.Loop() {

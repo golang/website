@@ -163,7 +163,7 @@ func Neg(x int) int
 
 It has several design flaws: the `Sub` function declares its parameters in the wrong order; the `Inf` function implicitly prefers one of the two infinities; and the `Neg` function is redundant with `Sub`. Fortunately we have a `newmath` package that avoids these mistakes, and we’d like to get users to switch to it. The first step is to implement the old API in terms of the new package and to deprecate the old functions. Then we add inliner directives:
 
-```
+```go
 // Package oldmath is the bad old math package.
 package oldmath
 
@@ -194,13 +194,13 @@ func Neg(x int) int {
 Now, when users of `oldmath` run the `go fix` command on their code, it will replace all calls to the old functions by their new counterparts. By the way, gopls has included `inline` in its analyzer suite for some time, so if your editor uses gopls, the moment you add the `//go:fix inline` directives you should start seeing a diagnostic at each call site, such as “call of `oldmath.Sub` should be inlined”, along with a suggested fix that inlines that particular call.
 
 For example, this old code:
-```
+```go
 import "oldmath"
 
 var nine = oldmath.Sub(1, 10) // diagnostic: "call to oldmath.Sub should be inlined"
 ```
 will be transformed to:
-```
+```go
 import "newmath"
 
 var nine = newmath.Sub(10, 1)
@@ -208,7 +208,7 @@ var nine = newmath.Sub(10, 1)
 Observe that after the fix, the arguments to `Sub` are in the logical order. This is progress! If you’re in luck, the inliner will succeed at removing every call to the functions in `oldmath`, perhaps allowing you to delete it as a dependency.
 
 The `inline` analyzer works on types and constants too. If our `oldmath` package had originally declared a data type for rational numbers and a constant for π, we could use the following forwarding declarations to migrate them to the `newmath` package while preserving the behavior of existing code:
-```
+```go
 package oldmath
 
 //go:fix inline
@@ -235,17 +235,17 @@ Let’s look at six aspects of the problem that make it so tricky.
 One of the inliner’s most important tasks is to attempt to replace each occurrence of a parameter in the callee by its corresponding argument from the call. In the simplest case, the argument is a trivial literal such as `0` or `""`, so the replacement is straightforward and the parameter can be eliminated.
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre>
+<div class="beforeafter-context"><pre lang=go>
 //go:fix inline
 func show(prefix, item string) {
 	fmt.Println(prefix, item)
 }
 </pre></div>
-<pre>
+<pre lang=go>
 show("", "hello")
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 fmt.Println("", "hello")
 </pre>
 </div>
@@ -255,18 +255,18 @@ For less trivial literals such as `404` or `"go.dev"`, the replacement is equall
 In such cases the inliner must tread carefully and emit a more conservative result. Whenever one or more parameters cannot be completely substituted for any reason, the inliner inserts an explicit “parameter binding” declaration:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre>
+<div class="beforeafter-context"><pre lang=go>
 //go:fix inline
 func printPair(before, x, y, after string) {
 	fmt.Println(before, x, after)
 	fmt.Println(before, y, after)
 }
 </pre></div>
-<pre>
+<pre lang=go>
 printPair("[", "one", "two", "]")
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 // a “parameter binding” declaration
 var before, after = "[", "]"
 fmt.Println(before, "one", after)
@@ -286,7 +286,7 @@ z = add(f(), g())
 
 A trivial inlining of the call would replace `x` with `f()` and `y` with `g()`, with this result:
 
-```
+```go
 z = g() + f()
 ```
 
@@ -294,7 +294,7 @@ But this result is incorrect because evaluation of `g()` now occurs before `f()`
 
 So, the inliner must attempt to prove that `f()` and `g()` do not have side effects on each other. On success, it can safely proceed with the result above. Otherwise, it must fall back to an explicit parameter binding:
 
-```
+```go
 var x = f()
 z = g() + x
 ```
@@ -314,7 +314,7 @@ This time, parameters `x` and `y` are used in the same order they are declared, 
 
 The inliner uses a novel [hazard analysis](https://cs.opensource.google/go/x/tools/+/refs/tags/v0.42.0:internal/refactor/inline/inline.go;l=1978;drc=e3a69ffcdbb984f50100e76ebca6ff53cf88de9c) to model the order of effects in each callee function. Nonetheless, its ability to construct the necessary safety proofs is quite limited. For example, if the calls `f()` and `g()` are simple accessors, it would be perfectly safe to call them in either order. Indeed, an optimizing compiler might use its knowledge of the internals of `f` and `g` to safely reorder the two calls. But unlike a compiler, which generates object code that reflects the source at a specific moment, the purpose of the inliner is to make permanent changes to the source, so it can’t take advantage of ephemeral details. As an extreme example, consider this `start` function:
 
-```
+```go
 func start() { /* TODO: implement */ }
 ```
 
@@ -328,7 +328,7 @@ In short, the inliner may produce results that—to the informed eye of a projec
 
 You might imagine (as I once did) that it would always be safe to replace a parameter variable by a constant argument of the same type. Surprisingly, this turns out not to be the case, because some checks previously done at run time would now happen—and fail—at compile time. Consider this call to the `index` function:
 
-```
+```go
 //go:fix inline
 func index(s string, i int) byte {
 	return s[i]
@@ -353,19 +353,19 @@ Consequently, the inliner must keep track of all expressions and their operands 
 Typical argument expressions contain one or more identifiers that refer to symbols (variables, functions, and so on) in the caller’s file. The inliner must make sure that each name in the argument expression would refer to the same symbol after parameter substitution; in other words, none of the caller’s names is *shadowed* in the callee. If this fails, the inliner must again insert parameter bindings, as in this example:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre>
+<div class="beforeafter-context"><pre lang=go>
 //go:fix inline
 func f(val string) {
 	x := 123
 	fmt.Println(val, x)
 }
 </pre></div>
-<pre>
+<pre lang=go>
 x := "hello"
 f(x)
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 x := "hello"
 {
 	// another “parameter binding” declaration
@@ -384,16 +384,16 @@ Conversely, the inliner must also check that each name in the *callee* function 
 When an argument expression has no effects and its corresponding parameter is never used, the expression may be eliminated. However, if the expression contains the last reference to a local variable at the caller, this may cause a compile error because the variable is now unused.
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre>
+<div class="beforeafter-context"><pre lang=go>
 //go:fix inline
 func f(_ int) { print("hello") }
 </pre></div>
-<pre>
+<pre lang=go>
 x := 42
 f(x)
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 x := 42 // error: unused variable: x
 print("hello")
 </pre>
@@ -413,18 +413,18 @@ This function literal, `func() { … }()`, delimits the lifetime of the
 `defer` statement, as in this example:
 
 <div class="beforeafter">
-<div class="beforeafter-context"><pre>
+<div class="beforeafter-context"><pre lang=go>
 //go:fix inline
 func callee() {
 	defer f()
 	…
 }
 </pre></div>
-<pre>
+<pre lang=go>
 callee()
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 func() {
 	defer f()
 	…

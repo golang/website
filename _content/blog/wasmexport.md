@@ -41,7 +41,7 @@ in the resulting Wasm binary.
 
 To use the `go:wasmexport` directive, simply add it to a function definition:
 
-```
+```go
 //go:wasmexport add
 func add(a, b int32) int32 { return a + b }
 ```
@@ -80,7 +80,7 @@ To use a WASI reactor, the host application first initializes it by calling
 Here is an example using [Wazero](https://wazero.io/), a Go-based Wasm runtime
 implementation:
 
-```
+```go
 // Create a Wasm runtime, set up WASI.
 r := wazero.NewRuntime(ctx)
 defer r.Close(ctx)

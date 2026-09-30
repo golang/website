@@ -44,8 +44,10 @@ When designing Go, we decided to avoid this minefield by mandating that there is
 If you want to add `i` and `u`, you must be explicit about what you want the result to be.
 Given
 
-	var u uint
-	var i int
+```go
+var u uint
+var i int
+```
 
 you can write either `uint(i)+u` or `i+int(u)`,
 with both the meaning and type of the addition clearly expressed,
@@ -100,7 +102,9 @@ A string constant encloses some text between double quotes.
 but for the purpose of this discussion they have all the same properties.)
 Here is a string constant:
 
-	"Hello, 世界"
+```go
+"Hello, 世界"
+```
 
 (For much more detail about the representation and interpretation of strings,
 see [this blog post](/blog/strings).)
@@ -113,7 +117,9 @@ value that does not yet have a fixed type.
 Yes, it's a string, but it's not a Go value of type `string`.
 It remains an untyped string constant even when given a name:
 
-	const hello = "Hello, 世界"
+```go
+const hello = "Hello, 世界"
+```
 
 After this declaration, `hello` is also an untyped string constant.
 An untyped constant is just a value, one not yet given a defined type that
@@ -124,7 +130,9 @@ It is this notion of an _untyped_ constant that makes it possible for us to use 
 So what, then, is a _typed_ string constant?
 It's one that's been given a type, like this:
 
-	const typedHello string = "Hello, 世界"
+```go
+const typedHello string = "Hello, 世界"
+```
 
 Notice that the declaration of `typedHello` has an explicit `string` type before the equals sign.
 This means that `typedHello` has Go type `string`, and cannot be assigned to a Go variable of a different type.
@@ -150,11 +158,15 @@ it has the helpful property that, since it has no type,
 assigning it to a typed variable does not cause a type error.
 That is, we can write
 
-	m = "Hello, 世界"
+```go
+m = "Hello, 世界"
+```
 
 or
 
-	m = hello
+```go
+m = hello
+```
 
 because, unlike the typed constants `typedHello` and `myStringHello`,
 the untyped constants `"Hello, 世界"` and `hello` _have no type_.
@@ -168,22 +180,30 @@ but they do not have _type_ `string`.
 
 As a Go programmer, you have certainly seen many declarations like
 
-	str := "Hello, 世界"
+```go
+str := "Hello, 世界"
+```
 
 and by now you might be asking, "if the constant is untyped, how does `str` get a type in this variable declaration?"
 The answer is that an untyped constant has a default type,
 an implicit type that it transfers to a value if a type is needed where none is provided.
 For untyped string constants, that default type is obviously `string`, so
 
-	str := "Hello, 世界"
+```go
+str := "Hello, 世界"
+```
 
 or
 
-	var str = "Hello, 世界"
+```go
+var str = "Hello, 世界"
+```
 
 means exactly the same as
 
-	var str string = "Hello, 世界"
+```go
+var str string = "Hello, 世界"
+```
 
 One way to think about untyped constants is that they live in a kind of
 ideal space of values,
@@ -202,7 +222,9 @@ For instance consider this statement:
 
 The signature of `fmt.Printf` is
 
-	func Printf(format string, a ...interface{}) (n int, err error)
+```go
+func Printf(format string, a ...interface{}) (n int, err error)
+```
 
 which is to say its arguments (after the format string) are interface values.
 What happens when `fmt.Printf` is called with an untyped constant is that an interface value is created
@@ -291,7 +313,9 @@ so that arithmetic involving them is more accurate.
 The constants defined in the [math](/pkg/math) package are given with many more digits than are
 available in a `float64`. Here is the definition of `math.Pi`:
 
-	Pi	= 3.14159265358979323846264338327950288419716939937510582097494459
+```go
+Pi	= 3.14159265358979323846264338327950288419716939937510582097494459
+```
 
 When that value is assigned to a variable,
 some of the precision will be lost;
@@ -358,9 +382,11 @@ For the last time, here is our familiar example, using just `int` this time:
 
 The same example could be built for any of the integer types, which are:
 
-	int int8 int16 int32 int64
-	uint uint8 uint16 uint32 uint64
-	uintptr
+```go
+int int8 int16 int32 int64
+uint uint8 uint16 uint32 uint64
+uintptr
+```
 
 (plus the aliases `byte` for `uint8` and `rune` for `int32`).
 That's a lot, but the pattern in the way constants work should be familiar
@@ -378,9 +404,11 @@ It's analogous to how we can initialize a `float64` using a complex number with 
 Here are several different ways to initialize a `uint`;
 all are equivalent, but all must mention the type explicitly for the result to be unsigned.
 
-	var u uint = 17
-	var u = uint(17)
-	u := uint(17)
+```go
+var u uint = 17
+var u = uint(17)
+u := uint(17)
+```
 
 Similarly to the range issue mentioned in the section on floating-point values,
 not all integer values can fit in all integer types.
@@ -409,7 +437,9 @@ How do we express a constant representing the largest value that fits in a `uint
 If we were talking about `uint32` rather than `uint`, we could write
 
 {{raw `
-	const MaxUint32 = 1<<32 - 1
+~~~go
+const MaxUint32 = 1<<32 - 1
+~~~
 `}}
 
 but we want `uint`, not `uint32`.
@@ -480,13 +510,15 @@ assignments, and operations that the actual types matter.
 But as long as we stay in the world of numeric constants, we can mix and match values as we like.
 All these constants have numeric value 1:
 
-	1
-	1.000
-	1e3-99.0*10-9
-	'\x01'
-	'\u0001'
-	'b' - 'a'
-	1.0+3i-3.0i
+```go
+1
+1.000
+1e3-99.0*10-9
+'\x01'
+'\u0001'
+'b' - 'a'
+1.0+3i-3.0i
+```
 
 Therefore, although they have different implicit default types,
 written as untyped constants they can be assigned to a variable of any numeric type:
@@ -506,15 +538,21 @@ That flexibility means that, despite the fact that in Go it is illegal in
 the same expression to mix floating-point and integer variables,
 or even `int` and `int32` variables, it is fine to write
 
-	sqrt2 := math.Sqrt(2)
+```go
+sqrt2 := math.Sqrt(2)
+```
 
 or
 
-	const millisecond = time.Second/1e3
+```go
+const millisecond = time.Second/1e3
+```
 
 or
 
-	bigBufferWithHeader := make([]byte, 512+1e6)
+```go
+bigBufferWithHeader := make([]byte, 512+1e6)
+```
 
 and have the results mean what you expect.
 

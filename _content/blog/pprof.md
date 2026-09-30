@@ -97,19 +97,21 @@ flags.
 In a standalone program like this one, we have to import `runtime/pprof` and add a few
 lines of code:
 
-	var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
+```go
+var cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
 
-	func main() {
-	    flag.Parse()
-	    if *cpuprofile != "" {
-	        f, err := os.Create(*cpuprofile)
-	        if err != nil {
-	            log.Fatal(err)
-	        }
-	        pprof.StartCPUProfile(f)
-	        defer pprof.StopCPUProfile()
-	    }
-	    ...
+func main() {
+    flag.Parse()
+    if *cpuprofile != "" {
+        f, err := os.Create(*cpuprofile)
+        if err != nil {
+            log.Fatal(err)
+        }
+        pprof.StartCPUProfile(f)
+        defer pprof.StopCPUProfile()
+    }
+    ...
+```
 
 The new code defines a flag named `cpuprofile`, calls the
 [Go flag library](/pkg/flag/) to parse the command line flags,
@@ -303,19 +305,21 @@ One way is to add memory profiling to the program.
 We'll arrange that if the `-memprofile` flag is supplied, the program stops after one
 iteration of the loop finding, writes a memory profile, and exits:
 
-	var memprofile = flag.String("memprofile", "", "write memory profile to this file")
-	...
+```go
+var memprofile = flag.String("memprofile", "", "write memory profile to this file")
+...
 
-		FindHavlakLoops(cfgraph, lsgraph)
-		if *memprofile != "" {
-			f, err := os.Create(*memprofile)
-			if err != nil {
-			    log.Fatal(err)
-			}
-			pprof.WriteHeapProfile(f)
-			f.Close()
-			return
+	FindHavlakLoops(cfgraph, lsgraph)
+	if *memprofile != "" {
+		f, err := os.Create(*memprofile)
+		if err != nil {
+		    log.Fatal(err)
 		}
+		pprof.WriteHeapProfile(f)
+		f.Close()
+		return
+	}
+```
 
 We invoke the program with `-memprofile` flag to write a profile:
 
@@ -418,14 +422,16 @@ In all but one of the cases where maps are being used, it is impossible for the 
 to insert a duplicate element.
 In the one remaining case, we can write a simple variant of the `append` built-in function:
 
-	func appendUnique(a []int, x int) []int {
-	    for _, y := range a {
-	        if x == y {
-	            return a
-	        }
-	    }
-	    return append(a, x)
-	}
+```go
+func appendUnique(a []int, x int) []int {
+    for _, y := range a {
+        if x == y {
+            return a
+        }
+    }
+    return append(a, x)
+}
+```
 
 In addition to writing that function, changing the Go program to use slices instead
 of maps requires changing just a few lines of code.
@@ -525,47 +531,51 @@ other garbage-collected implementations.)
 
 We'll add a global `cache` structure:
 
-	var cache struct {
-	    size int
-	    nonBackPreds [][]int
-	    backPreds [][]int
-	    number []int
-	    header []int
-	    types []int
-	    last []int
-	    nodes []*UnionFindNode
-	}
+```go
+var cache struct {
+    size int
+    nonBackPreds [][]int
+    backPreds [][]int
+    number []int
+    header []int
+    types []int
+    last []int
+    nodes []*UnionFindNode
+}
+```
 
 and then have `FindLoops` consult it as a replacement for allocation:
 
 {{raw `
-	if cache.size < size {
-	    cache.size = size
-	    cache.nonBackPreds = make([][]int, size)
-	    cache.backPreds = make([][]int, size)
-	    cache.number = make([]int, size)
-	    cache.header = make([]int, size)
-	    cache.types = make([]int, size)
-	    cache.last = make([]int, size)
-	    cache.nodes = make([]*UnionFindNode, size)
-	    for i := range cache.nodes {
-	        cache.nodes[i] = new(UnionFindNode)
-	    }
-	}
+~~~go
+if cache.size < size {
+    cache.size = size
+    cache.nonBackPreds = make([][]int, size)
+    cache.backPreds = make([][]int, size)
+    cache.number = make([]int, size)
+    cache.header = make([]int, size)
+    cache.types = make([]int, size)
+    cache.last = make([]int, size)
+    cache.nodes = make([]*UnionFindNode, size)
+    for i := range cache.nodes {
+        cache.nodes[i] = new(UnionFindNode)
+    }
+}
 
-	nonBackPreds := cache.nonBackPreds[:size]
-	for i := range nonBackPreds {
-	    nonBackPreds[i] = nonBackPreds[i][:0]
-	}
-	backPreds := cache.backPreds[:size]
-	for i := range nonBackPreds {
-	    backPreds[i] = backPreds[i][:0]
-	}
-	number := cache.number[:size]
-	header := cache.header[:size]
-	types := cache.types[:size]
-	last := cache.last[:size]
-	nodes := cache.nodes[:size]
+nonBackPreds := cache.nonBackPreds[:size]
+for i := range nonBackPreds {
+    nonBackPreds[i] = nonBackPreds[i][:0]
+}
+backPreds := cache.backPreds[:size]
+for i := range nonBackPreds {
+    backPreds[i] = backPreds[i][:0]
+}
+number := cache.number[:size]
+header := cache.header[:size]
+types := cache.types[:size]
+last := cache.last[:size]
+nodes := cache.nodes[:size]
+~~~
 `}}
 
 Such a global variable is bad engineering practice, of course: it means that
@@ -656,7 +666,9 @@ these profiling flags already: define a
 [benchmark function](/pkg/testing/) and you're all set.
 There is also a standard HTTP interface to profiling data. In an HTTP server, adding
 
-	import _ "net/http/pprof"
+```go
+import _ "net/http/pprof"
+```
 
 will install handlers for a few URLs under `/debug/pprof/`.
 Then you can run `go tool pprof` with a single argument—the URL to your server's

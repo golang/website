@@ -24,7 +24,7 @@ a function, without explicit type annotations having been given.
 The key phrase here is "automatically deduce ... the type of an expression".
 Go supported a basic form of type inference from the start:
 
-```Go
+```go
 const x = expr  // the type of x is the type of expr
 var x = expr
 x := expr
@@ -45,13 +45,13 @@ Such a declaration combines type inference and a little bit of syntactic
 sugar&mdash;the ability to leave away the `var` keyword&mdash;into one very compact statement.
 Consider the following map variable declaration:
 
-```Go
+```go
 var m map[string]int = map[string]int{}
 ```
 
 vs
 
-```Go
+```go
 m := map[string]int{}
 ```
 
@@ -63,7 +63,7 @@ Being able to omit them becomes even more important.
 Consider using the following two functions from the new
 [slices package](https://pkg.go.dev/slices):
 
-```Go
+```go
 package slices
 func BinarySearch[S ~[]E, E cmp.Ordered](x S, target E) (int, bool)
 func Sort[S ~[]E, E cmp.Ordered](x S)
@@ -71,7 +71,7 @@ func Sort[S ~[]E, E cmp.Ordered](x S)
 
 Without type inference, calling `BinarySearch` and `Sort` requires explicit type arguments:
 
-```Go
+```go
 type List []int
 var list List
 slices.Sort[List, int](list)
@@ -81,7 +81,7 @@ index, found := slices.BinarySearch[List, int](list, 42)
 We'd rather not repeat `[List, int]` with each such generic function call.
 With type inference the code simplifies to:
 
-```Go
+```go
 type List []int
 var list List
 slices.Sort(list)
@@ -106,7 +106,7 @@ Type pattern matching allows us to infer the types that need
 to go into these type variables.
 Let's consider a short example:
 
-```Go
+```go
 // From the slices package
 // func Sort[S ~[]E, E cmp.Ordered](x S)
 
@@ -136,7 +136,7 @@ Here's a more complicated scenario where we have a lot of type parameters:
 `S1`, `S2`, `E1`, and `E2` from `slices.EqualFunc`, and `E1` and `E2` from the generic function `equal`.
 The local function `foo` calls `slices.EqualFunc` with the `equal` function as an argument:
 
-```Go
+```go
 // From the slices package
 // func EqualFunc[S1 ~[]E1, S2 ~[]E2, E1, E2 any](s1 S1, s2 S2, eq func(E1, E2) bool) bool
 
@@ -169,7 +169,7 @@ Luckily, solving type equations is a simpler problem as we will see shortly.
 
 Let's look again at our earlier example:
 
-```Go
+```go
 // From the slices package
 // func Sort[S ~[]E, E cmp.Ordered](x S)
 
@@ -244,7 +244,7 @@ type equations to be solvable.
 For instance, the single equation below allows us to infer the type arguments for
 two type parameters:
 
-```Go
+```go
 map[K]V ≡ map[int]string  // K ➞ int, V ➞ string (n = 2, m = 1)
 ```
 
@@ -255,13 +255,13 @@ Let's look at each of these sources of type equations in turn:
 
 For each type parameter declaration
 
-```Go
+```go
 func f[…, P constraint, …]…
 ```
 
 and explicitly provided type argument
 
-```Go
+```go
 f[…, A, …]…
 ```
 
@@ -281,7 +281,7 @@ gone and we can forget about them.
 
 For each function argument `x` passed to a function parameter `p`
 
-```Go
+```go
 f(…, x, …)
 ```
 
@@ -301,7 +301,7 @@ involved function (or functions).
 Starting with Go 1.21, an uninstantiated or partially instantiated function
 (but not a function call) may also be assigned to a function-typed variable, as in:
 
-```Go
+```go
 // From the slices package
 // func Sort[S ~[]E, E cmp.Ordered](x S)
 
@@ -326,7 +326,7 @@ Finally, for each type parameter `P` for which we want to infer a type argument,
 we can extract a type equation from its constraint because the type parameter
 must satisfy the constraint. Given the declaration
 
-```Go
+```go
 func f[…, P constraint, …]…
 ```
 
@@ -351,13 +351,13 @@ or assign it to a (function-typed) variable.
 As mentioned earlier, in Go 1.21 type inference also works in these cases.
 For instance, the generic function
 
-```Go
+```go
 func myEq[P comparable](x, y P) bool { return x == y }
 ```
 
 can be assigned to a variable of function type
 
-```Go
+```go
 var strEq func(x, y string) bool = myEq  // same as using myEq[string]
 ```
 
@@ -367,7 +367,7 @@ and type inference will infer that the type argument for `P` must be `string`.
 Furthermore, a generic function may be used uninstantiated or partially instantiated as
 an argument to another, possibly generic function:
 
-```Go
+```go
 // From the slices package
 // func CompactFunc[S ~[]E, E any](s S, eq func(E, E) bool) S
 
@@ -411,7 +411,7 @@ Let's consider another example.
 In the code below, the function body of `sortedPrint` calls `slices.Sort` for the sorting part.
 `sortedPrint` and `slices.Sort` are generic functions as both declare type parameters.
 
-```Go
+```go
 // From the slices package
 // func Sort[S ~[]E, E cmp.Ordered](x S)
 
@@ -492,7 +492,7 @@ The goal is to the solve this equation for the type parameters; i.e., find suita
 type arguments for them such that `X` and `Y` become identical and thus the equation
 becomes true.
 
-```Go
+```go
 X: map[A]struct{i int; s []B}
 Y: map[string]struct{i C; s []byte}
 ```
@@ -500,7 +500,7 @@ Y: map[string]struct{i C; s []byte}
 Unification proceeds by comparing the structure of `X` and `Y` recursively, starting at the top.
 Simply looking at the structure of the two types we have
 
-```Go
+```go
 map[…]… ≡ map[…]…
 ```
 
@@ -512,13 +512,13 @@ and `string` for the `Y` map.
 Corresponding key types must be identical, and from that we can immediately infer that
 the type argument for `A` must be `string`:
 
-```Go
+```go
 A ≡ string => A ➞ string
 ```
 
 Continuing with the map element types, we arrive at
 
-```Go
+```go
 struct{i int; s []B} ≡ struct{i C; s []byte}
 ```
 
@@ -527,7 +527,7 @@ They are identical if they are in the same order, with the same names, and ident
 The first field pair is `i int` and `i C`.
 The names match and because `int` must unify with `C`, thus
 
-```Go
+```go
 int ≡ C => C ➞ int
 ```
 
@@ -535,7 +535,7 @@ This recursive type matching continues until the tree structure of the two types
 traversed, or until a conflict appears.
 In this example, eventually we end up with
 
-```Go
+```go
 []B ≡ []byte => B ≡ byte => B ➞ byte
 ```
 
@@ -553,7 +553,7 @@ here `X` and `Y` don't have the same type structure.
 When the type trees are compared recursively, unification still successfully infers the type argument for `A`.
 But the value types of the maps are different and unification fails.
 
-```Go
+```go
 X: map[A]struct{i int; s []B}
 Y: map[string]bool
 ```
@@ -561,14 +561,14 @@ Y: map[string]bool
 Both `X` and `Y` are map types, so unification proceeds recursively as before, starting with the key types.
 We arrive at
 
-```Go
+```go
 A ≡ string => A ➞ string
 ```
 
 also as before.
 But when we proceed with the map's value types we have
 
-```Go
+```go
 struct{…} ≡ bool
 ```
 
@@ -581,7 +581,7 @@ Another kind of conflict appears when different types match against the same typ
 Here we have again a version of our initial example but now the type parameter `A` appears twice in `X`,
 and `C` appears twice in `Y`.
 
-```Go
+```go
 X: map[A]struct{i int; s []A}
 Y: map[string]struct{i C; s []C}
 ```
@@ -589,14 +589,14 @@ Y: map[string]struct{i C; s []C}
 The recursive type unification works out fine at first and we have the following pairings of type
 parameters and types:
 
-```Go
+```go
 A   ≡ string => A ➞ string  // map key type
 int ≡ C      => C ➞ int     // first struct field type
 ```
 
 When we get to the second struct field type we have
 
-```Go
+```go
 []A ≡ []C => A ≡ C
 ```
 
@@ -711,7 +711,7 @@ of bound type parameters.
 To see why this is the case, consider the generic function `g` below
 which is invoked with a single argument `x` of type `int`:
 
-```Go
+```go
 func g[A any, B []C, C *A](x A) { … }
 
 var x int
@@ -786,7 +786,7 @@ all of which must have the same type.
 `foo` is called with a variety of untyped constant arguments, including a variable
 `x` of type `int`:
 
-```Go
+```go
 func foo[P any](...P) {}
 
 var x int
@@ -821,7 +821,7 @@ true        boolean constant           bool
 
 With this information in hand, let's consider the function call
 
-```Go
+```go
 foo(1, 2)    // P ➞ int (default type for 1 and 2)
 ```
 
@@ -832,7 +832,7 @@ If different constants&mdash;say untyped integer and floating-point constants&md
 for the same type variable, we have different default types.
 Before Go 1.21, this was considered a conflict and led to an error:
 
-```Go
+```go
 foo(1, 2.0)    // Go 1.20: inference error: default types int, float64 don't match
 ```
 
@@ -845,7 +845,7 @@ Now, if multiple untyped numeric constants are matched against the same type par
 the default type that appears later in the list of `int`, `rune`, `float64`, `complex` is
 selected, matching the rules for [constant expressions](/ref/spec#Constant_expressions):
 
-```Go
+```go
 foo(1, 2.0)    // Go 1.21: P ➞ float64 (larger default type of 1 and 2.0; behavior like in 1 + 2.0)
 ```
 
@@ -866,7 +866,7 @@ Let's reconsider our variadic `foo` function:
 the type inferred for `P` should be the same irrespective of the order in which
 we pass the arguments `s` and `t` ([playground](/play/p/sOlWutKnDFc)).
 
-```Go
+```go
 func foo[P any](...P) (x P) {}
 
 type T struct{}
@@ -942,7 +942,7 @@ Note that this is not a mathematically correct implementation of the
 [gamma function](https://en.wikipedia.org/wiki/Gamma_function),
 it is simply a convenient example.
 
-```Go
+```go
 func fact[P ~int | ~float64](n P) P {
 	if n {{raw "<"}}= 1 {
 		return 1
@@ -977,7 +977,7 @@ For the purpose of this example, let's assume the `P` in the signature of `fact`
 The effect is as if the recursive call was done indirectly through a `helper` function
 ([playground](/play/p/TLpo-0auWwC)):
 
-```Go
+```go
 func fact[P ~int | ~float64](n P) P {
 	if n {{raw "<"}}= 1 {
 		return 1
@@ -1003,7 +1003,7 @@ function. This type equation is trivially solved for `Q` and results in the infe
 which is of course what we'd expect, and which we can verify by explicitly instantiating
 the recursive call ([playground](/play/p/zkUFvwJ54lC)):
 
-```Go
+```go
 func fact[P ~int | ~float64](n P) P {
 	if n {{raw "<"}}= 1 {
 		return 1
@@ -1030,7 +1030,7 @@ parameters. We believe this is not a very common scenario.
 Second, and more pertinent, type parameters allow an entirely new kind of recursive
 types. Consider the hypothetical type
 
-```Go
+```go
 type T[P T[P]] interface{ … }
 ```
 

@@ -20,11 +20,13 @@ We would start by creating a signalling channel and launching a goroutine
 that sleeps before sending on the channel:
 
 {{raw `
-	timeout := make(chan bool, 1)
-	go func() {
-	    time.Sleep(1 * time.Second)
-	    timeout <- true
-	}()
+~~~go
+timeout := make(chan bool, 1)
+go func() {
+    time.Sleep(1 * time.Second)
+    timeout <- true
+}()
+~~~
 `}}
 
 We can then use a `select` statement to receive from either `ch` or `timeout`.
@@ -32,12 +34,14 @@ If nothing arrives on `ch` after one second,
 the timeout case is selected and the attempt to read from ch is abandoned.
 
 {{raw `
-	select {
-	case <-ch:
-	    // a read from ch has occurred
-	case <-timeout:
-	    // the read from ch has timed out
-	}
+~~~go
+select {
+case <-ch:
+    // a read from ch has occurred
+case <-timeout:
+    // the read from ch has timed out
+}
+~~~
 `}}
 
 The `timeout` channel is buffered with space for 1 value,
@@ -60,18 +64,20 @@ The function `Query` takes a slice of database connections and a `query` string.
 It queries each of the databases in parallel and returns the first response it receives:
 
 {{raw `
-	func Query(conns []Conn, query string) Result {
-	    ch := make(chan Result)
-	    for _, conn := range conns {
-	        go func(c Conn) {
-	            select {
-	            case ch <- c.DoQuery(query):
-	            default:
-	            }
-	        }(conn)
-	    }
-	    return <-ch
-	}
+~~~go
+func Query(conns []Conn, query string) Result {
+    ch := make(chan Result)
+    for _, conn := range conns {
+        go func(c Conn) {
+            select {
+            case ch <- c.DoQuery(query):
+            default:
+            }
+        }(conn)
+    }
+    return <-ch
+}
+~~~
 `}}
 
 In this example, the closure does a non-blocking send,

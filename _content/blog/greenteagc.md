@@ -133,7 +133,7 @@ memory for a value.
 For example, the following code snippet allocates a single heap object: the backing
 store for a slice of pointers.
 
-```
+```go
 var x = make([]*int, 10) // global
 ```
 
@@ -147,7 +147,7 @@ and they're how a Go program references objects.
 For example, to get the pointer to the beginning of the object allocated in the
 last code snippet, we can write:
 
-```
+```go
 &x[0] // 0xc000104000
 ```
 

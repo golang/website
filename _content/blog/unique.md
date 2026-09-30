@@ -25,7 +25,7 @@ At a high level, interning is very simple.
 Take the code sample below, which deduplicates strings using just a regular
 map.
 
-```
+```go
 var internPool map[string]string
 
 // Intern returns a string that is equal to s but that may share storage with
@@ -110,7 +110,7 @@ interns values of type `addrDetail`, part of the
 Below is an abridged version of the actual code from `net/netip` that uses
 `unique`.
 
-```
+```go
 // Addr represents an IPv4 or IPv6 address (with or without a scoped
 // addressing zone), similar to net.IP or net.IPAddr.
 type Addr struct {

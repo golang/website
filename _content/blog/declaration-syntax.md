@@ -122,9 +122,11 @@ These declarations are clear, if verbose - you just read them left to right.
 Go takes its cue from here, but in the interests of brevity it drops the
 colon and removes some of the keywords:
 
-	x int
-	p *int
-	a [3]int
+```go
+x int
+p *int
+a [3]int
+```
 
 There is no direct correspondence between the look of [3]int and how to
 use a in an expression.
@@ -134,7 +136,9 @@ cost of a separate syntax.
 Now consider functions. Let's transcribe the declaration for main as it would read in Go,
 although the real main function in Go takes no arguments:
 
-	func main(argc int, argv []string) int
+```go
+func main(argc int, argv []string) int
+```
 
 Superficially that's not much different from C,
 other than the change from `char` arrays to strings,
@@ -144,24 +148,32 @@ function main takes an int and a slice of strings and returns an int.
 
 Drop the parameter names and it's just as clear - they're always first so there's no confusion.
 
-	func main(int, []string) int
+```go
+func main(int, []string) int
+```
 
 One merit of this left-to-right style is how well it works as the types
 become more complex.
 Here's a declaration of a function variable (analogous to a function pointer in C):
 
-	f func(func(int,int) int, int) int
+```go
+f func(func(int,int) int, int) int
+```
 
 Or if f returns a function:
 
-	f func(func(int,int) int, int) func(int, int) int
+```go
+f func(func(int,int) int, int) func(int, int) int
+```
 
 It still reads clearly, from left to right,
 and it's always obvious which name is being declared - the name comes first.
 
 The distinction between type and expression syntax makes it easy to write and invoke closures in Go:
 
-	sum := func(a, b int) int { return a+b } (3, 4)
+```go
+sum := func(a, b int) int { return a+b } (3, 4)
+```
 
 ## Pointers
 
@@ -170,36 +182,48 @@ Notice that in arrays and slices, for instance,
 Go's type syntax puts the brackets on the left of the type but the expression
 syntax puts them on the right of the expression:
 
-	var a []int
-	x = a[1]
+```go
+var a []int
+x = a[1]
+```
 
 For familiarity, Go's pointers use the \* notation from C,
 but we could not bring ourselves to make a similar reversal for pointer types.
 Thus pointers work like this
 
-	var p *int
-	x = *p
+```go
+var p *int
+x = *p
+```
 
 We couldn't say
 
-	var p *int
-	x = p*
+```go
+var p *int
+x = p*
+```
 
 because that postfix \* would conflate with multiplication. We could have used the Pascal ^, for example:
 
-	var p ^int
-	x = p^
+```go
+var p ^int
+x = p^
+```
 
 and perhaps we should have (and chosen another operator for xor),
 because the prefix asterisk on both types and expressions complicates things
 in a number of ways.
 For instance, although one can write
 
-	[]int("hi")
+```go
+[]int("hi")
+```
 
 as a conversion, one must parenthesize the type if it starts with a \*:
 
-	(*int)(nil)
+```go
+(*int)(nil)
+```
 
 Had we been willing to give up \* as pointer syntax, those parentheses would be unnecessary.
 

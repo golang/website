@@ -53,12 +53,14 @@ To show how this works, let's start with the basic non-generic `Min`
 function for floating point values:
 
 {{raw `
-	func Min(x, y float64) float64 {
-		if x < y {
-			return x
-		}
-		return y
+~~~go
+func Min(x, y float64) float64 {
+	if x < y {
+		return x
 	}
+	return y
+}
+~~~
 `}}
 
 We can make this function generic--make it work for different
@@ -67,21 +69,25 @@ In this example we add a type parameter list with a single type
 parameter `T`, and replace the uses of `float64` with `T`.
 
 {{raw `
-	import "golang.org/x/exp/constraints"
+~~~go
+import "golang.org/x/exp/constraints"
 
-	func GMin[T constraints.Ordered](x, y T) T {
-		if x < y {
-			return x
-		}
-		return y
+func GMin[T constraints.Ordered](x, y T) T {
+	if x < y {
+		return x
 	}
+	return y
+}
+~~~
 `}}
 
 It is now possible to call this function with a type argument by
 writing a call like
 
 {{raw `
-	x := GMin[int](2, 3)
+~~~go
+x := GMin[int](2, 3)
+~~~
 `}}
 
 Providing the type argument to `GMin`, in this case `int`, is called
@@ -99,8 +105,10 @@ be called just like any other function.
 For example, in code like
 
 {{raw `
-	fmin := GMin[float64]
-	m := fmin(2.71, 3.14)
+~~~go
+fmin := GMin[float64]
+m := fmin(2.71, 3.14)
+~~~
 `}}
 
 the instantiation `GMin[float64]` produces what is effectively our
@@ -110,14 +118,16 @@ function call.
 Type parameters can be used with types also.
 
 {{raw `
-	type Tree[T interface{}] struct {
-		left, right *Tree[T]
-		value       T
-	}
+~~~go
+type Tree[T interface{}] struct {
+	left, right *Tree[T]
+	value       T
+}
 
-	func (t *Tree[T]) Lookup(x T) *Tree[T] { ... }
+func (t *Tree[T]) Lookup(x T) *Tree[T] { ... }
 
-	var stringTree Tree[string]
+var stringTree Tree[string]
+~~~
 `}}
 
 Here the generic type `Tree` stores values of the type parameter `T`.
@@ -196,9 +206,11 @@ only `int`, `string`, or `bool`.
 Now let's look at the actual definition of `constraints.Ordered`:
 
 {{raw `
-	type Ordered interface {
-		Integer|Float|~string
-	}
+~~~go
+type Ordered interface {
+	Integer|Float|~string
+}
+~~~
 `}}
 
 This declaration says that the `Ordered` interface is the set of all
@@ -237,7 +249,9 @@ or they may be literal interfaces inlined in a type parameter list.
 For example:
 
 {{raw `
-	[S interface{~[]E}, E interface{}]
+~~~go
+[S interface{~[]E}, E interface{}]
+~~~
 `}}
 
 Here `S` must be a slice type whose element type can be any type.
@@ -247,7 +261,9 @@ omitted for interfaces in constraint position, and we can simply
 write:
 
 {{raw `
-	[S ~[]E, E interface{}]
+~~~go
+[S ~[]E, E interface{}]
+~~~
 `}}
 
 Because the empty interface is common in type parameter lists, and in
@@ -256,7 +272,9 @@ identifier `any` as an alias for the empty interface type.
 With that, we arrive at this idiomatic code:
 
 {{raw `
-	[S ~[]E, E any]
+~~~go
+[S ~[]E, E any]
+~~~
 `}}
 
 Interfaces as type sets is a powerful new mechanism and is key to
@@ -280,7 +298,9 @@ make for verbose code.
 Going back to our generic `GMin` function:
 
 {{raw `
-	func GMin[T constraints.Ordered](x, y T) T { ... }
+~~~go
+func GMin[T constraints.Ordered](x, y T) T { ... }
+~~~
 `}}
 
 the type parameter `T` is used to specify the types of the ordinary
@@ -288,9 +308,11 @@ non-type arguments `x`, and `y`.
 As we saw earlier, this can be called with an explicit type argument
 
 {{raw `
-	var a, b, m float64
+~~~go
+var a, b, m float64
 
-	m = GMin[float64](a, b) // explicit type argument
+m = GMin[float64](a, b) // explicit type argument
+~~~
 `}}
 
 In many cases the compiler can infer the type argument for `T` from
@@ -298,9 +320,11 @@ the ordinary arguments.
 This makes the code shorter while remaining clear.
 
 {{raw `
-	var a, b, m float64
+~~~go
+var a, b, m float64
 
-	m = GMin(a, b) // no type argument
+m = GMin(a, b) // no type argument
+~~~
 `}}
 
 This works by matching the types of the arguments `a` and `b` with the
@@ -324,15 +348,17 @@ To describe this, let's start with this example of scaling a slice of
 integers:
 
 {{raw `
-	// Scale returns a copy of s with each element multiplied by c.
-	// This implementation has a problem, as we will see.
-	func Scale[E constraints.Integer](s []E, c E) []E {
-		r := make([]E, len(s))
-		for i, v := range s {
-			r[i] = v * c
-		}
-		return r
+~~~go
+// Scale returns a copy of s with each element multiplied by c.
+// This implementation has a problem, as we will see.
+func Scale[E constraints.Integer](s []E, c E) []E {
+	r := make([]E, len(s))
+	for i, v := range s {
+		r[i] = v * c
 	}
+	return r
+}
+~~~
 `}}
 
 This is a generic function that works for a slice of any integer
@@ -344,11 +370,13 @@ point.
 Naturally this type will have some methods.
 
 {{raw `
-	type Point []int32
+~~~go
+type Point []int32
 
-	func (p Point) String() string {
-		// Details not important.
-	}
+func (p Point) String() string {
+	// Details not important.
+}
+~~~
 `}}
 
 Sometimes we want to scale a `Point`.
@@ -356,11 +384,13 @@ Since a `Point` is just a slice of integers, we can use the `Scale`
 function we wrote earlier:
 
 {{raw `
-	// ScaleAndPrint doubles a Point and prints it.
-	func ScaleAndPrint(p Point) {
-		r := Scale(p, 2)
-		fmt.Println(r.String()) // DOES NOT COMPILE
-	}
+~~~go
+// ScaleAndPrint doubles a Point and prints it.
+func ScaleAndPrint(p Point) {
+	r := Scale(p, 2)
+	fmt.Println(r.String()) // DOES NOT COMPILE
+}
+~~~
 `}}
 
 Unfortunately this does not compile, failing with an error like
@@ -378,14 +408,16 @@ In order to fix this, we have to change the `Scale` function to use a
 type parameter for the slice type.
 
 {{raw `
-	// Scale returns a copy of s with each element multiplied by c.
-	func Scale[S ~[]E, E constraints.Integer](s S, c E) S {
-		r := make(S, len(s))
-		for i, v := range s {
-			r[i] = v * c
-		}
-		return r
+~~~go
+// Scale returns a copy of s with each element multiplied by c.
+func Scale[S ~[]E, E constraints.Integer](s S, c E) S {
+	r := make(S, len(s))
+	for i, v := range s {
+		r[i] = v * c
 	}
+	return r
+}
+~~~
 `}}
 
 We've introduced a new type parameter `S` that is the type of the

@@ -35,7 +35,7 @@ As a concrete, if somewhat artificial, example,
 the following `Cleanup` function is synchronous.
 You call it, it deletes a cache directory, and it returns.
 
-```
+```go
 func (c *Cache) Cleanup() {
     os.RemoveAll(c.cacheDir)
 }
@@ -44,7 +44,7 @@ func (c *Cache) Cleanup() {
 `CleanupInBackground` is an asynchronous function.
 You call it, it returns, and the cache directory is deleted...sooner or later.
 
-```
+```go
 func (c *Cache) CleanupInBackground() {
     go os.RemoveAll(c.cacheDir)
 }
@@ -54,7 +54,7 @@ Sometimes an asynchronous function does something in the future.
 For example, the `context` package's `WithDeadline` function
 returns a context which will be canceled in the future.
 
-```
+```go
 package context
 
 // WithDeadline returns a derived context
@@ -106,7 +106,7 @@ To make things a little more concrete,
 let's work with a real-world example.
 Consider the `context` package's `WithDeadline` function again.
 
-```
+```go
 package context
 
 // WithDeadline returns a derived context
@@ -125,7 +125,7 @@ To keep the amount of code marginally less overwhelming,
 we'll just test the second case:
 After the deadline expires, the context is canceled.
 
-```
+```go
 func TestWithDeadlineAfterDeadline(t *testing.T) {
     deadline := time.Now().Add(1 * time.Second)
     ctx, _ := context.WithDeadline(t.Context(), deadline)
@@ -151,7 +151,7 @@ At best, this test will be very flaky.
 
 Let's fix it.
 
-```
+```go
 time.Sleep(time.Until(deadline) + 100*time.Millisecond)
 ```
 
@@ -203,7 +203,7 @@ As a general rule,
 the higher up the call stack you can push your concurrency,
 the better.
 
-```
+```go
 // CleanupInBackground is hard to test.
 cache.CleanupInBackground()
 
@@ -222,7 +222,7 @@ A better approach is to make our code more testable.
 
 Here's an example of what this might look like for our `WithDeadline` test:
 
-```
+```go
 func TestWithDeadlineAfterDeadline(t *testing.T) {
     clock := fakeClock()
     timeout := 1 * time.Second
@@ -252,7 +252,7 @@ To use fake time, we need to modify our API to accept a fake clock.
 I've added a `context.WithDeadlineClock` function here,
 that takes an additional clock parameter:
 
-```
+```go
 ctx, _ := context.WithDeadlineClock(
     t.Context(), deadline, clock)
 ```
@@ -268,7 +268,7 @@ the expected behavior of the system.
 I've added a `context.WaitUntilIdle` function here,
 which waits for any background work related to a context to complete:
 
-```
+```go
 clock.Advance(timeout)
 context.WaitUntilIdle(ctx)
 ```
@@ -421,7 +421,7 @@ and the `synctest` package provides a function to wait for the bubble to quiesce
 
 The `synctest` package contains just two functions.
 
-```
+```go
 package synctest
 
 // Test executes f in a new bubble.
@@ -442,7 +442,7 @@ We call that state being "durably blocked".
 
 Let's look at an example of synctest in action.
 
-```
+```go
 func TestWithDeadlineAfterDeadline(t *testing.T) {
     synctest.Test(t, func(t *testing.T) {
         deadline := time.Now().Add(1 * time.Second)
@@ -484,7 +484,7 @@ Time starts at midnight, January 1, 2000 UTC.
 If you need to run a test at some specific point in time for some reason,
 you can just sleep until then.
 
-```
+```go
 func TestAtSpecificTime(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        // 2000-01-01 00:00:00 +0000 UTC
@@ -508,7 +508,7 @@ The following test will always print that zero seconds
 of fake time have elapsed since the start of the test,
 no matter how much real time has passed.
 
-```
+```go
 func TestExpensiveWork(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        start := time.Now()
@@ -525,7 +525,7 @@ rather than waiting for ten real seconds.
 The test will always print that exactly ten fake seconds
 have passed since the start of the test.
 
-```
+```go
 func TestSleep(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        start := time.Now()
@@ -540,7 +540,7 @@ func TestSleep(t *testing.T) {
 The [`synctest.Wait`](/pkg/testing/synctest#Wait) function
 lets us wait for background activity to complete.
 
-```
+```go
 func TestWait(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        done := false
@@ -580,7 +580,7 @@ while the fake clock ensures that the goroutine completes before `time.Sleep` re
 the race detector will still report the data race,
 just like it would if this code were run outside a synctest bubble.
 
-```
+```go
 func TestTimeDataRace(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        done := false
@@ -598,7 +598,7 @@ func TestTimeDataRace(t *testing.T) {
 
 Adding a `Wait` call provides explicit synchronization and fixes the data race:
 
-```
+```go
 time.Sleep(1 * time.Nanosecond)
 synctest.Wait() // synchronize
 t.Log(done)     // read
@@ -611,7 +611,7 @@ to write simpler tests with less explicit synchronization.
 
 For example, consider this test of [`io.Copy`](/pkg/io#Copy).
 
-```
+```go
 func TestIOCopy(t *testing.T) {
    synctest.Test(t, func(t *testing.T) {
        srcReader, srcWriter := io.Pipe()
@@ -646,7 +646,7 @@ without waiting to fill its buffer.
 Looking at the test step by step,
 we first create an `io.Pipe` to serve as the source `io.Copy` reads from:
 
-```
+```go
 srcReader, srcWriter := io.Pipe()
 defer srcWriter.Close()
 ```
@@ -654,7 +654,7 @@ defer srcWriter.Close()
 We call `io.Copy` in a new goroutine,
 copying from the read end of the pipe into a `bytes.Buffer`:
 
-```
+```go
 var dst bytes.Buffer
 go io.Copy(&dst, srcReader)
 ```
@@ -662,7 +662,7 @@ go io.Copy(&dst, srcReader)
 We write to the other end of the pipe,
 and wait for `io.Copy` to handle the data:
 
-```
+```go
 data := "1234"
 srcWriter.Write([]byte("1234"))
 synctest.Wait()
@@ -670,7 +670,7 @@ synctest.Wait()
 
 Finally, we verify that the destination buffer contains the desired data:
 
-```
+```go
 if got, want := dst.String(), data; got != want {
     t.Errorf("Copy wrote %q, want %q", got, want)
 }
@@ -699,7 +699,7 @@ Time stops advancing after the root goroutine (the goroutine started by `Test`) 
 In the next example, `Test` waits for the background goroutine to run and exit
 before it returns:
 
-```
+```go
 func TestWaitForGoroutine(t *testing.T) {
     synctest.Test(t, func(t *testing.T) {
         go func() {
@@ -713,7 +713,7 @@ In this example, we schedule a `time.AfterFunc` for a time in the future.
 The bubble's root goroutine returns before that time is reached,
 so the `AfterFunc` never runs:
 
-```
+```go
 func TestDoNotWaitForTimer(t *testing.T) {
     synctest.Test(t, func(t *testing.T) {
         time.AfterFunc(1 * time.Nanosecond, func() {
@@ -729,7 +729,7 @@ The bubble is now deadlocked,
 because `Test` is waiting for all goroutines in the bubble to finish
 but the sleeping goroutine is waiting for time to advance.
 
-```
+```go
 func TestDeadlock(t *testing.T) {
     synctest.Test(t, func(t *testing.T) {
         go func() {
@@ -912,7 +912,7 @@ and the version released in Go 1.25.
 
 The original version of the API created a bubble with a `Run` function:
 
-```
+```go
 // Run executes f in a new bubble.
 func Run(f func())
 ```

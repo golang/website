@@ -25,36 +25,44 @@ it to open a file in a different location.
 If the attacker controls part of the filename, they may be able to use relative
 directory components ("..") to escape the intended location:
 
-    f, err := os.Open(filepath.Join(trustedLocation, "../../../../etc/passwd"))
+```go
+f, err := os.Open(filepath.Join(trustedLocation, "../../../../etc/passwd"))
+```
 
 On Windows systems, some names have special meaning:
 
-    // f will print to the console.
-    f, err := os.Create(filepath.Join(trustedLocation, "CONOUT$"))
+```go
+// f will print to the console.
+f, err := os.Create(filepath.Join(trustedLocation, "CONOUT$"))
+```
 
 If the attacker controls part of the local filesystem, they may be able to use
 symbolic links to cause a program to access the wrong file:
 
-    // Attacker links /home/user/.config to /home/otheruser/.config:
-    err := os.WriteFile("/home/user/.config/foo", config, 0o666)
+```go
+// Attacker links /home/user/.config to /home/otheruser/.config:
+err := os.WriteFile("/home/user/.config/foo", config, 0o666)
+```
 
 If the program defends against symlink traversal by first verifying that the intended file
 does not contain any symlinks, it may still be vulnerable to
 [time-of-check/time-of-use (TOCTOU) races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use),
 where the attacker creates a symlink after the program's check:
 
-    // Validate the path before use.
-    cleaned, err := filepath.EvalSymlinks(unsafePath)
-    if err != nil {
-      return err
-    }
-    if !filepath.IsLocal(cleaned) {
-      return errors.New("unsafe path")
-    }
+```go
+// Validate the path before use.
+cleaned, err := filepath.EvalSymlinks(unsafePath)
+if err != nil {
+  return err
+}
+if !filepath.IsLocal(cleaned) {
+  return errors.New("unsafe path")
+}
 
-    // Attacker replaces part of the path with a symlink.
-    // The Open call follows the symlink:
-    f, err := os.Open(cleaned)
+// Attacker replaces part of the path with a symlink.
+// The Open call follows the symlink:
+f, err := os.Open(cleaned)
+```
 
 Another variety of TOCTOU race involves moving a directory that forms part of a path
 mid-traversal. For example, the attacker provides a path such as "a/b/c/../../etc/passwd",
@@ -115,18 +123,22 @@ The new [`os.Root`](/pkg/os#Root) type represents a directory somewhere
 in the local filesystem. Open a root with the [`os.OpenRoot`](/pkg/os#OpenRoot)
 function:
 
-    root, err := os.OpenRoot("/some/root/directory")
-    if err != nil {
-      return err
-    }
-    defer root.Close()
+```go
+root, err := os.OpenRoot("/some/root/directory")
+if err != nil {
+  return err
+}
+defer root.Close()
+```
 
 `Root` provides methods to operate on files within the root.
 These methods all accept filenames relative to the root,
 and disallow any operations that would escape from the root either
 using relative path components ("..") or symlinks.
 
-    f, err := root.Open("path/to/file")
+```go
+f, err := root.Open("path/to/file")
+```
 
 `Root` permits relative path components and symlinks that do not escape the root.
 For example, `root.Open("a/../b")` is permitted. Filenames are resolved using the
@@ -136,21 +148,25 @@ while on Windows systems this will open "b" (even if "a" does not exist).
 
 `Root` currently provides the following set of operations:
 
-    func (*Root) Create(string) (*File, error)
-    func (*Root) Lstat(string) (fs.FileInfo, error)
-    func (*Root) Mkdir(string, fs.FileMode) error
-    func (*Root) Open(string) (*File, error)
-    func (*Root) OpenFile(string, int, fs.FileMode) (*File, error)
-    func (*Root) OpenRoot(string) (*Root, error)
-    func (*Root) Remove(string) error
-    func (*Root) Stat(string) (fs.FileInfo, error)
+```go
+func (*Root) Create(string) (*File, error)
+func (*Root) Lstat(string) (fs.FileInfo, error)
+func (*Root) Mkdir(string, fs.FileMode) error
+func (*Root) Open(string) (*File, error)
+func (*Root) OpenFile(string, int, fs.FileMode) (*File, error)
+func (*Root) OpenRoot(string) (*Root, error)
+func (*Root) Remove(string) error
+func (*Root) Stat(string) (fs.FileInfo, error)
+```
 
 In addition to the `Root` type, the new
 [`os.OpenInRoot`](/pkg/os#OpenInRoot) function
 provides a simple way to open a potentially-untrusted filename within a
 specific directory:
 
-    f, err := os.OpenInRoot("/some/root/directory", untrustedFilename)
+```go
+f, err := os.OpenInRoot("/some/root/directory", untrustedFilename)
+```
 
 The `Root` type provides a simple, safe, portable API for operating with untrusted filenames.
 
@@ -226,11 +242,13 @@ refer to anywhere on the filesystem.
 As a good rule of thumb, code which calls `filepath.Join` to combine a fixed directory
 and an externally-provided filename should probably use `os.Root` instead.
 
-    // This might open a file not located in baseDirectory.
-    f, err := os.Open(filepath.Join(baseDirectory, filename))
+```go
+// This might open a file not located in baseDirectory.
+f, err := os.Open(filepath.Join(baseDirectory, filename))
 
-    // This will only open files under baseDirectory.
-    f, err := os.OpenInRoot(baseDirectory, filename)
+// This will only open files under baseDirectory.
+f, err := os.OpenInRoot(baseDirectory, filename)
+```
 
 ## Future work
 

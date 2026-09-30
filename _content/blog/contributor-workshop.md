@@ -275,14 +275,16 @@ me through how all examples are actually in-line tests in a `example_test.go`
 file. They follow the format of test cases followed by "Output" commented out
 and then the answers to the tests. For example:
 
-	func ExampleRegexp_FindString() {
-		re := regexp.MustCompile("fo.?")
-		fmt.Printf("%q\n", re.FindString("seafood"))
-		fmt.Printf("%q\n", re.FindString("meat"))
-		// Output:
-		// "foo"
-		// ""
-	}
+```go
+func ExampleRegexp_FindString() {
+	re := regexp.MustCompile("fo.?")
+	fmt.Printf("%q\n", re.FindString("seafood"))
+	fmt.Printf("%q\n", re.FindString("meat"))
+	// Output:
+	// "foo"
+	// ""
+}
+```
 
 Kind of cool, right?? I followed Francesc's lead and added a function
 `ExampleQuoteMeta` and added a few I thought would be helpful. From there it's

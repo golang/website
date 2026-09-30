@@ -47,10 +47,12 @@ with no intervening blank line.
 Godoc will then present that comment as text alongside the item it documents.
 For example, this is the documentation for the `fmt` package's [`Fprint`](/pkg/fmt/#Fprint) function:
 
-	// Fprint formats using the default formats for its operands and writes to w.
-	// Spaces are added between operands when neither is a string.
-	// It returns the number of bytes written and any write error encountered.
-	func Fprint(w io.Writer, a ...interface{}) (n int, err error) {
+```go
+// Fprint formats using the default formats for its operands and writes to w.
+// Spaces are added between operands when neither is a string.
+// It returns the number of bytes written and any write error encountered.
+func Fprint(w io.Writer, a ...interface{}) (n int, err error) {
+```
 
 Notice this comment is a complete sentence that begins with the name of
 the element it describes.
@@ -63,9 +65,11 @@ Comments on package declarations should provide general package documentation.
 These comments can be short, like the [`sort`](/pkg/sort/)
 package's brief description:
 
-	// Package sort provides primitives for sorting slices and user-defined
-	// collections.
-	package sort
+```go
+// Package sort provides primitives for sorting slices and user-defined
+// collections.
+package sort
+```
 
 They can also be detailed like the [gob package](/pkg/encoding/gob/)'s overview.
 That package uses another convention for packages that need large amounts
@@ -85,7 +89,9 @@ and included in the "Bugs” section of the package documentation.
 The "who” part should be the user name of someone who could provide more information.
 For example, this is a known issue from the [bytes package](/pkg/bytes/#pkg-note-BUG):
 
-	// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
+```go
+// BUG(r): The rule Title uses for word boundaries does not handle Unicode punctuation properly.
+```
 
 Sometimes a struct field, function, type, or even a whole package becomes
 redundant or unnecessary, but must be kept for compatibility with existing

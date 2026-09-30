@@ -216,7 +216,7 @@ handled by the bottom half.
 
 The basic API of `jsontext` is the following:
 
-```
+```go
 package jsontext
 
 type Encoder struct { ... }
@@ -287,7 +287,7 @@ study [the examples in the `v2` package](/pkg/encoding/json/v2#pkg-examples) or
 read [Anton Zhiyanov's blog covering the topic](https://antonz.org/go-json-v2/).
 
 The basic API of `v2` is the following:
-```
+```go
 package json
 
 func Marshal(in any, opts ...Options) (out []byte, err error)
@@ -321,7 +321,7 @@ in `v2` which are not covered by this article.
 Similar to `v1`, `v2` allows types to define their own JSON representation
 by satisfying particular interfaces.
 
-```
+```go
 type Marshaler interface {
 	MarshalJSON() ([]byte, error)
 }
@@ -356,7 +356,7 @@ a custom JSON representation for any arbitrary type,
 where caller-specified functions take precedence over type-defined methods
 or the default representation for a particular type.
 
-```
+```go
 func WithMarshalers(*Marshalers) Options
 
 type Marshalers struct { ... }

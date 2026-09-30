@@ -93,7 +93,9 @@ And to fit well into the host system, Go's `exec.LookPath`
 implements the Unix rules on Unix and the Windows rules on Windows.
 For example, this command
 
-	out, err := exec.Command("go", "version").CombinedOutput()
+```go
+out, err := exec.Command("go", "version").CombinedOutput()
+```
 
 behaves the same as typing `go` `version` into the operating system shell.
 On Windows, it runs `.\go.exe` when that exists.
@@ -121,9 +123,11 @@ It looks in the PATH, of course. Luckily, while it runs the C compiler
 in the package source directory, it does the PATH lookup
 from the original directory where the `go` command was invoked:
 
-	cmd := exec.Command("gcc", "file.c")
-	cmd.Dir = "badpkg"
-	cmd.Run()
+```go
+cmd := exec.Command("gcc", "file.c")
+cmd.Dir = "badpkg"
+cmd.Run()
+```
 
 So even if `badpkg\gcc.exe` exists on a Windows system,
 this code snippet will not find it.
@@ -134,9 +138,11 @@ The `go` command uses similar code to invoke `cgo`,
 and in that case there's not even a path lookup,
 because `cgo` always comes from GOROOT:
 
-	cmd := exec.Command(GOROOT+"/pkg/tool/"+GOOS_GOARCH+"/cgo", "file.go")
-	cmd.Dir = "badpkg"
-	cmd.Run()
+```go
+cmd := exec.Command(GOROOT+"/pkg/tool/"+GOOS_GOARCH+"/cgo", "file.go")
+cmd.Dir = "badpkg"
+cmd.Run()
+```
 
 This is even safer than the previous snippet:
 there's no chance of running any bad `cgo.exe` that may exist.
@@ -144,9 +150,11 @@ there's no chance of running any bad `cgo.exe` that may exist.
 But it turns out that cgo itself also invokes the host C compiler,
 on some temporary files it creates, meaning it executes this code itself:
 
-	// running in cgo in badpkg dir
-	cmd := exec.Command("gcc", "tmpfile.c")
-	cmd.Run()
+```go
+// running in cgo in badpkg dir
+cmd := exec.Command("gcc", "tmpfile.c")
+cmd.Run()
+```
 
 Now, because cgo itself is running in `badpkg`,
 not in the directory where the `go` command was run,
@@ -259,11 +267,15 @@ If you are concerned, then we've published the more restricted variant
 of `os/exec` as [`golang.org/x/sys/execabs`](https://pkg.go.dev/golang.org/x/sys/execabs).
 You can use it in your program by simply replacing
 
-	import "os/exec"
+```go
+import "os/exec"
+```
 
 with
 
-	import exec "golang.org/x/sys/execabs"
+```go
+import exec "golang.org/x/sys/execabs"
+```
 
 and recompiling.
 

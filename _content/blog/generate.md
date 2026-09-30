@@ -61,7 +61,9 @@ The `-o` option names the output file while `-p` specifies the package name.
 To have `go` `generate` drive the process, in any one of the regular (non-generated) `.go` files
 in the same directory, add this comment anywhere in the file:
 
-	//go:generate goyacc -o gopher.go -p parser gopher.y
+```go
+//go:generate goyacc -o gopher.go -p parser gopher.y
+```
 
 This text is just the command above prefixed by a special comment recognized by `go` `generate`.
 The comment must start at the beginning of the line and have no spaces between the `//` and the `go:generate`.
@@ -102,37 +104,43 @@ Here's an example from the documentation for
 [`stringer`](https://godoc.org/golang.org/x/tools/cmd/stringer).
 Imagine we have some code that contains a set of integer constants defining different types of pills:
 
-	package painkiller
+```go
+package painkiller
 
-	type Pill int
+type Pill int
 
-	const (
-		Placebo Pill = iota
-		Aspirin
-		Ibuprofen
-		Paracetamol
-		Acetaminophen = Paracetamol
-	)
+const (
+	Placebo Pill = iota
+	Aspirin
+	Ibuprofen
+	Paracetamol
+	Acetaminophen = Paracetamol
+)
+```
 
 For debugging, we'd like these constants to pretty-print themselves, which means we want a method with signature,
 
-	func (p Pill) String() string
+```go
+func (p Pill) String() string
+```
 
 It's easy to write one by hand, perhaps like this:
 
-	func (p Pill) String() string {
-		switch p {
-		case Placebo:
-			return "Placebo"
-		case Aspirin:
-			return "Aspirin"
-		case Ibuprofen:
-			return "Ibuprofen"
-		case Paracetamol: // == Acetaminophen
-			return "Paracetamol"
-		}
-		return fmt.Sprintf("Pill(%d)", p)
+```go
+func (p Pill) String() string {
+	switch p {
+	case Placebo:
+		return "Placebo"
+	case Aspirin:
+		return "Aspirin"
+	case Ibuprofen:
+		return "Ibuprofen"
+	case Paracetamol: // == Acetaminophen
+		return "Paracetamol"
 	}
+	return fmt.Sprintf("Pill(%d)", p)
+}
+```
 
 There are other ways to write this function, of course.
 We could use a slice of strings indexed by Pill, or a map, or some other technique.
@@ -145,7 +153,9 @@ The `stringer` program takes care of all these details.
 Although it can be run in isolation, it is intended to be driven by `go` `generate`.
 To use it, add a generate comment to the source, perhaps near the type definition:
 
-	//go:generate stringer -type=Pill
+```go
+//go:generate stringer -type=Pill
+```
 
 This rule specifies that `go` `generate` should run the `stringer` tool to generate a `String` method for type `Pill`.
 The output is automatically written to `pill_string.go` (a default we could override with the
@@ -198,24 +208,26 @@ The approach used by the methods printed by `stringer` varies according to the p
 For instance, if the constants are sparse, it might use a map.
 Here's a trivial example based on a constant set representing powers of two:
 
-	const _Power_name = "p0p1p2p3p4p5..."
+```go
+const _Power_name = "p0p1p2p3p4p5..."
 
-	var _Power_map = map[Power]string{
-		1:    _Power_name[0:2],
-		2:    _Power_name[2:4],
-		4:    _Power_name[4:6],
-		8:    _Power_name[6:8],
-		16:   _Power_name[8:10],
-		32:   _Power_name[10:12],
-		...,
-	}
+var _Power_map = map[Power]string{
+	1:    _Power_name[0:2],
+	2:    _Power_name[2:4],
+	4:    _Power_name[4:6],
+	8:    _Power_name[6:8],
+	16:   _Power_name[8:10],
+	32:   _Power_name[10:12],
+	...,
+}
 
-	func (i Power) String() string {
-		if str, ok := _Power_map[i]; ok {
-			return str
-		}
-		return fmt.Sprintf("Power(%d)", i)
+func (i Power) String() string {
+	if str, ok := _Power_map[i]; ok {
+		return str
 	}
+	return fmt.Sprintf("Power(%d)", i)
+}
+```
 
 In short, generating the method automatically allows us to do a better job than we would expect a human to do.
 

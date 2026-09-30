@@ -82,7 +82,9 @@ It has a NewReader function that returns an object that,
 as [the documentation](/pkg/compress/lzw/#NewReader) says,
 "satisfies reads by decompressing the data read from r":
 
-	func NewReader(r io.Reader, order Order, litWidth int) io.ReadCloser
+```go
+func NewReader(r io.Reader, order Order, litWidth int) io.ReadCloser
+```
 
 Here `order` defines the bit-packing order and `litWidth` is the word size in bits,
 which for a GIF file corresponds to the pixel depth, typically 8.
@@ -97,11 +99,13 @@ which we call `blockReader`.
 
 Here's the data structure for a `blockReader`.
 
-	type blockReader struct {
-	   r     reader    // Input source; implements io.Reader and io.ByteReader.
-	   slice []byte    // Buffer of unread data.
-	   tmp   [256]byte // Storage for slice.
-	}
+```go
+type blockReader struct {
+   r     reader    // Input source; implements io.Reader and io.ByteReader.
+   slice []byte    // Buffer of unread data.
+   tmp   [256]byte // Storage for slice.
+}
+```
 
 The reader, `r`, will be the source of the image data,
 perhaps a file or HTTP connection.
@@ -109,27 +113,29 @@ The `slice` and `tmp` fields will be used to manage the deblocking.
 Here's the `Read` method in its entirety.
 It's a nice example of the use of slices and arrays in Go.
 
-	1  func (b *blockReader) Read(p []byte) (int, os.Error) {
-	2      if len(p) == 0 {
-	3          return 0, nil
-	4      }
-	5      if len(b.slice) == 0 {
-	6          blockLen, err := b.r.ReadByte()
-	7          if err != nil {
-	8              return 0, err
-	9          }
-	10          if blockLen == 0 {
-	11              return 0, os.EOF
-	12          }
-	13          b.slice = b.tmp[0:blockLen]
-	14          if _, err = io.ReadFull(b.r, b.slice); err != nil {
-	15              return 0, err
-	16          }
-	17      }
-	18      n := copy(p, b.slice)
-	19      b.slice = b.slice[n:]
-	20      return n, nil
-	21  }
+```go
+1  func (b *blockReader) Read(p []byte) (int, os.Error) {
+2      if len(p) == 0 {
+3          return 0, nil
+4      }
+5      if len(b.slice) == 0 {
+6          blockLen, err := b.r.ReadByte()
+7          if err != nil {
+8              return 0, err
+9          }
+10          if blockLen == 0 {
+11              return 0, os.EOF
+12          }
+13          b.slice = b.tmp[0:blockLen]
+14          if _, err = io.ReadFull(b.r, b.slice); err != nil {
+15              return 0, err
+16          }
+17      }
+18      n := copy(p, b.slice)
+19      b.slice = b.slice[n:]
+20      return n, nil
+21  }
+```
 
 Lines 2-4 are just a sanity check: if there's no place to put data, return zero.
 That should never happen, but it's good to be safe.
@@ -168,7 +174,9 @@ Given the `blockReader` type, we can unblock the image data stream just
 by wrapping the input reader,
 say a file, like this:
 
-	deblockingReader := &blockReader{r: imageFile}
+```go
+deblockingReader := &blockReader{r: imageFile}
+```
 
 This wrapping turns a block-delimited GIF image stream into a simple stream
 of bytes accessible by calls to the `Read` method of the `blockReader`.
@@ -180,10 +188,12 @@ we have all the pieces we need to decode the image data stream.
 We stitch them together with this thunderclap,
 straight from the code:
 
-	lzwr := lzw.NewReader(&blockReader{r: d.r}, lzw.LSB, int(litWidth))
-	if _, err = io.ReadFull(lzwr, m.Pix); err != nil {
-	   break
-	}
+```go
+lzwr := lzw.NewReader(&blockReader{r: d.r}, lzw.LSB, int(litWidth))
+if _, err = io.ReadFull(lzwr, m.Pix); err != nil {
+   break
+}
+```
 
 That's it.
 

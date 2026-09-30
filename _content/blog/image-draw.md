@@ -72,18 +72,22 @@ takes seven arguments,
 but an explicit mask and mask-point are usually unnecessary,
 so the [`Draw`](/pkg/image/draw/#Draw) function takes five:
 
-	// Draw calls DrawMask with a nil mask.
-	func Draw(dst Image, r image.Rectangle, src image.Image, sp image.Point, op Op)
-	func DrawMask(dst Image, r image.Rectangle, src image.Image, sp image.Point,
-	 mask image.Image, mp image.Point, op Op)
+```go
+// Draw calls DrawMask with a nil mask.
+func Draw(dst Image, r image.Rectangle, src image.Image, sp image.Point, op Op)
+func DrawMask(dst Image, r image.Rectangle, src image.Image, sp image.Point,
+ mask image.Image, mp image.Point, op Op)
+```
 
 The destination image must be mutable, so the image/draw package defines
 a [`draw.Image`](/pkg/image/draw/#Image) interface which has a `Set` method.
 
-	type Image interface {
-	    image.Image
-	    Set(x, y int, c color.Color)
-	}
+```go
+type Image interface {
+    image.Image
+    Set(x, y int, c color.Color)
+}
+```
 
 ## Filling a Rectangle
 
@@ -94,20 +98,26 @@ For those familiar with the design of Plan 9's draw library,
 there is no need for an explicit "repeat bit" in Go's slice-based image types;
 the concept is subsumed by `Uniform`.
 
-	// image.ZP is the zero point -- the origin.
-	draw.Draw(dst, r, &image.Uniform{c}, image.ZP, draw.Src)
+```go
+// image.ZP is the zero point -- the origin.
+draw.Draw(dst, r, &image.Uniform{c}, image.ZP, draw.Src)
+```
 
 To initialize a new image to all-blue:
 
-	m := image.NewRGBA(image.Rect(0, 0, 640, 480))
-	blue := color.RGBA{0, 0, 255, 255}
-	draw.Draw(m, m.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
+```go
+m := image.NewRGBA(image.Rect(0, 0, 640, 480))
+blue := color.RGBA{0, 0, 255, 255}
+draw.Draw(m, m.Bounds(), &image.Uniform{blue}, image.ZP, draw.Src)
+```
 
 To reset an image to transparent (or black,
 if the destination image's color model cannot represent transparency),
 use `image.Transparent`, which is an `image.Uniform`:
 
-	draw.Draw(m, m.Bounds(), image.Transparent, image.ZP, draw.Src)
+```go
+draw.Draw(m, m.Bounds(), image.Transparent, image.ZP, draw.Src)
+```
 
 {{image "image-draw/2a.png"}}
 
@@ -117,13 +127,17 @@ To copy from a rectangle `sr` in the source image to a rectangle starting
 at a point `dp` in the destination,
 convert the source rectangle into the destination image's co-ordinate space:
 
-	r := image.Rectangle{dp, dp.Add(sr.Size())}
-	draw.Draw(dst, r, src, sr.Min, draw.Src)
+```go
+r := image.Rectangle{dp, dp.Add(sr.Size())}
+draw.Draw(dst, r, src, sr.Min, draw.Src)
+```
 
 Alternatively:
 
-	r := sr.Sub(sr.Min).Add(dp)
-	draw.Draw(dst, r, src, sr.Min, draw.Src)
+```go
+r := sr.Sub(sr.Min).Add(dp)
+draw.Draw(dst, r, src, sr.Min, draw.Src)
+```
 
 To copy the entire source image, use `sr = src.Bounds()`.
 
@@ -137,12 +151,14 @@ Overlapping destination and source images are perfectly valid,
 just as Go's built-in copy function can handle overlapping destination and source slices.
 To scroll an image m by 20 pixels:
 
-	b := m.Bounds()
-	p := image.Pt(0, 20)
-	// Note that even though the second argument is b,
-	// the effective rectangle is smaller due to clipping.
-	draw.Draw(m, b, m, b.Min.Add(p), draw.Src)
-	dirtyRect := b.Intersect(image.Rect(b.Min.X, b.Max.Y-20, b.Max.X, b.Max.Y))
+```go
+b := m.Bounds()
+p := image.Pt(0, 20)
+// Note that even though the second argument is b,
+// the effective rectangle is smaller due to clipping.
+draw.Draw(m, b, m, b.Min.Add(p), draw.Src)
+dirtyRect := b.Intersect(image.Rect(b.Min.X, b.Max.Y-20, b.Max.X, b.Max.Y))
+```
 
 {{image "image-draw/2c.png"}}
 
@@ -154,9 +170,11 @@ decoding a JPEG results in a `ycbcr.YCbCr`,
 and the result of decoding a PNG depends on the image data.
 To convert any image to an `image.RGBA`:
 
-	b := src.Bounds()
-	m := image.NewRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
-	draw.Draw(m, m.Bounds(), src, b.Min, draw.Src)
+```go
+b := src.Bounds()
+m := image.NewRGBA(image.Rect(0, 0, b.Dx(), b.Dy()))
+draw.Draw(m, m.Bounds(), src, b.Min, draw.Src)
+```
 
 {{image "image-draw/2d.png"}}
 
@@ -165,28 +183,30 @@ To convert any image to an `image.RGBA`:
 To draw an image through a circular mask with center `p` and radius `r`:
 
 {{raw `
-	type circle struct {
-	    p image.Point
-	    r int
-	}
+~~~go
+type circle struct {
+    p image.Point
+    r int
+}
 
-	func (c *circle) ColorModel() color.Model {
-	    return color.AlphaModel
-	}
+func (c *circle) ColorModel() color.Model {
+    return color.AlphaModel
+}
 
-	func (c *circle) Bounds() image.Rectangle {
-	    return image.Rect(c.p.X-c.r, c.p.Y-c.r, c.p.X+c.r, c.p.Y+c.r)
-	}
+func (c *circle) Bounds() image.Rectangle {
+    return image.Rect(c.p.X-c.r, c.p.Y-c.r, c.p.X+c.r, c.p.Y+c.r)
+}
 
-	func (c *circle) At(x, y int) color.Color {
-	    xx, yy, rr := float64(x-c.p.X)+0.5, float64(y-c.p.Y)+0.5, float64(c.r)
-	    if xx*xx+yy*yy < rr*rr {
-	        return color.Alpha{255}
-	    }
-	    return color.Alpha{0}
-	}
+func (c *circle) At(x, y int) color.Color {
+    xx, yy, rr := float64(x-c.p.X)+0.5, float64(y-c.p.Y)+0.5, float64(c.r)
+    if xx*xx+yy*yy < rr*rr {
+        return color.Alpha{255}
+    }
+    return color.Alpha{0}
+}
 
-	    draw.DrawMask(dst, dst.Bounds(), src, image.ZP, &circle{p, r}, image.ZP, draw.Over)
+    draw.DrawMask(dst, dst.Bounds(), src, image.ZP, &circle{p, r}, image.ZP, draw.Over)
+~~~
 `}}
 
 {{image "image-draw/2e.png"}}
@@ -198,10 +218,12 @@ draw with an `image.ColorImage` source and an `image.Alpha mask`.
 For simplicity, we aren't performing any sub-pixel positioning or rendering,
 or correcting for a font's height above a baseline.
 
-	src := &image.Uniform{color.RGBA{0, 0, 255, 255}}
-	mask := theGlyphImageForAFont()
-	mr := theBoundsFor(glyphIndex)
-	draw.DrawMask(dst, mr.Sub(mr.Min).Add(p), src, image.ZP, mask, mr.Min, draw.Over)
+```go
+src := &image.Uniform{color.RGBA{0, 0, 255, 255}}
+mask := theGlyphImageForAFont()
+mr := theBoundsFor(glyphIndex)
+draw.DrawMask(dst, mr.Sub(mr.Min).Add(p), src, image.ZP, mask, mr.Min, draw.Over)
+```
 
 {{image "image-draw/2f.png"}}
 

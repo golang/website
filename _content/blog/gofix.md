@@ -108,7 +108,7 @@ Over the past year, we have built [dozens of analyzers](https://pkg.go.dev/golan
 **minmax** replaces an `if` statement by a use of Go 1.21’s `min` or `max` functions:
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 x := f()
 if x &lt; 0 {
 	x = 0
@@ -118,7 +118,7 @@ if x > 100 {
 }
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 x := min(max(f(), 0), 100)
 </pre>
 </div>
@@ -126,13 +126,13 @@ x := min(max(f(), 0), 100)
 **rangeint** replaces a 3-clause `for` loop by a Go 1.22 `range`-over-int loop:
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 for i := 0; i &lt; n; i++ {
 	f()
 }
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 for range n {
 	f()
 }
@@ -142,14 +142,14 @@ for range n {
 **stringscut** (whose `-diff` output we saw earlier) replaces uses of `strings.Index` and slicing by Go 1.18’s `strings.Cut`:
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 i := strings.Index(s, ":")
 if i >= 0 {
 	 return s[:i]
 }
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 before, _, ok := strings.Cut(s, ":")
 if ok {
 	return before
@@ -164,18 +164,18 @@ These modernizers are included in [gopls](/gopls), to provide instant feedback a
 Go 1.26 includes a small but widely useful change to the language specification. The built-in `new` function creates a new variable and returns its address. Historically, its sole argument was required to be a type, such as `new(string)`, and the new variable was initialized to its “zero” value, such as `""`. In Go 1.26, the `new` function may be called with any value, causing it to create a variable initialized to that value, avoiding the need for an additional statement. For example:
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 ptr := new(string)
 *ptr = "go1.25"
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 ptr := new("go1.26")
 </pre>
 </div>
 
 This feature filled a gap that had been discussed for over a decade and resolved one of the most popular [proposals](/issue/45624) for a change to the language. It is especially convenient in code that uses a pointer type `*T` to indicate an optional value of type `T`, as is common when working with serialization packages such as [json.Marshal](https://pkg.go.dev/encoding/json#Marshal) or [protocol buffers](https://protobuf.dev/getting-started/gotutorial/). This is such a common pattern that people often capture it in a helper, such as the `newInt` function below, saving the caller from the need to break out of an expression context to introduce additional statements:
-```
+```go
 type RequestJSON struct {
 	URL      string
 	Attempts *int  // (optional)
@@ -190,7 +190,7 @@ func newInt(x int) *int { return &x }
 ```
 
 Helpers such as `newInt` are so frequently needed with protocol buffers that the `proto` API itself provides them as [`proto.Int64`](https://pkg.go.dev/google.golang.org/protobuf/proto#Int64), [`proto.String`](https://pkg.go.dev/google.golang.org/protobuf/proto#String), and so on. But Go 1.26 makes all these helpers unnecessary:
-```
+```go
 data, err := json.Marshal(&RequestJSON{
 	URL:      url,
 	Attempts: new(10),
@@ -211,7 +211,7 @@ At this point, with luck, all of your `newInt`-like helper functions will have b
 Applying one modernization may create opportunities to apply another. For example, this snippet of code, which clamps `x` to the range 0–100, causes the minmax modernizer to suggest a fix to use `max`. Once that fix is applied it suggests a second fix, this time to use `min`.
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 x := f()
 if x &lt; 0 {
 	x = 0
@@ -221,7 +221,7 @@ if x > 100 {
 }
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 x := min(max(f(), 0), 100)
 </pre>
 </div>
@@ -229,7 +229,7 @@ x := min(max(f(), 0), 100)
 Synergies may also occur between different analyzers. For example, a common mistake is to repeatedly concatenate strings within a loop, resulting in quadratic time complexity—a bug and a potential vector for a denial-of-service attack. The `stringsbuilder` modernizer recognizes the problem and suggests using Go 1.10’s `strings.Builder`:
 
 <div class="beforeafter">
-<pre>
+<pre lang=go>
 s := ""
 for _, b := range bytes {
 	s += fmt.Sprintf("%02x", b)
@@ -237,7 +237,7 @@ for _, b := range bytes {
 use(s)
 </pre>
 <div class="beforeafter-arrow"></div>
-<pre>
+<pre lang=go>
 var s strings.Builder
 for _, b := range bytes {
 	s.WriteString(fmt.Sprintf("%02x", b))
@@ -300,7 +300,7 @@ The Go 1.26 release brings the Go analysis framework to `go fix`. The `go vet` a
 As the number of analyzers in `go vet` and `go fix` continues to grow, we have been investing in infrastructure both to improve the performance of each analyzer and to make it easier to write each new analyzer.
 
 For example, most analyzers start by traversing the syntax trees of each file in the package looking for a particular kind of node such as a range statement or function literal. The existing [inspector](https://pkg.go.dev/golang.org/x/tools/go/ast/inspector) package makes this scan efficient by pre-computing a compact index of a complete traversal so that later traversals can quickly skip subtrees that don’t contain any nodes of interest. Recently we extended it with the [Cursor](https://pkg.go.dev/golang.org/x/tools/go/ast/inspector#Cursor) datatype to allow flexible and efficient navigation between nodes in all four cardinal directions—up, down, left, and right, similar to navigating the elements of an HTML DOM—making it easy and efficient to express a query such as “find each go statement that is the first statement of a loop body”:
-```
+```go
 	var curFile inspector.Cursor = ...
 
 	// Find each go statement that is the first statement of a loop body.

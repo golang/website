@@ -11,9 +11,11 @@ A common point of discussion among Go programmers,
 especially those new to the language, is how to handle errors.
 The conversation often turns into a lament at the number of times the sequence
 
-	if err != nil {
-		return err
-	}
+```go
+if err != nil {
+	return err
+}
+```
 
 shows up.
 We recently scanned all the open source projects we could find and
@@ -21,7 +23,9 @@ discovered that this snippet occurs only once per page or two,
 less often than some would have you believe.
 Still, if the perception persists that one must type
 
-	if err != nil
+```go
+if err != nil
+```
 
 all the time, something must be wrong, and the obvious target is Go itself.
 
@@ -53,30 +57,36 @@ Instead, it returns a boolean, and a separate method, to be run at the end of th
 reports whether an error occurred.
 Client code looks like this:
 
-	scanner := bufio.NewScanner(input)
-	for scanner.Scan() {
-		token := scanner.Text()
-		// process token
-	}
-	if err := scanner.Err(); err != nil {
-		// process the error
-	}
+```go
+scanner := bufio.NewScanner(input)
+for scanner.Scan() {
+	token := scanner.Text()
+	// process token
+}
+if err := scanner.Err(); err != nil {
+	// process the error
+}
+```
 
 Sure, there is a nil check for an error, but it appears and executes only once.
 The `Scan` method could instead have been defined as
 
-	func (s *Scanner) Scan() (token []byte, error)
+```go
+func (s *Scanner) Scan() (token []byte, error)
+```
 
 and then the example user code might be (depending on how the token is retrieved),
 
-	scanner := bufio.NewScanner(input)
-	for {
-		token, err := scanner.Scan()
-		if err != nil {
-			return err // or maybe break
-		}
-		// process token
+```go
+scanner := bufio.NewScanner(input)
+for {
+	token, err := scanner.Scan()
+	if err != nil {
+		return err // or maybe break
 	}
+	// process token
+}
+```
 
 This isn't very different, but there is one important distinction.
 In this code, the client must check for an error on every iteration,
@@ -92,7 +102,9 @@ A separate method, [`Err`](/pkg/bufio/#Scanner.Err),
 reports the error value when the client asks.
 Trivial though this is, it's not the same as putting
 
-	if err != nil
+```go
+if err != nil
+```
 
 everywhere or asking the client to check for an error after every token.
 It's programming with error values.
@@ -108,39 +120,43 @@ An enthusiastic gopher, who goes by [`@jxck_`](https://twitter.com/jxck_) on Tw
 echoed the familiar lament about error checking.
 He had some code that looked schematically like this:
 
-	_, err = fd.Write(p0[a:b])
-	if err != nil {
-		return err
-	}
-	_, err = fd.Write(p1[c:d])
-	if err != nil {
-		return err
-	}
-	_, err = fd.Write(p2[e:f])
-	if err != nil {
-		return err
-	}
-	// and so on
+```go
+_, err = fd.Write(p0[a:b])
+if err != nil {
+	return err
+}
+_, err = fd.Write(p1[c:d])
+if err != nil {
+	return err
+}
+_, err = fd.Write(p2[e:f])
+if err != nil {
+	return err
+}
+// and so on
+```
 
 It is very repetitive.
 In the real code, which was longer,
 there is more going on so it's not easy to just refactor this using a helper function,
 but in this idealized form, a function literal closing over the error variable would help:
 
-	var err error
-	write := func(buf []byte) {
-		if err != nil {
-			return
-		}
-		_, err = w.Write(buf)
-	}
-	write(p0[a:b])
-	write(p1[c:d])
-	write(p2[e:f])
-	// and so on
+```go
+var err error
+write := func(buf []byte) {
 	if err != nil {
-		return err
+		return
 	}
+	_, err = w.Write(buf)
+}
+write(p0[a:b])
+write(p1[c:d])
+write(p2[e:f])
+// and so on
+if err != nil {
+	return err
+}
+```
 
 This pattern works well, but requires a closure in each function doing the writes;
 a separate helper function is clumsier to use because the `err` variable
@@ -154,10 +170,12 @@ I asked if I could just borrow his laptop and show him by typing some code.
 
 I defined an object called an `errWriter`, something like this:
 
-	type errWriter struct {
-		w   io.Writer
-		err error
-	}
+```go
+type errWriter struct {
+	w   io.Writer
+	err error
+}
+```
 
 and gave it one method, `write.`
 It doesn't need to have the standard `Write` signature,
@@ -165,25 +183,29 @@ and it's lower-cased in part to highlight the distinction.
 The `write` method calls the `Write` method of the underlying `Writer`
 and records the first error for future reference:
 
-	func (ew *errWriter) write(buf []byte) {
-		if ew.err != nil {
-			return
-		}
-		_, ew.err = ew.w.Write(buf)
+```go
+func (ew *errWriter) write(buf []byte) {
+	if ew.err != nil {
+		return
 	}
+	_, ew.err = ew.w.Write(buf)
+}
+```
 
 As soon as an error occurs, the `write` method becomes a no-op but the error value is saved.
 
 Given the `errWriter` type and its `write` method, the code above can be refactored:
 
-	ew := &errWriter{w: fd}
-	ew.write(p0[a:b])
-	ew.write(p1[c:d])
-	ew.write(p2[e:f])
-	// and so on
-	if ew.err != nil {
-		return ew.err
-	}
+```go
+ew := &errWriter{w: fd}
+ew.write(p0[a:b])
+ew.write(p1[c:d])
+ew.write(p2[e:f])
+// and so on
+if ew.err != nil {
+	return ew.err
+}
+```
 
 This is cleaner, even compared to the use of a closure,
 and also makes the actual sequence of writes being done easier to see on the page.
@@ -209,14 +231,16 @@ that is mostly about honoring the [`io.Writer`](/pkg/io/#Writer) interface.
 The `Write` method of `bufio.Writer` behaves just like our `errWriter.write`
 method above, with `Flush` reporting the error, so our example could be written like this:
 
-	b := bufio.NewWriter(fd)
-	b.Write(p0[a:b])
-	b.Write(p1[c:d])
-	b.Write(p2[e:f])
-	// and so on
-	if b.Flush() != nil {
-		return b.Flush()
-	}
+```go
+b := bufio.NewWriter(fd)
+b.Write(p0[a:b])
+b.Write(p1[c:d])
+b.Write(p2[e:f])
+// and so on
+if b.Flush() != nil {
+	return b.Flush()
+}
+```
 
 There is one significant drawback to this approach, at least for some applications:
 there is no way to know how much of the processing completed before the error occurred.

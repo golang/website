@@ -45,7 +45,9 @@ which you can install to your workspace with this command:
 
 When writing your App Engine app, import the oauth package just as you would in a regular Go program:
 
-	import "golang.org/x/oauth2"
+```go
+import "golang.org/x/oauth2"
+```
 
 Now, whether running your app with the dev\_appserver or deploying it with appcfg,
 the tools will find the oauth package in your workspace. It just works.
@@ -71,15 +73,21 @@ package includes the file [symlink.go](/src/pkg/path/filepath/symlink.go),
 which specifies a build constraint to ensure that it is not built on Windows
 systems (which do not have symbolic links):
 
-	// +build !windows
+```go
+// +build !windows
+```
 
 The App Engine SDK introduces a new build constraint term: "appengine". Files that specify
 
-	// +build appengine
+```go
+// +build appengine
+```
 
 will be built by the App Engine SDK and ignored by the go tool. Conversely, files that specify
 
-	// +build !appengine
+```go
+// +build !appengine
+```
 
 are ignored by the App Engine SDK, while the go tool will happily build them.
 
@@ -93,21 +101,23 @@ is a slower version that avoids unsafe by using the [reflect package](/pkg/refle
 
 Let's take a simple Go web server and turn it into a hybrid app. This is main.go:
 
-	package main
+```go
+package main
 
-	import (
-	    "fmt"
-	    "net/http"
-	)
+import (
+    "fmt"
+    "net/http"
+)
 
-	func main() {
-	    http.HandleFunc("/", handler)
-	    http.ListenAndServe("localhost:8080", nil)
-	}
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe("localhost:8080", nil)
+}
 
-	func handler(w http.ResponseWriter, r *http.Request) {
-	    fmt.Fprint(w, "Hello!")
-	}
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprint(w, "Hello!")
+}
+```
 
 Build this with the go tool and you'll get a stand-alone web server executable.
 
@@ -116,20 +126,22 @@ equivalent to ListenAndServe.
 To convert main.go to an App Engine app, drop the call to ListenAndServe
 and register the handler in an init function (which runs before main). This is app.go:
 
-	package main
+```go
+package main
 
-	import (
-	    "fmt"
-	    "net/http"
-	)
+import (
+    "fmt"
+    "net/http"
+)
 
-	func init() {
-	    http.HandleFunc("/", handler)
-	}
+func init() {
+    http.HandleFunc("/", handler)
+}
 
-	func handler(w http.ResponseWriter, r *http.Request) {
-	    fmt.Fprint(w, "Hello!")
-	}
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprint(w, "Hello!")
+}
+```
 
 To make this a hybrid app, we need to split it into an App Engine-specific part,
 an stand-alone binary-specific part, and the parts common to both versions.
@@ -143,15 +155,17 @@ and requires no build constraints as it should be included in all versions of th
 main.go runs the web server. It includes the "!appengine" build constraint,
 as it must only be included when building the stand-alone binary.
 
-	// +build !appengine
+```go
+// +build !appengine
 
-	package main
+package main
 
-	import "net/http"
+import "net/http"
 
-	func main() {
-	    http.ListenAndServe("localhost:8080", nil)
-	}
+func main() {
+    http.ListenAndServe("localhost:8080", nil)
+}
+```
 
 To see a more complex hybrid app, take a look at the [present tool](https://godoc.org/golang.org/x/tools/present).
 

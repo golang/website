@@ -50,15 +50,17 @@ not all that unusual.
 Let's say it's a slice of int.
 
 {{raw `
-	func ReverseInts(s []int) {
-		first := 0
-		last := len(s)
-		for first < last {
-			s[first], s[last] = s[last], s[first]
-			first++
-			last--
-		}
+~~~go
+func ReverseInts(s []int) {
+	first := 0
+	last := len(s)
+	for first < last {
+		s[first], s[last] = s[last], s[first]
+		first++
+		last--
 	}
+}
+~~~
 `}}
 
 Pretty simple, but even for a simple function like that you'd want to
@@ -67,15 +69,17 @@ In fact, when I did, I found a bug.
 I'm sure many readers have spotted it already.
 
 {{raw `
-	func ReverseInts(s []int) {
-		first := 0
-		last := len(s) - 1
-		for first < last {
-			s[first], s[last] = s[last], s[first]
-			first++
-			last--
-		}
+~~~go
+func ReverseInts(s []int) {
+	first := 0
+	last := len(s) - 1
+	for first < last {
+		s[first], s[last] = s[last], s[first]
+		first++
+		last--
 	}
+}
+~~~
 `}}
 
 We need to subtract 1 when we set the variable last.
@@ -83,15 +87,17 @@ We need to subtract 1 when we set the variable last.
 Now let's reverse a slice of string.
 
 {{raw `
-	func ReverseStrings(s []string) {
-		first := 0
-		last := len(s) - 1
-		for first < last {
-			s[first], s[last] = s[last], s[first]
-			first++
-			last--
-		}
+~~~go
+func ReverseStrings(s []string) {
+	first := 0
+	last := len(s) - 1
+	for first < last {
+		s[first], s[last] = s[last], s[first]
+		first++
+		last--
 	}
+}
+~~~
 `}}
 
 If you compare `ReverseInts` and `ReverseStrings`, you'll see that the
@@ -372,15 +378,17 @@ I'll go over some of the main points here.
 Here is the generic Reverse function in this design.
 
 {{raw `
-	func Reverse (type Element) (s []Element) {
-		first := 0
-		last := len(s) - 1
-		for first < last {
-			s[first], s[last] = s[last], s[first]
-			first++
-			last--
-		}
+~~~go
+func Reverse (type Element) (s []Element) {
+	first := 0
+	last := len(s) - 1
+	for first < last {
+		s[first], s[last] = s[last], s[first]
+		first++
+		last--
 	}
+}
+~~~
 `}}
 
 You'll notice that the body of the function is exactly the same.
@@ -396,10 +404,12 @@ To call a function with a type parameter, in the general case you pass
 a type argument, which is like any other argument except that it's a
 type.
 
-	func ReverseAndPrint(s []int) {
-		Reverse(int)(s)
-		fmt.Println(s)
-	}
+```go
+func ReverseAndPrint(s []int) {
+	Reverse(int)(s)
+	fmt.Println(s)
+}
+```
 
 That is the `(int)` seen after `Reverse` in this example.
 
@@ -409,10 +419,12 @@ you don't need to mention the type argument at all.
 
 Calling a generic function just looks like calling any other function.
 
-	func ReverseAndPrint(s []int) {
-		Reverse(s)
-		fmt.Println(s)
-	}
+```go
+func ReverseAndPrint(s []int) {
+	Reverse(s)
+	fmt.Println(s)
+}
+```
 
 In other words, although the generic `Reverse` function is slightly
 more complex than `ReverseInts` and `ReverseStrings`, that complexity
@@ -436,14 +448,16 @@ don't need to say anything special about the type parameter.
 Let's take a quick look at a different function.
 
 {{raw `
-	func IndexByte (type T Sequence) (s T, b byte) int {
-		for i := 0; i < len(s); i++ {
-			if s[i] == b {
-				return i
-			}
+~~~go
+func IndexByte (type T Sequence) (s T, b byte) int {
+	for i := 0; i < len(s); i++ {
+		if s[i] == b {
+			return i
 		}
-		return -1
 	}
+	return -1
+}
+~~~
 `}}
 
 Currently both the bytes package and the strings package in the
@@ -470,9 +484,11 @@ It appears after the list of type parameters.
 
 This is how the Sequence contract is defined for this example.
 
-	contract Sequence(T) {
-		T string, []byte
-	}
+```go
+contract Sequence(T) {
+	T string, []byte
+}
+```
 
 It's pretty simple, since this is a simple example: the type parameter
 `T` can be either `string` or `[]byte`.
@@ -497,13 +513,15 @@ Here is another simple example, of a function that uses the String
 method to return a `[]string` of the string representation of all the
 elements in `s`.
 
-	func ToStrings (type E Stringer) (s []E) []string {
-		r := make([]string, len(s))
-		for i, v := range s {
-			r[i] = v.String()
-		}
-		return r
+```go
+func ToStrings (type E Stringer) (s []E) []string {
+	r := make([]string, len(s))
+	for i, v := range s {
+		r[i] = v.String()
 	}
+	return r
+}
+```
 
 It's pretty straightforward: walk through the slice, call the `String`
 method on each element, and return a slice of the resulting strings.
@@ -512,9 +530,11 @@ This function requires that the element type implement the `String`
 method.
 The Stringer contract ensures that.
 
-	contract Stringer(T) {
-		T String() string
-	}
+```go
+contract Stringer(T) {
+	T String() string
+}
+```
 
 The contract simply says that `T` has to implement the `String`
 method.
@@ -533,20 +553,22 @@ So this is worth writing, even though `fmt.Stringer` exists.
 
 Here is an example of a contract with multiple type parameters.
 
-	type Graph (type Node, Edge G) struct { ... }
+```go
+type Graph (type Node, Edge G) struct { ... }
 
-	contract G(Node, Edge) {
-		Node Edges() []Edge
-		Edge Nodes() (from Node, to Node)
-	}
+contract G(Node, Edge) {
+	Node Edges() []Edge
+	Edge Nodes() (from Node, to Node)
+}
 
-	func New (type Node, Edge G) (nodes []Node) *Graph(Node, Edge) {
-		...
-	}
+func New (type Node, Edge G) (nodes []Node) *Graph(Node, Edge) {
+	...
+}
 
-	func (g *Graph(Node, Edge)) ShortestPath(from, to Node) []Edge {
-		...
-	}
+func (g *Graph(Node, Edge)) ShortestPath(from, to Node) []Edge {
+	...
+}
+```
 
 Here we're describing a graph, built from nodes and edges.
 We're not requiring a particular data structure for the graph.
@@ -576,24 +598,28 @@ implementation should let us add it to the standard library.
 This is what it looks like with our design.
 
 {{raw `
-	func Min (type T Ordered) (a, b T) T {
-		if a < b {
-			return a
-		}
-		return b
+~~~go
+func Min (type T Ordered) (a, b T) T {
+	if a < b {
+		return a
 	}
+	return b
+}
+~~~
 `}}
 
 The `Ordered` contract says that the type T has to be an ordered type,
 which means that it supports operators like less than, greater than,
 and so forth.
 
-	contract Ordered(T) {
-		T int, int8, int16, int32, int64,
-			uint, uint8, uint16, uint32, uint64, uintptr,
-			float32, float64,
-			string
-	}
+```go
+contract Ordered(T) {
+	T int, int8, int16, int32, int64,
+		uint, uint8, uint16, uint32, uint64, uintptr,
+		float32, float64,
+		string
+}
+```
 
 The `Ordered` contract is just a list of all the ordered types that
 are defined by the language.
@@ -621,12 +647,14 @@ Here we're just referring to the contract `Ordered` defined in the
 contracts package.
 
 {{raw `
-	func Min (type T contracts.Ordered) (a, b T) T {
-		if a < b {
-			return a
-		}
-		return b
+~~~go
+func Min (type T contracts.Ordered) (a, b T) T {
+	if a < b {
+		return a
 	}
+	return b
+}
+~~~
 `}}
 
 ### Generic data structures
@@ -635,41 +663,47 @@ Finally, let's look at a simple generic data structure, a binary
 tree.  In this example the tree has a comparison function, so there
 are no requirements on the element type.
 
-	type Tree (type E) struct {
-		root    *node(E)
-		compare func(E, E) int
-	}
+```go
+type Tree (type E) struct {
+	root    *node(E)
+	compare func(E, E) int
+}
 
-	type node (type E) struct {
-		val         E
-		left, right *node(E)
-	}
+type node (type E) struct {
+	val         E
+	left, right *node(E)
+}
+```
 
 Here is how to create a new binary tree.
 The comparison function is passed to the `New` function.
 
-	func New (type E) (cmp func(E, E) int) *Tree(E) {
-		return &Tree(E){compare: cmp}
-	}
+```go
+func New (type E) (cmp func(E, E) int) *Tree(E) {
+	return &Tree(E){compare: cmp}
+}
+```
 
 An unexported method returns a pointer either to the slot holding v,
 or to the location in the tree where it should go.
 
 {{raw `
-	func (t *Tree(E)) find(v E) **node(E) {
-		pn := &t.root
-		for *pn != nil {
-			switch cmp := t.compare(v, (*pn).val); {
-			case cmp < 0:
-				pn = &(*pn).left
-			case cmp > 0:
-				pn = &(*pn).right
-			default:
-				return pn
-			}
+~~~go
+func (t *Tree(E)) find(v E) **node(E) {
+	pn := &t.root
+	for *pn != nil {
+		switch cmp := t.compare(v, (*pn).val); {
+		case cmp < 0:
+			pn = &(*pn).left
+		case cmp > 0:
+			pn = &(*pn).right
+		default:
+			return pn
 		}
-		return pn
 	}
+	return pn
+}
+~~~
 `}}
 
 The details here don't really matter, especially since I haven't
@@ -679,20 +713,24 @@ data structure.
 
 This is the code for testing whether the tree contains a value.
 
-	func (t *Tree(E)) Contains(v E) bool {
-		return *t.find(e) != nil
-	}
+```go
+func (t *Tree(E)) Contains(v E) bool {
+	return *t.find(e) != nil
+}
+```
 
 This is the code for inserting a new value.
 
-	func (t *Tree(E)) Insert(v E) bool {
-		pn := t.find(v)
-		if *pn != nil {
-			return false
-		}
-		*pn = &node(E){val: v}
-		return true
+```go
+func (t *Tree(E)) Insert(v E) bool {
+	pn := t.find(v)
+	if *pn != nil {
+		return false
 	}
+	*pn = &node(E){val: v}
+	return true
+}
+```
 
 Notice that the type `node` has a type argument `E`.
 This is what it looks like to write a generic data structure.
@@ -701,14 +739,16 @@ some type arguments are sprinkled in here and there.
 
 Using the tree is pretty simple.
 
-	var intTree = tree.New(func(a, b int) int { return a - b })
+```go
+var intTree = tree.New(func(a, b int) int { return a - b })
 
-	func InsertAndCheck(v int) {
-		intTree.Insert(v)
-		if !intTree.Contains(v) {
-			log.Fatalf("%d not found after insertion", v)
-		}
+func InsertAndCheck(v int) {
+	intTree.Insert(v)
+	if !intTree.Contains(v) {
+		log.Fatalf("%d not found after insertion", v)
 	}
+}
+```
 
 That's as it should be.
 It's a bit harder to write a generic data structure, because you often

@@ -94,36 +94,38 @@ In the package scope we declare some data structures to describe the elements of
 the location of the corresponding images,
 and where they should be drawn on the background image.
 
-	var (
-	    // dirs maps each layout element to its location on disk.
-	    dirs = map[string]string{
-	        "h": "img/heads",
-	        "b": "img/eyes_beak",
-	        "i": "img/index_feathers",
-	        "m": "img/middle_feathers",
-	        "r": "img/ring_feathers",
-	        "p": "img/pinky_feathers",
-	        "f": "img/feet",
-	        "w": "img/wing",
-	    }
+```go
+var (
+    // dirs maps each layout element to its location on disk.
+    dirs = map[string]string{
+        "h": "img/heads",
+        "b": "img/eyes_beak",
+        "i": "img/index_feathers",
+        "m": "img/middle_feathers",
+        "r": "img/ring_feathers",
+        "p": "img/pinky_feathers",
+        "f": "img/feet",
+        "w": "img/wing",
+    }
 
-	    // urlMap maps each URL character position to
-	    // its corresponding layout element.
-	    urlMap = [...]string{"b", "h", "i", "m", "r", "p", "f", "w"}
+    // urlMap maps each URL character position to
+    // its corresponding layout element.
+    urlMap = [...]string{"b", "h", "i", "m", "r", "p", "f", "w"}
 
-	    // layoutMap maps each layout element to its position
-	    // on the background image.
-	    layoutMap = map[string]image.Rectangle{
-	        "h": {image.Pt(109, 50), image.Pt(166, 152)},
-	        "i": {image.Pt(136, 21), image.Pt(180, 131)},
-	        "m": {image.Pt(159, 7), image.Pt(201, 126)},
-	        "r": {image.Pt(188, 20), image.Pt(230, 125)},
-	        "p": {image.Pt(216, 48), image.Pt(258, 134)},
-	        "f": {image.Pt(155, 176), image.Pt(243, 213)},
-	        "w": {image.Pt(169, 118), image.Pt(250, 197)},
-	        "b": {image.Pt(105, 104), image.Pt(145, 148)},
-	    }
-	)
+    // layoutMap maps each layout element to its position
+    // on the background image.
+    layoutMap = map[string]image.Rectangle{
+        "h": {image.Pt(109, 50), image.Pt(166, 152)},
+        "i": {image.Pt(136, 21), image.Pt(180, 131)},
+        "m": {image.Pt(159, 7), image.Pt(201, 126)},
+        "r": {image.Pt(188, 20), image.Pt(230, 125)},
+        "p": {image.Pt(216, 48), image.Pt(258, 134)},
+        "f": {image.Pt(155, 176), image.Pt(243, 213)},
+        "w": {image.Pt(169, 118), image.Pt(250, 197)},
+        "b": {image.Pt(105, 104), image.Pt(145, 148)},
+    }
+)
+```
 
 The geometry of the points above was calculated by measuring the actual
 location and size of each layout element within the image.
@@ -132,35 +134,37 @@ Loading the images from disk on each request would be wasteful repetition,
 so we load all 106 images (13 \* 8 elements + 1 background + 1 default) into
 global variables upon receipt of the first request.
 
-	var (
-	    // elements maps each layout element to its images.
-	    elements = make(map[string][]*image.RGBA)
+```go
+var (
+    // elements maps each layout element to its images.
+    elements = make(map[string][]*image.RGBA)
 
-	    // backgroundImage contains the background image data.
-	    backgroundImage *image.RGBA
+    // backgroundImage contains the background image data.
+    backgroundImage *image.RGBA
 
-	    // defaultImage is the image that is served if an error occurs.
-	    defaultImage *image.RGBA
+    // defaultImage is the image that is served if an error occurs.
+    defaultImage *image.RGBA
 
-	    // loadOnce is used to call the load function only on the first request.
-	    loadOnce sync.Once
-	)
+    // loadOnce is used to call the load function only on the first request.
+    loadOnce sync.Once
+)
 
-	// load reads the various PNG images from disk and stores them in their
-	// corresponding global variables.
-	func load() {
-	    defaultImage = loadPNG(defaultImageFile)
-	    backgroundImage = loadPNG(backgroundImageFile)
-	    for dirKey, dir := range dirs {
-	        paths, err := filepath.Glob(dir + "/*.png")
-	        if err != nil {
-	            panic(err)
-	        }
-	        for _, p := range paths {
-	            elements[dirKey] = append(elements[dirKey], loadPNG(p))
-	        }
-	    }
-	}
+// load reads the various PNG images from disk and stores them in their
+// corresponding global variables.
+func load() {
+    defaultImage = loadPNG(defaultImageFile)
+    backgroundImage = loadPNG(backgroundImageFile)
+    for dirKey, dir := range dirs {
+        paths, err := filepath.Glob(dir + "/*.png")
+        if err != nil {
+            panic(err)
+        }
+        for _, p := range paths {
+            elements[dirKey] = append(elements[dirKey], loadPNG(p))
+        }
+    }
+}
+```
 
 Requests are handled in a straightforward sequence:
 

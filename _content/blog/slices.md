@@ -99,11 +99,15 @@ and is initialized from the array, called
 `buffer`, by slicing elements 100 (inclusive) through 150 (exclusive).
 The more idiomatic syntax would drop the type, which is set by the initializing expression:
 
-	var slice = buffer[100:150]
+```go
+var slice = buffer[100:150]
+```
 
 Inside a function we could use the short declaration form,
 
-	slice := buffer[100:150]
+```go
+slice := buffer[100:150]
+```
 
 What exactly is this slice variable?
 It's not quite the full story, but for now think of a
@@ -111,15 +115,17 @@ slice as a little data structure with two elements: a length and a pointer to an
 of an array.
 You can think of it as being built like this behind the scenes:
 
-	type sliceHeader struct {
-		Length        int
-		ZerothElement *byte
-	}
+```go
+type sliceHeader struct {
+	Length        int
+	ZerothElement *byte
+}
 
-	slice := sliceHeader{
-		Length:        50,
-		ZerothElement: &buffer[100],
-	}
+slice := sliceHeader{
+	Length:        50,
+	ZerothElement: &buffer[100],
+}
+```
 
 Of course, this is just an illustration.
 Despite what this snippet says that `sliceHeader` struct is not visible
@@ -129,7 +135,9 @@ but this gives the general idea of the mechanics.
 
 So far we've used a slice operation on an array, but we can also slice a slice, like this:
 
-	slice2 := slice[5:10]
+```go
+slice2 := slice[5:10]
+```
 
 Just as before, this operation creates a new slice, in this case with elements
 5 through 9 (inclusive) of the original slice, which means elements
@@ -137,10 +145,12 @@ Just as before, this operation creates a new slice, in this case with elements
 The underlying `sliceHeader` struct for the `slice2` variable looks like
 this:
 
-	slice2 := sliceHeader{
-		Length:        5,
-		ZerothElement: &buffer[105],
-	}
+```go
+slice2 := sliceHeader{
+	Length:        5,
+	ZerothElement: &buffer[105],
+}
+```
 
 Notice that this header still points to the same underlying array, stored in
 the `buffer` variable.
@@ -148,14 +158,18 @@ the `buffer` variable.
 We can also _reslice_, which is to say slice a slice and store the result back in
 the original slice structure. After
 
-	slice = slice[5:10]
+```go
+slice = slice[5:10]
+```
 
 the `sliceHeader` structure for the `slice` variable looks just like it did for the `slice2`
 variable.
 You'll see reslicing used often, for example to truncate a slice. This statement drops
 the first and last elements of our slice:
 
-	slice = slice[1:len(slice)-1]
+```go
+slice = slice[1:len(slice)-1]
+```
 
 [Exercise: Write out what the `sliceHeader` struct looks like after this assignment.]
 
@@ -166,7 +180,9 @@ For instance, when you call a function that takes a slice as an argument, such a
 what gets passed to the function.
 In this call,
 
-	slashPos := bytes.IndexRune(slice, '/')
+```go
+slashPos := bytes.IndexRune(slice, '/')
+```
 
 the `slice` argument that is passed to the `IndexRune` function is, in fact,
 a "slice header".
@@ -272,11 +288,13 @@ See how the slice grows until... it doesn't.
 It's time to talk about the third component of the slice header: its _capacity_.
 Besides the array pointer and length, the slice header also stores its capacity:
 
-	type sliceHeader struct {
-		Length        int
-		Capacity      int
-		ZerothElement *byte
-	}
+```go
+type sliceHeader struct {
+	Length        int
+	Capacity      int
+	ZerothElement *byte
+}
+```
 
 The `Capacity` field records how much space the underlying array actually has; it is the maximum
 value the `Length` can reach.
@@ -284,23 +302,29 @@ Trying to grow the slice beyond its capacity will step beyond the limits of the 
 
 After our example slice is created by
 
-	slice := iBuffer[0:0]
+```go
+slice := iBuffer[0:0]
+```
 
 its header looks like this:
 
-	slice := sliceHeader{
-		Length:        0,
-		Capacity:      10,
-		ZerothElement: &iBuffer[0],
-	}
+```go
+slice := sliceHeader{
+	Length:        0,
+	Capacity:      10,
+	ZerothElement: &iBuffer[0],
+}
+```
 
 The `Capacity` field is equal to the length of the underlying array,
 minus the index in the array of the first element of the slice (zero in this case).
 If you want to inquire what the capacity is for a slice, use the built-in function `cap`:
 
-	if cap(slice) == len(slice) {
-		fmt.Println("slice is full!")
-	}
+```go
+if cap(slice) == len(slice) {
+	fmt.Println("slice is full!")
+}
+```
 
 ## Make
 
@@ -334,7 +358,9 @@ The length argument defaults to the capacity, so you can leave it out
 to set them both to the same value.
 After
 
-	gophers := make([]Gopher, 10)
+```go
+gophers := make([]Gopher, 10)
+```
 
 the `gophers` slice has both its length and capacity set to 10.
 
@@ -365,21 +391,29 @@ First, of course, it must return the updated slice because its length has change
 Second, it uses a convenient shorthand.
 The expression
 
-	slice[i:]
+```go
+slice[i:]
+```
 
 means exactly the same as
 
-	slice[i:len(slice)]
+```go
+slice[i:len(slice)]
+```
 
 Also, although we haven't used the trick yet, we can leave out the first element of a slice expression too;
 it defaults to zero. Thus
 
-	slice[:]
+```go
+slice[:]
+```
 
 just means the slice itself, which is useful when slicing an array.
 This expression is the shortest way to say "a slice describing all the elements of the array":
 
-	array[:]
+```go
+array[:]
+```
 
 Now that's out of the way, let's run our `Insert` function.
 
@@ -415,7 +449,9 @@ Let's call the function `Append`.
 For the first version, we can just call `Extend` repeatedly so the mechanism of the variadic function is clear.
 The signature of `Append` is this:
 
-	func Append(slice []int, items ...int) []int
+```go
+func Append(slice []int, items ...int) []int
+```
 
 What that says is that `Append` takes one argument, a slice, followed by zero or more
 `int` arguments.
@@ -485,19 +521,25 @@ on the community-built
 As an aside, with our newfound knowledge we can see what the representation of a `nil` slice is.
 Naturally, it is the zero value of the slice header:
 
-	sliceHeader{
-		Length:        0,
-		Capacity:      0,
-		ZerothElement: nil,
-	}
+```go
+sliceHeader{
+	Length:        0,
+	Capacity:      0,
+	ZerothElement: nil,
+}
+```
 
 or just
 
-	sliceHeader{}
+```go
+sliceHeader{}
+```
 
 The key detail is that the element pointer is `nil` too. The slice created by
 
-	array[0:0]
+```go
+array[0:0]
+```
 
 has length zero (and maybe even capacity zero) but its pointer is not `nil`, so
 it is not a nil slice.
@@ -524,21 +566,29 @@ of bytes.
 
 For starters, we can index them to access individual bytes:
 
-	slash := "/usr/ken"[0] // yields the byte value '/'.
+```go
+slash := "/usr/ken"[0] // yields the byte value '/'.
+```
 
 We can slice a string to grab a substring:
 
-	usr := "/usr/ken"[0:4] // yields the string "/usr"
+```go
+usr := "/usr/ken"[0:4] // yields the string "/usr"
+```
 
 It should be obvious now what's going on behind the scenes when we slice a string.
 
 We can also take a normal slice of bytes and create a string from it with the simple conversion:
 
-	str := string(slice)
+```go
+str := string(slice)
+```
 
 and go in the reverse direction as well:
 
-	slice := []byte(usr)
+```go
+slice := []byte(usr)
+```
 
 The array underlying a string is hidden from view; there is no way to access its contents
 except through the string. That means that when we do either of these conversions, a

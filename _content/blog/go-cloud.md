@@ -80,44 +80,48 @@ You can use the generic type [`*blob.Bucket`](https://godoc.org/github.com/googl
 to copy a file from a local disk to a cloud provider.
 Let's start by opening an S3 bucket using the included [s3blob package](https://godoc.org/github.com/google/go-cloud/blob/s3blob):
 
-	// setupBucket opens an AWS bucket.
-	func setupBucket(ctx context.Context) (*blob.Bucket, error) {
-		// Obtain AWS credentials.
-		sess, err := session.NewSession(&aws.Config{
-			Region: aws.String("us-east-2"),
-		})
-		if err != nil {
-			return nil, err
-		}
-		// Open a handle to s3://go-cloud-bucket.
-		return s3blob.OpenBucket(ctx, sess, "go-cloud-bucket")
+```go
+// setupBucket opens an AWS bucket.
+func setupBucket(ctx context.Context) (*blob.Bucket, error) {
+	// Obtain AWS credentials.
+	sess, err := session.NewSession(&aws.Config{
+		Region: aws.String("us-east-2"),
+	})
+	if err != nil {
+		return nil, err
 	}
+	// Open a handle to s3://go-cloud-bucket.
+	return s3blob.OpenBucket(ctx, sess, "go-cloud-bucket")
+}
+```
 
 Once a program has a `*blob.Bucket`, it can create a `*blob.Writer`,
 which implements `io.Writer`.
 From there, the program can use the `*blob.Writer` to write data to the bucket,
 checking that `Close` does not report an error.
 
-	ctx := context.Background()
-	b, err := setupBucket(ctx)
-	if err != nil {
-		log.Fatalf("Failed to open bucket: %v", err)
-	}
-	data, err := ioutil.ReadFile("gopher.png")
-	if err != nil {
-		log.Fatalf("Failed to read file: %v", err)
-	}
-	w, err := b.NewWriter(ctx, "gopher.png", nil)
-	if err != nil {
-		log.Fatalf("Failed to obtain writer: %v", err)
-	}
-	_, err = w.Write(data)
-	if err != nil {
-		log.Fatalf("Failed to write to bucket: %v", err)
-	}
-	if err := w.Close(); err != nil {
-		log.Fatalf("Failed to close: %v", err)
-	}
+```go
+ctx := context.Background()
+b, err := setupBucket(ctx)
+if err != nil {
+	log.Fatalf("Failed to open bucket: %v", err)
+}
+data, err := ioutil.ReadFile("gopher.png")
+if err != nil {
+	log.Fatalf("Failed to read file: %v", err)
+}
+w, err := b.NewWriter(ctx, "gopher.png", nil)
+if err != nil {
+	log.Fatalf("Failed to obtain writer: %v", err)
+}
+_, err = w.Write(data)
+if err != nil {
+	log.Fatalf("Failed to write to bucket: %v", err)
+}
+if err := w.Close(); err != nil {
+	log.Fatalf("Failed to close: %v", err)
+}
+```
 
 Notice how the logic of using the bucket does not refer to AWS S3.
 Go Cloud makes swapping out cloud storage a matter of changing the function
@@ -126,20 +130,22 @@ The application could instead use Google Cloud Storage by constructing a
 `*blob.Bucket` using [`gcsblob.OpenBucket`](https://godoc.org/github.com/google/go-cloud/blob/gcsblob#OpenBucket)
 without changing the code that copies the file:
 
-	// setupBucket opens a GCS bucket.
-	func setupBucket(ctx context.Context) (*blob.Bucket, error) {
-		// Open GCS bucket.
-		creds, err := gcp.DefaultCredentials(ctx)
-		if err != nil {
-			return nil, err
-		}
-		c, err := gcp.NewHTTPClient(gcp.DefaultTransport(), gcp.CredentialsTokenSource(creds))
-		if err != nil {
-			return nil, err
-		}
-		// Open a handle to gs://go-cloud-bucket.
-		return gcsblob.OpenBucket(ctx, "go-cloud-bucket", c)
+```go
+// setupBucket opens a GCS bucket.
+func setupBucket(ctx context.Context) (*blob.Bucket, error) {
+	// Open GCS bucket.
+	creds, err := gcp.DefaultCredentials(ctx)
+	if err != nil {
+		return nil, err
 	}
+	c, err := gcp.NewHTTPClient(gcp.DefaultTransport(), gcp.CredentialsTokenSource(creds))
+	if err != nil {
+		return nil, err
+	}
+	// Open a handle to gs://go-cloud-bucket.
+	return gcsblob.OpenBucket(ctx, "go-cloud-bucket", c)
+}
+```
 
 While different steps are needed to access buckets on different cloud providers,
 the resulting type used by your application is the same: `*blob.Bucket`.

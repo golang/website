@@ -56,17 +56,19 @@ Every Go program we write serves as an experiment to test Go itself.
 In the early days of Go, we quickly learned that
 it was common to write code like this `addToList` function:
 
-	func addToList(list []int, x int) []int {
-		n := len(list)
-		if n+1 > cap(list) {
-			big := make([]int, n, (n+5)*2)
-			copy(big, list)
-			list = big
-		}
-		list = list[:n+1]
-		list[n] = x
-		return list
+```go
+func addToList(list []int, x int) []int {
+	n := len(list)
+	if n+1 > cap(list) {
+		big := make([]int, n, (n+5)*2)
+		copy(big, list)
+		list = big
 	}
+	list = list[:n+1]
+	list[n] = x
+	return list
+}
+```
 
 We’d write the same code for slices of bytes,
 and slices of strings, and so on.
@@ -116,13 +118,15 @@ but not the bytes from a string.
 We redefined append to allow appending from a string,
 without adding anything new to the language.
 
-	var b []byte
-	var more []byte
-	b = append(b, more...) // ok
+```go
+var b []byte
+var more []byte
+b = append(b, more...) // ok
 
-	var b []byte
-	var more string
-	b = append(b, more...) // ok later
+var b []byte
+var more string
+b = append(b, more...) // ok later
+```
 
 **Simplify by Removing**
 
@@ -143,8 +147,10 @@ An example of this is when we removed
 the boolean forms of non-blocking channel operations from the language:
 
 {{raw `
-	ok := c <- x  // before Go 1, was non-blocking send
-	x, ok := <-c  // before Go 1, was non-blocking receive
+~~~go
+ok := c <- x  // before Go 1, was non-blocking send
+x, ok := <-c  // before Go 1, was non-blocking receive
+~~~
 `}}
 
 These operations were also possible to do using `select`,
@@ -264,10 +270,12 @@ on the Go 1.13 error value changes.
 Error values had to start somewhere.
 Here is the `Read` function from the first version of the `os` package:
 
-	export func Read(fd int64, b *[]byte) (ret int64, errno int64) {
-		r, e := syscall.read(fd, &b[0], int64(len(b)));
-		return r, e
-	}
+```go
+export func Read(fd int64, b *[]byte) (ret int64, errno int64) {
+	r, e := syscall.read(fd, &b[0], int64(len(b)));
+	return r, e
+}
+```
 
 There was no `File` type yet, and also no error type.
 `Read` and the other functions in the package
@@ -278,15 +286,17 @@ Like everything back then, it was an experiment,
 and code changed quickly.
 Two hours and five minutes later, the API changed:
 
-	export type Error struct { s string }
+```go
+export type Error struct { s string }
 
-	func (e *Error) Print() { … } // to standard error!
-	func (e *Error) String() string { … }
+func (e *Error) Print() { … } // to standard error!
+func (e *Error) String() string { … }
 
-	export func Read(fd int64, b *[]byte) (ret int64, err *Error) {
-		r, e := syscall.read(fd, &b[0], int64(len(b)));
-		return r, ErrnoToError(e)
-	}
+export func Read(fd int64, b *[]byte) (ret int64, err *Error) {
+	r, e := syscall.read(fd, &b[0], int64(len(b)));
+	return r, ErrnoToError(e)
+}
+```
 
 This new API introduced the first `Error` type.
 An error held a string and could return that string
@@ -335,15 +345,17 @@ which is a named integer type that represents
 a system call error number
 and implements the `error` interface:
 
-	package syscall
+```go
+package syscall
 
-	type Errno int64
+type Errno int64
 
-	func (e Errno) Error() string { ... }
+func (e Errno) Error() string { ... }
 
-	const ECONNREFUSED = Errno(61)
+const ECONNREFUSED = Errno(61)
 
-	    ... err == ECONNREFUSED ...
+    ... err == ECONNREFUSED ...
+```
 
 The `syscall` package also defines named constants
 for the host operating system’s defined error numbers.
@@ -362,16 +374,18 @@ This one, `SyscallError`, describes an error
 invoking a specific system call
 with no additional information recorded:
 
-	package os
+```go
+package os
 
-	type SyscallError struct {
-		Syscall string
-		Err     error
-	}
+type SyscallError struct {
+	Syscall string
+	Err     error
+}
 
-	func (e *SyscallError) Error() string {
-		return e.Syscall + ": " + e.Err.Error()
-	}
+func (e *SyscallError) Error() string {
+	return e.Syscall + ": " + e.Err.Error()
+}
+```
 
 Moving up another level,
 in package `net`,
@@ -381,17 +395,19 @@ of the surrounding network operation,
 such as dial or listen,
 and the network and addresses involved:
 
-	package net
+```go
+package net
 
-	type OpError struct {
-		Op     string
-		Net    string
-		Source Addr
-		Addr   Addr
-		Err    error
-	}
+type OpError struct {
+	Op     string
+	Net    string
+	Source Addr
+	Addr   Addr
+	Err    error
+}
 
-	func (e *OpError) Error() string { ... }
+func (e *OpError) Error() string { ... }
+```
 
 Putting these together,
 the errors returned by operations like `net.Dial` can format as strings,
@@ -399,19 +415,21 @@ but they are also structured Go data values.
 In this case, the error is a `net.OpError`, which adds context
 to an `os.SyscallError`, which adds context to a `syscall.Errno`:
 
-	c, err := net.Dial("tcp", "localhost:50001")
+```go
+c, err := net.Dial("tcp", "localhost:50001")
 
-	// "dial tcp [::1]:50001: connect: connection refused"
+// "dial tcp [::1]:50001: connect: connection refused"
 
-	err is &net.OpError{
-		Op:   "dial",
-		Net:  "tcp",
-		Addr: &net.TCPAddr{IP: ParseIP("::1"), Port: 50001},
-		Err: &os.SyscallError{
-			Syscall: "connect",
-			Err:     syscall.Errno(61), // == ECONNREFUSED
-		},
-	}
+err is &net.OpError{
+	Op:   "dial",
+	Net:  "tcp",
+	Addr: &net.TCPAddr{IP: ParseIP("::1"), Port: 50001},
+	Err: &os.SyscallError{
+		Syscall: "connect",
+		Err:     syscall.Errno(61), // == ECONNREFUSED
+	},
+}
+```
 
 When we say errors are values, we mean both that
 the entire Go language is available to define them
@@ -429,15 +447,17 @@ whether the `syscall.Errno` deep inside is `EADDRNOTAVAIL`.
 
 Here is the code:
 
-	func spuriousENOTAVAIL(err error) bool {
-		if op, ok := err.(*OpError); ok {
-			err = op.Err
-		}
-		if sys, ok := err.(*os.SyscallError); ok {
-			err = sys.Err
-		}
-		return err == syscall.EADDRNOTAVAIL
+```go
+func spuriousENOTAVAIL(err error) bool {
+	if op, ok := err.(*OpError); ok {
+		err = op.Err
 	}
+	if sys, ok := err.(*os.SyscallError); ok {
+		err = sys.Err
+	}
+	return err == syscall.EADDRNOTAVAIL
+}
+```
 
 A [type assertion](/ref/spec#Type_assertions) peels away any `net.OpError` wrapping.
 And then a second type assertion peels away any `os.SyscallError` wrapping.
@@ -494,24 +514,28 @@ If there is no inner error appropriate to expose to callers,
 either the error shouldn’t have an `Unwrap` method,
 or the `Unwrap` method should return nil.
 
-	// Go 1.13 optional method for error implementations.
+```go
+// Go 1.13 optional method for error implementations.
 
-	interface {
-		// Unwrap removes one layer of context,
-		// returning the inner error if any, or else nil.
-		Unwrap() error
-	}
+interface {
+	// Unwrap removes one layer of context,
+	// returning the inner error if any, or else nil.
+	Unwrap() error
+}
+```
 
 The way to call this optional method is to invoke the helper function `errors.Unwrap`,
 which handles cases like the error itself being nil or not having an `Unwrap` method at all.
 
-	package errors
+```go
+package errors
 
-	// Unwrap returns the result of calling
-	// the Unwrap method on err,
-	// if err’s type defines an Unwrap method.
-	// Otherwise, Unwrap returns nil.
-	func Unwrap(err error) error
+// Unwrap returns the result of calling
+// the Unwrap method on err,
+// if err’s type defines an Unwrap method.
+// Otherwise, Unwrap returns nil.
+func Unwrap(err error) error
+```
 
 We can use the `Unwrap` method
 to write a simpler, more general version of `spuriousENOTAVAIL`.
@@ -520,23 +544,27 @@ like `net.OpError` or `os.SyscallError`,
 the general version can loop, calling `Unwrap` to remove context,
 until either it reaches `EADDRNOTAVAIL` or there’s no error left:
 
-	func spuriousENOTAVAIL(err error) bool {
-		for err != nil {
-			if err == syscall.EADDRNOTAVAIL {
-				return true
-			}
-			err = errors.Unwrap(err)
+```go
+func spuriousENOTAVAIL(err error) bool {
+	for err != nil {
+		if err == syscall.EADDRNOTAVAIL {
+			return true
 		}
-		return false
+		err = errors.Unwrap(err)
 	}
+	return false
+}
+```
 
 This loop is so common, though, that Go 1.13 defines a second function, `errors.Is`,
 that repeatedly unwraps an error looking for a specific target.
 So we can replace the entire loop with a single call to `errors.Is`:
 
-	func spuriousENOTAVAIL(err error) bool {
-		return errors.Is(err, syscall.EADDRNOTAVAIL)
-	}
+```go
+func spuriousENOTAVAIL(err error) bool {
+	return errors.Is(err, syscall.EADDRNOTAVAIL)
+}
+```
 
 At this point we probably wouldn’t even define the function;
 it would be equally clear, and simpler, to call `errors.Is` directly at the call sites.
@@ -549,26 +577,30 @@ arbitrarily-wrapped errors,
 `errors.Is` is the wrapper-aware
 version of an error equality check:
 
-	err == target
+```go
+err == target
 
-	    →
+    →
 
-	errors.Is(err, target)
+errors.Is(err, target)
+```
 
 And `errors.As` is the wrapper-aware
 version of an error type assertion:
 
-	target, ok := err.(*Type)
-	if ok {
-	    ...
-	}
+```go
+target, ok := err.(*Type)
+if ok {
+    ...
+}
 
-	    →
+    →
 
-	var target *Type
-	if errors.As(err, &target) {
-	   ...
-	}
+var target *Type
+if errors.As(err, &target) {
+   ...
+}
+```
 
 **To Unwrap Or Not To Unwrap?**
 
@@ -584,9 +616,11 @@ an underlying error formatted with `%v` to caller inspection.
 That is, the result of `fmt.Errorf` has not been possible to unwrap.
 Consider this example:
 
-	// errors.Unwrap(err2) == nil
-	// err1 is not available (same as earlier Go versions)
-	err2 := fmt.Errorf("connect: %v", err1)
+```go
+// errors.Unwrap(err2) == nil
+// err1 is not available (same as earlier Go versions)
+err2 := fmt.Errorf("connect: %v", err1)
+```
 
 If `err2` is returned to
 a caller, that caller has never had any way to open up `err2` and access `err1`.
@@ -598,9 +632,11 @@ requires an error value argument,
 and makes the resulting error’s `Unwrap` method return that argument.
 In our example, suppose we replace `%v` with `%w`:
 
-	// errors.Unwrap(err4) == err3
-	// (%w is new in Go 1.13)
-	err4 := fmt.Errorf("connect: %w", err3)
+```go
+// errors.Unwrap(err4) == err3
+// (%w is new in Go 1.13)
+err4 := fmt.Errorf("connect: %w", err3)
+```
 
 Now, if `err4` is returned to a caller,
 the caller can use `Unwrap` to retrieve `err3`.
@@ -627,17 +663,19 @@ we also published a
 including stack frame information
 and support for localized, translated errors.
 
-	// Optional method for error implementations
-	type Formatter interface {
-		Format(p Printer) (next error)
-	}
+```go
+// Optional method for error implementations
+type Formatter interface {
+	Format(p Printer) (next error)
+}
 
-	// Interface passed to Format
-	type Printer interface {
-		Print(args ...interface{})
-		Printf(format string, args ...interface{})
-		Detail() bool
-	}
+// Interface passed to Format
+type Printer interface {
+	Print(args ...interface{})
+	Printf(format string, args ...interface{})
+	Detail() bool
+}
+```
 
 This one is not as simple as `Unwrap`,
 and I won’t go into the details here.
@@ -660,21 +698,23 @@ Here is some code from
 [`compress/lzw/writer.go`](https://go.googlesource.com/go/+/go1.12/src/compress/lzw/writer.go#209) in the standard library:
 
 {{raw `
-	// Write the savedCode if valid.
-	if e.savedCode != invalidCode {
-		if err := e.write(e, e.savedCode); err != nil {
-			return err
-		}
-		if err := e.incHi(); err != nil && err != errOutOfCodes {
-			return err
-		}
-	}
-
-	// Write the eof code.
-	eof := uint32(1)<<e.litWidth + 1
-	if err := e.write(e, eof); err != nil {
+~~~go
+// Write the savedCode if valid.
+if e.savedCode != invalidCode {
+	if err := e.write(e, e.savedCode); err != nil {
 		return err
 	}
+	if err := e.incHi(); err != nil && err != errOutOfCodes {
+		return err
+	}
+}
+
+// Write the eof code.
+eof := uint32(1)<<e.litWidth + 1
+if err := e.write(e, eof); err != nil {
+	return err
+}
+~~~
 `}}
 
 At a glance, this code is about half error checks.
@@ -694,17 +734,19 @@ Otherwise the `check` evaluates to the other results
 from the call. We can use `check` to simplify the lzw code:
 
 {{raw `
-	// Write the savedCode if valid.
-	if e.savedCode != invalidCode {
-		check e.write(e, e.savedCode)
-		if err := e.incHi(); err != errOutOfCodes {
-			check err
-		}
+~~~go
+// Write the savedCode if valid.
+if e.savedCode != invalidCode {
+	check e.write(e, e.savedCode)
+	if err := e.incHi(); err != errOutOfCodes {
+		check err
 	}
+}
 
-	// Write the eof code.
-	eof := uint32(1)<<e.litWidth + 1
-	check e.write(e, eof)
+// Write the eof code.
+eof := uint32(1)<<e.litWidth + 1
+check e.write(e, eof)
+~~~
 `}}
 
 This version of the same code uses `check`,
@@ -719,21 +761,23 @@ That would let you write shared context-adding code just once,
 like in this snippet:
 
 {{raw `
-	handle err {
-		err = fmt.Errorf("closing writer: %w", err)
-	}
+~~~go
+handle err {
+	err = fmt.Errorf("closing writer: %w", err)
+}
 
-	// Write the savedCode if valid.
-	if e.savedCode != invalidCode {
-		check e.write(e, e.savedCode)
-		if err := e.incHi(); err != errOutOfCodes {
-			check err
-		}
+// Write the savedCode if valid.
+if e.savedCode != invalidCode {
+	check e.write(e, e.savedCode)
+	if err := e.incHi(); err != errOutOfCodes {
+		check err
 	}
+}
 
-	// Write the eof code.
-	eof := uint32(1)<<e.litWidth + 1
-	check e.write(e, eof)
+// Write the eof code.
+eof := uint32(1)<<e.litWidth + 1
+check e.write(e, eof)
+~~~
 `}}
 
 In essence, `check` was a short way to write the `if` statement,
@@ -758,19 +802,21 @@ it changed `check` (now `try`) from a keyword to a built-in function.
 Now the same code would look like this:
 
 {{raw `
-	defer errd.Wrapf(&err, "closing writer")
+~~~go
+defer errd.Wrapf(&err, "closing writer")
 
-	// Write the savedCode if valid.
-	if e.savedCode != invalidCode {
-		try(e.write(e, e.savedCode))
-		if err := e.incHi(); err != errOutOfCodes {
-			try(err)
-		}
+// Write the savedCode if valid.
+if e.savedCode != invalidCode {
+	try(e.write(e, e.savedCode))
+	if err := e.incHi(); err != errOutOfCodes {
+		try(err)
 	}
+}
 
-	// Write the eof code.
-	eof := uint32(1)<<e.litWidth + 1
-	try(e.write(e, eof))
+// Write the eof code.
+eof := uint32(1)<<e.litWidth + 1
+try(e.write(e, eof))
+~~~
 `}}
 
 We spent most of June discussing this proposal publicly on GitHub.
@@ -809,20 +855,22 @@ or any kind of map.
 For example, here is a generic channel filter:
 
 {{raw `
-	// Filter copies values from c to the returned channel,
-	// passing along only those values satisfying f.
-	func Filter(type value)(f func(value) bool, c <-chan value) <-chan value {
-		out := make(chan value)
-		go func() {
-			for v := range c {
-				if f(v) {
-					out <- v
-				}
+~~~go
+// Filter copies values from c to the returned channel,
+// passing along only those values satisfying f.
+func Filter(type value)(f func(value) bool, c <-chan value) <-chan value {
+	out := make(chan value)
+	go func() {
+		for v := range c {
+			if f(v) {
+				out <- v
 			}
-			close(out)
-		}()
-		return out
-	}
+		}
+		close(out)
+	}()
+	return out
+}
+~~~
 `}}
 
 We’ve been thinking about generics since work on Go began,

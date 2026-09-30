@@ -39,10 +39,12 @@ Go is statically typed. Every variable has a static type,
 that is, exactly one type known and fixed at compile time:
 `int`, `float32`, `*MyType`, `[]byte`, and so on. If we declare
 
-	type MyInt int
+```go
+type MyInt int
 
-	var i int
-	var j MyInt
+var i int
+var j MyInt
+```
 
 then `i` has type `int` and `j` has type `MyInt`.
 The variables `i` and `j` have distinct static types and,
@@ -58,26 +60,30 @@ as that value implements the interface's methods.
 A well-known pair of examples is `io.Reader` and `io.Writer`,
 the types `Reader` and `Writer` from the [io package](/pkg/io/):
 
-	// Reader is the interface that wraps the basic Read method.
-	type Reader interface {
-	    Read(p []byte) (n int, err error)
-	}
+```go
+// Reader is the interface that wraps the basic Read method.
+type Reader interface {
+    Read(p []byte) (n int, err error)
+}
 
-	// Writer is the interface that wraps the basic Write method.
-	type Writer interface {
-	    Write(p []byte) (n int, err error)
-	}
+// Writer is the interface that wraps the basic Write method.
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
+```
 
 Any type that implements a `Read` (or `Write`) method with this signature
 is said to implement `io.Reader` (or `io.Writer`).
 For the purposes of this discussion, that means that a variable of type
 `io.Reader` can hold any value whose type has a `Read` method:
 
-	var r io.Reader
-	r = os.Stdin
-	r = bufio.NewReader(r)
-	r = new(bytes.Buffer)
-	// and so on
+```go
+var r io.Reader
+r = os.Stdin
+r = bufio.NewReader(r)
+r = new(bytes.Buffer)
+// and so on
+```
 
 It's important to be clear that whatever concrete value `r` may hold,
 `r`'s type is always `io.Reader`:
@@ -85,11 +91,15 @@ Go is statically typed and the static type of `r` is `io.Reader`.
 
 An extremely important example of an interface type is the empty interface:
 
-	interface{}
+```go
+interface{}
+```
 
 or its equivalent alias,
 
-	any
+```go
+any
+```
 
 It represents the empty set of methods and is satisfied by any value at all, since every value has zero or more methods.
 
@@ -114,12 +124,14 @@ and that value's type descriptor.
 To be more precise, the value is the underlying concrete data item that
 implements the interface and the type describes the full type of that item. For instance, after
 
-	var r io.Reader
-	tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
-	if err != nil {
-	    return nil, err
-	}
-	r = tty
+```go
+var r io.Reader
+tty, err := os.OpenFile("/dev/tty", os.O_RDWR, 0)
+if err != nil {
+    return nil, err
+}
+r = tty
+```
 
 `r` contains, schematically, the (value, type) pair,
 (`tty`, `*os.File`).
@@ -128,8 +140,10 @@ even though the interface value provides access only to the `Read` method,
 the value inside carries all the type information about that value.
 That's why we can do things like this:
 
-	var w io.Writer
-	w = r.(io.Writer)
+```go
+var w io.Writer
+w = r.(io.Writer)
+```
 
 The expression in this assignment is a type assertion;
 what it asserts is that the item inside `r` also implements `io.Writer`,
@@ -141,8 +155,10 @@ even though the concrete value inside may have a larger set of methods.
 
 Continuing, we can do this:
 
-	var empty interface{}
-	empty = w
+```go
+var empty interface{}
+empty = w
+```
 
 and our empty interface value `empty` will again contain that same pair,
 (`tty`, `*os.File`).
@@ -177,17 +193,19 @@ but let's keep the `Value` and `Type` concepts separate for now.)
 
 Let's start with `TypeOf`:
 
-	package main
+```go
+package main
 
-	import (
-	    "fmt"
-	    "reflect"
-	)
+import (
+    "fmt"
+    "reflect"
+)
 
-	func main() {
-	    var x float64 = 3.4
-	    fmt.Println("type:", reflect.TypeOf(x))
-	}
+func main() {
+    var x float64 = 3.4
+    fmt.Println("type:", reflect.TypeOf(x))
+}
+```
 
 This program prints
 
@@ -199,8 +217,10 @@ not an interface value, to `reflect.TypeOf`.
 But it's there; as [godoc reports](/pkg/reflect/#TypeOf),
 the signature of `reflect.TypeOf` includes an empty interface:
 
-	// TypeOf returns the reflection Type of the value in the interface{}.
-	func TypeOf(i interface{}) Type
+```go
+// TypeOf returns the reflection Type of the value in the interface{}.
+func TypeOf(i interface{}) Type
+```
 
 When we call `reflect.TypeOf(x)`, `x` is first stored in an empty interface,
 which is then passed as the argument;
@@ -210,8 +230,10 @@ The `reflect.ValueOf` function, of course,
 recovers the value (from here on we'll elide the boilerplate and focus just
 on the executable code):
 
-	var x float64 = 3.4
-	fmt.Println("value:", reflect.ValueOf(x).String())
+```go
+var x float64 = 3.4
+fmt.Println("value:", reflect.ValueOf(x).String())
+```
 
 prints
 
@@ -233,11 +255,13 @@ a constant indicating what sort of item is stored:
 Also methods on `Value` with names like `Int` and `Float` let us grab values
 (as `int64` and `float64`) stored inside:
 
-	var x float64 = 3.4
-	v := reflect.ValueOf(x)
-	fmt.Println("type:", v.Type())
-	fmt.Println("kind is float64:", v.Kind() == reflect.Float64)
-	fmt.Println("value:", v.Float())
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+fmt.Println("type:", v.Type())
+fmt.Println("kind is float64:", v.Kind() == reflect.Float64)
+fmt.Println("value:", v.Float())
+```
 
 prints
 
@@ -257,20 +281,24 @@ That is, the `Int` method of `Value` returns an `int64` and the `SetInt`
 value takes an `int64`;
 it may be necessary to convert to the actual type involved:
 
-	var x uint8 = 'x'
-	v := reflect.ValueOf(x)
-	fmt.Println("type:", v.Type())                            // uint8.
-	fmt.Println("kind is uint8: ", v.Kind() == reflect.Uint8) // true.
-	x = uint8(v.Uint())                                       // v.Uint returns a uint64.
+```go
+var x uint8 = 'x'
+v := reflect.ValueOf(x)
+fmt.Println("type:", v.Type())                            // uint8.
+fmt.Println("kind is uint8: ", v.Kind() == reflect.Uint8) // true.
+x = uint8(v.Uint())                                       // v.Uint returns a uint64.
+```
 
 The second property is that the `Kind` of a reflection object describes
 the underlying type,
 not the static type.
 If a reflection object contains a value of a user-defined integer type, as in
 
-	type MyInt int
-	var x MyInt = 7
-	v := reflect.ValueOf(x)
+```go
+type MyInt int
+var x MyInt = 7
+v := reflect.ValueOf(x)
+```
 
 the `Kind` of `v` is still `reflect.Int`,
 even though the static type of `x` is `MyInt`, not `int`.
@@ -287,13 +315,17 @@ Given a `reflect.Value` we can recover an interface value using the `Interface` 
 in effect the method packs the type and value information back into an interface
 representation and returns the result:
 
-	// Interface returns v's value as an interface{}.
-	func (v Value) Interface() interface{}
+```go
+// Interface returns v's value as an interface{}.
+func (v Value) Interface() interface{}
+```
 
 As a consequence we can say
 
-	y := v.Interface().(float64) // y will have type float64.
-	fmt.Println(y)
+```go
+y := v.Interface().(float64) // y will have type float64.
+fmt.Println(y)
+```
 
 to print the `float64` value represented by the reflection object `v`.
 
@@ -304,13 +336,17 @@ been doing in the previous examples.
 Therefore all it takes to print the contents of a `reflect.Value` correctly
 is to pass the result of the `Interface` method to the formatted print routine:
 
-	fmt.Println(v.Interface())
+```go
+fmt.Println(v.Interface())
+```
 
 (Since this article was first written, a change was made to the `fmt`
 package so that it automatically unpacks a `reflect.Value` like this, so
 we could just say
 
-	fmt.Println(v)
+```go
+fmt.Println(v)
+```
 
 for the same result, but for clarity we'll keep the `.Interface()` calls
 here.)
@@ -318,7 +354,9 @@ here.)
 Since our value is a `float64`,
 we can even use a floating-point format if we want:
 
-	fmt.Printf("value is %7.1e\n", v.Interface())
+```go
+fmt.Printf("value is %7.1e\n", v.Interface())
+```
 
 and get in this case
 
@@ -341,9 +379,11 @@ The third law is the most subtle and confusing, but it's easy enough to understa
 
 Here is some code that does not work, but is worth studying.
 
-	var x float64 = 3.4
-	v := reflect.ValueOf(x)
-	v.SetFloat(7.1) // Error: will panic.
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+v.SetFloat(7.1) // Error: will panic.
+```
 
 If you run this code, it will panic with the cryptic message
 
@@ -356,9 +396,11 @@ and not all reflection `Values` have it.
 
 The `CanSet` method of `Value` reports the settability of a `Value`; in our case,
 
-	var x float64 = 3.4
-	v := reflect.ValueOf(x)
-	fmt.Println("settability of v:", v.CanSet())
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+fmt.Println("settability of v:", v.CanSet())
+```
 
 prints
 
@@ -371,15 +413,19 @@ It's the property that a reflection object can modify the actual storage
 that was used to create the reflection object.
 Settability is determined by whether the reflection object holds the original item. When we say
 
-	var x float64 = 3.4
-	v := reflect.ValueOf(x)
+```go
+var x float64 = 3.4
+v := reflect.ValueOf(x)
+```
 
 we pass a copy of `x` to `reflect.ValueOf`,
 so the interface value created as the argument to `reflect.ValueOf` is a
 copy of `x`, not `x` itself.
 Thus, if the statement
 
-	v.SetFloat(7.1)
+```go
+v.SetFloat(7.1)
+```
 
 were allowed to succeed, it would not update `x`,
 even though `v` looks like it was created from `x`.
@@ -391,14 +437,18 @@ and settability is the property used to avoid this issue.
 If this seems bizarre, it's not. It's actually a familiar situation in unusual garb.
 Think of passing `x` to a function:
 
-	f(x)
+```go
+f(x)
+```
 
 We would not expect `f` to be able to modify `x` because we passed a copy
 of `x`'s value, not `x` itself.
 If we want `f` to modify `x` directly we must pass our function the address
 of `x` (that is, a pointer to `x`):
 
-	f(&x)
+```go
+f(&x)
+```
 
 This is straightforward and familiar, and reflection works the same way.
 If we want to modify `x` by reflection, we must give the reflection library
@@ -406,10 +456,12 @@ a pointer to the value we want to modify.
 
 Let's do that. First we initialize `x` as usual and then create a reflection value that points to it, called `p`.
 
-	var x float64 = 3.4
-	p := reflect.ValueOf(&x) // Note: take the address of x.
-	fmt.Println("type of p:", p.Type())
-	fmt.Println("settability of p:", p.CanSet())
+```go
+var x float64 = 3.4
+p := reflect.ValueOf(&x) // Note: take the address of x.
+fmt.Println("type of p:", p.Type())
+fmt.Println("settability of p:", p.CanSet())
+```
 
 The output so far is
 
@@ -421,8 +473,10 @@ but it's not `p` we want to set, it's (in effect) `*p`.
 To get to what `p` points to, we call the `Elem` method of `Value`,
 which indirects through the pointer, and save the result in a reflection `Value` called `v`:
 
-	v := p.Elem()
-	fmt.Println("settability of v:", v.CanSet())
+```go
+v := p.Elem()
+fmt.Println("settability of v:", v.CanSet())
+```
 
 Now `v` is a settable reflection object, as the output demonstrates,
 
@@ -430,9 +484,11 @@ Now `v` is a settable reflection object, as the output demonstrates,
 
 and since it represents `x`, we are finally able to use `v.SetFloat` to modify the value of `x`:
 
-	v.SetFloat(7.1)
-	fmt.Println(v.Interface())
-	fmt.Println(x)
+```go
+v.SetFloat(7.1)
+fmt.Println(v.Interface())
+fmt.Println(x)
+```
 
 The output, as expected, is
 
@@ -462,18 +518,20 @@ Note that we extract the names of the fields from the struct type,
 but the fields themselves are regular `reflect.Value` objects.
 
 {{raw `
-	type T struct {
-	    A int
-	    B string
-	}
-	t := T{23, "skidoo"}
-	s := reflect.ValueOf(&t).Elem()
-	typeOfT := s.Type()
-	for i := 0; i < s.NumField(); i++ {
-	    f := s.Field(i)
-	    fmt.Printf("%d: %s %s = %v\n", i,
-	        typeOfT.Field(i).Name, f.Type(), f.Interface())
-	}
+~~~go
+type T struct {
+    A int
+    B string
+}
+t := T{23, "skidoo"}
+s := reflect.ValueOf(&t).Elem()
+typeOfT := s.Type()
+for i := 0; i < s.NumField(); i++ {
+    f := s.Field(i)
+    fmt.Printf("%d: %s %s = %v\n", i,
+        typeOfT.Field(i).Name, f.Type(), f.Interface())
+}
+~~~
 `}}
 
 The output of this program is
@@ -487,9 +545,11 @@ of a struct are settable.
 
 Because `s` contains a settable reflection object, we can modify the fields of the structure.
 
-	s.Field(0).SetInt(77)
-	s.Field(1).SetString("Sunset Strip")
-	fmt.Println("t is now", t)
+```go
+s.Field(0).SetInt(77)
+s.Field(1).SetString("Sunset Strip")
+fmt.Println("t is now", t)
+```
 
 And here's the result:
 

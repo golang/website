@@ -130,10 +130,12 @@ number of values; send operations complete immediately if there's room in the
 buffer:
 
 {{raw `
-	c := make(chan int, 2) // buffer size 2
-	c <- 1  // succeeds immediately
-	c <- 2  // succeeds immediately
-	c <- 3  // blocks until another goroutine does <-c and receives 1
+~~~go
+c := make(chan int, 2) // buffer size 2
+c <- 1  // succeeds immediately
+c <- 2  // succeeds immediately
+c <- 3  // blocks until another goroutine does <-c and receives 1
+~~~
 `}}
 
 When the number of values to be sent is known at channel creation time, a buffer

@@ -11,7 +11,7 @@ summary: Why the function signatures in the slices packages are so complicated.
 The [`slices.Clone`](https://pkg.go.dev/slices#Clone) function is
 pretty simple: it makes a copy of a slice of any type.
 
-```Go
+```go
 func Clone[S ~[]E, E any](s S) S {
 	return append(s[:0:0], s...)
 }
@@ -31,7 +31,7 @@ We'll start by writing a simple generic `Clone` function.
 This is not the one in the `slices` package.
 We want to take a slice of any element type, and return a new slice.
 
-```Go
+```go
 func Clone1[E any](s []E) []E {
 	// body omitted
 }
@@ -46,7 +46,7 @@ in Go.
 However, there is a problem.
 Named slice types are not common in Go, but people do use them.
 
-```Go
+```go
 // MySlice is a slice of strings with a special String method.
 type MySlice []string
 
@@ -59,7 +59,7 @@ func (s MySlice) String() string {
 Let's say that we want to make a copy of a `MySlice` and then get the
 printable version, but with the strings in sorted order.
 
-```Go
+```go
 func PrintSorted(ms MySlice) string {
 	c := Clone1(ms)
 	slices.Sort(c)
@@ -77,7 +77,7 @@ c.String undefined (type []string has no field or method String)
 We can see the problem if we manually instantiate `Clone1` by
 replacing the type parameter with the type argument.
 
-```Go
+```go
 func InstantiatedClone1(s []string) []string
 ```
 
@@ -98,7 +98,7 @@ If we can do that, then when we call `Clone` with a value of type
 
 We know that it has to look something like this.
 
-```Go
+```go
 func Clone2[S ?](s S) S // INVALID
 ```
 
@@ -119,7 +119,7 @@ slice.
 We don't care what the slice element type is, so let's just call it
 `E`, as we did with `Clone1`.
 
-```Go
+```go
 func Clone3[S []E](s S) S // INVALID
 ```
 
@@ -128,7 +128,7 @@ The type argument for `E` can be any type, which means it also has to
 be a type parameter itself.
 Since it can be any type, its constraint is `any`.
 
-```Go
+```go
 func Clone4[S []E, E any](s S) S
 ```
 
@@ -151,7 +151,7 @@ It doesn't permit a named type like `MySlice`.
 
 As the error message hints, the answer is to add a `~`.
 
-```Go
+```go
 func Clone5[S ~[]E, E any](s S) S
 ```
 
@@ -227,7 +227,7 @@ Now that we've explained the signature of `slices.Clone`, let's see
 how actually using `slices.Clone` is simplified by type inference.
 Remember, the signature of `Clone` is
 
-```Go
+```go
 func Clone[S ~[]E, E any](s S) S
 ```
 
@@ -240,13 +240,13 @@ for `E` is the element type of the type argument passed to `S`.
 
 This means that we can write
 
-```Go
+```go
 	c := Clone(ms)
 ```
 
 without having to write
 
-```Go
+```go
 	c := Clone[MySlice, string](ms)
 ```
 
@@ -259,13 +259,13 @@ specify it separately.
 
 That is, we can write
 
-```Go
+```go
 	myClone := Clone[MySlice]
 ```
 
 without having to write
 
-```Go
+```go
 	myClone := Clone[MySlice, string]
 ```
 
@@ -279,7 +279,7 @@ the type.
 
 For example, here is the signature for `maps.Clone`.
 
-```Go
+```go
 func Clone[M ~map[K]V, K comparable, V any](m M) M
 ```
 
@@ -291,7 +291,7 @@ In `maps.Clone` we constrain `K` to be comparable, as is required for
 a map key type.
 We can constrain the component types any way we like.
 
-```Go
+```go
 func WithStrings[S ~[]E, E interface { String() string }](s S) (S, []string)
 ```
 

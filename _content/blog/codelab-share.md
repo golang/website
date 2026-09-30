@@ -34,51 +34,55 @@ _Do not communicate by sharing memory; instead, share memory by communicating._
 Consider a program that polls a list of URLs.
 In a traditional threading environment, one might structure its data like so:
 
-	type Resource struct {
-	    url        string
-	    polling    bool
-	    lastPolled int64
-	}
+```go
+type Resource struct {
+    url        string
+    polling    bool
+    lastPolled int64
+}
 
-	type Resources struct {
-	    data []*Resource
-	    lock *sync.Mutex
-	}
+type Resources struct {
+    data []*Resource
+    lock *sync.Mutex
+}
+```
 
 And then a Poller function (many of which would run in separate threads) might look something like this:
 
 {{raw `
-	func Poller(res *Resources) {
-	    for {
-	        // get the least recently-polled Resource
-	        // and mark it as being polled
-	        res.lock.Lock()
-	        var r *Resource
-	        for _, v := range res.data {
-	            if v.polling {
-	                continue
-	            }
-	            if r == nil || v.lastPolled < r.lastPolled {
-	                r = v
-	            }
-	        }
-	        if r != nil {
-	            r.polling = true
-	        }
-	        res.lock.Unlock()
-	        if r == nil {
-	            continue
-	        }
+~~~go
+func Poller(res *Resources) {
+    for {
+        // get the least recently-polled Resource
+        // and mark it as being polled
+        res.lock.Lock()
+        var r *Resource
+        for _, v := range res.data {
+            if v.polling {
+                continue
+            }
+            if r == nil || v.lastPolled < r.lastPolled {
+                r = v
+            }
+        }
+        if r != nil {
+            r.polling = true
+        }
+        res.lock.Unlock()
+        if r == nil {
+            continue
+        }
 
-	        // poll the URL
+        // poll the URL
 
-	        // update the Resource's polling and lastPolled
-	        res.lock.Lock()
-	        r.polling = false
-	        r.lastPolled = time.Nanoseconds()
-	        res.lock.Unlock()
-	    }
-	}
+        // update the Resource's polling and lastPolled
+        res.lock.Lock()
+        r.polling = false
+        r.lastPolled = time.Nanoseconds()
+        res.lock.Unlock()
+    }
+}
+~~~
 `}}
 
 This function is about a page long, and requires more detail to make it complete.
@@ -92,16 +96,18 @@ from an input channel,
 and sends them to an output channel when they're done.
 
 {{raw `
-	type Resource string
+~~~go
+type Resource string
 
-	func Poller(in, out chan *Resource) {
-	    for r := range in {
-	        // poll the URL
+func Poller(in, out chan *Resource) {
+    for r := range in {
+        // poll the URL
 
-	        // send the processed Resource to out
-	        out <- r
-	    }
-	}
+        // send the processed Resource to out
+        out <- r
+    }
+}
+~~~
 `}}
 
 The delicate logic from the previous example is conspicuously absent,

@@ -223,17 +223,19 @@ For example, here is the Go 1 implementation of `Int63n`, which returns
 a random integer in the range [0, `n`).
 
 {{raw `
-	func (r *Rand) Int63n(n int64) int64 {
-		if n <= 0 {
-			panic("invalid argument to Int63n")
-		}
-		max := int64((1<<63 - 1)  - (1<<63)%uint64(n))
-		v := r.Int63()
-		for v > max {
-			v = r.Int63()
-		}
-		return v % n
+~~~go
+func (r *Rand) Int63n(n int64) int64 {
+	if n <= 0 {
+		panic("invalid argument to Int63n")
 	}
+	max := int64((1<<63 - 1)  - (1<<63)%uint64(n))
+	v := r.Int63()
+	for v > max {
+		v = r.Int63()
+	}
+	return v % n
+}
+~~~
 `}}
 
 The actual conversion is easy: `v % n`.
@@ -416,11 +418,15 @@ addressing the problems outlined above:
   In the old API, to create a random duration of up to 5 seconds,
   it was necessary to write:
 
-      d := time.Duration(rand.Int63n(int64(5*time.Second)))
+  ```go
+  d := time.Duration(rand.Int63n(int64(5*time.Second)))
+  ```
 
   Using `N`, the equivalent code is:
 
-      d := rand.N(5 * time.Second)
+  ```go
+  d := rand.N(5 * time.Second)
+  ```
 
   `N` is only a top-level function; there is no `N` method on `rand.Rand`
   because there are no generic methods in Go.

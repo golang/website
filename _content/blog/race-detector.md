@@ -70,21 +70,23 @@ To build your code with the race detector enabled, just add the
 To try out the race detector for yourself, copy this example program into `racy.go`:
 
 {{raw `
-	package main
+~~~go
+package main
 
-	import "fmt"
+import "fmt"
 
-	func main() {
-		done := make(chan bool)
-		m := make(map[string]string)
-		m["name"] = "world"
-		go func() {
-			m["name"] = "data race"
-			done <- true
-		}()
-		fmt.Println("Hello,", m["name"])
-		<-done
-	}
+func main() {
+	done := make(chan bool)
+	m := make(map[string]string)
+	m["name"] = "world"
+	go func() {
+		m["name"] = "data race"
+		done <- true
+	}()
+	fmt.Println("Hello,", m["name"])
+	<-done
+}
+~~~
 `}}
 
 Then run it with the race detector enabled:
@@ -171,7 +173,9 @@ don't want to store.
 It is commonly used with [`io.Copy`](/pkg/io/#Copy)
 to drain a reader, like this:
 
-	io.Copy(ioutil.Discard, reader)
+```go
+io.Copy(ioutil.Discard, reader)
+```
 
 Back in July 2011 the Go team noticed that using `Discard` in this way was
 inefficient: the `Copy` function allocates an internal 32 kB buffer each time it
@@ -182,11 +186,15 @@ We thought that this idiomatic use of `Copy` and `Discard` should not be so cost
 The fix was simple.
 If the given `Writer` implements a `ReadFrom` method, a `Copy` call like this:
 
-	io.Copy(writer, reader)
+```go
+io.Copy(writer, reader)
+```
 
 is delegated to this potentially more efficient call:
 
-	writer.ReadFrom(reader)
+```go
+writer.ReadFrom(reader)
+```
 
 We
 [added a ReadFrom method](/cl/4817041)
@@ -216,27 +224,33 @@ Here is the known-racy code in `io/ioutil`, where `Discard` is a
 Brad's program includes a `trackDigestReader` type, which wraps an `io.Reader`
 and records the hash digest of what it reads.
 
-	type trackDigestReader struct {
-		r io.Reader
-		h hash.Hash
-	}
+```go
+type trackDigestReader struct {
+	r io.Reader
+	h hash.Hash
+}
 
-	func (t trackDigestReader) Read(p []byte) (n int, err error) {
-		n, err = t.r.Read(p)
-		t.h.Write(p[:n])
-		return
-	}
+func (t trackDigestReader) Read(p []byte) (n int, err error) {
+	n, err = t.r.Read(p)
+	t.h.Write(p[:n])
+	return
+}
+```
 
 For example, it could be used to compute the SHA-1 hash of a file while reading it:
 
-	tdr := trackDigestReader{r: file, h: sha1.New()}
-	io.Copy(writer, tdr)
-	fmt.Printf("File hash: %x", tdr.h.Sum(nil))
+```go
+tdr := trackDigestReader{r: file, h: sha1.New()}
+io.Copy(writer, tdr)
+fmt.Printf("File hash: %x", tdr.h.Sum(nil))
+```
 
 In some cases there would be nowhere to write the data—but still a need to hash
 the file—and so `Discard` would be used:
 
-	io.Copy(ioutil.Discard, tdr)
+```go
+io.Copy(ioutil.Discard, tdr)
+```
 
 But in this case the `blackHole` buffer isn't just a black hole; it is a
 legitimate place to store the data between reading it from the source
@@ -246,14 +260,16 @@ With multiple goroutines hashing files simultaneously, each sharing the same
 between reading and hashing.
 No errors or panics occurred, but the hashes were wrong. Nasty!
 
-	func (t trackDigestReader) Read(p []byte) (n int, err error) {
-		// the buffer p is blackHole
-		n, err = t.r.Read(p)
-		// p may be corrupted by another goroutine here,
-		// between the Read above and the Write below
-		t.h.Write(p[:n])
-		return
-	}
+```go
+func (t trackDigestReader) Read(p []byte) (n int, err error) {
+	// the buffer p is blackHole
+	n, err = t.r.Read(p)
+	// p may be corrupted by another goroutine here,
+	// between the Read above and the Write below
+	t.h.Write(p[:n])
+	return
+}
+```
 
 The bug was finally
 [fixed](/cl/7011047)

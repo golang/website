@@ -19,16 +19,20 @@ Go code uses `error` values to indicate an abnormal state.
 For example, the `os.Open` function returns a non-nil `error` value when
 it fails to open a file.
 
-	func Open(name string) (file *File, err error)
+```go
+func Open(name string) (file *File, err error)
+```
 
 The following code uses `os.Open` to open a file.
 If an error occurs it calls `log.Fatal` to print the error message and stop.
 
-	f, err := os.Open("filename.ext")
-	if err != nil {
-	    log.Fatal(err)
-	}
-	// do something with the open *File f
+```go
+f, err := os.Open("filename.ext")
+if err != nil {
+    log.Fatal(err)
+}
+// do something with the open *File f
+```
 
 You can get a lot done in Go knowing just this about the `error` type,
 but in this article we'll take a closer look at `error` and discuss some
@@ -40,9 +44,11 @@ The `error` type is an interface type. An `error` variable represents any
 value that can describe itself as a string.
 Here is the interface's declaration:
 
-	type error interface {
-	    Error() string
-	}
+```go
+type error interface {
+    Error() string
+}
+```
 
 The `error` type, as with all built in types,
 is [predeclared](/doc/go_spec.html#Predeclared_identifiers)
@@ -51,33 +57,39 @@ in the [universe block](/doc/go_spec.html#Blocks).
 The most commonly-used `error` implementation is the [errors](/pkg/errors/)
 package's unexported `errorString` type.
 
-	// errorString is a trivial implementation of error.
-	type errorString struct {
-	    s string
-	}
+```go
+// errorString is a trivial implementation of error.
+type errorString struct {
+    s string
+}
 
-	func (e *errorString) Error() string {
-	    return e.s
-	}
+func (e *errorString) Error() string {
+    return e.s
+}
+```
 
 You can construct one of these values with the `errors.New` function.
 It takes a string that it converts to an `errors.errorString` and returns
 as an `error` value.
 
-	// New returns an error that formats as the given text.
-	func New(text string) error {
-	    return &errorString{text}
-	}
+```go
+// New returns an error that formats as the given text.
+func New(text string) error {
+    return &errorString{text}
+}
+```
 
 Here's how you might use `errors.New`:
 
 {{raw `
-	func Sqrt(f float64) (float64, error) {
-	    if f < 0 {
-	        return 0, errors.New("math: square root of negative number")
-	    }
-	    // implementation
-	}
+~~~go
+func Sqrt(f float64) (float64, error) {
+    if f < 0 {
+        return 0, errors.New("math: square root of negative number")
+    }
+    // implementation
+}
+~~~
 `}}
 
 A caller passing a negative argument to `Sqrt` receives a non-nil `error`
@@ -86,10 +98,12 @@ The caller can access the error string ("math:
 square root of...") by calling the `error`'s `Error` method,
 or by just printing it:
 
-	f, err := Sqrt(-1)
-	if err != nil {
-	    fmt.Println(err)
-	}
+```go
+f, err := Sqrt(-1)
+if err != nil {
+    fmt.Println(err)
+}
+```
 
 The [fmt](/pkg/fmt/) package formats an `error` value by calling its `Error() string` method.
 
@@ -103,9 +117,11 @@ It formats a string according to `Printf`'s rules and returns it as an `error`
 created by `errors.New`.
 
 {{raw `
-	if f < 0 {
-	    return 0, fmt.Errorf("math: square root of negative number %g", f)
-	}
+~~~go
+if f < 0 {
+    return 0, fmt.Errorf("math: square root of negative number %g", f)
+}
+~~~
 `}}
 
 In many cases `fmt.Errorf` is good enough,
@@ -117,11 +133,13 @@ argument passed to `Sqrt`.
 We can enable that by defining a new error implementation instead of using
 `errors.errorString`:
 
-	type NegativeSqrtError float64
+```go
+type NegativeSqrtError float64
 
-	func (f NegativeSqrtError) Error() string {
-	    return fmt.Sprintf("math: square root of negative number %g", float64(f))
-	}
+func (f NegativeSqrtError) Error() string {
+    return fmt.Sprintf("math: square root of negative number %g", float64(f))
+}
+```
 
 A sophisticated caller can then use a [type assertion](/doc/go_spec.html#Type_assertions)
 to check for a `NegativeSqrtError` and handle it specially,
@@ -132,23 +150,27 @@ As another example, the [json](/pkg/encoding/json/)
 package specifies a `SyntaxError` type that the `json.Decode` function returns
 when it encounters a syntax error parsing a JSON blob.
 
-	type SyntaxError struct {
-	    msg    string // description of error
-	    Offset int64  // error occurred after reading Offset bytes
-	}
+```go
+type SyntaxError struct {
+    msg    string // description of error
+    Offset int64  // error occurred after reading Offset bytes
+}
 
-	func (e *SyntaxError) Error() string { return e.msg }
+func (e *SyntaxError) Error() string { return e.msg }
+```
 
 The `Offset` field isn't even shown in the default formatting of the error,
 but callers can use it to add file and line information to their error messages:
 
-	if err := dec.Decode(&val); err != nil {
-	    if serr, ok := err.(*json.SyntaxError); ok {
-	        line, col := findLine(f, serr.Offset)
-	        return fmt.Errorf("%s:%d:%d: %v", f.Name(), line, col, err)
-	    }
-	    return err
-	}
+```go
+if err := dec.Decode(&val); err != nil {
+    if serr, ok := err.(*json.SyntaxError); ok {
+        line, col := findLine(f, serr.Offset)
+        return fmt.Errorf("%s:%d:%d: %v", f.Name(), line, col, err)
+    }
+    return err
+}
+```
 
 (This is a slightly simplified version of some [actual code](https://github.com/camlistore/go4/blob/03efcb870d84809319ea509714dd6d19a1498483/jsonconfig/eval.go#L123-L135)
 from the [Camlistore](http://camlistore.org) project.)
@@ -159,26 +181,30 @@ For instance, the [net](/pkg/net/) package returns errors of type `error`,
 following the usual convention, but some of the error implementations have
 additional methods defined by the `net.Error` interface:
 
-	package net
+```go
+package net
 
-	type Error interface {
-	    error
-	    Timeout() bool   // Is the error a timeout?
-	    Temporary() bool // Is the error temporary?
-	}
+type Error interface {
+    error
+    Timeout() bool   // Is the error a timeout?
+    Temporary() bool // Is the error temporary?
+}
+```
 
 Client code can test for a `net.Error` with a type assertion and then distinguish
 transient network errors from permanent ones.
 For instance, a web crawler might sleep and retry when it encounters a temporary
 error and give up otherwise.
 
-	if nerr, ok := err.(net.Error); ok && nerr.Temporary() {
-	    time.Sleep(1e9)
-	    continue
-	}
-	if err != nil {
-	    log.Fatal(err)
-	}
+```go
+if nerr, ok := err.(net.Error); ok && nerr.Temporary() {
+    time.Sleep(1e9)
+    continue
+}
+if err != nil {
+    log.Fatal(err)
+}
+```
 
 ## Simplifying repetitive error handling
 
@@ -192,22 +218,24 @@ Consider an [App Engine](https://cloud.google.com/appengine/docs/go/)
 application with an HTTP handler that retrieves a record from the datastore
 and formats it with a template.
 
-	func init() {
-	    http.HandleFunc("/view", viewRecord)
-	}
+```go
+func init() {
+    http.HandleFunc("/view", viewRecord)
+}
 
-	func viewRecord(w http.ResponseWriter, r *http.Request) {
-	    c := appengine.NewContext(r)
-	    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
-	    record := new(Record)
-	    if err := datastore.Get(c, key, record); err != nil {
-	        http.Error(w, err.Error(), 500)
-	        return
-	    }
-	    if err := viewTemplate.Execute(w, record); err != nil {
-	        http.Error(w, err.Error(), 500)
-	    }
-	}
+func viewRecord(w http.ResponseWriter, r *http.Request) {
+    c := appengine.NewContext(r)
+    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
+    record := new(Record)
+    if err := datastore.Get(c, key, record); err != nil {
+        http.Error(w, err.Error(), 500)
+        return
+    }
+    if err := viewTemplate.Execute(w, record); err != nil {
+        http.Error(w, err.Error(), 500)
+    }
+}
+```
 
 This function handles errors returned by the `datastore.Get` function and
 `viewTemplate`'s `Execute` method.
@@ -219,19 +247,23 @@ of identical error handling code.
 
 To reduce the repetition we can define our own HTTP `appHandler` type that includes an `error` return value:
 
-	type appHandler func(http.ResponseWriter, *http.Request) error
+```go
+type appHandler func(http.ResponseWriter, *http.Request) error
+```
 
 Then we can change our `viewRecord` function to return errors:
 
-	func viewRecord(w http.ResponseWriter, r *http.Request) error {
-	    c := appengine.NewContext(r)
-	    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
-	    record := new(Record)
-	    if err := datastore.Get(c, key, record); err != nil {
-	        return err
-	    }
-	    return viewTemplate.Execute(w, record)
-	}
+```go
+func viewRecord(w http.ResponseWriter, r *http.Request) error {
+    c := appengine.NewContext(r)
+    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
+    record := new(Record)
+    if err := datastore.Get(c, key, record); err != nil {
+        return err
+    }
+    return viewTemplate.Execute(w, record)
+}
+```
 
 This is simpler than the original version,
 but the [http](/pkg/net/http/) package doesn't understand
@@ -239,11 +271,13 @@ functions that return `error`.
 To fix this we can implement the `http.Handler` interface's `ServeHTTP`
 method on `appHandler`:
 
-	func (fn appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	    if err := fn(w, r); err != nil {
-	        http.Error(w, err.Error(), 500)
-	    }
-	}
+```go
+func (fn appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    if err := fn(w, r); err != nil {
+        http.Error(w, err.Error(), 500)
+    }
+}
+```
 
 The `ServeHTTP` method calls the `appHandler` function and displays the
 returned error (if any) to the user.
@@ -255,9 +289,11 @@ Now when registering `viewRecord` with the http package we use the `Handle`
 function (instead of `HandleFunc`) as `appHandler` is an `http.Handler`
 (not an `http.HandlerFunc`).
 
-	func init() {
-	    http.Handle("/view", appHandler(viewRecord))
-	}
+```go
+func init() {
+    http.Handle("/view", appHandler(viewRecord))
+}
+```
 
 With this basic error handling infrastructure in place,
 we can make it more user friendly.
@@ -267,15 +303,19 @@ while logging the full error to the App Engine developer console for debugging p
 
 To do this we create an `appError` struct containing an `error` and some other fields:
 
-	type appError struct {
-	    Error   error
-	    Message string
-	    Code    int
-	}
+```go
+type appError struct {
+    Error   error
+    Message string
+    Code    int
+}
+```
 
 Next we modify the appHandler type to return `*appError` values:
 
-	type appHandler func(http.ResponseWriter, *http.Request) *appError
+```go
+type appHandler func(http.ResponseWriter, *http.Request) *appError
+```
 
 (It's usually a mistake to pass back the concrete type of an error rather than `error`,
 for reasons discussed in [the Go FAQ](/doc/go_faq.html#nil_error),
@@ -286,29 +326,33 @@ And make `appHandler`'s `ServeHTTP` method display the `appError`'s `Message`
 to the user with the correct HTTP status `Code` and log the full `Error`
 to the developer console:
 
-	func (fn appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	    if e := fn(w, r); e != nil { // e is *appError, not os.Error.
-	        c := appengine.NewContext(r)
-	        c.Errorf("%v", e.Error)
-	        http.Error(w, e.Message, e.Code)
-	    }
-	}
+```go
+func (fn appHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+    if e := fn(w, r); e != nil { // e is *appError, not os.Error.
+        c := appengine.NewContext(r)
+        c.Errorf("%v", e.Error)
+        http.Error(w, e.Message, e.Code)
+    }
+}
+```
 
 Finally, we update `viewRecord` to the new function signature and have it
 return more context when it encounters an error:
 
-	func viewRecord(w http.ResponseWriter, r *http.Request) *appError {
-	    c := appengine.NewContext(r)
-	    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
-	    record := new(Record)
-	    if err := datastore.Get(c, key, record); err != nil {
-	        return &appError{err, "Record not found", 404}
-	    }
-	    if err := viewTemplate.Execute(w, record); err != nil {
-	        return &appError{err, "Can't display record", 500}
-	    }
-	    return nil
-	}
+```go
+func viewRecord(w http.ResponseWriter, r *http.Request) *appError {
+    c := appengine.NewContext(r)
+    key := datastore.NewKey(c, "Record", r.FormValue("id"), 0, nil)
+    record := new(Record)
+    if err := datastore.Get(c, key, record); err != nil {
+        return &appError{err, "Record not found", 404}
+    }
+    if err := viewTemplate.Execute(w, record); err != nil {
+        return &appError{err, "Can't display record", 500}
+    }
+    return nil
+}
+```
 
 This version of `viewRecord` is the same length as the original,
 but now each of those lines has specific meaning and we are providing a

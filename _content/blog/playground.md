@@ -228,15 +228,17 @@ The various file-related functions then operate on `fs` instead of making the
 actual system call.
 For instance, here is the [`syscall.Open`](https://github.com/golang/go/blob/2197321db1dd997165c0091ba2bcb3b6be7633d0/src/syscall/fs_nacl.go#L473) function:
 
-	func Open(path string, openmode int, perm uint32) (fd int, err error) {
-		fs.mu.Lock()
-		defer fs.mu.Unlock()
-		f, err := fs.open(path, openmode, perm&0777|S_IFREG)
-		if err != nil {
-			return -1, err
-		}
-		return newFD(f), nil
+```go
+func Open(path string, openmode int, perm uint32) (fd int, err error) {
+	fs.mu.Lock()
+	defer fs.mu.Unlock()
+	f, err := fs.open(path, openmode, perm&0777|S_IFREG)
+	if err != nil {
+		return -1, err
 	}
+	return newFD(f), nil
+}
+```
 
 File descriptors are tracked by a global slice named
 [`files`](https://github.com/golang/go/blob/2197321db1dd997165c0091ba2bcb3b6be7633d0/src/syscall/fd_nacl.go#L17).

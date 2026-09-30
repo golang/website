@@ -35,19 +35,19 @@ Often, breaking changes come in the form of new arguments to a function. We’ll
 
 When adding new arguments with sensible defaults, it’s tempting to add them as a variadic parameter. To extend the function
 
-```
+```go
 func Run(name string)
 ```
 
 with an additional `size` argument which defaults to zero, one might propose
 
-```
+```go
 func Run(name string, size ...int)
 ```
 
 on the grounds that all existing call sites will continue to work. While that is true, other uses of `Run` could break, like this one:
 
-```
+```go
 package mypkg
 var runner func(string) = yourpkg.Run
 ```
@@ -60,19 +60,19 @@ Instead of changing a function’s signature, add a new function. As an example,
 
 Instead, new functions were added. For example, the `database/sql` package's `Query` method’s signature was (and still is)
 
-```
+```go
 func (db *DB) Query(query string, args ...interface{}) (*Rows, error)
 ```
 
 When the `context` package was created, the Go team added a new method to `database/sql`:
 
-```
+```go
 func (db *DB) QueryContext(ctx context.Context, query string, args ...interface{}) (*Rows, error)
 ```
 
 To avoid copying code, the old method calls the new one:
 
-```
+```go
 func (db *DB) Query(query string, args ...interface{}) (*Rows, error) {
     return db.QueryContext(context.Background(), query, args...)
 }
@@ -82,7 +82,7 @@ Adding a method allows users to migrate to the new API at their own pace. Since 
 
 If you anticipate that a function may need more arguments in the future, you can plan ahead by making optional arguments a part of the function’s signature. The simplest way to do that is to add a single struct argument, as the [crypto/tls.Dial](https://pkg.go.dev/crypto/tls?tab=doc#Dial) function does:
 
-```
+```go
 func Dial(network, addr string, config *Config) (*Conn, error)
 ```
 
@@ -90,13 +90,13 @@ The TLS handshake conducted by `Dial` requires a network and address, but it has
 
 Sometimes the techniques of adding a new function and adding options can be combined by making the options struct a method receiver. Consider the evolution of the `net` package’s ability to listen at a network address. Prior to Go 1.11, the `net` package provided only a `Listen` function with the signature
 
-```
+```go
 func Listen(network, address string) (Listener, error)
 ```
 
 For Go 1.11, two features were added to `net` listening: passing a context, and allowing the caller to provide a “control function” to adjust the raw connection after creation but before binding. The result could have been a new function that took a context, network, address and control function. Instead, the package authors added a  [`ListenConfig`](https://pkg.go.dev/net@go1.11?tab=doc#ListenConfig) struct in anticipation that more options might be needed someday. And rather than define a new top-level function with a cumbersome name, they added a `Listen` method to `ListenConfig`:
 
-```
+```go
 type ListenConfig struct {
     Control func(network, address string, c syscall.RawConn) error
 }
@@ -108,7 +108,7 @@ Another way to provide new options in the future is the “Option types” patte
 
 Option types fulfill the same role as struct options in function arguments: they are an extensible way to pass behavior-modifying configuration. Deciding which to choose is largely a matter of style. Consider this simple usage of gRPC's `DialOption` option type:
 
-```
+```go
 grpc.Dial("some-target",
   grpc.WithAuthority("some-authority"),
   grpc.WithMaxDelay(time.Second),
@@ -117,7 +117,7 @@ grpc.Dial("some-target",
 
 This could also have been implemented as a struct option:
 
-```
+```go
 notgrpc.Dial("some-target", &notgrpc.Options{
   Authority: "some-authority",
   MaxDelay:  time.Second,
@@ -141,7 +141,7 @@ Another ruled-out option was to change `tar.NewReader` to accept [`io.ReadSeeker
 
 So, they decided to keep `tar.NewReader` signature unchanged, but type check for (and support) `io.Seeker` in `tar.Reader` methods:
 
-```
+```go
 package tar
 
 type Reader struct {
@@ -170,7 +170,7 @@ Where possible, it is better to avoid this class of problem entirely. When desig
 
 Tip: if you do need to use an interface but don't intend for users to implement it, you can add an unexported method. This prevents types defined outside your package from satisfying your interface without embedding, freeing you to add methods later without breaking user implementations. For example, see [`testing.TB`'s `private()` function](https://github.com/golang/go/blob/83b181c68bf332ac7948f145f33d128377a09c42/src/testing/testing.go#L564-L567).
 
-```
+```go
 // TB is the interface common to T and B.
 type TB interface {
 	Error(args ...interface{})
@@ -204,7 +204,7 @@ To keep a struct comparable, don’t add non-comparable fields to it. You can wr
 
 To prevent comparison in the first place, make sure the struct has a non-comparable field. It may have one already—no slice, map or function type is comparable—but if not, one can be added like so:
 
-```
+```go
 type Point struct {
         _ [0]func()
         X int
@@ -214,7 +214,7 @@ type Point struct {
 
 The `func()` type is not comparable, and the zero-length array takes up no space. We can define a type to clarify our intent:
 
-```
+```go
 type doNotCompare [0]func()
 
 type Point struct {

@@ -62,15 +62,17 @@ For example, here is a function that returns a slice of all the keys
 in a map of any type:
 
 {{raw `
-	// MapKeys returns a slice of all the keys in m.
-	// The keys are not returned in any particular order.
-	func MapKeys[Key comparable, Val any](m map[Key]Val) []Key {
-		s := make([]Key, 0, len(m))
-		for k := range m {
-			s = append(s, k)
-		}
-		return s
+~~~go
+// MapKeys returns a slice of all the keys in m.
+// The keys are not returned in any particular order.
+func MapKeys[Key comparable, Val any](m map[Key]Val) []Key {
+	s := make([]Key, 0, len(m))
+	for k := range m {
+		s = append(s, k)
 	}
+	return s
+}
+~~~
 `}}
 
 This code doesn't assume anything about the map key type, and it
@@ -106,46 +108,48 @@ For example, here is part of what a binary tree data structure might
 look like using type parameters:
 
 {{raw `
-	// Tree is a binary tree.
-	type Tree[T any] struct {
-		cmp  func(T, T) int
-		root *node[T]
-	}
+~~~go
+// Tree is a binary tree.
+type Tree[T any] struct {
+	cmp  func(T, T) int
+	root *node[T]
+}
 
-	// A node in a Tree.
-	type node[T any] struct {
-		left, right  *node[T]
-		val          T
-	}
+// A node in a Tree.
+type node[T any] struct {
+	left, right  *node[T]
+	val          T
+}
 
-	// find returns a pointer to the node containing val,
-	// or, if val is not present, a pointer to where it
-	// would be placed if added.
-	func (bt *Tree[T]) find(val T) **node[T] {
-		pl := &bt.root
-		for *pl != nil {
-			switch cmp := bt.cmp(val, (*pl).val); {
-			case cmp < 0:
-				pl = &(*pl).left
-		   	case cmp > 0:
-				pl = &(*pl).right
-			default:
-				return pl
-			}
+// find returns a pointer to the node containing val,
+// or, if val is not present, a pointer to where it
+// would be placed if added.
+func (bt *Tree[T]) find(val T) **node[T] {
+	pl := &bt.root
+	for *pl != nil {
+		switch cmp := bt.cmp(val, (*pl).val); {
+		case cmp < 0:
+			pl = &(*pl).left
+	   	case cmp > 0:
+			pl = &(*pl).right
+		default:
+			return pl
 		}
-		return pl
 	}
+	return pl
+}
 
-	// Insert inserts val into bt if not already there,
-	// and reports whether it was inserted.
-	func (bt *Tree[T]) Insert(val T) bool {
-		pl := bt.find(val)
-		if *pl != nil {
-			return false
-		}
-		*pl = &node[T]{val: val}
-		return true
+// Insert inserts val into bt if not already there,
+// and reports whether it was inserted.
+func (bt *Tree[T]) Insert(val T) bool {
+	pl := bt.find(val)
+	if *pl != nil {
+		return false
 	}
+	*pl = &node[T]{val: val}
+	return true
+}
+~~~
 `}}
 
 Each node in the tree contains a value of the type parameter `T`.
@@ -207,21 +211,23 @@ Here is an example of a generic type `SliceFn` that implements
 `sort.Interface` for any slice type:
 
 {{raw `
-	// SliceFn implements sort.Interface for a slice of T.
-	type SliceFn[T any] struct {
-		s    []T
-		less func(T, T) bool
-	}
+~~~go
+// SliceFn implements sort.Interface for a slice of T.
+type SliceFn[T any] struct {
+	s    []T
+	less func(T, T) bool
+}
 
-	func (s SliceFn[T]) Len() int {
-		return len(s.s)
-	}
-	func (s SliceFn[T]) Swap(i, j int) {
-		s.s[i], s.s[j] = s.s[j], s.s[i]
-	}
-	func (s SliceFn[T]) Less(i, j int) bool {
-		return s.less(s.s[i], s.s[j])
-	}
+func (s SliceFn[T]) Len() int {
+	return len(s.s)
+}
+func (s SliceFn[T]) Swap(i, j int) {
+	s.s[i], s.s[j] = s.s[j], s.s[i]
+}
+func (s SliceFn[T]) Less(i, j int) bool {
+	return s.less(s.s[i], s.s[j])
+}
+~~~
 `}}
 
 For any slice type, the `Len` and `Swap` methods are exactly the same.
@@ -234,10 +240,12 @@ Here is how to use `SliceFn` to sort any slice using a comparison
 function:
 
 {{raw `
-	// SortFn sorts s in place using a comparison function.
-	func SortFn[T any](s []T, less func(T, T) bool) {
-		sort.Sort(SliceFn[T]{s, less})
-	}
+~~~go
+// SortFn sorts s in place using a comparison function.
+func SortFn[T any](s []T, less func(T, T) bool) {
+	sort.Sort(SliceFn[T]{s, less})
+}
+~~~
 `}}
 
 This is similar to the standard library function `sort.Slice`, but the
@@ -281,9 +289,11 @@ signature here, which uses just an interface type, into the second
 version, which uses a type parameter.
 
 {{raw `
-	func ReadSome(r io.Reader) ([]byte, error)
+~~~go
+func ReadSome(r io.Reader) ([]byte, error)
 
-	func ReadSome[T io.Reader](r T) ([]byte, error)
+func ReadSome[T io.Reader](r T) ([]byte, error)
+~~~
 `}}
 
 Don't make that kind of change.

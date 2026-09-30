@@ -39,7 +39,9 @@ It's now much simpler to sort slices using the newly added [`Slice`](/pkg/sort/#
 function in the `sort` package. For example, to sort a slice of structs by their `Name` field:
 
 {{raw `
-	sort.Slice(s, func(i, j int) bool { return s[i].Name < s[j].Name })
+~~~go
+sort.Slice(s, func(i, j int) bool { return s[i].Name < s[j].Name })
+~~~
 `}}
 
 Go 1.8 includes many more additions, improvements, and fixes.

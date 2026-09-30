@@ -70,24 +70,28 @@ Let's create a new module.
 Create a new, empty directory somewhere outside `$GOPATH/src`,
 `cd` into that directory, and then create a new source file, `hello.go`:
 
-	package hello
+```go
+package hello
 
-	func Hello() string {
-		return "Hello, world."
-	}
+func Hello() string {
+	return "Hello, world."
+}
+```
 
 Let's write a test, too, in `hello_test.go`:
 
-	package hello
+```go
+package hello
 
-	import "testing"
+import "testing"
 
-	func TestHello(t *testing.T) {
-		want := "Hello, world."
-		if got := Hello(); got != want {
-			t.Errorf("Hello() = %q, want %q", got, want)
-		}
+func TestHello(t *testing.T) {
+	want := "Hello, world."
+	if got := Hello(); got != want {
+		t.Errorf("Hello() = %q, want %q", got, want)
 	}
+}
+```
 
 At this point, the directory contains a package, but not a module,
 because there is no `go.mod` file.
@@ -144,13 +148,15 @@ code written by other developers.
 Let's update our `hello.go` to import `rsc.io/quote`
 and use it to implement `Hello`:
 
-	package hello
+```go
+package hello
 
-	import "rsc.io/quote"
+import "rsc.io/quote"
 
-	func Hello() string {
-		return quote.Hello()
-	}
+func Hello() string {
+	return quote.Hello()
+}
+```
 
 Now let’s run the test again:
 
@@ -348,29 +354,33 @@ by calling `quote.Concurrency`, which is provided by
 the module `rsc.io/quote/v3`.
 First we update `hello.go` to add the new function:
 
-	package hello
+```go
+package hello
 
-	import (
-		"rsc.io/quote"
-		quoteV3 "rsc.io/quote/v3"
-	)
+import (
+	"rsc.io/quote"
+	quoteV3 "rsc.io/quote/v3"
+)
 
-	func Hello() string {
-		return quote.Hello()
-	}
+func Hello() string {
+	return quote.Hello()
+}
 
-	func Proverb() string {
-		return quoteV3.Concurrency()
-	}
+func Proverb() string {
+	return quoteV3.Concurrency()
+}
+```
 
 Then we add a test to `hello_test.go`:
 
-	func TestProverb(t *testing.T) {
-		want := "Concurrency is not parallelism."
-		if got := Proverb(); got != want {
-			t.Errorf("Proverb() = %q, want %q", got, want)
-		}
+```go
+func TestProverb(t *testing.T) {
+	want := "Concurrency is not parallelism."
+	if got := Proverb(); got != want {
+		t.Errorf("Proverb() = %q, want %q", got, want)
 	}
+}
+```
 
 Then we can test our code:
 
@@ -441,32 +451,36 @@ Reading the docs, we can see that `Hello` has become `HelloV3`:
 
 We can update our use of `quote.Hello()` in `hello.go` to use `quoteV3.HelloV3()`:
 
-	package hello
+```go
+package hello
 
-	import quoteV3 "rsc.io/quote/v3"
+import quoteV3 "rsc.io/quote/v3"
 
-	func Hello() string {
-		return quoteV3.HelloV3()
-	}
+func Hello() string {
+	return quoteV3.HelloV3()
+}
 
-	func Proverb() string {
-		return quoteV3.Concurrency()
-	}
+func Proverb() string {
+	return quoteV3.Concurrency()
+}
+```
 
 And then at this point, there's no need for the renamed import anymore,
 so we can undo that:
 
-	package hello
+```go
+package hello
 
-	import "rsc.io/quote/v3"
+import "rsc.io/quote/v3"
 
-	func Hello() string {
-		return quote.HelloV3()
-	}
+func Hello() string {
+	return quote.HelloV3()
+}
 
-	func Proverb() string {
-		return quote.Concurrency()
-	}
+func Proverb() string {
+	return quote.Concurrency()
+}
+```
 
 Let's re-run the tests to make sure everything is working:
 
