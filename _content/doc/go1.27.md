@@ -131,6 +131,29 @@ ones. The tool now strictly enforces the two-block layout, consolidating
 disparate requirements into their respective blocks and cleaning up the
 structure of the module file automatically.
 
+### Gofmt {#gofmt}
+
+<!-- go.dev/issue/77959, CL 752862 -->
+
+This release includes a fix to the logic used by `gofmt` (and
+[`go/format`](/pkg/go/format)) in deciding column alignment. The
+previous logic caused the behavior of `gofmt` to vary slightly across
+CPU architectures. The new logic changes the alignment decision for a
+small number of files, so running `gofmt` from Go 1.27 on previously
+formatted code may produce minor whitespace changes.
+
+### Vet {#vet}
+
+<!-- go.dev/issue/61342, CL 761240 -->
+
+The [printf](https://pkg.go.dev/golang.org/x/tools/go/analysis/passes/printf)
+analyzer now reports calls such as `fmt.Errorf("...: %w", p)` in which
+the `%w` operand `p` has type `*E`, where the type `E` itself
+implements `error`. Wrapping a pointer in this way is usually a latent bug
+since it causes spurious failures of operations that test for
+a particular error type, such as a type assertion or call to
+[`errors.Is`](/pkg/errors#Is).
+
 ### Trace
 
 <!-- go.dev/issue/78921 -->
