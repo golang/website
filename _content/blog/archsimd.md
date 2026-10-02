@@ -1,6 +1,6 @@
 ---
 title: Arch-specific SIMD in Go
-date: 2026-09-23
+date: 2026-10-02
 by:
 - Junyang Shao
 - David Chase
