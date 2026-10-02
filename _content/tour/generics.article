@@ -6,7 +6,8 @@ https://golang.org
 
 * Type parameters
 
-Go functions can be written to work on multiple types using type parameters. The
+Go functions can be written to work on multiple types using type parameters,
+known as a _generic_function_.  The
 type parameters of a function appear between brackets, before the function's
 arguments.
 
