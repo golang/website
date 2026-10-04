@@ -8,30 +8,86 @@
 
 angular.module('tour.directives', []).
 
-// onpageup executes the given expression when Page Up is released.
+// onpageup executes the given expression when Page Up is released anywhere
+// on the page, for as long as the element exists.
 directive('onpageup', function() {
     return function(scope, elm, attrs) {
         elm.attr('tabindex', 0);
-        elm.keyup(function(evt) {
+        var onKeyUp = function(evt) {
             var key = evt.which || evt.keyCode;
-            if (key == 33 && !evt.ctrlKey) {
-                scope.$apply(attrs.onpageup);
-                evt.preventDefault();
+            if (key != 33 || evt.ctrlKey) {
+                return;
             }
+            // Only handle the key in the lesson, the top bar, or when
+            // nothing has the focus.
+            var areas = '#editor-container, .top-bar';
+            var target = $(evt.target);
+            var inPage = target.closest(areas).length > 0;
+            if (!inPage && !target.is('body')) {
+                return;
+            }
+            // Leave it alone in editable fields, other than the code
+            // editor, where it has a local meaning.
+            var fields = 'input, select, textarea, [contenteditable]';
+            var inEditor = target.closest('.CodeMirror').length > 0;
+            if (target.is(fields) && !inEditor) {
+                return;
+            }
+            // On narrow screens the whole page scrolls, so leave the key
+            // to the browser outside of the lesson.
+            var html = document.documentElement;
+            var inLesson = target.closest('#editor-container').length > 0;
+            if (!inLesson && html.scrollHeight > html.clientHeight) {
+                return;
+            }
+            scope.$apply(attrs.onpageup);
+            evt.preventDefault();
+        };
+        $(document).on('keyup', onKeyUp);
+        scope.$on('$destroy', function() {
+            $(document).off('keyup', onKeyUp);
         });
     };
 }).
 
-// onpagedown executes the given expression when Page Down is released.
+// onpagedown executes the given expression when Page Down is released
+// anywhere on the page, for as long as the element exists.
 directive('onpagedown', function() {
     return function(scope, elm, attrs) {
         elm.attr('tabindex', 0);
-        elm.keyup(function(evt) {
+        var onKeyUp = function(evt) {
             var key = evt.which || evt.keyCode;
-            if (key == 34 && !evt.ctrlKey) {
-                scope.$apply(attrs.onpagedown);
-                evt.preventDefault();
+            if (key != 34 || evt.ctrlKey) {
+                return;
             }
+            // Only handle the key in the lesson, the top bar, or when
+            // nothing has the focus.
+            var areas = '#editor-container, .top-bar';
+            var target = $(evt.target);
+            var inPage = target.closest(areas).length > 0;
+            if (!inPage && !target.is('body')) {
+                return;
+            }
+            // Leave it alone in editable fields, other than the code
+            // editor, where it has a local meaning.
+            var fields = 'input, select, textarea, [contenteditable]';
+            var inEditor = target.closest('.CodeMirror').length > 0;
+            if (target.is(fields) && !inEditor) {
+                return;
+            }
+            // On narrow screens the whole page scrolls, so leave the key
+            // to the browser outside of the lesson.
+            var html = document.documentElement;
+            var inLesson = target.closest('#editor-container').length > 0;
+            if (!inLesson && html.scrollHeight > html.clientHeight) {
+                return;
+            }
+            scope.$apply(attrs.onpagedown);
+            evt.preventDefault();
+        };
+        $(document).on('keyup', onKeyUp);
+        scope.$on('$destroy', function() {
+            $(document).off('keyup', onKeyUp);
         });
     };
 }).
