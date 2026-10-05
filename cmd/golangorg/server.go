@@ -422,7 +422,7 @@ func watchGit1(afs *atomicFS, repo, ref string) {
 	var r *gitfs.Repo
 	for {
 		var err error
-		r, err = gitfs.NewRepo(repo)
+		r, err = gitfs.NewRepo(nil, repo)
 		if err != nil {
 			log.Printf("watchGit %s: %v", repo, err)
 			time.Sleep(1 * time.Minute)

@@ -14,7 +14,7 @@ func TestGerrit(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping Gerrit network access in -short mode")
 	}
-	r, err := NewRepo("https://go.googlesource.com/scratch")
+	r, err := NewRepo(nil, "https://go.googlesource.com/scratch")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -33,7 +33,7 @@ func TestGitHub(t *testing.T) {
 	if testing.Short() {
 		t.Skip("skipping GitHub network access in -short mode")
 	}
-	r, err := NewRepo("https://github.com/rsc/quote")
+	r, err := NewRepo(nil, "https://github.com/rsc/quote")
 	if err != nil {
 		t.Fatal(err)
 	}

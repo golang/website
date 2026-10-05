@@ -21,13 +21,18 @@ import (
 
 // A Repo is a connection to a remote repository served over HTTP or HTTPS.
 type Repo struct {
-	url  string // trailing slash removed
-	caps map[string]string
+	client *http.Client // Non-nil.
+	url    string       // trailing slash removed
+	caps   map[string]string
 }
 
 // NewRepo connects to a Git repository at the given http:// or https:// URL.
-func NewRepo(url string) (*Repo, error) {
-	r := &Repo{url: strings.TrimSuffix(url, "/")}
+// If client is nil, then http.DefaultClient is used.
+func NewRepo(client *http.Client, url string) (*Repo, error) {
+	if client == nil {
+		client = http.DefaultClient
+	}
+	r := &Repo{client: client, url: strings.TrimSuffix(url, "/")}
 	if err := r.handshake(); err != nil {
 		return nil, err
 	}
@@ -41,7 +46,7 @@ func (r *Repo) handshake() error {
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Git-Protocol", "version=2")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := r.client.Do(req)
 	if err != nil {
 		return fmt.Errorf("handshake: %v", err)
 	}
@@ -184,7 +189,7 @@ func (r *Repo) refs(prefixes ...string) (map[string]Hash, error) {
 	req.Header.Set("Accept", "application/x-git-upload-pack-result")
 	req.Header.Set("Git-Protocol", "version=2")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := r.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("refs: %v", err)
 	}
@@ -275,7 +280,7 @@ func (r *Repo) fetch(h Hash) (fs.FS, error) {
 	req.Header.Set("Accept", "application/x-git-upload-pack-result")
 	req.Header.Set("Git-Protocol", "version=2")
 
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := r.client.Do(req)
 	if err != nil {
 		return nil, fmt.Errorf("fetch: %v", err)
 	}
