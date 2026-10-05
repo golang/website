@@ -1,7 +1,12 @@
 windowsize 1536x960
 
+# The survey banner depends on the date and the server environment,
+# so remove it from every capture.
+{{$hideSurveyBanner := "document.querySelector('.js-surveyBanner')?.remove();"}}
+
 test rl0
 path /doc/go1
+eval {{$hideSurveyBanner}}
 capture fullscreen
 
 {{range ints 1 22}}
@@ -10,5 +15,6 @@ capture fullscreen
   # dd.indent is added by one of the last bits of JS to run on the page:
   # generateTOC in https://go.dev/js/godocs.js.
   wait dd.indent
+  eval {{$hideSurveyBanner}}
   capture fullscreen
 {{end}}

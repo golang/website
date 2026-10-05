@@ -58,14 +58,16 @@ var (
 	goroot     = flag.String("goroot", runtime.GOROOT(), "Go root directory")
 	contentDir = flag.String("content", "", "path to _content directory")
 
-	runningOnAppEngine = os.Getenv("PORT") != ""
-	forceGorootZip, _  = strconv.ParseBool(os.Getenv("GOLANGORG_FORCE_GOROOT_ZIP"))
+	runningOnAppEngine        = os.Getenv("PORT") != ""
+	forceGorootZip, _         = strconv.ParseBool(os.Getenv("GOLANGORG_FORCE_GOROOT_ZIP"))
+	disableTemporaryBanner, _ = strconv.ParseBool(os.Getenv("GOLANGORG_DISABLE_TEMPORARY_BANNER"))
 
 	tipFlag   = flag.Bool("tip", runningOnAppEngine, "load git content for tip.golang.org")
 	wikiFlag  = flag.Bool("wiki", runningOnAppEngine, "load git content for go.dev/wiki")
 	goplsFlag = flag.Bool("gopls", runningOnAppEngine, "load git content for go.dev/gopls")
 
 	googleAnalytics string
+	currentSurvey   surveyConfig
 )
 
 func usage() {
@@ -114,6 +116,17 @@ func main() {
 	if *httpAddr == "" {
 		fmt.Fprintln(os.Stderr, "-http must be set")
 		usage()
+	}
+
+	if len(bytes.TrimSpace(surveyJSON)) == 0 {
+		disableTemporaryBanner = true
+	} else if !disableTemporaryBanner {
+		if err := json.Unmarshal(surveyJSON, &currentSurvey); err != nil {
+			log.Fatalf("parsing survey.json: %v", err)
+		}
+		if time.Now().After(currentSurvey.End) {
+			disableTemporaryBanner = true
+		}
 	}
 
 	handler := NewHandler(*contentDir, *goroot)
@@ -352,6 +365,7 @@ func newSite(mux *http.ServeMux, host string, content, goroot fs.FS) (*web.Site,
 		"releases":        func() []*history.Major { return history.Majors },
 		"rfc3339":         parseRFC3339,
 		"section":         section,
+		"surveyBanner":    surveyBanner,
 		"version":         func() string { return runtime.Version() },
 		"docNext":         releaseNotePreview{goroot}.MergedFragments,
 	})

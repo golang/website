@@ -53,6 +53,7 @@
   <!-- End Google Tag Manager (noscript) -->
 
 {{$menus := data "/menus.yaml"}}
+{{with surveyBanner}}{{surveybanner .}}{{end}}
 <header class="Site-header js-siteHeader">
   <div class="Header Header--dark">
     <nav class="Header-nav">
@@ -539,4 +540,19 @@
     </a>
   </div>
 </aside>
+{{end}}
+
+{{define "surveybanner"}}
+<section class="SurveyBanner js-surveyBanner" role="region" aria-label="{{.Name}}" data-survey-id="{{.ID}}">
+  <img class="SurveyBanner-gopher" src="/images/gophers/gopher-announcement.png" width="108" height="80" alt="" aria-hidden="true">
+  <img class="SurveyBanner-bullhornMobile" src="/images/icons/bullhorn-mobile.svg" width="22" height="23" alt="" aria-hidden="true">
+  <img class="SurveyBanner-bullhornDesktop" src="/images/icons/bullhorn-desktop.svg" width="28" height="28" alt="" aria-hidden="true">
+  <div class="SurveyBanner-content">
+    <span class="SurveyBanner-lead">Help us shape the future of Go!</span>
+    <a class="SurveyBanner-link js-surveyBannerLink" href="{{.URL}}" target="_blank" rel="noopener"><span class="SurveyBanner-linkPrefix">Take the </span>{{.Name}}</a>
+  </div>
+  <button class="SurveyBanner-close js-surveyBannerClose" type="button" aria-label="Minimize the survey banner">
+    <img class="SurveyBanner-minimizeIcon" src="/images/icons/minimize.svg" width="20" height="20" alt="" aria-hidden="true">
+  </button>
+</section>
 {{end}}

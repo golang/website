@@ -351,6 +351,58 @@ window.initFuncs = [];
     }
   }
 
+  // registerSurveyBanner shows the Go Developer Survey banner. On desktop,
+  // clicking the minimize button or the survey link collapses the floating card
+  // into a compact sticky pill ('minimized'). On mobile, a top banner is shown.
+  // When the cookie notice is active, the desktop card sits above it. The state
+  // is recorded in localStorage under the survey ID, so no cookie is involved.
+  function registerSurveyBanner() {
+    const banner = document.querySelector('.js-surveyBanner');
+    if (!banner) {
+      return;
+    }
+    const key = banner.dataset.surveyId;
+    if (!key) {
+      banner.remove();
+      return;
+    }
+    const getState = () => {
+      try {
+        return localStorage.getItem(key);
+      } catch (e) {
+        return null;
+      }
+    };
+    const setState = (state) => {
+      try {
+        localStorage.setItem(key, state);
+      } catch (e) {
+        // Storage is unavailable; the banner will show again on the next page.
+      }
+    };
+    const cookieNotice = document.querySelector('.js-cookieNotice');
+    if (cookieNotice && !document.cookie.match(/cookie-consent=true/)) {
+      banner.classList.add('SurveyBanner--aboveCookie');
+      cookieNotice.querySelector('button')?.addEventListener('click', () => {
+        banner.classList.remove('SurveyBanner--aboveCookie');
+      });
+    }
+    const minimize = () => {
+      setState('minimized');
+      banner.classList.remove('SurveyBanner--visible');
+      banner.classList.add('SurveyBanner--minimized');
+    };
+    banner
+      .querySelector('.js-surveyBannerLink')
+      ?.addEventListener('click', minimize);
+    banner
+      .querySelector('.js-surveyBannerClose')
+      ?.addEventListener('click', minimize);
+    const state = getState();
+    banner.classList.toggle('SurveyBanner--minimized', state === 'minimized');
+    banner.classList.toggle('SurveyBanner--visible', state !== 'minimized');
+  }
+
   initialThemeSetup();
 
   const onPageLoad = () => {
@@ -360,6 +412,7 @@ window.initFuncs = [];
     setVersionSpans();
     registerPortToggles();
     registerCookieNotice();
+    registerSurveyBanner();
   };
 
   // DOM might be already loaded when we try to setup the callback, hence the check.

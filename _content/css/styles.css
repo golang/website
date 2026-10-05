@@ -19,6 +19,8 @@
   --turq-med: #50b7e0;
   --turq-dark: #007d9c;
   --turq-bright: #00769c;
+  --survey-yellow: #ffed89; /* Go Developer Survey desktop card. */
+  --survey-yellow-light: #fcee96; /* Go Developer Survey mobile banner. */
   --abbey: #3f4042;
   --blue: #bfeaf4;
   --blue-light: #f2fafd;
@@ -65,6 +67,13 @@
   --color-bright-text-link: var(--turq-bright);
   --color-diff-old: #ffe0e0;
   --color-diff-new: #e0ffe0;
+
+  /* Go Developer Survey banner. The backgrounds use their own palette entries
+     so they can be tuned without touching other elements. The text color must
+     keep a contrast ratio of at least 4.5:1 against the background. */
+  --color-background-survey-banner: var(--survey-yellow-light);
+  --color-background-survey-card: var(--survey-yellow);
+  --color-text-survey-banner: var(--gray-1);
 
   /* Interactive Colors */
   --color-input: var(--color-background);
@@ -5390,6 +5399,192 @@ a.downloadBox:hover .filename span {
 @media print {
   .Cookie-notice,
   .Cookie-notice--visible {
+    display: none;
+  }
+}
+
+/* Go Developer Survey notification. On mobile viewports it is a 50px top
+   banner above the site header; on desktop viewports it is a floating card at
+   the bottom-right that minimizes into a compact sticky pill. */
+.SurveyBanner {
+  align-items: center;
+  background-color: var(--color-background-survey-banner);
+  box-sizing: border-box;
+  color: var(--color-text-survey-banner);
+  display: none;
+  gap: 0.75rem;
+  justify-content: center;
+  min-height: 3.125rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  text-align: left;
+  width: 100%;
+}
+
+.SurveyBanner--visible,
+.SurveyBanner--minimized {
+  display: flex;
+}
+
+.SurveyBanner-gopher {
+  display: none;
+  flex-shrink: 0;
+  height: 5rem;
+  width: 6.75rem;
+}
+
+.SurveyBanner-bullhornMobile {
+  display: block;
+  flex-shrink: 0;
+  height: 1.4375rem;
+  width: 1.375rem;
+}
+
+.SurveyBanner-bullhornDesktop {
+  display: none;
+  flex-shrink: 0;
+  height: 1.75rem;
+  width: 1.75rem;
+}
+
+.SurveyBanner-content {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.SurveyBanner-lead {
+  display: none;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.SurveyBanner-linkPrefix {
+  display: none;
+}
+
+.SurveyBanner-link,
+.SurveyBanner-link:link,
+.SurveyBanner-link:visited {
+  color: var(--color-text-survey-banner);
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.125rem;
+}
+
+.SurveyBanner-link:hover,
+.SurveyBanner-link:focus {
+  color: var(--color-text-survey-banner);
+  text-decoration: underline;
+  text-decoration-thickness: 0.125rem;
+}
+
+.SurveyBanner-close {
+  align-items: center;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--color-text-survey-banner);
+  cursor: pointer;
+  display: none;
+  height: 1.5rem;
+  justify-content: center;
+  padding: 0;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  width: 1.5rem;
+}
+
+.SurveyBanner-close:hover {
+  background: rgb(0 0 0 / 8%);
+}
+
+.SurveyBanner-link:focus-visible,
+.SurveyBanner-close:focus-visible {
+  outline: 0.125rem solid var(--color-text-survey-banner);
+  outline-offset: 0.125rem;
+}
+
+.SurveyBanner-minimizeIcon {
+  display: block;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+@media only screen and (min-width: 48rem) {
+  .SurveyBanner {
+    background-color: var(--color-background-survey-card);
+    border-radius: 0.5rem;
+    bottom: 2rem;
+    box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 15%);
+    gap: 1.75rem;
+    justify-content: flex-start;
+    min-height: 7.875rem;
+    padding: 0.75rem 2.5rem 0.75rem 2rem;
+    position: fixed;
+    right: 2rem;
+    width: 35rem;
+    z-index: 100;
+  }
+
+  .SurveyBanner--aboveCookie {
+    bottom: 6.5rem;
+  }
+
+  .SurveyBanner--minimized {
+    gap: 1rem;
+    min-height: 0;
+    padding: 0.875rem 1.25rem;
+    width: auto;
+  }
+
+  .SurveyBanner-gopher {
+    display: block;
+  }
+
+  .SurveyBanner-bullhornMobile {
+    display: none;
+  }
+
+  .SurveyBanner-lead {
+    display: block;
+  }
+
+  .SurveyBanner-linkPrefix {
+    display: inline;
+  }
+
+  .SurveyBanner-link,
+  .SurveyBanner-link:link,
+  .SurveyBanner-link:visited {
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.375rem;
+  }
+
+  .SurveyBanner-close {
+    display: flex;
+  }
+
+  .SurveyBanner--minimized .SurveyBanner-bullhornDesktop {
+    display: block;
+  }
+
+  .SurveyBanner--minimized .SurveyBanner-gopher,
+  .SurveyBanner--minimized .SurveyBanner-lead,
+  .SurveyBanner--minimized .SurveyBanner-close {
+    display: none;
+  }
+}
+
+@media print {
+  .SurveyBanner,
+  .SurveyBanner--visible,
+  .SurveyBanner--minimized {
     display: none;
   }
 }
