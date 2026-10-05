@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="19.14 67.17 985.96 658.81" width="830" height="555">
+  <rect x="19.14" y="67.17" width="985.96" height="658.81" fill="#ffffff" />
+  <style>
+    text { font-family: "Google Sans", "Roboto", "Arial", sans-serif; font-weight: 600; font-size: 18.67px; fill: #000000; }
+  </style>
+  <line x1="245.06" y1="135.58" x2="245.06" y2="725.97" stroke="#000000" stroke-width="4.00" />
+  <line x1="778.94" y1="135.41" x2="778.94" y2="724.92" stroke="#000000" stroke-width="4.00" />
+  <line x1="273.54" y1="206.08" x2="737.60" y2="243.30" stroke="#38761D" stroke-width="3.00" />
+  <polygon points="753.04,244.54 735.01,249.11 735.97,237.15" fill="#38761D" />
+  <line x1="273.54" y1="326.60" x2="737.60" y2="363.82" stroke="#38761D" stroke-width="3.00" />
+  <polygon points="753.04,365.06 735.01,369.63 735.97,357.67" fill="#38761D" />
+  <line x1="753.04" y1="266.34" x2="288.98" y2="303.56" stroke="#38761D" stroke-width="3.00" />
+  <polygon points="273.54,304.80 290.60,297.41 291.56,309.37" fill="#38761D" />
+  <line x1="272.25" y1="365.06" x2="736.31" y2="402.27" stroke="#BF9000" stroke-width="3.00" />
+  <polygon points="751.75,403.51 733.72,408.09 734.68,396.13" fill="#BF9000" />
+  <line x1="272.25" y1="485.57" x2="736.31" y2="522.79" stroke="#BF9000" stroke-width="3.00" />
+  <polygon points="751.75,524.03 733.72,528.60 734.68,516.64" fill="#BF9000" />
+  <line x1="751.75" y1="425.31" x2="287.69" y2="462.53" stroke="#BF9000" stroke-width="3.00" />
+  <polygon points="272.25,463.77 289.31,456.38 290.27,468.35" fill="#BF9000" />
+  <line x1="745.80" y1="545.83" x2="281.74" y2="583.05" stroke="#BF9000" stroke-width="3.00" />
+  <polygon points="266.30,584.29 283.37,576.90 284.33,588.86" fill="#BF9000" />
+  <line x1="273.54" y1="606.09" x2="737.60" y2="643.31" stroke="#4A86E8" stroke-width="3.00" />
+  <polygon points="753.04,644.54 735.01,649.12 735.97,637.16" fill="#4A86E8" />
+  <line x1="753.04" y1="666.35" x2="288.98" y2="703.56" stroke="#4A86E8" stroke-width="3.00" />
+  <polygon points="273.54,704.80 290.60,697.42 291.56,709.38" fill="#4A86E8" />
+  <rect x="19.64" y="180.71" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="126.27" y="210.29" text-anchor="middle">SYN</text>
+  <rect x="19.90" y="291.50" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="126.53" y="321.08" text-anchor="middle">ACK</text>
+  <rect x="790.84" y="239.90" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="897.47" y="269.48" text-anchor="middle">SYN-ACK</text>
+  <rect x="19.90" y="342.06" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="126.53" y="371.63" text-anchor="middle">Client Hello</text>
+  <rect x="790.84" y="364.01" width="213.26" height="107.75" rx="17.96" ry="17.96" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="897.47" y="388.58" text-anchor="middle">Server Hello</text>
+  <text x="897.47" y="410.98" text-anchor="middle">Certificate</text>
+  <text x="897.47" y="433.38" text-anchor="middle">Server Key Exchange</text>
+  <text x="897.47" y="455.78" text-anchor="middle">Server Hello Done</text>
+  <rect x="19.64" y="440.28" width="213.26" height="79.62" rx="13.27" ry="13.27" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="126.27" y="461.99" text-anchor="middle">Client Key Exchange</text>
+  <text x="126.27" y="484.39" text-anchor="middle">Change Cipher Spec</text>
+  <text x="126.27" y="506.79" text-anchor="middle">Finished</text>
+  <rect x="790.84" y="509.14" width="213.26" height="79.62" rx="13.27" ry="13.27" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="897.47" y="542.05" text-anchor="middle">Change Cipher Spec</text>
+  <text x="897.47" y="564.45" text-anchor="middle">Finished</text>
+  <rect x="19.90" y="578.08" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#C9DAF8" stroke="#000000" stroke-width="1.00" />
+  <text x="126.53" y="607.66" text-anchor="middle">HTTP Request</text>
+  <rect x="790.84" y="643.49" width="213.26" height="50.55" rx="8.43" ry="8.43" fill="#C9DAF8" stroke="#000000" stroke-width="1.00" />
+  <text x="897.47" y="673.07" text-anchor="middle">HTTP Response</text>
+  <text x="245.06" y="114.60" text-anchor="middle">Client</text>
+  <text x="778.94" y="114.43" text-anchor="middle">Server</text>
+  <line x1="367.18" y1="110.15" x2="661.16" y2="110.30" stroke="#000000" stroke-width="3.00" stroke-dasharray="0.1,10.5" stroke-linecap="round" />
+  <polygon points="351.69,110.15 369.29,104.16 369.28,116.16" fill="#000000" />
+  <polygon points="672.32,110.30 652.81,116.54 659.64,110.30 652.82,104.04" fill="#000000" />
+  <text x="513.29" y="96.74" text-anchor="middle">50 ms one-way latency</text>
+</svg>

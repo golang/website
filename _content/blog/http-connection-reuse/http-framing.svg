@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0.00 7.29 1013.80 713.45" width="830" height="584">
+  <rect x="0.00" y="7.29" width="1013.80" height="713.45" fill="#ffffff" />
+  <style>
+    text { font-family: "Google Sans", "Roboto", "Arial", sans-serif; font-weight: 600; font-size: 18.67px; fill: #000000; }
+  </style>
+  <rect x="107.94" y="89.55" width="368.50" height="31.28" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="117.54" y="109.49">HTTP/1.1 200 OK</text>
+  <rect x="107.94" y="120.83" width="368.50" height="115.56" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="117.54" y="138.11">Accept-Ranges: bytes</text>
+  <text x="117.54" y="160.51">Access-Control-Allow-Headers: Range</text>
+  <text x="117.54" y="182.91">Access-Control-Allow-Origin: *</text>
+  <text x="117.54" y="205.31">Content-Length: 9628</text>
+  <text x="117.54" y="227.71">// Rest of headers omitted …</text>
+  <rect x="107.94" y="236.39" width="368.50" height="206.99" fill="#C9DAF8" stroke="#000000" stroke-width="1.00" />
+  <text x="117.54" y="254.58">&lt;!DOCTYPE html&gt;</text>
+  <text x="117.54" y="276.98">&lt;html lang=&quot;en&quot;&gt;</text>
+  <text x="165.54" y="299.38">&lt;title&gt;Go modules services&lt;/title&gt;</text>
+  <text x="165.54" y="321.78">&lt;style&gt;</text>
+  <text x="180.54" y="344.18">body {</text>
+  <text x="195.54" y="366.58">font: 62.5% Arial, sans-serif;</text>
+  <text x="185.54" y="388.98">}</text>
+  <text x="165.54" y="411.38">&lt;/style&gt;</text>
+  <text x="117.54" y="433.78">// Rest of body omitted …</text>
+  <line x1="93.77" y1="72.14" x2="93.77" y2="720.74" stroke="#000000" stroke-width="4.00" />
+  <polygon points="93.77,57.84 101.77,82.84 93.77,74.09 85.77,82.84" fill="#000000" />
+  <text x="93.77" y="25.66" text-anchor="middle">Data arriving on the</text>
+  <text x="93.77" y="48.06" text-anchor="middle">wire</text>
+  <text x="43.97" y="98.29" text-anchor="middle">First</text>
+  <text x="43.97" y="120.69" text-anchor="middle">response</text>
+  <text x="43.97" y="521.42" text-anchor="middle">Second</text>
+  <text x="43.97" y="543.82" text-anchor="middle">response</text>
+  <rect x="110.03" y="512.69" width="368.50" height="31.28" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="119.62" y="532.62">HTTP/1.1 200 OK</text>
+  <rect x="110.03" y="543.96" width="368.50" height="69.10" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="119.62" y="560.41">Accept-Ranges: bytes</text>
+  <text x="119.62" y="582.81">Access-Control-Allow-Headers: Range</text>
+  <text x="119.62" y="605.21">// Rest of headers omitted …</text>
+  <rect x="110.03" y="613.06" width="368.50" height="77.10" fill="#C9DAF8" stroke="#000000" stroke-width="1.00" />
+  <text x="119.62" y="633.51">&lt;!DOCTYPE html&gt;</text>
+  <text x="119.62" y="655.91">&lt;html lang=&quot;en&quot;&gt;</text>
+  <text x="119.62" y="678.31">// Rest of body omitted …</text>
+  <rect x="618.28" y="89.55" width="394.52" height="77.73" fill="#B6D7A8" stroke="#000000" stroke-width="1.00" />
+  <text x="627.88" y="110.32">(Automatically consumed by net/http)</text>
+  <text x="627.88" y="132.72">Accessible via Response.Proto and</text>
+  <text x="627.88" y="155.12">Response.Status</text>
+  <rect x="618.28" y="236.39" width="394.52" height="198.36" fill="#C9DAF8" stroke="#000000" stroke-width="1.00" />
+  <text x="627.87" y="328.67">(NOT automatically consumed by net/http)</text>
+  <text x="627.87" y="351.07">Accessible via Response.Body</text>
+  <rect x="618.28" y="167.28" width="394.52" height="69.10" fill="#FFE599" stroke="#000000" stroke-width="1.00" />
+  <text x="627.87" y="194.93">(Automatically consumed by net/http)</text>
+  <text x="627.87" y="217.33">Accessible via Response.Header</text>
+  <line x1="493.79" y1="105.19" x2="594.28" y2="105.19" stroke="#000000" stroke-width="2.00" />
+  <polygon points="605.19,105.19 592.79,109.44 592.79,100.94" fill="#000000" />
+  <line x1="493.79" y1="178.61" x2="594.28" y2="178.61" stroke="#000000" stroke-width="2.00" />
+  <polygon points="605.19,178.61 592.79,182.86 592.79,174.36" fill="#000000" />
+  <line x1="491.66" y1="339.88" x2="592.15" y2="339.88" stroke="#000000" stroke-width="2.00" />
+  <polygon points="603.06,339.88 590.66,344.13 590.66,335.63" fill="#000000" />
+  <text x="704.18" y="546.77" text-anchor="middle">The second response cannot be consumed until</text>
+  <text x="704.18" y="569.17" text-anchor="middle">the first response is fully consumed</text>
+  <text x="704.18" y="613.97" text-anchor="middle">net/http transport never sends a second</text>
+  <text x="704.18" y="636.37" text-anchor="middle">request on the same connection until the first</text>
+  <text x="704.18" y="658.77" text-anchor="middle">response is fully read for this reason</text>
+</svg>
