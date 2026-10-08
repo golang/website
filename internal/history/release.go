@@ -14,17 +14,39 @@ import "html/template"
 // The table is sorted by date, breaking ties with newer versions first.
 var Releases = []*Release{
 	{
+		Date: Date{2026, 10, 8}, Version: Version{1, 27, 2},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"crypto/tls", "html/template", "net/http", "net/textproto", "os"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the linker", "the runtime", "the <code>cover</code> tool", "the <code>go fix</code> command", "vet"},
+			Packages:   []string{"compress/flate", "crypto/mlkem", "encoding/json", "encoding/json/v2", "net/http", "os"},
+		},
+	},
+	{
+		Date: Date{2026, 10, 8}, Version: Version{1, 26, 9},
+		Security: &FixSummary{
+			Components: []template.HTML{"the <code>go</code> command"},
+			Packages:   []string{"crypto/tls", "html/template", "net/http", "net/textproto", "os"},
+		},
+		Bug: &FixSummary{
+			Components: []template.HTML{"the compiler", "the linker", "the runtime", "vet"},
+			Packages:   []string{"crypto/mlkem", "net/http", "os"},
+		},
+	},
+	{
 		Date: Date{2026, 9, 1}, Version: Version{1, 27, 1},
 		Bug: &FixSummary{
 			Components: []template.HTML{"cgo", "the compiler", "the runtime", "the <code>go fix</code> command"},
-			Packages: []string{"database/sql", "debug/elf", "encoding/json", "net/http", "os", "simd", "simd/archsimd"},
+			Packages:   []string{"database/sql", "debug/elf", "encoding/json", "net/http", "os", "simd", "simd/archsimd"},
 		},
 	},
 	{
 		Date: Date{2026, 9, 1}, Version: Version{1, 26, 8},
 		Bug: &FixSummary{
 			Components: []template.HTML{"cgo", "the compiler", "the runtime"},
-			Packages: []string{"debug/elf", "os"},
+			Packages:   []string{"debug/elf", "os"},
 		},
 	},
 	{
