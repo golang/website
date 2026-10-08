@@ -21,8 +21,8 @@ func walkImpl(t *tree.Tree, ch chan int) {
 	walkImpl(t.Right, ch)
 }
 
-// Walk walks the tree t sending all values
-// from the tree to the channel ch.
+// Walk walks the sorted tree t sending all values
+// in order from the tree to the channel ch.
 func Walk(t *tree.Tree, ch chan int) {
 	walkImpl(t, ch)
 	// Need to close the channel here
