@@ -35,6 +35,11 @@ func Sqrt(f float64) (float64, error) {
 }
 
 func main() {
-	fmt.Println(Sqrt(2))
-	fmt.Println(Sqrt(-2))
+	for _, number := range []float64{2, -2} {
+		if root, err := Sqrt(number); err == nil {
+			fmt.Println(root)
+		} else {
+			fmt.Println(err)
+		}
+	}
 }
