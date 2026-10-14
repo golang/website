@@ -14,6 +14,9 @@ tags:
 summary: Go 1.25 introduces experimental support for encoding/json/jsontext and encoding/json/v2 packages.
 ---
 
+[_**Note, October 2026**: Go 1.27 makes the `encoding/json/v2` and `encoding/json/jsontext` packages generally available, with minor changes from the experimental version described in this blog post.
+For an updated introduction to the new packages, see “[A new Go API for JSON](/blog/jsonv2).”_]
+
 ## Introduction
 
 [JavaScript Object Notation (JSON)](https://datatracker.ietf.org/doc/html/rfc8259)

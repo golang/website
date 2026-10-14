@@ -84,3 +84,7 @@ body !~ (<script src="/js/godocs\.js"></script>(.|\n)+){2}
 GET https://go.dev/blog/json
 hint blog posts do not contain table of contents by default
 body !contains <div id="nav" class="TOC"></div>
+
+GET https://go.dev/blog/jsonv2
+hint blog posts do contain table of contents with hidetoc: false
+body contains <div id="nav" class="TOC"></div>
