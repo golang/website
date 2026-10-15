@@ -16,8 +16,9 @@ All security bugs in the Go distribution should be reported by email to
 the Go Security team.
 
 Please format the subject of your email as "Vulnerability: {package name}:
-{one-line summary}", and avoid sending attachments in your email unless strictly
-necessary in order to avoid your message being marked as spam.
+{one-line summary}", and **avoid sending attachments** in your email unless strictly
+necessary in order to avoid your message being marked as spam. Additionally,
+please send **one report per email.**
 
 If desired, please include your preferred attribution as part of the report.
 This attribution will be added to the CVE, if one is published.
