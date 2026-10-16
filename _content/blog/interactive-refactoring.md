@@ -1,6 +1,6 @@
 ---
 title: "Interactive refactoring in gopls"
-date: 2026-10-19
+date: 2026-10-16
 by:
 - Hongxiang Jiang
 tags:
