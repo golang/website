@@ -146,9 +146,10 @@ Some examples of past PRIVATE issues include:
 ### URGENT
 
 URGENT track issues are a threat to the Go ecosystem’s integrity, or are being
-actively exploited in the wild leading to severe damage. There are no recent
-examples, but they would include remote code execution in net/http, or
-practical key recovery in crypto/tls.
+actively exploited in the wild leading to severe damage. One such example is
+the [Go 1.27.3 and Go 1.26.10 release](https://groups.google.com/g/golang-announce/c/66pojueaQek).
+Others may include remote code execution in net/http or practical key
+recovery in crypto/tls.
 
 URGENT track issues are fixed in private, and **trigger an immediate dedicated
 security release**, possibly with no pre-announcement.
