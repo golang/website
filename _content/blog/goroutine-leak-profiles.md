@@ -414,7 +414,7 @@ observed in industrial-scale codebases and open source projects,
 in ascending order of complexity.
 
 You can quickly test drive the goroutine leak detector on them in
-[the Go playground](/play/p/S4Uw66sMbpj-), as well as
+[the Go playground](/play/p/S4Uw66sMbpj), as well as
 experiment with your own leaks.
 
 ### Example: Double send
