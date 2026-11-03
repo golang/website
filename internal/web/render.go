@@ -86,6 +86,7 @@ func (site *Site) renderHTML(p Page, tmpl string, r *http.Request) ([]byte, erro
 		"raw":          raw,
 		"yaml":         yamlFn,
 		"presentStyle": presentStyle,
+		"mapContains":  mapContains,
 	})
 	t.Funcs(site.funcs)
 

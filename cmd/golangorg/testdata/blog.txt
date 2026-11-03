@@ -80,3 +80,7 @@ GET https://go.dev/blog/alias-names
 hint the godocs.js script should be loaded once, and no more
 body ~ (<script src="/js/godocs\.js"></script>(.|\n)+){1}
 body !~ (<script src="/js/godocs\.js"></script>(.|\n)+){2}
+
+GET https://go.dev/blog/json
+hint blog posts do not contain table of contents by default
+body !contains <div id="nav" class="TOC"></div>

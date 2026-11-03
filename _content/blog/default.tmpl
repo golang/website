@@ -14,6 +14,17 @@
       {{.date.Format "2 January 2006"}}
       </p>
       {{end}}
+
+      {{/* The Table of Contents is automatically inserted in this <div>.
+           Do not delete this <div>.
+
+           For the blog, we hide the table of contents by default. Only
+           enable it when the hidetoc key is explicitly set to the false
+           in the metadata. */}}
+      {{if and (mapContains . "hidetoc") (not .hidetoc)}}
+      <div id="nav" class="TOC"></div>
+      {{end}}
+
       {{.Content}}
     </div>
 

@@ -63,7 +63,10 @@
 //   - URL: this page's URL path (/x/y/z for x/y/z.md, /x/y/ for x/y/index.md)
 //
 // The key “Content” is added during the rendering process.
-// See “Page Rendering” for details.
+//
+// See “Page Rendering” for details on writing a template.
+//
+// See "Page Rendering Metadata" for metadata key-value pairs supported by most layouts.
 //
 // # Page Rendering
 //
@@ -199,6 +202,13 @@
 // The “path” and “strings” functions return package objects with methods for every top-level
 // function in these packages (except path.Split, which has more than one non-error result
 // and would not be invokable). For example, “{{strings.ToUpper "abc"}}”.
+//
+// # Page Rendering Metadata
+//
+// Metadata fields supported by the site template, and thus most default templates, include:
+//
+// HideTOC: Do not display the table of contents. Explicitly set this to false
+// to display the table of contents in templates that hide it by default.
 //
 // # Serving Requests
 //

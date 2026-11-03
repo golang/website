@@ -164,3 +164,8 @@ func yamlFn(s string) (interface{}, error) {
 func presentStyle(s string) template.HTML {
 	return template.HTML(present.Style(s))
 }
+
+func mapContains(m map[string]any, k string) bool {
+	_, ok := m[k]
+	return ok
+}
