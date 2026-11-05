@@ -20,13 +20,13 @@ hidetoc: false
 
 [JavaScript Object Notation (JSON)](https://datatracker.ietf.org/doc/html/rfc8259) is a simple data interchange format, the most popular data format used on the internet, and widely read and written by Go programs.
 Go has included support for JSON in the standard library since well before Go 1.0.
-We first we wrote about [support for JSON in Go](/blog/json) more than 15 years ago!
+We first wrote about [support for JSON in Go](/blog/json) more than 15 years ago!
 
 Over time, packages evolve with the needs of their users, and `encoding/json` is no exception.
 Last year, we wrote about a [new experimental API for JSON](/blog/jsonv2-exp) designed to bring long-awaited improvements and fixes.
 
 After additional feedback and refinement, the new `encoding/json/v2` and `encoding/json/jsontext` packages are stable and generally available in Go 1.27!
-This post is an updated version of the [article introducing the experiment](/blog/jsonv2-exp), describing the problems with `encoding/json`, and an introduction to the new packages.
+This post is an updated version of the [article introducing the experiment](/blog/jsonv2-exp), describing the problems with `encoding/json` and introducing the new packages.
 
 ## Problems with `encoding/json`
 
@@ -214,7 +214,7 @@ A JSON value is syntactically composed of one or more JSON tokens.
 A JSON token is represented in Go as the [opaque `Token` type](/pkg/encoding/json/jsontext#Token)
 with constructors and accessor methods.
 It is analogous to [`Token`](/pkg/encoding/json#Token) in `v1`
-but is designed represent arbitrary JSON tokens without allocation.
+but is designed to represent arbitrary JSON tokens without allocation.
 
 To resolve the fundamental performance problems with
 the `MarshalJSON` and `UnmarshalJSON` interface methods,
@@ -265,7 +265,7 @@ just to write or read from such types.
 The [`MarshalEncode`](/pkg/encoding/json/v2#MarshalEncode)
 and [`UnmarshalDecode`](/pkg/encoding/json/v2#UnmarshalDecode) functions
 operate on a `jsontext.Encoder` and `jsontext.Decoder` and
-is actually the underlying implementation of the previously mentioned functions.
+are actually the underlying implementation of the previously mentioned functions.
 Unlike `v1`, options are a first-class argument to each of the marshal and unmarshal functions,
 greatly extending the flexibility and configurability of `v2`.
 There are [several options available](/pkg/encoding/json/v2#Options)
@@ -405,7 +405,7 @@ We wanted to ensure that `v1` and `v2` are _compatible with one another_ so that
 Doing so allows a smooth ecosystem migration rather than forcing users to use one version or another due to the choices of their dependencies.
 
 For instance, suppose your package uses `v2` to marshal a struct containing a field with a type defined in another package.
-That package may use the original `v1` [`MarshalJSON`](/pkg/encoding/json/v2#Marshaler) method to define its marshaling behavior.
+That package may use the original `v1` [`MarshalJSON`](/pkg/encoding/json#Marshaler) method to define its marshaling behavior.
 No problem, `v2` supports [`MarshalJSON`](/pkg/encoding/json/v2#Marshaler) methods, so marshaling will continue working as expected.
 
 Vice versa, suppose your package uses `v1` to marshal the same struct.
@@ -414,7 +414,7 @@ No problem here either, as the `v1` implementation supports `v2`'s [`MarshalJSON
 
 We've achieved this by designing the new packages such that, under the hood, `v1` is implemented in terms of `v2`.
 As mentioned above, `v2` supports a variety of [`Options`](/pkg/encoding/json/v2#Options).
-Each behavior difference is controlled by one of the these options.
+Each behavior difference is controlled by one of these options.
 Thus, `v1` can be implemented in terms of `v2` by passing the full set of `v1` compatibility options.
 
 With this approach, backwards-compatible additions such as new methods (e.g., [`MarshalJSONTo`](/pkg/encoding/json/v2#MarshalerTo)) or new struct tags (e.g., [`embed`](/pkg/encoding/json/v2#hdr-JSON_Representation_of_Go_structs)) are automatically supported to the benefit of existing `v1` users.
@@ -423,18 +423,18 @@ With this approach, backwards-compatible additions such as new methods (e.g., [`
 
 Implementing `v1` in terms of `v2` options has the additional benefit of allowing gradual migration of callsites.
 
-`encoding/json` [documents](/pkg/encoding/json#hdr-Migrating_to_v2) the full set of behavior differences between `v1` and `v2`, and which option controls that behaviors.
+`encoding/json` [documents](/pkg/encoding/json#hdr-Migrating_to_v2) the full set of behavior differences between `v1` and `v2`, and which option controls those behaviors.
 
 Many applications can migrate directly to `v2` with no visible behavior changes, but applications that depend on `v1` behavior can use the options to change only the behaviors they depend on.
 
-For example, we can select all `v2` behavior except for allowing duplicate names:
+For example, we can select all `v2` behavior except that duplicate names are allowed:
 ```go
-json.Marshal(..., json.DefaultOptionsV2(), jsontext.AllowDuplicateName(true))
+json.Marshal(..., json.DefaultOptionsV2(), jsontext.AllowDuplicateNames(true))
 ```
 
-Alternatively, we can select all `v1` behavior except for disallowing duplicate names:
+Alternatively, we can select all `v1` behavior except that duplicate names are disallowed:
 ```go
-json.Marshal(..., jsonv1.DefaultOptionsV1(), jsontext.AllowDuplicateName(false))
+json.Marshal(..., jsonv1.DefaultOptionsV1(), jsontext.AllowDuplicateNames(false))
 ```
 
 The [`encoding/json/v2` Migration Guide](/doc/jsonv2-migration) goes into more detail, covering a variety of scenarios for approaching migration of an application from `v1` to `v2`.
