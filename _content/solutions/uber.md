@@ -5,6 +5,6 @@ company: Uber
 logoSrc: uber_light.svg
 logoSrcDark: uber_dark.svg
 series: Case Studies
-link: https://eng.uber.com/aresdb/
+link: https://github.com/uber-go
 inLandingPageGrid: true
 ---
