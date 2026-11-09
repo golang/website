@@ -42,8 +42,7 @@ var repoMap = map[string]Repo{
 	},
 	"protobuf": {
 		VCS: "git",
-		URL: "https://go.googlesource.com/protobuf",
-		Src: github("protocolbuffers/protobuf-go"),
+		URL: "https://github.com/protocolbuffers/protobuf-go",
 	},
 	"open2opaque": {
 		VCS: "git",
