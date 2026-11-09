@@ -2,11 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-// Require go1.25+ for http.CrossOriginProtection.
-// (This can be deleted when go.mod is at 1.25.0+.)
-//go:build go1.25
-
-// The admingolangorg command serves an administrative interface for owners of
+// The adminapp command serves an administrative interface for owners of
 // the golang-org Google Cloud project.
 package main
 

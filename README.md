@@ -11,8 +11,8 @@ To run the combined go.dev+golang.org server to preview local content changes, u
 
     go run ./cmd/golangorg
 
-The supporting programs cmd/admingolangorg and cmd/googlegolangorg
-are the servers for admin.golang.org and google.golang.org.
+The supporting programs cmd/adminapp, cmd/adminredirect, cmd/googlegolangorg
+are the servers for admin.go.dev, admin.golang.org, google.golang.org.
 (They do not use the \_content/ directories.)
 
 Each command directory has its own README.md explaining deployment.
