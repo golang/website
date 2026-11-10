@@ -1,4 +1,4 @@
-# Go website
+# Go Website
 
 [![Go Reference](https://pkg.go.dev/badge/golang.org/x/website.svg)](https://pkg.go.dev/golang.org/x/website)
 
