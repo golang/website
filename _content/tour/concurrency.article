@@ -113,7 +113,7 @@ Continue description on [[javascript:click('.next-page')][next page]].
 
 * Exercise: Equivalent Binary Trees
 
-*1.* Implement the `Walk` function.
+*1.* Implement the `Walk` function to send all `t` values to `ch` in order.
 
 *2.* Test the `Walk` function.
 
