@@ -290,6 +290,16 @@ Map literals are like struct literals, but the keys are required.
 
 If the top-level type is just a type name, you can omit it from the elements of the literal.
 
+This map literal:
+
+	var m = map[string]Vertex{"Origin": Vertex{0, 0}}
+
+is the same as below with the type of the value understood from the map's element type:
+
+	var m = map[string]Vertex{"Origin": {0, 0}}
+
+This map contains elements of type `Vertex`, so each element literal may omit the known type name `Vertex`.
+
 .play moretypes/map-literals-continued.go
 
 * Mutating Maps
