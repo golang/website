@@ -246,10 +246,11 @@ p[len(p)-1] = suffix
 	the command-line).
 </step>
 
-<step title="Program set up" src="doc/codewalk/markov.go:/flag.Parse/,/rand.Seed/">
+<step title="Program set up" src="doc/codewalk/markov.go:/flag.Parse/">
 	The <code>main</code> function begins by parsing the command-line
-	flags with <code>flag.Parse</code> and seeding the <code>rand</code>
-	package's random number generator with the current time.
+	flags with <code>flag.Parse</code>.
+	The <code>rand</code> package's random number generator is seeded
+	automatically, so the program does not need to seed it.
 	<br/><br/>
 	If the command-line flags provided by the user are invalid the
 	<code>flag.Parse</code> function will print an informative usage
