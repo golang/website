@@ -317,7 +317,7 @@ type Version struct {
 }
 
 v := Version{1, 2, 3}
-b, err := json.Marshal(s)
+b, err := json.Marshal(v)
 ```
 
 This marshals as `{"Major":1,"Minor":2,"Patch":3}`, as expected based on the struct definition, but a version string like "1.2.3" would likely be a better representation for JSON consumers.
