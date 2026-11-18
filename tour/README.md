@@ -16,16 +16,18 @@ This will place a `tour` binary in your
 [GOPATH](https://go.dev/cmd/go/#hdr-GOPATH_and_Modules)'s `bin` directory.
 The tour program can be run offline.
 
+## Running Locally
+
+To run the tour server locally (from the `GOPATH/bin` directory as above):
+
+	tour
+
+Your browser should now open. If not, please visit [http://localhost:3999/](http://localhost:3999).
+
 ## Send Patches
 
 This repository uses Gerrit for code changes. To learn how to submit changes to
 this repository, see https://go.dev/doc/contribute.
-
-To run the tour server locally:
-
-	go run .
-
-Your browser should now open. If not, please visit [http://localhost:3999/](http://localhost:3999).
 
 ## Report Issues
 
