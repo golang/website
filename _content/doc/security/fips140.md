@@ -58,6 +58,9 @@ When operating in FIPS 140-3 mode:
    CSPRNG at every `Read` and mixed into the output as uncredited additional
    data.
 
+ - From module v1.26.0, a CPU jitter entropy source is used to seed the DRBG.
+   This consumes 32 MiB of BSS memory.
+
  - The [`crypto/tls`](/pkg/crypto/tls/) package will ignore and not negotiate
    any protocol version, cipher suite, signature algorithm, or key exchange
    mechanism that is not FIPS 140-3 approved. (This is equivalent to the legacy
@@ -93,7 +96,8 @@ into the executable program, and to enable FIPS 140-3 mode by default.
 
  - `inprocess` and `certified` are equivalent to specifying the latest version
    that reached the [CMVP Modules In Process List][] and the latest version that
-   obtained a [CMVP validation certificate][], respectively.
+   obtained a [CMVP validation certificate][], respectively. These aliases are
+   only updated in major Go versions (like Go 1.27).
 
 [CMVP Modules In Process List]: https://csrc.nist.gov/Projects/cryptographic-module-validation-program/modules-in-process/modules-in-process-list
 [CMVP validation certificate]: https://csrc.nist.gov/projects/cryptographic-module-validation-program/validated-modules/search?SearchMode=Basic&ModuleName=Go+Cryptographic+Module&CertificateStatus=Active&ValidationYear=0
@@ -142,10 +146,11 @@ Go Cryptographic Module that was frozen from an older version of Go.
 
 Go Cryptographic Module v1.26.0 was frozen in early 2026 from Go 1.26.
 
-It is available in Go 1.26+.
+It is available from Go 1.26.12, Go 1.27.5, and Go 1.28. Previous versions of Go
+1.26 and Go 1.27 include an earlier iteration of Go Cryptographic Module v1.26.0.
 
-As of 2026-04-28, it is Pending Review in the CMVP Modules In Process List.
-It is covered by [CAVP Certificate A8028](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=40638).
+It is covered by [CMVP Certificate #5581](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5581)
+and [CAVP Certificate A8028](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?validation=40638).
 
 #### Changes from v1.0.0
 
@@ -166,7 +171,8 @@ It is covered by [CAVP Certificate A8028](https://csrc.nist.gov/projects/cryptog
 
 Go Cryptographic Module v1.0.0 was frozen in early 2024 from Go 1.24.
 
-It is available in Go 1.24+.
+It is available from Go 1.24.8, Go 1.25.2, and Go 1.26. Earlier versions of Go
+1.24 and Go 1.25 include an earlier iteration of Go Cryptographic Module v1.0.0.
 
 It is covered by [CMVP Certificate #5247](https://csrc.nist.gov/projects/cryptographic-module-validation-program/certificate/5247)
 and [CAVP Certificate A6650](https://csrc.nist.gov/projects/cryptographic-algorithm-validation-program/details?product=19371).
