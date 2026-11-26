@@ -53,7 +53,6 @@ import (
 	"math/rand"
 	"os"
 	"strings"
-	"time"
 )
 
 // Prefix is a Markov chain prefix of one or more words.
@@ -103,7 +102,7 @@ func (c *Chain) Build(r io.Reader) {
 func (c *Chain) Generate(n int) string {
 	p := make(Prefix, c.prefixLen)
 	var words []string
-	for i := 0; i < n; i++ {
+	for range n {
 		choices := c.chain[p.String()]
 		if len(choices) == 0 {
 			break
@@ -120,8 +119,7 @@ func main() {
 	numWords := flag.Int("words", 100, "maximum number of words to print")
 	prefixLen := flag.Int("prefix", 2, "prefix length in words")
 
-	flag.Parse()                     // Parse command-line flags.
-	rand.Seed(time.Now().UnixNano()) // Seed the random number generator.
+	flag.Parse() // Parse command-line flags.
 
 	c := NewChain(*prefixLen)     // Initialize a new Chain.
 	c.Build(os.Stdin)             // Build chains from standard input.
